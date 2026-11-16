@@ -30,7 +30,8 @@ E item#1 minecraft:item pos=0.7839005777766062,-58.40319999819994,2.622181869804
 E item#2 minecraft:item pos=2.7670202880518633,-61.459331648687915,-3.440547890386542 delta=0.07423749107706896,0.11446400521850592,0.0948876551249066 rot=195.38678,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=2 pickup=8 health=2 owner=- thrower=-
 E item#3 minecraft:item pos=2.534083167967775,-62.34304251253617,-0.5532249045001331 delta=0.0045432675207495235,0.11446400521850592,0.020530376184936576 rot=301.63147,0.0 og=0 fall=0.0 fire=160 air=300 alive=1 pose=standing item=minecraft:dirt*5 age=2 pickup=8 health=2 owner=- thrower=-
 # keep_inventory: the stick stays in the hand
-C Game rule keep_inventory is now set to true
+CF msg Game rule keep_inventory is now set to true
+CF result success 1
 ADV B minecraft:recipes/combat/wooden_spear has_stick
 ADV B minecraft:recipes/combat/wooden_sword has_stick
 ADV B minecraft:recipes/decorations/campfire has_stick

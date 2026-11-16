@@ -1,4 +1,5 @@
-C Game rule block_drops is now set to false
+CF msg Game rule block_drops is now set to false
+CF result success 0
 # a plain crystal and one with the worldgen NBT: defaults, synched data, save data, add_entity and set_entity_data
 E C1 minecraft:end_crystal pos=4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E C2 minecraft:end_crystal pos=-3.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -75,7 +76,8 @@ PKT A minecraft:remove_entities 4e01ae06
 PKT A minecraft:remove_entities 4e01af06
 PKT A minecraft:explode 244012000000000000c04e1678f25e12a54021000000000000408000000000037d0100000000000000003fb2533bc6549f15bfce9e07b782fd511dc00502453f0000003f80000001483f8000003f8000000101
 # /kill removes a crystal without the explosion
-C Killed End Crystal
+CF msg Killed End Crystal
+CF result success 1
 PKT A minecraft:remove_entities 4e01b106
 # the pick result of a crystal
 I A 0 minecraft:diamond_sword*1

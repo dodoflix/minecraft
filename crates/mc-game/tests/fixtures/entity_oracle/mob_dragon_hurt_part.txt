@@ -1,4 +1,5 @@
-C Game rule mob_drops is now set to false
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 PKT A minecraft:set_entity_data 65ed27050801090341a00000ff
 PKT A minecraft:add_entity 01ee27c212065b09c84eb68cc57607b3e94f032c40210000000000003ff000000000000040210000000000000000000000
 PKT A minecraft:set_entity_data 65ee270903434800000f0001ff

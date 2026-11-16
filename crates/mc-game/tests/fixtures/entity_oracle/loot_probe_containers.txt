@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 EFFECT Lucky minecraft:luck added=true
 # Lucky opens a chest
 BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:stick"},{Slot:3b,count:1,id:"minecraft:coal"},{Slot:5b,count:1,id:"minecraft:emerald"},{Slot:7b,count:1,id:"minecraft:dirt"},{Slot:11b,count:1,id:"minecraft:emerald"},{Slot:12b,count:1,id:"minecraft:emerald"}],components:{},id:"minecraft:chest",x:0,y:-60,z:0}

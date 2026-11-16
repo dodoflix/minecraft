@@ -1,4 +1,5 @@
-C Game rule mob_drops is now set to false
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 EFFECT A minecraft:oozing added=true
 EFFECT B minecraft:oozing added=true
 EFFECT C minecraft:oozing added=true
@@ -14,7 +15,8 @@ E C2 minecraft:slime pos=19.5,-60.0,0.5 delta=-0.10000000149011612,0.0,-0.100000
 E C3 minecraft:slime pos=20.5,-60.0,1.5 delta=0.0,0.0,0.30000000447034836 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:17.337640066368493;minecraft:max_health:16.0;minecraft:movement_speed:0.6000000238418579 age=0 baby=0 forcedage=0 size=4 squish=0.0 tsquish=0.0 osquish=0.0 wasground=0 jdelay=0 mrot=119.59079 maggr=0
 E E minecraft:pig pos=40.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:oozing/0/599 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.859873030808554;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E F minecraft:pig pos=50.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:oozing/0/599 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.3443590369572;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
-C Game rule max_entity_cramming is now set to 3
+CF msg Game rule max_entity_cramming is now set to 3
+CF result success 3
 HURT A minecraft:generic 1000 -> true
 HURT B minecraft:generic 1000 -> true
 HURT C minecraft:generic 1000 -> true
@@ -45,7 +47,8 @@ EV sound at=0.1886264834519318,-60.0,0.2966675206802134 r=16.0 ex=0 event=minecr
 EV sound at=10.440060261355052,-60.0,0.5861646299102004 r=16.0 ex=0 event=minecraft:entity.slime.squish source=hostile vol=0.8 pitch=1.1632999
 EV sound at=0.7628550656762509,-60.0,0.6461381008327869 r=16.0 ex=0 event=minecraft:entity.slime.jump source=hostile vol=0.8 pitch=0.8176983
 EV sound at=10.440060261355052,-60.0,0.5861646299102004 r=16.0 ex=0 event=minecraft:entity.slime.jump source=hostile vol=0.8 pitch=0.7843812
-C Game rule max_entity_cramming is now set to 0
+CF msg Game rule max_entity_cramming is now set to 0
+CF result success 0
 HURT E minecraft:generic 1000 -> true
 E B1 minecraft:slime pos=11.5,-60.0,0.5 delta=2.108369189515545,0.0,-0.3552361247835577 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.365161058550974;minecraft:max_health:16.0;minecraft:movement_speed:0.6000000238418579 age=0 baby=0 forcedage=0 size=4 squish=0.0 tsquish=0.0 osquish=0.0 wasground=0 jdelay=0 mrot=249.99174 maggr=0
 E B2 minecraft:slime pos=9.5,-60.0,0.5 delta=-0.8919727357126894,0.0,-0.15320770236353062 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:14.914463433816996;minecraft:max_health:4.0;minecraft:movement_speed:0.4000000059604645 age=0 baby=0 forcedage=0 size=2 squish=0.0 tsquish=0.0 osquish=0.0 wasground=0 jdelay=0 mrot=305.5104 maggr=0
@@ -70,7 +73,8 @@ EV sound at=-0.1277400484953988,-60.0,-1.0976543845857545 r=16.0 ex=0 event=mine
 EV sound at=50.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig_mini.ambient source=neutral vol=1.0 pitch=1.0184879
 EV sound at=40.32234677345456,-60.0,0.29437854080936415 r=16.0 ex=0 event=minecraft:entity.slime.squish source=hostile vol=0.8 pitch=1.2543973
 EV sound at=40.673870546507125,-60.0,0.821118082313458 r=16.0 ex=0 event=minecraft:entity.slime.squish source=hostile vol=0.8 pitch=1.3741446
-C Game rule max_entity_cramming is now set to 24
+CF msg Game rule max_entity_cramming is now set to 24
+CF result success 24
 HURT F minecraft:out_of_world 1000 -> true
 E B1 minecraft:slime pos=11.5,-60.0,0.5 delta=2.108369189515545,0.0,-0.3552361247835577 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.365161058550974;minecraft:max_health:16.0;minecraft:movement_speed:0.6000000238418579 age=0 baby=0 forcedage=0 size=4 squish=0.0 tsquish=0.0 osquish=0.0 wasground=0 jdelay=0 mrot=249.99174 maggr=0
 E B2 minecraft:slime pos=9.5,-60.0,0.5 delta=-0.8919727357126894,0.0,-0.15320770236353062 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:14.914463433816996;minecraft:max_health:4.0;minecraft:movement_speed:0.4000000059604645 age=0 baby=0 forcedage=0 size=2 squish=0.0 tsquish=0.0 osquish=0.0 wasground=0 jdelay=0 mrot=305.5104 maggr=0

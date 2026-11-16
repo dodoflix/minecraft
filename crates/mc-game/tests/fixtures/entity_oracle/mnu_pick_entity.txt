@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # creative: a mob adds its spawn egg to the empty hotbar, the same pick selects the stack, an armor stand adds a second one
 I C 0 minecraft:cow_spawn_egg*1
 PKT C minecraft:set_held_slot 6b00

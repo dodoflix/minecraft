@@ -1037,7 +1037,7 @@ fn check(name: &str) {
     });
     fixture.lines = with_sorted_effect_removals(fixture.lines);
     let opts = Options {
-        ignore_kinds: vec!["#", "C"],
+        ignore_kinds: vec!["#", "CF"],
         ..Default::default()
     };
     fixture.assert_matches(&with_sorted_effect_removals(replay(name)), &opts);

@@ -1,4 +1,5 @@
-C Took 34 recipe(s) from A
+CF msg Took 34 recipe(s) from A
+CF result success 34
 STAT A minecraft.custom:minecraft.play_time 2
 STAT A minecraft.custom:minecraft.time_since_death 2
 STAT A minecraft.custom:minecraft.time_since_rest 2

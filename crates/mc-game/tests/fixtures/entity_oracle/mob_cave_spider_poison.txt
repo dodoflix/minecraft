@@ -1,10 +1,13 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule mob_drops is now set to false
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 # easy: damage but no poison
 MOBATTACK C Steve -> true
 P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.4000000059604645,0.36080000519752503,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=10/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
-C The difficulty has been set to Normal
+CF msg The difficulty has been set to Normal
+CF result success 0
 # normal: 7 seconds
 MOBATTACK C Steve -> true
 MOBATTACK C Z -> true
@@ -12,7 +15,8 @@ P Steve minecraft:player pos=0.5,-60.0,0.5 delta=-0.4018054576763791,0.360800005
 E Z minecraft:zombie pos=0.5,-60.0,3.5 delta=-0.12649110829159954,0.0,0.3794733248747986 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=18.08 abs=0.0 hurt=10/20 death=0 fx=- target=- hurtby=C aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
 EV sound at=0.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.zombie.hurt source=hostile vol=1.0 pitch=0.94340736
-C The difficulty has been set to Hard
+CF msg The difficulty has been set to Hard
+CF result success 0
 # hard: 15 seconds replace the weaker poison
 MOBATTACK C Steve -> true
 MOBATTACK C Z -> true

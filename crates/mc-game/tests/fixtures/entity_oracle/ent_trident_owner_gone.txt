@@ -1,7 +1,8 @@
 # B and the cow die while their tridents are on the way, C turns spectator, D stays alive
 HURT B generic_kill 1000 -> true
 HURT m1 generic_kill 1000 -> true
-C Set C's game mode to Spectator Mode
+CF msg Set C's game mode to Spectator Mode
+CF result success 1
 T 6
 E l3 minecraft:trident pos=24.5,-58.46055276145986,7.086771086112132 delta=0.0,0.007557820802801673,-0.5430043870948864 rot=0.0,0.48586696 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
 E item#1 minecraft:item pos=32.47385537207602,-59.84,0.5186776855547253 delta=-0.02562173586417527,0.1568000030517578,0.01830413219987938 rot=283.52844,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=1 pickup=9 health=5 owner=- thrower=-

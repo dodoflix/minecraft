@@ -6,7 +6,8 @@ E fishing_bobber#5 minecraft:fishing_bobber pos=80.5,-60.0,9.133127587886388 del
 E fishing_bobber#6 minecraft:fishing_bobber pos=100.5,-60.0,9.160603908808952 delta=0.0,0.0,0.0 rot=-1.8219331E-15,-7.5340323 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=G leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
 # A selects the stick, B is 50 blocks away, C is killed, D is a spectator, E holds the rod in the off hand
 HURT C minecraft:generic_kill 1000 -> true
-C Set D's game mode to Spectator Mode
+CF msg Set D's game mode to Spectator Mode
+CF result success 1
 T 24
 E fishing_bobber#5 minecraft:fishing_bobber pos=80.5,-60.0,9.133127587886388 delta=0.0,0.0,0.0 rot=-1.4748312E-15,-6.036359 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=E leftowner=1 shot=1 canbreak=0 state=flying life=1 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
 E fishing_bobber#6 minecraft:fishing_bobber pos=100.5,-60.0,9.160603908808952 delta=0.0,0.0,0.0 rot=-1.4575466E-15,-6.027226 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=G leftowner=1 shot=1 canbreak=0 state=flying life=1 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0

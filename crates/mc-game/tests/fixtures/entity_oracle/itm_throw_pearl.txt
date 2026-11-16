@@ -82,8 +82,10 @@ STAT Bob minecraft.custom:minecraft.time_since_rest 37
 STAT Bob minecraft.custom:minecraft.total_world_time 37
 STAT Bob minecraft.used:minecraft.ender_pearl 1
 # a pearl thrown straight down lands in the first tick; monsters spawning and normal difficulty: the pearl of this line rolls an endermite at the owner's feet
-C Game rule spawn_mobs is now set to true
-C Game rule spawn_monsters is now set to true
+CF msg Game rule spawn_mobs is now set to true
+CF result success 1
+CF msg Game rule spawn_monsters is now set to true
+CF result success 1
 P Alice minecraft:player pos=0.4926987322387201,-59.995273801444284,0.5060871141996789 delta=0.0,-0.0784000015258789,0.0 rot=0.0,90.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=12.5 abs=0.0 hurt=8/19 death=0 fx=- gm=survival food=20 sat=2.0 exh=3.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*3
 P Bob minecraft:player pos=30.488198099829205,-59.89684547081582,13.367372726683957 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
 E slime#1 minecraft:slime pos=9.5237725129923,-60.0,28.493725505481358 delta=0.004853634760945173,-0.0784000015258789,0.0 rot=238.47566,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-

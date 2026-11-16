@@ -121,7 +121,8 @@ P I minecraft:player pos=48.5,-58.800000071525574,0.5 delta=0.0,1.82956070391179
 P I minecraft:player pos=48.5,-58.800000071525574,0.5 delta=0.0,0.28614369099750164,0.25880974670908924 rot=0.0,-50.0 og=0 fall=0.0 fire=-20 air=165 alive=1 pose=spin_attack hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:3}}
 USE I hand=main item=empty remaining=0 ticks=0 kinetic=0
 # rain: riptide works on the ground when it rains
-C Set the weather to rain
+CF msg Set the weather to rain
+CF result success 100000
 USE G hand=main item=empty remaining=0 ticks=0 kinetic=0
 I G 0 minecraft:trident*1/dmg=1{minecraft:damage:1,minecraft:enchantments:{minecraft:riptide:1}}
 STAT G minecraft.custom:minecraft.play_time 190

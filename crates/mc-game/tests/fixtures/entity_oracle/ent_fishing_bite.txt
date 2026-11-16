@@ -29,7 +29,8 @@ ADV Alice minecraft:adventure/adventuring_time minecraft:plains
 ADV Alice minecraft:husbandry/fishy_business salmon
 ADV Alice minecraft:recipes/decorations/crafting_table unlock_right_away
 I Alice 0 minecraft:fishing_rod*1/dmg=1{minecraft:damage:1}
-C Set the weather to rain
+CF msg Set the weather to rain
+CF result success 20000
 E fishing_bobber#3 minecraft:fishing_bobber pos=40.5,-58.409999994561076,1.8994408248924517 delta=-1.2439784014469573E-16,-0.027599999383091926,1.0114855589010556 rot=-7.0462807E-15,-0.3126038 og=0 fall=0.029999999329447746 fire=0 air=300 alive=1 pose=standing owner=Bob leftowner=0 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
 E fishing_bobber#4 minecraft:fishing_bobber pos=60.5,-58.409999994561076,1.8953354855366762 delta=-1.2383394568976073E-16,-0.027599999383091926,1.0077086466937422 rot=-7.0407462E-15,-0.31377485 og=0 fall=0.029999999329447746 fire=0 air=300 alive=1 pose=standing owner=Dave leftowner=0 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
 E fishing_bobber#3 minecraft:fishing_bobber pos=40.5,-60.153061252362306,9.490167354549252 delta=-1.491420799502276E-17,-0.04363101827658386,0.12126823095855355 rot=-7.0414374E-15,-18.268267 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Bob leftowner=1 shot=1 canbreak=0 state=bobbing life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0

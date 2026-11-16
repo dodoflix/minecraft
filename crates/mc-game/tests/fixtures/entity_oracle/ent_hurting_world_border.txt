@@ -1,5 +1,7 @@
-C Set the center of the world border to 0.50, 0.50
-C Set the world border to 40.0 block(s) wide
+CF msg Set the center of the world border to 0.50, 0.50
+CF result success 0
+CF msg Set the world border to 40.0 block(s) wide
+CF result success -59999928
 # a large fireball flying at the border at z=20: it ends there
 E f1 minecraft:fireball pos=5.5,-59.5,20.499990000000253 delta=0.0,0.0,1.0354237707544052 rot=192.3695,-7.1051063E-6 og=0 fall=0.0 fire=20 air=300 alive=0 pose=standing owner=- leftowner=1 shot=1 canbreak=0
 E item#1 minecraft:item pos=5.646795067476071,-60.57411453652118,20.481639061329112 delta=0.013113779371989032,-0.1223518697449284,0.021189988326979037 rot=208.90628,0.0 og=0 fall=0.2666451372206211 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*9 age=8 pickup=2 health=5 owner=- thrower=-

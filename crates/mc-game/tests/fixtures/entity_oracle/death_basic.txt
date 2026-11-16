@@ -341,7 +341,8 @@ PKT P1 minecraft:set_entity_data 6501090341a00000ff
 PKT P1 minecraft:update_attributes entity=1;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:armor=0.0[];minecraft:armor_toughness=0.0[]
 PKT P1 minecraft:set_health 6a41a000001440a00000
 PKT P1 minecraft:set_experience 69000000000000
-C Game rule keep_inventory is now set to true
+CF msg Game rule keep_inventory is now set to true
+CF result success 1
 HURT P2 generic 1000 -> true
 P P2 minecraft:player pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=9/19 death=1 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=40/7/0.034653466 sel=0 main=minecraft:cobblestone*64
 I P2 0 minecraft:cobblestone*64
@@ -508,7 +509,8 @@ PKT P2 minecraft:set_entity_data 6502090341a00000120107ff
 PKT P2 minecraft:update_attributes entity=2;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[];minecraft:armor=0.0[];minecraft:armor_toughness=0.0[]
 PKT P2 minecraft:set_health 6a41a000001440a00000
 PKT P2 minecraft:set_experience 693d4ac5b4280a
-C Game rule keep_inventory is now set to false
+CF msg Game rule keep_inventory is now set to false
+CF result success 0
 HURT P3 generic 1000 -> true
 P P3 minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=2.0 abs=8.0 hurt=9/19 death=0 fx=minecraft:absorption/1/99;minecraft:fire_resistance/0/799;minecraft:regeneration/1/899 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:totem_of_undying*1
 I P3 0 minecraft:totem_of_undying*1
@@ -712,7 +714,8 @@ PKT P3 minecraft:set_entity_motion 6703f9ff7ffeebed
 PKT P3 minecraft:container_set_slot 140006002d00
 PKT P3 minecraft:set_health 6a400000001440000000
 PKT Obs minecraft:set_time 73000000000000004f00
-C Game rule show_death_messages is now set to false
+CF msg Game rule show_death_messages is now set to false
+CF result success 0
 HURT P4 out_of_world 1000 -> true
 P P4 minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=9/19 death=1 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 PKT P4 minecraft:sound 77a40a0700000004fffffe20000000043f8000003f800000e32d4fcf84a7860e
@@ -870,8 +873,10 @@ PKT P4 minecraft:move_entity_pos 361000000000000000
 PKT P4 minecraft:set_entity_data 651008070a370000ff
 PKT P4 minecraft:container_set_slot 140003002400
 PKT P4 minecraft:set_health 6a000000001440a00000
-C Game rule show_death_messages is now set to true
-C Game rule forgive_dead_players is already set to true
+CF msg Game rule show_death_messages is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule forgive_dead_players is already set to true
 HURT P5 generic_kill 1000 -> true
 P P5 minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=0/0 death=30 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 PKT P5 minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400092f74656c6c2050312000080009696e73657274696f6e0002503108000474657874000250310a000b686f7665725f6576656e740800046e616d6500025031080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b0004757569640000000499f7b67dff4a3921ab1855d7abaafc8200000800097472616e736c617465001464656174682e61747461636b2e67656e657269630000

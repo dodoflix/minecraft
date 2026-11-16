@@ -1,5 +1,6 @@
 # NeutralMob: persistent anger of a wolf, a zombified piglin and an iron golem (timer draws, persistent target, forgive when the
 # target is creative / dies, universal anger with the reset goal). The mobs cannot move (speed 0), so only the anger logic runs.
+command_env
 level flat
 difficulty normal
 entity_counter 100

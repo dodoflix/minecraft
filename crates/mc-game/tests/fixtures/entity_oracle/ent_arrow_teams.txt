@@ -1,10 +1,17 @@
-C Created team [red]
-C Created team [blue]
-C Added A to team [red]
-C Added B to team [red]
-C Added C to team [blue]
-C Added E to team [red]
-C Disabled friendly fire for team [red]
+CF msg Created team [red]
+CF result success 1
+CF msg Created team [blue]
+CF result success 2
+CF msg Added A to team [red]
+CF result success 1
+CF msg Added B to team [red]
+CF result success 1
+CF msg Added C to team [blue]
+CF result success 1
+CF msg Added E to team [red]
+CF result success 1
+CF msg Disabled friendly fire for team [red]
+CF result success 0
 E a1 minecraft:arrow pos=5.5,-59.495024954720826,14.752487758685877 delta=0.0,-0.24504975517371752,2.3774752392619702 rot=0.0,-1.9147038 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
 E a3 minecraft:arrow pos=15.5,-59.495024954720826,14.752487758685877 delta=0.0,-0.24504975517371752,2.3774752392619702 rot=0.0,-1.9147038 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0
 E a4 minecraft:arrow pos=20.5,-59.495024954720826,14.752487758685877 delta=0.0,-0.24504975517371752,2.3774752392619702 rot=0.0,-1.9147038 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0

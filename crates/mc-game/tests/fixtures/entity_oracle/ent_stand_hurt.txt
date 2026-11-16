@@ -43,8 +43,10 @@ E item#1 minecraft:item pos=0.5092968767685551,-59.4951981640368,0.4607281579123
 E item#2 minecraft:item pos=0.21721764451482703,-58.52069109565709,0.2667633688431204 delta=-0.055451283344063025,0.11446400521850592,-0.05454544388903139 rot=235.24112,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wooden_sword*1 age=2 pickup=8 health=5 owner=- thrower=-
 E item#3 minecraft:item pos=0.6333093530488823,-58.33592237049501,0.3682900156017784 delta=0.07848530125237967,0.11446400521850592,0.042089353247534524 rot=269.04822,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_boots*1 age=2 pickup=8 health=5 owner=- thrower=-
 E item#4 minecraft:item pos=0.8754043136032995,-58.1940452037706,0.6435678697593663 delta=0.06294864164920588,0.11446400521850592,0.06831676157292894 rot=66.23758,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=2 pickup=8 health=5 owner=- thrower=-
-C Killed 4 entities
-C No entity was found
+CF msg Killed 4 entities
+CF result success 4
+CF result failure 0
+CF fail No entity was found
 E a2 minecraft:armor_stand pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N a2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[4.5d,-60.0d,0.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["a2"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
 E a3 minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -52,8 +54,10 @@ EV sound at=4.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break s
 EV sound at=4.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.player.attack.weak source=player vol=1.0 pitch=1.0
 PKT O minecraft:level_particles 30010f00004012000000000000c04d5777775555553fe00000000000003e0000003efccccd3e0000003d4ccccd3d4ccccd3d4ccccd0a00
 PKT O minecraft:remove_entities 4e01d60f
-C No entity was found
-C No entity was found
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
 E a3 minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N a3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,0.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["a3"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
 E a3 minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -64,8 +68,10 @@ N a3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSl
 E a3 minecraft:armor_stand pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 EV sound at=8.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:entity.player.attack.nodamage source=player vol=1.0 pitch=1.0
 PKT O minecraft:sound 779d0a0700000044fffffe200000001c3f8000003f800000a3981763e0103683
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 # each damage type on a fresh stand
 PKT O minecraft:add_entity 01dc0fcf99f3aa47ff4d0a841971f56d1097f1053fe0000000000000c04e000000000000c0160000000000000000000000
 PKT O minecraft:set_entity_data 65dc0f090341a000000f0004ff
@@ -254,8 +260,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_on_fire on_fire 3 -> false
 E d_on_fire minecraft:armor_stand pos=4.5,-60.0,-5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_on_fire {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:16.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[4.5d,-60.0d,-5.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_on_fire"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -305,8 +313,10 @@ E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.078400001
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 PKT O minecraft:set_entity_data 65dd0f090341800000ff
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_lava lava 3 -> false
 E d_lava minecraft:armor_stand pos=8.5,-60.0,-5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_lava {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,-5.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_lava"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -354,8 +364,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_hot_floor hot_floor 3 -> false
 E d_hot_floor minecraft:armor_stand pos=12.5,-60.0,-5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_hot_floor {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[12.5d,-60.0d,-5.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_hot_floor"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -402,8 +414,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_explosion explosion 3 -> false
 E d_explosion minecraft:armor_stand pos=16.5,-60.0,-5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_explosion {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[16.5d,-60.0d,-5.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_explosion"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
@@ -463,8 +477,10 @@ PKT O minecraft:remove_entities 4e01e00f
 PKT O minecraft:set_entity_data 658c10080701b9080000ff
 PKT O minecraft:set_entity_data 658b10080701bb080000ff
 PKT O minecraft:set_entity_data 658a1008070181080000ff
-C Killed 3 entities
-C No entity was found
+CF msg Killed 3 entities
+CF result success 3
+CF result failure 0
+CF fail No entity was found
 HURT d_player_explosion player_explosion 3 -> false
 E d_player_explosion minecraft:armor_stand pos=20.5,-60.0,-5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_player_explosion {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[20.5d,-60.0d,-5.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_player_explosion"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
@@ -523,8 +539,10 @@ PKT O minecraft:remove_entities 4e01e10f
 PKT O minecraft:set_entity_data 658d1008070181080000ff
 PKT O minecraft:set_entity_data 658f10080701b9080000ff
 PKT O minecraft:set_entity_data 658e10080701bb080000ff
-C Killed 3 entities
-C No entity was found
+CF msg Killed 3 entities
+CF result success 3
+CF result failure 0
+CF fail No entity was found
 HURT d_magic magic 3 -> false
 E d_magic minecraft:armor_stand pos=24.5,-60.0,-5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_magic {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[24.5d,-60.0d,-5.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_magic"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -568,8 +586,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_generic generic 3 -> false
 E d_generic minecraft:armor_stand pos=28.5,-60.0,-5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_generic {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[28.5d,-60.0d,-5.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_generic"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -612,8 +632,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_generic_kill generic_kill 3 -> false
 E d_generic_kill minecraft:armor_stand pos=32.5,-60.0,-5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_generic_kill {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[32.5d,-60.0d,-5.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_generic_kill"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -655,8 +677,10 @@ E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.078400001
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 PKT O minecraft:remove_entities 4e01e40f
-C No entity was found
-C No entity was found
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
 HURT d_out_of_world out_of_world 3 -> false
 E d_out_of_world minecraft:armor_stand pos=36.5,-60.0,-5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_out_of_world {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[36.5d,-60.0d,-5.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_out_of_world"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -697,8 +721,10 @@ E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.078400001
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 PKT O minecraft:remove_entities 4e01e50f
-C No entity was found
-C No entity was found
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
 HURT d_cactus cactus 3 -> false
 E d_cactus minecraft:armor_stand pos=40.5,-60.0,-5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_cactus {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[40.5d,-60.0d,-5.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_cactus"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -738,8 +764,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_fall fall 3 -> false
 E d_fall minecraft:armor_stand pos=0.5,-60.0,-9.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_fall {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,-9.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_fall"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -778,8 +806,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_drown drown 3 -> false
 E d_drown minecraft:armor_stand pos=4.5,-60.0,-9.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_drown {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[4.5d,-60.0d,-9.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_drown"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -817,8 +847,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_wither wither 3 -> false
 E d_wither minecraft:armor_stand pos=8.5,-60.0,-9.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_wither {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,-9.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_wither"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -855,8 +887,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_lightning_bolt lightning_bolt 3 -> false
 E d_lightning_bolt minecraft:armor_stand pos=12.5,-60.0,-9.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_lightning_bolt {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[12.5d,-60.0d,-9.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_lightning_bolt"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -892,8 +926,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_falling_anvil falling_anvil 3 -> false
 E d_falling_anvil minecraft:armor_stand pos=16.5,-60.0,-9.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_falling_anvil {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[16.5d,-60.0d,-9.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_falling_anvil"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -928,8 +964,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_fly_into_wall fly_into_wall 3 -> false
 E d_fly_into_wall minecraft:armor_stand pos=20.5,-60.0,-9.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_fly_into_wall {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[20.5d,-60.0d,-9.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_fly_into_wall"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -963,8 +1001,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_starve starve 3 -> false
 E d_starve minecraft:armor_stand pos=24.5,-60.0,-9.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_starve {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[24.5d,-60.0d,-9.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_starve"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -997,8 +1037,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_freeze freeze 3 -> false
 E d_freeze minecraft:armor_stand pos=28.5,-60.0,-9.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_freeze {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[28.5d,-60.0d,-9.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_freeze"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1030,8 +1072,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_cramming cramming 3 -> false
 E d_cramming minecraft:armor_stand pos=32.5,-60.0,-9.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_cramming {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[32.5d,-60.0d,-9.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_cramming"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1062,8 +1106,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_outside_border outside_border 3 -> false
 E d_outside_border minecraft:armor_stand pos=36.5,-60.0,-9.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_outside_border {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[36.5d,-60.0d,-9.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_outside_border"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1093,8 +1139,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_in_wall in_wall 3 -> false
 E d_in_wall minecraft:armor_stand pos=40.5,-60.0,-9.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_in_wall {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[40.5d,-60.0d,-9.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_in_wall"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1123,8 +1171,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_sting sting 3 -> false
 E d_sting minecraft:armor_stand pos=0.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_sting {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,-13.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_sting"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1152,8 +1202,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_thorns thorns 3 -> false
 E d_thorns minecraft:armor_stand pos=4.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_thorns {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[4.5d,-60.0d,-13.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_thorns"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1180,8 +1232,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_dragon_breath dragon_breath 3 -> false
 E d_dragon_breath minecraft:armor_stand pos=8.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_dragon_breath {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,-13.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_dragon_breath"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1207,8 +1261,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_fireball fireball 3 -> true
 E d_fireball minecraft:armor_stand pos=12.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_fireball {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[12.5d,-60.0d,-13.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_fireball"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
@@ -1252,8 +1308,10 @@ PKT O minecraft:set_entity_data 659010080701fd0a0000ff
 PKT O minecraft:set_entity_data 659310080701b9080000ff
 PKT O minecraft:set_entity_data 659210080701bb080000ff
 PKT O minecraft:set_entity_data 65911008070181080000ff
-C Killed 4 entities
-C No entity was found
+CF msg Killed 4 entities
+CF result success 4
+CF result failure 0
+CF fail No entity was found
 HURT d_fireworks fireworks 3 -> false
 E d_fireworks minecraft:armor_stand pos=16.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_fireworks {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[16.5d,-60.0d,-13.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_fireworks"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
@@ -1291,8 +1349,10 @@ PKT O minecraft:remove_entities 4e01f60f
 PKT O minecraft:set_entity_data 659510080701bb080000ff
 PKT O minecraft:set_entity_data 659610080701b9080000ff
 PKT O minecraft:set_entity_data 65941008070181080000ff
-C Killed 3 entities
-C No entity was found
+CF msg Killed 3 entities
+CF result success 3
+CF result failure 0
+CF fail No entity was found
 HURT d_sweet_berry_bush sweet_berry_bush 3 -> false
 E d_sweet_berry_bush minecraft:armor_stand pos=20.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_sweet_berry_bush {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[20.5d,-60.0d,-13.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_sweet_berry_bush"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1315,8 +1375,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_stalagmite stalagmite 3 -> false
 E d_stalagmite minecraft:armor_stand pos=24.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_stalagmite {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[24.5d,-60.0d,-13.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_stalagmite"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1338,8 +1400,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_falling_stalactite falling_stalactite 3 -> false
 E d_falling_stalactite minecraft:armor_stand pos=28.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_falling_stalactite {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[28.5d,-60.0d,-13.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_falling_stalactite"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1360,8 +1424,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_campfire campfire 3 -> false
 E d_campfire minecraft:armor_stand pos=32.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=99 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_campfire {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:99s,Health:16.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[32.5d,-60.0d,-13.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_campfire"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1381,8 +1447,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_dry_out dry_out 3 -> false
 E d_dry_out minecraft:armor_stand pos=36.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_dry_out {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[36.5d,-60.0d,-13.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_dry_out"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1401,8 +1469,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_mob_attack mob_attack 3 -> false
 E d_mob_attack minecraft:armor_stand pos=40.5,-60.0,-13.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_mob_attack {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[40.5d,-60.0d,-13.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_mob_attack"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1420,8 +1490,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_player_attack player_attack 3 -> true
 E d_player_attack minecraft:armor_stand pos=0.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_player_attack {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,-17.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_player_attack"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1439,8 +1511,10 @@ E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.078400001
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 PKT O minecraft:entity_event 22000007fd20
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_arrow arrow 3 -> true
 E d_arrow minecraft:armor_stand pos=4.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_arrow {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[4.5d,-60.0d,-17.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_arrow"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
@@ -1474,8 +1548,10 @@ PKT O minecraft:set_entity_data 659a10080701b9080000ff
 PKT O minecraft:set_entity_data 659910080701bb080000ff
 PKT O minecraft:set_entity_data 65981008070181080000ff
 PKT O minecraft:set_entity_data 659710080701fd0a0000ff
-C Killed 4 entities
-C No entity was found
+CF msg Killed 4 entities
+CF result success 4
+CF result failure 0
+CF fail No entity was found
 HURT d_trident trident 3 -> true
 E d_trident minecraft:armor_stand pos=8.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_trident {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,-17.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_trident"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
@@ -1508,8 +1584,10 @@ PKT O minecraft:set_entity_data 659d10080701bb080000ff
 PKT O minecraft:set_entity_data 659b10080701fd0a0000ff
 PKT O minecraft:set_entity_data 659c1008070181080000ff
 PKT O minecraft:set_entity_data 659e10080701b9080000ff
-C Killed 4 entities
-C No entity was found
+CF msg Killed 4 entities
+CF result success 4
+CF result failure 0
+CF fail No entity was found
 HURT d_thrown thrown 3 -> false
 E d_thrown minecraft:armor_stand pos=12.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_thrown {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[12.5d,-60.0d,-17.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_thrown"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1523,8 +1601,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_indirect_magic indirect_magic 3 -> false
 E d_indirect_magic minecraft:armor_stand pos=16.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_indirect_magic {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[16.5d,-60.0d,-17.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_indirect_magic"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1537,8 +1617,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_wither_skull wither_skull 3 -> true
 E d_wither_skull minecraft:armor_stand pos=20.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_wither_skull {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[20.5d,-60.0d,-17.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_wither_skull"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
@@ -1569,8 +1651,10 @@ PKT O minecraft:set_entity_data 65a210080701b9080000ff
 PKT O minecraft:set_entity_data 65a110080701bb080000ff
 PKT O minecraft:set_entity_data 659f10080701fd0a0000ff
 PKT O minecraft:set_entity_data 65a01008070181080000ff
-C Killed 4 entities
-C No entity was found
+CF msg Killed 4 entities
+CF result success 4
+CF result failure 0
+CF fail No entity was found
 HURT d_mob_projectile mob_projectile 3 -> false
 E d_mob_projectile minecraft:armor_stand pos=24.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_mob_projectile {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[24.5d,-60.0d,-17.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_mob_projectile"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1581,8 +1665,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_wind_charge wind_charge 3 -> true
 E d_wind_charge minecraft:armor_stand pos=28.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_wind_charge {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[28.5d,-60.0d,-17.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_wind_charge"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
@@ -1610,8 +1696,10 @@ PKT O minecraft:set_entity_data 65a41008070181080000ff
 PKT O minecraft:set_entity_data 65a510080701bb080000ff
 PKT O minecraft:set_entity_data 65a310080701fd0a0000ff
 PKT O minecraft:set_entity_data 65a610080701b9080000ff
-C Killed 4 entities
-C No entity was found
+CF msg Killed 4 entities
+CF result success 4
+CF result failure 0
+CF fail No entity was found
 HURT d_spear spear 3 -> true
 E d_spear minecraft:armor_stand pos=32.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_spear {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[32.5d,-60.0d,-17.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_spear"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1621,8 +1709,10 @@ E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.078400001
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 PKT O minecraft:entity_event 220000080520
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_spit spit 3 -> false
 E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_spit {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[36.5d,-60.0d,-17.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_spit"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1630,8 +1720,10 @@ E d_spit minecraft:armor_stand pos=36.5,-60.0,-17.5 delta=0.0,-0.078400001525878
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_mace_smash mace_smash 3 -> true
 E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_mace_smash {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[40.5d,-60.0d,-17.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_mace_smash"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1639,21 +1731,27 @@ E d_mace_smash minecraft:armor_stand pos=40.5,-60.0,-17.5 delta=0.0,-0.078400001
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 PKT O minecraft:entity_event 220000080720
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_sonic_boom sonic_boom 3 -> false
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_sonic_boom {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,-21.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_sonic_boom"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
 E d_sonic_boom minecraft:armor_stand pos=0.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT d_unattributed_fireball unattributed_fireball 3 -> false
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N d_unattributed_fireball {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[4.5d,-60.0d,-21.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["d_unattributed_fireball"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
 E d_unattributed_fireball minecraft:armor_stand pos=4.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 # on_fire damage 4 per hit until the stand is below half a heart
 HURT f1 on_fire 1 -> false
 E f1 minecraft:armor_stand pos=8.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -1695,8 +1793,10 @@ PKT O minecraft:remove_entities 4e01a710
 PKT O minecraft:set_entity_data 65aa10080701b9080000ff
 PKT O minecraft:set_entity_data 65a910080701bb080000ff
 PKT O minecraft:set_entity_data 65a81008070181080000ff
-C Killed 3 entities
-C No entity was found
+CF msg Killed 3 entities
+CF result success 3
+CF result failure 0
+CF fail No entity was found
 # in_fire ignites, then 0.15 per hit while it burns
 HURT f2 in_fire 1 -> false
 E f2 minecraft:armor_stand pos=12.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=99 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -1720,8 +1820,10 @@ E f2 minecraft:armor_stand pos=12.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.
 N f2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:96s,Health:15.550001f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[12.5d,-60.0d,-21.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["f2"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
 E f2 minecraft:armor_stand pos=12.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=96 air=300 alive=1 pose=standing hp=15.550001 abs=0.0 hurt=0/0 death=0 fx=-
 PKT O minecraft:set_entity_data 65ab1009034178ccceff
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 # a player hit twice with a wait of 3 and of 6 ticks
 HURT w1 player_attack 1 -> true
 E w1 minecraft:armor_stand pos=16.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -1758,8 +1860,10 @@ PKT O minecraft:set_entity_data 65ae10080701fd0a0000ff
 PKT O minecraft:set_entity_data 65af1008070181080000ff
 PKT O minecraft:set_entity_data 65b110080701b9080000ff
 PKT O minecraft:set_entity_data 65b010080701bb080000ff
-C Killed 4 entities
-C No entity was found
+CF msg Killed 4 entities
+CF result success 4
+CF result failure 0
+CF fail No entity was found
 HURT w2 player_attack 1 -> true
 E w2 minecraft:armor_stand pos=20.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N w2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[20.5d,-60.0d,-21.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["w2"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1770,8 +1874,10 @@ E w2 minecraft:armor_stand pos=20.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.
 N w2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[20.5d,-60.0d,-21.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["w2"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
 E w2 minecraft:armor_stand pos=20.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 PKT O minecraft:entity_event 220000082d20
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 # arrows kill outright, a first hit by a spear or a trident too
 HURT p1 arrow 2 -> true
 E p1 minecraft:armor_stand pos=24.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -1800,8 +1906,10 @@ PKT O minecraft:set_entity_data 65b710080701b9080000ff
 PKT O minecraft:set_entity_data 65b610080701bb080000ff
 PKT O minecraft:set_entity_data 65b410080701fd0a0000ff
 PKT O minecraft:set_entity_data 65b51008070181080000ff
-C Killed 4 entities
-C No entity was found
+CF msg Killed 4 entities
+CF result success 4
+CF result failure 0
+CF fail No entity was found
 # invisible and marker stands refuse damage unless it bypasses invulnerability, a creative player breaks them anyway
 HURT i1 player_attack 1 -> false
 E i1 minecraft:armor_stand pos=28.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -1836,8 +1944,10 @@ E i3 minecraft:armor_stand pos=36.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.
 E i4 minecraft:armor_stand pos=40.5,-60.0,-21.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E i5 minecraft:armor_stand pos=0.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 PKT O minecraft:remove_entities 4e01b810
-C No entity was found
-C No entity was found
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
 HURT i2 player_attack 1 -> false
 E i2 minecraft:armor_stand pos=32.5,-60.0,-21.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N i2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Marker:1b,Motion:[0.0d,0.0d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[32.5d,-60.0d,-21.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["i2"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1854,8 +1964,10 @@ E i2 minecraft:armor_stand pos=32.5,-60.0,-21.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og
 E i3 minecraft:armor_stand pos=36.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E i4 minecraft:armor_stand pos=40.5,-60.0,-21.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E i5 minecraft:armor_stand pos=0.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT i3 player_attack 1 -> false
 E i3 minecraft:armor_stand pos=36.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N i3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:1b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[36.5d,-60.0d,-21.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["i3"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1863,23 +1975,29 @@ E ar1 minecraft:arrow pos=20.5,-57.191037559655626,-30.5 delta=0.0,-0.4780896452
 E i3 minecraft:armor_stand pos=36.5,-60.0,-21.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E i4 minecraft:armor_stand pos=40.5,-60.0,-21.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E i5 minecraft:armor_stand pos=0.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT i4 player_attack 1 -> false
 E i4 minecraft:armor_stand pos=40.5,-60.0,-21.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N i4 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Marker:1b,Motion:[0.0d,0.0d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[40.5d,-60.0d,-21.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["i4"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
 E ar1 minecraft:arrow pos=20.5,-58.192435958359674,-30.5 delta=0.0,-0.568075670861845,0.0 rot=0.0,-82.26905 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
 E i4 minecraft:armor_stand pos=40.5,-60.0,-21.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E i5 minecraft:armor_stand pos=0.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT i5 in_fire 1 -> false
 E i5 minecraft:armor_stand pos=0.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N i5 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:1b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,-25.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["i5"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
 E ar1 minecraft:arrow pos=20.5,-59.372906548792336,-30.5 delta=0.0,-0.6562709762153633,0.0 rot=0.0,-85.05219 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
 E i5 minecraft:armor_stand pos=0.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 # a player who may not build, creative players
 HURT c1 player_attack 1 -> false
 E c1 minecraft:armor_stand pos=4.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -1899,8 +2017,10 @@ PKT O minecraft:set_entity_data 65bf10090341a000000f0004ff
 PKT O minecraft:set_entity_data 65be10090341a000000f0004ff
 PKT O minecraft:set_entity_data 65bd10090341a000000f0004ff
 PKT O minecraft:set_entity_data 65b3100a0801ff
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT c2 player_attack 1 -> true
 E c2 minecraft:armor_stand pos=8.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N c2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,-25.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["c2"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1909,8 +2029,10 @@ E c3 minecraft:armor_stand pos=12.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.
 EV sound at=8.5,-60.0,-25.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:level_particles 30010f00004021000000000000c04d577777555555c0398000000000003e0000003efccccd3e0000003d4ccccd3d4ccccd3d4ccccd0a00
 PKT O minecraft:remove_entities 4e01be10
-C No entity was found
-C No entity was found
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
 HURT c3 arrow 1 -> true
 E c3 minecraft:armor_stand pos=12.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N c3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[12.5d,-60.0d,-25.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["c3"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1918,8 +2040,10 @@ E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.
 EV sound at=12.5,-60.0,-25.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:level_particles 30010f00004029000000000000c04d577777555555c0398000000000003e0000003efccccd3e0000003d4ccccd3d4ccccd3d4ccccd0a00
 PKT O minecraft:remove_entities 4e01bf10
-C No entity was found
-C No entity was found
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
 # mob_griefing off: a mob cannot hurt a stand, a player can
 HURT g1 mob_attack 1 -> false
 E g1 minecraft:armor_stand pos=16.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -1949,9 +2073,12 @@ E Cow minecraft:cow pos=44.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0
 E g1 minecraft:armor_stand pos=16.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E g2 minecraft:armor_stand pos=20.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E g3 minecraft:armor_stand pos=24.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
-C Game rule mob_griefing is now set to false
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
 HURT g2 mob_attack 1 -> false
 E g2 minecraft:armor_stand pos=20.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N g2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[20.5d,-60.0d,-25.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["g2"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -1973,8 +2100,10 @@ E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.
 E Cow minecraft:cow pos=44.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 E g2 minecraft:armor_stand pos=20.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E g3 minecraft:armor_stand pos=24.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 HURT g3 player_attack 1 -> true
 E g3 minecraft:armor_stand pos=24.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N g3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[24.5d,-60.0d,-25.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["g3"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -2006,11 +2135,15 @@ PKT O minecraft:set_entity_data 65c710080701b9080000ff
 PKT O minecraft:set_entity_data 65c51008070181080000ff
 PKT O minecraft:set_entity_data 65c610080701bb080000ff
 PKT O minecraft:set_entity_data 65c410080701fd0a0000ff
-C Killed 4 entities
-C No entity was found
-C Game rule mob_griefing is now set to true
+CF msg Killed 4 entities
+CF result success 4
+CF result failure 0
+CF fail No entity was found
+CF msg Game rule mob_griefing is now set to true
+CF result success 1
 # entity_drops off, block_drops off
-C Game rule entity_drops is now set to false
+CF msg Game rule entity_drops is now set to false
+CF result success 0
 HURT r1 player_attack 1 -> true
 E r1 minecraft:armor_stand pos=28.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N r1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[28.5d,-60.0d,-25.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["r1"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
@@ -2055,8 +2188,10 @@ PKT O minecraft:set_entity_data 65cb10080701fd0a0000ff
 PKT O minecraft:set_entity_data 65cd10080701bb080000ff
 PKT O minecraft:set_entity_data 65ce10080701b9080000ff
 PKT O minecraft:set_entity_data 65cc1008070181080000ff
-C Killed 4 entities
-C No entity was found
+CF msg Killed 4 entities
+CF result success 4
+CF result failure 0
+CF fail No entity was found
 HURT r2 explosion 1 -> false
 E r2 minecraft:armor_stand pos=32.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N r2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[32.5d,-60.0d,-25.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["r2"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
@@ -2077,10 +2212,14 @@ PKT O minecraft:remove_entities 4e01c910
 PKT O minecraft:set_entity_data 65cf1008070181080000ff
 PKT O minecraft:set_entity_data 65d010080701bb080000ff
 PKT O minecraft:set_entity_data 65d110080701b9080000ff
-C Killed 3 entities
-C No entity was found
-C Game rule entity_drops is now set to true
-C Game rule block_drops is now set to false
+CF msg Killed 3 entities
+CF result success 3
+CF result failure 0
+CF fail No entity was found
+CF msg Game rule entity_drops is now set to true
+CF result success 1
+CF msg Game rule block_drops is now set to false
+CF result success 0
 HURT r3 explosion 1 -> false
 E r3 minecraft:armor_stand pos=36.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N r3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[36.5d,-60.0d,-25.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["r3"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
@@ -2088,11 +2227,15 @@ E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.
 E Cow minecraft:cow pos=44.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 EV sound at=36.5,-60.0,-25.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:remove_entities 4e01ca10
-C No entity was found
-C No entity was found
-C Game rule block_drops is now set to true
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF msg Game rule block_drops is now set to true
+CF result success 1
 # /kill and the void
-C Killed Armor Stand
+CF msg Killed Armor Stand
+CF result success 1
 E k1 minecraft:armor_stand pos=40.5,-60.0,-25.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N k1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[40.5d,-60.0d,-25.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["k1"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
 E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=28 dmg=2.0
@@ -2102,12 +2245,14 @@ PKT O minecraft:add_entity 01d21019c73dcc71bd47ef8166d3e9d8fafcd4054044400000000
 PKT O minecraft:set_entity_data 65d210090341a000000f0004ff
 PKT O minecraft:set_entity_data 65d210090341a000000f0004ff
 PKT O minecraft:remove_entities 4e01d210
-C No entity was found
+CF result failure 0
+CF fail No entity was found
 E k2 minecraft:armor_stand pos=4.5,-200.0,-30.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N k2 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[4.5d,-200.0d,-30.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["k2"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,equipment:{chest:{count:1,id:"minecraft:iron_chestplate"},feet:{count:1,id:"minecraft:iron_boots"},head:{components:{minecraft:enchantments:{minecraft:vanishing_curse:1}},count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:wooden_sword"}},fall_distance:0.0d}
 E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=31 dmg=2.0
 E Cow minecraft:cow pos=44.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-C No entity was found
+CF result failure 0
+CF fail No entity was found
 # fire, soul fire, lava, campfire and lightning under stands (natural ticks)
 E n1 minecraft:armor_stand pos=12.5,-60.0,12.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E n2 minecraft:armor_stand pos=16.5,-60.0,12.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=159 air=300 alive=0 pose=standing hp=3.250001 abs=0.0 hurt=0/0 death=0 fx=-
@@ -2272,7 +2417,8 @@ E item#57 minecraft:item pos=15.76455909096659,-60.0,11.631234908020888 delta=-5
 E item#59 minecraft:item pos=21.111913199115417,-60.0,11.176099283473912 delta=3.7936477255853375E-13,-0.08,-5.291110664891801E-13 rot=319.1705,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wooden_sword*1 age=189 pickup=0 health=5 owner=- thrower=-
 E item#60 minecraft:item pos=19.67218209111837,-60.0,12.096957509456224 delta=-4.886963270148806E-13,-0.12,-2.2979919533505287E-13 rot=270.0546,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_boots*1 age=189 pickup=0 health=5 owner=- thrower=-
 E item#61 minecraft:item pos=19.654706411954052,-60.0,12.036484690156932 delta=-4.2105127574045225E-13,0.0,-1.5687179870957635E-13 rot=75.48412,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_chestplate*1 age=189 pickup=0 health=5 owner=- thrower=-
-C Killed 5 entities
+CF msg Killed 5 entities
+CF result success 5
 # lightning on a stand and on an invisible one
 E l1 minecraft:armor_stand pos=50.5,-60.0,12.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=15.700001 abs=0.0 hurt=0/0 death=0 fx=-
 E l2 minecraft:armor_stand pos=54.5,-60.0,12.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -2303,8 +2449,10 @@ E n5 minecraft:armor_stand pos=28.5,-60.0,12.5 delta=0.0,-0.0784000015258789,0.0
 E n6 minecraft:armor_stand pos=32.5,-60.0,12.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E l2 minecraft:armor_stand pos=54.5,-60.0,12.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=160 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 EV sound at=50.5,-60.0,12.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
-C No entity was found
-C Killed Armor Stand
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Armor Stand
+CF result success 1
 # explosions: block, none, mob and tnt interactions; a visible, an invisible and a marker stand each
 E x1a minecraft:armor_stand pos=2.5,-60.0,24.5 delta=0.4983072395098825,0.36447056590492843,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 N x1a {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.4983072395098825d,0.36447056590492843d,0.0d],NoBasePlate:0b,OnGround:0b,PortalCooldown:0,Pos:[2.5d,-60.0d,24.5d],Pose:{},Rotation:[0.0f,0.0f],ShowArms:1b,Small:0b,Tags:["x1a"],attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor_toughness"},{base:0.0d,id:"minecraft:armor"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
@@ -2435,7 +2583,8 @@ E item#79 minecraft:item pos=62.43936416589801,-60.48759798650879,25.33276016106
 E item#80 minecraft:item pos=61.50615301067675,-61.494649974752214,24.33333036914378 delta=0.0034669707234986197,0.1568000030517578,0.05329481389732935 rot=52.667233,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=1 pickup=9 health=5 owner=- thrower=-
 E item#81 minecraft:item pos=61.475906688188864,-61.5701764747418,22.47955296650256 delta=-0.04703385860903084,0.1568000030517578,-0.06278249414461542 rot=196.4871,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*13 age=1 pickup=9 health=5 owner=- thrower=-
 EV sound at=62.5,-60.0,24.5 r=16.0 ex=0 event=minecraft:entity.armor_stand.break source=neutral vol=1.0 pitch=1.0
-C Killed 17 entities
+CF msg Killed 17 entities
+CF result success 17
 E ar1 minecraft:arrow pos=20.5,-59.94999999925494,-30.5 delta=0.0,0.0,0.0 rot=0.0,-86.041756 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=314 dmg=2.0
 E Cow minecraft:cow pos=44.5,-60.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 E n1 minecraft:armor_stand pos=12.5,-60.0,12.5 delta=0.0,-0.02,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=300 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-

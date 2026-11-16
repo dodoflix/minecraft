@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule mob_drops is now set to false
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 E D1 minecraft:drowned pos=14.5,-60.0,0.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:trident*1 attrs=minecraft:armor:2.0;minecraft:attack_damage:11.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513;minecraft:step_height:1.0
 G D1 goal 4 Zombie$ZombieAttackTurtleEggGoal flags=MOVE+JUMP running=0
 G D1 goal 8 LookAtPlayerGoal flags=LOOK running=0

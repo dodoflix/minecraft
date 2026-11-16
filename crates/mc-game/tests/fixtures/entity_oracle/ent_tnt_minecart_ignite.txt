@@ -1,4 +1,5 @@
-C Game rule block_drops is now set to false
+CF msg Game rule block_drops is now set to false
+CF result success 0
 E tA minecraft:tnt_minecart pos=0.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
 E tB minecraft:tnt_minecart pos=16.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
 E tC minecraft:tnt_minecart pos=32.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuse=-1
@@ -412,7 +413,8 @@ T 103
 E tE minecraft:tnt_minecart pos=84.87347260480867,-59.9375,0.5 delta=0.005061095807654878,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=3
 E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-2.3408344673487167E-8,-0.08,-1.7737150225059295E-8 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=98 pickup=0 health=5 owner=- thrower=-
 # the rule off: priming does nothing but the fuse still runs out and the cart is discarded without an explosion
-C Game rule tnt_explodes is now set to false
+CF msg Game rule tnt_explodes is now set to false
+CF result success 0
 HURT tG in_fire 1 -> true
 T 104
 E tE minecraft:tnt_minecart pos=84.87853370061633,-59.9375,0.5 delta=0.004858651975348682,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=east rider=- fuse=2
@@ -573,4 +575,5 @@ T 163
 E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-8.128890056822669E-12,-0.08,-6.159484838078271E-12 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=158 pickup=0 health=5 owner=- thrower=-
 E item#1 minecraft:item pos=47.748948745700645,-60.0,-0.06909230917617583 delta=-8.128890056822669E-12,-0.08,-6.159484838078271E-12 rot=108.005646,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:tnt_minecart*1 age=158 pickup=0 health=5 owner=- thrower=-
 N tG {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,24.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d,fuse:0}
-C Game rule tnt_explodes is now set to true
+CF msg Game rule tnt_explodes is now set to true
+CF result success 1

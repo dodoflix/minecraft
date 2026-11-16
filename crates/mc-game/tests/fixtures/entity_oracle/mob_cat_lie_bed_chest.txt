@@ -1,4 +1,5 @@
-C The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
 # Steve opens the chest
 T 5
 E A minecraft:cat pos=6.628550644218972,-60.0,6.4580783005776645 delta=0.038739053743812035,-0.0784000015258789,-0.022889250543241712 rot=223.30133,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.24000001 zza=0.24000001 xxa=0.0 yya=0.0 head=298.30133 body=223.30133 nav=moving stuck=0 navspeed=0.8 ntarget=8,-60,2 path=1/4/1/8,-60,2 nodes=6,-60,6:WALKABLE:0.0;7,-60,5:WALKABLE:0.0;7,-60,4:WALKABLE:0.0;8,-60,3:WALKABLE:0.0 goals=7:CatSitOnBlockGoal:MOVE+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Steve sitting=0 ordered=0 variant=minecraft:black svariant=minecraft:classic collar=red lie=0.0 lietail=0.0 ontop=0 relax=0.0

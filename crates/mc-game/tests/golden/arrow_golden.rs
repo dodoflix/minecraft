@@ -235,7 +235,7 @@ fn compare_scenario(name: &str) {
     let actual = replay(name);
     let opts = Options {
         ignore_fields: vec!["pose"],
-        ignore_kinds: vec!["#", "C", "PKT"],
+        ignore_kinds: vec!["#", "CF", "PKT"],
         ..Default::default()
     };
     fixture.assert_matches(&actual, &opts);

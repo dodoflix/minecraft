@@ -80,9 +80,12 @@ PKT O minecraft:entity_position_sync 23f62e01014021000000000000c04e0000000000003
 PKT O minecraft:set_entity_motion 67f42ef9ff7ffeebed
 PKT O minecraft:entity_position_sync 23f42e01013fe0000000000000c04e0000000000003fe000000000000002000000000000000001
 # data merge round trip through the command
-C Modified entity data of Mannequin
-C Modified entity data of Mannequin
-C Mannequin has the following entity data: {name: "Alex", id: [I; 1, 2, 3, 4], properties: [{name: "textures", value: "abc"}]}
+CF msg Modified entity data of Mannequin
+CF result success 1
+CF msg Modified entity data of Mannequin
+CF result success 1
+CF msg Mannequin has the following entity data: {name: "Alex", id: [I; 1, 2, 3, 4], properties: [{name: "textures", value: "abc"}]}
+CF result success 3
 E m0 minecraft:mannequin pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=crouching hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 ED m0 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:05 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:42:00 16:0:7e 17:41:0000000000000000 18:8:01 19:6:010800117b2274657874223a226d6572676564227d
 N m0 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Tags:["m0"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,description:'{"text":"merged"}',fall_distance:0.0d,hidden_layers:["cape"],immovable:1b,main_hand:"left",pose:"crouching",profile:{}}
@@ -451,7 +454,8 @@ PKT O minecraft:set_entity_data 65fc2e090340a00000ff
 PKT O minecraft:set_entity_motion 67fc2ef9ff7ffeebed
 PKT O minecraft:damage_event 19fc2e15000000
 # killing with /kill, a mannequin in the air falls and takes fall damage
-C Killed Mannequin
+CF msg Killed Mannequin
+CF result success 1
 E k1 minecraft:mannequin pos=4.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=0 pose=dying hp=0.0 abs=0.0 hurt=9/19 death=1 fx=-
 N k1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:1s,FallFlying:0b,Fire:0s,Health:0.0f,HurtTime:9s,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[4.5d,-60.0d,8.5d],Rotation:[0.0f,0.0f],Tags:["k1"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,hidden_layers:[],immovable:0b,main_hand:"right",profile:{}}
 E m0 minecraft:mannequin pos=0.5,-60.0,0.5 delta=0.0,0.36080000519752503,-0.4000000059604645 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=crouching hp=13.0 abs=0.0 hurt=0/0 death=0 fx=-

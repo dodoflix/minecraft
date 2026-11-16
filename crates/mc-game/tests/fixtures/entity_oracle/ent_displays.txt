@@ -191,9 +191,12 @@ PKT A minecraft:set_entity_data 65a5060801000b270000000000000000000000000c273f80
 N B1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,5.5d],Rotation:[0.0f,0.0f],billboard:"center",block_state:{id:"minecraft:oak_stairs",properties:{facing:"east",half:"top",shape:"straight",waterlogged:"false"}},brightness:{block:3,sky:12},fall_distance:0.0d,glow_color_override:16711680,height:3.0f,interpolation_duration:20,shadow_radius:0.0f,shadow_strength:0.25f,teleport_duration:59,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:3.0f,width:2.0f}
 PKT A minecraft:set_entity_data 65a506080100ff
 # the same through /data merge and /data get
-C Modified entity data of Item Display
-C Item Display has the following entity data: {components: {"minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, count: 2, id: "minecraft:emerald"}
-C Block Display has the following entity data: {left_rotation: [0.0f, 0.6816388f, 0.0f, 0.73168886f], translation: [1.0f, 2.0f, 3.0f], right_rotation: [0.0f, 0.7071068f, 0.0f, 0.7071068f], scale: [2.0f, 0.5f, -1.0f]}
+CF msg Modified entity data of Item Display
+CF result success 1
+CF msg Item Display has the following entity data: {components: {"minecraft:damage": 5, "minecraft:custom_name": '"Blade"'}, count: 2, id: "minecraft:emerald"}
+CF result success 3
+CF msg Block Display has the following entity data: {left_rotation: [0.0f, 0.6816388f, 0.0f, 0.73168886f], translation: [1.0f, 2.0f, 3.0f], right_rotation: [0.0f, 0.7071068f, 0.0f, 0.7071068f], scale: [2.0f, 0.5f, -1.0f]}
+CF result success 4
 N I1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,7.5d],Rotation:[0.0f,0.0f],billboard:"fixed",brightness:{block:1,sky:2},fall_distance:0.0d,glow_color_override:255,height:0.0f,interpolation_duration:0,item:{components:{minecraft:custom_name:'"Blade"',minecraft:damage:5},count:2,id:"minecraft:emerald"},item_display:"head",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.5f,0.5f,0.5f,0.5f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.5f,0.0f]},view_range:0.5f,width:0.0f}
 PKT A minecraft:set_entity_data 65a9060801000f0000100190808001170702f507020003050608000722426c61646522ff
 # a display is never hurt, pushed, or removed by anything but kill

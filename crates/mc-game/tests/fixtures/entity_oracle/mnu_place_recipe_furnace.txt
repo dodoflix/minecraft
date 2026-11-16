@@ -1,12 +1,21 @@
-C No new recipes were learned
-C No new recipes were learned
-C No new recipes were learned
-C Unlocked 1 recipe(s) for A
-C No new recipes were learned
-C No new recipes were learned
-C No new recipes were learned
-C No new recipes were learned
-C No new recipes were learned
+CF result failure 0
+CF fail No new recipes were learned
+CF result failure 0
+CF fail No new recipes were learned
+CF result failure 0
+CF fail No new recipes were learned
+CF msg Unlocked 1 recipe(s) for A
+CF result success 1
+CF result failure 0
+CF fail No new recipes were learned
+CF result failure 0
+CF fail No new recipes were learned
+CF result failure 0
+CF fail No new recipes were learned
+CF result failure 0
+CF fail No new recipes were learned
+CF result failure 0
+CF fail No new recipes were learned
 MENU A cid=1 type=minecraft:furnace state=1 carried=empty
 MS 3 minecraft:raw_iron*64
 MS 4 minecraft:raw_iron*20
@@ -121,7 +130,8 @@ MD 2 0
 MD 3 200
 PKT A minecraft:place_ghost_recipe 4001020602fd070105fe07010000049703c8013f800000
 # a recipe that is not in the book and a wrong container id are ignored
-C Took 1 recipe(s) from A
+CF msg Took 1 recipe(s) from A
+CF result success 1
 MENU A cid=1 type=minecraft:furnace state=8 carried=empty
 MS 4 minecraft:raw_iron*64
 MS 6 minecraft:beef*5

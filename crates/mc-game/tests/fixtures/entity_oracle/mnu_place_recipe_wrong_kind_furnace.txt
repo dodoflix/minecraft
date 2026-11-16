@@ -1,5 +1,7 @@
-C No new recipes were learned
-C Unlocked 1 recipe(s) for B
+CF result failure 0
+CF fail No new recipes were learned
+CF msg Unlocked 1 recipe(s) for B
+CF result success 1
 MENU B cid=1 type=minecraft:furnace state=1 carried=empty
 MS 3 minecraft:oak_log*8
 MS 4 minecraft:oak_planks*64

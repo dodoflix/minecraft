@@ -1,4 +1,5 @@
-C The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
 # the player hits the chest cart with a sword: contents and the item with the name
 E C2 minecraft:chest_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=1:minecraft:emerald*2 loot=- seed=0
 E C3 minecraft:chest_minecart pos=12.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=minecraft:chests/simple_dungeon seed=9
@@ -190,7 +191,8 @@ PKT A minecraft:set_entity_data 65e50c08070efa070000ff
 PKT A minecraft:remove_entities 4e01d60c
 PKT A minecraft:set_entity_data 65dd0c080702f0090000ff
 # entity_drops off: the contents of a hopper cart with a pending loot table still drop, the cart item does not
-C Game rule entity_drops is now set to false
+CF msg Game rule entity_drops is now set to false
+CF result success 0
 HURT H2 mob_attack 50 -> true
 E item#1 minecraft:item pos=2.0523913930190183,-60.0,1.3325911575795777 delta=-0.0042904650046633065,0.0,0.008034248090799343 rot=250.2982,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*3 age=15 pickup=0 health=5 owner=- thrower=-
 E item#2 minecraft:item pos=2.362790585046662,-60.0,0.11015825351845676 delta=-4.5470320822913244E-4,0.0,-0.0017199742746806192 rot=233.06665,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*29 age=15 pickup=0 health=5 owner=- thrower=-

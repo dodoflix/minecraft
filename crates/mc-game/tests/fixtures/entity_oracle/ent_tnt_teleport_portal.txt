@@ -1,4 +1,5 @@
-C Teleported Primed TNT to 25.500000, -59.000000, 2.500000
+CF msg Teleported Primed TNT to 25.500000, -59.000000, 2.500000
+CF result success 1
 E n1 minecraft:tnt pos=5.5,-59.04,3.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=19
 E n2 minecraft:tnt pos=25.5,-59.04,2.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=19
 N n1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,-0.03920000076293945d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[5.5d,-59.04d,3.5d],Rotation:[0.0f,0.0f],block_state:"minecraft:tnt",fall_distance:0.03999999910593033d,fuse:19s}

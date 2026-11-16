@@ -99,7 +99,8 @@ STAT A minecraft.mined:minecraft.note_block 1
 STAT A minecraft.used:minecraft.glass_bottle 1
 STAT A minecraft.used:minecraft.water_bucket 1
 # sleeping in a bed and in a straw bed at night
-C Set minecraft:overworld to 14000 tick(s)
+CF msg Set minecraft:overworld to 14000 tick(s)
+CF result success 14000
 STAT A minecraft.custom:minecraft.clean_armor 1
 STAT A minecraft.custom:minecraft.clean_banner 1
 STAT A minecraft.custom:minecraft.clean_shulker_box 1

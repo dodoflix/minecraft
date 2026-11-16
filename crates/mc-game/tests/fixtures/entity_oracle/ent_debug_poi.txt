@@ -1,5 +1,7 @@
-C Game rule spawn_mobs is already set to false
-C Game rule random_tick_speed is already set to 0
+CF result failure 0
+CF fail Game rule spawn_mobs is already set to false
+CF result failure 0
+CF fail Game rule random_tick_speed is already set to 0
 T 4
 T 5
 PKT Steve minecraft:debug/block_value 1a0000014000002fc408010000014000002fc40d01

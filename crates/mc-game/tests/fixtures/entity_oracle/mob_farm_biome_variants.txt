@@ -1,13 +1,23 @@
-C The difficulty did not change; it is already set to Normal
-C No biome entries were changed
-C 72 biome entry/entries set between 8, -64, 0 and 16, -52, 20
-C 72 biome entry/entries set between 20, -64, 0 and 28, -52, 20
-C 72 biome entry/entries set between 28, -64, 0 and 36, -52, 20
-C 72 biome entry/entries set between 40, -64, 0 and 48, -52, 20
-C 72 biome entry/entries set between 48, -64, 0 and 56, -52, 20
-C 72 biome entry/entries set between 60, -64, 0 and 68, -52, 20
-C 72 biome entry/entries set between 68, -64, 0 and 76, -52, 20
-C 72 biome entry/entries set between 80, -64, 0 and 88, -52, 20
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail No biome entries were changed
+CF msg 72 biome entry/entries set between 8, -64, 0 and 16, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 20, -64, 0 and 28, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 28, -64, 0 and 36, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 40, -64, 0 and 48, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 48, -64, 0 and 56, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 60, -64, 0 and 68, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 68, -64, 0 and 76, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 80, -64, 0 and 88, -52, 20
+CF result success 72
 E CO0 minecraft:cow pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.27605889481237;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E PI0 minecraft:pig pos=2.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.647730116851687;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E CH0 minecraft:chicken pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.74890639442683;minecraft:max_health:4.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-

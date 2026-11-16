@@ -83,7 +83,8 @@ EV sound at=31.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=
 EV sound at=33.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
 EV sound at=32.5,-57.5,0.5 r=16.0 ex=1 event=minecraft:block.stone.place source=block vol=1.0 pitch=0.8
 # peaceful: the pattern is complete and nothing happens; back to normal the next skull does not retrigger
-C The difficulty has been set to Peaceful
+CF msg The difficulty has been set to Peaceful
+CF result success 0
 B 55 -59 0 minecraft:soul_sand
 B 55 -58 0 minecraft:wither_skeleton_skull[powered=false,rotation=0]
 B 56 -60 0 minecraft:soul_sand

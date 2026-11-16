@@ -55,25 +55,43 @@ PKT O minecraft:set_entity_data 65e136090341a000000f0005ff
 PKT O minecraft:move_entity_pos 36e23600000000000000
 PKT O minecraft:set_entity_data 65e236090341a00000ff
 # bounding boxes: the selector box at the stand reaches only as high as the stand does
-C Test passed. Count: 1
-C Test passed. Count: 1
-C Test passed. Count: 1
-C Test passed. Count: 1
-C Test passed. Count: 1
-C Test passed. Count: 1
-C Test passed. Count: 1
-C Test failed
-C Test failed
-C Test failed
-C Test failed
-C Test failed
-C Test failed
-C Test failed
-C Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
 # small, marker and the pose merged through the command: new boxes, new data
-C Modified entity data of Armor Stand
-C Modified entity data of Armor Stand
-C Modified entity data of Armor Stand
+CF msg Modified entity data of Armor Stand
+CF result success 1
+CF msg Modified entity data of Armor Stand
+CF result success 1
+CF msg Modified entity data of Armor Stand
+CF result success 1
 E a0 minecraft:armor_stand pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 ED a0 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:05 16:9:423400000000000000000000 17:9:000000000000000000000000 18:9:c120000000000000c1200000 19:9:c17000000000000041200000 20:9:bf80000000000000bf800000 21:9:3f800000000000003f800000
 N a0 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Pose:{Head:[45.0f,0.0f,0.0f]},Rotation:[0.0f,0.0f],ShowArms:1b,Small:1b,Tags:["a0"],attributes:[{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
@@ -96,21 +114,36 @@ PKT O minecraft:set_entity_motion 67e136f9ff7ffeebed
 PKT O minecraft:entity_position_sync 23e13601014038800000000000c04e0000000000003fe000000000000003000000000000000001
 PKT O minecraft:set_entity_motion 67e236f9ff7ffeebed
 PKT O minecraft:entity_position_sync 23e2360101403c800000000000c04e0000000000003fe000000000000003430700004120000001
-C Test passed. Count: 1
-C Test passed. Count: 1
-C Test failed
-C Test failed
-C Test failed
-C Test failed
-C Test failed
-C Test failed
-C Test failed
-C Test failed
-C Test passed. Count: 1
-C Test passed. Count: 1
-C Test passed. Count: 1
-C Test passed. Count: 1
-C Test passed. Count: 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF result failure 0
+CF fail Test failed
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 1
+CF result success 1
 # physics: falling from 20 blocks (the landing sound), a marker and a no gravity stand stay in the air
 E f1 minecraft:armor_stand pos=4.5,-43.346270382411404,8.5 delta=0.0,-0.7170746714356033,0.0 rot=0.0,0.0 og=0 fall=3.3462703227996826 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E f2 minecraft:armor_stand pos=8.5,-40.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -464,9 +497,13 @@ PKT O minecraft:move_entity_pos 36ec360203000000000000
 PKT O minecraft:move_entity_pos 36ed360203000000000000
 PKT O minecraft:move_entity_pos 36ef360303000000000000
 # potion effects do not touch a stand
-C Applied effect Speed to Armor Stand
-C Applied effect Instant Damage to Armor Stand
-C Applied effect Poison to Armor Stand
-C Applied effect Invisibility to Armor Stand
+CF msg Applied effect Speed to Armor Stand
+CF result success 1
+CF msg Applied effect Instant Damage to Armor Stand
+CF result success 1
+CF msg Applied effect Poison to Armor Stand
+CF result success 1
+CF msg Applied effect Invisibility to Armor Stand
+CF result success 1
 E a7 minecraft:armor_stand pos=28.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=135.0,10.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:invisibility/0/597;minecraft:poison/3/597;minecraft:speed/3/597
 ED a7 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:9:000000000000000000000000 17:9:000000000000000000000000 18:9:c120000000000000c1200000 19:9:c17000000000000041200000 20:9:bf80000000000000bf800000 21:9:3f800000000000003f800000

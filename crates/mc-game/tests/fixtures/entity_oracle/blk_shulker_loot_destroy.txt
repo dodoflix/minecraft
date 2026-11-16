@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 # destroy: seeded table
 DESTROY true
 E item#1 minecraft:item pos=0.30640763481940186,-59.27708767198706,0.9520657605036853 delta=-0.07337013224968204,0.0323152326326785,0.09203647061060417 rot=53.898434,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:shulker_box*1 age=4 pickup=6 health=5 owner=- thrower=-

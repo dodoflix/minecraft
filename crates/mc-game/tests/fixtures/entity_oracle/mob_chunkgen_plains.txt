@@ -1,4 +1,5 @@
-C Game rule spawn_mobs is now set to false
+CF msg Game rule spawn_mobs is now set to false
+CF result success 0
 G minecraft:chicken pos=-22.0,79.0,25.0 rot=327.0233,0.0 Age=0 Health=4.0f PersistenceRequired=0b variant="minecraft:temperate"
 G minecraft:chicken pos=-24.0,78.0,22.0 rot=336.54364,0.0 Age=-24000 Health=4.0f PersistenceRequired=0b variant="minecraft:temperate"
 G minecraft:chicken pos=-24.0,79.0,26.0 rot=334.69962,0.0 Age=0 Health=4.0f PersistenceRequired=0b variant="minecraft:temperate"

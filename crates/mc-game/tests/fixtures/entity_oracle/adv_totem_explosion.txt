@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 ADV Main minecraft:recipes/decorations/crafting_table unlock_right_away
 ADV Off minecraft:recipes/decorations/crafting_table unlock_right_away
 ADV Bypass minecraft:recipes/decorations/crafting_table unlock_right_away

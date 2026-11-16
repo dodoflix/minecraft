@@ -1,5 +1,7 @@
-C Set the center of the world border to 0.50, 0.50
-C Set the world border to 12.0 block(s) wide
+CF msg Set the center of the world border to 0.50, 0.50
+CF result success 0
+CF msg Set the world border to 12.0 block(s) wide
+CF result success -59999956
 T 4
 E fishing_bobber#1 minecraft:fishing_bobber pos=0.49999999999999983,-58.409999994561076,1.8967239935452112 delta=-1.2419891206010764E-16,-0.027599999383091926,1.0089860740615944 rot=-7.052521E-15,-0.3133778 og=0 fall=0.029999999329447746 fire=0 air=300 alive=1 pose=standing owner=A leftowner=0 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
 E fishing_bobber#2 minecraft:fishing_bobber pos=-3.5,-58.409999994561076,-0.8931018949643192 delta=0.0,-0.027599999383091926,-1.0056537433671737 rot=179.99998,-0.31441566 og=0 fall=0.029999999329447746 fire=0 air=300 alive=1 pose=standing owner=B leftowner=0 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0

@@ -1,38 +1,67 @@
-C Created new objective [pts]
-C Set [pts] for A to 7
-C Set [pts] for B to 11
-C Modified storage test:store
-C Created team [reds]
-C Updated the color for team [reds] to red
-C Added A to team [reds]
+CF msg Created new objective [pts]
+CF result success 1
+CF msg Set [pts] for A to 7
+CF result success 7
+CF msg Set [pts] for B to 11
+CF result success 11
+CF msg Modified storage test:store
+CF result success 1
+CF msg Created team [reds]
+CF result success 1
+CF msg Updated the color for team [reds] to red
+CF result success 0
+CF msg Added A to team [reds]
+CF result success 1
 # selectors: every player, the nearest to the origin, a selector that finds nothing, a list around plain text
-C Summoned new Text Display
-C Summoned new Text Display
-C Summoned new Text Display
-C Summoned new Text Display
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
 # scores: by name, of a selected player, the default entity (the display), an unknown objective
-C Summoned new Text Display
-C Summoned new Text Display
-C Summoned new Text Display
-C Summoned new Text Display
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
 # NBT: storage, an entity, a block, interpreted, with a separator, a path that finds nothing
-C Summoned new Text Display
-C Summoned new Text Display
-C Summoned new Text Display
-C Summoned new Text Display
-C Modified storage test:store
-C Summoned new Text Display
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Modified storage test:store
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
 # translatable arguments and a hover text are resolved too
-C Summoned new Text Display
-C Summoned new Text Display
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
 # the display itself as the source: @s, its name and position, a team does not apply to it
-C Summoned new Text Display
-C Summoned new Text Display
-C Summoned new Text Display
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
 # a tag with a position and passengers: each passenger resolves at its own position
-C Summoned new Text Display
-C Summoned new Text Display
-C Summoned new Text Display
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
+CF msg Summoned new Text Display
+CF result success 1
 E text_display#1 minecraft:text_display pos=0.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E text_display#2 minecraft:text_display pos=1.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E text_display#3 minecraft:text_display pos=2.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -140,12 +169,18 @@ PKT A minecraft:set_entity_data 65980708010017050a09000565787472610a000000210800
 PKT A minecraft:set_entity_data 659b0708010017050a0a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20422000080009696e73657274696f6e000142080004746578740001420a000b686f7665725f6576656e740800046e616d65000142080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004f44cd58d790230e78bde679d783ee6310000ff
 PKT A minecraft:set_entity_data 65870708010017050a09000565787472610a000000030a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20412000080005636f6c6f7200037265640900056578747261080000000300000001410000080009696e73657274696f6e0001410800047465787400000a000b686f7665725f6576656e740800046e616d65000141080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004b76d4ad38d013150b33368cfb42577740000080005636f6c6f720004677261790800047465787400022c20000a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20422000080009696e73657274696f6e000142080004746578740001420a000b686f7665725f6576656e740800046e616d65000142080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b00047575696400000004f44cd58d790230e78bde679d783ee631000008000474657874000000ff
 # /data merge resolves what it merges (and /data get shows the stored result)
-C Modified entity data of Text Display
-C Modified entity data of Text Display
-C Modified entity data of Text Display
-C Modified entity data of Text Display
-C Text Display has the following entity data: {extra: [{click_event: {action: "suggest_command", command: "/tell A "}, color: "red", extra: ["", "A", ""], insertion: "A", text: "", hover_event: {name: "A", action: "show_entity", id: "minecraft:player", uuid: [I; -1217574189, -1929301680, -1288476465, -1272613004]}}, {color: "gray", text: ", "}, {click_event: {action: "suggest_command", command: "/tell B "}, insertion: "B", text: "B", hover_event: {name: "B", action: "show_entity", id: "minecraft:player", uuid: [I; -196291187, 2030186727, -1948358755, 2017388081]}}], text: ""}
-C Text Display has the following entity data: "11"
+CF msg Modified entity data of Text Display
+CF result success 1
+CF msg Modified entity data of Text Display
+CF result success 1
+CF msg Modified entity data of Text Display
+CF result success 1
+CF msg Modified entity data of Text Display
+CF result success 1
+CF msg Text Display has the following entity data: {extra: [{click_event: {action: "suggest_command", command: "/tell A "}, color: "red", extra: ["", "A", ""], insertion: "A", text: "", hover_event: {name: "A", action: "show_entity", id: "minecraft:player", uuid: [I; -1217574189, -1929301680, -1288476465, -1272613004]}}, {color: "gray", text: ", "}, {click_event: {action: "suggest_command", command: "/tell B "}, insertion: "B", text: "B", hover_event: {name: "B", action: "show_entity", id: "minecraft:player", uuid: [I; -196291187, 2030186727, -1948358755, 2017388081]}}], text: ""}
+CF result success 2
+CF msg Text Display has the following entity data: "11"
+CF result success 2
 N text_display#1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-59.0d,3.5d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:{extra:[{click_event:{action:"suggest_command",command:"/tell A "},color:"red",extra:["","A",""],hover_event:{action:"show_entity",id:"minecraft:player",name:"A",uuid:[I;-1217574189,-1929301680,-1288476465,-1272613004]},insertion:"A",text:""},{color:"gray",text:", "},{click_event:{action:"suggest_command",command:"/tell B "},hover_event:{action:"show_entity",id:"minecraft:player",name:"B",uuid:[I;-196291187,2030186727,-1948358755,2017388081]},insertion:"B",text:"B"}],text:""},text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
 N text_display#3 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[2.5d,-59.0d,3.5d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:"11",text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
 N text_display#5 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-59.0d,3.5d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:{hover_event:{action:"show_entity",id:"minecraft:text_display",name:{translate:"entity.minecraft.text_display"},uuid:[I;-1496906055,152260165,-1220722347,-269607786]},insertion:"a6c706b9-0913-4e45-b73d-4155efee1c96",translate:"entity.minecraft.text_display"},text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
@@ -155,21 +190,27 @@ PKT A minecraft:set_entity_data 658d0708010017050a09000565787472610a0000000c0800
 PKT A minecraft:set_entity_data 65890708010017050800023131ff
 PKT A minecraft:set_entity_data 658707080100ff
 # the wildcard score name is the display itself (its own score is read)
-C Set [pts] for Text Display to 3
-C Modified entity data of Text Display
+CF msg Set [pts] for Text Display to 3
+CF result success 3
+CF msg Modified entity data of Text Display
+CF result success 1
 N text_display#7 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[6.5d,-59.0d,3.5d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:{extra:["[",{color:"gold",text:"6.5"},{color:"red",text:"d"},","," ",{color:"gold",text:"-59.0"},{color:"red",text:"d"},","," ",{color:"gold",text:"3.5"},{color:"red",text:"d"},"]"],text:""},text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
 PKT A minecraft:set_entity_data 658d07080100ff
 # /data merge resolves with the display in the level: the nearest text display to itself is itself
-C Modified entity data of Text Display
+CF msg Modified entity data of Text Display
+CF result success 1
 N text_display#9 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[8.5d,-59.0d,3.5d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:{extra:['"',{color:"green",text:"from storage"},'"'],text:""},text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
 PKT A minecraft:set_entity_data 658f07080100ff
 # a text that does not resolve to anything keeps the stored one
-C Modified entity data of Text Display
-C Modified entity data of Text Display
+CF msg Modified entity data of Text Display
+CF result success 1
+CF msg Modified entity data of Text Display
+CF result success 1
 N text_display#9 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[8.5d,-59.0d,3.5d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:{extra:['"',{color:"green",text:"from storage"},'"'],text:""},text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
 N text_display#10 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[9.5d,-59.0d,3.5d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:{extra:["[",{color:"gold",text:"0.5"},{color:"red",text:"d"},","," ",{color:"gold",text:"-60.0"},{color:"red",text:"d"},","," ",{color:"gold",text:"0.5"},{color:"red",text:"d"},"]","; ",{extra:["[",{color:"gold",text:"40.5"},{color:"red",text:"d"},","," ",{color:"gold",text:"-60.0"},{color:"red",text:"d"},","," ",{color:"gold",text:"0.5"},{color:"red",text:"d"},"]"],text:""}],text:""},text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
 PKT A minecraft:set_entity_data 658f07080100ff
 PKT A minecraft:set_entity_data 659007080100ff
 # the team of a player does not show in a text display, and a team given to the display changes nothing in its data
-C Added Text Display to team [reds]
+CF msg Added Text Display to team [reds]
+CF result success 1
 N text_display#1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-59.0d,3.5d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:{extra:[{click_event:{action:"suggest_command",command:"/tell A "},color:"red",extra:["","A",""],hover_event:{action:"show_entity",id:"minecraft:player",name:"A",uuid:[I;-1217574189,-1929301680,-1288476465,-1272613004]},insertion:"A",text:""},{color:"gray",text:", "},{click_event:{action:"suggest_command",command:"/tell B "},hover_event:{action:"show_entity",id:"minecraft:player",name:"B",uuid:[I;-196291187,2030186727,-1948358755,2017388081]},insertion:"B",text:"B"}],text:""},text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}

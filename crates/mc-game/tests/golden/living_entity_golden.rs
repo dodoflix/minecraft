@@ -375,7 +375,7 @@ fn replay(name: &str) -> Vec<String> {
 fn check(name: &str) {
     let fixture = Fixture::load(name);
     let opts = Options {
-        ignore_kinds: vec!["I", "PKT", "C", "#", "B", "EFFECT", "DIG", "HURT"],
+        ignore_kinds: vec!["I", "PKT", "CF", "#", "B", "EFFECT", "DIG", "HURT"],
         ignore_fields: vec![
             "fire", "alive", "hp", "abs", "hurt", "death", "fx", "gm", "food", "sat", "exh", "xp",
             "sel", "main",

@@ -1,4 +1,5 @@
-C Game rule block_drops is now set to false
+CF msg Game rule block_drops is now set to false
+CF result success 0
 # a: six activator rails powered from one redstone block, an empty cart rolls over all of them
 # b: a standing cart on an activator rail that a redstone block beside it switches on and off
 # c: a furnace cart and a pig in a cart on powered rails

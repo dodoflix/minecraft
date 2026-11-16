@@ -660,7 +660,7 @@ fn replay(name: &str) -> Vec<String> {
 
 fn check(name: &str) {
     let opts = Options {
-        ignore_kinds: vec!["PKT", "C", "#", "B", "DIG", "EFFECT", "A"],
+        ignore_kinds: vec!["PKT", "CF", "#", "B", "DIG", "EFFECT", "A"],
         ignore_fields: vec!["pose"],
         ..Default::default()
     };

@@ -1,8 +1,13 @@
-C The difficulty did not change; it is already set to Normal
-C Game rule mob_drops is now set to false
-C Set minecraft:overworld to 15000 tick(s)
-C Game rule spawn_mobs is now set to true
-C Game rule spawn_monsters is now set to true
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF msg Game rule mob_drops is now set to false
+CF result success 0
+CF msg Set minecraft:overworld to 15000 tick(s)
+CF result success 15000
+CF msg Game rule spawn_mobs is now set to true
+CF result success 1
+CF msg Game rule spawn_monsters is now set to true
+CF result success 1
 B -1 -61 -1 minecraft:pale_oak_log[axis=y]
 B -1 -61 0 minecraft:pale_oak_log[axis=y]
 B -1 -61 1 minecraft:pale_oak_log[axis=y]
@@ -636,7 +641,8 @@ EV sound at=6.5,-58.5,-4.5 r=16.0 ex=0 event=minecraft:block.creaking_heart.hurt
 EV sound at=8.631785751871522,-60.0,-6.9044549579372365 r=16.0 ex=0 event=minecraft:entity.creaking.sway source=hostile vol=1.0 pitch=1.0524154
 EV sound at=5.5,-58.5,-4.5 r=16.0 ex=0 event=minecraft:block.creaking_heart.hurt source=block vol=0.9 pitch=1.0
 # the day ends the link: the creaking crumbles
-C Set minecraft:overworld to 1000 tick(s)
+CF msg Set minecraft:overworld to 1000 tick(s)
+CF result success 1000
 T 268
 E creaking#1 minecraft:creaking pos=8.631785751871522,-60.0,-6.9044549579372365 delta=0.0,-0.0784000015258789,0.0 rot=167.8058,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=P aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.120000005 zza=0.0 xxa=0.0 yya=0.0 head=167.8058 body=167.8058 nav=done stuck=0 navspeed=0.30000001192092896 ntarget=7,-60,-12 path=- nodes=- goals=- tgoals=- acts=core;idle mem=mobs:(P):inf;nearest_players:(P):inf;nearest_visible_player:P:inf;nearest_visible_targetable_player:P:inf;nearest_visible_targetable_players:(P):inf;visible_mobs:(P):inf equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:30.496200747699564;minecraft:max_health:1.0;minecraft:movement_speed:0.4000000059604645;minecraft:step_height:1.0625
 BE 0 -60 0 {components:{},creaking:[I;64963486,-51625426,-1654149306,-582163455],id:"minecraft:creaking_heart",x:0,y:-60,z:0}
@@ -904,7 +910,8 @@ B 3 -61 0 minecraft:glass
 B 3 -61 1 minecraft:glass
 BE 0 -60 0 {components:{},id:"minecraft:creaking_heart",x:0,y:-60,z:0}
 # night again: a new creaking is moved into a one block cell with the player; five heart updates with the player's eyes inside it end the link
-C Set minecraft:overworld to 15000 tick(s)
+CF msg Set minecraft:overworld to 15000 tick(s)
+CF result success 15000
 E creaking#2 minecraft:creaking pos=-2.5412659035472167,-60.0,-15.450538474381064 delta=0.01219748546958182,-0.0784000015258789,-0.012293771021833896 rot=224.77527,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.120000005 zza=0.120000005 xxa=0.0 yya=0.0 head=224.77524 body=224.77527 nav=moving stuck=0 navspeed=0.30000001192092896 ntarget=2,-60,-18 path=2/7/1/2,-60,-18 nodes=-4,-60,-15:WALKABLE:0.0;-3,-60,-16:WALKABLE:0.0;-2,-60,-17:WALKABLE:0.0;-1,-60,-17:WALKABLE:0.0;0,-60,-17:WALKABLE:0.0;1,-60,-18:WALKABLE:0.0;2,-60,-18:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=mobs:(P):inf;nearest_players:(P):inf;nearest_visible_player:P:inf;nearest_visible_targetable_player:P:inf;nearest_visible_targetable_players:(P):inf;path:path(2;7):inf;visible_mobs:(P):inf;walk_target:walk(pos(2,-60,-18);0.3;0):inf equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:34.70238037073114;minecraft:max_health:1.0;minecraft:movement_speed:0.4000000059604645;minecraft:step_height:1.0625
 BE 0 -60 0 {components:{},creaking:[I;-1646942529,239880335,-1501974558,-757270654],id:"minecraft:creaking_heart",x:0,y:-60,z:0}
 T 368

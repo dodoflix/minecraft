@@ -1,4 +1,5 @@
-C 98 biome entry/entries set between 0, -64, 76 and 24, -60, 100
+CF msg 98 biome entry/entries set between 0, -64, 76 and 24, -60, 100
+CF result success 98
 # seed 4016 picks the camel entry of the desert list, seed 4001 the rabbits
 SPAWNAT seed=4016 category=creature pos=14,-60,90
 E rabbit#1 minecraft:rabbit pos=11.5,-60.0,87.5 delta=0.0,0.0,0.0 rot=100.67438,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.804319 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:15.619954444900463;minecraft:max_health:3.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=-

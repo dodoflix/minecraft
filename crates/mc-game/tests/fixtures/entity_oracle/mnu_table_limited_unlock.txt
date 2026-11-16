@@ -1,4 +1,5 @@
-C Took 20 recipe(s) from A
+CF msg Took 20 recipe(s) from A
+CF result success 20
 RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=- highlight=-
 ADV A minecraft:adventure/salvage_sherd has_sherd
 ADV A minecraft:recipes/building_blocks/brick_slab has_bricks
@@ -25,7 +26,8 @@ STAT A minecraft.custom:minecraft.play_time 3
 STAT A minecraft.custom:minecraft.time_since_death 3
 STAT A minecraft.custom:minecraft.time_since_rest 3
 STAT A minecraft.custom:minecraft.total_world_time 3
-C Game rule limited_crafting is now set to true
+CF msg Game rule limited_crafting is now set to true
+CF result success 1
 # planks in two grid rows: the stick recipe is unknown, no result
 MENU A cid=1 type=minecraft:crafting state=7 carried=empty
 MS 1 minecraft:oak_planks*1
@@ -49,7 +51,8 @@ PKT A minecraft:container_set_slot 14010700250e3f0000
 PKT A minecraft:set_cursor_item 6200
 RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=- highlight=-
 # learn it: the next change of the grid shows the result, taking it counts and keeps the recipe known
-C Unlocked 1 recipe(s) for A
+CF msg Unlocked 1 recipe(s) for A
+CF result success 1
 MENU A cid=1 type=minecraft:crafting state=12 carried=empty
 MS 0 minecraft:stick*4
 MS 1 minecraft:oak_planks*1

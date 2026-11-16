@@ -1,7 +1,9 @@
-C Game rule mob_drops is now set to false
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 COUNTER 5001
 # a NoAI dragon from /summon: nine ids, the parts at the origin, one add_entity and its data for the dragon only
-C Summoned new Ender Dragon
+CF msg Summoned new Ender Dragon
+CF result success 1
 COUNTER 5010
 E ender_dragon#1 minecraft:ender_dragon pos=8.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=-
 COUNTER 5010
@@ -71,7 +73,8 @@ PART D2 6 wing id=+7 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2
 PART D2 7 wing id=+8 pos=0.0,0.0,0.0 old=0.0,0.0,0.0 size=4.0,2.0 bb=-2.0,0.0,-2.0,2.0,2.0,2.0
 E D2 minecraft:ender_dragon pos=-8.5,-50.0,8.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:16.0;minecraft:follow_range:17.638180840647344;minecraft:max_health:200.0 dphase=10 flap=0.5/0.5 inwall=0 dtime=0 sitdmg=0.0
 # an entity created after the dragons takes the next id
-C Summoned new Armor Stand
+CF msg Summoned new Armor Stand
+CF result success 1
 COUNTER 5020
 # discarding a dragon removes its parts from the level
 COUNTER 5020

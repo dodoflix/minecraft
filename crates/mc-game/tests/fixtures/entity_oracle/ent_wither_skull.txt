@@ -20,7 +20,8 @@ PKT B minecraft:damage_event 19f10e32ee0ef60e00
 PKT B minecraft:explode 243fe0000000000000c04dc00000000000401f0000000000003f80000000000020001ec00502453f0000003f80000001483f8000003f8000000101
 PKT B minecraft:remove_entities 4e01f50e
 # the same on hard: wither for 40 seconds, and a creative player gets nothing
-C The difficulty has been set to Hard
+CF msg The difficulty has been set to Hard
+CF result success 0
 P C minecraft:player pos=6.5,-60.0,8.5 delta=0.0,-0.041028166249280344,0.09806413759045242 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 E owner minecraft:pig pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
 E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.18300070812642058,0.9179265663522166 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:wither/1/180
@@ -34,7 +35,8 @@ PKT C minecraft:damage_event 19f10e32ee0ef60e00
 PKT C minecraft:explode 243fe0000000000000c04dc00000000000401f0000000000003f80000000000020001ec00502453f0000003f80000001483f8000003f8000000101
 PKT C minecraft:explode 24401a000000000000c04dc00000000000401f9999980000003f800000000000200100000000000000003fe131290fde6c0e3fd26b8777652c001ec00502453f0000003f80000001483f8000003f8000000101
 # a skull of nobody on easy at pig p2: magic damage 5, no wither effect; then a skull of the owner pig at pig p4 that dies of it: the owner heals 5
-C The difficulty has been set to Easy
+CF msg The difficulty has been set to Easy
+CF result success 0
 E p2 minecraft:pig pos=14.5,-60.0,8.5 delta=0.0,0.18300070812642058,0.5179265603917521 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.042697 abs=0.0 hurt=5/15 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E owner minecraft:pig pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
 E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.18300070812642058,0.9179265663522166 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/7 death=0 fx=minecraft:wither/1/166
@@ -49,7 +51,8 @@ EV sound at=0.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neu
 EV sound at=14.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.pig.hurt source=neutral vol=1.0 pitch=1.0732108
 PKT B minecraft:damage_event 19f10e31000000
 PKT B minecraft:damage_event 19f20e1b000000
-C The difficulty has been set to Normal
+CF msg The difficulty has been set to Normal
+CF result success 0
 E p4 minecraft:pig pos=19.5,-60.0,8.5 delta=0.0,0.18300070812642058,0.9179265663522166 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=dying hp=0.0 abs=0.0 hurt=5/15 death=5 fx=minecraft:wither/1/195 target=- hurtby=owner aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E owner minecraft:pig pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E owner minecraft:pig pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -172,7 +175,8 @@ B 50 -59 7 minecraft:bedrock
 B 50 -58 7 minecraft:bedrock
 B 54 -59 7 minecraft:end_stone
 B 54 -58 7 minecraft:end_stone
-C Game rule mob_griefing is now set to false
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
 E owner minecraft:pig pos=30.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=0/0 death=0 fx=-
 E p2 minecraft:pig pos=14.5,-60.0,8.5 delta=0.0,0.18300070812642058,0.5179265603917521 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.042697 abs=0.0 hurt=0/0 death=0 fx=-
 E item#1 minecraft:item pos=-0.36529247686924055,-61.0,6.139990515869764 delta=-4.789749701973123E-11,-0.12,-3.498054249338968E-11 rot=24.853456,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*9 age=149 pickup=0 health=5 owner=- thrower=-

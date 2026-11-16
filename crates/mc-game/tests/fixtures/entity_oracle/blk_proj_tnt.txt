@@ -39,7 +39,8 @@ N tnt#2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[-0.019583448089695952d,0.15680
 N tnt#3 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.019366703741355403d,0.15680000597238544d,-0.0030150955454486127d],OnGround:0b,PortalCooldown:0,Pos:[10.519761942208598d,-59.83999999701977d,16.496923371952278d],Rotation:[0.0f,0.0f],block_state:"minecraft:tnt",fall_distance:0.0d,fuse:79s,owner:[I;911420254,-1002291781,-1572026395,1561302938]}
 N tnt#4 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0192541101104341d,0.15680000597238544d,0.0036659594663461205d],OnGround:0b,PortalCooldown:0,Pos:[10.519647050750711d,-59.83999999701977d,24.503740774892854d],Rotation:[0.0f,0.0f],block_state:"minecraft:tnt",fall_distance:0.0d,fuse:79s,owner:[I;1445453208,-423740383,-1196889821,1142437441]}
 N tnt#5 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.012283387041075835d,0.15680000597238544d,0.01527345467642287d],OnGround:0b,PortalCooldown:0,Pos:[10.512534068165314d,-59.83999999701977d,28.515585157529756d],Rotation:[0.0f,0.0f],block_state:"minecraft:tnt",fall_distance:0.0d,fuse:79s,owner:[I;1445453208,-423740383,-1196889821,1142437441]}
-C Game rule mob_griefing is now set to false
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
 # mob_griefing false: a mob owner and a non-living owner prime nothing
 EV sound at=9.949999999254942,-59.5,36.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1468976
 EV sound at=9.949999999254942,-59.5,40.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1469171
@@ -61,7 +62,8 @@ E tnt#4 minecraft:tnt pos=10.62954722441158,-59.757557536708156,24.5246656361133
 E tnt#5 minecraft:tnt pos=10.582646182473125,-59.757557536708156,28.60276422276376 delta=0.010881146092202114,-0.0848488416613816,0.013529875034551456 rot=0.0,0.0 og=0 fall=0.14179628062993288 fire=0 air=300 alive=1 pose=standing fuse=73
 E s10 minecraft:arrow pos=9.949999999254942,-59.5,36.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=0
 E s11 minecraft:arrow pos=9.949999999254942,-59.5,40.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=97 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=6 life=1 dmg=2.0 owner=bt leftowner=1 shot=1 canbreak=0
-C Game rule mob_griefing is now set to true
+CF msg Game rule mob_griefing is now set to true
+CF result success 1
 # mob_griefing true: the living mob owner is the source, the boat owner is none
 EV sound at=10.5,-60.0,44.5 r=16.0 ex=0 event=minecraft:entity.tnt.primed source=block vol=1.0 pitch=1.0
 EV sound at=9.949999999254942,-59.5,44.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1476443
@@ -89,7 +91,8 @@ E tnt#6 minecraft:tnt pos=10.513455577836877,-59.83999999701977,44.4852031278617
 E tnt#7 minecraft:tnt pos=10.518790939586344,-59.83999999701977,48.49315159949606 delta=0.01841512115302628,0.15680000597238544,-0.006711432624483207 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=79
 N tnt#6 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.01318646653678446d,0.15680000597238544d,-0.014500934977713577d],OnGround:0b,PortalCooldown:0,Pos:[10.513455577836877d,-59.83999999701977d,44.48520312786175d],Rotation:[0.0f,0.0f],block_state:"minecraft:tnt",fall_distance:0.0d,fuse:79s,owner:[I;41,42,43,44]}
 N tnt#7 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.01841512115302628d,0.15680000597238544d,-0.006711432624483207d],OnGround:0b,PortalCooldown:0,Pos:[10.518790939586344d,-59.83999999701977d,48.49315159949606d],Rotation:[0.0f,0.0f],block_state:"minecraft:tnt",fall_distance:0.0d,fuse:79s}
-C Game rule tnt_explodes is now set to false
+CF msg Game rule tnt_explodes is now set to false
+CF result success 0
 # tnt_explodes false: nothing is primed
 EV sound at=9.949999999254942,-59.5,52.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.147605
 B 10 -60 52 minecraft:tnt[unstable=false]

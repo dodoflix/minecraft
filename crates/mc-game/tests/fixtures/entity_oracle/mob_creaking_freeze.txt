@@ -1,5 +1,7 @@
-C The difficulty has been set to Hard
-C Game rule mob_drops is now set to false
+CF msg The difficulty has been set to Hard
+CF result success 0
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 E C minecraft:creaking pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=nearest_players:(A):inf;nearest_visible_player:A:inf;nearest_visible_targetable_player:A:inf;nearest_visible_targetable_players:(A):inf equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:32.993976237790754;minecraft:max_health:1.0;minecraft:movement_speed:0.4000000059604645;minecraft:step_height:1.0625
 E D minecraft:creaking pos=8.5,-60.0,60.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=nearest_players:(B):inf;nearest_visible_player:B:inf;nearest_visible_targetable_player:B:inf;nearest_visible_targetable_players:(B):inf;walk_target:walk(pos(18,-60,62);0.3;0):inf equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:28.76421261266754;minecraft:max_health:1.0;minecraft:movement_speed:0.4000000059604645;minecraft:step_height:1.0625
 P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=1024.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

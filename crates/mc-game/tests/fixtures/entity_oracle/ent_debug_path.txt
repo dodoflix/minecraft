@@ -1,6 +1,9 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule spawn_mobs is already set to false
-C Game rule random_tick_speed is already set to 0
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF result failure 0
+CF fail Game rule spawn_mobs is already set to false
+CF result failure 0
+CF fail Game rule random_tick_speed is already set to 0
 # a path found before the subscription has no search data
 NAV C1 4.5,-60.0,10.5 moved=true
 PATH C1 next=0 count=4 reached=1 target=4,-60,10 dist=1.0

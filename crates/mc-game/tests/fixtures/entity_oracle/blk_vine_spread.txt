@@ -1,5 +1,6 @@
 # vine random-tick spreading (exact RNG): vines on a stone tower next to a stone wall
-C Game rule spread_vines is already set to true
+CF result failure 0
+CF fail Game rule spread_vines is already set to true
 B -3 -61 -3 minecraft:grass_block[snowy=false]
 B -3 -61 -2 minecraft:grass_block[snowy=false]
 B -3 -61 -1 minecraft:grass_block[snowy=false]

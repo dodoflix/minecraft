@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 BE 8 -59 8 {Delay:504s,MaxNearbyEntities:50s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:16s,SpawnCount:20s,SpawnData:{entity:{id:"minecraft:slime"}},SpawnPotentials:[{data:{entity:{id:"minecraft:slime"}},weight:1}],SpawnRange:3s,components:{},id:"minecraft:mob_spawner",x:8,y:-59,z:8}
 E slime#1 minecraft:slime pos=9.441633944621245,-58.0,7.223677656756516 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
 E slime#2 minecraft:slime pos=8.332916739684261,-58.0,10.689878289260328 delta=0.0,0.0,0.0 rot=42.22535,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=-

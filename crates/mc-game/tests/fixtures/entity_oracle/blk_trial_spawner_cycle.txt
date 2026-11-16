@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule spawn_mobs is now set to true
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg Game rule spawn_mobs is now set to true
+CF result success 1
 BE 8 -60 12 {components:{},id:"minecraft:trial_spawner",normal_config:{loot_tables_to_eject:[],simultaneous_mobs:1.0f,simultaneous_mobs_added_per_player:0.0f,spawn_potentials:[{data:{entity:{NoAI:1b,Pos:[10.5d,-60.0d,14.5d],Silent:1b,id:"minecraft:zombie"}},weight:1}],spawn_range:3,ticks_between_spawn:20,total_mobs:1.0f,total_mobs_added_per_player:0.0f},target_cooldown_length:60,x:8,y:-60,z:12}
 B 8 -60 12 minecraft:trial_spawner[ominous=false,trial_spawner_state=inactive]
 T 11

@@ -1,7 +1,11 @@
-C Set minecraft:overworld to 6000 tick(s)
-C 4 biome entry/entries set between 4, -64, -4 and 4, -60, 0
-C 4 biome entry/entries set between 12, -64, -4 and 12, -60, 0
-C 4 biome entry/entries set between 16, -64, -4 and 16, -60, 0
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
+CF msg 4 biome entry/entries set between 4, -64, -4 and 4, -60, 0
+CF result success 4
+CF msg 4 biome entry/entries set between 12, -64, -4 and 12, -60, 0
+CF result success 4
+CF msg 4 biome entry/entries set between 16, -64, -4 and 16, -60, 0
+CF result success 4
 ADV Plains minecraft:recipes/decorations/crafting_table unlock_right_away
 ADV Desert minecraft:recipes/decorations/crafting_table unlock_right_away
 ADV Swamp minecraft:recipes/decorations/crafting_table unlock_right_away

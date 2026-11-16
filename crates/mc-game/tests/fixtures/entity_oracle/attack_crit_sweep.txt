@@ -11,7 +11,8 @@ EFFECT A minecraft:blindness added=true
 P A minecraft:player pos=24.5,-59.5,0.5 delta=0.0,0.41999998688697815,0.0 rot=0.0,0.0 og=0 fall=2.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:blindness/0/400 gm=survival food=20 sat=5.0 exh=0.6 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=1{minecraft:damage:1}
 E C4 minecraft:husk pos=24.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=993.112 abs=0.0 hurt=10/20 death=0 fx=-
 I A 0 minecraft:diamond_sword*1/dmg=1{minecraft:damage:1}
-C Removed effect Blindness from A
+CF msg Removed effect Blindness from A
+CF result success 1
 P A minecraft:player pos=32.5,-59.5,0.5 delta=0.0,0.41999998688697815,0.0 rot=0.0,0.0 og=0 fall=2.0 fire=-20 air=298 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.75500005 xp=0/0/0.0 sel=0 main=minecraft:diamond_sword*1/dmg=1{minecraft:damage:1}
 E C5 minecraft:husk pos=32.5,-60.0,2.0 delta=0.0,0.0,0.4000000059604645 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=993.112 abs=0.0 hurt=10/20 death=0 fx=-
 I A 0 minecraft:diamond_sword*1/dmg=1{minecraft:damage:1}

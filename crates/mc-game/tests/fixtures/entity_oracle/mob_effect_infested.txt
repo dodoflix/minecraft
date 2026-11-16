@@ -1,4 +1,5 @@
-C Game rule mob_drops is now set to false
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 EFFECT H1 minecraft:infested added=true
 EFFECT H2 minecraft:infested added=true
 EFFECT H3 minecraft:infested added=true
@@ -79,46 +80,86 @@ E H37 minecraft:cow pos=18.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=289.0,0.0 og=0 fal
 E H38 minecraft:cow pos=21.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=326.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:infested/0/599 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=326.0 body=326.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.049879543578623;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E H39 minecraft:cow pos=24.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=3.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:infested/0/599 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.0 body=3.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.346975589544646;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E H40 minecraft:cow pos=27.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=40.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:infested/0/599 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=40.0 body=40.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.601951874315933;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
 E H1 minecraft:cow pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=37.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:infested/0/598 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=37.0 body=37.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.525230560786738;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E H2 minecraft:cow pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=74.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:infested/0/598 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=74.0 body=74.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.730065466789195;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E H3 minecraft:cow pos=6.5,-60.0,0.5 delta=0.023736011541246344,0.0,-0.020856832411854376 rot=111.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:infested/0/598 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=111.0 body=111.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.686503758775594;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
@@ -220,46 +261,86 @@ EV sound at=18.5,-59.30000001192093,18.5 r=16.0 ex=0 event=minecraft:entity.silv
 EV sound at=21.5,-60.0,18.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.997735
 EV sound at=24.5,-60.0,18.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=1.0176326
 EV sound at=27.5,-60.0,18.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.95793986
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
 E H1 minecraft:cow pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=37.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:infested/0/582 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=37.0 body=37.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.525230560786738;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E H2 minecraft:cow pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=74.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:infested/0/582 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=74.0 body=74.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.730065466789195;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E H3 minecraft:cow pos=6.5,-60.0,0.5 delta=0.11660293431159433,0.0,-0.10245899381373863 rot=111.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:infested/0/582 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=111.0 body=111.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.686503758775594;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
@@ -354,46 +435,86 @@ EV sound at=18.5,-60.0,18.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=n
 EV sound at=21.5,-60.0,18.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.893756
 EV sound at=24.5,-60.0,18.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.99799466
 EV sound at=27.5,-60.0,18.5 r=16.0 ex=0 event=minecraft:entity.cow.hurt source=neutral vol=0.4 pitch=0.8852786
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
-C Applied 1.0 damage to Cow
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
+CF msg Applied 1.0 damage to Cow
+CF result success 1
 E H1 minecraft:cow pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=37.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:infested/0/566 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=37.0 body=37.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.525230560786738;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E H2 minecraft:cow pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=74.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:infested/0/566 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=74.0 body=74.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.730065466789195;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E H3 minecraft:cow pos=6.5,-60.0,0.5 delta=0.11660293431159433,0.0,-0.10245899381373863 rot=111.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=7.0 abs=0.0 hurt=9/19 death=0 fx=minecraft:infested/0/566 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=111.0 body=111.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.686503758775594;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-

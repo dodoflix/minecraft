@@ -1,5 +1,7 @@
-C Game rule spawn_mobs is already set to false
-C Game rule random_tick_speed is already set to 0
+CF result failure 0
+CF fail Game rule spawn_mobs is already set to false
+CF result failure 0
+CF fail Game rule random_tick_speed is already set to 0
 T 4
 T 5
 PKT Steve minecraft:debug/entity_value 1c5d0401070400195a6f6d62696541747461636b547572746c65456767476f616c0800104c6f6f6b4174506c61796572476f616c08001452616e646f6d4c6f6f6b41726f756e64476f616c02000c5370656172557365476f616c0300105a6f6d62696541747461636b476f616c0600164d6f76655468726f75676856696c6c616765476f616c07001d576174657241766f6964696e6752616e646f6d5374726f6c6c476f616c

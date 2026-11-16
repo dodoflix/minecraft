@@ -169,7 +169,8 @@ E h4 minecraft:item pos=29.5,-60.0,10.5 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fal
 E t1 minecraft:item pos=20.5,-60.0,14.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*3 age=83 pickup=0 health=5 owner=- thrower=-
 E t2 minecraft:item pos=24.5,-60.0,14.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:coal*4 age=83 pickup=0 health=5 owner=- thrower=-
 # the teleport
-C Teleported Coal to 20.600000, -60.000000, 14.500000
+CF msg Teleported Coal to 20.600000, -60.000000, 14.500000
+CF result success 1
 E a2 minecraft:item pos=16.1,-60.0,2.5 delta=0.0,-0.08,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*30 age=83 pickup=0 health=5 owner=- thrower=-
 E b1 minecraft:item pos=4.5,-60.0,15.9 delta=0.0,-0.12,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*35 age=83 pickup=0 health=5 owner=- thrower=-
 E o1 minecraft:item pos=20.5,-60.0,2.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*3 age=83 pickup=0 health=5 owner=A thrower=-

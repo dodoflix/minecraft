@@ -1,6 +1,9 @@
-C Took 19 recipe(s) from A
-C Took 15 recipe(s) from B
-C Took 6 recipe(s) from C
+CF msg Took 19 recipe(s) from A
+CF result success 19
+CF msg Took 15 recipe(s) from B
+CF result success 15
+CF msg Took 6 recipe(s) from C
+CF result success 6
 RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=- highlight=-
 RECIPES B crafting=00 furnace=00 blast_furnace=00 smoker=00 known=- highlight=-
 RECIPES C crafting=00 furnace=00 blast_furnace=00 smoker=00 known=- highlight=-

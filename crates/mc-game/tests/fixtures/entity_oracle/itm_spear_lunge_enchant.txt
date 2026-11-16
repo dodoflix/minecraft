@@ -1,4 +1,5 @@
-C The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
 # lunge 1 along +z
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:item.spear.lunge_1 source=player vol=1.0 pitch=1.0
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=player vol=1.0 pitch=1.0

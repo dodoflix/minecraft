@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 EFFECT Steve minecraft:speed added=true
 EFFECT Steve minecraft:strength added=true
 EFFECT Steve minecraft:haste added=true

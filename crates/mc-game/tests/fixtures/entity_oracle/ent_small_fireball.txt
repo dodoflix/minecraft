@@ -214,7 +214,8 @@ PKT B minecraft:block_update 080000088000006fc4e226
 PKT B minecraft:remove_entities 4e01970e
 PKT B minecraft:section_blocks_update 5600000800000ffffc07e4fa16d4f816e4f216c4f616f4f416f4f816d4f416
 PKT B minecraft:section_blocks_update 5600000800000ffffc0b849517f49217e49017c49417e49c17d49a17c49817d49217849917b49617f49a17
-C Game rule mob_griefing is now set to false
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
 E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=22 air=300 alive=1 pose=standing hp=2.0 abs=0.0 hurt=0/2 death=0 fx=-
 E p2 minecraft:pig pos=14.5,-60.0,8.5 delta=0.0,0.0,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=63 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/3 death=0 fx=-
 E owner minecraft:pig pos=28.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-

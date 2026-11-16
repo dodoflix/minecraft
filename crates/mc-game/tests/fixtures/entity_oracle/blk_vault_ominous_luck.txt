@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 EFFECT p minecraft:luck added=true
 BE 8 -60 12 {components:{},config:{key_item:{count:1,id:"minecraft:ominous_trial_key"},loot_table:"minecraft:chests/trial_chambers/reward_ominous"},id:"minecraft:vault",server_data:{},shared_data:{},x:8,y:-60,z:12}
 BE 14 -60 12 {components:{},config:{key_item:{count:1,id:"minecraft:trial_key"}},id:"minecraft:vault",server_data:{},shared_data:{},x:14,y:-60,z:12}

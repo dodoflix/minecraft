@@ -1,4 +1,5 @@
-C Game rule spawn_mobs is now set to false
+CF msg Game rule spawn_mobs is now set to false
+CF result success 0
 G minecraft:mooshroom pos=-26.0,75.0,48.89999997615814 rot=147.93797,0.0 Age=0 Health=10.0f PersistenceRequired=0b Type="red"
 G minecraft:mooshroom pos=3.0,71.0,-23.0 rot=318.3513,0.0 Age=0 Health=10.0f PersistenceRequired=0b Type="red"
 G minecraft:mooshroom pos=3.0,71.0,-24.0 rot=178.44025,0.0 Age=0 Health=10.0f PersistenceRequired=0b Type="red"

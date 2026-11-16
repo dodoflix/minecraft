@@ -1,4 +1,5 @@
-C Game rule block_drops is already set to true
+CF result failure 0
+CF fail Game rule block_drops is already set to true
 E c1 minecraft:minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E c2 minecraft:chest_minecart pos=0.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- items=- loot=- seed=0
 E c3 minecraft:furnace_minecart pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=- fuel=0 push=0.0/0.0

@@ -7,24 +7,34 @@ ED f2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:12:05 9:7:019
 EV sound at=4.5,-59.5,2.03125 r=16.0 ex=0 event=minecraft:entity.glow_item_frame.add_item source=neutral vol=1.0 pitch=1.0
 EV sound at=4.5,-59.5,4.03125 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
 # names in feedback and data get
-C Item Frame has 1 tag(s): one
+CF result failure 0
+CF msg Item Frame has 1 tag(s): one
+CF result success 1
+CF result failure 0
 # replace the contents of an empty frame
-C Replaced 1 slot(s) on Item Frame with [Apple]
+CF msg Replaced 1 slot(s) on Item Frame with [Apple]
+CF result success 1
 E f1 minecraft:item_frame pos=4.03125,-59.5,0.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 ED f1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:12:05 9:7:01ef070000 10:1:00
 N f1 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,Item:{count:1,id:"minecraft:apple"},ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,0.5d],Rotation:[270.0f,0.0f],Tags:["one"],block_pos:[I;4,-60,0],fall_distance:0.0d}
 PKT A minecraft:set_entity_data 659a07090701ef070000ff
 EV sound at=4.03125,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
 # slots a frame does not have
-C Can't find element 'minecraft:contents.0' in registry 'minecraft:slot_source'
-C ...contents.0 with minecraft:emerald 4<--[HERE]
-C Replaced 1 slot(s) on Item Frame with [Emerald]
+CF fail Can't find element 'minecraft:contents.0' in registry 'minecraft:slot_source'
+CF fail ...contents.0 with minecraft:emerald 4<--[HERE]
+CF result failure 0
+CF msg Replaced 1 slot(s) on Item Frame with [Emerald]
+CF result success 1
+CF result failure 0
 E f1 minecraft:item_frame pos=4.03125,-59.5,0.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N f1 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,Item:{count:1,id:"minecraft:emerald"},ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,0.5d],Rotation:[270.0f,0.0f],Tags:["one"],block_pos:[I;4,-60,0],fall_distance:0.0d}
 PKT A minecraft:set_entity_data 659a07090701f5070000ff
 EV sound at=4.03125,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
 # modify the contents
-C Modified 1 slot(s) on Item Frame
+CF result failure 0
+CF result failure 0
+CF msg Modified 1 slot(s) on Item Frame
+CF result success 1
 E f1 minecraft:item_frame pos=4.03125,-59.5,0.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E f2 minecraft:glow_item_frame pos=4.03125,-59.5,2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E f3 minecraft:item_frame pos=4.03125,-59.5,4.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -36,9 +46,13 @@ N f3 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,Item:{cou
 PKT A minecraft:set_entity_data 659c07090701a4080000ff
 EV sound at=4.03125,-59.5,4.5 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
 # copy between a frame, an item entity and the player
-C Replaced 1 slot(s) on Emerald
-C Replaced 1 slot(s) on A
-C Replaced 1 slot(s) on Item Frame
+CF result failure 0
+CF msg Replaced 1 slot(s) on Emerald
+CF result success 1
+CF msg Replaced 1 slot(s) on A
+CF result success 1
+CF msg Replaced 1 slot(s) on Item Frame
+CF result success 1
 E f1 minecraft:item_frame pos=4.03125,-59.5,0.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E f2 minecraft:glow_item_frame pos=4.03125,-59.5,2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E f3 minecraft:item_frame pos=4.03125,-59.5,4.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -52,7 +66,9 @@ PKT A minecraft:set_entity_data 659d07080701f5070000ff
 PKT A minecraft:set_entity_data 659a07090701a4080000ff
 EV sound at=4.03125,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.item_frame.add_item source=neutral vol=1.0 pitch=1.0
 # clear the frame, then fill a frame with air and with the same stack
-C Replaced 1 slot(s) on Item Frame with [Air]
+CF msg Replaced 1 slot(s) on Item Frame with [Air]
+CF result success 1
+CF result failure 0
 E f1 minecraft:item_frame pos=4.03125,-59.5,0.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E f2 minecraft:glow_item_frame pos=4.03125,-59.5,2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E f3 minecraft:item_frame pos=4.03125,-59.5,4.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -61,8 +77,10 @@ ED f2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:12:05 9:7:019
 ED f3 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:12:05 9:7:00 10:1:00
 PKT A minecraft:set_entity_data 659c07090700ff
 # a fixed frame and an invisible one take the command too
-C Modified entity data of Item Frame
-C Replaced 1 slot(s) on Item Frame with [Bone]
+CF msg Modified entity data of Item Frame
+CF result success 1
+CF msg Replaced 1 slot(s) on Item Frame with [Bone]
+CF result success 1
 E f1 minecraft:item_frame pos=4.03125,-59.5,0.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 ED f1 0:0:20 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:12:05 9:7:01c0090000 10:1:00
 N f1 {Air:300s,Facing:5b,Fire:0s,Fixed:1b,Invisible:1b,Invulnerable:0b,Item:{count:1,id:"minecraft:bone"},ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,0.5d],Rotation:[270.0f,0.0f],Tags:["one"],block_pos:[I;4,-60,0],fall_distance:0.0d}

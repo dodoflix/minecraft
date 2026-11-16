@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule mob_drops is now set to false
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 EFFECT Steve minecraft:resistance added=true
 G E goal 0 FloatGoal flags=JUMP running=0
 G E goal 1 Enderman$EndermanFreezeWhenLookedAt flags=MOVE+JUMP running=0

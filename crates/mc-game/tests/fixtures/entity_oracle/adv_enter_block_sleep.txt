@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 ADV Web minecraft:recipes/decorations/crafting_table unlock_right_away
 ADV Web mv:enter/any c
 ADV Web mv:enter/cobweb c
@@ -321,7 +322,8 @@ ADV Unsafe minecraft:recipes/decorations/crafting_table unlock_right_away
 ADV Day minecraft:recipes/decorations/crafting_table unlock_right_away
 # by day nobody can sleep
 ADV Day minecraft:recipes/decorations/crafting_table unlock_right_away
-C Set minecraft:overworld to 14000 tick(s)
+CF msg Set minecraft:overworld to 14000 tick(s)
+CF result success 14000
 # at night: the sleeper sleeps and sets its spawn; a zombie within reach of the bed keeps the other awake
 ADV Sleeper minecraft:adventure/sleep_in_bed slept_in_bed
 ADV Sleeper minecraft:recipes/decorations/crafting_table unlock_right_away

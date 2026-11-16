@@ -1,4 +1,5 @@
-C Game rule spawn_mobs is now set to false
+CF msg Game rule spawn_mobs is now set to false
+CF result success 0
 G minecraft:rabbit pos=-29.0,68.0,-10.0 rot=65.91836,0.0 Age=-24000 Health=3.0f PersistenceRequired=0b RabbitType=1
 G minecraft:rabbit pos=-29.0,68.0,-8.0 rot=30.089685,0.0 Age=0 Health=3.0f PersistenceRequired=0b RabbitType=1
 G minecraft:rabbit pos=53.0,71.0,1.0 rot=249.71355,0.0 Age=0 Health=3.0f PersistenceRequired=0b RabbitType=3

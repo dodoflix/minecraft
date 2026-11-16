@@ -88,7 +88,8 @@ E c2 minecraft:minecart pos=8.821898694903133,-59.9,4.5 delta=0.1968743924383810
 T 30
 E c1 minecraft:minecart pos=13.298426601977548,-59.9,0.5 delta=0.46,0.0,0.0 rot=0.0,-0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=south rider=-
 E c2 minecraft:minecart pos=9.013851227530555,-59.9,4.5 delta=0.1919525326274215,0.0,0.0 rot=0.0,-0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=south rider=-
-C Game rule max_minecart_speed is now set to 40
+CF msg Game rule max_minecart_speed is now set to 40
+CF result success 40
 T 31
 E c1 minecraft:minecart pos=13.806926601977548,-59.9,0.5 delta=0.5085,0.0,0.0 rot=0.0,-0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=south rider=-
 E c2 minecraft:minecart pos=9.201004946842291,-59.9,4.5 delta=0.18715371931173597,0.0,0.0 rot=0.0,-0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=south rider=-
@@ -209,7 +210,8 @@ E c2 minecraft:minecart pos=13.711064529243338,-59.9,4.5 delta=0.071511165916837
 T 70
 E c1 minecraft:minecart pos=61.12059300389458,-59.9,0.5 delta=1.6953290666175118,0.0,0.0 rot=0.0,-0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=south rider=-
 E c2 minecraft:minecart pos=13.780787916012255,-59.9,4.5 delta=0.06972338676891629,0.0,0.0 rot=0.0,-0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=south rider=-
-C Game rule max_minecart_speed is now set to 1
+CF msg Game rule max_minecart_speed is now set to 1
+CF result success 1
 T 71
 E c1 minecraft:minecart pos=61.230593003894576,-59.9,0.5 delta=0.11,0.0,0.0 rot=0.0,-0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=south rider=-
 E c2 minecraft:minecart pos=13.830787916012255,-59.9,4.5 delta=0.05,0.0,0.0 rot=0.0,-0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=south rider=-
@@ -300,7 +302,8 @@ E c2 minecraft:minecart pos=14.821025252875144,-59.9,4.5 delta=0.024609299054797
 T 100
 E c1 minecraft:minecart pos=64.42059300389457,-59.9,0.5 delta=0.11,0.0,0.0 rot=0.0,-0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=south rider=-
 E c2 minecraft:minecart pos=14.845019319453572,-59.9,4.5 delta=0.02399406657842769,0.0,0.0 rot=0.0,-0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=south rider=-
-C Game rule max_minecart_speed is now set to 1000
+CF msg Game rule max_minecart_speed is now set to 1000
+CF result success 1000
 T 101
 E c1 minecraft:minecart pos=64.58784300389456,-59.9,0.5 delta=0.16725,0.0,0.0 rot=0.0,-0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=south rider=-
 E c2 minecraft:minecart pos=17.77001931945357,-59.9,4.5 delta=2.925,0.0,0.0 rot=0.0,-0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=1 vhurt=0/1/0.0 mdir=south rider=-

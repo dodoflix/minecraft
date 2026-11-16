@@ -422,10 +422,14 @@ PKT G4 minecraft:set_time 7300000000000004ff00
 PKT G4 minecraft:set_time 73000000000000051300
 PKT G4 minecraft:set_time 73000000000000052700
 PKT G4 minecraft:set_time 73000000000000053b00
-C Game rule fall_damage is now set to false
-C Game rule fire_damage is now set to false
-C Game rule drowning_damage is now set to false
-C Game rule freeze_damage is now set to false
+CF msg Game rule fall_damage is now set to false
+CF result success 0
+CF msg Game rule fire_damage is now set to false
+CF result success 0
+CF msg Game rule drowning_damage is now set to false
+CF result success 0
+CF msg Game rule freeze_damage is now set to false
+CF result success 0
 P H minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 PKT H minecraft:set_entity_data 6505090341a00000ff
 PKT H minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200

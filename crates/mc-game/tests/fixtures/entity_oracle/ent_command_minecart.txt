@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is already set to false
+CF result failure 0
+CF fail Game rule send_command_feedback is already set to false
 # a standing cart on a powered activator rail runs its command every fourth tick, one on an unpowered rail never, a moving cart once when it crosses the rail
 E act minecraft:command_block_minecart pos=6.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E idle minecraft:command_block_minecart pos=6.5,-59.9375,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
@@ -90,7 +91,8 @@ N act {Air:300s,Command:"",Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:
 N pos {Air:300s,Command:"playsound minecraft:block.note_block.guitar master @a ~ ~ ~ 1 1",Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,LastExecution:21L,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[10.5d,-59.9375d,4.5d],Rotation:[0.0f,0.0f],SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,fall_distance:0.0d}
 N idle {Air:300s,Command:"",Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[6.5d,-59.9375d,4.5d],Rotation:[0.0f,0.0f],SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,fall_distance:0.0d}
 # command blocks disabled: the command is stored, the synched data is not updated and the cart runs nothing
-C Game rule command_blocks_work is now set to false
+CF msg Game rule command_blocks_work is now set to false
+CF result success 0
 PKT Op minecraft:system_chat 7c0a090004776974680800000001003f706c6179736f756e64206d696e6563726166743a626c6f636b2e6e6f74655f626c6f636b2e677569746172206d6173746572204061207e207e207e203120310800097472616e736c617465001a6164764d6f64652e736574436f6d6d616e642e737563636573730000
 PKT Op minecraft:system_chat 7c0a090004776974680800000001003e706c6179736f756e64206d696e6563726166743a626c6f636b2e6e6f74655f626c6f636b2e6368696d65206d6173746572204061207e207e207e203120310800097472616e736c617465001b6164764d6f64652e736574436f6d6d616e642e64697361626c65640000
 N act {Air:300s,Command:"playsound minecraft:block.note_block.chime master @a ~ ~ ~ 1 1",Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,LastExecution:27L,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[6.5d,-59.9375d,0.5d],Rotation:[0.0f,0.0f],SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,fall_distance:0.0d}
@@ -101,7 +103,8 @@ T 32
 T 33
 T 34
 T 35
-C Game rule command_blocks_work is now set to true
+CF msg Game rule command_blocks_work is now set to true
+CF result success 1
 # the cart is the source entity: @s is the cart and a command can change it (it runs once, the power is cut before the next activation)
 E me minecraft:command_block_minecart pos=14.5,-59.9375,12.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=1 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 N me {Air:300s,Command:"execute as @s run data merge entity @s {Invulnerable:1b}",Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:1b,LastExecution:39L,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[14.5d,-59.9375d,12.5d],Rotation:[0.0f,0.0f],SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,fall_distance:0.0d}

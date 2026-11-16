@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 6000 tick(s)
-C Game rule mob_drops is now set to false
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 E G minecraft:copper_golem pos=9.744029168607684,-60.0,0.5255551420309952 delta=-0.04805986726150406,-0.0784000015258789,-4.3131209484705577E-4 rot=91.133026,7.6318135 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=90.64728 body=91.133026 nav=moving stuck=0 navspeed=1.0 ntarget=7,-60,0 path=4/5/0/7,-60,0 nodes=12,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=cant_reach_walk_target_since:5:inf;look_target:pos(7,-60,0):inf;mobs:(Steve):inf;path:path(4;5):inf;visible_mobs:(Steve):inf;visited_block_positions:(minecraft:overworld@7,-60,0):5970;walk_target:walk(pos(7,-60,0);1.0;0):inf equip=mainhand:minecraft:iron_ingot*16 attrs=minecraft:follow_range:16.0;minecraft:max_health:12.0;minecraft:movement_speed:0.20000000298023224;minecraft:step_height:1.0 weather=unaffected state=idle wage=532131 chest=-
 BRAIN G acts=core;idle
 BM G type=cant_reach_walk_target_since value=5 ttl=inf

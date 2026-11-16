@@ -1,4 +1,5 @@
-C The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
 # a stack of two buckets: one is used, the milk bucket goes into the inventory
 T 2
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:entity.cow.milk source=player vol=1.0 pitch=1.0

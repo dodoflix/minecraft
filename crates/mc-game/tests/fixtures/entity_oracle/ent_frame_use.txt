@@ -89,8 +89,10 @@ E Cow minecraft:cow pos=12.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=
 E f1 minecraft:item_frame pos=4.03125,-59.5,0.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 EV sound at=4.03125,-59.5,0.5 r=16.0 ex=0 event=minecraft:entity.item_frame.rotate_item source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:set_entity_data 65bd170a0104ff
-C No entity was found
-C Killed Item Frame
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Item Frame
+CF result success 1
 # a creative player puts an item in without using it up, an offhand item goes in too
 E f2 minecraft:item_frame pos=4.03125,-59.5,2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N f2 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,Item:{count:1,id:"minecraft:diamond"},ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,2.5d],Rotation:[270.0f,0.0f],Tags:["f2"],block_pos:[I;4,-60,2],fall_distance:0.0d}
@@ -104,8 +106,10 @@ E Cow minecraft:cow pos=12.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=
 E f2 minecraft:item_frame pos=4.03125,-59.5,2.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 EV sound at=4.03125,-59.5,2.5 r=16.0 ex=0 event=minecraft:entity.item_frame.rotate_item source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:set_entity_data 65be170a0101ff
-C No entity was found
-C Killed Item Frame
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Item Frame
+CF result success 1
 E f3 minecraft:item_frame pos=4.03125,-59.5,4.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N f3 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,Item:{count:1,id:"minecraft:apple"},ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,4.5d],Rotation:[270.0f,0.0f],Tags:["f3"],block_pos:[I;4,-60,4],fall_distance:0.0d}
 E Cow minecraft:cow pos=12.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -118,8 +122,10 @@ E Cow minecraft:cow pos=12.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=
 E f3 minecraft:item_frame pos=4.03125,-59.5,4.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 EV sound at=4.03125,-59.5,4.5 r=16.0 ex=0 event=minecraft:entity.item_frame.rotate_item source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:set_entity_data 65bf170a0101ff
-C No entity was found
-C Killed Item Frame
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Item Frame
+CF result success 1
 # the items a frame holds: a tool with a name and damage, a block and a stack of 64
 E f4 minecraft:item_frame pos=4.03125,-59.5,6.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N f4 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,Item:{components:{minecraft:custom_name:"Pick",minecraft:damage:7},count:1,id:"minecraft:iron_pickaxe"},ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,6.5d],Rotation:[270.0f,0.0f],Tags:["f4"],block_pos:[I;4,-60,6],fall_distance:0.0d}
@@ -135,8 +141,10 @@ E f4 minecraft:item_frame pos=4.03125,-59.5,6.5 delta=0.0,0.0,0.0 rot=270.0,0.0 
 EV sound at=4.03125,-59.5,6.5 r=16.0 ex=0 event=minecraft:entity.item_frame.rotate_item source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:sound 7792070600000020fffffe24000000343f8000003f80000027061872648c263b
 PKT O minecraft:set_entity_data 65c0170a0101ff
-C No entity was found
-C Killed Item Frame
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Item Frame
+CF result success 1
 E f5 minecraft:item_frame pos=4.03125,-59.5,8.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N f5 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,Item:{count:1,id:"minecraft:cobblestone"},ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,8.5d],Rotation:[270.0f,0.0f],Tags:["f5"],block_pos:[I;4,-60,8],fall_distance:0.0d}
 E Cow minecraft:cow pos=12.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -153,8 +161,10 @@ E f5 minecraft:item_frame pos=4.03125,-59.5,8.5 delta=0.0,0.0,0.0 rot=270.0,0.0 
 EV sound at=4.03125,-59.5,8.5 r=16.0 ex=0 event=minecraft:entity.item_frame.rotate_item source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:sound 7792070600000020fffffe24000000443f8000003f800000efc355d727218d81
 PKT O minecraft:set_entity_data 65c1170a0101ff
-C No entity was found
-C Killed Item Frame
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Item Frame
+CF result success 1
 # fixed frames: no use, no damage, only a creative player or an unblockable source removes them, nothing drops
 E Cow minecraft:cow pos=12.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E x1 minecraft:item_frame pos=4.03125,-59.5,10.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -219,8 +229,10 @@ E x3 minecraft:glow_item_frame pos=4.03125,-59.5,14.5 delta=0.0,0.0,0.0 rot=270.
 EV sound at=4.03125,-59.5,10.5 r=16.0 ex=0 event=minecraft:entity.item_frame.break source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:remove_entities 4e01c217
 PKT O minecraft:sound 778f070600000020fffffe24000000543f8000003f8000009aac6523cb10d05e
-C No entity was found
-C No entity was found
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
 HURT x2 generic_kill 1 -> true
 E x2 minecraft:item_frame pos=4.03125,-59.5,12.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 N x2 {Air:300s,Facing:5b,Fire:0s,Fixed:1b,Invisible:0b,Invulnerable:0b,Item:{count:1,id:"minecraft:diamond"},ItemDropChance:1.0f,ItemRotation:2b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,12.5d],Rotation:[270.0f,0.0f],Tags:["x2"],block_pos:[I;4,-60,12],fall_distance:0.0d}
@@ -229,8 +241,10 @@ E x3 minecraft:glow_item_frame pos=4.03125,-59.5,14.5 delta=0.0,0.0,0.0 rot=270.
 EV sound at=4.03125,-59.5,12.5 r=16.0 ex=0 event=minecraft:entity.item_frame.break source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:remove_entities 4e01c317
 PKT O minecraft:sound 778f070600000020fffffe24000000643f8000003f8000006e2e33e9d033ccf7
-C No entity was found
-C No entity was found
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
 HURT x3 out_of_world 1 -> true
 E x3 minecraft:glow_item_frame pos=4.03125,-59.5,14.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 N x3 {Air:300s,Facing:5b,Fire:0s,Fixed:1b,Invisible:0b,Invulnerable:0b,Item:{count:1,id:"minecraft:diamond"},ItemDropChance:1.0f,ItemRotation:2b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,14.5d],Rotation:[270.0f,0.0f],Tags:["x3"],block_pos:[I;4,-60,14],fall_distance:0.0d}
@@ -238,8 +252,10 @@ E Cow minecraft:cow pos=12.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=
 EV sound at=4.03125,-59.5,14.5 r=16.0 ex=0 event=minecraft:entity.glow_item_frame.break source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:remove_entities 4e01c417
 PKT O minecraft:sound 77dc050600000020fffffe24000000743f8000003f80000044454dada1fccee3
-C No entity was found
-C No entity was found
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
 # a hit pops the item, the next hit breaks the frame (survival), real attacks through the listener
 E h1 minecraft:item_frame pos=4.03125,-59.5,16.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N h1 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,16.5d],Rotation:[270.0f,0.0f],Tags:["h1"],block_pos:[I;4,-60,16],fall_distance:0.0d}
@@ -264,8 +280,10 @@ PKT O minecraft:sound 778f070600000020fffffe24000000843f8000003f800000c8b3e3156e
 PKT O minecraft:add_entity 01c71720568ede80ea41139aae89de3053712f484010b9999a000000c04dc000000000004030800000000000311a7d0f3332007d0000
 PKT O minecraft:set_entity_data 65c717080701df0a0000ff
 PKT O minecraft:set_entity_data 65c717080701df0a0000ff
-C Killed 2 entities
-C No entity was found
+CF msg Killed 2 entities
+CF result success 2
+CF result failure 0
+CF fail No entity was found
 # a glow frame, an invisible frame, a named frame
 E h2 minecraft:glow_item_frame pos=4.03125,-59.5,18.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N h2 {Air:300s,CustomName:'"Glowy"',Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,18.5d],Rotation:[270.0f,0.0f],Tags:["h2"],block_pos:[I;4,-60,18],fall_distance:0.0d}
@@ -290,8 +308,10 @@ PKT O minecraft:sound 77dc050600000020fffffe24000000943f8000003f800000a84be13872
 PKT O minecraft:add_entity 01ca17ebcec8d77ac542578a7387abd0d7437a484010b9999a000000c04dc000000000004032800000000000010376413332007c0000
 PKT O minecraft:set_entity_data 65ca17080701e00a01000608000722476c6f777922ff
 PKT O minecraft:set_entity_data 65ca17080701e00a01000608000722476c6f777922ff
-C Killed 2 entities
-C No entity was found
+CF msg Killed 2 entities
+CF result success 2
+CF result failure 0
+CF fail No entity was found
 E h3 minecraft:item_frame pos=4.03125,-59.5,20.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N h3 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:1b,Invulnerable:0b,Item:{count:1,id:"minecraft:emerald"},ItemDropChance:1.0f,ItemRotation:1b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,20.5d],Rotation:[270.0f,0.0f],Tags:["h3"],block_pos:[I;4,-60,20],fall_distance:0.0d}
 E Cow minecraft:cow pos=12.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -322,8 +342,10 @@ PKT O minecraft:sound 778f070600000020fffffe24000000a43f8000003f8000002a3ba0e6d4
 PKT O minecraft:add_entity 01cd17a43912ec65f3430097c2b94bb7aa85be484010b9999a000000c04dc000000000004034800000000000e9d1887f333100e10000
 PKT O minecraft:set_entity_data 65cd17080701df0a0000ff
 PKT O minecraft:set_entity_data 65cd17080701df0a0000ff
-C Killed 2 entities
-C No entity was found
+CF msg Killed 2 entities
+CF result success 2
+CF result failure 0
+CF fail No entity was found
 # ItemDropChance 0, 0.5 (pinned random) and 1 on a break that is not a plain pop
 HURT p0 generic 1 -> true
 E p0 minecraft:item_frame pos=4.03125,-59.5,22.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -356,8 +378,10 @@ PKT O minecraft:set_entity_data 65cf17080c05090701fe070000ff
 PKT O minecraft:set_entity_data 65ce17080c05090701fe070000ff
 PKT O minecraft:sound 7791070600000020fffffe24000000b43f8000003f800000aecef3c4a65ffe7a
 PKT O minecraft:set_entity_data 65ce17090700ff
-C No entity was found
-C Killed Item Frame
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Item Frame
+CF result success 1
 HURT p1 generic 1 -> true
 E p1 minecraft:item_frame pos=4.03125,-59.5,24.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N p1 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,ItemDropChance:0.5f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,24.5d],Rotation:[270.0f,0.0f],Tags:["p1"],block_pos:[I;4,-60,24],fall_distance:0.0d}
@@ -368,8 +392,10 @@ E p3 minecraft:item_frame pos=4.03125,-59.5,28.5 delta=0.0,0.0,0.0 rot=270.0,0.0
 EV sound at=4.03125,-59.5,24.5 r=16.0 ex=0 event=minecraft:entity.item_frame.remove_item source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:sound 7791070600000020fffffe24000000c43f8000003f80000012154a7b16fe4c57
 PKT O minecraft:set_entity_data 65cf17090700ff
-C No entity was found
-C Killed Item Frame
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Item Frame
+CF result success 1
 HURT p2 generic 1 -> true
 E p2 minecraft:item_frame pos=4.03125,-59.5,26.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N p2 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,ItemDropChance:0.5f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,26.5d],Rotation:[270.0f,0.0f],Tags:["p2"],block_pos:[I;4,-60,26],fall_distance:0.0d}
@@ -379,8 +405,10 @@ E p3 minecraft:item_frame pos=4.03125,-59.5,28.5 delta=0.0,0.0,0.0 rot=270.0,0.0
 EV sound at=4.03125,-59.5,26.5 r=16.0 ex=0 event=minecraft:entity.item_frame.remove_item source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:sound 7791070600000020fffffe24000000d43f8000003f800000b84c9240c7b3400a
 PKT O minecraft:set_entity_data 65d017090700ff
-C No entity was found
-C Killed Item Frame
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Item Frame
+CF result success 1
 HURT p3 generic 1 -> true
 E p3 minecraft:item_frame pos=4.03125,-59.5,28.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N p3 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,28.5d],Rotation:[270.0f,0.0f],Tags:["p3"],block_pos:[I;4,-60,28],fall_distance:0.0d}
@@ -393,8 +421,10 @@ PKT O minecraft:set_entity_data 65d217080701fe070000ff
 PKT O minecraft:sound 7791070600000020fffffe24000000e43f8000003f800000249bb459349a99f1
 PKT O minecraft:set_entity_data 65d217080701fe070000ff
 PKT O minecraft:set_entity_data 65d117090700ff
-C Killed Gold Ingot
-C Killed Item Frame
+CF msg Killed Gold Ingot
+CF result success 1
+CF msg Killed Item Frame
+CF result success 1
 # creative player: no drop, survival hit on an empty frame breaks it at once
 E e1 minecraft:item_frame pos=4.03125,-59.5,30.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 N e1 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,30.5d],Rotation:[270.0f,0.0f],Tags:["e1"],block_pos:[I;4,-60,30],fall_distance:0.0d}
@@ -408,8 +438,10 @@ PKT O minecraft:sound 778f070600000020fffffe24000000f43f8000003f8000002378c810eb
 PKT O minecraft:add_entity 01d5179128e02d250a40d494281dcda87e03c2484010b9999a000000c04dc00000000000403e80000000000079e68487333100730000
 PKT O minecraft:set_entity_data 65d517080701df0a0000ff
 PKT O minecraft:set_entity_data 65d517080701df0a0000ff
-C Killed Item Frame
-C No entity was found
+CF msg Killed Item Frame
+CF result success 1
+CF result failure 0
+CF fail No entity was found
 E e2 minecraft:item_frame pos=4.03125,-59.5,32.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N e2 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,32.5d],Rotation:[270.0f,0.0f],Tags:["e2"],block_pos:[I;4,-60,32],fall_distance:0.0d}
 E Cow minecraft:cow pos=12.5,-60.0,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -417,8 +449,10 @@ E e2 minecraft:item_frame pos=4.03125,-59.5,32.5 delta=0.0,0.0,0.0 rot=270.0,0.0
 EV sound at=4.03125,-59.5,32.5 r=16.0 ex=0 event=minecraft:entity.item_frame.remove_item source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:sound 7791070600000020fffffe24000001043f8000003f800000aa88648fd465d761
 PKT O minecraft:set_entity_data 65d417090700ff
-C No entity was found
-C Killed Item Frame
+CF result failure 0
+CF fail No entity was found
+CF msg Killed Item Frame
+CF result success 1
 # explosions: the item is not popped but the frame breaks, drops by chance
 HURT b1 explosion 5 -> true
 E b1 minecraft:item_frame pos=4.03125,-59.5,34.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
@@ -449,8 +483,10 @@ PKT O minecraft:add_entity 01da17940f87e45f674c1e84a683f864a76775484010b9999a000
 PKT O minecraft:set_entity_data 65da17080701f4070000ff
 PKT O minecraft:set_entity_data 65da17080701f4070000ff
 PKT O minecraft:set_entity_data 65d917080701df0a0000ff
-C Killed 2 entities
-C No entity was found
+CF msg Killed 2 entities
+CF result success 2
+CF result failure 0
+CF fail No entity was found
 HURT b2 explosion 5 -> true
 E b2 minecraft:item_frame pos=4.03125,-59.5,36.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 N b2 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,36.5d],Rotation:[270.0f,0.0f],Tags:["b2"],block_pos:[I;4,-60,36],fall_distance:0.0d}
@@ -462,8 +498,10 @@ PKT O minecraft:remove_entities 4e01d717
 PKT O minecraft:add_entity 01db171cf03f81af3a4db99df90a27e95e5a25484010b9999a000000c04dc000000000004042400000000000f1f68801333100ff0000
 PKT O minecraft:set_entity_data 65db17080701df0a0000ff
 PKT O minecraft:set_entity_data 65db17080701df0a0000ff
-C Killed Item Frame
-C No entity was found
+CF msg Killed Item Frame
+CF result success 1
+CF result failure 0
+CF fail No entity was found
 HURT b3 player_explosion 5 -> true
 E b3 minecraft:item_frame pos=4.03125,-59.5,38.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 N b3 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,ItemDropChance:0.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,38.5d],Rotation:[270.0f,0.0f],Tags:["b3"],block_pos:[I;4,-60,38],fall_distance:0.0d}
@@ -474,8 +512,10 @@ PKT O minecraft:remove_entities 4e01d817
 PKT O minecraft:add_entity 01dc175d3a85789ec1495c8b43c8fc8c95cd5c484010b9999a000000c04dc000000000004043400000000000b9d48a693331004e0000
 PKT O minecraft:set_entity_data 65dc17080701df0a0000ff
 PKT O minecraft:set_entity_data 65dc17080701df0a0000ff
-C Killed Item Frame
-C No entity was found
+CF msg Killed Item Frame
+CF result success 1
+CF result failure 0
+CF fail No entity was found
 # arrows, thrown, mob_griefing and entity_drops
 HURT m1 arrow 2 -> true
 E m1 minecraft:item_frame pos=4.03125,-59.5,40.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -522,8 +562,10 @@ E ar2 minecraft:arrow pos=20.5,-55.05,-30.5 delta=0.0,-0.09950000047683716,0.0 r
 E item#13 minecraft:item pos=4.125,-59.223199996948246,40.592427778126186 delta=0.0,0.11446400521850592,0.04483214177404601 rot=309.30606,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=2 pickup=8 health=5 owner=- thrower=-
 EV sound at=4.03125,-59.5,40.5 r=16.0 ex=0 event=minecraft:entity.item_frame.break source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:remove_entities 4e01dd17
-C Killed Diamond
-C No entity was found
+CF msg Killed Diamond
+CF result success 1
+CF result failure 0
+CF fail No entity was found
 HURT m2 mob_attack 2 -> true
 E m2 minecraft:item_frame pos=4.03125,-59.5,42.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N m2 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,42.5d],Rotation:[270.0f,0.0f],Tags:["m2"],block_pos:[I;4,-60,42],fall_distance:0.0d}
@@ -539,7 +581,8 @@ PKT O minecraft:add_entity 01e517749beaaa41864b8db7d53845bdcdd8ec484010b9999a000
 PKT O minecraft:set_entity_data 65e517080701f4070000ff
 PKT O minecraft:set_entity_data 65de17090700ff
 PKT O minecraft:set_entity_data 65e517080701f4070000ff
-C Game rule mob_griefing is now set to false
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
 HURT m2 mob_attack 2 -> false
 E m2 minecraft:item_frame pos=4.03125,-59.5,42.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N m2 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,42.5d],Rotation:[270.0f,0.0f],Tags:["m2"],block_pos:[I;4,-60,42],fall_distance:0.0d}
@@ -550,7 +593,8 @@ E m4 minecraft:item_frame pos=4.03125,-59.5,46.5 delta=0.0,0.0,0.0 rot=270.0,0.0
 E m5 minecraft:item_frame pos=4.03125,-59.5,48.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E ar2 minecraft:arrow pos=20.5,-55.495024954720826,-30.5 delta=0.0,-0.24504975517371752,0.0 rot=0.0,-53.135998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
 E item#14 minecraft:item pos=4.125,-59.223199996948246,42.376741814991576 delta=0.0,0.11446400521850592,-0.05978644664123523 rot=358.73215,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=2 pickup=8 health=5 owner=- thrower=-
-C Game rule mob_griefing is now set to true
+CF msg Game rule mob_griefing is now set to true
+CF result success 1
 HURT m2 mob_attack 2 -> true
 E m2 minecraft:item_frame pos=4.03125,-59.5,42.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing
 N m2 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,42.5d],Rotation:[270.0f,0.0f],Tags:["m2"],block_pos:[I;4,-60,42],fall_distance:0.0d}
@@ -562,9 +606,12 @@ E ar2 minecraft:arrow pos=20.5,-55.74007470989454,-30.5 delta=0.0,-0.29259925995
 E item#14 minecraft:item pos=4.125,-59.14873599172974,42.31695536835034 delta=0.0,0.07297472653442398,-0.0585907188487465 rot=358.73215,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=3 pickup=7 health=5 owner=- thrower=-
 EV sound at=4.03125,-59.5,42.5 r=16.0 ex=0 event=minecraft:entity.item_frame.break source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:remove_entities 4e01de17
-C Killed Diamond
-C No entity was found
-C Game rule entity_drops is now set to false
+CF msg Killed Diamond
+CF result success 1
+CF result failure 0
+CF fail No entity was found
+CF msg Game rule entity_drops is now set to false
+CF result success 0
 HURT m3 generic 1 -> true
 E m3 minecraft:item_frame pos=4.03125,-59.5,44.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N m3 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,44.5d],Rotation:[270.0f,0.0f],Tags:["m3"],block_pos:[I;4,-60,44],fall_distance:0.0d}
@@ -584,9 +631,12 @@ E m5 minecraft:item_frame pos=4.03125,-59.5,48.5 delta=0.0,0.0,0.0 rot=270.0,0.0
 E ar2 minecraft:arrow pos=20.5,-56.758623780690996,-30.5 delta=0.0,-0.4324137789646332,0.0 rot=0.0,-74.9005 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
 EV sound at=4.03125,-59.5,44.5 r=16.0 ex=0 event=minecraft:entity.item_frame.break source=neutral vol=1.0 pitch=1.0
 PKT O minecraft:remove_entities 4e01df17
-C No entity was found
-C No entity was found
-C Game rule entity_drops is now set to true
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF msg Game rule entity_drops is now set to true
+CF result success 1
 HURT m4 thrown 1 -> true
 E m4 minecraft:item_frame pos=4.03125,-59.5,46.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N m4 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,46.5d],Rotation:[270.0f,0.0f],Tags:["m4"],block_pos:[I;4,-60,46],fall_distance:0.0d}
@@ -600,8 +650,10 @@ PKT O minecraft:add_entity 01e717615965080ad349bdada20cbd4603a9c4484010b9999a000
 PKT O minecraft:set_entity_data 65e717080701f4070000ff
 PKT O minecraft:set_entity_data 65e717080701f4070000ff
 PKT O minecraft:set_entity_data 65e017090700ff
-C Killed Diamond
-C Killed Item Frame
+CF msg Killed Diamond
+CF result success 1
+CF msg Killed Item Frame
+CF result success 1
 HURT m5 magic 1 -> true
 E m5 minecraft:item_frame pos=4.03125,-59.5,48.5 delta=0.0,0.0,0.0 rot=270.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N m5 {Air:300s,Facing:5b,Fire:0s,Fixed:0b,Invisible:0b,Invulnerable:0b,ItemDropChance:1.0f,ItemRotation:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.03125d,-59.5d,48.5d],Rotation:[270.0f,0.0f],Tags:["m5"],block_pos:[I;4,-60,48],fall_distance:0.0d}
@@ -610,5 +662,7 @@ E m5 minecraft:item_frame pos=4.03125,-59.5,48.5 delta=0.0,0.0,0.0 rot=270.0,0.0
 E ar2 minecraft:arrow pos=20.5,-58.76051162922152,-30.5 delta=0.0,-0.6123949195708184,0.0 rot=0.0,-83.81524 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
 E item#16 minecraft:item pos=4.135849780377665,-59.34,48.48230134641778 delta=-0.04449222193708373,0.1568000030517578,-0.01734468084815615 rot=127.95542,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=1 pickup=9 health=5 owner=- thrower=-
 EV sound at=4.03125,-59.5,48.5 r=16.0 ex=0 event=minecraft:entity.item_frame.remove_item source=neutral vol=1.0 pitch=1.0
-C Killed Diamond
-C Killed Item Frame
+CF msg Killed Diamond
+CF result success 1
+CF msg Killed Item Frame
+CF result success 1

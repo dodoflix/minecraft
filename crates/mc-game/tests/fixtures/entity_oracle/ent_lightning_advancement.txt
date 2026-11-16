@@ -18,7 +18,8 @@ B 11 -61 -1 minecraft:grass_block[snowy=false]
 B 11 -61 0 minecraft:grass_block[snowy=false]
 B 11 -61 1 minecraft:grass_block[snowy=false]
 # normal: the same on a fresh villager and player D: the bolt lights fires, so nothing is awarded
-C The difficulty has been set to Normal
+CF msg The difficulty has been set to Normal
+CF result success 0
 E vil minecraft:villager pos=10.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E vil2 minecraft:villager pos=-29.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E b2 minecraft:lightning_bolt pos=-29.5,-59.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing life=-6 flashes=3 seed=-2586666079462666309 fires=2

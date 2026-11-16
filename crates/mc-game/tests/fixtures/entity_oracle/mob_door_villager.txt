@@ -1,5 +1,7 @@
-C The difficulty did not change; it is already set to Normal
-C Set minecraft:overworld to 11000 tick(s)
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF msg Set minecraft:overworld to 11000 tick(s)
+CF result success 11000
 BRAIN V1 acts=core;idle
 BM V1 type=home value=minecraft:overworld@-2,-60,-7 ttl=inf
 BM V1 type=mobs value=(V2;Steve) ttl=inf
@@ -16,7 +18,8 @@ BM V2 type=nearest_visible_targetable_players value=(Steve) ttl=inf
 BR V2 RunOne: [DoNothing]
 BR V2 RunOne: [DoNothing]
 # nightfall: both walk to their beds through the door
-C Set minecraft:overworld to 12500 tick(s)
+CF msg Set minecraft:overworld to 12500 tick(s)
+CF result success 12500
 T 36
 E V1 minecraft:villager pos=0.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=home:minecraft:overworld@-2,-60,-7:inf;mobs:(V2;Steve):inf;visible_mobs:(V2;Steve):inf equip=- attrs=minecraft:follow_range:15.810477831362308;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
 E V2 minecraft:villager pos=1.5,-60.0,5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=cant_reach_walk_target_since:32:inf;home:minecraft:overworld@2,-60,-7:inf;mobs:(V1;Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_mobs:(V1;Steve):inf equip=- attrs=minecraft:follow_range:17.390347609671608;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0

@@ -188,7 +188,7 @@ fn compare_scenario(name: &str) {
         ignore_fields: vec![
             "rot", "pose", "item", "pickup", "health", "owner", "thrower", "age",
         ],
-        ignore_kinds: vec!["#", "C", "PKT"],
+        ignore_kinds: vec!["#", "CF", "PKT"],
         ..Default::default()
     };
     fixture.assert_matches(&actual, &opts);

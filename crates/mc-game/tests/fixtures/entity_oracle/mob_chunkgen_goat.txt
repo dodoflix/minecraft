@@ -1,4 +1,5 @@
-C Game rule spawn_mobs is now set to false
+CF msg Game rule spawn_mobs is now set to false
+CF result success 0
 G minecraft:donkey pos=-35.0,113.0,93.0 rot=148.12148,0.0 Age=0 Health=19.0f PersistenceRequired=0b
 G minecraft:donkey pos=-37.0,113.0,91.0 rot=193.48578,0.0 Age=0 Health=17.0f PersistenceRequired=0b
 G minecraft:donkey pos=94.0,112.0,-94.0 rot=240.21828,0.0 Age=0 Health=18.0f PersistenceRequired=0b

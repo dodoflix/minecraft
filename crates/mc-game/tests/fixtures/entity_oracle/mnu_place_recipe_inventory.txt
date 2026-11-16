@@ -1,9 +1,15 @@
-C No new recipes were learned
-C No new recipes were learned
-C No new recipes were learned
-C No new recipes were learned
-C Unlocked 1 recipe(s) for A
-C Unlocked 1 recipe(s) for A
+CF result failure 0
+CF fail No new recipes were learned
+CF result failure 0
+CF fail No new recipes were learned
+CF result failure 0
+CF fail No new recipes were learned
+CF result failure 0
+CF fail No new recipes were learned
+CF msg Unlocked 1 recipe(s) for A
+CF result success 1
+CF msg Unlocked 1 recipe(s) for A
+CF result success 1
 MENU A cid=0 type=inventory state=4 carried=empty
 MS 9 minecraft:oak_planks*64
 MS 10 minecraft:oak_log*8
@@ -165,7 +171,8 @@ PKT A minecraft:container_set_slot 14004a000000
 PKT A minecraft:container_set_slot 14004b000000
 PKT A minecraft:place_ghost_recipe 40000103030906001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7306001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c7306001d6d696e6563726166743a69726f6e5f746f6f6c5f6d6174657269616c73000602a40800000602a40800059708010000049503
 # ignored: a recipe that is not in the book, a wrong container id
-C Took 1 recipe(s) from A
+CF msg Took 1 recipe(s) from A
+CF result success 1
 MENU A cid=0 type=inventory state=75 carried=empty
 MS 11 minecraft:cobblestone*20
 MS 20 minecraft:crafting_table*1
@@ -185,8 +192,10 @@ PKT A minecraft:container_set_slot 14004f000000
 PKT A minecraft:container_set_slot 140050000001da060000
 PKT A minecraft:container_set_slot 140051000004a4080000
 # creative: the same placement, and a ghost recipe clears the grid back into the inventory
-C No new recipes were learned
-C Unlocked 1 recipe(s) for B
+CF result failure 0
+CF fail No new recipes were learned
+CF msg Unlocked 1 recipe(s) for B
+CF result success 1
 MENU B cid=0 type=inventory state=10 carried=empty
 MS 0 minecraft:crafting_table*1
 MS 1 minecraft:oak_planks*16
@@ -210,11 +219,13 @@ PKT B minecraft:container_set_slot 14000d000001da060000
 PKT B minecraft:container_set_slot 14000e000000
 PKT B minecraft:place_ghost_recipe 400000010600126d696e6563726166743a6f616b5f6c6f6773053f040000049503
 # spectator: ignored
-C No new recipes were learned
+CF result failure 0
+CF fail No new recipes were learned
 MENU C cid=0 type=inventory state=1 carried=empty
 MS 9 minecraft:oak_planks*4
 # a full inventory and a stack in the grid that does not fit anywhere: nothing happens
-C No new recipes were learned
+CF result failure 0
+CF fail No new recipes were learned
 MENU D cid=0 type=inventory state=40 carried=empty
 MS 1 minecraft:cobblestone*64
 MS 9 minecraft:cobblestone*64
@@ -333,8 +344,10 @@ MS 42 minecraft:cobblestone*64
 MS 43 minecraft:cobblestone*64
 MS 44 minecraft:cobblestone*64
 # creative, full inventory, a stack in the grid that has no room: the grid is cleared by dropping it
-C No new recipes were learned
-C No new recipes were learned
+CF result failure 0
+CF fail No new recipes were learned
+CF result failure 0
+CF fail No new recipes were learned
 MENU E cid=0 type=inventory state=5 carried=empty
 MS 0 minecraft:oak_button*1
 MS 1 minecraft:oak_planks*64

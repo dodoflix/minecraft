@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule spawn_mobs is now set to true
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg Game rule spawn_mobs is now set to true
+CF result success 1
 B 8 -60 16 minecraft:trial_spawner[ominous=false,trial_spawner_state=waiting_for_players]
 T 32
 T 33

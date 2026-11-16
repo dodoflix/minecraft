@@ -303,7 +303,7 @@ fn replay(name: &str) -> Vec<String> {
 fn explosions_hurt_and_push_players_like_vanilla() {
     let fixture = Fixture::load("explosion_entities");
     let opts = Options {
-        ignore_kinds: vec!["I", "PKT", "C", "#", "B", "EFFECT", "DIG", "T", "E"],
+        ignore_kinds: vec!["I", "PKT", "CF", "#", "B", "EFFECT", "DIG", "T", "E"],
         ignore_fields: vec![
             "rot", "og", "fall", "fire", "air", "pose", "gm", "fx", "xp", "sel", "main",
         ],

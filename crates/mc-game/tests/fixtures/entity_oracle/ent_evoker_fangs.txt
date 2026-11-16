@@ -91,9 +91,12 @@ PKT A minecraft:remove_entities 4e01b20d
 PKT A minecraft:remove_entities 4e01b30d
 PKT A minecraft:remove_entities 4e01b50d
 # a team makes the owner and B allies: the fang on B does nothing
-C Created team [red]
-C Added A to team [red]
-C Added B to team [red]
+CF msg Created team [red]
+CF result success 1
+CF msg Added A to team [red]
+CF result success 1
+CF msg Added B to team [red]
+CF result success 1
 E fd minecraft:evoker_fangs pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing warmup=-12 spike=1 life=10 owner=A
 P B minecraft:player pos=6.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=3.0 exh=4.0 xp=0/0/0.0 sel=0 main=empty
 PKT B minecraft:set_health 6a416d55551440a00000

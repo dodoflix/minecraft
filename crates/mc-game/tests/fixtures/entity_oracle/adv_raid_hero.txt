@@ -1,5 +1,7 @@
-C Game rule raids is now set to true
-C Game rule mob_drops is now set to false
+CF msg Game rule raids is now set to true
+CF result success 1
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 EFFECT Steve minecraft:raid_omen added=true
 RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=1 groups=0/3 health=0.0 raiders=-
 RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=1 groups=0/3 health=0.0 raiders=-
@@ -13,11 +15,16 @@ ADV Steve minecraft:adventure/adventuring_time minecraft:plains
 ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
 ADV Alex minecraft:adventure/adventuring_time minecraft:plains
 ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=1 groups=1/3 health=120.0 raiders=-
 E V minecraft:villager pos=-6.661197602338136,-60.0,-1.3323377876788438 delta=-0.15243278043970965,-0.0784000015258789,-0.06248347892503525 rot=104.16188,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.375 zza=0.375 xxa=0.0 yya=0.0 head=120.223434 body=104.16188 nav=moving stuck=0 navspeed=0.75 ntarget=-8,-60,-2 path=10/11/1/-8,-60,-2 nodes=2,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;0,-59,0:WALKABLE:0.0;-1,-60,0:WALKABLE:0.0;-2,-60,-1:WALKABLE:0.0;-3,-59,-1:WALKABLE:0.0;-4,-60,-1:WALKABLE:0.0;-5,-60,-1:WALKABLE:0.0;-6,-60,-1:WALKABLE:0.0;-7,-60,-2:WALKABLE:0.0;-8,-60,-2:WALKABLE:0.0 goals=- tgoals=- acts=core;pre_raid mem=heard_bell_time:664:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:31:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve;Alex):inf;nearest_players:(Steve;Alex):inf;nearest_visible_player:Steve:inf;path:path(10;11):inf;visible_mobs:(Steve;Alex):inf;walk_target:walk(pos(-8,-60,-2);0.75;0):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
 ADV Steve minecraft:adventure/adventuring_time minecraft:plains
@@ -38,11 +45,16 @@ ADV Steve minecraft:adventure/voluntary_exile voluntary_exile
 ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
 ADV Alex minecraft:adventure/adventuring_time minecraft:plains
 ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=1 groups=2/3 health=120.0 raiders=-
 E V minecraft:villager pos=2.9011612399310716,-60.0,8.803393497347438 delta=-0.11014133882822613,-0.0784000015258789,-0.1219182047258952 rot=131.1406,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.375 zza=0.375 xxa=0.0 yya=0.0 head=151.07681 body=131.1406 nav=moving stuck=0 navspeed=0.75 ntarget=0,-59,0 path=8/17/1/0,-59,0 nodes=7,-60,16:WALKABLE:0.0;6,-60,15:WALKABLE:0.0;5,-60,14:WALKABLE:0.0;4,-60,13:WALKABLE:0.0;3,-60,12:WALKABLE:0.0;3,-60,11:WALKABLE:0.0;3,-60,10:WALKABLE:0.0;3,-60,9:WALKABLE:0.0;2,-60,8:WALKABLE:0.0;2,-60,7:WALKABLE:0.0;2,-60,6:WALKABLE:0.0;1,-60,5:WALKABLE:0.0;1,-60,4:WALKABLE:0.0;1,-60,3:WALKABLE:0.0;1,-60,2:WALKABLE:0.0;0,-60,1:WALKABLE:0.0;0,-59,0:WALKABLE:0.0 goals=- tgoals=- acts=core;pre_raid mem=heard_bell_time:943:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:31:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Alex;Steve):inf;nearest_players:(Alex;Steve):inf;nearest_visible_player:Alex:inf;path:path(8;17):inf;visible_mobs:(Alex;Steve):inf;walk_target:walk(pos(0,-60,0);0.75;2):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
 ADV Steve minecraft:adventure/adventuring_time minecraft:plains
@@ -57,10 +69,14 @@ ADV Alex minecraft:adventure/kill_all_mobs minecraft:pillager,minecraft:vindicat
 ADV Alex minecraft:adventure/root killed_something
 ADV Alex minecraft:adventure/voluntary_exile voluntary_exile
 ADV Alex minecraft:recipes/decorations/crafting_table unlock_right_away
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Ravager
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Ravager
+CF result success 1
 RAID 2 center=1,-60,-1 started=1 active=1 status=VICTORY omen=1 groups=3/3 health=172.0 raiders=-
 E V minecraft:villager pos=-2.488069598820772,-60.0,-2.459114808491996 delta=-0.06202380888590309,-0.0784000015258789,-0.06633809741223909 rot=135.92296,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.275 zza=0.275 xxa=0.0 yya=0.0 head=136.09407 body=135.92296 nav=moving stuck=0 navspeed=0.550000011920929 ntarget=-11,-60,-10 path=3/11/1/-11,-60,-10 nodes=-2,-60,-1:WALKABLE:0.0;-2,-60,-2:WALKABLE:0.0;-3,-60,-3:WALKABLE:0.0;-4,-60,-4:WALKABLE:0.0;-5,-60,-5:WALKABLE:0.0;-6,-60,-6:WALKABLE:0.0;-7,-60,-7:WALKABLE:0.0;-8,-60,-8:WALKABLE:0.0;-9,-60,-9:WALKABLE:0.0;-10,-60,-10:WALKABLE:0.0;-11,-60,-10:WALKABLE:0.0 goals=- tgoals=- acts=core;raid mem=heard_bell_time:1151:inf;hiding_place:minecraft:overworld@-3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:31:inf;last_woken:310:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve;Alex):inf;nearest_players:(Steve;Alex):inf;nearest_visible_player:Steve:inf;path:path(3;11):inf;visible_mobs:(Steve;Alex):inf;walk_target:walk(pos(-11,-60,-10);0.55;0):inf equip=- attrs=minecraft:follow_range:15.71801365300893;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
 ADV Steve minecraft:adventure/adventuring_time minecraft:plains

@@ -41,9 +41,9 @@ fn compound(tag: Tag) -> CompoundTag {
     }
 }
 
-/// `C x, y, z has the following block data: {...}` -> (x, z, snbt)
+/// `CF msg x, y, z has the following block data: {...}` -> (x, z, snbt)
 fn parse_data_get(line: &str) -> (i32, i32, CompoundTag) {
-    let rest = line.strip_prefix("C ").expect("C line");
+    let rest = line.strip_prefix("CF msg ").expect("CF msg line");
     let mut parts = rest.splitn(4, ", ");
     let x: i32 = parts.next().unwrap().parse().unwrap();
     let _y = parts.next().unwrap();
@@ -111,7 +111,7 @@ fn brewing_stands_match_vanilla() {
     // the three tick stages of the scenario: `tick 1`, `tick 199`, `tick 201`
     let mut expected = fixture
         .lines()
-        .filter(|l| l.starts_with("C ") && l.contains("block data:"))
+        .filter(|l| l.starts_with("CF msg ") && l.contains("block data:"))
         .map(parse_data_get);
     let mut mismatches = Vec::new();
     let mut compared = 0usize;

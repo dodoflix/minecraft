@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 BE 8 -60 12 {components:{},config:{key_item:{count:1,id:"minecraft:trial_key"}},id:"minecraft:vault",server_data:{},shared_data:{},x:8,y:-60,z:12}
 B 8 -60 12 minecraft:vault[facing=north,ominous=false,vault_state=inactive]
 T 11

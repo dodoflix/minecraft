@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 ADV Brush minecraft:recipes/decorations/crafting_table unlock_right_away
 ADV Bucket minecraft:recipes/decorations/crafting_table unlock_right_away
 ADV Wheat minecraft:recipes/decorations/crafting_table unlock_right_away

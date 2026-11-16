@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule spawn_mobs is now set to true
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg Game rule spawn_mobs is now set to true
+CF result success 1
 B 8 -60 12 minecraft:trial_spawner[ominous=false,trial_spawner_state=waiting_for_players]
 E frog#1 minecraft:frog pos=8.5,-60.0,15.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 EV sound at=8.5,-60.0,15.5 r=16.0 ex=0 event=minecraft:entity.tadpole.grow_up source=neutral vol=0.15 pitch=1.0

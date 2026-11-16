@@ -1,6 +1,9 @@
-C Game rule raids is now set to true
-C Game rule spawn_mobs is already set to false
-C Game rule random_tick_speed is already set to 0
+CF msg Game rule raids is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule spawn_mobs is already set to false
+CF result failure 0
+CF fail Game rule random_tick_speed is already set to 0
 T 6
 T 7
 PKT Steve minecraft:debug/chunk_value 1b00000006000000000b0100

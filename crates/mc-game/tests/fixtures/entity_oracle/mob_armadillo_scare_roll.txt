@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 # idle: nothing scary around (a walking player is not scary)
 E ar minecraft:armadillo pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=12.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-12.277054 body=-12.277054 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=gaze_cooldown_ticks:165:inf;look_target:pos(4,-60,1):inf;mobs:(A):inf;visible_mobs:(A):inf equip=- attrs=minecraft:follow_range:15.16518206448731;minecraft:max_health:12.0;minecraft:movement_speed:0.14 age=0 baby=0 forcedage=0 love=0 lovecause=- astate=idle astateticks=25 scute=6058
 BRAIN ar acts=core;idle

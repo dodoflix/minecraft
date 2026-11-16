@@ -38,7 +38,8 @@ E item#2 minecraft:item pos=3.839645156702071,-60.0,1.2780364682529657 delta=0.0
 E item#3 minecraft:item pos=9.507124686276285,-59.64873599172974,0.21497795196474256 delta=0.0022805393784956587,0.07297472653442398,-0.09123264928135069 rot=201.3909,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=3 pickup=7 health=5 owner=- thrower=-
 PKT Alice minecraft:add_entity 01b40650edd1d9f101422ebf0b8ef8604e3b4d484023000000000000c04e0000000000003fe0000000000000390173973332008f0000
 # entity_drops off: nothing drops
-C Game rule entity_drops is now set to false
+CF msg Game rule entity_drops is now set to false
+CF result success 0
 HURT c5 mob_attack 50 -> true
 E v1 minecraft:pig pos=9.5,-59.8125,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E item#1 minecraft:item pos=0.07683393467834948,-60.0,1.2959481784550384 delta=-5.41674315879329E-4,0.0,0.0010188545830401494 rot=305.2159,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:minecart*1 age=18 pickup=0 health=5 owner=- thrower=-

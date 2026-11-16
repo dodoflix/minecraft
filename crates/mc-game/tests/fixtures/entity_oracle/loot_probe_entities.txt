@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule mob_drops is already set to true
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF result failure 0
+CF fail Game rule mob_drops is already set to true
 # charged creeper kills a zombie (the table reads this, attacker, direct attacker, origin and the damage source)
 HURT V0 explosion 100 -> true
 E C0 minecraft:creeper pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.412143424475357;minecraft:movement_speed:0.25

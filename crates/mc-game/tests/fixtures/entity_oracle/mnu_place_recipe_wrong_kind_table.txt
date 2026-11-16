@@ -1,4 +1,5 @@
-C No new recipes were learned
+CF result failure 0
+CF fail No new recipes were learned
 MENU A cid=1 type=minecraft:crafting state=1 carried=empty
 MS 10 minecraft:raw_iron*8
 MS 11 minecraft:oak_planks*64

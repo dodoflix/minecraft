@@ -1,4 +1,5 @@
-C The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
 EFFECT Z minecraft:bad_omen added=true
 T 3
 EV sound at=3.5,-60.0,3.5 r=16.0 ex=0 event=minecraft:event.mob_effect.bad_omen source=hostile vol=1.0 pitch=1.0

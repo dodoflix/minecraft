@@ -24,17 +24,26 @@ E D1 minecraft:text_display pos=4.5,-59.8125,5.700000002980232 delta=0.0,0.0,0.0
 E D2 minecraft:item_display pos=4.5,-59.8125,4.899999976158142 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 PKT A minecraft:remove_entities 4e01ea07
 # /item replace entity on an item display: slot 0 (contents) takes the item, others fail, an empty replace clears it
-C Replaced 1 slot(s) on Item Display with [Emerald]
-C The target does not have slot weapon.mainhand
-C The target does not have slot contents
-C Item Display has the following entity data: {count: 5, id: "minecraft:emerald"}
+CF msg Replaced 1 slot(s) on Item Display with [Emerald]
+CF result success 1
+CF result failure 0
+CF fail The target does not have slot weapon.mainhand
+CF result failure 0
+CF fail The target does not have slot contents
+CF result success 1
+CF msg Item Display has the following entity data: {count: 5, id: "minecraft:emerald"}
+CF result success 2
 N D2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-59.8125d,4.899999976158142d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item:{count:5,id:"minecraft:emerald"},item_display:"none",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
 N D1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-59.8125d,5.700000002980232d],Rotation:[0.0f,0.0f],alignment:"center",background:1073741824,billboard:"fixed",default_background:0b,fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,line_width:200,see_through:0b,shadow:0b,shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,text:"rider",text_opacity:-1b,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
 PKT A minecraft:set_entity_data 65ec07170705f5070000ff
-C Replaced 1 slot(s) on Item Display with [Air]
-C The target does not have slot contents
-C Replaced 1 slot(s) on Item Display with [Stone]
-C Modified 1 slot(s) on Item Display
+CF msg Replaced 1 slot(s) on Item Display with [Air]
+CF result success 1
+CF result failure 0
+CF fail The target does not have slot contents
+CF msg Replaced 1 slot(s) on Item Display with [Stone]
+CF result success 1
+CF msg Modified 1 slot(s) on Item Display
+CF result success 1
 N D2 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-59.8125d,4.899999976158142d],Rotation:[0.0f,0.0f],billboard:"fixed",fall_distance:0.0d,glow_color_override:-1,height:0.0f,interpolation_duration:0,item:{components:{minecraft:custom_name:"shown"},count:64,id:"minecraft:stone"},item_display:"none",shadow_radius:0.0f,shadow_strength:1.0f,teleport_duration:0,transformation:{left_rotation:[0.0f,0.0f,0.0f,1.0f],right_rotation:[0.0f,0.0f,0.0f,1.0f],scale:[1.0f,1.0f,1.0f],translation:[0.0f,0.0f,0.0f]},view_range:1.0f,width:0.0f}
 PKT A minecraft:set_entity_data 65ec071707400101000608000573686f776eff
 # displays do not press plates or trip wires and are not moved by a piston

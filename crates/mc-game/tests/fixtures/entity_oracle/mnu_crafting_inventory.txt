@@ -1161,8 +1161,10 @@ STAT A minecraft.dropped:minecraft.stick 4
 E item#1 minecraft:item pos=0.5,-58.68000000715256,3.5 delta=-0.006206730228725285,0.08172237128019333,-0.28493482926845265 rot=292.3565,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=0 pickup=40 health=5 owner=- thrower=A
 E item#2 minecraft:item pos=0.5,-58.68000000715256,3.5 delta=-0.010691446817025425,0.08966601639986038,-0.3080117250797178 rot=47.14759,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*2 age=0 pickup=40 health=5 owner=- thrower=-
 # limited_crafting: a recipe the player does not know gives no result, special recipes are not limited
-C Took 1 recipe(s) from B
-C Game rule limited_crafting is now set to true
+CF msg Took 1 recipe(s) from B
+CF result success 1
+CF msg Game rule limited_crafting is now set to true
+CF result success 1
 MENU B cid=0 type=inventory state=3 carried=empty
 MS 2 minecraft:oak_planks*1
 MS 4 minecraft:oak_planks*1
@@ -1173,7 +1175,8 @@ STAT B minecraft.custom:minecraft.time_since_death 2
 STAT B minecraft.custom:minecraft.time_since_rest 2
 STAT B minecraft.custom:minecraft.total_world_time 2
 # the recipe is learned: the result shows after the next change of the grid
-C Unlocked 1 recipe(s) for B
+CF msg Unlocked 1 recipe(s) for B
+CF result success 1
 MENU B cid=0 type=inventory state=4 carried=empty
 MS 0 minecraft:stick*4
 MS 2 minecraft:oak_planks*1
@@ -1192,7 +1195,8 @@ STAT B minecraft.custom:minecraft.time_since_death 2
 STAT B minecraft.custom:minecraft.time_since_rest 2
 STAT B minecraft.custom:minecraft.total_world_time 2
 # the recipe is forgotten while its result is displayed: taking the displayed result still works and learns the recipe again
-C Took 1 recipe(s) from B
+CF msg Took 1 recipe(s) from B
+CF result success 1
 MENU B cid=0 type=inventory state=4 carried=empty
 MS 0 minecraft:stick*4
 MS 2 minecraft:oak_planks*1
@@ -1243,7 +1247,8 @@ STAT B minecraft.custom:minecraft.time_since_rest 2
 STAT B minecraft.custom:minecraft.total_world_time 2
 STAT B minecraft.dropped:minecraft.stick 68
 # limited_crafting off again: the next change of the grid shows the result of an unknown recipe
-C Game rule limited_crafting is now set to false
+CF msg Game rule limited_crafting is now set to false
+CF result success 0
 MENU B cid=0 type=inventory state=18 carried=empty
 MS 0 minecraft:oak_planks*4
 MS 1 minecraft:oak_log*1

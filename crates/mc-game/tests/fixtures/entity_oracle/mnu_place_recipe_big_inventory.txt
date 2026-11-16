@@ -1,5 +1,7 @@
-C Unlocked 1 recipe(s) for C
-C No new recipes were learned
+CF msg Unlocked 1 recipe(s) for C
+CF result success 1
+CF result failure 0
+CF fail No new recipes were learned
 MENU C cid=0 type=inventory state=11 carried=empty
 MS 0 minecraft:crafting_table*1
 MS 1 minecraft:oak_planks*1

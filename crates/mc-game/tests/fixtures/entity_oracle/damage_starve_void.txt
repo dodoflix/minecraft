@@ -57,7 +57,8 @@ PKT S1 minecraft:damage_event 190128000000
 PKT S1 minecraft:set_health 6a417000000000000000
 PKT S1 minecraft:set_entity_data 6501090341700000ff
 PKT S1 minecraft:set_entity_motion 6701f9ff7ffeebed
-C The difficulty has been set to Normal
+CF msg The difficulty has been set to Normal
+CF result success 0
 P S2 minecraft:player pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=0 sat=0.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 PKT S2 minecraft:set_entity_data 6502090341a00000ff
 PKT S2 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
@@ -232,7 +233,8 @@ PKT S2 minecraft:set_entity_data 6502090340400000ff
 PKT S2 minecraft:set_entity_motion 6702f9ff7ffeebed
 PKT S2 minecraft:set_time 7300000000000006f300
 PKT S2 minecraft:set_time 73000000000000070700
-C The difficulty has been set to Hard
+CF msg The difficulty has been set to Hard
+CF result success 0
 P S3 minecraft:player pos=12.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=0 sat=0.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 PKT S3 minecraft:set_entity_data 6503090341a00000ff
 PKT S3 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
@@ -443,7 +445,8 @@ PKT S3 minecraft:set_time 730000000000000e3700
 PKT S3 minecraft:set_time 730000000000000e4b00
 PKT S3 minecraft:set_time 730000000000000e5f00
 PKT S3 minecraft:set_time 730000000000000e7300
-C The difficulty has been set to Peaceful
+CF msg The difficulty has been set to Peaceful
+CF result success 0
 P S4 minecraft:player pos=16.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=5.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=3 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 PKT S4 minecraft:set_entity_data 6504090340a00000ff
 PKT S4 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
@@ -483,7 +486,8 @@ PKT S4 minecraft:set_health 6a411000000c41100000
 PKT S4 minecraft:set_time 730000000000000ed700
 PKT S4 minecraft:set_health 6a412000000d41200000
 PKT S4 minecraft:set_entity_data 6504090341200000ff
-C The difficulty has been set to Normal
+CF msg The difficulty has been set to Normal
+CF result success 0
 P V1 minecraft:player pos=100.5,-100.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 PKT V1 minecraft:set_entity_data 6505090341a00000ff
 PKT V1 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200

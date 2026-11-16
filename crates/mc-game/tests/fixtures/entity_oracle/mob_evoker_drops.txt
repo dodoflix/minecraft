@@ -1,4 +1,5 @@
-C Game rule mob_drops is already set to true
+CF result failure 0
+CF fail Game rule mob_drops is already set to true
 HURT E1 player_attack 100 -> true
 E E2 minecraft:evoker pos=6.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=-
 E E3 minecraft:evoker pos=9.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=-

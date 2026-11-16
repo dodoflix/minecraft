@@ -1,4 +1,5 @@
-C The difficulty has been set to Easy
+CF msg The difficulty has been set to Easy
+CF result success 0
 # a rod facing up with a lamp under it and next to it
 T 1
 T 2

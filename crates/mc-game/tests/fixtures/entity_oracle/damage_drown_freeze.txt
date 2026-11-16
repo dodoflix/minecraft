@@ -399,7 +399,8 @@ PKT W1 minecraft:entity_event 220000000143
 PKT W1 minecraft:damage_event 190106000000
 PKT W1 minecraft:set_health 6a418c00001440400000
 PKT W1 minecraft:set_entity_data 65010101000903418c0000ff
-C Game rule drowning_damage is now set to false
+CF msg Game rule drowning_damage is now set to false
+CF result success 0
 P W1 minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=-1 alive=1 pose=standing hp=19.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 PKT W1 minecraft:set_entity_data 65010101ffffffff0fff
 PKT W1 minecraft:set_entity_data 65010101feffffff0fff
@@ -449,8 +450,10 @@ PKT W1 minecraft:set_time 73000000000000017b00
 PKT W1 minecraft:set_entity_data 65010101edffffff0f090341980000ff
 PKT W1 minecraft:entity_event 220000000143
 PKT W1 minecraft:set_entity_data 6501010100ff
-C Game rule drowning_damage is now set to true
-C The difficulty has been set to Hard
+CF msg Game rule drowning_damage is now set to true
+CF result success 1
+CF msg The difficulty has been set to Hard
+CF result success 0
 P W1 minecraft:player pos=20.5,-60.0,0.5 delta=0.0,-0.005,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=0 alive=1 pose=standing hp=18.0 abs=0.0 hurt=9/20 death=0 fx=- gm=survival food=20 sat=1.0 exh=2.0 xp=0/0/0.0 sel=0 main=empty
 PKT W1 minecraft:change_difficulty 0a0300
 PKT W1 minecraft:set_entity_data 65010101edffffff0f090341a00000ff
@@ -484,7 +487,8 @@ PKT W1 minecraft:set_entity_data 65010101edffffff0fff
 PKT W1 minecraft:entity_event 220000000143
 PKT W1 minecraft:damage_event 190106000000
 PKT W1 minecraft:set_health 6a4182aaaa143f800000
-C The difficulty has been set to Normal
+CF msg The difficulty has been set to Normal
+CF result success 0
 P F1 minecraft:player pos=32.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 PKT F1 minecraft:set_entity_data 65020701e807090341a00000ff
 PKT F1 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
@@ -1546,7 +1550,8 @@ PKT F1 minecraft:set_entity_data 650207012aff
 PKT F1 minecraft:update_attributes entity=2;minecraft:movement_speed=0.10000000149011612[minecraft:powder_snow/-0.015000000596046448/add_value]
 PKT F1 minecraft:set_entity_data 6502070128ff
 PKT F1 minecraft:update_attributes entity=2;minecraft:movement_speed=0.10000000149011612[minecraft:powder_snow/-0.01428571529686451/add_value]
-C Game rule freeze_damage is now set to false
+CF msg Game rule freeze_damage is now set to false
+CF result success 0
 P F1 minecraft:player pos=32.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=14.999998 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=17 sat=0.0 exh=1.0 xp=0/0/0.0 sel=0 main=empty
 PKT F1 minecraft:set_entity_data 65020701e807ff
 PKT F1 minecraft:update_attributes entity=2;minecraft:movement_speed=0.10000000149011612[minecraft:powder_snow/-0.013571429066359997/add_value]

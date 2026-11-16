@@ -753,7 +753,7 @@ fn replay(name: &str) -> Vec<String> {
 fn check(name: &str) {
     let fixture = Fixture::load(name);
     let opts = Options {
-        ignore_kinds: vec!["PKT", "C", "#", "B", "T"],
+        ignore_kinds: vec!["PKT", "CF", "#", "B", "T"],
         ..Default::default()
     };
     fixture.assert_matches(&replay(name), &opts);

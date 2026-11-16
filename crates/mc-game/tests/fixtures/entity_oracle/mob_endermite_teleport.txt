@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 6000 tick(s)
-C Game rule mob_drops is now set to false
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 EFFECT Steve minecraft:resistance added=true
 E L minecraft:endermite pos=6.5,-60.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.25
 N L {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:8.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Lifetime:2396,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[6.5d,-60.0d,4.5d],Rotation:[0.0f,0.0f],attributes:[{base:0.25d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
@@ -26,8 +28,10 @@ E P minecraft:endermite pos=6.5,-60.0,-4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fa
 N P {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:8.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Lifetime:2395,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[6.5d,-60.0d,-4.5d],Rotation:[0.0f,0.0f],attributes:[{base:0.25d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
 E P minecraft:endermite pos=6.5,-60.0,-4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
 # a pearl that rolls the endermite (the text of this line seeds the pearl's random)
-C Game rule spawn_mobs is now set to true
-C Game rule spawn_monsters is now set to true
+CF msg Game rule spawn_mobs is now set to true
+CF result success 1
+CF msg Game rule spawn_monsters is now set to true
+CF result success 1
 P Steve minecraft:player pos=0.5,-58.479999996721745,0.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=7/18 death=0 fx=minecraft:resistance/3/99968 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*15
 E P minecraft:endermite pos=6.5,-60.0,-4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-
 E endermite#1 minecraft:endermite pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=-

@@ -1,4 +1,5 @@
-C The difficulty has been set to Peaceful
+CF msg The difficulty has been set to Peaceful
+CF result success 0
 BEU 2 -60 0 minecraft:mob_spawner {Delay:7s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:0s,SpawnCount:4s,SpawnData:{entity:{id:"minecraft:pig"}},SpawnRange:4s}
 BEU 4 -60 0 minecraft:mob_spawner {Delay:20s,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,RequiredPlayerRange:0s,SpawnCount:4s,SpawnRange:4s}
 BEU 6 -60 0 minecraft:trial_spawner {}

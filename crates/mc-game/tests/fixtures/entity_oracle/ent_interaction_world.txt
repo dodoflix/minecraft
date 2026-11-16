@@ -5,7 +5,8 @@ P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=1 event=minecraft:item.spear.attack source=player vol=1.0 pitch=1.0
 I A 0 minecraft:iron_spear*1
 # with the response on the stab goes through the normal attack path
-C Modified entity data of Interaction
+CF msg Modified entity data of Interaction
+CF result success 1
 E I minecraft:interaction pos=0.5,-60.0,3.0 delta=0.0,0.1,0.4000000059604645 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 N I {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.1d,0.4000000059604645d],OnGround:0b,PortalCooldown:0,Pos:[0.5d,-60.0d,3.0d],Rotation:[0.0f,0.0f],attack:{player:[I;-1217574189,-1929301680,-1288476465,-1272613004],timestamp:83L},fall_distance:0.0d,height:2.0f,response:1b,width:1.5f}
 P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=minecraft:iron_spear*1

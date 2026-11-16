@@ -1,5 +1,7 @@
-C Set the center of the world border to 0.50, 0.50
-C Set the world border to 40.0 block(s) wide
+CF msg Set the center of the world border to 0.50, 0.50
+CF result success 0
+CF msg Set the world border to 40.0 block(s) wide
+CF result success -59999928
 # arrows in the four directions, a piercing one, a trident, a loyal trident, an arrow with no owner
 T 3
 E e minecraft:arrow pos=18.0,-59.0,0.5 delta=2.475000023841858,-0.05,0.0 rot=17.999998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=1 shake=0 life=0 dmg=2.0

@@ -1,4 +1,5 @@
-C The difficulty has been set to Peaceful
+CF msg The difficulty has been set to Peaceful
+CF result success 0
 E s1 minecraft:spawner_minecart pos=0.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s2 minecraft:spawner_minecart pos=8.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
 E s3 minecraft:spawner_minecart pos=16.5,-59.9375,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=west rider=-
@@ -338,7 +339,8 @@ E pig#3 minecraft:pig pos=-0.8709574577275476,-60.0,-0.2371204938492587 delta=0.
 E cow#1 minecraft:cow pos=11.347685964830077,-60.0,1.4797927219305178 delta=0.0,0.0,0.0 rot=158.405,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 N s2 {Air:300s,Delay:634s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:6s,MaxSpawnDelay:800s,MinSpawnDelay:200s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[8.5d,-60.0d,0.5d],RequiredPlayerRange:30s,Rotation:[0.0f,0.0f],SpawnCount:1s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:cow"}},SpawnPotentials:[{data:{entity:{NoAI:1b,Silent:1b,id:"minecraft:cow"}},weight:1}],SpawnRange:4s,fall_distance:0.0d}
 # the rule off: nothing spawns
-C Game rule spawner_blocks_work is now set to false
+CF msg Game rule spawner_blocks_work is now set to false
+CF result success 0
 N s1 {Air:300s,Delay:1s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,MaxNearbyEntities:3s,MaxSpawnDelay:40s,MinSpawnDelay:20s,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],RequiredPlayerRange:16s,Rotation:[0.0f,0.0f],SpawnCount:2s,SpawnData:{entity:{NoAI:1b,Silent:1b,id:"minecraft:pig"}},SpawnPotentials:[],SpawnRange:3s,fall_distance:0.0d}
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E s2 minecraft:spawner_minecart pos=8.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -347,7 +349,8 @@ E pig#1 minecraft:pig pos=-1.27363861730544,-60.0,0.7391009177192472 delta=0.0,0
 E pig#2 minecraft:pig pos=2.8001537272343833,-60.0,2.6884360631997617 delta=0.0,0.0,0.0 rot=57.52152,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 E pig#3 minecraft:pig pos=-0.8709574577275476,-60.0,-0.2371204938492587 delta=0.0,0.0,0.0 rot=83.494934,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 E cow#1 minecraft:cow pos=11.347685964830077,-60.0,1.4797927219305178 delta=0.0,0.0,0.0 rot=158.405,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
-C Game rule spawner_blocks_work is now set to true
+CF msg Game rule spawner_blocks_work is now set to true
+CF result success 1
 # drop and pick result
 HURT s3 generic 5 -> true
 E s1 minecraft:spawner_minecart pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing

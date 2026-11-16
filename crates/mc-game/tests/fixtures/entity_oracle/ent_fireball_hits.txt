@@ -188,7 +188,8 @@ PKT B minecraft:section_blocks_update 5600000400000ffffc24863ff63cf63e943b9439f5
 PKT B minecraft:explode 24403d800000000000c04dc00000000000401c0000000000004000000000000006001dc00502453f0000003f80000001483f8000003f8000000101
 PKT B minecraft:section_blocks_update 5600000400000ffffc02e4dcd809f41a
 # the same wall with mob griefing off: the wall stays and nothing burns, entities are still hurt
-C Game rule mob_griefing is now set to false
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
 E p3 minecraft:pig pos=37.5,-60.0,5.5 delta=0.0,0.3251289591673316,1.1361410780097545 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=dying hp=0.0 abs=0.0 hurt=1/11 death=9 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E p1 minecraft:pig pos=0.5,-60.0,8.5 delta=0.0,0.18300070812642058,0.9179265663522166 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.042697 abs=0.0 hurt=0/0 death=0 fx=-
 E item#1 minecraft:item pos=-0.875,-61.0,6.125 delta=0.0,-0.12,0.0 rot=29.503784,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*8 age=75 pickup=0 health=5 owner=- thrower=-

@@ -1,5 +1,7 @@
-C Game rule raids is now set to true
-C Game rule mob_drops is now set to false
+CF msg Game rule raids is now set to true
+CF result success 1
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 ADV Steve minecraft:adventure/adventuring_time minecraft:plains
 ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away
 ADV Alex minecraft:adventure/adventuring_time minecraft:plains

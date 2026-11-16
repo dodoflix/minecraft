@@ -69,8 +69,10 @@ E item#2 minecraft:item pos=0.6650443281027061,-58.898542683861976,-0.875 delta=
 E item#3 minecraft:item pos=0.10150983410077206,-58.93131552626276,-0.2587407136022887 delta=-0.039978254341723994,-0.23042029216924012,0.02140582149179913 rot=98.80213,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=11 pickup=0 health=5 owner=- thrower=-
 E item#4 minecraft:item pos=4.45146394076285,-59.978985848334496,-0.5876398172335596 delta=-0.003900698791345093,-0.23042029216924012,0.018573637858193524 rot=282.31897,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
 E item#5 minecraft:item pos=8.046220821287914,-59.978985848334496,0.11759933170973098 delta=-0.03646888358387871,-0.23042029216924012,0.07525161170133665 rot=186.01845,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=11 pickup=0 health=5 owner=- thrower=-
-C Killed 5 entities
-C Killed 3 entities
+CF msg Killed 5 entities
+CF result success 5
+CF msg Killed 3 entities
+CF result success 3
 # spectral_arrow thrown at a stand, a frame with an item, a painting and a cushion
 E sp_s minecraft:armor_stand pos=0.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E sp_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -143,8 +145,10 @@ E item#8 minecraft:item pos=0.1375418348344486,-58.884774270720285,0.38711637561
 E item#9 minecraft:item pos=4.299931037494632,-59.978985848334496,-0.8211793538992905 delta=-0.01607894774516525,-0.23042029216924012,-1.9524042985006291E-4 rot=251.1522,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
 E item#10 minecraft:item pos=7.595327268398475,-59.978985848334496,-0.22481338930083422 delta=-0.07270585799887172,-0.23042029216924012,0.047732919249172674 rot=314.46655,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=11 pickup=0 health=5 owner=- thrower=-
 PKT O minecraft:remove_entities 4e01d83e
-C Killed 5 entities
-C Killed 3 entities
+CF msg Killed 5 entities
+CF result success 5
+CF msg Killed 3 entities
+CF result success 3
 # trident thrown at a stand, a frame with an item, a painting and a cushion
 E tr_s minecraft:armor_stand pos=0.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E tr_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -226,8 +230,10 @@ PKT O minecraft:set_entity_data 65e33e0a0801ff
 PKT O minecraft:set_entity_data 65e23e0a0801ff
 PKT O minecraft:set_entity_data 65e13e0a0801ff
 PKT O minecraft:remove_entities 4e01e73e
-C Killed 5 entities
-C Killed 6 entities
+CF msg Killed 5 entities
+CF result success 5
+CF msg Killed 6 entities
+CF result success 6
 # snowball thrown at a stand, a frame with an item, a painting and a cushion
 E sn_s minecraft:armor_stand pos=0.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E sn_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -288,8 +294,10 @@ E sn_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0
 E sn_c minecraft:cushion pos=12.5,-60.0,1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
 E item#16 minecraft:item pos=5.010403379474525,-59.978985848334496,-0.875 delta=0.04101960226492643,-0.23042029216924012,0.0 rot=12.5023985,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
 E item#17 minecraft:item pos=9.245904973867058,-59.978985848334496,0.1452852752687454 delta=0.05994616529960521,-0.23042029216924012,0.07747664867951883 rot=41.338356,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=11 pickup=0 health=5 owner=- thrower=-
-C Killed 2 entities
-C Killed 3 entities
+CF msg Killed 2 entities
+CF result success 2
+CF msg Killed 3 entities
+CF result success 3
 # wind_charge thrown at a stand, a frame with an item, a painting and a cushion
 E wc_s minecraft:armor_stand pos=0.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E wc_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -365,8 +373,10 @@ E item#20 minecraft:item pos=0.4651984119454935,-58.98980172721843,0.61616747537
 E item#21 minecraft:item pos=0.693231590395786,-59.33326472186434,-0.875 delta=0.034944721492694966,-0.23042029216924012,0.0 rot=272.0413,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:iron_helmet*1 age=11 pickup=0 health=5 owner=- thrower=-
 E item#22 minecraft:item pos=4.3020064145683,-59.978985848334496,-0.09197790417154225 delta=-0.01591215585950188,-0.23042029216924012,0.0584085122914481 rot=258.93616,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
 E item#23 minecraft:item pos=8.535613997259889,-59.978985848334496,-0.875 delta=0.002862191085350498,-0.23042029216924012,0.0 rot=79.51102,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=11 pickup=0 health=5 owner=- thrower=-
-C Killed 6 entities
-C Killed Item Frame
+CF msg Killed 6 entities
+CF result success 6
+CF msg Killed Item Frame
+CF result success 1
 # small_fireball thrown at a stand, a frame with an item, a painting and a cushion
 E fb_s minecraft:armor_stand pos=0.5,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E fb_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
@@ -434,8 +444,10 @@ E fb_f minecraft:item_frame pos=4.5,-59.5,-0.96875 delta=0.0,0.0,0.0 rot=0.0,0.0
 E item#24 minecraft:item pos=12.940229308035173,-60.0,1.7888339545785084 delta=0.004824482491230895,0.0,0.0031653375441002274 rot=233.00674,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:red_cushion*1 age=12 pickup=0 health=5 owner=- thrower=-
 E item#25 minecraft:item pos=4.9810098862281365,-59.978985848334496,-0.875 delta=0.0386573345946281,-0.23042029216924012,0.0 rot=112.13243,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*1 age=11 pickup=0 health=5 owner=- thrower=-
 E item#26 minecraft:item pos=8.951435220817086,-59.978985848334496,-0.875 delta=0.036280506656050475,-0.23042029216924012,0.0 rot=266.79324,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:painting*1 age=11 pickup=0 health=5 owner=- thrower=-
-C Killed 3 entities
-C Killed 2 entities
+CF msg Killed 3 entities
+CF result success 3
+CF msg Killed 2 entities
+CF result success 2
 # explosions of every interaction on a line of decoration (a visible stand, an invisible stand, a marker stand, a frame, a painting, a cushion)
 E e_none_i minecraft:armor_stand pos=4.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E e_none_m minecraft:armor_stand pos=5.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
@@ -623,7 +635,8 @@ PKT O minecraft:set_entity_data 65b13f080701b8080000ff
 PKT O minecraft:set_entity_data 65af3f080701a0090000ff
 PKT O minecraft:set_entity_data 65b33f080701370000ff
 PKT O minecraft:set_entity_data 65b03f080701b9080000ff
-C Killed 15 entities
+CF msg Killed 15 entities
+CF result success 15
 # explosions sourced by a player and by primed TNT
 E e_none_i minecraft:armor_stand pos=4.0,-60.0,-0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E e_none_m minecraft:armor_stand pos=5.5,-60.0,-0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-

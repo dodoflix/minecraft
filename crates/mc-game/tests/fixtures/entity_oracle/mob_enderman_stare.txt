@@ -1,4 +1,5 @@
-C Replaced 1 slot(s) on Alex with [Carved Pumpkin]
+CF msg Replaced 1 slot(s) on Alex with [Carved Pumpkin]
+CF result success 1
 # Steve stares at E1 (aggro), Alex wears a pumpkin (E2 stays calm), Bob looks away (E3 stays calm)
 T 3
 E E1 minecraft:enderman pos=0.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=180.0 body=180.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=1:Enderman$EndermanLookForPlayerGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:7.0;minecraft:follow_range:69.17855066338875;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896;minecraft:step_height:1.0

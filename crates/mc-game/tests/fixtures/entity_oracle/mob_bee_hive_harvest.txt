@@ -1,5 +1,7 @@
-C Game rule spawn_mobs is already set to false
-C Game rule random_tick_speed is already set to 0
+CF result failure 0
+CF fail Game rule spawn_mobs is already set to false
+CF result failure 0
+CF fail Game rule random_tick_speed is already set to 0
 # shears on a full hive without smoke: two bees leave angry, a bee nearby joins them
 E Near minecraft:bee pos=4.5,-59.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:15.891000321787555;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- flags=0 hive=- flower=- hivecd=0 flowercd=27 nonectar=0 stayout=0 crops=0 sting=0 wet=0 roll=0.0 poll=0 black=- angerend=-1 angerat=-
 E bee#1 minecraft:bee pos=0.5,-59.75,1.6749999940395355 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- flags=0 hive=0,-60,2 flower=- hivecd=0 flowercd=54 nonectar=0 stayout=0 crops=0 sting=0 wet=0 roll=0.0 poll=0 black=- angerend=-1 angerat=-
@@ -51,7 +53,8 @@ I Steve 1 minecraft:glass_bottle*7
 I Steve 2 minecraft:honey_bottle*1
 EV sound at=0.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:block.beehive.shear source=block vol=1.0 pitch=1.0
 # night: the shears still release the bees
-C Set minecraft:overworld to 14000 tick(s)
+CF msg Set minecraft:overworld to 14000 tick(s)
+CF result success 14000
 E bee#4 minecraft:bee pos=30.5,-59.75,1.6749999940395355 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=Alex hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- flags=0 hive=30,-60,2 flower=- hivecd=0 flowercd=36 nonectar=0 stayout=0 crops=0 sting=0 wet=0 roll=0.0 poll=0 black=- angerend=-1 angerat=-
 P Alex minecraft:player pos=30.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:shears*1/dmg=1{minecraft:damage:1}
 B 30 -60 2 minecraft:beehive[facing=north,honey_level=0]
