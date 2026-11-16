@@ -71,12 +71,17 @@ fn find_new_target(dragon: &mut EnderDragon, level: &mut ServerLevel) {
         let target_node_index = match player.and_then(|id| level.get_entity(id)) {
             Some(player) => {
                 let aim = Vec3::new(player.base().x(), 0.0, player.base().z()).normalize();
-                dragon.find_closest_node_at(-aim.x * 40.0, 105.0, -aim.z * 40.0)
+                dragon.find_closest_node_at(level, -aim.x * 40.0, 105.0, -aim.z * 40.0)
             }
-            None => dragon.find_closest_node_at(40.0, f64::from(egg.y()), 0.0),
+            None => dragon.find_closest_node_at(level, 40.0, f64::from(egg.y()), 0.0),
         };
         let final_node = Node::new(egg.x(), egg.y(), egg.z());
-        let path = dragon.find_path(current_node_index, target_node_index, Some(final_node));
+        let path = dragon.find_path(
+            level,
+            current_node_index,
+            target_node_index,
+            Some(final_node),
+        );
         if let Some(path) = &path {
             path.advance();
         }

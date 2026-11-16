@@ -24,7 +24,7 @@ pub struct StatusPlayer {
 }
 
 /// `Util.shuffle`.
-fn shuffle<T>(list: &mut [T], random: &mut dyn RandomSource) {
+pub(crate) fn shuffle<T>(list: &mut [T], random: &mut dyn RandomSource) {
     for i in (2..=list.len()).rev() {
         let swap_to = random.next_int_bounded(i as i32) as usize;
         list.swap(i - 1, swap_to);

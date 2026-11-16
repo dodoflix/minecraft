@@ -66,9 +66,9 @@ impl EndCrystal {
     }
 
     /// `onDestroyedBy(level, source)`.
-    fn on_destroyed_by(&self, level: &ServerLevel, _source: &DamageSource) {
+    fn on_destroyed_by(&self, level: &mut ServerLevel, source: &DamageSource) {
         if level.has_dragon_fight() {
-            // Not implemented: `EnderDragonFight.onCrystalDestroyed(crystal, source)` (the dragon fight is not ported).
+            crate::world::level::dimension::end::on_crystal_destroyed(level, self, source);
         }
     }
 }
@@ -157,7 +157,8 @@ impl Entity for EndCrystal {
     /// `kill(level)`: the fight is told first, then `Entity.kill`.
     fn kill_in_level(&mut self, level: &mut ServerLevel) {
         let generic = level.damage_sources().generic();
-        self.on_destroyed_by(level, &generic);
+        // the crystal still counts for the fight's recount: it is removed only after
+        level.expose(self.as_dyn(), |level| self.on_destroyed_by(level, &generic));
         level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Killed);
         level.game_event_from_entity_ref(self.as_dyn(), GameEvent::ENTITY_DIE, self.position());
     }

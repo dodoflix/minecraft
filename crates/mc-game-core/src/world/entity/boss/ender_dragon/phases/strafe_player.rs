@@ -58,14 +58,19 @@ pub fn set_target(dragon: &mut EnderDragon, level: &mut ServerLevel, target: Ent
     );
     dragon.phases.strafe_player.attack_target = Some(target);
     let current_node_index = dragon.find_closest_node(level);
-    let target_node_index = dragon.find_closest_node_at(target_x, target_y, target_z);
+    let target_node_index = dragon.find_closest_node_at(level, target_x, target_y, target_z);
     let xd = f64::from(target_block_x) - dragon.base().x();
     let zd = f64::from(target_block_z) - dragon.base().z();
     let sd = (xd * xd + zd * zd).sqrt();
     let ho = (f64::from(0.4f32) + sd / 80.0 - 1.0).min(10.0);
     let final_y_target = mth::floor_f64(target_y + ho);
     let final_node = Node::new(target_block_x, final_y_target, target_block_z);
-    let path = dragon.find_path(current_node_index, target_node_index, Some(final_node));
+    let path = dragon.find_path(
+        level,
+        current_node_index,
+        target_node_index,
+        Some(final_node),
+    );
     if let Some(path) = &path {
         path.advance();
     }
@@ -206,7 +211,10 @@ fn find_new_target(dragon: &mut EnderDragon, level: &ServerLevel) {
         } else {
             target_node_index -= 1;
         }
-        if dragon.alive_crystals().is_some_and(|crystals| crystals > 0) {
+        if dragon
+            .alive_crystals(level)
+            .is_some_and(|crystals| crystals > 0)
+        {
             target_node_index %= 12;
             if target_node_index < 0 {
                 target_node_index += 12;
@@ -216,7 +224,7 @@ fn find_new_target(dragon: &mut EnderDragon, level: &ServerLevel) {
             target_node_index &= 7;
             target_node_index += 12;
         }
-        let path = dragon.find_path(current_node_index, target_node_index, None);
+        let path = dragon.find_path(level, current_node_index, target_node_index, None);
         if let Some(path) = &path {
             path.advance();
         }

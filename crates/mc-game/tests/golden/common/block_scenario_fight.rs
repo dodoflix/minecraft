@@ -1,22 +1,26 @@
 //! The dragon fight verbs and dumps of the block replay (grammar and recorded twin: `tests/oracle/FightVerbs.java`): `end fight` (the End level
 //! runs an `EnderDragonFight`), `fight_skip_arena`, `fight_try_respawn`, `fight_remove_gateways`, `dragon_killed DRAGON`, dumps `fight`, `fightbar`,
 //! `fightfile`, `fighthash`, `fightpackets:PLAYER`.
-//!
-//! Not implemented: the fight itself (`EnderDragonFight`: scan, dragon creation, boss bar, respawn ritual, saved data). Everything that needs it
-//! stops the replay with a message naming the missing piece: the level installer ([`install`]), the four verbs, and the dumps `fight`, `fightbar`
-//! and `fightfile`. `fighthash` (blocks of the arena and of the gateway sites) and `fightpackets` do not depend on the fight and replay as recorded.
 use super::{Scenario, state_string};
 use mc_core::pos::BlockPos;
 use mc_game::server::level::ServerLevel;
 use mc_game::world::level::BlockGetter;
+use mc_game::world::level::dimension::end::{self, EnderDragonFight};
+use mc_world::level_storage::SavedDataStorage;
 
-fn not_ported(what: &str) -> ! {
-    panic!("Not implemented: the dragon fight ({what}): `EnderDragonFight` is not ported")
+/// `end fight`: the End level carries the fight (`ServerLevel`'s constructor creates it for a dimension type with `has_ender_dragon_fight`);
+/// the fight places features, so the level needs a generation environment.
+pub(super) fn install(level: &mut ServerLevel, seed: i64) {
+    if level.gen_env.is_none() {
+        level.gen_env = Some(super::super::feature_harness::gen_env(seed));
+    }
+    level.install_dragon_fight();
 }
 
-/// `end fight`: the End level carries the fight (`ServerLevel`'s constructor creates it for a dimension type with `has_ender_dragon_fight`).
-pub(super) fn install(_level: &mut ServerLevel) {
-    not_ported("the level's fight installer")
+fn fight(level: &mut ServerLevel) -> &mut EnderDragonFight {
+    level
+        .dragon_fight_mut()
+        .expect("no dragon fight in this level (`end fight`)")
 }
 
 fn fnv(mut h: u64, s: &str) -> u64 {
@@ -75,20 +79,138 @@ impl Scenario {
     /// The fight verbs; `false` for any other command.
     pub(super) fn fight_command(&mut self, a: &[String]) -> bool {
         match a[0].as_str() {
-            "fight_skip_arena" => not_ported("skipArenaLoadedCheck"),
-            "fight_try_respawn" => not_ported("tryRespawn"),
-            "fight_remove_gateways" => not_ported("removeAllGateways"),
-            "dragon_killed" => not_ported("setDragonKilled"),
-            _ => false,
+            "fight_skip_arena" => {
+                self.world();
+                fight(self.level()).skip_arena_loaded_check();
+            }
+            "fight_try_respawn" => {
+                self.world();
+                end::try_respawn(self.level());
+            }
+            "fight_remove_gateways" => {
+                self.world();
+                fight(self.level()).remove_all_gateways();
+            }
+            "dragon_killed" => {
+                self.world();
+                let id = self.entity_id(&a[1]);
+                let level = self.level();
+                let uuid = level
+                    .get_entity(id)
+                    .unwrap_or_else(|| panic!("entity {} is gone", a[1]))
+                    .uuid();
+                end::set_dragon_killed(level, uuid);
+            }
+            _ => return false,
         }
+        true
+    }
+
+    /// `FIGHT killed= prev= stage= rtime= alive= dragon= portal= gateways= scan= seen= pscan= cscan= crystals=`.
+    fn fight_state(&mut self) -> String {
+        let uuid = fight(self.level()).dragon_uuid();
+        // the scenario name of the entity with the fight's dragon uuid, `gone` for a uuid no entity has
+        let dragon = match uuid {
+            None => "-".to_string(),
+            Some(uuid) => {
+                let refs = self.actors.refs.clone();
+                let level = self.level();
+                refs.iter()
+                    .find(|(_, id)| level.get_entity(*id).is_some_and(|e| e.uuid() == uuid))
+                    .map_or("gone".to_string(), |(name, _)| name.clone())
+            }
+        };
+        let f = fight(self.level());
+        let portal = f.exit_portal_location().map_or("-".to_string(), |p| {
+            format!("{},{},{}", p.x(), p.y(), p.z())
+        });
+        let stage = f
+            .respawn_stage()
+            .map_or("-".to_string(), |s| s.get_serialized_name().to_uppercase());
+        let gateways: Vec<String> = f.gateways().iter().map(ToString::to_string).collect();
+        format!(
+            "FIGHT killed={} prev={} stage={stage} rtime={} alive={} dragon={dragon} portal={portal} gateways={} scan={} seen={} pscan={} cscan={} crystals={}",
+            f.is_dragon_killed(),
+            f.has_previously_killed_dragon(),
+            f.respawn_time(),
+            f.alive_crystals(),
+            gateways.join(","),
+            f.needs_state_scanning(),
+            f.ticks_since_dragon_seen(),
+            f.ticks_since_last_player_scan(),
+            f.ticks_since_crystals_scanned(),
+            f.respawn_crystal_count(),
+        )
+    }
+
+    /// `FIGHTBAR visible= progress= players= name= color= overlay= music= fog=`.
+    fn fight_bar(&mut self) -> String {
+        let names: Vec<(String, mc_game::world::entity::EntityId)> = self
+            .actors
+            .players
+            .clone()
+            .into_iter()
+            .map(|n| {
+                let id = self.entity_id(&n);
+                (n, id)
+            })
+            .collect();
+        let bar = fight(self.level()).dragon_event();
+        let mut players: Vec<String> = bar
+            .get_players()
+            .map(|id| {
+                names
+                    .iter()
+                    .find(|(_, p)| *p == id)
+                    .map_or_else(|| format!("#{id}"), |(n, _)| n.clone())
+            })
+            .collect();
+        players.sort();
+        format!(
+            "FIGHTBAR visible={} progress={} players={} name={} color={} overlay={} music={} fog={}",
+            bar.is_visible(),
+            mc_core::math::java::java_float_to_string(bar.get_progress()),
+            if players.is_empty() {
+                "-".to_string()
+            } else {
+                players.join(",")
+            },
+            bar.get_name().get_string(),
+            bar.get_color().get_name(),
+            bar.get_overlay().get_name(),
+            bar.should_play_boss_music(),
+            bar.should_create_world_fog(),
+        )
+    }
+
+    /// `FIGHTFILE HEX`: the bytes of the `ender_dragon_fight.dat` the level would save (uncompressed NBT).
+    fn fight_file(&mut self) -> String {
+        let data = fight(self.level()).encode().expect("the fight encodes");
+        let bytes = mc_nbt::nbt_io::to_bytes(&SavedDataStorage::encode_file(data));
+        format!(
+            "FIGHTFILE {}",
+            bytes.iter().map(|b| format!("{b:02x}")).collect::<String>()
+        )
     }
 
     /// The fight dumps; `false` for any other kind.
     pub(super) fn dump_fight(&mut self, kind: &str) -> bool {
         match kind {
-            "fight" => not_ported("the `FIGHT` state line"),
-            "fightbar" => not_ported("the boss bar"),
-            "fightfile" => not_ported("the saved `ender_dragon_fight.dat`"),
+            "fight" => {
+                self.world();
+                let line = self.fight_state();
+                self.out.push(line);
+            }
+            "fightbar" => {
+                self.world();
+                let line = self.fight_bar();
+                self.out.push(line);
+            }
+            "fightfile" => {
+                self.world();
+                let line = self.fight_file();
+                self.out.push(line);
+            }
             "fighthash" => {
                 let level = self.level();
                 let lines = [area_hash(level), gateway_hash(level)];

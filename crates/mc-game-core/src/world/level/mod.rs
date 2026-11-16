@@ -6,6 +6,7 @@ pub mod block;
 pub mod blockscan;
 pub mod chunk;
 pub mod collision;
+pub mod dimension;
 pub mod entity;
 pub mod explosion;
 pub mod flags;

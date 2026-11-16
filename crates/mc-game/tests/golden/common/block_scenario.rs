@@ -1120,6 +1120,7 @@ impl Scenario {
         level.tick_state.can_have_weather =
             dimension_type.has_sky_light && !dimension_type.has_ceiling && dimension != "the_end";
         level.tick_state.enabled_features = self.opts.features;
+        level.tick_state.infiniburn = dimension_type.infiniburn.clone();
         // with a command environment the level reads the installed server's rules, scoreboard and command storage (`/gamerule`,
         // `/team`, `/data` edit the ones the level reads); else the replay keeps its own rules
         if mc_game::commands::server_access::has_server() {
@@ -1142,7 +1143,7 @@ impl Scenario {
         }
         // `ServerLevel`'s constructor creates the fight of a dimension type that has one; the oracle drops it unless the scenario says `end fight`
         if self.opts.end_fight && dimension_type.has_ender_dragon_fight {
-            fight::install(&mut level);
+            fight::install(&mut level, self.opts.seed);
         }
         // chunk generation reads the rules from the values published per tick; the preload generates before the first one
         level.publish_spawn_environment(&self.env);

@@ -1,0 +1,18 @@
+# The first scan of a fight over an End with a dragon but no exit portal: the dragon is not the fight's and is removed, the inactive podium is built, and the
+# fight creates a dragon of its own in the same tick.
+level void
+end void
+end fight
+dimension the_end
+seed 4242
+# the scan loads 17x17 chunks around the origin; the preloaded 21x21 keep it from generating any (each generated chunk draws a unique seed, which moves
+# the seed of the dragon created in the same tick)
+preload 10
+level_seed 77
+fight_skip_arena
+spawn stray minecraft:ender_dragon 0.5 128 0.5 0 0 {NoAI:1b}
+spawn_player Obs creative 0.5 100 0.5 0 0
+dump packets:Obs:none fight fighthash
+note the first tick scans: no portal and a dragon, which goes; the scan builds the inactive podium and the fight creates its own dragon
+tick 1
+dump fight fightbar fightpackets:Obs fighthash entity:stray entity:ender_dragon#1

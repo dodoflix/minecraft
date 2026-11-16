@@ -41,6 +41,21 @@ impl ServerLevel {
         self.place_feature_value(feature.as_ref(), pos)
     }
 
+    /// `registry.get(id).value().place(level, generator, RandomSource.create(), pos)`: the placement draws from a fresh
+    /// unique-seed random (the End dragon fight's podium, gateways and pillars), not from the level's. `false` when the id is
+    /// not registered or the feature does not place.
+    pub fn place_feature_with_unique_seed(&mut self, id: &str, pos: BlockPos) -> bool {
+        let Some(feature) = self.lookup_feature(id) else {
+            return false;
+        };
+        let env = self.gen_env().clone();
+        let mut random = mc_core::random::create_new();
+        if !WorldGenLevel::ensure_can_write(self, pos) {
+            return false;
+        }
+        feature.place(self, &env, &mut random, pos)
+    }
+
     /// The same for a placed feature id (`VegetationPlacements.GRASS_BONEMEAL`).
     pub fn place_placed_feature(&mut self, id: &str, pos: BlockPos) -> bool {
         let Ok(id) = Identifier::read(id) else {

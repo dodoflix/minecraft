@@ -3,10 +3,6 @@
 //!
 //! The dragon owns the ids of its parts (taken right after its own), the level holds the parts while it tracks the dragon
 //! (`ServerLevel.dragonParts`) and the dragon moves them every tick. The behaviour of each phase is in [`super::phases`].
-//!
-//! Not implemented: the `EnderDragonFight` the dragon reports to (`updateDragon` each tick, `setDragonKilled`,
-//! `aliveCrystals`, `hasPreviouslyKilledDragon`, the boss bar): the dragon behaves as one without a fight, so no crystal counts
-//! as alive, a kill is worth 500 experience and the level never calls [`EnderDragon::on_crystal_destroyed`] on its own.
 
 use super::flight_history::DragonFlightHistory;
 use super::flight_nodes::DragonNodes;
@@ -27,6 +23,7 @@ use crate::world::entity::{Entity, EntityId, MoverType, RemovalReason};
 use crate::world::item::enchantment::actors::Actors;
 use crate::world::item::enchantment_helper;
 use crate::world::level::block::BlockStateExt as _;
+use crate::world::level::dimension::end as fight;
 use crate::world::level::pathfinder::node::Node;
 use crate::world::level::pathfinder::path::Path;
 use crate::world::level::{BlockGetter, LevelAccessor};
@@ -72,6 +69,9 @@ pub struct EnderDragon {
     phase: EnderDragonPhase,
     /// The state of every phase (the instances of the phase manager).
     pub(super) phases: DragonPhases,
+    /// `dragonFight != null`: the dragon reports to the fight of its level (set by the fight, or when the dragon finds out it is
+    /// the fight's dragon).
+    dragon_fight: bool,
     /// `fightOrigin`.
     fight_origin: BlockPos,
     /// `sittingDamageReceived`.
@@ -107,6 +107,7 @@ impl EnderDragon {
             nearest_crystal: None,
             phase: EnderDragonPhase::Hovering,
             phases: DragonPhases::default(),
+            dragon_fight: false,
             fight_origin: BlockPos::ZERO,
             sitting_damage_received: 0.0,
             nodes: DragonNodes::default(),
@@ -148,6 +149,11 @@ impl EnderDragon {
         &self.part_ids
     }
 
+    /// `setDragonFight(fight)`: the dragon reports to its level's fight.
+    pub fn set_dragon_fight(&mut self) {
+        self.dragon_fight = true;
+    }
+
     /// `setFightOrigin(origin)`.
     pub fn set_fight_origin(&mut self, origin: BlockPos) {
         self.fight_origin = origin;
@@ -163,9 +169,12 @@ impl EnderDragon {
         self.fight_origin
     }
 
-    /// `dragonFight.aliveCrystals()`, `None` while the dragon has no fight (always: the fight is not ported).
-    pub(super) fn alive_crystals(&self) -> Option<i32> {
-        None
+    /// `dragonFight.aliveCrystals()`, `None` while the dragon has no fight.
+    pub(super) fn alive_crystals(&self, level: &ServerLevel) -> Option<i32> {
+        if !self.dragon_fight {
+            return None;
+        }
+        level.dragon_fight().map(|f| f.alive_crystals())
     }
 
     /// `setHealth(health)`.
@@ -177,23 +186,24 @@ impl EnderDragon {
     pub(super) fn find_closest_node(&mut self, level: &ServerLevel) -> i32 {
         self.nodes.ensure_nodes(level);
         let pos = self.base().position();
-        self.find_closest_node_at(pos.x, pos.y, pos.z)
+        self.find_closest_node_at(level, pos.x, pos.y, pos.z)
     }
 
     /// `findClosestNode(tX, tY, tZ)`.
-    pub(super) fn find_closest_node_at(&self, x: f64, y: f64, z: f64) -> i32 {
+    pub(super) fn find_closest_node_at(&self, level: &ServerLevel, x: f64, y: f64, z: f64) -> i32 {
         self.nodes
-            .find_closest_node(x, y, z, self.alive_crystals().is_none_or(|c| c == 0))
+            .find_closest_node(x, y, z, self.alive_crystals(level).is_none_or(|c| c == 0))
     }
 
     /// `findPath(startIndex, endIndex, finalNode)`.
     pub(super) fn find_path(
         &mut self,
+        level: &ServerLevel,
         start_index: i32,
         end_index: i32,
         final_node: Option<Node>,
     ) -> Option<Path> {
-        let no_crystals = self.alive_crystals().is_none_or(|c| c == 0);
+        let no_crystals = self.alive_crystals(level).is_none_or(|c| c == 0);
         self.nodes
             .find_path(start_index, end_index, final_node, no_crystals)
     }
@@ -641,7 +651,9 @@ impl EnderDragon {
             in_wall |= self.check_walls(level, &bb);
         }
         self.in_wall = in_wall;
-        // Not implemented: `EnderDragonFight.updateDragon(this)`
+        if self.dragon_fight {
+            fight::update_dragon(level, self.as_dyn());
+        }
         for (id, old) in self.part_ids.iter().zip(old_pos) {
             if let Some(part) = level.dragon_part_mut(*id) {
                 part.base_mut().set_old_pos(old);
@@ -690,6 +702,13 @@ impl Entity for EnderDragon {
     fn ai_step(&mut self, level: &mut ServerLevel) {
         self.process_flapping_movement(level);
         phases::discard_pending(self, level);
+        if !self.dragon_fight
+            && level
+                .dragon_fight()
+                .is_some_and(|f| f.dragon_uuid() == Some(self.uuid()))
+        {
+            self.dragon_fight = true;
+        }
         self.o_flap_time = self.flap_time;
         if self.is_dead_or_dying() {
             // the offsets of the explosion particle (`addParticle` itself is client only)
@@ -736,12 +755,17 @@ impl Entity for EnderDragon {
     fn kill_in_level(&mut self, level: &mut ServerLevel) {
         level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Killed);
         self.post_death_event(level);
-        // Not implemented: `EnderDragonFight.updateDragon(this)` and `setDragonKilled(this)`
+        if self.dragon_fight {
+            fight::update_dragon(level, self.as_dyn());
+            fight::set_dragon_killed(level, self.uuid());
+        }
     }
 
     /// `tickDeath()`: the dragon rises for ten seconds in a rain of experience, then is removed.
     fn tick_death(&mut self, level: &mut ServerLevel) {
-        // Not implemented: `EnderDragonFight.updateDragon(this)`
+        if self.dragon_fight {
+            fight::update_dragon(level, self.as_dyn());
+        }
         self.dragon_death_time += 1;
         if (180..=200).contains(&self.dragon_death_time) {
             // the offsets of the explosion emitter particle (`addParticle` itself is client only)
@@ -749,8 +773,15 @@ impl Entity for EnderDragon {
                 self.base_mut().random.next_float();
             }
         }
-        // 12000 for the first dragon of a fight (`!hasPreviouslyKilledDragon()`)
-        let xp_count = 500;
+        let xp_count = if self.dragon_fight
+            && level
+                .dragon_fight()
+                .is_some_and(|f| !f.has_previously_killed_dragon())
+        {
+            12000
+        } else {
+            500
+        };
         if self.dragon_death_time > 150 && self.dragon_death_time % 5 == 0 && level.mob_drops() {
             let position = self.base().position();
             ExperienceOrb::award(level, &position, mth::floor_f32(xp_count as f32 * 0.08));
@@ -772,7 +803,9 @@ impl Entity for EnderDragon {
                 let position = self.base().position();
                 ExperienceOrb::award(level, &position, mth::floor_f32(xp_count as f32 * 0.2));
             }
-            // Not implemented: `EnderDragonFight.setDragonKilled(this)`
+            if self.dragon_fight {
+                fight::set_dragon_killed(level, self.uuid());
+            }
             self.remove(RemovalReason::Killed);
             self.post_death_event(level);
         }

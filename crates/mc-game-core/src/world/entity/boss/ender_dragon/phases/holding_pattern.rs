@@ -76,7 +76,7 @@ fn find_new_target(dragon: &mut EnderDragon, level: &mut ServerLevel) {
             HeightmapType::MotionBlockingNoLeaves,
             dragon.podium_location(),
         );
-        let crystals = dragon.alive_crystals().unwrap_or(0);
+        let crystals = dragon.alive_crystals(level).unwrap_or(0);
         if dragon.base_mut().random.next_int_bounded(crystals + 3) == 0 {
             dragon.set_phase(level, EnderDragonPhase::LandingApproach);
             return;
@@ -124,7 +124,7 @@ fn find_new_target(dragon: &mut EnderDragon, level: &mut ServerLevel) {
             target_node_index -= 1;
         }
         if dragon
-            .alive_crystals()
+            .alive_crystals(level)
             .is_some_and(|crystals| crystals >= 0)
         {
             target_node_index %= 12;
@@ -136,7 +136,7 @@ fn find_new_target(dragon: &mut EnderDragon, level: &mut ServerLevel) {
             target_node_index &= 7;
             target_node_index += 12;
         }
-        let path = dragon.find_path(current_node_index, target_node_index, None);
+        let path = dragon.find_path(level, current_node_index, target_node_index, None);
         if let Some(path) = &path {
             path.advance();
         }

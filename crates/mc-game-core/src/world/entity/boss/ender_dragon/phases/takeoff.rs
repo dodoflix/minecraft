@@ -47,8 +47,11 @@ fn find_new_target(dragon: &mut EnderDragon, level: &ServerLevel) {
     let current_node_index = dragon.find_closest_node(level);
     let look_vector = dragon.get_head_look_vector(level, 1.0);
     let mut target_node_index =
-        dragon.find_closest_node_at(-look_vector.x * 40.0, 105.0, -look_vector.z * 40.0);
-    if dragon.alive_crystals().is_some_and(|crystals| crystals > 0) {
+        dragon.find_closest_node_at(level, -look_vector.x * 40.0, 105.0, -look_vector.z * 40.0);
+    if dragon
+        .alive_crystals(level)
+        .is_some_and(|crystals| crystals > 0)
+    {
         target_node_index %= 12;
         if target_node_index < 0 {
             target_node_index += 12;
@@ -59,7 +62,7 @@ fn find_new_target(dragon: &mut EnderDragon, level: &ServerLevel) {
         target_node_index += 12;
     }
     dragon.phases.takeoff.current_path =
-        dragon.find_path(current_node_index, target_node_index, None);
+        dragon.find_path(level, current_node_index, target_node_index, None);
     navigate_to_next_path_node(dragon);
 }
 

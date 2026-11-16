@@ -274,6 +274,13 @@ impl MinecraftServer {
             border.take_events();
             // `this.raids = this.getDataStorage().computeIfAbsent(Raids.TYPE)` in the `ServerLevel` constructor
             level.install_raids();
+            if level
+                .dimension_type
+                .as_ref()
+                .is_some_and(|t| t.has_ender_dragon_fight)
+            {
+                level.install_dragon_fight();
+            }
         }
     }
 

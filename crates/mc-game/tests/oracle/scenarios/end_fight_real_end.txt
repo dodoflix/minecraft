@@ -1,11 +1,12 @@
 # The End's dragon fight over the real End terrain (`level normal`): the first scan counts the crystals of the ten pillars, the podium goes where the island's
 # height decides, the dragon appears over it. The arena check is skipped: which tick the 17 chunks along z = +8 finish loading is thread timing.
-# Not implemented in the replay: the fight itself, so the replay test is ignored until it lands.
 level normal
 end fight
 dimension the_end
 seed 4242
-preload 4
+# the scan loads 17x17 chunks around the origin; the preloaded 21x21 keep it from generating any (each generated chunk draws a unique seed, which moves
+# the seed of the dragon created in the same tick)
+preload 10
 level_seed 77
 fight_skip_arena
 dump fight fightbar fighthash

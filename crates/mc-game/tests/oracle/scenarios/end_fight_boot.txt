@@ -1,12 +1,13 @@
 # The End's dragon fight in a void End (`end fight`): its state and saved file right after boot (the gateways shuffled for the world seed, the first scan still
 # to run), the first scan with a player near (inactive podium, new dragon, boss bar), a kill (exit portal, egg, one gateway), and the respawn ritual's start.
-# Not implemented in the replay: the fight itself, so the replay test is ignored until it lands.
 level void
 end void
 end fight
 dimension the_end
 seed 4242
-preload 4
+# the scan loads 17x17 chunks around the origin; the preloaded 21x21 keep it from generating any (each generated chunk draws a unique seed, which moves
+# the seed of the dragon created in the same tick)
+preload 10
 level_seed 77
 note right after boot: nothing scanned, nobody near, no dragon, the 20 gateways in the order of the world seed's shuffle
 dump fight fightbar fightfile fighthash

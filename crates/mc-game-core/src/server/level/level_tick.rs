@@ -92,10 +92,9 @@ fn sample(random: &mut dyn RandomSource, (min, max): (i32, i32)) -> i32 {
 }
 
 impl ServerLevel {
-    /// `getDragonFight() != null`: the level runs an `EnderDragonFight` (its tick hook is installed).
-    // Not implemented: the `EnderDragonFight` itself (`onCrystalDestroyed`, `tryRespawn`); no level installs the hook yet.
+    /// `getDragonFight() != null`: the level runs an `EnderDragonFight`.
     pub fn has_dragon_fight(&self) -> bool {
-        self.tick_state.dragon_fight_tick.is_some()
+        self.dragon_fight().is_some()
     }
 
     // ------------------------------------------------------------------------------------------------ positions
@@ -929,8 +928,8 @@ impl ServerLevel {
         }
 
         if self.tick_state.empty_time < EMPTY_TIME_NO_TICK {
-            if runs && let Some(tick) = self.tick_state.dragon_fight_tick {
-                tick(self);
+            if runs && self.has_dragon_fight() {
+                crate::world::level::dimension::end::tick(self);
             }
             for id in self.entity_manager.tick_list.snapshot() {
                 self.tick_listed_entity(env, id);

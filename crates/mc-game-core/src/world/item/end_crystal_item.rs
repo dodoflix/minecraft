@@ -52,7 +52,9 @@ impl ItemBehaviour for EndCrystalItem {
             GameEvent::ENTITY_PLACE,
             Vec3::at_center_of(&above),
         );
-        // Not implemented: `EnderDragonFight.tryRespawn()` of the level's dragon fight (the fight is not ported).
+        if level.has_dragon_fight() {
+            crate::world::level::dimension::end::try_respawn(level);
+        }
         context.item_stack.shrink(1);
         InteractionResult::SUCCESS
     }
