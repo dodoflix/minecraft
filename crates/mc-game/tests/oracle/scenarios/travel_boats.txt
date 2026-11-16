@@ -1,0 +1,62 @@
+# Boats travel through a nether portal as a whole: a chest boat and a chest raft with contents, a boat that carries a cow that carries a chicken, and a boat with
+# a burning, falling zombie that has an effect. Arrivals are new entities; the cooldown is the vehicle's.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice creative 2.5 -61 3.5 180 0
+tick 2
+note a chest boat
+spawn B minecraft:oak_chest_boat 0.9 -60 0.5 90 0 {Items:[{Slot:0b,id:"minecraft:stone",count:5},{Slot:20b,id:"minecraft:bread",count:3}],CustomName:"Freight"}
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 2
+in the_nether dump xentities nbt:oak_chest_boat#1 portal:oak_chest_boat#1
+in the_nether nbt oak_chest_boat#1 {Items:[]}
+kill oak_chest_boat#1
+note a bamboo chest raft
+spawn B minecraft:bamboo_chest_raft 0.9 -60 0.5 90 0 {Items:[{Slot:1b,id:"minecraft:diamond",count:2}]}
+tick 1
+dump xentities
+tick 2
+in the_nether dump xentities nbt:bamboo_chest_raft#1 portal:bamboo_chest_raft#1
+in the_nether nbt bamboo_chest_raft#1 {Items:[]}
+kill bamboo_chest_raft#1
+note a boat with a chicken on a cow on a boat
+spawn B minecraft:pale_oak_boat 0.9 -60 0.5 270 0
+spawn C minecraft:cow 0.9 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,CustomName:"Mount"}
+entity_seed C 9
+spawn H minecraft:chicken 0.9 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed H 3
+ride C B
+ride H C
+tick 1
+dump xentities packets:Alice:remove_entities,set_passengers
+tick 2
+in the_nether dump xentities nbt:pale_oak_boat#1 nbt:cow#1 nbt:chicken#1 portal:pale_oak_boat#1 portal:cow#1 portal:chicken#1
+kill chicken#1
+kill cow#1
+kill pale_oak_boat#1
+note a boat with a zombie that burns and falls
+spawn B minecraft:birch_boat 0.9 -60 0.5 0 0
+spawn Z minecraft:zombie 0.9 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed Z 4
+set Z fire 100
+set Z fall_distance 4.5
+effect Z minecraft:speed 1 600
+ride Z B
+tick 1
+dump xentities packets:Alice:remove_entities,set_passengers
+tick 2
+in the_nether dump xentities nbt:zombie#1 portal:zombie#1 portal:birch_boat#1

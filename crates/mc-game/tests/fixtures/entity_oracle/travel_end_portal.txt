@@ -1,0 +1,75 @@
+# an item, an orb and a cow fall into the end portal: they arrive on the obsidian platform at the end spawn point as new entities (the platform is built first)
+E I minecraft:item pos=1.0,-60.54,0.5 delta=0.0,-0.03920000076293945,0.0 rot=244.22574,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=1 pickup=0 health=5 owner=- thrower=-
+E O minecraft:experience_orb pos=0.5154630681646915,-60.52840214961069,0.5154630681646915 delta=0.015153807096332295,-0.027834107160207087,0.015153807096332295 rot=0.0,0.0 og=0 fall=0.02840214967727661 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=1 health=5
+E C minecraft:cow pos=1.5,-60.9,0.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=100.5,49.92079999923706,0.5 delta=0.0,-0.0776160022583008,0.0 rot=90.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=2 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=100.48484619290367,49.942165892839796,0.5151538070963323 delta=-0.014850731243441582,-0.056677426120100995,0.014850731243441582 rot=90.0,0.0 og=0 fall=0.08623625710606575 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=2 health=5
+E cow#1 minecraft:cow pos=100.5,50.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=100.5,49.92079999923706,0.5 delta=0.0,-0.0776160022583008,0.0 rot=90.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=2 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=100.48484619290367,49.942165892839796,0.5151538070963323 delta=-0.014850731243441582,-0.056677426120100995,0.014850731243441582 rot=90.0,0.0 og=0 fall=0.08623625710606575 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=2 health=5
+E cow#1 minecraft:cow pos=100.5,50.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+B 98 48 -2 minecraft:obsidian
+B 98 48 -1 minecraft:obsidian
+B 98 48 0 minecraft:obsidian
+B 98 48 1 minecraft:obsidian
+B 98 48 2 minecraft:obsidian
+B 99 48 -2 minecraft:obsidian
+B 99 48 -1 minecraft:obsidian
+B 99 48 0 minecraft:obsidian
+B 99 48 1 minecraft:obsidian
+B 99 48 2 minecraft:obsidian
+B 100 48 -2 minecraft:obsidian
+B 100 48 -1 minecraft:obsidian
+B 100 48 0 minecraft:obsidian
+B 100 48 1 minecraft:obsidian
+B 100 48 2 minecraft:obsidian
+B 101 48 -2 minecraft:obsidian
+B 101 48 -1 minecraft:obsidian
+B 101 48 0 minecraft:obsidian
+B 101 48 1 minecraft:obsidian
+B 101 48 2 minecraft:obsidian
+B 102 48 -2 minecraft:obsidian
+B 102 48 -1 minecraft:obsidian
+B 102 48 0 minecraft:obsidian
+B 102 48 1 minecraft:obsidian
+B 102 48 2 minecraft:obsidian
+N cow#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CustomName:"Traveller",DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:299,Pos:[100.5d,50.0d,0.5d],Rotation:[90.0f,0.0f],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+PORTAL cow#1 cooldown=299 time=-
+E item#1 minecraft:item pos=100.5,49.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=12 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=100.36417945922672,49.114098010765304,0.6358205407732559 delta=-0.007280479204236014,0.00692563529185355,0.007280479204236014 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=12 health=5
+E cow#1 minecraft:cow pos=100.5,50.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+# a boat with a villager and a primed tnt
+E item#1 minecraft:item pos=100.5,49.0,0.5 delta=0.0,-0.04,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=13 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=100.35689898002248,49.09102364605716,0.6431010199774919 delta=-0.007134869759015414,-0.0226128778540921,0.007134869759015414 rot=90.0,0.0 og=0 fall=0.02307436428964138 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=13 health=5
+E B minecraft:oak_boat pos=1.0,-60.54,0.5 delta=0.0,-0.04,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing status=in_air dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=V mdir=west leash=- ooc=0.0
+E V minecraft:villager pos=1.0,-60.3525,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E T minecraft:tnt pos=0.2,-60.54,0.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=79
+PKT Alice minecraft:remove_entities 4e0166
+PKT Alice minecraft:remove_entities 4e0167
+PKT Alice minecraft:remove_entities 4e0168
+PKT Alice minecraft:set_passengers 6d6c016d
+E item#1 minecraft:item pos=100.5,49.0,0.5 delta=0.0,-0.12,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=15 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=100.34277193776354,49.0,0.6572280622364293 delta=-0.004111397843385935,0.0326242485202085,0.004111397843385935 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=15 health=5
+E villager#1 minecraft:villager pos=100.5,49.987500000000004,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E oak_boat#1 minecraft:oak_boat pos=100.5,49.800000000000004,0.5 delta=0.0,-0.12,0.0 rot=90.0,0.0 og=0 fall=0.23999999463558197 fire=0 air=300 alive=1 pose=standing status=in_air dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=V mdir=north leash=- ooc=0.0
+E tnt#1 minecraft:tnt pos=100.5,49.80318399697876,0.5 delta=0.0,-0.115263684456482,0.0 rot=90.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing fuse=77
+N oak_boat#1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,-0.12d,0.0d],OnGround:0b,Passengers:[{AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,FoodLevel:0b,ForcedAge:0,Gossips:[],Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LastGossipDecay:16L,LastRestock:0L,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[100.5d,49.987500000000004d,0.5d],RestocksToday:0,Rotation:[90.0f,0.0f],UUID:[I;-16403288,1441219871,-1408777713,1310894705],VillagerData:{level:1,profession:"minecraft:none",type:"minecraft:plains"},VillagerDataFinalized:1b,Xp:0,attributes:[{base:0.5d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:villager"}],PortalCooldown:8,Pos:[100.5d,49.800000000000004d,0.5d],Rotation:[90.0f,0.0f],fall_distance:0.23999999463558197d}
+N villager#1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,FoodLevel:0b,ForcedAge:0,Gossips:[],Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LastGossipDecay:16L,LastRestock:0L,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[100.5d,49.987500000000004d,0.5d],RestocksToday:0,Rotation:[90.0f,0.0f],VillagerData:{level:1,profession:"minecraft:none",type:"minecraft:plains"},VillagerDataFinalized:1b,Xp:0,attributes:[{base:0.5d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+N tnt#1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,-0.115263684456482d,0.0d],OnGround:0b,PortalCooldown:298,Pos:[100.5d,49.80318399697876d,0.5d],Rotation:[90.0f,0.0f],block_state:"minecraft:tnt",fall_distance:0.23681600391864777d,fuse:77s}
+PORTAL oak_boat#1 cooldown=8 time=-
+# back to the overworld: in the end, an item, an orb and a cow fall into an end portal; they appear at the world spawn of the overworld
+E item#1 minecraft:item pos=100.5,49.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=16 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=100.33866053992016,49.002624248520206,0.6613394600798153 delta=-0.004029169964936907,0.002571763599857902,0.004029169964936907 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=16 health=5
+E I2 minecraft:item pos=1.0,60.96,0.5 delta=0.0,-0.03920000076293945,0.0 rot=221.94547,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=1 pickup=0 health=5 owner=- thrower=-
+E O2 minecraft:experience_orb pos=0.5,60.97,0.5 delta=0.0,-0.02940000057220459,0.0 rot=0.0,0.0 og=0 fall=0.029999999329447746 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=1 health=5
+E C2 minecraft:cow pos=1.5,60.5,0.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=100.5,49.0,0.5 delta=0.0,-0.08,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=18 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=100.3322622177776,49.0,0.667737782222371 delta=-0.0013930616205226805,0.0,0.0013930616205226805 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=18 health=5
+E I2 minecraft:item pos=1.0,60.76318399697876,0.5 delta=0.0,-0.115263684456482,0.0 rot=221.94547,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=3 pickup=0 health=5 owner=- thrower=-
+E O2 minecraft:experience_orb pos=0.5,60.82238799773407,0.5 delta=0.0,-0.08644776334236148,0.0 rot=0.0,0.0 og=0 fall=0.17761199735105038 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=3 health=5
+E cow#2 minecraft:cow pos=8.5,-64.0,8.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=100.5,49.0,0.5 delta=0.0,-0.08,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=18 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=100.3322622177776,49.0,0.667737782222371 delta=-0.0013930616205226805,0.0,0.0013930616205226805 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=18 health=5
+E I2 minecraft:item pos=1.0,60.76318399697876,0.5 delta=0.0,-0.115263684456482,0.0 rot=221.94547,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=3 pickup=0 health=5 owner=- thrower=-
+E O2 minecraft:experience_orb pos=0.5,60.82238799773407,0.5 delta=0.0,-0.08644776334236148,0.0 rot=0.0,0.0 og=0 fall=0.17761199735105038 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=3 health=5
+E cow#2 minecraft:cow pos=8.5,-64.0,8.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-

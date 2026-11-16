@@ -1,0 +1,57 @@
+# Leashed mobs and boats travel through a nether portal with the holder left in the old level: the old entity loses the link, the new one keeps the saved link
+# until its tick count passes 100 and then drops a lead; a link to a fence knot creates a knot in the new level.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice creative 2.5 -61 3.5 180 0
+tick 2
+fill 3 -61 3 3 -61 3 minecraft:oak_fence
+note a cow leashed to Alice travels: the old level drops the link, the new cow only holds the saved link until its tick count passes 100
+spawn C minecraft:cow 1.5 -60 0.4 45 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C 9
+leash C Alice
+dump packets:Alice:none
+tick 1
+dump xentities mob:C packets:Alice:set_entity_link,remove_entities
+tick 1
+dump xentities packets:Alice:set_entity_link,remove_entities,add_entity
+in the_nether dump xentities nbt:cow#1 mob:cow#1
+in the_nether level_seed 6
+tick 100
+in the_nether dump xentities nbt:cow#1 mob:cow#1
+tick 3
+dump xentities packets:Alice:set_entity_link,add_entity,entity_event
+in the_nether dump xentities nbt:cow#1 mob:cow#1
+in the_nether kill item#1
+kill cow#1
+note a cow leashed to a fence knot: the knot is created in the new level when the saved link is restored
+spawn K minecraft:leash_knot 3.5 -60.5 3.5 0 0 {block_pos:[I;3,-61,3]}
+spawn C2 minecraft:cow 1.5 -60 0.4 45 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed C2 5
+leash C2 K
+tick 2
+dump xentities packets:Alice:set_entity_link,remove_entities
+in the_nether dump xentities nbt:cow#1 mob:cow#1
+tick 2
+dump xentities
+in the_nether dump xentities packets:Alice:none
+note a boat leashed to Alice
+spawn B minecraft:oak_boat 0.9 -60 0.5 90 0
+leash B Alice
+tick 2
+dump xentities packets:Alice:set_entity_link,remove_entities
+in the_nether dump xentities nbt:oak_boat#1 portal:oak_boat#1
+tick 102
+in the_nether dump xentities nbt:oak_boat#1

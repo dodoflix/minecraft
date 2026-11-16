@@ -1,0 +1,71 @@
+E W minecraft:wolf pos=4.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.736620152428127;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=S sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:puglin collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+LEVEL minecraft:overworld gametime=81 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=81 forced=25 loaded=961 players=0 border=5.9999968E7
+PL S dim=minecraft:overworld
+P S minecraft:player pos=0.7,-60.0,0.4 delta=0.0,-0.0784000015258789,0.0 rot=90.0,15.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=9.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E W minecraft:wolf pos=4.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-10.8506155 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=129.20728 body=129.20728 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.736620152428127;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=S sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:puglin collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+G W goal 1 FloatGoal flags=JUMP running=0
+G W goal 1 TamableAnimal$TamableAnimalPanicGoal flags=MOVE running=0
+G W goal 2 SitWhenOrderedToGoal flags=MOVE+JUMP running=0
+G W goal 3 Wolf$WolfAvoidEntityGoal flags=MOVE running=0
+G W goal 4 LeapAtTargetGoal flags=MOVE+JUMP running=0
+G W goal 5 MeleeAttackGoal flags=MOVE+LOOK running=0
+G W goal 6 FollowOwnerGoal flags=MOVE+LOOK running=0
+G W goal 7 BreedGoal flags=MOVE+LOOK running=0
+G W goal 8 WaterAvoidingRandomStrollGoal flags=MOVE running=0
+G W goal 9 BegGoal flags=LOOK running=0
+G W goal 10 LookAtPlayerGoal flags=LOOK running=1
+G W goal 10 RandomLookAroundGoal flags=MOVE+LOOK running=0
+G W target 1 OwnerHurtByTargetGoal flags=TARGET running=0
+G W target 2 OwnerHurtTargetGoal flags=TARGET running=0
+G W target 3 HurtByTargetGoal flags=TARGET running=0
+G W target 4 NearestAttackableTargetGoal flags=TARGET running=0
+G W target 5 NonTameRandomTargetGoal flags=TARGET running=0
+G W target 6 NonTameRandomTargetGoal flags=TARGET running=0
+G W target 7 NearestAttackableTargetGoal flags=TARGET running=0
+G W target 8 ResetUniversalAngerTargetGoal flags=none running=0
+LEVEL minecraft:overworld gametime=84 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=84 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL S dim=minecraft:the_nether
+E W minecraft:wolf pos=4.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=129.20728 body=129.20728 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=2:SitWhenOrderedToGoal:MOVE+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.736620152428127;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=S sitting=1 ordered=0 variant=minecraft:pale svariant=minecraft:puglin collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+G W goal 1 FloatGoal flags=JUMP running=0
+G W goal 1 TamableAnimal$TamableAnimalPanicGoal flags=MOVE running=0
+G W goal 2 SitWhenOrderedToGoal flags=MOVE+JUMP running=1
+G W goal 3 Wolf$WolfAvoidEntityGoal flags=MOVE running=0
+G W goal 4 LeapAtTargetGoal flags=MOVE+JUMP running=0
+G W goal 5 MeleeAttackGoal flags=MOVE+LOOK running=0
+G W goal 6 FollowOwnerGoal flags=MOVE+LOOK running=0
+G W goal 7 BreedGoal flags=MOVE+LOOK running=0
+G W goal 8 WaterAvoidingRandomStrollGoal flags=MOVE running=0
+G W goal 9 BegGoal flags=LOOK running=0
+G W goal 10 LookAtPlayerGoal flags=LOOK running=0
+G W goal 10 RandomLookAroundGoal flags=MOVE+LOOK running=0
+G W target 1 OwnerHurtByTargetGoal flags=TARGET running=0
+G W target 2 OwnerHurtTargetGoal flags=TARGET running=0
+G W target 3 HurtByTargetGoal flags=TARGET running=0
+G W target 4 NearestAttackableTargetGoal flags=TARGET running=0
+G W target 5 NonTameRandomTargetGoal flags=TARGET running=0
+G W target 6 NonTameRandomTargetGoal flags=TARGET running=0
+G W target 7 NearestAttackableTargetGoal flags=TARGET running=0
+G W target 8 ResetUniversalAngerTargetGoal flags=none running=0
+E W minecraft:wolf pos=4.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=129.20728 body=129.20728 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=2:SitWhenOrderedToGoal:MOVE+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.736620152428127;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=S sitting=1 ordered=0 variant=minecraft:pale svariant=minecraft:puglin collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+G W goal 1 FloatGoal flags=JUMP running=0
+G W goal 1 TamableAnimal$TamableAnimalPanicGoal flags=MOVE running=0
+G W goal 2 SitWhenOrderedToGoal flags=MOVE+JUMP running=1
+G W goal 3 Wolf$WolfAvoidEntityGoal flags=MOVE running=0
+G W goal 4 LeapAtTargetGoal flags=MOVE+JUMP running=0
+G W goal 5 MeleeAttackGoal flags=MOVE+LOOK running=0
+G W goal 6 FollowOwnerGoal flags=MOVE+LOOK running=0
+G W goal 7 BreedGoal flags=MOVE+LOOK running=0
+G W goal 8 WaterAvoidingRandomStrollGoal flags=MOVE running=0
+G W goal 9 BegGoal flags=LOOK running=0
+G W goal 10 LookAtPlayerGoal flags=LOOK running=0
+G W goal 10 RandomLookAroundGoal flags=MOVE+LOOK running=0
+G W target 1 OwnerHurtByTargetGoal flags=TARGET running=0
+G W target 2 OwnerHurtTargetGoal flags=TARGET running=0
+G W target 3 HurtByTargetGoal flags=TARGET running=0
+G W target 4 NearestAttackableTargetGoal flags=TARGET running=0
+G W target 5 NonTameRandomTargetGoal flags=TARGET running=0
+G W target 6 NonTameRandomTargetGoal flags=TARGET running=0
+G W target 7 NearestAttackableTargetGoal flags=TARGET running=0
+G W target 8 ResetUniversalAngerTargetGoal flags=none running=0

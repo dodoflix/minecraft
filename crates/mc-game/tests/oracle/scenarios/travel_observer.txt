@@ -1,0 +1,39 @@
+# What the players on both sides are sent when entities travel through a nether portal: the old level's watchers get remove_entities (and no link or passenger
+# update for the removed entity), the watchers of the nether get the new entities with the saved UUID and a new entity id, their data, equipment and passengers.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice creative 2.5 -61 3.5 180 0
+tick 2
+in the_nether fill 18 69 18 22 69 22 minecraft:stone
+in the_nether spawn_player Bob creative 20.5 70 20.5 0 0
+tick 2
+dump packets:Alice:none packets:Bob:none
+note a cow that is leashed to Alice, a zombie with armor and a boat with a cow: the observer in the nether is sent the new entities (same UUID, new entity id)
+spawn C minecraft:cow 1.5 -60 0.4 45 0 {NoAI:1b,PersistenceRequired:1b,CustomName:"Moo"}
+entity_seed C 9
+leash C Alice
+spawn Z minecraft:zombie 0.2 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,equipment:{head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:iron_sword",count:1}}}
+entity_seed Z 4
+spawn B minecraft:oak_boat 0.9 -60 0.5 90 0
+spawn D minecraft:cow 0.9 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed D 5
+ride D B
+tick 1
+dump packets:Alice:remove_entities,set_entity_link,set_passengers packets:Bob:add_entity,remove_entities,set_entity_data,update_attributes,set_equipment,set_passengers,set_entity_link,teleport_entity,entity_position_sync,move_entity_pos,set_entity_motion,entity_event
+tick 1
+dump packets:Alice:remove_entities,set_entity_link,set_passengers packets:Bob:add_entity,remove_entities,set_entity_data,update_attributes,set_equipment,set_passengers,set_entity_link,teleport_entity,entity_position_sync,move_entity_pos,set_entity_motion,entity_event
+tick 3
+in the_nether dump xentities packets:Bob:add_entity,remove_entities,set_entity_data,update_attributes,set_equipment,set_passengers,set_entity_link,teleport_entity,entity_position_sync,move_entity_pos,set_entity_motion,entity_event

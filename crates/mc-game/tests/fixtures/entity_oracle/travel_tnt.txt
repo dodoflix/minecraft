@@ -1,0 +1,65 @@
+# a primed tnt with an owner travels, keeps its fuse, power and owner and explodes in the nether as a tnt that used a portal
+E T minecraft:tnt pos=1.0,-59.04,0.5 delta=0.0,-0.03920000076293945,0.0 rot=30.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing fuse=29
+E tnt#1 minecraft:tnt pos=1.0,70.76318399697877,0.5 delta=0.0,-0.115263684456482,0.0 rot=30.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing fuse=27
+N tnt#1 {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,-0.115263684456482d,0.0d],OnGround:0b,PortalCooldown:300,Pos:[1.0d,70.76318399697877d,0.5d],Rotation:[30.0f,0.0f],block_state:"minecraft:tnt",explosion_power:2.0f,fall_distance:0.23681600391864777d,fuse:27s,owner:[I;278005000,-707248403,-1814916367,-1817188393]}
+PORTAL tnt#1 cooldown=300 time=-
+E item#1 minecraft:item pos=0.4664515281116657,69.82676828221959,-0.6443592560642608 delta=0.017083942611874032,0.07297472653442398,-0.01607957363518023 rot=314.98608,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*2 age=3 pickup=7 health=5 owner=- thrower=-
+B -3 69 -3 minecraft:stone
+B -3 69 -2 minecraft:stone
+B -3 69 -1 minecraft:stone
+B -3 69 0 minecraft:stone
+B -3 69 1 minecraft:stone
+B -3 69 2 minecraft:stone
+B -3 69 3 minecraft:stone
+B -2 69 -3 minecraft:stone
+B -2 69 -2 minecraft:stone
+B -2 69 -1 minecraft:stone
+B -2 69 0 minecraft:stone
+B -2 69 1 minecraft:stone
+B -2 69 2 minecraft:stone
+B -2 69 3 minecraft:stone
+B -1 69 -3 minecraft:stone
+B -1 69 -2 minecraft:stone
+B -1 69 -1 minecraft:stone
+B -1 69 0 minecraft:obsidian
+B -1 69 1 minecraft:stone
+B -1 69 2 minecraft:stone
+B -1 69 3 minecraft:stone
+B -1 70 0 minecraft:obsidian
+B -1 71 0 minecraft:obsidian
+B -1 72 0 minecraft:obsidian
+B 0 69 -3 minecraft:stone
+B 0 69 -2 minecraft:stone
+B 0 69 0 minecraft:obsidian
+B 0 69 1 minecraft:stone
+B 0 69 2 minecraft:stone
+B 0 69 3 minecraft:stone
+B 0 70 0 minecraft:nether_portal[axis=x]
+B 0 71 0 minecraft:nether_portal[axis=x]
+B 0 72 0 minecraft:nether_portal[axis=x]
+B 1 69 -3 minecraft:stone
+B 1 69 -2 minecraft:stone
+B 1 69 0 minecraft:obsidian
+B 1 69 1 minecraft:stone
+B 1 69 2 minecraft:stone
+B 1 69 3 minecraft:stone
+B 1 70 0 minecraft:nether_portal[axis=x]
+B 1 71 0 minecraft:nether_portal[axis=x]
+B 1 72 0 minecraft:nether_portal[axis=x]
+B 2 69 -3 minecraft:stone
+B 2 69 -2 minecraft:stone
+B 2 69 -1 minecraft:stone
+B 2 69 0 minecraft:obsidian
+B 2 69 1 minecraft:stone
+B 2 69 2 minecraft:stone
+B 2 69 3 minecraft:stone
+B 2 70 0 minecraft:obsidian
+B 2 71 0 minecraft:obsidian
+B 2 72 0 minecraft:obsidian
+B 3 69 -3 minecraft:stone
+B 3 69 -2 minecraft:stone
+B 3 69 -1 minecraft:stone
+B 3 69 0 minecraft:stone
+B 3 69 1 minecraft:stone
+B 3 69 2 minecraft:stone
+B 3 69 3 minecraft:stone

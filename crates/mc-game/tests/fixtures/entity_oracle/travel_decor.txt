@@ -1,0 +1,34 @@
+# an armor stand with equipment travels (it is a living entity)
+E A minecraft:armor_stand pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=30.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E armor_stand#1 minecraft:armor_stand pos=-0.5,70.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=30.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+N armor_stand#1 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CustomName:"Guard",DeathTime:0s,DisabledSlots:0,FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Invisible:0b,Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],NoBasePlate:0b,OnGround:1b,PortalCooldown:300,Pos:[-0.5d,70.0d,0.5d],Pose:{Head:[10.0f,20.0f,30.0f]},Rotation:[30.0f,0.0f],ShowArms:1b,Small:0b,attributes:[{base:0.7d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:armor"},{base:0.0d,id:"minecraft:armor_toughness"}],current_impulse_context_reset_grace_time:0,equipment:{head:{count:1,id:"minecraft:iron_helmet"},mainhand:{count:1,id:"minecraft:stick"}},fall_distance:0.0d}
+PORTAL armor_stand#1 cooldown=300 time=-
+# a marker armor stand, display entities and an interaction never move, so they stay in the portal
+E M minecraft:armor_stand pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E D1 minecraft:block_display pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D2 minecraft:item_display pos=1.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D3 minecraft:text_display pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D4 minecraft:interaction pos=0.5,-60.0,0.8 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E M minecraft:armor_stand pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E D1 minecraft:block_display pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D2 minecraft:item_display pos=1.0,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D3 minecraft:text_display pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E D4 minecraft:interaction pos=0.5,-60.0,0.8 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+# experience orbs: a big one and a stack of small ones; at arrival they merge with the orbs around
+E O1 minecraft:experience_orb pos=0.4168011920481145,-60.0,0.5240017029258779 delta=0.009879101917708973,0.01260804313315897,0.014113002739584242 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=1 health=5
+E O2 minecraft:experience_orb pos=1.0150235580417644,-60.0,0.5300471160835287 delta=0.008833853016867498,0.012761193597897675,0.017667706033734996 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=2 count=3 age=1 health=5
+E O3 minecraft:experience_orb pos=0.0,70.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=1 health=5
+PKT Alice minecraft:remove_entities 4e0166
+PKT Alice minecraft:remove_entities 4e0169
+PKT Alice minecraft:remove_entities 4e016a
+PKT Alice minecraft:remove_entities 4e016b
+PKT Alice minecraft:remove_entities 4e016c
+PKT Alice minecraft:remove_entities 4e0168
+E experience_orb#1 minecraft:experience_orb pos=-0.5675107935224339,70.0,0.5464131521108087 delta=0.0034156409003728593,0.0,0.004879487000532655 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=3 health=5
+E experience_orb#2 minecraft:experience_orb pos=0.02905171715487631,70.0,0.5581034343097526 delta=0.0030542522917196687,0.0,0.0061085045834393375 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=2 count=3 age=3 health=5
+E experience_orb#3 minecraft:experience_orb pos=1.0150235580417644,-60.0,0.5300471160835287 delta=0.008833853016867498,0.012761193597897675,0.017667706033734996 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=2 health=5
+N experience_orb#1 {Age:3s,Air:300s,Count:1,Fire:0s,Health:5s,Invulnerable:0b,Motion:[0.0034156409003728593d,0.0d,0.004879487000532655d],OnGround:1b,PortalCooldown:300,Pos:[-0.5675107935224339d,70.0d,0.5464131521108087d],Rotation:[0.0f,0.0f],Value:5s,fall_distance:0.0d}
+N experience_orb#2 {Age:3s,Air:300s,Count:3,Fire:0s,Health:5s,Invulnerable:0b,Motion:[0.0030542522917196687d,0.0d,0.0061085045834393375d],OnGround:1b,PortalCooldown:300,Pos:[0.02905171715487631d,70.0d,0.5581034343097526d],Rotation:[0.0f,0.0f],Value:2s,fall_distance:0.0d}
+PORTAL experience_orb#1 cooldown=300 time=-
+E experience_orb#1 minecraft:experience_orb pos=-0.5595630427514058,70.0,0.5577670817837062 delta=4.1190142817620365E-10,0.0,5.884306116802907E-10 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=5 count=1 age=33 health=5
+E experience_orb#2 minecraft:experience_orb pos=0.036158563780287103,70.0,0.5723171275605742 delta=3.6832059272754444E-10,0.0,7.366411854550889E-10 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=2 count=3 age=33 health=5

@@ -1,0 +1,41 @@
+# The ender dragon and the wither have canUsePortal false: standing in a nether portal they stay where they are; a boat that carries a wither is a different case
+# (the vehicle uses the portal, the passenger has no say).
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice creative 2.5 -61 3.5 180 0
+tick 2
+note the ender dragon and the wither never use portals (canUsePortal is false): they stay in the overworld while they overlap the portal
+spawn D minecraft:ender_dragon 0.5 -60 0.5 0 0 {NoAI:1b,DragonPhase:10}
+entity_seed D 3
+spawn W minecraft:wither 4.5 -60 -6.5 0 0 {Invul:300,NoAI:1b}
+entity_seed W 4
+tick 1
+tp W 0.5 -60 0.5
+tick 6
+dump xentities portal:D portal:W packets:Alice:remove_entities
+in the_nether dump xentities
+note a vehicle with a wither passenger still uses the portal; the passenger is not what decides
+kill D
+kill W
+spawn B minecraft:oak_boat 0.9 -60 0.5 90 0
+spawn W2 minecraft:wither 0.9 -60 0.5 0 0 {Invul:300,NoAI:1b}
+entity_seed W2 4
+ride W2 B
+tick 1
+dump xentities packets:Alice:remove_entities,set_passengers
+tick 3
+dump xentities
+in the_nether dump xentities

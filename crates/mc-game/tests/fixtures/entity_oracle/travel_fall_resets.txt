@@ -1,0 +1,14 @@
+P Chorus minecraft:player pos=0.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=12.5 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:chorus_fruit*3
+P Pearl minecraft:player pos=8.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=9.5 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*3
+P Control minecraft:player pos=16.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=7.5 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bubble minecraft:player pos=25.5,-56.5672242295749,3.5 delta=0.0,0.6084448629949946,0.0 rot=0.0,0.0 og=0 fall=6.5 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# the chorus fruit is eaten after 32 ticks; the teleport resets the fall distance
+P Chorus minecraft:player pos=0.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=7.4 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:chorus_fruit*2
+P Control minecraft:player pos=16.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=7.5 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# the pearl lands: the owner is teleported, the fall distance is reset and the landing damage is dealt
+P Pearl minecraft:player pos=8.5,-58.479999996721745,20.5 delta=0.0,-0.30431682745754424,0.0 rot=0.0,90.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=6/17 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+P Control minecraft:player pos=16.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=7.5 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# the bubble column resets a simulated player inside it
+P Bubble minecraft:player pos=25.5,-40.900138082079046,3.5 delta=0.0,0.2681744377574439,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# a pig in the column
+E pig minecraft:pig pos=25.5,-57.87640000189543,5.5 delta=0.0,0.040280000064373,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=297 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-

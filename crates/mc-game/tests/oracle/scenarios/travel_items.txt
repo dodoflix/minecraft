@@ -1,0 +1,37 @@
+# Items travel through a nether portal: a stack merges into the stack at its arrival point (`mergeWithNeighbours` after the teleport), keeps thrower, owner,
+# age and pickup delay; a burning damaged item keeps its fire and health.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice creative 2.5 -61 3.5 180 0
+tick 2
+note a stack of sticks travels and merges with the stack that lies at its arrival point; a different item does not merge
+in the_nether spawn_item N1 minecraft:stick 0.0 70 0.5 0 0 0 20
+in the_nether spawn_item N2 minecraft:apple 0.0 70 0.5 0 0 0 3
+spawn_item I minecraft:stick 0.4 -59.5 0.5 0.1 0.2 0.3 10 rot=40
+spawn_item J minecraft:diamond_sword 1.0 -59.5 0.5 0 0.1 0 1 rot=10
+nbt I {PickupDelay:5s,Age:100s,Thrower:[I;278005000,-707248403,-1814916367,-1817188393],Owner:[I;278005000,-707248403,-1814916367,-1817188393]}
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 1
+in the_nether dump xentities nbt:item#1 nbt:item#2 portal:item#1 portal:item#2
+tick 3
+in the_nether dump xentities
+note an item that burns and is damaged
+spawn_item F minecraft:oak_log 1.4 -59.5 0.5 0 0.1 0 1
+set F fire 100
+nbt F {Health:3s}
+tick 2
+in the_nether dump xentities

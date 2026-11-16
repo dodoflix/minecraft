@@ -1,0 +1,153 @@
+# Projectiles travel through a nether portal without a delay (mobs_nether_portal_delay 0), keep their owner, motion and flags, and arrive as new entities.
+# One projectile per group, removed from the nether before the next one flies.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice creative 2.5 -61 3.5 180 0
+tick 2
+note trident
+spawn A minecraft:trident 0.5 -58.4 -3.5 0 0 {Owner:[I;278005000,-707248403,-1814916367,-1817188393]}
+velocity A 0 0 1.0
+tick 1
+dump xentities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:trident#1 portal:trident#1
+kill trident#1
+note firework_rocket
+spawn A minecraft:firework_rocket 0.5 -58.4 -3.5 0 0 {LifeTime:200,FireworksItem:{id:"minecraft:firework_rocket",count:1,components:{"minecraft:fireworks":{flight_duration:1}}}}
+velocity A 0 0 1.0
+tick 1
+dump xentities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:firework_rocket#1 portal:firework_rocket#1
+kill firework_rocket#1
+note wind_charge
+spawn A minecraft:wind_charge 0.5 -58.4 -3.5 0 0 {Owner:[I;278005000,-707248403,-1814916367,-1817188393]}
+velocity A 0 0 1.0
+tick 1
+dump xentities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:wind_charge#1 portal:wind_charge#1
+kill wind_charge#1
+note breeze_wind_charge
+spawn A minecraft:breeze_wind_charge 0.5 -58.4 -3.5 0 0 {}
+velocity A 0 0 1.0
+tick 1
+dump xentities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:breeze_wind_charge#1 portal:breeze_wind_charge#1
+kill breeze_wind_charge#1
+note snowball
+spawn A minecraft:snowball 0.5 -58.4 -3.5 0 0 {Owner:[I;278005000,-707248403,-1814916367,-1817188393]}
+velocity A 0 0 1.0
+tick 1
+dump xentities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:snowball#1 portal:snowball#1
+kill snowball#1
+note egg
+spawn A minecraft:egg 0.5 -58.4 -3.5 0 0 {Owner:[I;278005000,-707248403,-1814916367,-1817188393]}
+velocity A 0 0 1.0
+tick 1
+dump xentities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:egg#1 portal:egg#1
+kill egg#1
+note experience_bottle
+spawn A minecraft:experience_bottle 0.5 -58.4 -3.5 0 0 {}
+velocity A 0 0 1.0
+tick 1
+dump xentities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:experience_bottle#1 portal:experience_bottle#1
+kill experience_bottle#1
+note splash_potion
+spawn A minecraft:splash_potion 0.5 -58.4 -3.5 0 0 {Item:{id:"minecraft:splash_potion",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:swiftness"}}}}
+velocity A 0 0 1.0
+tick 1
+dump xentities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:splash_potion#1 portal:splash_potion#1
+kill splash_potion#1
+note lingering_potion
+spawn A minecraft:lingering_potion 0.5 -58.4 -3.5 0 0 {}
+velocity A 0 0 1.0
+tick 1
+dump xentities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:lingering_potion#1 portal:lingering_potion#1
+kill lingering_potion#1
+note small_fireball
+spawn A minecraft:small_fireball 0.5 -58.4 -3.5 0 0 {Owner:[I;278005000,-707248403,-1814916367,-1817188393],acceleration_power:0.1d}
+velocity A 0 0 1.0
+tick 1
+dump xentities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:small_fireball#1 portal:small_fireball#1
+kill small_fireball#1
+note fireball
+spawn A minecraft:fireball 0.5 -58.4 -3.5 0 0 {Owner:[I;278005000,-707248403,-1814916367,-1817188393],ExplosionPower:1b,acceleration_power:0.1d}
+velocity A 0 0 1.0
+tick 1
+dump xentities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:fireball#1 portal:fireball#1
+kill fireball#1
+note wither_skull
+spawn A minecraft:wither_skull 0.5 -58.4 -3.5 0 0 {acceleration_power:0.1d}
+velocity A 0 0 1.0
+tick 1
+dump xentities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:wither_skull#1 portal:wither_skull#1
+kill wither_skull#1
+note dragon_fireball
+spawn A minecraft:dragon_fireball 0.5 -58.4 -3.5 0 0 {acceleration_power:0.1d}
+velocity A 0 0 1.0
+tick 1
+dump xentities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:dragon_fireball#1 portal:dragon_fireball#1
+kill dragon_fireball#1
+note llama_spit
+spawn A minecraft:llama_spit 0.5 -58.4 -3.5 0 0 {}
+velocity A 0 0 1.0
+tick 1
+dump xentities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities
+note spectral_arrow
+spawn A minecraft:spectral_arrow 0.5 -58.4 -3.5 0 0 {Owner:[I;278005000,-707248403,-1814916367,-1817188393],Duration:100}
+velocity A 0 0 1.0
+tick 1
+dump xentities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:spectral_arrow#1 portal:spectral_arrow#1
+kill spectral_arrow#1

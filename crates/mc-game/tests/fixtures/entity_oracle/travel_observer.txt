@@ -1,0 +1,27 @@
+# a cow that is leashed to Alice, a zombie with armor and a boat with a cow: the observer in the nether is sent the new entities (same UUID, new entity id)
+PKT Alice minecraft:set_entity_link 660000006700000065
+PKT Alice minecraft:set_passengers 6d69016a
+PKT Alice minecraft:set_entity_link 660000006700000000
+PKT Bob minecraft:update_attributes entity=102;minecraft:entity_interaction_range=3.0[minecraft:creative_mode_entity_range/2.0/add_value];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[minecraft:creative_mode_block_range/0.5/add_value]
+PKT Alice minecraft:set_passengers 6d69026a67
+PKT Alice minecraft:remove_entities 4e0168
+PKT Alice minecraft:remove_entities 4e016a
+PKT Alice minecraft:remove_entities 4e0167
+PKT Alice minecraft:remove_entities 4e0169
+PKT Bob minecraft:add_entity 016e345d54469ea941c4ab32825df225fec81e3fd333335999999840518c00000000003fe00000000000000000000000
+PKT Bob minecraft:set_entity_data 656e0206010800034d6f6f0903412000000f0001ff
+PKT Bob minecraft:update_attributes entity=110;minecraft:movement_speed=0.20000000298023224[]
+PKT Bob minecraft:set_entity_data 656e0206010800034d6f6f0903412000000f0001ff
+PKT Bob minecraft:update_attributes entity=110;minecraft:movement_speed=0.20000000298023224[]
+E zombie#1 minecraft:zombie pos=-0.699999988079071,70.0,0.5 delta=-0.6560561099046163,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.0 abs=0.0 hurt=5/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_sword*1;head:minecraft:iron_helmet*1 attrs=minecraft:armor:4.0;minecraft:attack_damage:8.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E cow#1 minecraft:cow pos=-0.5000000059604645,70.1875,0.5 delta=0.022360679108597674,0.0,0.0 rot=360.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=75.0 body=360.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E cow#2 minecraft:cow pos=0.3000000357627869,70.1875,0.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=255.0 body=180.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E oak_boat#1 minecraft:oak_boat pos=-0.09999999999999998,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=D;C mdir=north leash=- ooc=0.0
+E item#2 minecraft:item pos=0.2891957635829705,70.27725971787365,0.21647500545466958 delta=-0.030696142634050176,-0.00463176169371346,0.24977590272185068 rot=108.005646,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:lead*1 age=4 pickup=6 health=5 owner=- thrower=-
+PKT Bob minecraft:add_entity 0170eaa6bb06f2f545a488838929010b74b5483fdaf38b60e482ac40518a3d70a3d70a3fd5c6454b35121061d8787f2821004c0000
+PKT Bob minecraft:set_entity_data 6570080701840b0000ff
+PKT Bob minecraft:move_entity_pos 367000000000000000
+PKT Bob minecraft:set_entity_data 6570080701840b0000ff
+PKT Bob minecraft:set_entity_motion 6770e1e2684515f5
+PKT Bob minecraft:move_entity_pos 367000ff120167fcf9
+PKT Bob minecraft:remove_entities 4e0170

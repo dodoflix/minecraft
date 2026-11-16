@@ -1,0 +1,54 @@
+# Entities travel through an end portal: the overworld to the end platform at the end spawn point (the platform is built, the arrival keeps motion), and
+# from the end back to the world spawn of the overworld. No player is in the end, so only non-player rules apply.
+level void
+command_env
+end void
+levels overworld,the_end
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -2 -62 -2 4 -62 4 minecraft:stone
+fill 0 -61 0 2 -61 0 minecraft:end_portal
+spawn_player Alice creative 3.5 -61 3.5 180 0
+in the_end level_seed 8
+tick 2
+note an item, an orb and a cow fall into the end portal: they arrive on the obsidian platform at the end spawn point as new entities (the platform is built first)
+spawn_item I minecraft:stick 1.0 -60.5 0.5 0 0 0 4
+spawn O minecraft:experience_orb 0.5 -60.5 0.5 0 0 {Value:5s,Count:1}
+spawn C minecraft:cow 1.5 -60.9 0.5 45 0 {NoAI:1b,PersistenceRequired:1b,CustomName:"Traveller"}
+entity_seed C 9
+tick 1
+dump xentities packets:Alice:remove_entities
+in the_end dump blocks:96,46,-4,104,52,4
+tick 2
+dump xentities
+in the_end dump xentities blocks:96,46,-4,104,52,4 nbt:cow#1 portal:cow#1
+tick 10
+in the_end dump xentities
+in the_end kill cow#1
+note a boat with a villager and a primed tnt
+spawn B minecraft:oak_boat 1.0 -60.5 0.5 0 0
+spawn V minecraft:villager 1.0 -60.5 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed V 5
+ride V B
+spawn T minecraft:tnt 0.2 -60.5 0.5 0 0 {fuse:80s}
+tick 1
+dump xentities packets:Alice:remove_entities,set_passengers
+tick 2
+in the_end dump xentities nbt:oak_boat#1 nbt:villager#1 nbt:tnt#1 portal:oak_boat#1
+in the_end kill villager#1
+in the_end kill oak_boat#1
+in the_end kill tnt#1
+note back to the overworld: in the end, an item, an orb and a cow fall into an end portal; they appear at the world spawn of the overworld
+in the_end fill -2 59 -2 4 59 4 minecraft:stone
+in the_end fill 0 60 0 2 60 0 minecraft:end_portal
+in the_end spawn_item I2 minecraft:stick 1.0 61 0.5 0 0 0 4
+in the_end spawn O2 minecraft:experience_orb 0.5 61 0.5 0 0 {Value:5s,Count:1}
+in the_end spawn C2 minecraft:cow 1.5 60.5 0.5 45 0 {NoAI:1b,PersistenceRequired:1b}
+in the_end entity_seed C2 9
+tick 1
+in the_end dump xentities
+tick 2
+dump xentities
+in the_end dump xentities

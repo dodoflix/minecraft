@@ -1,0 +1,78 @@
+# Mobs travel through a nether portal with their equipment, effects, fire, fall distance and name, and jockeys travel with their mount (the rider is a new
+# entity too). A vex and a bat travel.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice creative 2.5 -61 3.5 180 0
+tick 2
+note a zombie with armor and weapons, an effect, fire and a custom name
+spawn Z minecraft:zombie 0.6 -60 0.5 90 0 {NoAI:1b,PersistenceRequired:1b,CustomName:"Raider",CustomNameVisible:1b,CanPickUpLoot:1b,equipment:{mainhand:{id:"minecraft:iron_sword",count:1,components:{"minecraft:damage":12}},head:{id:"minecraft:iron_helmet",count:1},chest:{id:"minecraft:diamond_chestplate",count:1,components:{"minecraft:enchantments":{"minecraft:protection":2}}}},drop_chances:{mainhand:1.0f,head:0.5f}}
+entity_seed Z 4
+set Z fire 100
+set Z fall_distance 4.5
+effect Z minecraft:speed 1 600
+effect Z minecraft:strength 0 400 hidden
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 1
+in the_nether dump xentities nbt:zombie#1 mob:zombie#1 portal:zombie#1
+tick 3
+in the_nether dump nbt:zombie#1 mob:zombie#1
+in the_nether kill zombie#1
+note a spider jockey: the spider carries a skeleton
+spawn S minecraft:spider 0.6 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed S 3
+spawn K minecraft:skeleton 0.6 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:bow",count:1}}}
+entity_seed K 2
+ride K S
+tick 1
+dump xentities packets:Alice:remove_entities,set_passengers
+tick 1
+in the_nether dump xentities nbt:spider#1 nbt:skeleton#1 portal:spider#1 portal:skeleton#1
+in the_nether kill skeleton#1
+in the_nether kill spider#1
+note a chicken jockey: a baby zombie on a chicken
+spawn C minecraft:chicken 0.6 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,IsChickenJockey:1b}
+entity_seed C 3
+spawn Y minecraft:zombie 0.6 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,IsBaby:1b}
+entity_seed Y 2
+ride Y C
+tick 1
+dump xentities packets:Alice:remove_entities,set_passengers
+tick 1
+in the_nether dump xentities nbt:chicken#1 nbt:zombie#2 portal:chicken#1 portal:zombie#2
+in the_nether kill zombie#2
+in the_nether kill chicken#1
+note a skeleton horse with a skeleton rider and a saddle
+spawn HH minecraft:skeleton_horse 0.6 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tame:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed HH 3
+spawn RK minecraft:skeleton 0.6 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed RK 2
+ride RK HH
+tick 1
+dump xentities packets:Alice:remove_entities,set_passengers
+tick 1
+in the_nether dump xentities nbt:skeleton_horse#1 nbt:skeleton#2 portal:skeleton_horse#1 portal:skeleton#2
+in the_nether kill skeleton#2
+in the_nether kill skeleton_horse#1
+note a vex bound to its summoner and a bat
+spawn X minecraft:vex 0.6 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,life_ticks:200,bound_pos:[I;0,-60,0]}
+entity_seed X 3
+spawn BT minecraft:bat 1.4 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+entity_seed BT 4
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 1
+in the_nether dump xentities nbt:vex#1 nbt:bat#1 portal:vex#1

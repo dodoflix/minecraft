@@ -1,0 +1,55 @@
+# Piglins and hoglins carry their overworld counter through a nether portal: it is reset by the nether, runs again in the overworld and, when it is over, the
+# mob converts into a zoglin or zombified piglin (a new entity of the destination level).
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice creative 2.5 -61 3.5 180 0
+tick 2
+in the_nether fill -1 69 0 2 69 0 minecraft:obsidian
+in the_nether fill -1 73 0 2 73 0 minecraft:obsidian
+in the_nether fill -1 70 0 -1 72 0 minecraft:obsidian
+in the_nether fill 2 70 0 2 72 0 minecraft:obsidian
+in the_nether fill 0 70 0 1 72 0 minecraft:nether_portal[axis=x]
+in the_nether fill -1 69 1 2 69 3 minecraft:obsidian
+note a hoglin that has spent 200 ticks in the overworld counter goes into the nether: the counter resets while the hoglin is in the nether; back in the overworld it counts again and zombifies
+in the_nether spawn H minecraft:hoglin 0.5 70 1.5 180 0 {PersistenceRequired:1b,TimeInOverworld:200}
+in the_nether entity_seed H 11
+tick 2
+in the_nether dump nbt:H
+in the_nether tp H 0.5 70 0.5
+tick 2
+dump xentities nbt:hoglin#1 portal:hoglin#1
+in the_nether dump xentities
+note back in the overworld the counter runs: 3 ticks before the end of the count it is set, then the hoglin zombifies
+nbt hoglin#1 {TimeInOverworld:297}
+tick 2
+dump xentities nbt:hoglin#1
+tick 3
+dump xentities packets:Alice:add_entity,remove_entities,entity_event,sound
+tick 2
+dump xentities nbt:zoglin#1
+kill zoglin#1
+note the same for a piglin
+in the_nether spawn P minecraft:piglin 1.5 70 1.5 180 0 {PersistenceRequired:1b,TimeInOverworld:100,IsBaby:0b}
+in the_nether entity_seed P 12
+tick 2
+in the_nether dump nbt:P
+in the_nether tp P 1.5 70 0.5
+tick 2
+dump xentities nbt:piglin#1 portal:piglin#1
+nbt piglin#1 {TimeInOverworld:297}
+tick 5
+dump xentities packets:Alice:add_entity,remove_entities,entity_event,sound
+dump nbt:zombified_piglin#1

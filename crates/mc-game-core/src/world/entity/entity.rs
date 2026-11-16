@@ -2291,8 +2291,6 @@ pub trait Entity: Any {
     ) -> bool {
         super::portal::can_teleport_base(self.base(), level, from, to)
     }
-    /// `Leashable.removeLeash()` of `removeAfterChangingDimensions` (the mob classes override it for leashable mobs).
-    fn remove_leash(&mut self, _level: &mut ServerLevel) {}
     /// `setAsInsidePortal(portal, pos)`.
     fn set_as_inside_portal(
         &mut self,
@@ -5143,6 +5141,7 @@ pub fn restore_from_data<E: Entity + ?Sized>(new: &mut E, level: &ServerLevel, o
     tag.remove("Dimension");
     tag.remove("Passengers");
     let _ = new.load(level, &tag);
+    new.resolve_registry_refs(&level.registries);
     new.base_mut().portal_cooldown = old.base().portal_cooldown;
     new.base_mut().portal_process = old.base().portal_process.clone();
 }

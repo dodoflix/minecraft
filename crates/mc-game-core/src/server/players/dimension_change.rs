@@ -285,8 +285,9 @@ fn teleport_cross_dimension(
 
 /// `Entity.removeAfterChangingDimensions()`.
 fn remove_after_changing_dimensions(level: &mut ServerLevel, entity: &mut dyn Entity) {
-    entity.remove(RemovalReason::ChangedDimension);
-    entity.remove_leash(level);
+    // `setRemoved(CHANGED_DIMENSION)` ends the tracking at once: watchers hear `remove_entities` before the leash holder is told
+    level.remove_held_entity(entity, RemovalReason::ChangedDimension);
+    crate::world::entity::mob::leashable::remove_leash(entity, level);
 }
 
 /// `Entity.teleportSpectators(transition, oldLevel)`: players spectating `entity` follow it.

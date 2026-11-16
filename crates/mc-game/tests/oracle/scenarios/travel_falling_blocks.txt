@@ -1,0 +1,34 @@
+# Falling blocks cross a nether portal like any entity (the end crossing is a separate case): the new one keeps its block, time, damage settings and block entity data.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice creative 2.5 -61 3.5 180 0
+tick 2
+in the_nether fill -3 60 -3 3 60 3 minecraft:stone
+note sand falls through the portal: the new falling block keeps its time and block
+spawn S minecraft:falling_block 0.5 -58.3 0.5 0 0 {BlockState:{Name:"minecraft:sand"},Time:5,DropItem:1b}
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 2
+dump xentities
+in the_nether dump xentities nbt:falling_block#1 portal:falling_block#1
+tick 2
+in the_nether dump xentities
+in the_nether kill falling_block#1
+note an anvil that hurts and a falling block with block entity data
+spawn A minecraft:falling_block 0.2 -58.3 0.5 0 0 {BlockState:{Name:"minecraft:anvil",Properties:{facing:"east"}},Time:2,HurtEntities:1b,FallHurtAmount:2.0f,FallHurtMax:40,DropItem:0b}
+spawn C minecraft:falling_block 1.0 -58.3 0.5 0 0 {BlockState:{Name:"minecraft:chest"},Time:3,TileEntityData:{Items:[{Slot:0b,id:"minecraft:stone",count:2}]},DropItem:1b}
+tick 3
+in the_nether dump xentities nbt:falling_block#2 nbt:falling_block#3

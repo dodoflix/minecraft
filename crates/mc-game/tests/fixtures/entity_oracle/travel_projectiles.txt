@@ -1,0 +1,101 @@
+# trident
+E A minecraft:trident pos=0.5,-58.4,-2.5 delta=0.0,-0.05,0.9900000095367432 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=Alice leftowner=1 shot=1 canbreak=0
+E trident#1 minecraft:trident pos=-0.5,70.7114202886845,3.3222842272200253 delta=0.0,-0.2925992599589569,0.9414802038170884 rot=0.0,-7.413655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=Alice leftowner=1 shot=1 canbreak=0
+PKT Alice minecraft:remove_entities 4e0166
+E trident#1 minecraft:trident pos=-0.5,70.7114202886845,3.3222842272200253 delta=0.0,-0.2925992599589569,0.9414802038170884 rot=0.0,-7.413655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=Alice leftowner=1 shot=1 canbreak=0
+N trident#1 {Air:300s,DealtDamage:0b,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.0d,-0.2925992599589569d,0.9414802038170884d],OnGround:0b,Owner:[I;278005000,-707248403,-1814916367,-1817188393],PierceLevel:0b,PortalCooldown:0,Pos:[-0.5d,70.7114202886845d,3.3222842272200253d],Rotation:[0.0f,-7.413655f],SoundEvent:"minecraft:item.trident.hit_ground",crit:0b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{count:1,id:"minecraft:trident"},life:0s,pickup:0b,shake:0b}
+PORTAL trident#1 cooldown=0 time=-
+# firework_rocket
+E A minecraft:firework_rocket pos=0.5,-58.36,-2.35 delta=0.0,0.04,1.15 rot=0.0,0.39842105 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0 life=1 lifetime=200 attached=- angle=0
+E firework_rocket#1 minecraft:firework_rocket pos=-0.5,72.44,6.566799203124996 delta=0.0,0.24000000000000002,2.313060765624999 rot=0.0,3.6384141 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0 life=6 lifetime=200 attached=- angle=0
+PKT Alice minecraft:remove_entities 4e0168
+E firework_rocket#1 minecraft:firework_rocket pos=-0.5,72.44,6.566799203124996 delta=0.0,0.24000000000000002,2.313060765624999 rot=0.0,3.6384141 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0 life=6 lifetime=200 attached=- angle=0
+N firework_rocket#1 {Air:300s,Fire:0s,FireworksItem:{count:1,id:"minecraft:firework_rocket"},HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Life:6,LifeTime:200,Motion:[0.0d,0.24000000000000002d,2.313060765624999d],OnGround:0b,PortalCooldown:0,Pos:[-0.5d,72.44d,6.566799203124996d],Rotation:[0.0f,3.6384141f],ShotAtAngle:0b,fall_distance:0.0d}
+PORTAL firework_rocket#1 cooldown=0 time=-
+# wind_charge
+E A minecraft:wind_charge pos=0.5,-58.4,-2.5 delta=0.0,0.0,1.0 rot=324.0,-1.5258789E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0
+E wind_charge#1 minecraft:wind_charge pos=-0.5,71.6,3.5 delta=0.0,0.0,1.0 rot=217.74873,-6.0293946E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0
+PKT Alice minecraft:remove_entities 4e016a
+E wind_charge#1 minecraft:wind_charge pos=-0.5,71.6,3.5 delta=0.0,0.0,1.0 rot=217.74873,-6.0293946E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0
+N wind_charge#1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.0d,0.0d,1.0d],OnGround:0b,Owner:[I;278005000,-707248403,-1814916367,-1817188393],PortalCooldown:0,Pos:[-0.5d,71.6d,3.5d],Rotation:[217.74873f,-6.0293946E-6f],acceleration_power:0.0d,fall_distance:0.0d}
+PORTAL wind_charge#1 cooldown=0 time=-
+# breeze_wind_charge
+E A minecraft:breeze_wind_charge pos=0.5,-58.4,-2.5 delta=0.0,0.0,1.0 rot=324.0,-1.5258789E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+E breeze_wind_charge#1 minecraft:breeze_wind_charge pos=-0.5,71.6,3.5 delta=0.0,0.0,1.0 rot=217.74873,-6.0293946E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+PKT Alice minecraft:remove_entities 4e016c
+E breeze_wind_charge#1 minecraft:breeze_wind_charge pos=-0.5,71.6,3.5 delta=0.0,0.0,1.0 rot=217.74873,-6.0293946E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+N breeze_wind_charge#1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.0d,0.0d,1.0d],OnGround:0b,PortalCooldown:0,Pos:[-0.5d,71.6d,3.5d],Rotation:[217.74873f,-6.0293946E-6f],acceleration_power:0.0d,fall_distance:0.0d}
+PORTAL breeze_wind_charge#1 cooldown=0 time=-
+# snowball
+E A minecraft:snowball pos=0.5,-58.429700000286104,-2.509999990463257 delta=0.0,-0.029700000286102295,0.9900000095367432 rot=0.0,-0.34369585 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0
+E snowball#1 minecraft:snowball pos=-0.5,70.7848257315854,3.2255308137538 delta=0.0,-0.201765924412614,0.9320654107575724 rot=0.0,-6.6833434 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0
+PKT Alice minecraft:remove_entities 4e016e
+E snowball#1 minecraft:snowball pos=-0.5,70.7848257315854,3.2255308137538 delta=0.0,-0.201765924412614,0.9320654107575724 rot=0.0,-6.6833434 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0
+N snowball#1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,Item:{count:1,id:"minecraft:snowball"},LeftOwner:1b,Motion:[0.0d,-0.201765924412614d,0.9320654107575724d],OnGround:0b,Owner:[I;278005000,-707248403,-1814916367,-1817188393],PortalCooldown:0,Pos:[-0.5d,70.7848257315854d,3.2255308137538d],Rotation:[0.0f,-6.6833434f],fall_distance:0.0d}
+PORTAL snowball#1 cooldown=0 time=-
+# egg
+E A minecraft:egg pos=0.5,-58.429700000286104,-2.509999990463257 delta=0.0,-0.029700000286102295,0.9900000095367432 rot=0.0,-0.34369585 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0
+E egg#1 minecraft:egg pos=-0.5,70.7848257315854,3.2255308137538 delta=0.0,-0.201765924412614,0.9320654107575724 rot=0.0,-6.6833434 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0
+PKT Alice minecraft:remove_entities 4e0170
+E egg#1 minecraft:egg pos=-0.5,70.7848257315854,3.2255308137538 delta=0.0,-0.201765924412614,0.9320654107575724 rot=0.0,-6.6833434 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0
+N egg#1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,Item:{count:1,id:"minecraft:egg"},LeftOwner:1b,Motion:[0.0d,-0.201765924412614d,0.9320654107575724d],OnGround:0b,Owner:[I;278005000,-707248403,-1814916367,-1817188393],PortalCooldown:0,Pos:[-0.5d,70.7848257315854d,3.2255308137538d],Rotation:[0.0f,-6.6833434f],fall_distance:0.0d}
+PORTAL egg#1 cooldown=0 time=-
+# experience_bottle
+E A minecraft:experience_bottle pos=0.5,-58.46930000066757,-2.509999990463257 delta=0.0,-0.06930000066757203,0.9900000095367432 rot=0.0,-0.80084383 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+E experience_bottle#1 minecraft:experience_bottle pos=-0.5,69.6979267070326,3.2255308137538 delta=0.0,-0.4707871569627661,0.9320654107575724 rot=0.0,-14.944913 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+PKT Alice minecraft:remove_entities 4e0172
+E experience_bottle#1 minecraft:experience_bottle pos=-0.5,69.6979267070326,3.2255308137538 delta=0.0,-0.4707871569627661,0.9320654107575724 rot=0.0,-14.944913 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+N experience_bottle#1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,Item:{count:1,id:"minecraft:experience_bottle"},LeftOwner:1b,Motion:[0.0d,-0.4707871569627661d,0.9320654107575724d],OnGround:0b,PortalCooldown:0,Pos:[-0.5d,69.6979267070326d,3.2255308137538d],Rotation:[0.0f,-14.944913f],fall_distance:0.0d}
+PORTAL experience_bottle#1 cooldown=0 time=-
+# splash_potion
+E A minecraft:splash_potion pos=0.5,-58.44950000047684,-2.509999990463257 delta=0.0,-0.04950000047683716,0.9900000095367432 rot=0.0,-0.57249725 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+E splash_potion#1 minecraft:splash_potion pos=-0.5,70.241376219309,3.2255308137538 delta=0.0,-0.3362765406876899,0.9320654107575724 rot=0.0,-10.943221 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+PKT Alice minecraft:remove_entities 4e0174
+E splash_potion#1 minecraft:splash_potion pos=-0.5,70.241376219309,3.2255308137538 delta=0.0,-0.3362765406876899,0.9320654107575724 rot=0.0,-10.943221 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+N splash_potion#1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,Item:{components:{minecraft:potion_contents:{potion:"minecraft:swiftness"}},count:1,id:"minecraft:splash_potion"},LeftOwner:1b,Motion:[0.0d,-0.3362765406876899d,0.9320654107575724d],OnGround:0b,PortalCooldown:0,Pos:[-0.5d,70.241376219309d,3.2255308137538d],Rotation:[0.0f,-10.943221f],fall_distance:0.0d}
+PORTAL splash_potion#1 cooldown=0 time=-
+# lingering_potion
+E A minecraft:lingering_potion pos=0.5,-58.44950000047684,-2.509999990463257 delta=0.0,-0.04950000047683716,0.9900000095367432 rot=0.0,-0.57249725 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+E lingering_potion#1 minecraft:lingering_potion pos=-0.5,70.241376219309,3.2255308137538 delta=0.0,-0.3362765406876899,0.9320654107575724 rot=0.0,-10.943221 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+PKT Alice minecraft:remove_entities 4e0176
+E lingering_potion#1 minecraft:lingering_potion pos=-0.5,70.241376219309,3.2255308137538 delta=0.0,-0.3362765406876899,0.9320654107575724 rot=0.0,-10.943221 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+N lingering_potion#1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,Item:{count:1,id:"minecraft:lingering_potion"},LeftOwner:1b,Motion:[0.0d,-0.3362765406876899d,0.9320654107575724d],OnGround:0b,PortalCooldown:0,Pos:[-0.5d,70.241376219309d,3.2255308137538d],Rotation:[0.0f,-10.943221f],fall_distance:0.0d}
+PORTAL lingering_potion#1 cooldown=0 time=-
+# small_fireball
+E A minecraft:small_fireball pos=0.5,-58.4,-2.455000013113022 delta=0.0,0.0,1.0449999868869781 rot=324.0,-1.5258789E-6 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0
+E small_fireball#1 minecraft:small_fireball pos=-0.5,71.6,4.641567404046158 delta=0.0,0.0,1.2714963448784047 rot=217.74873,-6.0293946E-6 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0
+PKT Alice minecraft:remove_entities 4e0178
+E small_fireball#1 minecraft:small_fireball pos=-0.5,71.6,4.641567404046158 delta=0.0,0.0,1.2714963448784047 rot=217.74873,-6.0293946E-6 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0
+N small_fireball#1 {Air:300s,Fire:20s,HasBeenShot:1b,Invulnerable:0b,Item:{count:1,id:"minecraft:fire_charge"},LeftOwner:1b,Motion:[0.0d,0.0d,1.2714963448784047d],OnGround:0b,Owner:[I;278005000,-707248403,-1814916367,-1817188393],PortalCooldown:0,Pos:[-0.5d,71.6d,4.641567404046158d],Rotation:[217.74873f,-6.0293946E-6f],acceleration_power:0.1d,fall_distance:0.0d}
+PORTAL small_fireball#1 cooldown=0 time=-
+# fireball
+E A minecraft:fireball pos=0.5,-58.4,-2.455000013113022 delta=0.0,0.0,1.0449999868869781 rot=324.0,-1.5258789E-6 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0
+E fireball#1 minecraft:fireball pos=-0.5,71.6,4.641567404046158 delta=0.0,0.0,1.2714963448784047 rot=217.74873,-6.0293946E-6 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0
+PKT Alice minecraft:remove_entities 4e017a
+E fireball#1 minecraft:fireball pos=-0.5,71.6,4.641567404046158 delta=0.0,0.0,1.2714963448784047 rot=217.74873,-6.0293946E-6 og=0 fall=0.0 fire=20 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0
+N fireball#1 {Air:300s,ExplosionPower:1b,Fire:20s,HasBeenShot:1b,Invulnerable:0b,Item:{count:1,id:"minecraft:fire_charge"},LeftOwner:1b,Motion:[0.0d,0.0d,1.2714963448784047d],OnGround:0b,Owner:[I;278005000,-707248403,-1814916367,-1817188393],PortalCooldown:0,Pos:[-0.5d,71.6d,4.641567404046158d],Rotation:[217.74873f,-6.0293946E-6f],acceleration_power:0.1d,fall_distance:0.0d}
+PORTAL fireball#1 cooldown=0 time=-
+# wither_skull
+E A minecraft:wither_skull pos=0.5,-58.4,-2.455000013113022 delta=0.0,0.0,1.0449999868869781 rot=324.0,-1.5258789E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+E wither_skull#1 minecraft:wither_skull pos=-0.5,71.6,4.641567404046158 delta=0.0,0.0,1.2714963448784047 rot=217.74873,-6.0293946E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+PKT Alice minecraft:remove_entities 4e017c
+E wither_skull#1 minecraft:wither_skull pos=-0.5,71.6,4.641567404046158 delta=0.0,0.0,1.2714963448784047 rot=217.74873,-6.0293946E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+N wither_skull#1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.0d,0.0d,1.2714963448784047d],OnGround:0b,PortalCooldown:0,Pos:[-0.5d,71.6d,4.641567404046158d],Rotation:[217.74873f,-6.0293946E-6f],acceleration_power:0.1d,dangerous:0b,fall_distance:0.0d}
+PORTAL wither_skull#1 cooldown=0 time=-
+# dragon_fireball
+E A minecraft:dragon_fireball pos=0.5,-58.4,-2.455000013113022 delta=0.0,0.0,1.0449999868869781 rot=324.0,-1.5258789E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+E dragon_fireball#1 minecraft:dragon_fireball pos=-0.5,71.6,4.641567404046158 delta=0.0,0.0,1.2714963448784047 rot=217.74873,-6.0293946E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+PKT Alice minecraft:remove_entities 4e017e
+E dragon_fireball#1 minecraft:dragon_fireball pos=-0.5,71.6,4.641567404046158 delta=0.0,0.0,1.2714963448784047 rot=217.74873,-6.0293946E-6 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+N dragon_fireball#1 {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.0d,0.0d,1.2714963448784047d],OnGround:0b,PortalCooldown:0,Pos:[-0.5d,71.6d,4.641567404046158d],Rotation:[217.74873f,-6.0293946E-6f],acceleration_power:0.1d,fall_distance:0.0d}
+PORTAL dragon_fireball#1 cooldown=0 time=-
+# llama_spit
+E A minecraft:llama_spit pos=0.5,-58.4,-2.5 delta=0.0,-0.06,0.9900000095367432 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=- leftowner=1 shot=1 canbreak=0
+PKT Alice minecraft:remove_entities 4e018001
+# spectral_arrow
+E A minecraft:spectral_arrow pos=0.5,-58.4,-2.5 delta=0.0,-0.05,0.9900000095367432 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=Alice leftowner=1 shot=1 canbreak=0
+E spectral_arrow#1 minecraft:spectral_arrow pos=-0.5,70.7114202886845,3.3222842272200253 delta=0.0,-0.2925992599589569,0.9414802038170884 rot=0.0,-7.413655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=Alice leftowner=1 shot=1 canbreak=0
+PKT Alice minecraft:remove_entities 4e018101
+E spectral_arrow#1 minecraft:spectral_arrow pos=-0.5,70.7114202886845,3.3222842272200253 delta=0.0,-0.2925992599589569,0.9414802038170884 rot=0.0,-7.413655 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=Alice leftowner=1 shot=1 canbreak=0
+N spectral_arrow#1 {Air:300s,Duration:100,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.0d,-0.2925992599589569d,0.9414802038170884d],OnGround:0b,Owner:[I;278005000,-707248403,-1814916367,-1817188393],PierceLevel:0b,PortalCooldown:0,Pos:[-0.5d,70.7114202886845d,3.3222842272200253d],Rotation:[0.0f,-7.413655f],SoundEvent:"minecraft:entity.arrow.hit",crit:0b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{count:1,id:"minecraft:spectral_arrow"},life:0s,pickup:0b,shake:0b}
+PORTAL spectral_arrow#1 cooldown=0 time=-

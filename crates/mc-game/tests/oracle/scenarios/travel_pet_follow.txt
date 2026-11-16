@@ -1,0 +1,30 @@
+# A tamed wolf stays in the overworld when its owner travels to the nether (the owner is resolved in the other level),
+# and it keeps its goals while the owner is away.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty peaceful
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -61 2 7 -61 8 minecraft:stone
+spawn_player S survival 0.7 -60 0.4 90 15 sim
+mobspawn W minecraft:wolf 4.5 -60 3.5 0 0 {PersistenceRequired:1b}
+entity_seed W 7
+tame W S
+tick 1
+dump packets:S:none mob:W
+tick 80
+dump levels players player:S mob:W goals:W
+level_seed 8
+tick 3
+dump levels players mob:W goals:W
+tick 40
+dump mob:W goals:W

@@ -1,0 +1,62 @@
+# Villagers keep their brain memories, offers data and gossip when they travel through a nether portal; a baby villager, a wandering trader and a zombie villager
+# that is being cured travel with their timers.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice creative 2.5 -61 3.5 180 0
+tick 2
+note a villager with memories of the overworld: home, job site, meeting point and a hurt-by entity; the memories travel with it (their positions are in another dimension)
+spawn V minecraft:villager 0.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,VillagerData:{profession:"minecraft:librarian",level:2,type:"minecraft:plains"},Xp:12,LastRestock:5L,RestocksToday:1,Gossips:[{Type:"minecraft:major_positive",Value:10,Target:[I;278005000,-707248403,-1814916367,-1817188393]}]}
+entity_seed V 5
+memory V minecraft:home {value:{dimension:"minecraft:overworld",pos:[I;6,-60,6]}}
+memory V minecraft:job_site {value:{dimension:"minecraft:overworld",pos:[I;6,-60,6]}}
+memory V minecraft:meeting_point {value:{dimension:"minecraft:overworld",pos:[I;6,-60,6]}}
+memory V minecraft:potential_job_site {value:{dimension:"minecraft:overworld",pos:[I;6,-60,6]}}
+memory V minecraft:last_slept {value:500L}
+memory V minecraft:last_worked_at_poi {value:600L}
+memory V minecraft:golem_detected_recently {value:1b,ttl:300L}
+memory V minecraft:hurt_by_entity entity:Alice
+dump brain:V
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 1
+in the_nether dump xentities nbt:villager#1 brain:villager#1 mob:villager#1
+tick 20
+in the_nether dump brain:villager#1 mob:villager#1
+in the_nether kill villager#1
+note a baby villager with a wandering trader and a zombie villager that is being cured
+spawn B minecraft:villager 0.2 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Age:-24000}
+entity_seed B 6
+spawn T minecraft:wandering_trader 0.9 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,DespawnDelay:1200}
+entity_seed T 7
+spawn Q minecraft:zombie_villager 1.6 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,ConversionTime:200,ConversionPlayer:[I;278005000,-707248403,-1814916367,-1817188393],VillagerData:{profession:"minecraft:farmer",level:1,type:"minecraft:plains"}}
+entity_seed Q 8
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 2
+in the_nether dump xentities nbt:villager#2 nbt:wandering_trader#1 nbt:zombie_villager#1 mob:villager#2 mob:wandering_trader#1 mob:zombie_villager#1
+tick 5
+in the_nether dump nbt:zombie_villager#1 mob:zombie_villager#1
+in the_nether kill zombie_villager#1
+note a zombie villager whose cure ends in the nether: the curing player is in the overworld, so the new villager gets no gossip from it
+spawn Q2 minecraft:zombie_villager 1.6 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,ConversionTime:6,ConversionPlayer:[I;278005000,-707248403,-1814916367,-1817188393],VillagerData:{profession:"minecraft:farmer",level:1,type:"minecraft:plains"}}
+entity_seed Q2 8
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 2
+in the_nether dump nbt:zombie_villager#2
+tick 8
+in the_nether dump xentities
+in the_nether dump nbt:villager#3 mob:villager#3

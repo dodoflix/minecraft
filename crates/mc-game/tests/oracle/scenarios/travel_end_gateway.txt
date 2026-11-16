@@ -1,0 +1,107 @@
+# Entities that stand in an end gateway teleport inside the end to its exact exit (the same entity, motion and rotation kept as relative values) and the gateway cools down 40 ticks;
+# one entity per group, the cooldown ends before the next group.
+level void
+command_env
+end void
+levels overworld,the_end
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+spawn_player Alice creative 3.5 -61 3.5 180 0
+in the_end fill -4 62 -4 14 62 4 minecraft:stone
+in the_end spawn_player Bob creative 5.5 63 3.5 0 0
+in the_end block 0 63 0 minecraft:end_gateway
+in the_end be_nbt 0 63 0 {Age:200L,exit_portal:[I;10,63,0],ExactTeleport:1b}
+tick 2
+dump packets:Bob:none
+note an item
+in the_end spawn_item I minecraft:stick 0.5 63.5 0.5 0 0 0 4
+in the_end spawn_item I2 minecraft:stick 10.0 63.1 0.5 0 0 0 7
+tick 1
+in the_end dump xentities packets:Bob:teleport_entity,set_entity_motion,remove_entities,add_entity,sound,level_event
+tick 1
+in the_end dump xentities packets:Bob:teleport_entity,set_entity_motion,remove_entities,add_entity,sound,level_event
+tick 2
+in the_end dump xentities
+tick 42
+in the_end dump xentities
+in the_end kill I
+in the_end kill I2
+note a cow
+in the_end spawn C minecraft:cow 0.5 63 0.5 45 0 {NoAI:1b,PersistenceRequired:1b}
+in the_end entity_seed C 9
+tick 1
+in the_end dump xentities packets:Bob:teleport_entity,set_entity_motion,remove_entities,add_entity,sound,level_event
+tick 1
+in the_end dump mob:C portal:C nbt:C packets:Bob:teleport_entity,set_entity_motion,remove_entities,add_entity,sound,level_event
+tick 2
+in the_end dump xentities
+tick 42
+in the_end dump xentities
+in the_end kill C
+note a minecart with velocity
+in the_end spawn M minecraft:minecart 0.5 63 0.5 135 0
+in the_end velocity M 0.1 0 0.05
+tick 1
+in the_end dump xentities packets:Bob:teleport_entity,set_entity_motion,remove_entities,add_entity,sound,level_event
+tick 1
+in the_end dump xentity:M portal:M nbt:M packets:Bob:teleport_entity,set_entity_motion,remove_entities,add_entity,sound,level_event
+tick 2
+in the_end dump xentities
+tick 42
+in the_end dump xentities
+in the_end kill M
+note a boat with a villager
+in the_end spawn B minecraft:oak_boat 0.5 63 0.5 90 0
+in the_end spawn V minecraft:villager 0.5 63 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+in the_end entity_seed V 5
+in the_end ride V B
+tick 1
+in the_end dump xentities packets:Bob:teleport_entity,set_entity_motion,remove_entities,add_entity,sound,level_event
+tick 1
+in the_end dump xentity:B xentity:V portal:B portal:V packets:Bob:teleport_entity,set_entity_motion,remove_entities,add_entity,sound,level_event,set_passengers
+tick 2
+in the_end dump xentities
+tick 42
+in the_end dump xentities
+in the_end kill V
+in the_end kill B
+note an arrow
+in the_end spawn A minecraft:arrow 0.5 63.5 -2.5 0 0 {pickup:0b}
+in the_end velocity A 0 0 0.9
+tick 1
+in the_end dump xentities packets:Bob:teleport_entity,set_entity_motion,remove_entities,add_entity,sound,level_event
+tick 1
+in the_end dump xentity:A portal:A nbt:A packets:Bob:teleport_entity,set_entity_motion,remove_entities,add_entity,sound,level_event
+tick 2
+in the_end dump xentities
+tick 42
+in the_end dump xentities
+in the_end kill A
+note a primed tnt
+in the_end spawn T minecraft:tnt 0.5 63 0.5 0 0 {fuse:200s}
+tick 1
+in the_end dump xentities packets:Bob:teleport_entity,set_entity_motion,remove_entities,add_entity,sound,level_event
+tick 1
+in the_end dump xentity:T portal:T nbt:T packets:Bob:teleport_entity,set_entity_motion,remove_entities,add_entity,sound,level_event
+tick 2
+in the_end dump xentities
+tick 42
+in the_end dump xentities
+in the_end kill T
+note a zombie with an effect and fire
+in the_end spawn Z minecraft:zombie 0.5 63 0.5 0 0 {NoAI:1b,PersistenceRequired:1b}
+in the_end entity_seed Z 4
+in the_end set Z fire 50
+in the_end set Z fall_distance 3.5
+in the_end effect Z minecraft:speed 1 600
+tick 1
+in the_end dump xentities packets:Bob:teleport_entity,set_entity_motion,remove_entities,add_entity,sound,level_event
+tick 1
+in the_end dump mob:Z portal:Z nbt:Z packets:Bob:teleport_entity,set_entity_motion,remove_entities,add_entity,sound,level_event
+tick 2
+in the_end dump xentities
+tick 42
+in the_end dump xentities
+in the_end kill Z

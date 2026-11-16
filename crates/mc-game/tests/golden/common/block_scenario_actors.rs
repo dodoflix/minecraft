@@ -457,6 +457,12 @@ pub(super) fn real_registries() -> mc_game::registry::RegistryAccess {
 }
 
 impl Actors {
+    /// `refs.put(name, entity)` of the driver: a name that is used again names the new entity.
+    fn set_ref(&mut self, name: &str, id: EntityId) {
+        self.refs.retain(|(n, _)| n != name);
+        self.refs.push((name.to_string(), id));
+    }
+
     /// The scenario's data packs are loaded: use the server's registries, recipes and advancement tree.
     pub(super) fn use_server_data(&mut self, server: &mc_game::server::MinecraftServer) {
         let registries = server.registries.composite_access().clone();
@@ -694,7 +700,7 @@ impl Scenario {
                 let id = e.id();
                 assert!(self.level().add_fresh_entity(Box::new(e)));
                 self.actors.known.insert(id);
-                self.actors.refs.push((a[1].clone(), id));
+                self.actors.set_ref(&a[1], id);
             }
             "entity_seed" => {
                 self.world();
@@ -1333,7 +1339,7 @@ impl Scenario {
             self.actors.groups.insert(k, data);
         }
         self.actors.known.insert(id);
-        self.actors.refs.push((a[1].clone(), id));
+        self.actors.set_ref(&a[1], id);
     }
 
     /// `ServerboundAcceptTeleportationPacket` for the teleport the server waits on (nothing when none is pending). A scenario without

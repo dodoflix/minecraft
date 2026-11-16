@@ -1,0 +1,50 @@
+# Armor stands (living entities) travel through a nether portal with equipment and pose; display entities, an interaction entity and a marker stand never move,
+# so a portal does not take them; experience orbs travel and merge with the orbs at their arrival.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice creative 2.5 -61 3.5 180 0
+tick 2
+note an armor stand with equipment travels (it is a living entity)
+spawn A minecraft:armor_stand 0.5 -60 0.5 30 0 {ShowArms:1b,CustomName:"Guard",Pose:{Head:[10f,20f,30f]},equipment:{head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:stick",count:1}}}
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 2
+in the_nether dump xentities nbt:armor_stand#1 portal:armor_stand#1
+in the_nether kill armor_stand#1
+note a marker armor stand, display entities and an interaction never move, so they stay in the portal
+spawn M minecraft:armor_stand 1.5 -60 0.5 0 0 {Marker:1b,Invisible:1b}
+spawn D1 minecraft:block_display 0.5 -60 0.5 0 0 {block_state:{Name:"minecraft:gold_block"}}
+spawn D2 minecraft:item_display 1.0 -60 0.5 0 0 {item:{id:"minecraft:diamond",count:1}}
+spawn D3 minecraft:text_display 1.5 -60 0.5 0 0 {text:"hello"}
+spawn D4 minecraft:interaction 0.5 -60 0.8 0 0 {width:1f,height:1f}
+tick 4
+dump xentities
+in the_nether dump xentities
+kill D1
+kill D2
+kill D3
+kill D4
+kill M
+note experience orbs: a big one and a stack of small ones; at arrival they merge with the orbs around
+spawn O1 minecraft:experience_orb 0.4 -60 0.5 0 0 {Value:5s,Count:1}
+spawn O2 minecraft:experience_orb 1.0 -60 0.5 0 0 {Value:2s,Count:3}
+in the_nether spawn O3 minecraft:experience_orb 0.0 70 0.5 0 0 {Value:1s,Count:1}
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 2
+in the_nether dump xentities nbt:experience_orb#1 nbt:experience_orb#2 portal:experience_orb#1
+tick 30
+in the_nether dump xentities

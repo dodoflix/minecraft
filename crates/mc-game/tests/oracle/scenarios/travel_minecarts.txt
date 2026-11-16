@@ -1,0 +1,84 @@
+# Every minecart class travels through a nether portal with its contents (items, fuel, fuse, command, spawner data, display block): the vehicle decides without a delay,
+# arrives as a new entity with the 300 tick cooldown and keeps its saved data.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice creative 2.5 -61 3.5 180 0
+tick 2
+note chest_minecart
+spawn M minecraft:chest_minecart 0.4 -60 0.6 135 0 {Items:[{Slot:0b,id:"minecraft:stone",count:5},{Slot:13b,id:"minecraft:diamond_sword",count:1},{Slot:26b,id:"minecraft:apple",count:64}],CustomName:"Cargo"}
+velocity M 0.3 0 0.1
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:chest_minecart#1 portal:chest_minecart#1
+in the_nether nbt chest_minecart#1 {Items:[]}
+kill chest_minecart#1
+note hopper_minecart
+spawn M minecraft:hopper_minecart 0.4 -60 0.6 135 0 {Items:[{Slot:2b,id:"minecraft:cobblestone",count:32}],Enabled:0b,TransferCooldown:3}
+velocity M 0.3 0 0.1
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:hopper_minecart#1 portal:hopper_minecart#1
+in the_nether nbt hopper_minecart#1 {Items:[]}
+kill hopper_minecart#1
+note tnt_minecart
+spawn M minecraft:tnt_minecart 0.4 -60 0.6 135 0 {TNTFuse:40}
+velocity M 0.3 0 0.1
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:tnt_minecart#1 portal:tnt_minecart#1
+kill tnt_minecart#1
+note furnace_minecart
+spawn M minecraft:furnace_minecart 0.4 -60 0.6 135 0 {Fuel:150s,PushX:0.25d,PushZ:0.125d}
+velocity M 0.3 0 0.1
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:furnace_minecart#1 portal:furnace_minecart#1
+kill furnace_minecart#1
+note command_block_minecart
+spawn M minecraft:command_block_minecart 0.4 -60 0.6 135 0 {Command:"say traveller",LastOutput:"{\"text\":\"previous\"}",TrackOutput:1b,SuccessCount:3}
+velocity M 0.3 0 0.1
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:command_block_minecart#1 portal:command_block_minecart#1
+kill command_block_minecart#1
+note spawner_minecart
+spawn M minecraft:spawner_minecart 0.4 -60 0.6 135 0 {Delay:200s,SpawnData:{entity:{id:"minecraft:pig"}},SpawnCount:2s,MaxNearbyEntities:6s,RequiredPlayerRange:16s}
+velocity M 0.3 0 0.1
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:spawner_minecart#1 portal:spawner_minecart#1
+kill spawner_minecart#1
+note minecart
+spawn M minecraft:minecart 0.4 -60 0.6 135 0 {CustomDisplayTile:1b,DisplayState:{Name:"minecraft:gold_block"},DisplayOffset:9}
+velocity M 0.3 0 0.1
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 5
+dump xentities packets:Alice:remove_entities
+in the_nether dump xentities nbt:minecart#1 portal:minecart#1
+kill minecart#1

@@ -288,6 +288,7 @@ mod structure_template_golden;
 mod throwables_golden;
 mod tnt_golden;
 mod trades_golden;
+mod travel_golden;
 mod tree_codec;
 mod tree_golden;
 mod vanilla_oracle;

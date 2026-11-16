@@ -1,0 +1,31 @@
+# A primed tnt that travels through a nether portal keeps its owner, fuse and explosion power and explodes as a tnt that used a portal
+# (a portal block it hits is not destroyed and does not shield what is behind it).
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice creative 2.5 -61 3.5 180 0
+tick 2
+note a primed tnt with an owner travels, keeps its fuse, power and owner and explodes in the nether as a tnt that used a portal
+in the_nether fill -3 69 -3 3 69 3 minecraft:stone
+in the_nether fill -3 70 -3 3 72 3 minecraft:air
+spawn T minecraft:tnt 1.0 -59 0.5 30 0 {fuse:30s,owner:[I;278005000,-707248403,-1814916367,-1817188393],explosion_power:2f}
+entity_seed T 3
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 2
+in the_nether dump xentities nbt:tnt#1 portal:tnt#1
+tick 30
+in the_nether dump xentities events blocks:-4,68,-4,4,72,4
+dump packets:Alice:none

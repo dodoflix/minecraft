@@ -1,0 +1,83 @@
+# an item
+E I minecraft:item pos=0.5,63.46,0.5 delta=0.0,-0.03920000076293945,0.0 rot=244.22574,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*4 age=1 pickup=0 health=5 owner=- thrower=-
+E I2 minecraft:item pos=10.0,63.06,0.5 delta=0.0,-0.03920000076293945,0.0 rot=221.94547,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*7 age=1 pickup=0 health=5 owner=- thrower=-
+PKT Bob minecraft:add_entity 0167d724b91ddc7e48a3a3e62e28c208e81b483fe0000000000000404fc000000000003fe00000000000000000ad0000
+PKT Bob minecraft:add_entity 0168d2c27eb6710f4ff48ab6fc522a6e6aa9484024000000000000404f8ccccccccccd3fe000000000000000009d0000
+E I2 minecraft:item pos=10.0,63.0,0.5 delta=0.0,0.0,0.0 rot=221.94547,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*11 age=2 pickup=0 health=5 owner=- thrower=-
+PKT Bob minecraft:teleport_entity 8001674025000000000000404f8000000000003fe00000000000000000000000000000bfa41205c28f5c290000000000000000437439ca000000000000000000
+PKT Bob minecraft:remove_entities 4e0167
+E I2 minecraft:item pos=10.0,63.0,0.5 delta=0.0,0.0,0.0 rot=221.94547,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*11 age=4 pickup=0 health=5 owner=- thrower=-
+E I2 minecraft:item pos=10.0,63.0,0.5 delta=0.0,-0.08,0.0 rot=221.94547,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*11 age=46 pickup=0 health=5 owner=- thrower=-
+# a cow
+E C minecraft:cow pos=0.5,63.0,0.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+PKT Bob minecraft:remove_entities 4e0168
+PKT Bob minecraft:add_entity 0169345d54469ea941c4ab32825df225fec81e3fe0000000000000404f8000000000003fe00000000000000000202000
+E C minecraft:cow pos=10.5,63.0,0.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+PORTAL C cooldown=300 time=1
+N C {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:300,Pos:[10.5d,63.0d,0.5d],Rotation:[45.0f,0.0f],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,sound_variant:"minecraft:classic",variant:"minecraft:temperate"}
+E C minecraft:cow pos=10.5,63.0,0.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E C minecraft:cow pos=10.5,63.0,0.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+# a minecart with velocity
+E M minecraft:minecart pos=0.6,63.0,0.55 delta=0.1,0.0,0.05 rot=-153.43498,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=east rider=-
+PKT Bob minecraft:sound 77c3030600000054000001f8000000043ecccccd3f52709b3135ea5eb6d2225b
+PKT Bob minecraft:remove_entities 4e0169
+PKT Bob minecraft:add_entity 016aced29b35868d4ce3917f5e22b3dc93d6563fe0000000000000404f8000000000003fe00000000000000000600000
+PKT Bob minecraft:set_entity_motion 676a29338664fffe
+E M minecraft:minecart pos=10.55,63.0,0.525 delta=0.05,0.0,0.025 rot=-153.43498,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=east rider=-
+PORTAL M cooldown=10 time=1
+N M {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,Motion:[0.05d,0.0d,0.025d],OnGround:1b,PortalCooldown:10,Pos:[10.55d,63.0d,0.525d],Rotation:[-153.43498f,0.0f],fall_distance:0.0d}
+E M minecraft:minecart pos=10.5875,63.0,0.54375 delta=0.0125,0.0,0.00625 rot=-153.43498,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=east rider=-
+E M minecraft:minecart pos=10.599609375,63.0,0.5498046875 delta=2.842170943040401E-15,0.0,1.4210854715202005E-15 rot=-153.43498,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing rails=0 flipped=0 vhurt=0/1/0.0 mdir=east rider=-
+# a boat with a villager
+E B minecraft:oak_boat pos=0.5,63.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=V mdir=north leash=- ooc=0.0
+E V minecraft:villager pos=0.5,63.1875,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=15.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+PKT Bob minecraft:set_entity_motion 676ac90c8198fffe
+PKT Bob minecraft:set_entity_motion 676a91018032fffe
+PKT Bob minecraft:set_entity_motion 676a29008004fffe
+PKT Bob minecraft:set_entity_motion 676a01007ffefffe
+PKT Bob minecraft:remove_entities 4e016a
+PKT Bob minecraft:add_entity 016b4ae1ae19c8fe44748c088dc8e690ff375a3fe0000000000000404f8000000000003fe00000000000000000400000
+PKT Bob minecraft:add_entity 016cff05b4a855e7451fac07c20f4e22aa718f013fe0000000000000404f8000000000003fe00000000000000000000000
+E B minecraft:oak_boat pos=10.5,63.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=V mdir=north leash=- ooc=0.0
+E V minecraft:villager pos=10.5,63.1875,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+PORTAL B cooldown=10 time=1
+PORTAL V cooldown=0 time=-
+E B minecraft:oak_boat pos=10.5,63.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=V mdir=north leash=- ooc=0.0
+E V minecraft:villager pos=10.5,63.1875,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+E B minecraft:oak_boat pos=10.5,63.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=V mdir=north leash=- ooc=0.0
+E V minecraft:villager pos=10.5,63.1875,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+# an arrow
+E A minecraft:arrow pos=0.5,63.5,-1.6 delta=0.0,-0.05,0.8910000085830688 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+PKT Bob minecraft:sound 77a40d0600000054000001f9000000043f8000003f781698bafdb3530a59cca8
+PKT Bob minecraft:remove_entities 4e016c
+PKT Bob minecraft:remove_entities 4e016b
+PKT Bob minecraft:add_entity 016d27031d6f7c004ec7b91145a27f3051d9063fe0000000000000404fc00000000000c0040000000000000000000000
+PKT Bob minecraft:set_entity_motion 676df9fff330fffd
+E A minecraft:arrow pos=0.5,63.45,-0.7089999914169313 delta=0.0,-0.09950000047683716,0.8820900169944764 rot=0.0,-0.6423721 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+PORTAL A cooldown=0 time=-
+N A {Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,LeftOwner:1b,Motion:[0.0d,-0.09950000047683716d,0.8820900169944764d],OnGround:0b,PierceLevel:0b,PortalCooldown:0,Pos:[0.5d,63.45d,-0.7089999914169313d],Rotation:[0.0f,-0.6423721f],SoundEvent:"minecraft:entity.arrow.hit",crit:0b,damage:2.0d,fall_distance:0.0d,inGround:0b,item:{count:1,id:"minecraft:arrow"},life:0s,pickup:0b,shake:0b}
+E A minecraft:arrow pos=10.5,63.04985149574364,0.4508732683801787 delta=0.0,0.0,0.0 rot=0.0,-3.3710852 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+E A minecraft:arrow pos=10.5,63.04985149574364,0.4508732683801787 delta=0.0,0.0,0.0 rot=0.0,-3.3710852 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=42 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
+# a primed tnt
+E T minecraft:tnt pos=0.5,63.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=199
+PKT Bob minecraft:teleport_entity 80016d4025000000000000404f8000000000003fe00000000000000000000000000000bfb978d5000000003fec3a14d7e3d1cd00000000bfe689120000000000
+PKT Bob minecraft:sound 77560600000054000001f8000000033f8000003fa4f127f818e87da930e71d
+PKT Bob minecraft:set_entity_motion 676d00
+PKT Bob minecraft:remove_entities 4e016d
+PKT Bob minecraft:add_entity 016e68793303c4af4bde84419c2781e04d3188013fe0000000000000404f8000000000003fe00000000000000000000000
+E T minecraft:tnt pos=10.5,63.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=198
+PORTAL T cooldown=300 time=1
+N T {Air:300s,Fire:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:1b,PortalCooldown:300,Pos:[10.5d,63.0d,0.5d],Rotation:[0.0f,0.0f],block_state:"minecraft:tnt",fall_distance:0.0d,fuse:198s}
+PKT Bob minecraft:teleport_entity 80016e4025000000000000404f8000000000003fe000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+E T minecraft:tnt pos=10.5,63.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=196
+E T minecraft:tnt pos=10.5,63.0,0.5 delta=0.0,-0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=154
+# a zombie with an effect and fire
+EFFECT Z minecraft:speed added=true
+E Z minecraft:zombie pos=0.5,63.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=3.5 fire=49 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/599 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.32200000721216204
+PKT Bob minecraft:remove_entities 4e016e
+PKT Bob minecraft:add_entity 016f768130a6f6b94269a804f1cddfa1d38b9a013fe0000000000000404f8000000000003fe00000000000000000000000
+E Z minecraft:zombie pos=10.5,63.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=3.5 fire=48 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/598 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.32200000721216204
+PORTAL Z cooldown=300 time=1
+N Z {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:0b,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:48s,Health:20.0f,HurtTime:0s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:300,Pos:[10.5d,63.0d,0.5d],Rotation:[0.0f,0.0f],active_effects:[{amplifier:1b,duration:598,id:"minecraft:speed",show_icon:1b}],attributes:[{base:0.23000000417232513d,id:"minecraft:movement_speed",modifiers:[{amount:0.4000000059604645d,id:"minecraft:effect.speed",operation:"add_multiplied_total"}]}],current_impulse_context_reset_grace_time:0,fall_distance:3.5d}
+E Z minecraft:zombie pos=10.5,63.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=3.5 fire=46 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/1/596 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.32200000721216204
+E Z minecraft:zombie pos=10.5,63.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=3.5 fire=4 air=300 alive=1 pose=standing hp=18.0 abs=0.0 hurt=0/4 death=0 fx=minecraft:speed/1/554 target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.32200000721216204

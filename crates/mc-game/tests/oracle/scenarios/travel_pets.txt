@@ -1,0 +1,51 @@
+# Tamed pets travel through a nether portal while their owner stays in the overworld: the new entity keeps the owner, collar, variant, sitting pose and horse
+# data, and the pet keeps behaving towards an owner it cannot reach (it is in another level).
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice creative 2.5 -61 3.5 180 0
+tick 2
+note a tamed wolf, a tamed cat and a tamed parrot travel while their owner stays: owner, collar, variant and pose are kept
+mobspawn W minecraft:wolf 0.5 -60 0.5 0 0 {PersistenceRequired:1b,CollarColor:3b}
+entity_seed W 7
+tame W Alice
+mobspawn T minecraft:cat 1.5 -60 0.5 0 0 {PersistenceRequired:1b,variant:"minecraft:calico",Sitting:1b}
+entity_seed T 8
+tame T Alice
+mobspawn R minecraft:parrot 1.2 -60 0.5 0 0 {PersistenceRequired:1b}
+entity_seed R 9
+tame R Alice
+dump packets:Alice:none mob:W mob:T mob:R
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 2
+dump xentities
+in the_nether dump xentities nbt:wolf#1 nbt:cat#1 nbt:parrot#1 mob:wolf#1 mob:cat#1 mob:parrot#1
+tick 30
+in the_nether dump mob:wolf#1 mob:cat#1 mob:parrot#1 goals:wolf#1
+in the_nether kill wolf#1
+in the_nether kill cat#1
+in the_nether kill parrot#1
+note a tamed horse and a tamed donkey travel
+mobspawn H minecraft:horse 0.8 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,Variant:515}
+entity_seed H 3
+tame H Alice
+mobspawn D minecraft:donkey 0.2 -60 0.5 0 0 {PersistenceRequired:1b,NoAI:1b,ChestedHorse:1b}
+entity_seed D 5
+tame D Alice
+tick 1
+dump xentities packets:Alice:remove_entities
+tick 2
+in the_nether dump xentities nbt:horse#1 nbt:donkey#1 mob:horse#1 mob:donkey#1

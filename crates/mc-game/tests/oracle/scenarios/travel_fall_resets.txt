@@ -1,0 +1,43 @@
+# The fall distance of a player is reset by a chorus fruit teleport (TeleportRandomlyConsumeEffect), by a bubble column and by the landing of its own ender pearl;
+# a pig is reset by the bubble column too. Each line sets a fall distance first and the dumps show it afterwards; the control players keep theirs.
+level flat
+preload 4
+command_env
+difficulty normal
+level_seed 8
+entity_counter 600
+fill 0 -61 0 40 -41 8 minecraft:stone
+fill 21 -60 1 29 -41 7 minecraft:water[level=0]
+block 25 -60 3 minecraft:soul_sand
+spawn_player Chorus survival 0.5 -60 20.5 0 0
+spawn_player Pearl survival 8.5 -60 20.5 0 0
+spawn_player Control survival 16.5 -60 20.5 0 0
+spawn_player Bubble survival 25.5 -58 3.5 0 0 sim
+tick 25
+entity_seed Chorus 17
+give Chorus mainhand minecraft:chorus_fruit 3
+give Pearl mainhand minecraft:ender_pearl 3
+set Chorus fall_distance 12.5
+set Pearl fall_distance 9.5
+set Control fall_distance 7.5
+set Bubble fall_distance 6.5
+dump player:Chorus player:Pearl player:Control player:Bubble
+note the chorus fruit is eaten after 32 ticks; the teleport resets the fall distance
+use Chorus
+tick 34
+dump player:Chorus player:Control
+note the pearl lands: the owner is teleported, the fall distance is reset and the landing damage is dealt
+tp Pearl 8.5 -60 20.5 0 90
+use Pearl
+tick 4
+dump player:Pearl player:Control
+note the bubble column resets a simulated player inside it
+set Bubble fall_distance 6.5
+tick 6
+dump player:Bubble
+note a pig in the column
+spawn pig minecraft:pig 25.5 -58 5.5 {NoAI:0b}
+entity_seed pig 3
+set pig fall_distance 5.5
+tick 3
+dump entity:pig
