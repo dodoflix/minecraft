@@ -408,6 +408,7 @@ impl ServerLevel {
                 self.process_entity_events();
             }
             ChunkMapEvent::Unload(chunk) => self.unload(chunk),
+            ChunkMapEvent::LightChanged { sky, pos } => self.chunk_source.on_light_update(sky, pos),
             ChunkMapEvent::PoiRemoved(pos) => self.debug_drop_poi(pos),
             ChunkMapEvent::PoiAdded(record) => self.debug_register_poi(&record),
             ChunkMapEvent::LegacyEntities(_pos, tags) => {

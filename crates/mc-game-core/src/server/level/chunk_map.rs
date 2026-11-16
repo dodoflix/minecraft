@@ -170,6 +170,8 @@ pub enum ChunkMapEvent {
     PoiAdded(PoiRecord),
     /// Legacy entity tags found in a full chunk's NBT (`postLoad` entities).
     LegacyEntities(ChunkPos, Vec<mc_nbt::CompoundTag>),
+    /// `ServerChunkCache.onLightUpdate(layer, pos)`: the light engine published new data for the section.
+    LightChanged { sky: bool, pos: SectionPos },
 }
 
 /// A player registered with the chunk map.
@@ -829,6 +831,12 @@ impl ChunkMap {
         let result = self
             .light
             .run_update(&HolderLightChunks(holders), &queue_level);
+        for (layer, pos) in self.light.engine_mut().take_light_updates() {
+            self.events.push(ChunkMapEvent::LightChanged {
+                sky: layer == mc_light::LightLayer::Sky,
+                pos,
+            });
+        }
         for completion in result.completions {
             self.on_light_event(completion);
             // direct executors resume the task a light future completed inside the completing call

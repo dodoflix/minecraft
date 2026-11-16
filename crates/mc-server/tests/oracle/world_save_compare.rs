@@ -4,7 +4,7 @@
 //! server-wide saved data, and the per-player files, each split by file kind (`FileKind`).
 //!
 //! What is normalised (see [`Policy`] and [`POLICY`]): clock values (game time, day time, weather and tick counters, the
-//! times of the scene), the light data, unordered collections (attributes, the recipe book, the game rule map) and the
+//! times of the scene), all-zero light arrays, unordered collections (attributes, the recipe book, the game rule map) and the
 //! draws of unseeded randoms. Everything else is exact, including tag types and key order. Terrain that is generated
 //! while the server runs is not comparable: vanilla itself differs between two runs, so the scenes use a flat
 //! overworld, compare only the chunks that are full in both runs, and skip the generated nether and end chunks except
@@ -135,20 +135,29 @@ fn nbt_findings(
     }));
 }
 
-/// `chunk` without the light data: the light arrays and the sections that exist only for light (above and below the
-/// block range). The light engine is proven by its own goldens; its output here only moves section indices.
-fn without_light(chunk: &CompoundTag) -> CompoundTag {
+/// `chunk` with the all-zero light arrays removed and the sections that held nothing else dropped. A zero array is
+/// the same light as none, but whether the engine still holds one for a section depends on the order in which the
+/// chunk and its neighbours were loaded (the light section below the world is created from the layer above it when
+/// the chunk loads before its neighbours); two runs of the real vanilla server differ in exactly these.
+fn without_zero_light(chunk: &CompoundTag) -> CompoundTag {
     let mut chunk = chunk.clone();
     if let Some(sections) = chunk.get_list("sections") {
         let mut kept = ListTag::new();
         for section in sections.iter() {
-            let Some(c) = section.as_compound().filter(|c| c.contains("block_states")) else {
+            let Some(c) = section.as_compound() else {
                 continue;
             };
             let mut c = c.clone();
-            c.remove("BlockLight");
-            c.remove("SkyLight");
-            kept.push(c);
+            for key in ["BlockLight", "SkyLight"] {
+                if c.get_byte_array(key)
+                    .is_some_and(|a| a.iter().all(|b| *b == 0))
+                {
+                    c.remove(key);
+                }
+            }
+            if c.contains("block_states") || c.contains("BlockLight") || c.contains("SkyLight") {
+                kept.push(c);
+            }
         }
         chunk.put("sections", kept);
     }
@@ -235,8 +244,8 @@ fn compare(vdir: &Path, odir: &Path, policy: &Policy) -> Vec<Finding> {
                             policy,
                             kind,
                             name,
-                            &without_light(v),
-                            &without_light(o),
+                            &without_zero_light(v),
+                            &without_zero_light(o),
                             &mut found,
                         );
                         out.extend(found.into_iter().map(|mut f| {

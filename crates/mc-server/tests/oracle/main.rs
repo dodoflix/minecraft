@@ -20,6 +20,7 @@ mod join_ours;
 mod join_ours_state;
 mod join_phase;
 mod kick_dual;
+mod light_packets_dual;
 mod network_vanilla_diff;
 mod ours_play;
 mod packet_error;

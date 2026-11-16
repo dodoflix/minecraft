@@ -33,6 +33,17 @@ pub struct RawClient {
     pub pos: (f64, f64, f64),
     /// One `<packet name> <debug text, 160 chars>` line per received packet and `## <title>` section markers.
     pub transcript: String,
+    /// The light payload of every `level_chunk_with_light` (`false`) and `light_update` (`true`) packet, in arrival
+    /// order, with the chunk it is for.
+    pub light: Vec<LightPayload>,
+}
+
+/// What a `level_chunk_with_light` or `light_update` packet carried for the light engine.
+pub struct LightPayload {
+    pub update: bool,
+    pub x: i32,
+    pub z: i32,
+    pub data: ClientboundLightUpdatePacketData,
 }
 
 impl RawClient {
@@ -54,6 +65,7 @@ impl RawClient {
             rx,
             pos: (0.0, 0.0, 0.0),
             transcript: String::new(),
+            light: Vec::new(),
         })
     }
 
@@ -170,6 +182,21 @@ impl RawClient {
             format!("{packet:?}").chars().take(160).collect()
         };
         self.transcript.push_str(&format!("{name} {detail}\n"));
+        match &packet {
+            ClientboundPlayPacket::LevelChunkWithLight(p) => self.light.push(LightPayload {
+                update: false,
+                x: p.x,
+                z: p.z,
+                data: p.light_data.clone(),
+            }),
+            ClientboundPlayPacket::LightUpdate(p) => self.light.push(LightPayload {
+                update: true,
+                x: p.x,
+                z: p.z,
+                data: p.light_data.clone(),
+            }),
+            _ => {}
+        }
         match packet {
             ClientboundPlayPacket::KeepAlive(k) => {
                 self.send(ServerboundPlayPacket::KeepAlive(
