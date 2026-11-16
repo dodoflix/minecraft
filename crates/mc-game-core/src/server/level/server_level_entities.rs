@@ -248,14 +248,6 @@ impl ServerLevel {
 
     /// `removePlayerImmediately(player, reason)` = `player.remove(reason)`.
     pub fn remove_player_immediately(&mut self, id: EntityId, reason: RemovalReason) {
-        if let Some(dead) = self.dead_players.remove(&id)
-            && let Some(player) = dead
-                .as_any()
-                .downcast_ref::<crate::world::entity::ServerPlayer>()
-        {
-            // `onTrackingEnd` of the dead player's removal: it is a receiver until now (see `waypoint_tracking_end`)
-            self.waypoint_remove_taken_player(player);
-        }
         self.with_entity(id, |_, e| e.remove(reason));
     }
 
@@ -1321,7 +1313,7 @@ fn part_parent(part: &dyn Entity) -> Option<EntityId> {
 
 /// A killed player that keeps its connection: it leaves the level but the player lives on (see
 /// [`ServerLevel::dead_players`]).
-pub(super) fn is_parked_dead_player(e: &dyn Entity) -> bool {
+fn is_parked_dead_player(e: &dyn Entity) -> bool {
     e.is_player()
         && e.base().removal_reason() == Some(RemovalReason::Killed)
         && e.as_any()

@@ -1,0 +1,43 @@
+# The mob effects that act when a player is removed (oozing, weaving, wind charged: slimes, cobwebs, a gust) with the respawn right after
+# the death, and with the respawn after the dead player was removed by its own tick 20 ticks later.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty normal
+entity_counter 100
+fill -8 -61 -8 40 -61 8 minecraft:stone
+cmd setworldspawn 0 -60 0
+spawn_player A survival 0.5 -60 6.5 0 0
+spawn_player B survival 24.5 -60 6.5 0 0
+spawn_player Obs survival 12.5 -60 6.5 0 0
+tick 2
+effect A minecraft:oozing 0 600
+effect A minecraft:weaving 0 600
+effect A minecraft:wind_charged 0 600
+effect B minecraft:oozing 0 600
+effect B minecraft:weaving 0 600
+effect B minecraft:wind_charged 0 600
+tick 1
+dump packets:A:none packets:B:none packets:Obs:none
+note A is removed by the respawn itself
+level_seed 41
+hurt A generic 1000
+tick 3
+dump players player:A placed
+respawn A
+dump players player:A placed
+tick 2
+dump players player:A nbt:A packets:A packets:Obs placed
+dump blocks:-1,-61,5,2,-58,8
+note B is removed by its own tick, the respawn follows
+level_seed 42
+hurt B generic 1000
+tick 25
+dump players player:B placed
+dump blocks:23,-61,5,26,-58,8
+respawn B
+tick 2
+dump players player:B nbt:B packets:B packets:Obs placed

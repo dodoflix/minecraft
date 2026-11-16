@@ -68,3 +68,9 @@ fn death_at_the_world_spawn() {
 fn respawn_into_an_empty_level() {
     check("respawn_chunks");
 }
+
+/// The death effects of a player removed by the respawn and of a player removed by its own tick before the respawn.
+#[test]
+fn respawn_after_the_removal_of_the_dead_player() {
+    check("respawn_after_removal");
+}
