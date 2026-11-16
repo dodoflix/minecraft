@@ -789,8 +789,11 @@ impl Scenario {
         if !self.multi() {
             return None;
         }
-        // a player that died waits for its respawn out of the entity storage
-        let live = |l: &ServerLevel| l.get_entity(id).is_some() || l.get_dead_player(id).is_some();
+        // a player that died waits for its respawn out of the entity storage; the stand-in of a player of another level
+        // that a mob of this level targets is no member of the level
+        let live = |l: &ServerLevel| {
+            l.get_entity(id).is_some() && !l.is_remote_target(id) || l.get_dead_player(id).is_some()
+        };
         if self.level.as_ref().is_some_and(live) {
             return Some(self.at);
         }

@@ -16,10 +16,10 @@ mobspawn W minecraft:wolf 20.5 100 8.5 180 0 {PersistenceRequired:1b,AngerTime:6
 entity_seed Z 3201
 entity_seed W 3204
 tick 1
-dump packets:Alice:none
+in the_nether dump player:Alice packets:Alice:none
 tick 150
 dump mob:Z mob:W
-in the_nether dump packets:Alice:set_health,hurt_animation,damage_event,entity_event,set_entity_motion,entity_position_sync
+in the_nether dump player:Alice packets:Alice:set_health,hurt_animation,damage_event,entity_event,set_entity_motion,entity_position_sync
 tick 100
 dump mob:Z mob:W
-in the_nether dump packets:Alice:set_health,hurt_animation,damage_event,entity_event,set_entity_motion,entity_position_sync
+in the_nether dump player:Alice packets:Alice:set_health,hurt_animation,damage_event,entity_event,set_entity_motion,entity_position_sync
