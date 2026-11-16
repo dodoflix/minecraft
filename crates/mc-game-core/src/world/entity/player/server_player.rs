@@ -119,9 +119,9 @@ pub struct ServerPlayer {
     /// `Player.lastItemInMainHand` (a hotbar/item change resets the attack strength ticker).
     pub last_item_in_main_hand: crate::world::item::ItemStack,
     pub last_client_input: Input,
-    /// `enderPearls`: the entity ids of the pearls this player threw. A removed pearl is not deregistered when it goes
-    /// (every reader skips ids without a live pearl).
-    pub ender_pearls: Vec<EntityId>,
+    /// `enderPearls`: the pearls this player threw that are still registered, each with the level it is in (a pearl
+    /// that went through a portal is a new entity in another level).
+    pub ender_pearls: Vec<PearlRef>,
     /// The `ender_pearls` tags of the loaded player data: `loadAndSpawnEnderPearls` consumes them on join.
     pub saved_ender_pearls: Vec<CompoundTag>,
     pub post_effects_dirty: bool,
@@ -1422,30 +1422,43 @@ fn put_vec3(out: &mut CompoundTag, key: &str, v: Option<Vec3>) {
     }
 }
 
+/// An entry of `ServerPlayer.enderPearls`: the pearl's entity id and the level it is in.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct PearlRef {
+    pub id: EntityId,
+    pub dimension: Identifier,
+}
+
 impl ServerPlayer {
-    /// `registerEnderPearl(pearl)`.
-    pub fn register_ender_pearl(&mut self, pearl: EntityId) {
-        if !self.ender_pearls.contains(&pearl) {
-            self.ender_pearls.push(pearl);
+    /// `registerEnderPearl(pearl)`: `pearl` is an entity of `dimension`.
+    pub fn register_ender_pearl(&mut self, pearl: EntityId, dimension: &Identifier) {
+        if !self.ender_pearls.iter().any(|p| p.id == pearl) {
+            self.ender_pearls.push(PearlRef {
+                id: pearl,
+                dimension: dimension.clone(),
+            });
         }
     }
 
-    /// `saveEnderPearls(output)`: the pearls that are still alive, each with the dimension it is in.
-    /// Not implemented: pearls in another level than the player's (`lookup` sees this player's level only).
+    /// `deregisterEnderPearl(pearl)`.
+    pub fn deregister_ender_pearl(&mut self, pearl: EntityId) {
+        self.ender_pearls.retain(|p| p.id != pearl);
+    }
+
+    /// `saveEnderPearls(output)`: the registered pearls that are not removed, each with the dimension it is in. `lookup`
+    /// finds a pearl in whichever level it is.
     fn save_ender_pearls(&self, out: &mut CompoundTag, lookup: &EntityLookupFn<'_>) {
-        let live: Vec<&dyn Entity> = self
-            .ender_pearls
-            .iter()
-            .filter_map(|&id| lookup(id))
-            .filter(|pearl| !pearl.is_removed())
-            .collect();
-        if live.is_empty() {
+        if self.ender_pearls.is_empty() {
             return;
         }
         let mut list = ListTag::new();
-        for pearl in live {
+        for registered in &self.ender_pearls {
+            let Some(pearl) = lookup(registered.id).filter(|pearl| !pearl.is_removed()) else {
+                log::warn!("Trying to save removed ender pearl, skipping");
+                continue;
+            };
             if let Some(mut tag) = entity::save(pearl, lookup) {
-                tag.put_string("ender_pearl_dimension", self.dimension.to_string());
+                tag.put_string("ender_pearl_dimension", registered.dimension.to_string());
                 list.push(Tag::Compound(tag));
             }
         }

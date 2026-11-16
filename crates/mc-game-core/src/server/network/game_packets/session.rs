@@ -240,6 +240,7 @@ impl PlayCtx<'_> {
         self.lis().waiting_for_switch_to_config = true;
         self.remove_player_from_world();
         self.send(&ClientboundStartConfigurationPacket);
+        self.lis().common.close(crate::util::util::get_millis());
         self.lis()
             .sender
             .set_outbound_state(mc_protocol::packet::ConnectionState::Configuration);

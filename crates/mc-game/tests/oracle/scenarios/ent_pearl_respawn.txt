@@ -1,0 +1,38 @@
+# ThrownEnderpearl with a respawned owner: the pearl keeps the UUID of its owner, so after the owner died and respawned (a new ServerPlayer with the same UUID)
+# the pearl, which flies on with ender_pearls_vanish_on_death off, finds the new player in whichever level it is in and teleports it into the nether
+# when it lands there. The respawned player registers the pearl with its own pearl list at the pearl's next ticket refresh.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+gamerule keep_inventory true
+gamerule ender_pearls_vanish_on_death false
+gamerule respawn_radius 0
+entity_counter 100
+fill -2 99 -2 2 99 2 minecraft:stone
+in the_nether fill -2 99 -2 2 99 2 minecraft:netherrack
+spawn_player Alice survival 0.5 100 0.5 0 -90
+give Alice mainhand minecraft:ender_pearl 2
+tick 2
+level_seed 5
+use Alice
+tick 1
+tp_dim ender_pearl#1 the_nether 0.5 150 0.5
+set ender_pearl#1 no_gravity true
+tick 3
+note Alice dies and respawns: the pearl of the nether stays
+hurt Alice minecraft:generic_kill 1000
+tick 2
+respawn Alice
+tick 3
+dump levels players nbt:Alice
+in the_nether dump entities
+note the pearl falls onto the netherrack and lands: the new Alice is teleported into the nether
+set ender_pearl#1 no_gravity false
+tick 60
+dump levels players entities events packets:Alice:respawn,player_position,change_difficulty,sound,damage_event,set_health,entity_event,player_abilities
+in the_nether dump entities events
+dump nbt:Alice

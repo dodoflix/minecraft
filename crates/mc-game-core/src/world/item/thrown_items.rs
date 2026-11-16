@@ -166,7 +166,7 @@ impl ItemBehaviour for EnderpearlItem {
             1.5,
             1.0,
         ) {
-            player.register_ender_pearl(pearl);
+            player.register_ender_pearl(pearl, &level.dimension);
         }
         finish_throw(level, player, hand, stack)
     }

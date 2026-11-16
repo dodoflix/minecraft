@@ -401,6 +401,9 @@ impl ServerLevel {
         if !self.tick_state.pending_functions.is_empty() {
             env.run_pending_functions(self);
         }
+        if self.has_server_actions() {
+            env.run_server_actions(self);
+        }
         self.with_command_env(&mut *env, |level| {
             for passenger in passengers {
                 level.tick_passenger(id, passenger);

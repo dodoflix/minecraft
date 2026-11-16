@@ -1454,6 +1454,12 @@ pub trait Entity: Any {
     /// `onRemoval(reason)`.
     fn on_removal(&mut self, _reason: RemovalReason) {}
 
+    /// `ThrownEnderpearl.onRemoval`: the owner whose `enderPearls` this removed pearl leaves (`deregisterFromCurrentOwner`,
+    /// except when it goes with its owner leaving: `UNLOADED_WITH_PLAYER`). The level runs it once the pearl left storage.
+    fn ender_pearl_owner_to_deregister(&self) -> Option<Uuid> {
+        None
+    }
+
     fn kill(&mut self) {
         self.remove(RemovalReason::Killed);
     }

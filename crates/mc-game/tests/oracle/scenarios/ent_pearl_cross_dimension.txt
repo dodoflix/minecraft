@@ -1,0 +1,37 @@
+# ThrownEnderpearl.onHit with an owner in another level: Alice throws a pearl in the overworld and the pearl is moved into the nether (`tp_dim`: Entity.teleport,
+# whose ThrownEnderpearl override places a portal ticket). The owner is found in any dimension: when the pearl lands in the nether the owner (alive, so
+# `canUsePortal(true)`) is teleported into the pearl's level at the pearl's previous position, takes the 5.0 ender pearl damage and the teleport sound
+# plays in the nether.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+fill -2 99 -2 2 99 2 minecraft:stone
+in the_nether fill -2 99 -2 2 99 2 minecraft:netherrack
+spawn_player Alice survival 0.5 100 0.5 0 -90
+give Alice mainhand minecraft:ender_pearl 3
+tick 2
+level_seed 5
+dump packets:Alice:none levels players
+note the pearl is thrown straight up and moved into the nether above the netherrack
+use Alice
+tick 1
+dump entities
+tp_dim ender_pearl#1 the_nether 0.5 104 0.5
+dump entities nbt:ender_pearl#1
+in the_nether dump entities events
+tick 1
+in the_nether dump entities nbt:ender_pearl#1
+dump nbt:Alice
+in the_nether level_seed 7
+note the pearl lands: the owner is teleported into the nether
+tick 40
+dump levels players entities events packets:Alice:respawn,player_position,change_difficulty,sound,damage_event,set_health,entity_event,player_abilities,set_experience,set_held_slot,update_mob_effect,set_default_spawn_position,initialize_border,set_time,game_event
+in the_nether dump entities events players
+dump player:Alice nbt:Alice inventory:Alice
+tick 20
+dump levels players

@@ -20,7 +20,14 @@ pub fn save_player(server: &mut MinecraftServer, level: &ServerLevel, player: &S
     let Some(handle) = player.handle.clone() else {
         return;
     };
-    let tag = player.save_player_data(&|id| level.get_entity(id));
+    // the pearls the player threw may be in another level (a pearl that went through a portal)
+    let lookup = |id: crate::world::entity::EntityId| {
+        level.get_entity(id).or_else(|| {
+            let pearl = player.ender_pearls.iter().find(|p| p.id == id)?;
+            server.level(&pearl.dimension)?.get_entity(id)
+        })
+    };
+    let tag = player.save_player_data(&lookup);
     server.player_list.save_player_data(&handle, tag);
     server.player_list.save_player_files(&handle);
 }
@@ -79,9 +86,14 @@ pub fn remove(server: &mut MinecraftServer, level: &mut ServerLevel, player: &mu
         // `unRide()`
         level.remove_vehicle(player);
     }
-    // Not implemented: pearls in another level than the player's (a level only sees its own entities).
     for pearl in std::mem::take(&mut player.ender_pearls) {
-        level.with_entity(pearl, |_, e| e.remove(RemovalReason::UnloadedWithPlayer));
+        if pearl.dimension == level.dimension {
+            level.with_entity(pearl.id, |_, e| e.remove(RemovalReason::UnloadedWithPlayer));
+        } else {
+            server.with_level(&pearl.dimension, |_, other| {
+                other.with_entity(pearl.id, |_, e| e.remove(RemovalReason::UnloadedWithPlayer))
+            });
+        }
     }
     player.remove(RemovalReason::UnloadedWithPlayer);
     player.close_menus_on_removal(level);

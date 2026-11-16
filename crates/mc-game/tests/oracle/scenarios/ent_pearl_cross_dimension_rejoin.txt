@@ -1,0 +1,39 @@
+# ServerPlayer.enderPearls with a pearl in another level than its owner: Alice (overworld) has a pearl hovering in the nether (the pearl was moved there with
+# `tp_dim`). Her saved data lists the pearl with `ender_pearl_dimension` of the nether, not of her own level. When she leaves, PlayerList.remove removes the
+# pearl of the nether with her; when she joins again with her saved data (`load`), loadAndSpawnEnderPearls puts the saved pearl back into the nether and places
+# its ticket there.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+fill -2 99 -2 2 99 2 minecraft:stone
+in the_nether fill -2 99 -2 2 99 2 minecraft:netherrack
+spawn_player Alice survival 0.5 100 0.5 0 -90
+give Alice mainhand minecraft:ender_pearl 3
+tick 2
+level_seed 5
+use Alice
+tick 1
+tp_dim ender_pearl#1 the_nether 0.5 150 0.5
+set ender_pearl#1 no_gravity true
+tick 3
+note the saved data lists the pearl with the level it is in
+dump nbt:Alice
+in the_nether dump entities nbt:ender_pearl#1
+note Alice leaves: the pearl of the nether goes with her
+leave Alice
+tick 2
+dump entities levels players
+in the_nether dump entities levels
+note Alice joins again with her saved data: the saved pearl is spawned into the nether
+spawn_player Alice survival 0.5 100 0.5 0 -90 load
+tick 2
+dump levels players nbt:Alice
+in the_nether dump entities levels nbt:ender_pearl#2
+tick 45
+dump nbt:Alice
+in the_nether dump entities nbt:ender_pearl#2

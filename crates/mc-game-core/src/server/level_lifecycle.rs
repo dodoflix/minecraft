@@ -272,6 +272,7 @@ impl MinecraftServer {
         level.server_state = crate::server::level::LevelServerState {
             scoreboard: self.scoreboard.clone(),
             roster: self.player_list.roster.clone(),
+            entities: self.entity_directory.clone(),
             loot: self.loot_services(),
             spawn_protection: Default::default(),
             rules: self.game_rules_ref().live(),
@@ -682,6 +683,15 @@ impl MinecraftServer {
             pop();
             if let Some(Err(report)) = result {
                 ReportedException::throw(report);
+            }
+        }
+        // work a level deferred (its target level was held by a caller up the stack) must run before the packets of the next tick
+        for dimension in self.level_keys() {
+            if self
+                .level(&dimension)
+                .is_some_and(|level| level.has_server_actions())
+            {
+                self.with_level(&dimension, |_, _| {});
             }
         }
 

@@ -60,6 +60,9 @@ pub struct Actors {
     /// Named entities (spawned by the script or auto-named `type_path#n`), in naming order.
     pub refs: Vec<(String, EntityId)>,
     pub players: Vec<String>,
+    /// The entries of players that left and joined again: the driver keeps the old entry of its player list next to the new one
+    /// (`dump players` prints both). Position in `players` at the time, name and the dimension the old player was in.
+    stale_players: Vec<(usize, String, Identifier)>,
     known: HashSet<EntityId>,
     auto: HashMap<String, i32>,
     rx: HashMap<String, UnboundedReceiver<Outbound>>,
@@ -1327,11 +1330,17 @@ impl Scenario {
         let flags = &a[6..];
         let sim = flags.iter().any(|f| f == "sim");
         let joinburst = flags.iter().any(|f| f == "joinburst");
-        let n = a.len() - usize::from(sim) - usize::from(joinburst);
+        let load = flags.iter().any(|f| f == "load");
+        let n = a.len() - usize::from(sim) - usize::from(joinburst) - usize::from(load);
         // a player that left and joins again replaces its old entry
         if self.actors.players.contains(&name) {
             let old = self.entity_id(&name);
             if self.level().with_player(old, |_, _| ()).is_none() {
+                let at = self.actors.players.iter().position(|n| *n == name);
+                let dimension = self.level().dimension.clone();
+                self.actors
+                    .stale_players
+                    .extend(at.map(|at| (at, name.clone(), dimension)));
                 self.actors.players.retain(|n| *n != name);
                 self.actors.refs.retain(|(n, _)| *n != name);
             }
@@ -1370,6 +1379,20 @@ impl Scenario {
             other => panic!("game mode {other}"),
         };
         p.set_game_mode_for_player(mode, None);
+        // `load`: `PrepareSpawnTask.Ready.spawn` loads the player's saved data before the join
+        if load {
+            let saved = mc_game::commands::server_access::with_server(|server| {
+                server
+                    .player_list
+                    .load_player_data(&mc_game::server::players::NameAndId::new(
+                        profile.id,
+                        profile.name.clone(),
+                    ))
+            });
+            if let Some(tag) = saved {
+                p.load(level, &tag).expect("the saved player data loads");
+            }
+        }
         if let Some(own) = own_advancements {
             p.advancements = own;
         }
@@ -1538,6 +1561,15 @@ impl Scenario {
                     mc_game::server::players::join::send_initial_recipe_book(p, &recipes);
                 }
                 p.init_inventory_menu(level)
+            });
+        }
+        // `PrepareSpawnTask.Ready.spawn`: the pearls the player saved are spawned after the join
+        if load {
+            let level = self.level.as_mut().expect("world");
+            mc_game::commands::server_access::with_server(|server| {
+                mc_game::server::players::ender_pearl_ticket::load_and_spawn_ender_pearls(
+                    server, level, id,
+                )
             });
         }
         self.actors.known.insert(id);
@@ -1982,14 +2014,19 @@ impl Scenario {
             }
             // `PL NAME dim=DIM` per player of the replay
             "players" => {
+                let mut lines = Vec::new();
                 for name in self.actors.players.clone() {
                     let id = self.entity_id(&name);
                     if let Some(d) = self.dimension_of(id) {
                         self.focus(d);
                     }
                     let dimension = self.level().dimension.clone();
-                    self.out.push(format!("PL {name} dim={dimension}"));
+                    lines.push(format!("PL {name} dim={dimension}"));
                 }
+                for (at, name, dimension) in &self.actors.stale_players {
+                    lines.insert((*at).min(lines.len()), format!("PL {name} dim={dimension}"));
+                }
+                self.out.extend(lines);
             }
             "entity" | "player" | "xentity" | "mob" => {
                 let name = arg.expect("entity:REF");
@@ -2263,8 +2300,22 @@ impl Scenario {
         // `uuidName` returns the first reference with the UUID (an entity the level refused for its UUID shares it)
         let mut uuids = std::collections::BTreeMap::new();
         for (_, id) in &self.actors.refs {
-            if let Some(e) = level.get_entity_or_removed(*id) {
-                uuids.entry(e.uuid()).or_insert(*id);
+            // the driver names the entities of every level, not only the one it dumps
+            let uuid = level
+                .get_entity_or_removed(*id)
+                .map(|e| e.uuid())
+                .or_else(|| {
+                    if !mc_game::commands::server_access::has_server() {
+                        return None;
+                    }
+                    mc_game::commands::server_access::with_server(|server| {
+                        server
+                            .all_levels()
+                            .find_map(|l| l.get_entity_or_removed(*id).map(|e| e.uuid()))
+                    })
+                });
+            if let Some(uuid) = uuid {
+                uuids.entry(uuid).or_insert(*id);
             }
         }
         (names, uuids)

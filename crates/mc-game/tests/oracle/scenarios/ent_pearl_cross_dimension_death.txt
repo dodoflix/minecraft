@@ -1,0 +1,41 @@
+# ThrownEnderpearl.tick with a dead owner in another level: findOwnerIncludingDeadPlayer finds the owner through the player list when no level has it any
+# more, so the pearl that hovers in the nether vanishes in its next tick while ender_pearls_vanish_on_death is on, and is kept with the rule off.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+gamerule keep_inventory true
+entity_counter 100
+fill -2 99 -2 2 99 2 minecraft:stone
+in the_nether fill -2 99 -2 2 99 2 minecraft:netherrack
+spawn_player Alice survival 0.5 100 0.5 0 -90
+spawn_player Bob survival 1.5 100 0.5 0 -90
+give Alice mainhand minecraft:ender_pearl 2
+give Bob mainhand minecraft:ender_pearl 2
+tick 2
+level_seed 5
+use Alice
+use Bob
+tick 1
+tp_dim ender_pearl#1 the_nether 0.5 150 0.5
+tp_dim ender_pearl#2 the_nether 1.5 150 0.5
+set ender_pearl#1 no_gravity true
+set ender_pearl#2 no_gravity true
+tick 3
+in the_nether dump entities
+note Alice dies: her pearl vanishes in its next tick, Bob's stays
+hurt Alice minecraft:generic_kill 1000
+tick 1
+dump levels players
+in the_nether dump entities events
+tick 25
+in the_nether dump entities events
+note the rule off: the pearl of a dead owner flies on
+gamerule ender_pearls_vanish_on_death false
+hurt Bob minecraft:generic_kill 1000
+tick 25
+dump levels players
+in the_nether dump entities events

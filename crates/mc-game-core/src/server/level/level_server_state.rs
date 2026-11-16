@@ -52,6 +52,11 @@ impl PlayerRoster {
         self.0.read().clone()
     }
 
+    /// `PlayerList.getPlayer(uuid)`.
+    pub fn get(&self, uuid: uuid::Uuid) -> Option<PlayerHandle> {
+        self.0.read().iter().find(|p| p.uuid == uuid).cloned()
+    }
+
     /// Whether the player `uuid` asked for `subscription` (`ServerPlayer.requestedDebugSubscriptions`).
     pub fn requested_debug_subscription(
         &self,
@@ -90,6 +95,8 @@ pub type EffectiveRespawn = Arc<RwLock<Option<mc_world::level_storage::RespawnDa
 pub struct LevelServerState {
     pub scoreboard: SharedScoreboard,
     pub roster: PlayerRoster,
+    /// `getEntityInAnyDimension`: every tracked entity of every level of the server.
+    pub entities: super::EntityDirectory,
     /// What loot evaluation reads from the server (random sequences, command storage, clocks).
     pub loot: crate::world::level::storage::loot::server_access::LootServices,
     pub spawn_protection: SpawnProtection,

@@ -32,6 +32,12 @@ pub fn next_detached_entity_id() -> EntityId {
         .wrapping_add(1)
 }
 
+/// What `getEntityInAnyDimension` found: the entity itself in this level, or the copy another level published.
+pub enum AnyDimensionEntity<'a> {
+    Here(&'a dyn Entity),
+    Elsewhere(super::RemoteEntity),
+}
+
 impl ServerLevel {
     /// A private `ENTITY_COUNTER` starting after `start`, shared with chunk generation (the entities it creates take
     /// ids from the same sequence).
@@ -232,6 +238,29 @@ impl ServerLevel {
         self.entity_manager.get_by_uuid(uuid)
     }
 
+    /// `getEntityInAnyDimension(uuid)`: the entity of this level, or a copy of the tracked entity of another level of the
+    /// server (see [`EntityDirectory`](super::EntityDirectory)). An entity of this level that is out of its slot (its own
+    /// code runs) is not found, like [`ServerLevel::get_entity_by_uuid`].
+    pub fn get_entity_in_any_dimension(&self, uuid: Uuid) -> Option<AnyDimensionEntity<'_>> {
+        if let Some(entity) = self.get_entity_by_uuid(uuid) {
+            return Some(AnyDimensionEntity::Here(entity));
+        }
+        self.server_state
+            .entities
+            .get(uuid)
+            .filter(|remote| remote.dimension != self.dimension)
+            .map(AnyDimensionEntity::Elsewhere)
+    }
+
+    /// `getPlayerInAnyDimension(uuid)` = `PlayerList.getPlayer(uuid)`: the connection of the player, wherever it is (also
+    /// while it is dead and out of every level).
+    pub fn get_player_in_any_dimension(
+        &self,
+        uuid: Uuid,
+    ) -> Option<crate::server::players::PlayerHandle> {
+        self.server_state.roster.get(uuid)
+    }
+
     /// Mutable lookup; call [`ServerLevel::sync_entity`] after changing position/removal state, or use
     /// [`ServerLevel::with_entity`].
     pub fn get_entity_mut(&mut self, id: EntityId) -> Option<&mut dyn Entity> {
@@ -297,6 +326,9 @@ impl ServerLevel {
             return;
         }
         self.player_records.remove(&id);
+        self.server_state
+            .entities
+            .refresh(entity.as_ref(), &self.dimension);
         self.entity_manager.put_back(id, entity);
         self.process_entity_events();
         self.process_waypoint_state(id);
@@ -321,6 +353,9 @@ impl ServerLevel {
 
     /// Apply pending removal / section changes of an entity that was mutated in place.
     pub fn sync_entity(&mut self, id: EntityId) {
+        if let Some(entity) = self.entity_manager.get_any(id) {
+            self.server_state.entities.refresh(entity, &self.dimension);
+        }
         self.entity_manager.sync_entity(id);
         self.process_entity_events();
         self.process_waypoint_state(id);
@@ -588,6 +623,13 @@ impl ServerLevel {
         }
         let now = self.game_time();
         let limbo = self.entity_manager.drain_limbo();
+        for (id, removed) in &limbo {
+            if let Some(owner) = removed.ender_pearl_owner_to_deregister() {
+                crate::server::players::ender_pearl_ticket::deregister_ender_pearl(
+                    self, owner, *id,
+                );
+            }
+        }
         let (players, removed): (Vec<_>, Vec<_>) =
             limbo.into_iter().partition(|(_, e)| e.is_player());
         if let Some(kept) = self.removed_entities.as_mut() {
@@ -612,6 +654,9 @@ impl ServerLevel {
     fn handle_entity_event(&mut self, event: EntityLevelEvent) {
         match event {
             EntityLevelEvent::TrackingStart(id) => {
+                if let Some(entity) = self.entity_manager.get_any(id) {
+                    self.server_state.entities.publish(entity, &self.dimension);
+                }
                 if self
                     .entity_manager
                     .get_any(id)
@@ -678,6 +723,7 @@ impl ServerLevel {
                 self.update_dynamic_game_event_listener(id, DynamicListenerAction::Add);
             }
             EntityLevelEvent::TrackingEnd(id) => {
+                self.server_state.entities.withdraw(id, &self.dimension);
                 self.navigating_mobs.remove(&id);
                 if self.players.contains(&id) {
                     // the entity is removed when its tracking ends: not alive, so no forget packets

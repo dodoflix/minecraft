@@ -451,6 +451,13 @@ impl LevelTickEnv for Env {
         }
     }
     fn teleport_through_portal(&mut self, _level: &mut ServerLevel, _entity: &mut dyn Entity) {}
+    fn run_server_actions(&mut self, level: &mut ServerLevel) {
+        if mc_game::commands::server_access::has_server() {
+            mc_game::commands::server_access::with_server(|server| {
+                server.run_server_actions(level)
+            });
+        }
+    }
 }
 
 /// [`Env`] of a scenario with a command environment: what `ServerTickEnv` reads from the server (tick rate manager, weather, difficulty, clocks) comes from
@@ -545,6 +552,9 @@ impl LevelTickEnv for ServerBackedEnv<'_> {
                 server, level, entity,
             )
         });
+    }
+    fn run_server_actions(&mut self, level: &mut ServerLevel) {
+        mc_game::commands::server_access::with_server(|server| server.run_server_actions(level));
     }
 }
 
@@ -886,10 +896,12 @@ impl Scenario {
         if self.dims.is_empty() {
             self.level = levels.pop();
         } else {
-            // one player roster for every level, like the server's player list
+            // one player roster and one entity directory for every level, like the server's
             let roster = levels[0].server_state.roster.clone();
+            let entities = levels[0].server_state.entities.clone();
             for level in &mut levels {
                 level.server_state.roster = roster.clone();
+                level.server_state.entities = entities.clone();
             }
             mc_game::commands::server_access::with_server(|server| {
                 for level in levels {
@@ -959,11 +971,13 @@ impl Scenario {
         // against the first sound seed of each dimension in the oracle, the sound seed generator is the 5th (overworld), 18th (end)
         // and 21st (nether) draw (the oracle runs worker tasks on the main thread, so their draws count here). `ServerLevel::new` draws `randValue` (the thread-local instance) and the level's `random` itself before the sound seed generator.
         // Every `Level` constructor draws unique seeds, so each level starts from the sequence position the oracle had when it created
-        // that level (measured, see above).
+        // that level (measured, see above). With the end next to the nether (`levels` naming both), the oracle's nether generator is the
+        // 180th draw: the chunk tasks of the three levels drew in between.
         mc_core::random::reseed_uniquifier(8682522807148012);
         let draws_before_level = match dimension {
             "overworld" => 2,
             "the_end" => 15,
+            "the_nether" if self.dims.contains(&"the_end") => 177,
             _ => 18,
         };
         for _ in 0..draws_before_level {

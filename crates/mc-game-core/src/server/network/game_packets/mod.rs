@@ -392,6 +392,7 @@ fn perform_respawn(
     won_game: bool,
 ) {
     use crate::world::entity::{Entity, RemovalReason};
+    handle.shared.lock().won_game = false;
     let reason = if won_game {
         RemovalReason::ChangedDimension
     } else {

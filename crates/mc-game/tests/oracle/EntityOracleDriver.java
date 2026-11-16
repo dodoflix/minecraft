@@ -147,11 +147,12 @@ import net.minecraft.util.RandomSource;
  * spawn REF TYPE X Y Z [yaw pitch] [SNBT]        real vanilla entity (EntityType.create + addFreshEntity), random seeded from REF
  * spawn_item REF STACK X Y Z [vx vy vz] [count] [rot=YAW]  ItemEntity (constructor random motion unless vx vy vz given; rot= overrides the random yaw)
  * entity_seed REF N           entity.getRandom().setSeed(N)
- * spawn_player NAME survival|creative|adventure|spectator X Y Z [yaw pitch] [sim] [joinburst]
+ * spawn_player NAME survival|creative|adventure|spectator X Y Z [yaw pitch] [sim] [joinburst] [load]
  *                             joins a real ServerPlayer through PlayerList.placeNewPlayer; `sim` = the server simulates its
  *                             physics (client-side LocalPlayer behaviour, see VanillaLevel.SimPlayer), otherwise it only moves
  *                             through `move_packet`s like a real vanilla server player; `joinburst` keeps the packets of the join for the
- *                             first `packets:NAME` dump (otherwise they are discarded): compare them with a type filter (`:set_held_slot,update_recipes,recipe_book_settings,recipe_book_add,container_set_content`)
+ *                             first `packets:NAME` dump (otherwise they are discarded): compare them with a type filter (`:set_held_slot,update_recipes,recipe_book_settings,recipe_book_add,container_set_content`);
+ *                             `load` joins with the player data saved when NAME left (PrepareSpawnTask.Ready.spawn: the data is loaded before the join and the saved ender pearls and root vehicle are spawned after it)
  * give REF SLOT STACK [count] SLOT: mainhand offhand head chest legs feet hotbarN (0-8) invN (container slot index)
  * select PLAYER N             hotbar slot (ServerboundSetCarriedItemPacket)
  * effect REF EFFECT AMPLIFIER TICKS [hidden]      addEffect
@@ -740,9 +741,10 @@ public final class EntityOracleDriver {
             GameType gm = GameType.byName(a.get(2));
             boolean sim = a.subList(6, a.size()).contains("sim");
             boolean joinburst = a.subList(6, a.size()).contains("joinburst");
-            int n = a.size() - (sim ? 1 : 0) - (joinburst ? 1 : 0);
+            boolean load = a.subList(6, a.size()).contains("load");
+            int n = a.size() - (sim ? 1 : 0) - (joinburst ? 1 : 0) - (load ? 1 : 0);
             VanillaLevel.reseed(hash(a.get(1)));
-            VanillaLevel.FakePlayer p = v.connect(a.get(1), gm, d(a.get(3)), d(a.get(4)), d(a.get(5)), n > 6 ? (float)d(a.get(6)) : 0f, n > 7 ? (float)d(a.get(7)) : 0f, sim);
+            VanillaLevel.FakePlayer p = v.connect(a.get(1), gm, d(a.get(3)), d(a.get(4)), d(a.get(5)), n > 6 ? (float)d(a.get(6)) : 0f, n > 7 ? (float)d(a.get(7)) : 0f, sim, load);
             refs.put(a.get(1), p.player);
             if (!joinburst) {
                p.drain(); // the join burst is deterministic but huge; `packets:NAME` dumps start after the join

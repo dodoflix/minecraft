@@ -629,8 +629,16 @@ public final class VanillaLevel {
 
    // ------------------------------------------------------------------------------------------------ players
 
-   /** Join a player the vanilla way (PrepareSpawnTask.spawn + PlayerList.placeNewPlayer) with the given default game mode. */
    public FakePlayer connect(String name, GameType gameMode, double x, double y, double z, float yaw, float pitch, boolean sim) throws Exception {
+      return connect(name, gameMode, x, y, z, yaw, pitch, sim, false);
+   }
+
+   /**
+    * Join a player the vanilla way (PrepareSpawnTask.spawn + PlayerList.placeNewPlayer) with the given default game mode;
+    * {@code load} reads the player's saved data like PrepareSpawnTask.Ready.spawn does (the player loads it before the join, the
+    * pearls and the vehicle it saved are spawned after it).
+    */
+   public FakePlayer connect(String name, GameType gameMode, double x, double y, double z, float yaw, float pitch, boolean sim, boolean load) throws Exception {
       server.setDefaultGameType(gameMode);
       GameProfile profile = new GameProfile(UUID.nameUUIDFromBytes(("OfflinePlayer:" + name).getBytes(StandardCharsets.UTF_8)), name);
       CommonListenerCookie cookie = CommonListenerCookie.createInitial(profile, false);
@@ -666,8 +674,18 @@ public final class VanillaLevel {
       ServerPlayer player = new SimPlayer(server, level, profile, cookie.clientInformation(), sim);
       FakePlayer fp = new FakePlayer(name, player, connection, channel);
       holder[0] = fp;
+      net.minecraft.util.ProblemReporter.ScopedCollector reporter = new net.minecraft.util.ProblemReporter.ScopedCollector(player.problemPath(), org.slf4j.LoggerFactory.getLogger("oracle"));
+      java.util.Optional<net.minecraft.world.level.storage.ValueInput> saved = load
+         ? server.getPlayerList().loadPlayerData(new net.minecraft.server.players.NameAndId(profile)).map(tag -> net.minecraft.world.level.storage.TagValueInput.create(reporter, server.registryAccess(), tag))
+         : java.util.Optional.empty();
+      saved.ifPresent(player::load);
       player.snapTo(new net.minecraft.world.phys.Vec3(x, y, z), yaw, pitch);
       server.getPlayerList().placeNewPlayer(connection, player, cookie);
+      saved.ifPresent(tag -> {
+         player.loadAndSpawnEnderPearls(tag);
+         player.loadAndSpawnParentVehicle(tag);
+      });
+      reporter.close();
       players.add(fp);
       // the client reports it is in the world, as the vanilla client does after the join sequence
       // ServerGamePacketListenerImpl.tickPlayer records these on its first tick; the client accept below needs them now

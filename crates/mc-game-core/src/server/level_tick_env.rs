@@ -105,4 +105,8 @@ impl LevelTickEnv for ServerTickEnv<'_> {
             entity,
         );
     }
+
+    fn run_server_actions(&mut self, level: &mut ServerLevel) {
+        self.server.run_server_actions(level);
+    }
 }

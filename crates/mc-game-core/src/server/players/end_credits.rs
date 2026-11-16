@@ -77,7 +77,11 @@ pub fn finish_player_step(server: &mut MinecraftServer, uuid: Uuid) {
                     let mut real = Box::new(std::mem::replace(slot, placeholder));
                     real.close_menus_on_removal(level);
                     real.remove(RemovalReason::ChangedDimension);
+                    let won_game = real.won_game;
                     server.detached_players.insert(uuid, real);
+                    if let Some(handle) = server.player_list.get_player(&uuid) {
+                        handle.shared.lock().won_game = won_game;
+                    }
                 });
             }
             None

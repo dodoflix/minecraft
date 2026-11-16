@@ -103,6 +103,10 @@ pub struct TakenBlockEntity {
     pub pre_remove_state: Option<mc_data::block::BlockState>,
 }
 
+/// Work that needs the server, run after the entity that queued it ticked.
+pub type ServerAction =
+    Box<dyn FnOnce(&mut crate::server::MinecraftServer, &mut ServerLevel) + Send>;
+
 pub struct LevelTickState {
     /// `neighborUpdater`.
     pub neighbor_updater: CollectingNeighborUpdater,
@@ -118,6 +122,10 @@ pub struct LevelTickState {
     pub command_env: Option<super::level_commands::CommandEnvPtr>,
     /// Advancement reward functions waiting for their player to be back in the level (see `level_commands.rs`).
     pub pending_functions: Vec<super::level_commands::PendingReward>,
+    /// Work an entity of this level queued for the server (see `ServerLevel::queue_server_action`).
+    pub pending_server_actions: Vec<ServerAction>,
+    /// Server actions that found their target level out of the server; the next run of the queue retries them.
+    pub deferred_server_actions: Vec<ServerAction>,
     /// `subTickCount`.
     pub sub_tick_count: i64,
     /// `randValue` (`getBlockRandomPos`).
@@ -184,6 +192,8 @@ impl LevelTickState {
             ticking_block_entities: false,
             command_env: None,
             pending_functions: Vec::new(),
+            pending_server_actions: Vec::new(),
+            deferred_server_actions: Vec::new(),
             sub_tick_count: 0,
             rand_value: create_thread_local_instance_new().next_int(),
             random: LevelRandom::new(create_new()),

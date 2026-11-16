@@ -1,0 +1,27 @@
+CF msg Game rule keep_inventory is now set to true
+CF result success 1
+E ender_pearl#1 minecraft:ender_pearl pos=0.5,150.0,0.5 delta=0.0,0.0,0.0 rot=-27.460882,45.723682 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ender_pearl#2 minecraft:ender_pearl pos=1.5,150.0,0.5 delta=0.0,0.0,0.0 rot=-13.083524,46.016632 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+# Alice dies: her pearl vanishes in its next tick, Bob's stays
+HURT Alice minecraft:generic_kill 1000 -> true
+LEVEL minecraft:overworld gametime=7 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_end gametime=7 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=7 forced=25 loaded=961 players=0 border=5.9999968E7
+PL Alice dim=minecraft:overworld
+PL Bob dim=minecraft:overworld
+E ender_pearl#2 minecraft:ender_pearl pos=1.5,150.0,0.5 delta=0.0,0.0,0.0 rot=-10.466819,36.813305 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=0.5,100.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.36623064
+EV sound at=1.5,100.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.4594317
+EV sound at=0.5,100.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.death source=player vol=1.0 pitch=1.0
+E ender_pearl#2 minecraft:ender_pearl pos=1.5,150.0,0.5 delta=0.0,0.0,0.0 rot=-0.03954252,0.13907674 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+# the rule off: the pearl of a dead owner flies on
+CF msg Game rule ender_pearls_vanish_on_death is now set to false
+CF result success 0
+HURT Bob minecraft:generic_kill 1000 -> true
+LEVEL minecraft:overworld gametime=57 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=57 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=57 forced=25 loaded=961 players=0 border=5.9999968E7
+PL Alice dim=minecraft:overworld
+PL Bob dim=minecraft:overworld
+E ender_pearl#2 minecraft:ender_pearl pos=1.5,150.0,0.5 delta=0.0,0.0,0.0 rot=-1.493874E-4,5.254171E-4 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=1.5,100.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.death source=player vol=1.0 pitch=1.0

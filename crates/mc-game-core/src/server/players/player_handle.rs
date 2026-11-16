@@ -56,6 +56,9 @@ pub struct PlayerSharedState {
     /// `ServerPlayer.requestedDebugSubscriptions`: what the client asked for (`debugSubscriptions()` applies the
     /// operator check).
     pub requested_debug_subscriptions: Vec<mc_data::DebugSubscription>,
+    /// `ServerPlayer.wonGame` of a player that left the world through the End exit portal and has not respawned yet (the
+    /// player is in no level then).
+    pub won_game: bool,
 }
 
 pub struct PlayerHandle {
@@ -112,6 +115,7 @@ impl PlayerHandle {
                 text_filtering_enabled: false,
                 permissions: LevelBasedPermissionSet::ALL,
                 requested_debug_subscriptions: Vec::new(),
+                won_game: false,
             })),
         }
     }

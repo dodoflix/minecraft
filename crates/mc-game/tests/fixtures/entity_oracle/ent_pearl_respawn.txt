@@ -1,0 +1,35 @@
+CF msg Game rule keep_inventory is now set to true
+CF result success 1
+CF msg Game rule ender_pearls_vanish_on_death is now set to false
+CF result success 0
+CF msg Game rule respawn_radius is now set to 0
+CF result success 0
+# Alice dies and respawns: the pearl of the nether stays
+HURT Alice minecraft:generic_kill 1000 -> true
+LEVEL minecraft:overworld gametime=11 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=11 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=11 forced=25 loaded=961 players=0 border=5.9999968E7
+PL Alice dim=minecraft:overworld
+N Alice {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[{Slot:0b,count:1,id:"minecraft:ender_pearl"}],Invulnerable:0b,LastDeathLocation:{dimension:"minecraft:overworld",pos:[I;0,100,0]},Motion:[0.0d,-0.230527368912964d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[8.5d,-64.0d,8.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,equipment:{},fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:11,warning_level:0}}
+E ender_pearl#1 minecraft:ender_pearl pos=0.5,150.0,0.5 delta=0.0,0.0,0.0 rot=-8.998382,14.982737 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+# the pearl falls onto the netherrack and lands: the new Alice is teleported into the nether
+LEVEL minecraft:overworld gametime=71 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=71 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=71 forced=25 loaded=961 players=0 border=5.9999968E7
+PL Alice dim=minecraft:overworld
+E ender_pearl#1 minecraft:ender_pearl pos=0.5,104.94952431791751,0.5 delta=0.0,-1.3449451284381153,0.0 rot=-1.3789975E-5,-89.999825 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=0.5,100.0,0.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.36623064
+EV sound at=0.5,100.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.death source=player vol=1.0 pitch=1.0
+PKT Alice minecraft:set_health 6a41a000001440a00000
+PKT Alice minecraft:sound 77e104060000000400000320000000043f0000003ebb8295e32d4fcf84a7860e
+PKT Alice minecraft:damage_event 196513000000
+PKT Alice minecraft:entity_event 220000006503
+PKT Alice minecraft:set_health 6a000000001440a00000
+PKT Alice minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT Alice minecraft:respawn 5400136d696e6563726166743a6f766572776f726c64d88694a6a43d2e5e0000000101136d696e6563726166743a6f766572776f726c64000000000000006400c1ffffff0f00
+PKT Alice minecraft:player_position 49024021000000000000c0500000000000004021000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT Alice minecraft:change_difficulty 0a0000
+PKT Alice minecraft:entity_event 220000006518
+PKT Alice minecraft:set_health 6a41a000001440a00000
+E ender_pearl#1 minecraft:ender_pearl pos=0.5,104.94952431791751,0.5 delta=0.0,-1.3449451284381153,0.0 rot=-1.3789975E-5,-89.999825 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+N Alice {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[{Slot:0b,count:1,id:"minecraft:ender_pearl"}],Invulnerable:0b,LastDeathLocation:{dimension:"minecraft:overworld",pos:[I;0,100,0]},Motion:[0.0d,-2.822187221377698d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[8.5d,-64.0d,8.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,ender_pearls:[{Air:300s,Fire:0s,HasBeenShot:1b,Invulnerable:0b,Item:{count:1,id:"minecraft:ender_pearl"},LeftOwner:1b,Motion:[0.0d,-1.3449451284381153d,0.0d],OnGround:0b,Owner:[I;278005000,-707248403,-1814916367,-1817188393],PortalCooldown:0,Pos:[0.5d,104.94952431791751d,0.5d],Rotation:[-1.3789975E-5f,-89.999825f],UUID:[I;-1560762195,788941746,-1835276695,-1584990501],ender_pearl_dimension:"minecraft:the_nether",fall_distance:0.0d,id:"minecraft:ender_pearl"}],equipment:{},fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:8.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:71,warning_level:0}}

@@ -301,7 +301,18 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
                 // N REF {canonical sorted SNBT of saveWithoutId, UUID removed}
                 _ => {
                     let mut tag = CompoundTag::new();
-                    e.save_without_id(&mut tag, &|i| level.get_entity(i));
+                    // the pearls of a player may be in another level of the server
+                    if mc_game::commands::server_access::has_server() {
+                        mc_game::commands::server_access::with_server(|server| {
+                            e.save_without_id(&mut tag, &|i| {
+                                level
+                                    .get_entity(i)
+                                    .or_else(|| server.all_levels().find_map(|l| l.get_entity(i)))
+                            })
+                        });
+                    } else {
+                        e.save_without_id(&mut tag, &|i| level.get_entity(i));
+                    }
                     tag.remove("UUID");
                     sort_recipe_book(&mut tag);
                     Ok(vec![format!("N {name} {}", canon(&Tag::Compound(tag)))])

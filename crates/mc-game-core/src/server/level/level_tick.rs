@@ -76,6 +76,9 @@ pub trait LevelTickEnv {
     /// The `PortalProcessor` of `entity` (which just ticked and is out of `level`) reached its transition time:
     /// `getPortalDestination` + `Entity.teleportToPortalDestination`.
     fn teleport_through_portal(&mut self, level: &mut ServerLevel, entity: &mut dyn Entity);
+    /// Runs the work the entities of `level` queued for the server (`ServerLevel::queue_server_action`); `level` is the
+    /// ticking level, out of the server.
+    fn run_server_actions(&mut self, level: &mut ServerLevel);
 }
 
 /// `ServerLevel.THUNDER_DELAY` / `THUNDER_DURATION` / `RAIN_DELAY` / `RAIN_DURATION` (`UniformInt.of(min, max)`).

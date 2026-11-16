@@ -136,6 +136,8 @@ pub struct MinecraftServer {
     pub tick_rate_manager: ServerTickRateManager,
     /// `getScoreboard()` (`ServerScoreboard`): loaded from `scoreboard.dat` by `create_levels`, stored by `save_all_chunks`.
     pub scoreboard: crate::server::level::SharedScoreboard,
+    /// `getEntityInAnyDimension`'s index, shared with every level.
+    pub entity_directory: crate::server::level::EntityDirectory,
     pub player_list: PlayerList,
     /// `debugSubscribers`: refreshed at the end of every tick, read by the levels.
     pub debug_subscribers: crate::util::debug::DebugSubscribers,
@@ -312,6 +314,7 @@ impl MinecraftServer {
             level_load_listener: init.level_load_listener,
             tick_rate_manager: ServerTickRateManager::new(),
             scoreboard: crate::server::level::SharedScoreboard::default(),
+            entity_directory: Default::default(),
             commands,
             functions,
             player_list,
@@ -465,6 +468,7 @@ impl MinecraftServer {
             let result = f(self, &mut level);
             // reward functions of players the closure awarded: the player is back in the level now
             self.run_pending_functions(&mut level);
+            self.run_server_actions(&mut level);
             result
         }));
         if let Some(slot) = self.levels.get_mut(dimension) {
@@ -473,6 +477,19 @@ impl MinecraftServer {
         match result {
             Ok(r) => Some(r),
             Err(payload) => panic::resume_unwind(payload),
+        }
+    }
+
+    /// Runs the work the entities of `level` queued for the server (`ServerLevel::queue_server_action`), in queue order;
+    /// work queued by an action runs in the same call. Work deferred earlier (`ServerLevel::defer_server_action`) runs
+    /// first; work an action defers waits for the next call.
+    pub fn run_server_actions(&mut self, level: &mut ServerLevel) {
+        let mut actions = level.take_server_actions();
+        while !actions.is_empty() {
+            for action in actions {
+                action(self, level);
+            }
+            actions = std::mem::take(&mut level.tick_state.pending_server_actions);
         }
     }
 
