@@ -1,0 +1,98 @@
+# the dimension condition follows the level the command runs in
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF result failure 0
+CF fail Test failed
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+CF msg Test passed
+CF result success 1
+# selectors reach every level
+CF msg Test passed. Count: 2
+CF result success 2
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 2
+CF result success 2
+CF msg Test passed. Count: 1
+CF result success 1
+CF msg Test passed. Count: 2
+CF result success 2
+CF msg Test passed. Count: 2
+CF result success 2
+CF msg Storage dim:count has the following contents: 2
+CF result success 2
+CF msg B has the following entity data: [0.5d, 200.0d, 0.5d]
+CF result success 3
+CF msg C has the following entity data: [0.5d, 200.0d, 0.5d]
+CF result success 3
+CF msg A has the following entity data: "A"
+CF result success 1
+CF msg B has the following entity data: "B"
+CF result success 1
+CF msg C has the following entity data: "C"
+CF result success 1
+SELECT @e[type=minecraft:pig] - 0,0,0 -> A B
+SELECTSORTED @e[type=minecraft:pig] - 0,0,0 -> A B
+SELECTSORTED @e - 0,0,0 -> A B C P
+SELECTSORTED @e[distance=..5] P 0,0,0 ->
+SELECTSORTED @e[distance=..5] B 0.5,200,0.5 ->
+SELECTSORTED @s B 0.5,200,0.5 -> B
+# `at` and `positioned as` use the level of the entity, `in` the level it names
+CF msg Changed the block at 0, 201, 0
+CF result success 1
+CF msg Changed the block at 0, -59, 0
+CF result success 1
+CF msg Changed the block at 0, 201, 1
+CF result success 1
+CF result failure 0
+CF msg Successfully filled 9 block(s)
+CF result success 9
+CF msg Successfully filled 3 block(s)
+CF result success 3
+CF msg Changed the block at 0, 205, 0
+CF result success 1
+CF msg Summoned new Pig
+CF result success 1
+CF msg Summoned new Cow
+CF result success 1
+CF msg Killed Cow
+CF result success 1
+# blocks and entities per level
+B 0 201 0 minecraft:glowstone
+B 0 201 0 minecraft:glowstone
+B 0 201 1 minecraft:obsidian
+B 0 205 0 minecraft:sea_lantern
+B 0 -59 0 minecraft:stone
+LEVEL minecraft:overworld gametime=4 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=4 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=4 forced=25 loaded=961 players=0 border=5.9999968E7
+PL P dim=minecraft:overworld
+E A minecraft:pig pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E B minecraft:pig pos=0.5,200.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=-
+E C minecraft:cow pos=0.5,200.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=9.0 abs=0.0 hurt=8/18 death=0 fx=-
+E pig#1 minecraft:pig pos=3.5,200.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E item#1 minecraft:item pos=3.496818342180405,200.27680000305176,3.593362862387742 delta=-0.00154326477749845,0.11446400521850592,0.045285704880662414 rot=331.1587,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=2 pickup=8 health=5 owner=- thrower=-
+# the border of a level follows the level a command runs in
+CF msg The world border is currently 59999968 block(s) wide
+CF result success 59999968
+CF msg Set the world border to 100.0 block(s) wide
+CF result success -59999868
+CF msg The world border is currently 100 block(s) wide
+CF result success 100
+CF msg The world border is currently 59999968 block(s) wide
+CF result success 59999968
+LEVEL minecraft:overworld gametime=4 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=4 forced=25 loaded=961 players=0 border=100.0
+LEVEL minecraft:the_nether gametime=4 forced=25 loaded=961 players=0 border=5.9999968E7
+CF fail Unknown dimension 'minecraft:nowhere'

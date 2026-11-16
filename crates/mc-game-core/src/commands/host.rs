@@ -1596,22 +1596,26 @@ pub fn entity_ref_of(
     entity: &super::CommandEntity,
     preferred: &DimensionKey,
 ) -> Option<EntityRef> {
-    if server
-        .level(preferred)
-        .and_then(|l| l.get_entity(entity.id))
-        .is_some_and(|e| e.uuid() == entity.uuid)
-    {
+    // a killed player waits for its respawn out of the entity storage but is still the stack's entity
+    let find = |l: &crate::server::level::ServerLevel| {
+        l.get_entity(entity.id)
+            .or_else(|| l.get_dead_player(entity.id))
+            .is_some_and(|e| e.uuid() == entity.uuid)
+    };
+    if server.level(preferred).is_some_and(find) {
         return Some(EntityRef {
             dimension: preferred.clone(),
             id: entity.id,
         });
     }
     server.level_keys().into_iter().find_map(|dimension| {
-        let found = server.level(&dimension)?.get_entity_by_uuid(entity.uuid)?;
-        Some(EntityRef {
-            dimension,
-            id: found.id(),
-        })
+        let level = server.level(&dimension)?;
+        let id = match level.get_entity_by_uuid(entity.uuid) {
+            Some(found) => found.id(),
+            None if find(level) => entity.id,
+            None => return None,
+        };
+        Some(EntityRef { dimension, id })
     })
 }
 

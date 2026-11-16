@@ -594,6 +594,13 @@ impl ServerLevel {
             .extend(removed.into_iter().map(|(id, e)| (now, id, e)));
     }
 
+    /// `removePlayerImmediately(player, CHANGED_DIMENSION)`: the chunk map stops tracking the player now, ahead of the queued
+    /// tracking-end event. The player takes its chunk sender to the new level, which marks its chunks pending in that sender
+    /// first thing: dropping this level's chunks afterwards would clear the marks of the chunks both levels share by position.
+    pub fn stop_tracking_player_chunks(&mut self, id: EntityId) {
+        self.chunk_source.chunk_map.remove_removed_player(id);
+    }
+
     /// A killed player that is no longer in the level (see [`ServerLevel::dead_players`]).
     pub fn get_dead_player(&self, id: EntityId) -> Option<&dyn Entity> {
         self.dead_players.get(&id).map(|e| e.as_ref())

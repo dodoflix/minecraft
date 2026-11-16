@@ -1,0 +1,50 @@
+# A dimension change with an open menu: the ender chest of A is open with a stack on the cursor when A is moved into the nether (the cursor
+# stack and the menu state after the change, a click after it, a second ender chest in the nether), then B changes level with the
+# inventory menu only.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+spawn_player A survival 2.5 -60 3.5 180 0
+spawn_player B survival 5.5 -60 3.5 180 0
+block 2 -60 0 minecraft:ender_chest[facing=south,waterlogged=false]
+in the_nether block 0 200 0 minecraft:netherrack
+in the_nether block 0 201 0 minecraft:ender_chest[facing=south,waterlogged=false]
+give A hotbar0 minecraft:diamond 10
+give A hotbar1 minecraft:dirt 20
+give B hotbar0 minecraft:emerald 5
+tick 2
+dump events packets:A:none packets:B:none
+level_seed 31
+use_on A 2 -60 0 south main
+click A 55 0 PICKUP
+click A 3 0 PICKUP
+click A 54 0 PICKUP
+dump menu:A inventory:A events packets:A:open_screen,container_set_slot,container_set_content,set_cursor_item
+note A is moved into the nether with a stack on the cursor
+tp_dim A the_nether 0.5 202 0.5
+tick 2
+dump menu:A inventory:A events entities levels players packets:A:container_close,open_screen,container_set_slot,container_set_content,set_cursor_item,respawn,set_held_slot
+click A 36 0 PICKUP
+click A 54 0 QUICK_MOVE
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,set_cursor_item
+note A opens the ender chest of the nether: the contents are the player's own
+use_on A 0 201 0 south main
+dump menu:A inventory:A events packets:A:open_screen,container_set_content
+click A 0 0 QUICK_MOVE
+close_menu A
+tick 2
+dump menu:A inventory:A events entities packets:A:container_close,container_set_slot,container_set_content
+note A opens the chest again and is moved back to the overworld with the menu open
+use_on A 0 201 0 south main
+tp_dim A overworld 2.5 -60 3.5
+tick 2
+dump menu:A inventory:A events entities levels packets:A:container_close,open_screen,respawn
+note B changes level with the inventory menu only
+tp_dim B the_nether 0.5 202 0.5
+tick 2
+dump menu:B inventory:B packets:B:container_close,container_set_content,set_held_slot,respawn

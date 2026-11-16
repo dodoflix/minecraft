@@ -1,0 +1,155 @@
+C Game rule send_command_feedback is now set to true
+CF msg Created new objective [smoke]
+CF result success 1
+CF msg Set [smoke] for A to 7
+CF result success 7
+CF msg Set [smoke] for B to -3
+CF result success -3
+# clone between levels
+CF msg Successfully filled 16 block(s)
+CF result success 16
+CF msg Changed the block at 1, 201, 1
+CF result success 1
+CF msg Successfully cloned 32 block(s)
+CF result success 32
+CF msg Successfully cloned 32 block(s)
+CF result success 32
+CF msg Successfully cloned 32 block(s)
+CF result success 32
+CF msg Successfully cloned 32 block(s)
+CF result success 32
+CF result failure 0
+CF fail That position is not loaded
+CF result failure 0
+CF fail Unknown dimension 'minecraft:nowhere'
+CF msg Successfully cloned 17 block(s)
+CF result success 17
+B 0 205 0 minecraft:netherrack
+B 0 205 1 minecraft:netherrack
+B 0 205 2 minecraft:netherrack
+B 0 205 3 minecraft:netherrack
+B 1 205 0 minecraft:netherrack
+B 1 205 1 minecraft:netherrack
+B 1 205 2 minecraft:netherrack
+B 1 205 3 minecraft:netherrack
+B 1 206 1 minecraft:glowstone
+B 2 205 0 minecraft:netherrack
+B 2 205 1 minecraft:netherrack
+B 2 205 2 minecraft:netherrack
+B 2 205 3 minecraft:netherrack
+B 3 205 0 minecraft:netherrack
+B 3 205 1 minecraft:netherrack
+B 3 205 2 minecraft:netherrack
+B 3 205 3 minecraft:netherrack
+B 0 200 0 minecraft:netherrack
+B 0 200 1 minecraft:netherrack
+B 0 200 2 minecraft:netherrack
+B 0 200 3 minecraft:netherrack
+B 0 210 0 minecraft:netherrack
+B 0 210 1 minecraft:netherrack
+B 0 210 2 minecraft:netherrack
+B 0 210 3 minecraft:netherrack
+B 1 200 0 minecraft:netherrack
+B 1 200 1 minecraft:netherrack
+B 1 200 2 minecraft:netherrack
+B 1 200 3 minecraft:netherrack
+B 1 201 1 minecraft:glowstone
+B 1 210 0 minecraft:netherrack
+B 1 210 1 minecraft:netherrack
+B 1 210 2 minecraft:netherrack
+B 1 210 3 minecraft:netherrack
+B 1 211 1 minecraft:glowstone
+B 2 200 0 minecraft:netherrack
+B 2 200 1 minecraft:netherrack
+B 2 200 2 minecraft:netherrack
+B 2 200 3 minecraft:netherrack
+B 2 210 0 minecraft:netherrack
+B 2 210 1 minecraft:netherrack
+B 2 210 2 minecraft:netherrack
+B 2 210 3 minecraft:netherrack
+B 3 200 0 minecraft:netherrack
+B 3 200 1 minecraft:netherrack
+B 3 200 2 minecraft:netherrack
+B 3 200 3 minecraft:netherrack
+B 3 210 0 minecraft:netherrack
+B 3 210 1 minecraft:netherrack
+B 3 210 2 minecraft:netherrack
+B 3 210 3 minecraft:netherrack
+B 0 200 0 minecraft:netherrack
+B 0 200 1 minecraft:netherrack
+B 0 200 2 minecraft:netherrack
+B 0 200 3 minecraft:netherrack
+B 1 200 0 minecraft:netherrack
+B 1 200 1 minecraft:netherrack
+B 1 200 2 minecraft:netherrack
+B 1 200 3 minecraft:netherrack
+B 1 201 1 minecraft:glowstone
+B 2 200 0 minecraft:netherrack
+B 2 200 1 minecraft:netherrack
+B 2 200 2 minecraft:netherrack
+B 2 200 3 minecraft:netherrack
+B 3 200 0 minecraft:netherrack
+B 3 200 1 minecraft:netherrack
+B 3 200 2 minecraft:netherrack
+B 3 200 3 minecraft:netherrack
+B 10 200 10 minecraft:netherrack
+B 10 200 11 minecraft:netherrack
+B 10 200 12 minecraft:netherrack
+B 10 200 13 minecraft:netherrack
+B 11 200 10 minecraft:netherrack
+B 11 200 11 minecraft:netherrack
+B 11 200 12 minecraft:netherrack
+B 11 200 13 minecraft:netherrack
+B 11 201 11 minecraft:glowstone
+B 12 200 10 minecraft:netherrack
+B 12 200 11 minecraft:netherrack
+B 12 200 12 minecraft:netherrack
+B 12 200 13 minecraft:netherrack
+B 13 200 10 minecraft:netherrack
+B 13 200 11 minecraft:netherrack
+B 13 200 12 minecraft:netherrack
+B 13 200 13 minecraft:netherrack
+# forced chunks per level
+CF result failure 0
+CF fail No chunks were marked for force loading
+CF msg 25 force loaded chunks were found in minecraft:the_end at: [0, -2], [1, -2], [2, -2], [-2, -2], [-1, -2], [0, -1], [1, -1], [2, -1], [-2, -1], [-1, -1], [0, 0], [1, 0], [2, 0], [-2, 0], [-1, 0], [0, 1], [1, 1], [2, 1], [-2, 1], [-1, 1], [0, 2], [1, 2], [2, 2], [-2, 2], [-1, 2]
+CF result success 25
+CF msg 25 force loaded chunks were found in minecraft:overworld at: [0, -2], [1, -2], [2, -2], [-2, -2], [-1, -2], [0, -1], [1, -1], [2, -1], [-2, -1], [-1, -1], [0, 0], [1, 0], [2, 0], [-2, 0], [-1, 0], [0, 1], [1, 1], [2, 1], [-2, 1], [-1, 1], [0, 2], [1, 2], [2, 2], [-2, 2], [-1, 2]
+CF result success 25
+CF msg Chunk at [0, 0] in minecraft:the_nether is marked for force loading
+CF result success 1
+CF msg Unmarked all force loaded chunks in minecraft:the_end
+CF result success 0
+LEVEL minecraft:overworld gametime=9 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_end gametime=9 forced=0 loaded=0 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=9 forced=25 loaded=961 players=0 border=5.9999968E7
+# spreadplayers in the nether
+CF msg Successfully filled 100 block(s)
+CF result success 100
+CF msg Spread 1 entity/entities around 0.5, 0.5 with an average distance of 0.00 block(s) apart
+CF result success 1
+P B minecraft:player pos=2.5,200.0,5.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+LEVEL minecraft:overworld gametime=13 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=13 forced=0 loaded=0 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=13 forced=25 loaded=1225 players=1 border=5.9999968E7
+# compute with the executor, the target or the position in another level
+CF msg Number provider returned value -3
+CF result success -3
+CF msg Number provider returned value 7
+CF result success 7
+CF msg Number provider returned value -3
+CF result success -3
+CF msg Number provider returned value -3
+CF result success -3
+CF msg Number provider returned value 7
+CF result success 7
+CF msg Number provider returned value -3
+CF result success -3
+CF msg Number provider returned value 1
+CF result success 1
+CF result failure 0
+CF fail That position is not loaded
+CF msg Number provider returned value 2
+CF result success 2
+CF msg Number provider returned value 1
+CF result success 1

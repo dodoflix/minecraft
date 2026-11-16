@@ -1,0 +1,52 @@
+LEVEL minecraft:overworld gametime=1 forced=9 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=1 forced=9 loaded=841 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=1 forced=9 loaded=841 players=0 border=5.9999968E7
+# forceload names its level
+CF msg Marked 4 chunks in minecraft:the_nether from [4, 4] to [5, 5] to be force loaded
+CF result success 4
+CF msg Marked chunk [-4, -4] in minecraft:the_end to be force loaded
+CF result success 1
+CF msg Marked chunk [10, 10] in minecraft:overworld to be force loaded
+CF result success 1
+LEVEL minecraft:overworld gametime=7 forced=10 loaded=1513 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=7 forced=10 loaded=994 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=7 forced=13 loaded=1049 players=0 border=5.9999968E7
+SAVED chunk_tickets none
+SAVED chunk_tickets none
+SAVED chunk_tickets none
+CF msg Chunk at [4, 4] in minecraft:the_nether is marked for force loading
+CF result success 1
+CF result failure 0
+CF fail Chunk at [10, 10] in minecraft:the_nether is not marked for force loading
+CF msg 13 force loaded chunks were found in minecraft:the_nether at: [0, -1], [1, -1], [-1, -1], [0, 0], [1, 0], [-1, 0], [0, 1], [1, 1], [-1, 1], [4, 4], [5, 4], [4, 5], [5, 5]
+CF result success 13
+CF msg 10 force loaded chunks were found in minecraft:the_end at: [-4, -4], [0, -1], [1, -1], [-1, -1], [0, 0], [1, 0], [-1, 0], [0, 1], [1, 1], [-1, 1]
+CF result success 10
+CF msg 10 force loaded chunks were found in minecraft:overworld at: [0, -1], [1, -1], [-1, -1], [0, 0], [1, 0], [-1, 0], [0, 1], [1, 1], [-1, 1], [10, 10]
+CF result success 10
+# removing and the failures
+CF msg Unmarked chunk [4, 4] in minecraft:the_nether for force loading
+CF result success 1
+CF result failure 0
+CF fail No chunks were removed from force loading
+CF msg Unmarked all force loaded chunks in minecraft:the_end
+CF result success 0
+CF msg Unmarked all force loaded chunks in minecraft:the_end
+CF result success 0
+CF result failure 0
+CF fail That position is out of this world!
+CF result failure 0
+CF fail Too many chunks in the specified area (maximum 256, but specified 1565001)
+LEVEL minecraft:overworld gametime=13 forced=10 loaded=1513 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=13 forced=0 loaded=0 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=13 forced=12 loaded=1049 players=0 border=5.9999968E7
+SAVED chunk_tickets none
+# a player arrives in the nether far from the origin and moves on: the chunks it loaded stay until the level unloads them
+LEVEL minecraft:overworld gametime=21 forced=10 loaded=1246 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=21 forced=0 loaded=0 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=21 forced=12 loaded=1698 players=1 border=5.9999968E7
+PL P dim=minecraft:the_nether
+LEVEL minecraft:overworld gametime=29 forced=10 loaded=1246 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=29 forced=0 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=29 forced=12 loaded=1049 players=0 border=5.9999968E7
+PL P dim=minecraft:the_end

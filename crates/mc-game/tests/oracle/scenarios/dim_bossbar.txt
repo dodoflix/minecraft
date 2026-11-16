@@ -1,0 +1,48 @@
+# A custom boss bar across dimension changes: a bar is stored on its players, not on a level, so a teleport into another level (portal
+# arrival, `tp`) sends nothing and later changes still reach the player; a player that dies in the nether respawns in the overworld.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+spawn_player A creative 0.5 -60 0.5 0 0
+spawn_player B survival 4.5 -60 0.5 0 0
+gamerule send_command_feedback false
+tick 1
+dump packets:A:none packets:B:none
+level_seed 31
+cmd bossbar add dim:bar "Bar"
+cmd bossbar set dim:bar players @a
+cmd bossbar set dim:bar value 40
+dump packets:A:boss_event packets:B:boss_event bossbars
+note A is moved into the nether: the bar stays on A
+tp_dim A the_nether 0.5 201 0.5
+tick 1
+dump packets:A:boss_event bossbars players
+cmd bossbar set dim:bar value 50
+dump packets:A:boss_event packets:B:boss_event
+note A moves on to the end and back by commands
+cmd execute in minecraft:the_end run tp A 0.5 201 0.5
+tick 1
+dump packets:A:boss_event bossbars players
+cmd bossbar set dim:bar name "Renamed"
+cmd execute in minecraft:overworld run tp A 0.5 -60 0.5
+tick 1
+cmd bossbar set dim:bar color red
+dump packets:A:boss_event packets:B:boss_event bossbars players
+note B dies in the nether: the respawn is a new player in the overworld
+tp_dim B the_nether 0.5 201 0.5
+tick 1
+dump packets:B:boss_event
+cmd kill B
+tick 2
+dump packets:B:boss_event players
+respawn B
+tick 2
+dump packets:B:boss_event,respawn,set_default_spawn_position players bossbars
+cmd bossbar set dim:bar value 60
+dump packets:A:boss_event packets:B:boss_event
+cmd bossbar get dim:bar players

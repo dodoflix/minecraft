@@ -2,6 +2,8 @@
 # travel between them (`tp_dim`, `/tp`). The nether and the end are only touched high above their terrain (y 200).
 level void
 command_env
+end void
+nether void
 levels overworld,the_nether,the_end
 preload 2
 difficulty peaceful
@@ -26,9 +28,9 @@ tick 2
 dump packets:P:none levels players mob:Z
 note the player enters the nether
 tp_dim P the_nether 0.5 201 0.5
-dump packets:P:respawn,player_position,change_difficulty,player_abilities,set_experience,set_held_slot,update_mob_effect
+dump packets:P:respawn,player_position,change_difficulty,player_abilities,set_experience,set_held_slot,update_mob_effect,set_default_spawn_position,initialize_border,set_time,game_event
 tick 2
-dump levels players player:P
+dump levels players player:P advancements:P
 note the mob enters the end
 tp_dim Z the_end 0.5 201 0.5
 tick 2
@@ -38,7 +40,7 @@ note a command moves the player inside the nether, then to the end
 cmd execute in minecraft:the_nether run tp P 4.5 202 0.5
 cmd execute in minecraft:the_end run tp P 0.5 201 0.5
 tick 2
-dump levels players packets:P:respawn,player_position
+dump levels players advancements:P packets:P:respawn,player_position,set_default_spawn_position,initialize_border,set_time,game_event
 note a command moves the mob back to the overworld
 cmd execute in minecraft:overworld run tp @e[type=minecraft:pig,limit=1] 0.5 -60 0.5
 tick 2

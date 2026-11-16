@@ -336,14 +336,12 @@ impl EntitySelector {
             return Ok(sender
                 .get_entity()
                 .and_then(|me| {
-                    let r = EntityRef {
-                        dimension: sender.get_level().clone(),
-                        id: me.id,
-                    };
+                    // the executor of `execute as` keeps its own level while the stack stays in the level it started in
+                    let r = host::entity_ref_of(server, me, sender.get_level())?;
                     let entity = host::get_entity(server, &r)?;
                     let ctx = SelectorContext {
                         server,
-                        dimension: sender.get_level(),
+                        dimension: &r.dimension,
                     };
                     predicate(&ctx, entity).then_some(r)
                 })
@@ -445,14 +443,11 @@ impl EntitySelector {
             return Ok(sender
                 .get_player()
                 .and_then(|me| {
-                    let r = EntityRef {
-                        dimension: sender.get_level().clone(),
-                        id: me.id,
-                    };
+                    let r = host::entity_ref_of(server, me, sender.get_level())?;
                     let entity = host::get_entity(server, &r)?;
                     let ctx = SelectorContext {
                         server,
-                        dimension: sender.get_level(),
+                        dimension: &r.dimension,
                     };
                     (entity.is_player() && predicate(&ctx, entity)).then_some(r)
                 })

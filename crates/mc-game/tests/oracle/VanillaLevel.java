@@ -118,6 +118,8 @@ public final class VanillaLevel {
    public final Server server;
    /** The level every world verb and dump acts on (`dimension` option; `in DIM` switches it for one line). */
    public ServerLevel level;
+   /** `login_detail`: a login packet dumps its levels list, distances and spawn info besides the three rule flags. */
+   public static boolean loginDetail;
    /** The levels the replay holds (`levels` option: preloaded and ticked with chunks; default: the `dimension` level only). */
    public final List<ServerLevel> scope = new ArrayList<>();
    public final List<FakePlayer> players = new ArrayList<>();
@@ -138,6 +140,7 @@ public final class VanillaLevel {
       public int viewDistance = 4;
       public int simulationDistance = 4;
       public List<String[]> bootRules = new ArrayList<>(); // `gamerule NAME VALUE` pairs applied before the preload (chunk generation reads them)
+      public List<String> voidDimensions = new ArrayList<>(); // `end void`, `nether void`: that dimension's generator is the void flat one (no terrain, no pillars; a live fight has nothing to start from)
       public List<String> dataPacks = new ArrayList<>(); // `datapack NAME`: oracle/datapacks/NAME copied into the world's datapacks folder and enabled
    }
 
@@ -419,6 +422,17 @@ public final class VanillaLevel {
          Registry<LevelStem> dims = context.datapackDimensions().lookupOrThrow(Registries.LEVEL_STEM);
          LevelSettings ls = new LevelSettings(props.levelName, props.gameMode.get(), new LevelSettings.DifficultySettings(props.difficulty.get(), props.hardcore, false), false, context.dataConfiguration());
          WorldDimensions dimensions = props.createDimensions(context.datapackWorldRegistries());
+         if (!o.voidDimensions.isEmpty()) {
+            Map<net.minecraft.resources.ResourceKey<LevelStem>, LevelStem> stems = new LinkedHashMap<>(dimensions.dimensions());
+            var voidSettings = net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorSettings.CODEC.parse(new Dynamic<>(
+               context.datapackWorldRegistries().createSerializationContext(com.mojang.serialization.JsonOps.INSTANCE),
+               com.google.gson.JsonParser.parseString("{\"layers\":[],\"biome\":\"minecraft:plains\",\"features\":false,\"lakes\":false,\"structure_overrides\":[]}"))).getOrThrow();
+            for (String name : o.voidDimensions) {
+               var key = net.minecraft.resources.ResourceKey.create(Registries.LEVEL_STEM, net.minecraft.resources.Identifier.withDefaultNamespace(name));
+               stems.put(key, new LevelStem(stems.get(key).type(), new net.minecraft.world.level.levelgen.FlatLevelSource(voidSettings)));
+            }
+            dimensions = new WorldDimensions(stems);
+         }
          WorldDimensions.Complete finalDims = dimensions.bake(dims);
          Lifecycle lifecycle = finalDims.lifecycle().add(context.datapackWorldRegistries().allRegistriesLifecycle());
          PrimaryLevelData data = new PrimaryLevelData(ls, finalDims.specialWorldProperty(), lifecycle);
@@ -747,6 +761,12 @@ public final class VanillaLevel {
       } else if (p instanceof net.minecraft.network.protocol.game.ClientboundLoginPacket login) {
          // the three rule flags (the levels, view distances and spawn info of the join are not reproducible without a whole server)
          text = "reduced_debug_info=" + login.reducedDebugInfo() + " show_death_screen=" + login.showDeathScreen() + " limited_crafting=" + login.doLimitedCrafting();
+         if (loginDetail) { // `login_detail`: the levels list (sorted: a hash set), the distances and the spawn info of the level
+            var info = login.commonPlayerSpawnInfo();
+            text += " levels=" + login.levels().stream().map(k -> k.identifier().toString()).sorted().collect(java.util.stream.Collectors.joining(","))
+               + " max_players=" + login.maxPlayers() + " chunk_radius=" + login.chunkRadius() + " simulation_distance=" + login.simulationDistance()
+               + " dimension=" + info.dimension().identifier() + " sea_level=" + info.seaLevel() + " flat=" + info.isFlat() + " hardcore=" + login.hardcore();
+         }
       } else if (p instanceof ClientboundUpdateAttributesPacket attrs) {
          // readable form of the wire order: the snapshot list is the `attributesToSync` set (hashed by attribute, see shadow.patch), the modifiers of
          // one snapshot an insertion-ordered set

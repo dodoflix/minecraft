@@ -799,6 +799,9 @@ pub fn install_command_env(
         .data_configuration
         .enabled_features;
     *server.0.game_rules() = super::block_scenario::quiet_game_rules(enabled);
+    // the oracle server's player list runs at view and simulation distance 4 (`VanillaLevel.Options`)
+    mc_game::server::players::player_ops::set_view_distance(&mut server.0, 4);
+    mc_game::server::players::player_ops::set_simulation_distance(&mut server.0, 4);
     server
 }
 

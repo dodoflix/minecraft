@@ -1,0 +1,44 @@
+# Chunk tickets per level: `/forceload` in each level (the ticket saved data of every level, the loaded chunk count, the limit and the
+# failures) and the chunks a player's arrival loads and leaves behind in the level it left.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 1
+difficulty peaceful
+entity_counter 100
+spawn_player P creative 0.5 -60 0.5 0 0
+tick 1
+dump levels
+note forceload names its level
+cmd execute in minecraft:the_nether run forceload add 64 64 80 80
+cmd execute in minecraft:the_end run forceload add -64 -64
+cmd forceload add 160 160
+tick 6
+dump levels
+in the_nether dump saved:chunk_tickets
+in the_end dump saved:chunk_tickets
+dump saved:chunk_tickets
+cmd execute in minecraft:the_nether run forceload query 64 64
+cmd execute in minecraft:the_nether run forceload query 160 160
+cmd execute in minecraft:the_nether run forceload query
+cmd execute in minecraft:the_end run forceload query
+cmd forceload query
+note removing and the failures
+cmd execute in minecraft:the_nether run forceload remove 64 64
+cmd execute in minecraft:the_nether run forceload remove 64 64
+cmd execute in minecraft:the_end run forceload remove all
+cmd execute in minecraft:the_end run forceload remove all
+cmd execute in minecraft:the_end run forceload add 30000000 30000000
+cmd execute in minecraft:the_nether run forceload add 0 0 20000 20000
+tick 6
+dump levels
+in the_nether dump saved:chunk_tickets
+note a player arrives in the nether far from the origin and moves on: the chunks it loaded stay until the level unloads them
+tp_dim P the_nether 200.5 201 200.5
+tick 8
+dump levels players
+tp_dim P the_end 0.5 201 0.5
+tick 8
+dump levels players

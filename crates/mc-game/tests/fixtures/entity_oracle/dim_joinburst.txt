@@ -1,0 +1,21 @@
+PKT A minecraft:login reduced_debug_info=false show_death_screen=true limited_crafting=false levels=minecraft:overworld,minecraft:the_end,minecraft:the_nether max_players=20 chunk_radius=4 simulation_distance=4 dimension=minecraft:overworld sea_level=-63 flat=true hardcore=false
+PKT A minecraft:change_difficulty 0a0000
+PKT A minecraft:player_abilities 410d3d4ccccd3dcccccd
+PKT A minecraft:set_held_slot 6b00
+PKT A minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT A minecraft:set_time 730000000000000000020000000000000000000001000000000000000000
+PKT A minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000020000008fc00000000000000000
+PKT A minecraft:game_event 270d00000000
+PKT B minecraft:login reduced_debug_info=false show_death_screen=true limited_crafting=false levels=minecraft:overworld,minecraft:the_end,minecraft:the_nether max_players=20 chunk_radius=4 simulation_distance=4 dimension=minecraft:the_nether sea_level=-63 flat=true hardcore=false
+PKT B minecraft:change_difficulty 0a0000
+PKT B minecraft:player_abilities 410d3d4ccccd3dcccccd
+PKT B minecraft:set_held_slot 6b00
+PKT B minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT B minecraft:set_time 730000000000000000020000000000000000000001000000000000000000
+PKT B minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000020000008fc00000000000000000
+PKT B minecraft:game_event 270d00000000
+LEVEL minecraft:overworld gametime=2 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=2 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=2 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL A dim=minecraft:overworld
+PL B dim=minecraft:the_nether

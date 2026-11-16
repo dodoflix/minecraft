@@ -1,6 +1,6 @@
-LEVEL minecraft:overworld gametime=0 forced=25 players=0 border=5.9999968E7
-LEVEL minecraft:the_end gametime=0 forced=25 players=0 border=5.9999968E7
-LEVEL minecraft:the_nether gametime=0 forced=25 players=0 border=5.9999968E7
+LEVEL minecraft:overworld gametime=0 forced=25 loaded=1089 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=0 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=0 forced=25 loaded=961 players=0 border=5.9999968E7
 CF msg Changed the block at 1, 200, 0
 CF result success 1
 CF msg Changed the block at 1, 200, 0
@@ -16,44 +16,60 @@ B 0 200 0 minecraft:netherrack
 B 1 200 0 minecraft:stone
 B 0 200 0 minecraft:end_stone
 B 1 200 0 minecraft:obsidian
-LEVEL minecraft:overworld gametime=4 forced=25 players=1 border=5.9999968E7
-LEVEL minecraft:the_end gametime=4 forced=25 players=0 border=5.9999968E7
-LEVEL minecraft:the_nether gametime=4 forced=25 players=0 border=5.9999968E7
+LEVEL minecraft:overworld gametime=4 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=4 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=4 forced=25 loaded=961 players=0 border=5.9999968E7
 PL P dim=minecraft:overworld
 E Z minecraft:pig pos=3.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 # the player enters the nether
-PKT P minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e0100000100002003
+PKT P minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e010000010000c1ffffff0f03
 PKT P minecraft:change_difficulty 0a0000
 PKT P minecraft:player_position 49023fe000000000000040692000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 PKT P minecraft:player_abilities 410d3d4ccccd3dcccccd
+PKT P minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT P minecraft:set_time 730000000000000004020000000000000000000001000000000000000000
+PKT P minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000020000008fc00000000000000000
+PKT P minecraft:game_event 270d00000000
 PKT P minecraft:set_held_slot 6b00
-LEVEL minecraft:overworld gametime=6 forced=25 players=0 border=5.9999968E7
-LEVEL minecraft:the_end gametime=6 forced=25 players=0 border=5.9999968E7
-LEVEL minecraft:the_nether gametime=6 forced=25 players=1 border=5.9999968E7
+LEVEL minecraft:overworld gametime=6 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=6 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=6 forced=25 loaded=1225 players=1 border=5.9999968E7
 PL P dim=minecraft:the_nether
 P P minecraft:player pos=0.5,201.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+ADV P minecraft:nether/root entered_nether
+ADV P minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV P minecraft:story/enter_the_nether entered_nether
 # the mob enters the end
-LEVEL minecraft:overworld gametime=8 forced=25 players=0 border=5.9999968E7
-LEVEL minecraft:the_end gametime=8 forced=25 players=0 border=5.9999968E7
-LEVEL minecraft:the_nether gametime=8 forced=25 players=1 border=5.9999968E7
+LEVEL minecraft:overworld gametime=8 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=8 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=8 forced=25 loaded=1225 players=1 border=5.9999968E7
 E Z minecraft:pig pos=0.5,201.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
 # a command moves the player inside the nether, then to the end
 CF msg Teleported P to 4.500000, 202.000000, 0.500000
 CF result success 1
 CF msg Teleported P to 0.500000, 201.000000, 0.500000
 CF result success 1
-LEVEL minecraft:overworld gametime=10 forced=25 players=0 border=5.9999968E7
-LEVEL minecraft:the_end gametime=10 forced=25 players=1 border=5.9999968E7
-LEVEL minecraft:the_nether gametime=10 forced=25 players=0 border=5.9999968E7
+LEVEL minecraft:overworld gametime=10 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=10 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=10 forced=25 loaded=961 players=0 border=5.9999968E7
 PL P dim=minecraft:the_end
+ADV P minecraft:end/root entered_end
+ADV P minecraft:nether/root entered_nether
+ADV P minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV P minecraft:story/enter_the_end entered_end
+ADV P minecraft:story/enter_the_nether entered_nether
 PKT P minecraft:player_position 4903401200000000000040694000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
-PKT P minecraft:respawn 5402116d696e6563726166743a7468655f656e64d88694a6a43d2e5e0100000100000003
+PKT P minecraft:respawn 5402116d696e6563726166743a7468655f656e64d88694a6a43d2e5e010000010000c1ffffff0f03
 PKT P minecraft:player_position 49043fe000000000000040692000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT P minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT P minecraft:set_time 730000000000000008020000000000000000000001000000000000000000
+PKT P minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000020000008fc00000000000000000
+PKT P minecraft:game_event 270d00000000
 # a command moves the mob back to the overworld
 CF msg Teleported Pig to 0.500000, -60.000000, 0.500000
 CF result success 1
-LEVEL minecraft:overworld gametime=12 forced=25 players=0 border=5.9999968E7
-LEVEL minecraft:the_end gametime=12 forced=25 players=1 border=5.9999968E7
-LEVEL minecraft:the_nether gametime=12 forced=25 players=0 border=5.9999968E7
+LEVEL minecraft:overworld gametime=12 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=12 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=12 forced=25 loaded=961 players=0 border=5.9999968E7
 E pig#1 minecraft:pig pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 PL P dim=minecraft:the_end

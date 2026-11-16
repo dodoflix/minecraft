@@ -118,6 +118,15 @@ impl ChunkMap {
         self.update_chunk_tracking(id);
     }
 
+    /// `removeEntity(player)` for a player that was removed from its level first (`Entity.remove`): it is no longer alive, so
+    /// dropping its chunks sends no forget packets.
+    pub fn remove_removed_player(&mut self, id: EntityId) {
+        if let Some(player) = self.players.get_mut(&id) {
+            player.info.alive = false;
+        }
+        self.remove_player(id);
+    }
+
     /// `removeEntity(player)` -> `updatePlayerStatus(player, false)`.
     pub fn remove_player(&mut self, id: EntityId) {
         let Some(player) = self.players.get(&id) else {

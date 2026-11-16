@@ -1,0 +1,17 @@
+# The login packet of a join: the levels list of the server and the spawn position, view and simulation distances, the sea level and the
+# dimension type of the level the player joins; a second player joining in the nether.
+level void
+command_env
+end void
+nether void
+login_detail
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+spawn_player A creative 0.5 -60 0.5 0 0 joinburst
+dump packets:A:login,set_default_spawn_position,change_difficulty,player_abilities,set_held_slot,game_event,set_time,initialize_border
+in the_nether spawn_player B creative 0.5 201 0.5 0 0 joinburst
+dump packets:B:login,set_default_spawn_position,change_difficulty,player_abilities,set_held_slot,game_event,set_time,initialize_border
+tick 2
+dump levels players

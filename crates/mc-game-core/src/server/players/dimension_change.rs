@@ -377,6 +377,7 @@ fn teleport_player_cross_dimension(
         player.connection_teleport_pmr(t.position_move_rotation(), t.relatives);
         player.reset_position_after_teleport();
         player.sync_handle();
+        old_level.stop_tracking_player_chunks(id);
         new_level.add_player(Box::new(player));
         new_level.with_player(id, |level, player| {
             // `triggerDimensionChangeTriggers(oldLevel)`

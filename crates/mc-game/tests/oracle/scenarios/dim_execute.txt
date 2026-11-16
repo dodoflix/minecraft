@@ -1,0 +1,69 @@
+# `execute in`, `execute if dimension` and the selectors across the levels of a server: `@e` finds the entities of every level, `execute as`
+# runs a command in the level of its executor, `in` moves the rest of the chain to another level and keeps the executor.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+spawn_player P creative 0.5 -60 0.5 0 0
+spawn A minecraft:pig 0.5 -60 0.5 0 0 {NoAI:1b,NoGravity:1b,PersistenceRequired:1b,CustomName:"A"}
+in the_nether spawn B minecraft:pig 0.5 200 0.5 0 0 {NoAI:1b,NoGravity:1b,PersistenceRequired:1b,CustomName:"B"}
+in the_nether spawn C minecraft:cow 0.5 200 0.5 0 0 {NoAI:1b,NoGravity:1b,PersistenceRequired:1b,CustomName:"C"}
+tick 2
+note the dimension condition follows the level the command runs in
+cmd execute if dimension minecraft:overworld
+cmd execute if dimension minecraft:the_nether
+cmd execute in minecraft:the_nether if dimension minecraft:the_nether
+cmd execute in minecraft:the_end if dimension minecraft:the_end
+cmd execute in minecraft:the_nether unless dimension minecraft:the_end
+cmd execute in minecraft:the_nether if dimension minecraft:the_end
+cmd execute in minecraft:the_nether in minecraft:overworld if dimension minecraft:overworld
+cmd execute as @e[name=B] if dimension minecraft:overworld
+cmd execute as @e[name=B] at @s if dimension minecraft:the_nether
+note selectors reach every level
+cmd execute if entity @e[type=minecraft:pig]
+cmd execute if entity @e[type=minecraft:cow]
+cmd execute in minecraft:the_nether if entity @e[type=minecraft:pig]
+cmd execute in minecraft:the_end if entity @e[type=minecraft:cow]
+cmd execute as @e[name=B] run execute if entity @e[type=minecraft:pig]
+cmd execute store result storage dim:count count int 1 if entity @e[type=minecraft:pig]
+cmd data get storage dim:count count
+cmd data get entity @e[name=B,limit=1] Pos
+cmd data get entity @e[name=C,limit=1] Pos
+cmd execute as @e[type=minecraft:pig] run data get entity @s CustomName
+cmd execute as @e[type=minecraft:cow] at @s run data get entity @s CustomName
+dump select:-/0,0,0/@e[type=minecraft:pig]
+dump selectsorted:-/0,0,0/@e[type=minecraft:pig]
+dump selectsorted:-/0,0,0/@e
+dump selectsorted:P/0,0,0/@e[distance=..5]
+dump selectsorted:B/0.5,200,0.5/@e[distance=..5]
+dump selectsorted:B/0.5,200,0.5/@s
+note `at` and `positioned as` use the level of the entity, `in` the level it names
+cmd execute as @e[name=B] at @s run setblock ~ ~1 ~ minecraft:glowstone
+cmd execute as @e[name=A] at @s run setblock ~ ~1 ~ minecraft:stone
+cmd execute as @e[name=A] in minecraft:the_nether positioned 0 201 1 run setblock ~ ~ ~ minecraft:obsidian
+cmd execute as @e[name=B] in minecraft:overworld run setblock ~ ~-1 ~ minecraft:dirt
+cmd execute in minecraft:the_end run fill 0 205 0 2 205 2 minecraft:end_stone
+cmd execute in minecraft:the_nether positioned as @e[name=B] run fill ~ ~ ~ ~ ~ ~2 minecraft:netherrack
+cmd execute in minecraft:the_end positioned as @e[name=B] run setblock ~ ~5 ~ minecraft:sea_lantern
+cmd execute in minecraft:the_nether run summon minecraft:pig 3.5 200 3.5 {NoAI:1b,NoGravity:1b,Tags:["made"]}
+cmd execute in minecraft:the_end run summon minecraft:cow 3.5 200 3.5 {NoAI:1b,NoGravity:1b,Tags:["made"]}
+cmd kill @e[type=minecraft:cow,tag=made]
+tick 2
+note blocks and entities per level
+in the_nether dump blocks:0,201,0,0,201,0
+in the_nether dump blocks:0,201,0,2,205,2
+in the_end dump blocks:0,200,0,0,206,0
+dump blocks:0,-59,0,0,-58,0
+dump levels players
+dump entities
+note the border of a level follows the level a command runs in
+cmd execute in minecraft:the_end run worldborder get
+cmd execute in minecraft:the_end run worldborder set 100
+cmd execute in minecraft:the_end run worldborder get
+cmd worldborder get
+dump levels
+cmd execute in minecraft:nowhere run say x

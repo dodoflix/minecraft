@@ -1,0 +1,53 @@
+C Game rule send_command_feedback is already set to false
+CF msg Created custom bossbar [Bar]
+CF result success 1
+CF msg Custom bossbar [Bar] now has 2 player(s): A, B
+CF result success 2
+CF msg Custom bossbar [Bar] has changed value to 40
+CF result success 40
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0008000342617200000000060000
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023ecccccd
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0008000342617200000000060000
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023ecccccd
+BOSSBAR dim:bar {Name:"Bar",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081]],Value:40,Visible:1b}
+# A is moved into the nether: the bar stays on A
+BOSSBAR dim:bar {Name:"Bar",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081]],Value:40,Visible:1b}
+PL A dim=minecraft:the_nether
+PL B dim=minecraft:overworld
+CF msg Custom bossbar [Bar] has changed value to 50
+CF result success 50
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023f000000
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023f000000
+# A moves on to the end and back by commands
+CF msg Teleported A to 0.500000, 201.000000, 0.500000
+CF result success 1
+BOSSBAR dim:bar {Name:"Bar",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081]],Value:50,Visible:1b}
+PL A dim=minecraft:the_end
+PL B dim=minecraft:overworld
+CF msg Custom bossbar [Renamed] has been renamed
+CF result success 0
+CF msg Teleported A to 0.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Custom bossbar [Renamed] has changed color
+CF result success 0
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0308000752656e616d6564
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c040200
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c0308000752656e616d6564
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c040200
+BOSSBAR dim:bar {Color:"red",Name:"Renamed",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081]],Value:50,Visible:1b}
+PL A dim=minecraft:overworld
+PL B dim=minecraft:overworld
+# B dies in the nether: the respawn is a new player in the overworld
+CF msg Killed B
+CF result success 1
+PL A dim=minecraft:overworld
+PL B dim=minecraft:the_nether
+PL A dim=minecraft:overworld
+PL B dim=minecraft:the_nether
+BOSSBAR dim:bar {Color:"red",Name:"Renamed",Players:[[I;-1217574189,-1929301680,-1288476465,-1272613004],[I;-196291187,2030186727,-1948358755,2017388081]],Value:50,Visible:1b}
+CF msg Custom bossbar [Renamed] has changed value to 60
+CF result success 60
+PKT A minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023f19999a
+PKT B minecraft:boss_event 09bb3e0f007c7c4718a48f7caf99d2c49c023f19999a
+CF msg Custom bossbar [Renamed] has 2 player(s) currently online: A, B
+CF result success 2

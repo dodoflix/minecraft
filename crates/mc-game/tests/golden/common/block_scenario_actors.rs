@@ -128,6 +128,16 @@ fn vec3(a: f64, b: f64, c: f64) -> String {
 fn num(s: &str) -> f64 {
     s.parse().unwrap_or_else(|_| panic!("not a number: {s}"))
 }
+thread_local! {
+    /// `login_detail`: a login packet dumps its levels list, distances and spawn info besides the three rule flags.
+    static LOGIN_DETAIL: std::cell::Cell<bool> = const { std::cell::Cell::new(false) };
+}
+
+/// A scenario starts with the plain login dump.
+pub(super) fn reset_login_detail() {
+    LOGIN_DETAIL.set(false);
+}
+
 /// `VanillaLevel.record`: the advancement update carries timestamps of obtained criteria; the attribute snapshots are dumped in wire
 /// order as text; the recipe property sets sorted by key and item; anything else is its hex wire form.
 fn packet_text(ty: &str, wire: &[u8]) -> String {
@@ -139,9 +149,26 @@ fn packet_text(ty: &str, wire: &[u8]) -> String {
             read_varint(&mut body).expect("packet id");
             let p = mc_protocol::packets::play::ClientboundLoginPacket::decode(&mut body)
                 .expect("login");
-            format!(
+            let flags = format!(
                 "reduced_debug_info={} show_death_screen={} limited_crafting={}",
                 p.reduced_debug_info, p.show_death_screen, p.do_limited_crafting
+            );
+            if !LOGIN_DETAIL.get() {
+                return flags;
+            }
+            let mut levels: Vec<String> = p.levels.iter().map(|l| l.to_string()).collect();
+            levels.sort();
+            let info = &p.common_player_spawn_info;
+            format!(
+                "{flags} levels={} max_players={} chunk_radius={} simulation_distance={} dimension={} sea_level={} flat={} hardcore={}",
+                levels.join(","),
+                p.max_players,
+                p.chunk_radius,
+                p.simulation_distance,
+                info.dimension,
+                info.sea_level,
+                info.is_flat,
+                p.hardcore
             )
         }
         "minecraft:update_attributes" => {
@@ -988,6 +1015,7 @@ impl Scenario {
                 })
             }),
             // respawn PLAYER   ServerboundClientCommandPacket(PERFORM_RESPAWN) of a dead player
+            "login_detail" => LOGIN_DETAIL.set(true),
             "respawn" => {
                 self.world();
                 self.load_registries();
@@ -1409,7 +1437,13 @@ impl Scenario {
                 o.send(&mc_protocol::packets::play::ClientboundSystemChatPacket {
                     content: joined.clone(),
                     overlay: false,
-                })
+                });
+                // `broadcastAll(createPlayerInitializing(List.of(player)))`: the tab list entry reaches every level's players
+                o.send(
+                    &mc_game::server::players::player_handle::create_player_initializing([
+                        &boss_bar_handle,
+                    ]),
+                )
             });
         }
         self.focus(spawn_at);
@@ -1433,10 +1467,18 @@ impl Scenario {
                     p.send(&mc_protocol::packets::play::ClientboundLoginPacket {
                         player_id: id,
                         hardcore: info.hardcore,
-                        levels: Vec::new(),
-                        max_players: 0,
-                        chunk_radius: 0,
-                        simulation_distance: 0,
+                        levels: mc_game::commands::server_access::with_server(|server| {
+                            server.level_keys()
+                        }),
+                        max_players: mc_game::commands::server_access::with_server(|server| {
+                            server.player_list.get_max_players()
+                        }),
+                        chunk_radius: mc_game::commands::server_access::with_server(|server| {
+                            server.player_list.get_view_distance()
+                        }),
+                        simulation_distance: mc_game::commands::server_access::with_server(
+                            |server| server.player_list.get_simulation_distance(),
+                        ),
                         reduced_debug_info: info.reduced_debug_info,
                         show_death_screen: !info.immediate_respawn,
                         do_limited_crafting: info.limited_crafting,
@@ -1449,6 +1491,13 @@ impl Scenario {
                         online_mode: false,
                         enforces_secure_chat: false,
                     });
+                    p.send(
+                        &mc_protocol::packets::play::ClientboundChangeDifficultyPacket {
+                            difficulty: info.difficulty,
+                            locked: info.difficulty_locked,
+                        },
+                    );
+                    p.send(&mc_game::server::players::join::abilities_packet(p));
                 }
                 // `placeNewPlayer`: the held slot, the recipe properties and the recipe book come before the inventory menu
                 p.send(&mc_protocol::packets::play::ClientboundSetHeldSlotPacket {
@@ -1527,73 +1576,22 @@ impl Scenario {
     /// `handleClientCommand(PERFORM_RESPAWN)` -> `PlayerList.respawn(player, false)` -> the client reports the new level loaded. The
     /// new player keeps the id, the listener and the connection of the dead one; a living player ignores the request.
     fn respawn(&mut self, name: &str) {
-        use mc_game::server::players::respawn::{
-            create_respawned_player, find_spawn_position, take_old_player,
+        use mc_protocol::packets::play::{
+            ServerboundClientCommandAction, ServerboundClientCommandPacket,
         };
-        use mc_game::server::players::teleport_transition::{
-            PostTeleportTransition, TeleportTransition,
-        };
-        let id = self.entity_id(name);
-        let level = self.level();
-        if level
-            .with_player(id, |_, p| p.get_health() > 0.0)
-            .unwrap_or_else(|| panic!("no player {name}"))
-        {
-            return;
-        }
-        let keep_inventory = level.keep_inventory();
-        let old = take_old_player(level, id, mc_game::world::entity::RemovalReason::Killed)
-            .expect("player");
-        let position = find_spawn_position(level, false, 10, BlockPos::new(0, -60, 0));
-        let transition = TeleportTransition::new(
-            old.dimension.clone(),
-            position,
-            Vec3::ZERO,
-            0.0,
-            0.0,
-            PostTeleportTransition::DO_NOTHING,
-        );
-        // `PlayerList.respawn` takes the old player off the list and adds the new one at its end
-        let handle = old.handle.clone();
-        if let Some(handle) = &handle
-            && mc_game::commands::server_access::has_server()
-        {
-            mc_game::commands::server_access::with_server(|server| {
-                server.player_list.remove_from_players(handle);
-            });
-        }
-        let mut new = create_respawned_player(old, level, &transition, false, keep_inventory);
-        new.send(
-            &mc_protocol::packets::play::ClientboundSetExperiencePacket {
-                experience_progress: new.player.experience_progress,
-                experience_level: new.player.experience_level,
-                total_experience: new.player.total_experience,
-            },
-        );
-        mc_game::server::players::join::send_active_player_effects(&new);
-        // `PlayerList.sendPlayerPermissionLevel`: the op-level entity event of the player's permissions
-        let permissions = handle.as_ref().map(|h| h.shared.lock().permissions);
-        new.send(&mc_protocol::packets::play::ClientboundEntityEventPacket {
-            entity_id: id,
-            event_id: permissions.map_or(
-                24,
-                mc_game::server::players::player_list::permission_level_event_id,
-            ),
+        // the client's PERFORM_RESPAWN command: the listener queues it and the server's packet processing runs `PlayerList.respawn`
+        deliver(self, name, |_, _| {
+            P::ClientCommand(ServerboundClientCommandPacket {
+                action: ServerboundClientCommandAction::PerformRespawn,
+            })
         });
-        let pos = new.position();
-        if let Some(listener) = new.listener.as_mut() {
-            listener.reset_position(pos);
-            listener.restart_client_load_timer_after_respawn();
-        }
-        level.add_player(Box::new(new));
-        if let Some(handle) = handle
-            && mc_game::commands::server_access::has_server()
-        {
-            mc_game::commands::server_access::with_server(|server| {
-                server.player_list.add_player(handle);
-            });
-        }
-        level.with_player(id, |level, p| p.init_inventory_menu(level));
+        self.focus_ref(name);
+        let level = self.level.as_mut().expect("world");
+        mc_game::commands::server_access::with_server(|server| {
+            server.with_lent_level(level, |server| {
+                mc_game::server::network::game_packets::process_queued_packets(server)
+            })
+        });
         // a real client reports the new level loaded (`ServerboundPlayerLoadedPacket`)
         deliver(self, name, |_, _| {
             P::PlayerLoaded(mc_protocol::packets::play::ServerboundPlayerLoadedPacket)
@@ -1795,6 +1793,19 @@ impl Scenario {
                     });
                 }
             });
+            // the portal teleport `handlePortal` decided on and the removal the end credits asked for run once the player is back in its level
+            if mc_game::commands::server_access::has_server() {
+                self.focus_ref(&name);
+                let id = self.entity_id(&name);
+                let level = self.level.as_mut().expect("world");
+                if let Some(uuid) = level.get_entity(id).map(|e| e.uuid()) {
+                    mc_game::commands::server_access::with_server(|server| {
+                        server.with_lent_level(level, |server| {
+                            mc_game::server::players::end_credits::finish_player_step(server, uuid)
+                        })
+                    });
+                }
+            }
         }
         self.focus(keep);
     }
@@ -1927,12 +1938,13 @@ impl Scenario {
                 for dimension in dims {
                     self.focus(dimension);
                     let level = self.level();
-                    let (forced, players) = (
+                    let (forced, loaded, players) = (
                         level.chunk_source().get_force_loaded_chunks().len(),
+                        level.chunk_source().get_loaded_chunks_count(),
                         level.players().len(),
                     );
                     let line = format!(
-                        "LEVEL minecraft:{dimension} gametime={} forced={forced} players={players} border={}",
+                        "LEVEL minecraft:{dimension} gametime={} forced={forced} loaded={loaded} players={players} border={}",
                         level.game_time(),
                         mc_core::math::java::java_double_to_string(
                             level.get_world_border().get_size()

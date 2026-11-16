@@ -118,6 +118,7 @@ pub fn check_with(name: &str, opts: &Options) {
 }
 
 pub fn run_scenario_text(text: &str) -> Vec<String> {
+    actors::reset_login_detail();
     mc_game::world::level::material::flowing_fluid::reset_shape_memo_for_scenario();
     // `dump console` reads the log: the capture must be installed before the first line that logs (a player joining)
     if text
@@ -355,6 +356,10 @@ impl ChunkGeneratorBackend for FlatGenerator {
     fn get_base_height(&self, _x: i32, _z: i32, _ty: HeightmapType, height: LevelHeight) -> i32 {
         height.min_y + self.layers.len() as i32
     }
+    /// `FlatLevelSource.getSpawnHeight`.
+    fn get_spawn_height(&self, height: LevelHeight) -> i32 {
+        height.min_y + height.height.min(self.layers.len() as i32)
+    }
 }
 
 /// What `ServerLevel.tick` reads from the server.
@@ -533,7 +538,12 @@ impl LevelTickEnv for ServerBackedEnv<'_> {
         self.0.run_pending_functions(level)
     }
     fn teleport_through_portal(&mut self, level: &mut ServerLevel, entity: &mut dyn Entity) {
-        self.0.teleport_through_portal(level, entity)
+        // the level being ticked is out of the server, like `ServerTickEnv` in the server's own tick
+        mc_game::commands::server_access::with_server(|server| {
+            mc_game::server::players::dimension_change::teleport_through_portal(
+                server, level, entity,
+            )
+        });
     }
 }
 
@@ -558,6 +568,8 @@ struct Options_ {
     boot_rules: Vec<(String, String)>,
     /// `levels A,B`: the levels the replay holds besides `dimension` (empty: one detached level).
     levels: Vec<&'static str>,
+    /// `end void`, `nether void`: that dimension keeps the void generator under `level normal`.
+    void_dims: Vec<&'static str>,
 }
 
 /// Accepts every registry reference while decoding the vanilla dimension type JSON.
@@ -705,6 +717,7 @@ impl Scenario {
                 seed: 4242,
                 boot_rules: Vec::new(),
                 levels: Vec::new(),
+                void_dims: Vec::new(),
             },
             real_biomes: false,
             gen_env: false,
@@ -896,9 +909,10 @@ impl Scenario {
             .prefix("mc-block-scenario-")
             .tempdir()
             .expect("create scratch dir");
-        let noise_world = self.opts.normal.then(|| {
-            super::feature_harness::noise_world(self.opts.seed, self.opts.structures, dimension)
-        });
+        let noise_world =
+            (self.opts.normal && !self.opts.void_dims.contains(&dimension)).then(|| {
+                super::feature_harness::noise_world(self.opts.seed, self.opts.structures, dimension)
+            });
         let worldgen_biomes = if noise_world.is_some() {
             Some(super::feature_harness::WORLD.biomes.clone())
         } else {
@@ -966,6 +980,8 @@ impl Scenario {
             sea_level: match dimension {
                 "overworld" if self.opts.normal => 63,
                 "overworld" => -63,
+                // `end void` / `nether void`: the flat generator's sea level
+                _ if self.opts.void_dims.contains(&dimension) => -63,
                 "the_nether" => 32,
                 _ => 0,
             },
@@ -1126,7 +1142,8 @@ impl Scenario {
             );
             std::thread::sleep(Duration::from_millis(1));
         }
-        if self.opts.find_world_spawn {
+        // `MinecraftServer.setInitialSpawn` searches the overworld's spawn once, when the server creates its levels
+        if (self.opts.find_world_spawn || self.multi()) && dimension == "overworld" {
             let data = self.world_data.as_ref().expect("world data");
             mc_game::server::spawn::find_initial_spawn(data, &mut level);
         }
@@ -1283,6 +1300,17 @@ impl Scenario {
                         other => panic!("level {other}"),
                     })
                     .collect();
+            }
+            "end" | "nether" => {
+                assert!(
+                    self.level.is_none() && a[1] == "void",
+                    "`end void` and `nether void` only before the first world command"
+                );
+                self.opts.void_dims.push(if a[0] == "end" {
+                    "the_end"
+                } else {
+                    "the_nether"
+                });
             }
             "preload" => self.opts.preload = int(&a[1]),
             "preload_settle" => self.opts.settle_preload_ring = true,

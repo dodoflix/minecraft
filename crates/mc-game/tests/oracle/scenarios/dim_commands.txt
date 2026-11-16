@@ -1,0 +1,58 @@
+# Commands that name another level: `clone from DIM .. to DIM ..`, `forceload` per level, `spreadplayers` in the nether and `compute`
+# with the executor, the target or the position in another level.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+spawn_player A creative 0.5 -60 0.5 0 0
+spawn_player B creative 4.5 -60 0.5 0 0
+op A
+gamerule send_command_feedback true
+tick 1
+cmd scoreboard objectives add smoke dummy
+cmd scoreboard players set A smoke 7
+cmd scoreboard players set B smoke -3
+note clone between levels
+cmd execute in minecraft:the_nether run fill 0 200 0 3 200 3 minecraft:netherrack
+cmd execute in minecraft:the_nether run setblock 1 201 1 minecraft:glowstone
+cmd clone from minecraft:the_nether 0 200 0 3 201 3 to minecraft:overworld 0 200 0
+cmd clone from minecraft:the_nether 0 200 0 3 201 3 to minecraft:the_end 0 200 0
+cmd execute in minecraft:the_end run clone 0 200 0 3 201 3 0 210 0
+cmd execute in minecraft:the_nether run clone 0 200 0 3 201 3 to minecraft:overworld 10 200 10
+cmd clone from minecraft:the_nether 0 200 0 3 201 3 to minecraft:overworld 100000 200 0
+cmd clone from minecraft:nowhere 0 200 0 3 201 3 to minecraft:overworld 0 200 0
+cmd clone from minecraft:the_nether 0 200 0 3 201 3 to minecraft:the_nether 0 205 0 masked move
+tick 2
+in the_nether dump blocks:0,200,0,3,206,3
+in the_end dump blocks:0,200,0,3,211,3
+dump blocks:0,200,0,13,201,13
+note forced chunks per level
+cmd execute in minecraft:the_end run forceload add 6 6
+cmd execute in minecraft:the_end run forceload query
+cmd forceload query
+cmd execute in minecraft:the_nether run forceload query 0 0
+cmd execute in minecraft:the_end run forceload remove all
+tick 6
+dump levels
+note spreadplayers in the nether
+tp_dim B the_nether 5.5 201 4.5
+cmd execute in minecraft:the_nether run fill 0 199 0 9 199 9 minecraft:netherrack
+tick 2
+cmd execute in minecraft:the_nether run spreadplayers 0.5 0.5 0 5 false B
+tick 2
+dump player:B levels
+note compute with the executor, the target or the position in another level
+cmd compute entity B integer {type:"minecraft:score",target:{type:"minecraft:context",target:"target_entity"},score:"smoke"}
+cmd execute in minecraft:the_nether run compute entity A integer {type:"minecraft:score",target:{type:"minecraft:context",target:"target_entity"},score:"smoke"}
+cmd execute as B run compute default integer {type:"minecraft:score",target:{type:"minecraft:context",target:"this"},score:"smoke",fallback:43}
+cmd execute as B in minecraft:the_end run compute default integer {type:"minecraft:score",target:{type:"minecraft:context",target:"this"},score:"smoke",fallback:43}
+cmd_as A compute entity B integer {type:"minecraft:score",target:{type:"minecraft:context",target:"this"},score:"smoke",fallback:43}
+cmd execute as B run compute entity A integer {type:"minecraft:score",target:{type:"minecraft:context",target:"this"},score:"smoke",fallback:43}
+cmd execute as B at @s run compute block ~ ~-1 ~ integer {type:"minecraft:conditional",condition:{type:"minecraft:match_block",blocks:"minecraft:netherrack"},on_true:1,on_false:2}
+cmd execute in minecraft:the_end run compute block 0 200 0 integer {type:"minecraft:conditional",condition:{type:"minecraft:match_block",blocks:"minecraft:netherrack"},on_true:1,on_false:2}
+cmd execute in minecraft:the_nether run compute block 0 200 0 integer {type:"minecraft:conditional",condition:{type:"minecraft:match_block",blocks:"minecraft:netherrack"},on_true:1,on_false:2}
+cmd compute block 0 200 0 integer {type:"minecraft:conditional",condition:{type:"minecraft:match_block",blocks:"minecraft:netherrack"},on_true:1,on_false:2}

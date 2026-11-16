@@ -1,0 +1,51 @@
+MENU A cid=1 type=minecraft:generic_9x3 state=4 carried=minecraft:diamond*10
+MS 3 minecraft:dirt*20
+EV sound at=2.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.ender_chest.open source=block vol=0.5 pitch=0.97314155
+PKT A minecraft:open_screen 3c01020a0800097472616e736c6174650014636f6e7461696e65722e656e646572636865737400
+PKT A minecraft:container_set_content 1201013f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000af4070000143700000000000000000000
+PKT A minecraft:container_set_slot 140102003700
+PKT A minecraft:set_cursor_item 6214370000
+PKT A minecraft:container_set_slot 140103000314370000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_slot 140104003600
+PKT A minecraft:set_cursor_item 620af4070000
+# A is moved into the nether with a stack on the cursor
+MENU A cid=0 type=inventory state=4 carried=empty
+MS 36 minecraft:diamond*10
+I A 0 minecraft:diamond*10
+EV sound at=2.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.ender_chest.close source=block vol=0.5 pitch=0.94862795
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:ender_chest b0=1 b1=1
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:ender_chest b0=1 b1=0
+LEVEL minecraft:overworld gametime=4 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=4 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=4 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL A dim=minecraft:the_nether
+PL B dim=minecraft:overworld
+PKT A minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e000000010000c1ffffff0f03
+PKT A minecraft:container_set_content 1200042e0000000000000000000000000000000000000000000000000000000000000000000000000af407000000000000000000000000
+PKT A minecraft:set_held_slot 6b00
+MENU A cid=0 type=inventory state=5 carried=minecraft:diamond*10
+PKT A minecraft:container_set_slot 140005002400
+PKT A minecraft:set_cursor_item 620af4070000
+# A opens the ender chest of the nether: the contents are the player's own
+MENU A cid=0 type=inventory state=5 carried=minecraft:diamond*10
+MENU A cid=0 type=inventory state=6 carried=empty
+MS 36 minecraft:diamond*10
+I A 0 minecraft:diamond*10
+PKT A minecraft:container_set_slot 14000600240af4070000
+# A opens the chest again and is moved back to the overworld with the menu open
+MENU A cid=0 type=inventory state=7 carried=empty
+MS 36 minecraft:diamond*10
+I A 0 minecraft:diamond*10
+EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:ender_chest b0=1 b1=0
+LEVEL minecraft:overworld gametime=8 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_end gametime=8 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=8 forced=25 loaded=961 players=0 border=5.9999968E7
+PKT A minecraft:respawn 5400136d696e6563726166743a6f766572776f726c64d88694a6a43d2e5e000000010000c1ffffff0f03
+# B changes level with the inventory menu only
+MENU B cid=0 type=inventory state=3 carried=empty
+MS 36 minecraft:emerald*5
+I B 0 minecraft:emerald*5
+PKT B minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e000000010000c1ffffff0f03
+PKT B minecraft:container_set_content 1200032e00000000000000000000000000000000000000000000000000000000000000000000000005f507000000000000000000000000
+PKT B minecraft:set_held_slot 6b00
