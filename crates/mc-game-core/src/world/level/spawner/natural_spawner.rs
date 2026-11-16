@@ -415,7 +415,7 @@ fn is_right_distance_to_player_and_spawn_point(
     if nearest_player_distance_sqr <= 576.0 {
         return false;
     }
-    let respawn_data = level.level_data.get_respawn_data();
+    let respawn_data = level.get_respawn_data();
     if respawn_data.dimension == level.dimension
         && respawn_data.pos.closer_to_center_than(
             &Vec3::new(

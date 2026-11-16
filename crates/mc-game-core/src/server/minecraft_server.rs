@@ -32,7 +32,7 @@ use indexmap::IndexMap;
 use mc_core::random::LegacyRandomSource;
 use mc_protocol::auth::ServerKeyPair;
 use mc_world::level_storage::{
-    LevelStorageAccess, PlayerDataStorage, PrimaryLevelData, RespawnData, WorldGenSettings,
+    LevelStorageAccess, PlayerDataStorage, PrimaryLevelData, WorldGenSettings,
 };
 use parking_lot::Mutex;
 use std::panic::{self, AssertUnwindSafe};
@@ -188,7 +188,7 @@ pub struct MinecraftServer {
     pub is_demo: bool,
     pub server_id: Option<String>,
     /// `effectiveRespawnData`.
-    pub(super) effective_respawn_data: Option<RespawnData>,
+    pub effective_respawn_data: crate::server::level::level_server_state::EffectiveRespawn,
 }
 
 /// The `PlayerList` settings mirrored from `server.properties` (`uses_authentication` is set by `initServer`).
@@ -347,7 +347,7 @@ impl MinecraftServer {
             prevent_proxy_connections: false,
             is_demo: false,
             server_id: None,
-            effective_respawn_data: None,
+            effective_respawn_data: Default::default(),
         };
         *server.loot_random_sequences.lock() = server
             .saved_data

@@ -320,6 +320,35 @@ impl ServerPlayer {
         destination: PositionMoveRotation,
         relatives: Relatives,
     ) {
+        self.connection_teleport_moving(destination, relatives, true);
+    }
+
+    /// `player.connection.teleport(x, y, z, yRot, xRot)` inside `PlayerList.respawn`: the connection's `player` is still the
+    /// dead one, so the packet goes out and the confirmation is awaited at the destination, but the new player is not moved
+    /// (its head keeps the rotation its constructor drew).
+    pub fn connection_teleport_of_dead_player(
+        &mut self,
+        x: f64,
+        y: f64,
+        z: f64,
+        y_rot: f32,
+        x_rot: f32,
+    ) {
+        let destination = PositionMoveRotation {
+            position: Vec3::new(x, y, z),
+            delta_movement: Vec3::ZERO,
+            y_rot,
+            x_rot,
+        };
+        self.connection_teleport_moving(destination, Relatives::NONE, false);
+    }
+
+    fn connection_teleport_moving(
+        &mut self,
+        destination: PositionMoveRotation,
+        relatives: Relatives,
+        move_player: bool,
+    ) {
         let lis = self
             .listener
             .as_mut()
@@ -330,8 +359,14 @@ impl ServerPlayer {
             lis.awaiting_teleport = 0;
         }
         let id = lis.awaiting_teleport;
-        self.teleport_set_position(destination, relatives);
-        let position = self.position();
+        if move_player {
+            self.teleport_set_position(destination, relatives);
+        }
+        let position = if move_player {
+            self.position()
+        } else {
+            destination.position
+        };
         let lis = self.listener.as_mut().expect("checked above");
         lis.awaiting_position_from_client = Some(position);
         lis.send(&ClientboundPlayerPositionPacket {

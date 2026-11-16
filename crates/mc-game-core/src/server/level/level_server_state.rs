@@ -82,6 +82,9 @@ pub struct SpawnProtection {
 /// `OldUsersConverter.convertMobOwnerIfNecessary` bound to the server: a legacy `Owner` player name to its UUID.
 pub type OldOwnerConverter = Arc<dyn Fn(&str) -> Option<uuid::Uuid> + Send + Sync>;
 
+/// `MinecraftServer.effectiveRespawnData`, shared with the levels (`Level.getRespawnData`); `None` until the server computes it.
+pub type EffectiveRespawn = Arc<RwLock<Option<mc_world::level_storage::RespawnData>>>;
+
 /// What the server installs on a level at creation.
 #[derive(Clone, Default)]
 pub struct LevelServerState {
@@ -96,11 +99,19 @@ pub struct LevelServerState {
     pub debug_subscribers: crate::util::debug::DebugSubscribers,
     /// `OldUsersConverter.convertMobOwnerIfNecessary(server, name)`; `None` without a server.
     pub old_owner: Option<OldOwnerConverter>,
+    /// `getRespawnData()`: the server's respawn data adjusted to the respawn level's world border.
+    pub effective_respawn: EffectiveRespawn,
 }
 
 static DEFAULT_BORDER: LazyLock<WorldBorder> = LazyLock::new(WorldBorder::default);
 
 impl ServerLevel {
+    /// `ServerLevel.getRespawnData()` = `MinecraftServer.getRespawnData()`; the level's own data before the server computed it.
+    pub fn get_respawn_data(&self) -> mc_world::level_storage::RespawnData {
+        let effective = self.server_state.effective_respawn.read().clone();
+        effective.unwrap_or_else(|| self.level_data.get_respawn_data())
+    }
+
     /// `OldUsersConverter.convertMobOwnerIfNecessary(level.getServer(), name)`: a mob's legacy `Owner` player name.
     pub fn convert_old_owner(&self, name: &str) -> Option<uuid::Uuid> {
         match &self.server_state.old_owner {

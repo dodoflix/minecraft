@@ -1,0 +1,52 @@
+# The world spawn with the respawn radius and the world border: a radius of 0 (the exact column), the default radius with a seeded level
+# random, a border that leaves only a few blocks around the spawn, and a border that moved away from the spawn (the spawn the server
+# hands out is the border's centre, as `set_default_spawn_position` shows).
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 8
+difficulty normal
+entity_counter 100
+fill -8 -61 -8 40 -61 40 minecraft:stone
+cmd setworldspawn 0 -60 0
+spawn_player A survival 20.5 -60 6.5 0 0
+spawn_player B survival 24.5 -60 6.5 0 0
+tick 2
+dump packets:A:none packets:B:none world
+cmd gamerule respawn_radius 0
+hurt A generic 1000
+tick 1
+respawn A
+tick 2
+dump players player:A packets:A
+cmd gamerule respawn_radius 10
+level_seed 5
+hurt A generic 1000
+tick 1
+respawn A
+tick 2
+dump players player:A packets:A
+note a border with its edge 3 blocks from the spawn bounds the radius
+cmd worldborder center 0 0
+cmd worldborder set 6
+tick 2
+dump packets:A:none packets:B:none world
+level_seed 5
+hurt A generic 1000
+tick 1
+respawn A
+tick 2
+dump players player:A packets:A
+note the border moves away from the spawn
+cmd worldborder center 30 30
+cmd worldborder set 10
+tick 2
+dump packets:A:none packets:B:none world
+level_seed 5
+hurt B generic 1000
+tick 1
+respawn B
+tick 2
+dump players player:B packets:B world

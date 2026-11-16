@@ -1,0 +1,121 @@
+CF msg Set the world spawn point to 0, -60, 0 [0.0, 0.0] in minecraft:overworld
+CF result success 1
+# a request of a living player is ignored
+PL P dim=minecraft:overworld
+PL Obs dim=minecraft:overworld
+P P minecraft:player pos=3.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT P minecraft:update_attributes entity=101;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
+PKT Obs minecraft:update_attributes entity=102;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
+# death: the death screen packets
+HURT P generic 1000 -> true
+PL P dim=minecraft:overworld
+PL Obs dim=minecraft:overworld
+P P minecraft:player pos=3.5,-60.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=0.0 abs=0.0 hurt=9/19 death=1 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+N P {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:1s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:0.0f,HurtTime:9s,Inventory:[],Invulnerable:0b,LastDeathLocation:{dimension:"minecraft:overworld",pos:[I;3,-60,3]},Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[3.5d,-60.0d,3.5d],Rotation:[90.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:4,warning_level:0}}
+PKT P minecraft:damage_event 196512000000
+PKT P minecraft:player_combat_kill 45650a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20502000080009696e73657274696f6e000150080004746578740001500a000b686f7665725f6576656e740800046e616d65000150080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b0004757569640000000414075747e1463809a16183abe512191e00000800097472616e736c617465001464656174682e61747461636b2e67656e6572696300
+PKT P minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20502000080009696e73657274696f6e000150080004746578740001500a000b686f7665725f6576656e740800046e616d65000150080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b0004757569640000000414075747e1463809a16183abe512191e00000800097472616e736c617465001464656174682e61747461636b2e67656e657269630000
+PKT P minecraft:entity_event 220000006503
+PKT P minecraft:set_entity_data 6565090300000000ff
+PKT P minecraft:set_entity_motion 6765f9ff7ffeebed
+PKT P minecraft:set_health 6a000000001440a00000
+PKT Obs minecraft:sound 77a40a070000001cfffffe200000001c3f8000003f800000e32d4fcf84a7860e
+PKT Obs minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20502000080009696e73657274696f6e000150080004746578740001500a000b686f7665725f6576656e740800046e616d65000150080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b0004757569640000000414075747e1463809a16183abe512191e00000800097472616e736c617465001464656174682e61747461636b2e67656e657269630000
+# the respawn request
+PL P dim=minecraft:overworld
+PL Obs dim=minecraft:overworld
+P P minecraft:player pos=4.5,-60.0,-6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+N P {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LastDeathLocation:{dimension:"minecraft:overworld",pos:[I;3,-60,3]},Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-60.0d,-6.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:7,warning_level:0}}
+PKT P minecraft:waypoint 8d0101019f45efccb7a6355b9a8b9be8f1592233116d696e6563726166743a64656661756c740000
+PKT P minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT P minecraft:respawn 5400136d696e6563726166743a6f766572776f726c64d88694a6a43d2e5e0000000101136d696e6563726166743a6f766572776f726c64000000c000003fc400c1ffffff0f00
+PKT P minecraft:player_position 49024012000000000000c04e000000000000c01a000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT P minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000000000000fc40000000000000000
+PKT P minecraft:change_difficulty 0a0200
+PKT P minecraft:set_experience 69000000000000
+PKT P minecraft:post_effects 5300
+PKT P minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT P minecraft:set_time 730000000000000007020000000000000000000001000000000000000000
+PKT P minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000000000000fc40000000000000000
+PKT P minecraft:game_event 270d00000000
+PKT P minecraft:ticking_state 820141a0000000
+PKT P minecraft:ticking_step 830100
+PKT P minecraft:entity_event 220000006518
+PKT P minecraft:commands 101a000a0102030405060708090a01010b026d6505010c0468656c7005010d046c69737401010e036d73670900040474656c6c090004017701020f100672616e646f6d010111077465616d6d736709000802746d0101120774726967676572060006616374696f6e14060007636f6d6d616e6405020500057575696473020113077461726765747306020101140576616c756501011504726f6c6c0600076d6573736167651416021617096f626a65637469766518146d696e6563726166743a61736b5f7365727665720600076d6573736167651406000572616e67652706000572616e676527010118036164640101190373657406000576616c7565030006000576616c7565030000
+PKT P minecraft:set_chunk_cache_center 6000ffffffff0f
+PKT P minecraft:waypoint 8d0100019f45efccb7a6355b9a8b9be8f1592233116d696e6563726166743a64656661756c74000106c4ffffff0f06
+PKT P minecraft:container_set_content 1200012e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT Obs minecraft:waypoint 8d01010114075747e1463809a16183abe512191e116d696e6563726166743a64656661756c740000
+PKT Obs minecraft:bundle_delimiter 00
+PKT Obs minecraft:add_entity 016514075747e1463809a16183abe512191e9f014012000000000000c04e000000000000c01a0000000000000000000000
+PKT Obs minecraft:set_entity_data 6565090341a00000ff
+PKT Obs minecraft:update_attributes entity=101;minecraft:block_interaction_range=4.5[];minecraft:movement_speed=0.10000000149011612[];minecraft:entity_interaction_range=3.0[]
+PKT Obs minecraft:bundle_delimiter 00
+PL P dim=minecraft:overworld
+PL Obs dim=minecraft:overworld
+P P minecraft:player pos=4.5,-60.0,-6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+N P {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LastDeathLocation:{dimension:"minecraft:overworld",pos:[I;3,-60,3]},Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[4.5d,-60.0d,-6.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:9,warning_level:0}}
+PKT P minecraft:set_entity_data 6565090341a00000ff
+PKT P minecraft:update_attributes entity=101;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
+PKT P minecraft:set_health 6a41a000001440a00000
+PKT P minecraft:set_experience 69000000000000
+PKT Obs minecraft:move_entity_pos 366500000000000000
+PKT Obs minecraft:set_entity_data 6565090341a00000ff
+PKT Obs minecraft:update_attributes entity=101;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
+PKT Obs minecraft:waypoint 8d01000114075747e1463809a16183abe512191e116d696e6563726166743a64656661756c74000104c4ffffff0ff9ffffff0f
+# a second death after moving: the last death location follows
+HURT P generic 1000 -> true
+PL P dim=minecraft:overworld
+PL Obs dim=minecraft:overworld
+P P minecraft:player pos=4.5,-60.0,-6.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+N P {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,LastDeathLocation:{dimension:"minecraft:overworld",pos:[I;5,-60,-3]},Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[4.5d,-60.0d,-6.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:12,warning_level:0}}
+PKT P minecraft:player_position 49034016000000000000c04e000000000000c004000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT P minecraft:damage_event 196512000000
+PKT P minecraft:player_combat_kill 45650a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20502000080009696e73657274696f6e000150080004746578740001500a000b686f7665725f6576656e740800046e616d65000150080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b0004757569640000000414075747e1463809a16183abe512191e00000800097472616e736c617465001464656174682e61747461636b2e67656e6572696300
+PKT P minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20502000080009696e73657274696f6e000150080004746578740001500a000b686f7665725f6576656e740800046e616d65000150080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b0004757569640000000414075747e1463809a16183abe512191e00000800097472616e736c617465001464656174682e61747461636b2e67656e657269630000
+PKT P minecraft:entity_event 220000006503
+PKT P minecraft:set_entity_data 6565090300000000ff
+PKT P minecraft:set_entity_motion 6765f9ff7ffeebed
+PKT P minecraft:set_health 6a000000001440a00000
+PKT P minecraft:waypoint 8d0101019f45efccb7a6355b9a8b9be8f1592233116d696e6563726166743a64656661756c740000
+PKT P minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT P minecraft:respawn 5400136d696e6563726166743a6f766572776f726c64d88694a6a43d2e5e0000000101136d696e6563726166743a6f766572776f726c640000017fffffdfc400c1ffffff0f00
+PKT P minecraft:player_position 49044012000000000000c04e000000000000c01a000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT P minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000000000000fc40000000000000000
+PKT P minecraft:change_difficulty 0a0200
+PKT P minecraft:set_experience 69000000000000
+PKT P minecraft:post_effects 5300
+PKT P minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT P minecraft:set_time 73000000000000000b020000000000000000000001000000000000000000
+PKT P minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000000000000fc40000000000000000
+PKT P minecraft:game_event 270d00000000
+PKT P minecraft:ticking_state 820141a0000000
+PKT P minecraft:ticking_step 830100
+PKT P minecraft:entity_event 220000006518
+PKT P minecraft:commands 101a000a0102030405060708090a01010b026d6505010c0468656c7005010d046c69737401010e036d73670900040474656c6c090004017701020f100672616e646f6d010111077465616d6d736709000802746d0101120774726967676572060006616374696f6e14060007636f6d6d616e6405020500057575696473020113077461726765747306020101140576616c756501011504726f6c6c0600076d6573736167651416021617096f626a65637469766518146d696e6563726166743a61736b5f7365727665720600076d6573736167651406000572616e67652706000572616e676527010118036164640101190373657406000576616c7565030006000576616c7565030000
+PKT P minecraft:set_chunk_cache_center 6000ffffffff0f
+PKT P minecraft:waypoint 8d0100019f45efccb7a6355b9a8b9be8f1592233116d696e6563726166743a64656661756c74000106c4ffffff0f06
+PKT P minecraft:container_set_content 1200012e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT P minecraft:set_entity_data 6565090341a00000ff
+PKT P minecraft:update_attributes entity=101;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
+PKT P minecraft:set_health 6a41a000001440a00000
+PKT P minecraft:set_experience 69000000000000
+PKT Obs minecraft:waypoint 8d01000114075747e1463809a16183abe512191e116d696e6563726166743a64656661756c74000105c4ffffff0ffdffffff0f
+PKT Obs minecraft:entity_position_sync 236501014016000000000000c04e000000000000c00400000000000002000000000000000001
+PKT Obs minecraft:damage_event 196512000000
+PKT Obs minecraft:sound 77a40a070000002cfffffe20ffffffec3f8000003f8000003dace6703e05bff8
+PKT Obs minecraft:system_chat 7c0a090004776974680a000000010a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e6400082f74656c6c20502000080009696e73657274696f6e000150080004746578740001500a000b686f7665725f6576656e740800046e616d65000150080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b0004757569640000000414075747e1463809a16183abe512191e00000800097472616e736c617465001464656174682e61747461636b2e67656e657269630000
+PKT Obs minecraft:entity_event 220000006503
+PKT Obs minecraft:set_entity_data 6565090300000000ff
+PKT Obs minecraft:set_entity_motion 6765f9ff7ffeebed
+PKT Obs minecraft:remove_entities 4e0165
+PKT Obs minecraft:waypoint 8d01010114075747e1463809a16183abe512191e116d696e6563726166743a64656661756c740000
+PKT Obs minecraft:bundle_delimiter 00
+PKT Obs minecraft:add_entity 016514075747e1463809a16183abe512191e9f014012000000000000c04e000000000000c01a0000000000000000000000
+PKT Obs minecraft:set_entity_data 6565090341a00000ff
+PKT Obs minecraft:update_attributes entity=101;minecraft:block_interaction_range=4.5[];minecraft:movement_speed=0.10000000149011612[];minecraft:entity_interaction_range=3.0[]
+PKT Obs minecraft:bundle_delimiter 00
+PKT Obs minecraft:move_entity_pos 366500000000000000
+PKT Obs minecraft:set_entity_data 6565090341a00000ff
+PKT Obs minecraft:update_attributes entity=101;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
+PKT Obs minecraft:waypoint 8d01000114075747e1463809a16183abe512191e116d696e6563726166743a64656661756c74000104c4ffffff0ff9ffffff0f

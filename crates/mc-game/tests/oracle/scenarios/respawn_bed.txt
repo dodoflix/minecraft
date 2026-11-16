@@ -1,0 +1,75 @@
+# The respawn point of a bed: intact, destroyed, enclosed (no stand-up position), in the nether where beds do not work, and forced.
+# A missing respawn block sends NO_RESPAWN_BLOCK_AVAILABLE and clears the respawn point; the player then stands at the world spawn.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 8
+difficulty normal
+entity_counter 100
+fill -8 -61 -8 40 -61 8 minecraft:stone
+in the_nether fill -8 63 -8 8 63 8 minecraft:netherrack
+cmd setworldspawn 0 -60 0
+spawn_player A survival 20.5 -60 6.5 0 0
+spawn_player B survival 24.5 -60 6.5 0 0
+spawn_player C survival 28.5 -60 6.5 0 0
+spawn_player D survival 32.5 -60 6.5 0 0
+spawn_player E survival 36.5 -60 6.5 0 0
+note A: an intact bed at 10,-60,1 (head part); B: a bed that was broken; C: a bed boxed in by stone
+block 10 -60 0 minecraft:red_bed[facing=south,part=foot]
+block 10 -60 1 minecraft:red_bed[facing=south,part=head]
+block 14 -60 1 minecraft:air
+fill 17 -60 -1 19 -58 3 minecraft:stone
+fill 18 -60 0 18 -59 1 minecraft:air
+block 18 -60 0 minecraft:red_bed[facing=south,part=foot]
+block 18 -60 1 minecraft:red_bed[facing=south,part=head]
+block 18 -58 0 minecraft:stone
+block 18 -58 1 minecraft:stone
+in the_nether block 2 64 2 minecraft:red_bed[facing=south,part=foot]
+in the_nether block 2 64 3 minecraft:red_bed[facing=south,part=head]
+nbt A {respawn:{dimension:"minecraft:overworld",pos:[I;10,-60,1],yaw:90.0f,pitch:0.0f}}
+nbt B {respawn:{dimension:"minecraft:overworld",pos:[I;14,-60,1],yaw:0.0f,pitch:0.0f}}
+nbt C {respawn:{dimension:"minecraft:overworld",pos:[I;18,-60,1],yaw:0.0f,pitch:0.0f}}
+nbt D {respawn:{dimension:"minecraft:the_nether",pos:[I;2,64,3],yaw:0.0f,pitch:0.0f}}
+nbt E {respawn:{dimension:"minecraft:the_nether",pos:[I;2,64,2],yaw:0.0f,pitch:0.0f,forced:1b}}
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none packets:E:none nbt:A nbt:B nbt:C nbt:D nbt:E
+hurt A generic 1000
+tick 1
+respawn A
+tick 2
+dump players player:A nbt:A packets:A
+hurt B generic 1000
+tick 1
+respawn B
+tick 2
+dump players player:B nbt:B packets:B
+hurt C generic 1000
+tick 1
+respawn C
+tick 2
+dump players player:C nbt:C packets:C
+hurt D generic 1000
+tick 1
+respawn D
+tick 2
+dump players player:D nbt:D packets:D
+hurt E generic 1000
+tick 1
+respawn E
+tick 2
+dump players player:E nbt:E packets:E
+note a second death of A: the bed is still there
+hurt A generic 1000
+tick 1
+respawn A
+tick 2
+dump players player:A nbt:A packets:A
+note the bed is destroyed after the first respawn: the second one finds none
+block 10 -60 1 minecraft:air
+hurt A generic 1000
+tick 1
+respawn A
+tick 2
+dump players player:A nbt:A packets:A

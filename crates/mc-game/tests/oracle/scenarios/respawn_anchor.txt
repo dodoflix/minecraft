@@ -1,0 +1,91 @@
+# The respawn point of a respawn anchor: charged in the nether (one charge is consumed, the depletion sound follows the respawn packets),
+# the charge running out, uncharged, obstructed, in the overworld where it does not work, destroyed, and forced (no charge needed or used).
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 8
+difficulty normal
+entity_counter 100
+fill -8 -61 -8 8 -61 8 minecraft:stone
+in the_nether fill -8 63 -8 60 63 8 minecraft:netherrack
+in the_nether fill -8 64 -8 60 70 -8 minecraft:netherrack
+cmd setworldspawn 0 -60 0
+spawn_player A survival 0.5 -60 6.5 0 0
+spawn_player B survival 2.5 -60 6.5 0 0
+spawn_player C survival 4.5 -60 6.5 0 0
+spawn_player D survival 6.5 -60 6.5 0 0
+spawn_player E survival -2.5 -60 6.5 0 0
+spawn_player F survival -4.5 -60 6.5 0 0
+note anchors: A charge 2, B charge 0, C charge 3 under a stone block, D in the overworld charge 4, E destroyed, F forced charge 0 (all in the nether but D)
+in the_nether block 10 64 0 minecraft:respawn_anchor[charges=2]
+in the_nether block 14 64 0 minecraft:respawn_anchor[charges=0]
+in the_nether block 18 64 0 minecraft:respawn_anchor[charges=3]
+in the_nether fill 17 65 -1 19 66 1 minecraft:stone
+in the_nether fill 17 64 -1 19 64 1 minecraft:stone
+in the_nether block 18 64 0 minecraft:respawn_anchor[charges=3]
+block 3 -60 3 minecraft:respawn_anchor[charges=4]
+in the_nether block 26 64 0 minecraft:air
+in the_nether block 30 64 0 minecraft:respawn_anchor[charges=0]
+nbt A {respawn:{dimension:"minecraft:the_nether",pos:[I;10,64,0],yaw:0.0f,pitch:0.0f}}
+nbt B {respawn:{dimension:"minecraft:the_nether",pos:[I;14,64,0],yaw:0.0f,pitch:0.0f}}
+nbt C {respawn:{dimension:"minecraft:the_nether",pos:[I;18,64,0],yaw:0.0f,pitch:0.0f}}
+nbt D {respawn:{dimension:"minecraft:overworld",pos:[I;3,-60,3],yaw:0.0f,pitch:0.0f}}
+nbt E {respawn:{dimension:"minecraft:the_nether",pos:[I;26,64,0],yaw:0.0f,pitch:0.0f}}
+nbt F {respawn:{dimension:"minecraft:the_nether",pos:[I;30,64,0],yaw:0.0f,pitch:0.0f,forced:1b}}
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none packets:E:none packets:F:none
+level_seed 41
+hurt A generic 1000
+tick 1
+respawn A
+tick 2
+dump players player:A nbt:A packets:A events
+in the_nether dump blocks:10,64,0,10,64,0
+hurt A generic 1000
+tick 1
+respawn A
+tick 2
+dump players nbt:A packets:A
+in the_nether dump blocks:10,64,0,10,64,0
+note the last charge was used: the anchor at charge 0 does not hold the point any more
+hurt A generic 1000
+tick 1
+respawn A
+tick 2
+dump players nbt:A packets:A
+in the_nether dump blocks:10,64,0,10,64,0
+hurt B generic 1000
+tick 1
+respawn B
+tick 2
+dump players nbt:B packets:B
+hurt C generic 1000
+tick 1
+respawn C
+tick 2
+dump players nbt:C packets:C
+in the_nether dump blocks:17,64,-1,19,66,1
+hurt D generic 1000
+tick 1
+respawn D
+tick 2
+dump players nbt:D packets:D
+dump blocks:3,-60,3,3,-60,3
+hurt E generic 1000
+tick 1
+respawn E
+tick 2
+dump players nbt:E packets:E
+hurt F generic 1000
+tick 1
+respawn F
+tick 2
+dump players nbt:F packets:F
+in the_nether dump blocks:30,64,0,30,64,0
+hurt F generic 1000
+tick 1
+respawn F
+tick 2
+dump players nbt:F packets:F

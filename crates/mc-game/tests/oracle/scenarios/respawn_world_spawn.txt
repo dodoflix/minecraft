@@ -1,0 +1,38 @@
+# Death at the world spawn: the respawn packet sequence (respawn, player position, default spawn, difficulty, experience, effects,
+# level info), a request of a living player is ignored, the last death location and the respawn state in the player's saved form.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 8
+difficulty normal
+entity_counter 100
+fill -8 -61 -8 8 -61 8 minecraft:stone
+cmd setworldspawn 0 -60 0
+spawn_player P survival 3.5 -60 3.5 90 0
+spawn_player Obs survival 6.5 -60 6.5 0 0
+tick 2
+dump packets:P:none packets:Obs:none
+note a request of a living player is ignored
+respawn P
+tick 1
+dump players player:P packets:P packets:Obs
+note death: the death screen packets
+hurt P generic 1000
+tick 1
+dump players player:P nbt:P packets:P packets:Obs
+tick 3
+note the respawn request
+respawn P
+dump players player:P nbt:P packets:P packets:Obs
+tick 2
+dump players player:P nbt:P packets:P packets:Obs
+note a second death after moving: the last death location follows
+tp P 5.5 -60 -2.5
+tick 1
+hurt P generic 1000
+tick 1
+respawn P
+tick 1
+dump players player:P nbt:P packets:P packets:Obs

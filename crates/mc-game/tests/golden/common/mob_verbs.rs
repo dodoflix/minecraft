@@ -209,7 +209,10 @@ pub fn command<H: MobHost>(h: &mut H, a: &[String]) -> bool {
 /// The mob dump kinds `goals:REF brain:REF path:REF attrs:REF size:REF nbt:REF`; `false` for any other kind.
 pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
     let Some(name) = arg else { return false };
-    if !matches!(kind, "goals" | "brain" | "path" | "attrs" | "size" | "nbt") {
+    if !matches!(
+        kind,
+        "goals" | "brain" | "path" | "attrs" | "attrorder" | "size" | "nbt"
+    ) {
         return false;
     }
     let id = h.action_ref(name);
@@ -262,6 +265,18 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
                         Ok(vec![format!("ATTR {name} {value}")])
                     }
                 },
+                // ATTRORDER REF id ..  the instances of the attribute map in its hash map's iteration order
+                "attrorder" => match e.living() {
+                    None => Err(format!("entity {name} is not a living entity")),
+                    Some(l) => Ok(vec![format!(
+                        "ATTRORDER {name}{}",
+                        l.attributes
+                            .instance_order()
+                            .iter()
+                            .map(|a| format!(" {}", a.identifier()))
+                            .collect::<String>()
+                    )]),
+                },
                 // SIZE REF scale=getScale() size=width,height,eye bb=min,max corners
                 "size" => {
                     use mc_core::math::java::{
@@ -288,6 +303,7 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
                     let mut tag = CompoundTag::new();
                     e.save_without_id(&mut tag, &|i| level.get_entity(i));
                     tag.remove("UUID");
+                    sort_recipe_book(&mut tag);
                     Ok(vec![format!("N {name} {}", canon(&Tag::Compound(tag)))])
                 }
             },
@@ -298,4 +314,21 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
         Err(why) => h.fail(&format!("{kind}:{name}: {why}")),
     }
     true
+}
+
+/// `ServerRecipeBook.known` is an identity hash set in vanilla: its order differs from run to run, so both sides dump the player's
+/// recipes sorted.
+fn sort_recipe_book(tag: &mut CompoundTag) {
+    let Some(Tag::Compound(book)) = tag.get_mut("recipeBook") else {
+        return;
+    };
+    for key in ["recipes", "toBeDisplayed"] {
+        if let Some(Tag::List(list)) = book.get_mut(key) {
+            let mut items: Vec<Tag> = list.iter().cloned().collect();
+            items.sort_by_key(canon);
+            let mut sorted = mc_nbt::ListTag::new();
+            items.into_iter().for_each(|item| sorted.push(item));
+            *list = sorted;
+        }
+    }
 }

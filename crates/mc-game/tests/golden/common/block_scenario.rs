@@ -186,6 +186,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                         | "close_menu"
                         | "menu_button"
                         | "pick_block"
+                        | "player_loaded"
                         | "move_packet"
                         | "move_vehicle"
                         | "accept_teleport"
@@ -556,6 +557,8 @@ struct Options_ {
     /// `world_spawn`: the world spawn is searched like `MinecraftServer.setInitialSpawn` does (the oracle server did it at boot).
     find_world_spawn: bool,
     difficulty: Difficulty,
+    /// `hardcore`: `hardcore=true` (the difficulty is hard, a respawn makes a spectator).
+    hardcore: bool,
     preload: i32,
     /// `preload_settle`: boot also waits until the chunks two rings beyond the preload are full.
     settle_preload_ring: bool,
@@ -712,6 +715,7 @@ impl Scenario {
                 structures: false,
                 find_world_spawn: false,
                 difficulty: Difficulty::Normal,
+                hardcore: false,
                 preload: 6,
                 settle_preload_ring: false,
                 features: mc_world::level_storage::FeatureFlagSet::DEFAULT_FLAGS,
@@ -778,6 +782,14 @@ impl Scenario {
                 .all_levels()
                 .find(|l| live(l))
                 .map(|l| static_dimension(&l.dimension))
+                // a player that watched the credits waits outside every level for its respawn request
+                .or_else(|| {
+                    server
+                        .detached_players
+                        .values()
+                        .find(|p| p.base_id() == id)
+                        .map(|p| static_dimension(&p.dimension))
+                })
         })
     }
 
@@ -963,7 +975,12 @@ impl Scenario {
         } else {
             mc_game::server::level::level_data::default_world_data()
         };
-        world_data.lock().settings.difficulty_settings.difficulty = self.opts.difficulty;
+        world_data.lock().settings.difficulty_settings.difficulty = if self.opts.hardcore {
+            Difficulty::Hard
+        } else {
+            self.opts.difficulty
+        };
+        world_data.lock().settings.difficulty_settings.hardcore = self.opts.hardcore;
         // `flat` and `void` are the oracle's flat generator, which the login and respawn packets report as a flat world
         world_data.lock().special_world_property = if self.opts.normal {
             mc_world::level_storage::SpecialWorldProperty::None
@@ -1084,6 +1101,7 @@ impl Scenario {
         if level.gen_env.is_some() {
             level.worldgen_data = Some(super::feature_harness::WORLD.worldgen.clone());
         }
+        level.has_ceiling = dimension_type.has_ceiling;
         // `Level.canHaveWeather()`
         level.tick_state.can_have_weather =
             dimension_type.has_sky_light && !dimension_type.has_ceiling && dimension != "the_end";
@@ -1381,6 +1399,7 @@ impl Scenario {
             }
             "preload" => self.opts.preload = int(&a[1]),
             "preload_settle" => self.opts.settle_preload_ring = true,
+            "hardcore" => self.opts.hardcore = true,
             "bootrule" => self.opts.boot_rules.push((a[1].clone(), a[2].clone())),
             "features" => {
                 use mc_world::level_storage::FeatureFlagSet as F;
@@ -1558,6 +1577,15 @@ impl Scenario {
                 }
                 sprinting
             });
+        }
+        if has_server {
+            // `tickChildren`: the respawn data adjusted to the respawn level's world border, before the levels tick
+            self.focus(self.current);
+            let mut level = self.level.take().expect("world");
+            mc_game::commands::server_access::with_server(|server| {
+                server.with_lent_level(&mut level, |server| server.update_effective_respawn_data())
+            });
+            self.level = Some(level);
         }
         // `tickChildren` ticks the levels in the server's order, one after the other
         let dimensions = if self.multi() {

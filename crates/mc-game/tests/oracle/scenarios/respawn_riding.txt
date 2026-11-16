@@ -1,0 +1,37 @@
+# A player that dies in a boat with a passenger, and one that dies on a horse: the vehicle stays, the passengers' packets, the respawn
+# at the world spawn without a vehicle.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 8
+difficulty normal
+entity_counter 100
+fill -8 -61 -8 40 -61 8 minecraft:stone
+cmd setworldspawn 0 -60 0
+spawn_player A survival 20.5 -60 6.5 0 0
+spawn_player B survival 22.5 -60 6.5 0 0
+spawn_player C survival 30.5 -60 6.5 0 0
+spawn Boat minecraft:oak_boat 21.5 -60 3.5 0 0
+spawn Horse minecraft:horse 30.5 -60 3.5 0 0 {Tame:1b,Variant:0}
+entity_seed Boat 3
+entity_seed Horse 4
+tick 2
+ride A Boat
+ride B Boat
+ride C Horse
+tick 2
+dump packets:A:none packets:B:none packets:C:none entities
+hurt A generic 1000
+tick 1
+dump player:A entities packets:A packets:B
+respawn A
+tick 2
+dump players player:A nbt:A entities packets:A packets:B
+hurt C generic 1000
+tick 1
+dump player:C entities packets:C
+respawn C
+tick 2
+dump players player:C nbt:C entities packets:C

@@ -1,0 +1,28 @@
+# A hardcore world: the respawn request of a dead player makes it a spectator at its respawn position, keeping what the rules keep.
+level void
+command_env
+end void
+nether void
+hardcore
+levels overworld,the_nether,the_end
+preload 8
+difficulty normal
+entity_counter 100
+fill -8 -61 -8 40 -61 8 minecraft:stone
+cmd setworldspawn 0 -60 0
+spawn_player A survival 20.5 -60 6.5 0 0
+spawn_player B survival 24.5 -60 6.5 0 0
+give A hotbar0 minecraft:cobblestone 12
+set A xp_level 5
+tick 2
+dump packets:A:none packets:B:none world
+hurt A generic 1000
+tick 1
+dump player:A packets:A packets:B
+respawn A
+tick 2
+dump players player:A inventory:A nbt:A world packets:A packets:B
+note the spectator can use commands and moves like one
+cmd gamemode survival A
+tick 1
+dump player:A packets:A packets:B

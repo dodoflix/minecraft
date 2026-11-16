@@ -1,0 +1,60 @@
+# Game rules and state across a respawn: keep_inventory (inventory, experience and score stay; effects do not), the default
+# (everything dropped), immediate_respawn (the death screen flag), a total experience that is not zero, effects, food, the ender chest.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 8
+difficulty normal
+entity_counter 100
+fill -8 -61 -8 40 -61 8 minecraft:stone
+cmd setworldspawn 0 -60 0
+spawn_player A survival 20.5 -60 6.5 0 0
+spawn_player B survival 24.5 -60 6.5 0 0
+spawn_player Obs survival 28.5 -60 6.5 0 0
+give A hotbar0 minecraft:cobblestone 64
+give A chest minecraft:iron_chestplate
+give A offhand minecraft:apple 3
+give B hotbar0 minecraft:dirt 10
+give B head minecraft:iron_helmet
+set A xp_level 12
+set B xp_level 30
+effect A minecraft:speed 0 200
+effect A minecraft:glowing 0 100
+effect B minecraft:regeneration 1 300
+set A food 7
+set B food 3
+cmd scoreboard objectives add pts dummy
+cmd scoreboard players set A pts 5
+cmd tag A add marked
+tick 2
+dump packets:A:none packets:B:none packets:Obs:none
+note default rules: the inventory drops and the effects, food and experience are reset
+hurt A generic 1000
+tick 1
+dump player:A inventory:A entities packets:A packets:Obs
+respawn A
+tick 2
+dump players player:A inventory:A nbt:A packets:A packets:Obs
+cmd scoreboard players get A pts
+cmd execute if entity @a[tag=marked]
+note keep_inventory: inventory and experience stay, effects do not
+cmd gamerule keep_inventory true
+dump packets:A:none packets:B:none packets:Obs:none
+hurt B generic 1000
+tick 1
+dump player:B inventory:B entities packets:B packets:Obs
+respawn B
+tick 2
+dump players player:B inventory:B nbt:B packets:B packets:Obs
+cmd gamerule keep_inventory false
+note immediate_respawn: the game event tells the client to skip the death screen
+cmd gamerule immediate_respawn true
+dump packets:A:none packets:B:none packets:Obs:none
+hurt A generic 1000
+tick 1
+dump player:A packets:A packets:Obs
+respawn A
+tick 2
+dump players player:A packets:A

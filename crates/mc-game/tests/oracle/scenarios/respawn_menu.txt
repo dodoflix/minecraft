@@ -1,0 +1,49 @@
+# A death with a menu open and a stack on the cursor: the old player's menu is closed with the entity (the cursor stack drops when
+# the inventory is not kept), the new player has the plain inventory menu; the same with keep_inventory.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 8
+difficulty normal
+entity_counter 100
+fill -8 -61 -8 40 -61 8 minecraft:stone
+cmd setworldspawn 0 -60 0
+spawn_player A survival 2.5 -60 3.5 180 0
+spawn_player B survival 5.5 -60 3.5 180 0
+block 2 -60 0 minecraft:ender_chest[facing=south,waterlogged=false]
+block 5 -60 0 minecraft:ender_chest[facing=south,waterlogged=false]
+give A hotbar0 minecraft:diamond 10
+give A hotbar1 minecraft:dirt 20
+give B hotbar0 minecraft:emerald 5
+give B hotbar1 minecraft:dirt 20
+tick 2
+dump events packets:A:none packets:B:none
+level_seed 31
+use_on A 2 -60 0 south main
+click A 55 0 PICKUP
+click A 3 0 PICKUP
+click A 54 0 PICKUP
+dump menu:A inventory:A packets:A:none
+hurt A generic 1000
+tick 1
+dump menu:A inventory:A entities events packets:A
+respawn A
+tick 2
+dump menu:A inventory:A entities players nbt:A packets:A
+click A 36 0 PICKUP
+dump menu:A inventory:A packets:A
+note the same with keep_inventory
+cmd gamerule keep_inventory true
+use_on B 5 -60 0 south main
+click B 55 0 PICKUP
+click B 3 0 PICKUP
+click B 54 0 PICKUP
+dump menu:B inventory:B packets:B:none
+hurt B generic 1000
+tick 1
+dump menu:B inventory:B entities events packets:B
+respawn B
+tick 2
+dump menu:B inventory:B entities players nbt:B packets:B

@@ -273,6 +273,7 @@ mod recipe_book_golden;
 mod recipe_golden;
 mod recipes_load;
 mod registration_counts;
+mod respawn_golden;
 mod scattered_structures_golden;
 mod scoreboard_lifecycle_golden;
 mod sculk_block_entities_golden;

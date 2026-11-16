@@ -254,7 +254,7 @@ pub fn take_old_player(
     id: EntityId,
     reason: RemovalReason,
 ) -> Option<ServerPlayer> {
-    level.with_player(id, |level, player| {
+    let old = level.with_player(id, |level, player| {
         // the stand-in does not exist in vanilla: it must not consume a unique seed
         let mut dummy = mc_core::random::without_advancing_oracle_uniquifier(|| {
             ServerPlayer::new(
@@ -265,18 +265,21 @@ pub fn take_old_player(
             )
         });
         dummy.remove(reason);
+        // the removal callbacks run on the stand-in: the waypoint disconnects of the old player still reach its connection
+        level.removing_player_connection = player.connection.clone().map(|c| (id, c));
         let mut old = std::mem::replace(player, dummy);
-        // `Player.remove`: the player is removed before its menus are closed, so a removed player drops the cursor stack
-        if matches!(reason, RemovalReason::Killed | RemovalReason::Discarded) {
-            crate::world::entity::living_entity::effects::trigger_on_death_mob_effects(
-                &mut old, level, reason,
-            );
-        }
-        old.remove(reason);
-        level.waypoint_remove_taken_player(&old);
+        // `Entity.remove`: the dead mob effects, the player leaves its vehicle and its passengers leave it
+        level.remove_held_entity(&mut old, reason);
+        old
+    });
+    // `Player.remove`: the player is removed (untracked: its watchers and itself stop seeing the level) before its menus are
+    // closed, so a removed player drops the cursor stack unseen by itself
+    let old = old.map(|mut old| {
         old.close_menus_on_removal(level);
         old
-    })
+    });
+    level.removing_player_connection = None;
+    old
 }
 
 /// `PlayerList.respawn` step 2: the fresh `ServerPlayer` (same entity id and connection) with `restoreFrom` applied,
@@ -389,7 +392,6 @@ pub fn respawn(
     server.player_list.remove_from_players(&handle);
 
     // 2. the new player
-    let old_respawn_config = old.respawn_config.clone();
     let mut new = server.with_level(&transition.level, |_, level| {
         create_respawned_player(
             old,
@@ -401,6 +403,8 @@ pub fn respawn(
     })?;
 
     // 3. the packets and the placement in the new level
+    // (`player.getRespawnConfig()` of the new player: a missing respawn block was not copied)
+    let new_respawn_config = new.respawn_config.clone();
     let new_id = new.base_id();
     let dimension = transition.level.clone();
     server.with_level(&dimension, |server, level| {
@@ -414,7 +418,7 @@ pub fn respawn(
             new.player.living.entity.y_rot(),
             new.player.living.entity.x_rot(),
         );
-        new.connection_teleport(position.x, position.y, position.z, y_rot, x_rot);
+        new.connection_teleport_of_dead_player(position.x, position.y, position.z, y_rot, x_rot);
         new.send(&ClientboundSetDefaultSpawnPositionPacket {
             respawn_data: info.respawn_data.clone(),
         });
@@ -436,8 +440,6 @@ pub fn respawn(
             };
             send_level_info(&host, &info, &handle);
         }
-        server.player_list.add_player(handle.clone());
-        level.add_player(Box::new(new));
         {
             let mut host = ServerJoinHost {
                 server: &mut *server,
@@ -445,13 +447,15 @@ pub fn respawn(
             };
             super::join::send_player_permission_level(&mut host, &handle);
         }
+        level.add_player(Box::new(new));
+        server.player_list.add_player(handle.clone());
         level.with_player(new_id, |level, player| {
             player.init_inventory_menu(level);
             after(server, level, player);
         });
     })?;
     // the respawn anchor that was used up plays its depletion sound for the player
-    if !keep_all_player_data && let Some(config) = old_respawn_config {
+    if !keep_all_player_data && let Some(config) = new_respawn_config {
         let pos = config.respawn_data.pos;
         let sound = server.with_level(&config.respawn_data.dimension, |_, level| {
             level.get_block_state(pos).block() == mc_data::Block::RESPAWN_ANCHOR

@@ -359,7 +359,11 @@ fn teleport_player_cross_dimension(
             };
             send_player_permission_level(&mut host, handle);
         }
-        // `oldLevel.removePlayerImmediately(this, CHANGED_DIMENSION)` + `unsetRemoved()`: the player leaves the old slot
+        // `oldLevel.removePlayerImmediately(this, CHANGED_DIMENSION)` + `unsetRemoved()`: the player leaves the old slot; the removal
+        // callbacks come first (the player's waypoint tracking ends, its own connection hears of it), the menus close after
+        old_level.removing_player_connection = slot.connection.clone().map(|c| (id, c));
+        old_level.waypoint_tracking_end(id);
+        old_level.removing_player_connection = None;
         slot.close_menus_on_removal(old_level);
         let mut dummy = ServerPlayer::new(
             id,

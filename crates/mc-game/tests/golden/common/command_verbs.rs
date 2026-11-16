@@ -409,7 +409,7 @@ pub fn normalize_clock_stamps(line: &str) -> String {
 
 /// `MinecraftServer.createCommandSourceStack`: the overworld at the respawn position, no rotation, owner permissions, named `Server`.
 fn console_stack(level: &ServerLevel, source: Arc<dyn CommandSource>) -> CommandSourceStack {
-    let respawn = level.level_data.get_respawn_data().pos;
+    let respawn = level.get_respawn_data().pos;
     CommandSourceStack::named(
         source,
         Vec3::new(
@@ -797,6 +797,7 @@ pub fn install_command_env(
 /// `/data` and `/time` change).
 pub fn attach_server_state(level: &mut ServerLevel, server: &mut MinecraftServer) {
     level.server_state.rules = server.game_rules().live();
+    level.server_state.effective_respawn = server.effective_respawn_data.clone();
     level.server_state.scoreboard = server.scoreboard.clone();
     let storage = server.command_storage.view();
     level.server_state.loot.command_storage = Arc::new(move |id| storage.get(id));

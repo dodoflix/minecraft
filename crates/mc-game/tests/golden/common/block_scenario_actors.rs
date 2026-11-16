@@ -1025,6 +1025,13 @@ impl Scenario {
                 self.load_registries();
                 self.respawn(&a[1]);
             }
+            // player_loaded PLAYER   ServerboundPlayerLoadedPacket
+            "player_loaded" => {
+                self.world();
+                deliver(self, &a[1], |_, _| {
+                    P::PlayerLoaded(mc_protocol::packets::play::ServerboundPlayerLoadedPacket)
+                });
+            }
             "attribute" => {
                 self.world();
                 let id = self.entity_id(&a[1]);
@@ -1576,18 +1583,42 @@ impl Scenario {
             ServerboundClientCommandAction, ServerboundClientCommandPacket,
         };
         // the client's PERFORM_RESPAWN command: the listener queues it and the server's packet processing runs `PlayerList.respawn`
-        deliver(self, name, |_, _| {
-            P::ClientCommand(ServerboundClientCommandPacket {
-                action: ServerboundClientCommandAction::PerformRespawn,
-            })
+        let packet = P::ClientCommand(ServerboundClientCommandPacket {
+            action: ServerboundClientCommandAction::PerformRespawn,
         });
+        // the player waits for its respawn in the level it died in, which may not be the one held
         self.focus_ref(name);
+        let id = self.entity_id(name);
+        // a player that watched the credits left its level: the server holds it apart until this request
+        let detached = mc_game::commands::server_access::with_server(|server| {
+            server.detached_players.values().any(|p| p.base_id() == id)
+        });
+        if detached {
+            let level = self.level.as_mut().expect("world");
+            mc_game::commands::server_access::with_server(|server| {
+                server.with_lent_level(level, |server| {
+                    let uuid = server
+                        .player_list
+                        .players()
+                        .iter()
+                        .find(|p| p.id == id)
+                        .map(|p| p.uuid)
+                        .expect("the detached player is in the player list");
+                    mc_game::server::network::game_packets::with_player(server, uuid, |ctx| {
+                        ctx.deliver(packet)
+                    })
+                })
+            });
+        } else {
+            deliver(self, name, |_, _| packet);
+        }
         let level = self.level.as_mut().expect("world");
         mc_game::commands::server_access::with_server(|server| {
             server.with_lent_level(level, |server| {
                 mc_game::server::network::game_packets::process_queued_packets(server)
             })
         });
+        self.focus_ref(name);
         // a real client reports the new level loaded (`ServerboundPlayerLoadedPacket`)
         deliver(self, name, |_, _| {
             P::PlayerLoaded(mc_protocol::packets::play::ServerboundPlayerLoadedPacket)

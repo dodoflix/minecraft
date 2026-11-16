@@ -353,6 +353,11 @@ impl AttributeMap {
         order.into_iter().map(|index| &self.attributes[index])
     }
 
+    /// The attributes that have an instance, in the iteration order of vanilla's hash map.
+    pub fn instance_order(&self) -> Vec<Attribute> {
+        self.in_map_order().map(|i| i.attribute).collect()
+    }
+
     pub fn has_attribute(&self, attribute: Attribute) -> bool {
         self.attributes.contains_key(&attribute) || self.supplier_has_attribute(attribute)
     }
@@ -424,11 +429,15 @@ impl AttributeMap {
         order
     }
 
-    /// `getSyncableAttributes()`.
+    /// `getSyncableAttributes()`: `values().stream()` walks fastutil's table upwards (a spliterator), the opposite of the
+    /// iterator and `forEach` that every other reader of `attributes` uses.
     pub fn get_syncable_attributes(&self) -> Vec<&AttributeInstance> {
-        self.in_map_order()
+        let mut syncable: Vec<_> = self
+            .in_map_order()
             .filter(|i| i.attribute.data().syncable)
-            .collect()
+            .collect();
+        syncable.reverse();
+        syncable
     }
 
     pub fn instances(&self) -> impl Iterator<Item = &AttributeInstance> {

@@ -277,6 +277,7 @@ impl MinecraftServer {
             rules: self.game_rules_ref().live(),
             debug_subscribers: self.debug_subscribers.clone(),
             old_owner: Some(self.old_owner_converter()),
+            effective_respawn: self.effective_respawn_data.clone(),
         };
         level.has_ceiling = dimension_type.has_ceiling;
         level.dimension_type = Some(dimension_type.clone());
@@ -571,13 +572,14 @@ impl MinecraftServer {
     }
 
     /// `updateEffectiveRespawnData`: the overworld level data's respawn adjusted to the respawn level's world border.
-    pub(super) fn update_effective_respawn_data(&mut self) {
+    pub fn update_effective_respawn_data(&mut self) {
         let respawn_data = self.world_data.lock().respawn_data.clone();
         let dimension = self.find_respawn_dimension();
-        self.effective_respawn_data = Some(match self.level_mut(&dimension) {
+        let adjusted = match self.level_mut(&dimension) {
             Some(level) => level.get_world_border_adjusted_respawn_data(respawn_data),
             None => respawn_data,
-        });
+        };
+        *self.effective_respawn_data.write() = Some(adjusted);
     }
 
     /// `findRespawnDimension`: the dimension of the overworld level data's respawn, else the overworld.
@@ -592,9 +594,8 @@ impl MinecraftServer {
 
     /// `getRespawnData`.
     pub fn get_respawn_data(&self) -> RespawnData {
-        self.effective_respawn_data
-            .clone()
-            .unwrap_or_else(|| self.world_data.lock().respawn_data.clone())
+        let effective = self.effective_respawn_data.read().clone();
+        effective.unwrap_or_else(|| self.world_data.lock().respawn_data.clone())
     }
 
     /// `setRespawnData`.

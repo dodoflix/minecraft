@@ -59,6 +59,10 @@ impl WaypointContext for LevelContext<'_> {
             .and_then(|e| e.as_any().downcast_ref::<ServerPlayer>())
         {
             player.send(&packet);
+        } else if let Some((id, connection)) = &self.0.removing_player_connection
+            && *id == receiver
+        {
+            connection.send(&packet);
         }
     }
 

@@ -1,0 +1,72 @@
+# A forced respawn point (`/spawnpoint`): free, with a block in the way, with a block over the head, in another level, on a bed, with
+# an angle. The point is kept across respawns; a blocked one reports NO_RESPAWN_BLOCK_AVAILABLE and is dropped.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 8
+difficulty normal
+entity_counter 100
+fill -8 -61 -8 40 -61 8 minecraft:stone
+in the_nether fill -8 63 -8 20 63 8 minecraft:netherrack
+cmd setworldspawn 0 -60 0
+spawn_player A survival 20.5 -60 6.5 0 0
+spawn_player B survival 24.5 -60 6.5 0 0
+spawn_player C survival 28.5 -60 6.5 0 0
+spawn_player D survival 32.5 -60 6.5 0 0
+spawn_player E survival 36.5 -60 6.5 0 0
+block 20 -60 2 minecraft:stone
+block 24 -59 2 minecraft:stone
+block 32 -60 0 minecraft:red_bed[facing=south,part=foot]
+block 32 -60 1 minecraft:red_bed[facing=south,part=head]
+cmd spawnpoint A 12 -60 3
+cmd spawnpoint B 20 -60 2
+cmd spawnpoint C 24 -60 2
+cmd execute in minecraft:the_nether run spawnpoint D 4 64 4 45
+cmd spawnpoint E 32 -60 1 -135
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none packets:E:none nbt:A nbt:B nbt:C nbt:D nbt:E
+hurt A generic 1000
+tick 1
+respawn A
+tick 2
+dump players player:A nbt:A packets:A
+hurt A generic 1000
+tick 1
+respawn A
+tick 2
+dump players player:A nbt:A packets:A
+hurt B generic 1000
+tick 1
+respawn B
+tick 2
+dump players player:B nbt:B packets:B
+hurt C generic 1000
+tick 1
+respawn C
+tick 2
+dump players player:C nbt:C packets:C
+hurt D generic 1000
+tick 1
+respawn D
+tick 2
+dump players player:D nbt:D packets:D
+note D dies in the nether where its forced point is: same level respawn
+hurt D generic 1000
+tick 1
+respawn D
+tick 2
+dump players player:D nbt:D packets:D
+hurt E generic 1000
+tick 1
+respawn E
+tick 2
+dump players player:E nbt:E packets:E
+note a second /spawnpoint replaces the point
+cmd spawnpoint A 14 -60 3
+hurt A generic 1000
+tick 1
+respawn A
+tick 2
+dump players nbt:A packets:A

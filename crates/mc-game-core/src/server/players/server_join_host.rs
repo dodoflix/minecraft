@@ -95,8 +95,8 @@ pub fn initialize_border_packet(border: &WorldBorder) -> ClientboundInitializeBo
 /// The level facts every join/respawn packet needs, read from the server and the level.
 pub fn level_join_info(server: &mut MinecraftServer, level: &mut ServerLevel) -> LevelJoinInfo {
     let dimension = level.dimension.clone();
-    // (the level data of the overworld locks the same world data: read it before taking the lock here)
-    let respawn = level.level_data.get_respawn_data();
+    // `level.getRespawnData()`: the server's respawn data adjusted to the respawn level's world border
+    let respawn = server.get_respawn_data();
     let (hardcore, difficulty, difficulty_locked, is_flat) = {
         let data = server.world_data.lock();
         let settings = &data.settings.difficulty_settings;

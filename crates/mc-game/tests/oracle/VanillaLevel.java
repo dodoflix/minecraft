@@ -130,6 +130,7 @@ public final class VanillaLevel {
       public String levelType = "flat"; // flat | void | normal
       public long seed = 4242L;
       public String difficulty = "normal";
+      public boolean hardcore = false;
       public String dimension = "overworld"; // overworld | the_nether | the_end: the level `v.level` (blocks, ticks, dumps) refers to
       public List<String> levels = new ArrayList<>(); // `levels A,B`: every listed level is preloaded and kept in `scope` (default: only `dimension`)
       public String features = ""; // comma list of extra feature flags, e.g. redstone_experiments
@@ -398,7 +399,7 @@ public final class VanillaLevel {
       };
       Files.writeString(dir.resolve("server.properties"),
          generator + "level-seed=" + o.seed + "\nonline-mode=false\nenforce-secure-profile=false\nspawn-protection=0\ndifficulty=" + o.difficulty
-            + "\ngamemode=" + o.defaultGameType.getName() + "\ngenerate-structures=" + o.generateStructures + "\nview-distance=" + o.viewDistance
+            + "\nhardcore=" + o.hardcore + "\ngamemode=" + o.defaultGameType.getName() + "\ngenerate-structures=" + o.generateStructures + "\nview-distance=" + o.viewDistance
             + "\nsimulation-distance=" + o.simulationDistance + "\n"
             + "pause-when-empty-seconds=0\nmax-tick-time=-1\nenable-jmx-monitoring=false\nlevel-name=world\n"
             // feature packs are not selected automatically: a world only gets a feature's flag from its enabled pack

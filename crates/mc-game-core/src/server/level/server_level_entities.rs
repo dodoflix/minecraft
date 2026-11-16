@@ -680,7 +680,8 @@ impl ServerLevel {
             EntityLevelEvent::TrackingEnd(id) => {
                 self.navigating_mobs.remove(&id);
                 if self.players.contains(&id) {
-                    self.chunk_source.chunk_map.remove_player(id);
+                    // the entity is removed when its tracking ends: not alive, so no forget packets
+                    self.chunk_source.chunk_map.remove_removed_player(id);
                 }
                 let was_player = self.players.contains(&id);
                 self.players.retain(|&p| p != id);
@@ -695,7 +696,16 @@ impl ServerLevel {
                         e.as_any()
                             .downcast_ref::<crate::world::entity::ServerPlayer>()
                     })
-                    .map(PlayerRecord::of);
+                    .map(|p| {
+                        let mut record = PlayerRecord::of(p);
+                        // the stand-in of a respawning player has no connection: the entities it watched still drop out
+                        if let Some((player, connection)) = &self.removing_player_connection
+                            && *player == id
+                        {
+                            record.connection = Some(connection.clone());
+                        }
+                        record
+                    });
                 self.entity_tracker.remove_entity(
                     &mut Entities::new(&mut self.entity_manager),
                     &mut self.debug_synchronizers,

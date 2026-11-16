@@ -244,7 +244,7 @@ pub fn adjusted_spawn_pos(
     }
     let column = |level: &mut ServerLevel| {
         use mc_world::heightmap::HeightmapType;
-        let spawn_block = level.level_data.get_respawn_data().pos;
+        let spawn_block = level.get_respawn_data().pos;
         level.chunk_blocking_mut(spawn_block.x() >> 4, spawn_block.z() >> 4);
         let height = crate::world::level::LevelReader::get_height_at(
             &*level,

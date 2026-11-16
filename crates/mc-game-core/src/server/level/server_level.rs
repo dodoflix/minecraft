@@ -67,6 +67,9 @@ pub struct ServerLevel {
     /// Dead players whose entity was removed from the level (`tickDeath` after 20 ticks): vanilla keeps the `ServerPlayer`
     /// alive through the player list and its connection (still ticked, respawned later); see `server_level_entities.rs`.
     pub dead_players: std::collections::HashMap<EntityId, Box<dyn crate::world::entity::Entity>>,
+    /// The connection of a player that is being removed by a respawn: the entity is already replaced by its removed stand-in,
+    /// but the removal callbacks (waypoint disconnects) still send to the dead player.
+    pub removing_player_connection: Option<(EntityId, crate::server::network::ConnectionSender)>,
     /// An entity that is loading and not part of the level yet, but whose own name resolution (`@s` in the text of a text
     /// display) must find it; see `ServerLevel::get_entity`.
     pub loading_entity: Option<Box<dyn crate::world::entity::Entity>>,
@@ -194,6 +197,7 @@ impl ServerLevel {
             debug_synchronizers: Some(Default::default()),
             server_state: Default::default(),
             dead_players: Default::default(),
+            removing_player_connection: None,
             loading_entity: None,
             removed_entities: None,
             recently_removed: Vec::new(),
