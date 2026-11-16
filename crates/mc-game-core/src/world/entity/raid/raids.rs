@@ -126,9 +126,12 @@ impl Raids {
 
     /// `getRaidCentersInChunk(chunkPos)`.
     pub fn get_raid_centers_in_chunk(&self, chunk_x: i32, chunk_z: i32) -> Vec<BlockPos> {
-        self.view()
+        // `raidMap.values().stream()`
+        self.raid_map
+            .keys_in_stream_order()
             .into_iter()
-            .map(|m| m.center)
+            .filter_map(|k| self.raid_map.get(k))
+            .map(|s| s.meta.center)
             .filter(|c| c.x() >> 4 == chunk_x && c.z() >> 4 == chunk_z)
             .collect()
     }
@@ -180,25 +183,48 @@ impl Raids {
         };
         raids.next_id = codec::int(codec::field(m, "next_id")?)?;
         raids.tick = codec::int(codec::field(m, "tick")?)?;
-        if let Some(list) = codec::optional(m, "raids", codec::list)? {
-            for entry in list {
-                let e = codec::compound(&entry)?;
-                let id = codec::int(codec::field(e, "id")?)?;
-                let raid = Raid::decode(e).map_err(|p: Partial<Raid>| Partial {
-                    value: None,
-                    error: p.error,
-                })?;
-                raids.put(id, raid);
+        // `RaidWithId.CODEC.listOf()`: an entry that fails without a partial value is dropped, one with a partial value
+        // (a bad `heroes_of_the_village` element) is kept; the first error is the result's error
+        let mut error = None;
+        match codec::optional(m, "raids", codec::list) {
+            Ok(Some(list)) => {
+                for entry in list {
+                    let decoded = codec::compound(&entry).and_then(|e| {
+                        let id = codec::int(codec::field(e, "id")?)?;
+                        Ok((id, Raid::decode(e)))
+                    });
+                    match decoded {
+                        Ok((id, Ok(raid))) => raids.put(id, raid),
+                        Ok((id, Err(p))) => {
+                            error.get_or_insert(p.error);
+                            if let Some(raid) = p.value {
+                                raids.put(id, raid);
+                            }
+                        }
+                        Err(e) => {
+                            error.get_or_insert(e);
+                        }
+                    }
+                }
             }
+            Ok(None) => {}
+            Err(e) => error = Some(e),
         }
-        Ok(raids)
+        match error {
+            None => Ok(raids),
+            Some(error) => Err(Partial {
+                value: Some(raids),
+                error,
+            }),
+        }
     }
 
     fn encode(&self) -> DataResult<Tag> {
         let mut out = CompoundTag::new();
         // `optionalFieldOf("raids", List.of())` omits an empty list
         let mut list = ListTag::new();
-        for key in self.raid_map.keys() {
+        // `int2ObjectEntrySet().stream()`
+        for key in self.raid_map.keys_in_stream_order() {
             let Some(slot) = self.raid_map.get(key) else {
                 continue;
             };

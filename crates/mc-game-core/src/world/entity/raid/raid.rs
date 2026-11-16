@@ -1273,9 +1273,16 @@ impl Raid {
         let status = RaidStatus::by_name(status_name)
             .ok_or_else(|| format!("Unknown element name:{status_name}"))?;
         let center = decode_block_pos(codec::field(map, "center")?)?;
+        // `UUIDUtil.CODEC_SET`: a list element that is no UUID is dropped and makes the raid a partial result
         let mut heroes: Vec<Uuid> = Vec::new();
+        let mut hero_error = None;
         for tag in codec::list(codec::field(map, "heroes_of_the_village")?)? {
-            heroes.push(decode_uuid(&tag)?);
+            match decode_uuid(&tag) {
+                Ok(uuid) => heroes.push(uuid),
+                Err(e) => {
+                    hero_error.get_or_insert(e);
+                }
+            }
         }
         let mut random = random::create_new();
         let event_id = mth::create_insecure_uuid(&mut random);
@@ -1293,7 +1300,13 @@ impl Raid {
         for h in heroes {
             raid.add_hero_of_the_village_uuid(h);
         }
-        Ok(raid)
+        match hero_error {
+            None => Ok(raid),
+            Some(error) => Err(codec::Partial {
+                value: Some(raid),
+                error,
+            }),
+        }
     }
 
     fn add_hero_of_the_village_uuid(&mut self, uuid: Uuid) {

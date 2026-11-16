@@ -121,34 +121,63 @@ pub struct PackedBossEvent {
 }
 
 impl PackedBossEvent {
-    fn decode(tag: &Tag) -> DataResult<PackedBossEvent> {
+    /// `Packed.CODEC`: a bad optional field takes its default and makes the result partial; a bad `Name` has no partial.
+    #[expect(
+        clippy::result_large_err,
+        reason = "`DecodeResult` returns the partially decoded value as the error, like DFU's partial result"
+    )]
+    fn decode(tag: &Tag) -> DecodeResult<PackedBossEvent> {
         let m = codec::compound(tag)?;
-        Ok(PackedBossEvent {
-            name: Component::from_nbt(codec::field(m, "Name")?).map_err(|e| e.to_string())?,
-            visible: codec::optional(m, "Visible", codec::boolean)?.unwrap_or(false),
-            value: codec::optional(m, "Value", codec::int)?.unwrap_or(0),
-            max: codec::optional(m, "Max", codec::int)?.unwrap_or(100),
-            color: codec::optional(m, "Color", |t| enum_by_name(t, BossBarColor::by_name))?
-                .unwrap_or(BossBarColor::White),
-            overlay: codec::optional(m, "Overlay", |t| enum_by_name(t, BossBarOverlay::by_name))?
-                .unwrap_or(BossBarOverlay::Progress),
-            darken_screen: codec::optional(m, "DarkenScreen", codec::boolean)?.unwrap_or(false),
-            play_boss_music: codec::optional(m, "PlayBossMusic", codec::boolean)?.unwrap_or(false),
-            create_world_fog: codec::optional(m, "CreateWorldFog", codec::boolean)?
+        let name = Component::from_nbt(codec::field(m, "Name")?).map_err(|e| e.to_string())?;
+        let mut errors = Vec::new();
+        let e = &mut errors;
+        let mut packed = PackedBossEvent {
+            name,
+            visible: codec::optional_or_default(m, "Visible", e, codec::boolean).unwrap_or(false),
+            value: codec::optional_or_default(m, "Value", e, codec::int).unwrap_or(0),
+            max: codec::optional_or_default(m, "Max", e, codec::int).unwrap_or(100),
+            color: codec::optional_or_default(m, "Color", e, |t| {
+                enum_by_name(t, BossBarColor::by_name)
+            })
+            .unwrap_or(BossBarColor::White),
+            overlay: codec::optional_or_default(m, "Overlay", e, |t| {
+                enum_by_name(t, BossBarOverlay::by_name)
+            })
+            .unwrap_or(BossBarOverlay::Progress),
+            darken_screen: codec::optional_or_default(m, "DarkenScreen", e, codec::boolean)
                 .unwrap_or(false),
-            players: codec::optional(m, "Players", |t| {
-                codec::list(t)?
-                    .iter()
-                    .map(|e| match e {
-                        Tag::IntArray(a) if a.len() == 4 => {
-                            Ok(uuid_from_int_array([a[0], a[1], a[2], a[3]]))
+            play_boss_music: codec::optional_or_default(m, "PlayBossMusic", e, codec::boolean)
+                .unwrap_or(false),
+            create_world_fog: codec::optional_or_default(m, "CreateWorldFog", e, codec::boolean)
+                .unwrap_or(false),
+            players: Default::default(),
+        };
+        // `UUIDUtil.CODEC_SET`: a list element that is no UUID is dropped (partial list)
+        if let Some(t) = m.get("Players") {
+            match codec::list(t) {
+                Ok(items) => {
+                    for item in &items {
+                        match item {
+                            Tag::IntArray(a) if a.len() == 4 => {
+                                packed
+                                    .players
+                                    .insert(uuid_from_int_array([a[0], a[1], a[2], a[3]]));
+                            }
+                            _ => errors.push("Expected an int array of length 4".to_string()),
                         }
-                        _ => Err("Expected an int array of length 4".to_string()),
-                    })
-                    .collect::<DataResult<BTreeSet<_>>>()
-            })?
-            .unwrap_or_default(),
-        })
+                    }
+                }
+                Err(error) => errors.push(error),
+            }
+        }
+        if errors.is_empty() {
+            Ok(packed)
+        } else {
+            Err(codec::Partial {
+                value: Some(packed),
+                error: errors.join("; "),
+            })
+        }
     }
 
     fn encode(&self) -> DataResult<Tag> {

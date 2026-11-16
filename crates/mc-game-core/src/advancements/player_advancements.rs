@@ -158,25 +158,13 @@ impl PlayerAdvancements {
             .filter(|(_, p)| p.has_progress())
             .map(|(h, p)| (h.id.clone(), p.clone()))
             .collect();
-        let encoded = data_codec().encode_start(&JSON, &data).into_result();
-        let mut json = match encoded
-            .map(|d| d.to_json_string())
-            .ok()
-            .and_then(|s| serde_json::from_str::<Value>(&s).ok())
-        {
-            Some(Value::Object(o)) => o,
-            _ => {
-                log::error!(
-                    "Couldn't save player advancements to {}: encoding failed",
-                    path.display()
-                );
-                return;
-            }
+        let Some(json) = progress_file_json(data) else {
+            log::error!(
+                "Couldn't save player advancements to {}: encoding failed",
+                path.display()
+            );
+            return;
         };
-        json.insert(
-            "DataVersion".into(),
-            Value::from(mc_world::level_storage::WORLD_VERSION),
-        );
         if let Err(e) = crate::server::players::player_files::save_json(path, &Value::Object(json))
         {
             log::error!(
@@ -474,6 +462,25 @@ impl PlayerAdvancements {
     }
 }
 
+/// `codec.encodeStart(JsonOps.INSTANCE, data)`: the progress file's object including `DataVersion` (`DataFixTypes.wrapCodec`).
+fn progress_file_json(
+    data: Vec<(Identifier, AdvancementProgress)>,
+) -> Option<serde_json::Map<String, Value>> {
+    let encoded = data_codec().encode_start(&JSON, &data).into_result();
+    let Some(Value::Object(mut json)) = encoded
+        .map(|d| d.to_json_string())
+        .ok()
+        .and_then(|s| serde_json::from_str::<Value>(&s).ok())
+    else {
+        return None;
+    };
+    json.insert(
+        "DataVersion".into(),
+        Value::from(mc_world::level_storage::WORLD_VERSION),
+    );
+    Some(json)
+}
+
 /// Strict JSON parse of a progress file + `Data.CODEC` (`DataVersion` removed first, like `DataFixTypes.wrapCodec`).
 fn parse_player_file(text: &str) -> Result<Vec<(Identifier, AdvancementProgress)>, String> {
     let mut json: Value = serde_json::from_str(text).map_err(|e| e.to_string())?;
@@ -599,5 +606,50 @@ pub fn broadcast_system_message(level: &ServerLevel, message: &mc_text::Componen
     log::info!("System chat: {}", message.get_string());
     for player in level.all_player_handles() {
         player.send_system_message(message, false);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// The obtained times are written in the system's zone: the golden has them in UTC.
+    fn utc_times(json: Value) -> Value {
+        match json {
+            Value::String(s) => {
+                match chrono::DateTime::parse_from_str(&s, "%Y-%m-%d %H:%M:%S %z") {
+                    Ok(time) => Value::String(
+                        time.with_timezone(&chrono::Utc)
+                            .format("%Y-%m-%d %H:%M:%S +0000")
+                            .to_string(),
+                    ),
+                    Err(_) => Value::String(s),
+                }
+            }
+            Value::Object(o) => {
+                Value::Object(o.into_iter().map(|(k, v)| (k, utc_times(v))).collect())
+            }
+            other => other,
+        }
+    }
+
+    /// The file `PlayerAdvancements.save()` writes equals the real class's output (`saved_data.golden`, `advancements` rows):
+    /// progress read from the input, written with Gson's `htmlSafe` escapes of criterion names.
+    #[test]
+    fn progress_file_bytes_match_vanilla() {
+        let golden = include_str!("../../../mc-game/tests/fixtures/saved_data.golden");
+        let mut rows = 0;
+        for (input, expected) in golden
+            .lines()
+            .filter_map(|l| l.strip_prefix("advancements "))
+            .map(|l| l.split_once('\t').unwrap())
+        {
+            let data = parse_player_file(input).unwrap();
+            let json = utc_times(Value::Object(progress_file_json(data).unwrap()));
+            let written = crate::server::players::player_files::to_gson_pretty(&json);
+            assert_eq!(written.replace('\n', "¶"), expected, "{input}");
+            rows += 1;
+        }
+        assert_eq!(rows, 2);
     }
 }

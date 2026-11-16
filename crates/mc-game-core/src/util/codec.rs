@@ -98,6 +98,20 @@ pub fn field<'a>(map: &'a CompoundTag, name: &str) -> DataResult<&'a Tag> {
         .ok_or_else(|| format!("No key {name} in MapLike[{}]", Tag::Compound(map.clone())))
 }
 
+/// `optionalFieldOf(name, default)` inside a record that keeps decoding: a present-but-invalid value yields `None` (the
+/// default) and its message goes to `errors` (the record's partial result).
+pub fn optional_or_default<'a, T>(
+    map: &'a CompoundTag,
+    name: &str,
+    errors: &mut Vec<String>,
+    parse: impl FnOnce(&'a Tag) -> DataResult<T>,
+) -> Option<T> {
+    optional(map, name, parse).unwrap_or_else(|e| {
+        errors.push(e);
+        None
+    })
+}
+
 /// `optionalFieldOf(name)`: absent is `None`, present-but-invalid is an error.
 pub fn optional<'a, T>(
     map: &'a CompoundTag,
@@ -112,17 +126,19 @@ pub fn optional<'a, T>(
 pub fn unbounded_map<K, V>(
     tag: &Tag,
     key: impl FnMut(&str) -> DataResult<K>,
-    value: impl FnMut(&Tag) -> DataResult<V>,
+    mut value: impl FnMut(&Tag) -> DataResult<V>,
 ) -> DecodeResult<Vec<(K, V)>> {
-    unbounded_map_in(compound(tag)?.iter(), key, value)
+    unbounded_map_in(compound(tag)?.iter(), key, |t| {
+        value(t).map_err(Partial::from)
+    })
 }
 
 /// [`unbounded_map`] reading the entries in the iteration order of vanilla's `CompoundTag` (a `HashMap`), for a decoder whose
-/// result depends on it (the order the entries enter another hash map).
+/// result depends on it (the order the entries enter another hash map). A value that fails with a partial value is kept.
 pub fn unbounded_map_hash_order<K, V>(
     tag: &Tag,
     key: impl FnMut(&str) -> DataResult<K>,
-    value: impl FnMut(&Tag) -> DataResult<V>,
+    value: impl FnMut(&Tag) -> DecodeResult<V>,
 ) -> DecodeResult<Vec<(K, V)>> {
     unbounded_map_in(compound(tag)?.iter_java_order().into_iter(), key, value)
 }
@@ -130,14 +146,27 @@ pub fn unbounded_map_hash_order<K, V>(
 fn unbounded_map_in<'a, K, V>(
     entries: impl ExactSizeIterator<Item = (&'a String, &'a Tag)>,
     mut key: impl FnMut(&str) -> DataResult<K>,
-    mut value: impl FnMut(&Tag) -> DataResult<V>,
+    mut value: impl FnMut(&Tag) -> DecodeResult<V>,
 ) -> DecodeResult<Vec<(K, V)>> {
     let mut ok = Vec::with_capacity(entries.len());
     let mut errors = Vec::new();
     for (k, v) in entries {
-        match key(k).and_then(|k| Ok((k, value(v)?))) {
-            Ok(entry) => ok.push(entry),
-            Err(e) => errors.push(format!("{e} missed input: {{{k:?}:{v}}}")),
+        let key = match key(k) {
+            Ok(key) => key,
+            Err(e) => {
+                errors.push(format!("{e} missed input: {{{k:?}:{v}}}"));
+                continue;
+            }
+        };
+        // `resultOrPartial`: an entry whose value failed with a partial value stays in the map
+        match value(v) {
+            Ok(value) => ok.push((key, value)),
+            Err(Partial { value, error }) => {
+                errors.push(format!("{error} missed input: {{{k:?}:{v}}}"));
+                if let Some(value) = value {
+                    ok.push((key, value));
+                }
+            }
         }
     }
     if errors.is_empty() {

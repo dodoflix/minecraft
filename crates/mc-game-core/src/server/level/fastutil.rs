@@ -283,6 +283,17 @@ impl<V> LongOpenHashMap<V> {
         out
     }
 
+    /// Keys in the order of the map's `spliterator()` (`stream()`): the null key, then the table slots ascending, the
+    /// opposite of the iterator's.
+    pub fn keys_in_stream_order(&self) -> Vec<i64> {
+        let mut out = Vec::with_capacity(self.size);
+        if self.contains_null_key {
+            out.push(0);
+        }
+        out.extend((0..self.n).map(|pos| self.key[pos]).filter(|&k| k != 0));
+        out
+    }
+
     /// Entries in fastutil iteration order.
     pub fn iter(&self) -> impl Iterator<Item = (i64, &V)> {
         let null = self

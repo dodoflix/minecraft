@@ -3,14 +3,27 @@
 use std::collections::HashMap;
 
 use mc_core::ident::Identifier;
+use mc_game::server::bossevents::CustomBossEvents;
+use mc_game::server::players::player_files;
+use mc_game::stats::ServerStatsCounter;
+use mc_game::stats::stat::by_names;
 use mc_game::util::timer_queue::{
     FunctionCallback, FunctionHost, FunctionTagCallback, TimerCallbacks, TimerQueue,
 };
 use mc_game::world::clock::ClockState;
+use mc_game::world::entity::raid::raids::raids_type;
+use mc_game::world::level::dimension::end::ender_dragon_fight_type;
+use mc_game::world::level::saveddata::command_storage::Container;
+use mc_game::world::level::saveddata::maps::MapIndex;
 use mc_game::world::level::saveddata::random_sequences::RandomSequences;
+use mc_game::world::level::saveddata::stopwatches::Stopwatches;
 use mc_game::world::level::saveddata::wandering_trader_data::WanderingTraderData;
 use mc_game::world::level::saveddata::weather_data::WeatherData;
-use mc_nbt::Tag;
+use mc_game::world::level::saveddata::world_border::WorldBorder;
+use mc_game::world::level::saveddata::{SavedData, SavedDataType};
+use mc_game::world::level::ticket_storage;
+use mc_nbt::{CompoundTag, ListTag, Tag};
+use mc_world::level_storage::SavedDataStorage;
 
 fn golden() -> HashMap<String, String> {
     include_str!("../../../mc-game/tests/fixtures/saved_data.golden")
@@ -210,4 +223,215 @@ fn timer_queue_codec_matches_vanilla() {
     let back = (ty.decode)(&tag).map_err(|e| e.error).unwrap();
     assert_eq!((ty.encode)(&back).unwrap(), tag);
     let _ = TimerCallbacks::<Ctx>::server_callbacks();
+}
+
+/// Player lists of boss events are `Set.copyOf` sets (random order in vanilla): the golden has them sorted.
+fn canon(tag: &Tag) -> Tag {
+    match tag {
+        Tag::Compound(c) => {
+            let mut out = CompoundTag::new();
+            for (k, v) in c.iter() {
+                let mut v = canon(v);
+                if k == "Players"
+                    && let Tag::List(l) = &mut v
+                {
+                    let mut items: Vec<Tag> = l.iter().cloned().collect();
+                    items.sort_by_key(|t| format!("{t:?}"));
+                    *l = ListTag::from(items);
+                }
+                out.put(k.clone(), v);
+            }
+            Tag::Compound(out)
+        }
+        Tag::List(l) => Tag::List(l.iter().map(canon).collect()),
+        other => other.clone(),
+    }
+}
+
+/// Stopwatch values grow by the milliseconds elapsed since the decode: values within 50 of the input are the input.
+fn unfuzz(out: Tag, input: &Tag) -> Tag {
+    let Tag::Compound(mut out) = out else {
+        return out;
+    };
+    let given = input
+        .as_compound()
+        .map(|c| c.get_compound_or_empty("stopwatches"));
+    if let Some(Tag::Compound(inner)) = out.get_mut("stopwatches") {
+        for (k, v) in inner.iter_mut() {
+            let was = given.and_then(|g| g.get(k)).and_then(Tag::as_number);
+            if let (Some(got), Some(was)) = (v.as_long(), was)
+                && (got - was.long_value()).abs() <= 50
+            {
+                *v = Tag::Long(was.long_value());
+            }
+        }
+    }
+    Tag::Compound(out)
+}
+
+/// `ok <snbt>`, `partial <snbt>` or `err` for decoding `input` with `ty` and encoding the result.
+fn codec_line<T: SavedData>(ty: &SavedDataType<T>, input: &str, fuzzy: bool) -> String {
+    let tag = Tag::Compound(mc_nbt::snbt::parse_compound(input).unwrap());
+    let (kind, value) = match (ty.decode)(&tag) {
+        Ok(v) => ("ok", v),
+        Err(p) => match p.value {
+            Some(v) => ("partial", v),
+            None => return "err".to_string(),
+        },
+    };
+    let mut enc = canon(&(ty.encode)(&value).unwrap());
+    if fuzzy {
+        enc = unfuzz(enc, &tag);
+    }
+    format!("{kind} {enc}")
+}
+
+/// Every `<prefix> <input>` golden line against `codec_line`; the results are compared as parsed tags (compound order is
+/// not significant to `CompoundTag`, the order of lists is).
+fn check_codec_lines<T: SavedData>(prefix: &str, ty: &SavedDataType<T>, fuzzy: bool) -> usize {
+    let mut n = 0;
+    for (key, expected) in golden() {
+        let Some(input) = key.strip_prefix(prefix).and_then(|r| r.strip_prefix(' ')) else {
+            continue;
+        };
+        let got = codec_line(ty, input, fuzzy);
+        let split = |l: &str| match l.split_once(' ') {
+            Some((kind, tag)) => (kind.to_string(), Some(mc_nbt::snbt::parse(tag).unwrap())),
+            None => (l.to_string(), None),
+        };
+        assert_eq!(
+            split(&got),
+            split(&expected),
+            "{key}\n  ours:    {got}\n  vanilla: {expected}"
+        );
+        n += 1;
+    }
+    n
+}
+
+#[test]
+fn command_storage_container_codec_matches_vanilla() {
+    let ty = Container::type_("minecraft").unwrap();
+    assert_eq!(check_codec_lines("command_storage", &ty, false), 8);
+}
+
+#[test]
+fn stopwatches_codec_matches_vanilla() {
+    assert_eq!(
+        check_codec_lines("stopwatches", &Stopwatches::type_(), true),
+        6
+    );
+}
+
+#[test]
+fn map_index_codec_matches_vanilla() {
+    assert_eq!(check_codec_lines("map_index", &MapIndex::type_(), false), 7);
+}
+
+#[test]
+fn raids_codec_matches_vanilla() {
+    assert_eq!(check_codec_lines("raids", raids_type(), false), 11);
+}
+
+#[test]
+fn custom_boss_events_codec_matches_vanilla() {
+    assert_eq!(
+        check_codec_lines("custom_boss_events", &CustomBossEvents::type_(), false),
+        11
+    );
+}
+
+/// The vanilla-written files of the committed fixture world decode and re-encode like the real classes do (vanilla's own
+/// re-encode of `chunk_tickets.dat` does not keep the file's ticket order: it follows the hash table of the decoded map).
+#[test]
+fn fixture_world_files_re_encode_like_vanilla() {
+    fn check<T: SavedData>(dir: &str, ty: &SavedDataType<T>, prepare: impl FnOnce(&mut T)) {
+        let world = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../mc-world/tests/fixtures/level_storage/world/dimensions/minecraft")
+            .join(dir)
+            .join("data");
+        let raw = SavedDataStorage::new(world).get(&ty.id).unwrap();
+        let mut v = (ty.decode)(&raw).unwrap_or_else(|e| panic!("{}: {}", ty.id, e.error));
+        prepare(&mut v);
+        let name = ty.id.path();
+        let key = format!("fixture dimensions/minecraft/{dir} {name}");
+        assert_eq!((ty.encode)(&v).unwrap(), snbt(&golden(), &key), "{key}");
+    }
+    for dim in ["overworld", "the_nether", "the_end"] {
+        check(dim, &WorldBorder::type_(), |b| b.apply_initial_settings(0));
+        check(dim, raids_type(), |_| {});
+        check(dim, &ticket_storage::saved_data_type(), |_| {});
+    }
+    check("the_end", ender_dragon_fight_type(), |_| {});
+}
+
+/// The files of the per-player JSON writer: Gson `setPrettyPrinting` with `htmlSafe` (`gson` rows, the `¶` stands for a newline).
+#[test]
+fn gson_writer_matches_vanilla() {
+    let mut rows = 0;
+    for (key, expected) in golden() {
+        let Some(input) = key.strip_prefix("gson ") else {
+            continue;
+        };
+        let json: serde_json::Value = serde_json::from_str(input).unwrap();
+        assert_eq!(
+            player_files::to_gson_pretty(&json).replace('\n', "¶"),
+            expected,
+            "{input}"
+        );
+        rows += 1;
+    }
+    assert_eq!(rows, 3);
+}
+
+/// `ServerStatsCounter.save()`: the stat types of vanilla's file come in a random order, ours are compared sorted.
+#[test]
+fn stats_file_matches_vanilla() {
+    let stat = |ty: &str, name: &str| {
+        by_names(&id(ty), &id(name)).unwrap_or_else(|e| panic!("{ty} {name}: {e}"))
+    };
+    let jump = stat("minecraft:custom", "minecraft:jump");
+    let cases: [(&str, Vec<(mc_game::stats::stat::Stat, i32)>); 3] = [
+        (
+            "custom",
+            vec![
+                (jump, 7),
+                (stat("minecraft:custom", "minecraft:walk_one_cm"), 1234),
+                (stat("minecraft:custom", "minecraft:play_time"), i32::MAX),
+            ],
+        ),
+        (
+            "mixed",
+            vec![
+                (jump, 1),
+                (stat("minecraft:mined", "minecraft:stone"), 5),
+                (stat("minecraft:crafted", "minecraft:stick"), 3),
+            ],
+        ),
+        ("empty", vec![]),
+    ];
+    let golden = golden();
+    for (name, stats) in cases {
+        let dir = tempfile::tempdir().unwrap();
+        let file = dir.path().join("stats.json");
+        let mut counter = ServerStatsCounter::new(file.clone());
+        for (s, n) in stats {
+            counter.increment(s, n);
+        }
+        counter.save();
+        let mut saved: serde_json::Value =
+            serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
+        let sorted: std::collections::BTreeMap<_, _> = saved["stats"]
+            .as_object()
+            .unwrap()
+            .clone()
+            .into_iter()
+            .collect();
+        saved["stats"] = serde_json::Value::Object(sorted.into_iter().collect());
+        assert_eq!(
+            player_files::to_gson_pretty(&saved).replace('\n', "¶"),
+            golden[&format!("stats_file {name}")],
+            "{name}"
+        );
+    }
 }

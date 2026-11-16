@@ -170,10 +170,20 @@ impl MapIndex {
 
     pub fn decode(tag: &Tag) -> DecodeResult<MapIndex> {
         let m = codec::compound(tag)?;
-        Ok(MapIndex {
+        let mut errors = Vec::new();
+        let index = MapIndex {
             dirty: false,
-            last_map_id: codec::optional(m, "map", codec::int)?.unwrap_or(-1),
-        })
+            last_map_id: codec::optional_or_default(m, "map", &mut errors, codec::int)
+                .unwrap_or(-1),
+        };
+        if errors.is_empty() {
+            Ok(index)
+        } else {
+            Err(codec::Partial {
+                value: Some(index),
+                error: errors.join("; "),
+            })
+        }
     }
 
     pub fn encode(&self) -> DataResult<Tag> {

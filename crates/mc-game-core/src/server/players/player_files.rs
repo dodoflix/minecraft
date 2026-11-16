@@ -7,13 +7,24 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use uuid::Uuid;
 
-/// Gson `setPrettyPrinting` output (2-space indent, `"key": value`), no trailing newline.
-fn to_gson_pretty(value: &Value) -> String {
+/// Gson `setPrettyPrinting` output (2-space indent, `"key": value`), no trailing newline, with the default `htmlSafe`
+/// escapes: `< > & = '` and U+2028/U+2029 become `\uXXXX` (they can only occur inside a string).
+pub fn to_gson_pretty(value: &Value) -> String {
     let mut out = Vec::new();
     let formatter = serde_json::ser::PrettyFormatter::with_indent(b"  ");
     let mut ser = serde_json::Serializer::with_formatter(&mut out, formatter);
     serde::Serialize::serialize(value, &mut ser).expect("serializing a JSON value cannot fail");
-    String::from_utf8(out).expect("serde_json writes UTF-8")
+    let json = String::from_utf8(out).expect("serde_json writes UTF-8");
+    let mut escaped = String::with_capacity(json.len());
+    for c in json.chars() {
+        match c {
+            '<' | '>' | '&' | '=' | '\'' | '\u{2028}' | '\u{2029}' => {
+                escaped.push_str(&format!("\\u{:04x}", c as u32));
+            }
+            c => escaped.push(c),
+        }
+    }
+    escaped
 }
 
 pub(crate) fn save_json(file: &Path, json: &Value) -> std::io::Result<()> {
@@ -61,6 +72,16 @@ fn is_valid_path_segment(s: &str) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn gson_escapes_html_characters_in_strings() {
+        let json: Value =
+            serde_json::from_str(r#"{"a<b>":"x&y=z'w","n":[1,{"k":[]}],"u":"\u2028 é"}"#).unwrap();
+        assert_eq!(
+            to_gson_pretty(&json),
+            "{\n  \"a\\u003cb\\u003e\": \"x\\u0026y\\u003dz\\u0027w\",\n  \"n\": [\n    1,\n    {\n      \"k\": []\n    }\n  ],\n  \"u\": \"\\u2028 é\"\n}"
+        );
+    }
 
     #[test]
     fn legacy_name_file_is_migrated() {
