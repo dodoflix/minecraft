@@ -53,7 +53,7 @@ impl MeleeAttackGoal {
         let Some(target_id) = tick::get_target_checked(mob, level) else {
             return false;
         };
-        let Some(target) = level.get_entity(target_id) else {
+        let Some(target) = level.get_entity_or_remote_target(target_id) else {
             return false;
         };
         if !target.is_alive() {
@@ -64,7 +64,7 @@ impl MeleeAttackGoal {
         if self.path.is_some() {
             return true;
         }
-        match level.get_entity(target_id) {
+        match level.get_entity_or_remote_target(target_id) {
             Some(target) => combat::is_within_melee_attack_range(mob, level, target),
             None => false,
         }
@@ -79,7 +79,7 @@ impl MeleeAttackGoal {
         let Some(target_id) = tick::get_target_checked(mob, level) else {
             return false;
         };
-        let Some(target) = level.get_entity(target_id) else {
+        let Some(target) = level.get_entity_or_remote_target(target_id) else {
             return false;
         };
         if !target.is_alive() {
@@ -109,7 +109,8 @@ impl MeleeAttackGoal {
     /// `stop()`.
     pub fn stop_impl(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         // `!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(target)` on `getTarget()` (already filtered by `asValidTarget`)
-        if let Some(target) = tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t))
+        if let Some(target) =
+            tick::get_target_checked(mob, level).and_then(|t| level.get_entity_or_remote_target(t))
             && target.is_player()
             && (target.is_spectator() || ext::is_creative_player(target))
         {
@@ -137,14 +138,14 @@ impl MeleeAttackGoal {
             return;
         };
         {
-            let Some(target) = level.get_entity(target_id) else {
+            let Some(target) = level.get_entity_or_remote_target(target_id) else {
                 return;
             };
             mob::look_at_entity_full(mob, target, 30.0, 30.0);
         }
         self.ticks_until_next_path_recalculation =
             (self.ticks_until_next_path_recalculation - 1).max(0);
-        let Some(target) = level.get_entity(target_id) else {
+        let Some(target) = level.get_entity_or_remote_target(target_id) else {
             return;
         };
         if (self.following_target_even_if_not_seen
@@ -218,7 +219,7 @@ impl MeleeAttackGoal {
         level: &ServerLevel,
         target: EntityId,
     ) -> bool {
-        let Some(target) = level.get_entity(target) else {
+        let Some(target) = level.get_entity_or_remote_target(target) else {
             return false;
         };
         self.is_time_to_attack()

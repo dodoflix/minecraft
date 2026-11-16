@@ -84,7 +84,9 @@ impl EntitySubPredicateImpl for TargetedEntityPredicate {
         self.targeted_entity.matches_nullable(
             level,
             position,
-            entity.get_target().and_then(|id| level.get_entity(id)),
+            entity
+                .get_target()
+                .and_then(|id| level.get_entity_or_remote_target(id)),
         )
     }
 }

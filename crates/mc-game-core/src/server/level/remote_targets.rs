@@ -2,17 +2,20 @@
 //!
 //! A mob keeps the `Player` object it hunts when that player is in another level (`Mob.target` is the entity, and a
 //! saved `angry_at` is resolved in any dimension): its goals read the player's position, box, game mode and health, and
-//! walk toward the coordinates. Rust mobs hold the target as an id that every goal resolves in the running level, so
-//! the level keeps a stand-in for such a player: a `ServerPlayer` without a connection that mirrors what the
-//! [`EntityDirectory`](super::EntityDirectory) copy knows, refreshed at the start of every tick of the level. The
-//! stand-in is found by [`ServerLevel::get_entity`](super::ServerLevel::get_entity) like any entity of the level, but
-//! it is no member of the level: nothing ticks, tracks, saves or lends it, and `with_entity` does not find it.
+//! walk toward the coordinates. Rust mobs hold the target as an id that every goal resolves in the running level, and
+//! kill credit, loot and advancement predicates read the killer of a damage source the same way, so the level keeps a
+//! stand-in for such a player: a `ServerPlayer` without a connection that mirrors what the
+//! [`EntityDirectory`](super::EntityDirectory) copy knows (the saved player data, so its equipment, effects, food,
+//! experience and tags, and its attributes, statistics and advancements), refreshed at the start of every tick of the
+//! level. The
+//! stand-in is found by [`ServerLevel::get_entity_or_remote_target`](super::ServerLevel::get_entity_or_remote_target)
+//! (the lookup of code that vanilla runs on the `Player` it holds), never by `get_entity`; it is no member of the level: nothing ticks, tracks, saves or lends it, and `with_entity` does not find it.
 //!
 //! `hasLineOfSight` is false across levels like in vanilla, and the melee goals and behaviors of the neutral mobs attack
 //! only with a line of sight, so a mob never hurts the player it walks toward (checked against the real server).
 
 use super::entity_directory::{EntityDirectory, RemoteEntity};
-use crate::world::entity::entity::{DATA_POSE, DATA_SHARED_FLAGS_ID};
+use crate::world::entity::entity::{DATA_POSE, DATA_SHARED_FLAGS_ID, load};
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::level::DimensionKey;
 use mc_protocol::codec::GameProfile;
@@ -82,6 +85,20 @@ impl RemoteTargets {
 
 /// What the directory copy `remote` knows of a player, written into its stand-in.
 fn mirror(stand_in: &mut ServerPlayer, remote: &RemoteEntity) {
+    if let Some(player) = &remote.player {
+        // the player's data first: the fields below are the live values of the copy. A recipe that was taken away
+        // must not survive the load, which only adds
+        stand_in.recipe_book = Default::default();
+        let loaded = load(stand_in, None, &player.saved);
+        debug_assert!(loaded.is_ok(), "the saved data of a live player loads");
+        stand_in.player.living.attributes = player.attributes.lock().clone();
+        stand_in.stats = player.stats.clone();
+        stand_in.advancements = player.advancements.clone();
+        stand_in.last_client_input = remote.last_client_input;
+        stand_in.last_known_client_movement = remote.last_known_client_movement;
+        stand_in.set_y_head_rot(remote.y_head_rot);
+        stand_in.set_y_body_rot(remote.y_body_rot);
+    }
     stand_in.dimension = remote.dimension.clone();
     stand_in.game_mode.game_mode_for_player = remote.game_type;
     let base = stand_in.base_mut();
@@ -90,15 +107,12 @@ fn mirror(stand_in: &mut ServerPlayer, remote: &RemoteEntity) {
     base.set_y_rot(remote.y_rot);
     base.set_x_rot(remote.x_rot);
     base.eye_height = remote.eye_height;
+    base.tick_count = remote.tick_count;
+    base.was_touching_water = remote.was_touching_water;
     base.entity_data.set(DATA_POSE, remote.pose);
     base.entity_data
         .set(DATA_SHARED_FLAGS_ID, remote.shared_flags);
     if let Some(living) = stand_in.living_mut() {
         living.set_health(remote.health);
-        living
-            .attributes
-            .get_instance(mc_data::Attribute::LUCK)
-            .expect("a player has luck")
-            .set_base_value(remote.luck);
     }
 }

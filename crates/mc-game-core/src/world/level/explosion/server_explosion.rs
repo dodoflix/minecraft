@@ -85,6 +85,9 @@ impl<'a> ServerExplosion<'a> {
         let remote_indirect = source_entity
             .filter(|_| local_indirect.is_none())
             .and_then(|s| s.explosion_remote_indirect_source(level));
+        if let Some(remote) = &remote_indirect {
+            level.ensure_remote_player(remote);
+        }
         let indirect_source = local_indirect.or(remote_indirect.as_ref().map(|r| r.id));
         let damage_source = damage_source.unwrap_or_else(|| {
             match remote_indirect.and_then(|r| {

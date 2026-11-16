@@ -12,14 +12,19 @@
 //! changed it); vanilla reads the live object. Upgrade when a reader needs a value that changes between two
 //! `put_back_entity` calls.
 
+use crate::advancements::SharedAdvancements;
+use crate::stats::SharedStats;
 use crate::world::damagesource::DamageEntity;
-use crate::world::entity::entity::DATA_SHARED_FLAGS_ID;
+use crate::world::entity::attributes::AttributeMap;
+use crate::world::entity::entity::{self, DATA_SHARED_FLAGS_ID};
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::item::ItemStack;
 use crate::world::level::DimensionKey;
 use mc_core::phys::{AABB, Vec3};
 use mc_data::EntityType;
 use mc_data::enums::{GameType, Pose};
+use mc_nbt::CompoundTag;
+use mc_protocol::packets::play::Input;
 use parking_lot::Mutex;
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -57,8 +62,15 @@ pub struct RemoteEntity {
     /// `getPose()` and the shared flags byte (`isCrouching`, `isInvisible`, ...).
     pub pose: Pose,
     pub shared_flags: i8,
-    /// `Attribute.LUCK` of a player.
-    pub luck: f64,
+    /// What a stand-in of a player needs beyond the fields above (`None` for the other entities).
+    pub player: Option<Arc<RemotePlayer>>,
+    /// The aim, input and movement of a player that the copy keeps current with every refresh.
+    pub y_head_rot: f32,
+    pub y_body_rot: f32,
+    pub last_client_input: Input,
+    pub last_known_client_movement: Vec3,
+    pub was_touching_water: bool,
+    pub tick_count: i32,
     /// `getScoreboardName()`.
     pub scoreboard_name: String,
     /// `instanceof OwnableEntity` and its `getOwnerReference()`.
@@ -71,6 +83,40 @@ pub struct RemoteEntity {
     /// reads of a holder in another level).
     pub held_maps: Arc<[ItemStack]>,
     pub map_invisibility: bool,
+}
+
+/// The state of a player that code of another level reads through its stand-in: the saved player data (equipment,
+/// inventory, effects, food, experience, abilities, tags, recipes, ...), the attribute map with the transient
+/// modifiers the save leaves out, and the statistics and advancements the player predicates read.
+pub struct RemotePlayer {
+    pub saved: CompoundTag,
+    /// Behind a lock because an attribute instance caches its value in a `Cell`, which a shared `Arc` must not expose.
+    pub attributes: Mutex<AttributeMap>,
+    pub stats: SharedStats,
+    pub advancements: SharedAdvancements,
+    /// `tickCount` of the player when this was taken.
+    pub tick_count: i32,
+}
+
+impl RemotePlayer {
+    fn of(player: &ServerPlayer) -> Self {
+        let mut saved = CompoundTag::new();
+        // the generic save: the vehicle and the ender pearls of a player in another level cannot be looked up from here
+        entity::save_without_id(player, &mut saved, &|_| None);
+        Self {
+            saved,
+            attributes: Mutex::new(player.player.living.attributes.clone()),
+            stats: player.stats.clone(),
+            advancements: player.advancements.clone(),
+            tick_count: player.base().tick_count,
+        }
+    }
+}
+
+impl std::fmt::Debug for RemotePlayer {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("RemotePlayer").finish_non_exhaustive()
+    }
 }
 
 impl RemoteEntity {
@@ -96,7 +142,13 @@ impl RemoteEntity {
             game_type: GameType::Survival,
             pose: Pose::Standing,
             shared_flags: 0,
-            luck: 0.0,
+            player: None,
+            y_head_rot: 0.0,
+            y_body_rot: 0.0,
+            last_client_input: Input::default(),
+            last_known_client_movement: Vec3::ZERO,
+            was_touching_water: false,
+            tick_count: 0,
             scoreboard_name: entity.get_scoreboard_name(),
             is_ownable: false,
             ownable_owner: None,
@@ -131,15 +183,26 @@ impl RemoteEntity {
         self.game_type = player.map_or(GameType::Survival, |p| p.game_mode.game_mode_for_player);
         self.pose = base.get_pose();
         self.shared_flags = base.entity_data.get(DATA_SHARED_FLAGS_ID);
-        self.luck = player.map_or(0.0, |p| {
-            p.player
-                .living
-                .get_attribute_value(mc_data::Attribute::LUCK)
-        });
         self.is_ownable = entity.is_ownable();
         self.ownable_owner = entity.ownable_owner_uuid();
-        if player.is_some() {
+        self.tick_count = base.tick_count;
+        self.was_touching_water = base.was_touching_water;
+        self.y_head_rot = entity.get_y_head_rot();
+        self.y_body_rot = entity.living().map_or(0.0, |l| l.y_body_rot);
+        if let Some(player) = player {
             self.damage_entity = Some(Arc::new(DamageEntity::of(entity)));
+            self.last_client_input = player.last_client_input;
+            self.last_known_client_movement = player.last_known_client_movement;
+            // shortcut: the saved data is as old as the player's last tick step, not of whatever changed it since (a
+            // packet, a hit, a command); the save is too heavy to repeat for every put-back. Upgrade when a reader
+            // needs such a change before the player's next tick.
+            if self
+                .player
+                .as_ref()
+                .is_none_or(|p| p.tick_count != base.tick_count)
+            {
+                self.player = Some(Arc::new(RemotePlayer::of(player)));
+            }
         }
         if let Some(data) = entity.player() {
             let (maps, invisibility) =

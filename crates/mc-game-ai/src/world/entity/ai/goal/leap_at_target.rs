@@ -23,7 +23,10 @@ impl Goal for LeapAtTargetGoal {
             return false;
         }
         self.target = mob.get_target();
-        let Some(target) = self.target.and_then(|t| level.get_entity(t)) else {
+        let Some(target) = self
+            .target
+            .and_then(|t| level.get_entity_or_remote_target(t))
+        else {
             return false;
         };
         let d = mob.base().distance_to_sqr_vec(target.position());
@@ -44,7 +47,10 @@ impl Goal for LeapAtTargetGoal {
     }
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        let Some(target) = self.target.and_then(|t| level.get_entity(t)) else {
+        let Some(target) = self
+            .target
+            .and_then(|t| level.get_entity_or_remote_target(t))
+        else {
             return;
         };
         let movement = mob.base().delta_movement();

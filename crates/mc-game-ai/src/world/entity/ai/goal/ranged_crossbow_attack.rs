@@ -47,7 +47,7 @@ impl RangedCrossbowAttackGoal {
 
     fn is_valid_target(mob: &dyn Entity, level: &ServerLevel) -> bool {
         tick::get_target_checked(mob, level)
-            .and_then(|t| level.get_entity(t))
+            .and_then(|t| level.get_entity_or_remote_target(t))
             .is_some_and(|t| t.is_alive())
     }
 
@@ -91,7 +91,7 @@ impl Goal for RangedCrossbowAttackGoal {
         let Some(target_id) = tick::get_target_checked(mob, level) else {
             return;
         };
-        let Some(target) = level.get_entity(target_id) else {
+        let Some(target) = level.get_entity_or_remote_target(target_id) else {
             return;
         };
         let has_line_of_sight = mob
@@ -131,7 +131,7 @@ impl Goal for RangedCrossbowAttackGoal {
             self.update_path_delay = 0;
             navigation::stop(mob, level);
         }
-        if let Some(target) = level.get_entity(target_id) {
+        if let Some(target) = level.get_entity_or_remote_target(target_id) {
             mob::look_at_entity_full(mob, target, 30.0, 30.0);
         }
         match self.crossbow_state {

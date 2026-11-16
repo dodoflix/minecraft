@@ -72,9 +72,7 @@ pub fn award_kill_score_to_killer(
         return;
     }
     if killer.is_player && level.is_in_other_level(killer.uuid) {
-        // `Entity.awardKillScore` of a killer in another level: `ENTITY_KILLED_PLAYER` matches the killer's stand-in here,
-        // which mirrors position, box, pose, flags, health and game mode: a criterion on the killer's equipment, effects or
-        // data is not seen
+        // `Entity.awardKillScore` of a killer in another level: `ENTITY_KILLED_PLAYER` matches the killer's stand-in here
         if let Some(player) = victim
             .as_any_mut()
             .downcast_mut::<crate::world::entity::ServerPlayer>()
@@ -270,10 +268,12 @@ pub fn loot_table_items(
     let seed = entity.get_loot_table_seed();
 
     {
-        let attacker: Option<&dyn Entity> = source.get_entity().and_then(|id| level.get_entity(id));
+        let attacker: Option<&dyn Entity> = source
+            .get_entity()
+            .and_then(|id| level.get_entity_or_remote_target(id));
         let direct: Option<&dyn Entity> = match source.get_direct_entity() {
             Some(id) if Some(id) == source.get_entity() => attacker,
-            Some(id) => level.get_entity(id),
+            Some(id) => level.get_entity_or_remote_target(id),
             None => None,
         };
         let killer_uuid = entity.living().expect("living").last_hurt_by_player;

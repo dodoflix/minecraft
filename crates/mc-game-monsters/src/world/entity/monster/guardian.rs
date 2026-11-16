@@ -417,7 +417,7 @@ impl Goal for GuardianAttackGoal {
 
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         mob::tick::get_target_checked(mob, level)
-            .and_then(|t| level.get_entity(t))
+            .and_then(|t| level.get_entity_or_remote_target(t))
             .is_some_and(|t| t.is_alive())
     }
 
@@ -426,15 +426,15 @@ impl Goal for GuardianAttackGoal {
         self.can_use(mob, level)
             && (self.elder
                 || mob::tick::get_target_checked(mob, level)
-                    .and_then(|t| level.get_entity(t))
+                    .and_then(|t| level.get_entity_or_remote_target(t))
                     .is_some_and(|t| mob.base().distance_to_sqr_vec(t.position()) > 9.0))
     }
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         self.attack_time = -10;
         mob::navigation::stop(mob, level);
-        if let Some(target) =
-            mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t))
+        if let Some(target) = mob::tick::get_target_checked(mob, level)
+            .and_then(|t| level.get_entity_or_remote_target(t))
         {
             mob::look_at_entity_full(mob, target, 90.0, 90.0);
         }
@@ -457,13 +457,13 @@ impl Goal for GuardianAttackGoal {
         };
         mob::navigation::stop(mob, level);
         {
-            let Some(target) = level.get_entity(target_id) else {
+            let Some(target) = level.get_entity_or_remote_target(target_id) else {
                 return;
             };
             mob::look_at_entity_full(mob, target, 90.0, 90.0);
         }
         let can_see = level
-            .get_entity(target_id)
+            .get_entity_or_remote_target(target_id)
             .is_some_and(|t| mob::ext::has_line_of_sight(level, mob, t));
         if !can_see {
             mob.set_target(level, None);

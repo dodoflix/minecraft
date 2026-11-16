@@ -236,18 +236,25 @@ impl ServerLevel {
 
     // ---- lookups ----------------------------------------------------------------------------------------------
 
-    /// `getEntity(id)`: a tracked entity that is not currently taken out, or the entity that is loading, or the stand-in of
-    /// a player of another level that a mob of this level targets (see [`RemoteTargets`](super::RemoteTargets)).
+    /// `getEntity(id)`: a tracked entity that is not currently taken out, or the entity that is loading. A player of another
+    /// level is no entity of this level, so not found here: see [`ServerLevel::get_entity_or_remote_target`].
     pub fn get_entity(&self, id: EntityId) -> Option<&dyn Entity> {
         self.entity_manager
             .get(id)
             .or_else(|| self.loading_entity.as_deref().filter(|e| e.id() == id))
-            .or_else(|| {
-                // a player that has come to this level is the level's own entity
-                (!self.entity_manager.has_entity_with_id(id))
-                    .then(|| self.remote_targets.get(id))
-                    .flatten()
-            })
+    }
+
+    /// [`ServerLevel::get_entity`], or the stand-in of a player of another level that code of this level holds as an object
+    /// (a mob's target, the entity of a damage source, the killer of a loot table; see
+    /// [`RemoteTargets`](super::RemoteTargets)). Only for code that vanilla runs on the `Player` it holds, whichever level
+    /// it is in: the stand-in has no connection, is no member of the level and is never lent.
+    pub fn get_entity_or_remote_target(&self, id: EntityId) -> Option<&dyn Entity> {
+        self.get_entity(id).or_else(|| {
+            // a player that has come to this level is the level's own entity
+            (!self.entity_manager.has_entity_with_id(id))
+                .then(|| self.remote_targets.get(id))
+                .flatten()
+        })
     }
 
     /// `EntityReference.getLivingEntity(reference, level)` for a mob's target or anger target: the entity of this level, or
@@ -256,13 +263,21 @@ impl ServerLevel {
         if let Some(entity) = self.get_entity_by_uuid(uuid) {
             return Some(entity);
         }
-        let id = self.server_state.entities.with(uuid, |remote| {
-            (remote.is_player && remote.dimension != self.dimension).then(|| {
-                self.remote_targets.ensure(remote);
-                remote.id
-            })
-        })??;
+        let id = self
+            .server_state
+            .entities
+            .with(uuid, |remote| self.ensure_remote_player(remote))??;
         self.remote_targets.get(id)
+    }
+
+    /// Makes the stand-in of `remote` findable by [`ServerLevel::get_entity_or_remote_target`] when it is a player of another level: a
+    /// damage source built from a snapshot of its player names the player by id, and the predicates that judge the
+    /// source look that entity up in this level. Returns the player's id.
+    pub fn ensure_remote_player(&self, remote: &super::RemoteEntity) -> Option<EntityId> {
+        (remote.is_player && remote.dimension != self.dimension).then(|| {
+            self.remote_targets.ensure(remote);
+            remote.id
+        })
     }
 
     /// Whether `id` names the stand-in of a player of another level (`entity.level() != this.level()`).
@@ -295,6 +310,13 @@ impl ServerLevel {
                 .find(|(_, removed, _)| *removed == id)
                 .map(|(_, _, e)| e.as_ref())
         })
+    }
+
+    /// An entity of a damage source (`getEntity()` / `getDirectEntity()`): [`ServerLevel::get_entity_or_recently_removed`], or
+    /// the stand-in of a player of another level.
+    pub fn get_source_entity(&self, id: EntityId) -> Option<&dyn Entity> {
+        self.get_entity_or_remote_target(id)
+            .or_else(|| self.get_entity_or_recently_removed(id))
     }
 
     /// [`ServerLevel::get_entity`], a killed player that left the level, or the entity that was removed when

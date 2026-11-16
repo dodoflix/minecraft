@@ -1,0 +1,41 @@
+# A zombie of the nether killed by an arrow whose owner is a player of the overworld: the loot table's attacker, attacking_player and damage source
+# conditions read the owner with its armor, held items, effects, experience level, scoreboard team and entity tags, and the bonus rolls use its luck.
+datapack remote_killer
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty normal
+entity_counter 100
+fill -2 99 -2 2 99 12 minecraft:stone
+in the_nether fill -2 99 -2 2 99 12 minecraft:netherrack
+spawn_player Alice survival 0.5 100 0.5 0 0
+in the_nether spawn_player Bob survival 2.5 100 2.5 180 0
+tick 2
+give Alice head minecraft:diamond_helmet
+give Alice mainhand minecraft:diamond_sword
+effect Alice minecraft:speed 1 600
+attribute Alice minecraft:luck 2
+set Alice xp_level 7
+cmd team add red
+cmd team join red Alice
+cmd tag Alice add gunner
+tick 2
+dump packets:Alice:none
+in the_nether dump packets:Bob:none
+level_seed 5
+in the_nether level_seed 6
+in the_nether mobspawn Z minecraft:zombie 0.5 100 4.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+entity_seed Z 17
+spawn Arrow minecraft:arrow 0.5 101.5 0.5 0 0 {Owner:[I;278005000,-707248403,-1814916367,-1817188393],pickup:0b}
+entity_seed Arrow 41
+tp_dim Arrow the_nether 0.5 101.0 0.5
+velocity Arrow 0 0 1.5
+note the arrow reaches the zombie and kills it
+tick 6
+in the_nether dump xentities
+dump stats:Alice
+tick 2
+in the_nether dump xentities

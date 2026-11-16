@@ -1,0 +1,25 @@
+# A player's attack packet names an entity id of the level the player is in: the id of a player in another level finds nothing, even while a mob of
+# this level hunts that player (the level keeps a stand-in for it that only the code of the hunting mob sees).
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+fill -20 99 -20 40 99 20 minecraft:stone
+in the_nether fill -20 99 -20 40 99 20 minecraft:netherrack
+spawn_player Carol survival 0.5 100 0.5 0 0
+in the_nether spawn_player Alice survival 0.5 100 0.5 0 0
+mobspawn Z minecraft:zombified_piglin 0.5 100 8.5 180 0 {PersistenceRequired:1b,anger_end_time:4000L,angry_at:[I;278005000,-707248403,-1814916367,-1817188393]}
+entity_seed Z 3201
+tick 3
+dump packets:Carol:none
+in the_nether dump packets:Alice:none
+note Carol attacks the id of Alice, who is in the nether
+attack Carol Alice
+tick 2
+dump packets:Carol:sound,swing,animate,entity_event,damage_event,hurt_animation,set_health
+in the_nether dump packets:Alice:set_health,hurt_animation,damage_event,entity_event,set_entity_motion,sound
+dump mob:Z

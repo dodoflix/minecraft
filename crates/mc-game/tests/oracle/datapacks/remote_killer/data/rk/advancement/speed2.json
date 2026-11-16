@@ -1,0 +1,25 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:entity_killed_player",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:effects": {
+              "minecraft:speed": {
+                "amplifier": {
+                  "min": 1
+                },
+                "duration": {
+                  "min": 100
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

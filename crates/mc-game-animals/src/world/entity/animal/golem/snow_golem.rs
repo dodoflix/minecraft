@@ -151,7 +151,7 @@ impl Entity for SnowGolem {
 
     fn perform_ranged_attack(&mut self, level: &mut ServerLevel, target: EntityId, _power: f32) {
         let Some((tx, ty_eye, tz)) = level
-            .get_entity(target)
+            .get_entity_or_remote_target(target)
             .map(|t| (t.base().x(), t.base().get_eye_y(), t.base().z()))
         else {
             return;

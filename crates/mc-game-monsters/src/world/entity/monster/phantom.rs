@@ -496,7 +496,7 @@ impl Goal for PhantomSweepAttackGoal {
         let Some(target) = mob::tick::get_target_checked(mob, level) else {
             return false;
         };
-        let Some(target_entity) = level.get_entity(target) else {
+        let Some(target_entity) = level.get_entity_or_remote_target(target) else {
             return false;
         };
         if !target_entity.is_alive() {
@@ -535,7 +535,7 @@ impl Goal for PhantomSweepAttackGoal {
         let Some(target) = mob::tick::get_target_checked(mob, level) else {
             return;
         };
-        let Some((tx, ty, tz, target_bb)) = level.get_entity(target).map(|t| {
+        let Some((tx, ty, tz, target_bb)) = level.get_entity_or_remote_target(target).map(|t| {
             (
                 t.base().x(),
                 t.base().get_y_progress(0.5),

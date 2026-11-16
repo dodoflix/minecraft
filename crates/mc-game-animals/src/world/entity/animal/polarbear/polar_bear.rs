@@ -83,7 +83,7 @@ impl Goal for PolarBearMeleeAttackGoal {
                     bear_mut(mob).set_standing(false);
                     return;
                 }
-                let Some(target) = level.get_entity(target_id) else {
+                let Some(target) = level.get_entity_or_remote_target(target_id) else {
                     return;
                 };
                 let width = target.base().get_bb_width();

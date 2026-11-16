@@ -52,7 +52,11 @@ impl RangedAttackGoal {
 impl Goal for RangedAttackGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         match tick::get_target_checked(mob, level) {
-            Some(best) if level.get_entity(best).is_some_and(|t| t.is_alive()) => {
+            Some(best)
+                if level
+                    .get_entity_or_remote_target(best)
+                    .is_some_and(|t| t.is_alive()) =>
+            {
                 self.target = Some(best);
                 true
             }
@@ -64,7 +68,7 @@ impl Goal for RangedAttackGoal {
         self.can_use(mob, level)
             || self
                 .target
-                .and_then(|t| level.get_entity(t))
+                .and_then(|t| level.get_entity_or_remote_target(t))
                 .is_some_and(|t| t.is_alive())
                 && !navigation::is_done(mob, level)
     }
@@ -81,7 +85,7 @@ impl Goal for RangedAttackGoal {
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         let Some(target_id) = self.target else { return };
-        let Some(target) = level.get_entity(target_id) else {
+        let Some(target) = level.get_entity_or_remote_target(target_id) else {
             return;
         };
         let target_dist_sqr =
@@ -103,7 +107,7 @@ impl Goal for RangedAttackGoal {
         } else {
             navigation::move_to_entity(mob, level, target_pos, self.speed_modifier);
         }
-        if let Some(target) = level.get_entity(target_id) {
+        if let Some(target) = level.get_entity_or_remote_target(target_id) {
             mob::look_at_entity_full(mob, target, 30.0, 30.0);
         }
         self.attack_time -= 1;

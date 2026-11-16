@@ -311,7 +311,7 @@ impl Goal for GhastShootFireballGoal {
         let Some(target_id) = mob::tick::get_target_checked(mob, level) else {
             return;
         };
-        let Some(target) = level.get_entity(target_id) else {
+        let Some(target) = level.get_entity_or_remote_target(target_id) else {
             return;
         };
         let in_sight = target.base().distance_to_sqr_vec(mob.position()) < 4096.0

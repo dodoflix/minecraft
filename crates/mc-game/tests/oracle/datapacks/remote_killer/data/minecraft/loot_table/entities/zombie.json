@@ -1,0 +1,188 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "attacker",
+        "predicate": {
+          "minecraft:equipment": {
+            "head": {
+              "items": "minecraft:diamond_helmet"
+            }
+          }
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dirt"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "attacking_player",
+        "predicate": {
+          "minecraft:equipment": {
+            "mainhand": {
+              "items": "minecraft:diamond_sword"
+            }
+          }
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:coal"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "attacker",
+        "predicate": {
+          "minecraft:equipment": {
+            "chest": {
+              "items": "minecraft:diamond_chestplate"
+            }
+          }
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ingot"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "attacking_player",
+        "predicate": {
+          "minecraft:effects": {
+            "minecraft:speed": {
+              "amplifier": {
+                "min": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ingot"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:damage_source_properties",
+        "predicate": {
+          "source_entity": {
+            "minecraft:equipment": {
+              "head": {
+                "items": "minecraft:diamond_helmet"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "attacker",
+        "predicate": {
+          "minecraft:type_specific/player": {
+            "level": {
+              "min": 7
+            }
+          }
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:lapis_lazuli"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "attacking_player",
+        "predicate": {
+          "minecraft:team": "red"
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:redstone"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "attacker",
+        "predicate": {
+          "minecraft:nbt": "{Tags:[\"gunner\"]}"
+        }
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:quartz"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "attacking_player",
+        "predicate": {
+          "minecraft:effects": {
+            "minecraft:slowness": {}
+          }
+        }
+      }
+    },
+    {
+      "rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald"
+        }
+      ],
+      "bonus_rolls": 1.0
+    }
+  ]
+}

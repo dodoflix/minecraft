@@ -80,7 +80,7 @@ impl Goal for RangedBowAttackGoal {
         let Some(target_id) = tick::get_target_checked(mob, level) else {
             return;
         };
-        let Some(target) = level.get_entity(target_id) else {
+        let Some(target) = level.get_entity_or_remote_target(target_id) else {
             return;
         };
         let target_dist_sqr =
@@ -135,7 +135,7 @@ impl Goal for RangedBowAttackGoal {
                             .expect("mob")
                             .move_control_mut()
                             .strafe(forward, sideways);
-                        if let Some(target) = level.get_entity(target_id) {
+                        if let Some(target) = level.get_entity_or_remote_target(target_id) {
                             combat::look_at(v, target, 30.0, 30.0);
                         }
                     });
@@ -146,10 +146,10 @@ impl Goal for RangedBowAttackGoal {
                     .move_control_mut()
                     .strafe(forward, sideways),
             }
-            if let Some(target) = level.get_entity(target_id) {
+            if let Some(target) = level.get_entity_or_remote_target(target_id) {
                 combat::look_at(mob, target, 30.0, 30.0);
             }
-        } else if let Some(target) = level.get_entity(target_id) {
+        } else if let Some(target) = level.get_entity_or_remote_target(target_id) {
             mob::look_at_entity_full(mob, target, 30.0, 30.0);
         }
         if using_item::is_using_item(mob) {

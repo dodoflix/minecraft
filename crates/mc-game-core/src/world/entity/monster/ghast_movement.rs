@@ -25,7 +25,9 @@ use std::sync::Arc;
 /// `Ghast.faceMovementDirection(ghast)`.
 pub fn face_movement_direction(ghast: &mut dyn Entity, level: &ServerLevel) {
     let pi = std::f32::consts::PI;
-    match mob::tick::get_target_checked(ghast, level).and_then(|t| level.get_entity(t)) {
+    match mob::tick::get_target_checked(ghast, level)
+        .and_then(|t| level.get_entity_or_remote_target(t))
+    {
         None => {
             let movement = ghast.base().delta_movement();
             ghast

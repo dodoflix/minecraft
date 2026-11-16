@@ -141,7 +141,7 @@ impl Goal for SpearUseGoal {
         let Some(target_id) = tick::get_target_checked(mob, level) else {
             return;
         };
-        let Some(target) = level.get_entity(target_id) else {
+        let Some(target) = level.get_entity_or_remote_target(target_id) else {
             return;
         };
         let (target_pos_vec, target_block_pos) = (target.position(), target.block_position());

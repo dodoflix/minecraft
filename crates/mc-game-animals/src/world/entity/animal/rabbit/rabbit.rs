@@ -574,7 +574,9 @@ impl Entity for Rabbit {
             }
             if self.get_variant() == RabbitVariant::Evil
                 && self.jump_delay_ticks == 0
-                && let Some(target) = self.get_target().and_then(|id| level.get_entity(id))
+                && let Some(target) = self
+                    .get_target()
+                    .and_then(|id| level.get_entity_or_remote_target(id))
             {
                 let (tx, ty, tz) = (target.base().x(), target.base().y(), target.base().z());
                 if self.base().distance_to_sqr_vec(target.position()) < 16.0 {

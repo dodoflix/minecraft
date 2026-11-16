@@ -296,7 +296,7 @@ impl Llama {
 
     /// `spit(target)`.
     fn spit(&mut self, level: &mut ServerLevel, target: EntityId) {
-        let Some((tx, ty, tz)) = level.get_entity(target).map(|t| {
+        let Some((tx, ty, tz)) = level.get_entity_or_remote_target(target).map(|t| {
             (
                 t.base().x(),
                 t.base().y() + f64::from(t.base().get_bb_height()) * 0.3333333333333333,

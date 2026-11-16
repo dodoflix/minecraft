@@ -45,7 +45,7 @@ impl<'a> Actors<'a> {
     pub fn get<'s>(&'s self, level: &'s ServerLevel, id: EntityId) -> Option<&'s dyn Entity> {
         match self.explicit.iter().find(|e| e.id() == id) {
             Some(e) => Some(&**e),
-            None => level.get_entity(id),
+            None => level.get_entity_or_remote_target(id),
         }
     }
 

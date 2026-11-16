@@ -332,8 +332,8 @@ impl Goal for CubeMobAttackGoal {
     }
 
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(target) =
-            mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t))
+        let Some(target) = mob::tick::get_target_checked(mob, level)
+            .and_then(|t| level.get_entity_or_remote_target(t))
         else {
             return false;
         };
@@ -345,8 +345,8 @@ impl Goal for CubeMobAttackGoal {
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(target) =
-            mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t))
+        let Some(target) = mob::tick::get_target_checked(mob, level)
+            .and_then(|t| level.get_entity_or_remote_target(t))
         else {
             return false;
         };
@@ -363,7 +363,7 @@ impl Goal for CubeMobAttackGoal {
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         if let Some(target) = mob::tick::get_target_checked(mob, level)
-            && let Some(target) = level.get_entity(target)
+            && let Some(target) = level.get_entity_or_remote_target(target)
         {
             mob::ext::mob_look_at(mob, target, 10.0, 10.0);
         }

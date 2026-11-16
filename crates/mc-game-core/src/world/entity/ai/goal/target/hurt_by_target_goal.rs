@@ -91,7 +91,7 @@ impl HurtByTargetGoal {
                 continue;
             }
             if hurt_by
-                .and_then(|h| level.get_entity(h))
+                .and_then(|h| level.get_entity_or_remote_target(h))
                 .is_some_and(|h| ext::is_allied_to(level, other, h))
             {
                 continue;
@@ -123,7 +123,7 @@ impl Goal for HurtByTargetGoal {
         if timestamp != self.timestamp
             && let Some(hurt_by) = last_hurt_by_mob
         {
-            let Some(hurt_by_entity) = level.get_entity(hurt_by) else {
+            let Some(hurt_by_entity) = level.get_entity_or_remote_target(hurt_by) else {
                 return false;
             };
             if hurt_by_entity.get_type() == EntityType::PLAYER && level.universal_anger() {

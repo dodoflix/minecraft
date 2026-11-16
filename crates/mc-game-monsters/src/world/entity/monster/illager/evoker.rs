@@ -299,7 +299,7 @@ impl UseSpell for EvokerAttackSpell {
 
     fn perform_spell_casting(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         let Some(target) = mob::tick::get_target_checked(mob, level)
-            .and_then(|t| level.get_entity(t))
+            .and_then(|t| level.get_entity_or_remote_target(t))
             .map(|t| (t.base().x(), t.base().y(), t.base().z(), t.position()))
         else {
             return;

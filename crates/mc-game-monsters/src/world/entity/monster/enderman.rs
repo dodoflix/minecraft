@@ -173,7 +173,7 @@ impl Enderman {
     /// `teleportTowards(entity)`.
     fn teleport_towards(&mut self, level: &mut ServerLevel, target: EntityId) -> bool {
         let Some((tx, teye, tz)) = level
-            .get_entity(target)
+            .get_entity_or_remote_target(target)
             .map(|t| (t.base().x(), t.base().get_eye_y(), t.base().z()))
         else {
             return false;
@@ -483,7 +483,10 @@ impl Goal for EndermanFreezeWhenLookedAt {
     }
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.target = mob.get_target();
-        let Some(target) = self.target.and_then(|id| level.get_entity(id)) else {
+        let Some(target) = self
+            .target
+            .and_then(|id| level.get_entity_or_remote_target(id))
+        else {
             return false;
         };
         if !target.is_player() {
@@ -732,7 +735,11 @@ impl Goal for EndermanLookForPlayerGoal {
                 true
             }
         } else {
-            if let Some(target) = self.base.target.and_then(|id| level.get_entity(id)) {
+            if let Some(target) = self
+                .base
+                .target
+                .and_then(|id| level.get_entity_or_remote_target(id))
+            {
                 if mob.has_indirect_passenger(level, target) {
                     return false;
                 }
@@ -761,7 +768,7 @@ impl Goal for EndermanLookForPlayerGoal {
         } else if let Some(target_id) = self.base.target
             && !mob.base().is_passenger()
         {
-            let Some(target) = level.get_entity(target_id) else {
+            let Some(target) = level.get_entity_or_remote_target(target_id) else {
                 return;
             };
             let stared = is_being_stared_by(level, mob, target);

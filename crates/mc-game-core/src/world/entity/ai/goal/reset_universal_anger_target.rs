@@ -23,8 +23,8 @@ impl ResetUniversalAngerTargetGoal {
     }
 
     fn was_hurt_by_player(&self, mob: &dyn Entity, level: &ServerLevel) -> bool {
-        let Some(hurt_by) =
-            combat::get_last_hurt_by_mob(mob, level).and_then(|id| level.get_entity(id))
+        let Some(hurt_by) = combat::get_last_hurt_by_mob(mob, level)
+            .and_then(|id| level.get_entity_or_remote_target(id))
         else {
             return false;
         };

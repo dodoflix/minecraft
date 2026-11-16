@@ -778,7 +778,7 @@ impl Goal for FoxPounceGoal {
             return false;
         }
         let Some(target) = target_of(mob, level)
-            .and_then(|t| level.get_entity(t))
+            .and_then(|t| level.get_entity_or_remote_target(t))
             .filter(|t| t.is_alive())
         else {
             return false;
@@ -798,7 +798,7 @@ impl Goal for FoxPounceGoal {
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if target_of(mob, level)
-            .and_then(|t| level.get_entity(t))
+            .and_then(|t| level.get_entity_or_remote_target(t))
             .is_none_or(|t| !t.is_alive())
         {
             return false;
@@ -820,7 +820,7 @@ impl Goal for FoxPounceGoal {
         f.set_is_pouncing(true);
         f.set_is_interested(false);
         if let Some(target_id) = target_of(mob, level)
-            && let Some(target) = level.get_entity(target_id)
+            && let Some(target) = level.get_entity_or_remote_target(target_id)
         {
             mob::look_at_entity_full(mob, target, 60.0, 30.0);
             let p = mob.position();
@@ -848,7 +848,7 @@ impl Goal for FoxPounceGoal {
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         let target_id = target_of(mob, level);
-        if let Some(target) = target_id.and_then(|t| level.get_entity(t)) {
+        if let Some(target) = target_id.and_then(|t| level.get_entity_or_remote_target(t)) {
             mob::look_at_entity_full(mob, target, 60.0, 30.0);
         }
         if !fox(mob).is_faceplanted() {

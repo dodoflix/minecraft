@@ -132,7 +132,8 @@ impl Entity for Blaze {
             self.next_height_offset_change_tick = 100;
             self.allowed_height_offset = self.base_mut().random.triangle(0.5, 6.891) as f32;
         }
-        let target = mob::tick::get_target_checked(self, level).and_then(|t| level.get_entity(t));
+        let target = mob::tick::get_target_checked(self, level)
+            .and_then(|t| level.get_entity_or_remote_target(t));
         if target.is_some_and(|t| {
             t.base().get_eye_y() > self.base().get_eye_y() + f64::from(self.allowed_height_offset)
                 && self.can_attack(level, t)
@@ -180,7 +181,7 @@ impl Goal for BlazeAttackGoal {
 
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         mob::tick::get_target_checked(mob, level)
-            .and_then(|t| level.get_entity(t))
+            .and_then(|t| level.get_entity_or_remote_target(t))
             .is_some_and(|t| t.is_alive() && mob.can_attack(level, t))
     }
 
@@ -203,7 +204,7 @@ impl Goal for BlazeAttackGoal {
             return;
         };
         let (has_line_of_sight, distance) = {
-            let Some(target) = level.get_entity(target_id) else {
+            let Some(target) = level.get_entity_or_remote_target(target_id) else {
                 return;
             };
             (
@@ -228,13 +229,13 @@ impl Goal for BlazeAttackGoal {
                 self.attack_time = 20;
                 mob::combat::do_hurt_target(mob, level, target_id);
             }
-            let Some(t) = level.get_entity(target_id) else {
+            let Some(t) = level.get_entity_or_remote_target(target_id) else {
                 return;
             };
             mob::set_wanted_position(mob, t.base().x(), t.base().y(), t.base().z(), 1.0);
         } else if distance < follow * follow && has_line_of_sight {
             let (xd, yd, zd) = {
-                let Some(t) = level.get_entity(target_id) else {
+                let Some(t) = level.get_entity_or_remote_target(target_id) else {
                     return;
                 };
                 (
@@ -273,11 +274,11 @@ impl Goal for BlazeAttackGoal {
                     level.add_fresh_entity(Box::new(fireball));
                 }
             }
-            if let Some(t) = level.get_entity(target_id) {
+            if let Some(t) = level.get_entity_or_remote_target(target_id) {
                 mob::look_at_entity_full(mob, t, 10.0, 10.0);
             }
         } else if self.last_seen < 5 {
-            let Some(t) = level.get_entity(target_id) else {
+            let Some(t) = level.get_entity_or_remote_target(target_id) else {
                 return;
             };
             mob::set_wanted_position(mob, t.base().x(), t.base().y(), t.base().z(), 1.0);

@@ -21,8 +21,9 @@ pub fn default_attack_reach() -> f64 {
 /// `getLastHurtByMob()` (`EntityReference.getLivingEntity`).
 pub fn get_last_hurt_by_mob(e: &dyn Entity, level: &ServerLevel) -> Option<EntityId> {
     let uuid = e.living()?.last_hurt_by_mob?;
+    // any level: the player that last hurt a mob may be in another one
     level
-        .get_entity_by_uuid(uuid)
+        .get_entity_or_remote_player(uuid)
         .filter(|t| t.living().is_some())
         .map(|t| t.id())
 }

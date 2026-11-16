@@ -69,7 +69,7 @@ impl TargetGoal {
         let Some(target_id) = tick::get_target_checked(mob, level).or(self.target_mob) else {
             return false;
         };
-        let Some(target) = level.get_entity(target_id) else {
+        let Some(target) = level.get_entity_or_remote_target(target_id) else {
             return false;
         };
         if !mob.can_attack(level, target) {
@@ -128,7 +128,7 @@ impl TargetGoal {
         let Some(target_id) = target else {
             return false;
         };
-        let Some(target) = level.get_entity(target_id) else {
+        let Some(target) = level.get_entity_or_remote_target(target_id) else {
             return false;
         };
         if !target_conditions.test(level, Some(&*mob), target) {
@@ -168,7 +168,10 @@ impl TargetGoal {
         target_id: EntityId,
     ) -> bool {
         self.reach_cache_time = reduced_tick_delay(10 + mob.base_mut().random.next_int_bounded(5));
-        let Some(target_pos) = level.get_entity(target_id).map(|t| t.block_position()) else {
+        let Some(target_pos) = level
+            .get_entity_or_remote_target(target_id)
+            .map(|t| t.block_position())
+        else {
             return false;
         };
         let Some(path) = navigation::create_path_entity(mob, level, target_pos, 0) else {

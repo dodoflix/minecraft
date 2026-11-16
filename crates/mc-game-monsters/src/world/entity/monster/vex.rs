@@ -286,8 +286,8 @@ impl Goal for VexChargeAttackGoal {
     }
 
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(target) =
-            mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t))
+        let Some(target) = mob::tick::get_target_checked(mob, level)
+            .and_then(|t| level.get_entity_or_remote_target(t))
         else {
             return false;
         };
@@ -319,13 +319,13 @@ impl Goal for VexChargeAttackGoal {
                 .downcast_ref::<Vex>()
                 .is_some_and(Vex::is_charging)
             && mob::tick::get_target_checked(mob, level)
-                .and_then(|t| level.get_entity(t))
+                .and_then(|t| level.get_entity_or_remote_target(t))
                 .is_some_and(|t| t.is_alive())
     }
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        if let Some(target) =
-            mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t))
+        if let Some(target) = mob::tick::get_target_checked(mob, level)
+            .and_then(|t| level.get_entity_or_remote_target(t))
         {
             let eye = target.get_eye_position_partial(1.0);
             mob.mob_mut()
@@ -349,7 +349,7 @@ impl Goal for VexChargeAttackGoal {
         let Some(target_id) = mob::tick::get_target_checked(mob, level) else {
             return;
         };
-        let Some(target) = level.get_entity(target_id) else {
+        let Some(target) = level.get_entity_or_remote_target(target_id) else {
             return;
         };
         if mob
@@ -466,7 +466,7 @@ impl MoveControl for VexMoveControl {
             );
             let pi = std::f32::consts::PI;
             let target = mob::tick::get_target_checked(mob, level)
-                .and_then(|t| level.get_entity(t))
+                .and_then(|t| level.get_entity_or_remote_target(t))
                 .map(|t| (t.base().x(), t.base().z()));
             let y_rot = match target {
                 None => {

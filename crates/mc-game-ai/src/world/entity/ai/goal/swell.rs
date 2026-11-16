@@ -19,7 +19,8 @@ impl SwellGoal {
 
 impl Goal for SwellGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let target = tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t));
+        let target =
+            tick::get_target_checked(mob, level).and_then(|t| level.get_entity_or_remote_target(t));
         mob.get_swell_dir() > 0
             || target.is_some_and(|t| {
                 !t.is_dead_or_dying() && mob.base().distance_to_sqr_vec(t.position()) < 9.0

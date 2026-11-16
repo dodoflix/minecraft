@@ -263,6 +263,10 @@ impl EntitySubPredicateImpl for PlayerPredicate {
             }
         }
         if let Some(looking_at) = &self.looking_at {
+            // vanilla casts the ray in the player's own level: a stand-in's level has none of those entities
+            if level.is_remote_target(entity.id()) {
+                return false;
+            }
             let from = player.player.living.entity.get_eye_position();
             let view =
                 calculate_view_vector(player.player.living.entity.x_rot(), player.get_y_head_rot());

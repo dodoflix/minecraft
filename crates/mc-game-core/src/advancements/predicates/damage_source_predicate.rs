@@ -70,10 +70,10 @@ impl DamageSourcePredicate {
         // vanilla's source keeps its entities after they were removed (a projectile that hit and was discarded)
         let direct = source
             .get_direct_entity()
-            .and_then(|id| level.get_entity_or_recently_removed(id));
+            .and_then(|id| level.get_source_entity(id));
         let causing = source
             .get_entity()
-            .and_then(|id| level.get_entity_or_recently_removed(id));
+            .and_then(|id| level.get_source_entity(id));
         self.matches_parts(
             level,
             Some(position),

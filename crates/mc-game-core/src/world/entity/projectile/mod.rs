@@ -125,6 +125,7 @@ pub trait Projectile: Entity {
         let Some(remote) = self.get_remote_owner(level) else {
             return source;
         };
+        level.ensure_remote_player(&remote);
         match remote.damage_entity {
             Some(owner) => {
                 let mut owner = (*owner).clone();

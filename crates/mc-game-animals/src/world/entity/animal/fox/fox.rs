@@ -606,7 +606,7 @@ impl Entity for Fox {
                 }
             }
             let target_alive = mob::tick::get_target_checked(self, level)
-                .and_then(|t| level.get_entity(t))
+                .and_then(|t| level.get_entity_or_remote_target(t))
                 .is_some_and(|t| t.is_alive());
             if !target_alive {
                 self.set_is_crouching(false);

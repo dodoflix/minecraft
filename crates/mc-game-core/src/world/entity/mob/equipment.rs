@@ -503,9 +503,11 @@ pub fn drop_custom_death_loot(
         let mut drop_chance = e.mob().expect("mob").drop_chances.by_equipment(slot);
         if drop_chance != 0.0 {
             let preserve = e.mob().expect("mob").drop_chances.is_preserved(slot);
-            let living_source = source
-                .get_entity()
-                .filter(|id| level.get_entity(*id).is_some_and(|s| s.living().is_some()));
+            let living_source = source.get_entity().filter(|id| {
+                level
+                    .get_entity_or_remote_target(*id)
+                    .is_some_and(|s| s.living().is_some())
+            });
             if let Some(killer) = living_source {
                 let mut actors = Actors::of(&mut *e);
                 drop_chance = enchantment_helper::process_equipment_drop_chance(

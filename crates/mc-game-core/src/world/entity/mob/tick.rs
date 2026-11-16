@@ -318,7 +318,7 @@ pub fn as_valid_target(
 ) -> Option<EntityId> {
     let id = target?;
     // vanilla holds the object; `canAttack` rejects a removed target except for a warden (`canTargetEntity`)
-    let t = level.get_entity_or_recently_removed(id)?;
+    let t = level.get_source_entity(id)?;
     if t.is_player() && (ext::is_creative_player(t) || t.is_spectator()) {
         return None;
     }
@@ -332,7 +332,9 @@ pub fn as_valid_target(
 /// runs) is stored as given.
 pub fn set_target(e: &mut dyn Entity, level: &ServerLevel, target: Option<EntityId>) {
     let valid = match target {
-        Some(id) if level.get_entity(id).is_some() => as_valid_target(e, level, target),
+        Some(id) if level.get_entity_or_remote_target(id).is_some() => {
+            as_valid_target(e, level, target)
+        }
         other => other,
     };
     mm(e).target = valid;

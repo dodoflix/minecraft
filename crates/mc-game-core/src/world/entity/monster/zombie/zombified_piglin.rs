@@ -107,7 +107,7 @@ fn maybe_alert_others(zombie: &mut Zombie, level: &mut ServerLevel, target: Enti
         data_mut(zombie).ticks_until_next_alert -= 1;
     } else {
         let sees = level
-            .get_entity(target)
+            .get_entity_or_remote_target(target)
             .is_some_and(|t| zombie.mob.sensing.has_line_of_sight(level, &*zombie, t));
         if sees {
             alert_others(zombie, level, target);

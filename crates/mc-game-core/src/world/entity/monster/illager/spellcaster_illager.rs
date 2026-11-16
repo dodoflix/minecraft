@@ -198,7 +198,7 @@ impl Goal for SpellcasterCastingSpellGoal {
         );
         let target = mob::tick::get_target_checked(mob, level);
         if let Some(t) = target {
-            if let Some(t) = level.get_entity(t) {
+            if let Some(t) = level.get_entity_or_remote_target(t) {
                 mob::look_at_entity_full(mob, t, max_y, max_x);
             }
         } else if self.look_at_wololo_target
@@ -233,7 +233,11 @@ impl UseSpellState {
     /// `SpellcasterUseSpellGoal.canUse()`.
     pub fn can_use(&self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let target = mob::tick::get_target_checked(mob, level);
-        if !target.is_some_and(|t| level.get_entity(t).is_some_and(|t| t.is_alive())) {
+        if !target.is_some_and(|t| {
+            level
+                .get_entity_or_remote_target(t)
+                .is_some_and(|t| t.is_alive())
+        }) {
             return false;
         }
         !is_casting_spell(mob) && mob.base().tick_count >= self.next_attack_tick_count
@@ -242,8 +246,11 @@ impl UseSpellState {
     /// `SpellcasterUseSpellGoal.canContinueToUse()`.
     pub fn can_continue_to_use(&self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         let target = mob::tick::get_target_checked(mob, level);
-        target.is_some_and(|t| level.get_entity(t).is_some_and(|t| t.is_alive()))
-            && self.attack_warmup_delay > 0
+        target.is_some_and(|t| {
+            level
+                .get_entity_or_remote_target(t)
+                .is_some_and(|t| t.is_alive())
+        }) && self.attack_warmup_delay > 0
     }
 }
 

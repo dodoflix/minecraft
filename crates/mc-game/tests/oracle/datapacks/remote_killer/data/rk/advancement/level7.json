@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:entity_killed_player",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:type_specific/player": {
+              "level": {
+                "min": 7
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

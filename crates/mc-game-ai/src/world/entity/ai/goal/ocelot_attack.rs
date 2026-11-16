@@ -38,7 +38,10 @@ impl Goal for OcelotAttackGoal {
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(target) = self.target.and_then(|t| level.get_entity(t)) else {
+        let Some(target) = self
+            .target
+            .and_then(|t| level.get_entity_or_remote_target(t))
+        else {
             return false;
         };
         if !target.is_alive() {
@@ -61,7 +64,7 @@ impl Goal for OcelotAttackGoal {
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         let Some(target_id) = self.target else { return };
-        let Some(target) = level.get_entity(target_id) else {
+        let Some(target) = level.get_entity_or_remote_target(target_id) else {
             return;
         };
         mob::look_at_entity_full(mob, target, 30.0, 30.0);

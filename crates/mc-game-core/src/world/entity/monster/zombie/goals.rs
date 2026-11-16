@@ -272,7 +272,8 @@ struct DrownedAttackGoal {
 }
 
 fn ok_target_of_mob(mob: &dyn Entity, level: &ServerLevel) -> bool {
-    let target = mob::tick::get_target_checked(mob, level).and_then(|t| level.get_entity(t));
+    let target = mob::tick::get_target_checked(mob, level)
+        .and_then(|t| level.get_entity_or_remote_target(t));
     drowned::ok_target(level, target)
 }
 

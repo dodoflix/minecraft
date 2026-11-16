@@ -617,7 +617,7 @@ impl Entity for Bee {
         let should_roll = neutral::is_angry(self, level)
             && !self.has_stung()
             && mob::tick::get_target_checked(self, level)
-                .and_then(|t| level.get_entity(t))
+                .and_then(|t| level.get_entity_or_remote_target(t))
                 .is_some_and(|t| t.base().distance_to_sqr_vec(self.position()) < 4.0);
         self.set_rolling(should_roll);
         if self.base().tick_count % 20 == 0 && valid_hive_pos(self, level).is_none() {

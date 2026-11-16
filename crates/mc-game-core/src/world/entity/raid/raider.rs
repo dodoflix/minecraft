@@ -251,9 +251,12 @@ pub fn ai_step(e: &mut dyn Entity, level: &mut ServerLevel) {
                 }
             } else {
                 let target = mob::tick::get_target_checked(e, level);
-                if target.and_then(|t| level.get_entity(t)).is_some_and(|t| {
-                    t.get_type() == EntityType::PLAYER || t.get_type() == EntityType::IRON_GOLEM
-                }) {
+                if target
+                    .and_then(|t| level.get_entity_or_remote_target(t))
+                    .is_some_and(|t| {
+                        t.get_type() == EntityType::PLAYER || t.get_type() == EntityType::IRON_GOLEM
+                    })
+                {
                     e.living_mut().expect("living").no_action_time = 0;
                 }
             }
@@ -538,12 +541,12 @@ impl Goal for HoldGroundAttackGoal {
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         if let Some(target) = mob::tick::get_target_checked(mob, level) {
             let dist_sqr = level
-                .get_entity(target)
+                .get_entity_or_remote_target(target)
                 .map(|t| mob.base().distance_to_sqr_vec(t.position()));
             if let Some(dist_sqr) = dist_sqr
                 && dist_sqr > f64::from(self.hostile_radius_sqr)
             {
-                if let Some(t) = level.get_entity(target) {
+                if let Some(t) = level.get_entity_or_remote_target(target) {
                     mob::look_at_entity_full(mob, t, 30.0, 30.0);
                 }
                 if mob.base_mut().random.next_int_bounded(50) == 0 {

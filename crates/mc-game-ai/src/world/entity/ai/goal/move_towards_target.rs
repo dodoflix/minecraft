@@ -36,7 +36,10 @@ impl MoveTowardsTargetGoal {
 impl Goal for MoveTowardsTargetGoal {
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.target = tick::get_target_checked(mob, level);
-        let Some(target) = self.target.and_then(|t| level.get_entity(t)) else {
+        let Some(target) = self
+            .target
+            .and_then(|t| level.get_entity_or_remote_target(t))
+        else {
             return false;
         };
         if mob.base().distance_to_sqr_vec(target.position()) > f64::from(self.within_sqr()) {
@@ -65,7 +68,7 @@ impl Goal for MoveTowardsTargetGoal {
         !navigation::is_done(mob, level)
             && self
                 .target
-                .and_then(|t| level.get_entity(t))
+                .and_then(|t| level.get_entity_or_remote_target(t))
                 .is_some_and(|t| {
                     t.is_alive()
                         && mob.base().distance_to_sqr_vec(t.position())

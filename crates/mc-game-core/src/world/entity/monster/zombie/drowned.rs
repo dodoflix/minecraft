@@ -92,7 +92,7 @@ pub fn wants_to_swim(e: &dyn Entity, level: &ServerLevel) -> bool {
         return true;
     }
     mob::tick::get_target_checked(e, level)
-        .and_then(|id| level.get_entity(id))
+        .and_then(|id| level.get_entity_or_remote_target(id))
         .is_some_and(|t| t.is_in_water())
 }
 
@@ -417,7 +417,7 @@ impl MoveControl for DrownedMoveControl {
         let target = mob::tick::get_target_checked(mob, level);
         if wants_to_swim(mob, level) && mob.is_in_water() {
             let target_above = target
-                .and_then(|id| level.get_entity(id))
+                .and_then(|id| level.get_entity_or_remote_target(id))
                 .is_some_and(|t| t.base().y() > mob.base().y());
             if target_above || is_searching_for_land(mob) {
                 let m = mob.base().delta_movement();
@@ -497,7 +497,7 @@ pub fn perform_ranged_attack(
         ItemStack::new(Item::TRIDENT)
     };
     let trident = ThrownTrident::from_owner(level, zombie, trident_stack.clone());
-    let Some((tx, tz, ty_third)) = level.get_entity(target).map(|t| {
+    let Some((tx, tz, ty_third)) = level.get_entity_or_remote_target(target).map(|t| {
         (
             t.base().x(),
             t.base().z(),

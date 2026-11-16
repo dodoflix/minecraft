@@ -633,7 +633,7 @@ impl Entity for Panda {
             self.did_bite = false;
         }
         if self.get_unhappy_counter() > 0 {
-            if let Some(target) = target.and_then(|t| level.get_entity(t)) {
+            if let Some(target) = target.and_then(|t| level.get_entity_or_remote_target(t)) {
                 ext::mob_look_at(self, target, 90.0, 90.0);
             }
             if self.get_unhappy_counter() == 29 || self.get_unhappy_counter() == 14 {

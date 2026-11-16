@@ -137,7 +137,9 @@ pub fn update_persistent_anger(
     }
     let target = super::tick::get_target_checked(e, level);
     if let Some(target_id) = target {
-        let target_uuid = level.get_entity(target_id).map(|t| t.uuid());
+        let target_uuid = level
+            .get_entity_or_remote_target(target_id)
+            .map(|t| t.uuid());
         let new_target = persistent_target.is_none() || persistent_target != target_uuid;
         if new_target {
             set_persistent_anger_target(e, target_uuid);
@@ -147,7 +149,7 @@ pub fn update_persistent_anger(
         }
     }
     let valid_player_target = target
-        .and_then(|id| level.get_entity(id))
+        .and_then(|id| level.get_entity_or_remote_target(id))
         .is_some_and(|t| is_valid_player_target(level, t));
     if persistent_target.is_some()
         && !is_angry(e, level)

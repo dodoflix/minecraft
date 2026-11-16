@@ -1,0 +1,40 @@
+# A player killed by an arrow whose owner is a player in another level: the victim's entity_killed_player criteria read the owner as the killer
+# (Entity.awardKillScore) at once, in the victim's level, with everything the owner is wearing, carrying and affected by: armor and held items, effects, experience,
+# scoreboard team, entity tags. The data pack's advancements name each property; the ones that must not match name equipment and effects the owner does not have.
+datapack remote_killer
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty normal
+entity_counter 100
+fill -2 99 -2 2 99 12 minecraft:stone
+in the_nether fill -2 99 -2 2 99 12 minecraft:netherrack
+spawn_player Alice survival 0.5 100 0.5 0 0
+in the_nether spawn_player Bob survival 2.5 100 2.5 180 0
+tick 2
+give Alice head minecraft:diamond_helmet
+give Alice mainhand minecraft:diamond_sword
+effect Alice minecraft:speed 1 600
+set Alice xp_level 7
+cmd team add red
+cmd team join red Alice
+cmd tag Alice add gunner
+tick 2
+dump packets:Alice:none advancements:Alice
+in the_nether dump packets:Bob:none advancements:Bob
+level_seed 5
+spawn Arrow minecraft:arrow 0.5 101.5 0.5 0 0 {Owner:[I;278005000,-707248403,-1814916367,-1817188393],pickup:0b}
+entity_seed Arrow 41
+set Bob health 1
+tp_dim Arrow the_nether 2.5 100.9 -1.5
+velocity Arrow 0 0 1.5
+note the arrow reaches Bob and kills him
+tick 3
+dump advancements:Alice stats:Alice
+in the_nether dump advancements:Bob stats:Bob
+tick 2
+dump advancements:Alice
+in the_nether dump advancements:Bob

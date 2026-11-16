@@ -160,7 +160,7 @@ impl Witch {
             && !self.has_effect(MobEffect::SPEED)
             && self.get_target().is_some_and(|id| {
                 level
-                    .get_entity(id)
+                    .get_entity_or_remote_target(id)
                     .is_some_and(|t| t.base().distance_to_sqr_vec(self.position()) > 121.0)
             })
         {

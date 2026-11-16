@@ -763,7 +763,9 @@ impl Goal for ShulkerAttackGoal {
     }
 
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let target = mob.get_target().and_then(|id| level.get_entity(id));
+        let target = mob
+            .get_target()
+            .and_then(|id| level.get_entity_or_remote_target(id));
         target.is_some_and(|t| t.is_alive()) && level.difficulty() != Difficulty::Peaceful
     }
 
@@ -788,7 +790,7 @@ impl Goal for ShulkerAttackGoal {
         let Some(target_id) = mob.get_target() else {
             return;
         };
-        let Some(target) = level.get_entity(target_id) else {
+        let Some(target) = level.get_entity_or_remote_target(target_id) else {
             return;
         };
         mob::look_at_entity_full(mob, target, 180.0, 180.0);
@@ -797,7 +799,7 @@ impl Goal for ShulkerAttackGoal {
             if self.attack_time <= 0 {
                 self.attack_time = 20 + mob.base_mut().random.next_int_bounded(10) * 20 / 2;
                 let axis = shulker_ref(mob).get_attach_face().get_axis();
-                let Some(target) = level.get_entity(target_id) else {
+                let Some(target) = level.get_entity_or_remote_target(target_id) else {
                     return;
                 };
                 let bullet = ShulkerBullet::from_owner(level, mob, target, axis);
