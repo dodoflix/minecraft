@@ -56,13 +56,12 @@ use parking_lot::Mutex;
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 
-/// Replay `tests/oracle/scenarios/NAME.txt` and return the lines the Java driver would print (`CF` feedback lines of the `cmd` verbs
-/// only when the fixture records them, see [`super::command_verbs::legacy_feedback`]).
+/// Replay `tests/oracle/scenarios/NAME.txt` and return the lines the Java driver would print.
 pub fn run_scenario(name: &str) -> Vec<String> {
     let path = scenario_dir().join(format!("{name}.txt"));
     let text = std::fs::read_to_string(&path)
         .unwrap_or_else(|e| panic!("scenario {}: {e}", path.display()));
-    super::command_verbs::legacy_feedback(name, run_scenario_text(&text))
+    run_scenario_text(&text)
 }
 
 /// Replay and compare with `tests/fixtures/entity_oracle/NAME.txt` (panics with the first differences).
@@ -84,7 +83,6 @@ pub fn check_until(name: &str, marker: &str) {
     };
     let fixture = Fixture::load(name);
     let mut opts = Options::default();
-    opts.ignore_kinds.push("C");
     opts.ignore_containing.push("minecraft:light_update");
     if let Err(report) = compare(&cut(&fixture.lines), &cut(&actual), &opts) {
         panic!("block oracle scenario `{name}` differs before `{marker}`:\n{report}");
@@ -102,11 +100,7 @@ pub fn check_with(name: &str, opts: &Options) {
         .expect("write the replay output");
     }
     let fixture = Fixture::load(name);
-    // `C` lines are the command feedback of the driver's own `time`/`gamerule` verbs ("Set minecraft:overworld to N tick(s)") and of
-    // `cmd` in fixtures recorded before `CF` lines: the replay changes the same state without a command, so the text is not part of
-    // the comparison (the feedback of `cmd` verbs is the `CF` lines, which are compared)
     let mut opts = opts.clone();
-    opts.ignore_kinds.push("C");
     // light updates come from the light thread: which tick carries them depends on thread timing in vanilla
     opts.ignore_containing.push("minecraft:light_update");
     if let Err(report) = compare(&fixture.lines, &actual, &opts) {

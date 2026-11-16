@@ -1,5 +1,7 @@
-C The difficulty did not change; it is already set to Normal
-C Set minecraft:overworld to 1000 tick(s)
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF msg Set minecraft:overworld to 1000 tick(s)
+CF result success 1000
 T 36
 E V minecraft:villager pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=-3,-60,3 path=- nodes=- goals=- tgoals=- acts=core;idle mem=meeting_point:minecraft:overworld@-3,-60,3:inf equip=- attrs=minecraft:follow_range:15.782016474927355;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
 T 37
@@ -80,7 +82,8 @@ T 74
 E V minecraft:villager pos=2.343864730036719,-60.0,2.343846062564391 delta=0.0,-0.0784000015258789,0.0 rot=315.0004,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=315.0004 body=315.0004 nav=done stuck=0 navspeed=0.5 ntarget=0,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=home:minecraft:overworld@0,-60,-4:inf;job_site:minecraft:overworld@3,-60,3:inf;meeting_point:minecraft:overworld@-3,-60,3:inf;visible_mobs:():inf equip=- attrs=minecraft:follow_range:15.782016474927355;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:farmer/1 vxp=0
 T 75
 E V minecraft:villager pos=2.343864730036719,-60.0,2.343846062564391 delta=0.0,-0.0784000015258789,0.0 rot=315.0004,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=315.0004 body=315.0004 nav=done stuck=0 navspeed=0.5 ntarget=0,-60,-4 path=- nodes=- goals=- tgoals=- acts=core;idle mem=home:minecraft:overworld@0,-60,-4:inf;job_site:minecraft:overworld@3,-60,3:inf;meeting_point:minecraft:overworld@-3,-60,3:inf;visible_mobs:():inf equip=- attrs=minecraft:follow_range:15.782016474927355;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:farmer/1 vxp=0
-C Set minecraft:overworld to 13000 tick(s)
+CF msg Set minecraft:overworld to 13000 tick(s)
+CF result success 13000
 BRAIN V acts=core;rest
 BM V type=home value=minecraft:overworld@0,-60,-4 ttl=inf
 BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf

@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 EFFECT Steve minecraft:resistance added=true
 # hurt by the player: the trader panics
 HURT T player_attack 1 -> true

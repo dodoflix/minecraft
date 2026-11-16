@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 G minecraft:chest_minecart pos=215.5,-26.5,212.5 rot=0.0,0.0
 G minecraft:chest_minecart pos=247.5,-28.9375,190.5 rot=0.0,0.0
 G minecraft:chest_minecart pos=264.5,-30.9375,168.5 rot=0.0,0.0

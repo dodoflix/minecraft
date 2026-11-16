@@ -1,20 +1,37 @@
-C The difficulty did not change; it is already set to Normal
-C No biome entries were changed
-C 84 biome entry/entries set between 8, -64, 0 and 16, -52, 24
-C 84 biome entry/entries set between 20, -64, 0 and 28, -52, 24
-C 84 biome entry/entries set between 28, -64, 0 and 36, -52, 24
-C 84 biome entry/entries set between 40, -64, 0 and 48, -52, 24
-C 84 biome entry/entries set between 48, -64, 0 and 56, -52, 24
-C 84 biome entry/entries set between 60, -64, 0 and 68, -52, 24
-C 84 biome entry/entries set between 68, -64, 0 and 76, -52, 24
-C 84 biome entry/entries set between 80, -64, 0 and 88, -52, 24
-C 84 biome entry/entries set between 88, -64, 0 and 96, -52, 24
-C 84 biome entry/entries set between 100, -64, 0 and 108, -52, 24
-C 84 biome entry/entries set between 108, -64, 0 and 116, -52, 24
-C 84 biome entry/entries set between 120, -64, 0 and 128, -52, 24
-C 84 biome entry/entries set between 128, -64, 0 and 136, -52, 24
-C 84 biome entry/entries set between 140, -64, 0 and 148, -52, 24
-C 84 biome entry/entries set between 148, -64, 0 and 156, -52, 24
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail No biome entries were changed
+CF msg 84 biome entry/entries set between 8, -64, 0 and 16, -52, 24
+CF result success 84
+CF msg 84 biome entry/entries set between 20, -64, 0 and 28, -52, 24
+CF result success 84
+CF msg 84 biome entry/entries set between 28, -64, 0 and 36, -52, 24
+CF result success 84
+CF msg 84 biome entry/entries set between 40, -64, 0 and 48, -52, 24
+CF result success 84
+CF msg 84 biome entry/entries set between 48, -64, 0 and 56, -52, 24
+CF result success 84
+CF msg 84 biome entry/entries set between 60, -64, 0 and 68, -52, 24
+CF result success 84
+CF msg 84 biome entry/entries set between 68, -64, 0 and 76, -52, 24
+CF result success 84
+CF msg 84 biome entry/entries set between 80, -64, 0 and 88, -52, 24
+CF result success 84
+CF msg 84 biome entry/entries set between 88, -64, 0 and 96, -52, 24
+CF result success 84
+CF msg 84 biome entry/entries set between 100, -64, 0 and 108, -52, 24
+CF result success 84
+CF msg 84 biome entry/entries set between 108, -64, 0 and 116, -52, 24
+CF result success 84
+CF msg 84 biome entry/entries set between 120, -64, 0 and 128, -52, 24
+CF result success 84
+CF msg 84 biome entry/entries set between 128, -64, 0 and 136, -52, 24
+CF result success 84
+CF msg 84 biome entry/entries set between 140, -64, 0 and 148, -52, 24
+CF result success 84
+CF msg 84 biome entry/entries set between 148, -64, 0 and 156, -52, 24
+CF result success 84
 E Wo0 minecraft:wolf pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:17.137125685315574;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:big collar=red wet=0 shaking=0 shake=0.0 interest=0.0
 E Pi0 minecraft:pig pos=2.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.61584658647721;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E Co0 minecraft:cow pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:14.879422809287606;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-

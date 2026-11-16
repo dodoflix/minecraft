@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 # a plain apple does nothing; with weakness it starts the cure
 E ZV1 minecraft:zombie_villager pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_sword*1;head:minecraft:iron_helmet*1 attrs=minecraft:armor:4.0;minecraft:attack_damage:8.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
 ED ZV1 0:0:00 1:1:ac02 2:6:01080003446f63 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:01 16:8:00 17:1:00 18:8:00 19:8:00 20:18:030404 21:8:01

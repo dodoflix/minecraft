@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 # a trader without offers opens no screen
 MENU A cid=0 type=inventory state=4 carried=empty
 MS 36 minecraft:emerald*40

@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 NAV Z 12.5,-60.0,0.5 moved=true
 PATH Z next=0 count=12 reached=1 target=12,-60,0 dist=1.0
 PN Z 0 pos=0,-60,0 type=WALKABLE malus=0.0 walked=0.0
@@ -81,8 +82,10 @@ T 13
 E Z minecraft:zombie pos=1.5253965738052582,-60.0,0.5 delta=0.06347003971508466,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=12,-60,0 path=2/12/1/12,-60,0 nodes=0,-60,0:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;2,-60,0:WALKABLE:0.0;3,-60,0:WALKABLE:0.0;4,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;8,-60,0:WALKABLE:0.0;9,-60,0:WALKABLE:0.0;10,-60,0:WALKABLE:0.0;11,-60,0:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:33.17383576606599;minecraft:knockback_resistance:0.04912146894815883;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.0504433238830051
 E Cow minecraft:cow pos=1.2753471207273754,-60.0,6.5 delta=0.047992468282704835,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.2 zza=0.2 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=12,-60,6 path=2/12/1/12,-60,6 nodes=0,-60,6:WALKABLE:0.0;1,-60,6:WALKABLE:0.0;2,-60,6:WALKABLE:0.0;3,-60,6:WALKABLE:0.0;4,-60,6:WALKABLE:0.0;5,-60,6:WALKABLE:0.0;6,-60,6:WALKABLE:0.0;7,-60,6:WALKABLE:0.0;8,-60,6:WALKABLE:0.0;9,-60,6:WALKABLE:0.0;10,-60,6:WALKABLE:0.0;11,-60,6:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.962086750364872;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E Sheep minecraft:sheep pos=1.5253965738052582,-60.0,12.5 delta=0.06347003971508466,-0.0784000015258789,0.0 rot=270.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.23 zza=0.23 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=moving stuck=0 navspeed=1.0 ntarget=12,-60,12 path=2/12/1/12,-60,12 nodes=0,-60,12:WALKABLE:0.0;1,-60,12:WALKABLE:0.0;2,-60,12:WALKABLE:0.0;3,-60,12:WALKABLE:0.0;4,-60,12:WALKABLE:0.0;5,-60,12:WALKABLE:0.0;6,-60,12:WALKABLE:0.0;7,-60,12:WALKABLE:0.0;8,-60,12:WALKABLE:0.0;9,-60,12:WALKABLE:0.0;10,-60,12:WALKABLE:0.0;11,-60,12:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.249720736537805;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
-C Teleported Zombie to 3.500000, -60.000000, 0.500000
-C Teleported Cow to 3.500000, -60.000000, 6.500000
+CF msg Teleported Zombie to 3.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Teleported Cow to 3.500000, -60.000000, 6.500000
+CF result success 1
 PATH Z none
 PATH Cow none
 PATH Sheep next=2 count=12 reached=1 target=12,-60,12 dist=1.0

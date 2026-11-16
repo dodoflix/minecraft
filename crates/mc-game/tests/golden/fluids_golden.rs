@@ -56,7 +56,6 @@ fn check_without_feedback(name: &str) {
     check_with(
         name,
         &Options {
-            ignore_kinds: vec!["C"],
             ..Options::default()
         },
     );

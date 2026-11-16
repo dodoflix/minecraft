@@ -1,8 +1,12 @@
 # summoned calves: baby attack damage although the tag carries no attributes
-C Summoned new Goat
-C Summoned new Hoglin
-C Summoned new Goat
-C Summoned new Goat
+CF msg Summoned new Goat
+CF result success 1
+CF msg Summoned new Hoglin
+CF result success 1
+CF msg Summoned new Goat
+CF result success 1
+CF msg Summoned new Goat
+CF result success 1
 E goat#1 minecraft:goat pos=4.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=-24000 baby=1 forcedage=0 love=0 lovecause=- scream=0 lhorn=1 rhorn=1
 E hoglin#1 minecraft:hoglin pos=8.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:0.5;minecraft:attack_knockback:1.0;minecraft:follow_range:16.0;minecraft:knockback_resistance:0.6000000238418579;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=-24000 baby=1 forcedage=0 love=0 lovecause=-
 E goat#2 minecraft:goat pos=12.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=-24000 baby=1 forcedage=0 love=0 lovecause=- scream=0 lhorn=1 rhorn=1

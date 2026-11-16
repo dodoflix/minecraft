@@ -1,6 +1,9 @@
-C No biome entries were changed
-C 144 biome entry/entries set between 48, -64, -12 and 68, -52, 8
-C 144 biome entry/entries set between 80, -64, -12 and 100, -52, 8
+CF result failure 0
+CF fail No biome entries were changed
+CF msg 144 biome entry/entries set between 48, -64, -12 and 68, -52, 8
+CF result success 144
+CF msg 144 biome entry/entries set between 80, -64, -12 and 100, -52, 8
+CF result success 144
 T 4
 E T1 minecraft:tadpole pos=30.5,-57.995,0.5 delta=0.0,-4.999999999999996E-4,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=walk_target:walk(pos(36,-55,-6);0.5;0):inf equip=- attrs=minecraft:follow_range:15.286729230285447;minecraft:max_health:6.0;minecraft:movement_speed:1.0 tage=23986 locked=0 particle=0
 E T2 minecraft:tadpole pos=32.5,-57.995,2.5 delta=0.0,-4.999999999999996E-4,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=walk_target:walk(pos(39,-58,2);0.5;0):inf equip=- attrs=minecraft:follow_range:15.79829951627741;minecraft:max_health:6.0;minecraft:movement_speed:1.0 tage=101 locked=0 particle=0

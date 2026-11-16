@@ -1,5 +1,7 @@
-C The difficulty did not change; it is already set to Normal
-C Set minecraft:overworld to 1000 tick(s)
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF msg Set minecraft:overworld to 1000 tick(s)
+CF result success 1000
 # V1 meets V2: three villagers slept, five are needed
 T 1236
 BRAIN V1 acts=core;idle

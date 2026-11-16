@@ -1,6 +1,9 @@
-C The difficulty did not change; it is already set to Normal
-C Game rule random_tick_speed is already set to 0
-C Set minecraft:overworld to 2000 tick(s)
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail Game rule random_tick_speed is already set to 0
+CF msg Set minecraft:overworld to 2000 tick(s)
+CF result success 2000
 BRAIN V acts=core;idle
 BM V type=job_site value=minecraft:overworld@3,-60,3 ttl=inf
 BM V type=mobs value=(Steve) ttl=inf

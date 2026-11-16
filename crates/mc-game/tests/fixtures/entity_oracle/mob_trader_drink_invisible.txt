@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 EFFECT Steve minecraft:resistance added=true
 # it is dark outside: the trader starts the potion
 E T minecraft:wandering_trader pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=0:UseItemGoal:none tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:potion*1{minecraft:potion_contents:{potion:"minecraft:invisibility"}} attrs=minecraft:follow_range:16.0 age=0 baby=0 forcedage=0
@@ -86,7 +87,8 @@ E T minecraft:wandering_trader pos=-0.41608329266225635,-60.0,1.416099627571434 
 # the potion is drunk: invisible, nothing in the hand
 E T minecraft:wandering_trader pos=-0.41608329266225635,-60.0,1.416099627571434 delta=-0.05097911543672164,-0.0784000015258789,0.05097983881333385 rot=45.000366,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:invisibility/0/3595 target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.245 zza=0.245 xxa=0.0 yya=0.0 head=45.000275 body=45.000366 nav=moving stuck=0 navspeed=0.35 ntarget=-5,-60,6 path=2/6/1/-5,-60,6 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,4:WALKABLE:0.0;-5,-60,5:WALKABLE:0.0 goals=8:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0 age=0 baby=0 forcedage=0
 # the sun is up: it drinks milk and shows itself again
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 T 63
 E T minecraft:wandering_trader pos=-2.7531676488373034,-60.0,3.753185577086831 delta=-0.051045102611587206,-0.0784000015258789,0.051045102611781815 rot=45.00061,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:invisibility/0/3570 target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.245 zza=0.245 xxa=0.0 yya=0.0 head=45.00055 body=45.00061 nav=moving stuck=0 navspeed=0.35 ntarget=-5,-60,6 path=4/6/1/-5,-60,6 nodes=0,-60,0:WALKABLE:0.0;-1,-60,1:WALKABLE:0.0;-2,-60,2:WALKABLE:0.0;-3,-60,3:WALKABLE:0.0;-4,-60,4:WALKABLE:0.0;-5,-60,5:WALKABLE:0.0 goals=0:UseItemGoal:none;8:WaterAvoidingRandomStrollGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:milk_bucket*1 attrs=minecraft:follow_range:16.0 age=0 baby=0 forcedage=0
 EV sound at=-0.6964291689032577,-60.0,1.6964468378029156 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0

@@ -1,4 +1,5 @@
-C Game rule mob_drops is now set to false
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 EFFECT Steve minecraft:absorption added=true
 COUNTER 5824
 E W minecraft:wither pos=-9.491513904662424,-58.012000000208616,-6.491515531869254 delta=0.007722346979751166,-0.01176000043332576,0.007720866221492593 rot=315.0,10.082692 og=0 fall=0.012000000104308128 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.6 zza=0.6 xxa=0.0 yya=-0.6 head=330.0 body=315.0 nav=moving stuck=0 navspeed=1.0 ntarget=0,-60,9 path=1/17/1/0,-60,9 nodes=-10,-58,-7:OPEN:0.0;-9,-58,-6:OPEN:0.0;-8,-58,-5:OPEN:0.0;-7,-58,-4:OPEN:0.0;-6,-58,-3:OPEN:0.0;-5,-58,-2:OPEN:0.0;-4,-58,-1:OPEN:0.0;-3,-58,0:OPEN:0.0;-2,-58,1:OPEN:0.0;-2,-58,2:OPEN:0.0;-2,-58,3:OPEN:0.0;-1,-59,4:OPEN:0.0;-1,-59,5:OPEN:0.0;-1,-59,6:OPEN:0.0;-1,-59,7:OPEN:0.0;0,-59,8:OPEN:0.0;0,-60,9:WALKABLE:2.0 goals=2:RangedAttackGoal:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.00479504866347;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=5821,5821,5824 heads=8.031009/-10.0,9.474574/-10.0 nhu=17,11 idle=1,1 dbt=0 bossp=1.0
@@ -519,7 +520,8 @@ N W {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTi
 RNG W 121410654123785
 RNG level 269214901855496
 # on hard the wither effect lasts 40 seconds
-C The difficulty has been set to Hard
+CF msg The difficulty has been set to Hard
+CF result success 0
 T 104
 E W minecraft:wither pos=1.6384300407536319,-54.66726039231428,11.345677155215217 delta=0.0,-0.14177146528224438,0.0 rot=-31.94423,30.0 og=0 fall=4.751229951158166 fire=0 air=300 alive=1 pose=standing hp=300.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.6 zza=0.0 xxa=0.0 yya=0.0 head=-211.66666 body=-151.66666 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,9 path=- nodes=- goals=2:RangedAttackGoal:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:40.00479504866347;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=5821,5821,5824 heads=79.5753/158.74655,21.243874/-131.94423 nhu=121,121 idle=0,0 dbt=0 bossp=1.0
 E item#2 minecraft:item pos=10.439479038958295,-60.0,-2.9091051942558654 delta=2.438781752832533E-4,0.0,1.5338963514185334E-4 rot=55.674656,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:wither_rose*1 age=29 pickup=0 health=4 owner=- thrower=-

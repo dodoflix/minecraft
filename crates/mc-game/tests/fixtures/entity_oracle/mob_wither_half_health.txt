@@ -1,4 +1,5 @@
-C Game rule mob_drops is now set to false
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 COUNTER 5838
 E W minecraft:wither pos=0.5,-58.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:36.317987711260365;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/0.0,0.0/0.0 nhu=16,20 idle=1,1 dbt=0 bossp=0.6666667
 # above half health: arrows and wind charges hurt
@@ -161,7 +162,8 @@ RNG W 152934361384910
 RNG level 196448954836356
 N W {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:145.24f,HurtTime:0s,Invul:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.010920000504553313d,-0.01176000043332576d,0.0d],NoGravity:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5120000002086162d,-58.012000000208616d,0.550000011920929d],Rotation:[270.0f,0.0f],attributes:[{base:40.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.09205030721849086d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.6000000238418579d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.2279896796680987d,last_hurt_by_mob:[I;1445453208,-423740383,-1196889821,1142437441],last_hurt_by_player:[I;1445453208,-423740383,-1196889821,1142437441],last_hurt_by_player_memory_time:78,ticks_since_last_hurt_by_mob:22}
 # with the gamerule off the countdown runs out and nothing breaks
-C Game rule mob_griefing is now set to false
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
 HURT W player_attack 10 -> true
 B -3 -61 -3 minecraft:grass_block[snowy=false]
 B -3 -61 -2 minecraft:grass_block[snowy=false]
@@ -231,7 +233,8 @@ B 3 -61 1 minecraft:grass_block[snowy=false]
 B 3 -61 2 minecraft:grass_block[snowy=false]
 B 3 -61 3 minecraft:grass_block[snowy=false]
 E W minecraft:wither pos=0.4619999882876873,-58.599208595338666,0.4770811497724734 delta=0.010920000504553313,-0.02854345027904276,-0.009937200745531926 rot=270.00006,0.0 og=0 fall=0.8271982748992741 fire=0 air=300 alive=1 pose=standing hp=136.56 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.6 zza=0.6 xxa=0.0 yya=-0.6 head=195.00006 body=270.00006 nav=moving stuck=0 navspeed=1.0 ntarget=-1,-57,3 path=2/6/1/-1,-57,3 nodes=0,-59,0:OPEN:0.0;1,-59,0:OPEN:0.0;1,-59,1:OPEN:0.0;1,-59,2:OPEN:0.0;0,-58,3:OPEN:0.0;-1,-57,3:OPEN:0.0 goals=5:WaterAvoidingRandomFlyingGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:36.317987711260365;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/460.0,0.0/460.0 nhu=99,115 idle=5,6 dbt=0 bossp=0.4552
-C Game rule mob_griefing is now set to true
+CF msg Game rule mob_griefing is now set to true
+CF result success 1
 # at a third of the health the bar is nearly empty; the wither dies from the next blow
 E W minecraft:wither pos=0.4814676790939615,-58.62833466571471,0.4755663594230725 delta=0.017715599144270015,-0.028543549524056768,-0.0013784592576817556 rot=314.5808,0.0 og=0 fall=0.8563243453390896 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.6 zza=0.6 xxa=0.0 yya=-0.6 head=239.58081 body=314.5808 nav=moving stuck=0 navspeed=1.0 ntarget=-1,-57,3 path=2/6/1/-1,-57,3 nodes=0,-59,0:OPEN:0.0;1,-59,0:OPEN:0.0;1,-59,1:OPEN:0.0;1,-59,2:OPEN:0.0;0,-58,3:OPEN:0.0;-1,-57,3:OPEN:0.0 goals=5:WaterAvoidingRandomFlyingGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:36.317987711260365;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/470.0,0.0/470.0 nhu=99,115 idle=5,6 dbt=0 bossp=0.06666667
 HURT W out_of_world 1000 -> true
@@ -812,8 +815,10 @@ E item#17 minecraft:item pos=1.9170199850122738,-60.0,3.055741799583293 delta=3.
 E item#18 minecraft:item pos=0.8749080921655318,-60.0,2.951163454227293 delta=1.1423833161555157E-5,-0.04,2.9258299396674665E-5 rot=108.956825,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:obsidian*1 age=55 pickup=0 health=5 owner=- thrower=-
 COUNTER 5858
 # a wither killed by a player with drops on: the nether star (extended lifetime) and its experience
-C Game rule mob_drops is now set to true
-C Game rule mob_griefing is already set to true
+CF msg Game rule mob_drops is now set to true
+CF result success 1
+CF result failure 0
+CF fail Game rule mob_griefing is already set to true
 E K minecraft:wither pos=0.5,-58.0,-20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:4.0;minecraft:flying_speed:0.6000000238418579;minecraft:follow_range:43.06104184745414;minecraft:max_health:300.0;minecraft:movement_speed:0.6000000238418579 inv=0 tgt=0,0,0 heads=0.0/0.0,0.0/0.0 nhu=16,12 idle=1,1 dbt=0 bossp=0.033333335
 HURT K player_attack 100 -> true
 T 128

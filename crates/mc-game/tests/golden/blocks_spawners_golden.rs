@@ -70,7 +70,6 @@ fn normalize(line: &str) -> String {
 /// The harness does not echo the commands' own output (`C` lines).
 fn options() -> Options {
     Options {
-        ignore_kinds: vec!["C"],
         ..Options::default()
     }
 }

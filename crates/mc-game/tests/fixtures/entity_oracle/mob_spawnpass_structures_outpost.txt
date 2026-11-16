@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 G minecraft:chest_minecart pos=-3.5,-44.5,40.5 rot=0.0,0.0
 G minecraft:iron_golem pos=145.69999998807907,65.0,-316.30000001192093 rot=0.0,0.0 Health=100.0f PersistenceRequired=0b
 # spawn attempts

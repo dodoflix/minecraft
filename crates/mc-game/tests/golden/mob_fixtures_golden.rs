@@ -27,7 +27,6 @@ fn mob_finalize_equipment() {
 fn check_finalize_blocks(name: &str, actual: &[String], divergent: &[&str]) {
     let fixture = Fixture::load(name);
     let opts = Options {
-        ignore_kinds: vec!["C"],
         ..Default::default()
     };
     // mob name -> (type, expected lines, actual lines)

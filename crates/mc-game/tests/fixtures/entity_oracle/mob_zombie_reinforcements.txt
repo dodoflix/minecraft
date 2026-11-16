@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule mob_drops is now set to false
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 # a hit with reinforcements 1.0 on Hard
 HURT Z1 player_attack 1 -> true
 E Z1 minecraft:zombie pos=7.118400034582615,-59.36401598435307,0.5 delta=0.1987440317739259,0.19128033396326094,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=19.06 abs=0.0 hurt=8/18 death=0 fx=- target=Steve hurtby=Steve aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=1:HurtByTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:1.0

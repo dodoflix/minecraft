@@ -1,28 +1,41 @@
-C The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
 # time 0
-C Clock minecraft:overworld is already set to 0 tick(s)
+CF result failure 0
+CF fail Clock minecraft:overworld is already set to 0 tick(s)
 # time 23990
-C Set minecraft:overworld to 23990 tick(s)
+CF msg Set minecraft:overworld to 23990 tick(s)
+CF result success 23990
 # time 24000
-C Set minecraft:overworld to 24000 tick(s)
+CF msg Set minecraft:overworld to 24000 tick(s)
+CF result success 24000
 # time 48000
-C Set minecraft:overworld to 48000 tick(s)
+CF msg Set minecraft:overworld to 48000 tick(s)
+CF result success 48000
 # time 72000
-C Set minecraft:overworld to 72000 tick(s)
+CF msg Set minecraft:overworld to 72000 tick(s)
+CF result success 72000
 # time 96000
-C Set minecraft:overworld to 96000 tick(s)
+CF msg Set minecraft:overworld to 96000 tick(s)
+CF result success 96000
 # time 120000
-C Set minecraft:overworld to 120000 tick(s)
+CF msg Set minecraft:overworld to 120000 tick(s)
+CF result success 120000
 # time 144000
-C Set minecraft:overworld to 144000 tick(s)
+CF msg Set minecraft:overworld to 144000 tick(s)
+CF result success 144000
 # time 168000
-C Set minecraft:overworld to 168000 tick(s)
+CF msg Set minecraft:overworld to 168000 tick(s)
+CF result success 168000
 # time 191990
-C Set minecraft:overworld to 191990 tick(s)
+CF msg Set minecraft:overworld to 191990 tick(s)
+CF result success 191990
 # time 192000
-C Set minecraft:overworld to 192000 tick(s)
+CF msg Set minecraft:overworld to 192000 tick(s)
+CF result success 192000
 # time 216000
-C Set minecraft:overworld to 216000 tick(s)
+CF msg Set minecraft:overworld to 216000 tick(s)
+CF result success 216000
 E T0K0 minecraft:cat pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.456694815186005;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:persian svariant=minecraft:royal collar=red lie=0.0 lietail=0.0 ontop=0 relax=0.0
 E T0K1 minecraft:cat pos=5.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.14497544534363;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:ragdoll svariant=minecraft:classic collar=red lie=0.0 lietail=0.0 ontop=0 relax=0.0
 E T0K2 minecraft:cat pos=8.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:17.08013360963551;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:calico svariant=minecraft:classic collar=red lie=0.0 lietail=0.0 ontop=0 relax=0.0

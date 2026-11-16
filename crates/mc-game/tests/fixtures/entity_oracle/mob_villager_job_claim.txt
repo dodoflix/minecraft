@@ -1,5 +1,7 @@
-C The difficulty did not change; it is already set to Normal
-C Set minecraft:overworld to 2000 tick(s)
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF msg Set minecraft:overworld to 2000 tick(s)
+CF result success 2000
 BRAIN V1 acts=core;idle
 BM V1 type=mobs value=(V2;Steve) ttl=inf
 BM V1 type=visible_mobs value=(V2;Steve) ttl=inf

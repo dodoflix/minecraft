@@ -1,5 +1,7 @@
-C The difficulty did not change; it is already set to Normal
-C Set minecraft:overworld to 6000 tick(s)
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 BRAIN V1 acts=core;panic
 BM V1 type=last_slept value=1234 ttl=inf
 BM V1 type=mobs value=(V3;V2;Z;Steve) ttl=inf

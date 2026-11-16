@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 MENU A cid=1 type=minecraft:merchant state=1 carried=empty
 MS 30 minecraft:emerald*40
 MENU B cid=1 type=minecraft:merchant state=1 carried=empty
@@ -25,7 +26,8 @@ TRADER T xp=0 level=- trading=-
 PKT A minecraft:container_close 1101
 PKT B minecraft:container_close 1101
 # the trader that dies closes the screen
-C Killed Wandering Trader
+CF msg Killed Wandering Trader
+CF result success 1
 MENU C cid=0 type=inventory state=2 carried=empty
 MS 36 minecraft:emerald*40
 TRADER K xp=0 level=- trading=-

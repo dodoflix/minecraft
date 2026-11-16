@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule mob_drops is already set to true
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF result failure 0
+CF fail Game rule mob_drops is already set to true
 # Normal: the first zombie flips heads, the second tails
 MOBATTACK Z1 V1 -> true
 E Z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
@@ -40,7 +42,8 @@ E Z4 minecraft:zombie pos=1.5,-60.0,18.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall
 E zombie_villager#2 minecraft:zombie_villager pos=0.5,-60.0,12.5 delta=-0.4000000059604645,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=7/0 death=0 fx=-
 RNG level 49526899261774
 # Hard: always, the zombie's husk and drowned cousins infect too
-C The difficulty has been set to Hard
+CF msg The difficulty has been set to Hard
+CF result success 0
 MOBATTACK Z5 V5 -> true
 MOBATTACK Z6 V6 -> true
 E Z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
@@ -74,7 +77,8 @@ EV level_event r=64.0 ex=0 type=1026 pos=1,-60,30 data=0 global=0
 N zombie_villager#3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:1b,ConversionTime:-1,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Gossips:[{Target:[I;-1615908404,874335604,-1518060586,-1952566314],Type:"minor_negative",Value:25}],Health:20.0f,HurtTime:7s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[-0.4000000059604645d,0.0d,0.0d],NoAI:1b,Offers:{Recipes:[{buy:{count:1,id:"minecraft:emerald"},maxUses:12,priceMultiplier:0.05f,sell:{count:4,id:"minecraft:pumpkin_pie"},xp:5},{buy:{count:6,id:"minecraft:pumpkin"},maxUses:12,priceMultiplier:0.05f,sell:{count:1,id:"minecraft:emerald"},xp:10}]},OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,24.5d],Rotation:[0.0f,0.0f],VillagerData:{level:2,profession:"minecraft:farmer",type:"minecraft:swamp"},VillagerDataFinalized:1b,Xp:0,attributes:[{base:35.0d,id:"minecraft:follow_range",modifiers:[{amount:0.09846591604755879d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.04276354366704127d,id:"minecraft:spawn_reinforcements"},{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:knockback_resistance",modifiers:[{amount:0.04693145925517414d,id:"minecraft:random_spawn_bonus",operation:"add_value"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
 N zombie_villager#4 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanBreakDoors:0b,CanPickUpLoot:1b,ConversionTime:-1,DeathTime:0s,DrownedConversionTime:-1,FallFlying:0b,Fire:0s,Gossips:[{Target:[I;-649588154,-801289459,-1572062261,-1060034047],Type:"minor_negative",Value:25}],Health:20.0f,HurtTime:7s,InWaterTime:-1,Invulnerable:0b,IsBaby:0b,LeftHanded:0b,Motion:[-0.4000000059604645d,0.0d,0.0d],NoAI:1b,Offers:{},OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,30.5d],Rotation:[0.0f,0.0f],VillagerData:{level:1,profession:"minecraft:none",type:"minecraft:plains"},VillagerDataFinalized:1b,Xp:0,attributes:[{base:35.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.05833554908625592d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.03166706576383154d,id:"minecraft:spawn_reinforcements"},{base:0.23000000417232513d,id:"minecraft:movement_speed"},{base:0.0d,id:"minecraft:knockback_resistance",modifiers:[{amount:0.03512451697163523d,id:"minecraft:random_spawn_bonus",operation:"add_value"}]}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
 # Easy: a villager just dies
-C The difficulty has been set to Easy
+CF msg The difficulty has been set to Easy
+CF result success 0
 MOBATTACK Z7 V7 -> true
 E Z1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
 E Z2 minecraft:zombie pos=1.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513

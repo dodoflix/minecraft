@@ -1,9 +1,15 @@
-C No biome entries were changed
-C 36 biome entry/entries set between 8, -64, 0 and 16, -52, 8
-C 36 biome entry/entries set between 20, -64, 0 and 28, -52, 8
-C 36 biome entry/entries set between 28, -64, 0 and 36, -52, 8
-C 36 biome entry/entries set between 40, -64, 0 and 48, -52, 8
-C Set minecraft:overworld to 18000 tick(s)
+CF result failure 0
+CF fail No biome entries were changed
+CF msg 36 biome entry/entries set between 8, -64, 0 and 16, -52, 8
+CF result success 36
+CF msg 36 biome entry/entries set between 20, -64, 0 and 28, -52, 8
+CF result success 36
+CF msg 36 biome entry/entries set between 28, -64, 0 and 36, -52, 8
+CF result success 36
+CF msg 36 biome entry/entries set between 40, -64, 0 and 48, -52, 8
+CF result success 36
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 E Z0 minecraft:zombie_nautilus pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=attack_target_cooldown:2892:inf equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:15.676840854650893;minecraft:knockback_resistance:0.30000001192092896;minecraft:max_health:15.0;minecraft:movement_speed:1.100000023841858 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 dashcd=0 jscale=0.0 variant=minecraft:temperate
 E Z1 minecraft:zombie_nautilus pos=12.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=attack_target_cooldown:2759:inf equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:14.542178992371271;minecraft:knockback_resistance:0.30000001192092896;minecraft:max_health:15.0;minecraft:movement_speed:1.100000023841858 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 dashcd=0 jscale=0.0 variant=minecraft:warm
 E Z2 minecraft:zombie_nautilus pos=22.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=attack_target_cooldown:2480:inf equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.452763762917915;minecraft:knockback_resistance:0.30000001192092896;minecraft:max_health:15.0;minecraft:movement_speed:1.100000023841858 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 dashcd=0 jscale=0.0 variant=minecraft:temperate

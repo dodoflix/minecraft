@@ -1,5 +1,7 @@
-C The difficulty did not change; it is already set to Normal
-C Set minecraft:overworld to 6000 tick(s)
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 EFFECT Steve minecraft:hero_of_the_village added=true
 BRAIN V acts=core;idle
 BM V type=look_target value=entity(Steve) ttl=inf

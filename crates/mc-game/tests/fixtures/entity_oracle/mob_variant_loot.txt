@@ -1,5 +1,7 @@
-C The difficulty did not change; it is already set to Normal
-C Game rule mob_drops is already set to true
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail Game rule mob_drops is already set to true
 # chickens lay: the egg of the variant
 T 32
 EV sound at=2.5,-60.0,8.5 r=16.0 ex=0 event=minecraft:entity.chicken.egg source=neutral vol=1.0 pitch=1.1314976

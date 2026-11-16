@@ -12,7 +12,6 @@ pub(crate) fn check(name: &str) {
         lines.iter().map(|l| with_sorted_attributes(l)).collect()
     };
     let options = Options {
-        ignore_kinds: vec!["C"],
         ..Options::default()
     };
     if let Err(report) = compare(

@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule mob_drops is now set to false
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 EFFECT Steve minecraft:resistance added=true
 E S minecraft:spider pos=8.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.744120410812336;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
 G S goal 1 FloatGoal flags=JUMP running=0
@@ -644,7 +646,8 @@ EV sound at=0.5,-58.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=
 EV sound at=0.15127368959072546,-58.0,1.5167764424647006 r=16.0 ex=0 event=minecraft:entity.spider.step source=hostile vol=0.15 pitch=1.0
 N S {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:16.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.09365192555591192d,-0.0784000015258789d,-0.0140092531006502d],OnGround:1b,PersistenceRequired:1b,PortalCooldown:0,Pos:[1.5664526472810465d,-58.0d,0.9111772654313235d],Rotation:[78.24733f,-30.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.046507525675770996d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.30000001192092896d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
 # dawn: the light-dependent value rises over 0.5, the attack goal gives up its target now and then
-C Set minecraft:overworld to 1000 tick(s)
+CF msg Set minecraft:overworld to 1000 tick(s)
+CF result success 1000
 T 123
 E S minecraft:spider pos=1.5711919225766176,-58.0,0.9111158543681795 delta=0.05258764535700162,-0.0784000015258789,-0.021190016097672272 rot=81.08824,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=111.08444 body=81.08824 nav=moving stuck=0 navspeed=1.0 ntarget=0,-58,0 path=1/2/1/0,-58,0 nodes=1,-58,-1:WALKABLE:0.0;0,-58,0:WALKABLE:0.0 goals=4:Spider$SpiderAttackGoal:MOVE+LOOK tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.744120410812336;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
 E T minecraft:spider pos=0.2084700626146555,-58.0,1.4877239553705475 delta=-0.03343757767738012,-0.0784000015258789,0.05498597777314944 rot=238.66345,-30.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=198.93057 body=238.66345 nav=moving stuck=0 navspeed=1.0 ntarget=0,-58,0 path=1/2/1/0,-58,0 nodes=-1,-58,1:WALKABLE:0.0;0,-58,0:WALKABLE:0.0 goals=4:Spider$SpiderAttackGoal:MOVE+LOOK tgoals=2:Spider$SpiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896

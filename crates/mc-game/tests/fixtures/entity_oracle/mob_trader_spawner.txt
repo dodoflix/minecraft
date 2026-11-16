@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 6000 tick(s)
-C Game rule spawn_wandering_traders is now set to true
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
+CF msg Game rule spawn_wandering_traders is now set to true
+CF result success 1
 # no player: getRandomPlayer is null, so spawn() reports success and the chance falls back to 25
 CUSTOMSPAWNER trader seed=10 enemies=1
 TRADERDATA delay=24000 chance=25
@@ -44,7 +46,8 @@ CUSTOMSPAWNER trader seed=3 enemies=1
 TRADERDATA delay=24000 chance=100
 RNG level 25214903918
 # the rule is off
-C Game rule spawn_wandering_traders is now set to false
+CF msg Game rule spawn_wandering_traders is now set to false
+CF result success 0
 CUSTOMSPAWNER trader seed=3 enemies=1
 TRADERDATA delay=1 chance=100
 RNG level 25214903918

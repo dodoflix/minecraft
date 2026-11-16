@@ -76,12 +76,7 @@ pub fn run_scenario_test(name: &str) {
 
 pub fn run_scenario_test_with(name: &str, opts: &Options) {
     let actual = run_scenario(name);
-    // `C` lines are the command feedback of the driver's `time`/`gamerule`/`difficulty` verbs ("Set minecraft:overworld to N
-    // tick(s)"): the replay changes the same state without a command (the block replay compares the same way). The feedback of the
-    // `cmd` verbs is the `CF` lines, which are compared
-    let mut opts = opts.clone();
-    opts.ignore_kinds.push("C");
-    Fixture::load(name).assert_matches(&actual, &opts);
+    Fixture::load(name).assert_matches(&actual, opts);
 }
 
 /// Replay a scenario and return the lines the Java driver would have printed.
@@ -89,7 +84,7 @@ pub fn run_scenario(name: &str) -> Vec<String> {
     let path = scenario_dir().join(format!("{name}.txt"));
     let text = std::fs::read_to_string(&path)
         .unwrap_or_else(|e| panic!("scenario {}: {e}", path.display()));
-    let lines = super::command_verbs::legacy_feedback(name, run_scenario_text(name, &text));
+    let lines = run_scenario_text(name, &text);
     // `ENTITY_SCENARIO_ACTUAL=DIR` writes the replay output to DIR/NAME.txt, to diff it against the fixture by hand
     if let Some(dir) = std::env::var_os("ENTITY_SCENARIO_ACTUAL") {
         std::fs::write(

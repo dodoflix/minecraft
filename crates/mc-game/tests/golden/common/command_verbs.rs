@@ -407,38 +407,6 @@ pub fn normalize_clock_stamps(line: &str) -> String {
     out
 }
 
-/// A fixture recorded before feedback lines existed has no `CF` line: the replay of its scenario prints the console feedback the way the
-/// driver printed it then (`C TEXT` per message, nothing else), which the comparison ignores. Fixtures that have any `CF` line, and
-/// scenarios without a fixture, keep the `CF` lines.
-pub fn legacy_feedback(name: &str, lines: Vec<String>) -> Vec<String> {
-    if !lines.iter().any(|l| l.starts_with("CF ")) {
-        return lines;
-    }
-    let dir = super::entity_oracle::fixture_dir();
-    let path = dir.join(format!("{name}.txt"));
-    let gz = path.with_extension("txt.gz");
-    let text = if gz.exists() {
-        mc_testkit::read_gz(gz)
-    } else if let Ok(text) = std::fs::read_to_string(&path) {
-        text
-    } else {
-        return lines;
-    };
-    if text.lines().any(|l| l.starts_with("CF ")) {
-        return lines;
-    }
-    lines
-        .into_iter()
-        .filter_map(|line| match line.strip_prefix("CF ") {
-            Some(rest) => rest
-                .strip_prefix("msg ")
-                .or_else(|| rest.strip_prefix("fail "))
-                .map(|text| format!("C {}", unescape(text))),
-            None => Some(line),
-        })
-        .collect()
-}
-
 /// `MinecraftServer.createCommandSourceStack`: the overworld at the respawn position, no rotation, owner permissions, named `Server`.
 fn console_stack(level: &ServerLevel, source: Arc<dyn CommandSource>) -> CommandSourceStack {
     let respawn = level.level_data.get_respawn_data().pos;
@@ -863,24 +831,4 @@ pub fn join_command_env(
         server.player_list.add_player(handle.clone());
     });
     (handle, sender, rx)
-}
-
-/// The inverse of the `CF` text escaping (`\\` and `\n`), in one left-to-right pass.
-fn unescape(text: &str) -> String {
-    let mut out = String::with_capacity(text.len());
-    let mut chars = text.chars();
-    while let Some(c) = chars.next() {
-        match (c, chars.clone().next()) {
-            ('\\', Some('n')) => {
-                out.push('\n');
-                chars.next();
-            }
-            ('\\', Some('\\')) => {
-                out.push('\\');
-                chars.next();
-            }
-            _ => out.push(c),
-        }
-    }
-    out
 }
