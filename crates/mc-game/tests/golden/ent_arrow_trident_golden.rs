@@ -23,6 +23,7 @@ golden!(
     arrow_against_shields_and_armor => "ent_arrow_shield",
     arrow_stuck_in_blocks => "ent_arrow_stuck",
     arrow_and_teams => "ent_arrow_teams",
+    arrow_keeps_an_owner_in_another_level => "ent_arrow_owner_after_portal",
     arrow_against_other_entities => "ent_arrow_targets",
     projectiles_against_minecarts_and_boats => "ent_arrow_minecart",
     arrow_at_the_world_border => "ent_arrow_world_border",

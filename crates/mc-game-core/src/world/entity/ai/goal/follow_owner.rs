@@ -1,13 +1,17 @@
 //! `FollowOwnerGoal`.
 
 use super::{Flag, Goal, GoalFlags};
+use crate::server::level::AnyDimensionEntity;
 use crate::server::level::ServerLevel;
+use crate::world::entity::Entity;
+use crate::world::entity::EntityId;
 use crate::world::entity::mob::{self, navigation, tamable};
-use crate::world::entity::{Entity, EntityId};
 use crate::world::level::pathfinder::PathType;
+use uuid::Uuid;
 
 pub struct FollowOwnerGoal {
-    owner: Option<EntityId>,
+    /// The owner (uuid, and id for an owner of this level that died), found in any level (`getOwner()`).
+    owner: Option<(Uuid, EntityId)>,
     speed_modifier: f64,
     time_to_recalc_path: i32,
     stop_distance: f32,
@@ -29,23 +33,32 @@ impl FollowOwnerGoal {
     }
 }
 
+impl FollowOwnerGoal {
+    /// The owner this goal follows, as long as its level still has it (a dead owner of this level stays for a tick).
+    fn owner_entity<'l>(&self, level: &'l ServerLevel) -> Option<AnyDimensionEntity<'l>> {
+        let (uuid, id) = self.owner?;
+        level.get_entity_in_any_dimension(uuid).or_else(|| {
+            level
+                .get_entity_or_recently_removed(id)
+                .map(AnyDimensionEntity::Here)
+        })
+    }
+}
+
 impl Goal for FollowOwnerGoal {
     fn can_use(&mut self, tamable: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(owner) = tamable::get_owner(tamable, level) else {
+        let Some(owner) = tamable::get_owner_in_any_dimension(tamable, level) else {
             return false;
         };
         if tamable::unable_to_move_to_owner(tamable, level) {
             return false;
         }
-        let Some(owner_entity) = level.get_entity(owner) else {
-            return false;
-        };
-        if tamable.base().distance_to_sqr_vec(owner_entity.position())
+        if tamable.base().distance_to_sqr_vec(owner.position())
             < f64::from(self.start_distance * self.start_distance)
         {
             return false;
         }
-        self.owner = Some(owner);
+        self.owner = Some((owner.uuid(), owner.id()));
         true
     }
 
@@ -56,10 +69,7 @@ impl Goal for FollowOwnerGoal {
         if tamable::unable_to_move_to_owner(tamable, level) {
             return false;
         }
-        let Some(owner) = self
-            .owner
-            .and_then(|o| level.get_entity_or_recently_removed(o))
-        else {
+        let Some(owner) = self.owner_entity(level) else {
             return false;
         };
         !(tamable.base().distance_to_sqr_vec(owner.position())
@@ -82,11 +92,21 @@ impl Goal for FollowOwnerGoal {
         let is_owner_far_away = tamable::should_try_teleport_to_owner(tamable, level);
         if !is_owner_far_away {
             let max_x = tamable.get_max_head_x_rot() as f32;
-            if let Some(owner) = self
-                .owner
-                .and_then(|o| level.get_entity_or_recently_removed(o))
-            {
-                mob::look_at_entity_full(tamable, owner, 10.0, max_x);
+            match self.owner_entity(level) {
+                Some(AnyDimensionEntity::Here(owner)) => {
+                    mob::look_at_entity_full(tamable, owner, 10.0, max_x);
+                }
+                Some(AnyDimensionEntity::Elsewhere(owner)) => {
+                    mob::look_at_position_full(
+                        tamable,
+                        owner.position.x,
+                        owner.eye_y,
+                        owner.position.z,
+                        10.0,
+                        max_x,
+                    );
+                }
+                None => {}
             }
         }
         self.time_to_recalc_path -= 1;
@@ -94,11 +114,7 @@ impl Goal for FollowOwnerGoal {
             self.time_to_recalc_path = self.adjusted_tick_delay(10);
             if is_owner_far_away {
                 tamable::try_to_teleport_to_owner(tamable, level);
-            } else if let Some(pos) = self
-                .owner
-                .and_then(|o| level.get_entity_or_recently_removed(o))
-                .map(|o| o.block_position())
-            {
+            } else if let Some(pos) = self.owner_entity(level).map(|o| o.block_position()) {
                 navigation::move_to_entity(tamable, level, pos, self.speed_modifier);
             }
         }

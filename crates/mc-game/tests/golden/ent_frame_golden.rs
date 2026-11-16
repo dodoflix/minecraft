@@ -18,6 +18,7 @@ macro_rules! golden {
 golden!(
     frame_break_order => "ent_frame_break_order",
     frame_map => "ent_frame_map",
+    frame_map_holder_in_another_level => "ent_frame_map_holder_other_level",
     frame_map_limit => "ent_frame_map_limit",
     frame_slot => "ent_frame_slot",
     stand_disabled_slots => "ent_stand_disabled_slots_cmd",

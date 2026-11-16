@@ -35,7 +35,101 @@ pub fn next_detached_entity_id() -> EntityId {
 /// What `getEntityInAnyDimension` found: the entity itself in this level, or the copy another level published.
 pub enum AnyDimensionEntity<'a> {
     Here(&'a dyn Entity),
-    Elsewhere(super::RemoteEntity),
+    Elsewhere(Box<super::RemoteEntity>),
+}
+
+impl AnyDimensionEntity<'_> {
+    pub fn id(&self) -> EntityId {
+        match self {
+            Self::Here(e) => e.id(),
+            Self::Elsewhere(r) => r.id,
+        }
+    }
+
+    pub fn uuid(&self) -> Uuid {
+        match self {
+            Self::Here(e) => e.uuid(),
+            Self::Elsewhere(r) => r.uuid,
+        }
+    }
+
+    pub fn position(&self) -> mc_core::phys::Vec3 {
+        match self {
+            Self::Here(e) => e.position(),
+            Self::Elsewhere(r) => r.position,
+        }
+    }
+
+    pub fn block_position(&self) -> mc_core::pos::BlockPos {
+        match self {
+            Self::Here(e) => e.block_position(),
+            Self::Elsewhere(r) => r.block_position(),
+        }
+    }
+
+    /// `instanceof LivingEntity`.
+    pub fn is_living(&self) -> bool {
+        match self {
+            Self::Here(e) => e.living().is_some(),
+            Self::Elsewhere(r) => r.is_living,
+        }
+    }
+
+    pub fn is_spectator(&self) -> bool {
+        match self {
+            Self::Here(e) => e.is_spectator(),
+            Self::Elsewhere(r) => r.spectator,
+        }
+    }
+
+    /// `instanceof Player`.
+    pub fn is_player(&self) -> bool {
+        match self {
+            Self::Here(e) => e.is_player(),
+            Self::Elsewhere(r) => r.is_player,
+        }
+    }
+
+    /// `getEyeY()`.
+    pub fn eye_y(&self) -> f64 {
+        match self {
+            Self::Here(e) => e.base().get_eye_y(),
+            Self::Elsewhere(r) => r.eye_y,
+        }
+    }
+
+    /// `getScoreboardName()`.
+    pub fn scoreboard_name(&self) -> String {
+        match self {
+            Self::Here(e) => e.get_scoreboard_name(),
+            Self::Elsewhere(r) => r.scoreboard_name.clone(),
+        }
+    }
+
+    /// `instanceof OwnableEntity`.
+    pub fn is_ownable(&self) -> bool {
+        match self {
+            Self::Here(e) => e.is_ownable(),
+            Self::Elsewhere(r) => r.is_ownable,
+        }
+    }
+
+    /// `OwnableEntity.getOwnerReference()` (`None` for entities that are not ownable).
+    pub fn ownable_owner_uuid(&self) -> Option<Uuid> {
+        match self {
+            Self::Here(e) => e.ownable_owner_uuid(),
+            Self::Elsewhere(r) => r.ownable_owner,
+        }
+    }
+
+    /// `getLastHurtByMob() != null`: the reference resolves to a living entity of any level (`LivingEntity`, `uuid` of
+    /// `lastHurtByMob`).
+    pub fn last_hurt_by_mob(&self) -> Option<Uuid> {
+        match self {
+            Self::Here(e) => e.living().and_then(|l| l.last_hurt_by_mob),
+            Self::Elsewhere(r) => r.last_hurt_by_mob,
+        }
+    }
 }
 
 impl ServerLevel {
@@ -249,7 +343,15 @@ impl ServerLevel {
             .entities
             .get(uuid)
             .filter(|remote| remote.dimension != self.dimension)
-            .map(AnyDimensionEntity::Elsewhere)
+            .map(|remote| AnyDimensionEntity::Elsewhere(Box::new(remote)))
+    }
+
+    /// Whether another level of the server tracks the entity `uuid` (it is no entity of this level).
+    pub fn is_in_other_level(&self, uuid: Uuid) -> bool {
+        matches!(
+            self.get_entity_in_any_dimension(uuid),
+            Some(AnyDimensionEntity::Elsewhere(_))
+        )
     }
 
     /// `getPlayerInAnyDimension(uuid)` = `PlayerList.getPlayer(uuid)`: the connection of the player, wherever it is (also
@@ -343,7 +445,7 @@ impl ServerLevel {
         let id = entity.id();
         self.lend(entity, |level| {
             level.entity_tracker.remove_entity(
-                &mut Entities::new(&mut level.entity_manager),
+                &mut Entities::new(&mut level.entity_manager, &level.server_state.entities),
                 &mut level.debug_synchronizers,
                 id,
                 None,
@@ -705,7 +807,7 @@ impl ServerLevel {
                 }
                 let players = self.player_records();
                 self.entity_tracker.add_entity(
-                    &mut Entities::new(&mut self.entity_manager),
+                    &mut Entities::new(&mut self.entity_manager, &self.server_state.entities),
                     &mut self.debug_synchronizers,
                     &self.chunk_source.chunk_map,
                     &players,
@@ -753,7 +855,7 @@ impl ServerLevel {
                         record
                     });
                 self.entity_tracker.remove_entity(
-                    &mut Entities::new(&mut self.entity_manager),
+                    &mut Entities::new(&mut self.entity_manager, &self.server_state.entities),
                     &mut self.debug_synchronizers,
                     id,
                     player.as_ref(),
@@ -850,11 +952,11 @@ impl ServerLevel {
         let maps = super::FrameMapEnv {
             map_storage: &shared.map_storage,
             dimension: &self.dimension,
+            directory: &self.server_state.entities,
             game_time: self.game_time(),
-            tick_count: shared.tick_count(),
         };
         self.entity_tracker.tick(
-            &mut Entities::new(&mut self.entity_manager),
+            &mut Entities::new(&mut self.entity_manager, &self.server_state.entities),
             &mut self.debug_synchronizers,
             &self.chunk_source.chunk_map,
             &players,
@@ -876,7 +978,7 @@ impl ServerLevel {
                 None => players.push(record.clone()),
             }
             level.entity_tracker.move_player(
-                &mut Entities::new(&mut level.entity_manager),
+                &mut Entities::new(&mut level.entity_manager, &level.server_state.entities),
                 &mut level.debug_synchronizers,
                 &level.chunk_source.chunk_map,
                 &players,

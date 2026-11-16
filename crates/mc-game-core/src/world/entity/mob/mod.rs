@@ -444,6 +444,21 @@ pub fn look_at_entity_full(
     }
 }
 
+/// `getLookControl().setLookAt(x, y, z, yMaxRotSpeed, xMaxRotAngle)`.
+pub fn look_at_position_full(
+    mob: &mut dyn Entity,
+    x: f64,
+    y: f64,
+    z: f64,
+    y_max_rot_speed: f32,
+    x_max_rot_angle: f32,
+) {
+    if let Some(m) = mob.mob_mut() {
+        m.look_control_mut()
+            .set_look_at_full(x, y, z, y_max_rot_speed, x_max_rot_angle);
+    }
+}
+
 /// `getJumpControl().jump()`.
 pub fn jump_control_jump(mob: &mut dyn Entity) {
     if let Some(m) = mob.mob_mut()

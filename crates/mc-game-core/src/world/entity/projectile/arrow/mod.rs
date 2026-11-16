@@ -20,6 +20,7 @@ use super::{
 };
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
+use crate::server::players::cross_level::{queue_for_player, queue_trigger_in_origin};
 use crate::world::entity::movement::collision_context;
 use crate::world::entity::player::ServerPlayer;
 use crate::world::entity::{Entity, EntityId, MoverType};
@@ -625,10 +626,12 @@ pub fn on_hit_entity(
     let owner_is_living = arrow.get_owner(level).is_some_and(|o| o.living().is_some());
     let source = {
         let owner = arrow.get_owner(level);
-        level
+        let source = level
             .damage_sources()
-            .arrow(arrow.as_dyn(), Some(owner.unwrap_or(arrow.as_dyn())))
+            .arrow(arrow.as_dyn(), Some(owner.unwrap_or(arrow.as_dyn())));
+        arrow.with_remote_owner(level, source)
     };
+    let remote_owner = arrow.get_remote_owner(level).filter(|o| o.is_player);
     let weapon = arrow.get_weapon_item();
     if let Some(weapon) = &weapon {
         arrow_damage = f64::from(helper::modify_damage(
@@ -666,6 +669,17 @@ pub fn on_hit_entity(
             if let Some(target) = level.get_entity(victim) {
                 o.set_last_hurt_mob(target);
             }
+        });
+    } else if let Some(owner) = &remote_owner {
+        // Not implemented: `setLastHurtMob` of an owner other than a player that is in another level
+        let victim_living = level
+            .get_entity(victim)
+            .is_some_and(|t| t.living().is_some());
+        queue_for_player(level, owner.uuid, move |_, player| {
+            let tick_count = player.base().tick_count;
+            let living = player.living_mut().expect("player");
+            living.last_hurt_mob = victim_living.then_some(victim);
+            living.last_hurt_mob_timestamp = tick_count;
         });
     }
     let on_fire = arrow.is_on_fire();
@@ -710,6 +724,17 @@ pub fn on_hit_entity(
                             param: 0.0,
                         });
                     });
+                } else if target.is_player()
+                    && let Some(owner) = &remote_owner
+                    && !silent
+                {
+                    level.send_to_player(
+                        owner.id,
+                        &ClientboundGameEventPacket {
+                            event: ClientboundGameEventPacket::PLAY_ARROW_HIT_SOUND,
+                            param: 0.0,
+                        },
+                    );
                 }
                 if !target.is_alive()
                     && let Some(list) = &mut arrow.arrow_data_mut().pierced_and_killed_entities
@@ -745,6 +770,24 @@ pub fn on_hit_entity(
                     });
                     if let Some(matches) = matches {
                         level.with_player(owner, |level, player| matches.award(level, player));
+                    }
+                } else if let Some(owner) = &remote_owner {
+                    let killed: Option<Vec<EntityId>> =
+                        match &arrow.arrow_data().pierced_and_killed_entities {
+                            Some(list) => Some(list.clone()),
+                            None => (!target.is_alive()).then(|| vec![victim]),
+                        };
+                    if let Some(ids) = killed {
+                        let weapon = weapon.clone();
+                        queue_trigger_in_origin(
+                            level,
+                            owner.uuid,
+                            ids,
+                            move |level, player, victims| {
+                                crate::advancements::triggers::CriteriaTriggers::KILLED_BY_ARROW
+                                    .matches(level, player, victims, weapon.as_ref())
+                            },
+                        );
                     }
                 }
             }

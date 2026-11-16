@@ -7,6 +7,7 @@ use super::{
 };
 use crate::register_item_class;
 use crate::server::level::ServerLevel;
+use crate::world::container::Container as _;
 use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, ServerPlayer};
 use crate::world::level::block::BlockStateExt;
@@ -230,6 +231,46 @@ fn is_map_invisibility_item(item: Item) -> bool {
         .is_some_and(|tag| tag.contains(item))
 }
 
+/// What other levels read of a player for `tickCarriedBy`: the maps in its inventory (`getInventory().contains(mapMatcher)`
+/// only ever matches a filled map) and `hasMapInvisibilityItemEquipped`.
+pub fn held_maps_and_invisibility(
+    player: &crate::world::entity::player::PlayerData,
+) -> (Vec<ItemStack>, bool) {
+    let maps = (0..player.inventory.get_container_size())
+        .map(|slot| player.inventory.get_item(slot))
+        .filter(|stack| !stack.is_empty() && stack.item() == Item::FILLED_MAP)
+        .cloned()
+        .collect();
+    (maps, has_map_invisibility_item_equipped(player))
+}
+
+/// `LivingEntity.hasMapInvisibilityItemEquipped()`.
+fn has_map_invisibility_item_equipped(player: &crate::world::entity::player::PlayerData) -> bool {
+    EquipmentSlot::VALUES
+        .into_iter()
+        .filter(|s| *s != EquipmentSlot::MainHand && *s != EquipmentSlot::OffHand)
+        .any(|s| is_map_invisibility_item(player.inventory.equipment_get(s).item()))
+}
+
+/// [`player_view`] of a player that another level tracks.
+pub fn remote_player_view(
+    remote: &crate::server::level::RemoteEntity,
+    matcher: &dyn Fn(&ItemStack) -> bool,
+) -> Option<PlayerView> {
+    remote.is_player.then(|| PlayerView {
+        id: remote.id,
+        name: remote.scoreboard_name.clone(),
+        dimension: remote.dimension.clone(),
+        x: remote.position.x,
+        z: remote.position.z,
+        y_rot: remote.y_rot,
+        // a player is only removed once it left the server, and then it is not tracked any more
+        removed: false,
+        has_map: remote.held_maps.iter().any(matcher),
+        map_invisibility: remote.map_invisibility,
+    })
+}
+
 /// The `Player` facts `tickCarriedBy` reads from the player entity `e` (`None` for non-players). `matcher` is the
 /// `mapMatcher` of `getInventory().contains(..)`.
 pub fn player_view(
@@ -238,10 +279,7 @@ pub fn player_view(
     matcher: &dyn Fn(&ItemStack) -> bool,
 ) -> Option<PlayerView> {
     let player = e.player()?;
-    let map_invisibility = EquipmentSlot::VALUES
-        .into_iter()
-        .filter(|s| *s != EquipmentSlot::MainHand && *s != EquipmentSlot::OffHand)
-        .any(|s| is_map_invisibility_item(player.inventory.equipment_get(s).item()));
+    let map_invisibility = has_map_invisibility_item_equipped(player);
     Some(PlayerView {
         id: e.id(),
         name: player.game_profile.name.clone(),
@@ -273,10 +311,16 @@ pub fn tick_carried_by(
         level
             .get_entity(id)
             .and_then(|e| player_view(e, &level.dimension, matcher))
+            .or_else(|| {
+                level
+                    .server_state
+                    .entities
+                    .get_by_id(id)
+                    .and_then(|remote| remote_player_view(&remote, matcher))
+            })
     };
     let env = MapTickEnv {
         game_time: level.game_time(),
-        tick_count: level.shared.tick_count(),
         ticking: view,
         other: &other,
     };

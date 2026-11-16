@@ -47,17 +47,25 @@ pub trait TrackingEnv {
 /// The entity storage as the tracker sees it.
 pub struct Entities<'a> {
     manager: &'a mut PersistentEntitySectionManager,
+    /// The other levels' entities (`getEntityInAnyDimension`).
+    directory: &'a super::EntityDirectory,
 }
 
 impl<'a> Entities<'a> {
-    pub fn new(manager: &'a mut PersistentEntitySectionManager) -> Self {
-        Self { manager }
+    pub fn new(
+        manager: &'a mut PersistentEntitySectionManager,
+        directory: &'a super::EntityDirectory,
+    ) -> Self {
+        Self { manager, directory }
     }
 
-    /// The id of the entity with `uuid` (also one taken out of the manager): `EntityReference.getEntity` for the owner of a
-    /// projectile whose reference came from NBT, what `Projectile.getAddEntityPacket` writes as the packet data.
+    /// The id of the entity with `uuid` (also one taken out of the manager, or one of another level):
+    /// `EntityReference.getEntity` for the owner of a projectile whose reference came from NBT, what
+    /// `Projectile.getAddEntityPacket` writes as the packet data.
     fn id_by_uuid(&self, uuid: uuid::Uuid) -> Option<EntityId> {
-        self.manager.id_by_uuid(uuid)
+        self.manager
+            .id_by_uuid(uuid)
+            .or_else(|| self.directory.get(uuid).map(|remote| remote.id))
     }
 
     fn get_any(&self, id: EntityId) -> Option<&dyn Entity> {
@@ -575,7 +583,7 @@ mod tests {
         m.add_new_entity(Box::new(pig)).ok().unwrap();
         let mut tracker = EntityTracker::default();
         tracker.add_entity(
-            &mut Entities::new(&mut m),
+            &mut Entities::new(&mut m, &crate::server::level::EntityDirectory::default()),
             &mut None,
             &Env,
             std::slice::from_ref(&tp),
@@ -602,11 +610,11 @@ mod tests {
             let maps = FrameMapEnv {
                 map_storage: &storage,
                 dimension: &dimension,
+                directory: &crate::server::level::EntityDirectory::default(),
                 game_time: 0,
-                tick_count: 0,
             };
             tracker.tick(
-                &mut Entities::new(&mut m),
+                &mut Entities::new(&mut m, &crate::server::level::EntityDirectory::default()),
                 &mut None,
                 &Env,
                 std::slice::from_ref(&tp),
@@ -617,7 +625,12 @@ mod tests {
         assert!(got.contains(&ClientboundMoveEntityPosPacket::ID), "{got:?}");
         assert!(!got.contains(&ClientboundTeleportEntityPacket::ID));
 
-        tracker.remove_entity(&mut Entities::new(&mut m), &mut None, 2, None);
+        tracker.remove_entity(
+            &mut Entities::new(&mut m, &crate::server::level::EntityDirectory::default()),
+            &mut None,
+            2,
+            None,
+        );
         assert_eq!(ids(&mut rx), vec![ClientboundRemoveEntitiesPacket::ID]);
     }
 
@@ -630,7 +643,7 @@ mod tests {
         m.add_new_entity(Box::new(pig)).ok().unwrap();
         let mut tracker = EntityTracker::default();
         tracker.add_entity(
-            &mut Entities::new(&mut m),
+            &mut Entities::new(&mut m, &crate::server::level::EntityDirectory::default()),
             &mut None,
             &Env,
             std::slice::from_ref(&tp),

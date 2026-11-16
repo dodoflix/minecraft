@@ -1,0 +1,55 @@
+LEVEL minecraft:overworld gametime=2 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=2 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=2 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL Alice dim=minecraft:overworld
+PL Bob dim=minecraft:the_nether
+# the arrow is moved into the nether and shot at the cow
+E Cow minecraft:cow pos=0.5,100.0,9.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.635443902235357;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Arrow minecraft:arrow pos=0.5,101.5,3.5 delta=0.0,0.0,1.5 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=Alice leftowner=0 shot=0 canbreak=0
+PKT Bob minecraft:add_entity 016735b0520d6d29415d8b0a4d676ec42f581e3fe0000000000000405900000000000040230000000000000000000000
+PKT Bob minecraft:set_entity_data 65670f0001ff
+PKT Bob minecraft:add_entity 01698040f758d6b242d8ab10967a271392c7063fe00000000000004059600000000000400c0000000000000000000065
+E Cow minecraft:cow pos=0.5,100.0,9.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.635443902235357;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Arrow minecraft:arrow pos=0.5,101.5,5.0 delta=0.0,-0.05,1.4850000143051147 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=Alice leftowner=1 shot=1 canbreak=0
+PKT Bob minecraft:move_entity_pos 366700000000000000
+PKT Bob minecraft:set_entity_data 656709033f8000000f0001ff
+PKT Bob minecraft:update_attributes entity=102;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:block_interaction_range=4.5[]
+PKT Bob minecraft:set_entity_motion 6769faffdffcfffd
+# the arrow reaches the cow
+E item#1 minecraft:item pos=0.3493372360658313,100.35126400827026,9.496943932727413 delta=-0.048225613409614655,0.07297472653442398,-9.782159505973618E-4 rot=185.22737,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=3 pickup=7 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=0.6576214310154406,100.35856868990042,10.018170889537467 delta=0.05053047192684232,0.08520226708318818,0.16556800984993347 rot=357.15927,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=3 health=5
+EV sound at=0.5,100.0,9.5 r=16.0 ex=0 event=minecraft:entity.cow.death source=neutral vol=0.4 pitch=0.9763341
+EV sound at=0.5,101.23878825462346,9.050000011920929 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1353291
+PKT Bob minecraft:damage_event 196700666a00
+PKT Bob minecraft:sound 77c5030600000004000003200000004c3ecccccd3f79f10891ec7fec81c19c21
+PKT Bob minecraft:add_entity 016a3de4a80f494f467885267233eb6dc448483fe000000000000040590000000000004023000000000000c1e57fdd333100830000
+PKT Bob minecraft:add_entity 016be4fc194f2cd44cb9a12ac9d59c172cfe323fe000000000000040590000000000004023000000000000411b96af2ea600fd0000
+PKT Bob minecraft:entity_event 220000006703
+PKT Bob minecraft:sound 7756060000000400000329000000483f8000003f9152772f23f8a854e5d04b
+PKT Bob minecraft:remove_entities 4e0169
+PKT Bob minecraft:set_entity_motion 6767f9ffb330fffd
+PKT Bob minecraft:set_entity_motion 6767f9ffb330fffd
+STAT Alice minecraft.custom:minecraft.mob_kills 1
+STAT Alice minecraft.custom:minecraft.play_time 9
+STAT Alice minecraft.custom:minecraft.time_since_death 9
+STAT Alice minecraft.custom:minecraft.time_since_rest 9
+STAT Alice minecraft.custom:minecraft.total_world_time 9
+STAT Alice minecraft.killed:minecraft.cow 1
+ADV Alice minecraft:adventure/root killed_something
+ADV Alice minecraft:adventure/shoot_arrow shot_arrow
+ADV Alice minecraft:recipes/decorations/crafting_table unlock_right_away
+PL Alice dim=minecraft:overworld
+PL Bob dim=minecraft:the_nether
+LEVEL minecraft:overworld gametime=9 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=9 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=9 forced=25 loaded=1225 players=1 border=5.9999968E7
+E item#1 minecraft:item pos=0.3493372360658313,100.35126400827026,9.496943932727413 delta=-0.048225613409614655,0.07297472653442398,-9.782159505973618E-4 rot=185.22737,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=3 pickup=7 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=0.6576214310154406,100.35856868990042,10.018170889537467 delta=0.05053047192684232,0.08520226708318818,0.16556800984993347 rot=357.15927,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=3 health=5
+E item#1 minecraft:item pos=0.2075346396735018,100.32902289527081,9.494067586491049 delta=-0.04538956418643795,-0.04658045162980263,-9.206890807320299E-4 rot=185.22737,0.0 og=0 fall=0.05521583929657936 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=6 pickup=4 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=0.8062744697509329,100.431503214848,10.504706757695283 delta=0.04758348422713392,-0.006250119247300747,0.15573017827974597 rot=357.15927,0.0 og=0 fall=0.006377672776579857 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=6 health=5
+STAT Alice minecraft.custom:minecraft.mob_kills 1
+STAT Alice minecraft.custom:minecraft.play_time 12
+STAT Alice minecraft.custom:minecraft.time_since_death 12
+STAT Alice minecraft.custom:minecraft.time_since_rest 12
+STAT Alice minecraft.custom:minecraft.total_world_time 12
+STAT Alice minecraft.killed:minecraft.cow 1

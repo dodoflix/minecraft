@@ -331,6 +331,47 @@ pub fn award_kill_score(
     if victim.id == player.id() {
         return;
     }
+    award_kill_score_counts(player, level, victim);
+    if let Some(victim_entity) = victim_entity.or_else(|| level.get_entity(victim.id)) {
+        let matches = crate::advancements::triggers::CriteriaTriggers::PLAYER_KILLED_ENTITY
+            .matches(&*level, &*player, victim_entity, killing_blow);
+        matches.award(level, player);
+    }
+}
+
+/// `ServerPlayer.awardKillScore(victim, killingBlow)` for a victim of another level than the player's (`level`): the
+/// scores and statistics count in `level`, `PLAYER_KILLED_ENTITY` matches the victim in `origin` (`None`: the victim's
+/// level is `level`).
+pub fn award_kill_score_across_levels(
+    player: &mut ServerPlayer,
+    level: &mut ServerLevel,
+    origin: Option<&mut ServerLevel>,
+    victim: &DamageEntity,
+    killing_blow: &DamageSource,
+) {
+    if victim.id == player.id() {
+        return;
+    }
+    award_kill_score_counts(player, level, victim);
+    let matches = crate::server::players::cross_level::match_in(
+        origin.unwrap_or(&mut *level),
+        player,
+        &[victim.id],
+        |level, player, victims| match victims {
+            [victim] => crate::advancements::triggers::CriteriaTriggers::PLAYER_KILLED_ENTITY
+                .matches(level, player, *victim, killing_blow),
+            _ => crate::advancements::triggers::TriggerMatches::none(),
+        },
+    );
+    matches.award(level, player);
+}
+
+/// The scoreboard criteria and statistics of `ServerPlayer.awardKillScore`.
+fn award_kill_score_counts(
+    player: &mut ServerPlayer,
+    level: &mut ServerLevel,
+    victim: &DamageEntity,
+) {
     // `super.awardKillScore` (`ENTITY_KILLED_PLAYER`) runs in `death::award_kill_score_to_killer`.
     {
         use crate::world::scores::ObjectiveCriteria;
@@ -354,11 +395,6 @@ pub fn award_kill_score(
     let own_name = player.player.game_profile.name.clone();
     handle_team_kill(level, &own_name, &victim.scoreboard_name, true);
     handle_team_kill(level, &victim.scoreboard_name, &own_name, false);
-    if let Some(victim_entity) = victim_entity.or_else(|| level.get_entity(victim.id)) {
-        let matches = crate::advancements::triggers::CriteriaTriggers::PLAYER_KILLED_ENTITY
-            .matches(&*level, &*player, victim_entity, killing_blow);
-        matches.award(level, player);
-    }
 }
 
 /// `ServerPlayer.handleTeamKill(source, target, criteriaByTeam)`: `source`/`target` are scoreboard names;
@@ -455,7 +491,7 @@ pub fn die(player: &mut ServerPlayer, level: &mut ServerLevel, source: &DamageSo
     if let Some(killer) = &killer {
         player.award_stat(level, Stat::KilledBy(killer.entity_type), 1);
         let snapshot = DamageEntity::of(player);
-        death::award_kill_score_to_killer(level, killer.id, player, &snapshot, source);
+        death::award_kill_score_to_killer(level, killer, player, &snapshot, source);
         death::create_wither_rose(player, level, Some(killer));
     }
     damage::broadcast_entity_event(level, player.id(), 3);

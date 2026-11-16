@@ -15,6 +15,13 @@ fn tame_sit_follow() {
     run_scenario_test("mob_tame_sit_follow");
 }
 
+/// A tamed wolf whose owner is in another level: it sits, follows the owner's coordinates in the air, teleports around the owner's
+/// block position and sends the death message to the owner.
+#[test]
+fn pet_owner_in_another_level() {
+    check("mob_pet_owner_other_dimension");
+}
+
 #[test]
 fn age_growth() {
     check("mob_age_growth");

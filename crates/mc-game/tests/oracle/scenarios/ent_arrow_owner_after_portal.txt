@@ -1,0 +1,36 @@
+# An arrow keeps its owner when it changes level: the owner reference is a UUID that every level resolves (EntityReference.getEntity ->
+# getEntityInAnyDimension). Alice's arrow, moved into the nether with `tp_dim` while Alice stays in the overworld, tells the add_entity packet its
+# owner's id, hurts a cow with Alice as the cause of the damage, and its kill is credited to Alice (statistics, experience, the killed trigger).
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+fill -2 99 -2 2 99 12 minecraft:stone
+in the_nether fill -2 99 -2 2 99 12 minecraft:netherrack
+spawn_player Alice survival 0.5 100 0.5 0 0
+in the_nether spawn_player Bob survival 2.5 100 2.5 180 0
+tick 2
+dump packets:Alice:none packets:Bob:none levels players
+level_seed 5
+in the_nether level_seed 6
+in the_nether mobspawn Cow minecraft:cow 0.5 100 9.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:1f}
+spawn Arrow minecraft:arrow 0.5 101.5 0.5 0 0 {Owner:[I;278005000,-707248403,-1814916367,-1817188393],pickup:0b}
+entity_seed Arrow 41
+note the arrow is moved into the nether and shot at the cow
+tp_dim Arrow the_nether 0.5 101.5 3.5
+velocity Arrow 0 0 1.5
+in the_nether dump xentities events packets:Bob:add_entity,set_entity_data,set_entity_motion,teleport_entity,move_entity_pos,update_attributes,entity_position_sync
+tick 1
+in the_nether dump xentities packets:Bob:add_entity,set_entity_data,set_entity_motion,teleport_entity,move_entity_pos,update_attributes,entity_position_sync
+note the arrow reaches the cow
+tick 6
+in the_nether dump xentities events packets:Bob:damage_event,hurt_animation,entity_event,remove_entities,add_entity,sound,set_entity_motion
+dump stats:Alice advancements:Alice players levels
+in the_nether dump xentities
+tick 3
+in the_nether dump xentities
+dump stats:Alice

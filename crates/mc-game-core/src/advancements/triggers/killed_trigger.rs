@@ -64,7 +64,7 @@ impl KilledTriggerInstance {
                 } else if id == victim.id() {
                     Some(victim)
                 } else {
-                    level.get_entity(id)
+                    level.get_entity_or_recently_removed(id)
                 }
             };
             let causing = killing_blow.get_entity().and_then(find);

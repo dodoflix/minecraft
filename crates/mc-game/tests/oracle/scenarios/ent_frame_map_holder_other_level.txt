@@ -1,0 +1,43 @@
+# A player that holds the map of an item frame and is in another level when the frame ticks the map: the map data still counts it as a holder
+# (a player is only removed once it left the server), so the frame keeps it and its marker even after the map left its inventory.
+command_env
+level void
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+level_seed 5
+entity_counter 900
+fill -4 99 -4 12 99 12 minecraft:stone
+in the_nether fill -4 99 -4 12 99 12 minecraft:netherrack
+block 3 100 0 minecraft:stone
+spawn_player A survival 5.5 100 2.5 90 0
+spawn_player B survival 7.5 100 6.5 90 0
+tick 2
+dump packets:A:none packets:B:none
+note the first map of the world goes to A and into a frame
+give A hotbar0 minecraft:map 2
+select A 0
+use A main
+tick 1
+spawn f1 minecraft:item_frame 4.5 100.5 0.5 0 0 {Facing:5b,Tags:[one]}
+entity_seed f1 21
+tick 1
+select A 1
+interact A f1 main
+tick 12
+dump inventory:A edata:f1 packets:A:map_item_data packets:B:map_item_data
+note A takes a copy of the map: it holds the map and gets its marker
+give A hotbar2 minecraft:filled_map[minecraft:map_id=0]
+tick 12
+dump packets:A:map_item_data packets:B:map_item_data
+note A goes to the nether with the map: the frame still counts A as a holder
+tp_dim A the_nether 5.5 100 2.5
+tick 12
+dump packets:B:map_item_data
+note the map leaves the inventory of A: the frame keeps A as a holder
+give A hotbar2 minecraft:air
+tick 12
+dump packets:B:map_item_data
+tick 12
+dump packets:B:map_item_data

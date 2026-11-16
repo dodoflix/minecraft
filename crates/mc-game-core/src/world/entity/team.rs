@@ -29,21 +29,22 @@ pub fn tame_owner(e: &dyn Entity) -> Option<uuid::Uuid> {
 }
 
 /// `getRootOwner().getTeam()` of a tame pet whose owner reference is `owner`: the root owner is the owner itself, or the owner's own
-/// root owner when that one is a pet too (`None` while the owner is not in the level or the chain breaks or loops).
+/// root owner when that one is a pet too (`None` while the owner is in no level or the chain breaks or loops). The owner may be in
+/// another level than the pet.
 pub fn get_owner_team<'a>(
     level: &ServerLevel,
     scoreboard: &'a Scoreboard,
     owner: uuid::Uuid,
 ) -> Option<&'a PlayerTeam> {
     let owner = level
-        .get_entity_by_uuid(owner)
-        .filter(|o| o.living().is_some())?;
+        .get_entity_in_any_dimension(owner)
+        .filter(|o| o.is_living())?;
     let root = if owner.is_ownable() {
-        level.get_entity(super::mob::tamable::get_root_owner(level, owner)?)?
+        super::mob::tamable::get_root_owner_in_any_dimension(level, owner)?
     } else {
         owner
     };
-    scoreboard.get_players_team(&root.get_scoreboard_name())
+    scoreboard.get_players_team(&root.scoreboard_name())
 }
 
 /// `Entity.getTeam().getName()`.

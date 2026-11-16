@@ -87,15 +87,23 @@ impl DamagePredicate {
         actual_damage: f32,
         blocked: bool,
     ) -> bool {
-        let causing = source.get_entity().and_then(|id| level.get_entity(id));
-        let direct = source
-            .get_direct_entity()
-            .and_then(|id| level.get_entity(id))
-            .or(if source.get_direct_entity() == source.get_entity() {
+        // vanilla's source keeps its entities after they were removed (a projectile that hit and was discarded)
+        // the player of the trigger is the causing entity even when it has no slot in this level (it is in another one)
+        let lookup = |id| -> Option<&'a dyn Entity> {
+            if id == player.id() {
+                Some(player)
+            } else {
+                level.get_entity_or_recently_removed(id)
+            }
+        };
+        let causing = source.get_entity().and_then(lookup);
+        let direct = source.get_direct_entity().and_then(lookup).or(
+            if source.get_direct_entity() == source.get_entity() {
                 causing
             } else {
                 None
-            });
+            },
+        );
         self.matches_parts(
             level,
             player,

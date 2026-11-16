@@ -254,6 +254,11 @@ impl<I: SimpleInstance> Trigger<I> {
 pub struct TriggerMatches(Vec<TriggerInstanceKey>);
 
 impl TriggerMatches {
+    /// Nothing matched.
+    pub fn none() -> Self {
+        Self(Vec::new())
+    }
+
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
     }

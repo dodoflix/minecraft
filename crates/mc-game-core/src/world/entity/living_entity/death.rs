@@ -50,17 +50,27 @@ pub fn resolve_kill_credit(
 /// lent by its running code) is given it directly.
 pub fn award_kill_score_to_killer(
     level: &mut ServerLevel,
-    killer_id: crate::world::entity::EntityId,
+    killer: &DamageEntity,
     victim: &mut dyn Entity,
     snapshot: &DamageEntity,
     source: &DamageSource,
 ) {
-    if killer_id == victim.id() {
+    if killer.id == victim.id() {
         // the dying entity is its own killer (a player killed by its own TNT): `ServerPlayer.awardKillScore` does nothing
         // for `victim == this`, and for any other entity `Entity.awardKillScore` only reacts to a player victim
         return;
     }
-    level.with_entity(killer_id, |level, killer| {
+    if killer.is_player && level.is_in_other_level(killer.uuid) {
+        // Not implemented: `ENTITY_KILLED_PLAYER` when the victim is a player and its killer is in another level
+        crate::server::players::cross_level::queue_award_kill_score(
+            level,
+            killer.uuid,
+            snapshot.clone(),
+            source.clone(),
+        );
+        return;
+    }
+    level.with_entity(killer.id, |level, killer| {
         if let Some(player) = victim
             .as_any_mut()
             .downcast_mut::<crate::world::entity::ServerPlayer>()
@@ -80,7 +90,7 @@ pub fn die(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSour
     let victim = DamageEntity::of(entity);
     let killer = resolve_kill_credit(level, entity, Some(source));
     if let Some(killer) = &killer {
-        award_kill_score_to_killer(level, killer.id, entity, &victim, source);
+        award_kill_score_to_killer(level, killer, entity, &victim, source);
     }
     if entity.is_sleeping() {
         super::sleeping::stop_sleeping(entity, level);
@@ -101,6 +111,24 @@ pub fn die(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSour
     entity.handle_killing_blow();
     let proceed = match source.get_entity() {
         None => true,
+        Some(_)
+            if source.causing_is_player()
+                && source
+                    .causing_info()
+                    .is_some_and(|c| level.is_in_other_level(c.uuid)) =>
+        {
+            // `Player.killedEntity` of a player in another level: the statistic when the server runs the queue
+            let uuid = source.causing_info().expect("player").uuid;
+            let v = victim.clone();
+            crate::server::players::cross_level::queue_for_player(
+                level,
+                uuid,
+                move |level, player| {
+                    crate::world::entity::player::damage::killed_entity(player, level, &v);
+                },
+            );
+            true
+        }
         Some(source_entity) => {
             let (v, s) = (victim.clone(), source.clone());
             // the victim is lent: `killedEntity` may act on it (a zombie converting the villager it killed)

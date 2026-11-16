@@ -12,7 +12,9 @@
 //! changed it); vanilla reads the live object. Upgrade when a reader needs a value that changes between two
 //! `put_back_entity` calls.
 
+use crate::world::damagesource::DamageEntity;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
+use crate::world::item::ItemStack;
 use crate::world::level::DimensionKey;
 use mc_core::phys::{AABB, Vec3};
 use mc_data::EntityType;
@@ -48,6 +50,22 @@ pub struct RemoteEntity {
     /// `ServerPlayer.wonGame` / `seenCredits` (false for other entities).
     pub won_game: bool,
     pub seen_credits: bool,
+    /// `getEyeY()`.
+    pub eye_y: f64,
+    /// `getScoreboardName()`.
+    pub scoreboard_name: String,
+    /// `instanceof OwnableEntity` and its `getOwnerReference()`.
+    pub is_ownable: bool,
+    pub ownable_owner: Option<Uuid>,
+    /// `lastHurtByMob` of a living entity.
+    pub last_hurt_by_mob: Option<Uuid>,
+    /// What a damage source keeps of a living entity (`None` for the others): taken when the entity is published and
+    /// refreshed with every copy of a player (the others keep their equipment, name and aim of that moment).
+    pub damage_entity: Option<Arc<DamageEntity>>,
+    /// The filled maps in the inventory of a player, and whether it wears a map invisibility item (what `tickCarriedBy`
+    /// reads of a holder in another level).
+    pub held_maps: Vec<ItemStack>,
+    pub map_invisibility: bool,
 }
 
 impl RemoteEntity {
@@ -70,6 +88,17 @@ impl RemoteEntity {
             can_use_portal: false,
             won_game: false,
             seen_credits: false,
+            eye_y: 0.0,
+            scoreboard_name: entity.get_scoreboard_name(),
+            is_ownable: false,
+            ownable_owner: None,
+            last_hurt_by_mob: None,
+            damage_entity: entity
+                .living()
+                .is_some()
+                .then(|| Arc::new(DamageEntity::of(entity))),
+            held_maps: Vec::new(),
+            map_invisibility: false,
         };
         remote.update(entity);
         remote
@@ -92,6 +121,17 @@ impl RemoteEntity {
         self.can_use_portal = entity.can_use_portal(true) && !entity.is_sleeping();
         self.won_game = player.is_some_and(|p| p.won_game);
         self.seen_credits = player.is_some_and(|p| p.seen_credits);
+        self.eye_y = base.get_eye_y();
+        self.is_ownable = entity.is_ownable();
+        self.ownable_owner = entity.ownable_owner_uuid();
+        self.last_hurt_by_mob = entity.living().and_then(|l| l.last_hurt_by_mob);
+        if player.is_some() {
+            self.damage_entity = Some(Arc::new(DamageEntity::of(entity)));
+        }
+        if let Some(data) = entity.player() {
+            (self.held_maps, self.map_invisibility) =
+                crate::world::item::map_item::held_maps_and_invisibility(data);
+        }
     }
 
     /// `blockPosition()`.
@@ -152,6 +192,12 @@ impl EntityDirectory {
                 entries.uuid_by_id.remove(&id);
             }
         }
+    }
+
+    /// The copy of the entity with `id` of whichever level tracks it.
+    pub fn get_by_id(&self, id: EntityId) -> Option<RemoteEntity> {
+        let entries = self.0.lock();
+        entries.by_uuid.get(entries.uuid_by_id.get(&id)?).cloned()
     }
 
     /// The copy of the entity `uuid` of whichever level tracks it.

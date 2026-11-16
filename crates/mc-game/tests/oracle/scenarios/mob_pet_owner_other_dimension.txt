@@ -1,0 +1,56 @@
+# A tamed wolf and its owner in different levels: OwnableEntity.getOwner() resolves the owner's UUID in any dimension. SitWhenOrderedToGoal keeps a
+# standing pet sitting while its owner is in another level, an airborne pet follows the coordinates of its owner (looking at them, walking to them),
+# teleports to the block position of its owner inside its own level when it is far (TamableAnimal.tryToTeleportToOwner, also from the panic goal),
+# a spectator owner stops it from following, and when the wolf dies the owner in the other level gets the death message.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+fill -20 99 -20 40 99 20 minecraft:stone
+in the_nether fill -2 99 -2 2 99 2 minecraft:netherrack
+spawn_player Alice survival 0.5 100 0.5 0 0
+mobspawn Wolf minecraft:wolf 30.5 100 0.5 0 0 {PersistenceRequired:1b}
+tame Wolf Alice
+entity_seed Wolf 7
+tick 2
+dump packets:Alice:none mob:Wolf
+level_seed 5
+note Alice moves into the nether: the wolf of the overworld sits (its owner is in another level)
+tp_dim Alice the_nether 0.5 100 0.5
+tick 1
+dump mob:Wolf goals:Wolf
+tick 12
+dump mob:Wolf goals:Wolf
+note in the air the wolf follows the coordinates of its owner: 11 blocks away it looks at them and walks towards them
+tp Wolf 11.5 103 0.5
+tick 3
+dump mob:Wolf goals:Wolf
+note farther than 12 blocks it teleports next to the block position of its owner
+tp Wolf 30.5 103 0.5
+tick 3
+dump mob:Wolf goals:Wolf
+note a panicking wolf teleports to its owner from the panic goal
+tp Wolf 30.5 100 0.5
+tick 3
+hurt Wolf minecraft:cactus 1
+tick 3
+dump mob:Wolf goals:Wolf
+note a spectator owner: the wolf does not follow and a panicking one does not teleport
+cmd gamemode spectator Alice
+tp Wolf 30.5 103 0.5
+tick 6
+dump mob:Wolf goals:Wolf
+tp Wolf 30.5 100 0.5
+tick 3
+hurt Wolf minecraft:cactus 1
+tick 3
+dump mob:Wolf goals:Wolf
+cmd gamemode survival Alice
+note the wolf dies: its owner in the other level gets the death message
+hurt Wolf minecraft:generic_kill 1000
+tick 1
+dump packets:Alice:system_chat,damage_event,entity_event levels players

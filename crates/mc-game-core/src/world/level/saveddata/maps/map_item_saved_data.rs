@@ -59,12 +59,10 @@ type OtherPlayerView<'a> = dyn Fn(EntityId, &dyn Fn(&ItemStack) -> bool) -> Opti
 pub struct MapTickEnv<'a> {
     /// `Level.getGameTime()` of the ticking player's level.
     pub game_time: i64,
-    /// `MinecraftServer.tickCount`, to age out the snapshots of players that are not in the ticking level.
-    pub tick_count: i32,
     /// The ticking player.
     pub ticking: PlayerView,
-    /// The live view of another holding player in the ticking level (`None` when it is not in it); the argument is
-    /// `mapMatcher`, the predicate of `getInventory().contains(..)`.
+    /// The view of another holding player, in the ticking level or in another one (`None` when the server does not have
+    /// it any more); the argument is `mapMatcher`, the predicate of `getInventory().contains(..)`.
     pub other: &'a OtherPlayerView<'a>,
 }
 
@@ -80,8 +78,8 @@ pub struct HoldingPlayer {
     dirty_decorations: bool,
     tick: i32,
     pub step: i32,
-    /// The last view of the player seen live (its own `tickCarriedBy`), used while it is in another level.
-    last_view: Option<(PlayerView, i32)>,
+    /// `getPlainTextName()` of the player when it was last seen: the marker it leaves behind when the server forgets it.
+    name: String,
 }
 
 impl HoldingPlayer {
@@ -96,7 +94,7 @@ impl HoldingPlayer {
             dirty_decorations: true,
             tick: 0,
             step: 0,
-            last_view: None,
+            name: String::new(),
         }
     }
 
@@ -277,18 +275,13 @@ impl MapItemSavedData {
             let holder_id = self.carried_by[i].player_id;
             let view = if holder_id == ticking.id {
                 Some(ticking.clone())
-            } else if let Some(live) = (env.other)(holder_id, &matcher) {
-                Some(live)
             } else {
-                // not in the ticking level: its own level refreshes the snapshot every tick it holds the map
-                self.carried_by[i]
-                    .last_view
-                    .as_ref()
-                    .filter(|(_, tick)| env.tick_count.wrapping_sub(*tick) <= 1)
-                    .map(|(v, _)| v.clone())
+                (env.other)(holder_id, &matcher)
             };
-            if let Some(v) = &view {
-                self.carried_by[i].last_view = Some((v.clone(), env.tick_count));
+            if let Some(v) = &view
+                && self.carried_by[i].name != v.name
+            {
+                self.carried_by[i].name.clone_from(&v.name);
             }
             let (name, removed, has_map, in_dimension, invisible) = match &view {
                 Some(v) => (
@@ -298,17 +291,8 @@ impl MapItemSavedData {
                     v.dimension == self.dimension,
                     v.map_invisibility,
                 ),
-                None => (
-                    self.carried_by[i]
-                        .last_view
-                        .as_ref()
-                        .map(|(v, _)| v.name.clone())
-                        .unwrap_or_default(),
-                    true,
-                    false,
-                    false,
-                    false,
-                ),
+                // the server forgot the holder: it left
+                None => (self.carried_by[i].name.clone(), true, false, false, false),
             };
             if !removed && (placed_in_frame.is_some() || has_map) {
                 if placed_in_frame.is_none() && in_dimension && self.tracking_position {

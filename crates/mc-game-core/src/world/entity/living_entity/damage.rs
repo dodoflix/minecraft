@@ -233,6 +233,7 @@ pub fn hurt_server(
         }
     }
     if let Some(source_player) = source.get_entity().filter(|_| source.causing_is_player()) {
+        let causing_uuid = source.causing_info().map(|c| c.uuid);
         let source = source.clone();
         let matcher = move |level: &ServerLevel,
                             player: &crate::world::entity::ServerPlayer,
@@ -253,6 +254,19 @@ pub fn hurt_server(
                 let matches = level.expose(&*player, |level| matcher(&*level, &*player, &*player));
                 matches.award(level, player);
             }
+        } else if level.get_entity(source_player).is_none()
+            && let Some(uuid) = causing_uuid.filter(|&uuid| level.is_in_other_level(uuid))
+        {
+            // the player is in another level: the criteria are matched when the server runs the queue
+            crate::server::players::cross_level::queue_trigger_in_origin(
+                level,
+                uuid,
+                vec![entity.id()],
+                move |level, player, victims| match victims {
+                    [victim] => matcher(level, player, *victim),
+                    _ => crate::advancements::triggers::TriggerMatches::none(),
+                },
+            );
         } else {
             crate::advancements::triggers::fire_with_entity(
                 level,

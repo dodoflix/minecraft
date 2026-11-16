@@ -82,7 +82,7 @@ impl PearlOwner {
 }
 
 /// `f` on the player `uuid` of this level: in the storage or killed and out of it.
-fn with_player_here<R>(
+pub(super) fn with_player_here<R>(
     level: &mut ServerLevel,
     uuid: Uuid,
     f: impl FnOnce(&mut ServerLevel, &mut ServerPlayer) -> R,

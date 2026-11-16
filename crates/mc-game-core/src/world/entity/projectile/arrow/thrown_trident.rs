@@ -184,9 +184,10 @@ impl AbstractArrow for ThrownTrident {
         let mut dmg = 8.0f32;
         let source = {
             let owner = self.get_owner(level);
-            level
+            let source = level
                 .damage_sources()
-                .trident(self.as_dyn(), Some(owner.unwrap_or(self.as_dyn())))
+                .trident(self.as_dyn(), Some(owner.unwrap_or(self.as_dyn())));
+            self.with_remote_owner(level, source)
         };
         let weapon = self.get_weapon_item();
         if let Some(weapon) = &weapon {

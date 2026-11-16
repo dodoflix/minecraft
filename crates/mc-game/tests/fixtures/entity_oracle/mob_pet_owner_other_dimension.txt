@@ -1,0 +1,168 @@
+E Wolf minecraft:wolf pos=-0.5,100.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:17.23369419255866;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Alice sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+# Alice moves into the nether: the wolf of the overworld sits (its owner is in another level)
+E Wolf minecraft:wolf pos=-0.5,100.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:17.23369419255866;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Alice sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+G Wolf goal 1 FloatGoal flags=JUMP running=0
+G Wolf goal 1 TamableAnimal$TamableAnimalPanicGoal flags=MOVE running=0
+G Wolf goal 2 SitWhenOrderedToGoal flags=MOVE+JUMP running=0
+G Wolf goal 3 Wolf$WolfAvoidEntityGoal flags=MOVE running=0
+G Wolf goal 4 LeapAtTargetGoal flags=MOVE+JUMP running=0
+G Wolf goal 5 MeleeAttackGoal flags=MOVE+LOOK running=0
+G Wolf goal 6 FollowOwnerGoal flags=MOVE+LOOK running=0
+G Wolf goal 7 BreedGoal flags=MOVE+LOOK running=0
+G Wolf goal 8 WaterAvoidingRandomStrollGoal flags=MOVE running=0
+G Wolf goal 9 BegGoal flags=LOOK running=0
+G Wolf goal 10 LookAtPlayerGoal flags=LOOK running=0
+G Wolf goal 10 RandomLookAroundGoal flags=MOVE+LOOK running=0
+G Wolf target 1 OwnerHurtByTargetGoal flags=TARGET running=0
+G Wolf target 2 OwnerHurtTargetGoal flags=TARGET running=0
+G Wolf target 3 HurtByTargetGoal flags=TARGET running=0
+G Wolf target 4 NearestAttackableTargetGoal flags=TARGET running=0
+G Wolf target 5 NonTameRandomTargetGoal flags=TARGET running=0
+G Wolf target 6 NonTameRandomTargetGoal flags=TARGET running=0
+G Wolf target 7 NearestAttackableTargetGoal flags=TARGET running=0
+G Wolf target 8 ResetUniversalAngerTargetGoal flags=none running=0
+E Wolf minecraft:wolf pos=-0.5,100.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=2:SitWhenOrderedToGoal:MOVE+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:17.23369419255866;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Alice sitting=1 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+G Wolf goal 1 FloatGoal flags=JUMP running=0
+G Wolf goal 1 TamableAnimal$TamableAnimalPanicGoal flags=MOVE running=0
+G Wolf goal 2 SitWhenOrderedToGoal flags=MOVE+JUMP running=1
+G Wolf goal 3 Wolf$WolfAvoidEntityGoal flags=MOVE running=0
+G Wolf goal 4 LeapAtTargetGoal flags=MOVE+JUMP running=0
+G Wolf goal 5 MeleeAttackGoal flags=MOVE+LOOK running=0
+G Wolf goal 6 FollowOwnerGoal flags=MOVE+LOOK running=0
+G Wolf goal 7 BreedGoal flags=MOVE+LOOK running=0
+G Wolf goal 8 WaterAvoidingRandomStrollGoal flags=MOVE running=0
+G Wolf goal 9 BegGoal flags=LOOK running=0
+G Wolf goal 10 LookAtPlayerGoal flags=LOOK running=0
+G Wolf goal 10 RandomLookAroundGoal flags=MOVE+LOOK running=0
+G Wolf target 1 OwnerHurtByTargetGoal flags=TARGET running=0
+G Wolf target 2 OwnerHurtTargetGoal flags=TARGET running=0
+G Wolf target 3 HurtByTargetGoal flags=TARGET running=0
+G Wolf target 4 NearestAttackableTargetGoal flags=TARGET running=0
+G Wolf target 5 NonTameRandomTargetGoal flags=TARGET running=0
+G Wolf target 6 NonTameRandomTargetGoal flags=TARGET running=0
+G Wolf target 7 NearestAttackableTargetGoal flags=TARGET running=0
+G Wolf target 8 ResetUniversalAngerTargetGoal flags=none running=0
+# in the air the wolf follows the coordinates of its owner: 11 blocks away it looks at them and walks towards them
+E Wolf minecraft:wolf pos=11.5,102.76636799395752,0.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,10.212005 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=10.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=6:FollowOwnerGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:17.23369419255866;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Alice sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+G Wolf goal 1 FloatGoal flags=JUMP running=0
+G Wolf goal 1 TamableAnimal$TamableAnimalPanicGoal flags=MOVE running=0
+G Wolf goal 2 SitWhenOrderedToGoal flags=MOVE+JUMP running=0
+G Wolf goal 3 Wolf$WolfAvoidEntityGoal flags=MOVE running=0
+G Wolf goal 4 LeapAtTargetGoal flags=MOVE+JUMP running=0
+G Wolf goal 5 MeleeAttackGoal flags=MOVE+LOOK running=0
+G Wolf goal 6 FollowOwnerGoal flags=MOVE+LOOK running=1
+G Wolf goal 7 BreedGoal flags=MOVE+LOOK running=0
+G Wolf goal 8 WaterAvoidingRandomStrollGoal flags=MOVE running=0
+G Wolf goal 9 BegGoal flags=LOOK running=0
+G Wolf goal 10 LookAtPlayerGoal flags=LOOK running=0
+G Wolf goal 10 RandomLookAroundGoal flags=MOVE+LOOK running=0
+G Wolf target 1 OwnerHurtByTargetGoal flags=TARGET running=0
+G Wolf target 2 OwnerHurtTargetGoal flags=TARGET running=0
+G Wolf target 3 HurtByTargetGoal flags=TARGET running=0
+G Wolf target 4 NearestAttackableTargetGoal flags=TARGET running=0
+G Wolf target 5 NonTameRandomTargetGoal flags=TARGET running=0
+G Wolf target 6 NonTameRandomTargetGoal flags=TARGET running=0
+G Wolf target 7 NearestAttackableTargetGoal flags=TARGET running=0
+G Wolf target 8 ResetUniversalAngerTargetGoal flags=none running=0
+# farther than 12 blocks it teleports next to the block position of its owner
+E Wolf minecraft:wolf pos=0.5,100.0,-2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.499998 body=2.499998 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=6:FollowOwnerGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:17.23369419255866;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Alice sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+G Wolf goal 1 FloatGoal flags=JUMP running=0
+G Wolf goal 1 TamableAnimal$TamableAnimalPanicGoal flags=MOVE running=0
+G Wolf goal 2 SitWhenOrderedToGoal flags=MOVE+JUMP running=0
+G Wolf goal 3 Wolf$WolfAvoidEntityGoal flags=MOVE running=0
+G Wolf goal 4 LeapAtTargetGoal flags=MOVE+JUMP running=0
+G Wolf goal 5 MeleeAttackGoal flags=MOVE+LOOK running=0
+G Wolf goal 6 FollowOwnerGoal flags=MOVE+LOOK running=1
+G Wolf goal 7 BreedGoal flags=MOVE+LOOK running=0
+G Wolf goal 8 WaterAvoidingRandomStrollGoal flags=MOVE running=0
+G Wolf goal 9 BegGoal flags=LOOK running=0
+G Wolf goal 10 LookAtPlayerGoal flags=LOOK running=0
+G Wolf goal 10 RandomLookAroundGoal flags=MOVE+LOOK running=0
+G Wolf target 1 OwnerHurtByTargetGoal flags=TARGET running=0
+G Wolf target 2 OwnerHurtTargetGoal flags=TARGET running=0
+G Wolf target 3 HurtByTargetGoal flags=TARGET running=0
+G Wolf target 4 NearestAttackableTargetGoal flags=TARGET running=0
+G Wolf target 5 NonTameRandomTargetGoal flags=TARGET running=0
+G Wolf target 6 NonTameRandomTargetGoal flags=TARGET running=0
+G Wolf target 7 NearestAttackableTargetGoal flags=TARGET running=0
+G Wolf target 8 ResetUniversalAngerTargetGoal flags=none running=0
+# a panicking wolf teleports to its owner from the panic goal
+HURT Wolf minecraft:cactus 1 -> true
+E Wolf minecraft:wolf pos=2.5,100.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=39.0 abs=0.0 hurt=7/17 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.499998 body=2.499998 nav=done stuck=0 navspeed=1.5 ntarget=29,100,-1 path=- nodes=- goals=1:TamableAnimal$TamableAnimalPanicGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:17.23369419255866;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Alice sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+G Wolf goal 1 FloatGoal flags=JUMP running=0
+G Wolf goal 1 TamableAnimal$TamableAnimalPanicGoal flags=MOVE running=1
+G Wolf goal 2 SitWhenOrderedToGoal flags=MOVE+JUMP running=0
+G Wolf goal 3 Wolf$WolfAvoidEntityGoal flags=MOVE running=0
+G Wolf goal 4 LeapAtTargetGoal flags=MOVE+JUMP running=0
+G Wolf goal 5 MeleeAttackGoal flags=MOVE+LOOK running=0
+G Wolf goal 6 FollowOwnerGoal flags=MOVE+LOOK running=0
+G Wolf goal 7 BreedGoal flags=MOVE+LOOK running=0
+G Wolf goal 8 WaterAvoidingRandomStrollGoal flags=MOVE running=0
+G Wolf goal 9 BegGoal flags=LOOK running=0
+G Wolf goal 10 LookAtPlayerGoal flags=LOOK running=0
+G Wolf goal 10 RandomLookAroundGoal flags=MOVE+LOOK running=0
+G Wolf target 1 OwnerHurtByTargetGoal flags=TARGET running=0
+G Wolf target 2 OwnerHurtTargetGoal flags=TARGET running=0
+G Wolf target 3 HurtByTargetGoal flags=TARGET running=0
+G Wolf target 4 NearestAttackableTargetGoal flags=TARGET running=0
+G Wolf target 5 NonTameRandomTargetGoal flags=TARGET running=0
+G Wolf target 6 NonTameRandomTargetGoal flags=TARGET running=0
+G Wolf target 7 NearestAttackableTargetGoal flags=TARGET running=0
+G Wolf target 8 ResetUniversalAngerTargetGoal flags=none running=0
+# a spectator owner: the wolf does not follow and a panicking one does not teleport
+CF msg Set Alice's game mode to Spectator Mode
+CF result success 1
+E Wolf minecraft:wolf pos=31.228784604142575,101.85489329934836,0.3995521319573747 delta=0.0856437268272517,-0.44749789698341763,-0.02967173840927589 rot=201.40094,0.0 og=0 fall=1.1451066732406616 fire=0 air=300 alive=1 pose=standing hp=39.0 abs=0.0 hurt=1/11 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.45000002 zza=0.45000002 xxa=0.0 yya=0.0 head=253.57208 body=201.40094 nav=moving stuck=0 navspeed=1.5 ntarget=34,100,-2 path=1/4/1/34,100,-2 nodes=30,103,0:OPEN:0.0;31,100,-1:WALKABLE:0.0;32,100,-1:WALKABLE:0.0;33,100,-2:WALKABLE:0.0 goals=1:TamableAnimal$TamableAnimalPanicGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:17.23369419255866;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Alice sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+G Wolf goal 1 FloatGoal flags=JUMP running=0
+G Wolf goal 1 TamableAnimal$TamableAnimalPanicGoal flags=MOVE running=1
+G Wolf goal 2 SitWhenOrderedToGoal flags=MOVE+JUMP running=0
+G Wolf goal 3 Wolf$WolfAvoidEntityGoal flags=MOVE running=0
+G Wolf goal 4 LeapAtTargetGoal flags=MOVE+JUMP running=0
+G Wolf goal 5 MeleeAttackGoal flags=MOVE+LOOK running=0
+G Wolf goal 6 FollowOwnerGoal flags=MOVE+LOOK running=0
+G Wolf goal 7 BreedGoal flags=MOVE+LOOK running=0
+G Wolf goal 8 WaterAvoidingRandomStrollGoal flags=MOVE running=0
+G Wolf goal 9 BegGoal flags=LOOK running=0
+G Wolf goal 10 LookAtPlayerGoal flags=LOOK running=0
+G Wolf goal 10 RandomLookAroundGoal flags=MOVE+LOOK running=0
+G Wolf target 1 OwnerHurtByTargetGoal flags=TARGET running=0
+G Wolf target 2 OwnerHurtTargetGoal flags=TARGET running=0
+G Wolf target 3 HurtByTargetGoal flags=TARGET running=0
+G Wolf target 4 NearestAttackableTargetGoal flags=TARGET running=0
+G Wolf target 5 NonTameRandomTargetGoal flags=TARGET running=0
+G Wolf target 6 NonTameRandomTargetGoal flags=TARGET running=0
+G Wolf target 7 NearestAttackableTargetGoal flags=TARGET running=0
+G Wolf target 8 ResetUniversalAngerTargetGoal flags=none running=0
+HURT Wolf minecraft:cactus 1 -> true
+E Wolf minecraft:wolf pos=31.509981537272743,100.0,-0.3625461503478675 delta=0.18697741564233997,-0.0784000015258789,-0.10647539474105797 rot=255.9902,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=38.0 abs=0.0 hurt=7/17 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.45000002 zza=0.45000002 xxa=0.0 yya=0.0 head=225.00018 body=255.9902 nav=moving stuck=0 navspeed=1.5 ntarget=34,100,-2 path=2/4/1/34,100,-2 nodes=30,103,0:OPEN:0.0;31,100,-1:WALKABLE:0.0;32,100,-1:WALKABLE:0.0;33,100,-2:WALKABLE:0.0 goals=1:TamableAnimal$TamableAnimalPanicGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:17.23369419255866;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Alice sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:classic collar=red wet=0 shaking=0 shake=0.0 interest=0.0
+G Wolf goal 1 FloatGoal flags=JUMP running=0
+G Wolf goal 1 TamableAnimal$TamableAnimalPanicGoal flags=MOVE running=1
+G Wolf goal 2 SitWhenOrderedToGoal flags=MOVE+JUMP running=0
+G Wolf goal 3 Wolf$WolfAvoidEntityGoal flags=MOVE running=0
+G Wolf goal 4 LeapAtTargetGoal flags=MOVE+JUMP running=0
+G Wolf goal 5 MeleeAttackGoal flags=MOVE+LOOK running=0
+G Wolf goal 6 FollowOwnerGoal flags=MOVE+LOOK running=0
+G Wolf goal 7 BreedGoal flags=MOVE+LOOK running=0
+G Wolf goal 8 WaterAvoidingRandomStrollGoal flags=MOVE running=0
+G Wolf goal 9 BegGoal flags=LOOK running=0
+G Wolf goal 10 LookAtPlayerGoal flags=LOOK running=0
+G Wolf goal 10 RandomLookAroundGoal flags=MOVE+LOOK running=0
+G Wolf target 1 OwnerHurtByTargetGoal flags=TARGET running=0
+G Wolf target 2 OwnerHurtTargetGoal flags=TARGET running=0
+G Wolf target 3 HurtByTargetGoal flags=TARGET running=0
+G Wolf target 4 NearestAttackableTargetGoal flags=TARGET running=0
+G Wolf target 5 NonTameRandomTargetGoal flags=TARGET running=0
+G Wolf target 6 NonTameRandomTargetGoal flags=TARGET running=0
+G Wolf target 7 NearestAttackableTargetGoal flags=TARGET running=0
+G Wolf target 8 ResetUniversalAngerTargetGoal flags=none running=0
+CF msg Set Alice's game mode to Survival Mode
+CF result success 1
+# the wolf dies: its owner in the other level gets the death message
+HURT Wolf minecraft:generic_kill 1000 -> true
+PKT Alice minecraft:entity_event 220000006518
+PKT Alice minecraft:system_chat 7c0a090004776974680a000000020a000b636c69636b5f6576656e74080006616374696f6e000f737567676573745f636f6d6d616e64080007636f6d6d616e64000c2f74656c6c20416c6963652000080009696e73657274696f6e0005416c696365080004746578740005416c6963650a000b686f7665725f6576656e740800046e616d650005416c696365080006616374696f6e000b73686f775f656e74697479080002696400106d696e6563726166743a706c617965720b0004757569640000000410920508d5d83eed93d292f193afe7d70000090004776974680a000000010a000b686f7665725f6576656e74080006616374696f6e000973686f775f746578740a000576616c7565080005636f6c6f720005677265656e09000565787472610a0000000208000000010a000800097472616e736c617465002f616476616e63656d656e74732e73746f72792e656e7465725f7468655f6e65746865722e6465736372697074696f6e000800097472616e736c6174650029616476616e63656d656e74732e73746f72792e656e7465725f7468655f6e65746865722e7469746c6500000800097472616e736c6174650029616476616e63656d656e74732e73746f72792e656e7465725f7468655f6e65746865722e7469746c6500080005636f6c6f720005677265656e0800097472616e736c6174650014636861742e7371756172655f627261636b657473000800097472616e736c617465001a636861742e747970652e616476616e63656d656e742e7461736b0000
+PKT Alice minecraft:system_chat 7c0a090004776974680a00000001080009696e73657274696f6e002432653564616164342d613666622d343562662d613736322d6533306462323637383733630a000b686f7665725f6576656e740a00046e616d650800097472616e736c6174650015656e746974792e6d696e6563726166742e776f6c6600080006616374696f6e000b73686f775f656e746974790800026964000e6d696e6563726166743a776f6c660b000475756964000000042e5daad4a6fb45bfa762e30db267873c000800097472616e736c6174650015656e746974792e6d696e6563726166742e776f6c66000800097472616e736c617465001864656174682e61747461636b2e67656e657269634b696c6c0000
+LEVEL minecraft:overworld gametime=40 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=40 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=40 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL Alice dim=minecraft:the_nether

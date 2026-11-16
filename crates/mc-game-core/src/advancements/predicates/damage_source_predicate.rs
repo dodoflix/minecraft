@@ -67,10 +67,13 @@ impl DamageSourcePredicate {
 
     /// `matches(level, position, source)`; the entities of the source are looked up in the level.
     pub fn matches(&self, level: &ServerLevel, position: Vec3, source: &DamageSource) -> bool {
+        // vanilla's source keeps its entities after they were removed (a projectile that hit and was discarded)
         let direct = source
             .get_direct_entity()
-            .and_then(|id| level.get_entity(id));
-        let causing = source.get_entity().and_then(|id| level.get_entity(id));
+            .and_then(|id| level.get_entity_or_recently_removed(id));
+        let causing = source
+            .get_entity()
+            .and_then(|id| level.get_entity_or_recently_removed(id));
         self.matches_parts(
             level,
             Some(position),

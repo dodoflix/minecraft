@@ -1,7 +1,7 @@
 //! `TamableAnimal` + `OwnableEntity`: tame flag, owner, sitting, teleport-to-owner.
 
 use super::{DATA_FLAGS_ID, DATA_OWNERUUID_ID, ext, navigation};
-use crate::server::level::ServerLevel;
+use crate::server::level::{AnyDimensionEntity, ServerLevel};
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::level::BlockGetter;
 use crate::world::level::collision::CollisionGetter;
@@ -76,33 +76,56 @@ pub fn get_owner(e: &dyn Entity, level: &ServerLevel) -> Option<EntityId> {
         .map(|o| o.id())
 }
 
-/// `OwnableEntity.getOwner()` of any ownable entity (tameable animal, horse, vex).
-fn get_ownable_owner(e: &dyn Entity, level: &ServerLevel) -> Option<EntityId> {
+/// `OwnableEntity.getOwner()` in any level (`EntityReference.getLivingEntity` -> `getEntityInAnyDimension`): the owner of
+/// this level, or the copy another level published (it is not an entity of this level, only its facts are read).
+pub fn get_owner_in_any_dimension<'l>(
+    e: &dyn Entity,
+    level: &'l ServerLevel,
+) -> Option<AnyDimensionEntity<'l>> {
     level
-        .get_entity_by_uuid(e.ownable_owner_uuid()?)
-        .filter(|o| o.living().is_some())
-        .map(|o| o.id())
+        .get_entity_in_any_dimension(get_owner_reference(e)?)
+        .filter(|o| o.is_living())
 }
 
-/// `OwnableEntity.getRootOwner()`: walks through every ownable owner (tameable animals, horses, vexes); `None` when
-/// the chain loops or ends on an ownable entity without an owner.
-pub fn get_root_owner(level: &ServerLevel, e: &dyn Entity) -> Option<EntityId> {
-    let mut seen: Vec<EntityId> = vec![e.id()];
-    let mut owner = get_ownable_owner(e, level)?;
+/// `OwnableEntity.getOwner()` of an ownable entity in any level (tameable animal, horse, vex).
+fn get_ownable_owner_in_any_dimension<'l>(
+    level: &'l ServerLevel,
+    e: &AnyDimensionEntity<'_>,
+) -> Option<AnyDimensionEntity<'l>> {
+    level
+        .get_entity_in_any_dimension(e.ownable_owner_uuid()?)
+        .filter(|o| o.is_living())
+}
+
+/// `OwnableEntity.getRootOwner()` of `e`, walking through every ownable owner in any level; `None` when the chain loops
+/// or ends on an ownable entity without an owner.
+pub fn get_root_owner_in_any_dimension<'l>(
+    level: &'l ServerLevel,
+    e: AnyDimensionEntity<'l>,
+) -> Option<AnyDimensionEntity<'l>> {
+    let mut seen: Vec<Uuid> = vec![e.uuid()];
+    let mut owner = get_ownable_owner_in_any_dimension(level, &e)?;
     loop {
-        let owner_entity = level.get_entity(owner)?;
-        if !owner_entity.is_ownable() {
+        if !owner.is_ownable() {
             return Some(owner);
         }
-        let owners_owner = get_ownable_owner(owner_entity, level);
-        if owners_owner.is_some_and(|o| seen.contains(&o)) {
+        let owners_owner = get_ownable_owner_in_any_dimension(level, &owner);
+        if owners_owner
+            .as_ref()
+            .is_some_and(|o| seen.contains(&o.uuid()))
+        {
             return None;
         }
-        seen.push(owner);
-        {
-            let o = owners_owner?;
-            owner = o
-        }
+        seen.push(owner.uuid());
+        owner = owners_owner?;
+    }
+}
+
+/// `OwnableEntity.getRootOwner()` as an entity of this level (`None` when the root is in another level).
+pub fn get_root_owner(level: &ServerLevel, e: &dyn Entity) -> Option<EntityId> {
+    match get_root_owner_in_any_dimension(level, AnyDimensionEntity::Here(e))? {
+        AnyDimensionEntity::Here(root) => Some(root.id()),
+        AnyDimensionEntity::Elsewhere(_) => None,
     }
 }
 
@@ -166,8 +189,7 @@ pub fn read_additional_save_data(
 
 /// `shouldTryTeleportToOwner()`.
 pub fn should_try_teleport_to_owner(e: &dyn Entity, level: &ServerLevel) -> bool {
-    get_owner(e, level)
-        .and_then(|o| level.get_entity(o))
+    get_owner_in_any_dimension(e, level)
         .is_some_and(|o| e.base().distance_to_sqr_vec(o.position()) >= TELEPORT_WHEN_DISTANCE_IS_SQ)
 }
 
@@ -176,17 +198,13 @@ pub fn unable_to_move_to_owner(e: &dyn Entity, level: &ServerLevel) -> bool {
     is_ordered_to_sit(e)
         || e.base().is_passenger()
         || super::leashable::may_be_leashed(e)
-        || get_owner(e, level)
-            .and_then(|o| level.get_entity(o))
-            .is_some_and(|o| o.is_spectator())
+        || get_owner_in_any_dimension(e, level).is_some_and(|o| o.is_spectator())
 }
 
 /// `tryToTeleportToOwner()`.
 pub fn try_to_teleport_to_owner(e: &mut dyn Entity, level: &mut ServerLevel) {
-    if let Some(owner_pos) = get_owner(e, level)
-        .and_then(|o| level.get_entity(o))
-        .map(|o| o.block_position())
-    {
+    // the block position of an owner in another level is used as it is: the pet teleports around it in its own level
+    if let Some(owner_pos) = get_owner_in_any_dimension(e, level).map(|o| o.block_position()) {
         teleport_to_around_block_pos(e, level, owner_pos);
     }
 }
@@ -255,15 +273,24 @@ pub fn die(
     source: &crate::world::damagesource::DamageSource,
 ) {
     if level.show_death_messages()
-        && let Some(owner) =
-            get_owner(e, level).filter(|o| level.get_entity(*o).is_some_and(|o| o.is_player()))
+        && let Some(owner) = get_owner_in_any_dimension(e, level).filter(|o| o.is_player())
     {
         let message = e
             .living()
             .expect("living")
             .combat_tracker
             .get_death_message(level, e);
-        level.with_player(owner, |_, p| p.send_system_message(message.clone()));
+        match owner {
+            AnyDimensionEntity::Here(owner) => {
+                let owner = owner.id();
+                level.with_player(owner, |_, p| p.send_system_message(message.clone()));
+            }
+            AnyDimensionEntity::Elsewhere(owner) => {
+                if let Some(handle) = level.get_player_in_any_dimension(owner.uuid) {
+                    handle.send_system_message(&message, false);
+                }
+            }
+        }
     }
     crate::world::entity::living_entity::damage::die(e, level, source);
 }

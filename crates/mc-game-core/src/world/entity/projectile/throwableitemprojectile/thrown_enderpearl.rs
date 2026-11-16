@@ -52,7 +52,7 @@ enum OwnerTarget {
     /// An owner of the pearl's level.
     Here(EntityId),
     /// An owner of another level that `canUsePortal(true)`.
-    Elsewhere(RemoteEntity),
+    Elsewhere(Box<RemoteEntity>),
 }
 
 impl ThrownEnderpearl {
@@ -225,7 +225,7 @@ impl Projectile for ThrownEnderpearl {
         let owner = match self.owner_target(level) {
             Some(OwnerTarget::Here(owner)) => owner,
             Some(OwnerTarget::Elsewhere(owner)) => {
-                self.teleport_remote_owner(level, owner);
+                self.teleport_remote_owner(level, *owner);
                 self.discard_in_level(level);
                 return;
             }

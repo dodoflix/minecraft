@@ -3,10 +3,11 @@
 //! the pending map update to each of them.
 
 use super::{Entities, send};
+use crate::server::level::EntityDirectory;
 use crate::server::level::PlayerRecord;
 use crate::server::level::server_entity::encode_payload;
 use crate::world::entity::decoration::item_frame::framed_map_of;
-use crate::world::item::map_item::player_view;
+use crate::world::item::map_item::{player_view, remote_player_view};
 use crate::world::level::DimensionKey;
 use crate::world::level::saveddata::maps::{MapItemSavedData, MapStorage, MapTickEnv};
 use mc_protocol::components::ItemStack;
@@ -15,10 +16,10 @@ use mc_protocol::components::ItemStack;
 pub struct FrameMapEnv<'a> {
     pub map_storage: &'a MapStorage,
     pub dimension: &'a DimensionKey,
+    /// The players of the other levels.
+    pub directory: &'a EntityDirectory,
     /// `Level.getGameTime()`.
     pub game_time: i64,
-    /// `MinecraftServer.tickCount`.
-    pub tick_count: i32,
 }
 
 /// `ServerEntity.sendChanges` for the frame `frame_id` on a tick of its ten-tick period: nothing unless it holds a map that
@@ -44,14 +45,17 @@ pub(super) fn sync_framed_map(
             let Some(ticking) = entities.get_any(player.id).and_then(|e| view(e, &matcher)) else {
                 continue;
             };
-            // Not implemented: a holder that is in another dimension counts as gone (it is not in `entities`), where vanilla
-            // keeps it for a frame (a player is only `isRemoved` once it left the server).
-            let other =
-                |id, m: &dyn Fn(&ItemStack) -> bool| entities.get_any(id).and_then(|e| view(e, m));
+            // a holder in another level is still a holder (a player is only `isRemoved` once it left the server)
+            let other = |id, m: &dyn Fn(&ItemStack) -> bool| {
+                entities.get_any(id).and_then(|e| view(e, m)).or_else(|| {
+                    env.directory
+                        .get_by_id(id)
+                        .and_then(|remote| remote_player_view(&remote, m))
+                })
+            };
             data.tick_carried_by(
                 &MapTickEnv {
                     game_time: env.game_time,
-                    tick_count: env.tick_count,
                     ticking,
                     other: &other,
                 },

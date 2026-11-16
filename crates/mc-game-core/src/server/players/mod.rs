@@ -1,6 +1,7 @@
 //! `net.minecraft.server.players`: persistent user lists + profile cache, the player handle and the player list.
 
 pub mod ban_list_entry;
+pub mod cross_level;
 pub use mc_protocol::gson;
 pub mod dedicated_player_list;
 pub mod dimension_change;

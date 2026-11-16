@@ -104,6 +104,37 @@ pub trait Projectile: Entity {
         level.get_entity_by_uuid(self.projectile_data().owner?)
     }
 
+    /// `getOwner()` of an owner that another level tracks (`getEntityInAnyDimension`): the copy that level published.
+    fn get_remote_owner(&self, level: &ServerLevel) -> Option<crate::server::level::RemoteEntity> {
+        match level.get_entity_in_any_dimension(self.projectile_data().owner?)? {
+            crate::server::level::AnyDimensionEntity::Elsewhere(remote) => Some(*remote),
+            crate::server::level::AnyDimensionEntity::Here(_) => None,
+        }
+    }
+
+    /// `source` with the owner as its causing entity when only another level tracks the owner (a living one: what the
+    /// copy kept of it, at the position of the copy).
+    fn with_remote_owner(
+        &self,
+        level: &ServerLevel,
+        source: crate::world::damagesource::DamageSource,
+    ) -> crate::world::damagesource::DamageSource {
+        if self.get_owner(level).is_some() {
+            return source;
+        }
+        let Some(remote) = self.get_remote_owner(level) else {
+            return source;
+        };
+        match remote.damage_entity {
+            Some(owner) => {
+                let mut owner = (*owner).clone();
+                owner.position = remote.position;
+                source.with_causing_snapshot(owner)
+            }
+            None => source,
+        }
+    }
+
     /// `setOwner(entity)`.
     fn set_owner(&mut self, owner: Option<&dyn Entity>) {
         let d = self.projectile_data_mut();

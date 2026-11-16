@@ -4,7 +4,6 @@
 //! with what vanilla reads from the references (position, name, main hand item, kind) for readers that outlive the
 //! hit (combat tracker, death message).
 
-use std::rc::Rc;
 use std::sync::Arc;
 
 use mc_core::ident::Identifier;
@@ -111,8 +110,8 @@ pub struct DamageSource {
     pub causing_entity: Option<EntityId>,
     /// `damageSourcePosition` (explicit position; see [`DamageSource::get_source_position`]).
     pub source_position: Option<Vec3>,
-    direct: Option<Rc<DamageEntity>>,
-    causing: Option<Rc<DamageEntity>>,
+    direct: Option<Arc<DamageEntity>>,
+    causing: Option<Arc<DamageEntity>>,
 }
 
 impl DamageSource {
@@ -125,11 +124,11 @@ impl DamageSource {
         source_position: Option<Vec3>,
     ) -> DamageSource {
         let same = matches!((direct, causing), (Some(d), Some(c)) if d.id() == c.id());
-        let direct_info = direct.map(|e| Rc::new(DamageEntity::of(e)));
+        let direct_info = direct.map(|e| Arc::new(DamageEntity::of(e)));
         let causing_info = if same {
             direct_info.clone()
         } else {
-            causing.map(|e| Rc::new(DamageEntity::of(e)))
+            causing.map(|e| Arc::new(DamageEntity::of(e)))
         };
         DamageSource {
             damage_type,
@@ -140,6 +139,14 @@ impl DamageSource {
             direct: direct_info,
             causing: causing_info,
         }
+    }
+
+    /// The same source with the causing entity `causing`, a snapshot of an entity of another level (vanilla's
+    /// `getEntity()` is the live entity there; only what [`DamageEntity`] keeps is read here).
+    pub fn with_causing_snapshot(mut self, causing: DamageEntity) -> DamageSource {
+        self.causing_entity = Some(causing.id);
+        self.causing = Some(Arc::new(causing));
+        self
     }
 
     /// `toString()`.

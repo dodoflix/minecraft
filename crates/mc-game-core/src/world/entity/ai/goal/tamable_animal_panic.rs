@@ -26,6 +26,10 @@ impl TamableAnimalPanicGoal {
 }
 
 impl Goal for TamableAnimalPanicGoal {
+    fn name(&self) -> &'static str {
+        "TamableAnimal$TamableAnimalPanicGoal"
+    }
+
     fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.panic.can_use(mob, level)
     }
