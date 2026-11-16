@@ -541,6 +541,16 @@ impl ChunkMap {
         }
     }
 
+    /// `read(pos).join()`: the stored chunk, a write still queued counting (saves being encoded are waited for).
+    pub fn read_stored_chunk(&self, pos: ChunkPos) -> Option<mc_nbt::CompoundTag> {
+        while self.encoding_chunks.load(Ordering::Acquire) > 0 {
+            std::thread::sleep(std::time::Duration::from_millis(1));
+        }
+        self.io
+            .read_blocking(pos)
+            .unwrap_or_else(|e| panic!("chunk {pos} does not read: {e}"))
+    }
+
     /// `close()`: stop the worker threads (the region files are flushed and closed).
     pub fn close(&mut self) {
         self.worldgen.close();

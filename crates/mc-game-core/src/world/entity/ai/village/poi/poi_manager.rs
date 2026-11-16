@@ -972,6 +972,15 @@ impl PoiManager {
         }
     }
 
+    /// The stored points of interest of `chunk_pos`, a write still queued counting (`SimpleRegionStorage.read(pos).join()`).
+    pub fn read_stored_chunk(&self, chunk_pos: ChunkPos) -> Option<mc_nbt::CompoundTag> {
+        self.inner
+            .borrow_mut()
+            .storage
+            .read(&chunk_pos)
+            .unwrap_or_else(|e| panic!("POI chunk {chunk_pos} does not read: {e}"))
+    }
+
     /// `hasWork()`.
     pub fn has_work(&self) -> bool {
         !self.inner.borrow().dirty_chunks.is_empty()

@@ -591,6 +591,15 @@ impl PersistentEntitySectionManager {
         }
     }
 
+    /// The stored entity chunk of `pos`, a write still queued counting (`SimpleRegionStorage.read(pos).join()`).
+    pub fn read_stored_entities(&mut self, pos: ChunkPos) -> Option<CompoundTag> {
+        let storage = self.permanent_storage.as_mut()?;
+        storage
+            .simple_region_storage()
+            .read(&pos)
+            .unwrap_or_else(|e| panic!("entity chunk {pos} does not read: {e}"))
+    }
+
     /// `permanentStorage.flush(flushStorage)`.
     pub fn flush_storage(&mut self, flush_storage: bool) {
         if let Some(storage) = self.permanent_storage.as_mut()
