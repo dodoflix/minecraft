@@ -237,7 +237,7 @@ pub fn tick_connection(server: &mut MinecraftServer, uuid: Uuid) {
     // the player changed level in its portal step: the rest of its tick runs in the new level
     if found == Some(true) {
         with_player(server, uuid, |ctx| {
-            ctx.tick_after_portal();
+            ctx.tick_after_portal(true);
             ctx.handle_disconnection_if_closed();
         });
     }

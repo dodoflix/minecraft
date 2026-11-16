@@ -1,0 +1,25 @@
+CF msg Game rule players_nether_portal_default_delay is now set to 0
+CF result success 0
+T 1
+P S minecraft:player pos=0.7,-60.0,0.4 delta=0.0,-0.0784000015258789,0.0 rot=90.0,15.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/5/0.71428573 sel=0 main=empty
+PORTAL S cooldown=0 time=0
+E waiting minecraft:experience_orb pos=0.5,69.97,1.5 delta=0.0,-0.02940000057220459,0.0 rot=0.0,0.0 og=0 fall=0.029999999329447746 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=1 health=5
+T 2
+P S minecraft:player pos=0.7,70.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,15.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/5/0.71428573 sel=0 main=empty
+PORTAL S cooldown=10 time=1
+E waiting minecraft:experience_orb pos=0.5,69.91059999942779,1.5 delta=0.0,-0.05821200169372559,0.0 rot=0.0,0.0 og=0 fall=0.08939999900758266 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=2 health=5
+T 3
+P S minecraft:player pos=0.7,70.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,15.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=1/12/0.5555556 sel=0 main=empty
+PORTAL S cooldown=10 time=-
+T 4
+P S minecraft:player pos=0.7,70.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,15.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=1/12/0.5555556 sel=0 main=empty
+PORTAL S cooldown=10 time=-
+T 5
+P S minecraft:player pos=0.7,70.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,15.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=1/12/0.5555556 sel=0 main=empty
+PORTAL S cooldown=10 time=-
+T 6
+P S minecraft:player pos=0.7,70.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,15.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=1/12/0.5555556 sel=0 main=empty
+PORTAL S cooldown=10 time=-
+LEVEL minecraft:overworld gametime=6 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=6 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL S dim=minecraft:the_nether

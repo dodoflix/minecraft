@@ -160,8 +160,6 @@ pub struct EntityData {
     pub sync_position: bool,
     pub sync_velocity: bool,
     pub portal_cooldown: i32,
-    /// A player's `handlePortal()` already ran this tick (see `dimension_change::hoist_portal`): `baseTick` skips it once.
-    pub portal_handled: bool,
     pub permanently_invulnerable: bool,
     pub uuid: Uuid,
     pub has_glowing_tag: bool,
@@ -277,7 +275,6 @@ impl EntityData {
             sync_position: false,
             sync_velocity: false,
             portal_cooldown: 0,
-            portal_handled: false,
             permanently_invulnerable: false,
             uuid,
             has_glowing_tag: false,
@@ -2335,13 +2332,9 @@ pub trait Entity: Any {
         }
         due
     }
-    /// `handlePortal()`: teleports inside `baseTick`. A player's `handlePortal()` runs ahead of its tick instead (the player moves
-    /// between levels as a whole and its tick cannot continue in another level: `dimension_change::hoist_portal`), which sets
-    /// `portal_handled` so this call is skipped once.
+    /// `handlePortal()`: teleports inside `baseTick`. A player's tick is split at this call instead (the player moves between
+    /// levels as a whole and its tick continues on the moved player: `ServerPlayer::do_tick_to_portal`).
     fn handle_portal(&mut self, level: &mut ServerLevel) {
-        if std::mem::take(&mut self.base_mut().portal_handled) {
-            return;
-        }
         if self.portal_teleport_due(level) {
             level.teleport_through_portal(self.as_dyn_mut());
         }
@@ -5403,6 +5396,13 @@ pub fn default_known_movement(entity: &dyn Entity, level: &ServerLevel) -> Vec3 
 
 /// `Entity.baseTick()`.
 pub fn base_tick<E: Entity + ?Sized>(entity: &mut E, level: &mut ServerLevel) {
+    base_tick_before_portal(entity, level);
+    entity.handle_portal(level);
+    base_tick_after_portal(entity, level);
+}
+
+/// `Entity.baseTick()` up to `handlePortal()`.
+pub fn base_tick_before_portal<E: Entity + ?Sized>(entity: &mut E, level: &mut ServerLevel) {
     compute_speed(entity);
     entity.base_mut().in_block_state = None;
     if let Some(vehicle) = entity.base().vehicle {
@@ -5418,7 +5418,10 @@ pub fn base_tick<E: Entity + ?Sized>(entity: &mut E, level: &mut ServerLevel) {
     if entity.base().boarding_cooldown > 0 {
         entity.base_mut().boarding_cooldown -= 1;
     }
-    entity.handle_portal(level);
+}
+
+/// `Entity.baseTick()` after `handlePortal()`.
+pub fn base_tick_after_portal<E: Entity + ?Sized>(entity: &mut E, level: &mut ServerLevel) {
     if entity.can_spawn_sprint_particle() {
         entity.spawn_sprint_particle(level);
     }

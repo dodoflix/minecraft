@@ -1,0 +1,39 @@
+# An ender pearl thrown into an overworld portal uses it (ThrownEnderpearl.canUsePortal(true)), arrives in the nether without a delay and lands there:
+# its owner, still in the overworld, is teleported to the landing spot and takes the pearl damage.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty peaceful
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill -3 -61 3 4 -61 8 minecraft:stone
+in the_nether fill -1 69 0 2 69 0 minecraft:obsidian
+in the_nether fill -1 73 0 2 73 0 minecraft:obsidian
+in the_nether fill -1 70 0 -1 72 0 minecraft:obsidian
+in the_nether fill 2 70 0 2 72 0 minecraft:obsidian
+in the_nether fill 0 70 0 1 72 0 minecraft:nether_portal[axis=x]
+in the_nether fill -8 60 -48 8 68 8 minecraft:netherrack
+spawn_player Alice survival 0.5 -60 6.5 180 0 sim
+give Alice mainhand minecraft:ender_pearl 3
+tick 2
+dump packets:Alice:none levels players
+note the pearl flies north into the portal
+use Alice
+watch entities
+tick 6
+watch off
+dump levels players entities
+in the_nether dump entities events
+note it lands in the nether and the owner follows
+tick 30
+dump levels players entities events packets:Alice:respawn,player_position,change_difficulty,damage_event,set_health,entity_event,player_abilities,set_experience,set_held_slot,update_mob_effect,set_default_spawn_position,initialize_border,set_time,game_event
+in the_nether dump entities events players
+dump player:Alice inventory:Alice

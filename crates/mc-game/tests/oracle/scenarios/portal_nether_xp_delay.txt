@@ -1,0 +1,31 @@
+# The xp pickup delay (Player.takeXpDelay, counted down in Player.tick before handlePortal) runs once per tick across a portal trip: an orb
+# picked up in the overworld the tick before the player teleports sets it to 2, the orb waiting at the arrival is taken two ticks later.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty peaceful
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+in the_nether fill -1 69 0 2 69 0 minecraft:obsidian
+in the_nether fill -1 73 0 2 73 0 minecraft:obsidian
+in the_nether fill -1 70 0 -1 72 0 minecraft:obsidian
+in the_nether fill 2 70 0 2 72 0 minecraft:obsidian
+in the_nether fill 0 70 0 1 72 0 minecraft:nether_portal[axis=x]
+gamerule players_nether_portal_default_delay 0
+in the_nether spawn waiting minecraft:experience_orb 0.5 70 1.5 0 0 {Value:7s}
+spawn_player S survival 0.7 -60 0.4 90 15 sim
+spawn taken minecraft:experience_orb 0.7 -60 0.4 0 0 {Value:5s}
+dump packets:S:none
+watch player:S portal:S xentities
+tick 6
+watch off
+dump levels players
+in the_nether dump xentities

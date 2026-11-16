@@ -1,0 +1,42 @@
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
+P A minecraft:player pos=0.5,119.76636799395752,0.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E C minecraft:cow pos=6.5,119.76636799395752,0.7738100073957445 delta=0.0,-0.230527368912964,0.07535710651533623 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E D minecraft:cow pos=8.5,119.76636799395752,0.7738100073957445 delta=0.0,-0.230527368912964,0.07535710651533623 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E I minecraft:item pos=10.794040005645751,119.76318399697875,0.5 delta=0.094119205495453,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=3 pickup=0 health=5 owner=- thrower=-
+E J minecraft:item pos=12.794040005645751,119.76318399697875,0.5 delta=0.094119205495453,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=3 pickup=0 health=5 owner=- thrower=-
+# same dimension: the momentum is kept horizontally and the entities stand on the ground
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF msg Teleported A to 0.500000, 125.000000, 3.500000
+CF result success 1
+P A minecraft:player pos=0.5,125.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.23363199830055237 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E C minecraft:cow pos=6.5,119.76636799395752,0.7738100073957445 delta=0.0,-0.230527368912964,0.07535710651533623 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E I minecraft:item pos=10.794040005645751,119.76318399697875,0.5 delta=0.094119205495453,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=3 pickup=0 health=5 owner=- thrower=-
+# another dimension: the player behaves the same, the new non-player entities keep what restoreFrom copied
+CF result failure 0
+CF fail No entity was found
+CF result failure 0
+CF fail No entity was found
+CF msg Teleported A to 0.500000, 120.000000, 0.500000
+CF result success 1
+LEVEL minecraft:overworld gametime=3 forced=25 loaded=1225 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=3 forced=25 loaded=961 players=1 border=5.9999968E7
+PL A dim=minecraft:the_nether
+P A minecraft:player pos=0.5,120.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.23363199830055237 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT A minecraft:player_position 49023fe0000000000000405f400000000000400c000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT A minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e000000010000c1ffffff0f03
+PKT A minecraft:player_position 49033fe0000000000000405e0000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+E C minecraft:cow pos=6.5,119.76636799395752,0.7738100073957445 delta=0.0,-0.230527368912964,0.07535710651533623 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E D minecraft:cow pos=8.5,119.76636799395752,0.7738100073957445 delta=0.0,-0.230527368912964,0.07535710651533623 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E I minecraft:item pos=10.794040005645751,119.76318399697875,0.5 delta=0.094119205495453,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=3 pickup=0 health=5 owner=- thrower=-
+E J minecraft:item pos=12.794040005645751,119.76318399697875,0.5 delta=0.094119205495453,-0.115263684456482,0.0 rot=0.0,0.0 og=0 fall=0.23681600391864777 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=3 pickup=0 health=5 owner=- thrower=-
+PL A dim=minecraft:the_nether
+P A minecraft:player pos=0.5,120.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.23363199830055237 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E C minecraft:cow pos=6.5,119.53584062504456,0.8491671139110807 delta=0.0,-0.30431682745754424,0.06857496890527473 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E D minecraft:cow pos=8.5,119.53584062504456,0.8491671139110807 delta=0.0,-0.30431682745754424,0.06857496890527473 rot=0.0,0.0 og=0 fall=0.46415936946868896 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E I minecraft:item pos=10.888159211141204,119.60792031252227,0.5 delta=0.09223682318072532,-0.15215841372877212,0.0 rot=0.0,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=4 pickup=0 health=5 owner=- thrower=-
+E J minecraft:item pos=12.888159211141204,119.60792031252227,0.5 delta=0.09223682318072532,-0.15215841372877212,0.0 rot=0.0,0.0 og=0 fall=0.3920796811580658 fire=0 air=300 alive=1 pose=standing item=minecraft:stone*1 age=4 pickup=0 health=5 owner=- thrower=-
+PL A dim=minecraft:the_nether

@@ -39,3 +39,9 @@ fn ride_spectate_swing_and_tag_match_vanilla() {
 fn teleport_and_rotate_match_vanilla() {
     common::block_scenario::check("cmd_teleport_rotate");
 }
+
+/// `/tp` goes on with the entity it started with: a non-player that changed dimension is a new entity that keeps its momentum.
+#[test]
+fn teleport_after_effects_follow_the_original_entity() {
+    common::block_scenario::check("cmd_tp_after_teleport");
+}

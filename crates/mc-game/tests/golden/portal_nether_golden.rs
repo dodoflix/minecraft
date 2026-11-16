@@ -9,6 +9,12 @@ fn survival_player_travels_to_the_nether_and_back() {
     common::block_scenario::check("portal_nether_player");
 }
 
+/// The xp pickup delay is counted down once per tick across a portal trip (the part of the tick before the portal step runs in the old level).
+#[test]
+fn xp_pickup_delay_counts_down_across_the_portal_trip() {
+    common::block_scenario::check("portal_nether_xp_delay");
+}
+
 /// A villager that is trading, a cow, an item, a primed tnt, a minecart, a zombified piglin and an arrow travel without a delay.
 #[test]
 fn other_entities_travel_without_a_delay() {
@@ -43,6 +49,12 @@ fn overworld_portal_search_reaches_128_blocks() {
 #[test]
 fn portal_random_tick_spawns_a_zombified_piglin() {
     common::block_scenario::check("portal_piglin_spawn");
+}
+
+/// A pearl thrown into a portal uses it; when it lands in the nether its owner is teleported there.
+#[test]
+fn ender_pearl_travels_through_a_portal_and_takes_its_owner() {
+    common::block_scenario::check("portal_nether_pearl");
 }
 
 /// Creative and default portal delays, a delay of 0 and a negative delay.

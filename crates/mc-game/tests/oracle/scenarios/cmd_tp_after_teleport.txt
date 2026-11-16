@@ -1,0 +1,35 @@
+# TeleportCommand.performTeleport goes on with the entity it started with: after a same-dimension teleport it keeps only the horizontal momentum and stands
+# on the ground; a non-player that changed dimension is a new entity (the original is removed), so the momentum and the ground flag of the new one stay
+# as restoreFrom copied them. A player keeps its identity across the dimensions and gets the same treatment as in the same dimension.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty peaceful
+entity_counter 100
+level_seed 7
+gamerule mob_griefing false
+spawn_player A survival 0.5 120 0.5 0 0 sim
+spawn C minecraft:cow 6.5 120 0.5 0 0 {PersistenceRequired:1b,Motion:[0.0d,0.0d,0.1d]}
+spawn D minecraft:cow 8.5 120 0.5 0 0 {PersistenceRequired:1b,Motion:[0.0d,0.0d,0.1d]}
+spawn I minecraft:item 10.5 120 0.5 0 0 {Item:{id:"minecraft:stone",count:1},Motion:[0.1d,0.0d,0.0d]}
+spawn J minecraft:item 12.5 120 0.5 0 0 {Item:{id:"minecraft:stone",count:1},Motion:[0.1d,0.0d,0.0d]}
+tick 3
+dump packets:A:none
+dump player:A mob:C mob:D entity:I entity:J
+note same dimension: the momentum is kept horizontally and the entities stand on the ground
+cmd tp C 6.5 125 3.5
+cmd tp I 10.5 125 3.5
+cmd tp A 0.5 125 3.5
+dump player:A mob:C entity:I
+note another dimension: the player behaves the same, the new non-player entities keep what restoreFrom copied
+cmd execute in minecraft:the_nether run tp D 8.5 120 0.5
+cmd execute in minecraft:the_nether run tp J 12.5 120 0.5
+cmd execute in minecraft:the_nether run tp A 0.5 120 0.5
+dump levels players player:A packets:A:respawn,player_position
+in the_nether dump xentities players
+tick 1
+dump player:A
+in the_nether dump xentities players

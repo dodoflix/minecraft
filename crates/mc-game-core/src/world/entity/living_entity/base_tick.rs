@@ -56,6 +56,13 @@ pub fn tick_death(entity: &mut dyn Entity, level: &mut ServerLevel) {
 
 /// `LivingEntity.baseTick()`.
 pub fn base_tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
+    base_tick_before_portal(entity, level);
+    entity.handle_portal(level);
+    base_tick_after_portal(entity, level);
+}
+
+/// `LivingEntity.baseTick()` up to `Entity.baseTick()`'s `handlePortal()`.
+pub fn base_tick_before_portal(entity: &mut dyn Entity, level: &mut ServerLevel) {
     lm(entity).swing_state.tick();
     if entity.base().first_tick
         && let Some(bed) = l(entity).get_sleeping_pos()
@@ -67,7 +74,12 @@ pub fn base_tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
         let id = entity.id();
         crate::world::item::enchantment_helper::tick_effects(level, &mut Actors::of(entity), id);
     }
-    crate::world::entity::entity::base_tick(entity, level);
+    crate::world::entity::entity::base_tick_before_portal(entity, level);
+}
+
+/// `LivingEntity.baseTick()` after `handlePortal()`.
+pub fn base_tick_after_portal(entity: &mut dyn Entity, level: &mut ServerLevel) {
+    crate::world::entity::entity::base_tick_after_portal(entity, level);
     if entity.is_alive() {
         let is_player = entity.is_player();
         if util::is_in_wall(entity, level) {

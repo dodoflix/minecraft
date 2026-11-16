@@ -1825,6 +1825,8 @@ impl Scenario {
             // keeps the position it had, whatever the server-side tick did to it
             // a player the listener disconnected is gone from the level
             let mut moved = false;
+            // `Some(started)`: `doTick()` ran up to the portal step; `None`: a replay without a server ticks the player whole
+            let mut started = None;
             self.try_with_player(&name, |level, p| {
                 if let Some(listener) = p.listener.as_mut() {
                     listener.send_block_changed_ack();
@@ -1838,12 +1840,18 @@ impl Scenario {
                 p.player.living.entity.set_old_pos(pos);
                 // the portal step of the player's `baseTick` can move it to another level: its tick continues there
                 if mc_game::commands::server_access::has_server() {
-                    moved = mc_game::commands::server_access::with_server(|server| {
-                        mc_game::server::players::dimension_change::hoist_portal(server, level, p)
-                    });
+                    let began = p.do_tick_to_portal(level);
+                    started = Some(began);
+                    if began {
+                        moved = mc_game::commands::server_access::with_server(|server| {
+                            mc_game::server::players::dimension_change::handle_player_portal(
+                                server, level, p,
+                            )
+                        });
+                    }
                 }
                 if !moved {
-                    Self::tick_player_body(level, p, pos);
+                    Self::tick_player_body(level, p, pos, started);
                 }
             });
             if moved {
@@ -1851,7 +1859,7 @@ impl Scenario {
                 self.focus_ref(&name);
                 self.try_with_player(&name, |level, p| {
                     let pos = p.position();
-                    Self::tick_player_body(level, p, pos);
+                    Self::tick_player_body(level, p, pos, Some(true));
                 });
             }
             // the removal the end credits asked for runs once the player is back in its level
@@ -1871,9 +1879,17 @@ impl Scenario {
         self.focus(keep);
     }
 
-    /// `tickPlayer()` from `doTick()` on. `pos` is the position the tick started at.
-    fn tick_player_body(level: &mut ServerLevel, p: &mut ServerPlayer, pos: mc_core::phys::Vec3) {
-        p.do_tick(level);
+    /// `tickPlayer()` from `doTick()`'s portal step on. `pos` is the position the tick started at.
+    fn tick_player_body(
+        level: &mut ServerLevel,
+        p: &mut ServerPlayer,
+        pos: mc_core::phys::Vec3,
+        started: Option<bool>,
+    ) {
+        match started {
+            Some(started) => p.do_tick_after_portal(level, started),
+            None => p.do_tick(level),
+        }
         let (y_rot, x_rot) = (p.get_y_rot(), p.get_x_rot());
         // a simulated player keeps the position its own physics produced (`SimPlayer.absSnapTo`)
         if !p.simulate_local_player {

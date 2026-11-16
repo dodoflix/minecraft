@@ -4,7 +4,7 @@
 //! A portal that decides to teleport needs the server's other levels (`getPortalDestination(level, entity, entryPos)`):
 //! `Entity::handle_portal` reaches them through the level's tick environment
 //! ([`LevelTickEnv::teleport_through_portal`](crate::server::level::level_tick::LevelTickEnv)) and teleports inside
-//! `baseTick` like vanilla. A player's portal step runs ahead of its tick (`dimension_change::hoist_portal`).
+//! `baseTick` like vanilla. A player's tick is split at that step (`dimension_change::handle_player_portal`).
 
 use super::entity::Entity;
 use crate::server::MinecraftServer;

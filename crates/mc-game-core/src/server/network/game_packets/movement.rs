@@ -122,25 +122,30 @@ impl PlayCtx<'_> {
     /// then holds a placeholder, and the rest of the tick ([`PlayCtx::tick_after_portal`]) runs in a context of the new level.
     pub fn tick(&mut self) -> bool {
         self.lis().send_block_changed_ack();
+        let mut started = false;
         if !self.server.is_paused() {
             self.reset_position();
             let p = self.player.position();
             self.player.player.living.entity.set_old_pos(p);
-            if crate::server::players::dimension_change::hoist_portal(
-                &mut *self.server,
-                &mut *self.level,
-                &mut *self.player,
-            ) {
+            started = self.player.do_tick_to_portal(&mut *self.level);
+            if started
+                && crate::server::players::dimension_change::handle_player_portal(
+                    &mut *self.server,
+                    &mut *self.level,
+                    &mut *self.player,
+                )
+            {
                 return true;
             }
         }
-        self.tick_after_portal();
+        self.tick_after_portal(started);
         false
     }
 
-    /// `tick()` from `doTick()` on.
-    pub fn tick_after_portal(&mut self) {
-        if self.server.is_paused() || !self.tick_player_body() {
+    /// `tick()` from the player's portal step on; `started` is whether `doTick()` started (see
+    /// `ServerPlayer::do_tick_to_portal`).
+    pub fn tick_after_portal(&mut self, started: bool) {
+        if self.server.is_paused() || !self.tick_player_body(started) {
             let now = self.now_ms();
             self.keep_connection_alive(now);
             self.lis().tick_throttlers();
@@ -175,9 +180,9 @@ impl PlayCtx<'_> {
         }
     }
 
-    /// `tickPlayer()` from `doTick()` on.
-    fn tick_player_body(&mut self) -> bool {
-        self.player.do_tick(self.level);
+    /// `tickPlayer()` from `doTick()`'s portal step on.
+    fn tick_player_body(&mut self, started: bool) -> bool {
+        self.player.do_tick_after_portal(self.level, started);
         let (fx, fy, fz) = {
             let lis = self.lis();
             (lis.first_good_x, lis.first_good_y, lis.first_good_z)

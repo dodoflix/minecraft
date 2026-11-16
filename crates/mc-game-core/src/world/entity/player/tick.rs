@@ -216,6 +216,13 @@ impl ServerPlayer {
 
     /// `Player.tick()`; `super.tick()` is the generic `LivingEntity.tick` (which runs `aiStep` = `Player.aiStep` below).
     pub(super) fn player_tick(&mut self, level: &mut ServerLevel) {
+        self.player_tick_before_portal(level);
+        self.handle_portal(level);
+        self.player_tick_after_portal(level);
+    }
+
+    /// `Player.tick()` up to `handlePortal()` (`Entity.baseTick()`'s teleporting step, reached through `super.tick()`).
+    pub(super) fn player_tick_before_portal(&mut self, level: &mut ServerLevel) {
         let spectator = self.is_spectator();
         self.base_mut().no_physics = spectator;
         if spectator || self.base().is_passenger() {
@@ -234,7 +241,13 @@ impl ServerPlayer {
         }
         // `updateIsUnderwater()`
         self.player.was_underwater = self.base().eye_in_fluid[0];
-        living_entity::tick::tick(self, level);
+        living_entity::base_tick::base_tick_before_portal(self, level);
+    }
+
+    /// `Player.tick()` after `handlePortal()`.
+    pub(super) fn player_tick_after_portal(&mut self, level: &mut ServerLevel) {
+        living_entity::base_tick::base_tick_after_portal(self, level);
+        living_entity::tick::tick_after_base_tick(self, level);
         let (x, z) = (self.base().x(), self.base().z());
         let (nx, nz) = (
             mth::clamp_f64(x, -2.9999999E7, 2.9999999E7),
@@ -401,25 +414,51 @@ impl ServerPlayer {
             .all(|shape| shape.is_empty())
     }
 
-    /// `ServerPlayer.doTick()`.
+    /// `ServerPlayer.doTick()` for a level without a server around it: a portal teleport cannot happen (see
+    /// [`ServerPlayer::do_tick_to_portal`] for the real order).
     pub fn do_tick(&mut self, level: &mut ServerLevel) {
         if !self.is_spectator() || !movement::touching_unloaded_chunk(self, level) {
             self.player_tick(level);
-            self.close_container_if_invalid(level);
-            self.tick_food(level);
-            self.award_stat_once(level, Stats::PLAY_TIME);
-            self.award_stat_once(level, Stats::TOTAL_WORLD_TIME);
-            if self.is_alive() {
-                self.award_stat_once(level, Stats::TIME_SINCE_DEATH);
-            }
-            if self.is_shift_key_down() {
-                self.award_stat_once(level, Stats::CROUCH_TIME);
-            }
-            if !self.player.living.is_sleeping() {
-                self.award_stat_once(level, Stats::TIME_SINCE_REST);
-            }
+            self.do_tick_body(level);
         }
         self.do_tick_tail(level);
+    }
+
+    /// `ServerPlayer.doTick()` up to `handlePortal()`, which teleports a player between levels as a whole: the caller runs the
+    /// portal step in the player's level, then [`ServerPlayer::do_tick_after_portal`] on the player, in the level it is in by
+    /// then. Returns whether the tick started (it does not for a spectator inside an unloaded chunk).
+    pub fn do_tick_to_portal(&mut self, level: &mut ServerLevel) -> bool {
+        if self.is_spectator() && movement::touching_unloaded_chunk(self, level) {
+            return false;
+        }
+        self.player_tick_before_portal(level);
+        true
+    }
+
+    /// `ServerPlayer.doTick()` from `handlePortal()` on. `started` is the result of [`ServerPlayer::do_tick_to_portal`].
+    pub fn do_tick_after_portal(&mut self, level: &mut ServerLevel, started: bool) {
+        if started {
+            self.player_tick_after_portal(level);
+            self.do_tick_body(level);
+        }
+        self.do_tick_tail(level);
+    }
+
+    /// `ServerPlayer.doTick()` after `super.tick()`, up to the inventory sync.
+    fn do_tick_body(&mut self, level: &mut ServerLevel) {
+        self.close_container_if_invalid(level);
+        self.tick_food(level);
+        self.award_stat_once(level, Stats::PLAY_TIME);
+        self.award_stat_once(level, Stats::TOTAL_WORLD_TIME);
+        if self.is_alive() {
+            self.award_stat_once(level, Stats::TIME_SINCE_DEATH);
+        }
+        if self.is_shift_key_down() {
+            self.award_stat_once(level, Stats::CROUCH_TIME);
+        }
+        if !self.player.living.is_sleeping() {
+            self.award_stat_once(level, Stats::TIME_SINCE_REST);
+        }
     }
 
     /// The part of `ServerPlayer.doTick()` after `super.tick()`: health/food/experience packets, scoreboard criteria

@@ -29,6 +29,11 @@ fn update_swim_amount(entity: &mut dyn Entity) {
 pub fn tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
     // `super.tick()` = `Entity.tick()` = `baseTick()`
     entity.base_tick(level);
+    tick_after_base_tick(entity, level);
+}
+
+/// `LivingEntity.tick()` after `super.tick()`.
+pub fn tick_after_base_tick(entity: &mut dyn Entity, level: &mut ServerLevel) {
     entity.updating_using_item(level);
     update_swim_amount(entity);
     // server side

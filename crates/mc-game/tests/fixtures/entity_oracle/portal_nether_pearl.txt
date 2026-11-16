@@ -1,0 +1,48 @@
+LEVEL minecraft:overworld gametime=2 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=2 forced=25 loaded=961 players=0 border=5.9999968E7
+PL Alice dim=minecraft:overworld
+# the pearl flies north into the portal
+T 3
+E ender_pearl#1 minecraft:ender_pearl pos=0.4855668975792902,-58.51312561674692,5.025627547104388 delta=-0.014433102420709797,-0.0331256200251756,-1.4743724528956124 rot=-179.43901,-0.3639821 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 4
+E ender_pearl#1 minecraft:ender_pearl pos=0.47127812604514274,-58.57561998117386,3.5659988046770197 delta=-0.014288771534147489,-0.06249436442693668,-1.4596287424273677 rot=-179.43901,-0.7814909 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 5
+E ender_pearl#1 minecraft:ender_pearl pos=0.45713224209006836,-58.66718940283862,2.1209663357538213 delta=-0.014145883955074358,-0.09156942166476231,-1.4450324689231986 rot=-179.43903,-1.350332 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 6
+E ender_pearl#2 minecraft:ender_pearl pos=0.4292634357081575,71.06360667579858,-0.7258921723388647 delta=-0.013864381131481592,-0.148850192755301,-1.416276350077816 rot=-179.43906,-2.8334908 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 7
+E ender_pearl#2 minecraft:ender_pearl pos=0.4155376982557697,70.88654498326518,-2.1280057724225663 delta=-0.013725737452387818,-0.17706169253339635,-1.4021136000837016 rot=-179.43906,-3.706189 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+T 8
+E ender_pearl#2 minecraft:ender_pearl pos=0.4019492180470069,70.68155390568242,-3.516098249877028 delta=-0.013588480208762773,-0.20499107758275656,-1.3880924774544618 rot=-179.43906,-4.6449895 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+LEVEL minecraft:overworld gametime=8 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=8 forced=25 loaded=961 players=0 border=5.9999968E7
+PL Alice dim=minecraft:overworld
+E ender_pearl#2 minecraft:ender_pearl pos=0.4019492180470069,70.68155390568242,-3.516098249877028 delta=-0.013588480208762773,-0.20499107758275656,-1.3880924774544618 rot=-179.43906,-4.6449895 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+E ender_pearl#2 minecraft:ender_pearl pos=0.4019492180470069,70.68155390568242,-3.516098249877028 delta=-0.013588480208762773,-0.20499107758275656,-1.3880924774544618 rot=-179.43906,-4.6449895 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+EV sound at=0.5,-60.0,6.5 r=16.0 ex=0 event=minecraft:entity.ender_pearl.throw source=neutral vol=0.5 pitch=0.3401843
+# it lands in the nether and the owner follows
+LEVEL minecraft:overworld gametime=38 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=38 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL Alice dim=minecraft:the_nether
+EV sound at=0.3360181131947512,69.247335849375,-10.251102405577978 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=0.3360181131947512,69.247335849375,-10.251102405577978 r=16.0 ex=0 event=minecraft:entity.player.teleport source=player vol=1.0 pitch=1.0
+PKT Alice minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e000000010000c1ffffff0f03
+PKT Alice minecraft:change_difficulty 0a0000
+PKT Alice minecraft:entity_event 220000006518
+PKT Alice minecraft:player_position 49023fd581521dc23ecb40514fd459be0c6bc02480907e97cf06000000000000000000000000000000000000000000000000000000000000000000000018
+PKT Alice minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT Alice minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT Alice minecraft:set_time 73000000000000000e020000000000000000000001000000000000000000
+PKT Alice minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000020000008fc00000000000000000
+PKT Alice minecraft:game_event 270d00000000
+PKT Alice minecraft:set_held_slot 6b00
+PKT Alice minecraft:damage_event 196508000000
+PKT Alice minecraft:set_health 6a417000001440a00000
+PKT Alice minecraft:set_experience 69000000000000
+PKT Alice minecraft:set_time 73000000000000001300
+PKT Alice minecraft:set_health 6a418000001440c00000
+PKT Alice minecraft:set_health 6a418800001440c00000
+PKT Alice minecraft:set_health 6a418eaaab1440a00000
+PL Alice dim=minecraft:the_nether
+P Alice minecraft:player pos=0.3360181131947512,69.0,-10.251102405577978 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=17.833334 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=4.0 exh=3.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*2
+I Alice 0 minecraft:ender_pearl*2

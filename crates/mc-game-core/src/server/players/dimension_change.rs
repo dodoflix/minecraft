@@ -9,7 +9,7 @@
 //! behind, like `removePlayerImmediately`), so the caller must not use the slot afterwards.
 //!
 //! Portal teleports (`handlePortal`) run [`teleport_through_portal`] inside `baseTick` (non-players: through the level's
-//! tick environment); a player's portal step runs ahead of its tick ([`hoist_portal`]).
+//! tick environment); a player's tick is split at that step ([`handle_player_portal`]).
 
 pub use super::teleport_transition::{
     PostTeleportTransition, TeleportTransition, place_portal_ticket,
@@ -472,28 +472,16 @@ pub fn teleport_through_portal(
     }
 }
 
-/// A player's `handlePortal()`, the first step of `baseTick`, run ahead of `doTick()`: the player moves between levels as a
-/// whole (the real player lives in the new level, the slot it leaves holds a placeholder), so the rest of its tick can only
-/// continue in the new level when it starts there. Marks the step done so `baseTick` skips it. Returns whether the player
-/// changed level; `level` is the player's level (out of `server`), `player` is out of `level`.
-///
-/// shortcut: the statements of `doTick()` that precede `baseTick`'s `handlePortal()` (`Player.tick`'s spectator, xp-delay and sleep
-/// counters, `LivingEntity.baseTick`'s swing and enchantment effects, `computeSpeed`) run in the new level instead of the old
-/// one; upgrade by splitting the player's tick at `handlePortal()` and resuming it on the moved player.
-pub fn hoist_portal(
+/// A player's `handlePortal()`, the step of `baseTick` between [`ServerPlayer::do_tick_to_portal`] and
+/// [`ServerPlayer::do_tick_after_portal`]: the player moves between levels as a whole (the real player lives in the new level,
+/// the slot it leaves holds a placeholder), so the rest of its tick resumes on the moved player in its new level. Returns whether
+/// the player changed level; `level` is the player's level (out of `server`), `player` is out of `level`.
+pub fn handle_player_portal(
     server: &mut MinecraftServer,
     level: &mut ServerLevel,
     player: &mut ServerPlayer,
 ) -> bool {
-    // `doTick()` skips `baseTick` for a spectator inside an unloaded chunk
-    if player.is_spectator()
-        && crate::world::entity::movement::touching_unloaded_chunk(player, level)
-    {
-        return false;
-    }
-    let due = player.portal_teleport_due(level);
-    player.base_mut().portal_handled = true;
-    if !due {
+    if !player.portal_teleport_due(level) {
         return false;
     }
     let uuid = player.uuid();
