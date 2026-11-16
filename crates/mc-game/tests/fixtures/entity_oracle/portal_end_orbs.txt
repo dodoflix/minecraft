@@ -1,0 +1,14 @@
+CF msg Game rule respawn_radius is now set to 0
+CF result success 0
+T 1
+T 2
+T 3
+T 4
+LEVEL minecraft:overworld gametime=4 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=4 forced=25 loaded=961 players=0 border=5.9999968E7
+E experience_orb#1 minecraft:experience_orb pos=8.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=3 health=5
+E item#1 minecraft:item pos=8.5,-60.0,8.5 delta=0.0,-0.04,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=3 pickup=0 health=5 owner=- thrower=-
+LEVEL minecraft:overworld gametime=14 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=14 forced=25 loaded=961 players=0 border=5.9999968E7
+E experience_orb#1 minecraft:experience_orb pos=8.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing value=7 count=1 age=13 health=5
+E item#1 minecraft:item pos=8.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=13 pickup=0 health=5 owner=- thrower=-

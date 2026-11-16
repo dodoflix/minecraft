@@ -20,6 +20,12 @@ fn end_exit_follows_the_respawn_point() {
     check("portal_end_leave_seen");
 }
 
+/// Experience orbs and items on the exit portal go to the overworld.
+#[test]
+fn orbs_and_items_leave_the_end() {
+    check("portal_end_orbs");
+}
+
 /// A boat with a rider that has not seen the credits cannot leave the End; with the credits seen it takes its rider away. Entering the End they arrive together.
 #[test]
 fn vehicles_travel_through_the_end_portal_with_their_riders() {

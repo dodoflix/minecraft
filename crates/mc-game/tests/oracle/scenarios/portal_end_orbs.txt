@@ -1,0 +1,21 @@
+# An experience orb and an item that touch the exit portal in the End leave for the world spawn of the overworld; the orb keeps its value.
+level void
+command_env
+end void
+nether void
+levels overworld,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+gamerule respawn_radius 0
+fill 8 -61 8 20 -61 20 minecraft:stone
+in the_end fill -2 59 -2 2 59 2 minecraft:bedrock
+in the_end fill -1 60 -1 1 60 1 minecraft:end_portal
+in the_end spawn xp minecraft:experience_orb 0.5 60.3 0.5 {Value:7s}
+in the_end spawn_item it minecraft:stick 0.5 60.3 0.5 0 0 0
+watch events
+tick 4
+watch off
+dump levels entities
+tick 10
+dump levels entities
