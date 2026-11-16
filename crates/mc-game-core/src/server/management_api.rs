@@ -235,12 +235,8 @@ impl ManagementApi for ServerManagementApi {
         let name = name.to_owned();
         self.with(move |s| s.name_to_id_cache.get_by_name(&name))
     }
-    fn remove_player(&self, id: Uuid) -> Option<Box<dyn FnOnce(Component) + Send>> {
-        self.with(move |s| {
-            let handle = s.player_list.get_player(&id).cloned()?;
-            s.remove_player_by_id(id);
-            Some(Box::new(move |reason: Component| handle.disconnect(&reason)) as Box<_>)
-        })
+    fn kick_player(&self, id: Uuid, reason: Component, logged: Box<dyn FnOnce() + Send>) {
+        self.with(move |s| s.kick_player(id, &reason, logged));
     }
     fn disconnect_player(&self, id: Uuid, reason: Component) {
         self.with(move |s| {
@@ -345,16 +341,17 @@ impl MinecraftServer {
         }
     }
 
-    /// `PlayerList.remove(player)` for the management API: the player leaves the level and the list.
-    pub fn remove_player_by_id(&mut self, id: Uuid) {
+    /// `PlayerService.kick` for one player: `PlayerList.remove(player)`, then `connection.disconnect(reason)`, whose
+    /// `handleDisconnection` runs the disconnect handler on the player that left the list and its level.
+    pub fn kick_player(&mut self, id: Uuid, reason: &Component, logged: Box<dyn FnOnce() + Send>) {
         let Some(handle) = self.player_list.get_player(&id).cloned() else {
             return;
         };
-        let (entity_id, dimension) = (handle.id, handle.dimension());
-        self.with_level(&dimension, |server, level| {
-            level.with_player(entity_id, |level, player| {
-                super::players::player_ops::remove(server, level, player)
-            });
+        super::network::game_packets::with_player(self, id, |ctx| {
+            super::players::player_ops::remove(ctx.server, ctx.level, ctx.player);
+            logged();
+            handle.disconnect(reason);
+            ctx.handle_disconnection_without_socket();
         });
     }
 

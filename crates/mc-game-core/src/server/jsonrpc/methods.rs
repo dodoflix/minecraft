@@ -14,6 +14,7 @@ use uuid::Uuid;
 use super::api::{ClientInfo, ManagementApi, ManagementPlayer, SettingKey, SettingValue};
 use super::dto::*;
 use crate::server::permissions::PermissionLevel;
+use crate::server::players::ban_list_entry::Date;
 use crate::server::players::gson::{self, JsonElement, JsonObject};
 use crate::server::players::{NameAndId, UserWhiteListEntry};
 use mc_world::level_storage::{Difficulty, GameType};
@@ -133,14 +134,70 @@ fn int_e(i: i64) -> JsonElement {
     JsonElement::Number(i.to_string())
 }
 
-fn dedup<T: PartialEq>(items: Vec<T>) -> Vec<T> {
+/// `Collectors.toSet()` of `items`: equal elements once, in the iteration order of the `HashSet` (`hash` is the element's
+/// `hashCode()`).
+fn hash_set<T: PartialEq>(items: Vec<T>, hash: impl Fn(&T) -> i32) -> Vec<T> {
     let mut out: Vec<T> = Vec::with_capacity(items.len());
     for item in items {
         if !out.contains(&item) {
             out.push(item);
         }
     }
-    out
+    hash_map_ordered(out, hash, 16)
+}
+
+/// The `hashCode()` of a record: `31 * hash + component` over its components' hashes.
+fn record_hash(components: &[i32]) -> i32 {
+    components
+        .iter()
+        .fold(0i32, |h, c| h.wrapping_mul(31).wrapping_add(*c))
+}
+
+fn user_hash(user: &NameAndId) -> i32 {
+    record_hash(&[
+        mc_core::uuid_util::java_hash_code(&user.id),
+        java_string_hash(&user.name),
+    ])
+}
+
+fn string_hash(s: Option<&str>) -> i32 {
+    s.map_or(0, java_string_hash)
+}
+
+/// `Optional<Instant>.hashCode()` of an expiry: `(int) (seconds ^ seconds >>> 32) + 51 * nanos`.
+fn expires_hash(expires: &Option<Date>) -> i32 {
+    expires.map_or(0, |date| {
+        let seconds = date.timestamp();
+        let nanos = date.timestamp_subsec_nanos() as i32;
+        ((seconds ^ (seconds as u64 >> 32) as i64) as i32).wrapping_add(nanos.wrapping_mul(51))
+    })
+}
+
+fn user_ban_hash(ban: &UserBan) -> i32 {
+    record_hash(&[
+        user_hash(&ban.player),
+        string_hash(ban.reason.as_deref()),
+        java_string_hash(&ban.source),
+        expires_hash(&ban.expires),
+    ])
+}
+
+fn ip_ban_hash(ban: &IpBan) -> i32 {
+    record_hash(&[
+        java_string_hash(&ban.ip),
+        string_hash(ban.reason.as_deref()),
+        java_string_hash(&ban.source),
+        expires_hash(&ban.expires),
+    ])
+}
+
+/// shortcut: an explicit permission level hashes as 0 (a Java enum hashes by identity, a different order every run).
+fn op_hash(op: &Op) -> i32 {
+    record_hash(&[
+        user_hash(&op.user),
+        0,
+        op.bypass.map_or(0, |b| if b { 1231 } else { 1237 }),
+    ])
 }
 
 /// Guava `InetAddresses.isInetAddress`: an IPv4 or IPv6 literal.
@@ -177,13 +234,17 @@ fn kick_unlisted(c: &Ctx) {
 
 fn allowlist_set(c: &Ctx, p: &JsonElement) -> RpcResult {
     let dtos = decode_list_of(p, PlayerDto::decode)?;
-    let fin: Vec<NameAndId> = dedup(dtos.iter().filter_map(|d| c.get_user(d)).collect());
-    let current: Vec<NameAndId> = dedup(
+    let fin: Vec<NameAndId> = hash_set(
+        dtos.iter().filter_map(|d| c.get_user(d)).collect(),
+        user_hash,
+    );
+    let current: Vec<NameAndId> = hash_set(
         c.api
             .allowlist_entries()
             .iter()
             .filter_map(|e| crate::server::players::StoredUserEntry::user(e).cloned())
             .collect(),
+        user_hash,
     );
     for user in current.iter().filter(|u| !fin.contains(u)) {
         allowlist_remove_user(c, user);
@@ -256,17 +317,19 @@ fn bans_remove(c: &Ctx, p: &JsonElement) -> RpcResult {
 
 fn bans_set(c: &Ctx, p: &JsonElement) -> RpcResult {
     let dtos = decode_list_of(p, UserBanDto::decode)?;
-    let fin: Vec<UserBan> = dedup(
+    let fin: Vec<UserBan> = hash_set(
         dtos.iter()
             .filter_map(|d| c.get_user(&d.player).map(|u| UserBan::from_dto(d, u)))
             .collect(),
+        user_ban_hash,
     );
-    let current: Vec<UserBan> = dedup(
+    let current: Vec<UserBan> = hash_set(
         c.api
             .user_ban_entries()
             .iter()
             .filter_map(UserBan::from_entry)
             .collect(),
+        user_ban_hash,
     );
     for ban in current.iter().filter(|b| !fin.contains(b)) {
         c.log(format!("Remove player '{}' from banlist", ban.player));
@@ -335,18 +398,20 @@ fn ip_bans_remove(c: &Ctx, p: &JsonElement) -> RpcResult {
 
 fn ip_bans_set(c: &Ctx, p: &JsonElement) -> RpcResult {
     let dtos = decode_list_of(p, IpBanDto::decode)?;
-    let fin: Vec<IpBan> = dedup(
+    let fin: Vec<IpBan> = hash_set(
         dtos.iter()
             .filter(|d| is_inet_address(&d.ip))
             .map(IpBan::from_dto)
             .collect(),
+        ip_ban_hash,
     );
-    let current: Vec<IpBan> = dedup(
+    let current: Vec<IpBan> = hash_set(
         c.api
             .ip_ban_entries()
             .iter()
             .filter_map(IpBan::from_entry)
             .collect(),
+        ip_ban_hash,
     );
     for ban in current.iter().filter(|b| !fin.contains(b)) {
         c.log(format!("Remove ip '{}' from ban list", ban.ip));
@@ -422,8 +487,11 @@ fn operators_remove(c: &Ctx, p: &JsonElement) -> RpcResult {
 }
 
 fn operators_set(c: &Ctx, p: &JsonElement) -> RpcResult {
-    let fin = dedup(resolve_ops(c, &decode_list_of(p, OperatorDto::decode)?));
-    let current: Vec<Op> = dedup(
+    let fin = hash_set(
+        resolve_ops(c, &decode_list_of(p, OperatorDto::decode)?),
+        op_hash,
+    );
+    let current: Vec<Op> = hash_set(
         c.api
             .operator_entries()
             .iter()
@@ -436,6 +504,7 @@ fn operators_set(c: &Ctx, p: &JsonElement) -> RpcResult {
                 })
             })
             .collect(),
+        op_hash,
     );
     for op in current.iter().filter(|o| !fin.contains(o)) {
         deop_user(c, &op.user);
@@ -457,8 +526,6 @@ fn players_kick(c: &Ctx, p: &JsonElement) -> RpcResult {
             _ => None,
         };
         if let Some(player) = player {
-            let disconnect = c.api.remove_player(player.profile.id);
-            c.log(format!("Remove player '{}'", player.profile.name));
             let reason = kick
                 .message
                 .as_ref()
@@ -466,9 +533,12 @@ fn players_kick(c: &Ctx, p: &JsonElement) -> RpcResult {
                 .unwrap_or_else(|| {
                     Component::translatable("multiplayer.disconnect.kicked", vec![])
                 });
-            if let Some(disconnect) = disconnect {
-                disconnect(reason);
-            }
+            let (client, name) = (c.client, player.profile.name.clone());
+            c.api.kick_player(
+                player.profile.id,
+                reason,
+                Box::new(move || rpc_log(client, format!("Remove player '{name}'"))),
+            );
             kicked.push(kick.player.encode());
         }
     }
@@ -1328,4 +1398,20 @@ fn extract_param(method: &Method, params: Option<&JsonElement>) -> Result<JsonEl
 /// The player ids of a list (helper for notification payloads).
 pub fn player_uuid(p: &ManagementPlayer) -> Uuid {
     p.profile.id
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// `Instant.ofEpochMilli(1500).hashCode()` is `(int) (1 ^ 1 >>> 32) + 51 * 500_000_000` in `int` arithmetic.
+    #[test]
+    fn expiry_hashes_like_a_java_instant() {
+        let date = chrono::DateTime::from_timestamp_millis(1500).unwrap();
+        assert_eq!(
+            expires_hash(&Some(date)),
+            1i32.wrapping_add(51i32.wrapping_mul(500_000_000))
+        );
+        assert_eq!(expires_hash(&None), 0);
+    }
 }

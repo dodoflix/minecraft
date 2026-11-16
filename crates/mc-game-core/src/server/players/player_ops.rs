@@ -86,7 +86,7 @@ pub fn remove(server: &mut MinecraftServer, level: &mut ServerLevel, player: &mu
         // `unRide()`
         level.remove_vehicle(player);
     }
-    for pearl in std::mem::take(&mut player.ender_pearls) {
+    for pearl in player.ender_pearls.clone() {
         if pearl.dimension == level.dimension {
             level.with_entity(pearl.id, |_, e| e.remove(RemovalReason::UnloadedWithPlayer));
         } else {

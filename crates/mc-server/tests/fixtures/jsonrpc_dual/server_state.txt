@@ -83,7 +83,9 @@
 > players/kick [[{"player":{"name":"Bot"},"message":{"translatable":"multiplayer.disconnect.kicked"}}]]
   rpc: {"jsonrpc":"2.0","id":24,"result":[{"name":"Bot"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/left","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
+  log: [Server thread/INFO] Bot lost connection: <reason>
   log: [Server thread/INFO] RPC Connection #1: Remove player 'Bot'
+  log: [Server thread/INFO] System chat: Bot left the game
 Bot disconnected: Kicked by an operator
   Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "multiplayer.disconnect.kicked", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
   Bot: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Literal("hello everyone"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
@@ -99,7 +101,9 @@ Bot disconnected: Kicked by an operator
 > players/kick [[{"player":{"name":"Bot"},"message":{"literal":"custom reason"}}]]
   rpc: {"jsonrpc":"2.0","id":25,"result":[{"name":"Bot"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/left","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
+  log: [Server thread/INFO] Bot lost connection: <reason>
   log: [Server thread/INFO] RPC Connection #1: Remove player 'Bot'
+  log: [Server thread/INFO] System chat: Bot left the game
 Bot disconnected: custom reason
   Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Literal("custom reason"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
 > join Bot
@@ -108,7 +112,9 @@ Bot disconnected: custom reason
 > players/kick {"kick":[{"player":{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847"}}]}
   rpc: {"jsonrpc":"2.0","id":26,"result":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/left","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
+  log: [Server thread/INFO] Bot lost connection: <reason>
   log: [Server thread/INFO] RPC Connection #1: Remove player 'Bot'
+  log: [Server thread/INFO] System chat: Bot left the game
 Bot disconnected: Kicked by an operator
   Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "multiplayer.disconnect.kicked", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
 > console kick Nobody
@@ -118,6 +124,8 @@ Bot disconnected: Kicked by an operator
   log: [Server thread/INFO] System chat: Bot joined the game
 > console kick Bot console kick
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/left","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] System chat: Bot left the game
   log: [Server thread/INFO] System chat: Kicked Bot: console kick
 Bot disconnected: console kick
   Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Literal("console kick"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })

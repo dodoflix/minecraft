@@ -173,16 +173,11 @@ impl ManagementApi for Mock {
     fn fetch_user_by_name(&self, name: &str) -> Option<NameAndId> {
         Some(NameAndId::create_offline(name))
     }
-    fn remove_player(&self, id: Uuid) -> Option<Box<dyn FnOnce(Component) + Send>> {
+    fn kick_player(&self, id: Uuid, reason: Component, logged: Box<dyn FnOnce() + Send>) {
         let mut state = self.state.lock();
-        let before = state.online.len();
         state.online.retain(|p| p.profile.id != id);
-        (state.online.len() != before).then(|| {
-            let state = self.state.clone();
-            Box::new(move |reason: Component| {
-                state.lock().disconnected.push((id, reason.get_string()));
-            }) as Box<_>
-        })
+        logged();
+        state.disconnected.push((id, reason.get_string()));
     }
     fn disconnect_player(&self, id: Uuid, reason: Component) {
         self.state

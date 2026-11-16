@@ -156,9 +156,9 @@ pub trait ManagementApi: Send + Sync {
     fn fetch_user_by_id(&self, id: Uuid) -> Option<NameAndId>;
     /// `nameToIdCache.get(name)`.
     fn fetch_user_by_name(&self, name: &str) -> Option<NameAndId>;
-    /// `PlayerList.remove(player)`; the result disconnects the removed player's connection (`player.connection`
-    /// outlives the list entry). `None` when no such player is online.
-    fn remove_player(&self, id: Uuid) -> Option<Box<dyn FnOnce(Component) + Send>>;
+    /// `PlayerList.remove(player)`, `logged` (the log line), then `player.connection.disconnect(reason)` with the
+    /// disconnect handler (`lost connection`, leave message): the removed player is no longer in the list.
+    fn kick_player(&self, id: Uuid, reason: Component, logged: Box<dyn FnOnce() + Send>);
     /// `player.connection.disconnect(reason)`.
     fn disconnect_player(&self, id: Uuid, reason: Component);
 

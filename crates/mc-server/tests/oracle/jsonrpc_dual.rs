@@ -255,12 +255,15 @@ impl Heard {
             "<- play/set_simulation_distance",
             "<- play/system_chat",
         ];
+        // The events of other entities (a sheep eating grass) come from mob randomness that vanilla seeds from the clock.
+        let own = format!("entity_id: {},", self.bot.with_state(|s| s.entity_id));
         let text = self.bot.log_text();
         let lines: Vec<&str> = text.lines().collect();
         let out = lines[self.mark.min(lines.len())..]
             .iter()
             .filter_map(|l| l.split_once("ms ").map(|(_, rest)| rest))
             .filter(|l| KINDS.iter().any(|k| l.starts_with(k)))
+            .filter(|l| !l.starts_with("<- play/entity_event") || l.contains(&own))
             .map(|l| format!("  Bot heard: {}", l.chars().take(200).collect::<String>()))
             .collect();
         self.mark = lines.len();
@@ -280,19 +283,6 @@ fn sorted_rules(line: &str) -> String {
         rules.sort_by_key(|rule| rule["key"].as_str().map(str::to_owned));
     }
     format!("  rpc: {frame}")
-}
-
-/// The notifications of a call that replaces a whole list come in the order of a Java `HashSet` of the entries, which
-/// this server does not reproduce: sorted among themselves, the answer stays where it is.
-fn sort_notifications(lines: &mut [String]) {
-    let at: Vec<usize> = (0..lines.len())
-        .filter(|&i| lines[i].contains(r#""method":"minecraft:notification/"#))
-        .collect();
-    let mut sorted: Vec<String> = at.iter().map(|&i| lines[i].clone()).collect();
-    sorted.sort();
-    for (i, line) in at.into_iter().zip(sorted) {
-        lines[i] = line;
-    }
 }
 
 struct Session<'a> {
@@ -339,9 +329,6 @@ impl<'a> Session<'a> {
             .await;
         let first = self.r.out.len();
         self.rpc.collect(&mut self.r.out, false).await;
-        if method.ends_with("/set") && !method.starts_with("serversettings") {
-            sort_notifications(&mut self.r.out[first..]);
-        }
         if method == "gamerules" {
             for line in &mut self.r.out[first..] {
                 *line = sorted_rules(line);
@@ -713,6 +700,13 @@ async fn user_lists(s: &Server) -> Vec<String> {
     )
     .await;
     x.call("operators/add", r#"[[{"name":"NoWrapper"}]]"#).await;
+    // A Java enum hashes by identity: vanilla notifies several removals of one `operators/set` in a JVM-dependent order,
+    // so only one operator is left to be removed by it.
+    x.call(
+        "operators/remove",
+        r#"[[{"name":"Opal"},{"name":"Pat"},{"name":"Bad"}]]"#,
+    )
+    .await;
     x.call(
         "operators/set",
         r#"[[{"player":{"name":"Quin"},"permissionLevel":3}]]"#,
@@ -996,9 +990,6 @@ async fn gamerules(s: &Server) -> Vec<String> {
 
 async fn server_state(s: &Server) -> Vec<String> {
     let mut x = Session::new(s).await;
-    // a player kicked through the API never reaches the connection's disconnect handler on this server: no
-    // `lost connection` and no leave message (recorded as a known difference)
-    x.r.drop_leave_lines = true;
     x.call("server/status", "").await;
     let (bot, mut heard) = x.join("Bot").await;
     x.heard(&mut heard);

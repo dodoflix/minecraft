@@ -33,10 +33,10 @@
   rpc: {"jsonrpc":"2.0","id":10,"result":[{"id":"10920508-d5d8-3eed-93d2-92f193afe7d7","name":"Alice"},{"id":"0af3f783-cbb9-32f0-953c-0d7e29e82d58","name":"Carol"},{"id":"faa5dca3-c3d4-354b-ae1b-dde9e5a14b3b","name":"Bob"},{"id":"15e4f325-c748-36a3-8c9a-e454e9162eca","name":"Zed"}]}
 > allowlist/set [[{"name":"Dave"},{"name":"Alice"}]]
   rpc: {"jsonrpc":"2.0","id":11,"result":[{"id":"10920508-d5d8-3eed-93d2-92f193afe7d7","name":"Alice"},{"id":"80333097-598c-3d5f-9b99-4ef1a3920f06","name":"Dave"}]}
-  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/allowlist/added","params":[{"id":"80333097-598c-3d5f-9b99-4ef1a3920f06","name":"Dave"}]}
-  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/allowlist/removed","params":[{"id":"0af3f783-cbb9-32f0-953c-0d7e29e82d58","name":"Carol"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/allowlist/removed","params":[{"id":"15e4f325-c748-36a3-8c9a-e454e9162eca","name":"Zed"}]}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/allowlist/removed","params":[{"id":"0af3f783-cbb9-32f0-953c-0d7e29e82d58","name":"Carol"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/allowlist/removed","params":[{"id":"faa5dca3-c3d4-354b-ae1b-dde9e5a14b3b","name":"Bob"}]}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/allowlist/added","params":[{"id":"80333097-598c-3d5f-9b99-4ef1a3920f06","name":"Dave"}]}
   log: [Server thread/INFO] RPC Connection #1: Add player 'NameAndId[id=80333097-598c-3d5f-9b99-4ef1a3920f06, name=Dave]' to allowlist
   log: [Server thread/INFO] RPC Connection #1: Kick unlisted players
   log: [Server thread/INFO] RPC Connection #1: Remove player 'NameAndId[id=0af3f783-cbb9-32f0-953c-0d7e29e82d58, name=Carol]' from allowlist
@@ -123,16 +123,18 @@
   log: [Server thread/INFO] RPC Connection #1: Op 'NameAndId[id=08732ee2-77b3-3174-8bd7-5a58d326da13, name=Bad]'
 > operators/add [[{"name":"NoWrapper"}]]
   rpc: {"jsonrpc":"2.0","id":28,"error":{"code":-32602,"message":"Invalid params","data":"No key player in MapLike[{\"name\":\"NoWrapper\"}]"}}
-> operators/set [[{"player":{"name":"Quin"},"permissionLevel":3}]]
-  rpc: {"jsonrpc":"2.0","id":29,"result":[{"player":{"id":"efbf7af7-6176-3a07-a60d-47ca6df5eed7","name":"Quin"},"permissionLevel":3,"bypassesPlayerLimit":false}]}
-  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/operators/added","params":[{"player":{"id":"efbf7af7-6176-3a07-a60d-47ca6df5eed7","name":"Quin"},"permissionLevel":3,"bypassesPlayerLimit":false}]}
-  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/operators/removed","params":[{"player":{"id":"08732ee2-77b3-3174-8bd7-5a58d326da13","name":"Bad"},"permissionLevel":4,"bypassesPlayerLimit":false}]}
-  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/operators/removed","params":[{"player":{"id":"2168d915-fc03-3aba-9a49-06eeb5c12c1d","name":"Pat"},"permissionLevel":1,"bypassesPlayerLimit":false}]}
+> operators/remove [[{"name":"Opal"},{"name":"Pat"},{"name":"Bad"}]]
+  rpc: {"jsonrpc":"2.0","id":29,"result":[{"player":{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"},"permissionLevel":4,"bypassesPlayerLimit":true}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/operators/removed","params":[{"player":{"id":"b4e3ae7d-a3c4-3657-9bd3-a58b10a86462","name":"Opal"},"permissionLevel":4,"bypassesPlayerLimit":false}]}
-  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/operators/removed","params":[{"player":{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"},"permissionLevel":4,"bypassesPlayerLimit":true}]}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/operators/removed","params":[{"player":{"id":"2168d915-fc03-3aba-9a49-06eeb5c12c1d","name":"Pat"},"permissionLevel":1,"bypassesPlayerLimit":false}]}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/operators/removed","params":[{"player":{"id":"08732ee2-77b3-3174-8bd7-5a58d326da13","name":"Bad"},"permissionLevel":4,"bypassesPlayerLimit":false}]}
   log: [Server thread/INFO] RPC Connection #1: Deop 'NameAndId[id=08732ee2-77b3-3174-8bd7-5a58d326da13, name=Bad]'
   log: [Server thread/INFO] RPC Connection #1: Deop 'NameAndId[id=2168d915-fc03-3aba-9a49-06eeb5c12c1d, name=Pat]'
   log: [Server thread/INFO] RPC Connection #1: Deop 'NameAndId[id=b4e3ae7d-a3c4-3657-9bd3-a58b10a86462, name=Opal]'
+> operators/set [[{"player":{"name":"Quin"},"permissionLevel":3}]]
+  rpc: {"jsonrpc":"2.0","id":30,"result":[{"player":{"id":"efbf7af7-6176-3a07-a60d-47ca6df5eed7","name":"Quin"},"permissionLevel":3,"bypassesPlayerLimit":false}]}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/operators/removed","params":[{"player":{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"},"permissionLevel":4,"bypassesPlayerLimit":true}]}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/operators/added","params":[{"player":{"id":"efbf7af7-6176-3a07-a60d-47ca6df5eed7","name":"Quin"},"permissionLevel":3,"bypassesPlayerLimit":false}]}
   log: [Server thread/INFO] RPC Connection #1: Deop 'NameAndId[id=bb19ef2f-2f95-39a8-8bad-bda3ed373847, name=Bot]'
   log: [Server thread/INFO] RPC Connection #1: Op 'NameAndId[id=efbf7af7-6176-3a07-a60d-47ca6df5eed7, name=Quin]'
   Bot heard: <- play/entity_event EntityEvent(ClientboundEntityEventPacket { entity_id: 1, event_id: 28 })
@@ -140,14 +142,14 @@
   Bot heard: <- play/entity_event EntityEvent(ClientboundEntityEventPacket { entity_id: 1, event_id: 24 })
   Bot heard: <- play/commands Commands(ClientboundCommandsPacket { entries: [ClientboundCommandsEntry { stub: None, flags: 0, redirect: 0, children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }, ClientboundCommandsEntry { st
 > operators/remove [[{"name":"Quin"}]]
-  rpc: {"jsonrpc":"2.0","id":30,"result":[]}
+  rpc: {"jsonrpc":"2.0","id":31,"result":[]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/operators/removed","params":[{"player":{"id":"efbf7af7-6176-3a07-a60d-47ca6df5eed7","name":"Quin"},"permissionLevel":3,"bypassesPlayerLimit":false}]}
   log: [Server thread/INFO] RPC Connection #1: Deop 'NameAndId[id=efbf7af7-6176-3a07-a60d-47ca6df5eed7, name=Quin]'
 > operators/remove [[{"name":"Zoe"}]]
-  rpc: {"jsonrpc":"2.0","id":31,"result":[]}
+  rpc: {"jsonrpc":"2.0","id":32,"result":[]}
   log: [Server thread/INFO] RPC Connection #1: Deop 'NameAndId[id=612b1184-0422-3096-9b94-5d850d6dd001, name=Zoe]'
 > operators/clear 
-  rpc: {"jsonrpc":"2.0","id":32,"result":[]}
+  rpc: {"jsonrpc":"2.0","id":33,"result":[]}
   log: [Server thread/INFO] RPC Connection #1: Clear operator list
 > console op Bot
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/operators/added","params":[{"player":{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"},"permissionLevel":4,"bypassesPlayerLimit":false}]}
@@ -155,7 +157,6 @@
   Bot heard: <- play/entity_event EntityEvent(ClientboundEntityEventPacket { entity_id: 1, event_id: 28 })
   Bot heard: <- play/commands Commands(ClientboundCommandsPacket { entries: [ClientboundCommandsEntry { stub: None, flags: 0, redirect: 0, children: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
   Bot heard: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "chat.type.admin", fallback: None, args: [String("Server"), Compone
-  Bot heard: <- play/entity_event EntityEvent(ClientboundEntityEventPacket { entity_id: 10, event_id: 10 })
 > console deop Bot
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/operators/removed","params":[{"player":{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"},"permissionLevel":4,"bypassesPlayerLimit":false}]}
   log: [Server thread/INFO] System chat: Made Bot no longer a server operator
@@ -165,43 +166,43 @@
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/operators/added","params":[{"player":{"id":"e22a4131-e49c-316f-b2a0-b70f0b73ad13","name":"Ron"},"permissionLevel":4,"bypassesPlayerLimit":false}]}
   log: [Server thread/INFO] System chat: Made Ron a server operator
 > operators 
-  rpc: {"jsonrpc":"2.0","id":33,"result":[{"player":{"id":"e22a4131-e49c-316f-b2a0-b70f0b73ad13","name":"Ron"},"permissionLevel":4,"bypassesPlayerLimit":false}]}
+  rpc: {"jsonrpc":"2.0","id":34,"result":[{"player":{"id":"e22a4131-e49c-316f-b2a0-b70f0b73ad13","name":"Ron"},"permissionLevel":4,"bypassesPlayerLimit":false}]}
 > operators/clear 
-  rpc: {"jsonrpc":"2.0","id":34,"result":[]}
+  rpc: {"jsonrpc":"2.0","id":35,"result":[]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/operators/removed","params":[{"player":{"id":"e22a4131-e49c-316f-b2a0-b70f0b73ad13","name":"Ron"},"permissionLevel":4,"bypassesPlayerLimit":false}]}
   log: [Server thread/INFO] RPC Connection #1: Clear operator list
 > bans 
-  rpc: {"jsonrpc":"2.0","id":35,"result":[]}
+  rpc: {"jsonrpc":"2.0","id":36,"result":[]}
 > bans/add [[{"player":{"name":"Gone"},"reason":"cheating","source":"test","expires":"2099-01-01T00:00:00Z"}]]
-  rpc: {"jsonrpc":"2.0","id":36,"result":[{"player":{"id":"4f995cea-1f74-3c36-8f40-326847a8a625","name":"Gone"},"reason":"cheating","source":"test","expires":"2099-01-01T00:00:00Z"}]}
+  rpc: {"jsonrpc":"2.0","id":37,"result":[{"player":{"id":"4f995cea-1f74-3c36-8f40-326847a8a625","name":"Gone"},"reason":"cheating","source":"test","expires":"2099-01-01T00:00:00Z"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/bans/added","params":[{"player":{"id":"4f995cea-1f74-3c36-8f40-326847a8a625","name":"Gone"},"reason":"cheating","source":"test","expires":"2099-01-01T00:00:00Z"}]}
   log: [Server thread/INFO] RPC Connection #1: Add player 'literal{Gone}' to banlist. Reason: 'cheating'
 > bans/add [[{"player":{"name":"Gone2"}}]]
-  rpc: {"jsonrpc":"2.0","id":37,"result":[{"player":{"id":"5f440f68-ced8-3f80-b496-64c1ac075133","name":"Gone2"},"source":"Management server"},{"player":{"id":"4f995cea-1f74-3c36-8f40-326847a8a625","name":"Gone"},"reason":"cheating","source":"test","expires":"2099-01-01T00:00:00Z"}]}
+  rpc: {"jsonrpc":"2.0","id":38,"result":[{"player":{"id":"5f440f68-ced8-3f80-b496-64c1ac075133","name":"Gone2"},"source":"Management server"},{"player":{"id":"4f995cea-1f74-3c36-8f40-326847a8a625","name":"Gone"},"reason":"cheating","source":"test","expires":"2099-01-01T00:00:00Z"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/bans/added","params":[{"player":{"id":"5f440f68-ced8-3f80-b496-64c1ac075133","name":"Gone2"},"source":"Management server"}]}
   log: [Server thread/INFO] RPC Connection #1: Add player 'literal{Gone2}' to banlist. Reason: 'Banned by an operator.'
 > bans/add [[{"player":{"name":"Gone3"},"expires":"soon"}]]
-  rpc: {"jsonrpc":"2.0","id":38,"error":{"code":-32602,"message":"Invalid params","data":"Text 'soon' could not be parsed at index 0"}}
+  rpc: {"jsonrpc":"2.0","id":39,"error":{"code":-32602,"message":"Invalid params","data":"Text 'soon' could not be parsed at index 0"}}
 > bans/add [[{"player":{"name":"Gone"}}]]
-  rpc: {"jsonrpc":"2.0","id":39,"result":[{"player":{"id":"5f440f68-ced8-3f80-b496-64c1ac075133","name":"Gone2"},"source":"Management server"},{"player":{"id":"4f995cea-1f74-3c36-8f40-326847a8a625","name":"Gone"},"source":"Management server"}]}
+  rpc: {"jsonrpc":"2.0","id":40,"result":[{"player":{"id":"5f440f68-ced8-3f80-b496-64c1ac075133","name":"Gone2"},"source":"Management server"},{"player":{"id":"4f995cea-1f74-3c36-8f40-326847a8a625","name":"Gone"},"source":"Management server"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/bans/added","params":[{"player":{"id":"4f995cea-1f74-3c36-8f40-326847a8a625","name":"Gone"},"source":"Management server"}]}
   log: [Server thread/INFO] RPC Connection #1: Add player 'literal{Gone}' to banlist. Reason: 'Banned by an operator.'
 > bans 
-  rpc: {"jsonrpc":"2.0","id":40,"result":[{"player":{"id":"5f440f68-ced8-3f80-b496-64c1ac075133","name":"Gone2"},"source":"Management server"},{"player":{"id":"4f995cea-1f74-3c36-8f40-326847a8a625","name":"Gone"},"source":"Management server"}]}
+  rpc: {"jsonrpc":"2.0","id":41,"result":[{"player":{"id":"5f440f68-ced8-3f80-b496-64c1ac075133","name":"Gone2"},"source":"Management server"},{"player":{"id":"4f995cea-1f74-3c36-8f40-326847a8a625","name":"Gone"},"source":"Management server"}]}
 > bans/set [[{"player":{"name":"Gone4"},"reason":"set"}]]
-  rpc: {"jsonrpc":"2.0","id":41,"result":[{"player":{"id":"09700a66-4566-308c-bd50-a1582e7f821e","name":"Gone4"},"reason":"set","source":"Management server"}]}
-  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/bans/added","params":[{"player":{"id":"09700a66-4566-308c-bd50-a1582e7f821e","name":"Gone4"},"reason":"set","source":"Management server"}]}
-  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/bans/removed","params":[{"id":"4f995cea-1f74-3c36-8f40-326847a8a625","name":"Gone"}]}
+  rpc: {"jsonrpc":"2.0","id":42,"result":[{"player":{"id":"09700a66-4566-308c-bd50-a1582e7f821e","name":"Gone4"},"reason":"set","source":"Management server"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/bans/removed","params":[{"id":"5f440f68-ced8-3f80-b496-64c1ac075133","name":"Gone2"}]}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/bans/removed","params":[{"id":"4f995cea-1f74-3c36-8f40-326847a8a625","name":"Gone"}]}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/bans/added","params":[{"player":{"id":"09700a66-4566-308c-bd50-a1582e7f821e","name":"Gone4"},"reason":"set","source":"Management server"}]}
   log: [Server thread/INFO] RPC Connection #1: Add player 'literal{Gone4}' to banlist. Reason: 'set'
   log: [Server thread/INFO] RPC Connection #1: Remove player 'NameAndId[id=4f995cea-1f74-3c36-8f40-326847a8a625, name=Gone]' from banlist
   log: [Server thread/INFO] RPC Connection #1: Remove player 'NameAndId[id=5f440f68-ced8-3f80-b496-64c1ac075133, name=Gone2]' from banlist
 > bans/remove [[{"name":"Gone4"}]]
-  rpc: {"jsonrpc":"2.0","id":42,"result":[]}
+  rpc: {"jsonrpc":"2.0","id":43,"result":[]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/bans/removed","params":[{"id":"09700a66-4566-308c-bd50-a1582e7f821e","name":"Gone4"}]}
   log: [Server thread/INFO] RPC Connection #1: Remove player 'NameAndId[id=09700a66-4566-308c-bd50-a1582e7f821e, name=Gone4]' from banlist
 > bans/remove [[{"name":"Zoe"}]]
-  rpc: {"jsonrpc":"2.0","id":43,"result":[]}
+  rpc: {"jsonrpc":"2.0","id":44,"result":[]}
   log: [Server thread/INFO] RPC Connection #1: Remove player 'NameAndId[id=612b1184-0422-3096-9b94-5d850d6dd001, name=Zoe]' from banlist
 > console ban Gone5 console reason
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/bans/added","params":[{"player":{"id":"70fc1b13-ff77-3b3f-9171-d6c64e7693aa","name":"Gone5"},"reason":"console reason","source":"Server"}]}
@@ -210,7 +211,7 @@
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/bans/removed","params":[{"id":"70fc1b13-ff77-3b3f-9171-d6c64e7693aa","name":"Gone5"}]}
   log: [Server thread/INFO] System chat: Unbanned Gone5
 > bans/add [[{"player":{"name":"Bot"},"reason":"kicked by the management server"}]]
-  rpc: {"jsonrpc":"2.0","id":44,"result":[{"player":{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"},"reason":"kicked by the management server","source":"Management server"}]}
+  rpc: {"jsonrpc":"2.0","id":45,"result":[{"player":{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"},"reason":"kicked by the management server","source":"Management server"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/bans/added","params":[{"player":{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"},"reason":"kicked by the management server","source":"Management server"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/left","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
   log: [Server thread/INFO] Bot lost connection: <reason>
@@ -220,44 +221,44 @@ Bot disconnected: You are banned from this server
   Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "multiplayer.disconnect.banned", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
   Bot: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "chat.type.admin", fallback: None, args: [String("Server"), Component(Component { contents: Translatable(TranslatableContents { key: "commands.op.success", fallback: None, args: [String("Bot")] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } })] }), siblings: [], style: Style { color: Some(TextColor { value: 11184810, name: Some("gray") }), shadow_color: None, bold: None, italic: Some(true), underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
 > bans/clear 
-  rpc: {"jsonrpc":"2.0","id":45,"result":[]}
+  rpc: {"jsonrpc":"2.0","id":46,"result":[]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/bans/removed","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
 > players 
-  rpc: {"jsonrpc":"2.0","id":46,"result":[]}
+  rpc: {"jsonrpc":"2.0","id":47,"result":[]}
 > join Bot
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/joined","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
   log: [Server thread/INFO] System chat: Bot joined the game
 > ip_bans 
-  rpc: {"jsonrpc":"2.0","id":47,"result":[]}
+  rpc: {"jsonrpc":"2.0","id":48,"result":[]}
 > ip_bans/add [[{"ip":"1.2.3.4","reason":"spam","source":"test","expires":"2099-01-01T00:00:00Z"}]]
-  rpc: {"jsonrpc":"2.0","id":48,"result":[{"ip":"1.2.3.4","reason":"spam","source":"test","expires":"2099-01-01T00:00:00Z"}]}
+  rpc: {"jsonrpc":"2.0","id":49,"result":[{"ip":"1.2.3.4","reason":"spam","source":"test","expires":"2099-01-01T00:00:00Z"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/ip_bans/added","params":[{"ip":"1.2.3.4","reason":"spam","source":"test","expires":"2099-01-01T00:00:00Z"}]}
   log: [Server thread/INFO] RPC Connection #1: Add ip '1.2.3.4' to ban list
 > ip_bans/add [[{"ip":"1.2.3.4"}]]
-  rpc: {"jsonrpc":"2.0","id":49,"result":[{"ip":"1.2.3.4","source":"Management server"}]}
+  rpc: {"jsonrpc":"2.0","id":50,"result":[{"ip":"1.2.3.4","source":"Management server"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/ip_bans/added","params":[{"ip":"1.2.3.4","source":"Management server"}]}
   log: [Server thread/INFO] RPC Connection #1: Add ip '1.2.3.4' to ban list
 > ip_bans/add [[{"ip":"not an address"}]]
-  rpc: {"jsonrpc":"2.0","id":50,"result":[{"ip":"1.2.3.4","source":"Management server"}]}
-> ip_bans/add [[{}]]
   rpc: {"jsonrpc":"2.0","id":51,"result":[{"ip":"1.2.3.4","source":"Management server"}]}
+> ip_bans/add [[{}]]
+  rpc: {"jsonrpc":"2.0","id":52,"result":[{"ip":"1.2.3.4","source":"Management server"}]}
 > ip_bans/add [[{"ip":"5.6.7.8","player":{"name":"Bot"}}]]
-  rpc: {"jsonrpc":"2.0","id":52,"result":[{"ip":"1.2.3.4","source":"Management server"},{"ip":"5.6.7.8","source":"Management server"}]}
+  rpc: {"jsonrpc":"2.0","id":53,"result":[{"ip":"1.2.3.4","source":"Management server"},{"ip":"5.6.7.8","source":"Management server"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/ip_bans/added","params":[{"ip":"5.6.7.8","source":"Management server"}]}
   log: [Server thread/INFO] RPC Connection #1: Add ip '5.6.7.8' to ban list
 > ip_bans 
-  rpc: {"jsonrpc":"2.0","id":53,"result":[{"ip":"1.2.3.4","source":"Management server"},{"ip":"5.6.7.8","source":"Management server"}]}
+  rpc: {"jsonrpc":"2.0","id":54,"result":[{"ip":"1.2.3.4","source":"Management server"},{"ip":"5.6.7.8","source":"Management server"}]}
 > ip_bans/remove [["1.2.3.4"]]
-  rpc: {"jsonrpc":"2.0","id":54,"result":[{"ip":"5.6.7.8","source":"Management server"}]}
+  rpc: {"jsonrpc":"2.0","id":55,"result":[{"ip":"5.6.7.8","source":"Management server"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/ip_bans/removed","params":["1.2.3.4"]}
   log: [Server thread/INFO] RPC Connection #1: Remove ip '1.2.3.4' from ban list
 > ip_bans/remove [["9.9.9.9"]]
-  rpc: {"jsonrpc":"2.0","id":55,"result":[{"ip":"5.6.7.8","source":"Management server"}]}
+  rpc: {"jsonrpc":"2.0","id":56,"result":[{"ip":"5.6.7.8","source":"Management server"}]}
   log: [Server thread/INFO] RPC Connection #1: Remove ip '9.9.9.9' from ban list
 > ip_bans/set [[{"ip":"2.2.2.2","reason":"set"}]]
-  rpc: {"jsonrpc":"2.0","id":56,"result":[{"ip":"2.2.2.2","reason":"set","source":"Management server"}]}
-  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/ip_bans/added","params":[{"ip":"2.2.2.2","reason":"set","source":"Management server"}]}
+  rpc: {"jsonrpc":"2.0","id":57,"result":[{"ip":"2.2.2.2","reason":"set","source":"Management server"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/ip_bans/removed","params":["5.6.7.8"]}
+  rpc: {"jsonrpc":"2.0","method":"minecraft:notification/ip_bans/added","params":[{"ip":"2.2.2.2","reason":"set","source":"Management server"}]}
   log: [Server thread/INFO] RPC Connection #1: Add ip '2.2.2.2' to ban list
   log: [Server thread/INFO] RPC Connection #1: Remove ip '5.6.7.8' from ban list
 > console ban-ip 3.3.3.3 console reason
@@ -267,11 +268,11 @@ Bot disconnected: You are banned from this server
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/ip_bans/removed","params":["3.3.3.3"]}
   log: [Server thread/INFO] System chat: Unbanned IP 3.3.3.3
 > ip_bans/clear 
-  rpc: {"jsonrpc":"2.0","id":57,"result":[]}
+  rpc: {"jsonrpc":"2.0","id":58,"result":[]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/ip_bans/removed","params":["2.2.2.2"]}
   log: [Server thread/INFO] RPC Connection #1: Clear ip ban list
 > ip_bans/add [[{"player":{"name":"Bot"}}]]
-  rpc: {"jsonrpc":"2.0","id":58,"result":[{"ip":"127.0.0.1","source":"Management server"}]}
+  rpc: {"jsonrpc":"2.0","id":59,"result":[{"ip":"127.0.0.1","source":"Management server"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/ip_bans/added","params":[{"ip":"127.0.0.1","source":"Management server"}]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/players/left","params":[{"id":"bb19ef2f-2f95-39a8-8bad-bda3ed373847","name":"Bot"}]}
   log: [Server thread/INFO] Bot lost connection: <reason>
@@ -280,10 +281,10 @@ Bot disconnected: You are banned from this server
 Bot disconnected: You have been IP banned from this server
   Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "multiplayer.disconnect.ip_banned", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
 > ip_bans 
-  rpc: {"jsonrpc":"2.0","id":59,"result":[{"ip":"127.0.0.1","source":"Management server"}]}
+  rpc: {"jsonrpc":"2.0","id":60,"result":[{"ip":"127.0.0.1","source":"Management server"}]}
 > ip_bans/remove [["127.0.0.1"]]
-  rpc: {"jsonrpc":"2.0","id":60,"result":[]}
+  rpc: {"jsonrpc":"2.0","id":61,"result":[]}
   rpc: {"jsonrpc":"2.0","method":"minecraft:notification/ip_bans/removed","params":["127.0.0.1"]}
   log: [Server thread/INFO] RPC Connection #1: Remove ip '127.0.0.1' from ban list
 > ip_bans 
-  rpc: {"jsonrpc":"2.0","id":61,"result":[]}
+  rpc: {"jsonrpc":"2.0","id":62,"result":[]}
