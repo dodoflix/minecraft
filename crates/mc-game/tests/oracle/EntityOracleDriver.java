@@ -273,6 +273,7 @@ import net.minecraft.util.RandomSource;
  *   EntityExtras.java (`mob:REF` also carries them); edata:REF = `ED REF id:serializer:hex ..` for every synched data item (accessor id, serializer id, wire form of the value);
  *   placed = `G type pos= rot= KEY=VALUE..` of every live entity except players, items, falling blocks and orbs, sorted (`placed:norot` prints `rot=-`, `placed:attack` adds the saved base attack damage as `attack=`; saved Age, CatType, Color, Health, PersistenceRequired, RabbitType, Sheared, Type, Variant, variant).
  *   rng:level / rng:REF = `RNG level|REF STATE` (the 48-bit state of Level.random / of the entity's own random).
+ *   spawnchunks = `SPAWNCHUNKS n cx,cz ..` (the chunks `ServerChunkCache.tickChunks` shuffles: ticking, with a player close enough to spawn; sorted).
  *   parts:REF = `PART REF index name id=+N pos=x,y,z old=xo,yo,zo size=w,h bb=minx,miny,minz,maxx,maxy,maxz` for each part of the ender dragon REF (`id` = the part's entity id minus the dragon's),
  *   counter = `COUNTER N` (ServerLevel.ENTITY_COUNTER: the last id handed out).
  *   levels = `LEVEL DIM gametime= forced= players= border=` per level of `levels` (`border` = the world border size); players = `PL NAME dim=DIM` per player (the `P` line is unchanged).
@@ -2462,6 +2463,21 @@ public final class EntityOracleDriver {
                // RNG level|REF STATE: the 48-bit state of Level.random or of the entity's own random
                RandomSource random = arg.equals("level") ? v.level.getRandom() : ref(arg).getRandom();
                out.println("RNG " + arg + " " + ((java.util.concurrent.atomic.AtomicLong)priv(random, net.minecraft.world.level.levelgen.LegacyRandomSource.class, "seed")).get());
+            }
+            case "spawnchunks" -> {
+               // SPAWNCHUNKS n cx,cz ..: the chunks ServerChunkCache.tickChunks shuffles (ticking, a player close enough to spawn), sorted
+               java.util.List<net.minecraft.world.level.chunk.LevelChunk> spawning = new ArrayList<>();
+               v.level.getChunkSource().chunkMap.collectSpawningChunks(spawning);
+               java.util.List<long[]> keys = new ArrayList<>();
+               for (net.minecraft.world.level.chunk.LevelChunk c : spawning) {
+                  keys.add(new long[] {c.getPos().x(), c.getPos().z()});
+               }
+               keys.sort(Comparator.<long[]>comparingLong(k -> k[0]).thenComparingLong(k -> k[1]));
+               StringBuilder chunks = new StringBuilder();
+               for (long[] k : keys) {
+                  chunks.append(' ').append(k[0]).append(',').append(k[1]);
+               }
+               out.println("SPAWNCHUNKS " + keys.size() + chunks);
             }
             case "inventory" -> inventory(arg, (Player)ref(arg));
             case "use" -> {

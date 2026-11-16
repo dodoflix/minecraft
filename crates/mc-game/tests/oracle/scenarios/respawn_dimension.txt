@@ -1,0 +1,70 @@
+# The level a player respawns in: nothing set (the level of the world spawn), a point in the overworld after dying in the nether and
+# in the end, a point in the nether after dying in the overworld, and a world spawn that lies in the nether.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty normal
+entity_counter 100
+fill -8 -61 -8 40 -61 8 minecraft:stone
+in the_nether fill -8 63 -8 40 63 8 minecraft:netherrack
+in the_end fill -8 63 -8 8 63 8 minecraft:end_stone
+cmd setworldspawn 0 -60 0
+spawn_player A survival 20.5 -60 6.5 0 0
+spawn_player B survival 24.5 -60 6.5 0 0
+spawn_player C survival 28.5 -60 6.5 0 0
+spawn_player D survival 32.5 -60 6.5 0 0
+block 12 -60 0 minecraft:red_bed[facing=south,part=foot]
+block 12 -60 1 minecraft:red_bed[facing=south,part=head]
+nbt D {respawn:{dimension:"minecraft:overworld",pos:[I;12,-60,1],yaw:0.0f,pitch:0.0f}}
+cmd execute in minecraft:the_nether run spawnpoint C 4 64 4
+tick 2
+dump packets:A:none packets:B:none packets:C:none packets:D:none
+note A has no point and dies in the nether (a player that just changed level is only hurt by the ender pearl damage type)
+tp_dim A the_nether 3.5 64 3.5
+tp_dim D the_nether 5.5 64 3.5
+tp_dim B the_end 0.5 64 0.5
+tick 2
+player_loaded A
+player_loaded B
+player_loaded D
+dump packets:A:none packets:B:none packets:C:none packets:D:none players
+hurt A ender_pearl 1000
+tick 1
+respawn A
+tick 2
+dump players player:A nbt:A packets:A
+note D has a bed in the overworld and dies in the nether
+hurt D ender_pearl 1000
+tick 1
+respawn D
+tick 2
+dump players player:D nbt:D packets:D
+note B dies in the end
+hurt B ender_pearl 1000
+tick 1
+respawn B
+tick 2
+dump players player:B nbt:B packets:B
+note C dies in the overworld with a forced point in the nether, then dies there
+hurt C generic 1000
+tick 1
+respawn C
+tick 2
+dump players player:C nbt:C packets:C
+hurt C generic 1000
+tick 1
+respawn C
+tick 2
+dump players player:C nbt:C packets:C
+note the world spawn moves to the nether
+cmd execute in minecraft:the_nether run setworldspawn 8 64 8
+tick 2
+dump packets:A:none world
+hurt A ender_pearl 1000
+tick 1
+respawn A
+tick 2
+dump players player:A nbt:A packets:A world

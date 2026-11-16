@@ -610,15 +610,26 @@ public final class VanillaLevel {
    /**
     * The oracle JVM runs every worker task on the submitting thread (shadow Util, {@code -Doracle.directExecutors=true}), so chunk loading,
     * generation and lighting finish in a fixed order; only the chunk source's main-thread task queue is left. A real server drains it while
-    * it waits for the next tick ({@code waitUntilNextTick}), so do the same: a tick never starts with a chunk result applied or not
-    * depending on timing (the number of chunks ServerChunkCache.tickChunks shuffles, hence its Level.random draws, depends on it).
+    * it waits for the next tick ({@code waitUntilNextTick}: {@code managedBlock} polls again after each pause), so do the same: a tick never
+    * starts with a chunk result applied or not depending on timing (the number of chunks ServerChunkCache.tickChunks shuffles, hence its
+    * Level.random draws, depends on it). One {@code while (pollTask())} pass can stop with light work still queued (a light round whose
+    * completions queue the next round finds no main-thread task), so passes repeat until one finds nothing to run and no light task is left.
     */
    private void drainChunkTasks() {
       for (ServerLevel l : server.getAllLevels()) {
-         while (l.getChunkSource().pollTask()) {
-            // each task may queue the next promotion step
-         }
+         boolean progressed;
+         do {
+            progressed = false;
+            while (l.getChunkSource().pollTask()) {
+               // each task may queue the next promotion step
+               progressed = true;
+            }
+         } while (progressed || lightTasksQueued(l));
       }
+   }
+
+   private static boolean lightTasksQueued(ServerLevel l) {
+      return !((List<?>)EntityOracleDriver.priv(l.getChunkSource().getLightEngine(), net.minecraft.server.level.ThreadedLevelLightEngine.class, "lightTasks")).isEmpty();
    }
 
    public void tick(int n) {

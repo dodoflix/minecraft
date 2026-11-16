@@ -968,16 +968,20 @@ impl Scenario {
         // The vanilla server creates the overworld first, then the other dimensions in the iteration order of its resource key
         // keyed registry map (the oracle's shadow `ResourceKey.hashCode` fixes it to the end, then the nether; a real server's
         // order changes per run). Every `Level` constructor draws unique seeds (`random`, the sound seed generator, ...): measured
-        // against the first sound seed of each dimension in the oracle, the sound seed generator is the 5th (overworld), 18th (end)
+        // against the first sound seed of each dimension in the oracle (flat and normal worlds), the sound seed generator is the 5th (overworld), 18th (end)
         // and 21st (nether) draw (the oracle runs worker tasks on the main thread, so their draws count here). `ServerLevel::new` draws `randValue` (the thread-local instance) and the level's `random` itself before the sound seed generator.
         // Every `Level` constructor draws unique seeds, so each level starts from the sequence position the oracle had when it created
         // that level (measured, see above). With the end next to the nether (`levels` naming both), the oracle's nether generator is the
         // 180th draw: the chunk tasks of the three levels drew in between.
         mc_core::random::reseed_uniquifier(8682522807148012);
+        // A void overworld (`level void`) makes the server draw 159 more unique seeds before it creates the end and the nether
+        // (measured: first sound seed of each level, end 177th and nether 180th draw).
+        let void_world = !self.opts.flat && !self.opts.normal;
         let draws_before_level = match dimension {
             "overworld" => 2,
+            "the_end" if void_world => 174,
             "the_end" => 15,
-            "the_nether" if self.dims.contains(&"the_end") => 177,
+            "the_nether" if void_world || self.dims.contains(&"the_end") => 177,
             _ => 18,
         };
         for _ in 0..draws_before_level {

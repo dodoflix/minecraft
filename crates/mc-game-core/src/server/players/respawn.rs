@@ -371,11 +371,12 @@ pub fn respawn(
     } else {
         server
             .with_level(old_dimension, |server, level| {
-                let config = level
+                let player = level
                     .get_entity(id)
                     .or_else(|| level.get_dead_player(id))
-                    .and_then(|e| e.as_any().downcast_ref::<ServerPlayer>())
-                    .and_then(|p| p.respawn_config.clone());
+                    .and_then(|e| e.as_any().downcast_ref::<ServerPlayer>());
+                let config = player.and_then(|p| p.respawn_config.clone());
+                let handle = player.and_then(|p| p.handle.clone());
                 let transition = find_respawn_position_and_use_spawn_block(
                     server,
                     level,
@@ -383,6 +384,11 @@ pub fn respawn(
                     !keep_all_player_data,
                     PostTeleportTransition::DO_NOTHING,
                 );
+                // `players.remove(serverPlayer)` comes before `removePlayerImmediately`: the removal's effects (a weaving
+                // cobweb event) are broadcast to the player list without the respawning player
+                if let Some(handle) = &handle {
+                    server.player_list.remove_from_players(handle);
+                }
                 let old = take_old_player(level, id, reason)?;
                 Some((old, transition))
             })

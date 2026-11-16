@@ -57,9 +57,9 @@ HURT B generic 1000 -> true
 MENU B cid=1 type=minecraft:generic_9x3 state=4 carried=minecraft:emerald*5
 MS 3 minecraft:dirt*20
 E item#1 minecraft:item pos=2.4817497300850397,-58.676519545047675,2.6621776119323277 delta=-0.0058417251785223495,-0.03834723789551978,-0.2681783974872931 rot=104.35301,0.0 og=0 fall=0.0391298346221447 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond*10 age=3 pickup=37 health=5 owner=- thrower=-
-EV sound at=2.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.ender_chest.close source=block vol=0.5 pitch=0.92038995
+EV sound at=2.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.ender_chest.close source=block vol=0.5 pitch=0.94595486
 EV block_event r=64.0 ex=0 pos=2,-60,0 block=minecraft:ender_chest b0=1 b1=0
-EV sound at=5.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.ender_chest.open source=block vol=0.5 pitch=0.95910686
+EV sound at=5.5,-59.5,0.5 r=16.0 ex=0 event=minecraft:block.ender_chest.open source=block vol=0.5 pitch=0.90023506
 EV sound at=5.5,-60.0,3.5 r=16.0 ex=1 event=minecraft:entity.player.death source=player vol=1.0 pitch=1.0
 EV block_event r=64.0 ex=0 pos=5,-60,0 block=minecraft:ender_chest b0=1 b1=1
 PKT B minecraft:damage_event 196612000000

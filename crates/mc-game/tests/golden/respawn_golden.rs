@@ -8,6 +8,13 @@ fn respawn_anchor_cases() {
     check("respawn_anchor");
 }
 
+/// The level a player respawns in: nothing set, a point in the overworld after dying in the nether and the end, a point in the nether
+/// after dying in the overworld, and a world spawn that lies in the nether.
+#[test]
+fn respawn_level_selection() {
+    check("respawn_dimension");
+}
+
 /// A bed: intact, destroyed, enclosed, in the nether, forced in the nether.
 #[test]
 fn respawn_bed_cases() {
@@ -54,4 +61,10 @@ fn respawn_game_rules_and_state() {
 #[test]
 fn death_at_the_world_spawn() {
     check("respawn_world_spawn");
+}
+
+/// The chunks the natural spawner shuffles after a respawn into a level that held no player.
+#[test]
+fn respawn_into_an_empty_level() {
+    check("respawn_chunks");
 }

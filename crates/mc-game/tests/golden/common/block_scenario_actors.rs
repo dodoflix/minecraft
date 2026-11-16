@@ -2080,6 +2080,23 @@ impl Scenario {
                 };
                 self.out.push(format!("RNG {name} {state}"));
             }
+            // SPAWNCHUNKS n cx,cz ..: the chunks `tickChunks` shuffles, sorted
+            "spawnchunks" => {
+                let mut keys: Vec<(i32, i32)> = self
+                    .level()
+                    .chunk_source_mut()
+                    .chunk_map
+                    .collect_spawning_chunks()
+                    .into_iter()
+                    .map(|k| {
+                        let p = mc_core::pos::ChunkPos::unpack(k);
+                        (p.x, p.z)
+                    })
+                    .collect();
+                keys.sort_unstable();
+                let chunks: String = keys.iter().map(|(x, z)| format!(" {x},{z}")).collect();
+                self.out.push(format!("SPAWNCHUNKS {}{chunks}", keys.len()));
+            }
             // PART REF index name id=+N pos=.. old=.. size=w,h bb=..: the parts of the ender dragon REF
             "parts" => {
                 use mc_core::math::java::{

@@ -79,6 +79,14 @@ impl ServerLevel {
             if Some(id) == except {
                 continue;
             }
+            // `PlayerList.respawn` took the dying player out of the list before its removal ran
+            if self
+                .removing_player_connection
+                .as_ref()
+                .is_some_and(|(removing, _)| *removing == id)
+            {
+                continue;
+            }
             // a player that is running (out of the level storage: its own attack/use code) still hears its own sounds
             let Some(PlayerRecord {
                 connection: Some(connection),
