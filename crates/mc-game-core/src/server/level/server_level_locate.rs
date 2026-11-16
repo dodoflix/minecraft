@@ -189,6 +189,14 @@ impl ServerLevel {
         if self.chunk_source.future_result(future) != Some(true) {
             return false;
         }
+        // a chunk lent to a worldgen job has its starts in the job, not in the holder
+        let key = ChunkPos::pack_xz(x, z);
+        self.block_on_chunks(|cs| {
+            !cs.chunk_map
+                .holders
+                .holder(key)
+                .is_some_and(|h| matches!(h.slot, ChunkSlot::Loaned))
+        });
         match self
             .chunk_source
             .chunk_map

@@ -18,6 +18,8 @@ struct Arrival {
     batches: Vec<i32>,
     /// Chunks held when the batches were read.
     held: u64,
+    /// `Detected unsafe terrain read during worldgen` lines in the server log.
+    unsafe_reads: usize,
 }
 
 impl Arrival {
@@ -48,19 +50,21 @@ async fn arrival(server: &Server, view_distance: i8, window: Duration) -> Arriva
         curve,
         batches,
         held,
+        unsafe_reads: server.log().matches("Detected unsafe terrain read").count(),
     }
 }
 
 fn describe(label: &str, a: &Arrival) {
     let at = |ms: u64| a.curve.iter().rfind(|c| c.0 <= ms).map_or(0, |c| c.1);
     println!(
-        "{label}: chunks after 1s {} 2s {} 4s {} 8s {} | {} batches, first sizes {:?}",
+        "{label}: chunks after 1s {} 2s {} 4s {} 8s {} | {} batches, first sizes {:?} | {} unsafe terrain reads",
         at(1000),
         at(2000),
         at(4000),
         at(8000),
         a.batches.len(),
-        &a.batches[..a.batches.len().min(12)]
+        &a.batches[..a.batches.len().min(12)],
+        a.unsafe_reads
     );
 }
 
@@ -89,6 +93,11 @@ async fn compare(props: &[&str], target: u64, factor: f64, slack_ms: u64) {
         .reached(target)
         .unwrap_or_else(|| panic!("ours held {} chunks, never {target}", mine.held));
     let limit = (vanilla_ms as f64 * factor) as u64 + slack_ms;
+    println!("{target} chunks: ours {our_ms} ms, vanilla {vanilla_ms} ms (limit {limit} ms)");
+    // vanilla logs no unsafe read for the same seed: generation reads and writes the zones vanilla does
+    if theirs.unsafe_reads == 0 {
+        assert_eq!(mine.unsafe_reads, 0, "unsafe terrain reads on ours only");
+    }
     assert!(
         our_ms <= limit,
         "{target} chunks after {our_ms} ms on ours, {vanilla_ms} ms on vanilla (limit {limit} ms)"
@@ -131,15 +140,16 @@ async fn flat_world_chunk_arrival_matches_vanilla() {
     .await;
 }
 
-/// The default world is paced by terrain generation as well.
+/// The default world is paced by terrain generation as well: the biome and terrain steps run on a worker pool like
+/// vanilla's, so ours keeps up with vanilla's pace (300 chunks of the 637).
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "oracle: starts the vanilla server and the mc-server binary"]
 async fn generated_world_chunk_arrival_matches_vanilla() {
     compare(
         &["view-distance=12", "generate-structures=false"],
-        150,
-        2.5,
-        3000,
+        300,
+        1.5,
+        1000,
     )
     .await;
 }

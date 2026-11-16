@@ -9,9 +9,10 @@ use super::FullChunkStatus;
 use super::chunk_level;
 use crate::world::level::chunk::LevelChunk;
 use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
-use mc_world::chunk::{LevelHeight, ProtoChunk};
+use mc_world::chunk::{LevelHeight, ProtoChunk, StructureData};
 use mc_world::status::ChunkStatus;
 use std::collections::HashSet;
+use std::sync::Arc;
 
 /// Who to wake when a future of this holder completes.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -93,6 +94,14 @@ pub struct ChunkHolder {
     /// Status of the chunk object in `slot` (`getPersistedStatus` source; valid while the slot is loaned).
     persisted_status: Option<ChunkStatus>,
     pub slot: ChunkSlot,
+    /// The structure data of the proto chunk while it is lent to a generation job: other jobs keep reading the starts of
+    /// the chunks around them (vanilla's shared `ChunkAccess`).
+    pub(crate) lent_structures: Option<Arc<StructureData>>,
+    /// The biomes of the proto chunk (a proto chunk with biome sections only), kept from the moment its biomes exist: the
+    /// terrain of the chunks around it reads them while the chunk itself may be lent to another job.
+    pub(crate) biome_view: Option<Arc<ProtoChunk>>,
+    /// Structure start rewrites for the chunk that arrived while it was lent (applied when it comes back).
+    pub(crate) pending_start_updates: Vec<(String, mc_nbt::CompoundTag)>,
 
     // ChunkHolder
     pub(crate) full_chunk_future: PromotionFuture,
@@ -152,6 +161,9 @@ impl ChunkHolder {
             generation_ref_count: 0,
             persisted_status: None,
             slot: ChunkSlot::None,
+            lent_structures: None,
+            biome_view: None,
+            pending_start_updates: Vec::new(),
             full_chunk_future: PromotionFuture::Unloaded,
             ticking_chunk_future: PromotionFuture::Unloaded,
             entity_ticking_chunk_future: PromotionFuture::Unloaded,
@@ -365,9 +377,11 @@ impl ChunkHolder {
         self.generation_ref_count
     }
 
-    /// `isReadyForSaving()` (`saveSync.isDone()`): no generation task claims the holder and no promotion future is pending.
+    /// `isReadyForSaving()` (`saveSync.isDone()`): no generation task claims the holder, no promotion future is pending and
+    /// no worker holds the chunk.
     pub fn is_ready_for_saving(&self) -> bool {
         self.generation_ref_count == 0
+            && !matches!(self.slot, ChunkSlot::Loaned)
             && !self.full_chunk_future.is_pending()
             && !self.ticking_chunk_future.is_pending()
             && !self.entity_ticking_chunk_future.is_pending()

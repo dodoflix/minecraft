@@ -897,7 +897,7 @@ impl Iterator for BlockCollisions<'_> {
                 continue;
             }
             let pos = BlockPos::new(x, y, z);
-            let state = self.getter.get_block_state(pos);
+            let state = self.getter.get_block_state_for_collisions(pos);
             if (!self.only_suffocating_blocks || state.is_suffocating_at(self.getter, pos))
                 && (face_type != 1 || state.has_large_collision_shape())
                 && (face_type != 2 || state.block() == Block::MOVING_PISTON)

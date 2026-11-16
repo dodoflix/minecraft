@@ -262,6 +262,8 @@ pub struct ChunkMap {
     pub events: Vec<ChunkMapEvent>,
     pub(crate) next_batch_id: u64,
     pub(crate) in_flight_batch: Option<u64>,
+    /// Batches (biomes, terrain) running on the background pool; each lends only its own chunk.
+    pub(crate) background_batches: std::collections::HashSet<u64>,
     /// Chunks whose EMPTY load is waiting for the pool/IO.
     pub(crate) loading: LongOpenHashSet,
     /// Per-light-barrier: holders whose `sendSync` waits for it.
@@ -368,6 +370,7 @@ impl ChunkMap {
             events: Vec::new(),
             next_batch_id: 1,
             in_flight_batch: None,
+            background_batches: std::collections::HashSet::new(),
             loading: LongOpenHashSet::new(),
             light_barrier_pending: std::collections::HashSet::new(),
             chunk_type_cache: HashMap::new(),
@@ -435,8 +438,9 @@ impl ChunkMap {
         self.tasks.len()
     }
 
+    /// Whether a worldgen batch is still running (the serial thread or the background pool).
     pub fn worldgen_busy(&self) -> bool {
-        self.worldgen_busy
+        self.worldgen_busy || !self.background_batches.is_empty()
     }
 
     pub fn loading_count(&self) -> usize {
@@ -455,7 +459,7 @@ impl ChunkMap {
             || !self.holders.updating.is_empty()
             || !self.holders.to_drop.is_empty()
             || !self.unload_queue.is_empty()
-            || self.worldgen_busy
+            || self.worldgen_busy()
             || self.worldgen_queue.has_work()
             || !self.pending_generation_tasks.is_empty()
             || self.poi_manager.has_work()

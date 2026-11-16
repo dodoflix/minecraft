@@ -145,6 +145,17 @@ impl ChunkMap {
     /// Take the chunk object of a holder that reached `FULL` (for `ServerLevel` to turn into a live `LevelChunk`).
     pub fn take_chunk_for_full(&mut self, pos: ChunkPos) -> Option<ChunkSlot> {
         let holder = self.holders.holder_mut(pos.pack())?;
+        // the chunks around still generating read its biomes and structure starts meanwhile
+        if let ChunkSlot::Proto(p) = &holder.slot {
+            holder.lent_structures = Some(std::sync::Arc::new(p.access.structures.clone()));
+            if holder.biome_view.is_none() {
+                holder.biome_view = Some(std::sync::Arc::new(super::generation::biome_only_chunk(
+                    &p.access,
+                    self.level_height,
+                    &self.factory,
+                )));
+            }
+        }
         Some(std::mem::replace(&mut holder.slot, ChunkSlot::Loaned))
     }
 
@@ -166,6 +177,8 @@ impl ChunkMap {
             .access
             .set_unsaved_listener(self.chunks_to_eagerly_save.clone());
         holder.slot = ChunkSlot::Level(chunk);
+        holder.biome_view = None;
+        holder.lent_structures = None;
         self.complete_step(key, ChunkStatus::Full);
     }
 

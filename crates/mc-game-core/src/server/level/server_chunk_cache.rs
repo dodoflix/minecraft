@@ -90,7 +90,11 @@ impl ServerChunkCache {
                 Some(chunk.data.access.get_noise_biome(quart_x, quart_y, quart_z))
             }
             ChunkSlot::Proto(chunk) => chunk.get_noise_biome(quart_x, quart_y, quart_z).ok(),
-            ChunkSlot::None | ChunkSlot::Loaned => None,
+            ChunkSlot::Loaned => holder
+                .biome_view
+                .as_ref()
+                .and_then(|view| view.get_noise_biome(quart_x, quart_y, quart_z).ok()),
+            ChunkSlot::None => None,
         }
     }
 

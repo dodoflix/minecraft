@@ -19,7 +19,9 @@ use mc_world::chunk::{LevelHeight, ProtoChunk};
 use mc_world::palette::{BiomeRegistry, PalettedContainerFactory};
 use mc_world::status::ChunkStatus;
 use std::panic::{AssertUnwindSafe, catch_unwind};
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Arc, Mutex};
+use std::time::Duration;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 enum Stage {
@@ -33,11 +35,36 @@ enum Stage {
 
 type Log = Arc<Mutex<Vec<(Stage, ChunkPos, std::thread::ThreadId)>>>;
 
+/// Counts the terrain steps that run at the same moment.
+#[derive(Default)]
+struct Overlap {
+    active: AtomicUsize,
+    max: AtomicUsize,
+}
+
+struct Running<'a>(&'a Overlap);
+
+impl Overlap {
+    fn enter(&self) -> Running<'_> {
+        let now = self.active.fetch_add(1, Ordering::SeqCst) + 1;
+        self.max.fetch_max(now, Ordering::SeqCst);
+        std::thread::sleep(Duration::from_millis(50));
+        Running(self)
+    }
+}
+
+impl Drop for Running<'_> {
+    fn drop(&mut self) {
+        self.0.active.fetch_sub(1, Ordering::SeqCst);
+    }
+}
+
 /// `legacy`: every chunk is an old-version chunk (below zero retrogen + blending data) with old bedrock at y 0..=4, new
 /// bedrock in the below-zero column (x 3, z 2) and water at the bottom of the old generation area.
 struct Generator {
     log: Log,
     legacy: bool,
+    overlap: Option<Arc<Overlap>>,
 }
 
 impl ChunkGeneratorBackend for Generator {
@@ -66,6 +93,7 @@ impl ChunkGeneratorBackend for Generator {
         }
     }
     fn build_terrain(&self, chunk: &mut ProtoChunk, _region: &WorldGenRegion) {
+        let _running = self.overlap.as_ref().map(|overlap| overlap.enter());
         self.log
             .lock()
             .unwrap()
@@ -142,6 +170,16 @@ fn open(
     fail_features_at: Option<ChunkPos>,
     legacy: bool,
 ) -> ServerLevel {
+    open_with(dir, log, fail_features_at, legacy, None)
+}
+
+fn open_with(
+    dir: &std::path::Path,
+    log: &Log,
+    fail_features_at: Option<ChunkPos>,
+    legacy: bool,
+    overlap: Option<Arc<Overlap>>,
+) -> ServerLevel {
     let (shared, _rx) = ServerShared::new();
     ServerLevel::new(ServerLevelParams {
         shared,
@@ -163,6 +201,7 @@ fn open(
         generator: Arc::new(Generator {
             log: log.clone(),
             legacy,
+            overlap,
         }),
         generate_structures: true,
         hooks: Arc::new(Hooks {
@@ -189,6 +228,31 @@ fn position(
     log.iter()
         .position(|(s, p, _)| stage(s) && *p == pos)
         .unwrap_or_else(|| panic!("stage missing for {pos}"))
+}
+
+/// `buildTerrain` runs on `Util.backgroundExecutor()`: the terrain of different chunks is generated at the same time,
+/// not one chunk after the other like the serial worldgen steps.
+#[test]
+fn terrain_of_different_chunks_runs_at_the_same_time() {
+    if std::thread::available_parallelism().map_or(1, |n| n.get()) < 3 {
+        return; // the pool has `cores - 1` threads
+    }
+    let dir = std::env::temp_dir().join(format!("mc-pipeline-overlap-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&dir);
+    let log: Log = Arc::default();
+    let overlap = Arc::new(Overlap::default());
+    let mut level = open_with(&dir, &log, None, false, Some(overlap.clone()));
+    assert!(
+        level
+            .proto_chunk_blocking(0, 0, ChunkStatus::Spawn, true)
+            .is_some()
+    );
+    level.close();
+    let _ = std::fs::remove_dir_all(&dir);
+    assert!(
+        overlap.max.load(Ordering::SeqCst) >= 2,
+        "terrain steps never overlapped"
+    );
 }
 
 #[test]

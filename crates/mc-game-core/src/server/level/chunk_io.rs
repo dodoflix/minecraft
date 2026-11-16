@@ -13,7 +13,7 @@ use std::io;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicI32, Ordering};
 use std::sync::mpsc::{Receiver, Sender, channel};
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, LazyLock, Mutex};
 use std::thread::JoinHandle;
 use std::time::Duration;
 
@@ -302,13 +302,52 @@ impl WorkerPool {
     }
 }
 
-/// The serial worldgen thread (`ConsecutiveExecutor("worldgen")`): runs one [`GenBatch`] at a time.
+/// `Util.backgroundExecutor()`: the process-wide pool (`cores - 1` threads) the biome and terrain steps run on, shared by
+/// every chunk map. Jobs carry their own [`ResultSender`].
+struct BackgroundExecutor {
+    tx: Sender<Box<dyn FnOnce() + Send>>,
+}
+
+static BACKGROUND: LazyLock<BackgroundExecutor> = LazyLock::new(|| {
+    let (tx, rx) = channel::<Box<dyn FnOnce() + Send>>();
+    let rx = Arc::new(Mutex::new(rx));
+    let threads =
+        std::thread::available_parallelism().map_or(1, |n| n.get().saturating_sub(1).max(1));
+    for i in 0..threads {
+        let rx = rx.clone();
+        std::thread::Builder::new()
+            .name(format!("Worker-Main-{i}"))
+            .spawn(move || {
+                loop {
+                    // the guard is a temporary: other workers receive while the job runs
+                    let job = rx.lock().unwrap_or_else(|e| e.into_inner()).recv();
+                    match job {
+                        Ok(job) => job(),
+                        Err(_) => return,
+                    }
+                }
+            })
+            .expect("spawn background worker");
+    }
+    BackgroundExecutor { tx }
+});
+
+fn batch_message(result: Result<BatchResult, CrashReport>) -> WorkerMessage {
+    match result {
+        Ok(result) => WorkerMessage::BatchDone(Box::new(result)),
+        Err(report) => WorkerMessage::BatchFailed(Box::new(report)),
+    }
+}
+
+/// The worldgen executor: the serial `worldgen` thread (`ConsecutiveExecutor("worldgen")`) runs one [`GenBatch`] at a
+/// time; the steps vanilla runs on `Util.backgroundExecutor()` (biomes, terrain) go to the shared pool.
 pub struct WorldgenThread {
     tx: Option<Sender<(Arc<WorldGenContext>, GenBatch)>>,
     thread: Option<JoinHandle<()>>,
+    results: ResultSender,
     /// Oracle mode: the batch runs on the submitting thread (the vanilla oracle's direct executors), so the unique
     /// seeds it draws continue the calling thread's reproducible sequence.
-    inline_results: Option<ResultSender>,
+    inline: bool,
 }
 
 impl WorldgenThread {
@@ -317,19 +356,20 @@ impl WorldgenThread {
             return Self {
                 tx: None,
                 thread: None,
-                inline_results: Some(results),
+                results,
+                inline: true,
             };
         }
         let (tx, rx) = channel::<(Arc<WorldGenContext>, GenBatch)>();
+        let thread_results = results.clone();
         let thread = std::thread::Builder::new()
             .name("Worldgen".into())
             .spawn(move || {
                 while let Ok((ctx, batch)) = rx.recv() {
-                    let message = match run_batch(&ctx, batch) {
-                        Ok(result) => WorkerMessage::BatchDone(Box::new(result)),
-                        Err(report) => WorkerMessage::BatchFailed(Box::new(report)),
-                    };
-                    if results.send(message).is_err() {
+                    if thread_results
+                        .send(batch_message(run_batch(&ctx, batch)))
+                        .is_err()
+                    {
                         return;
                     }
                 }
@@ -338,20 +378,32 @@ impl WorldgenThread {
         Self {
             tx: Some(tx),
             thread: Some(thread),
-            inline_results: None,
+            results,
+            inline: false,
         }
     }
 
+    /// Whether biome and terrain batches may overlap (not in oracle mode, where every step runs inline).
+    pub fn runs_in_parallel(&self) -> bool {
+        !self.inline
+    }
+
     pub fn submit(&self, ctx: Arc<WorldGenContext>, batch: GenBatch) {
-        if let Some(results) = &self.inline_results {
-            let message = match run_batch(&ctx, batch) {
-                Ok(result) => WorkerMessage::BatchDone(Box::new(result)),
-                Err(report) => WorkerMessage::BatchFailed(Box::new(report)),
-            };
-            let _ = results.send(message);
+        if self.inline {
+            let _ = self.results.send(batch_message(run_batch(&ctx, batch)));
         } else if let Some(tx) = &self.tx {
             let _ = tx.send((ctx, batch));
         }
+    }
+
+    /// `CompletableFuture.supplyAsync(..., Util.backgroundExecutor())`: the batch runs on the shared pool, concurrently
+    /// with the worldgen thread and with other background batches.
+    pub fn submit_background(&self, ctx: Arc<WorldGenContext>, batch: GenBatch) {
+        let results = self.results.clone();
+        let job = Box::new(move || {
+            let _ = results.send(batch_message(run_batch(&ctx, batch)));
+        });
+        let _ = BACKGROUND.tx.send(job);
     }
 
     pub fn close(&mut self) {

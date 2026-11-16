@@ -22,6 +22,11 @@ use mc_world::ticks::TickPriority;
 /// `BlockGetter` (+ `LevelHeightAccessor`).
 pub trait BlockGetter {
     fn get_block_state(&self, pos: BlockPos) -> BlockState;
+    /// The block `BlockCollisions` reads (`getChunkForCollisions(..).getBlockState`): a getter that warns about reads outside
+    /// its write zone overrides this to read silently.
+    fn get_block_state_for_collisions(&self, pos: BlockPos) -> BlockState {
+        self.get_block_state(pos)
+    }
     fn get_fluid_state(&self, pos: BlockPos) -> FluidState;
     fn get_block_entity(&self, pos: BlockPos) -> Option<&dyn BlockEntity>;
     /// `LevelHeightAccessor` (`getMinY`/`getHeight`).

@@ -100,7 +100,7 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
         .into_iter()
         .filter_map(|(key, c)| match c {
             GenChunk::Loaned(chunk) => Some((key, chunk)),
-            GenChunk::Snapshot(_) => None,
+            GenChunk::Snapshot(_) | GenChunk::Shared(_) => None,
         })
         .collect();
     Ok(BatchResult {
@@ -205,5 +205,14 @@ pub fn runs_on_worldgen_thread(task: ChunkStatusTask) -> bool {
             | ChunkStatusTask::BuildTerrain
             | ChunkStatusTask::GenerateFeatures
             | ChunkStatusTask::GenerateSpawn
+    )
+}
+
+/// Whether vanilla runs the step on `Util.backgroundExecutor()` (a `supplyAsync` inside the step) instead of the worldgen
+/// executor: the step only writes its own chunk and reads biomes and structure starts of the others.
+pub fn runs_on_background_executor(task: ChunkStatusTask) -> bool {
+    matches!(
+        task,
+        ChunkStatusTask::GenerateBiomes | ChunkStatusTask::BuildTerrain
     )
 }

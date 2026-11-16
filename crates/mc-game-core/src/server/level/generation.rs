@@ -4,15 +4,20 @@
 
 use super::chunk_holder::{ChunkHolder, ChunkSlot, FutureState, Waiter};
 use super::chunk_map::{ChunkMap, ChunkMapEvent, MainTask};
-use super::chunk_status_tasks::{BatchResult, GenBatch, GenJob, runs_on_worldgen_thread};
+use super::chunk_status_tasks::{
+    BatchResult, GenBatch, GenJob, runs_on_background_executor, runs_on_worldgen_thread,
+};
 use super::world_gen::{GenChunk, LightEvent};
 use crate::world::level::chunk::status::{
     ChunkStatusTask, ChunkStep, GENERATION_PYRAMID, LOADING_PYRAMID,
 };
 use mc_core::pos::{ChunkPos, SectionPos};
 use mc_light::LightCompletion;
-use mc_world::chunk::{ProtoChunk, StructureData};
+use mc_world::chunk::{ChunkAccess, LevelHeight, ProtoChunk, StructureData};
+use mc_world::palette::PalettedContainerFactory;
+use mc_world::section::LevelChunkSection;
 use mc_world::status::ChunkStatus;
+use mc_world::upgrade_data::UpgradeData;
 use std::collections::HashMap;
 use std::sync::Arc;
 
@@ -495,7 +500,8 @@ impl ChunkMap {
 
     // ------------------------------------------------------------------ worldgen batches
 
-    /// Send the collected worldgen steps of a task's layer to the worldgen thread.
+    /// Send the collected worldgen steps of a task's layer to the executors: the steps vanilla runs on
+    /// `Util.backgroundExecutor()` (biomes, terrain) as one background batch per chunk, the others to the worldgen thread.
     fn flush_batch(&mut self, id: u64) {
         let Some(task) = self.tasks.get_mut(&id) else {
             return;
@@ -504,6 +510,18 @@ impl ChunkMap {
             return;
         }
         let jobs = std::mem::take(&mut task.batch_jobs);
+        let (background, jobs): (Vec<GenJob>, Vec<GenJob>) = if self.worldgen.runs_in_parallel() {
+            jobs.into_iter()
+                .partition(|job| runs_on_background_executor(job.step.task))
+        } else {
+            (Vec::new(), jobs)
+        };
+        for job in background {
+            self.submit_background_job(job);
+        }
+        if jobs.is_empty() {
+            return;
+        }
         let mut chunks: HashMap<i64, GenChunk> = HashMap::new();
         let mut structure_views: HashMap<i64, Arc<StructureData>> = HashMap::new();
         for job in &jobs {
@@ -519,42 +537,21 @@ impl ChunkMap {
                         if chunks.contains_key(&key) {
                             continue;
                         }
-                        let Some(holder) = self.holders.holder_mut(key) else {
-                            continue;
-                        };
-                        match std::mem::take(&mut holder.slot) {
-                            ChunkSlot::Proto(p) => {
-                                chunks.insert(key, GenChunk::Loaned(p));
-                                holder.slot = ChunkSlot::Loaned;
+                        match self.lend_chunk(key) {
+                            Some(chunk) => {
+                                chunks.insert(key, chunk);
                             }
-                            ChunkSlot::Level(l) => {
-                                let mut snapshot = ProtoChunk::new(
-                                    l.pos(),
-                                    mc_world::upgrade_data::UpgradeData::empty(),
-                                    self.level_height,
-                                    &self.factory,
-                                    None,
-                                );
-                                snapshot.access = l.data.access.clone();
-                                snapshot.set_persisted_status(ChunkStatus::Full);
-                                holder.slot = ChunkSlot::Level(l);
-                                chunks.insert(key, GenChunk::Snapshot(Box::new(snapshot)));
+                            // lent to a background job (its structure starts are final): readable, not writable
+                            None => {
+                                if let Some(view) = self.structure_view(key) {
+                                    structure_views.entry(key).or_insert(view);
+                                }
                             }
-                            other => holder.slot = other,
                         }
                     } else if !structure_views.contains_key(&key)
-                        && let Some(holder) = self.holders.holder(key)
+                        && let Some(view) = self.structure_view(key)
                     {
-                        match &holder.slot {
-                            ChunkSlot::Proto(p) => {
-                                structure_views.insert(key, Arc::new(p.access.structures.clone()));
-                            }
-                            ChunkSlot::Level(l) => {
-                                structure_views
-                                    .insert(key, Arc::new(l.data.access.structures.clone()));
-                            }
-                            _ => {}
-                        }
+                        structure_views.insert(key, view);
                     }
                 }
             }
@@ -574,10 +571,129 @@ impl ChunkMap {
         );
     }
 
+    /// `ChunkStatusTasks.generateBiomes` / `buildTerrain`: the chunk goes to the background pool alone. Its neighbours are
+    /// only read: their biomes (`collectPossibleBiomes`, the biome manager) and every structure start within reach, both of
+    /// which are final when the step may start, however busy another job keeps the neighbour.
+    fn submit_background_job(&mut self, job: GenJob) {
+        let key = job.pos.pack();
+        let center = self
+            .lend_chunk(key)
+            .expect("the chunk of a background step is a proto chunk");
+        let mut chunks = HashMap::from([(key, center)]);
+        let mut structure_views = HashMap::new();
+        if job.step.task == ChunkStatusTask::BuildTerrain {
+            let radius = job.step.direct_dependencies.get_radius();
+            for x in job.pos.x - radius..=job.pos.x + radius {
+                for z in job.pos.z - radius..=job.pos.z + radius {
+                    let neighbour = ChunkPos::pack_xz(x, z);
+                    if neighbour == key {
+                        continue;
+                    }
+                    if let Some(view) = self.structure_view(neighbour) {
+                        structure_views.insert(neighbour, view);
+                    }
+                    if job.pos.get_chessboard_distance_xz(x, z) <= TERRAIN_BIOME_RADIUS
+                        && let Some(biomes) = self.biome_view(neighbour)
+                    {
+                        chunks.insert(neighbour, GenChunk::Shared(biomes));
+                    }
+                }
+            }
+        }
+        let batch_id = self.next_batch_id;
+        self.next_batch_id += 1;
+        self.background_batches.insert(batch_id);
+        self.worldgen.submit_background(
+            self.gen_context.clone(),
+            GenBatch {
+                id: batch_id,
+                jobs: vec![job],
+                chunks,
+                structure_views,
+            },
+        );
+    }
+
+    /// Move the chunk out of its holder for a worker (a full chunk is cloned as a read-only snapshot instead).
+    fn lend_chunk(&mut self, key: i64) -> Option<GenChunk> {
+        let holder = self.holders.holder_mut(key)?;
+        match std::mem::take(&mut holder.slot) {
+            ChunkSlot::Proto(p) => {
+                holder.lent_structures = Some(Arc::new(p.access.structures.clone()));
+                if holder.biome_view.is_none()
+                    && p.get_persisted_status().is_or_after(ChunkStatus::Biomes)
+                {
+                    holder.biome_view = Some(Arc::new(biome_only_chunk(
+                        &p.access,
+                        self.level_height,
+                        &self.factory,
+                    )));
+                }
+                holder.slot = ChunkSlot::Loaned;
+                Some(GenChunk::Loaned(p))
+            }
+            ChunkSlot::Level(l) => {
+                let mut snapshot = ProtoChunk::new(
+                    l.pos(),
+                    mc_world::upgrade_data::UpgradeData::empty(),
+                    self.level_height,
+                    &self.factory,
+                    None,
+                );
+                snapshot.access = l.data.access.clone();
+                snapshot.set_persisted_status(ChunkStatus::Full);
+                holder.slot = ChunkSlot::Level(l);
+                Some(GenChunk::Snapshot(Box::new(snapshot)))
+            }
+            other => {
+                holder.slot = other;
+                None
+            }
+        }
+    }
+
+    /// The structure starts and references of the chunk, also while it is lent.
+    fn structure_view(&self, key: i64) -> Option<Arc<StructureData>> {
+        let holder = self.holders.holder(key)?;
+        match &holder.slot {
+            ChunkSlot::Proto(p) => Some(Arc::new(p.access.structures.clone())),
+            ChunkSlot::Level(l) => Some(Arc::new(l.data.access.structures.clone())),
+            _ => holder.lent_structures.clone(),
+        }
+    }
+
+    /// The biomes of the chunk (a chunk that reached `BIOMES`), also while it is lent.
+    fn biome_view(&mut self, key: i64) -> Option<Arc<ProtoChunk>> {
+        let holder = self.holders.holder_mut(key)?;
+        match &holder.slot {
+            ChunkSlot::Proto(p) => {
+                if holder.biome_view.is_none()
+                    && p.get_persisted_status().is_or_after(ChunkStatus::Biomes)
+                {
+                    holder.biome_view = Some(Arc::new(biome_only_chunk(
+                        &p.access,
+                        self.level_height,
+                        &self.factory,
+                    )));
+                }
+                holder.biome_view.clone()
+            }
+            ChunkSlot::Level(l) => Some(Arc::new(biome_only_chunk(
+                &l.data.access,
+                self.level_height,
+                &self.factory,
+            ))),
+            _ => holder.biome_view.clone(),
+        }
+    }
+
     /// A worldgen batch finished: take the chunks back and complete the futures of its steps.
     pub(crate) fn on_batch_done(&mut self, result: BatchResult) {
-        self.worldgen_busy = false;
-        self.in_flight_batch = None;
+        // a background batch overlaps the serial thread's batch: only the serial one clears its flag
+        if !self.background_batches.remove(&result.id) {
+            self.worldgen_busy = false;
+            self.in_flight_batch = None;
+        }
         // the `getServer().execute(...)` tasks of `updatePOIOnBlockStateChange`, in call order
         for (pos, old_type, new_type) in result.poi_changes {
             if old_type.is_some() {
@@ -599,11 +715,32 @@ impl ChunkMap {
                 LightEvent::CheckBlock(pos) => self.light.check_block(pos),
             }
         }
-        for (key, chunk) in result.chunks {
+        for (key, mut chunk) in result.chunks {
             if let Some(holder) = self.holders.holder_mut(key) {
                 holder.set_persisted_status_cache(Some(chunk.get_persisted_status()));
+                holder.lent_structures = None;
+                // start rewrites that arrived while the chunk was lent
+                for (structure, tag) in std::mem::take(&mut holder.pending_start_updates) {
+                    if let Some(start) = chunk.access.structures.starts.get_mut(&structure) {
+                        *start = tag;
+                        chunk.access.mark_unsaved();
+                    }
+                }
+                if holder.biome_view.is_none()
+                    && chunk
+                        .get_persisted_status()
+                        .is_or_after(ChunkStatus::Biomes)
+                {
+                    holder.biome_view = Some(Arc::new(biome_only_chunk(
+                        &chunk.access,
+                        self.level_height,
+                        &self.factory,
+                    )));
+                }
                 holder.slot = ChunkSlot::Proto(chunk);
             }
+            // a holder that waits to unload could not be saved while its chunk was lent
+            self.check_unload_ready(key);
         }
         for (pos, structure, tag) in result.start_updates {
             if let Some(holder) = self.holders.holder_mut(pos.pack()) {
@@ -612,11 +749,19 @@ impl ChunkMap {
                     ChunkSlot::Level(l) => Some(&mut l.data.access),
                     _ => None,
                 };
-                if let Some(access) = access
-                    && let Some(start) = access.structures.starts.get_mut(&structure)
-                {
-                    *start = tag;
-                    access.mark_unsaved();
+                if let Some(access) = access {
+                    if let Some(start) = access.structures.starts.get_mut(&structure) {
+                        *start = tag;
+                        access.mark_unsaved();
+                    }
+                } else if matches!(holder.slot, ChunkSlot::Loaned) {
+                    // lent to a background job: it gets the rewrite when it comes back, readers meanwhile see it in the view
+                    if let Some(view) = &mut holder.lent_structures
+                        && let Some(start) = Arc::make_mut(view).starts.get_mut(&structure)
+                    {
+                        *start = tag.clone();
+                    }
+                    holder.pending_start_updates.push((structure, tag));
                 }
             }
         }
@@ -625,4 +770,26 @@ impl ChunkMap {
         }
         self.process_ready();
     }
+}
+
+/// `collectPossibleBiomes(region, 1)` and the biome manager of `buildTerrain` read the biomes this many chunks away.
+const TERRAIN_BIOME_RADIUS: i32 = 1;
+
+/// A proto chunk with the biome sections of `access` and nothing else.
+pub(super) fn biome_only_chunk(
+    access: &ChunkAccess,
+    level_height: LevelHeight,
+    factory: &PalettedContainerFactory,
+) -> ProtoChunk {
+    let mut view = ProtoChunk::new(
+        access.pos,
+        UpgradeData::empty(),
+        level_height,
+        factory,
+        None,
+    );
+    for (dst, src) in view.access.sections.iter_mut().zip(&access.sections) {
+        *dst = LevelChunkSection::new(dst.states().clone(), src.biomes().clone());
+    }
+    view
 }

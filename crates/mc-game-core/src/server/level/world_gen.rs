@@ -14,23 +14,27 @@ use mc_world::palette::PalettedContainerFactory;
 use std::collections::HashMap;
 use std::sync::Arc;
 
-/// A chunk of a [`WorldGenRegion`]: lent (writable) or a read-only snapshot of a chunk the game thread owns
-/// (vanilla's `ImposterProtoChunk(allowWrites = false)` over a full chunk).
+/// A chunk of a [`WorldGenRegion`]: lent (writable), a read-only snapshot of a chunk the game thread owns
+/// (vanilla's `ImposterProtoChunk(allowWrites = false)` over a full chunk), or the shared biome-only view of a chunk
+/// another job may hold (the structure data of a shared chunk is in the region's structure views).
 pub enum GenChunk {
     Loaned(Box<ProtoChunk>),
     Snapshot(Box<ProtoChunk>),
+    Shared(Arc<ProtoChunk>),
 }
 
 impl GenChunk {
     pub fn proto(&self) -> &ProtoChunk {
         match self {
             GenChunk::Loaned(c) | GenChunk::Snapshot(c) => c,
+            GenChunk::Shared(c) => c,
         }
     }
 
     pub fn proto_mut(&mut self) -> &mut ProtoChunk {
         match self {
             GenChunk::Loaned(c) | GenChunk::Snapshot(c) => c,
+            GenChunk::Shared(c) => Arc::make_mut(c),
         }
     }
 
@@ -165,8 +169,8 @@ impl WorldGenRegion {
     pub fn structure_data(&self, pos: ChunkPos) -> Option<&StructureData> {
         let key = pos.pack();
         match self.chunks.get(&key) {
+            Some(GenChunk::Shared(_)) | None => self.structure_views.get(&key).map(|a| &**a),
             Some(c) => Some(&c.proto().access.structures),
-            None => self.structure_views.get(&key).map(|a| &**a),
         }
     }
 

@@ -52,6 +52,26 @@ fn out_of_zone_read_and_write_log_like_vanilla() {
     );
 }
 
+/// `BlockCollisions` reads through `getChunkForCollisions`, which never warns: a spawn at a chunk's edge collides with the
+/// blocks of the neighbouring chunk.
+#[test]
+fn collision_reads_outside_the_write_zone_do_not_warn() {
+    use mc_game::world::level::collision::CollisionGetter;
+    let _serial = SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+    init_logger();
+    let mut synth = SynthRegion::new(7, -2, 0, ChunkStatus::Features, 2);
+    take_logs();
+    {
+        let level = synth.level();
+        // chunk [0, 0] is 2 chunks from the center [-2, 0], outside the write radius 1
+        let _ = level.no_block_collision(
+            None,
+            &mc_core::phys::AABB::new(1.0, 60.0, 5.0, 2.0, 62.0, 6.0),
+        );
+    }
+    assert_eq!(take_logs(), Vec::<String>::new());
+}
+
 #[test]
 fn unavailable_chunks_are_a_crash() {
     let mut synth = SynthRegion::new(9, 0, 0, ChunkStatus::Features, 1);

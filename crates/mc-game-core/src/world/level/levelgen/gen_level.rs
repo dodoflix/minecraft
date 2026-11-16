@@ -353,6 +353,12 @@ impl BlockGetter for GenLevel<'_> {
         self.chunk(chunk_x, chunk_z).get_block_state(pos)
     }
 
+    /// `getChunkForCollisions(..).getBlockState(pos)`: no read-zone warning (a spawn near the chunk edge collides with the
+    /// neighbouring chunk's blocks).
+    fn get_block_state_for_collisions(&self, pos: BlockPos) -> BlockState {
+        self.chunk(pos.x() >> 4, pos.z() >> 4).get_block_state(pos)
+    }
+
     fn get_fluid_state(&self, pos: BlockPos) -> FluidState {
         let (chunk_x, chunk_z) = (pos.x() >> 4, pos.z() >> 4);
         self.warn_if_read_outside_write_zone(chunk_x, chunk_z);
