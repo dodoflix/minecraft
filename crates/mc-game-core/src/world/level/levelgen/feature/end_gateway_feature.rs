@@ -44,11 +44,10 @@ impl Feature for EndGatewayFeature {
                 set_block(level, pos, Block::END_GATEWAY.default_state());
                 // `level.getBlockEntity(pos)` materializes the DUMMY entry; without an exit it is never fetched and stays DUMMY
                 if let Some(target_pos) = self.exit
-                    && get_block_entity_nbt(level, pos)
-                        .is_some_and(|tag| tag.get_string("id") == Some("minecraft:end_gateway"))
+                    && let Some(tag) = get_block_entity_nbt(level, pos)
+                    && tag.get_string("id") == Some("minecraft:end_gateway")
                 {
-                    level
-                        .set_block_entity_nbt(end_gateway_tag(pos, Some((target_pos, self.exact))));
+                    level.set_block_entity_nbt(end_gateway_tag(&tag, target_pos, self.exact));
                 }
             } else if same_y {
                 set_block(level, pos, Block::AIR.default_state());

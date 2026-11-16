@@ -168,12 +168,16 @@ pub fn spawner_tag(pos: BlockPos, entity_id: &str) -> CompoundTag {
     tag
 }
 
-/// `TheEndGatewayBlockEntity` (`Age`, and the exit when `setExitPosition(pos, exact)` was called).
-pub fn end_gateway_tag(pos: BlockPos, exit: Option<(BlockPos, bool)>) -> CompoundTag {
+/// `TheEndGatewayBlockEntity.setExitPosition(exit, exact)` on the gateway block entity `existing` holds (its `Age` is kept).
+pub fn end_gateway_tag(existing: &CompoundTag, exit: BlockPos, exact: bool) -> CompoundTag {
+    let pos = BlockPos::new(
+        existing.get_int_or("x", 0),
+        existing.get_int_or("y", 0),
+        existing.get_int_or("z", 0),
+    );
     let mut gateway =
         TheEndGatewayBlockEntity::new(pos, mc_data::block::Block::END_GATEWAY.default_state());
-    if let Some((exit_pos, exact)) = exit {
-        gateway.set_exit_position(exit_pos, exact);
-    }
+    gateway.load_with_components(existing);
+    gateway.set_exit_position(exit, exact);
     gateway.save_with_full_metadata()
 }

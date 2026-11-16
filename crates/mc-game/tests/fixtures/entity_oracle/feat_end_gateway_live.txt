@@ -1,0 +1,85 @@
+T 1
+# a gateway with a known exit
+CF msg Placed feature at 0, 64, 0
+CF result success 1
+T 2
+B -1 63 0 minecraft:bedrock
+B -1 65 0 minecraft:bedrock
+B 0 62 0 minecraft:bedrock
+B 0 63 -1 minecraft:bedrock
+B 0 63 0 minecraft:bedrock
+B 0 63 1 minecraft:bedrock
+B 0 64 0 minecraft:end_gateway
+B 0 65 -1 minecraft:bedrock
+B 0 65 0 minecraft:bedrock
+B 0 65 1 minecraft:bedrock
+B 0 66 0 minecraft:bedrock
+B 1 63 0 minecraft:bedrock
+B 1 65 0 minecraft:bedrock
+BE 0 64 0 {Age:1L,ExactTeleport:1b,components:{},exit_portal:[I;10,70,10],id:"minecraft:end_gateway",x:0,y:64,z:0}
+BEU 0 64 0 minecraft:end_gateway {Age:1L,ExactTeleport:1b,exit_portal:[I;10,70,10]}
+# a gateway without an exit, next to the first one
+CF msg Placed feature at 4, 64, 0
+CF result success 1
+T 3
+B -1 63 0 minecraft:bedrock
+B -1 65 0 minecraft:bedrock
+B 0 62 0 minecraft:bedrock
+B 0 63 -1 minecraft:bedrock
+B 0 63 0 minecraft:bedrock
+B 0 63 1 minecraft:bedrock
+B 0 64 0 minecraft:end_gateway
+B 0 65 -1 minecraft:bedrock
+B 0 65 0 minecraft:bedrock
+B 0 65 1 minecraft:bedrock
+B 0 66 0 minecraft:bedrock
+B 1 63 0 minecraft:bedrock
+B 1 65 0 minecraft:bedrock
+B 3 63 0 minecraft:bedrock
+B 3 65 0 minecraft:bedrock
+B 4 62 0 minecraft:bedrock
+B 4 63 -1 minecraft:bedrock
+B 4 63 0 minecraft:bedrock
+B 4 63 1 minecraft:bedrock
+B 4 64 0 minecraft:end_gateway
+B 4 65 -1 minecraft:bedrock
+B 4 65 0 minecraft:bedrock
+B 4 65 1 minecraft:bedrock
+B 4 66 0 minecraft:bedrock
+B 5 63 0 minecraft:bedrock
+B 5 65 0 minecraft:bedrock
+BE 4 64 0 {Age:1L,components:{},id:"minecraft:end_gateway",x:4,y:64,z:0}
+BEU 4 64 0 minecraft:end_gateway {Age:1L}
+# the exit of the first one set again by a second placement
+CF msg Placed feature at 0, 64, 0
+CF result success 1
+T 4
+T 5
+T 6
+B -1 63 0 minecraft:bedrock
+B -1 65 0 minecraft:bedrock
+B 0 62 0 minecraft:bedrock
+B 0 63 -1 minecraft:bedrock
+B 0 63 0 minecraft:bedrock
+B 0 63 1 minecraft:bedrock
+B 0 64 0 minecraft:end_gateway
+B 0 65 -1 minecraft:bedrock
+B 0 65 0 minecraft:bedrock
+B 0 65 1 minecraft:bedrock
+B 0 66 0 minecraft:bedrock
+B 1 63 0 minecraft:bedrock
+B 1 65 0 minecraft:bedrock
+B 3 63 0 minecraft:bedrock
+B 3 65 0 minecraft:bedrock
+B 4 62 0 minecraft:bedrock
+B 4 63 -1 minecraft:bedrock
+B 4 63 0 minecraft:bedrock
+B 4 63 1 minecraft:bedrock
+B 4 64 0 minecraft:end_gateway
+B 4 65 -1 minecraft:bedrock
+B 4 65 0 minecraft:bedrock
+B 4 65 1 minecraft:bedrock
+B 4 66 0 minecraft:bedrock
+B 5 63 0 minecraft:bedrock
+B 5 65 0 minecraft:bedrock
+BE 0 64 0 {Age:5L,components:{},exit_portal:[I;-8,72,3],id:"minecraft:end_gateway",x:0,y:64,z:0}

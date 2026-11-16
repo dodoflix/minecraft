@@ -152,8 +152,10 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
     s.gen_env = text.contains("minecraft:structure_block")
         || text.contains("jigsaw_generate")
         || ["_axe", "_shovel", "_hoe"].iter().any(|t| text.contains(t));
-    // `/place structure` on a flat level generates with the flat chunk generator (the first free height of the layers), not the noise one
-    s.flat_structures = text.contains("place structure") || text.contains("locate ");
+    // `/place structure|feature` on a flat level generates with the flat chunk generator (the first free height of the layers), not the noise one
+    s.flat_structures = ["place structure", "place feature", "locate "]
+        .iter()
+        .any(|t| text.contains(t));
     // `command_env`: the vanilla server always has its command environment (lecterns resolve written book pages through it);
     // the replay installs a real `MinecraftServer` (nothing started) around every command of the scenario. The verbs that
     // deliver a packet to the player's listener (`select`, `close_menu`, `menu_button`, `pick_block`) need it as well.
@@ -688,7 +690,7 @@ pub struct Scenario {
     real_biomes: bool,
     /// Structure blocks and jigsaw generation read the generation environment (template manager, pool registries).
     gen_env: bool,
-    /// `/place structure` is used: a flat level then carries the flat generator's environment.
+    /// `/place structure`, `/place feature` or `/locate` is used: a flat or void level then carries the flat generator's environment.
     flat_structures: bool,
     log: Arc<Mutex<Vec<BroadcastRecord>>>,
     actors: actors::Actors,
@@ -1117,8 +1119,11 @@ impl Scenario {
         } else if level.gen_env.is_none() && self.gen_env {
             level.gen_env = Some(super::feature_harness::gen_env(4242));
         }
-        if self.flat_structures && self.opts.flat && dimension == "overworld" {
-            level.gen_env = Some(super::feature_harness::flat_gen_env(self.opts.seed));
+        if self.flat_structures && !self.opts.normal {
+            level.gen_env = Some(super::feature_harness::flat_gen_env_in(
+                dimension,
+                self.opts.seed,
+            ));
         }
         // the void levels of a multi-level server generate like the oracle's: the flat generator's plains, no structures (`/locate`)
         if !self.dims.is_empty() && noise_world.is_none() {

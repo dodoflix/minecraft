@@ -1,0 +1,270 @@
+T 1
+B -2 62 -1 minecraft:oak_planks
+B 0 59 0 minecraft:end_stone
+B 0 59 2 minecraft:cobblestone
+B 0 60 0 minecraft:stone
+B 1 63 0 minecraft:oak_planks
+B 2 59 0 minecraft:stone
+# the active podium: items drop for every block it replaced that was not already the wanted block
+CF msg Placed feature at 0, 60, 0
+CF result success 1
+T 2
+EV level_event r=64.0 ex=0 type=2001 pos=-2,62,-1 data=15 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,60,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,63,0 data=15 global=0
+B -3 59 -1 minecraft:end_stone
+B -3 59 0 minecraft:end_stone
+B -3 59 1 minecraft:end_stone
+B -3 60 -1 minecraft:bedrock
+B -3 60 0 minecraft:bedrock
+B -3 60 1 minecraft:bedrock
+B -2 59 -2 minecraft:end_stone
+B -2 59 -1 minecraft:bedrock
+B -2 59 0 minecraft:bedrock
+B -2 59 1 minecraft:bedrock
+B -2 59 2 minecraft:end_stone
+B -2 60 -2 minecraft:bedrock
+B -2 60 -1 minecraft:end_portal
+B -2 60 0 minecraft:end_portal
+B -2 60 1 minecraft:end_portal
+B -2 60 2 minecraft:bedrock
+B -1 59 -3 minecraft:end_stone
+B -1 59 -2 minecraft:bedrock
+B -1 59 -1 minecraft:bedrock
+B -1 59 0 minecraft:bedrock
+B -1 59 1 minecraft:bedrock
+B -1 59 2 minecraft:bedrock
+B -1 59 3 minecraft:end_stone
+B -1 60 -3 minecraft:bedrock
+B -1 60 -2 minecraft:end_portal
+B -1 60 -1 minecraft:end_portal
+B -1 60 0 minecraft:end_portal
+B -1 60 1 minecraft:end_portal
+B -1 60 2 minecraft:end_portal
+B -1 60 3 minecraft:bedrock
+B -1 62 0 minecraft:wall_torch[facing=west]
+B 0 59 -3 minecraft:end_stone
+B 0 59 -2 minecraft:bedrock
+B 0 59 -1 minecraft:bedrock
+B 0 59 0 minecraft:bedrock
+B 0 59 1 minecraft:bedrock
+B 0 59 2 minecraft:bedrock
+B 0 59 3 minecraft:end_stone
+B 0 60 -3 minecraft:bedrock
+B 0 60 -2 minecraft:end_portal
+B 0 60 -1 minecraft:end_portal
+B 0 60 0 minecraft:bedrock
+B 0 60 1 minecraft:end_portal
+B 0 60 2 minecraft:end_portal
+B 0 60 3 minecraft:bedrock
+B 0 61 0 minecraft:bedrock
+B 0 62 -1 minecraft:wall_torch[facing=north]
+B 0 62 0 minecraft:bedrock
+B 0 62 1 minecraft:wall_torch[facing=south]
+B 0 63 0 minecraft:bedrock
+B 1 59 -3 minecraft:end_stone
+B 1 59 -2 minecraft:bedrock
+B 1 59 -1 minecraft:bedrock
+B 1 59 0 minecraft:bedrock
+B 1 59 1 minecraft:bedrock
+B 1 59 2 minecraft:bedrock
+B 1 59 3 minecraft:end_stone
+B 1 60 -3 minecraft:bedrock
+B 1 60 -2 minecraft:end_portal
+B 1 60 -1 minecraft:end_portal
+B 1 60 0 minecraft:end_portal
+B 1 60 1 minecraft:end_portal
+B 1 60 2 minecraft:end_portal
+B 1 60 3 minecraft:bedrock
+B 1 62 0 minecraft:wall_torch[facing=east]
+B 2 59 -2 minecraft:end_stone
+B 2 59 -1 minecraft:bedrock
+B 2 59 0 minecraft:bedrock
+B 2 59 1 minecraft:bedrock
+B 2 59 2 minecraft:end_stone
+B 2 60 -2 minecraft:bedrock
+B 2 60 -1 minecraft:end_portal
+B 2 60 0 minecraft:end_portal
+B 2 60 1 minecraft:end_portal
+B 2 60 2 minecraft:bedrock
+B 3 59 -1 minecraft:end_stone
+B 3 59 0 minecraft:end_stone
+B 3 59 1 minecraft:end_stone
+B 3 60 -1 minecraft:bedrock
+B 3 60 0 minecraft:bedrock
+B 3 60 1 minecraft:bedrock
+BE 0 60 0 -
+E item#1 minecraft:item pos=-1.4313226553993224,62.32912920483811,-0.5171604446425752 delta=-0.04565093635091896,0.1568000030517578,-0.011380465398520263 rot=173.9249,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.4101831456732284,60.469299195614155,0.855061164144995 delta=-0.06932075375494116,0.11760000228881835,0.2510808975687979 rot=318.3663,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.3649974545285242,63.664980413906896,0.438098490837213 delta=-0.023408474838965885,0.1568000030517578,0.07690671657408912 rot=124.3297,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*1 age=1 pickup=9 health=5 owner=- thrower=-
+# placing it again changes nothing: the blocks are the wanted ones, so nothing drops
+CF msg Placed feature at 0, 60, 0
+CF result success 1
+T 3
+EV level_event r=64.0 ex=0 type=2001 pos=0,62,-1 data=4927 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,60,0 data=88 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,61,0 data=88 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=-1,62,0 data=4929 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,62,0 data=88 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,62,0 data=4930 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,62,1 data=4928 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,63,0 data=88 global=0
+B -3 59 -1 minecraft:end_stone
+B -3 59 0 minecraft:end_stone
+B -3 59 1 minecraft:end_stone
+B -3 60 -1 minecraft:bedrock
+B -3 60 0 minecraft:bedrock
+B -3 60 1 minecraft:bedrock
+B -2 59 -2 minecraft:end_stone
+B -2 59 -1 minecraft:bedrock
+B -2 59 0 minecraft:bedrock
+B -2 59 1 minecraft:bedrock
+B -2 59 2 minecraft:end_stone
+B -2 60 -2 minecraft:bedrock
+B -2 60 -1 minecraft:end_portal
+B -2 60 0 minecraft:end_portal
+B -2 60 1 minecraft:end_portal
+B -2 60 2 minecraft:bedrock
+B -1 59 -3 minecraft:end_stone
+B -1 59 -2 minecraft:bedrock
+B -1 59 -1 minecraft:bedrock
+B -1 59 0 minecraft:bedrock
+B -1 59 1 minecraft:bedrock
+B -1 59 2 minecraft:bedrock
+B -1 59 3 minecraft:end_stone
+B -1 60 -3 minecraft:bedrock
+B -1 60 -2 minecraft:end_portal
+B -1 60 -1 minecraft:end_portal
+B -1 60 0 minecraft:end_portal
+B -1 60 1 minecraft:end_portal
+B -1 60 2 minecraft:end_portal
+B -1 60 3 minecraft:bedrock
+B -1 62 0 minecraft:wall_torch[facing=west]
+B 0 59 -3 minecraft:end_stone
+B 0 59 -2 minecraft:bedrock
+B 0 59 -1 minecraft:bedrock
+B 0 59 0 minecraft:bedrock
+B 0 59 1 minecraft:bedrock
+B 0 59 2 minecraft:bedrock
+B 0 59 3 minecraft:end_stone
+B 0 60 -3 minecraft:bedrock
+B 0 60 -2 minecraft:end_portal
+B 0 60 -1 minecraft:end_portal
+B 0 60 0 minecraft:bedrock
+B 0 60 1 minecraft:end_portal
+B 0 60 2 minecraft:end_portal
+B 0 60 3 minecraft:bedrock
+B 0 61 0 minecraft:bedrock
+B 0 62 -1 minecraft:wall_torch[facing=north]
+B 0 62 0 minecraft:bedrock
+B 0 62 1 minecraft:wall_torch[facing=south]
+B 0 63 0 minecraft:bedrock
+B 1 59 -3 minecraft:end_stone
+B 1 59 -2 minecraft:bedrock
+B 1 59 -1 minecraft:bedrock
+B 1 59 0 minecraft:bedrock
+B 1 59 1 minecraft:bedrock
+B 1 59 2 minecraft:bedrock
+B 1 59 3 minecraft:end_stone
+B 1 60 -3 minecraft:bedrock
+B 1 60 -2 minecraft:end_portal
+B 1 60 -1 minecraft:end_portal
+B 1 60 0 minecraft:end_portal
+B 1 60 1 minecraft:end_portal
+B 1 60 2 minecraft:end_portal
+B 1 60 3 minecraft:bedrock
+B 1 62 0 minecraft:wall_torch[facing=east]
+B 2 59 -2 minecraft:end_stone
+B 2 59 -1 minecraft:bedrock
+B 2 59 0 minecraft:bedrock
+B 2 59 1 minecraft:bedrock
+B 2 59 2 minecraft:end_stone
+B 2 60 -2 minecraft:bedrock
+B 2 60 -1 minecraft:end_portal
+B 2 60 0 minecraft:end_portal
+B 2 60 1 minecraft:end_portal
+B 2 60 2 minecraft:bedrock
+B 3 59 -1 minecraft:end_stone
+B 3 59 0 minecraft:end_stone
+B 3 59 1 minecraft:end_stone
+B 3 60 -1 minecraft:bedrock
+B 3 60 0 minecraft:bedrock
+B 3 60 1 minecraft:bedrock
+E item#1 minecraft:item pos=-1.4769735917502413,62.44592920788987,-0.5285409100410954 delta=-0.04473791849462309,0.11446400521850592,-0.011152856307615009 rot=173.9249,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.3581925803570225,60.52749919733077,1.1079380121274016 delta=-0.05095075500152309,0.05703600279235843,0.2478193158460016 rot=318.3663,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.3415889796895584,63.781780416958654,0.5150052074113021 delta=-0.022940305788667792,0.11446400521850592,0.07536858370948654 rot=124.3297,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.6384536709408644,62.5446973442658,1.5543845504588372 delta=-0.07644381193757321,0.1568000030517578,0.020888780562177866 rot=270.7286,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:torch*1 age=1 pickup=9 health=5 owner=- thrower=-
+# the inactive podium over the active one: plain blocks, the portal block becomes air
+CF msg Placed feature at 0, 60, 0
+CF result success 1
+T 4
+EV level_event r=64.0 ex=0 type=2001 pos=1,62,0 data=4930 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,62,1 data=4928 global=0
+B -3 59 -1 minecraft:end_stone
+B -3 59 0 minecraft:end_stone
+B -3 59 1 minecraft:end_stone
+B -3 60 -1 minecraft:bedrock
+B -3 60 0 minecraft:bedrock
+B -3 60 1 minecraft:bedrock
+B -2 59 -2 minecraft:end_stone
+B -2 59 -1 minecraft:bedrock
+B -2 59 0 minecraft:bedrock
+B -2 59 1 minecraft:bedrock
+B -2 59 2 minecraft:end_stone
+B -2 60 -2 minecraft:bedrock
+B -2 60 2 minecraft:bedrock
+B -1 59 -3 minecraft:end_stone
+B -1 59 -2 minecraft:bedrock
+B -1 59 -1 minecraft:bedrock
+B -1 59 0 minecraft:bedrock
+B -1 59 1 minecraft:bedrock
+B -1 59 2 minecraft:bedrock
+B -1 59 3 minecraft:end_stone
+B -1 60 -3 minecraft:bedrock
+B -1 60 3 minecraft:bedrock
+B -1 62 0 minecraft:wall_torch[facing=west]
+B 0 59 -3 minecraft:end_stone
+B 0 59 -2 minecraft:bedrock
+B 0 59 -1 minecraft:bedrock
+B 0 59 0 minecraft:bedrock
+B 0 59 1 minecraft:bedrock
+B 0 59 2 minecraft:bedrock
+B 0 59 3 minecraft:end_stone
+B 0 60 -3 minecraft:bedrock
+B 0 60 0 minecraft:bedrock
+B 0 60 3 minecraft:bedrock
+B 0 61 0 minecraft:bedrock
+B 0 62 -1 minecraft:wall_torch[facing=north]
+B 0 62 0 minecraft:bedrock
+B 0 62 1 minecraft:wall_torch[facing=south]
+B 0 63 0 minecraft:bedrock
+B 1 59 -3 minecraft:end_stone
+B 1 59 -2 minecraft:bedrock
+B 1 59 -1 minecraft:bedrock
+B 1 59 0 minecraft:bedrock
+B 1 59 1 minecraft:bedrock
+B 1 59 2 minecraft:bedrock
+B 1 59 3 minecraft:end_stone
+B 1 60 -3 minecraft:bedrock
+B 1 60 3 minecraft:bedrock
+B 1 62 0 minecraft:wall_torch[facing=east]
+B 2 59 -2 minecraft:end_stone
+B 2 59 -1 minecraft:bedrock
+B 2 59 0 minecraft:bedrock
+B 2 59 1 minecraft:bedrock
+B 2 59 2 minecraft:end_stone
+B 2 60 -2 minecraft:bedrock
+B 2 60 2 minecraft:bedrock
+B 3 59 -1 minecraft:end_stone
+B 3 59 0 minecraft:end_stone
+B 3 59 1 minecraft:end_stone
+B 3 60 -1 minecraft:bedrock
+B 3 60 0 minecraft:bedrock
+B 3 60 1 minecraft:bedrock
+BE 0 60 0 -
+E item#1 minecraft:item pos=-1.5217115102448644,62.52039321310838,-0.5396937663487104 delta=-0.043843160978038705,0.07297472653442398,-0.01092979939418656 rot=173.9249,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=0.3199795141058802,60.76885267933875,1.2938024990119028 delta=-0.03744880565497587,0.23652641697127308,0.1821472006918949 rot=318.3663,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=1.3186486739008907,63.85624442217716,0.5903737911207886 delta=-0.022481500110446046,0.07297472653442398,0.07386121347283846 rot=124.3297,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:oak_planks*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=0.5620098590032911,62.66149734731756,1.575273331021015 delta=-0.07491493715687175,0.11446400521850592,0.02047100534935618 rot=270.7286,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:torch*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#5 minecraft:item pos=1.6988436399263869,62.659584801566815,0.410532073722185 delta=0.08182423811096244,0.1568000030517578,-0.013350322497408517 rot=256.6141,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:torch*1 age=1 pickup=9 health=5 owner=- thrower=-
+E item#6 minecraft:item pos=0.6258992638739291,62.6390885788884,1.5194174678583707 delta=-0.07128452273457289,0.1568000030517578,0.09159087923712253 rot=189.7344,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:torch*1 age=1 pickup=9 health=5 owner=- thrower=-

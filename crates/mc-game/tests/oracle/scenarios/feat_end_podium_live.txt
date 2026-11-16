@@ -1,0 +1,32 @@
+# EndPodiumFeature placed with `/place feature` on the live End level: the active podium destroys what stood in its way with drops (stone, a planks block above, an
+# existing end stone floor left alone) and opens the end portal block with its block entity; the inactive one writes plain blocks. The level random is pinned.
+command_env
+level void
+end void
+dimension the_end
+preload 2
+level_seed 5
+entity_counter 400
+watch events
+block 2 59 0 minecraft:stone
+block 0 59 2 minecraft:cobblestone
+block 0 60 0 minecraft:stone
+block 1 63 0 minecraft:oak_planks
+block -2 62 -1 minecraft:oak_planks
+block 0 59 0 minecraft:end_stone
+tick 1
+dump blocks:-5,58,-5,5,66,5 events
+note the active podium: items drop for every block it replaced that was not already the wanted block
+cmd execute in minecraft:the_end run place feature {"type":"minecraft:end_podium","active":true} 0 60 0
+tick 1
+dump blocks:-5,58,-5,5,66,5 be:0,60,0 xentities events
+level_seed 6
+note placing it again changes nothing: the blocks are the wanted ones, so nothing drops
+cmd execute in minecraft:the_end run place feature {"type":"minecraft:end_podium","active":true} 0 60 0
+tick 1
+dump blocks:-5,58,-5,5,66,5 xentities events
+note the inactive podium over the active one: plain blocks, the portal block becomes air
+level_seed 7
+cmd execute in minecraft:the_end run place feature {"type":"minecraft:end_podium","active":false} 0 60 0
+tick 1
+dump blocks:-5,58,-5,5,66,5 be:0,60,0 xentities events

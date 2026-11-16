@@ -144,6 +144,7 @@ mod explosion_entities_golden;
 mod explosion_golden;
 mod explosion_world_golden;
 mod farm_animals_scenarios;
+mod feat_end_live_golden;
 mod feat_ores_golden;
 mod feat_underground_golden;
 mod feature_registries_load;
