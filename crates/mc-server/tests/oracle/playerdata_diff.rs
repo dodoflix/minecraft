@@ -5,8 +5,9 @@
 use std::path::Path;
 use std::time::Duration;
 
+use crate::common::world_diff::{Rules, diff_compound, sort_unordered};
 use crate::common::*;
-use mc_nbt::{CompoundTag, ListTag, Tag, snbt};
+use mc_nbt::{CompoundTag, ListTag, snbt};
 use mc_testbot::harness::vanilla;
 
 fn player_file(dir: &Path) -> std::path::PathBuf {
@@ -24,24 +25,6 @@ fn read_dat(dir: &Path) -> CompoundTag {
     let bytes = std::fs::read(file).expect("read dat");
     mc_nbt::compress::read_compressed(&bytes, &mut mc_nbt::NbtAccounter::unlimited_heap())
         .expect("nbt")
-}
-
-fn kind(t: &Tag) -> &'static str {
-    match t {
-        Tag::End => "end",
-        Tag::Byte(_) => "byte",
-        Tag::Short(_) => "short",
-        Tag::Int(_) => "int",
-        Tag::Long(_) => "long",
-        Tag::Float(_) => "float",
-        Tag::Double(_) => "double",
-        Tag::ByteArray(_) => "byte[]",
-        Tag::String(_) => "string",
-        Tag::List(_) => "list",
-        Tag::Compound(_) => "compound",
-        Tag::IntArray(_) => "int[]",
-        Tag::LongArray(_) => "long[]",
-    }
 }
 
 /// How far two numbers of the two servers may be apart and still count as equal.
@@ -66,69 +49,6 @@ fn tolerance(path: &str, slack: Slack) -> f64 {
         ".warden_spawn_tracker.ticks_since_last_warning" => 400.0,
         p if p.starts_with(".active_effects[") && p.ends_with(".duration") => 400.0,
         _ => 0.0,
-    }
-}
-
-fn diff_tag(path: &str, v: &Tag, o: &Tag, slack: Slack, out: &mut Vec<String>) {
-    match (v, o) {
-        (Tag::Compound(a), Tag::Compound(b)) => diff_compound(path, a, b, slack, out),
-        (Tag::List(a), Tag::List(b)) => {
-            let (a, b): (Vec<&Tag>, Vec<&Tag>) = (a.iter().collect(), b.iter().collect());
-            if a.len() != b.len() {
-                out.push(format!(
-                    "{path}: list length vanilla {} ours {}",
-                    a.len(),
-                    b.len()
-                ));
-            }
-            for (i, (x, y)) in a.iter().zip(b.iter()).enumerate() {
-                diff_tag(&format!("{path}[{i}]"), x, y, slack, out);
-            }
-        }
-        _ if kind(v) != kind(o) => out.push(format!(
-            "{path}: type vanilla {} ({v:?}) ours {} ({o:?})",
-            kind(v),
-            kind(o)
-        )),
-        _ if v != o => {
-            let near = v.as_number().zip(o.as_number()).is_some_and(|(a, b)| {
-                (a.double_value() - b.double_value()).abs() <= tolerance(path, slack)
-            });
-            if !near {
-                out.push(format!("{path}: vanilla {v:?} ours {o:?}"));
-            }
-        }
-        _ => {}
-    }
-}
-
-fn diff_compound(
-    path: &str,
-    v: &CompoundTag,
-    o: &CompoundTag,
-    slack: Slack,
-    out: &mut Vec<String>,
-) {
-    for (k, vv) in v.iter() {
-        match o.get(k) {
-            None => out.push(format!("{path}.{k}: missing in ours (vanilla {vv:?})")),
-            Some(ov) => diff_tag(&format!("{path}.{k}"), vv, ov, slack, out),
-        }
-    }
-    for (k, ov) in o.iter() {
-        if v.get(k).is_none() {
-            out.push(format!("{path}.{k}: extra in ours ({ov:?})"));
-        }
-    }
-    let common = |c: &CompoundTag, other: &CompoundTag| {
-        c.keys()
-            .filter(|k| other.get(k).is_some())
-            .cloned()
-            .collect::<Vec<_>>()
-    };
-    let (kv, ko) = (common(v, o), common(o, v));
-    if kv != ko {
-        out.push(format!("{path}: key order vanilla {kv:?} ours {ko:?}"));
     }
 }
 
@@ -263,7 +183,12 @@ async fn playerdata_matches_vanilla() {
             standing = v.get_list("Pos").cloned();
         }
         let mut d = Vec::new();
-        diff_compound("", &v, &o, slack, &mut d);
+        let rules = Rules {
+            tolerance: &|p| tolerance(p, slack),
+            ignore: &|_| false,
+            unordered: &|_| false,
+        };
+        diff_compound("", &v, &o, &rules, &mut d);
         println!("=== {name}: {} differences", d.len());
         for l in &d {
             println!("{l}");
@@ -276,38 +201,4 @@ async fn playerdata_matches_vanilla() {
         "player data differences:\n{}",
         report.join("\n")
     );
-}
-
-/// `attributes` is written in `Object2ObjectOpenHashMap<Holder<Attribute>, _>` order and the recipe book in the order
-/// of identity-hashed sets (`Holder.Reference` hashes by identity, so even two vanilla runs disagree): compare them as
-/// sets (attributes sorted by id, recipes by name).
-fn sort_unordered(c: &mut CompoundTag) {
-    let sorted = |list: &ListTag, key: fn(&Tag) -> String| {
-        let mut v: Vec<_> = list.iter().cloned().collect();
-        v.sort_by_key(key);
-        let mut l = ListTag::new();
-        for t in v {
-            l.push(t);
-        }
-        l
-    };
-    if let Some(list) = c.get_list("attributes") {
-        let sorted = sorted(list, |t| {
-            t.as_compound()
-                .and_then(|c| c.get_string("id"))
-                .unwrap_or("")
-                .to_string()
-        });
-        c.put("attributes", sorted);
-    }
-    if let Some(book) = c.get_compound("recipeBook") {
-        let mut book = book.clone();
-        for key in ["recipes", "toBeDisplayed"] {
-            if let Some(list) = book.get_list(key) {
-                let sorted = sorted(list, |t| t.as_string().unwrap_or("").to_string());
-                book.put(key, sorted);
-            }
-        }
-        c.put("recipeBook", book);
-    }
 }

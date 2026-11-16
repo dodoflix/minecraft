@@ -6,6 +6,7 @@
 use std::time::Duration;
 
 pub mod dual;
+pub mod world_diff;
 
 use mc_core::direction::Direction;
 use mc_core::pos::block_pos::BlockPos;

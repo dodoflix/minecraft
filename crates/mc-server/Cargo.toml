@@ -24,6 +24,7 @@ mc-testkit = { path = "../mc-testkit" }
 mc-text = { path = "../mc-text" }
 indexmap = { workspace = true }
 parking_lot = { workspace = true }
+serde_json = { workspace = true }
 tempfile = { workspace = true }
 tokio = { workspace = true, features = ["io-util", "net", "rt", "macros", "time", "sync", "rt-multi-thread"] }
 uuid = { workspace = true }

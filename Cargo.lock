@@ -1406,6 +1406,7 @@ dependencies = [
  "mc-text",
  "mc-world",
  "parking_lot",
+ "serde_json",
  "tempfile",
  "tokio",
  "uuid",

@@ -31,4 +31,5 @@ mod record_setblock;
 mod server_properties_dual;
 mod vanilla_play;
 mod world_commands_dual;
+mod world_save_compare;
 mod world_settings;

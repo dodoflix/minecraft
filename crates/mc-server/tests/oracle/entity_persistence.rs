@@ -11,7 +11,7 @@ static SYNC: AtomicU32 = AtomicU32::new(0);
 
 /// Runs `command` and returns the log lines it produced: a following `say` marks the end (the console runs commands in
 /// order on the server thread).
-fn ask(server: &Server, command: &str) -> String {
+pub(crate) fn ask(server: &Server, command: &str) -> String {
     let before = server.log().lines().count();
     server.cmd(command);
     let marker = format!("sync-{}", SYNC.fetch_add(1, Ordering::Relaxed));
@@ -28,7 +28,7 @@ fn ask(server: &Server, command: &str) -> String {
         .join("\n")
 }
 
-fn expect(server: &Server, command: &str, answer: &str) {
+pub(crate) fn expect(server: &Server, command: &str, answer: &str) {
     let got = ask(server, command);
     assert!(
         got.contains(answer),
@@ -38,7 +38,7 @@ fn expect(server: &Server, command: &str, answer: &str) {
 }
 
 /// [`expect`] for an answer that needs ticks to arrive (chunks load and unload asynchronously).
-fn eventually(server: &Server, command: &str, answer: &str) {
+pub(crate) fn eventually(server: &Server, command: &str, answer: &str) {
     let deadline = std::time::Instant::now() + Duration::from_secs(40);
     loop {
         let got = ask(server, command);
