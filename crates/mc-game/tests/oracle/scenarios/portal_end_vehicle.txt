@@ -1,0 +1,36 @@
+# A vehicle in an end portal: leaving the End, a boat that carries a player who has not seen the credits cannot teleport (the credits rule
+# of canTeleport) and neither can the player (a passenger does not use portals); with the credits seen the boat takes its rider to the world
+# spawn. Entering the End the boat and its rider arrive on the platform together.
+level void
+command_env
+end void
+nether void
+levels overworld,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+gamerule respawn_radius 0
+fill -2 59 -2 14 59 2 minecraft:bedrock
+in the_end fill -2 59 -2 14 59 2 minecraft:bedrock
+in the_end fill -1 60 -1 1 60 1 minecraft:end_portal
+in the_end fill 11 60 -1 13 60 1 minecraft:end_portal
+in the_end spawn_player A creative 0.5 60 0.5 0 0 sim
+in the_end spawn_player B creative 12.5 60 0.5 0 0 sim
+in the_end spawn bt1 minecraft:oak_boat 0.5 60 0.5 0 0
+in the_end spawn bt2 minecraft:oak_boat 12.5 60 0.5 0 0
+in the_end ride A bt1
+in the_end ride B bt2
+set B seen_credits true
+tick 1
+dump levels players entities
+tick 4
+dump levels players player:A player:B entities packets:A:game_event,respawn,player_position packets:B:game_event,respawn,player_position
+note a rider enters the End in a boat
+fill -1 60 -1 1 60 1 minecraft:end_portal
+spawn bt3 minecraft:oak_boat 0.5 61 0.5 0 0
+spawn_player C creative 4.5 61 0.5 0 0 sim
+ride C bt3
+tick 1
+dump levels players entities
+tick 4
+dump levels players player:C entities packets:C:game_event,respawn,player_position,set_passengers

@@ -1,0 +1,149 @@
+CF msg Game rule respawn_radius is now set to 0
+CF result success 0
+LEVEL minecraft:overworld gametime=3 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=3 forced=25 loaded=1225 players=2 border=5.9999968E7
+PL A dim=minecraft:the_end
+PL B dim=minecraft:the_end
+T 4
+PORTAL A cooldown=0 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=38.600000001490116,70.0,0.5 delta=0.0546000071555377,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=35.63000001013279,70.0,0.5 delta=0.07098001377701824,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:4L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 5
+PORTAL A cooldown=0 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=38.75460001013577,70.0,0.5 delta=0.08441161452515782,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=35.8309800340426,70.0,0.5 delta=0.10973510580077596,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:5L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 6
+PORTAL A cooldown=0 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=38.93901162615104,70.0,0.5 delta=0.10068875403960292,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=36.07071514997616,70.0,0.5 delta=0.1308953885035701,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:6L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 7
+PORTAL A cooldown=0 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=39.13970038168076,70.0,0.5 delta=0.10957607324677543,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=36.33161054861252,70.0,0.5 delta=0.1424489042012669,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:7L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 8
+PORTAL A cooldown=0 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=39.349276456417655,70.0,0.5 delta=0.11442855009751955,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=36.60405946294657,70.0,0.5 delta=0.14875712450492573,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:8L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 9
+PORTAL A cooldown=0 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=39.56370500800529,70.0,0.5 delta=0.11707800276576674,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=36.88281659758429,70.0,0.5 delta=0.15220141319078664,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:9L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 10
+PORTAL A cooldown=0 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=39.780783012261175,70.0,0.5 delta=0.11852460409065624,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=37.165018020907866,70.0,0.5 delta=0.15408199503170122,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:10L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 11
+PORTAL A cooldown=0 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=39.99930761784195,70.0,0.5 delta=0.11931444850578841,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=37.44910002607236,70.0,0.5 delta=0.15510879283610585,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:11L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+PKT A minecraft:sound 77c90c070000012b00000230000000043e19999a3f8000003135ea5eb6d2225b
+T 12
+PORTAL A cooldown=0 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=40.218622067837856,70.0,0.5 delta=0.119745703606542,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=37.73420882904125,70.0,0.5 delta=0.15566942450242963,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:12L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+PKT B minecraft:sound 77c90c070000014100000230000000043e19999a3f800000bafdb3530a59cca8
+T 13
+PORTAL A cooldown=0 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=40.43836777293451,70.0,0.5 delta=0.11998116891890338,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=38.01987826367647,70.0,0.5 delta=0.15597552942779727,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:13L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 14
+PORTAL A cooldown=0 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=40.65834894334353,70.0,0.5 delta=0.12010973299438572,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=38.305853803237056,70.0,0.5 delta=0.156142662736461,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:14L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 15
+PORTAL A cooldown=0 time=0
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=40.878458677828036,70.0,0.5 delta=0.12017992898775254,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=38.59199647610631,70.0,0.5 delta=0.15623391753359087,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:15L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 16
+PORTAL A cooldown=10 time=1
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=18.600000001490116,70.0,-3.5 delta=0.0546000071555377,-0.0784000015258789,0.0 rot=-90.0,5.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=38.87823040377269,70.0,0.5 delta=0.15628374265861109,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:16L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+PKT A minecraft:player_position 490240328000000000004051800000000000c00c0000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+T 17
+PORTAL A cooldown=9 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=18.67460000819862,70.0,-3.5 delta=0.06788600806120064,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=39.16451415656409,70.0,0.5 delta=0.15631094718003202,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:17L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 18
+PORTAL A cooldown=8 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=18.842486017749938,70.0,-3.5 delta=0.09166577186223922,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=39.45082511387691,70.0,0.5 delta=0.15632580085045314,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:18L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 19
+PORTAL A cooldown=7 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=19.034151791102293,70.0,-3.5 delta=0.10464952440570326,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=39.73715092486015,70.0,0.5 delta=0.15633391095544508,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:19L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 20
+PORTAL A cooldown=6 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=19.238801316998114,70.0,-3.5 delta=0.11173865411785565,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=40.02348484594839,70.0,0.5 delta=0.156338339073285,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:20L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+PKT A minecraft:set_time 73000000000000001300
+T 21
+PORTAL A cooldown=5 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=19.450539972606084,70.0,-3.5 delta=0.11560931939027881,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=40.309823195154465,70.0,0.5 delta=0.15634075682590642,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:21L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 22
+PORTAL A cooldown=4 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=19.66614929348648,70.0,-3.5 delta=0.11772270287449689,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=40.59616396211316,70.0,0.5 delta=0.15634207691899107,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:22L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 23
+PORTAL A cooldown=3 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=19.88387199785109,70.0,-3.5 delta=0.11887661039090935,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=40.88250604916494,70.0,0.5 delta=0.156342797689899,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:23L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 24
+PORTAL A cooldown=2 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=20.102748609732117,70.0,-3.5 delta=0.11950664396805062,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=41.16884885698763,70.0,0.5 delta=0.15634319123086046,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:24L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+T 25
+PORTAL A cooldown=1 time=-
+PORTAL B cooldown=0 time=-
+P A minecraft:player pos=20.322255255190285,70.0,-3.5 delta=0.11985064234112607,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=41.45519205835128,70.0,0.5 delta=0.15634340610425038,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:25L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}
+LEVEL minecraft:overworld gametime=29 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=29 forced=25 loaded=1225 players=2 border=5.9999968E7
+PL A dim=minecraft:the_end
+PL B dim=minecraft:the_end
+P A minecraft:player pos=20.56278201421494,70.0,-3.5 delta=0.010651508997982667,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=41.76895568973923,70.0,0.5 delta=0.013894737352803036,-0.0784000015258789,0.0 rot=-90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=6.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 41 70 0 {Age:29L,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:70,z:0}

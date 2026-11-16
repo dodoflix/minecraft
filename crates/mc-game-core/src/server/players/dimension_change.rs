@@ -213,9 +213,14 @@ pub fn teleport_taken_out(
         level.stop_riding(entity);
     }
     if other_dimension {
-        teleport_cross_dimension(server, level, entity, t)
+        let is_end = |d: &DimensionKey| d.namespace() == "minecraft" && d.path() == "the_end";
+        let from_or_to_end = is_end(&level.dimension) || is_end(&t.level);
+        let new_id = teleport_cross_dimension(server, level, entity, t);
+        entity.teleport_done(from_or_to_end, new_id.is_some());
+        new_id
     } else {
         teleport_same_dimension(level, entity, t);
+        entity.teleport_done(false, false);
         Some(entity.id())
     }
 }
@@ -362,7 +367,7 @@ fn teleport_player_cross_dimension(
         }
         // `setServerLevel(newLevel)`
         player.dimension = destination.clone();
-        player.connection_teleport_pmr(t.position_move_rotation(), t.relatives);
+        player.connection_teleport_into(new_level, t.position_move_rotation(), t.relatives);
         player.reset_position_after_teleport();
         player.sync_handle();
         old_level.stop_tracking_player_chunks(id);

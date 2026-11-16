@@ -1,0 +1,52 @@
+# Entering the End through an end portal block: the obsidian platform at the End spawn is created (blocks in its way are destroyed with drops), a player
+# arrives one block lower, facing west, with its movement kept; an item, an arrow and a mob arrive as new entities at the spawn point; a second
+# player finds the platform in place. The vanilla End level carries no fight (`end void`).
+level void
+command_env
+end void
+nether void
+levels overworld,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+note blocks in the platform's way: stone, a chest-less diamond block and a torch above the floor
+in the_end block 100 49 0 minecraft:stone
+in the_end block 101 49 1 minecraft:diamond_block
+in the_end block 99 50 -1 minecraft:torch
+in the_end block 98 48 -2 minecraft:obsidian
+spawn_player A creative 0.5 -60 0.5 270 20 sim
+tick 1
+dump levels players packets:A:none
+block 0 -61 0 minecraft:end_portal
+block 0 -60 0 minecraft:end_portal
+block 0 -59 0 minecraft:end_portal
+level_seed 11
+watch portal:A events packets:A:respawn,player_position,set_default_spawn_position,initialize_border,set_time,game_event,sound,level_event,teleport_entity,player_info_update
+tick 4
+watch off
+dump levels players player:A portal:A
+in the_end dump blocks:96,47,-4,104,53,4 entities
+tick 3
+dump levels players player:A portal:A
+in the_end dump entities
+note a stronghold ring: the last eye opens the portal (global level event), a second player walks in and finds the platform in place
+fill 31 -60 30 33 -60 30 minecraft:end_portal_frame[eye=true,facing=south]
+fill 31 -60 34 33 -60 34 minecraft:end_portal_frame[eye=true,facing=north]
+fill 30 -60 31 30 -60 33 minecraft:end_portal_frame[eye=true,facing=east]
+fill 34 -60 31 34 -60 33 minecraft:end_portal_frame[eye=true,facing=west]
+block 32 -60 30 minecraft:end_portal_frame[eye=false,facing=south]
+spawn_player D creative 32.5 -60 27.5 0 0 sim
+give D hotbar0 minecraft:ender_eye 1
+select D 0
+tick 3
+watch events packets:D:level_event
+use_on D 32 -60 30 up main
+tick 2
+watch off
+dump blocks:30,-60,30,34,-60,34 inventory:D
+snap D 32.5 -60 32.5 270 0
+watch portal:D packets:D:respawn,player_position,game_event,sound,level_event events
+tick 4
+watch off
+dump levels players player:D portal:D
+in the_end dump blocks:96,47,-4,104,53,4 entities

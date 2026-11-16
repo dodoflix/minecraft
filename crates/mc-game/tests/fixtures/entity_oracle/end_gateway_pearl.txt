@@ -1,0 +1,52 @@
+CF msg Game rule respawn_radius is now set to 0
+CF result success 0
+LEVEL minecraft:overworld gametime=2 forced=25 loaded=1089 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=2 forced=25 loaded=1225 players=2 border=5.9999968E7
+PL A dim=minecraft:the_end
+PL B dim=minecraft:the_end
+# A throws a pearl at the exact gateway
+T 3
+PORTAL A cooldown=0 time=-
+E ender_pearl#1 minecraft:ender_pearl pos=39.93533361611221,76.13593106268277,0.48842864416334675 delta=1.4353336161122106,-0.38406894059548224,-0.011571355836653256 rot=90.46188,-14.090263 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+PKT A minecraft:sound 77e104060000013400000258000000043f0000003ebc48cd3135ea5eb6d2225b
+T 4
+PORTAL A cooldown=0 time=-
+E ender_pearl#1 minecraft:ender_pearl pos=20.5,70.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=A leftowner=1 shot=1 canbreak=0
+PKT A minecraft:teleport_entity 800167403480000000000040518000000000003fe000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+T 5
+PORTAL A cooldown=9 time=-
+PKT A minecraft:player_position 4902403480000000000040518000000000003fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT A minecraft:sound 77af0a07000000a400000230000000043f8000003f800000bafdb3530a59cca8
+T 6
+PORTAL A cooldown=8 time=-
+T 7
+PORTAL A cooldown=7 time=-
+T 8
+PORTAL A cooldown=6 time=-
+LEVEL minecraft:overworld gametime=8 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=8 forced=25 loaded=1225 players=2 border=5.9999968E7
+PL A dim=minecraft:the_end
+PL B dim=minecraft:the_end
+P A minecraft:player pos=20.5,70.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,14.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*4
+# B throws a pearl at the other gateway
+T 9
+E ender_pearl#2 minecraft:ender_pearl pos=39.951967095704525,76.13425232229055,4.5058272879667225 delta=1.4519670957045276,-0.3857476809877045,0.00582728796672214 rot=89.77005,-13.998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=B leftowner=1 shot=1 canbreak=0
+PKT B minecraft:sound 77e104060000013400000258000000043f0000003ebc48cd3135ea5eb6d2225b
+PKT B minecraft:teleport_entity 800167403480000000000040518000000000003fe000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT B minecraft:sound 77e104060000013400000258000000243f0000003ebac98cf818e87da930e71d
+T 10
+E ender_pearl#2 minecraft:ender_pearl pos=23.5,70.0,-3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=B leftowner=1 shot=1 canbreak=0
+PKT B minecraft:teleport_entity 80016840378000000000004051800000000000c00c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+T 11
+PKT B minecraft:player_position 490240378000000000004051800000000000c00c000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT B minecraft:sound 77af0a07000000bc00000230ffffffe43f8000003f80000080bd34e75cd6f74c
+T 12
+T 13
+T 14
+T 15
+T 16
+LEVEL minecraft:overworld gametime=16 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=16 forced=25 loaded=1225 players=2 border=5.9999968E7
+PL A dim=minecraft:the_end
+PL B dim=minecraft:the_end
+P B minecraft:player pos=23.5,70.0,-3.5 delta=0.0,-0.0784000015258789,0.0 rot=-90.0,14.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.0 abs=0.0 hurt=4/15 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_pearl*3

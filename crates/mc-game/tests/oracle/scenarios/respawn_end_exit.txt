@@ -1,0 +1,39 @@
+# Leaving the End: a player that has not seen the credits is removed and gets WIN_GAME; its respawn request (the "play again" button)
+# is the respawn that keeps everything. A player that has seen them takes the portal like any other entity to its respawn point.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 8
+difficulty normal
+entity_counter 100
+fill -8 -61 -8 40 -61 8 minecraft:stone
+in the_end fill -4 62 -4 4 62 4 minecraft:end_stone
+in the_end block 0 63 0 minecraft:end_portal
+in the_end block 2 63 0 minecraft:end_portal
+cmd setworldspawn 0 -60 0
+spawn_player A survival 20.5 -60 6.5 0 0
+spawn_player B survival 24.5 -60 6.5 0 0
+block 12 -60 0 minecraft:red_bed[facing=south,part=foot]
+block 12 -60 1 minecraft:red_bed[facing=south,part=head]
+nbt B {seenCredits:1b,respawn:{dimension:"minecraft:overworld",pos:[I;12,-60,1],yaw:0.0f,pitch:0.0f}}
+set A xp_level 7
+give A hotbar0 minecraft:cobblestone 5
+effect A minecraft:speed 0 400
+tick 2
+dump packets:A:none packets:B:none nbt:A nbt:B
+note A in the end, on the portal: the credits
+tp_dim A the_end 0.5 63.1 0.5
+tick 3
+dump packets:A players nbt:A
+note a request of the player that won the game: respawn that keeps the data
+respawn A
+tick 3
+dump players player:A inventory:A nbt:A packets:A
+note B has seen the credits: the portal teleports it after the portal delay, to its bed
+tp_dim B the_end 2.5 63.1 0.5
+tick 3
+dump players packets:B portal:B
+tick 90
+dump players player:B nbt:B packets:B

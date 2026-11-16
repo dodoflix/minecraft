@@ -7,7 +7,7 @@
 
 use super::ServerLevel;
 use crate::server::waypoints::ServerWaypointManager;
-use crate::world::entity::{EntityId, ServerPlayer};
+use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::waypoints::{
     ReceiverView, TEAM_BLACK_ICON_COLOR, TransmitterView, WaypointContext,
 };
@@ -15,8 +15,9 @@ use mc_core::pos::ChunkPos;
 use mc_data::Attribute;
 use mc_protocol::packets::play::ClientboundTrackedWaypointPacket;
 
-/// [`WaypointContext`] over the level (the manager itself is moved out of the level while it runs).
-struct LevelContext<'a>(&'a ServerLevel);
+/// [`WaypointContext`] over the level (the manager itself is moved out of the level while it runs), and the player that is
+/// being moved into it, if any (it is not in the level's storage yet).
+struct LevelContext<'a>(&'a ServerLevel, Option<&'a ServerPlayer>);
 
 impl WaypointContext for LevelContext<'_> {
     fn transmitter(&self, id: i32) -> Option<TransmitterView> {
@@ -24,6 +25,16 @@ impl WaypointContext for LevelContext<'_> {
     }
 
     fn receiver(&self, id: i32) -> Option<ReceiverView> {
+        if let Some(player) = self.1.filter(|p| p.base_id() == id) {
+            return Some(ReceiverView {
+                id,
+                position: player.position(),
+                spectator: player.is_spectator(),
+                receive_range: player
+                    .living()?
+                    .get_attribute_value(Attribute::WAYPOINT_RECEIVE_RANGE),
+            });
+        }
         let e = self.0.get_entity(id)?;
         let living = e.living()?;
         Some(ReceiverView {
@@ -50,7 +61,9 @@ impl WaypointContext for LevelContext<'_> {
     }
 
     fn send(&self, receiver: i32, packet: ClientboundTrackedWaypointPacket) {
-        if let Some(player) = self
+        if let Some(player) = self.1.filter(|p| p.base_id() == receiver) {
+            player.send(&packet);
+        } else if let Some(player) = self
             .0
             .get_entity(receiver)
             .and_then(|e| e.as_any().downcast_ref::<ServerPlayer>())
@@ -83,7 +96,7 @@ impl ServerLevel {
         f: impl FnOnce(&mut ServerWaypointManager, &dyn WaypointContext) -> R,
     ) -> R {
         let mut manager = std::mem::take(&mut self.waypoint_manager);
-        let result = f(&mut manager, &LevelContext(self));
+        let result = f(&mut manager, &LevelContext(self, None));
         self.waypoint_manager = manager;
         result
     }
@@ -148,6 +161,21 @@ impl ServerLevel {
                 m.untrack_waypoint(ctx, id);
             }
         });
+    }
+
+    /// `setPosRaw` of a player that is not in this level's storage yet (the teleport into this level sets its position
+    /// first): `updatePlayer(player)` through the player's own connection.
+    pub fn waypoint_update_incoming_player(&mut self, player: &ServerPlayer) {
+        let receiving = player
+            .living()
+            .is_some_and(|l| l.get_attribute_value(Attribute::WAYPOINT_RECEIVE_RANGE) > 0.0);
+        if player.connection.is_none() || player.base().first_tick || !receiving {
+            return;
+        }
+        let id = player.base_id();
+        let mut manager = std::mem::take(&mut self.waypoint_manager);
+        manager.update_player(&LevelContext(self, Some(player)), id);
+        self.waypoint_manager = manager;
     }
 
     /// Applies what entity code changed since the entity was last in storage: the waypoint range attributes that

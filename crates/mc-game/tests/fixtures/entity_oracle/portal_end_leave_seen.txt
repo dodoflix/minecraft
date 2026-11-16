@@ -1,0 +1,101 @@
+CF msg Game rule respawn_radius is now set to 0
+CF result success 0
+CF msg Set spawn point to 14, -60, 14 [90.0, 5.0] in minecraft:overworld for Forced
+CF result success 1
+LEVEL minecraft:overworld gametime=2 forced=25 loaded=1089 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=2 forced=25 loaded=1225 players=5 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=2 forced=25 loaded=961 players=0 border=5.9999968E7
+PL Bed dim=minecraft:the_end
+PL Anchor dim=minecraft:the_end
+PL Forced dim=minecraft:the_end
+PL Gone dim=minecraft:the_end
+PL Plain dim=minecraft:the_end
+# Bed
+T 3
+T 4
+PKT Bed minecraft:respawn 5400136d696e6563726166743a6f766572776f726c64d88694a6a43d2e5e01000001000ac1ffffff0f03
+PKT Bed minecraft:player_position 49024027000000000000c04e000000000000402700000000000000000000000000000000000000000000000000000000000042b3ffff0000000000000000
+PKT Bed minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000020000008fc00000000000000000
+PKT Bed minecraft:game_event 270d00000000
+LEVEL minecraft:overworld gametime=4 forced=25 loaded=961 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=4 forced=25 loaded=1225 players=4 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=4 forced=25 loaded=961 players=0 border=5.9999968E7
+P Bed minecraft:player pos=11.5,-60.0,11.5 delta=0.0,-0.0784000015258789,0.0 rot=89.99999,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# Anchor
+T 6
+T 7
+PKT Anchor minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e01000001000ac1ffffff0f03
+PKT Anchor minecraft:player_position 4902401a00000000000040590000000000004016000000000000000000000000000000000000000000000000000000000000b6a5cfad0000000000000000
+PKT Anchor minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000020000008fc00000000000000000
+PKT Anchor minecraft:game_event 270d00000000
+LEVEL minecraft:overworld gametime=7 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=7 forced=25 loaded=1225 players=3 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=7 forced=25 loaded=961 players=1 border=5.9999968E7
+P Anchor minecraft:player pos=6.5,100.0,5.5 delta=0.0,-0.0784000015258789,0.0 rot=-4.94156E-6,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+B 4 99 4 minecraft:netherrack
+B 4 99 5 minecraft:netherrack
+B 4 99 6 minecraft:netherrack
+B 4 99 7 minecraft:netherrack
+B 4 99 8 minecraft:netherrack
+B 5 99 4 minecraft:netherrack
+B 5 99 5 minecraft:netherrack
+B 5 99 6 minecraft:netherrack
+B 5 99 7 minecraft:netherrack
+B 5 99 8 minecraft:netherrack
+B 6 99 4 minecraft:netherrack
+B 6 99 5 minecraft:netherrack
+B 6 99 6 minecraft:netherrack
+B 6 99 7 minecraft:netherrack
+B 6 99 8 minecraft:netherrack
+B 6 100 6 minecraft:respawn_anchor[charges=2]
+B 7 99 4 minecraft:netherrack
+B 7 99 5 minecraft:netherrack
+B 7 99 6 minecraft:netherrack
+B 7 99 7 minecraft:netherrack
+B 7 99 8 minecraft:netherrack
+B 8 99 4 minecraft:netherrack
+B 8 99 5 minecraft:netherrack
+B 8 99 6 minecraft:netherrack
+B 8 99 7 minecraft:netherrack
+B 8 99 8 minecraft:netherrack
+# Forced
+T 9
+T 10
+PKT Forced minecraft:respawn 5400136d696e6563726166743a6f766572776f726c64d88694a6a43d2e5e01000001000ac1ffffff0f03
+PKT Forced minecraft:player_position 4902402d000000000000c04df33333333333402d00000000000000000000000000000000000000000000000000000000000042b4000040a0000000000000
+PKT Forced minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000020000008fc00000000000000000
+PKT Forced minecraft:game_event 270d00000000
+LEVEL minecraft:overworld gametime=10 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_end gametime=10 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=10 forced=25 loaded=1225 players=1 border=5.9999968E7
+P Forced minecraft:player pos=14.5,-59.9,14.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,5.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# Gone: the bed was never there
+T 11
+T 12
+PKT Gone minecraft:game_event 270000000000
+PKT Gone minecraft:respawn 5400136d696e6563726166743a6f766572776f726c64d88694a6a43d2e5e01000001000ac1ffffff0f03
+PKT Gone minecraft:player_position 49024021000000000000c04e0000000000004021000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT Gone minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000020000008fc00000000000000000
+PKT Gone minecraft:game_event 270d00000000
+LEVEL minecraft:overworld gametime=12 forced=25 loaded=1225 players=3 border=5.9999968E7
+LEVEL minecraft:the_end gametime=12 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=12 forced=25 loaded=1225 players=1 border=5.9999968E7
+P Gone minecraft:player pos=8.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# Plain
+T 13
+T 14
+PKT Plain minecraft:respawn 5400136d696e6563726166743a6f766572776f726c64d88694a6a43d2e5e01000001000ac1ffffff0f03
+PKT Plain minecraft:player_position 49024021000000000000c04e0000000000004021000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT Plain minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000020000008fc00000000000000000
+PKT Plain minecraft:game_event 270d00000000
+LEVEL minecraft:overworld gametime=14 forced=25 loaded=1225 players=4 border=5.9999968E7
+LEVEL minecraft:the_end gametime=14 forced=25 loaded=1225 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=14 forced=25 loaded=1225 players=1 border=5.9999968E7
+P Plain minecraft:player pos=8.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# an item, a pig and an arrow in the portal
+LEVEL minecraft:overworld gametime=17 forced=25 loaded=1225 players=4 border=5.9999968E7
+LEVEL minecraft:the_end gametime=17 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=17 forced=25 loaded=1225 players=1 border=5.9999968E7
+E arrow#1 minecraft:arrow pos=8.5,-59.950049999254944,8.5 delta=0.0,0.0,0.0 rot=0.0,-17.999998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0
+E item#1 minecraft:item pos=8.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=82.788895,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=2 pickup=98 health=5 owner=- thrower=-
+E pig#1 minecraft:pig pos=8.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-

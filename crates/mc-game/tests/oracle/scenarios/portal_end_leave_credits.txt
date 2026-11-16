@@ -1,0 +1,47 @@
+# Leaving the End through the exit portal for the first time: the player has not seen the credits, so the portal removes it from the End (changed
+# dimension), tells it it has won (WIN_GAME) and stores seenCredits; nothing else happens until the client asks to respawn. The respawn (PERFORM_RESPAWN)
+# keeps everything the player had and puts it in the overworld at the world spawn; the changed_dimension criterion fires from the End to the overworld.
+# A second player that has seen the credits just arrives in the overworld.
+datapack adv_dim
+level void
+command_env
+end void
+nether void
+levels overworld,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+gamerule respawn_radius 0
+in the_end fill -2 59 -2 2 59 2 minecraft:bedrock
+in the_end fill -1 60 -1 1 60 1 minecraft:end_portal
+in the_end spawn_player A survival 8.5 60 0.5 0 0 sim
+give A mainhand minecraft:diamond 3
+give A hotbar3 minecraft:stick 7
+set A xp_level 5
+effect A minecraft:speed 0 600
+tick 2
+dump levels players player:A inventory:A nbt:A
+note A walks into the exit portal
+snap A 1.5 60 0.5 0 0
+level_seed 3
+watch events packets:A:game_event,remove_entities,respawn,player_position,set_default_spawn_position,add_entity,update_mob_effect,set_experience,container_set_content,change_difficulty,player_abilities
+tick 1
+watch off
+dump levels players player:A nbt:A advancements:A
+note the client is showing the credits: the player is out of the End and does not tick
+tick 20
+dump levels players
+note the client finished the poem and asks to respawn
+respawn A
+dump levels players player:A inventory:A nbt:A advancements:A packets:A:respawn,player_position,set_default_spawn_position,initialize_border,set_time,game_event,update_mob_effect,set_experience,container_set_content,change_difficulty,player_abilities,player_info_update,add_entity
+tick 3
+dump levels players player:A advancements:A
+note B has seen the credits and arrives in the overworld through the portal
+in the_end spawn_player B creative 8.5 60 3.5 90 10 sim
+set B seen_credits true
+tick 1
+snap B -0.5 60 -0.5 90 10
+watch portal:B packets:B:game_event,respawn,player_position
+tick 2
+watch off
+dump levels players player:B nbt:B advancements:B

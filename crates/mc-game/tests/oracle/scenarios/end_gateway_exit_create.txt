@@ -1,0 +1,35 @@
+# A gateway that was never linked (a block placed by hand has no exit) creates its exit when something first enters it: the exit direction from the
+# origin, 1024 blocks out, the walk back over non-empty chunks and forward over empty ones (a void End is empty everywhere, so 16 chunks forward),
+# an end island at y 75 where no end stone was found, the tallest block around it, the exit gateway ten blocks above, and the gateway's own exit
+# position. A player and an item use two gateways in two directions.
+level void
+command_env
+end void
+nether void
+levels overworld,the_end
+dimension the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+gamerule respawn_radius 0
+block 40 74 0 minecraft:bedrock
+block 40 75 0 minecraft:end_gateway
+block 40 74 8 minecraft:bedrock
+block 40 75 8 minecraft:end_gateway
+spawn_player P creative 40.5 75 0.5 0 0 sim
+dump levels be:40,75,0 be:40,75,8
+tick 1
+note the player enters the first gateway: the exit is searched, the island and the exit gateway are made, the player arrives next to the exit
+watch portal:P packets:P:level_chunk_with_light,forget_level_chunk,player_position,teleport_entity,block_update,section_blocks_update,level_event,sound events
+tick 2
+watch off
+dump levels players player:P be:40,75,0 beu:40,75,0 be:1274,85,-3 beu:1274,85,-3
+dump blocks:1262,68,-16,1290,92,10
+tick 20
+dump levels player:P
+note an item enters the second gateway (another direction: another exit)
+level_seed 4
+spawn_item it minecraft:stick 40.5 75.1 8.5 0 0 0
+tick 3
+dump levels entities be:40,75,8 beu:40,75,8
+dump blocks:1238,68,236,1266,92,262 be:1251,85,248

@@ -5,7 +5,7 @@ use super::entity::{Entity, Movement};
 use crate::server::level::ServerLevel;
 use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
-use crate::world::level::collision::for_each_block_intersected_between;
+use crate::world::level::collision::{BlockStepVisitor, for_each_block_intersected_between};
 use crate::world::level::material::{FluidStateExt, fluid_behaviour};
 use mc_core::direction::Direction;
 use mc_core::math::mth;
@@ -14,6 +14,25 @@ use mc_core::phys::shapes::Shapes;
 use mc_core::pos::BlockPos;
 use mc_protocol::packets::play::{DebugEntityBlockIntersection, DebugSubscriptionEvent};
 use std::collections::HashSet;
+
+/// A [`BlockStepVisitor`] that tells its closure which `betweenCorners...` iteration (group) a position belongs to and
+/// remembers where each group ended.
+struct GroupedVisitor<F> {
+    visit: F,
+    group: usize,
+    ends: Vec<BlockPos>,
+}
+
+impl<F: FnMut(BlockPos, i32, usize) -> bool> BlockStepVisitor for GroupedVisitor<F> {
+    fn visit(&mut self, pos: BlockPos, iteration: i32) -> bool {
+        (self.visit)(pos, iteration, self.group)
+    }
+
+    fn group_end(&mut self, last: BlockPos) {
+        self.ends.push(last);
+        self.group += 1;
+    }
+}
 
 /// `InsideBlockEffectType` (declaration order = `StepBasedCollector.APPLY_ORDER`).
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -212,11 +231,11 @@ fn check_inside_blocks_step(
     );
     let mut iterations = 0;
     let target_box = deflated_bounding_box_at_target;
-    for_each_block_intersected_between(
-        from,
-        to,
-        &target_box,
-        &mut |block_intersection: BlockPos, iteration: i32| {
+    // Block events queued by an `entityInside` for the position it was handed: vanilla queues the iterator's shared mutable
+    // position, so the event ends up at the last position that iteration visited
+    let mut aliased_events: Vec<(usize, usize)> = Vec::new();
+    let visitor = GroupedVisitor {
+        visit: |block_intersection: BlockPos, iteration: i32, group: usize| {
             if !entity.is_alive() {
                 return false;
             }
@@ -255,7 +274,13 @@ fn check_inside_blocks_step(
                     let is_precise =
                         moved_far || block_intersects_box(&target_box, block_intersection);
                     collector.advance_step(iteration);
+                    let queued = level.tick_state.block_events.len();
                     state.entity_inside(level, block_intersection, entity, collector, is_precise);
+                    for index in queued..level.tick_state.block_events.len() {
+                        if level.tick_state.block_events.pos_at(index) == block_intersection {
+                            aliased_events.push((index, group));
+                        }
+                    }
                     entity.on_inside_block(level, state);
                 }
                 if inside_fluid {
@@ -273,7 +298,17 @@ fn check_inside_blocks_step(
             }
             true
         },
-    );
+        group: 0,
+        ends: Vec::new(),
+    };
+    let mut visitor = visitor;
+    for_each_block_intersected_between(from, to, &target_box, &mut visitor);
+    let ends = visitor.ends;
+    for (index, group) in aliased_events {
+        if let Some(&end) = ends.get(group) {
+            level.tick_state.block_events.move_pos_at(index, end);
+        }
+    }
     iterations + 1
 }
 

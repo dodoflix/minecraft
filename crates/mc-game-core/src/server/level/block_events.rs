@@ -43,6 +43,19 @@ impl BlockEvents {
         self.order.len()
     }
 
+    /// The position of the queued event at `index` (insertion order, no removal since it was added).
+    pub fn pos_at(&self, index: usize) -> BlockPos {
+        self.order[index].pos
+    }
+
+    /// The queued event at `index` has a position that vanilla's shared mutable `BlockPos` moved to `pos` afterwards.
+    pub fn move_pos_at(&mut self, index: usize, pos: BlockPos) {
+        let event = &mut self.order[index];
+        self.members.remove(event);
+        event.pos = pos;
+        self.members.insert(*event);
+    }
+
     /// `blockEvents.removeFirst()`.
     pub fn remove_first(&mut self) -> Option<BlockEventData> {
         let event = self.order.pop_front()?;

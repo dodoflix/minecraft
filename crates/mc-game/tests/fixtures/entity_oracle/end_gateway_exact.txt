@@ -1,0 +1,43 @@
+CF msg Game rule respawn_radius is now set to 0
+CF result success 0
+LEVEL minecraft:overworld gametime=0 forced=25 loaded=1089 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=0 forced=25 loaded=990 players=2 border=5.9999968E7
+BE 40 75 0 {Age:0L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,5],id:"minecraft:end_gateway",x:40,y:75,z:0}
+BE 40 75 8 {Age:0L,components:{},exit_portal:[I;30,70,5],id:"minecraft:end_gateway",x:40,y:75,z:8}
+BEU 40 75 0 minecraft:end_gateway {Age:0L,ExactTeleport:1b,exit_portal:[I;20,70,5]}
+T 2
+PORTAL A cooldown=10 time=1
+PORTAL B cooldown=10 time=1
+PKT A minecraft:player_position 49024034800000000000405180000000000040160000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT B minecraft:player_position 4902403f8000000000004052000000000000401a0000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+T 3
+PORTAL A cooldown=9 time=-
+PORTAL B cooldown=9 time=-
+LEVEL minecraft:overworld gametime=3 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=3 forced=25 loaded=1225 players=2 border=5.9999968E7
+PL A dim=minecraft:the_end
+PL B dim=minecraft:the_end
+P A minecraft:player pos=20.5,70.0,5.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P B minecraft:player pos=31.5,72.0,6.5 delta=0.0,-0.0784000015258789,0.0 rot=-45.0,-20.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+BE 40 75 0 {Age:3L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,5],id:"minecraft:end_gateway",x:40,y:75,z:0}
+BE 40 75 8 {Age:3L,components:{},exit_portal:[I;30,70,5],id:"minecraft:end_gateway",x:40,y:75,z:8}
+BEU 40 75 0 minecraft:end_gateway {Age:3L,ExactTeleport:1b,exit_portal:[I;20,70,5]}
+# the cooldown is over: an item and a pig use the exact gateway, an item the other one
+T 49
+T 50
+EV block_event r=64.0 ex=0 pos=40,75,0 block=minecraft:end_gateway b0=1 b1=0
+EV block_event r=64.0 ex=0 pos=40,75,16 block=minecraft:end_gateway b0=1 b1=0
+T 51
+T 52
+LEVEL minecraft:overworld gametime=52 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=52 forced=25 loaded=1225 players=2 border=5.9999968E7
+E i1 minecraft:item pos=20.5,70.0,5.5 delta=0.0,-0.08,0.0 rot=66.45862,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=4 pickup=32767 health=5 owner=- thrower=-
+E pg minecraft:pig pos=40.5,75.0,0.5 delta=0.0,0.0,0.0 rot=30.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E i2 minecraft:item pos=31.5,72.0,6.5 delta=0.0,-0.04,0.0 rot=118.68753,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=4 pickup=32767 health=5 owner=- thrower=-
+BE 40 75 0 {Age:52L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,5],id:"minecraft:end_gateway",x:40,y:75,z:0}
+BE 40 75 16 {Age:52L,components:{},exit_portal:[I;30,70,5],id:"minecraft:end_gateway",x:40,y:75,z:16}
+E i1 minecraft:item pos=20.5,70.0,5.5 delta=0.0,-0.12,0.0 rot=66.45862,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=44 pickup=32767 health=5 owner=- thrower=-
+E pg minecraft:pig pos=20.5,70.0,5.5 delta=0.0,0.0,0.0 rot=30.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E i2 minecraft:item pos=31.5,72.0,6.5 delta=0.0,-0.04,0.0 rot=118.68753,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=44 pickup=32767 health=5 owner=- thrower=-
+BE 40 75 0 {Age:92L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,5],id:"minecraft:end_gateway",x:40,y:75,z:0}
+BE 40 75 16 {Age:92L,components:{},exit_portal:[I;30,70,5],id:"minecraft:end_gateway",x:40,y:75,z:16}

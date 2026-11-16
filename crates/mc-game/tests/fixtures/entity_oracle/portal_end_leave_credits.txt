@@ -1,0 +1,140 @@
+CF msg Game rule respawn_radius is now set to 0
+CF result success 0
+EFFECT A minecraft:speed added=true
+LEVEL minecraft:overworld gametime=2 forced=25 loaded=1089 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=2 forced=25 loaded=1225 players=1 border=5.9999968E7
+PL A dim=minecraft:the_end
+P A minecraft:player pos=8.5,59.92159999847412,0.5 delta=0.0,-0.1552320045166016,0.0 rot=0.0,0.0 og=0 fall=0.07840000092983246 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/0/598 gm=survival food=20 sat=5.0 exh=0.0 xp=5/0/0.0 sel=0 main=minecraft:diamond*3
+I A 0 minecraft:diamond*3
+I A 3 minecraft:stick*7
+N A {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:the_end",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[{Slot:0b,count:3,id:"minecraft:diamond"},{Slot:3b,count:7,id:"minecraft:stick"}],Invulnerable:0b,Motion:[0.0d,-0.1552320045166016d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[8.5d,59.92159999847412d,0.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,XpLevel:5,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},active_effects:[{duration:598,id:"minecraft:speed",show_icon:1b}],attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed",modifiers:[{amount:0.20000000298023224d,id:"minecraft:effect.speed",operation:"add_multiplied_total"}]},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,equipment:{},fall_distance:0.07840000092983246d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:campfire","minecraft:crafting_table","minecraft:diamond_axe","minecraft:diamond_block","minecraft:diamond_boots","minecraft:diamond_chestplate","minecraft:diamond_helmet","minecraft:diamond_hoe","minecraft:diamond_leggings","minecraft:diamond_pickaxe","minecraft:diamond_shovel","minecraft:diamond_spear","minecraft:diamond_sword","minecraft:jukebox","minecraft:ladder","minecraft:wooden_axe","minecraft:wooden_hoe","minecraft:wooden_pickaxe","minecraft:wooden_shovel","minecraft:wooden_spear","minecraft:wooden_sword"],toBeDisplayed:["minecraft:campfire","minecraft:crafting_table","minecraft:diamond_axe","minecraft:diamond_block","minecraft:diamond_boots","minecraft:diamond_chestplate","minecraft:diamond_helmet","minecraft:diamond_hoe","minecraft:diamond_leggings","minecraft:diamond_pickaxe","minecraft:diamond_shovel","minecraft:diamond_spear","minecraft:diamond_sword","minecraft:jukebox","minecraft:ladder","minecraft:wooden_axe","minecraft:wooden_hoe","minecraft:wooden_pickaxe","minecraft:wooden_shovel","minecraft:wooden_spear","minecraft:wooden_sword"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:2,warning_level:0}}
+# A walks into the exit portal
+T 3
+PKT A minecraft:update_mob_effect 8701650000d8040e
+PKT A minecraft:set_experience 69000000000500
+PKT A minecraft:game_event 270400000000
+LEVEL minecraft:overworld gametime=3 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=3 forced=25 loaded=1225 players=0 border=5.9999968E7
+PL A dim=minecraft:the_end
+P A minecraft:player pos=1.5,60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=0 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/0/597 gm=survival food=20 sat=5.0 exh=0.0 xp=5/0/0.0 sel=0 main=minecraft:diamond*3
+N A {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:the_end",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[{Slot:0b,count:3,id:"minecraft:diamond"},{Slot:3b,count:7,id:"minecraft:stick"}],Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[1.5d,60.0d,0.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,XpLevel:5,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},active_effects:[{duration:597,id:"minecraft:speed",show_icon:1b}],attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed",modifiers:[{amount:0.20000000298023224d,id:"minecraft:effect.speed",operation:"add_multiplied_total"}]},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,equipment:{},fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:campfire","minecraft:crafting_table","minecraft:diamond_axe","minecraft:diamond_block","minecraft:diamond_boots","minecraft:diamond_chestplate","minecraft:diamond_helmet","minecraft:diamond_hoe","minecraft:diamond_leggings","minecraft:diamond_pickaxe","minecraft:diamond_shovel","minecraft:diamond_spear","minecraft:diamond_sword","minecraft:jukebox","minecraft:ladder","minecraft:wooden_axe","minecraft:wooden_hoe","minecraft:wooden_pickaxe","minecraft:wooden_shovel","minecraft:wooden_spear","minecraft:wooden_sword"],toBeDisplayed:["minecraft:campfire","minecraft:crafting_table","minecraft:diamond_axe","minecraft:diamond_block","minecraft:diamond_boots","minecraft:diamond_chestplate","minecraft:diamond_helmet","minecraft:diamond_hoe","minecraft:diamond_leggings","minecraft:diamond_pickaxe","minecraft:diamond_shovel","minecraft:diamond_spear","minecraft:diamond_sword","minecraft:jukebox","minecraft:ladder","minecraft:wooden_axe","minecraft:wooden_hoe","minecraft:wooden_pickaxe","minecraft:wooden_shovel","minecraft:wooden_spear","minecraft:wooden_sword"]},seenCredits:1b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:3,warning_level:0}}
+ADV A minecraft:recipes/building_blocks/diamond_block has_diamond
+ADV A minecraft:recipes/combat/diamond_boots has_diamond
+ADV A minecraft:recipes/combat/diamond_chestplate has_diamond
+ADV A minecraft:recipes/combat/diamond_helmet has_diamond
+ADV A minecraft:recipes/combat/diamond_leggings has_diamond
+ADV A minecraft:recipes/combat/diamond_spear has_diamond
+ADV A minecraft:recipes/combat/diamond_sword has_diamond
+ADV A minecraft:recipes/combat/wooden_spear has_stick
+ADV A minecraft:recipes/combat/wooden_sword has_stick
+ADV A minecraft:recipes/decorations/campfire has_stick
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/decorations/jukebox has_diamond
+ADV A minecraft:recipes/decorations/ladder has_stick
+ADV A minecraft:recipes/tools/diamond_axe has_diamond
+ADV A minecraft:recipes/tools/diamond_hoe has_diamond
+ADV A minecraft:recipes/tools/diamond_pickaxe has_diamond
+ADV A minecraft:recipes/tools/diamond_shovel has_diamond
+ADV A minecraft:recipes/tools/wooden_axe has_stick
+ADV A minecraft:recipes/tools/wooden_hoe has_stick
+ADV A minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV A minecraft:recipes/tools/wooden_shovel has_stick
+ADV A minecraft:story/mine_diamond diamond
+# the client is showing the credits: the player is out of the End and does not tick
+LEVEL minecraft:overworld gametime=23 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=23 forced=25 loaded=961 players=0 border=5.9999968E7
+PL A dim=minecraft:the_end
+# the client finished the poem and asks to respawn
+LEVEL minecraft:overworld gametime=23 forced=25 loaded=961 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=23 forced=25 loaded=961 players=0 border=5.9999968E7
+PL A dim=minecraft:overworld
+P A minecraft:player pos=8.5,-64.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/0/577 gm=survival food=20 sat=5.0 exh=0.0 xp=5/0/0.0 sel=0 main=minecraft:diamond*3
+I A 0 minecraft:diamond*3
+I A 3 minecraft:stick*7
+N A {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:0s,Health:20.0f,HurtTime:0s,Inventory:[{Slot:0b,count:3,id:"minecraft:diamond"},{Slot:3b,count:7,id:"minecraft:stick"}],Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[8.5d,-64.0d,8.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,XpLevel:5,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},active_effects:[{duration:577,id:"minecraft:speed",show_icon:1b}],attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed",modifiers:[{amount:0.20000000298023224d,id:"minecraft:effect.speed",operation:"add_multiplied_total"}]},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,equipment:{},fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:campfire","minecraft:crafting_table","minecraft:diamond_axe","minecraft:diamond_block","minecraft:diamond_boots","minecraft:diamond_chestplate","minecraft:diamond_helmet","minecraft:diamond_hoe","minecraft:diamond_leggings","minecraft:diamond_pickaxe","minecraft:diamond_shovel","minecraft:diamond_spear","minecraft:diamond_sword","minecraft:jukebox","minecraft:ladder","minecraft:wooden_axe","minecraft:wooden_hoe","minecraft:wooden_pickaxe","minecraft:wooden_shovel","minecraft:wooden_spear","minecraft:wooden_sword"],toBeDisplayed:["minecraft:campfire","minecraft:crafting_table","minecraft:diamond_axe","minecraft:diamond_block","minecraft:diamond_boots","minecraft:diamond_chestplate","minecraft:diamond_helmet","minecraft:diamond_hoe","minecraft:diamond_leggings","minecraft:diamond_pickaxe","minecraft:diamond_shovel","minecraft:diamond_spear","minecraft:diamond_sword","minecraft:jukebox","minecraft:ladder","minecraft:wooden_axe","minecraft:wooden_hoe","minecraft:wooden_pickaxe","minecraft:wooden_shovel","minecraft:wooden_spear","minecraft:wooden_sword"]},seenCredits:1b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:3,warning_level:0}}
+ADV A dm:any c
+ADV A dm:from_end c
+ADV A dm:to_overworld c
+ADV A minecraft:recipes/building_blocks/diamond_block has_diamond
+ADV A minecraft:recipes/combat/diamond_boots has_diamond
+ADV A minecraft:recipes/combat/diamond_chestplate has_diamond
+ADV A minecraft:recipes/combat/diamond_helmet has_diamond
+ADV A minecraft:recipes/combat/diamond_leggings has_diamond
+ADV A minecraft:recipes/combat/diamond_spear has_diamond
+ADV A minecraft:recipes/combat/diamond_sword has_diamond
+ADV A minecraft:recipes/combat/wooden_spear has_stick
+ADV A minecraft:recipes/combat/wooden_sword has_stick
+ADV A minecraft:recipes/decorations/campfire has_stick
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/decorations/jukebox has_diamond
+ADV A minecraft:recipes/decorations/ladder has_stick
+ADV A minecraft:recipes/tools/diamond_axe has_diamond
+ADV A minecraft:recipes/tools/diamond_hoe has_diamond
+ADV A minecraft:recipes/tools/diamond_pickaxe has_diamond
+ADV A minecraft:recipes/tools/diamond_shovel has_diamond
+ADV A minecraft:recipes/tools/wooden_axe has_stick
+ADV A minecraft:recipes/tools/wooden_hoe has_stick
+ADV A minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV A minecraft:recipes/tools/wooden_shovel has_stick
+ADV A minecraft:story/mine_diamond diamond
+PKT A minecraft:set_time 73000000000000001300
+PKT A minecraft:player_abilities 41003d4ccccd3dcccccd
+PKT A minecraft:update_mob_effect 8701660000c1040e
+PKT A minecraft:respawn 5400136d696e6563726166743a6f766572776f726c64d88694a6a43d2e5e000000010000c1ffffff0f01
+PKT A minecraft:player_position 49024021000000000000c0500000000000004021000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT A minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000020000008fc00000000000000000
+PKT A minecraft:change_difficulty 0a0000
+PKT A minecraft:set_experience 69000000000500
+PKT A minecraft:update_mob_effect 8701650000c10406
+PKT A minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT A minecraft:set_time 730000000000000017020000000000000000000001000000000000000000
+PKT A minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000020000008fc00000000000000000
+PKT A minecraft:game_event 270d00000000
+PKT A minecraft:container_set_content 1200012e00000000000000000000000000000000000000000000000000000000000000000000000003f4070000000007a408000000000000000000
+LEVEL minecraft:overworld gametime=26 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=26 forced=25 loaded=961 players=0 border=5.9999968E7
+PL A dim=minecraft:overworld
+P A minecraft:player pos=8.5,-64.0,8.5 delta=0.0,-0.230527368912964,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:speed/0/574 gm=survival food=20 sat=5.0 exh=0.0 xp=5/0/0.0 sel=0 main=minecraft:diamond*3
+ADV A dm:any c
+ADV A dm:from_end c
+ADV A dm:to_overworld c
+ADV A minecraft:recipes/building_blocks/diamond_block has_diamond
+ADV A minecraft:recipes/combat/diamond_boots has_diamond
+ADV A minecraft:recipes/combat/diamond_chestplate has_diamond
+ADV A minecraft:recipes/combat/diamond_helmet has_diamond
+ADV A minecraft:recipes/combat/diamond_leggings has_diamond
+ADV A minecraft:recipes/combat/diamond_spear has_diamond
+ADV A minecraft:recipes/combat/diamond_sword has_diamond
+ADV A minecraft:recipes/combat/wooden_spear has_stick
+ADV A minecraft:recipes/combat/wooden_sword has_stick
+ADV A minecraft:recipes/decorations/campfire has_stick
+ADV A minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV A minecraft:recipes/decorations/jukebox has_diamond
+ADV A minecraft:recipes/decorations/ladder has_stick
+ADV A minecraft:recipes/tools/diamond_axe has_diamond
+ADV A minecraft:recipes/tools/diamond_hoe has_diamond
+ADV A minecraft:recipes/tools/diamond_pickaxe has_diamond
+ADV A minecraft:recipes/tools/diamond_shovel has_diamond
+ADV A minecraft:recipes/tools/wooden_axe has_stick
+ADV A minecraft:recipes/tools/wooden_hoe has_stick
+ADV A minecraft:recipes/tools/wooden_pickaxe has_stick
+ADV A minecraft:recipes/tools/wooden_shovel has_stick
+ADV A minecraft:story/mine_diamond diamond
+# B has seen the credits and arrives in the overworld through the portal
+T 28
+PORTAL B cooldown=0 time=0
+T 29
+PORTAL B cooldown=10 time=1
+PKT B minecraft:respawn 5400136d696e6563726166743a6f766572776f726c64d88694a6a43d2e5e01000001000ac1ffffff0f03
+PKT B minecraft:player_position 49024021000000000000c0500000000000004021000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+PKT B minecraft:game_event 270d00000000
+LEVEL minecraft:overworld gametime=29 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_end gametime=29 forced=25 loaded=1225 players=0 border=5.9999968E7
+PL A dim=minecraft:overworld
+PL B dim=minecraft:overworld
+P B minecraft:player pos=8.5,-64.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+N B {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:0b,PortalCooldown:10,Pos:[8.5d,-64.0d,8.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:1b,invulnerable:1b,mayBuild:1b,mayfly:1b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:1,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:1b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:3,warning_level:0}}
+ADV B dm:any c
+ADV B dm:from_end c
+ADV B dm:to_overworld c
+ADV B minecraft:recipes/decorations/crafting_table unlock_right_away

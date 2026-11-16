@@ -1,0 +1,47 @@
+# Gateways with a stored exit: an exact one puts the traveller on the exit block's bottom centre, one that is not exact searches for the tallest
+# block within 5 blocks around the exit (two above it) and stands on it. A player keeps its rotation, an item and a pig arrive as new entities
+# next to their old motion (none). The exit blocks are plain terrain: no gateway is made.
+level void
+command_env
+end void
+nether void
+levels overworld,the_end
+dimension the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+gamerule respawn_radius 0
+fill 18 69 3 22 69 7 minecraft:stone
+fill 28 69 3 32 69 7 minecraft:stone
+fill 31 70 6 31 71 6 minecraft:stone
+block 40 74 0 minecraft:bedrock
+block 40 75 0 minecraft:end_gateway
+be_nbt 40 75 0 {exit_portal:[I;20,70,5],ExactTeleport:1b}
+block 40 74 8 minecraft:bedrock
+block 40 75 8 minecraft:end_gateway
+be_nbt 40 75 8 {exit_portal:[I;30,70,5]}
+block 40 74 16 minecraft:bedrock
+block 40 75 16 minecraft:end_gateway
+be_nbt 40 75 16 {exit_portal:[I;30,70,5]}
+spawn_player A creative 40.5 75 0.5 90 10 sim
+spawn_player B creative 40.5 75 8.5 -45 -20 sim
+dump levels be:40,75,0 be:40,75,8 beu:40,75,0
+tick 1
+watch portal:A portal:B packets:A:player_position,teleport_entity,level_event,sound packets:B:player_position,teleport_entity,level_event,sound events
+tick 2
+watch off
+dump levels players player:A player:B be:40,75,0 be:40,75,8 beu:40,75,0
+note the cooldown is over: an item and a pig use the exact gateway, an item the other one
+tick 45
+level_seed 6
+spawn_item i1 minecraft:stick 40.5 75.1 0.5 0 0 0
+spawn pg minecraft:pig 40.5 75 0.5 30 0 {NoAI:1b}
+spawn_item i2 minecraft:stick 40.5 75.1 16.5 0 0 0
+nbt i1 {PickupDelay:32767s}
+nbt i2 {PickupDelay:32767s}
+watch events
+tick 4
+watch off
+dump levels entities be:40,75,0 be:40,75,16
+tick 40
+dump entities be:40,75,0 be:40,75,16

@@ -621,6 +621,9 @@ impl<T: BlockGetter + ?Sized> BlockGetterExt for T {}
 /// `BlockGetter.forEachBlockIntersectedBetween` visitor.
 pub trait BlockStepVisitor {
     fn visit(&mut self, pos: BlockPos, iteration: i32) -> bool;
+    /// One of the `BlockPos.betweenCorners...` iterations has ended (or the visitor stopped it) at `last`: vanilla hands
+    /// the visitor the iterator's single mutable position, which a visitor that stored it sees move to this value.
+    fn group_end(&mut self, _last: BlockPos) {}
 }
 impl<F: FnMut(BlockPos, i32) -> bool> BlockStepVisitor for F {
     fn visit(&mut self, pos: BlockPos, iteration: i32) -> bool {
@@ -653,29 +656,47 @@ pub fn for_each_block_intersected_between(
 ) -> bool {
     let travel = to.subtract(from);
     if travel.length_sqr() < mth::square_f32(1.0E-5f32) as f64 {
+        let mut last = None;
         for pos in BlockPos::between_closed_aabb(aabb_at_target) {
+            last = Some(pos);
             if !visitor.visit(pos, 0) {
+                visitor.group_end(pos);
                 return false;
             }
+        }
+        if let Some(last) = last {
+            visitor.group_end(last);
         }
         return true;
     }
     let mut visited: HashSet<i64> = HashSet::new();
     let back = aabb_at_target.move_vec(travel.scale(-1.0));
+    let mut last = None;
     for pos in BlockPos::between_corners_in_direction_aabb(&back, travel) {
+        last = Some(pos);
         if !visitor.visit(pos, 0) {
+            visitor.group_end(pos);
             return false;
         }
         visited.insert(pos.as_long());
+    }
+    if let Some(last) = last {
+        visitor.group_end(last);
     }
     let iterations = add_collisions_along_travel(&mut visited, travel, aabb_at_target, visitor);
     if iterations < 0 {
         return false;
     }
+    let mut last = None;
     for pos in BlockPos::between_corners_in_direction_aabb(aabb_at_target, travel) {
+        last = Some(pos);
         if visited.insert(pos.as_long()) && !visitor.visit(pos, iterations + 1) {
+            visitor.group_end(pos);
             return false;
         }
+    }
+    if let Some(last) = last {
+        visitor.group_end(last);
     }
     true
 }
@@ -788,12 +809,18 @@ fn add_collisions_along_travel(
             let ox = mth::floor_f64(hx - box_x * f64::from(corner_dir.x()));
             let oy = mth::floor_f64(hy - box_y * f64::from(corner_dir.y()));
             let oz = mth::floor_f64(hz - box_z * f64::from(corner_dir.z()));
+            let mut last = None;
             for pos in
                 BlockPos::between_corners_in_direction_xyz(cvx, cvy, cvz, ox, oy, oz, delta_move)
             {
+                last = Some(pos);
                 if visited.insert(pos.as_long()) && !visitor.visit(pos, iterations) {
+                    visitor.group_end(pos);
                     return -1;
                 }
+            }
+            if let Some(last) = last {
+                visitor.group_end(last);
             }
         }
     }

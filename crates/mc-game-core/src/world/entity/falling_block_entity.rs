@@ -43,9 +43,7 @@ pub struct FallingBlockEntity {
     fall_damage_max: i32,
     fall_damage_per_distance: f32,
     pub block_data: Option<CompoundTag>,
-    /// Not implemented: vanilla's `teleport` override sets this on the old entity when it moves to or from the End,
-    /// so the rest of its tick still runs after the portal hand-over. Portal teleports run after the entity's tick
-    /// here, so the flag is never set.
+    /// Set on the old entity by a teleport to or from the End: the rest of its tick still runs after the hand-over.
     pub force_tick_after_teleport_to_duplicate: bool,
 }
 
@@ -247,6 +245,10 @@ impl Entity for FallingBlockEntity {
             self.mark_hurt();
         }
         false
+    }
+
+    fn teleport_done(&mut self, from_or_to_end: bool, moved_to_new_entity: bool) {
+        self.force_tick_after_teleport_to_duplicate = moved_to_new_entity && from_or_to_end;
     }
 
     fn tick(&mut self, level: &mut ServerLevel) {

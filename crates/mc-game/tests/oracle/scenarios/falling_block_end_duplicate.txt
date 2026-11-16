@@ -1,0 +1,29 @@
+# A falling block that travels to or from the End keeps ticking in the level it left (forceTickAfterTeleportToDuplicate): sand that rests on the
+# floor inside an end portal arrives in the other level and, in the level it left, lands once more where a portal block cannot be replaced, so it
+# drops an item there. Sand in an overworld portal and gravel in an End portal; a falling block that changes between other levels does not duplicate.
+level void
+command_env
+end void
+nether void
+levels overworld,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+gamerule respawn_radius 0
+fill -2 60 -2 2 60 2 minecraft:stone
+block 0 61 0 minecraft:end_portal
+in the_end fill -2 60 -2 2 60 2 minecraft:stone
+in the_end block 0 61 0 minecraft:end_portal
+level_seed 5
+spawn fb1 minecraft:falling_block 0.5 61 0.5 {BlockState:"minecraft:sand",Time:1}
+in the_end spawn fb2 minecraft:falling_block 0.5 61 0.5 {BlockState:"minecraft:gravel",Time:1}
+watch xentities events
+tick 3
+watch off
+dump levels xentities entities blocks:-1,59,-1,1,66,1 counter
+in the_end dump blocks:-1,59,-1,1,66,1
+in the_end dump blocks:98,47,-4,102,53,4
+tick 20
+dump levels xentities entities blocks:-1,59,-1,1,66,1
+in the_end dump blocks:-1,59,-1,1,66,1
+in the_end dump blocks:98,47,-4,102,53,4

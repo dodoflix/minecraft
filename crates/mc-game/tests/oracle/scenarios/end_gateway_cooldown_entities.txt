@@ -1,0 +1,39 @@
+# Several entities in a gateway at once: the first one to be inside starts the cooldown (40 ticks, block event 1), the others are not sent until it
+# is over; a gateway on its way to 2400 ticks of age starts the periodic cooldown by itself. Items, a pig and an arrow wait in the gateway.
+level void
+command_env
+end void
+nether void
+levels overworld,the_end
+dimension the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+gamerule respawn_radius 0
+fill 18 69 -4 34 69 4 minecraft:stone
+fill 40 74 -2 44 74 2 minecraft:bedrock
+block 41 75 0 minecraft:end_gateway
+be_nbt 41 75 0 {exit_portal:[I;20,70,0],ExactTeleport:1b}
+level_seed 12
+spawn_item a1 minecraft:stick 41.5 75.1 0.5 0 0 0
+spawn_item a2 minecraft:apple 41.2 75.1 0.2 0 0 0
+spawn pg minecraft:pig 41.5 75 0.5 30 0 {NoAI:1b}
+spawn ar minecraft:arrow 41.5 75.2 0.5 0 0 {Motion:[0.0d,0.0d,0.0d]}
+nbt a1 {PickupDelay:32767s}
+nbt a2 {PickupDelay:32767s}
+watch events be:41,75,0
+tick 3
+watch off
+dump levels entities be:41,75,0 beu:41,75,0
+note the cooldown runs down while the others wait
+tick 39
+dump entities be:41,75,0
+tick 1
+dump entities be:41,75,0
+tick 6
+dump entities be:41,75,0
+note a second round: the gateway is cooled down, whatever is still inside goes
+tick 40
+dump entities be:41,75,0
+tick 6
+dump entities be:41,75,0

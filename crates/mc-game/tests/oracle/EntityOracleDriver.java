@@ -157,7 +157,7 @@ import net.minecraft.util.RandomSource;
  * select PLAYER N             hotbar slot (ServerboundSetCarriedItemPacket)
  * effect REF EFFECT AMPLIFIER TICKS [hidden]      addEffect
  * attribute REF ATTRIBUTE BASEVALUE               setBaseValue
- * set REF health|food|saturation|exhaustion|air|fire|fall_distance|ticks_frozen|xp_level|enchant_seed|absorption|invulnerable|no_gravity|on_ground|tag VALUE
+ * set REF health|food|saturation|exhaustion|air|fire|fall_distance|ticks_frozen|xp_level|enchant_seed|absorption|invulnerable|no_gravity|on_ground|seen_credits|tag VALUE
  * nbt REF SNBT                merge SNBT into the entity (Entity.load of the merged save data)
  * signal REF X Y Z           EyeOfEnder.signalTo(target)
  * snap REF X Y Z [yaw pitch]  Entity.snapTo (no packets)          tp REF X Y Z [yaw pitch]   teleportTo
@@ -1505,6 +1505,7 @@ public final class EntityOracleDriver {
          case "fall_distance" -> e.fallDistance = d(value);
          case "ticks_frozen" -> e.setTicksFrozen(Integer.parseInt(value));
          case "portal_cooldown" -> e.setPortalCooldown(Integer.parseInt(value));
+         case "seen_credits" -> ((ServerPlayer)e).seenCredits = Boolean.parseBoolean(value);
          case "xp_level" -> ((ServerPlayer)e).setExperienceLevels(Integer.parseInt(value));
          case "enchant_seed" -> priv(e, Player.class, "enchantmentSeed", Integer.parseInt(value));
          case "absorption" -> ((LivingEntity)e).setAbsorptionAmount(Float.parseFloat(value));

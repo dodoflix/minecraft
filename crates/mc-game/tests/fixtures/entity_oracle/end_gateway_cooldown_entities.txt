@@ -1,0 +1,44 @@
+CF msg Game rule respawn_radius is now set to 0
+CF result success 0
+T 1
+BE 41 75 0 {Age:1L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:75,z:0}
+T 2
+EV block_event r=64.0 ex=0 pos=41,75,0 block=minecraft:end_gateway b0=1 b1=0
+BE 41 75 0 {Age:2L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:75,z:0}
+T 3
+BE 41 75 0 {Age:3L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:75,z:0}
+LEVEL minecraft:overworld gametime=3 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=3 forced=25 loaded=961 players=0 border=5.9999968E7
+E a1 minecraft:item pos=20.5,70.0,0.5 delta=0.0,0.0,0.0 rot=122.45205,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=3 pickup=32767 health=5 owner=- thrower=-
+E a2 minecraft:item pos=41.2,75.0,0.2 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=3 pickup=32767 health=5 owner=- thrower=-
+E pg minecraft:pig pos=41.5,75.0,0.5 delta=0.0,0.0,0.0 rot=30.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar minecraft:arrow pos=41.5,75.05049999952317,0.5 delta=0.0,-0.14850500142097472,0.0 rot=0.0,-32.399998 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0
+BE 41 75 0 {Age:3L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:75,z:0}
+BEU 41 75 0 minecraft:end_gateway {Age:3L,ExactTeleport:1b,exit_portal:[I;20,70,0]}
+# the cooldown runs down while the others wait
+E a1 minecraft:item pos=20.5,70.0,0.5 delta=0.0,-0.12,0.0 rot=122.45205,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=42 pickup=32767 health=5 owner=- thrower=-
+E a2 minecraft:item pos=41.2,75.0,0.2 delta=0.0,0.0,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=42 pickup=32767 health=5 owner=- thrower=-
+E pg minecraft:pig pos=41.5,75.0,0.5 delta=0.0,0.0,0.0 rot=30.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar minecraft:arrow pos=41.5,75.05000000074506,0.5 delta=0.0,0.0,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=38 dmg=2.0
+BE 41 75 0 {Age:42L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:75,z:0}
+E a1 minecraft:item pos=20.5,70.0,0.5 delta=0.0,0.0,0.0 rot=122.45205,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=43 pickup=32767 health=5 owner=- thrower=-
+E a2 minecraft:item pos=20.5,70.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=43 pickup=32767 health=5 owner=- thrower=-
+E pg minecraft:pig pos=41.5,75.0,0.5 delta=0.0,0.0,0.0 rot=30.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar minecraft:arrow pos=41.5,75.05000000074506,0.5 delta=0.0,0.0,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=39 dmg=2.0
+BE 41 75 0 {Age:43L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:75,z:0}
+E a1 minecraft:item pos=20.5,70.0,0.5 delta=0.0,-0.08,0.0 rot=122.45205,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=49 pickup=32767 health=5 owner=- thrower=-
+E a2 minecraft:item pos=20.5,70.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=49 pickup=32767 health=5 owner=- thrower=-
+E pg minecraft:pig pos=41.5,75.0,0.5 delta=0.0,0.0,0.0 rot=30.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar minecraft:arrow pos=41.5,75.05000000074506,0.5 delta=0.0,0.0,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=45 dmg=2.0
+BE 41 75 0 {Age:49L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:75,z:0}
+# a second round: the gateway is cooled down, whatever is still inside goes
+E a1 minecraft:item pos=20.5,70.0,0.5 delta=0.0,-0.08,0.0 rot=122.45205,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=89 pickup=32767 health=5 owner=- thrower=-
+E a2 minecraft:item pos=20.5,70.0,0.5 delta=0.0,-0.12,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=89 pickup=32767 health=5 owner=- thrower=-
+E pg minecraft:pig pos=20.5,70.0,0.5 delta=0.0,0.0,0.0 rot=30.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar minecraft:arrow pos=41.5,75.05000000074506,0.5 delta=0.0,0.0,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=85 dmg=2.0
+BE 41 75 0 {Age:89L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:75,z:0}
+E a1 minecraft:item pos=20.5,70.0,0.5 delta=0.0,0.0,0.0 rot=122.45205,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:stick*1 age=95 pickup=32767 health=5 owner=- thrower=-
+E a2 minecraft:item pos=20.5,70.0,0.5 delta=0.0,-0.04,0.0 rot=313.8597,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:apple*1 age=95 pickup=32767 health=5 owner=- thrower=-
+E pg minecraft:pig pos=20.5,70.0,0.5 delta=0.0,0.0,0.0 rot=30.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ar minecraft:arrow pos=41.5,75.05000000074506,0.5 delta=0.0,0.0,0.0 rot=0.0,-43.92 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=91 dmg=2.0
+BE 41 75 0 {Age:95L,ExactTeleport:1b,components:{},exit_portal:[I;20,70,0],id:"minecraft:end_gateway",x:41,y:75,z:0}

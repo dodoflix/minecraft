@@ -293,10 +293,11 @@ pub fn create_respawned_player(
 ) -> ServerPlayer {
     let mut old = old;
     let client_information = old.client_information.clone();
-    // `new ServerPlayer(..)` takes a fresh id from the level before `setId` copies the dead player's: the counter advances
-    level.next_entity_id();
+    // `new ServerPlayer(..)` takes a fresh id from the level; `setId` copies the dead player's after `restoreFrom`, so the
+    // effect packets `restoreFrom` sends carry the fresh one
+    let old_id = old.base_id();
     let mut new = ServerPlayer::new(
-        old.base_id(),
+        level.next_entity_id(),
         transition.level.clone(),
         old.player.game_profile.clone(),
         client_information,
@@ -319,6 +320,7 @@ pub fn create_respawned_player(
     for effect in restored_effects {
         crate::world::entity::Entity::add_effect(&mut new, level, effect, None);
     }
+    new.base_mut().id = old_id;
     new.snap_to(
         transition.position.x,
         transition.position.y,

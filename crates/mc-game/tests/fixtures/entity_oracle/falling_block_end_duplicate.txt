@@ -1,0 +1,126 @@
+CF msg Game rule respawn_radius is now set to 0
+CF result success 0
+T 1
+E item#1 minecraft:item pos=0.5,61.0,0.5 delta=0.01510839534499668,0.2,-0.0850577778518638 rot=131.77473,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=0 pickup=10 health=5 owner=- thrower=-
+E falling_block#1 minecraft:falling_block pos=8.5,-64.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing state=minecraft:gravel time=2 hurt=false cancel=false drop=true
+E item#2 minecraft:item pos=0.5,61.0,0.5 delta=0.0417045140770744,0.2,0.07925035670963967 rot=160.18256,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=0 pickup=10 health=5 owner=- thrower=-
+T 2
+E falling_block#2 minecraft:falling_block pos=100.5,49.96,0.5 delta=0.0,-0.03920000076293945,0.0 rot=90.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=3 hurt=false cancel=false drop=true
+E item#1 minecraft:item pos=0.5151083953449966,61.16,0.4149422221481362 delta=0.014806227726266519,0.1568000030517578,-0.0833566239171749 rot=131.77473,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=1 pickup=9 health=5 owner=- thrower=-
+E falling_block#1 minecraft:falling_block pos=8.5,-64.04,8.5 delta=0.0,-0.03920000076293945,0.0 rot=0.0,0.0 og=0 fall=0.03999999910593033 fire=0 air=300 alive=1 pose=standing state=minecraft:gravel time=3 hurt=false cancel=false drop=true
+E item#2 minecraft:item pos=0.5417045140770744,61.16,0.5792503567096396 delta=0.04087042459098339,0.1568000030517578,0.07766535108702748 rot=160.18256,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=1 pickup=9 health=5 owner=- thrower=-
+T 3
+E falling_block#2 minecraft:falling_block pos=100.5,49.88079999923706,0.5 delta=0.0,-0.0776160022583008,0.0 rot=90.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=4 hurt=false cancel=false drop=true
+E falling_block#1 minecraft:falling_block pos=8.5,-64.11920000076294,8.5 delta=0.0,-0.0776160022583008,0.0 rot=0.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing state=minecraft:gravel time=4 hurt=false cancel=false drop=true
+E item#3 minecraft:item pos=100.45551547835737,50.11680000305176,0.42796751705341196 delta=-0.043594832058254214,0.11446400521850592,-0.07059183466156686 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=8.5,-64.0,8.5 delta=0.04087042459098339,0.1568000030517578,0.07766535108702748 rot=160.18256,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=1 pickup=9 health=5 owner=- thrower=-
+LEVEL minecraft:overworld gametime=3 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=3 forced=25 loaded=1106 players=0 border=5.9999968E7
+E falling_block#2 minecraft:falling_block pos=100.5,49.88079999923706,0.5 delta=0.0,-0.0776160022583008,0.0 rot=90.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=4 hurt=false cancel=false drop=true
+E falling_block#1 minecraft:falling_block pos=8.5,-64.11920000076294,8.5 delta=0.0,-0.0776160022583008,0.0 rot=0.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing state=minecraft:gravel time=4 hurt=false cancel=false drop=true
+E item#3 minecraft:item pos=100.45551547835737,50.11680000305176,0.42796751705341196 delta=-0.043594832058254214,0.11446400521850592,-0.07059183466156686 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=8.5,-64.0,8.5 delta=0.04087042459098339,0.1568000030517578,0.07766535108702748 rot=160.18256,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=1 pickup=9 health=5 owner=- thrower=-
+E falling_block#2 minecraft:falling_block pos=100.5,49.88079999923706,0.5 delta=0.0,-0.0776160022583008,0.0 rot=90.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing state=minecraft:sand time=4 hurt=false cancel=false drop=true
+E falling_block#1 minecraft:falling_block pos=8.5,-64.11920000076294,8.5 delta=0.0,-0.0776160022583008,0.0 rot=0.0,0.0 og=0 fall=0.11919999867677689 fire=0 air=300 alive=1 pose=standing state=minecraft:gravel time=4 hurt=false cancel=false drop=true
+E item#3 minecraft:item pos=100.45551547835737,50.11680000305176,0.42796751705341196 delta=-0.043594832058254214,0.11446400521850592,-0.07059183466156686 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=8.5,-64.0,8.5 delta=0.04087042459098339,0.1568000030517578,0.07766535108702748 rot=160.18256,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=1 pickup=9 health=5 owner=- thrower=-
+B -1 60 -1 minecraft:stone
+B -1 60 0 minecraft:stone
+B -1 60 1 minecraft:stone
+B 0 60 -1 minecraft:stone
+B 0 60 0 minecraft:stone
+B 0 60 1 minecraft:stone
+B 0 61 0 minecraft:end_portal
+B 1 60 -1 minecraft:stone
+B 1 60 0 minecraft:stone
+B 1 60 1 minecraft:stone
+COUNTER 108
+B -1 60 -1 minecraft:stone
+B -1 60 0 minecraft:stone
+B -1 60 1 minecraft:stone
+B 0 60 -1 minecraft:stone
+B 0 60 0 minecraft:stone
+B 0 60 1 minecraft:stone
+B 0 61 0 minecraft:end_portal
+B 1 60 -1 minecraft:stone
+B 1 60 0 minecraft:stone
+B 1 60 1 minecraft:stone
+B 98 48 -2 minecraft:obsidian
+B 98 48 -1 minecraft:obsidian
+B 98 48 0 minecraft:obsidian
+B 98 48 1 minecraft:obsidian
+B 98 48 2 minecraft:obsidian
+B 99 48 -2 minecraft:obsidian
+B 99 48 -1 minecraft:obsidian
+B 99 48 0 minecraft:obsidian
+B 99 48 1 minecraft:obsidian
+B 99 48 2 minecraft:obsidian
+B 100 48 -2 minecraft:obsidian
+B 100 48 -1 minecraft:obsidian
+B 100 48 0 minecraft:obsidian
+B 100 48 1 minecraft:obsidian
+B 100 48 2 minecraft:obsidian
+B 101 48 -2 minecraft:obsidian
+B 101 48 -1 minecraft:obsidian
+B 101 48 0 minecraft:obsidian
+B 101 48 1 minecraft:obsidian
+B 101 48 2 minecraft:obsidian
+B 102 48 -2 minecraft:obsidian
+B 102 48 -1 minecraft:obsidian
+B 102 48 0 minecraft:obsidian
+B 102 48 1 minecraft:obsidian
+B 102 48 2 minecraft:obsidian
+LEVEL minecraft:overworld gametime=23 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=23 forced=25 loaded=1106 players=0 border=5.9999968E7
+E falling_block#1 minecraft:falling_block pos=8.5,-72.83472932462962,8.5 delta=0.0,-0.7033055820164975,0.0 rot=0.0,0.0 og=0 fall=8.834729313850403 fire=0 air=300 alive=1 pose=standing state=minecraft:gravel time=24 hurt=false cancel=false drop=true
+E item#3 minecraft:item pos=100.15124495726015,50.0,-0.06472882569153575 delta=-3.3110196441436194E-4,0.0,-5.361437130168545E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=9.179250282985732,-68.81962808142224,9.790767400436746 delta=0.027285431886939746,-0.5468075272469074,0.051850027697726966 rot=160.18256,0.0 og=0 fall=5.043866742402315 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=21 pickup=0 health=5 owner=- thrower=-
+E falling_block#1 minecraft:falling_block pos=8.5,-72.83472932462962,8.5 delta=0.0,-0.7033055820164975,0.0 rot=0.0,0.0 og=0 fall=8.834729313850403 fire=0 air=300 alive=1 pose=standing state=minecraft:gravel time=24 hurt=false cancel=false drop=true
+E item#3 minecraft:item pos=100.15124495726015,50.0,-0.06472882569153575 delta=-3.3110196441436194E-4,0.0,-5.361437130168545E-4 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:sand*1 age=22 pickup=0 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=9.179250282985732,-68.81962808142224,9.790767400436746 delta=0.027285431886939746,-0.5468075272469074,0.051850027697726966 rot=160.18256,0.0 og=0 fall=5.043866742402315 fire=0 air=300 alive=1 pose=standing item=minecraft:gravel*1 age=21 pickup=0 health=5 owner=- thrower=-
+B -1 60 -1 minecraft:stone
+B -1 60 0 minecraft:stone
+B -1 60 1 minecraft:stone
+B 0 60 -1 minecraft:stone
+B 0 60 0 minecraft:stone
+B 0 60 1 minecraft:stone
+B 0 61 0 minecraft:end_portal
+B 1 60 -1 minecraft:stone
+B 1 60 0 minecraft:stone
+B 1 60 1 minecraft:stone
+B -1 60 -1 minecraft:stone
+B -1 60 0 minecraft:stone
+B -1 60 1 minecraft:stone
+B 0 60 -1 minecraft:stone
+B 0 60 0 minecraft:stone
+B 0 60 1 minecraft:stone
+B 0 61 0 minecraft:end_portal
+B 1 60 -1 minecraft:stone
+B 1 60 0 minecraft:stone
+B 1 60 1 minecraft:stone
+B 98 48 -2 minecraft:obsidian
+B 98 48 -1 minecraft:obsidian
+B 98 48 0 minecraft:obsidian
+B 98 48 1 minecraft:obsidian
+B 98 48 2 minecraft:obsidian
+B 99 48 -2 minecraft:obsidian
+B 99 48 -1 minecraft:obsidian
+B 99 48 0 minecraft:obsidian
+B 99 48 1 minecraft:obsidian
+B 99 48 2 minecraft:obsidian
+B 100 48 -2 minecraft:obsidian
+B 100 48 -1 minecraft:obsidian
+B 100 48 0 minecraft:obsidian
+B 100 48 1 minecraft:obsidian
+B 100 48 2 minecraft:obsidian
+B 100 49 0 minecraft:sand
+B 101 48 -2 minecraft:obsidian
+B 101 48 -1 minecraft:obsidian
+B 101 48 0 minecraft:obsidian
+B 101 48 1 minecraft:obsidian
+B 101 48 2 minecraft:obsidian
+B 102 48 -2 minecraft:obsidian
+B 102 48 -1 minecraft:obsidian
+B 102 48 0 minecraft:obsidian
+B 102 48 1 minecraft:obsidian
+B 102 48 2 minecraft:obsidian

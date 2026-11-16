@@ -246,12 +246,13 @@ pub fn adjusted_spawn_pos(
         use mc_world::heightmap::HeightmapType;
         let spawn_block = level.get_respawn_data().pos;
         level.chunk_blocking_mut(spawn_block.x() >> 4, spawn_block.z() >> 4);
+        // `chunk.getHeight(..) + 1`: the level's `getHeight` already is the chunk's `+ 1`
         let height = crate::world::level::LevelReader::get_height_at(
             &*level,
             HeightmapType::MotionBlockingNoLeaves,
             spawn_block.x(),
             spawn_block.z(),
-        ) + 1;
+        );
         Vec3::at_bottom_center_of(&BlockPos::new(spawn_block.x(), height, spawn_block.z()))
     };
     if *new_dimension == current_level.dimension {

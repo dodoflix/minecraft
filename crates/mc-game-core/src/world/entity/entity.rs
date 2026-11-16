@@ -4829,6 +4829,9 @@ pub trait Entity: Any {
     /// What an overriding `teleport(transition)` does with the entity that exists afterwards (`ItemEntity`: merge with
     /// the items around it).
     fn after_teleport(&mut self, _level: &mut ServerLevel) {}
+    /// What an overriding `teleport(transition)` does with the entity it was called on, from the result and whether the
+    /// move went from or to the End (`FallingBlockEntity`: keeps ticking after the hand-over).
+    fn teleport_done(&mut self, _from_or_to_end: bool, _moved_to_new_entity: bool) {}
     /// `LivingEntity.wasHurtRecently()`.
     fn was_hurt_recently(&self) -> bool {
         self.living().is_some_and(|l| l.hurt_time > 0)

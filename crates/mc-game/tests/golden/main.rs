@@ -101,6 +101,7 @@ mod display_math_golden;
 mod enchant_anvil_golden;
 mod enchant_golden;
 mod end_fight_golden;
+mod end_travel_golden;
 mod ent_aec_golden;
 mod ent_arrow_trident_golden;
 mod ent_boat_golden;

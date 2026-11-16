@@ -1,0 +1,10 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "from": "minecraft:the_end"
+      }
+    }
+  }
+}

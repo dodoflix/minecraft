@@ -320,7 +320,20 @@ impl ServerPlayer {
         destination: PositionMoveRotation,
         relatives: Relatives,
     ) {
-        self.connection_teleport_moving(destination, relatives, true);
+        self.connection_teleport_moving(destination, relatives, true, |_| {});
+    }
+
+    /// `player.connection.teleport(destination, relatives)` of a player that moves into `level` (`setServerLevel` came
+    /// first): the new position reaches that level's waypoint manager before the client hears of it.
+    pub fn connection_teleport_into(
+        &mut self,
+        level: &mut crate::server::level::ServerLevel,
+        destination: PositionMoveRotation,
+        relatives: Relatives,
+    ) {
+        self.connection_teleport_moving(destination, relatives, true, |player| {
+            level.waypoint_update_incoming_player(player);
+        });
     }
 
     /// `player.connection.teleport(x, y, z, yRot, xRot)` inside `PlayerList.respawn`: the connection's `player` is still the
@@ -340,7 +353,7 @@ impl ServerPlayer {
             y_rot,
             x_rot,
         };
-        self.connection_teleport_moving(destination, Relatives::NONE, false);
+        self.connection_teleport_moving(destination, Relatives::NONE, false, |_| {});
     }
 
     fn connection_teleport_moving(
@@ -348,6 +361,7 @@ impl ServerPlayer {
         destination: PositionMoveRotation,
         relatives: Relatives,
         move_player: bool,
+        after_move: impl FnOnce(&ServerPlayer),
     ) {
         let lis = self
             .listener
@@ -360,7 +374,12 @@ impl ServerPlayer {
         }
         let id = lis.awaiting_teleport;
         if move_player {
+            let before = self.position();
             self.teleport_set_position(destination, relatives);
+            // `setPosRaw` reaches the waypoint manager only when the position changed
+            if self.position() != before {
+                after_move(self);
+            }
         }
         let position = if move_player {
             self.position()

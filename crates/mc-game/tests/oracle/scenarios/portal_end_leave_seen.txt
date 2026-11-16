@@ -1,0 +1,76 @@
+# Leaving the End through the exit portal after the credits: the player arrives where its respawn point says (a bed, a charged respawn anchor in
+# the nether, a forced point, a point whose block is gone, none at all: the world spawn with a message for the missing block); items, mobs and
+# arrows go to the world spawn of the overworld (adjusted for their size). The respawn config of a player is merged in with `nbt`.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+gamerule respawn_radius 0
+fill 8 -61 8 20 -61 20 minecraft:stone
+block 10 -60 10 minecraft:red_bed[facing=south,part=foot]
+block 10 -60 11 minecraft:red_bed[facing=south,part=head]
+in the_nether fill 4 99 4 8 99 8 minecraft:netherrack
+in the_nether block 6 100 6 minecraft:respawn_anchor[charges=2]
+in the_end fill -2 59 -2 2 59 2 minecraft:bedrock
+in the_end fill -1 60 -1 1 60 1 minecraft:end_portal
+in the_end spawn_player Bed creative 8.5 60 0.5 0 0 sim
+in the_end spawn_player Anchor creative 8.5 60 3.5 0 0 sim
+in the_end spawn_player Forced creative 8.5 60 6.5 0 0 sim
+in the_end spawn_player Gone creative 8.5 60 9.5 0 0 sim
+in the_end spawn_player Plain creative 8.5 60 12.5 0 0 sim
+set Bed seen_credits true
+set Anchor seen_credits true
+set Forced seen_credits true
+set Gone seen_credits true
+set Plain seen_credits true
+nbt Bed {respawn:{dimension:"minecraft:overworld",pos:[I;10,-60,11],yaw:180.0f,pitch:0.0f,forced:0b}}
+nbt Anchor {respawn:{dimension:"minecraft:the_nether",pos:[I;6,100,6],yaw:0.0f,pitch:0.0f,forced:0b}}
+cmd spawnpoint Forced 14 -60 14 90 5
+nbt Gone {respawn:{dimension:"minecraft:overworld",pos:[I;16,-60,16],yaw:0.0f,pitch:0.0f,forced:0b}}
+tick 2
+dump levels players
+note Bed
+snap Bed 0.5 60 0.5 0 0
+watch packets:Bed:game_event,respawn,player_position,set_default_spawn_position
+tick 2
+watch off
+dump levels player:Bed
+tick 1
+note Anchor
+snap Anchor 0.5 60 0.5 0 0
+watch packets:Anchor:game_event,respawn,player_position,set_default_spawn_position
+tick 2
+watch off
+dump levels player:Anchor
+in the_nether dump blocks:4,99,4,8,101,8
+tick 1
+note Forced
+snap Forced 0.5 60 0.5 0 0
+watch packets:Forced:game_event,respawn,player_position,set_default_spawn_position
+tick 2
+watch off
+dump levels player:Forced
+note Gone: the bed was never there
+snap Gone 0.5 60 0.5 0 0
+watch packets:Gone:game_event,respawn,player_position,set_default_spawn_position
+tick 2
+watch off
+dump levels player:Gone
+note Plain
+snap Plain 0.5 60 0.5 0 0
+watch packets:Plain:game_event,respawn,player_position,set_default_spawn_position
+tick 2
+watch off
+dump levels player:Plain
+note an item, a pig and an arrow in the portal
+level_seed 9
+in the_end spawn_item it minecraft:stick 0.5 60.2 0.5 0 0 0
+in the_end nbt it {PickupDelay:100s}
+in the_end spawn pg minecraft:pig 0.5 60 0.5 0 0 {NoAI:1b}
+in the_end spawn ar minecraft:arrow 0.5 60.3 0.5 0 0 {Motion:[0.0d,0.0d,0.0d]}
+tick 3
+dump levels entities

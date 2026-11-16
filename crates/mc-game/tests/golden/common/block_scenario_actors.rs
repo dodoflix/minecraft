@@ -155,6 +155,18 @@ pub(super) fn reset_login_detail() {
 fn packet_text(ty: &str, wire: &[u8]) -> String {
     match ty {
         "minecraft:update_advancements" => "-".into(),
+        // the heightmap order of the packet varies per JVM run: the chunk and the size of the wire form stand for it
+        "minecraft:level_chunk_with_light" => {
+            let mut body = wire;
+            read_varint(&mut body).expect("packet id");
+            let coord = |b: &[u8]| i32::from_be_bytes(b[..4].try_into().expect("chunk coordinate"));
+            format!(
+                "chunk={},{}/len={}",
+                coord(body),
+                coord(&body[4..]),
+                wire.len()
+            )
+        }
         // the three rule flags (the replay builds the rest of the packet from nothing)
         "minecraft:login" => {
             let mut body = wire;
@@ -1068,6 +1080,12 @@ impl Scenario {
                     "fire" => e.set_remaining_fire_ticks(v.parse().unwrap()),
                     "fall_distance" => e.base_mut().fall_distance = num(&v),
                     "portal_cooldown" => e.base_mut().portal_cooldown = v.parse().unwrap(),
+                    "seen_credits" => {
+                        e.as_any_mut()
+                            .downcast_mut::<ServerPlayer>()
+                            .expect("player")
+                            .seen_credits = v == "true"
+                    }
                     "invulnerable" => e.base_mut().permanently_invulnerable = v == "true",
                     "no_gravity" => e.base_mut().set_no_gravity(v == "true"),
                     "tag" => {
@@ -1205,7 +1223,22 @@ impl Scenario {
     ) -> Option<R> {
         self.focus_ref(name);
         let id = self.entity_id(name);
-        self.level().with_player(id, f)
+        let mut f = Some(f);
+        let found = self
+            .level()
+            .with_player(id, |level, p| (f.take().expect("once"))(level, p));
+        if found.is_some() || !mc_game::commands::server_access::has_server() {
+            return found;
+        }
+        // a player the end credits removed from its level is still connected and ticks: the server holds it
+        let level = self.level.as_mut().expect("world");
+        mc_game::commands::server_access::with_server(|server| {
+            let p = server
+                .detached_players
+                .values_mut()
+                .find(|p| p.base_id() == id)?;
+            Some((f.take()?)(level, p))
+        })
     }
 
     fn with_player_named<R>(
@@ -2427,6 +2460,28 @@ impl Scenario {
             names: &names,
             uuids: &uuids,
         };
+        // a player the end credits removed from its level: the server keeps it until it asks to respawn (the level keeps a
+        // removed stand-in)
+        let detached = mc_game::commands::server_access::has_server().then(|| {
+            mc_game::commands::server_access::with_server(|server| {
+                server
+                    .detached_players
+                    .values()
+                    .find(|p| p.base_id() == id)
+                    .map(|p| {
+                        super::super::entity_describe::describe(
+                            name,
+                            &**p as &dyn Entity,
+                            level,
+                            &ctx,
+                            rich,
+                        )
+                    })
+            })
+        });
+        if let Some(line) = detached.flatten() {
+            return line;
+        }
         let e = level
             .get_entity_or_removed(id)
             .unwrap_or_else(|| panic!("entity {name} is gone"));

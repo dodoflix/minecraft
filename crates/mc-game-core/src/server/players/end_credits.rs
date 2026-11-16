@@ -8,7 +8,7 @@
 
 use crate::server::MinecraftServer;
 use crate::server::level::ServerLevel;
-use crate::world::entity::{Entity, RemovalReason, ServerPlayer};
+use crate::world::entity::{RemovalReason, ServerPlayer};
 use mc_protocol::packets::play::ClientboundGameEventPacket;
 use uuid::Uuid;
 
@@ -52,25 +52,15 @@ pub fn finish_player_step(server: &mut MinecraftServer, uuid: Uuid) {
             return;
         };
         level.tick_state.pending_player_detach.remove(index);
-        level.with_entity(id, |level, e| {
-            let Some(slot) = e.as_any_mut().downcast_mut::<ServerPlayer>() else {
-                return;
-            };
-            let mut placeholder = ServerPlayer::new(
-                id,
-                slot.dimension.clone(),
-                slot.player.game_profile.clone(),
-                Default::default(),
-            );
-            placeholder.remove(RemovalReason::ChangedDimension);
-            let mut real = Box::new(std::mem::replace(slot, placeholder));
-            real.close_menus_on_removal(level);
-            real.remove(RemovalReason::ChangedDimension);
+        // `removePlayerImmediately(CHANGED_DIMENSION)`: the removal `PlayerList.respawn` does of the old player
+        if let Some(real) =
+            super::respawn::take_old_player(level, id, RemovalReason::ChangedDimension)
+        {
             let won_game = real.won_game;
-            server.detached_players.insert(uuid, real);
+            server.detached_players.insert(uuid, Box::new(real));
             if let Some(handle) = server.player_list.get_player(&uuid) {
                 handle.shared.lock().won_game = won_game;
             }
-        });
+        }
     });
 }

@@ -1,0 +1,135 @@
+# blocks in the platform's way: stone, a chest-less diamond block and a torch above the floor
+LEVEL minecraft:overworld gametime=1 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_end gametime=1 forced=25 loaded=1009 players=0 border=5.9999968E7
+PL A dim=minecraft:overworld
+T 2
+PORTAL A cooldown=0 time=0
+T 3
+PORTAL A cooldown=10 time=1
+EV level_event r=64.0 ex=0 type=2001 pos=99,50,-1 data=4926 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=100,49,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=101,49,1 data=6865 global=0
+PKT A minecraft:respawn 5402116d696e6563726166743a7468655f656e64d88694a6a43d2e5e01000001000ac1ffffff0f03
+PKT A minecraft:player_position 4902405920000000000040488000000000003fe000000000000000000000000000000000000000000000000000000000000042b4000000000000000001f0
+PKT A minecraft:initialize_border 2c00000000000000000000000000000000418c9c3700000000418c9c370000000000f086a70e05ac02
+PKT A minecraft:set_time 730000000000000003020000000000000000000001000000000000000000
+PKT A minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000020000008fc00000000000000000
+PKT A minecraft:game_event 270d00000000
+PKT A minecraft:level_event 2f0000040800000000000000000000000000
+T 4
+PORTAL A cooldown=10 time=-
+T 5
+PORTAL A cooldown=10 time=-
+LEVEL minecraft:overworld gametime=5 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=5 forced=25 loaded=1349 players=1 border=5.9999968E7
+PL A dim=minecraft:the_end
+P A minecraft:player pos=100.5,49.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,20.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PORTAL A cooldown=10 time=-
+B 98 48 -2 minecraft:obsidian
+B 98 48 -1 minecraft:obsidian
+B 98 48 0 minecraft:obsidian
+B 98 48 1 minecraft:obsidian
+B 98 48 2 minecraft:obsidian
+B 99 48 -2 minecraft:obsidian
+B 99 48 -1 minecraft:obsidian
+B 99 48 0 minecraft:obsidian
+B 99 48 1 minecraft:obsidian
+B 99 48 2 minecraft:obsidian
+B 100 48 -2 minecraft:obsidian
+B 100 48 -1 minecraft:obsidian
+B 100 48 0 minecraft:obsidian
+B 100 48 1 minecraft:obsidian
+B 100 48 2 minecraft:obsidian
+B 101 48 -2 minecraft:obsidian
+B 101 48 -1 minecraft:obsidian
+B 101 48 0 minecraft:obsidian
+B 101 48 1 minecraft:obsidian
+B 101 48 2 minecraft:obsidian
+B 102 48 -2 minecraft:obsidian
+B 102 48 -1 minecraft:obsidian
+B 102 48 0 minecraft:obsidian
+B 102 48 1 minecraft:obsidian
+B 102 48 2 minecraft:obsidian
+E item#1 minecraft:item pos=99.53762755768525,50.81895099918118,-0.8377779265077349 delta=0.047353320181083486,0.11446400521850592,-0.08209387440651422 rot=95.98285,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:torch*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=100.48948345507202,49.44844317649921,0.4841478502674816 delta=-0.043995859241310005,0.11446400521850592,-0.07960471390987094 rot=43.953102,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=101.73528951615418,49.57424816725009,1.486043910868601 delta=0.02476827307737646,0.11446400521850592,0.05180838768936626 rot=358.35196,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_block*1 age=2 pickup=8 health=5 owner=- thrower=-
+LEVEL minecraft:overworld gametime=8 forced=25 loaded=961 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=8 forced=25 loaded=1349 players=1 border=5.9999968E7
+PL A dim=minecraft:the_end
+P A minecraft:player pos=100.5,49.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,20.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PORTAL A cooldown=10 time=-
+E item#1 minecraft:item pos=99.67686526301918,50.918704963566796,-1.0791667594474657 delta=0.044568568730153774,-0.0075310721665503766,-0.07726610235184621 rot=95.98285,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:torch*1 age=5 pickup=5 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=100.36011802807498,49.548197140884824,0.25007814499261233 delta=-0.04140855316881881,-0.0075310721665503766,-0.07492332426889887 rot=43.953102,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=5 pickup=5 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=101.80811814770925,49.6740021316357,1.6383812969553866 delta=0.023311701835370912,-0.0075310721665503766,0.048761642873235596 rot=358.35196,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:diamond_block*1 age=5 pickup=5 health=5 owner=- thrower=-
+# a stronghold ring: the last eye opens the portal (global level event), a second player walks in and finds the platform in place
+T 12
+EV level_event r=64.0 ex=0 type=1503 pos=32,-60,30 data=0 global=0
+PKT D minecraft:level_event 2f000005df000008000001efc40000000000
+PKT D minecraft:level_event 2f0000040e0000080000020fc40000000001
+T 13
+B 30 -60 31 minecraft:end_portal_frame[eye=true,facing=east]
+B 30 -60 32 minecraft:end_portal_frame[eye=true,facing=east]
+B 30 -60 33 minecraft:end_portal_frame[eye=true,facing=east]
+B 31 -60 30 minecraft:end_portal_frame[eye=true,facing=south]
+B 31 -60 31 minecraft:end_portal
+B 31 -60 32 minecraft:end_portal
+B 31 -60 33 minecraft:end_portal
+B 31 -60 34 minecraft:end_portal_frame[eye=true,facing=north]
+B 32 -60 30 minecraft:end_portal_frame[eye=true,facing=south]
+B 32 -60 31 minecraft:end_portal
+B 32 -60 32 minecraft:end_portal
+B 32 -60 33 minecraft:end_portal
+B 32 -60 34 minecraft:end_portal_frame[eye=true,facing=north]
+B 33 -60 30 minecraft:end_portal_frame[eye=true,facing=south]
+B 33 -60 31 minecraft:end_portal
+B 33 -60 32 minecraft:end_portal
+B 33 -60 33 minecraft:end_portal
+B 33 -60 34 minecraft:end_portal_frame[eye=true,facing=north]
+B 34 -60 31 minecraft:end_portal_frame[eye=true,facing=west]
+B 34 -60 32 minecraft:end_portal_frame[eye=true,facing=west]
+B 34 -60 33 minecraft:end_portal_frame[eye=true,facing=west]
+I D 0 minecraft:ender_eye*1
+T 14
+PORTAL D cooldown=0 time=0
+T 15
+PORTAL D cooldown=10 time=1
+PKT D minecraft:respawn 5402116d696e6563726166743a7468655f656e64d88694a6a43d2e5e01000001000ac1ffffff0f03
+PKT D minecraft:player_position 4902405920000000000040488000000000003fe000000000000000000000000000000000000000000000000000000000000042b4000000000000000001f0
+PKT D minecraft:game_event 270d00000000
+PKT D minecraft:level_event 2f0000040800000000000000000000000000
+T 16
+PORTAL D cooldown=10 time=-
+T 17
+PORTAL D cooldown=10 time=-
+LEVEL minecraft:overworld gametime=17 forced=25 loaded=990 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=17 forced=25 loaded=1349 players=2 border=5.9999968E7
+PL A dim=minecraft:the_end
+PL D dim=minecraft:the_end
+P D minecraft:player pos=100.5,49.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=minecraft:ender_eye*1
+PORTAL D cooldown=10 time=-
+B 98 48 -2 minecraft:obsidian
+B 98 48 -1 minecraft:obsidian
+B 98 48 0 minecraft:obsidian
+B 98 48 1 minecraft:obsidian
+B 98 48 2 minecraft:obsidian
+B 99 48 -2 minecraft:obsidian
+B 99 48 -1 minecraft:obsidian
+B 99 48 0 minecraft:obsidian
+B 99 48 1 minecraft:obsidian
+B 99 48 2 minecraft:obsidian
+B 100 48 -2 minecraft:obsidian
+B 100 48 -1 minecraft:obsidian
+B 100 48 0 minecraft:obsidian
+B 100 48 1 minecraft:obsidian
+B 100 48 2 minecraft:obsidian
+B 101 48 -2 minecraft:obsidian
+B 101 48 -1 minecraft:obsidian
+B 101 48 0 minecraft:obsidian
+B 101 48 1 minecraft:obsidian
+B 101 48 2 minecraft:obsidian
+B 102 48 -2 minecraft:obsidian
+B 102 48 -1 minecraft:obsidian
+B 102 48 0 minecraft:obsidian
+B 102 48 1 minecraft:obsidian
+B 102 48 2 minecraft:obsidian
+E item#1 minecraft:item pos=100.0473465053931,49.1488213046703,-1.7214499291408945 delta=0.03715895094904424,-0.3321334327464722,-0.0644204512085569 rot=95.98285,0.0 og=0 fall=1.77756841853261 fire=0 air=300 alive=1 pose=standing item=minecraft:torch*1 age=14 pickup=0 health=5 owner=- thrower=-

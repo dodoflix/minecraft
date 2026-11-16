@@ -165,7 +165,7 @@ static END_GATEWAY: BlockEntityRegistration = BlockEntityRegistration {
 };
 
 /// `findExitPosition(level, exitPortal)`.
-fn find_exit_position(level: &ServerLevel, exit_portal: BlockPos) -> BlockPos {
+fn find_exit_position(level: &mut ServerLevel, exit_portal: BlockPos) -> BlockPos {
     find_tallest_block(level, exit_portal.offset(0, 2, 0), 5, false).above()
 }
 
@@ -244,7 +244,7 @@ fn find_exit_portal_xz_pos_tentative(level: &mut ServerLevel, end_gateway_pos: B
 
 /// `findTallestBlock(level, around, dist, allowBedrock)`.
 fn find_tallest_block(
-    level: &dyn BlockGetter,
+    level: &mut ServerLevel,
     around: BlockPos,
     dist: i32,
     allow_bedrock: bool,
@@ -253,6 +253,11 @@ fn find_tallest_block(
     for xd in -dist..=dist {
         for zd in -dist..=dist {
             if xd != 0 || zd != 0 || allow_bedrock {
+                // `Level.getBlockState` loads the chunk of a column the search has not touched yet
+                let (cx, cz) = ((around.x() + xd) >> 4, (around.z() + zd) >> 4);
+                if level.chunk_now(cx, cz).is_none() {
+                    level.chunk_blocking_mut(cx, cz);
+                }
                 let mut y = level.get_max_y();
                 while y > tallest.map_or(level.get_min_y(), |t| t.y()) {
                     let pos = BlockPos::new(around.x() + xd, y, around.z() + zd);

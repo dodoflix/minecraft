@@ -225,9 +225,8 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
     let path = (kind == "path").then(|| current_path(h, name));
     let lines: Result<Vec<String>, String> = {
         let level = h.action_level();
-        match level.get_entity_or_removed(id) {
-            None => Err(format!("entity {name} is not in the level")),
-            Some(e) => match kind {
+        let lines_of = |e: &dyn Entity| -> Result<Vec<String>, String> {
+            match kind {
                 "goals" => Ok(sd::goal_lines(name, e)),
                 "brain" => {
                     let ctx = ScenarioDumpCtx {
@@ -317,6 +316,24 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
                     sort_recipe_book(&mut tag);
                     Ok(vec![format!("N {name} {}", canon(&Tag::Compound(tag)))])
                 }
+            }
+        };
+        let mut lines_of = Some(lines_of);
+        // a player the end credits removed from its level lives on in the server (the level keeps a removed stand-in)
+        let detached = mc_game::commands::server_access::has_server().then(|| {
+            mc_game::commands::server_access::with_server(|server| {
+                server
+                    .detached_players
+                    .values()
+                    .find(|p| p.base_id() == id)
+                    .map(|p| (lines_of.take().expect("once"))(&**p as &dyn Entity))
+            })
+        });
+        match detached.flatten() {
+            Some(lines) => lines,
+            None => match level.get_entity_or_removed(id) {
+                None => Err(format!("entity {name} is not in the level")),
+                Some(e) => (lines_of.take().expect("once"))(e),
             },
         }
     };

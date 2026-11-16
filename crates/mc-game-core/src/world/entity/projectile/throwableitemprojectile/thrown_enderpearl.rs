@@ -237,7 +237,7 @@ impl Projectile for ThrownEnderpearl {
         let teleport_pos = self.base.old_position();
         let on_portal_cooldown = self.is_on_portal_cooldown();
         let random = &mut self.base.random;
-        level.with_entity(owner, |level, owner| {
+        let played = level.with_entity(owner, |level, owner| {
             let dimension = level.dimension.clone();
             let transition = |y_rot, x_rot| {
                 TeleportTransition::new(
@@ -256,7 +256,7 @@ impl Projectile for ThrownEnderpearl {
                     .and_then(|p| p.listener.as_ref())
                     .is_none_or(|l| l.is_accepting_messages());
                 if !accepting {
-                    return;
+                    return false;
                 }
                 if random.next_float() < 0.05
                     && level.is_spawning_monsters()
@@ -294,8 +294,12 @@ impl Projectile for ThrownEnderpearl {
                     owner.reset_current_impulse_context();
                 }
             }
-            Self::play_sound(level, teleport_pos);
+            true
         });
+        // the owner is back in the level: its connection hears the sound
+        if played == Some(true) {
+            Self::play_sound(level, teleport_pos);
+        }
         self.discard_in_level(level);
     }
 }

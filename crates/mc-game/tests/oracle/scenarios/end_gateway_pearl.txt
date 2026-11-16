@@ -1,0 +1,37 @@
+# An ender pearl a player throws flies into a gateway: the pearl is moved to the exit with no motion and its own rotation (no relative flags), falls,
+# and takes its owner to the place it lands. The same pearl thrown at the gateway from a creative and a survival player.
+level void
+command_env
+end void
+nether void
+levels overworld,the_end
+dimension the_end
+preload 2
+difficulty peaceful
+entity_counter 100
+gamerule respawn_radius 0
+fill 18 69 -4 34 69 4 minecraft:stone
+fill 36 74 -4 44 74 4 minecraft:bedrock
+block 41 75 0 minecraft:end_gateway
+be_nbt 41 75 0 {exit_portal:[I;20,70,0],ExactTeleport:1b}
+block 41 75 4 minecraft:end_gateway
+be_nbt 41 75 4 {exit_portal:[I;28,70,0]}
+spawn_player A creative 38.5 75 0.5 -90 14 sim
+spawn_player B survival 38.5 75 4.5 -90 14 sim
+give A mainhand minecraft:ender_pearl 4
+give B mainhand minecraft:ender_pearl 4
+level_seed 8
+tick 2
+dump levels players
+note A throws a pearl at the exact gateway
+use A main
+watch portal:A xentities packets:A:player_position,teleport_entity,sound
+tick 6
+dump levels players player:A xentities
+watch off
+note B throws a pearl at the other gateway
+use B main
+watch xentities packets:B:player_position,teleport_entity,sound,hurt_animation,entity_event
+tick 8
+watch off
+dump levels players player:B entities
