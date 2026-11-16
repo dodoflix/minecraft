@@ -2152,11 +2152,18 @@ impl Scenario {
                         .push(format!("ADVFILE {name} {}", normalise_obtained_times(line)));
                 }
             }
-            "packets" | "advpackets" => {
+            "packets" | "advpackets" | "fightpackets" => {
                 let arg = arg.expect("packets:NAME[:type,..]");
                 let (name, only) = arg
                     .split_once(':')
                     .map_or((arg, None), |(n, f)| (n, Some(f)));
+                // `fightpackets:NAME`: only the boss bar and level event packets, the boss bar uuid zeroed
+                let fight_packets = kind == "fightpackets";
+                let only = if fight_packets {
+                    Some("boss_event,level_event")
+                } else {
+                    only
+                };
                 let except = only.is_some_and(|f| f.starts_with('!'));
                 let only: Option<Vec<&str>> =
                     only.map(|f| f.trim_start_matches('!').split(',').collect());
@@ -2186,13 +2193,17 @@ impl Scenario {
                     .unwrap_or("?");
                     sent.push((ty, p));
                 }
-                for (ty, p) in debug_order(chunk_order(sent)) {
+                for (ty, mut p) in debug_order(chunk_order(sent)) {
                     if only
                         .as_ref()
                         .is_none_or(|o| o.contains(&ty.trim_start_matches("minecraft:")) != except)
                     {
                         let hex = if kind == "advpackets" && ty == "minecraft:update_advancements" {
                             advancement_detail(&p)
+                        } else if fight_packets && ty == "minecraft:boss_event" {
+                            // the bar's uuid comes from the level's random
+                            p[1..17].fill(0);
+                            packet_text(ty, &p)
                         } else {
                             packet_text(ty, &p)
                         };

@@ -1,0 +1,30 @@
+# The dump kinds of the fight scenarios, without a fight: `fighthash` (the arena blocks and the 20 gateway sites, an unloaded chunk reads as air) and
+# `fightpackets:` (boss bar and level event packets only, the bar uuid zeroed) over a void End with a custom boss bar.
+level void
+command_env
+end void
+dimension the_end
+levels overworld,the_end
+preload 7
+difficulty peaceful
+level_seed 5
+spawn_player P creative 0.5 100 0.5 0 0
+gamerule send_command_feedback false
+tick 1
+dump packets:P:none fighthash
+block 0 60 0 minecraft:bedrock
+block -64 159 63 minecraft:end_stone
+block 64 159 63 minecraft:end_stone
+fill 95 74 -1 97 76 1 minecraft:obsidian
+block -96 75 0 minecraft:end_gateway
+note a block over the arena's edge and next to it, the first gateway site, a gateway block on another one
+dump fighthash
+cmd bossbar add fight:bar "Bar"
+cmd bossbar set fight:bar players @a
+block 1 100 1 minecraft:stone
+destroy 1 100 1
+tick 1
+dump fightpackets:P
+cmd bossbar set fight:bar value 40
+tick 1
+dump fightpackets:P

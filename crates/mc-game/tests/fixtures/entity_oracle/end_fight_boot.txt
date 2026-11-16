@@ -1,0 +1,44 @@
+# right after boot: nothing scanned, nobody near, no dragon, the 20 gateways in the order of the world seed's shuffle
+FIGHT killed=false prev=false stage=- rtime=0 alive=0 dragon=- portal=- gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14,9 scan=true seen=0 pscan=21 cscan=0 crystals=0
+FIGHTBAR visible=true progress=1.0 players=- name=Ender Dragon color=pink overlay=progress music=true fog=true
+FIGHTFILE 0a00000a0004646174610900086761746577617973030000001400000005000000100000000c00000004000000010000000700000011000000020000000f0000000b0000000a000000120000000d00000008000000000000000600000003000000130000000e0000000901000d647261676f6e5f6b696c6c65640003000c7265737061776e5f74696d65000000000100146e656564735f73746174655f7363616e6e696e670101001170726576696f75736c795f6b696c6c6564000003000b4461746156657273696f6e0000139f00
+FIGHTHASH area 0 cbf29ce484222325
+FIGHTHASH gateways 0 cbf29ce484222325
+# the first tick: the bar adds the player, the scan finds no portal and builds the inactive podium, the fight creates its dragon
+FIGHT killed=false prev=false stage=- rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14,9 scan=false seen=0 pscan=0 cscan=1 crystals=0
+FIGHTBAR visible=true progress=1.0 players=Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+PKT Obs minecraft:boss_event 0900000000000000000000000000000000000a0800097472616e736c617465001d656e746974792e6d696e6563726166742e656e6465725f647261676f6e003f800000000006
+FIGHTHASH area 61 92d0030376f36b42
+FIGHTHASH gateways 0 cbf29ce484222325
+E ender_dragon#1 minecraft:ender_dragon pos=-0.033337882068506186,127.99399999976158,-0.04985941678164574 delta=-0.031657578250323115,-0.005460000374317176,-0.04734639066263726 rot=-33.76668,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=-
+FIGHT killed=false prev=false stage=- rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14,9 scan=false seen=0 pscan=0 cscan=21 crystals=0
+FIGHTBAR visible=true progress=1.0 players=Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+# the dragon dies: active exit portal, the egg (first kill only), one gateway taken off the list and placed, the bar hidden
+FIGHT killed=true prev=true stage=- rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=21 crystals=0
+FIGHTBAR visible=false progress=0.0 players=Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+PKT Obs minecraft:boss_event 09000000000000000000000000000000000200000000
+PKT Obs minecraft:boss_event 090000000000000000000000000000000001
+FIGHTHASH area 82 f31f3ef8294b26f1
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+FIGHT killed=true prev=true stage=- rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=21 crystals=0
+FIGHTBAR visible=false progress=1.0 players=Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+# a second kill spawns no egg and no gateway once the list is empty
+FIGHT killed=true prev=true stage=- rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways= scan=false seen=0 pscan=1 cscan=21 crystals=0
+FIGHTFILE 0a00000a00046461746101000d647261676f6e5f6b696c6c65640103000c7265737061776e5f74696d65000000000100146e656564735f73746174655f7363616e6e696e67000b0014657869745f706f7274616c5f6c6f636174696f6e000000030000000000000001000000000b000b647261676f6e5f757569640000000460f3e185204a4a42b621b6b42f0092f401001170726576696f75736c795f6b696c6c6564010003000b4461746156657273696f6e0000139f00
+# the respawn ritual: four crystals around the portal, tryRespawn, a few ticks of its stages
+FIGHT killed=true prev=true stage=START rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways= scan=false seen=0 pscan=1 cscan=21 crystals=4
+FIGHTBAR visible=false progress=0.0 players=Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways= scan=false seen=0 pscan=2 cscan=21 crystals=4
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=100 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways= scan=false seen=0 pscan=2 cscan=21 crystals=4
+FIGHTBAR visible=false progress=1.0 players=Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+FIGHTHASH area 66 edc71059268837ae
+FIGHTHASH gateways 13 b3951cd7a7c13d7d

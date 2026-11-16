@@ -27,6 +27,8 @@
 //! `gamerule` goes through the real `GameRules` (all rules).
 #[path = "block_scenario_actors.rs"]
 mod actors;
+#[path = "block_scenario_fight.rs"]
+mod fight;
 use super::entity_oracle::{Fixture, Options, compare, fixture_dir, scenario_dir};
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
@@ -568,6 +570,8 @@ struct Options_ {
     levels: Vec<&'static str>,
     /// `end void`, `nether void`: that dimension keeps the void generator under `level normal`.
     void_dims: Vec<&'static str>,
+    /// `end fight`: the End level runs its dragon fight (without it the level has none, like the oracle's after boot).
+    end_fight: bool,
 }
 
 /// Accepts every registry reference while decoding the vanilla dimension type JSON.
@@ -716,6 +720,7 @@ impl Scenario {
                 boot_rules: Vec::new(),
                 levels: Vec::new(),
                 void_dims: Vec::new(),
+                end_fight: false,
             },
             real_biomes: false,
             gen_env: false,
@@ -1096,6 +1101,10 @@ impl Scenario {
         if dimension == "overworld" {
             level.install_custom_spawners();
         }
+        // `ServerLevel`'s constructor creates the fight of a dimension type that has one; the oracle drops it unless the scenario says `end fight`
+        if self.opts.end_fight && dimension_type.has_ender_dragon_fight {
+            fight::install(&mut level);
+        }
         // chunk generation reads the rules from the values published per tick; the preload generates before the first one
         level.publish_spawn_environment(&self.env);
         // the border applies its saved settings when the level first reads it (the server does so while it creates the levels, before
@@ -1305,14 +1314,17 @@ impl Scenario {
             }
             "end" | "nether" => {
                 assert!(
-                    self.level.is_none() && a[1] == "void",
-                    "`end void` and `nether void` only before the first world command"
+                    self.level.is_none(),
+                    "`end void`, `nether void` and `end fight` only before the first world command"
                 );
-                self.opts.void_dims.push(if a[0] == "end" {
-                    "the_end"
-                } else {
-                    "the_nether"
-                });
+                match (a[0].as_str(), a[1].as_str()) {
+                    ("end", "fight") => self.opts.end_fight = true,
+                    ("end", "void") => self.opts.void_dims.push("the_end"),
+                    ("nether", "void") => self.opts.void_dims.push("the_nether"),
+                    (dimension, other) => {
+                        panic!("`{dimension} {other}`: end void|fight, nether void")
+                    }
+                }
             }
             "preload" => self.opts.preload = int(&a[1]),
             "preload_settle" => self.opts.settle_preload_ring = true,
@@ -1435,6 +1447,7 @@ impl Scenario {
                 };
                 self.dump(&what);
             }
+            _ if self.fight_command(a) => {}
             _ if self.actor_command(a) => {}
             other => {
                 panic!("command `{other}` is not supported by tests/common/block_scenario.rs yet")
@@ -1669,6 +1682,7 @@ impl Scenario {
                     }
                 }
                 "ticks" => self.dump_ticks(arg),
+                _ if self.dump_fight(kind) => {}
                 _ if self.dump_actor(kind, arg) => {}
                 _ if super::command_verbs::dump(self, kind, arg) => {}
                 "events" => self.dump_events(),

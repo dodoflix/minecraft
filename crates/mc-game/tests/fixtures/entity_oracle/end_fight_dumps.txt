@@ -1,0 +1,17 @@
+CF result failure 0
+CF fail Game rule send_command_feedback is already set to false
+FIGHTHASH area 0 cbf29ce484222325
+FIGHTHASH gateways 0 cbf29ce484222325
+# a block over the arena's edge and next to it, the first gateway site, a gateway block on another one
+FIGHTHASH area 2 83750ffea89d7945
+FIGHTHASH gateways 28 7b8d8773e663f4be
+CF msg Created custom bossbar [Bar]
+CF result success 1
+CF msg Custom bossbar [Bar] now has 1 player(s): P
+CF result success 1
+DESTROY true
+PKT P minecraft:boss_event 09000000000000000000000000000000000008000342617200000000060000
+PKT P minecraft:level_event 2f000007d100000040000010640000000100
+CF msg Custom bossbar [Bar] has changed value to 40
+CF result success 40
+PKT P minecraft:boss_event 0900000000000000000000000000000000023ecccccd

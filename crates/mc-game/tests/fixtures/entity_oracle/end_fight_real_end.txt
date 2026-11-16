@@ -1,0 +1,14 @@
+FIGHT killed=false prev=false stage=- rtime=0 alive=0 dragon=- portal=- gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14,9 scan=true seen=0 pscan=21 cscan=0 crystals=0
+FIGHTBAR visible=true progress=1.0 players=- name=Ender Dragon color=pink overlay=progress music=true fog=true
+FIGHTHASH area 543480 fc9e68721808358e
+FIGHTHASH gateways 0 cbf29ce484222325
+# the first tick scans: the island has no exit portal yet, so the inactive podium is built, then the dragon is created
+FIGHT killed=false prev=false stage=- rtime=0 alive=0 dragon=ender_dragon#1 portal=0,60,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14,9 scan=false seen=0 pscan=0 cscan=1 crystals=0
+FIGHTBAR visible=true progress=1.0 players=Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+PKT Obs minecraft:boss_event 0900000000000000000000000000000000000a0800097472616e736c617465001d656e746974792e6d696e6563726166742e656e6465725f647261676f6e003f800000000006
+FIGHTHASH area 543462 a973559564ed4aef
+FIGHTHASH gateways 0 cbf29ce484222325
+E ender_dragon#1 minecraft:ender_dragon pos=-0.03839714739029865,127.99399999976158,-0.046076334473838854 delta=-0.03645931320788578,-0.005460000374317176,-0.04375094568815389 rot=-39.808258,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=-
+# the crystal count is refreshed every 100 ticks: the ten pillars carry one crystal each
+FIGHT killed=false prev=false stage=- rtime=0 alive=10 dragon=ender_dragon#1 portal=0,60,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14,9 scan=false seen=0 pscan=0 cscan=1 crystals=0
+FIGHTBAR visible=true progress=1.0 players=Obs name=Ender Dragon color=pink overlay=progress music=true fog=true

@@ -1,0 +1,40 @@
+# The End's dragon fight in a void End (`end fight`): its state and saved file right after boot (the gateways shuffled for the world seed, the first scan still
+# to run), the first scan with a player near (inactive podium, new dragon, boss bar), a kill (exit portal, egg, one gateway), and the respawn ritual's start.
+# Not implemented in the replay: the fight itself, so the replay test is ignored until it lands.
+level void
+end void
+end fight
+dimension the_end
+seed 4242
+preload 4
+level_seed 77
+note right after boot: nothing scanned, nobody near, no dragon, the 20 gateways in the order of the world seed's shuffle
+dump fight fightbar fightfile fighthash
+spawn_player Obs creative 0.5 100 0.5 0 0
+dump packets:Obs:none
+fight_skip_arena
+note the first tick: the bar adds the player, the scan finds no portal and builds the inactive podium, the fight creates its dragon
+tick 1
+dump fight fightbar fightpackets:Obs fighthash entity:ender_dragon#1
+tick 20
+dump fight fightbar fightpackets:Obs
+note the dragon dies: active exit portal, the egg (first kill only), one gateway taken off the list and placed, the bar hidden
+dragon_killed ender_dragon#1
+dump fight fightbar fightpackets:Obs fighthash
+tick 1
+dump fight fightbar fightpackets:Obs
+note a second kill spawns no egg and no gateway once the list is empty
+fight_remove_gateways
+dragon_killed ender_dragon#1
+dump fight fightfile
+note the respawn ritual: four crystals around the portal, tryRespawn, a few ticks of its stages
+spawn c1 minecraft:end_crystal 3.5 2 0.5 0 0 {ShowBottom:0b}
+spawn c2 minecraft:end_crystal -2.5 2 0.5 0 0 {ShowBottom:0b}
+spawn c3 minecraft:end_crystal 0.5 2 3.5 0 0 {ShowBottom:0b}
+spawn c4 minecraft:end_crystal 0.5 2 -2.5 0 0 {ShowBottom:0b}
+fight_try_respawn
+dump fight fightbar fightpackets:Obs
+tick 1
+dump fight fightpackets:Obs
+tick 100
+dump fight fightbar fightpackets:Obs fighthash

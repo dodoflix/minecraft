@@ -140,7 +140,8 @@ public final class VanillaLevel {
       public int viewDistance = 4;
       public int simulationDistance = 4;
       public List<String[]> bootRules = new ArrayList<>(); // `gamerule NAME VALUE` pairs applied before the preload (chunk generation reads them)
-      public List<String> voidDimensions = new ArrayList<>(); // `end void`, `nether void`: that dimension's generator is the void flat one (no terrain, no pillars; a live fight has nothing to start from)
+      public List<String> voidDimensions = new ArrayList<>(); // `end void`, `nether void`: that dimension's generator is the void flat one (no terrain, no pillars)
+      public boolean endFight = false; // `end fight`: the End keeps its EnderDragonFight; otherwise every level's fight is removed at boot (a live fight starts by itself once a player is within 192 blocks of the origin)
       public List<String> dataPacks = new ArrayList<>(); // `datapack NAME`: oracle/datapacks/NAME copied into the world's datapacks folder and enabled
    }
 
@@ -443,6 +444,14 @@ public final class VanillaLevel {
       Server server = new Server(Thread.currentThread(), access, packs, stem, settings, services, new NotificationManager());
       server.start();
       REGISTRIES = server.registryAccess();
+      // the End's fight is a real part of the level, but it starts by itself once a player is near and keeps the chunks around the origin loaded (a radius 9 ticket): scenarios that are not about it run without
+      if (!o.endFight) {
+         for (ServerLevel l : server.getAllLevels()) {
+            l.setDragonFight(null);
+         }
+      } else if (server.getLevel(net.minecraft.world.level.Level.END).getDragonFight() == null) {
+         throw new IllegalStateException("`end fight`: the End has no dragon fight");
+      }
       ServerLevel level = server.getLevel(net.minecraft.resources.ResourceKey.create(Registries.DIMENSION, net.minecraft.resources.Identifier.withDefaultNamespace(o.dimension)));
       if (level == null) {
          throw new IllegalArgumentException("dimension overworld|the_nether|the_end, got " + o.dimension);

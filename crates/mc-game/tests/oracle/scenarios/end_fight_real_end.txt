@@ -1,0 +1,19 @@
+# The End's dragon fight over the real End terrain (`level normal`): the first scan counts the crystals of the ten pillars, the podium goes where the island's
+# height decides, the dragon appears over it. The arena check is skipped: which tick the 17 chunks along z = +8 finish loading is thread timing.
+# Not implemented in the replay: the fight itself, so the replay test is ignored until it lands.
+level normal
+end fight
+dimension the_end
+seed 4242
+preload 4
+level_seed 77
+fight_skip_arena
+dump fight fightbar fighthash
+spawn_player Obs creative 0.5 100 0.5 0 0
+dump packets:Obs:none
+note the first tick scans: the island has no exit portal yet, so the inactive podium is built, then the dragon is created
+tick 1
+dump fight fightbar fightpackets:Obs fighthash entity:ender_dragon#1
+note the crystal count is refreshed every 100 ticks: the ten pillars carry one crystal each
+tick 100
+dump fight fightbar fightpackets:Obs
