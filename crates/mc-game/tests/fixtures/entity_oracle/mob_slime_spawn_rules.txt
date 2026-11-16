@@ -1,5 +1,7 @@
-C 147 biome entry/entries set between 28, 48, 28 and 52, 56, 52
-C Clock minecraft:overworld is already set to 0 tick(s)
+CF msg 147 biome entry/entries set between 28, 48, 28 and 52, 56, 52
+CF result success 147
+CF result failure 0
+CF fail Clock minecraft:overworld is already set to 0 tick(s)
 # swamp surface, full moon: chance 0.5 per attempt
 SPAWNAT seed=6 category=monster pos=40,51,40
 E slime#1 minecraft:slime pos=41.5,51.0,43.5 delta=0.0,0.0,0.0 rot=119.34753,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.6254028 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.234241714162952;minecraft:max_health:1.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 size=1 squish=0.0 tsquish=0.0 osquish=0.0 wasground=0 jdelay=0 mrot=93.12872 maggr=0
@@ -47,7 +49,8 @@ E slime#9 minecraft:slime pos=37.5,51.0,35.5 delta=0.0,0.0,0.0 rot=21.889809,0.0
 E skeleton#5 minecraft:skeleton pos=37.5,51.0,39.5 delta=0.0,0.0,0.0 rot=267.89972,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.6640706 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:bow*1 attrs=minecraft:follow_range:15.536174806028955;minecraft:movement_speed:0.25
 SPAWNAT seed=1057 category=monster pos=40,51,40
 E creeper#2 minecraft:creeper pos=42.5,51.0,42.5 delta=0.0,0.0,0.0 rot=327.66266,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.781027 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.809817678823926;minecraft:movement_speed:0.25
-C Set minecraft:overworld to 24000 tick(s)
+CF msg Set minecraft:overworld to 24000 tick(s)
+CF result success 24000
 # waning gibbous: chance 0.375
 SPAWNAT seed=6 category=monster pos=40,51,40
 SPAWNAT seed=7 category=monster pos=40,51,40
@@ -73,7 +76,8 @@ SPAWNAT seed=470 category=monster pos=40,51,40
 E slime#12 minecraft:slime pos=35.5,51.0,45.5 delta=0.0,0.0,0.0 rot=5.307675,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.307675 body=5.307675 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.860838157403546;minecraft:max_health:4.0;minecraft:movement_speed:0.4000000059604645 age=0 baby=0 forcedage=0 size=2 squish=0.0 tsquish=0.0 osquish=0.0 wasground=0 jdelay=0 mrot=304.10736 maggr=0
 SPAWNAT seed=682 category=monster pos=40,51,40
 SPAWNAT seed=1057 category=monster pos=40,51,40
-C Set minecraft:overworld to 48000 tick(s)
+CF msg Set minecraft:overworld to 48000 tick(s)
+CF result success 48000
 # third quarter: chance 0.25
 SPAWNAT seed=6 category=monster pos=40,51,40
 SPAWNAT seed=7 category=monster pos=40,51,40
@@ -91,7 +95,8 @@ SPAWNAT seed=323 category=monster pos=40,51,40
 SPAWNAT seed=470 category=monster pos=40,51,40
 SPAWNAT seed=682 category=monster pos=40,51,40
 SPAWNAT seed=1057 category=monster pos=40,51,40
-C Set minecraft:overworld to 72000 tick(s)
+CF msg Set minecraft:overworld to 72000 tick(s)
+CF result success 72000
 # waning crescent: chance 0.125
 SPAWNAT seed=6 category=monster pos=40,51,40
 SPAWNAT seed=7 category=monster pos=40,51,40
@@ -109,7 +114,8 @@ SPAWNAT seed=323 category=monster pos=40,51,40
 SPAWNAT seed=470 category=monster pos=40,51,40
 SPAWNAT seed=682 category=monster pos=40,51,40
 SPAWNAT seed=1057 category=monster pos=40,51,40
-C Set minecraft:overworld to 96000 tick(s)
+CF msg Set minecraft:overworld to 96000 tick(s)
+CF result success 96000
 # new moon: no surface slimes
 SPAWNAT seed=6 category=monster pos=40,51,40
 SPAWNAT seed=7 category=monster pos=40,51,40
@@ -127,8 +133,10 @@ SPAWNAT seed=323 category=monster pos=40,51,40
 SPAWNAT seed=470 category=monster pos=40,51,40
 SPAWNAT seed=682 category=monster pos=40,51,40
 SPAWNAT seed=1057 category=monster pos=40,51,40
-C Set minecraft:overworld to 0 tick(s)
-C 147 biome entry/entries set between 28, 48, 28 and 52, 56, 52
+CF msg Set minecraft:overworld to 0 tick(s)
+CF result success 0
+CF msg 147 biome entry/entries set between 28, 48, 28 and 52, 56, 52
+CF result success 147
 # the same attempts in plains at full moon: the biome does not allow surface slimes
 SPAWNAT seed=6 category=monster pos=40,51,40
 SPAWNAT seed=7 category=monster pos=40,51,40
@@ -149,7 +157,8 @@ SPAWNAT seed=470 category=monster pos=40,51,40
 SPAWNAT seed=682 category=monster pos=40,51,40
 SPAWNAT seed=1057 category=monster pos=40,51,40
 E enderman#3 minecraft:enderman pos=43.5,51.0,36.5 delta=0.0,0.0,0.0 rot=153.46428,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=3.0757775 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:7.0;minecraft:follow_range:64.74605525413;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896;minecraft:step_height:1.0
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 # a slime chunk (the chunk of 32..47, 16..31) below y 40: one attempt in ten passes; the next chunk is not a slime chunk
 SPAWNAT seed=11 category=monster pos=40,-60,24
 E spider#9 minecraft:spider pos=44.5,-60.0,33.5 delta=0.0,0.0,0.0 rot=64.36415,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.056297 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.567907499468504;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
@@ -223,7 +232,8 @@ E skeleton#23 minecraft:skeleton pos=42.5,-60.0,39.5 delta=0.0,0.0,0.0 rot=240.2
 E skeleton#24 minecraft:skeleton pos=44.5,-60.0,39.5 delta=0.0,0.0,0.0 rot=285.54767,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.3578299 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:bow*1 attrs=minecraft:follow_range:15.250042222324454;minecraft:movement_speed:0.25
 E skeleton#25 minecraft:skeleton pos=42.5,-60.0,42.5 delta=0.0,0.0,0.0 rot=187.11624,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.8616546 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:bow*1 attrs=minecraft:follow_range:16.92730177300293;minecraft:movement_speed:0.25
 E spider#24 minecraft:spider pos=40.5,-60.0,45.5 delta=0.0,0.0,0.0 rot=238.85762,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=1 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.088095 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.234950066706503;minecraft:max_health:16.0;minecraft:movement_speed:0.30000001192092896
-C The difficulty has been set to Peaceful
+CF msg The difficulty has been set to Peaceful
+CF result success 0
 # peaceful: no slimes at all
 SPAWNAT seed=11 category=monster pos=40,-60,24
 SPAWNAT seed=17 category=monster pos=40,-60,24

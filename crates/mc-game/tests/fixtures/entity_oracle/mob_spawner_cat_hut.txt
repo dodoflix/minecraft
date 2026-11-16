@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 G minecraft:cat pos=-221.5,65.0,-684.5 rot=0.0,0.0 Age=0 Health=10.0f PersistenceRequired=1b variant="minecraft:all_black"
 G minecraft:chest_minecart pos=-126.5,7.0625,-693.5 rot=0.0,0.0
 G minecraft:chest_minecart pos=-132.5,9.0625,-654.5 rot=0.0,0.0
@@ -8,13 +9,15 @@ G minecraft:witch pos=-221.5,65.0,-684.5 rot=0.0,0.0 Health=26.0f PersistenceReq
 CUSTOMSPAWNER cat seed=1 enemies=1
 RNG level 58466533952123
 # the cats die: a persistent cat appears inside the hut (offset 12,16)
-C Killed Cat
+CF msg Killed Cat
+CF result success 1
 CUSTOMSPAWNER cat seed=5 enemies=1
 RNG level 137614394247559
 # that cat lives: nothing again (offset -28,12)
 CUSTOMSPAWNER cat seed=7 enemies=1
 RNG level 98040464099841
 # the cat dies and the spot is outside every hut piece (offset 28,21): no cat
-C No entity was found
+CF result failure 0
+CF fail No entity was found
 CUSTOMSPAWNER cat seed=3 enemies=1
 RNG level 18892603804405

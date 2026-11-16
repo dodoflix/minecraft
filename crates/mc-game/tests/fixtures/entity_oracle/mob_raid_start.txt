@@ -1,4 +1,5 @@
-C Game rule raids is now set to true
+CF msg Game rule raids is now set to true
+CF result success 1
 EFFECT Steve minecraft:raid_omen added=true
 RAID 2 center=0,-60,0 started=0 active=1 status=ONGOING omen=3 groups=0/5 health=0.0 raiders=-
 RAID 2 center=0,-60,0 started=0 active=1 status=ONGOING omen=3 groups=0/5 health=0.0 raiders=-

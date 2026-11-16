@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 1000 tick(s)
+CF msg Set minecraft:overworld to 1000 tick(s)
+CF result success 1000
 T 1
 RNG Skel 236516445155432
 T 2

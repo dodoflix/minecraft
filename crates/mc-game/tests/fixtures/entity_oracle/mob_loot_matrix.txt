@@ -1,5 +1,7 @@
-C The difficulty did not change; it is already set to Normal
-C Game rule mob_drops is already set to true
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail Game rule mob_drops is already set to true
 E M0 minecraft:witch pos=-39.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=26.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=1 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.963231109649087;minecraft:max_health:26.0;minecraft:movement_speed:0.25 raid=- wave=0 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 drinking=0 usingtime=0
 E M1 minecraft:ghast pos=-30.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:8.0;minecraft:flying_speed:0.06;minecraft:follow_range:98.54822915929469;minecraft:max_health:10.0
 E M2 minecraft:blaze pos=-21.5,-60.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:45.85612036179903;minecraft:movement_speed:0.23000000417232513

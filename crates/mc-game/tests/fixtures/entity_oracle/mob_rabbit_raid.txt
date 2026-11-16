@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 6000 tick(s)
-C Game rule mob_drops is now set to false
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 E R1 minecraft:rabbit pos=6.5,-60.0625,-1.5 delta=0.0,-0.0784000015258789,0.0 rot=360.0,40.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.0;minecraft:max_health:3.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E R2 minecraft:rabbit pos=8.5,-60.0625,-1.5 delta=0.0,-0.0784000015258789,0.0 rot=360.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.0;minecraft:max_health:3.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E R4 minecraft:rabbit pos=7.5,-60.0625,0.5 delta=0.0,-0.0784000015258789,0.0 rot=180.0,30.540586 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=290.0 body=270.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.0;minecraft:max_health:3.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=-
@@ -697,7 +699,8 @@ EV sound at=6.5,-60.0,-2.0188546174192274 r=16.0 ex=0 event=minecraft:entity.rab
 EV sound at=5.784352268924391,-60.0,-1.5906617455135446 r=16.0 ex=0 event=minecraft:entity.rabbit.jump source=neutral vol=1.0 pitch=0.77414286
 EV sound at=6.5,-60.0,-2.5825633837136546 r=16.0 ex=0 event=minecraft:entity.rabbit.jump source=neutral vol=1.0 pitch=0.68592256
 # nothing is raided with mob griefing off
-C Game rule mob_griefing is now set to false
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
 T 153
 E R3 minecraft:rabbit pos=7.5,-60.0,15.5 delta=0.0,-0.0784000015258789,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=270.0 body=270.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.0;minecraft:max_health:3.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=-
 T 154

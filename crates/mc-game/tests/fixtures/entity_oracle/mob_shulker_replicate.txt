@@ -1,5 +1,7 @@
-C The difficulty did not change; it is already set to Normal
-C Game rule mob_drops is now set to false
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 # R1: an open lone shulker with a colour: it teleports and leaves a red copy
 E O minecraft:shulker pos=60.5,-57.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.051259100017255;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=60.0,-57.0,0.0,61.0,-56.0,1.0
 E R1 minecraft:shulker pos=0.5,-57.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.24274314718796;minecraft:max_health:30.0 face=down peek=100 cpeek=0.1 color=14 bb=0.0,-57.0,0.0,1.0,-55.97554010152817,1.0

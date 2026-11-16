@@ -1,4 +1,5 @@
-C The difficulty has been set to Hard
+CF msg The difficulty has been set to Hard
+CF result success 0
 EFFECT Z3 minecraft:resistance added=true
 EFFECT Z5 minecraft:fire_resistance added=true
 EFFECT Z4 minecraft:absorption added=true

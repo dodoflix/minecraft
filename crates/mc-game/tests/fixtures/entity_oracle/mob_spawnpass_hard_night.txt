@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 SPAWNPASS seed=3 chunk=-3,-3 cats=monster allowed=1
 SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
 RNG level 25214903918

@@ -1,4 +1,5 @@
-C Generated jigsaw at 0, 70, 0
+CF msg Generated jigsaw at 0, 70, 0
+CF result success 1
 G minecraft:cat pos=-0.8995760608387542,71.0,-6.617824496849934 rot=227.05533,0.0 Age=0 Health=10.0f PersistenceRequired=1b variant="minecraft:british_shorthair"
 G minecraft:cat pos=0.3598994834620566,71.0,0.10287446715470594 rot=220.67245,0.0 Age=0 Health=10.0f PersistenceRequired=1b variant="minecraft:jellie"
 G minecraft:cat pos=2.8459992136320515,71.0,-6.491924415155637 rot=270.0,0.0 Age=0 Health=10.0f PersistenceRequired=1b variant="minecraft:persian"

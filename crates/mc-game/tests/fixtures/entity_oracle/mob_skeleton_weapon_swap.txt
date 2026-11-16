@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule mob_drops is now set to false
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 G K goal 2 RestrictSunGoal flags=none running=0
 G K goal 3 FleeSunGoal flags=MOVE running=0
 G K goal 3 AvoidEntityGoal flags=MOVE running=0
@@ -519,7 +521,8 @@ E K minecraft:skeleton pos=-3.0508824772021756,-60.0,-0.8723025961442364 delta=-
 T 165
 E K minecraft:skeleton pos=-3.0921848473599294,-60.0,-0.9604012089863788 delta=-0.02255109672550257,-0.0784000015258789,-0.048101848198965805 rot=291.12985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0625 zza=-0.5 xxa=0.5 yya=0.0 head=290.11758 body=291.12985 nav=done stuck=0 navspeed=1.0 ntarget=0,-60,0 path=- nodes=- goals=4:RangedBowAttackGoal:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=mainhand:minecraft:iron_sword*1;offhand:minecraft:bow*1 attrs=minecraft:attack_damage:7.0;minecraft:follow_range:16.0;minecraft:movement_speed:0.25
 E K minecraft:skeleton pos=-3.0921848473599294,-60.0,-0.9604012089863788 delta=-0.02255109672550257,-0.0784000015258789,-0.048101848198965805 rot=291.12985,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
-C The difficulty has been set to Hard
+CF msg The difficulty has been set to Hard
+CF result success 0
 # the same bow on hard: the interval changes only when the goal is reassessed
 G K goal 2 RestrictSunGoal flags=none running=0
 G K goal 3 FleeSunGoal flags=MOVE running=0

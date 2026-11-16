@@ -1,5 +1,7 @@
-C Game rule raids is now set to true
-C Game rule mob_drops is now set to false
+CF msg Game rule raids is now set to true
+CF result success 1
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 EFFECT Steve minecraft:raid_omen added=true
 RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=1 groups=0/5 health=0.0 raiders=-
 HURT pillager#2 minecraft:player_attack 1000 -> true
@@ -23,10 +25,14 @@ E pillager#1 minecraft:pillager pos=-58.49816778569548,-60.0,-59.69450593217663 
 E pillager#3 minecraft:pillager pos=-75.27131536410707,-60.0,-24.2713490503695 delta=0.10417358983332026,-0.0784000015258789,0.1041737526817685 rot=315.001,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=1 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=315.00085 body=315.001 nav=moving stuck=0 navspeed=1.0 ntarget=-74,-60,-20 path=8/12/1/-74,-60,-20 nodes=-83,-60,-32:WALKABLE:0.0;-82,-60,-31:WALKABLE:0.0;-81,-60,-30:WALKABLE:0.0;-80,-60,-29:WALKABLE:0.0;-79,-60,-28:WALKABLE:0.0;-78,-60,-27:WALKABLE:0.0;-77,-60,-26:WALKABLE:0.0;-76,-60,-25:WALKABLE:0.0;-75,-60,-24:WALKABLE:0.0;-75,-60,-23:WALKABLE:0.0;-75,-60,-22:WALKABLE:0.0;-74,-60,-21:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:31.38599194764037;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 E pillager#4 minecraft:pillager pos=-61.2307861437412,-60.0,-22.488124799726997 delta=0.14363318921393084,-0.0784000015258789,-9.169615689590212E-4 rot=269.2188,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=1 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=269.31168 body=269.2188 nav=moving stuck=0 navspeed=1.0 ntarget=-53,-60,-23 path=2/10/1/-53,-60,-23 nodes=-63,-60,-23:WALKABLE:0.0;-62,-60,-23:WALKABLE:0.0;-61,-60,-23:WALKABLE:0.0;-60,-60,-23:WALKABLE:0.0;-59,-60,-23:WALKABLE:0.0;-58,-60,-23:WALKABLE:0.0;-57,-60,-23:WALKABLE:0.0;-56,-60,-23:WALKABLE:0.0;-55,-60,-23:WALKABLE:0.0;-54,-60,-23:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:32.37220396966139;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 E pillager#5 minecraft:pillager pos=-59.42578705493652,-60.0,-48.66496146186429 delta=0.03663868535706371,-0.0784000015258789,0.13508142337461984 rot=324.89285,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=1 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=361.11356 body=324.89285 nav=moving stuck=0 navspeed=1.0 ntarget=-59,-60,-47 path=8/9/1/-59,-60,-47 nodes=-62,-60,-56:WALKABLE:0.0;-61,-60,-55:WALKABLE:0.0;-61,-60,-54:WALKABLE:0.0;-61,-60,-53:WALKABLE:0.0;-60,-60,-52:WALKABLE:0.0;-60,-60,-51:WALKABLE:0.0;-60,-60,-50:WALKABLE:0.0;-60,-60,-49:WALKABLE:0.0;-59,-60,-48:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.26942715983638;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=1 groups=1/5 health=120.0 raiders=-
 RAIDS {next_id:2,raids:[{active:1b,center:[I;1,-60,-1],cooldown_ticks:261,group_count:5,groups_spawned:1,heroes_of_the_village:[[I;1445453208,-423740383,-1196889821,1142437441]],id:2,post_raid_ticks:0,raid_omen_level:1,started:1b,status:"ongoing",ticks_active:490L,total_health:120.0f}],tick:790}
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=1 groups=2/5 health=120.0 raiders=pillager#6;pillager#7;pillager#8;vindicator#1;vindicator#2

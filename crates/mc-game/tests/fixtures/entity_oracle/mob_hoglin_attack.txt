@@ -1,5 +1,7 @@
-C The difficulty did not change; it is already set to Normal
-C Game rule mob_drops is now set to false
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 T 33
 E H minecraft:hoglin pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=40.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;fight mem=attack_target:Steve:inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;nearest_visible_targetable_player:Steve:inf;nearest_visible_targetable_players:(Steve):inf;visible_adult_hoglin_count:0:inf;visible_adult_piglin_count:0:inf equip=- attrs=minecraft:attack_damage:6.0;minecraft:attack_knockback:1.0;minecraft:follow_range:15.089501994088003;minecraft:knockback_resistance:0.6000000238418579;minecraft:max_health:40.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=-
 P Steve minecraft:player pos=6.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule mob_drops is now set to false
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 EFFECT Steve minecraft:resistance added=true
 T 3
 E G minecraft:ghast pos=0.5,-57.0,12.5 delta=0.0,0.0,0.0 rot=-0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=150.0 body=75.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=5:Ghast$RandomFloatAroundGoal:MOVE;7:Ghast$GhastLookGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:camera_distance:8.0;minecraft:flying_speed:0.06;minecraft:follow_range:104.44515794172074;minecraft:max_health:10.0

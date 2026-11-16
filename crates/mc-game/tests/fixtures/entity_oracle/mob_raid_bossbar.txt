@@ -1,5 +1,7 @@
-C Game rule raids is now set to true
-C Game rule mob_drops is now set to false
+CF msg Game rule raids is now set to true
+CF result success 1
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 EFFECT Steve minecraft:raid_omen added=true
 RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=1 groups=0/5 health=0.0 raiders=-
 T 301
@@ -645,7 +647,8 @@ E pillager#2 minecraft:pillager pos=-84.85586421994289,-60.0,-35.18245555577113 
 E pillager#3 minecraft:pillager pos=-82.7155127396676,-60.0,-40.32824725571838 delta=0.10862616747087217,-0.0784000015258789,-0.09663568607363388 rot=226.36282,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=154.95724 body=226.36282 nav=moving stuck=0 navspeed=1.0 ntarget=-78,-60,-45 path=2/6/1/-78,-60,-45 nodes=-84,-60,-40:WALKABLE:0.0;-83,-60,-41:WALKABLE:0.0;-82,-60,-42:WALKABLE:0.0;-81,-60,-43:WALKABLE:0.0;-80,-60,-44:WALKABLE:0.0;-79,-60,-45:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:32.911312216412206;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 E pillager#4 minecraft:pillager pos=-77.58212052155397,-60.0,-41.49724370981684 delta=0.0439185087763189,-0.0784000015258789,0.0 rot=269.6544,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=269.6544 body=269.6544 nav=done stuck=0 navspeed=1.0 ntarget=-77,-60,-42 path=7/7/1/-77,-60,-42 nodes=-84,-60,-42:WALKABLE:0.0;-83,-60,-42:WALKABLE:0.0;-82,-60,-42:WALKABLE:0.0;-81,-60,-42:WALKABLE:0.0;-80,-60,-42:WALKABLE:0.0;-79,-60,-42:WALKABLE:0.0;-78,-60,-42:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.00524604788807;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 E pillager#5 minecraft:pillager pos=-78.29660752564882,-60.0,-46.703236612529345 delta=0.1042399641317808,-0.0784000015258789,-0.1040982812718108 rot=225.00302,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=225.01407 body=225.00302 nav=moving stuck=0 navspeed=1.0 ntarget=-72,-60,-50 path=6/12/1/-72,-60,-50 nodes=-84,-60,-42:WALKABLE:0.0;-83,-60,-43:WALKABLE:0.0;-82,-60,-44:WALKABLE:0.0;-81,-60,-45:WALKABLE:0.0;-80,-60,-46:WALKABLE:0.0;-79,-60,-47:WALKABLE:0.0;-78,-60,-48:WALKABLE:0.0;-77,-60,-49:WALKABLE:0.0;-76,-60,-49:WALKABLE:0.0;-75,-60,-49:WALKABLE:0.0;-74,-60,-49:WALKABLE:0.0;-73,-60,-50:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:35.16493611712303;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
-C Applied 4.0 damage to Pillager
+CF msg Applied 4.0 damage to Pillager
+CF result success 1
 T 636
 T 637
 T 638
@@ -656,7 +659,8 @@ T 642
 T 643
 T 644
 T 645
-C Applied 1000.0 damage to Pillager
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
 T 646
 PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f777777
 PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f4ccccd
@@ -684,7 +688,8 @@ T 667
 T 668
 T 669
 T 670
-C Applied 4.0 damage to Pillager
+CF msg Applied 4.0 damage to Pillager
+CF result success 1
 T 671
 T 672
 T 673
@@ -695,7 +700,8 @@ T 677
 T 678
 T 679
 T 680
-C Applied 1000.0 damage to Pillager
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
 T 681
 PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f444444
 PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f19999a
@@ -723,7 +729,8 @@ T 702
 T 703
 T 704
 T 705
-C Applied 4.0 damage to Pillager
+CF msg Applied 4.0 damage to Pillager
+CF result success 1
 T 706
 T 707
 T 708
@@ -734,7 +741,8 @@ T 712
 T 713
 T 714
 T 715
-C Applied 1000.0 damage to Pillager
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
 T 716
 PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023f111111
 PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ecccccd
@@ -763,7 +771,8 @@ T 737
 T 738
 T 739
 T 740
-C Applied 4.0 damage to Pillager
+CF msg Applied 4.0 damage to Pillager
+CF result success 1
 T 741
 T 742
 T 743
@@ -774,7 +783,8 @@ T 747
 T 748
 T 749
 T 750
-C Applied 1000.0 damage to Pillager
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
 T 751
 PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023ebbbbbc
 PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e4ccccd
@@ -803,7 +813,8 @@ T 772
 T 773
 T 774
 T 775
-C Applied 4.0 damage to Pillager
+CF msg Applied 4.0 damage to Pillager
+CF result success 1
 T 776
 T 777
 T 778
@@ -814,7 +825,8 @@ T 782
 T 783
 T 784
 T 785
-C Applied 1000.0 damage to Pillager
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
 T 786
 PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda8774023e2aaaab
 PKT Steve minecraft:boss_event 099b60b9d43c194c9081ab92569eda87740200000000

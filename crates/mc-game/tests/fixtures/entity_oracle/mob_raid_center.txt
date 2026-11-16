@@ -1,5 +1,7 @@
-C Game rule raids is now set to true
-C Game rule mob_drops is now set to false
+CF msg Game rule raids is now set to true
+CF result success 1
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 EFFECT Steve minecraft:raid_omen added=true
 RAID 2 center=31,-60,-1 started=0 active=1 status=ONGOING omen=3 groups=0/7 health=0.0 raiders=-
 RAID 2 center=31,-60,-1 started=0 active=1 status=ONGOING omen=3 groups=0/7 health=0.0 raiders=-
@@ -944,11 +946,16 @@ E pillager#3 minecraft:pillager pos=-27.83740071348307,-60.0,-64.79540760518167 
 E pillager#4 minecraft:pillager pos=-29.74655746990018,-60.0,-73.53001307291304 delta=0.14660593790501003,-0.0784000015258789,0.005086624494016349 rot=274.36642,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=1 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=272.87885 body=274.36642 nav=moving stuck=0 navspeed=1.0 ntarget=-27,-60,-75 path=5/8/1/-27,-60,-75 nodes=-35,-60,-73:WALKABLE:0.0;-34,-60,-73:WALKABLE:0.0;-33,-60,-73:WALKABLE:0.0;-32,-60,-74:WALKABLE:0.0;-31,-60,-74:WALKABLE:0.0;-30,-60,-74:WALKABLE:0.0;-29,-60,-74:WALKABLE:0.0;-28,-60,-75:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.495719186046976;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 E pillager#5 minecraft:pillager pos=-30.50417089437228,-60.0,-68.2729967207337 delta=3.0779985093882525E-4,-0.0784000015258789,0.14731141674301468 rot=359.73987,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=359.7718 body=359.73987 nav=moving stuck=0 navspeed=1.0 ntarget=-29,-60,-59 path=5/14/1/-29,-60,-59 nodes=-31,-60,-73:WALKABLE:0.0;-31,-60,-72:WALKABLE:0.0;-31,-60,-71:WALKABLE:0.0;-31,-60,-70:WALKABLE:0.0;-31,-60,-69:WALKABLE:0.0;-31,-60,-68:WALKABLE:0.0;-31,-60,-67:WALKABLE:0.0;-31,-60,-66:WALKABLE:0.0;-31,-60,-65:WALKABLE:0.0;-30,-60,-64:WALKABLE:0.0;-30,-60,-63:WALKABLE:0.0;-30,-60,-62:WALKABLE:0.0;-30,-60,-61:WALKABLE:0.0;-29,-60,-60:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:29.35284408160019;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 # wave one dies, the village around the bell is dismantled
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
 T 631
 PKT Steve minecraft:boss_event 09d88619b89e984ca39cbc22130fb583ea023f4ccccd
 PKT Steve minecraft:boss_event 09d88619b89e984ca39cbc22130fb583ea023f19999a
@@ -2150,7 +2157,8 @@ E pillager#6 minecraft:pillager pos=94.2184032467154,-60.0,1.769460156320515 del
 E pillager#7 minecraft:pillager pos=102.70305605588766,-60.0,9.703137614852098 delta=-0.016955776145659452,-0.0784000015258789,-0.01695721136853733 rot=135.00557,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=135.00557 body=135.00557 nav=done stuck=0 navspeed=1.0 ntarget=101,-60,9 path=7/7/1/101,-60,9 nodes=108,-60,15:WALKABLE:0.0;107,-60,14:WALKABLE:0.0;106,-60,13:WALKABLE:0.0;105,-60,12:WALKABLE:0.0;104,-60,11:WALKABLE:0.0;103,-60,10:WALKABLE:0.0;102,-60,9:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:33.55792510535451;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=2 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 E pillager#8 minecraft:pillager pos=83.88582338356225,-60.0,13.885876005693149 delta=-0.10417367504271416,-0.0784000015258789,-0.10417366742034893 rot=135.00264,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=W hurtby=- aggr=0 noai=0 left=1 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=135.00197 body=135.00264 nav=moving stuck=0 navspeed=1.0 ntarget=80,-60,6 path=8/15/1/80,-60,6 nodes=91,-60,21:WALKABLE:0.0;90,-60,20:WALKABLE:0.0;89,-60,19:WALKABLE:0.0;88,-60,18:WALKABLE:0.0;87,-60,17:WALKABLE:0.0;86,-60,16:WALKABLE:0.0;85,-60,15:WALKABLE:0.0;84,-60,14:WALKABLE:0.0;83,-60,13:WALKABLE:0.0;82,-60,12:WALKABLE:0.0;81,-60,11:WALKABLE:0.0;81,-60,10:WALKABLE:0.0;81,-60,9:WALKABLE:0.0;81,-60,8:WALKABLE:0.0;80,-60,7:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=3:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:31.609606561022755;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=2 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 E pillager#9 minecraft:pillager pos=88.91389091811503,-60.0,32.086177726031835 delta=-0.10417367566056387,-0.0784000015258789,0.10417366673617927 rot=45.00325,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=45.002472 body=45.00325 nav=moving stuck=0 navspeed=1.0 ntarget=85,-60,39 path=7/14/1/85,-60,39 nodes=95,-60,25:WALKABLE:0.0;94,-60,26:WALKABLE:0.0;93,-60,27:WALKABLE:0.0;92,-60,28:WALKABLE:0.0;91,-60,29:WALKABLE:0.0;90,-60,30:WALKABLE:0.0;89,-60,31:WALKABLE:0.0;88,-60,32:WALKABLE:0.0;87,-60,33:WALKABLE:0.0;86,-60,34:WALKABLE:0.0;86,-60,35:WALKABLE:0.0;86,-60,36:WALKABLE:0.0;86,-60,37:WALKABLE:0.0;85,-60,38:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:32.2244579824895;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=2 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
-C The difficulty has been set to Peaceful
+CF msg The difficulty has been set to Peaceful
+CF result success 0
 T 1201
 PKT Steve minecraft:boss_event 09d88619b89e984ca39cbc22130fb583ea01
 PKT Alex minecraft:boss_event 09d88619b89e984ca39cbc22130fb583ea01

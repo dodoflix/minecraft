@@ -1,5 +1,7 @@
-C The difficulty did not change; it is already set to Normal
-C Set minecraft:overworld to 18000 tick(s)
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 T 3
 T 4
 T 5

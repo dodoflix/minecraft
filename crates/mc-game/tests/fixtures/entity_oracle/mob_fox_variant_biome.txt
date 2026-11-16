@@ -1,9 +1,15 @@
-C Set minecraft:overworld to 6000 tick(s)
-C Game rule mob_drops is now set to false
-C 448 biome entry/entries set between 16, -64, -16 and 44, -40, 12
-C 504 biome entry/entries set between -48, -64, -16 and -16, -40, 12
-C 504 biome entry/entries set between -48, -64, 24 and -16, -40, 52
-C 448 biome entry/entries set between 16, -64, 24 and 44, -40, 52
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
+CF msg 448 biome entry/entries set between 16, -64, -16 and 44, -40, 12
+CF result success 448
+CF msg 504 biome entry/entries set between -48, -64, -16 and -16, -40, 12
+CF result success 504
+CF msg 504 biome entry/entries set between -48, -64, 24 and -16, -40, 52
+CF result success 504
+CF msg 448 biome entry/entries set between 16, -64, 24 and 44, -40, 52
+CF result success 448
 E P1 minecraft:fox pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=1 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:feather*1 attrs=minecraft:follow_range:33.30945476919935;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896;minecraft:safe_fall_distance:5.0 age=0 baby=0 forcedage=0 love=0 lovecause=- flags=0 variant=red trust0=- trust1=- eaten=0 crouch=0.0 interest=0.0
 E S1 minecraft:fox pos=20.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:33.447298374908776;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896;minecraft:safe_fall_distance:5.0 age=0 baby=0 forcedage=0 love=0 lovecause=- flags=0 variant=snow trust0=- trust1=- eaten=0 crouch=0.0 interest=0.0
 E T1 minecraft:fox pos=-20.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:egg*1 attrs=minecraft:follow_range:33.251526162503126;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896;minecraft:safe_fall_distance:5.0 age=0 baby=0 forcedage=0 love=0 lovecause=- flags=0 variant=red trust0=- trust1=- eaten=0 crouch=0.0 interest=0.0
@@ -439,7 +445,8 @@ EV sound at=6.907233746805806,-60.0,23.03917170947857 r=16.0 ex=0 event=minecraf
 EV sound at=6.5,-60.0,22.5 r=16.0 ex=0 event=minecraft:entity.chicken.death source=neutral vol=1.0 pitch=1.0874174
 EV sound at=7.0063214919374515,-60.0,23.164969942431707 r=16.0 ex=0 event=minecraft:entity.fox.bite source=neutral vol=1.0 pitch=1.0
 # the fox/variant component in entity predicates
-C Added tag 'hit_snow' to Fox
+CF msg Added tag 'hit_snow' to Fox
+CF result success 1
 N K1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,Crouching:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2.5d,-60.0d,8.5d],Rotation:[0.0f,0.0f],Sitting:0b,Sleeping:0b,Tags:["hit_snow"],Trusted:[],Type:"snow",attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
 N K2 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,Crouching:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[4.5d,-60.0d,8.5d],Rotation:[0.0f,0.0f],Sitting:0b,Sleeping:0b,Trusted:[],Type:"red",attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
 # a snow fox goes for schooling fish and any fox for a baby turtle on land

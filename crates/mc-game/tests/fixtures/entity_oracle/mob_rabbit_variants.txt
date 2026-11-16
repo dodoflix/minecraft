@@ -1,7 +1,11 @@
-C Set minecraft:overworld to 6000 tick(s)
-C Game rule mob_drops is now set to false
-C 448 biome entry/entries set between 16, -64, -16 and 44, -40, 12
-C 504 biome entry/entries set between -48, -64, -16 and -16, -40, 12
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
+CF msg 448 biome entry/entries set between 16, -64, -16 and 44, -40, 12
+CF result success 448
+CF msg 504 biome entry/entries set between -48, -64, -16 and -16, -40, 12
+CF result success 504
 E P1 minecraft:rabbit pos=0.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:15.840815812779097;minecraft:max_health:3.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E P2 minecraft:rabbit pos=2.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.70069802431491;minecraft:max_health:3.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E P3 minecraft:rabbit pos=4.5,-60.0,8.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:17.324908999846865;minecraft:max_health:3.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=-

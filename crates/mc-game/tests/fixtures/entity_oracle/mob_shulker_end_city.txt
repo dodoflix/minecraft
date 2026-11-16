@@ -1,5 +1,7 @@
-C Marked 165 chunks in minecraft:the_end from [39, 59] to [53, 69] to be force loaded
-C Generated structure "minecraft:end_city" at 736, 70, 1024
+CF msg Marked 165 chunks in minecraft:the_end from [39, 59] to [53, 69] to be force loaded
+CF result success 165
+CF msg Generated structure "minecraft:end_city" at 736, 70, 1024
+CF result success 1
 G minecraft:end_crystal pos=-12.5,83.0,39.5 rot=309.7182,0.0
 G minecraft:end_crystal pos=-12.5,98.0,-39.5 rot=92.03614,0.0
 G minecraft:end_crystal pos=-33.5,101.0,24.5 rot=322.6551,0.0

@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 SPAWNPASS seed=1 chunk=-2,-2 cats=monster,ambient,axolotls,underground_water_creature,water_creature,water_ambient allowed=1
 SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
 RNG level 156350453548973
@@ -35,7 +36,8 @@ RNG level 89066071020941
 SPAWNPASS seed=78 chunk=-1,0 cats=monster,ambient,axolotls,underground_water_creature,water_creature,water_ambient allowed=1
 SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
 RNG level 29634787200660
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 SPAWNPASS seed=85 chunk=0,0 cats=monster,creature,ambient,axolotls,underground_water_creature,water_creature,water_ambient allowed=1
 SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
 RNG level 211847426522983
@@ -87,30 +89,42 @@ RNG level 152657590581225
 SPAWNPASS seed=169 chunk=2,2 cats=monster,ambient,axolotls,underground_water_creature,water_creature,water_ambient allowed=1
 SPAWNSTATE chunks=289 counts=monster:0;creature:12;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
 RNG level 46509688175751
-C Game rule spawn_mobs is now set to true
-C Game rule spawn_monsters is now set to true
+CF msg Game rule spawn_mobs is now set to true
+CF result success 1
+CF msg Game rule spawn_monsters is now set to true
+CF result success 1
 SPAWNPASS seed=82 chunk=-2,-2 cats=monster,ambient,axolotls,underground_water_creature,water_creature,water_ambient allowed=1
 SPAWNSTATE chunks=289 counts=monster:0;creature:12;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
 RNG level 183798588279038
-C Game rule spawn_mobs is now set to false
-C Game rule spawn_mobs is now set to true
-C Game rule spawn_monsters is now set to false
+CF msg Game rule spawn_mobs is now set to false
+CF result success 0
+CF msg Game rule spawn_mobs is now set to true
+CF result success 1
+CF msg Game rule spawn_monsters is now set to false
+CF result success 0
 SPAWNPASS seed=88 chunk=-2,-2 cats=ambient,axolotls,underground_water_creature,water_creature,water_ambient allowed=1
 SPAWNSTATE chunks=289 counts=monster:0;creature:12;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
 RNG level 81993733373961
-C Game rule spawn_mobs is now set to false
-C Game rule spawn_mobs is now set to true
-C Game rule spawn_monsters is now set to true
+CF msg Game rule spawn_mobs is now set to false
+CF result success 0
+CF msg Game rule spawn_mobs is now set to true
+CF result success 1
+CF msg Game rule spawn_monsters is now set to true
+CF result success 1
 SPAWNPASS seed=94 chunk=-2,-2 cats=monster,ambient,axolotls,underground_water_creature,water_creature,water_ambient allowed=1
 SPAWNSTATE chunks=289 counts=monster:0;creature:12;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
 RNG level 161099969414702
-C Game rule spawn_mobs is now set to false
-C Game rule spawn_mobs is now set to true
-C Game rule spawn_monsters is now set to false
+CF msg Game rule spawn_mobs is now set to false
+CF result success 0
+CF msg Game rule spawn_mobs is now set to true
+CF result success 1
+CF msg Game rule spawn_monsters is now set to false
+CF result success 0
 SPAWNPASS seed=100 chunk=-2,-2 cats=ambient,axolotls,underground_water_creature,water_creature,water_ambient allowed=1
 SPAWNSTATE chunks=289 counts=monster:0;creature:12;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
 RNG level 198543453495404
-C Game rule spawn_mobs is now set to false
+CF msg Game rule spawn_mobs is now set to false
+CF result success 0
 SPAWNSTATE chunks=289 counts=monster:0;creature:12;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
 E chicken#1 minecraft:chicken pos=30.5,-60.0,9.5 delta=0.0,-0.0784000015258789,0.0 rot=34.605583,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.931617430212526;minecraft:max_health:4.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E chicken#2 minecraft:chicken pos=33.5,-60.0,9.5 delta=0.0,-0.0784000015258789,0.0 rot=357.81284,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.68533530761467;minecraft:max_health:4.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-

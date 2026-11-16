@@ -13,16 +13,26 @@ E OnHorse minecraft:chicken pos=52.5,-58.55624997615814,20.5 delta=0.0,0.0,0.0 r
 E OnPig minecraft:chicken pos=40.5,-59.13125002384186,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:4.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E OnZombie minecraft:chicken pos=28.5,-57.987499952316284,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:4.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 # a scale of 0.5
-C The base value for attribute Scale for entity Cow set to 0.5
-C The base value for attribute Scale for entity Sheep set to 0.5
-C The base value for attribute Scale for entity Zombie set to 0.5
-C The base value for attribute Scale for entity Husk set to 0.5
-C The base value for attribute Scale for entity Villager set to 0.5
-C The base value for attribute Scale for entity Wolf set to 0.5
-C The base value for attribute Scale for entity Creeper set to 0.5
-C The base value for attribute Scale for entity Skeleton set to 0.5
-C The base value for attribute Scale for entity Pig set to 0.5
-C The base value for attribute Scale for entity Horse set to 0.5
+CF msg The base value for attribute Scale for entity Cow set to 0.5
+CF result success 1
+CF msg The base value for attribute Scale for entity Sheep set to 0.5
+CF result success 1
+CF msg The base value for attribute Scale for entity Zombie set to 0.5
+CF result success 1
+CF msg The base value for attribute Scale for entity Husk set to 0.5
+CF result success 1
+CF msg The base value for attribute Scale for entity Villager set to 0.5
+CF result success 1
+CF msg The base value for attribute Scale for entity Wolf set to 0.5
+CF result success 1
+CF msg The base value for attribute Scale for entity Creeper set to 0.5
+CF result success 1
+CF msg The base value for attribute Scale for entity Skeleton set to 0.5
+CF result success 1
+CF msg The base value for attribute Scale for entity Pig set to 0.5
+CF result success 1
+CF msg The base value for attribute Scale for entity Horse set to 0.5
+CF result success 1
 SIZE Cow scale=0.5 size=0.45,0.7,0.65 bb=4.2750000059604645,-60.0,4.2750000059604645,4.7249999940395355,-59.30000001192093,4.7249999940395355
 SIZE Sheep scale=0.5 size=0.225,0.325,0.328125 bb=16.387500002980232,-60.0,4.387500002980232,16.612499997019768,-59.67500001192093,4.612499997019768
 SIZE Zombie scale=0.5 size=0.3,0.975,0.87 bb=28.349999994039536,-60.0,4.3499999940395355,28.650000005960464,-59.02499997615814,4.6500000059604645
@@ -37,16 +47,26 @@ E OnHorse minecraft:chicken pos=52.5,-59.27812498807907,20.5 delta=0.0,0.0,0.0 r
 E OnPig minecraft:chicken pos=40.5,-59.56562501192093,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:4.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E OnZombie minecraft:chicken pos=28.5,-58.99374997615814,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:4.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 # a scale of 2
-C The base value for attribute Scale for entity Cow set to 2.0
-C The base value for attribute Scale for entity Sheep set to 2.0
-C The base value for attribute Scale for entity Zombie set to 2.0
-C The base value for attribute Scale for entity Husk set to 2.0
-C The base value for attribute Scale for entity Villager set to 2.0
-C The base value for attribute Scale for entity Wolf set to 2.0
-C The base value for attribute Scale for entity Creeper set to 2.0
-C The base value for attribute Scale for entity Skeleton set to 2.0
-C The base value for attribute Scale for entity Pig set to 2.0
-C The base value for attribute Scale for entity Horse set to 2.0
+CF msg The base value for attribute Scale for entity Cow set to 2.0
+CF result success 1
+CF msg The base value for attribute Scale for entity Sheep set to 2.0
+CF result success 1
+CF msg The base value for attribute Scale for entity Zombie set to 2.0
+CF result success 1
+CF msg The base value for attribute Scale for entity Husk set to 2.0
+CF result success 1
+CF msg The base value for attribute Scale for entity Villager set to 2.0
+CF result success 1
+CF msg The base value for attribute Scale for entity Wolf set to 2.0
+CF result success 1
+CF msg The base value for attribute Scale for entity Creeper set to 2.0
+CF result success 1
+CF msg The base value for attribute Scale for entity Skeleton set to 2.0
+CF result success 1
+CF msg The base value for attribute Scale for entity Pig set to 2.0
+CF result success 1
+CF msg The base value for attribute Scale for entity Horse set to 2.0
+CF result success 1
 SIZE Cow scale=2.0 size=1.8,2.8,2.6 bb=3.600000023841858,-60.0,3.600000023841858,5.399999976158142,-57.200000047683716,5.399999976158142
 SIZE Sheep scale=2.0 size=0.9,1.3,1.3125 bb=16.05000001192093,-60.0,4.050000011920929,16.94999998807907,-58.700000047683716,4.949999988079071
 SIZE Zombie scale=2.0 size=1.2,3.9,3.48 bb=27.899999976158142,-60.0,3.899999976158142,29.100000023841858,-56.09999990463257,5.100000023841858
@@ -61,9 +81,12 @@ E OnHorse minecraft:chicken pos=52.5,-57.112499952316284,20.5 delta=0.0,0.0,0.0 
 E OnPig minecraft:chicken pos=40.5,-58.262500047683716,20.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:4.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 E OnZombie minecraft:chicken pos=28.5,-55.97499990463257,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:4.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
 # back to the default
-C The base value for attribute Scale for entity Cow reset to default 1.0
-C The base value for attribute Scale for entity Horse reset to default 1.0
-C The base value for attribute Scale for entity Zombie reset to default 1.0
+CF msg The base value for attribute Scale for entity Cow reset to default 1.0
+CF result success 1
+CF msg The base value for attribute Scale for entity Horse reset to default 1.0
+CF result success 1
+CF msg The base value for attribute Scale for entity Zombie reset to default 1.0
+CF result success 1
 SIZE Cow scale=1.0 size=0.9,1.4,1.3 bb=4.050000011920929,-60.0,4.050000011920929,4.949999988079071,-58.60000002384186,4.949999988079071
 SIZE Horse scale=1.0 size=1.3964844,1.6,1.52 bb=51.8017578125,-60.0,19.8017578125,53.1982421875,-58.39999997615814,21.1982421875
 SIZE Zombie scale=1.0 size=0.6,1.95,1.74 bb=28.19999998807907,-60.0,4.199999988079071,28.80000001192093,-58.049999952316284,4.800000011920929

@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 6000 tick(s)
-C Game rule mob_drops is now set to false
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 E FA minecraft:fox pos=8.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:Fox$FoxEatBerriesGoal:MOVE+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896;minecraft:safe_fall_distance:5.0 age=0 baby=0 forcedage=0 love=0 lovecause=- flags=0 variant=red trust0=- trust1=- eaten=2 crouch=0.0 interest=0.0
 E FB minecraft:fox pos=-38.5,-60.0,8.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896;minecraft:safe_fall_distance:5.0 age=0 baby=0 forcedage=0 love=0 lovecause=- flags=0 variant=snow trust0=- trust1=- eaten=2 crouch=0.0 interest=0.0
 E FC minecraft:fox pos=8.5,-60.0,60.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896;minecraft:safe_fall_distance:5.0 age=0 baby=0 forcedage=0 love=0 lovecause=- flags=0 variant=red trust0=- trust1=- eaten=2 crouch=0.0 interest=0.0
@@ -2225,7 +2227,8 @@ EV sound at=13.009147274366521,-60.0,73.99080390094511 r=16.0 ex=0 event=minecra
 EV sound at=21.43032322258126,-60.0,-0.4130181263326963 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
 EV sound at=11.660278698444737,-60.0,74.55049612729759 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
 # without mob griefing the berries stay on the bush
-C Game rule mob_griefing is now set to false
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
 T 633
 E FD minecraft:fox pos=8.5,-60.0,-28.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=10:Fox$FoxEatBerriesGoal:MOVE+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896;minecraft:safe_fall_distance:5.0 age=0 baby=0 forcedage=0 love=0 lovecause=- flags=0 variant=red trust0=- trust1=- eaten=1 crouch=0.0 interest=0.0
 T 634

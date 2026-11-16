@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule mob_drops is now set to false
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 G S goal 2 RestrictSunGoal flags=none running=0
 G S goal 3 FleeSunGoal flags=MOVE running=0
 G S goal 3 AvoidEntityGoal flags=MOVE running=0
@@ -604,7 +606,8 @@ E B minecraft:bogged pos=-7.28388698933322,-60.0,5.387980787317016 delta=-0.0126
 E S minecraft:skeleton pos=7.379601666949267,-60.0,-2.389732191977475 delta=-0.019190321614073826,-0.0784000015258789,0.04942946446511318 rot=66.68393,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
 E B minecraft:bogged pos=-7.28388698933322,-60.0,5.387980787317016 delta=-0.012689632151260144,-0.0784000015258789,0.051608554706078696 rot=238.29797,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=-
 E arrow#2 minecraft:arrow pos=1.9271073759066986,-59.94999999925494,0.6142812592012784 delta=0.0,0.0,0.0 rot=91.92708,-47.456024 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=54 dmg=2.057184997429861
-C The difficulty has been set to Normal
+CF msg The difficulty has been set to Normal
+CF result success 0
 G S goal 2 RestrictSunGoal flags=none running=0
 G S goal 3 FleeSunGoal flags=MOVE running=0
 G S goal 3 AvoidEntityGoal flags=MOVE running=0

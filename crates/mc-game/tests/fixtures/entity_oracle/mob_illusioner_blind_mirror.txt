@@ -1,4 +1,5 @@
-C Game rule mob_drops is now set to false
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 EFFECT Steve minecraft:resistance added=true
 EFFECT Alex minecraft:resistance added=true
 T 3

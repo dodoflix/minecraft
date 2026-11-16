@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 12500 tick(s)
+CF msg Set minecraft:overworld to 12500 tick(s)
+CF result success 12500
 # row zombie
 # zombie door_closed
 PATHQ zom0 -90.5,-60.0,-79.5 found=true

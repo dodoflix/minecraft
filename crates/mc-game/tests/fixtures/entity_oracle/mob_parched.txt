@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 E P minecraft:parched pos=10.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=2:RestrictSunGoal:none tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:bow*1 attrs=minecraft:follow_range:17.10647378608733;minecraft:max_health:16.0;minecraft:movement_speed:0.25
 N P {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:16.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PersistenceRequired:0b,PortalCooldown:0,Pos:[10.5d,-60.0d,0.5d],Rotation:[90.0f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.06915461163045819d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.25d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,equipment:{mainhand:{count:1,id:"minecraft:bow"}},fall_distance:0.0d}
 G P goal 2 RestrictSunGoal flags=none running=1

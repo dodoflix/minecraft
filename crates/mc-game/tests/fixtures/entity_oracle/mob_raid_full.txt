@@ -1,5 +1,7 @@
-C Game rule raids is now set to true
-C Game rule mob_drops is now set to false
+CF msg Game rule raids is now set to true
+CF result success 1
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 EFFECT Steve minecraft:raid_omen added=true
 RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=2 groups=0/7 health=0.0 raiders=-
 RAID 2 center=1,-60,-1 started=0 active=1 status=ONGOING omen=2 groups=0/7 health=0.0 raiders=-
@@ -39,12 +41,18 @@ E pillager#1 minecraft:pillager pos=-83.51749891825402,-59.0,-41.5 delta=-0.0655
 E pillager#2 minecraft:pillager pos=-83.51088474431174,-59.0,-41.5 delta=-0.03985246948816412,-0.0784000015258789,-2.636960012045784E-4 rot=3.3181522,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=3.3181522 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:29.187488643819176;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 E pillager#3 minecraft:pillager pos=-83.50566824533347,-59.0,-41.5 delta=-0.015555656305593923,-0.0784000015258789,-2.6900937084413124E-4 rot=3.9008017,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=3.9008017 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:33.34361302073625;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 E pillager#4 minecraft:pillager pos=-83.50566824533347,-59.0,-41.5 delta=-0.015555656305593923,-0.0784000015258789,-2.6900937084413124E-4 rot=4.0990424,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=4.0990424 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:31.947138237702784;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=1 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=2 groups=1/7 health=144.0 raiders=-
 E V minecraft:villager pos=-2.4389965310267634,-60.0,-8.335022371262083 delta=-0.1399182302286638,-0.0784000015258789,-0.08330592909418147 rot=103.55368,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.375 zza=0.375 xxa=0.0 yya=0.0 head=135.02252 body=103.55368 nav=moving stuck=0 navspeed=0.75 ntarget=-7,-60,-10 path=6/10/1/-7,-60,-10 nodes=2,-60,-4:WALKABLE:0.0;1,-60,-5:WALKABLE:0.0;0,-60,-6:WALKABLE:0.0;-1,-60,-7:WALKABLE:0.0;-2,-60,-8:WALKABLE:0.0;-3,-60,-9:WALKABLE:0.0;-4,-60,-9:WALKABLE:0.0;-5,-60,-9:WALKABLE:0.0;-6,-60,-10:WALKABLE:0.0;-7,-60,-10:WALKABLE:0.0 goals=- tgoals=- acts=core;pre_raid mem=heard_bell_time:378:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:24:inf;last_woken:307:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;path:path(6;10):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(-7,-60,-10);0.75;0):inf equip=- attrs=minecraft:follow_range:14.633466820244754;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=2 groups=1/7 health=144.0 raiders=-
@@ -86,15 +94,24 @@ E pillager#6 minecraft:pillager pos=40.99844189533001,-60.0,92.72982542735097 de
 E pillager#7 minecraft:pillager pos=39.60895934623204,-60.0,93.77247412183023 delta=-0.12888265259320367,-0.0784000015258789,-0.05505279100706956 rot=105.51181,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=56.587708 body=105.51181 nav=moving stuck=0 navspeed=1.0 ntarget=31,-60,91 path=5/12/1/31,-60,91 nodes=43,-59,95:OPEN:0.0;42,-60,94:WALKABLE:0.0;41,-60,94:WALKABLE:0.0;40,-60,94:WALKABLE:0.0;39,-60,93:WALKABLE:0.0;38,-60,93:WALKABLE:0.0;37,-60,93:WALKABLE:0.0;36,-60,92:WALKABLE:0.0;35,-60,92:WALKABLE:0.0;34,-60,92:WALKABLE:0.0;33,-60,92:WALKABLE:0.0;32,-60,91:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:32.040865013646645;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=2 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 E pillager#8 minecraft:pillager pos=41.50418296183573,-60.0,93.40701179520656 delta=-0.10251576689631144,-0.0784000015258789,-0.0977012124542939 rot=132.33575,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=132.66467 body=132.33575 nav=moving stuck=0 navspeed=1.0 ntarget=35,-60,88 path=3/8/1/35,-60,88 nodes=43,-59,95:OPEN:0.0;42,-60,94:WALKABLE:0.0;41,-60,93:WALKABLE:0.0;40,-60,92:WALKABLE:0.0;39,-60,91:WALKABLE:0.0;38,-60,90:WALKABLE:0.0;37,-60,89:WALKABLE:0.0;36,-60,88:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:30.04920651902535;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=2 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 E pillager#9 minecraft:pillager pos=48.61467155544355,-60.0,94.39210614164848 delta=0.10097299332872317,-0.0784000015258789,-0.10701166998828178 rot=224.52628,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=224.20004 body=224.52628 nav=moving stuck=0 navspeed=1.0 ntarget=51,-60,89 path=3/7/1/51,-60,89 nodes=46,-60,96:WALKABLE:0.0;47,-60,95:WALKABLE:0.0;48,-60,94:WALKABLE:0.0;49,-60,93:WALKABLE:0.0;50,-60,92:WALKABLE:0.0;50,-60,91:WALKABLE:0.0;51,-60,90:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1{minecraft:enchantments:{minecraft:unbreaking:1}} attrs=minecraft:attack_damage:5.0;minecraft:follow_range:34.07691791314349;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=2 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=2 groups=2/7 health=216.0 raiders=-
 E V minecraft:villager pos=-2.232370905511361,-60.0,4.228172260495099 delta=-0.11839985127821245,-0.0784000015258789,0.12070738664775078 rot=44.506027,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.375 zza=0.375 xxa=0.0 yya=0.0 head=44.47261 body=44.506027 nav=moving stuck=0 navspeed=0.75 ntarget=-7,-60,6 path=3/8/1/-7,-60,6 nodes=0,-60,1:WALKABLE:0.0;-1,-60,2:WALKABLE:0.0;-2,-60,3:WALKABLE:0.0;-3,-60,4:WALKABLE:0.0;-4,-60,5:WALKABLE:0.0;-5,-60,5:WALKABLE:0.0;-6,-60,6:WALKABLE:0.0;-7,-60,6:WALKABLE:0.0 goals=- tgoals=- acts=core;pre_raid mem=heard_bell_time:932:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:24:inf;last_woken:307:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;path:path(3;8):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(-7,-60,6);0.75;0):inf equip=- attrs=minecraft:follow_range:14.633466820244754;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=2 groups=2/7 health=216.0 raiders=-
@@ -135,14 +152,22 @@ E pillager#13 minecraft:pillager pos=-85.96961589124714,-60.0,32.02724791866301 
 E pillager#14 minecraft:pillager pos=-84.43732751589087,-60.0,33.925401182948555 delta=0.10272744871511426,-0.0784000015258789,0.09146703800248555 rot=303.4003,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=305.80853 body=303.4003 nav=moving stuck=0 navspeed=1.0 ntarget=-77,-60,37 path=2/9/1/-77,-60,37 nodes=-86,-60,32:WALKABLE:0.0;-85,-60,33:WALKABLE:0.0;-84,-60,34:WALKABLE:0.0;-83,-60,35:WALKABLE:0.0;-82,-60,36:WALKABLE:0.0;-81,-60,36:WALKABLE:0.0;-80,-60,36:WALKABLE:0.0;-79,-60,36:WALKABLE:0.0;-78,-60,37:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:29.375872205098567;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=3 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 E witch#1 minecraft:witch pos=-84.29242716698383,-60.0,32.788144831409994 delta=-0.0024404375219348523,-0.0784000015258789,-0.009392336494357946 rot=5.4399705,-8.885432 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=26.0 abs=0.0 hurt=0/0 death=0 fx=- target=ravager#1 hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-69.56003 body=5.4399705 nav=done stuck=0 navspeed=1.0 ntarget=-85,-60,33 path=- nodes=- goals=2:RangedAttackGoal:MOVE+LOOK tgoals=2:NearestHealableRaiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.08186775786507;minecraft:max_health:26.0;minecraft:movement_speed:0.25 raid=1 wave=3 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 drinking=0 usingtime=0
 E ravager#1 minecraft:ravager pos=-82.62908169965075,-60.0,33.01177310888641 delta=0.055531137326796154,-0.0784000015258789,-0.08589083211532943 rot=212.00934,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=200.55515 body=212.00934 nav=moving stuck=0 navspeed=1.0 ntarget=-81,-60,29 path=2/5/1/-81,-60,29 nodes=-85,-60,33:WALKABLE:0.0;-84,-60,32:WALKABLE:0.0;-83,-60,31:WALKABLE:0.0;-82,-60,30:WALKABLE:0.0;-81,-60,29:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:12.0;minecraft:attack_knockback:1.5;minecraft:follow_range:30.51560764815728;minecraft:knockback_resistance:0.75;minecraft:max_health:100.0;minecraft:movement_speed:0.3;minecraft:step_height:1.0 raid=1 wave=3 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 attack=0 stun=0 roar=0
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Witch
-C Applied 1000.0 damage to Ravager
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Witch
+CF result success 1
+CF msg Applied 1000.0 damage to Ravager
+CF result success 1
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=2 groups=3/7 health=270.0 raiders=-
 E V minecraft:villager pos=1.4115690203654223,-60.0,-0.33615984445716984 delta=9.162771254158347E-4,-0.0784000015258789,0.081670644955738 rot=354.77707,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.375 zza=0.375 xxa=0.0 yya=0.0 head=367.42096 body=354.77707 nav=moving stuck=0 navspeed=0.75 ntarget=3,-60,7 path=1/9/1/3,-60,7 nodes=1,-60,-1:WALKABLE:0.0;1,-60,0:WALKABLE:0.0;1,-60,1:WALKABLE:0.0;2,-60,2:WALKABLE:0.0;2,-60,3:WALKABLE:0.0;2,-60,4:WALKABLE:0.0;2,-60,5:WALKABLE:0.0;3,-60,6:WALKABLE:0.0;3,-60,7:WALKABLE:0.0 goals=- tgoals=- acts=core;pre_raid mem=heard_bell_time:1256:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:24:inf;last_woken:307:inf;look_target:entity(Steve):inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;path:path(1;9):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(3,-60,7);0.75;0):inf equip=- attrs=minecraft:follow_range:14.633466820244754;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=2 groups=3/7 health=270.0 raiders=-
@@ -184,15 +209,24 @@ E pillager#18 minecraft:pillager pos=-53.75707284877086,-60.0,-65.76851798909676
 E witch#2 minecraft:witch pos=-54.13543856486327,-60.0,-68.32547305246108 delta=0.0,-0.0784000015258789,0.0 rot=199.84903,-0.83128446 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=26.0 abs=0.0 hurt=0/0 death=0 fx=- target=pillager#18 hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.25 zza=0.0 xxa=0.0 yya=0.0 head=351.5829 body=284.84427 nav=done stuck=0 navspeed=1.0 ntarget=-57,-60,-69 path=- nodes=- goals=2:RangedAttackGoal:MOVE+LOOK tgoals=2:NearestHealableRaiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.015907752436904;minecraft:max_health:26.0;minecraft:movement_speed:0.25 raid=1 wave=4 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 drinking=0 usingtime=0
 E witch#3 minecraft:witch pos=-60.35907788523611,-60.0,-67.955843586269 delta=0.0,-0.0784000015258789,0.0 rot=0.017940385,-0.76355106 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=26.0 abs=0.0 hurt=0/0 death=0 fx=- target=vindicator#8 hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-18.024704 body=0.017940521 nav=done stuck=0 navspeed=1.0 ntarget=-58,-60,-69 path=- nodes=- goals=2:RangedAttackGoal:MOVE+LOOK tgoals=2:NearestHealableRaiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:14.44549457606112;minecraft:max_health:26.0;minecraft:movement_speed:0.25 raid=1 wave=4 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 drinking=0 usingtime=0
 E witch#4 minecraft:witch pos=-59.36543789269567,-60.0,-66.80233673390354 delta=-0.004026252648712853,-0.0784000015258789,-0.0034635640636033697 rot=1.8638844,-1.4119337 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=26.0 abs=0.0 hurt=0/0 death=0 fx=- target=vindicator#8 hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=4.9166946 body=1.8638844 nav=done stuck=0 navspeed=1.0 ntarget=-58,-60,-69 path=- nodes=- goals=2:RangedAttackGoal:MOVE+LOOK tgoals=2:NearestHealableRaiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:17.080350593722944;minecraft:max_health:26.0;minecraft:movement_speed:0.25 raid=1 wave=4 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 drinking=0 usingtime=0
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Witch
-C Applied 1000.0 damage to Witch
-C Applied 1000.0 damage to Witch
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Witch
+CF result success 1
+CF msg Applied 1000.0 damage to Witch
+CF result success 1
+CF msg Applied 1000.0 damage to Witch
+CF result success 1
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=2 groups=4/7 health=222.0 raiders=-
 E V minecraft:villager pos=3.671309892029659,-60.0,-1.6018622900755273 delta=-0.0556847337841653,-0.0784000015258789,0.056076127490810826 rot=49.520416,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=45.895325 body=49.520416 nav=moving stuck=0 navspeed=0.75 ntarget=0,-59,0 path=0/4/1/0,-59,0 nodes=3,-60,-2:WALKABLE:0.0;2,-60,-2:WALKABLE:0.0;1,-60,-1:WALKABLE:0.0;0,-59,0:WALKABLE:0.0 goals=- tgoals=- acts=core;pre_raid mem=heard_bell_time:1473:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:24:inf;last_woken:307:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;path:path(0;4):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(0,-60,0);0.75;2):inf equip=- attrs=minecraft:follow_range:14.633466820244754;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=2 groups=4/7 health=222.0 raiders=-
@@ -237,18 +271,30 @@ E pillager#22 minecraft:pillager pos=64.68198556160621,-60.0,-72.90576874159406 
 E pillager#23 minecraft:pillager pos=70.28808688038488,-60.0,-72.68977933381564 delta=0.04899290020644143,-0.0784000015258789,0.06207202094534603 rot=317.67596,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.0 xxa=0.0 yya=0.0 head=320.8922 body=317.67596 nav=done stuck=0 navspeed=1.0 ntarget=70,-60,-73 path=3/3/1/70,-60,-73 nodes=68,-60,-75:WALKABLE:0.0;69,-60,-74:WALKABLE:0.0;70,-60,-73:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:31.83996460502866;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=5 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 E ravager#2 minecraft:ravager pos=63.4601628900378,-60.0,-72.00980171566515 delta=-0.10789717724578302,-0.0784000015258789,0.0052837324776222865 rot=88.303635,-40.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=43.303635 body=88.303635 nav=moving stuck=0 navspeed=1.0 ntarget=53,-60,-71 path=3/12/1/53,-60,-71 nodes=65,-60,-73:WALKABLE:0.0;64,-60,-73:WALKABLE:0.0;63,-60,-73:WALKABLE:0.0;62,-60,-73:WALKABLE:0.0;61,-60,-73:WALKABLE:0.0;60,-60,-73:WALKABLE:0.0;59,-60,-73:WALKABLE:0.0;58,-60,-72:WALKABLE:0.0;57,-60,-72:WALKABLE:0.0;56,-60,-72:WALKABLE:0.0;55,-60,-72:WALKABLE:0.0;54,-60,-71:WALKABLE:0.0 goals=10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:12.0;minecraft:attack_knockback:1.5;minecraft:follow_range:29.742485029329337;minecraft:knockback_resistance:0.75;minecraft:max_health:100.0;minecraft:movement_speed:0.3;minecraft:step_height:1.0 raid=1 wave=5 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 attack=0 stun=0 roar=0
 E pillager#24 minecraft:pillager pos=63.52263546445062,-58.337500023841855,-72.01164701807464 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=moving stuck=0 navspeed=1.0 ntarget=53,-60,-71 path=3/12/1/53,-60,-71 nodes=65,-60,-73:WALKABLE:0.0;64,-60,-73:WALKABLE:0.0;63,-60,-73:WALKABLE:0.0;62,-60,-73:WALKABLE:0.0;61,-60,-73:WALKABLE:0.0;60,-60,-73:WALKABLE:0.0;59,-60,-73:WALKABLE:0.0;58,-60,-72:WALKABLE:0.0;57,-60,-72:WALKABLE:0.0;56,-60,-72:WALKABLE:0.0;55,-60,-72:WALKABLE:0.0;54,-60,-71:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:31.24828916989435;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=5 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Evoker
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Ravager
-C Applied 1000.0 damage to Pillager
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Evoker
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Ravager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=2 groups=5/7 health=364.0 raiders=-
 E V minecraft:villager pos=-1.539231533620737,-60.0,-3.9768053907730976 delta=0.001309921144912858,-0.0784000015258789,0.1464200594514486 rot=356.80157,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=358.1049 body=356.80157 nav=moving stuck=0 navspeed=0.699999988079071 ntarget=-3,-59,-1 path=5/9/1/-3,-59,-1 nodes=-1,-60,-9:WALKABLE:0.0;-1,-60,-8:WALKABLE:0.0;-1,-60,-7:WALKABLE:0.0;-2,-60,-6:WALKABLE:0.0;-2,-60,-5:WALKABLE:0.0;-2,-60,-4:WALKABLE:0.0;-2,-60,-3:WALKABLE:0.0;-3,-60,-2:WALKABLE:0.0;-3,-59,-1:WALKABLE:0.0 goals=- tgoals=- acts=core;raid mem=heard_bell_time:1766:inf;hiding_place:minecraft:overworld@-3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:24:inf;last_woken:307:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;path:path(5;9):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(-3,-60,-1);0.7;1):inf equip=- attrs=minecraft:follow_range:14.633466820244754;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=2 groups=5/7 health=364.0 raiders=-
@@ -292,17 +338,28 @@ E pillager#28 minecraft:pillager pos=-1.803072583379383,-60.0,99.80393391640604 
 E pillager#29 minecraft:pillager pos=-5.036982144632922,-60.0,101.10092573244695 delta=-0.09798419284107783,-0.0784000015258789,-0.11104156782277318 rot=141.382,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=140.31175 body=141.382 nav=moving stuck=0 navspeed=1.0 ntarget=-12,-60,96 path=2/8/1/-12,-60,96 nodes=-4,-60,102:WALKABLE:0.0;-5,-60,101:WALKABLE:0.0;-6,-60,100:WALKABLE:0.0;-7,-60,99:WALKABLE:0.0;-8,-60,98:WALKABLE:0.0;-9,-60,97:WALKABLE:0.0;-10,-60,97:WALKABLE:0.0;-11,-60,96:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:32.036637175826456;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=6 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 E pillager#30 minecraft:pillager pos=-3.0086622390132387,-60.0,101.02712539475117 delta=-0.03837080088738846,-0.0784000015258789,-0.1128938067605879 rot=142.57477,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=214.3389 body=142.57477 nav=moving stuck=0 navspeed=1.0 ntarget=-17,-60,94 path=2/15/1/-17,-60,94 nodes=-2,-59,102:OPEN:0.0;-3,-60,101:WALKABLE:0.0;-4,-60,100:WALKABLE:0.0;-5,-60,99:WALKABLE:0.0;-6,-60,98:WALKABLE:0.0;-7,-60,97:WALKABLE:0.0;-8,-60,97:WALKABLE:0.0;-9,-60,96:WALKABLE:0.0;-10,-60,96:WALKABLE:0.0;-11,-60,96:WALKABLE:0.0;-12,-60,95:WALKABLE:0.0;-13,-60,95:WALKABLE:0.0;-14,-60,95:WALKABLE:0.0;-15,-60,95:WALKABLE:0.0;-16,-60,94:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:crossbow*1 attrs=minecraft:attack_damage:5.0;minecraft:follow_range:29.690708091807164;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=6 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 charging=0 inventory=-
 E witch#5 minecraft:witch pos=-2.258514849171205,-60.0,101.8767069214911 delta=0.0,-0.0784000015258789,0.0 rot=4.3737226,-0.74263483 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=26.0 abs=0.0 hurt=0/0 death=0 fx=- target=vindicator#14 hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-124.20477 body=-44.056686 nav=done stuck=0 navspeed=1.0 ntarget=-2,-60,102 path=- nodes=- goals=2:RangedAttackGoal:MOVE+LOOK tgoals=2:NearestHealableRaiderTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.182389627826602;minecraft:max_health:26.0;minecraft:movement_speed:0.25 raid=1 wave=6 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 drinking=0 usingtime=0
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Evoker
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Witch
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Evoker
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Witch
+CF result success 1
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=2 groups=6/7 health=266.0 raiders=-
 E V minecraft:villager pos=1.8529513568581137,-60.0,0.6759468722317679 delta=-0.06631018048472127,-0.0784000015258789,-0.04935667205678507 rot=121.79135,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.375 zza=0.0 xxa=0.0 yya=0.0 head=165.69003 body=121.79135 nav=moving stuck=0 navspeed=0.75 ntarget=-4,-60,9 path=0/10/1/-4,-60,9 nodes=1,-60,0:WALKABLE:0.0;1,-60,1:WALKABLE:0.0;0,-60,2:WALKABLE:0.0;-1,-60,3:WALKABLE:0.0;-2,-60,4:WALKABLE:0.0;-3,-60,5:WALKABLE:0.0;-3,-60,6:WALKABLE:0.0;-3,-60,7:WALKABLE:0.0;-4,-60,8:WALKABLE:0.0;-4,-60,9:WALKABLE:0.0 goals=- tgoals=- acts=core;pre_raid mem=heard_bell_time:2144:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:24:inf;last_woken:307:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;path:path(0;10):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(-4,-60,9);0.75;0):inf equip=- attrs=minecraft:follow_range:14.633466820244754;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=2 groups=6/7 health=266.0 raiders=-
@@ -353,24 +410,42 @@ E ravager#3 minecraft:ravager pos=32.41017973557785,-60.0,94.47158197628129 delt
 E evoker#5 minecraft:evoker pos=32.4512745975025,-58.337500023841855,94.51867191435564 delta=0.0011876726957494935,-0.0784000015258789,-0.006057425596051437 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=moving stuck=0 navspeed=1.0 ntarget=26,-60,92 path=2/7/1/26,-60,92 nodes=33,-60,95:WALKABLE:0.0;32,-60,94:WALKABLE:0.0;31,-60,93:WALKABLE:0.0;30,-60,93:WALKABLE:0.0;29,-60,93:WALKABLE:0.0;28,-60,93:WALKABLE:0.0;27,-60,92:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:12.222766142153013;minecraft:max_health:24.0;minecraft:movement_speed:0.5 raid=1 wave=7 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 spell=none spellticks=0 wololo=-
 E ravager#4 minecraft:ravager pos=32.414136916633545,-60.0,94.48145626801931 delta=-0.07077572559245535,-0.0784000015258789,-0.08109476842288911 rot=139.20132,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=139.09152 body=139.20132 nav=moving stuck=0 navspeed=1.0 ntarget=19,-60,85 path=2/14/1/19,-60,85 nodes=33,-60,95:WALKABLE:0.0;32,-60,94:WALKABLE:0.0;31,-60,93:WALKABLE:0.0;30,-60,92:WALKABLE:0.0;29,-60,91:WALKABLE:0.0;28,-60,90:WALKABLE:0.0;27,-60,89:WALKABLE:0.0;26,-60,88:WALKABLE:0.0;25,-60,87:WALKABLE:0.0;24,-60,86:WALKABLE:0.0;23,-60,86:WALKABLE:0.0;22,-60,86:WALKABLE:0.0;21,-60,86:WALKABLE:0.0;20,-60,85:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:12.0;minecraft:attack_knockback:1.5;minecraft:follow_range:32.41832471037353;minecraft:knockback_resistance:0.75;minecraft:max_health:100.0;minecraft:movement_speed:0.3;minecraft:step_height:1.0 raid=1 wave=7 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 attack=0 stun=0 roar=0
 E vindicator#24 minecraft:vindicator pos=32.45497836568564,-58.337500023841855,94.52876616213405 delta=0.03599647472143022,-0.0784000015258789,0.042581883851317115 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=40.0 body=0.0 nav=moving stuck=0 navspeed=1.0 ntarget=19,-60,85 path=2/14/1/19,-60,85 nodes=33,-60,95:WALKABLE:0.0;32,-60,94:WALKABLE:0.0;31,-60,93:WALKABLE:0.0;30,-60,92:WALKABLE:0.0;29,-60,91:WALKABLE:0.0;28,-60,90:WALKABLE:0.0;27,-60,89:WALKABLE:0.0;26,-60,88:WALKABLE:0.0;25,-60,87:WALKABLE:0.0;24,-60,86:WALKABLE:0.0;23,-60,86:WALKABLE:0.0;22,-60,86:WALKABLE:0.0;21,-60,86:WALKABLE:0.0;20,-60,85:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_axe*1 attrs=minecraft:attack_damage:13.0;minecraft:follow_range:12.202581421929807;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=7 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 johnny=0
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Evoker
-C Applied 1000.0 damage to Evoker
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Witch
-C Applied 1000.0 damage to Ravager
-C Applied 1000.0 damage to Evoker
-C Applied 1000.0 damage to Ravager
-C Applied 1000.0 damage to Vindicator
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Evoker
+CF result success 1
+CF msg Applied 1000.0 damage to Evoker
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Witch
+CF result success 1
+CF msg Applied 1000.0 damage to Ravager
+CF result success 1
+CF msg Applied 1000.0 damage to Evoker
+CF result success 1
+CF msg Applied 1000.0 damage to Ravager
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=2 groups=7/7 health=586.0 raiders=-
 E V minecraft:villager pos=11.5664013739341,-60.0,8.705289561684424 delta=0.04487722308030314,-0.0784000015258789,0.08463609734220283 rot=3.0188599,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.375 zza=0.375 xxa=0.0 yya=0.0 head=-11.98114 body=3.0188599 nav=moving stuck=0 navspeed=0.75 ntarget=6,-60,12 path=1/6/1/6,-60,12 nodes=11,-60,8:WALKABLE:0.0;10,-60,9:WALKABLE:0.0;9,-60,10:WALKABLE:0.0;8,-60,11:WALKABLE:0.0;7,-60,12:WALKABLE:0.0;6,-60,12:WALKABLE:0.0 goals=- tgoals=- acts=core;pre_raid mem=heard_bell_time:2491:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:24:inf;last_woken:307:inf;look_target:entity(Steve):inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;path:path(1;6):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(6,-60,12);0.75;0):inf equip=- attrs=minecraft:follow_range:14.633466820244754;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=2 groups=7/7 health=586.0 raiders=-
@@ -420,23 +495,40 @@ E ravager#6 minecraft:ravager pos=101.74070954371427,-60.0,17.754430700663406 de
 E vindicator#30 minecraft:vindicator pos=101.78443947110509,-58.337500023841855,17.79908429143198 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-70.0 body=0.0 nav=moving stuck=0 navspeed=1.0 ntarget=98,-60,12 path=3/7/1/98,-60,12 nodes=103,-60,19:WALKABLE:0.0;102,-60,18:WALKABLE:0.0;101,-60,17:WALKABLE:0.0;100,-60,16:WALKABLE:0.0;99,-60,15:WALKABLE:0.0;99,-60,14:WALKABLE:0.0;98,-60,13:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE;10:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_axe*1 attrs=minecraft:attack_damage:13.0;minecraft:follow_range:11.70573287296786;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=8 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 johnny=0
 E ravager#7 minecraft:ravager pos=103.99108789699058,-60.0,18.013471943266193 delta=0.005552056121370641,-0.0784000015258789,-0.10744775614552457 rot=180.90323,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=100.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.3 zza=0.3 xxa=0.0 yya=0.0 head=181.4307 body=180.90323 nav=moving stuck=0 navspeed=1.0 ntarget=103,-60,13 path=3/6/1/103,-60,13 nodes=103,-60,19:WALKABLE:0.0;103,-60,18:WALKABLE:0.0;103,-60,17:WALKABLE:0.0;103,-60,16:WALKABLE:0.0;103,-60,15:WALKABLE:0.0;103,-60,14:WALKABLE:0.0 goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:12.0;minecraft:attack_knockback:1.5;minecraft:follow_range:29.13037931553705;minecraft:knockback_resistance:0.75;minecraft:max_health:100.0;minecraft:movement_speed:0.3;minecraft:step_height:1.0 raid=1 wave=8 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 attack=0 stun=0 roar=0
 E vindicator#31 minecraft:vindicator pos=103.99010523106809,-58.337500023841855,18.075964217014114 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=24.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=moving stuck=0 navspeed=1.0 ntarget=103,-60,13 path=3/6/1/103,-60,13 nodes=103,-60,19:WALKABLE:0.0;103,-60,18:WALKABLE:0.0;103,-60,17:WALKABLE:0.0;103,-60,16:WALKABLE:0.0;103,-60,15:WALKABLE:0.0;103,-60,14:WALKABLE:0.0 goals=3:PathfindToRaidGoal:MOVE tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_axe*1 attrs=minecraft:attack_damage:13.0;minecraft:follow_range:12.153005057870923;minecraft:max_health:24.0;minecraft:movement_speed:0.3499999940395355 raid=1 wave=8 canjoin=1 outside=0 ptarget=- leader=0 patrolling=0 celebrating=0 johnny=0
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Evoker
-C Applied 1000.0 damage to Evoker
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Pillager
-C Applied 1000.0 damage to Witch
-C Applied 1000.0 damage to Witch
-C Applied 1000.0 damage to Ravager
-C Applied 1000.0 damage to Evoker
-C Applied 1000.0 damage to Ravager
-C Applied 1000.0 damage to Vindicator
-C Applied 1000.0 damage to Ravager
-C Applied 1000.0 damage to Vindicator
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Evoker
+CF result success 1
+CF msg Applied 1000.0 damage to Evoker
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Pillager
+CF result success 1
+CF msg Applied 1000.0 damage to Witch
+CF result success 1
+CF msg Applied 1000.0 damage to Witch
+CF result success 1
+CF msg Applied 1000.0 damage to Ravager
+CF result success 1
+CF msg Applied 1000.0 damage to Evoker
+CF result success 1
+CF msg Applied 1000.0 damage to Ravager
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
+CF msg Applied 1000.0 damage to Ravager
+CF result success 1
+CF msg Applied 1000.0 damage to Vindicator
+CF result success 1
 RAID 2 center=1,-60,-1 started=1 active=1 status=ONGOING omen=2 groups=8/7 health=640.0 raiders=-
 E V minecraft:villager pos=7.217349165434136,-60.0,0.5417188496288231 delta=-0.14004954000867104,-0.0784000015258789,-0.028547840553878077 rot=95.51373,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=1 home=- leash=- speed=0.35 zza=0.35 xxa=0.0 yya=0.0 head=145.03452 body=95.51373 nav=moving stuck=0 navspeed=0.699999988079071 ntarget=3,-59,-1 path=2/6/1/3,-59,-1 nodes=8,-60,1:WALKABLE:0.0;7,-60,0:WALKABLE:0.0;6,-60,0:WALKABLE:0.0;5,-60,0:WALKABLE:0.0;4,-60,-1:WALKABLE:0.0;3,-59,-1:WALKABLE:0.0 goals=- tgoals=- acts=core;raid mem=heard_bell_time:2766:inf;hiding_place:minecraft:overworld@3,-60,-1:inf;home:minecraft:overworld@3,-60,-1:inf;last_slept:24:inf;last_woken:307:inf;meeting_point:minecraft:overworld@0,-60,0:inf;mobs:(Steve):inf;nearest_players:(Steve):inf;nearest_visible_player:Steve:inf;path:path(2;6):inf;visible_mobs:(Steve):inf;walk_target:walk(pos(3,-60,-1);0.7;1):inf equip=- attrs=minecraft:follow_range:14.633466820244754;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
 RAID 2 center=1,-60,-1 started=1 active=1 status=VICTORY omen=2 groups=8/7 health=640.0 raiders=-

@@ -1,28 +1,53 @@
-C Set minecraft:overworld to 18000 tick(s)
-C 256 biome entry/entries set between -64, -64, -48 and -52, -4, -36
-C 256 biome entry/entries set between -64, -64, -32 and -52, -4, -20
-C 256 biome entry/entries set between -64, -64, -16 and -52, -4, -4
-C 256 biome entry/entries set between -48, -64, -48 and -36, -4, -36
-C 256 biome entry/entries set between -48, -64, -32 and -36, -4, -20
-C 256 biome entry/entries set between -48, -64, -16 and -36, -4, -4
-C 256 biome entry/entries set between -32, -64, -48 and -20, -4, -36
-C 256 biome entry/entries set between -32, -64, -32 and -20, -4, -20
-C 256 biome entry/entries set between -32, -64, -16 and -20, -4, -4
-C 256 biome entry/entries set between -16, -64, -48 and -4, -4, -36
-C 256 biome entry/entries set between -16, -64, -32 and -4, -4, -20
-C 256 biome entry/entries set between -16, -64, -16 and -4, -4, -4
-C 256 biome entry/entries set between 0, -64, -48 and 12, -4, -36
-C 256 biome entry/entries set between 0, -64, -32 and 12, -4, -20
-C 256 biome entry/entries set between 0, -64, -16 and 12, -4, -4
-C 256 biome entry/entries set between 16, -64, -48 and 28, -4, -36
-C 256 biome entry/entries set between 16, -64, -32 and 28, -4, -20
-C 256 biome entry/entries set between 16, -64, -16 and 28, -4, -4
-C 256 biome entry/entries set between 32, -64, -48 and 44, -4, -36
-C 256 biome entry/entries set between 32, -64, -32 and 44, -4, -20
-C 256 biome entry/entries set between 32, -64, -16 and 44, -4, -4
-C 256 biome entry/entries set between 48, -64, -48 and 60, -4, -36
-C 256 biome entry/entries set between 48, -64, -32 and 60, -4, -20
-C 256 biome entry/entries set between 48, -64, -16 and 60, -4, -4
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg 256 biome entry/entries set between -64, -64, -48 and -52, -4, -36
+CF result success 256
+CF msg 256 biome entry/entries set between -64, -64, -32 and -52, -4, -20
+CF result success 256
+CF msg 256 biome entry/entries set between -64, -64, -16 and -52, -4, -4
+CF result success 256
+CF msg 256 biome entry/entries set between -48, -64, -48 and -36, -4, -36
+CF result success 256
+CF msg 256 biome entry/entries set between -48, -64, -32 and -36, -4, -20
+CF result success 256
+CF msg 256 biome entry/entries set between -48, -64, -16 and -36, -4, -4
+CF result success 256
+CF msg 256 biome entry/entries set between -32, -64, -48 and -20, -4, -36
+CF result success 256
+CF msg 256 biome entry/entries set between -32, -64, -32 and -20, -4, -20
+CF result success 256
+CF msg 256 biome entry/entries set between -32, -64, -16 and -20, -4, -4
+CF result success 256
+CF msg 256 biome entry/entries set between -16, -64, -48 and -4, -4, -36
+CF result success 256
+CF msg 256 biome entry/entries set between -16, -64, -32 and -4, -4, -20
+CF result success 256
+CF msg 256 biome entry/entries set between -16, -64, -16 and -4, -4, -4
+CF result success 256
+CF msg 256 biome entry/entries set between 0, -64, -48 and 12, -4, -36
+CF result success 256
+CF msg 256 biome entry/entries set between 0, -64, -32 and 12, -4, -20
+CF result success 256
+CF msg 256 biome entry/entries set between 0, -64, -16 and 12, -4, -4
+CF result success 256
+CF msg 256 biome entry/entries set between 16, -64, -48 and 28, -4, -36
+CF result success 256
+CF msg 256 biome entry/entries set between 16, -64, -32 and 28, -4, -20
+CF result success 256
+CF msg 256 biome entry/entries set between 16, -64, -16 and 28, -4, -4
+CF result success 256
+CF msg 256 biome entry/entries set between 32, -64, -48 and 44, -4, -36
+CF result success 256
+CF msg 256 biome entry/entries set between 32, -64, -32 and 44, -4, -20
+CF result success 256
+CF msg 256 biome entry/entries set between 32, -64, -16 and 44, -4, -4
+CF result success 256
+CF msg 256 biome entry/entries set between 48, -64, -48 and 60, -4, -36
+CF result success 256
+CF msg 256 biome entry/entries set between 48, -64, -32 and 60, -4, -20
+CF result success 256
+CF msg 256 biome entry/entries set between 48, -64, -16 and 60, -4, -4
+CF result success 256
 SPAWNAT seed=507 category=monster pos=-56,-60,-40
 SPAWNAT seed=514 category=monster pos=-56,-60,-37
 SPAWNAT seed=521 category=creature pos=-56,-60,-40

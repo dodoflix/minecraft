@@ -1,8 +1,12 @@
-C The difficulty did not change; it is already set to Normal
-C Game rule mob_drops is already set to true
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail Game rule mob_drops is already set to true
 EFFECT Steve minecraft:resistance added=true
-C Created team [red]
-C Added G to team [red]
+CF msg Created team [red]
+CF result success 1
+CF msg Added G to team [red]
+CF result success 1
 E A minecraft:slime pos=6.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.0;minecraft:max_health:16.0;minecraft:movement_speed:0.6000000238418579 age=0 baby=0 forcedage=0 size=4 squish=0.0 tsquish=0.0 osquish=0.0 wasground=0 jdelay=0 mrot=56.225605 maggr=0
 E B minecraft:slime pos=10.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:4.0;minecraft:movement_speed:0.4000000059604645 age=0 baby=0 forcedage=0 size=2 squish=0.0 tsquish=0.0 osquish=0.0 wasground=0 jdelay=0 mrot=330.63855 maggr=0
 E C minecraft:slime pos=14.5,-60.0,4.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:1.0;minecraft:follow_range:16.0;minecraft:max_health:1.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 size=1 squish=0.0 tsquish=0.0 osquish=0.0 wasground=0 jdelay=0 mrot=55.73036 maggr=0

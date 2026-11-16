@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule mob_drops is now set to false
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 EFFECT Steve minecraft:resistance added=true
 E Dry minecraft:guardian pos=0.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-6.814396 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-90.0 body=-15.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=4:Guardian$GuardianAttackGoal:MOVE+LOOK tgoals=1:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:6.0;minecraft:follow_range:16.972956337463373;minecraft:max_health:30.0;minecraft:movement_speed:0.5
 E Elder minecraft:elder_guardian pos=3.5,-60.0,-10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,-3.1188102 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=80.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=3,-60,-11/16 leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=15.255081 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=4:Guardian$GuardianAttackGoal:MOVE+LOOK tgoals=1:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:8.0;minecraft:follow_range:16.46396477690336;minecraft:max_health:80.0;minecraft:movement_speed:0.30000001192092896

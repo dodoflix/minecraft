@@ -1,16 +1,29 @@
-C The difficulty did not change; it is already set to Normal
-C No biome entries were changed
-C 72 biome entry/entries set between 8, -64, 0 and 16, -52, 20
-C 72 biome entry/entries set between 20, -64, 0 and 28, -52, 20
-C 72 biome entry/entries set between 28, -64, 0 and 36, -52, 20
-C 72 biome entry/entries set between 40, -64, 0 and 48, -52, 20
-C 72 biome entry/entries set between 48, -64, 0 and 56, -52, 20
-C 72 biome entry/entries set between 60, -64, 0 and 68, -52, 20
-C 72 biome entry/entries set between 68, -64, 0 and 76, -52, 20
-C 72 biome entry/entries set between 80, -64, 0 and 88, -52, 20
-C 72 biome entry/entries set between 88, -64, 0 and 96, -52, 20
-C 72 biome entry/entries set between 100, -64, 0 and 108, -52, 20
-C 72 biome entry/entries set between 108, -64, 0 and 116, -52, 20
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail No biome entries were changed
+CF msg 72 biome entry/entries set between 8, -64, 0 and 16, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 20, -64, 0 and 28, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 28, -64, 0 and 36, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 40, -64, 0 and 48, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 48, -64, 0 and 56, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 60, -64, 0 and 68, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 68, -64, 0 and 76, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 80, -64, 0 and 88, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 88, -64, 0 and 96, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 100, -64, 0 and 108, -52, 20
+CF result success 72
+CF msg 72 biome entry/entries set between 108, -64, 0 and 116, -52, 20
+CF result success 72
 E W0 minecraft:wolf pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.453020833237893;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:angry collar=red wet=0 shaking=0 shake=0.0 interest=0.0
 E X0 minecraft:wolf pos=2.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.446102084201744;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:grumpy collar=red wet=0 shaking=0 shake=0.0 interest=0.0
 E Y0 minecraft:wolf pos=2.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.672048087884164;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:puglin collar=red wet=0 shaking=0 shake=0.0 interest=0.0
@@ -84,8 +97,10 @@ E T11 minecraft:ocelot pos=112.5,-60.0,10.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 f
 E P11 minecraft:parrot pos=112.5,-60.0,13.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:flying_speed:0.4000000059604645;minecraft:follow_range:16.340837705613115;minecraft:max_health:6.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=green flap=3.6 flapspeed=1.0 flapping=0.9 nextflap=1.0 party=0 jukebox=-
 E C11 minecraft:cat pos=112.5,-60.0,16.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:follow_range:16.814747548574076;minecraft:max_health:10.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:tabby svariant=minecraft:classic collar=red lie=0.0 lietail=0.0 ontop=0 relax=0.0
 # a full moon: the cat variant condition on the moon brightness
-C Clock minecraft:overworld is already set to 0 tick(s)
-C Set minecraft:overworld to 96000 tick(s)
+CF result failure 0
+CF fail Clock minecraft:overworld is already set to 0 tick(s)
+CF msg Set minecraft:overworld to 96000 tick(s)
+CF result success 96000
 E W0 minecraft:wolf pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.453020833237893;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:angry collar=red wet=0 shaking=0 shake=0.0 interest=0.0
 E X0 minecraft:wolf pos=2.5,-60.0,5.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.446102084201744;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:grumpy collar=red wet=0 shaking=0 shake=0.0 interest=0.0
 E Y0 minecraft:wolf pos=2.5,-60.0,7.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:4.0;minecraft:follow_range:16.672048087884164;minecraft:max_health:8.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=0 owner=- sitting=0 ordered=0 variant=minecraft:pale svariant=minecraft:puglin collar=red wet=0 shaking=0 shake=0.0 interest=0.0

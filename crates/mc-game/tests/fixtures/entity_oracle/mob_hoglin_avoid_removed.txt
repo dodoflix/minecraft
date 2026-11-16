@@ -1,5 +1,7 @@
-C The difficulty did not change; it is already set to Normal
-C Game rule mob_drops is now set to false
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 BRAIN H acts=avoid;core
 BM H type=avoid_target value=Z ttl=inf
 BM H type=visible_adult_hoglin_count value=0 ttl=inf

@@ -1,6 +1,9 @@
-C Set minecraft:overworld to 6000 tick(s)
-C Game rule mob_drops is now set to false
-C 448 biome entry/entries set between 40, -64, -16 and 68, -40, 12
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
+CF msg 448 biome entry/entries set between 40, -64, -16 and 68, -40, 12
+CF result success 448
 E S minecraft:snow_golem pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:4.0;minecraft:movement_speed:0.20000000298023224
 E H minecraft:snow_golem pos=52.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=3.0 abs=0.0 hurt=9/19 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=20.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=4:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:4.0;minecraft:movement_speed:0.20000000298023224
 G S goal 1 RangedAttackGoal flags=MOVE+LOOK running=0
@@ -1110,7 +1113,8 @@ EV sound at=6.671817308610922,-60.0,-1.4675292667699595 r=16.0 ex=0 event=minecr
 N S {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.048059829046504035d,-0.0784000015258789d,-9.796089854112754E-4d],OnGround:1b,PersistenceRequired:1b,PortalCooldown:0,Pos:[6.9358871413647485d,-60.0d,-1.4725630679689725d],Pumpkin:1b,Rotation:[267.43365f,0.0f],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
 N H {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:20s,FallFlying:0b,Fire:0s,Health:0.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PersistenceRequired:1b,PortalCooldown:0,Pos:[52.5d,-60.0d,0.5d],Pumpkin:0b,Rotation:[0.0f,0.0f],attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
 # no snow with mob griefing off
-C Game rule mob_griefing is now set to false
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
 T 183
 E S2 minecraft:snow_golem pos=0.5,-60.0,20.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:4.0;minecraft:movement_speed:0.20000000298023224
 T 184

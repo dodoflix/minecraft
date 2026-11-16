@@ -1,4 +1,5 @@
-C Game rule raids is now set to true
+CF msg Game rule raids is now set to true
+CF result success 1
 EFFECT Alex minecraft:bad_omen added=true
 T 301
 PKT Steve minecraft:set_entity_data 65e22b090341a00000ff

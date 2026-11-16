@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 SPAWNPASS seed=24 chunk=0,-3 cats=monster allowed=1
 SPAWNSTATE chunks=289 counts=monster:0;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
 RNG level 248874896776694
@@ -99,7 +100,8 @@ E spider#1 minecraft:spider pos=13.063743625200035,-60.0,-37.067451475915725 del
 E creeper#1 minecraft:creeper pos=11.5,-60.0,-46.5 delta=0.0,-0.0784000015258789,0.0 rot=148.97101,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-19.607986 body=-10.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=6:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.318243220245556;minecraft:movement_speed:0.25
 E zombie#1 minecraft:zombie pos=6.5,-60.0,-44.5 delta=0.0,-0.0784000015258789,0.0 rot=207.31122,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:34.26029909860267;minecraft:knockback_resistance:0.0015088959770320582;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.00449511871443198
 E zombie#2 minecraft:zombie pos=9.5,-60.0,-44.5 delta=0.0,-0.0784000015258789,0.0 rot=98.957245,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-80.0 body=-10.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:33.81897025000674;minecraft:knockback_resistance:0.027764225113328968;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.0425462815010494
-C Set the weather to rain and thunder
+CF msg Set the weather to rain and thunder
+CF result success 6000
 SPAWNPASS seed=466 chunk=6,-3 cats=monster allowed=1
 SPAWNSTATE chunks=289 counts=monster:4;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
 RNG level 263046944681800
@@ -157,7 +159,8 @@ E zombie#2 minecraft:zombie pos=9.5,-60.0,-44.5 delta=0.0,-0.0784000015258789,0.
 E creeper#2 minecraft:creeper pos=127.5,-60.0,-46.5 delta=0.0,-0.0784000015258789,0.0 rot=275.67615,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.569125030989778;minecraft:movement_speed:0.25
 E creeper#3 minecraft:creeper pos=121.5,-60.0,-43.5 delta=0.0,-0.0784000015258789,0.0 rot=237.84673,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:14.803661088020569;minecraft:movement_speed:0.25
 SPAWNSTATE chunks=289 counts=monster:6;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
-C Set the weather to clear
+CF msg Set the weather to clear
+CF result success 6000
 SPAWNPASS seed=674 chunk=6,-3 cats=monster allowed=1
 SPAWNSTATE chunks=289 counts=monster:6;creature:0;ambient:0;axolotls:0;underground_water_creature:0;water_creature:0;water_ambient:0;misc:0 caps=monster:70;creature:10;ambient:15;axolotls:5;underground_water_creature:5;water_creature:5;water_ambient:20;misc:-1 charges=-
 SPAWNPASS seed=687 chunk=7,-3 cats=monster allowed=1

@@ -1,11 +1,19 @@
-C No biome entries were changed
-C 36 biome entry/entries set between 8, -64, 0 and 16, -52, 8
-C 36 biome entry/entries set between 20, -64, 0 and 28, -52, 8
-C 36 biome entry/entries set between 28, -64, 0 and 36, -52, 8
-C 36 biome entry/entries set between 40, -64, 0 and 48, -52, 8
-C 36 biome entry/entries set between 48, -64, 0 and 56, -52, 8
-C 36 biome entry/entries set between 60, -64, 0 and 68, -52, 8
-C 36 biome entry/entries set between 68, -64, 0 and 76, -52, 8
+CF result failure 0
+CF fail No biome entries were changed
+CF msg 36 biome entry/entries set between 8, -64, 0 and 16, -52, 8
+CF result success 36
+CF msg 36 biome entry/entries set between 20, -64, 0 and 28, -52, 8
+CF result success 36
+CF msg 36 biome entry/entries set between 28, -64, 0 and 36, -52, 8
+CF result success 36
+CF msg 36 biome entry/entries set between 40, -64, 0 and 48, -52, 8
+CF result success 36
+CF msg 36 biome entry/entries set between 48, -64, 0 and 56, -52, 8
+CF result success 36
+CF msg 36 biome entry/entries set between 60, -64, 0 and 68, -52, 8
+CF result success 36
+CF msg 36 biome entry/entries set between 68, -64, 0 and 76, -52, 8
+CF result success 36
 E F0 minecraft:frog pos=2.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=1 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=long_jump_cooling_down:100:inf equip=- attrs=minecraft:attack_damage:10.0;minecraft:follow_range:15.053019457344256;minecraft:max_health:10.0;minecraft:movement_speed:1.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=- variant=minecraft:temperate tongue=-
 E F1 minecraft:frog pos=12.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=1 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=long_jump_cooling_down:104:inf equip=- attrs=minecraft:attack_damage:10.0;minecraft:follow_range:16.213754991770415;minecraft:max_health:10.0;minecraft:movement_speed:1.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=- variant=minecraft:temperate tongue=-
 E F2 minecraft:frog pos=22.5,-60.0,2.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=long_jump_cooling_down:104:inf equip=- attrs=minecraft:attack_damage:10.0;minecraft:follow_range:17.243283200737512;minecraft:max_health:10.0;minecraft:movement_speed:1.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=- variant=minecraft:warm tongue=-

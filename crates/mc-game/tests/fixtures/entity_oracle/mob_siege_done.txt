@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 POITAKE 0 -60 5 1
 POITAKE 32 -60 1 1
 POITAKE -32 -60 1 1
@@ -12,7 +13,8 @@ POITAKE -23 -60 -22 1
 CUSTOMSPAWNER siege seed=18 enemies=1
 E zombie#1 minecraft:zombie pos=23.5,-60.0,-10.5 delta=0.0,0.0,0.0 rot=147.28561,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.0062155 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:32.2729340493948;minecraft:knockback_resistance:0.04017719328283705;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.016846222356774816
 RNG level 115158930293871
-C Set minecraft:overworld to 18001 tick(s)
+CF msg Set minecraft:overworld to 18001 tick(s)
+CF result success 18001
 # spawner tick 2
 CUSTOMSPAWNER siege seed=202 enemies=1
 RNG level 25214903975
@@ -227,33 +229,39 @@ RNG level 25214904164
 # still nothing
 CUSTOMSPAWNER siege seed=266 enemies=1
 RNG level 25214904167
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 # a new night at the marker: the roll fails, the state stays done
 CUSTOMSPAWNER siege seed=1 enemies=1
 RNG level 205723924636679
 # the roll succeeds again, but the setup of the night before still stands (daylight or no enemy spawning undo it): no zombies are left, the siege ends at once
 CUSTOMSPAWNER siege seed=18 enemies=1
 RNG level 206203007811102
-C Set minecraft:overworld to 1000 tick(s)
+CF msg Set minecraft:overworld to 1000 tick(s)
+CF result success 1000
 # daylight: the setup is forgotten
 CUSTOMSPAWNER siege seed=269 enemies=1
 RNG level 25214904160
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 # a second night: a new siege, first zombie
 CUSTOMSPAWNER siege seed=18 enemies=1
 RNG level 115158930293871
-C Set minecraft:overworld to 18001 tick(s)
+CF msg Set minecraft:overworld to 18001 tick(s)
+CF result success 18001
 # a zombie is not due yet
 CUSTOMSPAWNER siege seed=271 enemies=1
 RNG level 25214904162
 # a zombie is not due yet
 CUSTOMSPAWNER siege seed=272 enemies=1
 RNG level 25214904189
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 # the roll at the marker fails in the middle of the siege: it ends
 CUSTOMSPAWNER siege seed=1 enemies=1
 RNG level 205723924636679
-C Set minecraft:overworld to 18001 tick(s)
+CF msg Set minecraft:overworld to 18001 tick(s)
+CF result success 18001
 # nothing
 CUSTOMSPAWNER siege seed=274 enemies=1
 RNG level 25214904191
@@ -263,11 +271,13 @@ RNG level 25214904190
 # nothing
 CUSTOMSPAWNER siege seed=276 enemies=1
 RNG level 25214904185
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 # a later roll succeeds: the unfinished siege goes on with the zombies that are left, no new setup
 CUSTOMSPAWNER siege seed=18 enemies=1
 RNG level 212872304083977
-C Set minecraft:overworld to 18001 tick(s)
+CF msg Set minecraft:overworld to 18001 tick(s)
+CF result success 18001
 # a zombie is not due yet
 CUSTOMSPAWNER siege seed=278 enemies=1
 RNG level 25214904187
@@ -284,11 +294,13 @@ RNG level 25214904180
 # enemy spawning back on but the state is done: nothing
 CUSTOMSPAWNER siege seed=282 enemies=1
 RNG level 25214904183
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 # enemy spawning was off, so the setup is made again: a new siege
 CUSTOMSPAWNER siege seed=18 enemies=1
 RNG level 115158930293871
-C Set minecraft:overworld to 18001 tick(s)
+CF msg Set minecraft:overworld to 18001 tick(s)
+CF result success 18001
 # a zombie is not due yet
 CUSTOMSPAWNER siege seed=284 enemies=1
 RNG level 25214904177
@@ -303,20 +315,24 @@ RNG level 16870135607314
 # a zombie is not due yet
 CUSTOMSPAWNER siege seed=287 enemies=1
 RNG level 25214904178
-C Set minecraft:overworld to 1000 tick(s)
+CF msg Set minecraft:overworld to 1000 tick(s)
+CF result success 1000
 # daylight: the setup is forgotten
 CUSTOMSPAWNER siege seed=288 enemies=1
 RNG level 25214904141
 # the village is in a mushroom biome: no zombie sieges there
-C 405 biome entry/entries set between -16, -64, -16 and 16, -48, 16
-C Set minecraft:overworld to 18000 tick(s)
+CF msg 405 biome entry/entries set between -16, -64, -16 and 16, -48, 16
+CF result success 405
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 # the roll succeeds but the player's biome has no sieges: nothing
 CUSTOMSPAWNER siege seed=18 enemies=1
 RNG level 206203007811102
 # again
 CUSTOMSPAWNER siege seed=18 enemies=1
 RNG level 206203007811102
-C 405 biome entry/entries set between -16, -64, -16 and 16, -48, 16
+CF msg 405 biome entry/entries set between -16, -64, -16 and 16, -48, 16
+CF result success 405
 # plains again: the siege is set up
 CUSTOMSPAWNER siege seed=18 enemies=1
 RNG level 115158930293871

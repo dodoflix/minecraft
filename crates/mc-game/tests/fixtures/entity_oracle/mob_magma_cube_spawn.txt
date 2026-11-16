@@ -1,4 +1,5 @@
-C 147 biome entry/entries set between 28, 76, 28 and 52, 84, 52
+CF msg 147 biome entry/entries set between 28, 76, 28 and 52, 84, 52
+CF result success 147
 # natural attempts on netherrack in the basalt deltas
 SPAWNAT seed=1 category=monster pos=40,80,40
 E magma_cube#1 minecraft:magma_cube pos=43.5,80.0,41.5 delta=0.0,0.0,0.0 rot=237.19218,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=2.8262687 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:3.0;minecraft:attack_damage:1.0;minecraft:follow_range:17.767107325026203;minecraft:max_health:1.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 size=1 squish=0.0 tsquish=0.0 osquish=0.0 wasground=0 jdelay=0 mrot=161.93326 maggr=0
@@ -87,7 +88,8 @@ SPAWNAT seed=23 category=monster pos=40,80,40
 E magma_cube#62 minecraft:magma_cube pos=43.5,80.0,45.5 delta=0.0,0.0,0.0 rot=27.148804,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=1.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.6675906 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:3.0;minecraft:attack_damage:1.0;minecraft:follow_range:17.092016451538125;minecraft:max_health:1.0;minecraft:movement_speed:0.30000001192092896 age=0 baby=0 forcedage=0 size=1 squish=0.0 tsquish=0.0 osquish=0.0 wasground=0 jdelay=0 mrot=324.729 maggr=0
 E magma_cube#63 minecraft:magma_cube pos=43.5,80.0,46.5 delta=0.0,0.0,0.0 rot=5.1706605,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=16.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=5.1706605 body=5.1706605 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:12.0;minecraft:attack_damage:4.0;minecraft:follow_range:14.558700371619508;minecraft:max_health:16.0;minecraft:movement_speed:0.6000000238418579 age=0 baby=0 forcedage=0 size=4 squish=0.0 tsquish=0.0 osquish=0.0 wasground=0 jdelay=0 mrot=296.25702 maggr=0
 SPAWNAT seed=24 category=monster pos=40,80,40
-C The difficulty has been set to Peaceful
+CF msg The difficulty has been set to Peaceful
+CF result success 0
 # peaceful: nothing spawns
 SPAWNAT seed=1 category=monster pos=40,80,40
 SPAWNAT seed=2 category=monster pos=40,80,40

@@ -1,4 +1,5 @@
-C The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
 # a bowl on a red mooshroom: mushroom stew, the stack of bowls shrinks
 T 2
 EV sound at=2.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.mooshroom.milk source=neutral vol=1.0 pitch=1.0

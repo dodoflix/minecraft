@@ -1,5 +1,7 @@
-C The difficulty did not change; it is already set to Normal
-C Game rule mob_griefing is already set to true
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail Game rule mob_griefing is already set to true
 E S0 minecraft:sheep pos=0.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-20.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=4:FollowParentGoal:none;8:RandomLookAroundGoal:MOVE+LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=-23998 baby=1 forcedage=0 love=0 lovecause=-
 E S1 minecraft:sheep pos=2.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=-23998 baby=1 forcedage=0 love=0 lovecause=-
 E S2 minecraft:sheep pos=4.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=0 baby=0 forcedage=0 love=0 lovecause=-
@@ -958,7 +960,8 @@ EV sound at=2.5,-60.0,10.5 r=16.0 ex=0 event=minecraft:entity.sheep.ambient sour
 EV sound at=20.5,-60.0,10.5 r=16.0 ex=0 event=minecraft:entity.sheep.ambient source=neutral vol=1.0 pitch=0.9647082
 EV sound at=4.5,-60.0,10.5 r=16.0 ex=0 event=minecraft:entity.sheep.ambient source=neutral vol=1.0 pitch=1.0558155
 # without mob_griefing a sheep in tall grass leaves it
-C Game rule mob_griefing is now set to false
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
 E T minecraft:sheep pos=26.5,-60.0,10.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=8.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-82.69464 body=-82.69464 nav=done stuck=0 navspeed=1.0 ntarget=25,-60,0 path=- nodes=- goals=5:EatBlockGoal:MOVE+LOOK+JUMP tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:8.0;minecraft:movement_speed:0.23000000417232513 age=-20100 baby=1 forcedage=0 love=0 lovecause=-
 B 26 -61 10 minecraft:grass_block[snowy=false]
 B 26 -60 10 minecraft:short_grass

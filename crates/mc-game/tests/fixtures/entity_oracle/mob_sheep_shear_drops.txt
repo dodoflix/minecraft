@@ -1,4 +1,5 @@
-C The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
 # the first shear: a white sheep drops one to three white wool
 T 2
 EV packet at=2.5,-60.0,0.5 r=16.0 ex=0 id=minecraft:sound_entity

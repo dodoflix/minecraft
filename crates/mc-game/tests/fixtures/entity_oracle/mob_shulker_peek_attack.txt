@@ -1,5 +1,7 @@
-C The difficulty did not change; it is already set to Normal
-C Game rule mob_drops is now set to false
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 E S minecraft:shulker pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:15.90615793897952;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=0.0,-60.0,0.0,1.0,-59.0,1.0
 ATTR S minecraft:air_drag_modifier:1.0 minecraft:armor:0.0 minecraft:armor_toughness:0.0 minecraft:attack_knockback:0.0 minecraft:below_name_distance:10.0 minecraft:bounciness:0.0 minecraft:burning_time:1.0 minecraft:camera_distance:4.0 minecraft:entity_interaction_range:3.0 minecraft:explosion_knockback_resistance:0.0 minecraft:fall_damage_multiplier:1.0 minecraft:follow_range:15.90615793897952 minecraft:friction_modifier:1.0 minecraft:gravity:0.08 minecraft:jump_strength:0.41999998688697815 minecraft:knockback_resistance:0.0 minecraft:max_absorption:0.0 minecraft:max_health:30.0 minecraft:movement_efficiency:0.0 minecraft:movement_speed:0.7 minecraft:name_tag_distance:64.0 minecraft:oxygen_bonus:0.0 minecraft:safe_fall_distance:3.0 minecraft:scale:1.0 minecraft:step_height:0.6 minecraft:water_movement_efficiency:0.0 minecraft:waypoint_transmit_range:0.0
 N S {AbsorptionAmount:0.0f,Air:300s,AttachFace:0b,Brain:{memories:{}},CanPickUpLoot:0b,Color:16b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:30.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Peek:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:-0.005865128813779975d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
@@ -868,8 +870,10 @@ E O minecraft:shulker pos=24.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall
 EV sound at=24.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.shulker.hurt source=hostile vol=1.0 pitch=0.9052432
 EV sound at=20.5,-60.0,0.5 r=16.0 ex=0 event=minecraft:entity.shulker.hurt_closed source=hostile vol=1.0 pitch=0.98648363
 # a team shulker attacks a no-AI creeper beside it
-C Created team [red]
-C Added Shulker to team [red]
+CF msg Created team [red]
+CF result success 1
+CF msg Added Shulker to team [red]
+CF result success 1
 T 352
 E T minecraft:shulker pos=0.5,-60.0,-80.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.943001023960036;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=0.0,-60.0,-81.0,1.0,-59.0,-80.0
 E Z minecraft:creeper pos=4.5,-60.0,-80.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.554996313745928;minecraft:movement_speed:0.25

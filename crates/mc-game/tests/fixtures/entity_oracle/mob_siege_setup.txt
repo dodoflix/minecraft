@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 POITAKE 0 -60 5 1
 POITAKE 32 -60 1 1
 POITAKE -32 -60 1 1
@@ -15,7 +16,8 @@ RNG level 205723924636679
 CUSTOMSPAWNER siege seed=18 enemies=1
 E zombie#1 minecraft:zombie pos=23.5,-60.0,-10.5 delta=0.0,0.0,0.0 rot=147.28561,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=1.0062155 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:32.2729340493948;minecraft:knockback_resistance:0.04017719328283705;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.016846222356774816
 RNG level 115158930293871
-C Set minecraft:overworld to 18001 tick(s)
+CF msg Set minecraft:overworld to 18001 tick(s)
+CF result success 18001
 # spawner tick 2: a zombie every third tick
 CUSTOMSPAWNER siege seed=100 enemies=1
 RNG level 25214903817

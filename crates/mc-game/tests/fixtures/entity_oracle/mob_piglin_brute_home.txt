@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule mob_drops is now set to false
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 BRAIN B acts=core;idle
 BM B type=cant_reach_walk_target_since value=2 ttl=inf
 BM B type=home value=minecraft:overworld@0,-60,0 ttl=inf

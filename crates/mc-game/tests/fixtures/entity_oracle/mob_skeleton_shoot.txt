@@ -1,5 +1,7 @@
-C Set minecraft:overworld to 18000 tick(s)
-C Game rule mob_drops is now set to false
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
+CF msg Game rule mob_drops is now set to false
+CF result success 0
 G K goal 2 RestrictSunGoal flags=none running=0
 G K goal 3 FleeSunGoal flags=MOVE running=0
 G K goal 3 AvoidEntityGoal flags=MOVE running=0
