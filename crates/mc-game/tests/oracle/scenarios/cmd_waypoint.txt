@@ -100,3 +100,25 @@ dump packets:A:waypoint packets:B:waypoint
 cmd tp B 400.5 -60 0.5
 tick 2
 dump packets:A:waypoint packets:B:waypoint
+note leaving spectator mode while invisible: the track of B stays unsent until the effect ends, then A becomes a spectator, B dies and respawns
+cmd tp B 40.5 -60 0.5
+tick 2
+dump packets:A:waypoint packets:B:waypoint
+cmd effect give B minecraft:invisibility 1000 0 true
+tick 1
+dump packets:A:waypoint packets:B:waypoint
+cmd gamemode survival B
+tick 2
+dump player:B packets:A:waypoint packets:B:waypoint
+cmd effect clear B
+tick 2
+dump packets:A:waypoint packets:B:waypoint
+cmd gamemode spectator A
+tick 2
+dump packets:A:waypoint packets:B:waypoint
+cmd kill B
+tick 2
+dump packets:A:waypoint packets:B:waypoint
+respawn B
+tick 3
+dump packets:A:waypoint packets:B:waypoint

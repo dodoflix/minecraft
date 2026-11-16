@@ -180,3 +180,23 @@ PKT A minecraft:waypoint 8d010101f44cd58d790230e78bde679d783ee631116d696e6563726
 PKT B minecraft:waypoint 8d010001d6f9a5e74e8d499eb653b1fc0e376def0a666f6f3a637573746f6d01ff55550103c4ffffff0f03
 CF msg Teleported B to 400.500000, -60.000000, 0.500000
 CF result success 1
+# leaving spectator mode while invisible: the track of B stays unsent until the effect ends, then A becomes a spectator, B dies and respawns
+CF msg Teleported B to 40.500000, -60.000000, 0.500000
+CF result success 1
+CF msg Applied effect Invisibility to B
+CF result success 1
+CF msg Set B's game mode to Survival Mode
+CF result success 1
+P B minecraft:player pos=40.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:invisibility/0/19997 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+CF msg Removed every effect from B
+CF result success 1
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee631106d696e6563726166743a626f77746965015555ff0128c4ffffff0f00
+CF msg Set A's game mode to Spectator Mode
+CF result success 1
+PKT A minecraft:waypoint 8d010001d6f9a5e74e8d499eb653b1fc0e376def0a666f6f3a637573746f6d01ff55550103c4ffffff0f03
+PKT B minecraft:waypoint 8d010101b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c740000
+CF msg Killed B
+CF result success 1
+PKT A minecraft:waypoint 8d010101f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c740000
+PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee631106d696e6563726166743a626f77746965015555ff01feffffff0fc4ffffff0ff6ffffff0f
+PKT B minecraft:waypoint 8d010101d6f9a5e74e8d499eb653b1fc0e376def116d696e6563726166743a64656661756c740000

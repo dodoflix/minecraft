@@ -100,11 +100,13 @@ impl MultifaceGrowthFeature {
         directions
     }
 
-    /// `placeGrowthIfPossible(placerBlock, level, pos, oldState, random, placementDirections)`.
+    /// `placeGrowthIfPossible(placerBlock, level, pos, oldState, random, placementDirections)`; `pos_is_mutable` is whether
+    /// vanilla passes a `MutableBlockPos` (the search loop) or the immutable origin.
     pub fn place_growth_if_possible(
         &self,
         level: &mut dyn WorldGenLevel,
         pos: BlockPos,
+        pos_is_mutable: bool,
         old_state: BlockState,
         random: &mut dyn RandomSource,
         placement_directions: &[Direction],
@@ -122,7 +124,7 @@ impl MultifaceGrowthFeature {
                     return false;
                 };
                 level.set_block_and_update(pos, new_state);
-                level.mark_pos_for_post_processing(pos);
+                level.mark_pos_for_post_processing(pos, pos_is_mutable);
                 if random.next_float() < self.chance_of_spreading {
                     // `placeBlock instanceof MultifaceSpreadeableBlock` is checked by the codec
                     if let Some(spreader) = get_spreader(self.place_block) {
@@ -133,6 +135,7 @@ impl MultifaceGrowthFeature {
                             placement_direction,
                             random,
                             true,
+                            pos_is_mutable,
                         );
                     }
                 }
@@ -167,7 +170,7 @@ impl Feature for MultifaceGrowthFeature {
         }
         let directions = self.get_shuffled_directions(random);
         let origin_state = level.get_block_state(origin);
-        if self.place_growth_if_possible(level, origin, origin_state, random, &directions) {
+        if self.place_growth_if_possible(level, origin, false, origin_state, random, &directions) {
             return true;
         }
         for &search_direction in &directions {
@@ -180,7 +183,14 @@ impl Feature for MultifaceGrowthFeature {
                 if !is_air_or_water(state) && !state.is_block(self.place_block) {
                     break;
                 }
-                if self.place_growth_if_possible(level, pos, state, random, &placement_directions) {
+                if self.place_growth_if_possible(
+                    level,
+                    pos,
+                    true,
+                    state,
+                    random,
+                    &placement_directions,
+                ) {
                     return true;
                 }
             }

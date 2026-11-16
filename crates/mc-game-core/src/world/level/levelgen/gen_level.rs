@@ -453,8 +453,8 @@ impl LevelReader for GenLevel<'_> {
 }
 
 impl LevelAccessor for GenLevel<'_> {
-    fn mark_for_post_processing(&mut self, pos: BlockPos) {
-        WorldGenLevel::mark_pos_for_post_processing(self, pos);
+    fn mark_for_post_processing(&mut self, pos: BlockPos, pos_is_mutable: bool) {
+        WorldGenLevel::mark_pos_for_post_processing(self, pos, pos_is_mutable);
     }
     fn set_block(
         &mut self,
@@ -503,7 +503,7 @@ impl LevelAccessor for GenLevel<'_> {
         if flags & 16 == 0
             && let Some(post_process_pos) = state.get_post_process_pos(&*self, pos)
         {
-            self.mark_pos_for_post_processing(post_process_pos);
+            self.mark_pos_for_post_processing(post_process_pos, false);
         }
         true
     }
@@ -660,7 +660,7 @@ impl WorldGenLevel for GenLevel<'_> {
             .get_noise_biome(quart_x, quart_y, quart_z)
     }
 
-    fn mark_pos_for_post_processing(&mut self, pos: BlockPos) {
+    fn mark_pos_for_post_processing(&mut self, pos: BlockPos, _pos_is_mutable: bool) {
         if let Some(chunk) = self.chunk_for_write(pos) {
             chunk.mark_pos_for_post_processing(pos);
         }

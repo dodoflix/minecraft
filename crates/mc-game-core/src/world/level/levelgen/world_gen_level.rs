@@ -37,8 +37,9 @@ pub trait WorldGenLevel: LevelAccessor {
     fn get_noise_biome(&self, quart_x: i32, quart_y: i32, quart_z: i32) -> BiomeId;
     /// `getUncachedNoiseBiome(..)`: the generator's own biome source (not the chunk contents).
     fn get_uncached_noise_biome(&self, quart_x: i32, quart_y: i32, quart_z: i32) -> BiomeId;
-    /// `getChunk(pos).markPosForPostProcessing(pos)`.
-    fn mark_pos_for_post_processing(&mut self, pos: BlockPos);
+    /// `getChunk(pos).markPosForPostProcessing(pos)`; `pos_is_mutable` is whether vanilla passes a `MutableBlockPos` (a server
+    /// level's chunk only warns, printing the class).
+    fn mark_pos_for_post_processing(&mut self, pos: BlockPos, pos_is_mutable: bool);
     /// `getChunk(pos).getBlockEntityNbt(pos)`.
     fn get_block_entity_nbt(&self, pos: BlockPos) -> Option<CompoundTag>;
     /// `getChunk(pos).setBlockEntityNbt(tag)` (position from the tag's `x`/`y`/`z`).

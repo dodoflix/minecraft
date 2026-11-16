@@ -211,8 +211,9 @@ pub trait LevelAccessor: LevelReader {
     /// `gameEvent(event, position, context)` (no listeners outside server levels).
     fn game_event(&mut self, _event: GameEvent, _position: Vec3, _context: &GameEventContext) {}
     /// `getChunk(pos).markPosForPostProcessing(pos)` (`MultifaceSpreader` with `postProcess`); only world generation
-    /// regions record it, a server level ignores it.
-    fn mark_for_post_processing(&mut self, _pos: BlockPos) {}
+    /// regions record it, a server level warns (naming the class of the `pos` object: `pos_is_mutable` for a
+    /// `MutableBlockPos`).
+    fn mark_for_post_processing(&mut self, _pos: BlockPos, _pos_is_mutable: bool) {}
     /// `levelEvent(source, type, pos, data)` (no-op outside server levels).
     fn level_event(
         &mut self,

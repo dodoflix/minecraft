@@ -279,6 +279,17 @@ impl GenRegistries {
         biomes: &BiomeRegistry,
         value: &Value,
     ) -> LoadResult<Holder<dyn Feature>> {
+        // the definition comes from NBT, where a boolean is a byte (`NbtOps.getBooleanValue` reads any number)
+        mc_worldgen::densityfunction::codec::with_numeric_booleans(|| {
+            Self::decode_inline_feature_values(worldgen, biomes, value)
+        })
+    }
+
+    fn decode_inline_feature_values(
+        worldgen: &WorldgenRegistries,
+        biomes: &BiomeRegistry,
+        value: &Value,
+    ) -> LoadResult<Holder<dyn Feature>> {
         let cells = Cells::new(worldgen.source().clone());
         let ctx = DecodeCtx {
             worldgen,

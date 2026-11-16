@@ -528,7 +528,7 @@ pub trait StructurePiece: Any + Send + Sync {
             level.schedule_fluid_tick(pos, fluid_state.fluid(), 0, TickPriority::Normal);
         }
         if shape_check_blocks().contains(&state.block()) {
-            level.mark_pos_for_post_processing(pos);
+            level.mark_pos_for_post_processing(pos, true);
         }
     }
 

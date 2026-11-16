@@ -15,8 +15,9 @@ use mc_core::pos::ChunkPos;
 use mc_data::Attribute;
 use mc_protocol::packets::play::ClientboundTrackedWaypointPacket;
 
-/// [`WaypointContext`] over the level (the manager itself is moved out of the level while it runs).
-struct LevelContext<'a>(&'a ServerLevel);
+/// [`WaypointContext`] over the level (the manager itself is moved out of the level while it runs), and the player a respawn
+/// took out of the level, if any (it still holds the connection).
+struct LevelContext<'a>(&'a ServerLevel, Option<&'a ServerPlayer>);
 
 impl WaypointContext for LevelContext<'_> {
     fn transmitter(&self, id: i32) -> Option<TransmitterView> {
@@ -50,7 +51,9 @@ impl WaypointContext for LevelContext<'_> {
     }
 
     fn send(&self, receiver: i32, packet: ClientboundTrackedWaypointPacket) {
-        if let Some(player) = self
+        if let Some(player) = self.1.filter(|p| p.base_id() == receiver) {
+            player.send(&packet);
+        } else if let Some(player) = self
             .0
             .get_entity(receiver)
             .and_then(|e| e.as_any().downcast_ref::<ServerPlayer>())
@@ -71,7 +74,7 @@ impl ServerLevel {
         f: impl FnOnce(&mut ServerWaypointManager, &dyn WaypointContext) -> R,
     ) -> R {
         let mut manager = std::mem::take(&mut self.waypoint_manager);
-        let result = f(&mut manager, &LevelContext(self));
+        let result = f(&mut manager, &LevelContext(self, None));
         self.waypoint_manager = manager;
         result
     }
@@ -127,15 +130,32 @@ impl ServerLevel {
         }
     }
 
-    /// `EntityCallbacks.onTrackingEnd`/`onDestroyed` (`LivingEntity.onRemoval`) for the waypoint manager.
+    /// `EntityCallbacks.onTrackingEnd`/`onDestroyed` (`LivingEntity.onRemoval`) for the waypoint manager. A killed player that
+    /// stays connected is only a transmitter that ends here: as a receiver it stays registered until the respawn removes it
+    /// ([`ServerLevel::waypoint_remove_taken_player`]).
     pub fn waypoint_tracking_end(&mut self, id: EntityId) {
+        let parked = self
+            .entity_manager
+            .get_removed(id)
+            .is_some_and(super::server_level_entities::is_parked_dead_player);
         self.with_waypoint_manager(|m, ctx| {
-            if m.has_player(id) {
+            if m.has_player(id) && !parked {
                 m.remove_player(ctx, id);
             } else if m.is_tracked(id) {
                 m.untrack_waypoint(ctx, id);
             }
         });
+    }
+
+    /// `removePlayer(player)` of a player that its owner took out of the level (a respawn): the connections disconnect through
+    /// that player's own connection, which a lookup of the level would not find.
+    pub fn waypoint_remove_taken_player(&mut self, player: &ServerPlayer) {
+        let id = player.base_id();
+        let mut manager = std::mem::take(&mut self.waypoint_manager);
+        if manager.has_player(id) {
+            manager.remove_player(&LevelContext(self, Some(player)), id);
+        }
+        self.waypoint_manager = manager;
     }
 
     /// Applies what entity code changed since the entity was last in storage: the waypoint range attributes that

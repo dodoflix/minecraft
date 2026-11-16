@@ -273,6 +273,7 @@ pub fn take_old_player(
             );
         }
         old.remove(reason);
+        level.waypoint_remove_taken_player(&old);
         old.close_menus_on_removal(level);
         old
     })

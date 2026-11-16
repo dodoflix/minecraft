@@ -93,10 +93,8 @@ pub fn die(entity: &mut dyn Entity, level: &mut ServerLevel, source: &DamageSour
             .combat_tracker
             .get_death_message(level, entity);
         log::info!(
-            "Named entity {}['{}'/{}] died: {}",
-            entity.get_type().name(),
-            crate::commands::host::entity_plain_text_name(entity),
-            entity.id(),
+            "Named entity {} died: {}",
+            crate::commands::host::entity_to_string(entity, &level.level_data.get_level_name()),
             message.get_string()
         );
     }

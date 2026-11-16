@@ -111,11 +111,10 @@ pub fn check_direct_definition(tag: &mc_nbt::Tag) -> Result<(), String> {
     mc_dfu::parse_nbt(&codec, tag).into_result().map(|_| ())
 }
 
-/// A loader failure as DFU words it: no entry or field path, and a `MapLike` that names no contents prints the compound the
-/// failing field path leads to (`NbtOps` map text), like `No key type in MapLike[{Name:"minecraft:gold_block"}]`.
-fn dfu_message(error: &mc_worldgen::data::LoadError, root: &mc_nbt::Tag) -> String {
+/// The tag a loader field path (`to_place.state`, `targets[0].target`) leads to.
+fn tag_at<'a>(root: &'a mc_nbt::Tag, path: &str) -> Option<&'a mc_nbt::Tag> {
     let mut at = Some(root);
-    for segment in error.path().split('.').filter(|s| !s.is_empty()) {
+    for segment in path.split('.').filter(|s| !s.is_empty()) {
         let (name, mut indexes) = match segment.split_once('[') {
             Some((name, rest)) => (name, Some(rest)),
             None => (segment, None),
@@ -135,10 +134,31 @@ fn dfu_message(error: &mc_worldgen::data::LoadError, root: &mc_nbt::Tag) -> Stri
             indexes = tail.strip_prefix('[');
         }
     }
-    let message = error.message();
-    let Some(at) = at else {
+    at
+}
+
+/// A loader failure as DFU words it: no entry or field path; a missing field and the primitive type mismatches read like the
+/// `NbtOps` errors (`No key to_place in MapLike[{..}]`, `Not a number`, `Not a list: 5`), and a `MapLike` that names no contents
+/// prints the compound the failing field path leads to (`No key type in MapLike[{Name:"minecraft:gold_block"}]`).
+fn dfu_message(error: &mc_worldgen::data::LoadError, root: &mc_nbt::Tag) -> String {
+    let (path, message) = (error.path(), error.message());
+    if message == "missing required field" {
+        let (parent, name) = path.rsplit_once('.').unwrap_or(("", path));
+        return match tag_at(root, parent) {
+            Some(map) => format!("No key {name} in MapLike[{map}]"),
+            None => message.to_owned(),
+        };
+    }
+    let Some(at) = tag_at(root, path) else {
         return message.to_owned();
     };
+    match message {
+        "expected number" | "expected boolean" => return "Not a number".to_owned(),
+        "expected string" => return "Not a string".to_owned(),
+        "expected list" => return format!("Not a list: {at}"),
+        "expected object" => return format!("Not a map: {at}"),
+        _ => {}
+    }
     let mut out = String::new();
     let mut rest = message;
     while let Some(i) = rest.find("MapLike") {
@@ -178,7 +198,7 @@ pub fn mark_above_for_post_processing(level: &mut dyn WorldGenLevel, place_pos: 
         if level.get_block_state(pos).is_air() {
             return;
         }
-        level.mark_pos_for_post_processing(pos);
+        level.mark_pos_for_post_processing(pos, true);
     }
 }
 

@@ -29,11 +29,12 @@ place feature minecraft:oak 100000 -60 100000
 place feature minecraft:oak 0 -60
 place feature minecraft:oak 0 100000 0
 place feature minecraft:oak 400 -60 400
-!known DFU `DataResult` error text: vanilla "No key to_place in MapLike[...]", ours "to_place: missing required field"
 place feature {type:"minecraft:simple_block",config:{to_place:{type:"minecraft:simple_state_provider",state:{Name:"minecraft:gold_block"}}}} 2 -60 2
 place feature {type:"minecraft:nope"} 2 -60 2
 place feature {} 2 -60 2
 place feature minecraft:desert_well 50 -60 50
+place feature {type:"minecraft:multiface_growth",block:"minecraft:glow_lichen",search_range:10,chance_of_spreading:0.0,can_place_on_floor:true,can_place_on_ceiling:true,can_place_on_wall:true,can_be_placed_on:["minecraft:grass_block","minecraft:dirt"]} -30 -60 -30
+place feature {type:"minecraft:multiface_growth",block:"minecraft:sculk_vein",search_range:20,chance_of_spreading:0.0,can_place_on_floor:true,can_place_on_ceiling:true,can_place_on_wall:true,can_be_placed_on:["minecraft:grass_block","minecraft:dirt"]} -44 -60 -30
 
 # ---- structure
 place structure minecraft:nope 0 -60 0

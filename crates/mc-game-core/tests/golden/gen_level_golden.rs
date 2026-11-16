@@ -46,7 +46,7 @@ fn exec(level: &mut mc_game::world::level::levelgen::gen_level::GenLevel<'_>, op
         "within" => level.is_within_write_zone(bp(&t)).to_string(),
         "haschunk" => level.has_chunk(int(t[1]), int(t[2])).to_string(),
         "postproc" => {
-            level.mark_pos_for_post_processing(bp(&t));
+            level.mark_pos_for_post_processing(bp(&t), false);
             "ok".into()
         }
         "setbe" => {

@@ -147,11 +147,16 @@ impl WorldGenLevel for ServerLevel {
             .get_noise_biome(quart_x, quart_y, quart_z)
     }
 
-    /// A server level's chunks are full `LevelChunk`s: `ChunkAccess.markPosForPostProcessing` only warns. The caller
-    /// that reaches it (`StructurePiece.placeBlock` through `/place`) passes a `MutableBlockPos`.
-    fn mark_pos_for_post_processing(&mut self, pos: BlockPos) {
+    /// A server level's chunks are full `LevelChunk`s: `ChunkAccess.markPosForPostProcessing` only warns, printing the class
+    /// of the position object it was given.
+    fn mark_pos_for_post_processing(&mut self, pos: BlockPos, pos_is_mutable: bool) {
         log::warn!(
-            "Trying to mark a block for post processing @ MutableBlockPos{{x={}, y={}, z={}}}, but this operation is not supported.",
+            "Trying to mark a block for post processing @ {}{{x={}, y={}, z={}}}, but this operation is not supported.",
+            if pos_is_mutable {
+                "MutableBlockPos"
+            } else {
+                "BlockPos"
+            },
             pos.x(),
             pos.y(),
             pos.z()

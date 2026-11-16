@@ -376,7 +376,6 @@ execute store result block 0 -60 0 x int 1 run say x
 execute store result block 100000 0 0 x int 1 run say x
 setblock 0 -59 0 minecraft:chest
 execute store result block 0 -59 0 CustomName string 1 run say x
-!known vanilla logs the block entity load problems (`Serialization errors:` with the DFU message and the block entity description), ours logs none
 execute store result block 0 -59 0 lock int 1 run scoreboard players get #a o
 data get block 0 -59 0 lock
 

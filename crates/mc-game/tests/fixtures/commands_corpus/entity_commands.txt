@@ -28,7 +28,6 @@ data get entity @e[type=minecraft:zombie,limit=1] Health
 # ---- kill
 kill @e[type=minecraft:armor_stand]
 kill @e[type=minecraft:armor_stand]
-!known `Entity.toString` in the "Named entity ... died" log line: vanilla prints the Java class name, the level and the position (`Cow['Bob'/4, l='ServerLevel[world]', x=7.50, ...]`), ours the type name and id only
 kill @e[type=minecraft:cow,name=Bob]
 kill @e[type=minecraft:zombie]
 kill @e[type=minecraft:pig]
@@ -166,9 +165,7 @@ ride Bot dismount
 ride @e[type=minecraft:pig,limit=1] dismount
 ride @e[type=minecraft:pig,limit=1] dismount
 ride Bot dismount
-!known `Entity.toString` in the "Named entity ... died" log line (Java class name, level, position) differs
 kill @e[type=minecraft:cow]
-!known `Entity.toString` in the "Named entity ... died" log line (Java class name, level, position) differs
 kill @e[type=minecraft:pig]
 @bot0 ride Bot0 dismount
 # ---- rotate

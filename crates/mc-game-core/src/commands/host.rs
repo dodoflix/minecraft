@@ -96,6 +96,84 @@ pub fn entity_plain_text_name(entity: &dyn Entity) -> String {
     entity_name(entity).get_string()
 }
 
+/// `getClass().getSimpleName()` of the vanilla class that implements an entity type: the registry name in camel case
+/// except for the types whose class is named differently.
+fn java_simple_class_name(entity: &dyn Entity) -> String {
+    if entity.as_any().is::<crate::world::entity::ServerPlayer>() {
+        return "ServerPlayer".to_owned();
+    }
+    let name = entity.get_type().name();
+    let name = name.strip_prefix("minecraft:").unwrap_or(name);
+    let fixed = match name {
+        "chest_minecart" => "MinecartChest",
+        "command_block_minecart" => "MinecartCommandBlock",
+        "egg" => "ThrownEgg",
+        "ender_pearl" => "ThrownEnderpearl",
+        "experience_bottle" => "ThrownExperienceBottle",
+        "falling_block" => "FallingBlockEntity",
+        "fireball" => "LargeFireball",
+        "firework_rocket" => "FireworkRocketEntity",
+        "fishing_bobber" => "FishingHook",
+        "furnace_minecart" => "MinecartFurnace",
+        "hopper_minecart" => "MinecartHopper",
+        "item" => "ItemEntity",
+        "leash_knot" => "LeashFenceKnotEntity",
+        "lingering_potion" => "ThrownLingeringPotion",
+        "mooshroom" => "MushroomCow",
+        "spawner_minecart" => "MinecartSpawner",
+        "splash_potion" => "ThrownSplashPotion",
+        "tnt" => "PrimedTnt",
+        "tnt_minecart" => "MinecartTNT",
+        "trident" => "ThrownTrident",
+        "wither" => "WitherBoss",
+        _ if name.ends_with("_chest_boat") => "ChestBoat",
+        _ if name.ends_with("_chest_raft") => "ChestRaft",
+        _ if name.ends_with("_boat") => "Boat",
+        _ if name.ends_with("_raft") => "Raft",
+        _ => "",
+    };
+    if !fixed.is_empty() {
+        return fixed.to_owned();
+    }
+    name.split('_')
+        .map(|word| {
+            let mut chars = word.chars();
+            chars.next().map_or_else(String::new, |first| {
+                first.to_ascii_uppercase().to_string() + chars.as_str()
+            })
+        })
+        .collect()
+}
+
+/// `Entity.toString()`; `level_name` is the level data's name (`ServerLevel.toString` is `ServerLevel[<name>]`).
+pub fn entity_to_string(entity: &dyn Entity, level_name: &str) -> String {
+    use crate::world::entity::RemovalReason;
+    let pos = entity.position();
+    let removed = entity
+        .base()
+        .removal_reason()
+        .map_or_else(String::new, |reason| {
+            let reason = match reason {
+                RemovalReason::Killed => "KILLED",
+                RemovalReason::Discarded => "DISCARDED",
+                RemovalReason::UnloadedToChunk => "UNLOADED_TO_CHUNK",
+                RemovalReason::UnloadedWithPlayer => "UNLOADED_WITH_PLAYER",
+                RemovalReason::ChangedDimension => "CHANGED_DIMENSION",
+            };
+            format!(", removed={reason}")
+        });
+    let fixed = |v| crate::util::java_format::format_fixed(v, 2);
+    format!(
+        "{}['{}'/{}, l='ServerLevel[{level_name}]', x={}, y={}, z={}{removed}]",
+        java_simple_class_name(entity),
+        entity_plain_text_name(entity),
+        entity.id(),
+        fixed(pos.x),
+        fixed(pos.y),
+        fixed(pos.z)
+    )
+}
+
 /// `Entity.getDisplayName()`: the name formatted for its team, with the hover/insertion vanilla adds.
 pub fn entity_display_name(server: &MinecraftServer, entity: &dyn Entity) -> Component {
     entity_display_name_in(server, None, entity)
@@ -1039,7 +1117,19 @@ pub fn block_entity_load_data(
     // meanwhile and lends itself back where it resolves
     crate::commands::server_access::with_level_installed(server, dimension, |level| {
         let state = BlockGetter::get_block_state(level, pos);
-        if !level.load_block_entity_in_level(pos, data) {
+        let Some(ty) = level
+            .get_block_entity_immediate(pos)
+            .map(|be| be.get_type())
+        else {
+            return;
+        };
+        let loaded = crate::world::block_entity::problem_reporter::with_scoped_collector(
+            "net.minecraft.server.commands.data.BlockDataAccessor",
+            ty,
+            pos,
+            || level.load_block_entity_in_level(pos, data),
+        );
+        if !loaded {
             return;
         }
         level.block_entity_set_changed(pos, state);

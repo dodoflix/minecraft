@@ -8,6 +8,8 @@ use mc_core::random::RandomSource;
 pub struct SpreadPos {
     pub pos: BlockPos,
     pub face: Direction,
+    /// Whether vanilla's `pos` object is a `MutableBlockPos` (printed by a server level's post-processing warning).
+    pub pos_is_mutable: bool,
 }
 
 /// `MultifaceSpreader.SpreadType`.
@@ -19,25 +21,30 @@ pub enum SpreadType {
 }
 
 impl SpreadType {
-    /// `getSpreadPos(pos, spreadDirection, fromFace)`.
+    /// `getSpreadPos(pos, spreadDirection, fromFace)`; `pos_is_mutable` is whether the caller's `pos` is a `MutableBlockPos`
+    /// (`SAME_POSITION` hands that very object on, the other types make a new `BlockPos`).
     pub fn get_spread_pos(
         self,
         pos: BlockPos,
         spread_direction: Direction,
         from_face: Direction,
+        pos_is_mutable: bool,
     ) -> SpreadPos {
         match self {
             SpreadType::SamePosition => SpreadPos {
                 pos,
                 face: spread_direction,
+                pos_is_mutable,
             },
             SpreadType::SamePlane => SpreadPos {
                 pos: pos.relative(spread_direction),
                 face: from_face,
+                pos_is_mutable: false,
             },
             SpreadType::WrapAround => SpreadPos {
                 pos: pos.relative(spread_direction).relative(from_face),
                 face: spread_direction.get_opposite(),
+                pos_is_mutable: false,
             },
         }
     }
@@ -87,7 +94,7 @@ pub trait SpreadConfig: Send + Sync {
         match self.get_state_for_placement(old_state, &*level, spread_pos.pos, spread_pos.face) {
             Some(spread_state) => {
                 if post_process {
-                    level.mark_for_post_processing(spread_pos.pos);
+                    level.mark_for_post_processing(spread_pos.pos, spread_pos.pos_is_mutable);
                 }
                 level.set_block(spread_pos.pos, spread_state, 2, 512)
             }
@@ -180,6 +187,7 @@ impl MultifaceSpreader {
                 starting_face,
                 d,
                 &|l, p, s| self.config.can_spread_into(l, p, s),
+                false,
             )
             .is_some()
         })
@@ -201,6 +209,7 @@ impl MultifaceSpreader {
                     pos,
                     face_direction,
                     random,
+                    false,
                     false,
                 )
             {
@@ -227,6 +236,7 @@ impl MultifaceSpreader {
                         pos,
                         face_direction,
                         spread_direction,
+                        false,
                         false,
                     ) {
                         return Some(spread);
@@ -269,6 +279,7 @@ impl MultifaceSpreader {
         starting_face: Direction,
         random: &mut dyn RandomSource,
         post_process: bool,
+        pos_is_mutable: bool,
     ) -> Option<SpreadPos> {
         for spread_direction in Direction::all_shuffled(random) {
             if let Some(spread) = self.spread_from_face_toward_direction(
@@ -278,6 +289,7 @@ impl MultifaceSpreader {
                 starting_face,
                 spread_direction,
                 post_process,
+                pos_is_mutable,
             ) {
                 return Some(spread);
             }
@@ -303,6 +315,7 @@ impl MultifaceSpreader {
                     starting_face,
                     spread_direction,
                     post_process,
+                    false,
                 )
                 .is_some()
             {
@@ -321,6 +334,7 @@ impl MultifaceSpreader {
         from_face: Direction,
         spread_direction: Direction,
         post_process: bool,
+        pos_is_mutable: bool,
     ) -> Option<SpreadPos> {
         let spread_pos = self.get_spread_from_face_toward_direction(
             state,
@@ -329,6 +343,7 @@ impl MultifaceSpreader {
             from_face,
             spread_direction,
             &|l, p, s| self.config.can_spread_into(l, p, s),
+            pos_is_mutable,
         )?;
         self.spread_to_face(level, spread_pos, post_process)
     }
@@ -342,6 +357,7 @@ impl MultifaceSpreader {
         starting_face: Direction,
         spread_direction: Direction,
         can_spread_into: &dyn Fn(&dyn BlockGetter, BlockPos, SpreadPos) -> bool,
+        pos_is_mutable: bool,
     ) -> Option<SpreadPos> {
         if spread_direction.get_axis() == starting_face.get_axis() {
             return None;
@@ -351,7 +367,8 @@ impl MultifaceSpreader {
                 && !self.config.has_face(state, spread_direction))
         {
             for ty in self.config.get_spread_types() {
-                let spread_pos = ty.get_spread_pos(pos, spread_direction, starting_face);
+                let spread_pos =
+                    ty.get_spread_pos(pos, spread_direction, starting_face, pos_is_mutable);
                 if can_spread_into(level, pos, spread_pos) {
                     return Some(spread_pos);
                 }

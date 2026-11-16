@@ -92,6 +92,7 @@ pub mod copper_golem_statue_block_entity;
 pub mod deferred;
 pub mod dispenser_block_entity;
 pub mod jigsaw_block_entity;
+pub mod problem_reporter;
 pub mod randomizable_container;
 pub mod sculk_sensor_block_entity;
 mod sculk_shrieker_block_entity;
@@ -535,9 +536,17 @@ pub trait BlockEntity: Any {
     }
 }
 
-/// `ValueInput.read(key, codec)`: the decoded value, or the partial value of a failed decode (`resultOrPartial`).
+/// `ValueInput.read(key, codec)`: the decoded value, or the partial value of a failed decode (`resultOrPartial`); a failed
+/// decode is reported to the open [`problem_reporter`] scope.
 pub fn read_codec<A: 'static>(tag: &CompoundTag, key: &str, codec: &mc_dfu::Codec<A>) -> Option<A> {
-    mc_dfu::parse_nbt(codec, tag.get(key)?).result_or_partial()
+    let value = tag.get(key)?;
+    let result = mc_dfu::parse_nbt(codec, value);
+    if let Some(error) = result.error_message() {
+        problem_reporter::report(|| {
+            format!("Failed to decode value '{value}' from field '{key}': {error}")
+        });
+    }
+    result.result_or_partial()
 }
 
 /// A registered block entity type implementation.

@@ -435,6 +435,14 @@ impl LevelAccessor for ServerLevel {
             .map(|_| self as &dyn crate::world::level::levelgen::WorldGenLevel)
     }
 
+    fn mark_for_post_processing(&mut self, pos: BlockPos, pos_is_mutable: bool) {
+        crate::world::level::levelgen::WorldGenLevel::mark_pos_for_post_processing(
+            self,
+            pos,
+            pos_is_mutable,
+        );
+    }
+
     fn as_server_level_mut(&mut self) -> Option<&mut ServerLevel> {
         Some(self)
     }

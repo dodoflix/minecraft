@@ -105,7 +105,7 @@ fn read_only_snapshot_chunks_drop_writes() {
         let mut level = synth.level();
         // within the write zone: reported as written, but the imposter drops everything
         assert!(level.set_block(p, Block::CHEST.default_state(), 3, 512));
-        level.mark_pos_for_post_processing(p);
+        level.mark_pos_for_post_processing(p, false);
         level.set_block_entity_nbt(
             mc_nbt::snbt::parse_compound("{id:\"minecraft:chest\",x:20,y:90,z:5}").unwrap(),
         );
