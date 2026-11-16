@@ -22,7 +22,8 @@ pub const UPDATE_ORDER: [Direction; 6] = [
 /// What the updater needs from its level.
 pub trait NeighborUpdateHost {
     fn neighbor_updater(&mut self) -> &mut CollectingNeighborUpdater;
-    fn host_block_state(&self, pos: BlockPos) -> BlockState;
+    /// `level.getBlockState(pos)` of the update's target; the host may load the chunk like vanilla does.
+    fn host_block_state(&mut self, pos: BlockPos) -> BlockState;
     /// `NeighborUpdater.executeShapeUpdate`.
     fn execute_shape_update(
         &mut self,
@@ -400,7 +401,7 @@ mod tests {
         fn neighbor_updater(&mut self) -> &mut CollectingNeighborUpdater {
             &mut self.updater
         }
-        fn host_block_state(&self, _pos: BlockPos) -> BlockState {
+        fn host_block_state(&mut self, _pos: BlockPos) -> BlockState {
             Block::STONE.default_state()
         }
         fn execute_shape_update(

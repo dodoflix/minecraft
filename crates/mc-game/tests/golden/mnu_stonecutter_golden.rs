@@ -15,3 +15,9 @@ fn the_stonecutter_menu_lists_selects_crafts_and_closes_like_vanilla() {
 fn the_stonecutter_block_opens_its_menu_and_crafts_through_the_packet_handlers() {
     common::block_scenario::check("mnu_open_stonecutter");
 }
+
+/// A recipe a `/reload` brings is listed by a screen that was open before it.
+#[test]
+fn the_stonecutter_menu_reads_the_recipes_of_a_reload() {
+    common::block_scenario::check("mnu_stonecutter_reload");
+}

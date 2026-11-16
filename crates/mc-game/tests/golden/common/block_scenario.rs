@@ -858,6 +858,8 @@ impl Scenario {
             mc_game::commands::server_access::with_server(|server| {
                 self.actors.refresh_server_data(server)
             });
+            // the levels share the server's `recipeAccess()`: hand them the reloaded manager now, not with the next spawn
+            self.load_registries();
         }
         self.handle_disconnections();
     }
@@ -1755,18 +1757,12 @@ impl Scenario {
                         .collect();
                     assert_eq!(c.len(), 6, "blocks:x1,y1,z1,x2,y2,z2");
                     if self.multi() {
-                        // the oracle reads through `Level.getBlockState`, which asks the chunk source for the full chunk: that adds
-                        // the one-tick `UNKNOWN` ticket that keeps the chunk (and its neighbours) from unloading in that tick
+                        // the oracle reads through `Level.getBlockState`, which asks the chunk source for the full chunk and waits for it:
+                        // a chunk that is not there is generated now (its seeds come from the unique-seed sequence of this moment, not
+                        // of the next tick) and the one-tick `UNKNOWN` ticket keeps the chunk (and its neighbours) from unloading in that tick
                         for cx in (c[0].min(c[3]) >> 4)..=(c[0].max(c[3]) >> 4) {
                             for cz in (c[2].min(c[5]) >> 4)..=(c[2].max(c[5]) >> 4) {
-                                self.level()
-                                    .chunk_source_mut()
-                                    .get_chunk_future_main_thread(
-                                        cx,
-                                        cz,
-                                        mc_world::status::ChunkStatus::Full,
-                                        true,
-                                    );
+                                self.level().chunk_blocking_mut(cx, cz);
                             }
                         }
                     }

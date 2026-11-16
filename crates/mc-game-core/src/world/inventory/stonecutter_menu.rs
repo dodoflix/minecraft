@@ -5,15 +5,13 @@
 //! The state that recompute touches therefore lives in [`State`], shared by the input container, the result slot and the
 //! menu; the one thing it cannot do itself is `broadcastChanges()` (and the sound that follows it in `onTake`), which it asks
 //! for (`broadcast_requested`, `sound_requested`) and the menu replays right after the slot operation.
-//!
-//! Not implemented: the recipes are those of the level when the menu opened, so stonecutter recipes changed by `/reload` while
-//! it is open are only seen once it is reopened.
 
 use super::{
     AbstractContainerMenu, ContainerKey, ContainerLevelAccess, DataSlot, MenuBase, MenuPlayer,
     MenuSimpleContainer, Prediction, RecipeCraftingHolder, ResultContainer, SharedContainer, Slot,
     SlotBehavior, SlotEnv, finish_quick_move,
 };
+use crate::server::shared::ServerShared;
 use crate::world::container::Container;
 use crate::world::item::crafting::{RecipeManager, SingleInputSet};
 use crate::world::item::{ItemStack, behaviour, on_crafted_by};
@@ -22,6 +20,7 @@ use mc_protocol::packets::play::level::SoundSource;
 use std::any::Any;
 use std::cell::RefCell;
 use std::rc::Rc;
+use std::sync::Arc;
 
 pub const INPUT_SLOT: usize = 0;
 pub const RESULT_SLOT: usize = 1;
@@ -35,8 +34,8 @@ const INPUT_LOCAL: usize = 0;
 
 /// The fields of `StonecutterMenu` that `slotsChanged`, `setupResultSlot` and the result slot's `onTake` read and write.
 struct State {
-    /// `level.recipeAccess()`.
-    recipes: RecipeManager,
+    /// `level.recipeAccess()`: the server whose current recipe manager every lookup reads (`/reload` swaps it).
+    server: Option<Arc<ServerShared>>,
     /// `selectedRecipeIndex` (the data slot's storage).
     selected: Rc<RefCell<Vec<i32>>>,
     result: Rc<RefCell<ResultContainer>>,
@@ -52,6 +51,14 @@ struct State {
 type Shared = Rc<RefCell<State>>;
 
 impl State {
+    /// `level.recipeAccess()`.
+    fn recipes(&self) -> RecipeManager {
+        self.server
+            .as_ref()
+            .map(|server| server.recipe_manager())
+            .unwrap_or_default()
+    }
+
     fn selected_recipe_index(&self) -> i32 {
         self.selected.borrow()[0]
     }
@@ -80,7 +87,7 @@ impl State {
         self.recipes_for_input = if item.is_empty() {
             SingleInputSet::default()
         } else {
-            self.recipes.stonecutter_recipes().select_by_input(item)
+            self.recipes().stonecutter_recipes().select_by_input(item)
         };
     }
 
@@ -231,10 +238,7 @@ impl StonecutterMenu {
         let selected = Rc::new(RefCell::new(vec![0]));
         let result = Rc::new(RefCell::new(ResultContainer::new()));
         let state = Rc::new(RefCell::new(State {
-            recipes: player
-                .level_ref()
-                .map(|level| level.recipe_access())
-                .unwrap_or_default(),
+            server: player.level_ref().map(|level| level.shared.clone()),
             selected: selected.clone(),
             result: result.clone(),
             recipes_for_input: SingleInputSet::default(),
@@ -384,7 +388,7 @@ impl AbstractContainerMenu for StonecutterMenu {
         } else if self
             .state
             .borrow()
-            .recipes
+            .recipes()
             .stonecutter_recipes()
             .accepts_input(&stack)
         {

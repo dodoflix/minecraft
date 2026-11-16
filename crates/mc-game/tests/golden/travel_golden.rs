@@ -128,3 +128,21 @@ fn fishing_bobber_stays_in_a_portal() {
 fn end_platform_replaces_blocks_and_drops_items() {
     common::block_scenario::check("travel_end_platform_drop");
 }
+
+/// A chunk of the End that a block dump read (and so generated) before the platform was built: the items it drops match.
+#[test]
+fn end_platform_over_a_chunk_that_was_read_drops_items() {
+    common::block_scenario::check("travel_end_platform_read_drop");
+}
+
+/// The end platform generates a chunk of its own while it is built: the items it drops match.
+#[test]
+fn end_platform_generates_a_chunk_and_drops_items() {
+    common::block_scenario::check("travel_end_platform_build_drop");
+}
+
+/// A creaking heart a primed tnt destroys for an owner in another level drops experience when that owner is not in creative mode.
+#[test]
+fn primed_tnt_of_an_owner_in_another_level_pops_a_creaking_hearts_experience() {
+    common::block_scenario::check("travel_tnt_creaking_heart");
+}

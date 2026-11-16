@@ -1,0 +1,43 @@
+# A stonecutter screen that stays open across a /reload: the menu reads the recipes of the level every time the input changes (level.recipeAccess() is
+# the server's current recipe manager), so a stonecutting recipe the reload brings is listed for the next input and can be taken. Slots: 0 input,
+# 1 result, 2-28 inventory, 29-37 hotbar.
+datapack recipe_reload
+command_env
+level flat
+preload 4
+spawn_player A survival 3.5 -60 7.5 0 0
+block 3 -60 4 minecraft:stonecutter[facing=north]
+give A hotbar0 minecraft:cobblestone 20
+tick 2
+cmd recipe take A *
+level_seed 11
+dump packets:A:none recipes:A
+note the screen lists the stonecutting recipes of cobblestone
+use_on A 3 -60 4 up main
+click A 29 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:open_screen,container_set_slot,container_set_content,container_set_data,set_cursor_item
+note a data pack adds a recipe for cobblestone and the server reloads while the screen is open
+pack_file recipe_reload data/rr/recipe/cobble_gem.json {"type":"minecraft:stonecutting","ingredient":"minecraft:cobblestone","result":{"id":"minecraft:emerald","count":3}}
+cmd reload
+tick 2
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+note the input is taken out and put back: the recipes are listed again
+click A 0 0 PICKUP
+click A 0 0 PICKUP
+dump menu:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item
+button A 0
+dump menu:A packets:A:container_set_slot,container_set_data
+button A 1
+dump menu:A packets:A:container_set_slot,container_set_data
+button A 2
+dump menu:A packets:A:container_set_slot,container_set_data
+button A 3
+dump menu:A packets:A:container_set_slot,container_set_data
+button A 4
+dump menu:A packets:A:container_set_slot,container_set_data
+button A 5
+dump menu:A packets:A:container_set_slot,container_set_data
+click A 1 0 PICKUP
+dump menu:A inventory:A packets:A:container_set_slot,container_set_content,container_set_data,set_cursor_item,recipe_book_add stats:A recipes:A
+close_menu A

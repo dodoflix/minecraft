@@ -603,7 +603,13 @@ impl NeighborUpdateHost for ServerLevel {
         &mut self.tick_state.neighbor_updater
     }
 
-    fn host_block_state(&self, pos: BlockPos) -> BlockState {
+    fn host_block_state(&mut self, pos: BlockPos) -> BlockState {
+        // vanilla's `getBlockState` generates and loads the chunk of a neighbour across a chunk border, now and not with the next
+        // tick: its unique seeds and its entering the ticking set belong to this moment
+        let (chunk_x, chunk_z) = (pos.x() >> 4, pos.z() >> 4);
+        if !self.is_outside_build_height(pos.y()) && self.chunk_now(chunk_x, chunk_z).is_none() {
+            self.chunk_blocking_mut(chunk_x, chunk_z);
+        }
         BlockGetter::get_block_state(self, pos)
     }
 

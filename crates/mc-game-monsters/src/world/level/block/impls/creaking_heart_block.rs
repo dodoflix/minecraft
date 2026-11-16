@@ -77,15 +77,26 @@ impl BlockBehaviour for CreakingHeartBlock {
                 })
                 .unwrap_or(false)
         {
-            // Not implemented: an indirect source that is a player of another level (its experience share is skipped)
-            let player = explosion
-                .get_indirect_source_entity()
+            let indirect = explosion.get_indirect_source_entity();
+            let player = indirect
                 .and_then(|id| level.get_entity(id))
                 .and_then(|e| {
                     e.as_any()
                         .downcast_ref::<mc_game_core::world::entity::ServerPlayer>()
                 })
-                .map(|p| (p.prevents_block_drops(), p.is_spectator()));
+                .map(|p| (p.prevents_block_drops(), p.is_spectator()))
+                // a player of another level: only the copy that level published is here (`instabuild` is creative mode)
+                .or_else(|| {
+                    indirect
+                        .and_then(|id| level.remote_entity_by_id(id))
+                        .filter(|remote| remote.is_player)
+                        .map(|remote| {
+                            (
+                                remote.game_type == mc_data::enums::GameType::Creative,
+                                remote.spectator,
+                            )
+                        })
+                });
             if let Some((prevents_block_drops, spectator)) = player {
                 try_award_experience(prevents_block_drops, spectator, state, level, pos);
             }

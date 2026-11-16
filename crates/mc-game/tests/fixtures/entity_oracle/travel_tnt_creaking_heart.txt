@@ -1,0 +1,47 @@
+E experience_orb#1 minecraft:experience_orb pos=1.7623056985046053,70.92127439282447,1.9720921847698025 delta=0.04935586102528077,0.020479612503694577,0.08882962282350282 rot=225.85716,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=17 count=1 age=5 health=5
+E experience_orb#2 minecraft:experience_orb pos=1.1849031032326245,70.86383982277711,1.3529943367079833 delta=-0.0592891375788192,0.009672631666200379,-0.027660821433670102 rot=128.38925,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=5 health=5
+E experience_orb#3 minecraft:experience_orb pos=0.5645193285452923,71.82519596810805,1.8649011497876409 delta=-0.176021543852751,0.19056294619331687,0.06866038572382657 rot=52.067406,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=5 health=5
+E experience_orb#4 minecraft:experience_orb pos=2.310500813176663,70.34292931768482,1.034004125598949 delta=0.1525051332246298,-0.088342724624248,-0.08768253128472789 rot=283.7698,0.0 og=0 fall=0.18558654468506575 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=5 health=5
+E item#1 minecraft:item pos=-0.5881578993140232,69.72232482147808,2.5754039678006926 delta=-0.05055880380353283,-0.0075310721665503766,0.06055323877809473 rot=292.8957,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*9 age=5 pickup=5 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.9563330962999372,70.50755726636469,1.1924750186761857 delta=0.04940465958810203,-0.0075310721665503766,-0.07636904419128811 rot=147.555,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:resin_clump*2 age=5 pickup=5 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=16.171813225736752,69.80619894789173,2.7917426158674896 delta=-0.08330513844899275,-0.0075310721665503766,0.0807384301771184 rot=355.0812,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*8 age=5 pickup=5 health=5 owner=- thrower=-
+E item#4 minecraft:item pos=21.773765142297382,70.67381879049877,1.5923662627986717 delta=0.043943810346635255,-0.0075310721665503766,-0.029524461712619292 rot=292.91794,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:resin_clump*2 age=5 pickup=5 health=5 owner=- thrower=-
+B -1 69 -1 minecraft:stone
+B -1 69 0 minecraft:stone
+B -1 69 3 minecraft:stone
+B 0 69 0 minecraft:stone
+B 0 69 1 minecraft:stone
+B 0 69 2 minecraft:stone
+B 0 69 3 minecraft:stone
+B 1 69 0 minecraft:stone
+B 1 69 1 minecraft:stone
+B 1 69 2 minecraft:stone
+B 2 69 -1 minecraft:stone
+B 2 69 0 minecraft:stone
+B 2 69 1 minecraft:stone
+B 2 69 2 minecraft:stone
+B 2 69 3 minecraft:stone
+B 3 69 -1 minecraft:stone
+B 3 69 0 minecraft:stone
+B 3 69 2 minecraft:stone
+B 3 69 3 minecraft:stone
+B 19 69 -1 minecraft:stone
+B 19 69 0 minecraft:stone
+B 19 69 2 minecraft:stone
+B 19 69 3 minecraft:stone
+B 20 69 -1 minecraft:stone
+B 20 69 0 minecraft:stone
+B 20 69 1 minecraft:stone
+B 20 69 2 minecraft:stone
+B 20 69 3 minecraft:stone
+B 21 69 0 minecraft:stone
+B 21 69 1 minecraft:stone
+B 21 69 2 minecraft:stone
+B 22 69 -1 minecraft:stone
+B 22 69 0 minecraft:stone
+B 22 69 1 minecraft:stone
+B 22 69 2 minecraft:stone
+B 22 69 3 minecraft:stone
+B 23 69 -1 minecraft:stone
+B 23 69 2 minecraft:stone
+B 23 69 3 minecraft:stone

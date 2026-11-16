@@ -1,0 +1,34 @@
+# a cow falls into the end portal: the platform is built first, replacing a stone, a dirt and an obsidian floor block (the build generates the chunk of its first row itself)
+E C minecraft:cow pos=1.5,-60.9,0.5 delta=0.0,0.0,0.0 rot=45.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=45.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=102.59750885124367,50.774709799388866,0.3781760373931007 delta=-0.005638930828777317,0.07297472653442398,0.00905138355471647 rot=279.93356,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=98.59923907269976,51.75587913642364,1.8549890939418552 delta=-0.017636816063614464,0.07297472653442398,0.07899327975075927 rot=10.198874,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*1 age=3 pickup=7 health=5 owner=- thrower=-
+E item#3 minecraft:item pos=100.1829539598854,49.788780202500895,2.7112941815279012 delta=-0.023591621070839473,0.07297472653442398,0.07991148619828448 rot=353.9149,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*1 age=3 pickup=7 health=5 owner=- thrower=-
+E cow#1 minecraft:cow pos=100.5,50.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=90.0 body=45.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+B 98 48 -2 minecraft:obsidian
+B 98 48 -1 minecraft:obsidian
+B 98 48 0 minecraft:obsidian
+B 98 48 1 minecraft:obsidian
+B 98 48 2 minecraft:obsidian
+B 99 48 -2 minecraft:obsidian
+B 99 48 -1 minecraft:obsidian
+B 99 48 0 minecraft:obsidian
+B 99 48 1 minecraft:obsidian
+B 99 48 2 minecraft:obsidian
+B 100 48 -2 minecraft:obsidian
+B 100 48 -1 minecraft:obsidian
+B 100 48 0 minecraft:obsidian
+B 100 48 1 minecraft:obsidian
+B 100 48 2 minecraft:obsidian
+B 101 48 -2 minecraft:obsidian
+B 101 48 -1 minecraft:obsidian
+B 101 48 0 minecraft:obsidian
+B 101 48 1 minecraft:obsidian
+B 101 48 2 minecraft:obsidian
+B 102 48 -2 minecraft:obsidian
+B 102 48 -1 minecraft:obsidian
+B 102 48 0 minecraft:obsidian
+B 102 48 1 minecraft:obsidian
+B 102 48 2 minecraft:obsidian
+EV level_event r=64.0 ex=0 type=2001 pos=102,50,0 data=1 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=98,51,1 data=10 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=100,49,2 data=1 global=0

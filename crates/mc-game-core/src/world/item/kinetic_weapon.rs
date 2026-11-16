@@ -1,9 +1,7 @@
 //! `KineticWeapon`: the lunge of a spear in use (`damageEntities`, `getMotion`, `Condition.test`) and the `recentKineticEnemies`
 //! bookkeeping of `LivingEntity` (`wasRecentlyStabbed`, `rememberStabbedEntity`, `stabbedEntities`).
 //!
-//! Not implemented: a target removed by an earlier stab of the same pass (an end crystal or a TNT minecart another one set
-//! off) is skipped, where vanilla still runs `stabAttack` on the removed object (exhaustion, post-attack effects);
-//! `onKineticHit` (the local hit sound of the client for entity event 2) is client-only.
+//! `onKineticHit` (the local hit sound of the client for entity event 2) is client-only and has no server counterpart.
 
 use super::piercing_weapon::{can_hit_entity, stab_attack};
 use super::{ItemStack, behaviour};
@@ -140,7 +138,7 @@ pub fn damage_entities(
             continue;
         }
         let Some((target_motion, target_is_living)) = level
-            .get_entity(other)
+            .get_entity_or_recently_removed(other)
             .map(|t| (get_motion(level, t), t.living().is_some()))
         else {
             continue;
@@ -165,20 +163,25 @@ pub fn damage_entities(
         if deals_dismount || deals_knockback || deals_damage {
             let damage_dealt = base_mob_damage as f32
                 + mth::floor_f64(relative_speed * f64::from(kinetic.damage_multiplier)) as f32;
-            affected |= level
-                .with_entity(other, |level, target| {
-                    stab_attack(
-                        level,
-                        entity,
-                        slot,
-                        target,
-                        damage_dealt,
-                        deals_damage,
-                        deals_knockback,
-                        deals_dismount,
-                    )
-                })
-                .unwrap_or(false);
+            let stab = |level: &mut ServerLevel, target: &mut dyn Entity| {
+                stab_attack(
+                    level,
+                    entity,
+                    slot,
+                    target,
+                    damage_dealt,
+                    deals_damage,
+                    deals_knockback,
+                    deals_dismount,
+                )
+            };
+            // a target an earlier stab of the pass removed is still stabbed: vanilla holds the object
+            affected |= if level.get_entity(other).is_some() {
+                level.with_entity(other, stab)
+            } else {
+                level.with_recently_removed(other, stab)
+            }
+            .unwrap_or(false);
         }
     }
     if affected {

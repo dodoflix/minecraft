@@ -1,0 +1,75 @@
+CF msg Took 16 recipe(s) from A
+CF result success 16
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=- highlight=-
+# the screen lists the stonecutting recipes of cobblestone
+MENU A cid=1 type=minecraft:stonecutter state=3 carried=empty
+MS 0 minecraft:cobblestone*20
+MD 0 -1
+PKT A minecraft:open_screen 3c01180a0800097472616e736c6174650015636f6e7461696e65722e73746f6e6563757474657200
+PKT A minecraft:container_set_content 120101260000000000000000000000000000000000000000000000000000000000143e0000000000000000000000
+PKT A minecraft:container_set_data 130100000000
+PKT A minecraft:container_set_slot 140102001d00
+PKT A minecraft:set_cursor_item 62143e0000
+PKT A minecraft:container_set_slot 1401030000143e0000
+PKT A minecraft:set_cursor_item 6200
+PKT A minecraft:container_set_data 13010000ffff
+# a data pack adds a recipe for cobblestone and the server reloads while the screen is open
+CF msg Reloading!
+CF result success 0
+MENU A cid=1 type=minecraft:stonecutter state=3 carried=empty
+MS 0 minecraft:cobblestone*20
+MD 0 -1
+# the input is taken out and put back: the recipes are listed again
+MENU A cid=1 type=minecraft:stonecutter state=5 carried=empty
+MS 0 minecraft:cobblestone*20
+MD 0 -1
+PKT A minecraft:container_set_slot 140104000000
+PKT A minecraft:set_cursor_item 62143e0000
+PKT A minecraft:container_set_slot 1401050000143e0000
+PKT A minecraft:set_cursor_item 6200
+MENU A cid=1 type=minecraft:stonecutter state=6 carried=empty
+MS 0 minecraft:cobblestone*20
+MS 1 minecraft:emerald*3
+MD 0 0
+PKT A minecraft:container_set_slot 140106000103f5070000
+PKT A minecraft:container_set_data 130100000000
+MENU A cid=1 type=minecraft:stonecutter state=7 carried=empty
+MS 0 minecraft:cobblestone*20
+MS 1 minecraft:cobblestone_slab*2
+MD 0 1
+PKT A minecraft:container_set_slot 140107000102e8020000
+PKT A minecraft:container_set_data 130100000001
+MENU A cid=1 type=minecraft:stonecutter state=8 carried=empty
+MS 0 minecraft:cobblestone*20
+MS 1 minecraft:cobblestone_stairs*1
+MD 0 2
+PKT A minecraft:container_set_slot 14010800010199030000
+PKT A minecraft:container_set_data 130100000002
+MENU A cid=1 type=minecraft:stonecutter state=9 carried=empty
+MS 0 minecraft:cobblestone*20
+MS 1 minecraft:cobblestone_wall*1
+MD 0 3
+PKT A minecraft:container_set_slot 14010900010193040000
+PKT A minecraft:container_set_data 130100000003
+MENU A cid=1 type=minecraft:stonecutter state=9 carried=empty
+MS 0 minecraft:cobblestone*20
+MS 1 minecraft:cobblestone_wall*1
+MD 0 3
+MENU A cid=1 type=minecraft:stonecutter state=9 carried=empty
+MS 0 minecraft:cobblestone*20
+MS 1 minecraft:cobblestone_wall*1
+MD 0 3
+MENU A cid=1 type=minecraft:stonecutter state=10 carried=minecraft:cobblestone_wall*1
+MS 0 minecraft:cobblestone*19
+MS 1 minecraft:cobblestone_wall*1
+MD 0 3
+PKT A minecraft:recipe_book_add 4b0191020306023e05930401000004e90b000a0101023e0300
+PKT A minecraft:container_set_slot 14010a0000133e0000
+PKT A minecraft:set_cursor_item 620193040000
+STAT A minecraft.crafted:minecraft.cobblestone_wall 1
+STAT A minecraft.custom:minecraft.interact_with_stonecutter 1
+STAT A minecraft.custom:minecraft.play_time 4
+STAT A minecraft.custom:minecraft.time_since_death 4
+STAT A minecraft.custom:minecraft.time_since_rest 4
+STAT A minecraft.custom:minecraft.total_world_time 4
+RECIPES A crafting=00 furnace=00 blast_furnace=00 smoker=00 known=minecraft:cobblestone_wall_from_cobblestone_stonecutting highlight=minecraft:cobblestone_wall_from_cobblestone_stonecutting

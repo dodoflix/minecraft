@@ -17,3 +17,8 @@ fn charge_damages_knocks_back_and_dismounts_by_speed() {
 fn lunge_enchantment_pushes_the_stabbing_player() {
     common::block_scenario::check("itm_spear_lunge_enchant");
 }
+
+#[test]
+fn charge_still_stabs_a_crystal_an_earlier_blast_of_the_pass_removed() {
+    common::block_scenario::check("itm_spear_removed_target");
+}

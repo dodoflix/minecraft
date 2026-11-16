@@ -1,0 +1,23 @@
+# A primed tnt that explodes in the nether on behalf of a player in the overworld: the owner is found in any dimension, so the natural creaking heart the blast
+# destroys (CreakingHeartBlock.onExplosionHit: an indirect source that is a Player) drops its experience for a survival owner and none for a creative one.
+level void
+command_env
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+spawn_player Alice survival 2.5 -61 3.5 180 0
+spawn_player Bob creative 6.5 -61 3.5 180 0
+tick 2
+in the_nether fill -3 69 -3 24 69 3 minecraft:stone
+in the_nether block 1 70 1 minecraft:creaking_heart[axis=y,creaking_heart_state=dormant,natural=true]
+in the_nether block 21 70 1 minecraft:creaking_heart[axis=y,creaking_heart_state=dormant,natural=true]
+in the_nether level_seed 8
+in the_nether spawn T1 minecraft:tnt 1.5 71 1.5 0 0 {fuse:5s,owner:[I;278005000,-707248403,-1814916367,-1817188393],explosion_power:6f}
+in the_nether entity_seed T1 3
+in the_nether spawn T2 minecraft:tnt 21.5 71 1.5 0 0 {fuse:5s,owner:[I;-89793373,-1009502901,-1373905431,-442414277],explosion_power:6f}
+in the_nether entity_seed T2 4
+tick 10
+in the_nether dump xentities blocks:-1,68,-1,3,72,3 blocks:19,68,-1,23,72,3 events
