@@ -622,8 +622,8 @@ impl NeighborUpdateHost for ServerLevel {
         update_flags: u32,
         update_limit: i32,
     ) {
-        // `NeighborUpdater.executeShapeUpdate`
-        let current_state = BlockGetter::get_block_state(self, pos);
+        // `NeighborUpdater.executeShapeUpdate`: `level.getBlockState(pos)` loads the chunk of the block being updated
+        let current_state = self.host_block_state(pos);
         if update_flags & UPDATE_SKIP_SHAPE_UPDATE_ON_WIRE == 0
             || current_state.block() != Block::REDSTONE_WIRE
         {

@@ -1,5 +1,4 @@
 # The end platform replaces what stands where it is built (ServerLevel.makeObsidianPlatform: destroyBlock(pos, true, entity)): a dump reads the End chunk of its first row before the build and generates it (Level.getBlockState waits for the chunk), and the items it drops match.
-# the platform's own drops its item, and the arriving entity is the breaker.
 level void
 command_env
 end void
@@ -16,7 +15,7 @@ in the_end block 102 50 0 minecraft:stone
 in the_end block 98 51 1 minecraft:dirt
 in the_end block 100 49 2 minecraft:stone
 tick 2
-note a cow falls into the end portal: the platform is built first, replacing a stone, a dirt and an obsidian floor block (the build generates the chunk of its first row itself)
+note a cow falls into the end portal: the platform is built first, replacing a stone, a dirt and an obsidian floor block (the first dump of the End below reads, and so generates, the chunk of its first row before the build)
 spawn C minecraft:cow 1.5 -60.9 0.5 45 0 {NoAI:1b,PersistenceRequired:1b,CustomName:"Traveller"}
 entity_seed C 9
 tick 1

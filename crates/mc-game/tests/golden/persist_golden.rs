@@ -72,3 +72,9 @@ fn statistics_and_progress_files_are_written_on_save_and_leave() {
 fn leaving_ejects_passengers_and_wakes_sleepers() {
     check("persist_leave_disconnect");
 }
+
+/// The shape update of a block next to an unloaded chunk loads it at once: the fence saved there connects to the new fence.
+#[test]
+fn shape_update_across_a_chunk_border_loads_the_neighbour_chunk() {
+    check("persist_shape_update_chunk_load");
+}

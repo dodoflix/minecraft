@@ -124,20 +124,25 @@ pub fn attack(
     };
     let mut hit_something = false;
     for hit in hits {
-        hit_something |= level
-            .with_entity(hit.entity, |level, target| {
-                stab_attack(
-                    level,
-                    attacker,
-                    slot,
-                    target,
-                    damage,
-                    true,
-                    piercing.deals_knockback,
-                    piercing.dismounts,
-                )
-            })
-            .unwrap_or(false);
+        let stab = |level: &mut ServerLevel, target: &mut dyn Entity| {
+            stab_attack(
+                level,
+                attacker,
+                slot,
+                target,
+                damage,
+                true,
+                piercing.deals_knockback,
+                piercing.dismounts,
+            )
+        };
+        // a target an earlier stab of the pass removed is still stabbed: vanilla holds the object
+        hit_something |= if level.get_entity_or_part(hit.entity).is_some() {
+            level.with_entity(hit.entity, stab)
+        } else {
+            level.with_recently_removed(hit.entity, stab)
+        }
+        .unwrap_or(false);
     }
     Entity::on_attack(attacker);
     combat::post_piercing_attack(attacker, level);

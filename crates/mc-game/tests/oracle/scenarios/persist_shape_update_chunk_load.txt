@@ -1,0 +1,17 @@
+# A shape update across a chunk border loads the neighbour at once (NeighborUpdater.executeShapeUpdate reads the updated block with Level.getBlockState,
+# which waits for the full chunk): two fences placed with /setblock strict do not know of each other; the fence in the chunk that unloaded is read from disk
+# when the update of a third fence reaches it through the first one, and connects.
+level void
+command_env
+preload 0
+difficulty normal
+entity_counter 100
+level_seed 5
+load 3 0
+block 48 -60 0 minecraft:oak_fence
+cmd setblock 47 -60 0 minecraft:oak_fence strict
+tick 1
+unload 3 0
+note /setblock places the fence at 46 in the full chunk 2: its shape update connects the fence at 47, whose own shape update is the first read of chunk 3, which is not loaded
+cmd setblock 46 -60 0 minecraft:oak_fence
+dump blocks:45,-61,-1,49,-59,1 events

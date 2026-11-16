@@ -1,0 +1,25 @@
+# The STAB action of a spear (PiercingWeapon.attack) along a line that meets two end crystals: the stab on the first one explodes it, the blast removes the
+# second one, and the pass still runs stabAttack on that removed crystal (hurtServer of a removed crystal reports true): the attacker is exhausted again and the
+# stab counts as an attack (last hurt mob, spear wear, the number of stabbed entities).
+level flat
+command_env
+preload 4
+difficulty normal
+level_seed 41
+entity_counter 41000
+gamerule block_drops false
+spawn_player Alice survival 0.5 -60 0.5 0 0 sim
+give Alice mainhand minecraft:iron_spear
+attribute Alice minecraft:max_health 1000
+set Alice health 1000
+spawn CrA minecraft:end_crystal 0.5 -60 3.0 0 0 {ShowBottom:0b}
+entity_seed CrA 51
+spawn CrB minecraft:end_crystal 0.5 -60 3.3 0 0 {ShowBottom:0b}
+entity_seed CrB 52
+tick 40
+dump entities player:Alice
+note Alice stabs: the line meets both crystals
+stab Alice
+dump events entities player:Alice inventory:Alice stats:Alice
+tick 2
+dump events entities player:Alice inventory:Alice stats:Alice
