@@ -509,7 +509,7 @@ fn assert_same(who: &str, vanilla: &[String], ours: &[String]) {
 
 /// Offline login to the point where the registries and tags were sent (hex of every `registry_data`/`update_tags` and of
 /// the preceding packets).
-async fn registry_transcript(addr: SocketAddr) -> Vec<String> {
+pub(crate) async fn registry_transcript(addr: SocketAddr) -> Vec<String> {
     let mut t = Vec::new();
     let mut c = connect(addr).await;
     handshake(&mut c, PROTOCOL_VERSION, ClientIntent::Login).await;

@@ -334,12 +334,15 @@ impl TickRateHost for MinecraftServer {
 
     fn send_sprint_report(&mut self, ticks_per_second: i32, milliseconds_per_tick: String) {
         // `createCommandSourceStack().sendSuccess(.., true)`: the server logs the message (`sendSystemMessage`), then
-        // `broadcastToAdmins` wraps it in `chat.type.admin` for the operators.
+        // `broadcastToAdmins` wraps it in `chat.type.admin` for the operators (`broadcast-console-to-ops`).
         let message = mc_text::Component::translatable(
             "commands.tick.sprint.report",
             vec![ticks_per_second.into(), milliseconds_per_tick.into()],
         );
         log::info!("System chat: {}", message.get_string());
+        if !self.should_inform_admins() {
+            return;
+        }
         let broadcast = mc_text::Component::translatable(
             "chat.type.admin",
             vec![mc_text::Component::literal("Server").into(), message.into()],

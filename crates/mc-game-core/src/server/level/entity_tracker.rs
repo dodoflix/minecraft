@@ -22,9 +22,9 @@ impl TrackingEnv for super::chunk_map::ChunkMap {
         // inherent `ChunkMap::is_chunk_tracked` takes precedence over this trait method
         self.is_chunk_tracked(player_id, chunk_x, chunk_z)
     }
-    /// `MinecraftServer.getScaledTrackingDistance` is the identity in 26.3.
+    /// `DedicatedServer.getScaledTrackingDistance`.
     fn scaled_tracking_distance(&self, range: i32) -> i32 {
-        range
+        self.entity_broadcast_range_percentage.wrapping_mul(range) / 100
     }
     fn in_entity_ticking_range(&self, chunk_key: i64) -> bool {
         self.distance_manager.in_entity_ticking_range(chunk_key)

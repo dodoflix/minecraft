@@ -211,10 +211,27 @@ impl Decode for KnownLinkType {
 }
 
 /// `ServerLinks.UntrustedEntry`
-#[derive(Debug, Clone, PartialEq, Encode, Decode)]
+#[derive(Debug, Clone, PartialEq, Decode)]
 pub struct UntrustedEntry {
     pub link_type: Either<KnownLinkType, Component>,
     pub link: String,
+}
+
+/// `ServerLinks.UntrustedEntry.STREAM_CODEC`: the display name of a custom link is written context-free.
+impl Encode for UntrustedEntry {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        match &self.link_type {
+            Either::Left(known) => {
+                out.push(1);
+                known.encode(out)?;
+            }
+            Either::Right(name) => {
+                out.push(0);
+                crate::codec::context_free::encode(name, out)?;
+            }
+        }
+        self.link.encode(out)
+    }
 }
 
 /// `TagNetworkSerialization.NetworkPayload`: tag name -> registry ids.
@@ -356,6 +373,7 @@ macro_rules! common_packets {
         #[derive(Debug, Clone, PartialEq, $crate::Encode, $crate::Decode, $crate::Packet)]
         #[packet(state = $state, flow = clientbound, name = "disconnect")]
         pub struct ClientboundDisconnectPacket {
+            #[mc(with = crate::codec::context_free)]
             pub reason: ::mc_text::Component,
         }
 
@@ -396,6 +414,7 @@ macro_rules! common_packets {
             #[mc(max = 40)]
             pub hash: String,
             pub required: bool,
+            #[mc(with = crate::codec::context_free)]
             pub prompt: Option<::mc_text::Component>,
         }
 

@@ -10,10 +10,10 @@ use std::sync::Arc;
 pub struct DedicatedPlayerList;
 
 impl DedicatedPlayerList {
-    /// `new DedicatedPlayerList(server, registries, playerDataStorage)`: `view_distance`/`simulation_distance` are
-    /// `server.viewDistance()`/`simulationDistance()`. Levels do not exist yet at this point of `initServer`, so the
-    /// vanilla `getAllLevels()` loops inside `setViewDistance` have nothing to update; the levels read the values when
-    /// they are created.
+    /// `new DedicatedPlayerList(server, registries, playerDataStorage)` up to the view distances: `view_distance`/
+    /// `simulation_distance` are `server.viewDistance()`/`simulationDistance()`. Levels do not exist yet at this point
+    /// of `initServer`, so the vanilla `getAllLevels()` loops inside `setViewDistance` have nothing to update; the
+    /// levels read the values when they are created. The list files are read by [`Self::load_lists`].
     #[expect(
         clippy::new_ret_no_self,
         reason = "mirrors `new DedicatedPlayerList(..)`: the dedicated list is a `PlayerList` here"
@@ -36,6 +36,11 @@ impl DedicatedPlayerList {
         );
         list.set_view_distance_value(view_distance);
         list.set_simulation_distance_value(simulation_distance);
+        list
+    }
+
+    /// The rest of the constructor: loads and saves the ban lists, the op list and the whitelist.
+    pub fn load_lists(list: &mut PlayerList) {
         list.load_user_ban_list();
         list.save_user_ban_list();
         list.load_ip_ban_list();
@@ -46,7 +51,6 @@ impl DedicatedPlayerList {
         if !list.whitelist.get_file().exists() {
             list.save_white_list();
         }
-        list
     }
 }
 

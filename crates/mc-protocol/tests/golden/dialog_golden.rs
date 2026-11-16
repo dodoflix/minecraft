@@ -219,3 +219,69 @@ fn vanilla_dialogs_are_registered() {
             .unwrap_or_else(|e| panic!("{name}: {e}"));
     }
 }
+
+/// The four context-free component writes (disconnect reason, resource pack prompt, server data motd, display name of a
+/// server link) write a dialog reference of a click event as the dialog; every other packet keeps the reference.
+#[test]
+fn context_free_component_fields_write_the_dialog() {
+    use mc_protocol::codec::{Either, to_bytes};
+    use mc_protocol::packets::common::{KnownLinkType, UntrustedEntry};
+    use mc_protocol::packets::{configuration, play};
+    use mc_text::Component;
+
+    mc_protocol::components::install_text_hooks();
+    let component = Component::from_json_str(
+        r#"{"text":"x","click_event":{"action":"show_dialog","dialog":"minecraft:server_links"}}"#,
+    )
+    .unwrap();
+    let encoded = |tag: &Tag| {
+        let mut out = Vec::new();
+        mc_protocol::codec::encode_tag(tag, &mut out).unwrap();
+        out
+    };
+    let free = encoded(&component.to_nbt_context_free().unwrap());
+    let registry_aware = encoded(&component.to_nbt().unwrap());
+    assert_ne!(free, registry_aware, "the reference is expanded");
+    assert_eq!(to_bytes(&component).unwrap(), registry_aware);
+
+    let reason = play::ClientboundDisconnectPacket {
+        reason: component.clone(),
+    };
+    assert_eq!(to_bytes(&reason).unwrap(), free);
+    let reason = configuration::ClientboundDisconnectPacket {
+        reason: component.clone(),
+    };
+    assert_eq!(to_bytes(&reason).unwrap(), free);
+
+    let motd = play::ClientboundServerDataPacket {
+        motd: component.clone(),
+        icon_bytes: None,
+    };
+    assert_eq!(to_bytes(&motd).unwrap(), [free.clone(), vec![0]].concat());
+
+    let pack = play::ClientboundResourcePackPushPacket {
+        id: uuid::Uuid::nil(),
+        url: String::new(),
+        hash: String::new(),
+        required: false,
+        prompt: Some(component.clone()),
+    };
+    let bytes = to_bytes(&pack).unwrap();
+    assert_eq!(&bytes[bytes.len() - free.len()..], free.as_slice());
+
+    let custom = UntrustedEntry {
+        link_type: Either::Right(component.clone()),
+        link: "https://example.com".into(),
+    };
+    let bytes = to_bytes(&custom).unwrap();
+    assert_eq!(bytes[0], 0);
+    assert_eq!(&bytes[1..1 + free.len()], free.as_slice());
+    let known = UntrustedEntry {
+        link_type: Either::Left(KnownLinkType::BugReport),
+        link: "https://example.com".into(),
+    };
+    assert_eq!(&to_bytes(&known).unwrap()[..2], &[1, 0]);
+    // decoding takes the expanded dialog back as a direct value
+    let back: UntrustedEntry = mc_protocol::codec::from_bytes(&bytes).unwrap();
+    assert_eq!(back.link, custom.link);
+}

@@ -11,7 +11,10 @@ use crate::server::minecraft_server::VANILLA_BRAND;
 use crate::server::notifications::NotificationService;
 use crate::server::permissions::LevelBasedPermissionSet;
 use crate::server::players::UserNameToIdResolver;
+use crate::server::players::name_resolver::ProfileLookup;
 use crate::server::rcon::{QueryServerInfo, QueryThreadGs4, RconThread};
+use crate::server::server_links::{ServerLink, ServerLinks};
+use mc_protocol::packets::common::KnownLinkType;
 use mc_world::level_storage::{Difficulty, GameType};
 use std::collections::HashMap;
 use std::io;
@@ -29,6 +32,10 @@ pub struct DedicatedServer {
     pub query_thread: Option<QueryThreadGs4>,
     pub rcon_thread: Option<RconThread>,
     pub management_server: Option<crate::server::jsonrpc::ManagementServer>,
+    /// `services.profileRepository()`: what `convertOldUsers` resolves names with.
+    pub profile_lookup: Arc<dyn ProfileLookup>,
+    /// `serverLinks`, created once from `bug-report-link`.
+    pub server_links: ServerLinks,
 }
 
 impl DedicatedServer {
@@ -36,7 +43,9 @@ impl DedicatedServer {
         settings: DedicatedServerSettings,
         console_input: ConsoleInputQueue,
         stop_signal: ServerStopSignal,
+        profile_lookup: Arc<dyn ProfileLookup>,
     ) -> io::Result<Self> {
+        let server_links = create_server_links(settings.get_properties());
         let code_of_conduct_texts = if settings.get_properties().code_of_conduct {
             read_code_of_conducts()?
         } else {
@@ -50,7 +59,35 @@ impl DedicatedServer {
             query_thread: None,
             rcon_thread: None,
             management_server: None,
+            profile_lookup,
+            server_links,
         })
+    }
+}
+
+/// `DedicatedServer.createServerLinks`.
+fn create_server_links(properties: &DedicatedServerProperties) -> ServerLinks {
+    match parse_bug_report_link(properties) {
+        Some(link) => ServerLinks {
+            entries: vec![ServerLink::known(KnownLinkType::BugReport, link)],
+        },
+        None => ServerLinks::EMPTY,
+    }
+}
+
+/// `DedicatedServer.parseBugReportLink`: `Util.parseAndValidateUntrustedUri` of `bug-report-link`, a warning for a value
+/// it rejects. The link is kept as written, like `URI.toString()`.
+fn parse_bug_report_link(properties: &DedicatedServerProperties) -> Option<String> {
+    let link = &properties.bug_report_link;
+    if link.is_empty() {
+        return None;
+    }
+    match mc_text::validate_untrusted_uri(link) {
+        Ok(()) => Some(link.clone()),
+        Err(e) => {
+            log::warn!("Failed to parse bug link {link}\njava.net.URISyntaxException: {e}");
+            None
+        }
     }
 }
 
@@ -208,6 +245,8 @@ impl MinecraftServer {
         ) {
             return Ok(false);
         }
+        // `new DedicatedPlayerList(..)` reads the user lists, after the converter has written its files
+        crate::server::players::DedicatedPlayerList::load_lists(&mut self.player_list);
 
         let level_nano_time = crate::server::shared::get_nanos();
         self.name_to_id_cache
@@ -285,7 +324,7 @@ impl MinecraftServer {
             dir: self.server_directory_or_cwd(),
             uses_authentication: self.uses_authentication(),
             is_singleplayer: false,
-            profile_lookup: Arc::new(crate::server::players::name_resolver::NoProfileLookup),
+            profile_lookup: self.dedicated.profile_lookup.clone(),
             name_to_id_cache: self.name_to_id_cache.clone(),
             operator_permissions: self.operator_user_permissions(),
         };
@@ -431,6 +470,9 @@ impl MinecraftServer {
         self.dedicated
             .settings
             .update(|p| p.update(&p.enable_status, enable));
+        if let Some(hooks) = &self.network_hooks {
+            hooks.update_settings(|s| s.replies_to_status = enable);
+        }
     }
 
     pub fn hides_online_players(&self) -> bool {
@@ -472,15 +514,20 @@ impl MinecraftServer {
         *self.properties().entity_broadcast_range_percentage.get()
     }
 
+    /// `setEntityBroadcastRangePercentage`: the trackers of every level read it live in vanilla.
     pub fn set_entity_broadcast_range_percentage(&mut self, range: i32) {
         self.dedicated
             .settings
             .update(|p| p.update(&p.entity_broadcast_range_percentage, range));
-    }
-
-    /// `getScaledTrackingDistance`.
-    pub fn get_scaled_tracking_distance(&self, range: i32) -> i32 {
-        self.entity_broadcast_range_percentage().wrapping_mul(range) / 100
+        let percentage = self.entity_broadcast_range_percentage();
+        for dimension in self.level_keys() {
+            if let Some(level) = self.level_mut(&dimension) {
+                level
+                    .chunk_source
+                    .chunk_map
+                    .entity_broadcast_range_percentage = percentage;
+            }
+        }
     }
 
     pub fn accepts_transfers(&self) -> bool {
@@ -509,6 +556,28 @@ impl MinecraftServer {
 
     pub fn force_game_mode(&self) -> bool {
         *self.properties().force_game_mode.get()
+    }
+
+    /// `setForceGameMode`.
+    pub fn set_force_game_mode(&mut self, force_game_mode: bool) {
+        self.dedicated
+            .settings
+            .update(|p| p.update(&p.force_game_mode, force_game_mode));
+        self.enforce_game_type_for_players(self.get_forced_game_type());
+    }
+
+    /// `enforceGameTypeForPlayers`: the number of players whose game mode changed.
+    pub fn enforce_game_type_for_players(&mut self, game_type: Option<GameType>) -> i32 {
+        let Some(game_type) = game_type else {
+            return 0;
+        };
+        let mut count = 0;
+        for player in crate::commands::host::server_players(self) {
+            if crate::commands::host::set_game_mode(self, &player, game_type) {
+                count += 1;
+            }
+        }
+        count
     }
 
     /// `getForcedGameType`.
@@ -744,7 +813,11 @@ impl MinecraftServer {
         let respawn = self.get_respawn_data();
         let level = self.find_respawn_dimension();
         crate::commands::CommandSourceStack::named(
-            Arc::new(crate::commands::console_command_source::ConsoleCommandSource),
+            Arc::new(
+                crate::commands::console_command_source::ConsoleCommandSource {
+                    inform_admins: self.should_inform_admins(),
+                },
+            ),
             mc_core::phys::Vec3::new(
                 f64::from(respawn.pos.x()),
                 f64::from(respawn.pos.y()),
@@ -869,5 +942,34 @@ fn netty_bind_exception(error: &io::Error) -> String {
             )
         }
         None => format!("java.io.IOException: {error}"),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::super::java_properties::Properties;
+    use super::*;
+
+    fn links_of(bug_report_link: &str) -> ServerLinks {
+        let mut properties = Properties::new();
+        properties.put("bug-report-link", bug_report_link);
+        create_server_links(&DedicatedServerProperties::new(properties).expect("valid properties"))
+    }
+
+    #[test]
+    fn the_bug_report_link_is_the_only_server_link() {
+        let link = "https://example.com/bug?a=b";
+        assert_eq!(
+            links_of(link).entries,
+            vec![ServerLink::known(KnownLinkType::BugReport, link.to_owned())]
+        );
+        for rejected in [
+            "",
+            "example.com",
+            "ftp://example.com",
+            "https://exa mple.com",
+        ] {
+            assert!(links_of(rejected).is_empty(), "{rejected:?}");
+        }
     }
 }

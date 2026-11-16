@@ -427,11 +427,7 @@ impl MinecraftServer {
                 self.set_spawn_protection_radius(i)
             }
             (SettingKey::Motd, SettingValue::Str(s)) => self.set_motd(&s),
-            (SettingKey::ForceGameMode, SettingValue::Bool(b)) => {
-                self.dedicated
-                    .settings
-                    .update(|p| p.update(&p.force_game_mode, b));
-            }
+            (SettingKey::ForceGameMode, SettingValue::Bool(b)) => self.set_force_game_mode(b),
             (SettingKey::GameMode, SettingValue::GameType(g)) => self.set_game_mode_property(g),
             (SettingKey::ViewDistance, SettingValue::Int(i)) => self.set_view_distance(i),
             (SettingKey::SimulationDistance, SettingValue::Int(i)) => {
@@ -457,12 +453,15 @@ impl MinecraftServer {
         }
     }
 
-    /// `DedicatedServer.setGameMode`: persists the property and changes the world's default game type.
+    /// `DedicatedServer.setGameMode`: persists the property, changes the world's default game type and enforces the
+    /// forced one on the players.
     pub fn set_game_mode_property(&mut self, game_mode: GameType) {
         self.dedicated
             .settings
             .update(|p| p.update(&p.game_mode, game_mode));
-        self.world_data.lock().settings.game_type = game_mode;
+        let configured = self.game_mode();
+        self.world_data.lock().settings.game_type = configured;
+        self.enforce_game_type_for_players(self.get_forced_game_type());
     }
 }
 

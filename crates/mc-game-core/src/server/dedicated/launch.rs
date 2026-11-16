@@ -102,6 +102,7 @@ pub fn create_server(
         return Ok(None);
     };
     let mut server = MinecraftServer::new(shared, tasks, init)?;
+    crate::server::players::DedicatedPlayerList::load_lists(&mut server.player_list);
     server.port = options.port;
     server.is_demo = options.demo;
     server.server_id = options.server_id.clone();
@@ -123,7 +124,10 @@ fn prepare(
         lookup.clone(),
         universe.join("usercache.json"),
     ));
-    let profile_resolver = Arc::new(CachedProfileResolver::new(lookup, name_to_id_cache.clone()));
+    let profile_resolver = Arc::new(CachedProfileResolver::new(
+        lookup.clone(),
+        name_to_id_cache.clone(),
+    ));
     let notification_manager = Arc::new(NotificationManager::new());
     let properties = settings.get_properties().clone();
     let level_name = options
@@ -244,7 +248,7 @@ fn prepare(
     if let Err(e) = stop_signal.install_signal_handlers() {
         log::warn!("Failed to install the signal handlers: {e}");
     }
-    let dedicated = DedicatedServer::new(settings, console_input, stop_signal.clone())
+    let dedicated = DedicatedServer::new(settings, console_input, stop_signal.clone(), lookup)
         .map_err(|e| e.to_string())?;
 
     let (shared, tasks) = ServerShared::new();

@@ -284,6 +284,9 @@ pub struct ChunkMap {
     pub player_map: PlayerMap,
     pub players: IndexMap<EntityId, TrackedPlayer>,
     pub(crate) server_view_distance: i32,
+    /// `entity-broadcast-range-percentage` (`DedicatedServer.getScaledTrackingDistance`); 100 is the identity of the
+    /// abstract `MinecraftServer`.
+    pub entity_broadcast_range_percentage: i32,
 }
 
 impl ChunkMap {
@@ -378,6 +381,7 @@ impl ChunkMap {
             player_map: PlayerMap::new(),
             players: IndexMap::new(),
             server_view_distance: 0,
+            entity_broadcast_range_percentage: 100,
         };
         map.set_server_view_distance(view_distance);
         map

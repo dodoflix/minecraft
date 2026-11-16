@@ -220,6 +220,7 @@ pub struct ClientboundSelectAdvancementsTabPacket {
 #[derive(Debug, Clone, PartialEq, Encode, Decode, Packet)]
 #[packet(state = play, flow = clientbound, name = "server_data")]
 pub struct ClientboundServerDataPacket {
+    #[mc(with = crate::codec::context_free)]
     pub motd: Component,
     pub icon_bytes: Option<Vec<u8>>,
 }

@@ -2,7 +2,7 @@
 use mc_brigadier::ArgumentBuilder;
 use mc_game_core::commands::arguments::GameModeArgument;
 use mc_game_core::commands::{
-    CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, host, literal,
+    CommandSourceStack, LEVEL_GAMEMASTERS, argument, has_permission, literal,
 };
 use mc_game_core::util::game_modes::GameTypeExt;
 use mc_game_core::{register_command, translatable};
@@ -27,16 +27,8 @@ fn set_mode(source: &CommandSourceStack, game_type: GameType) -> i32 {
     // `setDefaultGameType`, then `enforceGameTypeForPlayers(getForcedGameType())` (dedicated: `force-gamemode`).
     let count = source.with_server(|server| {
         server.world_data.lock().settings.game_type = game_type;
-        let Some(forced) = server.get_forced_game_type() else {
-            return 0;
-        };
-        let mut count = 0;
-        for player in host::server_players(server) {
-            if host::set_game_mode(server, &player, forced) {
-                count += 1;
-            }
-        }
-        count
+        let forced = server.get_forced_game_type();
+        server.enforce_game_type_for_players(forced)
     });
     source.send_success(
         || {

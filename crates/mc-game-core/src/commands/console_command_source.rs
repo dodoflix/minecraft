@@ -8,7 +8,10 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 /// The dedicated server as a command source: feedback goes to the log (`MinecraftServer.sendSystemMessage`).
-pub struct ConsoleCommandSource;
+pub struct ConsoleCommandSource {
+    /// `DedicatedServer.shouldInformAdmins` (`broadcast-console-to-ops`).
+    pub inform_admins: bool,
+}
 
 impl CommandSource for ConsoleCommandSource {
     fn send_system_message(&self, message: &Component) {
@@ -25,7 +28,7 @@ impl CommandSource for ConsoleCommandSource {
 
     /// `DedicatedServer.shouldInformAdmins`.
     fn should_inform_admins(&self) -> bool {
-        true
+        self.inform_admins
     }
 
     fn kind(&self) -> CommandSourceKind {

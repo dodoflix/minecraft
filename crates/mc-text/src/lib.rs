@@ -33,6 +33,7 @@ pub use component::{
 pub use events::{
     ClickAction, ClickEvent, EntityTooltipInfo, HoverAction, HoverEvent, ItemStackTemplate,
 };
+pub use java_util::validate_untrusted_uri;
 pub use language::Language;
 pub use style::{FontDescription, Style};
 pub use text_color::TextColor;

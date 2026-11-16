@@ -120,8 +120,7 @@ pub fn configuration_data(server: &MinecraftServer) -> ConfigurationData {
             .data_configuration
             .enabled_features
             .names(),
-        // `serverLinks()`: the dedicated server's link list is not available yet (empty = no packet).
-        server_links: Vec::new(),
+        server_links: server.dedicated.server_links.untrust(),
         code_of_conducts: server
             .dedicated
             .code_of_conduct_texts

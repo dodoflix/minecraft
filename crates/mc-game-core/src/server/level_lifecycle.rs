@@ -264,6 +264,14 @@ impl MinecraftServer {
             is_debug,
             level_data,
         });
+        level
+            .chunk_source
+            .chunk_map
+            .entity_broadcast_range_percentage = self.entity_broadcast_range_percentage();
+        level.tick_state.neighbor_updater =
+            crate::world::level::redstone::neighbor_updater::CollectingNeighborUpdater::new(
+                self.get_max_chained_neighbor_updates(),
+            );
         level.gen_env = Some(gen_env);
         level.worldgen_data = Some(factory.worldgen.clone());
         level.registries = self.registries.composite_access().clone();
@@ -734,7 +742,7 @@ impl MinecraftServer {
             dir: Default::default(),
             uses_authentication: self.player_list.settings.uses_authentication,
             is_singleplayer: false,
-            profile_lookup: Arc::new(crate::server::players::name_resolver::NoProfileLookup),
+            profile_lookup: self.dedicated.profile_lookup.clone(),
             name_to_id_cache: self.name_to_id_cache.clone(),
             operator_permissions: self.player_list.settings.operator_user_permissions,
         };

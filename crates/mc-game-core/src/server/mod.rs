@@ -21,6 +21,7 @@ pub mod rcon;
 pub mod server_function_library;
 pub mod server_function_manager;
 pub mod server_info;
+pub mod server_links;
 pub mod server_reload;
 pub mod server_state;
 pub mod shared;

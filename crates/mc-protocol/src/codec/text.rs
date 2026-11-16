@@ -28,6 +28,22 @@ impl Decode for Component {
     }
 }
 
+/// `ComponentSerialization.TRUSTED_CONTEXT_FREE_STREAM_CODEC` as a field codec (`#[mc(with = ...)]`) for a `Component` or
+/// an `Option<Component>`: the component is written by an `NbtOps` without registry access, so a dialog reference in a
+/// click event is written as the dialog itself. Used by the disconnect reason, the resource pack prompt, the server data
+/// motd and the display name of a server link; every other component of the protocol uses the registry-aware codec.
+pub mod context_free {
+    use super::{Decode, DecodeResult, Encode, EncodeResult};
+
+    pub fn encode<T: Encode>(value: &T, out: &mut Vec<u8>) -> EncodeResult<()> {
+        mc_text::with_context_free(|| value.encode(out))
+    }
+
+    pub fn decode<T: Decode>(input: &mut &[u8]) -> DecodeResult<T> {
+        T::decode(input)
+    }
+}
+
 /// Component as a JSON string (`lenientJson(262144)` + `ComponentSerialization.CODEC`), used by the
 /// login disconnect packet.
 #[derive(Debug, Clone, PartialEq)]

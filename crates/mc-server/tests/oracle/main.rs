@@ -27,6 +27,7 @@ mod play_scenario;
 mod playerdata_diff;
 mod portal_dual;
 mod record_setblock;
+mod server_properties_dual;
 mod vanilla_play;
 mod world_commands_dual;
 mod world_settings;
