@@ -193,7 +193,7 @@ impl Scenario {
             let held = self.level.as_ref().is_some_and(live);
             let elsewhere = mc_game::commands::server_access::has_server()
                 && mc_game::commands::server_access::with_server(|server| {
-                    server.all_levels().any(|l| live(l))
+                    server.all_levels().any(live)
                 });
             if held || elsewhere {
                 continue;
