@@ -1,0 +1,174 @@
+# the first dragon is killed and gone, the portal is active
+FIGHT killed=true prev=true stage=- rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=0
+FIGHTBAR visible=false progress=0.0 players=Near,Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+FIGHTHASH area 107 affa6319ed535eee
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+# start: the exit portal is replaced by the inactive podium and the stage waits for its first tick
+FIGHT killed=true prev=true stage=START rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+FIGHTHASH area 87 eb8a444e6abff192
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+E c1 minecraft:end_crystal pos=3.5,2.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+# preparing: level event 3001 at ticks 0, 50, 51, 52 and from 95
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=100 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:remove_entities 4e01bc46
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+E c1 minecraft:end_crystal pos=3.5,2.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+# the pillars: per pillar 40 ticks (beam at the start, rebuilt at tick 39)
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=1 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+FIGHTHASH area 91 20ccef5b5a8f7b0a
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=40 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+PKT Obs minecraft:explode 2440454000000000004056c000000000003fe000000000000040a00000000007a0001dc00502453f0000003f80000001483f8000003f8000000101
+FIGHTHASH area 3460 4ceb71019741c0c3
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+ED end_crystal#1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:01
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=80 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+PKT Obs minecraft:explode 244040c000000000004057800000000000403880000000000040a0000000000794001dc00502453f0000003f80000001483f8000003f8000000101
+FIGHTHASH area 8820 560271f4f8f9ab9f
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=120 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+PKT Obs minecraft:explode 24402900000000000040560000000000004043c0000000000040a00000000007c1001dc00502453f0000003f80000001483f8000003f8000000101
+FIGHTHASH area 12078 f06b3471a427284
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=160 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+PKT Obs minecraft:explode 24c0290000000000004059c000000000004043c0000000000040a00000000007b3001dc00502453f0000003f80000001483f8000003f8000000101
+FIGHTHASH area 21247 680de48df3a99024
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=200 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+PKT Obs minecraft:explode 24c040c000000000004053000000000000403880000000000040a0000000000797001dc00502453f0000003f80000001483f8000003f8000000101
+FIGHTHASH area 22845 dc7d1913565121e8
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=240 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+PKT Obs minecraft:explode 24c044c000000000004059000000000000bfe000000000000040a00000000007ad001dc00502453f0000003f80000001483f8000003f8000000101
+FIGHTHASH area 28547 35dc85db02021553
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=280 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+PKT Obs minecraft:explode 24c040c000000000004055400000000000c03880000000000040a00000000007ab001dc00502453f0000003f80000001483f8000003f8000000101
+FIGHTHASH area 31694 8960bf9403f62889
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=320 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+PKT Obs minecraft:explode 24c0290000000000004054800000000000c043c0000000000040a00000000007b4001dc00502453f0000003f80000001483f8000003f8000000101
+FIGHTHASH area 33491 b9cbaeface336732
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=360 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+PKT Obs minecraft:explode 2440290000000000004053c00000000000c043c0000000000040a00000000007c0001dc00502453f0000003f80000001483f8000003f8000000101
+FIGHTHASH area 35225 813cd3d481270e2c
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=400 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+PKT Obs minecraft:explode 244040c000000000004058400000000000c03880000000000040a00000000007be001dc00502453f0000003f80000001483f8000003f8000000101
+FIGHTHASH area 40756 6e4afcc16b2ab2b4
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+# after the last pillar the stage moves on at the next beam start
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+E c1 minecraft:end_crystal pos=3.5,2.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=5 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=80 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=100 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+# the ritual ends: new dragon, crystals explode and are removed; Near stands within the blasts and Obs is too far to hear them
+FIGHT killed=false prev=true stage=- rtime=0 alive=10 dragon=ender_dragon#2 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+FIGHTBAR visible=false progress=0.93790525 players=Near,Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+PKT Obs minecraft:remove_entities 4e01b946
+PKT Obs minecraft:remove_entities 4e01b546
+PKT Obs minecraft:remove_entities 4e01b846
+PKT Obs minecraft:remove_entities 4e01ba46
+PKT Obs minecraft:remove_entities 4e01bb46
+FIGHTHASH area 40756 2e6937cb1017521c
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+ED end_crystal#1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:00 9:8:01
+ED end_crystal#10 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:00 9:8:01
+E ender_dragon#2 minecraft:ender_dragon pos=0.04070375637222057,127.99399999976158,0.043994136120034 delta=0.0386494927987299,-0.005460000374317176,0.04177381152757808 rot=137.22874,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=187.58105 abs=0.0 hurt=9/19 death=0 fx=-
+P Near minecraft:player pos=8.5,1.0,0.5 delta=0.2401404324067809,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=987.1162 abs=0.0 hurt=9/19 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.2 xp=0/0/0.0 sel=0 main=empty
+EV level_event r=64.0 ex=0 type=2001 pos=0,3,-1 data=4927 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,1,0 data=88 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,2,0 data=88 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=-1,3,0 data=4929 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,3,0 data=88 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,3,0 data=4930 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,3,1 data=4928 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,4,0 data=88 global=0
+EV level_event r=64.0 ex=0 type=3000 pos=-92,75,29 data=0 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=1,3,0 data=4930 global=0
+EV level_event r=64.0 ex=0 type=2001 pos=0,3,1 data=4928 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV level_event r=64.0 ex=0 type=3001 pos=0,128,0 data=0 global=0
+EV sound at=8.5,1.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=0.0,128.0,0.0 r=80.0 ex=0 event=minecraft:entity.ender_dragon.hurt source=hostile vol=5.0 pitch=1.0962282
+PKT Near minecraft:set_entity_motion 67bd4600
+PKT Near minecraft:remove_entities 4e01b946
+PKT Near minecraft:remove_entities 4e01b546
+PKT Near minecraft:damage_event 19aa460900bc4600
+PKT Near minecraft:remove_entities 4e01b846
+PKT Near minecraft:remove_entities 4e01ba46
+PKT Near minecraft:damage_event 19c8460900bc4600
+PKT Near minecraft:explode 243fe00000000000004000000000000000c00400000000000040c0000000000550013fbb1385975d4c5c3f80c98b27b12aac3fa44ea43185f9461ec00502453f0000003f80000001483f8000003f8000000101
+PKT Near minecraft:remove_entities 4e01bb46
+PKT Near minecraft:explode 24400c00000000000040000000000000003fe000000000000040c000000000052d013fcd386bc4bbd2173f9cfc93e18625e300000000000000001ec00502453f0000003f80000001483f8000003f8000000101
+PKT Near minecraft:explode 243fe00000000000004000000000000000400c00000000000040c000000000053e013fbb1385975d4c5c3f80c98b27b12aacbfa44ea43185f9461ec00502453f0000003f80000001483f8000003f8000000101
+PKT Near minecraft:explode 24c00400000000000040000000000000003fe000000000000040c0000000000550010000000000000000000000000000000000000000000000001ec00502453f0000003f80000001483f8000003f8000000101
+FIGHT killed=false prev=true stage=- rtime=0 alive=10 dragon=ender_dragon#2 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=2 crystals=4
+FIGHTBAR visible=true progress=0.93790525 players=Near,Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+E ender_dragon#2 minecraft:ender_dragon pos=0.11529255442375744,127.98253999914886,0.13373452385552786 delta=0.07083062372815446,-0.010428600858140015,0.08521879696358081 rot=143.16197,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=187.58105 abs=0.0 hurt=8/18 death=0 fx=-

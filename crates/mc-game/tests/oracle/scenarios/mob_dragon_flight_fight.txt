@@ -1,0 +1,119 @@
+# The dragon's flight rules in the End's fight (`end fight`, a void End): while crystals stand on the pillars the dragon's holding pattern lands one time in alive+3 on its
+# approach and its targets are the nodes of the whole pattern; without crystals the dragon uses only the closest nodes and lands at once. The dragon is watched for 600
+# ticks with three crystals, and then for 300 more after they are destroyed; a survival player in range makes it strafe.
+level void
+end void
+end fight
+dimension the_end
+seed 4242
+# the scan loads 17x17 chunks around the origin; the preloaded 21x21 keep it from generating any (each generated chunk draws a unique seed)
+preload 10
+level_seed 77
+entity_counter 9500
+fight_skip_arena
+command_env
+spawn_player Obs survival 8.5 100 0.5 0 0
+attribute Obs minecraft:max_health 1000
+set Obs health 1000
+tick 1
+entity_seed ender_dragon#1 61
+spawn ca minecraft:end_crystal 42.5 80 0.5 0 0 {ShowBottom:0b}
+spawn cb minecraft:end_crystal -33.5 90 -24.5 0 0 {ShowBottom:0b}
+spawn cc minecraft:end_crystal 12.5 85 39.5 0 0 {ShowBottom:0b}
+tick 99
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+note 600 ticks with three crystals
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+note the crystals are destroyed: no crystal left to count
+cmd execute in minecraft:the_end run kill @e[type=minecraft:end_crystal]
+tick 1
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 20
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1

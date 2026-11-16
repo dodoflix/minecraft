@@ -2282,10 +2282,14 @@ impl Scenario {
                 let (name, only) = arg
                     .split_once(':')
                     .map_or((arg, None), |(n, f)| (n, Some(f)));
-                // `fightpackets:NAME`: only the boss bar and level event packets, the boss bar uuid zeroed
+                // `fightpackets:NAME[:type,..]`: only the boss bar and level event packets (and the listed types), the boss bar uuid zeroed
                 let fight_packets = kind == "fightpackets";
+                let fight_types = format!(
+                    "boss_event,level_event{}",
+                    only.map_or(String::new(), |f| format!(",{f}"))
+                );
                 let only = if fight_packets {
-                    Some("boss_event,level_event")
+                    Some(fight_types.as_str())
                 } else {
                     only
                 };

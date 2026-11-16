@@ -32,3 +32,27 @@ fn scan_adopts_the_dragon_of_a_killed_before_end() {
 fn scan_removes_a_dragon_without_a_portal() {
     check("end_fight_scan_stray_dragon");
 }
+
+/// The whole respawn ritual: the stages, the pillar explosions and rebuilds, the new dragon and the explosions of the four crystals.
+#[test]
+fn respawn_ritual_in_a_void_end() {
+    check("end_fight_respawn");
+}
+
+/// Destroying a crystal of the ritual, or losing all of them, ends the sequence and resets the pillar crystals.
+#[test]
+fn respawn_ritual_aborts() {
+    check("end_fight_respawn_abort");
+}
+
+/// The ritual's beams and level event 3001 tick by tick.
+#[test]
+fn respawn_ritual_beams_and_events() {
+    check("end_fight_respawn_events");
+}
+
+/// The boss bar follows the 192-block rule of the player scan: a player in range is added, one out of range is not, and a teleport swaps them.
+#[test]
+fn boss_bar_follows_the_player_scan() {
+    check("end_fight_bar_players");
+}

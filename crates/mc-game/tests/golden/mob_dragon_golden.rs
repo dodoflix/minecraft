@@ -52,6 +52,18 @@ fn dragon_death() {
     check("mob_dragon_death");
 }
 
+/// In the End's fight the first kill rains 12000 experience and a respawned dragon's kill 500.
+#[test]
+fn dragon_death_in_the_fight() {
+    check("mob_dragon_death_fight");
+}
+
+/// In the End's fight the dragon's flight depends on the crystals standing on the pillars.
+#[test]
+fn dragon_flight_in_the_fight() {
+    check("mob_dragon_flight_fight");
+}
+
 /// A sitting dragon that finds nobody close takes off and charges a player in sight, then holds its pattern again.
 #[test]
 fn dragon_charge() {

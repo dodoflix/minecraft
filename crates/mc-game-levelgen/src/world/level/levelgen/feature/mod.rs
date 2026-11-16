@@ -4,8 +4,6 @@ pub mod end_island_feature;
 
 pub mod end_podium_feature;
 
-pub mod end_spike_feature;
-
 pub mod fossil_feature;
 
 pub mod geode_feature;

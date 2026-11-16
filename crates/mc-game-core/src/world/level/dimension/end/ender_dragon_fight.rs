@@ -1,6 +1,7 @@
 //! `net.minecraft.world.level.dimension.end.EnderDragonFight`.
 
 use super::DragonRespawnStage;
+use crate::advancements::triggers::{CriteriaTriggers, fire_with_entity};
 use crate::impl_saved_data;
 use crate::server::bossevents::{BossBarColor, BossBarOverlay};
 use crate::server::level::server_boss_event::ServerBossEvent;
@@ -537,7 +538,7 @@ fn find_or_create_dragon(level: &mut ServerLevel) {
     }
 }
 
-/// `setRespawnStage(stage)`: the stages call it to move on.
+/// `setRespawnStage(stage)`: the stages call it to move on; `END` ends the ritual with a new dragon.
 pub(super) fn set_respawn_stage(level: &mut ServerLevel, stage: DragonRespawnStage) {
     let f = fight(level);
     assert!(
@@ -545,10 +546,23 @@ pub(super) fn set_respawn_stage(level: &mut ServerLevel, stage: DragonRespawnSta
         "Dragon respawn isn't in progress, can't skip ahead in the animation."
     );
     f.respawn_time = 0;
-    // Not implemented: the last stage (`DragonRespawnStage.END`: the fight ends the ritual and creates the new dragon; the
-    // `SUMMONED_ENTITY` trigger for the players of the bar)
-    f.respawn_stage = Some(stage);
-    f.set_dirty();
+    if stage == DragonRespawnStage::End {
+        f.respawn_stage = None;
+        f.dragon_killed = false;
+        if let Some(dragon) = create_new_dragon(level) {
+            let players: Vec<EntityId> = fight(level).dragon_event().get_players().collect();
+            level.with_entity(dragon, |level, dragon| {
+                for player in players {
+                    fire_with_entity(level, player, &*dragon, |level, player, dragon| {
+                        CriteriaTriggers::SUMMONED_ENTITY.matches(level, player, dragon)
+                    });
+                }
+            });
+        }
+    } else {
+        f.respawn_stage = Some(stage);
+    }
+    fight(level).set_dirty();
 }
 
 /// `blockEntity instanceof TheEndPortalBlockEntity` (the gateway's block entity extends it).

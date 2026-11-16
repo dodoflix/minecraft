@@ -7,8 +7,8 @@ use std::path::Path;
 
 use mc_game::advancements::triggers::TRIGGER_TYPES;
 
-/// Trigger -> the scenario (`tests/oracle/scenarios/NAME.txt`, recorded under `tests/fixtures/entity_oracle/`) in which it
-/// fires, and the advancement criterion of that trigger the fixture records as completed (`ADV PLAYER ADVANCEMENT CRITERION`).
+/// Trigger -> the scenarios (`tests/oracle/scenarios/NAME.txt`, recorded under `tests/fixtures/entity_oracle/`) in which it
+/// fires (one row per scenario, so a trigger may have several), and the advancement criterion of that trigger the fixture records as completed (`ADV PLAYER ADVANCEMENT CRITERION`).
 /// An empty criterion marks a trigger that never completes (`impossible`): the fixture only lists its advancement in an
 /// `update_advancements` packet.
 const OBSERVED: &[(&str, &str, &str, &str)] = &[
@@ -276,6 +276,12 @@ const OBSERVED: &[(&str, &str, &str, &str)] = &[
     ),
     (
         "summoned_entity",
+        "adv_dragon_respawn",
+        "minecraft:end/respawn_dragon",
+        "summoned_dragon",
+    ),
+    (
+        "summoned_entity",
         "adv_summoned_golems",
         "minecraft:adventure/summon_iron_golem",
         "summoned_golem",
@@ -360,10 +366,12 @@ fn every_trigger_is_observed_by_a_scenario_or_listed_as_a_gap() {
         .chain(UNOBSERVED.iter().map(|(t, _)| *t))
         .collect();
     for trigger in &registered {
-        match listed.iter().filter(|t| *t == trigger).count() {
-            0 => problems.push(format!("{trigger}: no scenario and no listed gap")),
-            1 => {}
-            _ => problems.push(format!("{trigger}: listed twice")),
+        let observed = OBSERVED.iter().any(|(t, ..)| t == trigger);
+        let gap = UNOBSERVED.iter().any(|(t, _)| t == trigger);
+        match (observed, gap) {
+            (false, false) => problems.push(format!("{trigger}: no scenario and no listed gap")),
+            (true, true) => problems.push(format!("{trigger}: observed and listed as a gap")),
+            _ => {}
         }
     }
     for trigger in &listed {

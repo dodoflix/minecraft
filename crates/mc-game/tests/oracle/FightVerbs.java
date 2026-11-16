@@ -34,7 +34,7 @@ import net.minecraft.world.level.dimension.end.EnderDragonFight;
  * dump fightfile              `FIGHTFILE HEX`: the data storage is saved and the bytes of the real `ender_dragon_fight.dat` (uncompressed NBT) are printed
  * dump fighthash              `FIGHTHASH area N HASH` (FNV-1a over `x,y,z,state` of every non-air block of x,z -64..63, y 0..159) and `FIGHTHASH gateways N HASH` (the same over x-1..x+1,
  *                             y 72..82, z-1..z+1 of the 20 gateway sites); blocks of chunks that are not loaded count as air
- * dump fightpackets:PLAYER    `packets:PLAYER:boss_event,level_event` with the boss bar uuid zeroed (the bar's uuid comes from the level's random)
+ * dump fightpackets:PLAYER[:type,..]   `packets:PLAYER:boss_event,level_event[,type,..]` with the boss bar uuid zeroed (the bar's uuid comes from the level's random)
  * </pre>
  */
 final class FightVerbs {
@@ -72,6 +72,15 @@ final class FightVerbs {
          }
       }
       return true;
+   }
+
+   /** The packet types `fightpackets:NAME[:type,..]` prints: the boss bar and level events of the fight and the listed ones. */
+   static java.util.Set<String> packetTypes(String extra) {
+      java.util.Set<String> types = new java.util.HashSet<>(List.of("boss_event", "level_event"));
+      if (!extra.isEmpty()) {
+         types.addAll(List.of(extra.split(",")));
+      }
+      return types;
    }
 
    /** The `fightpackets:` filter: only the packets the fight sends, the boss bar uuid zeroed. */

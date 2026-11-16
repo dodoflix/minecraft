@@ -2530,11 +2530,11 @@ public final class EntityOracleDriver {
             case "packets", "advpackets", "fightpackets" -> {
                // packets:NAME[:type,type] -- the optional filter (bare type names, e.g. open_sign_editor) drops the other packets;
                // advpackets: the same, but an `update_advancements` packet prints its content (VanillaLevel.advancementDetail) instead of `-`
-               // fightpackets:NAME: only the boss bar and level event packets, the boss bar uuid zeroed (FightVerbs)
+               // fightpackets:NAME[:type,..]: only the boss bar and level event packets (and the listed types), the boss bar uuid zeroed (FightVerbs)
                String[] pa = arg.split(":", 2);
                boolean fightPackets = kind.equals("fightpackets");
                boolean except = !fightPackets && pa.length > 1 && pa[1].startsWith("!"); // packets:NAME:!type,type = everything but those types
-               Set<String> only = fightPackets ? Set.of("boss_event", "level_event") : pa.length > 1 ? new HashSet<>(Arrays.asList(pa[1].substring(except ? 1 : 0).split(","))) : null;
+               Set<String> only = fightPackets ? FightVerbs.packetTypes(pa.length > 1 ? pa[1] : "") : pa.length > 1 ? new HashSet<>(Arrays.asList(pa[1].substring(except ? 1 : 0).split(","))) : null;
                VanillaLevel.FakePlayer p = v.player(pa[0]);
                for (VanillaLevel.Sent s : debugOrder(chunkOrder(p.drain()))) {
                   if (only == null || only.contains(s.type().replace("minecraft:", "")) != except) {

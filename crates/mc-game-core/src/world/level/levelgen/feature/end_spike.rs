@@ -1,5 +1,5 @@
 //! `EndSpikeFeature.EndSpike` and `getSpikesForLevel`: where the ten obsidian pillars of the End stand (the feature that
-//! places them is `end_spike` in the levelgen crate; the dragon fight reads the same list to count the crystals on them).
+//! places them is `end_spike_feature`; the dragon fight reads the same list to count the crystals on them).
 
 use super::super::world_gen_level::WorldGenLevel;
 use mc_core::math::mth;

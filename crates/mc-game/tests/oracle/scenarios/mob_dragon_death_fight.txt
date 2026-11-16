@@ -1,0 +1,81 @@
+# The dragon's death in the End's fight (`end fight`, a void End): the first kill rains 12000 points of experience and ends the fight's dragon (exit portal, egg, bar hidden); a respawn
+# ritual brings a new dragon whose kill rains 500 because the dragon was killed before. A killing blow on a flying dragon leaves it at one health in the dying phase over the podium;
+# its death animation lasts 200 ticks, from tick 150 every fifth tick a part of the experience falls from its place; a player near the podium collects the orbs
+# (the ones left on the exit portal are not dumped: the portal's travel of items and orbs is not replayed).
+level void
+end void
+end fight
+dimension the_end
+seed 4242
+# the scan loads 17x17 chunks around the origin; the preloaded 21x21 keep it from generating any (each generated chunk draws a unique seed)
+preload 10
+level_seed 77
+entity_counter 9600
+fight_skip_arena
+command_env
+fill 8 0 -2 12 0 2 minecraft:end_stone
+spawn_player Obs survival 10.5 1 0.5 0 0
+tick 1
+entity_seed ender_dragon#1 51
+nbt ender_dragon#1 {DragonPhase:0}
+snap ender_dragon#1 4.5 12 1.5 0 0
+tick 2
+note the killing blow (first kill)
+hurt ender_dragon#1 player_attack 1000 by=Obs
+dump fight fightbar xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 30
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 100
+dump fight xentity:ender_dragon#1
+tick 50
+dump fight xentity:ender_dragon#1
+tick 5
+dump fight xentity:ender_dragon#1
+tick 5
+dump fight xentity:ender_dragon#1
+tick 5
+dump fight xentity:ender_dragon#1
+tick 5
+dump fight xentity:ender_dragon#1
+tick 5
+dump fight fightbar xentity:ender_dragon#1
+tick 5
+dump fight fightbar player:Obs
+note the experience of the first kill: 12000 in all, in orbs that fly to the player within 8 blocks
+tick 60
+dump fight fightbar player:Obs
+note a second dragon from the respawn ritual
+spawn c1 minecraft:end_crystal 3.5 2 0.5 0 0 {ShowBottom:0b}
+spawn c2 minecraft:end_crystal -2.5 2 0.5 0 0 {ShowBottom:0b}
+spawn c3 minecraft:end_crystal 0.5 2 3.5 0 0 {ShowBottom:0b}
+spawn c4 minecraft:end_crystal 0.5 2 -2.5 0 0 {ShowBottom:0b}
+set Obs xp_level 0
+cmd kill @e[type=minecraft:experience_orb]
+fight_try_respawn
+tick 604
+dump fight fightbar
+entity_seed ender_dragon#2 52
+nbt ender_dragon#2 {DragonPhase:0}
+snap ender_dragon#2 4.5 12 1.5 0 0
+tick 2
+hurt ender_dragon#2 player_attack 1000 by=Obs
+dump fight fightbar xentity:ender_dragon#2 nbt:ender_dragon#2
+tick 30
+dump fight xentity:ender_dragon#2
+tick 150
+dump fight xentity:ender_dragon#2
+tick 5
+dump fight xentity:ender_dragon#2
+tick 5
+dump fight xentity:ender_dragon#2
+tick 5
+dump fight xentity:ender_dragon#2
+tick 5
+dump fight xentity:ender_dragon#2
+tick 5
+dump fight xentity:ender_dragon#2
+tick 5
+dump fight fightbar player:Obs
+note the experience of the second kill: 500 in all
+tick 60
+dump fight fightbar player:Obs

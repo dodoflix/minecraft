@@ -1,6 +1,6 @@
 //! The dragon fight verbs and dumps of the block replay (grammar and recorded twin: `tests/oracle/FightVerbs.java`): `end fight` (the End level
 //! runs an `EnderDragonFight`), `fight_skip_arena`, `fight_try_respawn`, `fight_remove_gateways`, `dragon_killed DRAGON`, dumps `fight`, `fightbar`,
-//! `fightfile`, `fighthash`, `fightpackets:PLAYER`.
+//! `fightfile`, `fighthash`, `fightpackets:PLAYER[:type,..]`.
 use super::{Scenario, state_string};
 use mc_core::pos::BlockPos;
 use mc_game::server::level::ServerLevel;
@@ -109,14 +109,18 @@ impl Scenario {
     /// `FIGHT killed= prev= stage= rtime= alive= dragon= portal= gateways= scan= seen= pscan= cscan= crystals=`.
     fn fight_state(&mut self) -> String {
         let uuid = fight(self.level()).dragon_uuid();
-        // the scenario name of the entity with the fight's dragon uuid, `gone` for a uuid no entity has
+        // the scenario name of the entity (removed ones too) with the fight's dragon uuid, `gone` for a uuid no entity has
         let dragon = match uuid {
             None => "-".to_string(),
             Some(uuid) => {
                 let refs = self.actors.refs.clone();
                 let level = self.level();
                 refs.iter()
-                    .find(|(_, id)| level.get_entity(*id).is_some_and(|e| e.uuid() == uuid))
+                    .find(|(_, id)| {
+                        level
+                            .get_entity_or_removed(*id)
+                            .is_some_and(|e| e.uuid() == uuid)
+                    })
                     .map_or("gone".to_string(), |(name, _)| name.clone())
             }
         };

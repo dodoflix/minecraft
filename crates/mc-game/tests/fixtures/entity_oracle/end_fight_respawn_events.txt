@@ -1,0 +1,1849 @@
+T 3
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 4
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=1 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 5
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=2 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 6
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=3 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 7
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=4 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 8
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=5 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 9
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=6 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 10
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=7 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 11
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=8 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 12
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=9 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 13
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=10 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 14
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=11 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 15
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=12 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 16
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=13 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 17
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=14 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 18
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=15 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 19
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=16 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 20
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=17 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 21
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=18 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 22
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=19 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 23
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=20 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 24
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=21 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 25
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=22 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 26
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=23 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 27
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=24 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 28
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=25 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 29
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=26 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 30
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=27 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 31
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=28 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 32
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=29 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 33
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=30 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 34
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=31 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 35
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=32 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 36
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=33 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 37
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=34 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 38
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=35 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 39
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=36 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 40
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=37 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 41
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=38 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 42
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=39 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 43
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=40 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 44
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=41 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 45
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=42 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 46
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=43 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 47
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=44 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 48
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=45 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 49
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=46 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 50
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=47 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 51
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=48 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 52
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=49 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 53
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=50 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 54
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=51 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 55
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=52 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 56
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=53 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 57
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=54 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 58
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=55 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 59
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=56 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 60
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=57 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 61
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=58 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 62
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=59 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 63
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=60 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 64
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=61 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 65
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=62 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 66
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=63 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 67
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=64 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 68
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=65 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 69
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=66 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 70
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=67 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 71
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=68 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 72
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=69 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 73
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=70 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 74
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=71 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 75
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=72 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 76
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=73 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 77
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=74 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 78
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=75 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 79
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=76 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 80
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=77 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 81
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=78 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 82
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=79 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 83
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=80 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 84
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=81 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 85
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=82 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 86
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=83 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 87
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=84 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 88
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=85 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 89
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=86 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 90
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=87 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 91
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=88 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 92
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=89 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 93
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=90 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 94
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=91 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 95
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=92 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 96
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=93 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 97
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=94 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 98
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=95 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 99
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=96 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 100
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=97 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 101
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=98 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 102
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=99 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 103
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=100 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 104
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 105
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=1 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 106
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=2 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 107
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=3 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 108
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=4 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 109
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=5 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 110
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=6 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 111
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=7 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 112
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=8 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 113
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=9 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 114
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=10 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 115
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=11 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 116
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=12 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 117
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=13 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 118
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=14 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 119
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=15 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 120
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=16 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 121
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=17 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 122
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=18 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 123
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=19 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 124
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=20 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 125
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=21 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 126
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=22 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 127
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=23 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 128
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=24 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 129
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=25 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 130
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=26 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 131
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=27 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 132
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=28 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 133
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=29 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 134
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=30 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 135
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=31 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 136
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=32 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 137
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=33 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 138
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=34 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 139
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=35 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 140
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=36 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 141
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=37 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 142
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=38 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 143
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=39 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 144
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=40 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:0100000a800000005c 9:8:00
+T 145
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=41 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 146
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=42 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 147
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=43 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 148
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=44 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 149
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=45 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 150
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=46 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 151
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=47 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 152
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=48 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 153
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=49 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 154
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=50 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 155
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=51 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 156
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=52 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 157
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=53 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 158
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=54 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 159
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=55 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 160
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=56 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 161
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=57 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 162
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=58 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 163
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=59 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 164
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=60 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 165
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=61 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 166
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=62 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 167
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=63 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 168
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=64 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 169
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=65 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 170
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=66 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 171
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=67 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 172
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=68 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 173
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=69 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 174
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=70 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 175
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=71 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 176
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=72 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 177
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=73 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 178
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=74 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 179
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=75 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 180
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=76 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 181
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=77 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 182
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=78 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 183
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=79 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 184
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=80 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01000008400001805f 9:8:00
+T 185
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=81 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 186
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=82 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 187
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=83 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 188
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=84 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 189
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=85 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 190
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=86 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 191
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=87 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 192
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=88 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 193
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=89 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 194
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=90 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 195
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=91 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 196
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=92 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 197
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=93 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 198
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=94 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 199
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=95 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 200
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=96 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 201
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=97 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 202
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=98 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 203
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=99 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 204
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=100 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 205
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=101 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 206
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=102 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 207
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=103 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 208
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=104 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 209
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=105 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 210
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=106 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 211
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=107 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 212
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=108 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 213
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=109 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 214
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=110 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 215
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=111 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 216
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=112 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 217
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=113 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 218
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=114 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 219
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=115 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 220
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=116 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 221
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=117 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 222
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=118 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 223
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=119 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 224
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=120 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000030000027059 9:8:00
+T 225
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=121 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 226
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=122 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 227
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=123 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 228
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=124 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 229
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=125 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 230
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=126 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 231
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=127 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 232
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=128 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 233
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=129 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 234
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=130 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 235
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=131 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 236
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=132 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 237
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=133 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 238
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=134 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 239
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=135 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 240
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=136 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 241
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=137 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 242
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=138 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 243
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=139 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 244
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=140 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 245
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=141 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 246
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=142 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 247
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=143 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 248
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=144 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 249
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=145 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 250
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=146 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 251
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=147 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 252
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=148 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 253
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=149 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 254
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=150 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 255
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=151 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 256
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=152 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 257
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=153 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 258
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=154 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 259
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=155 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 260
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=156 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 261
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=157 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 262
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=158 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 263
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=159 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 264
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=160 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcc000027068 9:8:00
+T 265
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=161 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 266
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=162 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 267
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=163 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 268
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=164 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 269
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=165 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 270
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=166 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 271
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=167 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 272
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=168 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 273
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=169 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 274
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=170 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 275
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=171 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 276
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=172 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 277
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=173 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 278
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=174 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 279
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=175 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 280
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=176 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 281
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=177 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 282
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=178 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 283
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=179 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 284
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=180 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 285
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=181 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 286
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=182 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 287
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=183 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 288
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=184 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 289
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=185 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 290
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=186 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 291
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=187 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 292
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=188 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 293
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=189 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 294
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=190 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 295
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=191 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 296
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=192 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 297
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=193 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 298
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=194 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 299
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=195 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 300
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=196 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 301
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=197 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 302
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=198 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 303
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=199 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 304
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=200 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7800001804d 9:8:00
+T 305
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=201 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 306
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=202 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 307
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=203 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 308
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=204 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 309
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=205 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 310
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=206 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 311
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=207 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 312
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=208 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 313
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=209 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 314
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=210 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 315
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=211 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 316
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=212 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 317
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=213 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 318
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=214 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 319
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=215 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 320
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=216 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 321
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=217 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 322
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=218 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 323
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=219 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 324
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=220 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 325
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=221 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 326
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=222 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 327
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=223 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 328
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=224 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 329
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=225 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 330
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=226 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 331
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=227 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 332
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=228 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 333
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=229 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 334
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=230 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 335
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=231 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 336
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=232 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 337
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=233 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 338
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=234 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 339
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=235 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 340
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=236 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 341
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=237 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 342
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=238 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 343
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=239 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 344
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=240 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff5bffffff065 9:8:00
+T 345
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=241 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 346
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=242 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 347
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=243 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 348
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=244 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 349
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=245 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 350
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=246 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 351
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=247 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 352
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=248 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 353
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=249 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 354
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=250 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 355
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=251 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 356
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=252 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 357
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=253 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 358
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=254 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 359
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=255 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 360
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=256 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 361
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=257 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 362
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=258 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 363
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=259 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 364
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=260 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 365
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=261 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 366
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=262 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 367
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=263 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 368
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=264 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 369
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=265 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 370
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=266 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 371
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=267 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 372
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=268 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 373
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=269 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 374
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=270 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 375
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=271 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 376
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=272 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 377
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=273 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 378
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=274 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 379
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=275 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 380
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=276 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 381
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=277 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 382
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=278 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 383
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=279 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 384
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=280 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffff7bffffe7056 9:8:00
+T 385
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=281 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 386
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=282 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 387
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=283 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 388
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=284 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 389
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=285 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 390
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=286 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 391
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=287 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 392
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=288 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 393
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=289 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 394
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=290 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 395
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=291 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 396
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=292 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 397
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=293 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 398
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=294 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 399
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=295 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 400
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=296 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 401
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=297 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 402
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=298 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 403
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=299 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 404
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=300 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 405
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=301 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 406
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=302 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 407
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=303 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 408
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=304 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 409
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=305 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 410
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=306 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 411
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=307 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 412
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=308 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 413
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=309 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 414
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=310 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 415
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=311 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 416
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=312 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 417
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=313 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 418
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=314 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 419
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=315 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 420
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=316 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 421
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=317 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 422
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=318 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 423
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=319 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 424
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=320 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:01fffffcfffffd8053 9:8:00
+T 425
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=321 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 426
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=322 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 427
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=323 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 428
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=324 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 429
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=325 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 430
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=326 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 431
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=327 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 432
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=328 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 433
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=329 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 434
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=330 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 435
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=331 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 436
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=332 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 437
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=333 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 438
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=334 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 439
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=335 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 440
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=336 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 441
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=337 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 442
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=338 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 443
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=339 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 444
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=340 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 445
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=341 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 446
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=342 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 447
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=343 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 448
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=344 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 449
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=345 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 450
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=346 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 451
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=347 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 452
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=348 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 453
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=349 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 454
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=350 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 455
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=351 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 456
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=352 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 457
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=353 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 458
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=354 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 459
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=355 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 460
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=356 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 461
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=357 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 462
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=358 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 463
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=359 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 464
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=360 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000033ffffd8050 9:8:00
+T 465
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=361 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 466
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=362 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 467
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=363 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 468
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=364 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 469
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=365 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 470
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=366 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 471
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=367 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 472
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=368 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 473
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=369 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 474
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=370 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 475
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=371 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 476
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=372 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 477
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=373 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 478
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=374 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 479
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=375 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 480
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=376 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 481
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=377 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 482
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=378 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 483
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=379 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 484
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=380 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 485
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=381 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 486
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=382 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 487
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=383 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 488
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=384 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 489
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=385 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 490
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=386 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 491
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=387 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 492
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=388 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 493
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=389 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 494
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=390 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 495
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=391 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 496
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=392 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 497
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=393 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 498
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=394 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 499
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=395 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 500
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=396 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 501
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=397 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 502
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=398 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 503
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=399 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 504
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=400 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 505
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000087ffffe7062 9:8:00
+T 506
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=1 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 507
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=2 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 508
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=3 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 509
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=4 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 510
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=5 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 511
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=6 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 512
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=7 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 513
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=8 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 514
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=9 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 515
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=10 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 516
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=11 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 517
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=12 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 518
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=13 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 519
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=14 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 520
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=15 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 521
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=16 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 522
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=17 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 523
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=18 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 524
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=19 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 525
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=20 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 526
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=21 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 527
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=22 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 528
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=23 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 529
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=24 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 530
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=25 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 531
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=26 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 532
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=27 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 533
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=28 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 534
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=29 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 535
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=30 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 536
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=31 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 537
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=32 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 538
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=33 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 539
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=34 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 540
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=35 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 541
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=36 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 542
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=37 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 543
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=38 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 544
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=39 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 545
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=40 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 546
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=41 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 547
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=42 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 548
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=43 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 549
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=44 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 550
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=45 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 551
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=46 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 552
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=47 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 553
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=48 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 554
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=49 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 555
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=50 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 556
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=51 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 557
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=52 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 558
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=53 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 559
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=54 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 560
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=55 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 561
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=56 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 562
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=57 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 563
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=58 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 564
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=59 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 565
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=60 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 566
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=61 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 567
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=62 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 568
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=63 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 569
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=64 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 570
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=65 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 571
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=66 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 572
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=67 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 573
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=68 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 574
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=69 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 575
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=70 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 576
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=71 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 577
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=72 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 578
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=73 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 579
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=74 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 580
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=75 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 581
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=76 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 582
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=77 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 583
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=78 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 584
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=79 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 585
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=80 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 586
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=81 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 587
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=82 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=6 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 588
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=83 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=7 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 589
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=84 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=8 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 590
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=85 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=9 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 591
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=86 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=10 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 592
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=87 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=11 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 593
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=88 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 594
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=89 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 595
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=90 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=14 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 596
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=91 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 597
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=92 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=16 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 598
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=93 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 599
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=94 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 600
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=95 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 601
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=96 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=0 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 602
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=97 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=1 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 603
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=98 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=2 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 604
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=99 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=3 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 605
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=100 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:00
+T 606
+FIGHT killed=false prev=true stage=- rtime=0 alive=10 dragon=ender_dragon#2 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:00 9:8:00
+FIGHT killed=false prev=true stage=- rtime=0 alive=10 dragon=ender_dragon#2 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+FIGHTBAR visible=false progress=0.93790525 players=Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+FIGHTHASH area 40731 d4eb98ff7b143d53
+FIGHTHASH gateways 13 b3951cd7a7c13d7d

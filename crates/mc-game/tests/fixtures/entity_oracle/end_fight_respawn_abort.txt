@@ -1,0 +1,49 @@
+FIGHT killed=true prev=true stage=PREPARING_TO_SUMMON_PILLARS rtime=30 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=12 cscan=1 crystals=4
+FIGHTBAR visible=false progress=0.0 players=Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+FIGHTHASH area 66 b1880b24e76ce877
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+# a crystal of the ritual is destroyed: the sequence aborts and the active portal is built again
+HURT c1 generic 5 -> true
+FIGHT killed=true prev=true stage=- rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=13 cscan=0 crystals=4
+FIGHTBAR visible=false progress=0.0 players=Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+PKT Obs minecraft:remove_entities 4e019b47
+PKT Obs minecraft:remove_entities 4e019c47
+PKT Obs minecraft:remove_entities 4e019847
+PKT Obs minecraft:remove_entities 4e019d47
+PKT Obs minecraft:remove_entities 4e019e47
+FIGHTHASH area 78 ca5b0e2d6c866aa5
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+FIGHT killed=true prev=true stage=- rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=0 crystals=4
+FIGHTHASH area 78 ca5b0e2d6c866aa5
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+# a second ritual runs into the pillars and rebuilds the first one; then its crystals vanish
+FIGHT killed=true prev=true stage=START rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=15 cscan=0 crystals=4
+FIGHTHASH area 61 92d0030376f36b42
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+FIGHT killed=true prev=true stage=SUMMONING_PILLARS rtime=40 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=17 cscan=0 crystals=4
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:remove_entities 4e01a347
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:level_event 2f00000bb900000000000000800000000000
+PKT Obs minecraft:explode 2440454000000000004056c000000000003fe000000000000040a0000000000779001dc00502453f0000003f80000001483f8000003f8000000101
+FIGHTHASH area 3434 38fb0d195164d348
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+ED end_crystal#1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:010000000000000080 9:8:01
+FIGHT killed=true prev=true stage=- rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=18 cscan=0 crystals=4
+FIGHTBAR visible=false progress=0.0 players=Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+PKT Obs minecraft:remove_entities 4e01a747
+PKT Obs minecraft:remove_entities 4e01a847
+PKT Obs minecraft:remove_entities 4e01a947
+PKT Obs minecraft:remove_entities 4e01aa47
+FIGHTHASH area 3450 4bbbe7dabd152634
+FIGHTHASH gateways 13 b3951cd7a7c13d7d
+ED end_crystal#1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:00 9:8:01
+FIGHT killed=true prev=true stage=- rtime=0 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=19 cscan=0 crystals=4
+FIGHTHASH area 3450 4bbbe7dabd152634
+FIGHTHASH gateways 13 b3951cd7a7c13d7d

@@ -1,0 +1,76 @@
+# The respawn ritual of the End's dragon fight (`end fight`, a void End): four end crystals around the exit portal and `tryRespawn` start it. The stages: the crystals beam at
+# the podium and level event 3001 plays while it prepares (100 ticks), each of the ten pillars gets a beam for 39 ticks and is then blown up (its 21x21x21 box
+# cleared, a power 5 explosion, the pillar built again with an invulnerable crystal beaming at the podium), the crystals beam at the podium again for 100 ticks, and
+# the ritual ends: a new dragon at a random yaw, the four crystals gone in power 6 explosions (each still explodes after an earlier blast removed it; a survival player near them is hurt).
+level void
+end void
+end fight
+dimension the_end
+seed 4242
+# the scan loads 17x17 chunks around the origin; the preloaded 21x21 keep it from generating any (each generated chunk draws a unique seed)
+preload 10
+level_seed 77
+entity_counter 9000
+fight_skip_arena
+fill 6 0 -2 10 0 2 minecraft:end_stone
+spawn_player Obs creative 0.5 100 0.5 0 0
+spawn_player Near survival 8.5 1 0.5 0 0
+attribute Near minecraft:max_health 1000
+set Near health 1000
+tick 1
+note the first dragon is killed and gone, the portal is active
+dragon_killed ender_dragon#1
+kill ender_dragon#1
+tick 1
+dump fight fightbar fighthash packets:Obs:none
+spawn c1 minecraft:end_crystal 3.5 2 0.5 0 0 {ShowBottom:0b}
+spawn c2 minecraft:end_crystal -2.5 2 0.5 0 0 {ShowBottom:0b}
+spawn c3 minecraft:end_crystal 0.5 2 3.5 0 0 {ShowBottom:0b}
+spawn c4 minecraft:end_crystal 0.5 2 -2.5 0 0 {ShowBottom:0b}
+fight_try_respawn
+note start: the exit portal is replaced by the inactive podium and the stage waits for its first tick
+dump fight fighthash
+tick 1
+dump fight fightpackets:Obs:explode,remove_entities xentity:c1
+note preparing: level event 3001 at ticks 0, 50, 51, 52 and from 95
+tick 100
+dump fight fightpackets:Obs:explode,remove_entities xentity:c1
+tick 1
+note the pillars: per pillar 40 ticks (beam at the start, rebuilt at tick 39)
+tick 1
+dump fight fightpackets:Obs:explode,remove_entities fighthash
+tick 39
+dump fight fightpackets:Obs:explode,remove_entities fighthash edata:end_crystal#1
+tick 40
+dump fight fightpackets:Obs:explode,remove_entities fighthash
+tick 40
+dump fight fightpackets:Obs:explode,remove_entities fighthash
+tick 40
+dump fight fightpackets:Obs:explode,remove_entities fighthash
+tick 40
+dump fight fightpackets:Obs:explode,remove_entities fighthash
+tick 40
+dump fight fightpackets:Obs:explode,remove_entities fighthash
+tick 40
+dump fight fightpackets:Obs:explode,remove_entities fighthash
+tick 40
+dump fight fightpackets:Obs:explode,remove_entities fighthash
+tick 40
+dump fight fightpackets:Obs:explode,remove_entities fighthash
+tick 40
+dump fight fightpackets:Obs:explode,remove_entities fighthash
+note after the last pillar the stage moves on at the next beam start
+tick 1
+dump fight fightpackets:Obs:explode,remove_entities xentity:c1
+tick 5
+dump fight fightpackets:Obs:explode,remove_entities
+tick 75
+dump fight fightpackets:Obs:explode,remove_entities
+tick 20
+dump fight fightpackets:Obs:explode,remove_entities
+note the ritual ends: new dragon, crystals explode and are removed; Near stands within the blasts and Obs is too far to hear them
+dump packets:Near:none
+tick 1
+dump fight fightbar fightpackets:Obs:explode,remove_entities fighthash edata:end_crystal#1 edata:end_crystal#10 entity:ender_dragon#2 player:Near events packets:Near:explode,damage_event,remove_entities,set_entity_motion
+tick 1
+dump fight fightbar entity:ender_dragon#2

@@ -1,0 +1,11 @@
+FIGHTBAR visible=true progress=1.0 players=In,Leaver name=Ender Dragon color=pink overlay=progress music=true fog=true
+PKT In minecraft:boss_event 0900000000000000000000000000000000000a0800097472616e736c617465001d656e746974792e6d696e6563726166742e656e6465725f647261676f6e003f800000000006
+PKT Leaver minecraft:boss_event 0900000000000000000000000000000000000a0800097472616e736c617465001d656e746974792e6d696e6563726166742e656e6465725f647261676f6e003f800000000006
+# the second player teleports in, the third one out
+FIGHTBAR visible=true progress=1.0 players=In,Leaver name=Ender Dragon color=pink overlay=progress music=true fog=true
+P Out minecraft:player pos=5.5,100.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Leaver minecraft:player pos=250.5,100.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+FIGHTBAR visible=true progress=1.0 players=In,Out name=Ender Dragon color=pink overlay=progress music=true fog=true
+PKT Out minecraft:boss_event 0900000000000000000000000000000000000a0800097472616e736c617465001d656e746974792e6d696e6563726166742e656e6465725f647261676f6e003f800000000006
+PKT Leaver minecraft:boss_event 090000000000000000000000000000000001
+FIGHTBAR visible=true progress=1.0 players=In,Out name=Ender Dragon color=pink overlay=progress music=true fog=true

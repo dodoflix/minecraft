@@ -1,0 +1,29 @@
+# The respawn ritual awards `summoned_entity` (advancement `end/respawn_dragon`, the new dragon) to the players of the fight's boss bar when it ends: the observer within 192
+# blocks of the podium's height gets it, a player further away gets nothing, and nobody has it before the last tick.
+level void
+end void
+end fight
+dimension the_end
+seed 4242
+# the scan loads 17x17 chunks around the origin; the preloaded 21x21 keep it from generating any (each generated chunk draws a unique seed)
+preload 13
+level_seed 77
+entity_counter 9200
+fight_skip_arena
+spawn_player Obs creative 0.5 100 0.5 0 0
+spawn_player Away creative 195.5 128 0.5 0 0
+tick 1
+dragon_killed ender_dragon#1
+kill ender_dragon#1
+tick 1
+spawn c1 minecraft:end_crystal 3.5 2 0.5 0 0 {ShowBottom:0b}
+spawn c2 minecraft:end_crystal -2.5 2 0.5 0 0 {ShowBottom:0b}
+spawn c3 minecraft:end_crystal 0.5 2 3.5 0 0 {ShowBottom:0b}
+spawn c4 minecraft:end_crystal 0.5 2 -2.5 0 0 {ShowBottom:0b}
+fight_try_respawn
+note the ritual runs 604 ticks; one tick before its end nobody has the advancement
+tick 603
+dump fight fightbar advancements:Obs advancements:Away
+tick 1
+note the dragon is summoned: the bar's player gets it, the far player does not
+dump fight fightbar advancements:Obs advancements:Away

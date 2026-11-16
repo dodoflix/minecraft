@@ -1,0 +1,28 @@
+# The respawn ritual's beams and level events tick by tick (a void End, one crystal watched): the beam target of the crystals is the podium while the ritual prepares,
+# level event 3001 plays at ticks 0, 50, 51, 52 and from 95 of the preparation, each pillar gets the beam target above its crystal (set at the first tick of its 40) and the
+# podium again when the ritual summons the dragon, level event 3001 plays in its first five and last twenty ticks; the stage and its counter come with every tick.
+level void
+end void
+end fight
+dimension the_end
+seed 4242
+# the scan loads 17x17 chunks around the origin; the preloaded 21x21 keep it from generating any (each generated chunk draws a unique seed)
+preload 10
+level_seed 77
+entity_counter 9300
+fight_skip_arena
+spawn_player Obs creative 0.5 100 0.5 0 0
+tick 1
+dragon_killed ender_dragon#1
+kill ender_dragon#1
+tick 1
+spawn c1 minecraft:end_crystal 3.5 2 0.5 0 0 {ShowBottom:0b}
+spawn c2 minecraft:end_crystal -2.5 2 0.5 0 0 {ShowBottom:0b}
+spawn c3 minecraft:end_crystal 0.5 2 3.5 0 0 {ShowBottom:0b}
+spawn c4 minecraft:end_crystal 0.5 2 -2.5 0 0 {ShowBottom:0b}
+dump packets:Obs:none
+fight_try_respawn
+watch fight fightpackets:Obs edata:c1
+tick 604
+watch off
+dump fight fightbar fighthash

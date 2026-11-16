@@ -1,0 +1,48 @@
+# The respawn ritual of the End's dragon fight stops: an end crystal of the ritual destroyed while it prepares ends the sequence (the pillar crystals get their beam and
+# vulnerability back, the active exit portal is rebuilt), and so does a ritual whose crystals have all vanished (no destroy callback) after the pillars started: the
+# crystal of the pillar that was rebuilt is vulnerable again and beams at nothing.
+level void
+end void
+end fight
+dimension the_end
+seed 4242
+# the scan loads 17x17 chunks around the origin; the preloaded 21x21 keep it from generating any (each generated chunk draws a unique seed)
+preload 10
+level_seed 77
+entity_counter 9100
+fight_skip_arena
+spawn_player Obs creative 0.5 100 0.5 0 0
+tick 1
+dragon_killed ender_dragon#1
+kill ender_dragon#1
+tick 1
+spawn c1 minecraft:end_crystal 3.5 2 0.5 0 0 {ShowBottom:0b}
+spawn c2 minecraft:end_crystal -2.5 2 0.5 0 0 {ShowBottom:0b}
+spawn c3 minecraft:end_crystal 0.5 2 3.5 0 0 {ShowBottom:0b}
+spawn c4 minecraft:end_crystal 0.5 2 -2.5 0 0 {ShowBottom:0b}
+fight_try_respawn
+tick 31
+dump fight fightbar fighthash packets:Obs:none
+note a crystal of the ritual is destroyed: the sequence aborts and the active portal is built again
+hurt c1 generic 5
+tick 1
+dump fight fightbar fightpackets:Obs:explode,remove_entities fighthash
+tick 2
+dump fight fightpackets:Obs:explode,remove_entities fighthash
+note a second ritual runs into the pillars and rebuilds the first one; then its crystals vanish
+spawn r1 minecraft:end_crystal 3.5 2 0.5 0 0 {ShowBottom:0b}
+spawn r2 minecraft:end_crystal -2.5 2 0.5 0 0 {ShowBottom:0b}
+spawn r3 minecraft:end_crystal 0.5 2 3.5 0 0 {ShowBottom:0b}
+spawn r4 minecraft:end_crystal 0.5 2 -2.5 0 0 {ShowBottom:0b}
+fight_try_respawn
+dump fight fighthash
+tick 142
+dump fight fightpackets:Obs:explode,remove_entities fighthash edata:end_crystal#1
+kill r1
+kill r2
+kill r3
+kill r4
+tick 1
+dump fight fightbar fightpackets:Obs:explode,remove_entities fighthash edata:end_crystal#1
+tick 1
+dump fight fighthash

@@ -48,6 +48,15 @@ impl ServerLevel {
         let Some(feature) = self.lookup_feature(id) else {
             return false;
         };
+        self.place_feature_value_with_unique_seed(feature.as_ref(), pos)
+    }
+
+    /// `feature.place(level, generator, RandomSource.create(), pos)` for a feature value.
+    pub fn place_feature_value_with_unique_seed(
+        &mut self,
+        feature: &dyn Feature,
+        pos: BlockPos,
+    ) -> bool {
         let env = self.gen_env().clone();
         let mut random = mc_core::random::create_new();
         if !WorldGenLevel::ensure_can_write(self, pos) {

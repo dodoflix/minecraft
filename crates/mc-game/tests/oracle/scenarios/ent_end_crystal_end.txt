@@ -1,0 +1,46 @@
+# End crystals in the dragon's End (`end fight`, a void End): a crystal standing in air lights the air block it stands in (only in a level with a fight); the crystals on the
+# pillars' columns are what the fight counts (every 100 ticks, and at once when one is destroyed); destroying one by a player's hit removes it, explodes it, recounts and tells the
+# dragon, which reacts to a player's hit (strafing him) and heals nothing it cannot reach.
+level void
+end void
+end fight
+dimension the_end
+seed 4242
+# the scan loads 17x17 chunks around the origin; the preloaded 21x21 keep it from generating any (each generated chunk draws a unique seed)
+preload 10
+level_seed 77
+entity_counter 9400
+fight_skip_arena
+command_env
+spawn_player Obs survival 8.5 100 0.5 0 0
+attribute Obs minecraft:max_health 1000
+set Obs health 1000
+block -34 89 -25 minecraft:obsidian
+tick 1
+entity_seed ender_dragon#1 7
+spawn ca minecraft:end_crystal 42.5 80 0.5 0 0 {ShowBottom:0b}
+spawn cb minecraft:end_crystal -33.5 90 -24.5 0 0 {ShowBottom:0b}
+spawn cc minecraft:end_crystal 12.5 85 39.5 0 0 {ShowBottom:0b}
+spawn cd minecraft:end_crystal 100.5 85 39.5 0 0 {ShowBottom:0b}
+note a crystal ignites the air block it stands in at its first tick, in mid-air the fire does not survive
+dump blocks:42,80,0,42,80,0 blocks:-34,90,-25,-34,90,-25
+tick 1
+dump fight blocks:42,80,0,42,80,0 blocks:-34,90,-25,-34,90,-25 blocks:100,85,39,100,85,39
+tick 2
+dump fight blocks:42,80,0,42,80,0
+note the count at 100 ticks: three crystals stand in the columns of the pillars, the one far from every pillar is not counted
+tick 100
+dump fight xentity:ender_dragon#1
+note a hit of the player destroys a crystal: removed first, then the blast, the count drops at once, the dragon hears of it
+hurt ca player_attack 1 by=Obs direct=Obs
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1 fightpackets:Obs:explode,remove_entities,sound,damage_event blocks:42,80,0,42,80,0
+tick 1
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1 fightpackets:Obs:explode,remove_entities,sound,damage_event blocks:42,80,0,42,80,0
+tick 10
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+note a crystal killed by a command counts as destroyed too (`kill`: the fight is told, the recount sees it gone)
+cmd execute in minecraft:the_end run kill @e[type=minecraft:end_crystal,limit=1,sort=nearest]
+tick 1
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+tick 5
+dump fight xentity:ender_dragon#1

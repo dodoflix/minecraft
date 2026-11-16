@@ -1,18 +1,19 @@
 //! `EndSpikeFeature` (`end_spike`): the obsidian pillars of the End with their end crystals.
 
-use mc_core::math::mth;
-use mc_core::pos::BlockPos;
-use mc_core::random::RandomSource;
-use mc_data::block::Block;
-use mc_data::props;
-use mc_game_core::world::level::levelgen::GenEnv;
-use mc_game_core::world::level::levelgen::WorldGenLevel;
-use mc_game_core::world::level::levelgen::codec::{
+use super::end_spike::{EndSpike, get_spikes_for_level};
+use super::{FEATURE_TYPES, Feature, set_block};
+use crate::world::level::levelgen::GenEnv;
+use crate::world::level::levelgen::WorldGenLevel;
+use crate::world::level::levelgen::codec::{
     Fields, LoadResult, TypeEntry, parse_block_pos, parse_bool, parse_int, parse_list,
 };
-use mc_game_core::world::level::levelgen::feature::end_spike::{EndSpike, get_spikes_for_level};
-use mc_game_core::world::level::levelgen::feature::{FEATURE_TYPES, Feature, set_block};
-use mc_game_core::world::level::levelgen::registries::DecodeCtx;
+use crate::world::level::levelgen::registries::DecodeCtx;
+use mc_core::math::mth;
+use mc_core::pos::BlockPos;
+use mc_core::random::{LegacyRandomSource, RandomSource, generate_unique_seed};
+use mc_core::uuid_util::uuid_to_int_array;
+use mc_data::block::Block;
+use mc_data::props;
 use mc_nbt::{CompoundTag, ListTag};
 use serde_json::Value;
 use std::sync::Arc;
@@ -125,12 +126,16 @@ impl EndSpikeFeature {
         ));
         let crystal_pos = BlockPos::new(mth::floor_f64(x), mth::floor_f64(y), mth::floor_f64(z));
         set_block(level, crystal_pos.below(), Block::BEDROCK.default_state());
-        let fire = mc_game_core::world::level::block::impls::base_fire_block::get_state(
-            &*level,
-            crystal_pos,
-        );
+        let fire =
+            crate::world::level::block::impls::base_fire_block::get_state(&*level, crystal_pos);
         set_block(level, crystal_pos, fire);
     }
+}
+
+/// `Entity.UUID`: random in vanilla as well (`Mth.createInsecureUUID` over a fresh random).
+fn random_uuid() -> Vec<i32> {
+    let mut random = LegacyRandomSource::new(generate_unique_seed());
+    uuid_to_int_array(&mth::create_insecure_uuid(&mut random)).to_vec()
 }
 
 /// `EndCrystal.save`: the entity NBT as `ProtoChunk.addEntity` stores it (the UUID is random in vanilla too).
@@ -164,10 +169,7 @@ fn end_crystal_tag(
     tag.put_boolean("OnGround", false);
     tag.put_boolean("Invulnerable", invulnerable);
     tag.put_int("PortalCooldown", 0);
-    tag.put_int_array(
-        "UUID",
-        crate::world::level::levelgen::structure::structures::structure_entities::random_uuid(),
-    );
+    tag.put_int_array("UUID", random_uuid());
     if let Some(target) = beam_target {
         tag.put_int_array("beam_target", vec![target.x(), target.y(), target.z()]);
     }

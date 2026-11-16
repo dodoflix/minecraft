@@ -480,6 +480,24 @@ impl ServerLevel {
         result
     }
 
+    /// Run `f` on an entity that was removed a moment ago (see `recently_removed`): vanilla's caller still holds the object and
+    /// calls into it, an explosion of a crystal that an earlier blast of the same tick removed. `None` when it is not kept.
+    pub fn with_recently_removed<R>(
+        &mut self,
+        id: EntityId,
+        f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) -> R,
+    ) -> Option<R> {
+        let index = self
+            .recently_removed
+            .iter()
+            .position(|(_, removed, _)| *removed == id)?;
+        let (at, id, mut entity) = self.recently_removed.remove(index);
+        let result = f(self, entity.as_mut());
+        let index = index.min(self.recently_removed.len());
+        self.recently_removed.insert(index, (at, id, entity));
+        Some(result)
+    }
+
     /// [`ServerLevel::with_entity`] for a caller that handles an entity it cannot reach (out and not lent) itself.
     pub fn try_with_entity<R>(
         &mut self,

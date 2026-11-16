@@ -23,6 +23,12 @@ fn summoned_golems_and_withers_award_players() {
     check("adv_summoned_golems");
 }
 
+/// The respawn ritual's end awards the summoned dragon to the players of the fight's boss bar only.
+#[test]
+fn summoned_dragon_awards_the_boss_bar_players() {
+    check("adv_dragon_respawn");
+}
+
 /// Winning a raid makes the fighting player a hero of the village, killing the banner captain awards the exile advancement.
 #[test]
 fn raid_victory_awards_the_hero() {

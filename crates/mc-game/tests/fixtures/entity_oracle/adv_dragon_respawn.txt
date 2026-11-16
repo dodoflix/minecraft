@@ -1,0 +1,15 @@
+# the ritual runs 604 ticks; one tick before its end nobody has the advancement
+FIGHT killed=true prev=true stage=SUMMONING_DRAGON rtime=100 alive=0 dragon=ender_dragon#1 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=4 cscan=1 crystals=4
+FIGHTBAR visible=false progress=0.0 players=Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+ADV Obs minecraft:adventure/adventuring_time minecraft:plains
+ADV Obs minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Away minecraft:adventure/adventuring_time minecraft:plains
+ADV Away minecraft:recipes/decorations/crafting_table unlock_right_away
+# the dragon is summoned: the bar's player gets it, the far player does not
+FIGHT killed=false prev=true stage=- rtime=0 alive=10 dragon=ender_dragon#2 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
+FIGHTBAR visible=false progress=0.93790525 players=Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
+ADV Obs minecraft:adventure/adventuring_time minecraft:plains
+ADV Obs minecraft:end/respawn_dragon summoned_dragon
+ADV Obs minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Away minecraft:adventure/adventuring_time minecraft:plains
+ADV Away minecraft:recipes/decorations/crafting_table unlock_right_away

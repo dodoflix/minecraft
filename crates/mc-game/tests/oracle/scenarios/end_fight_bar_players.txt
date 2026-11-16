@@ -1,0 +1,26 @@
+# The boss bar of the End's dragon fight follows the 192-block rule of the fight's player scan (every 20 ticks, from the podium's height): a player who spawns within range is added, one who
+# spawns out of range is not, and when they swap places by teleport the scan adds the one now in range and removes the one now out of range.
+level void
+end void
+end fight
+dimension the_end
+seed 4242
+# the scan loads 17x17 chunks around the origin; the preloaded 21x21 keep it from generating any (each generated chunk draws a unique seed)
+preload 10
+level_seed 77
+entity_counter 9700
+fight_skip_arena
+spawn_player In creative 0.5 100 0.5 0 0
+spawn_player Out creative 250.5 100 0.5 0 0
+spawn_player Leaver creative 20.5 100 0.5 0 0
+tick 1
+dump fightbar fightpackets:In fightpackets:Out fightpackets:Leaver
+note the second player teleports in, the third one out
+tp Out 5.5 100 0.5
+tp Leaver 250.5 100 0.5
+tick 1
+dump fightbar player:Out player:Leaver
+tick 25
+dump fightbar fightpackets:In fightpackets:Out fightpackets:Leaver
+tick 40
+dump fightbar fightpackets:In fightpackets:Out fightpackets:Leaver

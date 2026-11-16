@@ -11,6 +11,7 @@
 pub mod end_gateway_feature;
 pub mod end_platform_feature;
 pub mod end_spike;
+pub mod end_spike_feature;
 
 use super::codec::{LoadResult, TypeEntry, decode_dispatch};
 use super::env::GenEnv;
