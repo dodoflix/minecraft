@@ -419,7 +419,7 @@ pub fn tick(level: &mut ServerLevel) {
         fight(level).ticks_since_last_player_scan = 0;
     }
 
-    if fight(level).dragon_event().get_players().next().is_some() {
+    if fight(level).dragon_event().has_players() {
         level.chunk_source.add_ticket_with_radius(
             TicketType::DRAGON,
             ChunkPos::new(0, 0),

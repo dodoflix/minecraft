@@ -29,6 +29,12 @@ fn summoned_dragon_awards_the_boss_bar_players() {
     check("adv_dragon_respawn");
 }
 
+/// The players of the boss bar are awarded in the iteration order of vanilla's hash set of players (entity ids as hashes), which the announcements show.
+#[test]
+fn summoned_dragon_awards_in_hash_order() {
+    check("adv_dragon_respawn_order");
+}
+
 /// Winning a raid makes the fighting player a hero of the village, killing the banner captain awards the exile advancement.
 #[test]
 fn raid_victory_awards_the_hero() {

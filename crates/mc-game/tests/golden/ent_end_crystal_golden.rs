@@ -14,6 +14,12 @@ fn end_crystal_in_the_fight() {
     common::block_scenario::check("ent_end_crystal_end");
 }
 
+/// `/kill` passes the command source's level to `kill`: a crystal the overworld console kills never tells the End's fight, `execute in` the End does.
+#[test]
+fn end_crystal_killed_from_another_level() {
+    common::block_scenario::check("ent_end_crystal_kill_levels");
+}
+
 #[test]
 fn end_crystal_item_placement() {
     common::block_scenario::check("itm_end_crystal");

@@ -1,0 +1,26 @@
+# The respawn ritual's `summoned_entity` goes to the players of the fight's boss bar in the iteration order of vanilla's `HashSet<ServerPlayer>` (entity ids as hashes):
+# the first player joined has the id 15 and the second the id 16, so the second one's advancement is announced first.
+level void
+end void
+end fight
+dimension the_end
+seed 4242
+level_seed 77
+entity_counter 9230
+fight_skip_arena
+spawn_player First creative 0.5 100 0.5 0 0
+spawn_player Second creative 4.5 100 0.5 0 0
+tick 1
+dragon_killed ender_dragon#1
+kill ender_dragon#1
+tick 1
+spawn c1 minecraft:end_crystal 3.5 2 0.5 0 0 {ShowBottom:0b}
+spawn c2 minecraft:end_crystal -2.5 2 0.5 0 0 {ShowBottom:0b}
+spawn c3 minecraft:end_crystal 0.5 2 3.5 0 0 {ShowBottom:0b}
+spawn c4 minecraft:end_crystal 0.5 2 -2.5 0 0 {ShowBottom:0b}
+fight_try_respawn
+tick 603
+dump packets:First:none packets:Second:none
+tick 1
+note the dragon is summoned: both players get the advancement, announced to both in the order of the bar's players
+dump fight advancements:First advancements:Second packets:First:system_chat packets:Second:system_chat

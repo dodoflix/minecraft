@@ -3,6 +3,7 @@
 
 use crate::server::bossevents::{BossBarColor, BossBarOverlay, wire_color, wire_overlay};
 use crate::server::network::ConnectionSender;
+use crate::util::java_hash_order::JavaHashCapacity;
 use crate::world::entity::EntityId;
 use mc_protocol::packets::play as wire;
 use mc_text::Component;
@@ -17,9 +18,11 @@ pub struct ServerBossEvent {
     darken_screen: bool,
     play_boss_music: bool,
     create_world_fog: bool,
-    /// `players` (vanilla `HashSet<ServerPlayer>`, equal by entity id; kept in insertion order): the player's entity id and the
-    /// connection its packets go to.
+    /// `players` (vanilla `HashSet<ServerPlayer>`, equal by entity id; kept in insertion order, [`Self::get_players`] iterates in
+    /// hash order): the player's entity id and the connection its packets go to.
     players: Vec<(EntityId, ConnectionSender)>,
+    /// Table capacity of that `HashSet` (it grows with the players added and never shrinks).
+    capacity: JavaHashCapacity,
     visible: bool,
 }
 
@@ -35,6 +38,7 @@ impl ServerBossEvent {
             play_boss_music: false,
             create_world_fog: false,
             players: Vec::new(),
+            capacity: JavaHashCapacity::default(),
             visible: true,
         }
     }
@@ -63,12 +67,19 @@ impl ServerBossEvent {
     pub fn should_create_world_fog(&self) -> bool {
         self.create_world_fog
     }
+    /// `!getPlayers().isEmpty()`.
+    pub fn has_players(&self) -> bool {
+        !self.players.is_empty()
+    }
     pub fn is_visible(&self) -> bool {
         self.visible
     }
-    /// `getPlayers()`: the entity ids of the players seeing the bar.
-    pub fn get_players(&self) -> impl Iterator<Item = EntityId> + '_ {
-        self.players.iter().map(|(id, _)| *id)
+    /// `getPlayers()`: the entity ids of the players seeing the bar, in the iteration order of vanilla's `HashSet<ServerPlayer>`
+    /// (`Entity.hashCode()` is the entity id).
+    pub fn get_players(&self) -> impl Iterator<Item = EntityId> + use<> {
+        self.capacity
+            .iteration_order(self.players.iter().map(|(id, _)| *id), |id| *id)
+            .into_iter()
     }
 
     fn properties(&self) -> wire::BossEventProperties {
@@ -173,6 +184,7 @@ impl ServerBossEvent {
     pub fn add_player(&mut self, player: EntityId, connection: &ConnectionSender) {
         if !self.players.iter().any(|(id, _)| *id == player) {
             self.players.push((player, connection.clone()));
+            self.capacity.grow_to_fit(self.players.len());
             if self.visible {
                 connection.send(&self.create_add_packet());
             }

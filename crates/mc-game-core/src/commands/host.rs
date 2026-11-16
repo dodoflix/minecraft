@@ -1396,8 +1396,18 @@ pub fn finalize_mob_spawn(level: &mut crate::server::level::ServerLevel, entity:
     );
 }
 
-/// `entity.kill(level)` (`LivingEntity`: hurts itself with `genericKill`).
-pub fn kill_entity(server: &mut MinecraftServer, entity: &EntityRef) {
+/// `entity.kill(source.getLevel())` (`LivingEntity`: hurts itself with `genericKill`); `source_level` is the command's level.
+pub fn kill_entity(server: &mut MinecraftServer, source_level: &DimensionKey, entity: &EntityRef) {
+    if *source_level != entity.dimension {
+        let killed = server.with_level(source_level, |server, source_level| {
+            let level = server.level_mut(&entity.dimension)?;
+            level.with_entity(entity.id, |level, e| e.kill_from_level(level, source_level))
+        });
+        if killed.is_some() {
+            return;
+        }
+    }
+    // a server that does not hold the command's level (a replay around one level) kills in the entity's own
     if let Some(level) = server.level_mut(&entity.dimension) {
         level.with_entity(entity.id, |level, e| e.kill_in_level(level));
     }

@@ -35,7 +35,7 @@ fn kill(
     let mut tracker = CommandResponseTracker::<Component>::create();
     for entity in &victims {
         let name = host::display_name_of(source, entity);
-        source.with_server(|server| host::kill_entity(server, entity));
+        source.with_server(|server| host::kill_entity(server, source.get_level(), entity));
         tracker.track_one(&name);
     }
     tracker.send_feedback_default(

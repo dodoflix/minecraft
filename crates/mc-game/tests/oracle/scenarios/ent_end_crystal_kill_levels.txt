@@ -1,0 +1,30 @@
+# `/kill` hands the command source's level to `entity.kill`: the console acts in the overworld, so an End crystal it kills (a selector without a position
+# reaches every level) never tells the End's dragon fight, while `execute in minecraft:the_end` does.
+level void
+command_env
+end void
+end fight
+dimension the_end
+levels overworld,the_end
+level_seed 77
+entity_counter 9450
+fight_skip_arena
+spawn_player Obs creative 8.5 100 0.5 0 0
+tick 1
+spawn ca minecraft:end_crystal 42.5 80 0.5 0 0 {ShowBottom:0b,Tags:["a"]}
+spawn cb minecraft:end_crystal -33.5 90 -24.5 0 0 {ShowBottom:0b,Tags:["b"]}
+spawn cc minecraft:end_crystal 12.5 85 39.5 0 0 {ShowBottom:0b,Tags:["c"]}
+note the count at 100 ticks: three crystals stand in the columns of the pillars
+tick 100
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+note the console's `kill` runs in the overworld: the crystal is gone, the fight is not told (the count stays, the dragon hears nothing)
+cmd kill @e[tag=a]
+tick 1
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+note `execute in the_end` runs `kill` in the End: the fight is told and recounts
+cmd execute in minecraft:the_end run kill @e[tag=b]
+tick 1
+dump fight xentity:ender_dragon#1 nbt:ender_dragon#1
+note the next scan of the crystals (every 100 ticks) finds what is left
+tick 100
+dump fight

@@ -163,6 +163,14 @@ impl Entity for EndCrystal {
         level.game_event_from_entity_ref(self.as_dyn(), GameEvent::ENTITY_DIE, self.position());
     }
 
+    /// `kill(sourceLevel)`: the fight of the command's level is told, the crystal leaves its own level.
+    fn kill_from_level(&mut self, level: &mut ServerLevel, source_level: &mut ServerLevel) {
+        let generic = level.damage_sources().generic();
+        self.on_destroyed_by(source_level, &generic);
+        level.remove_held_entity(self.as_dyn_mut(), RemovalReason::Killed);
+        level.game_event_from_entity_ref(self.as_dyn(), GameEvent::ENTITY_DIE, self.position());
+    }
+
     fn get_pick_result(&self) -> Option<ItemStack> {
         Some(ItemStack::new(Item::END_CRYSTAL))
     }

@@ -3121,6 +3121,14 @@ pub trait Entity: Any {
         }
     }
 
+    /// `kill(level)` with the level of the command that kills (`/kill` passes `source.getLevel()`, which is another level than the
+    /// entity's when the selector reached across levels). Only the End crystal reads the passed level (its fight).
+    /// shortcut: a living entity still acts in its own level (vanilla's `hurtServer(sourceLevel, ...)` broadcasts the damage event
+    /// through the source level, which does not know the victim, and runs the hurt effects there), upgrade when a scenario observes it.
+    fn kill_from_level(&mut self, level: &mut ServerLevel, _source_level: &mut ServerLevel) {
+        self.kill_in_level(level);
+    }
+
     /// `heal(amount)`.
     fn heal(&mut self, _level: &mut ServerLevel, amount: f32) {
         if let Some(l) = self.living_mut() {
