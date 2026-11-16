@@ -187,6 +187,20 @@ async fn tracked_entities(
         .await
         .expect("player loaded");
     let p = bot.position();
+    // the entities must be summoned into chunks the bot already holds, or the tracker never sees them move in range
+    let view = i32::from(view_distance) * 16;
+    let farthest = offsets
+        .iter()
+        .map(|o| o.1)
+        .filter(|dx| *dx < view)
+        .max()
+        .unwrap_or(0);
+    let (far_x, far_z) = ((p.x as i32).saturating_add(farthest), p.z as i32);
+    bot.wait_for(Duration::from_secs(90), |s| {
+        s.world.has_chunk_at_block(far_x, far_z).then_some(())
+    })
+    .await
+    .expect("the farthest chunk");
     for (kind, dx) in offsets {
         let (x, y, z) = (p.x + f64::from(*dx), p.y, p.z);
         let command = match *kind {
@@ -238,6 +252,38 @@ async fn entity_broadcast_range_percentage_equals_vanilla() {
         nothing,
         async |server, _| tracked_entities(server, 6, &offsets).await,
     )
+    .await;
+}
+
+/// At 200 % the range is capped by what the bot asked for: with 12 chunks everything inside the view is tracked, with
+/// 8 chunks (128 blocks) only what lies within them, whatever the server's own view distance.
+#[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
+async fn entity_broadcast_range_percentage_200_equals_vanilla() {
+    let props = [
+        "level-type=minecraft:flat",
+        "view-distance=12",
+        "entity-broadcast-range-percentage=200",
+    ];
+    let offsets = [
+        ("item", 100),
+        ("item", 185),
+        ("armor_stand", 150),
+        ("armor_stand", 185),
+    ];
+    on_both(&props, nothing, async |server, _| {
+        tracked_entities(server, 12, &offsets).await
+    })
+    .await;
+    let offsets = [
+        ("item", 100),
+        ("item", 140),
+        ("armor_stand", 120),
+        ("armor_stand", 150),
+    ];
+    on_both(&props, nothing, async |server, _| {
+        tracked_entities(server, 8, &offsets).await
+    })
     .await;
 }
 

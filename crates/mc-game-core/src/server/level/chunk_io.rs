@@ -32,6 +32,33 @@ pub enum WorkerMessage {
     BatchFailed(Box<CrashReport>),
 }
 
+/// The sending half of the worker-to-game-thread channel. Every send wakes the game thread
+/// (`BlockableEventLoop.schedule`'s `LockSupport.unpark`): without it a result would wait until the game thread
+/// finishes sleeping toward the next tick, which turns every worldgen step into a tick of latency.
+#[derive(Clone)]
+pub struct ResultSender {
+    tx: Sender<WorkerMessage>,
+    game_thread: std::thread::Thread,
+}
+
+impl ResultSender {
+    /// A channel whose results wake the calling thread (the game thread, which builds the chunk map).
+    pub fn channel() -> (Self, Receiver<WorkerMessage>) {
+        let (tx, rx) = channel();
+        let game_thread = std::thread::current();
+        (Self { tx, game_thread }, rx)
+    }
+
+    pub fn send(
+        &self,
+        message: WorkerMessage,
+    ) -> Result<(), std::sync::mpsc::SendError<WorkerMessage>> {
+        let sent = self.tx.send(message);
+        self.game_thread.unpark();
+        sent
+    }
+}
+
 enum IoRequest {
     Read {
         key: i64,
@@ -65,7 +92,7 @@ impl RegionIo {
         info: RegionStorageInfo,
         folder: PathBuf,
         sync_writes: bool,
-        results: Sender<WorkerMessage>,
+        results: ResultSender,
     ) -> Self {
         let (tx, rx) = channel::<IoRequest>();
         let thread = std::thread::Builder::new()
@@ -162,11 +189,7 @@ impl RegionIoHandle {
     }
 }
 
-fn io_loop(
-    mut storage: SimpleRegionStorage,
-    rx: Receiver<IoRequest>,
-    results: Sender<WorkerMessage>,
-) {
+fn io_loop(mut storage: SimpleRegionStorage, rx: Receiver<IoRequest>, results: ResultSender) {
     // Mirror of the storage's pending-write order (same insertion semantics): the counters to release per chunk.
     let mut pending: indexmap::IndexMap<i64, Vec<Arc<AtomicI32>>> = indexmap::IndexMap::new();
     fn release(counters: Vec<Arc<AtomicI32>>) {
@@ -232,7 +255,7 @@ pub struct WorkerPool {
 }
 
 impl WorkerPool {
-    pub fn new(name: &str, threads: usize, results: Sender<WorkerMessage>) -> Self {
+    pub fn new(name: &str, threads: usize, results: ResultSender) -> Self {
         let (tx, rx) = channel::<PoolJob>();
         let rx = Arc::new(Mutex::new(rx));
         let threads = (0..threads.max(1))
@@ -285,11 +308,11 @@ pub struct WorldgenThread {
     thread: Option<JoinHandle<()>>,
     /// Oracle mode: the batch runs on the submitting thread (the vanilla oracle's direct executors), so the unique
     /// seeds it draws continue the calling thread's reproducible sequence.
-    inline_results: Option<Sender<WorkerMessage>>,
+    inline_results: Option<ResultSender>,
 }
 
 impl WorldgenThread {
-    pub fn new(results: Sender<WorkerMessage>) -> Self {
+    pub fn new(results: ResultSender) -> Self {
         if mc_core::random::oracle_uniquifier_active() {
             return Self {
                 tx: None,
@@ -336,5 +359,31 @@ impl WorldgenThread {
         if let Some(t) = self.thread.take() {
             let _ = t.join();
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use mc_core::pos::ChunkPos;
+    use std::time::Instant;
+
+    /// A result sent while the game thread sleeps toward the next tick wakes it at once.
+    #[test]
+    fn a_result_wakes_the_sleeping_game_thread() {
+        let (results, rx) = ResultSender::channel();
+        let sender = std::thread::spawn(move || {
+            std::thread::sleep(Duration::from_millis(50));
+            let _ = results.send(WorkerMessage::ChunkRead {
+                key: ChunkPos::new(0, 0).pack(),
+                result: Ok(None),
+            });
+        });
+        let start = Instant::now();
+        while rx.try_recv().is_err() {
+            std::thread::park_timeout(Duration::from_secs(10));
+        }
+        assert!(start.elapsed() < Duration::from_secs(5));
+        sender.join().unwrap();
     }
 }

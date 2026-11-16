@@ -9,7 +9,7 @@
 use super::chunk_holder::{
     ChunkHolder, ChunkSlot, FutureState, PromotionFuture, PromotionKind, Waiter,
 };
-use super::chunk_io::{RegionIo, WorkerMessage, WorkerPool, WorldgenThread};
+use super::chunk_io::{RegionIo, ResultSender, WorkerMessage, WorkerPool, WorldgenThread};
 use super::chunk_level;
 use super::chunk_task_queue::ChunkTaskPriorityQueue;
 use super::chunk_tracking_view::ChunkTrackingView;
@@ -37,7 +37,7 @@ use std::collections::{HashMap, VecDeque};
 use std::path::PathBuf;
 use std::sync::Arc;
 use std::sync::atomic::AtomicI32;
-use std::sync::mpsc::{Receiver, channel};
+use std::sync::mpsc::Receiver;
 use uuid::Uuid;
 
 pub const MIN_VIEW_DISTANCE: i32 = 2;
@@ -305,7 +305,7 @@ impl ChunkMap {
             view_distance,
             tickets,
         } = params;
-        let (result_tx, results) = channel();
+        let (result_tx, results) = ResultSender::channel();
         let storage_info = RegionStorageInfo::new(level_id.clone(), dimension.clone(), "chunk");
         let poi_manager = PoiManager::new(
             RegionStorageInfo::new(level_id, dimension.clone(), "poi"),

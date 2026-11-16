@@ -170,6 +170,8 @@ pub struct State {
     pub difficulty: Option<Difficulty>,
     pub chunk_center: (i32, i32),
     pub chunks_received: u64,
+    /// The size of every `chunk_batch_finished` seen, in order.
+    pub chunk_batches: Vec<i32>,
     pub batch: ChunkBatchSizeCalculator,
     pub level_load: LevelLoad,
     pub block_updates: Vec<BlockUpdate>,
@@ -319,6 +321,7 @@ impl State {
             difficulty: None,
             chunk_center: (0, 0),
             chunks_received: 0,
+            chunk_batches: Vec::new(),
             batch: ChunkBatchSizeCalculator::default(),
             level_load: LevelLoad::default(),
             block_updates: Vec::new(),
@@ -482,6 +485,7 @@ impl State {
             }
             P::ChunkBatchStart(_) => self.batch.on_batch_start(),
             P::ChunkBatchFinished(p) => {
+                self.chunk_batches.push(p.batch_size);
                 self.batch.on_batch_finished(p.batch_size);
                 out.push(ServerboundPlayPacket::ChunkBatchReceived(
                     ServerboundChunkBatchReceivedPacket {

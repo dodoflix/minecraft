@@ -11,6 +11,7 @@
 mod net_support;
 
 mod admin_packets_dual;
+mod chunk_delivery_dual;
 mod command_corpora;
 mod common;
 mod entity_dual;
