@@ -965,7 +965,8 @@ impl Scenario {
         );
         let dimension_type = load_dimension_type(dimension);
         // flat only exists in the overworld; the other dimensions are void here (scenarios fill what they dump)
-        let generator: Arc<dyn ChunkGeneratorBackend> = if let Some((_, backend)) = &noise_world {
+        let generator: Arc<dyn ChunkGeneratorBackend> = if let Some((_, backend, _)) = &noise_world
+        {
             backend.clone()
         } else if self.opts.flat && dimension == "overworld" {
             Arc::new(FlatGenerator::default_layers())
@@ -1041,7 +1042,7 @@ impl Scenario {
             generator,
             generate_structures: self.opts.structures && noise_world.is_some(),
             hooks: match &noise_world {
-                Some((env, _)) => Arc::new(
+                Some((env, _, _)) => Arc::new(
                     mc_game::world::level::levelgen::hooks::VanillaWorldGenHooks::new(env.clone())
                         .with_mob_spawner(Arc::new(
                             mc_game::world::level::spawner::chunk_gen::NaturalOriginalMobs,
@@ -1110,8 +1111,9 @@ impl Scenario {
             level.tick_state.biome_zoom_seed =
                 mc_worldgen::biome::BiomeManager::obfuscate_seed(self.opts.seed);
         }
-        if let Some((env, _)) = &noise_world {
+        if let Some((env, _, chunk_scan)) = &noise_world {
             level.gen_env = Some(env.clone());
+            chunk_scan.attach(level.chunk_source.chunk_map.scan_access());
         } else if level.gen_env.is_none() && self.gen_env {
             level.gen_env = Some(super::feature_harness::gen_env(4242));
         }

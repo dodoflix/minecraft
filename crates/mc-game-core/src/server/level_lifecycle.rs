@@ -12,6 +12,7 @@ use crate::crash_report::{CrashReport, ReportedException};
 use crate::registry::data_loader::RegistryWorldgenSource;
 use crate::registry::keys;
 use crate::registry::typed::dimension_type::DimensionType;
+use crate::server::level::chunk_io::DeferredChunkScan;
 use crate::server::level::chunk_load_counter::ChunkLoadCounter;
 use crate::server::level::level_data::{DerivedLevelData, PrimaryServerLevelData, ServerLevelData};
 use crate::server::level::world_gen::WorldGenHooks;
@@ -23,7 +24,7 @@ use crate::world::level::gamerules::GameRules;
 use crate::world::level::levelgen::GenEnv;
 use crate::world::level::levelgen::hooks::VanillaWorldGenHooks;
 use crate::world::level::levelgen::registries::GenRegistries;
-use crate::world::level::levelgen::structure::check::{NoChunkScan, StructureCheck};
+use crate::world::level::levelgen::structure::check::StructureCheck;
 use crate::world::level::levelgen::structure::generation::create_structure_state;
 use crate::world::level::levelgen::structure::registries::{StartCache, StructureRegistries};
 use crate::world::level::levelgen::structure::templatesystem::StructureTemplateManager;
@@ -198,6 +199,7 @@ impl MinecraftServer {
             &factory.biomes,
         )
         .unwrap_or_else(|e| panic!("Failed to create the structure state of {dimension}: {e}"));
+        let chunk_scan = DeferredChunkScan::default();
         let env = Arc::new(GenEnv {
             dimension: dimension.clone(),
             seed,
@@ -209,7 +211,7 @@ impl MinecraftServer {
             structures: structures.clone(),
             start_cache: StartCache::default(),
             structure_state: Some(structure_state),
-            structure_check: StructureCheck::new(Box::new(NoChunkScan)),
+            structure_check: StructureCheck::new(Box::new(chunk_scan.clone())),
             generate_structures: self.world_gen_settings.options.generate_structures,
             level_height,
         });
@@ -264,6 +266,7 @@ impl MinecraftServer {
             is_debug,
             level_data,
         });
+        chunk_scan.attach(level.chunk_source.chunk_map.scan_access());
         level
             .chunk_source
             .chunk_map
@@ -878,6 +881,13 @@ impl MinecraftServer {
         self.all_levels().any(|level| !level.no_save)
     }
 
+    /// A reported chunk IO failure runs `warnOnLowDiskSpace` (vanilla does so on the reporting thread, here the game thread does).
+    pub(super) fn warn_on_low_disk_space_if_reported(&mut self) {
+        if self.shared.chunk_io_reporter.take_low_disk_space_check() {
+            self.warn_on_low_disk_space();
+        }
+    }
+
     /// `warnOnLowDiskSpace`.
     pub(super) fn warn_on_low_disk_space(&mut self) {
         if self.storage_source.check_for_low_disk_space() {
@@ -950,6 +960,7 @@ impl MinecraftServer {
         }
 
         self.save_all_chunks(false, true, false);
+        self.warn_on_low_disk_space_if_reported();
 
         for level in self.all_levels_mut() {
             level.close();

@@ -2,9 +2,11 @@
 //! parsing/encoding, and the worldgen thread (vanilla's serial `worldgen` `ConsecutiveExecutor`). Results come back
 //! to the game thread through one channel of [`WorkerMessage`]s which the chunk map polls (`ServerChunkCache.pollTask`).
 
+use super::chunk_io_reporter::ChunkIoReporter;
 use super::chunk_status_tasks::{BatchResult, GenBatch, run_batch};
 use super::world_gen::WorldGenContext;
 use crate::crash_report::CrashReport;
+use crate::world::level::levelgen::structure::check::ChunkScanAccess;
 use mc_core::pos::ChunkPos;
 use mc_nbt::CompoundTag;
 use mc_world::region::{RegionStorageInfo, SimpleRegionStorage};
@@ -13,7 +15,7 @@ use std::io;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicI32, Ordering};
 use std::sync::mpsc::{Receiver, Sender, channel};
-use std::sync::{Arc, LazyLock, Mutex};
+use std::sync::{Arc, LazyLock, Mutex, OnceLock};
 use std::thread::JoinHandle;
 use std::time::Duration;
 
@@ -67,6 +69,10 @@ enum IoRequest {
         key: i64,
         reply: Sender<io::Result<Option<CompoundTag>>>,
     },
+    Scan {
+        key: i64,
+        reply: Sender<io::Result<Option<CompoundTag>>>,
+    },
     Write {
         pos: ChunkPos,
         tag: Option<CompoundTag>,
@@ -93,16 +99,18 @@ impl RegionIo {
         folder: PathBuf,
         sync_writes: bool,
         results: ResultSender,
+        reporter: Arc<ChunkIoReporter>,
     ) -> Self {
         let (tx, rx) = channel::<IoRequest>();
         let thread = std::thread::Builder::new()
             .name(format!("IO-Worker-{}", info.dimension))
             .spawn(move || {
-                io_loop(
-                    SimpleRegionStorage::new(info, folder, sync_writes),
-                    rx,
-                    results,
-                )
+                let mut storage = SimpleRegionStorage::new(info.clone(), folder, sync_writes);
+                // `IOWorker.runStore` completes the write exceptionally; `ChunkMap.save` reports that as a save failure
+                storage.set_store_failure_handler(Box::new(move |pos, error| {
+                    reporter.report_chunk_save_failure(&error.to_string(), &info, pos)
+                }));
+                io_loop(storage, rx, results)
             })
             .expect("spawn IO worker");
         Self {
@@ -125,6 +133,14 @@ impl RegionIo {
         });
         rx.recv()
             .unwrap_or_else(|_| Err(io::Error::other("IO worker is gone")))
+    }
+
+    /// `IOWorker` as the `ChunkScanAccess` of a level's structure check.
+    pub fn scan_access(&self, encoding_chunks: Arc<AtomicI32>) -> RegionIoScan {
+        RegionIoScan {
+            tx: self.tx.clone(),
+            encoding_chunks,
+        }
     }
 
     /// A clonable write-only handle for worker threads.
@@ -165,6 +181,51 @@ impl RegionIo {
             let _ = t.join();
         }
         result
+    }
+}
+
+/// `IOWorker.scanChunk` for any thread: asks the IO thread, which answers from its queued writes before the region file.
+#[derive(Clone)]
+pub struct RegionIoScan {
+    tx: Sender<IoRequest>,
+    /// Saves still being encoded on the pool: vanilla queues a save's write at once, here it reaches the IO thread when
+    /// the encoding is done.
+    encoding_chunks: Arc<AtomicI32>,
+}
+
+impl ChunkScanAccess for RegionIoScan {
+    fn scan_chunk(&self, pos: ChunkPos) -> io::Result<Option<CompoundTag>> {
+        while self.encoding_chunks.load(Ordering::Acquire) > 0 {
+            std::thread::sleep(Duration::from_millis(1));
+        }
+        let (reply, rx) = channel();
+        let _ = self.tx.send(IoRequest::Scan {
+            key: pos.pack(),
+            reply,
+        });
+        rx.recv()
+            .unwrap_or_else(|_| Err(io::Error::other("IO worker is gone")))
+    }
+}
+
+/// The scan access of a level whose IO worker does not exist yet: the structure check is built with the level's
+/// generation environment, the chunk map (and its IO worker) after it.
+#[derive(Clone, Default)]
+pub struct DeferredChunkScan(Arc<OnceLock<RegionIoScan>>);
+
+impl DeferredChunkScan {
+    /// Connects the scan to the IO worker of the level's chunk map.
+    pub fn attach(&self, scan: RegionIoScan) {
+        let _ = self.0.set(scan);
+    }
+}
+
+impl ChunkScanAccess for DeferredChunkScan {
+    fn scan_chunk(&self, pos: ChunkPos) -> io::Result<Option<CompoundTag>> {
+        match self.0.get() {
+            Some(scan) => scan.scan_chunk(pos),
+            None => Err(io::Error::other("the level's IO worker does not exist yet")),
+        }
     }
 }
 
@@ -210,6 +271,9 @@ fn io_loop(mut storage: SimpleRegionStorage, rx: Receiver<IoRequest>, results: R
             }
             Ok(IoRequest::ReadBlocking { key, reply }) => {
                 let _ = reply.send(storage.read(&ChunkPos::unpack(key)));
+            }
+            Ok(IoRequest::Scan { key, reply }) => {
+                let _ = reply.send(storage.scan_chunk(&ChunkPos::unpack(key)));
             }
             Ok(IoRequest::Write {
                 pos,
@@ -446,5 +510,35 @@ mod tests {
         }
         assert!(start.elapsed() < Duration::from_secs(5));
         sender.join().unwrap();
+    }
+
+    /// `IOWorker.scanChunk`: a queued write answers first, then the region file; scanning never creates a region file.
+    #[test]
+    fn scan_answers_from_queued_writes_then_the_region_file() {
+        let dir = tempfile::tempdir().unwrap();
+        let (results, _rx) = ResultSender::channel();
+        let info = RegionStorageInfo::new(
+            "level",
+            mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+            "chunk",
+        );
+        let mut io = RegionIo::new(
+            info,
+            dir.path().join("region"),
+            false,
+            results,
+            Arc::default(),
+        );
+        let scan = io.scan_access(Arc::default());
+        let pos = ChunkPos::new(3, 3);
+        assert!(scan.scan_chunk(pos).unwrap().is_none());
+        assert!(!dir.path().join("region").join("r.0.0.mca").exists());
+        let tag = CompoundTag::new().with("xPos", 3);
+        io.write(pos, Some(tag.clone()), None);
+        assert_eq!(scan.scan_chunk(pos).unwrap(), Some(tag.clone()));
+        io.synchronize(true).unwrap();
+        assert_eq!(scan.scan_chunk(pos).unwrap(), Some(tag));
+        assert!(scan.scan_chunk(ChunkPos::new(4, 4)).unwrap().is_none());
+        io.close().unwrap();
     }
 }

@@ -79,6 +79,8 @@ pub struct ServerShared {
     /// `WanderingTraderSpawner`), loaded by the server and copied back into its saved data when saving.
     pub wandering_trader:
         Mutex<crate::world::level::saveddata::wandering_trader_data::WanderingTraderData>,
+    /// `ChunkIOErrorReporter` of every level's chunk map.
+    pub chunk_io_reporter: Arc<super::level::chunk_io_reporter::ChunkIoReporter>,
 }
 
 impl ServerShared {
@@ -102,6 +104,7 @@ impl ServerShared {
             recipe_manager: RwLock::new(crate::world::item::crafting::RecipeManager::empty()),
             map_storage: Default::default(),
             wandering_trader: Default::default(),
+            chunk_io_reporter: Default::default(),
         });
         (shared, rx)
     }

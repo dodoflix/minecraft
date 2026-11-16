@@ -4,6 +4,7 @@ pub mod block_entity_access;
 pub mod block_events;
 pub mod chunk_holder;
 pub mod chunk_io;
+pub mod chunk_io_reporter;
 pub mod chunk_level;
 pub mod chunk_load_counter;
 pub mod chunk_map;

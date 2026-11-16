@@ -37,7 +37,7 @@ const SEED: i64 = 4242;
 fn open_level(dir: &std::path::Path) -> ServerLevel {
     let w = &*WORLD;
     let dimension = Identifier::parse("minecraft:overworld").unwrap();
-    let (env, backend) = noise_world(SEED, true, "overworld");
+    let (env, backend, chunk_scan) = noise_world(SEED, true, "overworld");
     let (shared, _rx) = ServerShared::new();
     shared.bind_game_thread();
     let structures = w.structures.clone();
@@ -68,6 +68,7 @@ fn open_level(dir: &std::path::Path) -> ServerLevel {
         is_debug: false,
         level_data: Box::new(PrimaryServerLevelData(default_world_data())),
     });
+    chunk_scan.attach(level.chunk_source.chunk_map.scan_access());
     level.gen_env = Some(env);
     level.tick_state.biomes = Some(w.biomes.clone());
     level.tick_state.biome_zoom_seed = BiomeManager::obfuscate_seed(SEED);

@@ -1,10 +1,11 @@
 //! The save, unload and reload verbs and the file dumps of the block replay (grammar and recorded twin: `tests/oracle/PersistVerbs.java`):
 //! `save [flush]`, `unload CX CZ`, `unloadall`, `load CX CZ`, `reload CX CZ`, `rejoin PLAYER`, dumps `region:CX,CZ`, `entityfile:CX,CZ`,
-//! `poifile:CX,CZ`, `playerfile:PLAYER`, `datafile:ID`, `statsfile:PLAYER`, `advancementsfile:PLAYER`.
+//! `poifile:CX,CZ`, `playerfile:PLAYER`, `datafile:ID`, `statsfile:PLAYER`, `advancementsfile:PLAYER`, `forget_structure_checks`.
 use super::Scenario;
 use crate::common::entity_scenario::canon;
 use mc_core::ident::Identifier;
 use mc_core::pos::ChunkPos;
+use mc_game::server::level::ServerLevel;
 use mc_game::server::players::NameAndId;
 use mc_nbt::{CompoundTag, Tag};
 use mc_world::level_storage::SavedDataStorage;
@@ -43,6 +44,20 @@ impl Scenario {
             "unload" => {
                 self.world();
                 self.unload(int(&a[1]), int(&a[2]));
+            }
+            "forget_structure_checks" => {
+                self.world();
+                let clear = |level: &ServerLevel| {
+                    if let Some(env) = &level.gen_env {
+                        env.structure_check.clear_caches();
+                    }
+                };
+                clear(self.level());
+                if self.multi() {
+                    mc_game::commands::server_access::with_server(|server| {
+                        server.all_levels().for_each(clear)
+                    });
+                }
             }
             "unloadall" => {
                 self.world();

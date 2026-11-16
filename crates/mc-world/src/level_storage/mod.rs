@@ -38,7 +38,7 @@ pub use level_storage_source::{
     ALLOWED_SYMLINKS_CONFIG_NAME, AccessError, DIMENSION_DATA_DIR, DIMENSIONS_DIR, ENTITIES_DIR,
     LevelCandidates, LevelDataAndDimensions, LevelDirectory, LevelStorageAccess,
     LevelStorageException, LevelStorageSource, POI_DIR, REGION_DIR, TAG_DATA,
-    get_dimension_storage_folder,
+    get_dimension_storage_folder, usable_space,
 };
 pub use level_summary::{BackupStatus, LevelSummary, LevelSummaryKind};
 pub use player_data_storage::PlayerDataStorage;

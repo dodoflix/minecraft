@@ -67,7 +67,8 @@ impl ChunkMap {
     /// `handleChunkLoadFailure` (non-fatal): report and continue with an empty chunk.
     fn handle_chunk_load_failure(&mut self, key: i64, error: &str) {
         let pos = ChunkPos::unpack(key);
-        log::error!("Failed to load chunk {},{}: {error}", pos.x, pos.z);
+        self.reporter
+            .report_chunk_load_failure(error, &self.storage_info, pos);
         self.install_empty_chunk(key);
     }
 
@@ -102,7 +103,12 @@ impl ChunkMap {
             factory: &self.factory,
             is_known_structure: &*known,
         };
+        let stored_pos = data.chunk_pos;
         let loaded = data.read(&ctx, pos);
+        if stored_pos != pos {
+            self.reporter
+                .report_misplaced_chunk(stored_pos, pos, &self.storage_info);
+        }
         self.light.load_chunk_light(pos, loaded.light);
         let slot = match loaded.chunk {
             LoadedChunk::Proto(proto) => {
@@ -441,12 +447,14 @@ impl ChunkMap {
         let io = self.io.handle();
         let active = self.active_chunk_writes.clone();
         let encoding = self.encoding_chunks.clone();
+        let reporter = self.reporter.clone();
+        let storage_info = self.storage_info.clone();
         encoding.fetch_add(1, Ordering::AcqRel);
         self.pool.submit(move || {
             match data.write(&factory) {
                 Ok(tag) => io.write(pos, Some(tag), Some(active)),
                 Err(e) => {
-                    log::error!("Failed to save chunk {},{}: {e}", pos.x, pos.z);
+                    reporter.report_chunk_save_failure(&e.to_string(), &storage_info, pos);
                     active.fetch_sub(1, Ordering::AcqRel);
                 }
             }

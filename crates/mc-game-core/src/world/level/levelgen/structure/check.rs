@@ -91,6 +91,11 @@ impl StructureCheck {
         self.state.lock().unwrap_or_else(|e| e.into_inner())
     }
 
+    /// Forgets every cached result: a `StructureCheck` as a server start builds it (the next check reads the stored starts).
+    pub fn clear_caches(&self) {
+        *self.state() = State::default();
+    }
+
     /// `checkStart(pos, structure, placement, requireUnreferenced)`.
     pub fn check_start(
         &self,

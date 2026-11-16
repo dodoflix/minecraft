@@ -224,6 +224,7 @@ pub struct ChunkMapParams {
     pub sync_writes: bool,
     pub view_distance: i32,
     pub tickets: TicketStorage,
+    pub reporter: Arc<super::chunk_io_reporter::ChunkIoReporter>,
 }
 
 pub struct ChunkMap {
@@ -245,6 +246,9 @@ pub struct ChunkMap {
 
     // threads
     pub(crate) io: RegionIo,
+    /// `storageInfo()`.
+    pub(crate) storage_info: RegionStorageInfo,
+    pub(crate) reporter: Arc<super::chunk_io_reporter::ChunkIoReporter>,
     pub(crate) pool: WorkerPool,
     pub(crate) worldgen: WorldgenThread,
     pub(crate) results: Receiver<WorkerMessage>,
@@ -292,6 +296,11 @@ pub struct ChunkMap {
 }
 
 impl ChunkMap {
+    /// `IOWorker` as the `ChunkScanAccess` of the level's structure check.
+    pub fn scan_access(&self) -> super::chunk_io::RegionIoScan {
+        self.io.scan_access(self.encoding_chunks.clone())
+    }
+
     pub fn new(params: ChunkMapParams) -> Self {
         let ChunkMapParams {
             dimension,
@@ -306,6 +315,7 @@ impl ChunkMap {
             sync_writes,
             view_distance,
             tickets,
+            reporter,
         } = params;
         let (result_tx, results) = ResultSender::channel();
         let storage_info = RegionStorageInfo::new(level_id.clone(), dimension.clone(), "chunk");
@@ -315,7 +325,13 @@ impl ChunkMap {
             sync_writes,
             level_height,
         );
-        let io = RegionIo::new(storage_info, region_dir, sync_writes, result_tx.clone());
+        let io = RegionIo::new(
+            storage_info.clone(),
+            region_dir,
+            sync_writes,
+            result_tx.clone(),
+            reporter.clone(),
+        );
         let pool = WorkerPool::new(
             "Chunk-Pool",
             std::thread::available_parallelism().map_or(2, |n| n.get().min(4)),
@@ -354,6 +370,8 @@ impl ChunkMap {
             game_time: 0,
             tick_containers: None,
             io,
+            storage_info,
+            reporter,
             pool,
             worldgen,
             results,

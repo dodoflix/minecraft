@@ -1,0 +1,15 @@
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
+CF msg Marked chunk [18, 72] in minecraft:overworld to be force loaded
+CF result success 1
+LEVEL minecraft:overworld gametime=4 forced=26 loaded=1954 players=1 border=5.9999968E7
+UNLOADALL ticks=40 loaded=1225
+LEVEL minecraft:overworld gametime=44 forced=0 loaded=1225 players=1 border=5.9999968E7
+# the start is stored: no chunk is loaded to answer
+CF msg The nearest minecraft:village_plains is at [288, ~, 1152] (0 blocks away)
+CF result success 0
+LEVEL minecraft:overworld gametime=45 forced=0 loaded=1225 players=1 border=5.9999968E7
+# a structure whose start chunk was never stored: its chunk is loaded to read the start
+CF msg The nearest minecraft:stronghold is at [-384, ~, -2544] (1487 blocks away)
+CF result success 1487
+LEVEL minecraft:overworld gametime=46 forced=0 loaded=1226 players=1 border=5.9999968E7

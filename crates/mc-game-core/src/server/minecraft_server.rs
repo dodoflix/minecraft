@@ -287,6 +287,9 @@ impl MinecraftServer {
             shared.set_recipe_manager(recipes.clone());
         }
         let debug_subscribers = crate::util::debug::DebugSubscribers::default();
+        shared
+            .chunk_io_reporter
+            .set_debug_dir(init.server_directory.join("debug"));
         let mut server = Self {
             shared,
             tasks: TaskQueue::new(tasks),
@@ -896,7 +899,7 @@ impl MinecraftServer {
             "crash-{}-server.txt",
             crate::crash_report::filename_formatted_date_time()
         ));
-        if report.save_to_file(&file) {
+        if report.save_to_file(&file, crate::crash_report::ReportType::CRASH) {
             log::error!(
                 "This crash report has been saved to: {}",
                 std::path::absolute(&file).unwrap_or(file).display()
@@ -957,6 +960,7 @@ impl MinecraftServer {
 
     /// `tickServer`. `sprinting`: the level tick gets `() -> false` as time budget.
     pub fn tick_server(&mut self, sprinting: bool) {
+        self.warn_on_low_disk_space_if_reported();
         let nano = get_nanos();
         let empty_tick_threshold = self.pause_when_empty_seconds().wrapping_mul(20);
         if empty_tick_threshold > 0 {

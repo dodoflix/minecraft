@@ -38,6 +38,10 @@ impl ChunkGeneratorBackend for VoidGenerator {
 fn open(dir: &Path) -> ServerLevel {
     let (shared, _rx) = ServerShared::new();
     shared.bind_game_thread();
+    open_with(dir, shared)
+}
+
+pub(crate) fn open_with(dir: &Path, shared: Arc<ServerShared>) -> ServerLevel {
     let biomes = BiomeRegistry::new(vec!["minecraft:plains".to_string()]);
     ServerLevel::new(ServerLevelParams {
         shared,
@@ -67,7 +71,7 @@ fn open(dir: &Path) -> ServerLevel {
 }
 
 /// One server tick's worth of chunk and entity management.
-fn step(level: &mut ServerLevel) {
+pub(crate) fn step(level: &mut ServerLevel) {
     if !level.poll_chunk_task() {
         std::thread::sleep(Duration::from_millis(1));
     }
@@ -75,7 +79,7 @@ fn step(level: &mut ServerLevel) {
     level.tick_entity_management();
 }
 
-fn run_until(level: &mut ServerLevel, mut done: impl FnMut(&mut ServerLevel) -> bool) {
+pub(crate) fn run_until(level: &mut ServerLevel, mut done: impl FnMut(&mut ServerLevel) -> bool) {
     let start = Instant::now();
     while !done(level) {
         step(level);
@@ -83,7 +87,7 @@ fn run_until(level: &mut ServerLevel, mut done: impl FnMut(&mut ServerLevel) -> 
     }
 }
 
-fn load_chunk(level: &mut ServerLevel, pos: ChunkPos) {
+pub(crate) fn load_chunk(level: &mut ServerLevel, pos: ChunkPos) {
     level.chunk_source.update_chunk_forced(pos, true);
     run_until(level, |l| {
         l.chunk_now(pos.x, pos.z).is_some() && l.entity_manager.are_entities_loaded(pos.pack())

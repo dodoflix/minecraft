@@ -5,7 +5,7 @@
 //! the process' threads with their kernel state from `/proc/self/task` instead.
 
 use super::shared::{ServerShared, get_nanos};
-use crate::crash_report::{CrashReport, filename_formatted_date_time};
+use crate::crash_report::{CrashReport, ReportType, filename_formatted_date_time};
 use parking_lot::Mutex;
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -71,12 +71,15 @@ fn run(
                 stats.set_detail(key.clone(), value);
             }
             // Bootstrap.realStdoutPrintln
-            log::error!("Crash report:\n{}", report.get_friendly_report());
+            log::error!(
+                "Crash report:\n{}",
+                report.get_friendly_report(ReportType::CRASH)
+            );
             let file = server_directory.join("crash-reports").join(format!(
                 "crash-{}-server.txt",
                 filename_formatted_date_time()
             ));
-            if report.save_to_file(&file) {
+            if report.save_to_file(&file, ReportType::CRASH) {
                 log::error!(
                     "This crash report has been saved to: {}",
                     std::path::absolute(&file).unwrap_or(file).display()
@@ -147,7 +150,7 @@ mod tests {
     #[test]
     fn dump_lists_current_thread() {
         let report = create_watchdog_crash_report("Watching Server");
-        let text = report.get_friendly_report();
+        let text = report.get_friendly_report(ReportType::CRASH);
         assert!(text.contains("Description: Watching Server"));
         assert!(text.contains("-- Thread Dump --\nDetails:\n\tThreads: \n\""));
     }

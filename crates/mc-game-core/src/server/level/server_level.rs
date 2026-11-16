@@ -186,6 +186,7 @@ impl ServerLevel {
             sync_writes: params.sync_writes,
             view_distance: params.view_distance,
             tickets: TicketStorage::new(),
+            reporter: params.shared.chunk_io_reporter.clone(),
         };
         let mut chunk_source =
             ServerChunkCache::new(data_dir, chunk_params, params.simulation_distance);

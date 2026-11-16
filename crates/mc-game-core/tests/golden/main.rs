@@ -10,6 +10,7 @@ mod brain_golden;
 mod chat_golden;
 mod chunk_block_entity_order;
 mod chunk_generation_pipeline;
+mod chunk_io_errors;
 mod chunk_level_golden;
 mod chunk_tickets;
 mod chunk_tracking;

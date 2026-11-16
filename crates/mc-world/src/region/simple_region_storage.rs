@@ -12,10 +12,14 @@ use mc_nbt::CompoundTag;
 use std::io;
 use std::path::PathBuf;
 
+/// What runs when a queued chunk could not be written (`IOWorker.runStore` completes the write exceptionally).
+pub type StoreFailureHandler = Box<dyn Fn(ChunkPos, &io::Error) + Send>;
+
 pub struct SimpleRegionStorage {
     storage: RegionFileStorage,
     /// `IOWorker.pendingWrites`; `None` = clear the chunk (`IOWorker.STORE_EMPTY`).
     pending_writes: IndexMap<i64, Option<CompoundTag>>,
+    on_store_failure: Option<StoreFailureHandler>,
 }
 
 impl SimpleRegionStorage {
@@ -23,7 +27,13 @@ impl SimpleRegionStorage {
         Self {
             storage: RegionFileStorage::new(info, folder, sync_writes),
             pending_writes: IndexMap::new(),
+            on_store_failure: None,
         }
+    }
+
+    /// Sets what runs for a chunk whose write failed (after the failure is logged).
+    pub fn set_store_failure_handler(&mut self, handler: StoreFailureHandler) {
+        self.on_store_failure = Some(handler);
     }
 
     /// `read(pos)`: pending write first (a copy), else the stored chunk.
@@ -48,10 +58,24 @@ impl SimpleRegionStorage {
             return Ok(false);
         };
         let pos = ChunkPos::unpack(key);
-        self.storage
-            .write(&pos, data.as_ref())
-            .inspect_err(|e| log::error!("Failed to store chunk {}: {}", pos, e))?;
+        self.storage.write(&pos, data.as_ref()).inspect_err(|e| {
+            log::error!("Failed to store chunk {}: {}", pos, e);
+            if let Some(handler) = &self.on_store_failure {
+                handler(pos, e);
+            }
+        })?;
         Ok(true)
+    }
+
+    /// `scanChunk(pos, visitor)`: the chunk's stored tag without creating a region file, a queued write first (`None`
+    /// where it removes the chunk).
+    pub fn scan_chunk(&mut self, pos: &ChunkPos) -> io::Result<Option<CompoundTag>> {
+        if let Some(pending) = self.pending_writes.get(&pos.pack()) {
+            return Ok(pending.clone());
+        }
+        self.storage
+            .read(pos)
+            .inspect_err(|e| log::warn!("Failed to bulk scan chunk {}: {}", pos, e))
     }
 
     /// `synchronize(flush)`: persists every queued chunk (continuing past failures, returning the

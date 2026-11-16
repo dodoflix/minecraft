@@ -12,8 +12,49 @@ use std::io::Write;
 use std::panic::{self, AssertUnwindSafe};
 use std::path::{Path, PathBuf};
 
-/// `ReportType.CRASH` header + nuggets (only the crash report is produced by the server lifecycle).
-const CRASH_HEADER: &str = "Minecraft Crash Report";
+/// `ReportType`: the header and the comments one of which heads a report file.
+#[derive(Debug, Clone, Copy)]
+pub struct ReportType {
+    header: &'static str,
+    nuggets: &'static [&'static str],
+}
+
+impl ReportType {
+    pub const CRASH: ReportType = ReportType {
+        header: "Minecraft Crash Report",
+        nuggets: &CRASH_NUGGETS,
+    };
+    pub const CHUNK_IO_ERROR: ReportType = ReportType {
+        header: "Minecraft Chunk IO Error Report",
+        nuggets: &CHUNK_IO_ERROR_NUGGETS,
+    };
+
+    /// `getErrorComment`: `nuggets.get((int)(Util.getNanos() % size))`.
+    fn error_comment(&self) -> &'static str {
+        let nanos = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map_or(0, |d| d.as_nanos());
+        self.nuggets[(nanos % self.nuggets.len() as u128) as usize]
+    }
+}
+
+const CHUNK_IO_ERROR_NUGGETS: [&str; 14] = [
+    "I have failed you!",
+    "Let's not do it again...",
+    "Worst magic trick ever!",
+    "Remember to backup your worlds regularly",
+    "Pirates stole your chunk!",
+    "Ker-chunk!",
+    "Ideally, this shouldn't be here",
+    "Let's hope it wasn't anything important",
+    "Computers were a mistake",
+    "Welp",
+    "Not my proudest moment",
+    "Who needs blocks in a block game, right?",
+    "This chunk is no more...it has ceased to be...this is an EX-chunk",
+    "loss.mca",
+];
+
 const CRASH_NUGGETS: [&str; 34] = [
     "Who set us up the TNT?",
     "Everything's going to plan. No, really, that was supposed to happen.",
@@ -257,12 +298,12 @@ impl CrashReport {
         out
     }
 
-    pub fn get_friendly_report(&self) -> String {
+    pub fn get_friendly_report(&self, report_type: ReportType) -> String {
         let mut out = String::new();
         out.push_str("---- ");
-        out.push_str(CRASH_HEADER);
+        out.push_str(report_type.header);
         out.push_str(" ----\n// ");
-        out.push_str(error_comment());
+        out.push_str(report_type.error_comment());
         out.push_str("\n\n");
         out.push_str("Time: ");
         out.push_str(&chrono::Local::now().format("%Y-%m-%d %H:%M:%S").to_string());
@@ -278,7 +319,7 @@ impl CrashReport {
     }
 
     /// `saveToFile`: `false` if already saved or on I/O failure (logged like vanilla).
-    pub fn save_to_file(&mut self, file: &Path) -> bool {
+    pub fn save_to_file(&mut self, file: &Path, report_type: ReportType) -> bool {
         if self.save_file.is_some() {
             return false;
         }
@@ -287,7 +328,7 @@ impl CrashReport {
                 std::fs::create_dir_all(parent)?;
             }
             let mut writer = std::io::BufWriter::new(std::fs::File::create(file)?);
-            writer.write_all(self.get_friendly_report().as_bytes())?;
+            writer.write_all(self.get_friendly_report(report_type).as_bytes())?;
             writer.flush()
         })();
         match result {
@@ -301,14 +342,6 @@ impl CrashReport {
             }
         }
     }
-}
-
-/// `ReportErrorComment`: `nuggets.get((int)(Util.getNanos() % size))`.
-fn error_comment() -> &'static str {
-    let nanos = std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
-        .map_or(0, |d| d.as_nanos());
-    CRASH_NUGGETS[(nanos % CRASH_NUGGETS.len() as u128) as usize]
 }
 
 /// `ReportedException`: thrown (panic payload) to abort with a prepared [`CrashReport`]. Use
@@ -416,7 +449,7 @@ mod tests {
             .add_category("Performance stats")
             .set_detail("Random tick rate", 3);
         report.system_report().set_detail("Server Running", "true");
-        let text = report.get_friendly_report();
+        let text = report.get_friendly_report(ReportType::CRASH);
         assert!(text.starts_with("---- Minecraft Crash Report ----\n// "));
         assert!(text.contains("\n\nTime: "));
         assert!(text.contains("\nDescription: Exception in server tick loop\n\nIllegalStateException: boom\n\nA detailed walkthrough of the error, its code path and all known details is as follows:\n"));
@@ -437,8 +470,8 @@ mod tests {
         let dir = tempfile::tempdir().unwrap();
         let file = dir.path().join("crash-reports").join("crash.txt");
         let mut report = CrashReport::new("t", "e");
-        assert!(report.save_to_file(&file));
-        assert!(!report.save_to_file(&file));
+        assert!(report.save_to_file(&file, ReportType::CRASH));
+        assert!(!report.save_to_file(&file, ReportType::CRASH));
         assert!(
             std::fs::read_to_string(&file)
                 .unwrap()

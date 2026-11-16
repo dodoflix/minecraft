@@ -30,6 +30,8 @@ import net.minecraft.world.level.chunk.storage.SimpleRegionStorage;
  * load CX CZ                   setChunkForced(CX, CZ, true), ticks until the chunk is ticking with its entities loaded (at most 40); prints `LOAD CX CZ ticks=N loaded=B`
  * reload CX CZ                 `unload` then `load` of that chunk (a chunk the unload could not drop prints `RELOAD CX CZ unloaded=false` and is left alone)
  * rejoin PLAYER [sim] [joinburst]   `spawn_player` with the saved data of PLAYER (`leave` first): its saved game mode, position and rotation, in the level world verbs act on
+ * forget_structure_checks     empties the structure check caches of every level (`loadedChunks`, `featureChecks`, `chunksWithoutStartsInStorage`), the state a server restart starts with: the next
+ *                              `/locate` reads the stored starts from the region files
  * dump region:CX,CZ            `REGION CX,CZ SNBT`: the stored chunk (a write still queued counts), light and the UUIDs of known entities replaced (below); `none` when nothing is stored
  * dump entityfile:CX,CZ        `ENTITYFILE CX,CZ SNBT`: the stored entity chunk of the level
  * dump poifile:CX,CZ           `POIFILE CX,CZ SNBT`: the stored points of interest of the chunk
@@ -71,6 +73,24 @@ final class PersistVerbs {
                ticks++;
             }
             d.out.println("UNLOADALL ticks=" + ticks + " loaded=" + level.getChunkSource().getLoadedChunksCount());
+         }
+         case "forget_structure_checks" -> {
+            d.world();
+            var checkField = ServerLevel.class.getDeclaredField("structureCheck");
+            checkField.setAccessible(true);
+            for (ServerLevel level : d.v.server.getAllLevels()) {
+               Object check = checkField.get(level);
+               for (String name : new String[] {"loadedChunks", "featureChecks", "chunksWithoutStartsInStorage"}) {
+                  var cache = check.getClass().getDeclaredField(name);
+                  cache.setAccessible(true);
+                  Object value = cache.get(check);
+                  if (value instanceof java.util.Map<?, ?> map) {
+                     map.clear();
+                  } else {
+                     ((java.util.Collection<?>) value).clear();
+                  }
+               }
+            }
          }
          case "load" -> {
             d.world();

@@ -63,3 +63,8 @@ fn locate_on_a_noise_level_matches_vanilla() {
 fn locate_from_the_world_spawn_matches_vanilla() {
     common::block_scenario::check("cmd_locate_spawn");
 }
+
+#[test]
+fn locate_answers_from_stored_structure_starts_like_vanilla() {
+    common::block_scenario::check("locate_stored_starts");
+}

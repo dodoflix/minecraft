@@ -22,6 +22,7 @@ use std::sync::{Arc, LazyLock};
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::block::{Block, BlockState};
+use mc_game::server::level::chunk_io::DeferredChunkScan;
 use mc_game::server::level::world_gen::{GenChunk, WorldGenRegion};
 use mc_game::server::level::worldgen_adapter::NoiseWorldGenerator;
 use mc_game::server::packs::repository::PackSource;
@@ -422,7 +423,7 @@ pub fn noise_world(
     seed: i64,
     structures: bool,
     dimension: &str,
-) -> (Arc<GenEnv>, Arc<NoiseWorldGenerator>) {
+) -> (Arc<GenEnv>, Arc<NoiseWorldGenerator>, DeferredChunkScan) {
     let w = &*WORLD;
     let (generator, level_height) = match dimension {
         "overworld" => (w.generator.clone(), level_height()),
@@ -447,6 +448,7 @@ pub fn noise_world(
         )
         .expect("structure state")
     });
+    let chunk_scan = DeferredChunkScan::default();
     let env = Arc::new(GenEnv {
         dimension: Identifier::with_default_namespace(dimension).unwrap(),
         seed,
@@ -458,7 +460,7 @@ pub fn noise_world(
         structures: w.structures.clone(),
         start_cache: StartCache::default(),
         structure_state,
-        structure_check: StructureCheck::new(Box::new(NoChunkScan)),
+        structure_check: StructureCheck::new(Box::new(chunk_scan.clone())),
         generate_structures: structures,
         level_height,
     });
@@ -469,7 +471,7 @@ pub fn noise_world(
         Identifier::parse("minecraft:noise").ok(),
     ));
     backend.set_gen_env(env.clone());
-    (env, backend)
+    (env, backend, chunk_scan)
 }
 
 fn biome_id(name: &str) -> BiomeId {

@@ -490,6 +490,23 @@ impl LevelStorageSource {
     }
 }
 
+/// `FileStore.getUsableSpace()` of the file system holding `path` (`u64::MAX` when unknown).
+pub fn usable_space(path: &Path) -> u64 {
+    #[cfg(unix)]
+    {
+        use std::os::unix::ffi::OsStrExt;
+        if let Ok(path) = std::ffi::CString::new(path.as_os_str().as_bytes()) {
+            // SAFETY: `statvfs` is plain data and `path` is a valid NUL-terminated string.
+            let mut stat: libc::statvfs = unsafe { std::mem::zeroed() };
+            // SAFETY: `path` is a valid NUL-terminated string and `stat` is a valid out-pointer.
+            if unsafe { libc::statvfs(path.as_ptr(), &mut stat) } == 0 {
+                return (stat.f_bavail as u64).saturating_mul(stat.f_frsize as u64);
+            }
+        }
+    }
+    u64::MAX
+}
+
 /// `LevelStorageSource.LevelStorageAccess`: an exclusive (`session.lock`) handle on one world folder.
 pub struct LevelStorageAccess {
     lock: DirectoryLock,
@@ -529,21 +546,7 @@ impl LevelStorageAccess {
 
     /// `estimateDiskSpace`: usable bytes on the world's file system (`u64::MAX` when unknown).
     pub fn estimate_disk_space(&self) -> u64 {
-        #[cfg(unix)]
-        {
-            use std::os::unix::ffi::OsStrExt;
-            if let Ok(path) =
-                std::ffi::CString::new(self.level_directory.path.as_os_str().as_bytes())
-            {
-                // SAFETY: `statvfs` is plain data and `path` is a valid NUL-terminated string.
-                let mut stat: libc::statvfs = unsafe { std::mem::zeroed() };
-                // SAFETY: `path` is a valid NUL-terminated string and `stat` is a valid out-pointer.
-                if unsafe { libc::statvfs(path.as_ptr(), &mut stat) } == 0 {
-                    return (stat.f_bavail as u64).saturating_mul(stat.f_frsize as u64);
-                }
-            }
-        }
-        u64::MAX
+        usable_space(&self.level_directory.path)
     }
 
     pub fn check_for_low_disk_space(&self) -> bool {
