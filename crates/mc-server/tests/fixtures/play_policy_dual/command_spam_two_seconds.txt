@@ -1,0 +1,25 @@
+> join Bot
+  log: [Server thread/INFO] System chat: Bot joined the game
+> Bot: one
+Bot connected
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] System chat: Bot left the game
+> join Bot
+  log: [Server thread/INFO] System chat: Bot joined the game
+> Bot: two a second and a half apart
+Bot connected
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] System chat: Bot left the game
+> join Bot
+  log: [Server thread/INFO] System chat: Bot joined the game
+> Bot: a burst of three
+Bot disconnected: Kicked for spamming
+  Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "disconnect.spam", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] System chat: Bot left the game
+> join Operator
+  log: [Server thread/INFO] System chat: Operator joined the game
+> Operator: a burst of thirty
+Operator connected
+  log: [Server thread/INFO] Operator lost connection: <reason>
+  log: [Server thread/INFO] System chat: Operator left the game

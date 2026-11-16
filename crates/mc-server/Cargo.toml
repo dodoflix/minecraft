@@ -15,6 +15,7 @@ log = { workspace = true }
 
 [dev-dependencies]
 mc-core = { path = "../mc-core" }
+futures-util = { workspace = true, features = ["std", "sink"] }
 mc-data = { path = "../mc-data" }
 mc-nbt = { path = "../mc-nbt" }
 mc-protocol = { path = "../mc-protocol" }
@@ -27,6 +28,7 @@ parking_lot = { workspace = true }
 serde_json = { workspace = true }
 tempfile = { workspace = true }
 tokio = { workspace = true, features = ["io-util", "net", "rt", "macros", "time", "sync", "rt-multi-thread"] }
+tokio-tungstenite = { workspace = true }
 uuid = { workspace = true }
 
 [lints]

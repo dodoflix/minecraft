@@ -1394,6 +1394,7 @@ dependencies = [
 name = "mc-server"
 version = "0.1.0"
 dependencies = [
+ "futures-util",
  "indexmap",
  "log",
  "mc-core",
@@ -1409,6 +1410,7 @@ dependencies = [
  "serde_json",
  "tempfile",
  "tokio",
+ "tokio-tungstenite",
  "uuid",
 ]
 

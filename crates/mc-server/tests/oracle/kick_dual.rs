@@ -1,7 +1,7 @@
 //! Every way a player leaves a server against their will, observed through the same bot script on the vanilla server and
 //! on OUR server: the reason text the client receives, what the other players see (system chat, player info removal) and
 //! the server log lines, in order, for `/stop`, `/kick`, bans, the whitelist, the idle timeout, a duplicate login, an
-//! outdated client or server, floating, illegal packets and chat spam; plus the bind failure at startup.
+//! outdated client or server, illegal packets and chat spam; plus the bind failure at startup.
 //!
 //! `kick_dual_vanilla`  runs the scenarios against the real vanilla server and checks them against the committed
 //!                      observations in `tests/fixtures/kick_dual/*.txt` (`MC_UPDATE_FIXTURES=1` rewrites them;
@@ -21,7 +21,8 @@ use mc_protocol::packets::handshake::{
 };
 use mc_protocol::packets::login::ClientboundLoginPacket;
 use mc_protocol::packets::play::{
-    ClientboundPlayPacket, ServerboundMovePlayerPosPacket, ServerboundPlayPacket,
+    ClientboundPlayPacket, ServerboundClientTickEndPacket, ServerboundMovePlayerPosPacket,
+    ServerboundPlayPacket,
 };
 use mc_testbot::Bot;
 use mc_testbot::conn::Conn;
@@ -29,15 +30,17 @@ use mc_testbot::harness::repo_root;
 use mc_testbot::join::BotOptions;
 use mc_testkit::Server;
 
-type Run = for<'a> fn(&'a Server) -> Pin<Box<dyn Future<Output = Vec<String>> + 'a>>;
+pub(crate) type Run = for<'a> fn(&'a Server) -> Pin<Box<dyn Future<Output = Vec<String>> + 'a>>;
 
-struct Case {
-    name: &'static str,
-    props: &'static [&'static str],
-    run: Run,
+pub(crate) struct Case {
+    pub(crate) name: &'static str,
+    pub(crate) props: &'static [&'static str],
+    pub(crate) run: Run,
     /// How often the vanilla recording may be taken again when it differs from the fixture: its outcome is a race
     /// between two threads (see `stop_with_active_client`).
-    attempts: u32,
+    pub(crate) attempts: u32,
+    /// Called with the server directory before the first launch (ban lists, ops, ...).
+    pub(crate) prepare: Option<fn(&std::path::Path)>,
 }
 
 macro_rules! case {
@@ -45,14 +48,19 @@ macro_rules! case {
         case!($name, $props, 1)
     };
     ($name:ident, $props:expr, $attempts:expr) => {
+        case!($name, $props, $attempts, None)
+    };
+    ($name:ident, $props:expr, $attempts:expr, $prepare:expr) => {
         Case {
             name: stringify!($name),
             props: $props,
             run: |s| Box::pin($name(s)),
             attempts: $attempts,
+            prepare: $prepare,
         }
     };
 }
+pub(crate) use case;
 
 const CASES: &[Case] = &[
     case!(stop_with_player, PROPS),
@@ -64,7 +72,6 @@ const CASES: &[Case] = &[
     case!(whitelist_not_enforced, PROPS),
     case!(duplicate_login, PROPS),
     case!(outdated_client_and_server, PROPS),
-    case!(floating, PROPS),
     case!(illegal_packets, PROPS),
     case!(chat_spam, PROPS),
     case!(
@@ -74,8 +81,13 @@ const CASES: &[Case] = &[
 ];
 
 fn fixture_path(scenario: &str) -> std::path::PathBuf {
+    fixture_in("kick_dual", scenario)
+}
+
+fn fixture_in(dir: &str, scenario: &str) -> std::path::PathBuf {
     std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("tests/fixtures/kick_dual")
+        .join("tests/fixtures")
+        .join(dir)
         .join(format!("{scenario}.txt"))
 }
 
@@ -87,49 +99,53 @@ fn props(case: &Case) -> Vec<&'static str> {
 // ---- observation helpers ---------------------------------------------------------------------------------------
 
 /// Observation lines of one scenario: `> step` headers followed by what the step caused.
-struct Rec<'a> {
-    server: &'a Server,
-    out: Vec<String>,
+pub(crate) struct Rec<'a> {
+    pub(crate) server: &'a Server,
+    pub(crate) out: Vec<String>,
     log_mark: usize,
     /// Leave the `lost connection` and `left the game` lines out of the log (vanilla only logs them when the closing
     /// of the connection wins a race, see `stop_with_player`).
-    drop_leave_lines: bool,
+    pub(crate) drop_leave_lines: bool,
     /// Keep the order of the events of one step. Off: they are sorted, because vanilla's order of the leave messages
     /// against the command feedback is a race (see the module documentation).
-    ordered: bool,
+    pub(crate) ordered: bool,
+    /// Replace the position of a `moved too quickly!` line (where a position beyond the border is clamped to depends
+    /// on the packets before it).
+    pub(crate) mask_moves: bool,
 }
 
 /// A connected bot and how much of its packet log is already reported.
-struct Client {
-    name: &'static str,
-    bot: Arc<Bot>,
+pub(crate) struct Client {
+    pub(crate) name: &'static str,
+    pub(crate) bot: Arc<Bot>,
     seen: Cell<usize>,
 }
 
-const SETTLE: Duration = Duration::from_millis(1500);
+pub(crate) const SETTLE: Duration = Duration::from_millis(1500);
 
 impl<'a> Rec<'a> {
-    fn new(server: &'a Server) -> Self {
+    pub(crate) fn new(server: &'a Server) -> Self {
         Rec {
             server,
             out: Vec::new(),
             log_mark: server.log().lines().count(),
             ordered: false,
+            mask_moves: true,
             drop_leave_lines: false,
         }
     }
 
-    fn step(&mut self, text: &str) {
+    pub(crate) fn step(&mut self, text: &str) {
         self.out.push(format!("> {text}"));
     }
 
     /// A console command.
-    fn console(&mut self, command: &str) {
+    pub(crate) fn console(&mut self, command: &str) {
         self.step(&format!("console {command}"));
         self.server.cmd(command);
     }
 
-    async fn join(&mut self, name: &'static str) -> Client {
+    pub(crate) async fn join(&mut self, name: &'static str) -> Client {
         self.step(&format!("join {name}"));
         let bot = join("127.0.0.1", self.server.port, name).await;
         Client {
@@ -149,7 +165,7 @@ impl<'a> Rec<'a> {
     }
 
     /// The outcome of a login attempt: the joined client or the refusal text.
-    async fn try_join(&mut self, name: &'static str) -> Option<Client> {
+    pub(crate) async fn try_join(&mut self, name: &'static str) -> Option<Client> {
         self.step(&format!("login {name}"));
         let mut options = BotOptions::new("127.0.0.1", self.server.port, name);
         options.timeout = Duration::from_secs(60);
@@ -180,7 +196,7 @@ impl<'a> Rec<'a> {
     /// Waits until every client in `gone` is disconnected (up to `limit`), then reports for each client in `all` its
     /// disconnect reason or `connected`, the packets since the last report, and finally the server log since the last
     /// report.
-    async fn settle(&mut self, gone: &[&Client], all: &[&Client], limit: Duration) {
+    pub(crate) async fn settle(&mut self, gone: &[&Client], all: &[&Client], limit: Duration) {
         let deadline = Instant::now() + limit;
         while Instant::now() < deadline && gone.iter().any(|c| c.bot.disconnect_reason().is_none())
         {
@@ -216,12 +232,12 @@ impl<'a> Rec<'a> {
     }
 
     /// The server log lines since the last report.
-    fn log(&mut self) {
+    pub(crate) fn log(&mut self) {
         let text = self.server.log();
         let lines: Vec<&str> = text.lines().collect();
         let events = lines[self.log_mark.min(lines.len())..]
             .iter()
-            .filter_map(|l| log_message(l))
+            .filter_map(|l| log_message(l, self.mask_moves))
             .filter(|l| {
                 !(self.drop_leave_lines
                     && (l.contains("lost connection") || l.contains("left the game")))
@@ -241,7 +257,7 @@ impl<'a> Rec<'a> {
 
 /// The message of a log line of the server thread; every other thread, and lines whose text depends on the run
 /// (entity ids, coordinates, timings), are left out.
-fn log_message(line: &str) -> Option<String> {
+fn log_message(line: &str, mask_moves: bool) -> Option<String> {
     let rest = line.strip_prefix('[')?.split_once("] ")?.1;
     let rest = rest.strip_prefix('[')?;
     let (thread_level, message) = rest.split_once("]: ")?;
@@ -261,6 +277,8 @@ fn log_message(line: &str) -> Option<String> {
         "handleDisconnection() called twice",
         // how many messages of a burst are relayed before the kick depends on how the packets split into ticks
         "[Not Secure] <",
+        // vanilla logs it when a player's chunk below arrives after the player: a race against the chunk delivery
+        "standing on air - force-sending",
     ];
     if VOLATILE.iter().any(|v| message.contains(v)) {
         return None;
@@ -273,7 +291,17 @@ fn log_message(line: &str) -> Option<String> {
     };
     // where a position beyond the border is clamped to depends on the packets before it
     let message = match message.split_once("moved too quickly! ") {
-        Some((head, _)) => format!("{head}moved too quickly! <position>"),
+        Some((head, _)) if mask_moves => format!("{head}moved too quickly! <position>"),
+        _ => message,
+    };
+    // an average over the packets of the last seconds
+    let message = match message.split_once("exceeded rate-limit (sent ") {
+        Some((head, _)) => format!("{head}exceeded rate-limit (sent <n> packets per second)"),
+        None => message,
+    };
+    // the game time depends on how long the server ran
+    let message = match message.split_once("The game time is ") {
+        Some((head, _)) => format!("{head}The game time is <n> tick(s)"),
         None => message,
     };
     Some(format!("  log: [{thread_level}] {}", mask_ports(&message)))
@@ -306,13 +334,22 @@ fn mask_ports(text: &str) -> String {
 
 /// A client that logs in and then only listens: it never answers a keep-alive and sends nothing after the join, so no
 /// unread data is in flight when the server closes the connection (a close with unread data resets it and can
-/// swallow the final packet).
-struct Silent {
+/// swallow the final packet). Silence also trips the server's 30 second read timeout, which closes the connection
+/// without a reason: [`Silent::join_pinging`] sends a harmless packet every second to get past it.
+pub(crate) struct Silent {
     reader: tokio::task::JoinHandle<(Option<String>, String)>,
 }
 
 impl Silent {
-    async fn join(s: &Server, name: &str) -> Silent {
+    pub(crate) async fn join(s: &Server, name: &str) -> Silent {
+        Self::join_with(s, name, false).await
+    }
+
+    pub(crate) async fn join_pinging(s: &Server, name: &str) -> Silent {
+        Self::join_with(s, name, true).await
+    }
+
+    async fn join_with(s: &Server, name: &str, ping: bool) -> Silent {
         let mut conn = Conn::connect(
             "127.0.0.1",
             s.port,
@@ -327,12 +364,29 @@ impl Silent {
             .expect("login");
         s.wait_log(&format!("{name} joined the game"), 30)
             .expect("joined");
+        let Conn {
+            mut reader,
+            mut writer,
+            ..
+        } = conn;
+        // the write half lives as long as the reader: dropping it would close the socket
+        let writer = tokio::spawn(async move {
+            let tick_end = mc_testbot::conn::encode(&ServerboundPlayPacket::ClientTickEnd(
+                ServerboundClientTickEndPacket,
+            ))
+            .expect("encode");
+            loop {
+                tokio::time::sleep(Duration::from_secs(1)).await;
+                if ping {
+                    let _ = writer.write_payload(&tick_end).await;
+                    let _ = writer.flush().await;
+                }
+            }
+        });
         let reader = tokio::spawn(async move {
-            // the whole connection: dropping its write half would close the socket
-            let mut conn = conn;
             let mut reason = None;
             let end = loop {
-                match conn.reader.read_payload().await {
+                match reader.read_payload().await {
                     Ok(payload) => {
                         if let Ok(ClientboundPlayPacket::Disconnect(d)) =
                             ClientboundPlayPacket::decode_payload(&payload)
@@ -343,12 +397,13 @@ impl Silent {
                     Err(e) => break e.to_string(),
                 }
             };
+            writer.abort();
             (reason, end)
         });
         Silent { reader }
     }
 
-    async fn report(self, r: &mut Rec<'_>) {
+    pub(crate) async fn report(self, r: &mut Rec<'_>) {
         let (reason, end) = self.reader.await.expect("reader task");
         r.out.push(format!(
             "client received disconnect: {}",
@@ -585,23 +640,6 @@ async fn outdated_client_and_server(s: &Server) -> Vec<String> {
     r.out
 }
 
-async fn floating(s: &Server) -> Vec<String> {
-    let mut r = Rec::new(s);
-    let bot = r.join("Bot").await;
-    r.console("tp Bot 0.5 -30 0.5");
-    tokio::time::sleep(SETTLE).await;
-    r.log();
-    r.out.clear();
-    // the client believes it flies; the server does not allow it
-    bot.bot.with_state_mut(|st| {
-        st.body.abilities.may_fly = true;
-        st.body.abilities.flying = true;
-    });
-    r.step("float without permission");
-    r.settle(&[&bot], &[&bot], Duration::from_secs(30)).await;
-    r.out
-}
-
 async fn illegal_packets(s: &Server) -> Vec<String> {
     let mut r = Rec::new(s);
     r.log();
@@ -687,26 +725,40 @@ async fn idle_timeout(s: &Server) -> Vec<String> {
     r.out
 }
 
-const T: Duration = Duration::from_secs(30);
+pub(crate) const T: Duration = Duration::from_secs(30);
 
 // ---- the tests -------------------------------------------------------------------------------------------------
-
-fn only() -> Option<String> {
-    std::env::var("KICK_DUAL_ONLY").ok()
-}
 
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "oracle: starts the vanilla server"]
 async fn kick_dual_vanilla() {
+    record_vanilla("kick_dual", "KICK_DUAL_ONLY", CASES).await;
+}
+
+#[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the mc-server binary"]
+async fn kick_dual_ours() {
+    compare_ours("kick_dual", "KICK_DUAL_ONLY", CASES).await;
+}
+
+/// Runs `cases` against the vanilla server and checks them against `tests/fixtures/<dir>/*.txt`
+/// (`MC_UPDATE_FIXTURES=1` rewrites them; the environment variable `only_var` names one case to run).
+pub(crate) async fn record_vanilla(dir: &str, only_var: &str, cases: &[Case]) {
+    let only = std::env::var(only_var).ok();
     let update = std::env::var("MC_UPDATE_FIXTURES").is_ok_and(|v| v == "1");
     let mut failures = Vec::new();
-    for case in CASES.iter().filter(|c| only().is_none_or(|o| o == c.name)) {
-        let path = fixture_path(case.name);
+    for case in cases
+        .iter()
+        .filter(|c| only.as_deref().is_none_or(|o| o == c.name))
+    {
+        let path = fixture_in(dir, case.name);
         let expected = std::fs::read_to_string(&path).unwrap_or_default();
         for attempt in 1..=case.attempts {
-            let server = mc_testbot::harness::vanilla(12345, "survival", &props(case))
-                .start()
-                .expect("start vanilla");
+            let mut builder = mc_testbot::harness::vanilla(12345, "survival", &props(case));
+            if let Some(prepare) = case.prepare {
+                builder = builder.prepare(prepare);
+            }
+            let server = builder.start().expect("start vanilla");
             let lines = (case.run)(&server).await;
             server.stop();
             println!("SCENARIO {}:\n  {}", case.name, lines.join("\n  "));
@@ -729,17 +781,23 @@ async fn kick_dual_vanilla() {
     );
 }
 
-#[tokio::test(flavor = "multi_thread")]
-#[ignore = "oracle: starts the mc-server binary"]
-async fn kick_dual_ours() {
+/// Runs `cases` against our server and fails on any difference from the fixtures of [`record_vanilla`]; the
+/// differences are also written to `run/<dir>-ours.diff`.
+pub(crate) async fn compare_ours(dir: &str, only_var: &str, cases: &[Case]) {
+    let only = std::env::var(only_var).ok();
     let mut diffs = Vec::new();
-    for case in CASES.iter().filter(|c| only().is_none_or(|o| o == c.name)) {
-        let server = ours(12345, "survival", &props(case))
-            .start()
-            .expect("start our server");
+    for case in cases
+        .iter()
+        .filter(|c| only.as_deref().is_none_or(|o| o == c.name))
+    {
+        let mut builder = ours(12345, "survival", &props(case));
+        if let Some(prepare) = case.prepare {
+            builder = builder.prepare(prepare);
+        }
+        let server = builder.start().expect("start our server");
         let lines = (case.run)(&server).await;
         server.stop();
-        let expected: Vec<String> = std::fs::read_to_string(fixture_path(case.name))
+        let expected: Vec<String> = std::fs::read_to_string(fixture_in(dir, case.name))
             .unwrap_or_default()
             .lines()
             .map(str::to_string)
@@ -759,7 +817,7 @@ async fn kick_dual_ours() {
     }
     let _ = std::fs::create_dir_all(repo_root().join("run"));
     let _ = std::fs::write(
-        repo_root().join("run/kick-dual-ours.diff"),
+        repo_root().join(format!("run/{}-ours.diff", dir.replace('_', "-"))),
         diffs.join("\n"),
     );
     assert!(

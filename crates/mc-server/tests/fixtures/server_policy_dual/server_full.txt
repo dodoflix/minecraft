@@ -1,0 +1,36 @@
+> login First
+First logged in
+  log: [Server thread/INFO] System chat: First joined the game
+> login Second
+Second refused: disconnected: The server is full!
+  log: [Server thread/INFO] Disconnecting Second (/127.0.0.1:<port>): The server is full!
+  log: [Server thread/INFO] Second (/127.0.0.1:<port>) lost connection: <reason>
+> an operator without bypassesPlayerLimit
+> login Operator
+Operator refused: disconnected: The server is full!
+  log: [Server thread/INFO] Disconnecting Operator (/127.0.0.1:<port>): The server is full!
+  log: [Server thread/INFO] Operator (/127.0.0.1:<port>) lost connection: <reason>
+> the first player again
+> login First
+First refused: disconnected: The server is full!
+  log: [Server thread/INFO] Disconnecting First (/127.0.0.1:<port>): The server is full!
+  log: [Server thread/INFO] First (/127.0.0.1:<port>) lost connection: <reason>
+> login Bypasser
+Bypasser logged in
+  log: [Server thread/INFO] System chat: Bypasser joined the game
+First connected
+  First: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "multiplayer.player.joined", fallback: None, args: [Component(Component { contents: Literal("Bypasser"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: Some(SuggestCommand("/tell Bypasser ")), hover_event: Some(ShowEntity(EntityTooltipInfo { entity_type: minecraft:player, uuid: 290513653670143246750822897036027049642, name: Some(Component { contents: Literal("Bypasser"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }) })), insertion: Some("Bypasser"), font: None } })] }), siblings: [], style: Style { color: Some(TextColor { value: 16777045, name: Some("yellow") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+Bypasser connected
+> the bypasser logs in a second time
+> login Bypasser
+Bypasser logged in
+  log: [Server thread/INFO] Bypasser lost connection: <reason>
+  log: [Server thread/INFO] System chat: Bypasser joined the game
+  log: [Server thread/INFO] System chat: Bypasser left the game
+First connected
+  First: <- play/player_info_remove PlayerInfoRemove(ClientboundPlayerInfoRemovePacket { profile_ids: [da8ee4fd-033f-3a35-bf28-58ca42d536aa] })
+  First: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "multiplayer.player.joined", fallback: None, args: [Component(Component { contents: Literal("Bypasser"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: Some(SuggestCommand("/tell Bypasser ")), hover_event: Some(ShowEntity(EntityTooltipInfo { entity_type: minecraft:player, uuid: 290513653670143246750822897036027049642, name: Some(Component { contents: Literal("Bypasser"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }) })), insertion: Some("Bypasser"), font: None } })] }), siblings: [], style: Style { color: Some(TextColor { value: 16777045, name: Some("yellow") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  First: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "multiplayer.player.left", fallback: None, args: [Component(Component { contents: Literal("Bypasser"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: Some(SuggestCommand("/tell Bypasser ")), hover_event: Some(ShowEntity(EntityTooltipInfo { entity_type: minecraft:player, uuid: 290513653670143246750822897036027049642, name: Some(Component { contents: Literal("Bypasser"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }) })), insertion: Some("Bypasser"), font: None } })] }), siblings: [], style: Style { color: Some(TextColor { value: 16777045, name: Some("yellow") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+Bypasser disconnected: You logged in from another location
+  Bypasser: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "multiplayer.disconnect.duplicate_login", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+Bypasser2 connected

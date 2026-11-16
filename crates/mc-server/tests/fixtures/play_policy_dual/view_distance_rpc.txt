@@ -1,0 +1,28 @@
+> join Bot
+  log: [Server thread/INFO] System chat: Bot joined the game
+> "method":"minecraft:serversettings/view_distance"
+  rpc: {"jsonrpc":"2.0","id":0,"result":4}
+  properties: view-distance=4
+  chunks forgotten: 0, chunks sent: 0
+> "method":"minecraft:serversettings/view_distance/set","params":[6]
+  rpc: {"jsonrpc":"2.0","id":1,"result":6}
+  properties: view-distance=6
+  <- play/set_chunk_cache_radius SetChunkCacheRadius(ClientboundSetChunkCacheRadiusPacket { radius: 6 })
+  chunks forgotten: 0, chunks sent: 96
+> "method":"minecraft:serversettings/view_distance"
+  rpc: {"jsonrpc":"2.0","id":2,"result":6}
+  properties: view-distance=6
+  chunks forgotten: 0, chunks sent: 0
+> "method":"minecraft:serversettings/view_distance/set","params":[2]
+  rpc: {"jsonrpc":"2.0","id":3,"result":2}
+  properties: view-distance=2
+  <- play/set_chunk_cache_radius SetChunkCacheRadius(ClientboundSetChunkCacheRadiusPacket { radius: 2 })
+  chunks forgotten: 164, chunks sent: 0
+> "method":"minecraft:serversettings/view_distance/set","params":[1]
+  rpc: {"jsonrpc":"2.0","id":4,"result":1}
+  properties: view-distance=1
+  <- play/set_chunk_cache_radius SetChunkCacheRadius(ClientboundSetChunkCacheRadiusPacket { radius: 1 })
+  chunks forgotten: 0, chunks sent: 0
+  log: [Server thread/INFO] RPC Connection #1: Update view distance from 2 to 1
+  log: [Server thread/INFO] RPC Connection #1: Update view distance from 4 to 6
+  log: [Server thread/INFO] RPC Connection #1: Update view distance from 6 to 2

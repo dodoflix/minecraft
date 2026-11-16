@@ -1,0 +1,240 @@
+> console tp Player 3.5 -60 -1.5
+  log: [Server thread/INFO] System chat: Teleported Player to 3.500000, -60.000000, -1.500000
+> Player: break at 3 0
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 1 })
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 2 })
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "build.spawn_protection", fallback: None, args: [String("3, -61, 0")] }), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: true })
+> console execute if block 3 -61 0 minecraft:air
+  log: [Server thread/INFO] System chat: Test failed
+> console tp Player 3.5 -60 0.5
+  log: [Server thread/INFO] System chat: Teleported Player to 3.500000, -60.000000, 0.500000
+> Player: place at 3 2
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 3 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=3, y=-60, z=2}, block_state: BlockState(0: minecraft:air) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=3, y=-61, z=2}, block_state: BlockState(9: minecraft:grass_block[snowy=false]) })
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "build.spawn_protection", fallback: None, args: [String("3, -61, 2")] }), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: true })
+> console execute if block 3 -60 2 minecraft:cobblestone
+  log: [Server thread/INFO] System chat: Test failed
+> console tp Player 3.5 -60 2.5
+  log: [Server thread/INFO] System chat: Teleported Player to 3.500000, -60.000000, 2.500000
+> Player: use hoe at 3 4
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 4 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=3, y=-60, z=4}, block_state: BlockState(0: minecraft:air) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=3, y=-61, z=4}, block_state: BlockState(9: minecraft:grass_block[snowy=false]) })
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "build.spawn_protection", fallback: None, args: [String("3, -61, 4")] }), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: true })
+> console execute if block 3 -61 4 minecraft:farmland
+  log: [Server thread/INFO] System chat: Test failed
+> console tp Player 16.5 -60 -1.5
+  log: [Server thread/INFO] System chat: Teleported Player to 16.500000, -60.000000, -1.500000
+> Player: break at 16 0
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 5 })
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 6 })
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "build.spawn_protection", fallback: None, args: [String("16, -61, 0")] }), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: true })
+> console execute if block 16 -61 0 minecraft:air
+  log: [Server thread/INFO] System chat: Test failed
+> console tp Player 17.5 -60 -1.5
+  log: [Server thread/INFO] System chat: Teleported Player to 17.500000, -60.000000, -1.500000
+> Player: break at 17 0
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 7 })
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 8 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=17, y=-61, z=0}, block_state: BlockState(0: minecraft:air) })
+> console execute if block 17 -61 0 minecraft:air
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Player 0.5 -60 14.5
+  log: [Server thread/INFO] System chat: Teleported Player to 0.500000, -60.000000, 14.500000
+> Player: break at 0 16
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 10 })
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 9 })
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "build.spawn_protection", fallback: None, args: [String("0, -61, 16")] }), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: true })
+> console execute if block 0 -61 16 minecraft:air
+  log: [Server thread/INFO] System chat: Test failed
+> console tp Player 0.5 -60 15.5
+  log: [Server thread/INFO] System chat: Teleported Player to 0.500000, -60.000000, 15.500000
+> Player: break at 0 17
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 11 })
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 12 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=0, y=-61, z=17}, block_state: BlockState(0: minecraft:air) })
+> console execute if block 0 -61 17 minecraft:air
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Player 16.5 -60 4.5
+  log: [Server thread/INFO] System chat: Teleported Player to 16.500000, -60.000000, 4.500000
+> Player: place at 16 6
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 13 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=16, y=-60, z=6}, block_state: BlockState(0: minecraft:air) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=16, y=-61, z=6}, block_state: BlockState(9: minecraft:grass_block[snowy=false]) })
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "build.spawn_protection", fallback: None, args: [String("16, -61, 6")] }), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: true })
+> console execute if block 16 -60 6 minecraft:cobblestone
+  log: [Server thread/INFO] System chat: Test failed
+> console tp Player 17.5 -60 6.5
+  log: [Server thread/INFO] System chat: Teleported Player to 17.500000, -60.000000, 6.500000
+> Player: place at 17 8
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 14 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=17, y=-60, z=8}, block_state: BlockState(14: minecraft:cobblestone) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=17, y=-60, z=8}, block_state: BlockState(14: minecraft:cobblestone) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=17, y=-61, z=8}, block_state: BlockState(9: minecraft:grass_block[snowy=false]) })
+> console execute if block 17 -60 8 minecraft:cobblestone
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Player 16.5 -60 8.5
+  log: [Server thread/INFO] System chat: Teleported Player to 16.500000, -60.000000, 8.500000
+> Player: use hoe at 16 10
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 15 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=16, y=-60, z=10}, block_state: BlockState(0: minecraft:air) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=16, y=-61, z=10}, block_state: BlockState(9: minecraft:grass_block[snowy=false]) })
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "build.spawn_protection", fallback: None, args: [String("16, -61, 10")] }), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: true })
+> console execute if block 16 -61 10 minecraft:farmland
+  log: [Server thread/INFO] System chat: Test failed
+> console tp Player 17.5 -60 10.5
+  log: [Server thread/INFO] System chat: Teleported Player to 17.500000, -60.000000, 10.500000
+> Player: use hoe at 17 12
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 16 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=17, y=-60, z=12}, block_state: BlockState(0: minecraft:air) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=17, y=-61, z=12}, block_state: BlockState(6875: minecraft:farmland[moisture=0]) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=17, y=-61, z=12}, block_state: BlockState(6875: minecraft:farmland[moisture=0]) })
+> console execute if block 17 -61 12 minecraft:farmland
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Player 40.5 -60 -1.5
+  log: [Server thread/INFO] System chat: Teleported Player to 40.500000, -60.000000, -1.500000
+> Player: break at 40 0
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 17 })
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 18 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=40, y=-61, z=0}, block_state: BlockState(0: minecraft:air) })
+> console execute if block 40 -61 0 minecraft:air
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Player 40.5 -60 0.5
+  log: [Server thread/INFO] System chat: Teleported Player to 40.500000, -60.000000, 0.500000
+> Player: place at 40 2
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 19 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=40, y=-60, z=2}, block_state: BlockState(14: minecraft:cobblestone) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=40, y=-60, z=2}, block_state: BlockState(14: minecraft:cobblestone) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=40, y=-61, z=2}, block_state: BlockState(9: minecraft:grass_block[snowy=false]) })
+> console execute if block 40 -60 2 minecraft:cobblestone
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Player 40.5 -60 2.5
+  log: [Server thread/INFO] System chat: Teleported Player to 40.500000, -60.000000, 2.500000
+> Player: use hoe at 40 4
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 20 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=40, y=-60, z=4}, block_state: BlockState(0: minecraft:air) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=40, y=-61, z=4}, block_state: BlockState(6875: minecraft:farmland[moisture=0]) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=40, y=-61, z=4}, block_state: BlockState(6875: minecraft:farmland[moisture=0]) })
+> console execute if block 40 -61 4 minecraft:farmland
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Operator -2.5 -60 -1.5
+  log: [Server thread/INFO] System chat: Teleported Operator to -2.500000, -60.000000, -1.500000
+> Operator: break at -3 0
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 1 })
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 2 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-3, y=-61, z=0}, block_state: BlockState(0: minecraft:air) })
+> console execute if block -3 -61 0 minecraft:air
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Operator -2.5 -60 -3.5
+  log: [Server thread/INFO] System chat: Teleported Operator to -2.500000, -60.000000, -3.500000
+> Operator: place at -3 -2
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 3 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-3, y=-60, z=-2}, block_state: BlockState(14: minecraft:cobblestone) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-3, y=-60, z=-2}, block_state: BlockState(14: minecraft:cobblestone) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-3, y=-61, z=-2}, block_state: BlockState(9: minecraft:grass_block[snowy=false]) })
+> console execute if block -3 -60 -2 minecraft:cobblestone
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Operator -2.5 -60 -5.5
+  log: [Server thread/INFO] System chat: Teleported Operator to -2.500000, -60.000000, -5.500000
+> Operator: use hoe at -3 -4
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 4 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-3, y=-60, z=-4}, block_state: BlockState(0: minecraft:air) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-3, y=-61, z=-4}, block_state: BlockState(6875: minecraft:farmland[moisture=0]) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-3, y=-61, z=-4}, block_state: BlockState(6875: minecraft:farmland[moisture=0]) })
+> console execute if block -3 -61 -4 minecraft:farmland
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Operator -15.5 -60 -1.5
+  log: [Server thread/INFO] System chat: Teleported Operator to -15.500000, -60.000000, -1.500000
+> Operator: break at -16 0
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 5 })
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 6 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-16, y=-61, z=0}, block_state: BlockState(0: minecraft:air) })
+> console execute if block -16 -61 0 minecraft:air
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Operator -16.5 -60 -1.5
+  log: [Server thread/INFO] System chat: Teleported Operator to -16.500000, -60.000000, -1.500000
+> Operator: break at -17 0
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 7 })
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 8 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-17, y=-61, z=0}, block_state: BlockState(0: minecraft:air) })
+> console execute if block -17 -61 0 minecraft:air
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Operator 0.5 -60 -17.5
+  log: [Server thread/INFO] System chat: Teleported Operator to 0.500000, -60.000000, -17.500000
+> Operator: break at 0 -16
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 10 })
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 9 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=0, y=-61, z=-16}, block_state: BlockState(0: minecraft:air) })
+> console execute if block 0 -61 -16 minecraft:air
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Operator 0.5 -60 -18.5
+  log: [Server thread/INFO] System chat: Teleported Operator to 0.500000, -60.000000, -18.500000
+> Operator: break at 0 -17
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 11 })
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 12 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=0, y=-61, z=-17}, block_state: BlockState(0: minecraft:air) })
+> console execute if block 0 -61 -17 minecraft:air
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Operator -15.5 -60 -7.5
+  log: [Server thread/INFO] System chat: Teleported Operator to -15.500000, -60.000000, -7.500000
+> Operator: place at -16 -6
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 13 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-16, y=-60, z=-6}, block_state: BlockState(14: minecraft:cobblestone) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-16, y=-60, z=-6}, block_state: BlockState(14: minecraft:cobblestone) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-16, y=-61, z=-6}, block_state: BlockState(9: minecraft:grass_block[snowy=false]) })
+> console execute if block -16 -60 -6 minecraft:cobblestone
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Operator -16.5 -60 -9.5
+  log: [Server thread/INFO] System chat: Teleported Operator to -16.500000, -60.000000, -9.500000
+> Operator: place at -17 -8
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 14 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-17, y=-60, z=-8}, block_state: BlockState(14: minecraft:cobblestone) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-17, y=-60, z=-8}, block_state: BlockState(14: minecraft:cobblestone) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-17, y=-61, z=-8}, block_state: BlockState(9: minecraft:grass_block[snowy=false]) })
+> console execute if block -17 -60 -8 minecraft:cobblestone
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Operator -15.5 -60 -11.5
+  log: [Server thread/INFO] System chat: Teleported Operator to -15.500000, -60.000000, -11.500000
+> Operator: use hoe at -16 -10
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 15 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-16, y=-60, z=-10}, block_state: BlockState(0: minecraft:air) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-16, y=-61, z=-10}, block_state: BlockState(6875: minecraft:farmland[moisture=0]) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-16, y=-61, z=-10}, block_state: BlockState(6875: minecraft:farmland[moisture=0]) })
+> console execute if block -16 -61 -10 minecraft:farmland
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Operator -16.5 -60 -13.5
+  log: [Server thread/INFO] System chat: Teleported Operator to -16.500000, -60.000000, -13.500000
+> Operator: use hoe at -17 -12
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 16 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-17, y=-60, z=-12}, block_state: BlockState(0: minecraft:air) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-17, y=-61, z=-12}, block_state: BlockState(6875: minecraft:farmland[moisture=0]) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-17, y=-61, z=-12}, block_state: BlockState(6875: minecraft:farmland[moisture=0]) })
+> console execute if block -17 -61 -12 minecraft:farmland
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Operator -39.5 -60 -1.5
+  log: [Server thread/INFO] System chat: Teleported Operator to -39.500000, -60.000000, -1.500000
+> Operator: break at -40 0
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 17 })
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 18 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-40, y=-61, z=0}, block_state: BlockState(0: minecraft:air) })
+> console execute if block -40 -61 0 minecraft:air
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Operator -39.5 -60 -3.5
+  log: [Server thread/INFO] System chat: Teleported Operator to -39.500000, -60.000000, -3.500000
+> Operator: place at -40 -2
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 19 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-40, y=-60, z=-2}, block_state: BlockState(14: minecraft:cobblestone) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-40, y=-60, z=-2}, block_state: BlockState(14: minecraft:cobblestone) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-40, y=-61, z=-2}, block_state: BlockState(9: minecraft:grass_block[snowy=false]) })
+> console execute if block -40 -60 -2 minecraft:cobblestone
+  log: [Server thread/INFO] System chat: Test passed
+> console tp Operator -39.5 -60 -5.5
+  log: [Server thread/INFO] System chat: Teleported Operator to -39.500000, -60.000000, -5.500000
+> Operator: use hoe at -40 -4
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 20 })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-40, y=-60, z=-4}, block_state: BlockState(0: minecraft:air) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-40, y=-61, z=-4}, block_state: BlockState(6875: minecraft:farmland[moisture=0]) })
+  <- play/block_update BlockUpdate(ClientboundBlockUpdatePacket { pos: BlockPos{x=-40, y=-61, z=-4}, block_state: BlockState(6875: minecraft:farmland[moisture=0]) })
+> console execute if block -40 -61 -4 minecraft:farmland
+  log: [Server thread/INFO] System chat: Test passed

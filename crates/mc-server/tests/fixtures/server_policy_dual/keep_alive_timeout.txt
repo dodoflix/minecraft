@@ -1,0 +1,4 @@
+  log: [Server thread/INFO] System chat: Bot joined the game
+> never answer the keep-alive
+client received disconnect: Timed out
+client stream ended: end of stream

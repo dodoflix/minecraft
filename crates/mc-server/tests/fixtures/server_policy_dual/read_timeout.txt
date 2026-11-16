@@ -1,0 +1,4 @@
+  log: [Server thread/INFO] System chat: Bot joined the game
+> send nothing
+client received disconnect: <none>
+client stream ended: end of stream

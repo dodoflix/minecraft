@@ -1,0 +1,13 @@
+> login Stranger
+Stranger refused: disconnected: You are not white-listed on this server!
+  log: [Server thread/INFO] Disconnecting Stranger (/127.0.0.1:<port>): You are not white-listed on this server!
+  log: [Server thread/INFO] Stranger (/127.0.0.1:<port>) lost connection: <reason>
+> login Listed
+Listed logged in
+  log: [Server thread/INFO] System chat: Listed joined the game
+> login Operator
+Operator logged in
+  log: [Server thread/INFO] System chat: Operator joined the game
+Listed connected
+  Listed: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "multiplayer.player.joined", fallback: None, args: [Component(Component { contents: Literal("Operator"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: Some(SuggestCommand("/tell Operator ")), hover_event: Some(ShowEntity(EntityTooltipInfo { entity_type: minecraft:player, uuid: 262433505081861416399854147304962930933, name: Some(Component { contents: Literal("Operator"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }) })), insertion: Some("Operator"), font: None } })] }), siblings: [], style: Style { color: Some(TextColor { value: 16777045, name: Some("yellow") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+Operator connected

@@ -1,0 +1,17 @@
+> the last player left
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] Server empty for 1 seconds, pausing
+  log: [Server thread/INFO] System chat: Bot left the game
+> a console command while paused
+  answered: true
+  log: [Server thread/INFO] System chat: The game time is <n> tick(s)
+> join Bot
+  log: [Server thread/INFO] System chat: Bot joined the game
+> game time with a player
+  advanced: true
+  log: [Server thread/INFO] System chat: The game time is <n> tick(s)
+  log: [Server thread/INFO] System chat: The game time is <n> tick(s)
+> the player leaves
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] Server empty for 1 seconds, pausing
+  log: [Server thread/INFO] System chat: Bot left the game

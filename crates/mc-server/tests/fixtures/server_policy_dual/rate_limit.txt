@@ -1,0 +1,9 @@
+> login Bot
+Bot logged in
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] System chat: Bot joined the game
+  log: [Server thread/INFO] System chat: Bot left the game
+  log: [Server thread/WARN] Player exceeded rate-limit (sent <n> packets per second)
+> wait for the first packet-rate check
+Bot disconnected: Kicked for exceeding packet rate limit
+  Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "disconnect.exceeded_packet_rate", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })

@@ -1,0 +1,4 @@
+> login Victim
+Victim refused: disconnected: Your IP address is banned from this server.\nReason: no more\nYour ban will be removed on <date>
+  log: [Server thread/INFO] Disconnecting Victim (/127.0.0.1:<port>): Your IP address is banned from this server.
+  log: [Server thread/INFO] Victim (/127.0.0.1:<port>) lost connection: <reason>

@@ -1,0 +1,13 @@
+> login Victim
+Victim refused: disconnected: You are banned from this server.\nReason: griefing\nYour ban will be removed on <date>
+  log: [Server thread/INFO] Disconnecting Victim (/127.0.0.1:<port>): You are banned from this server.
+  log: [Server thread/INFO] Victim (/127.0.0.1:<port>) lost connection: <reason>
+> login Forever
+Forever refused: disconnected: You are banned from this server.\nReason: Banned by an operator.
+  log: [Server thread/INFO] Disconnecting Forever (/127.0.0.1:<port>): You are banned from this server.
+  log: [Server thread/INFO] Forever (/127.0.0.1:<port>) lost connection: <reason>
+> login Lapsed
+Lapsed logged in
+  log: [Server thread/INFO] System chat: Lapsed joined the game
+  log: [Server thread/INFO] Lapsed lost connection: <reason>
+  log: [Server thread/INFO] System chat: Lapsed left the game

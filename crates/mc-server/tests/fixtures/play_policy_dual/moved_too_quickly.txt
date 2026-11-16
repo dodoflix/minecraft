@@ -1,0 +1,15 @@
+> join Bot
+> console tp Bot 0.5 -60 0.5
+  log: [Server thread/INFO] System chat: Bot joined the game
+  log: [Server thread/INFO] System chat: Teleported Bot to 0.500000, -60.000000, 0.500000
+> one packet 500 blocks away
+  <- play/player_position PlayerPosition(ClientboundPlayerPositionPacket { id: 3, change: PositionMoveRotation { position: Vec3 { x: 0.5, y: -60.0, z: 0.5 }, delta_movement: Vec3 { x: 0.0, y: 0.0, z: 0.0 }, y_rot: 0.0, x_rot: 0.0 }, relatives: Relatives(0) })
+  log: [Server thread/WARN] Bot moved too quickly! 500.0,0.0,0.0
+> console tp Bot 0.5 -60 0.5
+  log: [Server thread/INFO] System chat: Teleported Bot to 0.500000, -60.000000, 0.500000
+> one packet 11 blocks away
+  <- play/player_position PlayerPosition(ClientboundPlayerPositionPacket { id: 5, change: PositionMoveRotation { position: Vec3 { x: 0.5, y: -60.0, z: 0.5 }, delta_movement: Vec3 { x: 0.0, y: 0.0, z: 0.0 }, y_rot: 0.0, x_rot: 0.0 }, relatives: Relatives(0) })
+  log: [Server thread/WARN] Bot moved too quickly! 11.0,0.0,0.0
+> console tp Bot 0.5 -60 0.5
+  log: [Server thread/INFO] System chat: Teleported Bot to 0.500000, -60.000000, 0.500000
+> one packet 9 blocks away
