@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # plain functions
 CF msg Running function fn:hello
 CF msg Running function fn:nested
@@ -177,12 +178,14 @@ CF msg Running function fn:hello
 CF msg Running functions fn:hello, fn:nested, fn:ret_value
 CF msg Function fn:ret_value returned 7
 CF result success 7
-C Game rule send_command_feedback is now set to false
+CF msg Game rule send_command_feedback is now set to false
+CF result success 0
 CF result success 7
 CF fail Unknown function fn:unknown
 CF result failure 0
 CF result success 3
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # the functions of the pack are run by an entity: `@s` and the position follow the command
 CF msg Summoned new Pig
 CF result success 1

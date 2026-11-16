@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # title, subtitle and action bar: the score wildcard is the target, @s the source
 CF msg Showing new title for Plain
 CF result success 1

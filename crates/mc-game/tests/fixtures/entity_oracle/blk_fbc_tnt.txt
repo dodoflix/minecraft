@@ -1358,7 +1358,8 @@ E item#17 minecraft:item pos=-0.22002434745887042,-61.0,-2.855070690011292 delta
 E item#18 minecraft:item pos=3.725019271911875,-63.0,-3.875 delta=-0.022352241305509567,0.0,0.0 rot=192.44826,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=11 pickup=0 health=5 owner=- thrower=-
 E item#19 minecraft:item pos=5.754851269194821,-63.0,-3.1143039717880563 delta=0.01015192508516108,0.0,-0.014565397842532603 rot=174.88486,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*16 age=11 pickup=0 health=5 owner=- thrower=-
 E item#20 minecraft:item pos=6.2618645924836445,-62.88462876999368,-1.9611275591591801 delta=-0.02785141543171225,-0.23042029216924012,0.04197328641569267 rot=269.97635,0.0 og=0 fall=0.8632245846092701 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*10 age=11 pickup=0 health=5 owner=- thrower=-
-C Game rule tnt_explodes is now set to false
+CF msg Game rule tnt_explodes is now set to false
+CF result success 0
 B -1 -61 13 minecraft:grass_block[snowy=false]
 B -1 -61 14 minecraft:grass_block[snowy=false]
 B -1 -61 15 minecraft:grass_block[snowy=false]

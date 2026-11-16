@@ -9,8 +9,10 @@ PKT B minecraft:set_time 7300000000000000000200000000000000000000010000000000000
 PKT B minecraft:set_default_spawn_position 63136d696e6563726166743a6f766572776f726c640000000000000fc40000000000000000
 PKT B minecraft:ticking_state 820141a0000000
 PKT B minecraft:ticking_step 830100
-C Game rule send_command_feedback is now set to true
-C Game rule advance_time is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
+CF msg Game rule advance_time is now set to true
+CF result success 1
 WORLD gametime=1 difficulty=normal locked=false
 CLOCK minecraft:overworld total=1 partial=0.0 rate=1.0 paused=false
 CLOCK minecraft:the_end total=1 partial=0.0 rate=1.0 paused=false

@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # nbt storage
 CF result success 1
 PKT Plain minecraft:system_chat 7c0a09000565787472610a0000000308000000012200080005636f6c6f720005677265656e080004746578740002686900080000000122000800047465787400000000

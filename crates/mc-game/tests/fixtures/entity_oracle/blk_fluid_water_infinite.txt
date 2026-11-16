@@ -10310,7 +10310,8 @@ TICK fluid 0 -60 -7 minecraft:flowing_water delay=5 prio=0
 TICK fluid 0 -60 6 minecraft:flowing_water delay=5 prio=0
 TICK fluid 1 -60 6 minecraft:flowing_water delay=5 prio=0
 TICK fluid 0 -60 7 minecraft:flowing_water delay=5 prio=0
-C Game rule water_source_conversion is now set to false
+CF msg Game rule water_source_conversion is now set to false
+CF result success 0
 T 61
 B -1 -61 -2 minecraft:grass_block[snowy=false]
 B -1 -61 -1 minecraft:grass_block[snowy=false]

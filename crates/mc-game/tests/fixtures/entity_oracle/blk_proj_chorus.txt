@@ -1,5 +1,7 @@
-C Game rule random_tick_speed is already set to 0
-C The default game mode is now Survival Mode
+CF result failure 0
+CF fail Game rule random_tick_speed is already set to 0
+CF msg The default game mode is now Survival Mode
+CF result success 0
 # Steve: an arrow, a snowball, a trident and a young flower
 # no owner
 # Alex (adventure): no can_break, can_break for the flower, can_break for stone
@@ -33,7 +35,8 @@ E item#3 minecraft:item pos=10.738957381316597,-59.515742084295745,8.50549999997
 E item#4 minecraft:item pos=10.238502077908496,-59.15387461026663,12.728300307347997 delta=-0.02106109454035895,0.11446400521850592,0.04152220815757774 rot=195.2665,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:chorus_flower*1 age=2 pickup=8 health=5 owner=- thrower=-
 E item#5 minecraft:item pos=10.14128698085526,-59.128471040964605,16.546555039334514 delta=-0.0897137583540546,0.11446400521850592,-0.06450536411134147 rot=42.404007,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:chorus_flower*1 age=2 pickup=8 health=5 owner=- thrower=-
 E item#6 minecraft:item pos=10.56008065963296,-59.58528290806514,24.63065036764235 delta=0.06307797794161965,0.11446400521850592,-0.050806187881247473 rot=301.89642,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:chorus_flower*1 age=2 pickup=8 health=5 owner=- thrower=-
-C Game rule projectiles_can_break_blocks is now set to false
+CF msg Game rule projectiles_can_break_blocks is now set to false
+CF result success 0
 # projectiles_can_break_blocks false
 EV sound at=9.949999999254942,-59.5,32.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1469564
 B 10 -60 32 minecraft:chorus_flower[age=5]
@@ -54,8 +57,10 @@ E item#4 minecraft:item pos=10.08134736301133,-59.67453771911754,13.038132769872
 E item#5 minecraft:item pos=9.47185643015586,-59.64913414981552,16.065225729177833 delta=-0.07632516010844102,-0.19512274253533643,-0.05487878708883579 rot=42.404007,0.0 og=0 fall=0.6281018443405628 fire=0 air=300 alive=1 pose=standing item=minecraft:chorus_flower*1 age=10 pickup=0 health=5 owner=- thrower=-
 E item#6 minecraft:item pos=11.030759029207193,-60.0,24.251542246922945 delta=0.032198654327709186,0.0,-0.02593442172180908 rot=301.89642,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:chorus_flower*1 age=10 pickup=0 health=5 owner=- thrower=-
 E s9 minecraft:arrow pos=9.949999999254942,-59.5,32.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=5 life=2 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
-C Game rule projectiles_can_break_blocks is now set to true
-C Game rule mob_griefing is now set to false
+CF msg Game rule projectiles_can_break_blocks is now set to true
+CF result success 1
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
 # mob_griefing false: a mob and a boat as owners
 EV sound at=9.949999999254942,-59.5,40.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1469171
 EV sound at=9.949999999254942,-59.5,44.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1476443
@@ -79,7 +84,8 @@ E item#6 minecraft:item pos=11.10568109719484,-60.0,24.19119623097812 delta=0.00
 E s9 minecraft:arrow pos=9.949999999254942,-59.5,32.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=10 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
 E s11 minecraft:arrow pos=9.949999999254942,-59.5,40.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=5 life=2 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=1
 E s12 minecraft:arrow pos=9.949999999254942,-59.5,44.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=5 life=2 dmg=2.0 owner=bt leftowner=1 shot=1 canbreak=1
-C Game rule mob_griefing is now set to true
+CF msg Game rule mob_griefing is now set to true
+CF result success 1
 # mob_griefing true: the same owners with can_break, a mob without can_break
 EV level_event r=64.0 ex=0 type=2001 pos=10,-60,48 data=16686 global=0
 EV sound at=9.949999999254942,-59.5,48.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.147664
@@ -110,7 +116,8 @@ E s14 minecraft:arrow pos=9.949999999254942,-59.5,52.5 delta=0.0,0.0,0.0 rot=35.
 E s17 minecraft:arrow pos=9.949999999254942,-59.5,64.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=5 life=2 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=0
 E item#7 minecraft:item pos=10.670517484152477,-59.32405058038348,48.64501841810264 delta=0.0011945737440580211,0.11446400521850592,-0.02821322036679518 rot=100.34685,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:chorus_flower*1 age=2 pickup=8 health=5 owner=- thrower=-
 E item#8 minecraft:item pos=10.423193325135964,-59.29017593212399,52.3762344521547 delta=-0.047182796225411126,0.11446400521850592,-0.06020357941158854 rot=242.20866,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:chorus_flower*1 age=2 pickup=8 health=5 owner=- thrower=-
-C The default game mode is now Adventure Mode
+CF msg The default game mode is now Adventure Mode
+CF result success 0
 # default game mode adventure: an ownerless arrow needs can_break
 EV sound at=9.949999999254942,-59.5,56.5 r=16.0 ex=0 event=minecraft:entity.arrow.hit source=neutral vol=1.0 pitch=1.1476246
 EV level_event r=64.0 ex=0 type=2001 pos=10,-60,60 data=16686 global=0
@@ -142,4 +149,5 @@ E item#8 minecraft:item pos=10.071122407138501,-59.8108390409749,51.927004411423
 E s15 minecraft:arrow pos=9.949999999254942,-59.5,56.5 delta=0.0,0.0,0.0 rot=43.92,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=5 life=2 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=0
 E s16 minecraft:arrow pos=9.949999999254942,-59.5,60.5 delta=0.0,0.0,0.0 rot=35.135998,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=5 life=0 dmg=2.0 owner=- leftowner=1 shot=1 canbreak=1
 E item#9 minecraft:item pos=10.682567863548927,-59.11932348019506,60.29466913153571 delta=0.0160005894231691,0.11446400521850592,-0.013316675121209702 rot=276.51904,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:chorus_flower*1 age=2 pickup=8 health=5 owner=- thrower=-
-C The default game mode is now Survival Mode
+CF msg The default game mode is now Survival Mode
+CF result success 0

@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 CF msg Applied effect Speed to Pig
 CF result success 1
 CF msg Removed effect Speed from Pig

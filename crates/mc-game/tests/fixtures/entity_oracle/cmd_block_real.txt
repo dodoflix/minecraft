@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 CF msg Created new objective [cb]
 CF result success 1
 # a: impulse block, conditional chain: the second run of `setblock` changes nothing, so the conditional blocks stay idle
@@ -159,7 +160,8 @@ N s3 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DeathTime:0s,DisabledSl
 # c: the last output of single commands (one impulse block each, powered by a redstone block): success, query, failure, parse error, forbidden command, no output
 CF msg Set [cb] for #all to 7
 CF result success 7
-C Game rule max_block_modifications is now set to 10
+CF msg Game rule max_block_modifications is now set to 10
+CF result success 10
 T 49
 T 50
 T 51
@@ -191,7 +193,8 @@ T 60
 BE 0 -60 12 {Command:'tellraw @a {"text":"raw"}',LastExecution:57L,SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:0,y:-60,z:12}
 BE 2 -60 12 {Command:"scoreboard players get #all cb",LastExecution:57L,LastOutput:{extra:[{translate:"commands.scoreboard.players.get.success",with:["#all",7,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"cb"},text:"cb"}]}]}],text:"[HH:MM:SS] "},SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:2,y:-60,z:12}
 # e: TrackOutput off (no last output, no admin message), command_block_output off (last output, no admin message), send_command_feedback off (only failures reach the last output)
-C Game rule command_block_output is now set to false
+CF msg Game rule command_block_output is now set to false
+CF result success 0
 T 61
 T 62
 T 63
@@ -212,8 +215,10 @@ SCORE {Locked:1b,Name:"#e",Objective:"cb",Score:3}
 SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
 SCORE {Locked:1b,Name:"#set",Objective:"cb"}
 DISPLAY {}
-C Game rule command_block_output is now set to true
-C Game rule send_command_feedback is now set to false
+CF msg Game rule command_block_output is now set to true
+CF result success 1
+CF msg Game rule send_command_feedback is now set to false
+CF result success 0
 T 67
 T 68
 T 69
@@ -234,9 +239,11 @@ SCORE {Locked:1b,Name:"#e",Objective:"cb",Score:6}
 SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
 SCORE {Locked:1b,Name:"#set",Objective:"cb"}
 DISPLAY {}
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # f: command_blocks_work false: the command does not run, the block counts as executed; true again, and the old last output stays when the command is empty
-C Game rule command_blocks_work is now set to false
+CF msg Game rule command_blocks_work is now set to false
+CF result success 0
 T 73
 T 74
 T 75
@@ -252,7 +259,8 @@ SCORE {Locked:1b,Name:"#e",Objective:"cb",Score:6}
 SCORE {Locked:1b,Name:"#hit",Objective:"cb",Score:1}
 SCORE {Locked:1b,Name:"#set",Objective:"cb"}
 DISPLAY {}
-C Game rule command_blocks_work is now set to true
+CF msg Game rule command_blocks_work is now set to true
+CF result success 1
 # g: a repeating block with a conditional chain behind it: the counter passes the limit, the failure of the repeating block stops the conditional block
 CF msg Set [cb] for 0 entities to 0
 CF result success 0
@@ -376,7 +384,8 @@ SCORE {Locked:1b,Name:"#set",Objective:"cb"}
 DISPLAY {}
 T 92
 T 93
-C Game rule max_command_sequence_length is now set to 5
+CF msg Game rule max_command_sequence_length is now set to 5
+CF result success 5
 T 94
 PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000223680003000000000002000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
 PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b65747300080000000223610003000000000002000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
@@ -404,7 +413,8 @@ SCORE {Locked:1b,Name:"#rep",Objective:"cb",Score:4}
 SCORE {Locked:1b,Name:"#set",Objective:"cb"}
 DISPLAY {}
 # max_command_sequence_length 3 cuts a chain of five blocks of real commands
-C Game rule max_command_sequence_length is now set to 3
+CF msg Game rule max_command_sequence_length is now set to 3
+CF result success 3
 T 98
 PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b6574730008000000032373300003000000000001000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
 PKT Op minecraft:system_chat 7c0a090004776974680a0000000208000000014000090004776974680a000000040300000000000100090004776974680a0000000108000474657874000263620a000b686f7665725f6576656e74080006616374696f6e000973686f775f7465787408000576616c75650002636200000800097472616e736c6174650014636861742e7371756172655f627261636b6574730008000000032373310003000000000001000800097472616e736c617465002e636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6164642e737563636573732e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
@@ -430,7 +440,8 @@ SCORE {Locked:1b,Name:"#s2",Objective:"cb",Score:1}
 SCORE {Locked:1b,Name:"#s3",Objective:"cb",Score:1}
 SCORE {Locked:1b,Name:"#set",Objective:"cb"}
 DISPLAY {}
-C Game rule max_command_sequence_length is now set to 65536
+CF msg Game rule max_command_sequence_length is now set to 65536
+CF result success 65536
 # i: the source of a command block has permission level 2, the centre of the block as position and no rotation
 T 102
 PKT Op minecraft:system_chat 7c0a090004776974680a000000020800000007224e616d65642200090004776974680a00000004080009696e73657274696f6e002463626231383961392d306662332d343337372d383438382d6434326134323738363431610a000b686f7665725f6576656e740a00046e616d650800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e6400080006616374696f6e000b73686f775f656e74697479080002696400156d696e6563726166743a61726d6f725f7374616e640b00047575696400000004cbb189a90fb343778488d42a4278641a000800097472616e736c617465001c656e746974792e6d696e6563726166742e61726d6f725f7374616e64000800000008382e35303030303000080000000a2d35392e35303030303000080000000932342e353030303030000800097472616e736c6174650029636f6d6d616e64732e74656c65706f72742e737563636573732e6c6f636174696f6e2e73696e676c6500080005636f6c6f720004677261790100066974616c6963010800097472616e736c617465000f636861742e747970652e61646d696e0000
@@ -484,10 +495,12 @@ B 0 -60 28 minecraft:command_block[conditional=false,facing=up]
 B 0 -60 29 minecraft:stone
 BE 0 -60 28 {Command:"",LastExecution:111L,SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:0,y:-60,z:28}
 PKT Plain minecraft:system_chat 7c0a0800097472616e736c61746500126164764d6f64652e6e6f74416c6c6f7765640000
-C Game rule command_blocks_work is now set to false
+CF msg Game rule command_blocks_work is now set to false
+CF result success 0
 BE 0 -60 28 {Command:"say off",LastExecution:111L,SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:0b,x:0,y:-60,z:28}
 PKT Op minecraft:system_chat 7c0a0900047769746808000000010007736179206f66660800097472616e736c617465001b6164764d6f64652e736574436f6d6d616e642e64697361626c65640000
-C Game rule command_blocks_work is now set to true
+CF msg Game rule command_blocks_work is now set to true
+CF result success 1
 # k: a command block placed by a player tracks the output when send_command_feedback is on (and does not when it is off); the chain block placed by a player is automatic
 T 112
 T 113
@@ -504,7 +517,8 @@ B 5 -61 27 minecraft:grass_block[snowy=false]
 B 5 -61 28 minecraft:grass_block[snowy=false]
 B 5 -61 29 minecraft:grass_block[snowy=false]
 BE 4 -60 28 {Command:"",SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:0b,id:"minecraft:command_block",powered:0b,x:4,y:-60,z:28}
-C Game rule send_command_feedback is now set to false
+CF msg Game rule send_command_feedback is now set to false
+CF result success 0
 T 116
 T 117
 T 118
@@ -519,7 +533,8 @@ B 7 -61 27 minecraft:grass_block[snowy=false]
 B 7 -61 28 minecraft:grass_block[snowy=false]
 B 7 -61 29 minecraft:grass_block[snowy=false]
 BE 6 -60 28 {Command:"",SuccessCount:0,TrackOutput:0b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:0b,id:"minecraft:command_block",powered:0b,x:6,y:-60,z:28}
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 T 119
 T 120
 T 121

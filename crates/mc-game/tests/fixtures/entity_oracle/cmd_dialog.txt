@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # show: registered dialogs, inline dialogs
 CF msg Displayed dialog to A
 CF result success 1

@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # data get entity keeps the table
 CF msg Minecart with Chest has the following entity data: {LootTable: "minecraft:chests/simple_dungeon", Motion: [0.0d, -0.037999999523162846d, 0.0d], Invulnerable: 0b, fall_distance: 0.03999999910593033d, Air: 300s, OnGround: 0b, PortalCooldown: 0, Rotation: [0.0f, 0.0f], Pos: [0.5d, -59.9775d, 0.5d], Fire: 0s, UUID: [I; 487456546, -1261220482, -2015436700, -570875872], FlippedRotation: 0b, HasTicked: 0b, Tags: ["cm0"], LootTableSeed: 5L}
 CF result success 1

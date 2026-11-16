@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # give: one and several players, count, stack splitting, components, errors
 CF msg Gave 1 [Apple] to A
 CF result success 1

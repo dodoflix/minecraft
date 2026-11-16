@@ -55,14 +55,16 @@ EV sound at=1.5,101.0,32.5 r=16.0 ex=0 event=minecraft:entity.tnt.primed source=
 EV level_event r=64.0 ex=0 type=1000 pos=0,101,32 data=0 global=0
 EV level_event r=64.0 ex=0 type=2000 pos=0,101,32 data=5 global=0
 # c10 TNT block with tnt_explodes false: prime fails, success false -> click 1001, the tool is not damaged
-C Game rule tnt_explodes is now set to false
+CF msg Game rule tnt_explodes is now set to false
+CF result success 0
 BE 0 101 36 {Items:[{Slot:0b,count:1,id:"minecraft:flint_and_steel"}],components:{},id:"minecraft:dispenser",x:0,y:101,z:36}
 B 0 101 36 minecraft:dispenser[facing=east,triggered=false]
 B 1 101 36 minecraft:tnt[unstable=false]
 E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
 EV level_event r=64.0 ex=0 type=1001 pos=0,101,36 data=0 global=0
 EV level_event r=64.0 ex=0 type=2000 pos=0,101,36 data=5 global=0
-C Game rule tnt_explodes is now set to true
+CF msg Game rule tnt_explodes is now set to true
+CF result success 1
 # c11 flint and steel with 1 durability left: it breaks and the slot is emptied
 BE 0 101 40 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:101,z:40}
 B 0 101 40 minecraft:dispenser[facing=east,triggered=false]
@@ -378,7 +380,8 @@ EV level_event r=64.0 ex=0 type=1000 pos=36,101,18 data=0 global=0
 EV level_event r=64.0 ex=0 type=2000 pos=36,101,18 data=5 global=0
 N cubeS2 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[37.5d,101.0d,18.5d],Rotation:[0.0f,0.0f],Silent:1b,Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,equipment:{body:{count:1,id:"minecraft:tnt"}},fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
 # c23 TNT item with tnt_explodes false and a cube in front: failure click 1001, the TNT stays in the dispenser, the cube swallows nothing
-C Game rule tnt_explodes is now set to false
+CF msg Game rule tnt_explodes is now set to false
+CF result success 0
 BE 36 101 22 {Items:[{Slot:0b,count:1,id:"minecraft:tnt"}],components:{},id:"minecraft:dispenser",x:36,y:101,z:22}
 B 36 101 22 minecraft:dispenser[facing=east,triggered=false]
 E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
@@ -391,7 +394,8 @@ E cubeS3 minecraft:sulfur_cube pos=37.5,101.0,22.5 delta=0.0,0.0,0.0 rot=0.0,0.0
 EV level_event r=64.0 ex=0 type=1001 pos=36,101,22 data=0 global=0
 EV level_event r=64.0 ex=0 type=2000 pos=36,101,22 data=5 global=0
 N cubeS3 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:1b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[37.5d,101.0d,22.5d],Rotation:[0.0f,0.0f],Silent:1b,Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
-C Game rule tnt_explodes is now set to true
+CF msg Game rule tnt_explodes is now set to true
+CF result success 1
 # c24 TNT item and nothing in front: PrimedTnt entity, TNT_PRIMED sound, ENTITY_PLACE game event
 BE 36 101 26 {Items:[],components:{},id:"minecraft:dispenser",x:36,y:101,z:26}
 B 36 101 26 minecraft:dispenser[facing=east,triggered=false]
@@ -422,7 +426,8 @@ EV level_event r=64.0 ex=0 type=1000 pos=36,101,30 data=0 global=0
 EV level_event r=64.0 ex=0 type=2000 pos=36,101,30 data=5 global=0
 N cubeS4 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:4.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[37.5d,101.0d,30.5d],Rotation:[0.0f,0.0f],Silent:1b,Size:0,attributes:[{base:0.30000001192092896d,id:"minecraft:movement_speed"},{base:4.0d,id:"minecraft:max_health"}],current_impulse_context_reset_grace_time:0,drop_chances:{body:2.0f},equipment:{body:{count:1,id:"minecraft:tnt"}},fall_distance:0.0d,from_bucket:0b,fuse:-1,pickup_timer:0,wasOnGround:0b}
 # c26 TNT item with tnt_explodes false and nothing in front: 1001
-C Game rule tnt_explodes is now set to false
+CF msg Game rule tnt_explodes is now set to false
+CF result success 0
 BE 36 101 34 {Items:[{Slot:0b,count:1,id:"minecraft:tnt"}],components:{},id:"minecraft:dispenser",x:36,y:101,z:34}
 B 36 101 34 minecraft:dispenser[facing=east,triggered=false]
 E tnt#1 minecraft:tnt pos=1.5,101.0,32.5 delta=0.015397758303086711,0.20000000298023224,0.0127635825393862 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing fuse=80
@@ -436,7 +441,8 @@ E tnt#3 minecraft:tnt pos=37.5,101.0,26.5 delta=-0.01953577048698808,0.200000002
 E cubeS4 minecraft:sulfur_cube pos=37.5,101.0,30.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-
 EV level_event r=64.0 ex=0 type=1001 pos=36,101,34 data=0 global=0
 EV level_event r=64.0 ex=0 type=2000 pos=36,101,34 data=5 global=0
-C Game rule tnt_explodes is now set to true
+CF msg Game rule tnt_explodes is now set to true
+CF result success 1
 # c27 a stack of 2 TNT items and a cube in front: one is swallowed, one stays
 BE 36 101 38 {Items:[{Slot:0b,count:1,id:"minecraft:tnt"}],components:{},id:"minecraft:dispenser",x:36,y:101,z:38}
 B 36 101 38 minecraft:dispenser[facing=east,triggered=false]

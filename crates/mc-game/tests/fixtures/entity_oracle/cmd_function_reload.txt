@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 LOG ERROR: Couldn't load tag fn:broken as it is missing following references: fn:does_not_exist (from file/fnpack)
 LOG ERROR: Failed to load function fn:bad_comment\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Unknown or invalid command '//say hi' on line 1 (if you intended to make a comment, use '#' not '//')
 LOG ERROR: Failed to load function fn:bad_continuation\njava.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Line continuation at end of file

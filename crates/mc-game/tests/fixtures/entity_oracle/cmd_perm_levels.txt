@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # level 0 then level 2: gamemode, fill, setblock, tp, give, clear, effect, xp, kill, summon
 CF fail Unknown or incomplete command. See below for error
 CF fail gamemode creative Plain<--[HERE]

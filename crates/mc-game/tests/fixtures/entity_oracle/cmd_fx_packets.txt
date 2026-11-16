@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 PKT A minecraft:post_effects 5300
 # playsound: sources, targets, positions, volume, pitch and the minimum volume
 CF msg Played sound minecraft:entity.pig.ambient to A

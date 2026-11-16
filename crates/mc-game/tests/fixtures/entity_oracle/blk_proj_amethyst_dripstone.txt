@@ -59,7 +59,8 @@ E s13 minecraft:trident pos=10.137499999254942,-59.9,44.5 delta=0.0,0.0,0.0 rot=
 E s14 minecraft:trident pos=10.387499999254942,-59.9,48.5 delta=0.0,0.0,0.0 rot=15.862018,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=0 crit=0 pierce=0 pickup=0 shake=0 life=0 dmg=2.0 owner=Alex leftowner=1 shot=1 canbreak=1
 E item#1 minecraft:item pos=9.828985029721315,-59.13410663434813,24.0526683004835 delta=-0.05900896690570402,-0.08484884424859764,-0.04197569737881131 rot=154.63287,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=7 pickup=3 health=5 owner=- thrower=-
 E item#2 minecraft:item pos=11.222344658120877,-59.20471890650246,48.40780140557663 delta=0.07831423483779154,-0.08484884424859764,-0.043770559685300324 rot=342.42316,0.0 og=0 fall=0.1417962945997715 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=7 pickup=3 health=5 owner=- thrower=-
-C Game rule projectiles_can_break_blocks is now set to false
+CF msg Game rule projectiles_can_break_blocks is now set to false
+CF result success 0
 # projectiles_can_break_blocks false
 EV sound at=10.312500011175871,-59.9,52.5 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.1476246
 B 10 -60 52 minecraft:pointed_dripstone[thickness=tip,vertical_direction=up,waterlogged=false]
@@ -80,8 +81,10 @@ E s14 minecraft:trident pos=10.387499999254942,-59.9,48.5 delta=0.0,0.0,0.0 rot=
 E item#1 minecraft:item pos=9.48362139325188,-60.0,23.806995816278643 delta=-0.006506266180452192,0.0,-0.004628195926444129 rot=154.63287,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=15 pickup=0 health=5 owner=- thrower=-
 E item#2 minecraft:item pos=11.680696843376408,-60.0,48.15162407430128 delta=0.008634844571797794,0.0,-0.004826095542987815 rot=342.42316,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=15 pickup=0 health=5 owner=- thrower=-
 E s15 minecraft:trident pos=10.312500011175871,-59.9,52.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
-C Game rule projectiles_can_break_blocks is now set to true
-C Game rule mob_griefing is now set to false
+CF msg Game rule projectiles_can_break_blocks is now set to true
+CF result success 1
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
 # a mob owner with can_break: mob_griefing false, then true
 EV sound at=10.137499999254942,-59.9,56.5 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.147723
 B 10 -60 56 minecraft:pointed_dripstone[thickness=tip,vertical_direction=up,waterlogged=false]
@@ -103,7 +106,8 @@ E item#1 minecraft:item pos=9.471039939225918,-60.0,23.798046069579584 delta=-0.
 E item#2 minecraft:item pos=11.700182066325008,-60.0,48.140733600611284 delta=6.069338690936404E-4,0.0,-3.3922102663989446E-4 rot=342.42316,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:pointed_dripstone*1 age=23 pickup=0 health=5 owner=- thrower=-
 E s15 minecraft:trident pos=10.312500011175871,-59.9,52.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=0 life=8 dmg=2.0 owner=Steve leftowner=1 shot=1 canbreak=0
 E s16 minecraft:trident pos=10.137499999254942,-59.9,56.5 delta=0.0,0.0,0.0 rot=60.508797,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing ground=1 crit=0 pierce=0 pickup=0 shake=7 life=0 dmg=2.0 owner=pig leftowner=1 shot=1 canbreak=1
-C Game rule mob_griefing is now set to true
+CF msg Game rule mob_griefing is now set to true
+CF result success 1
 EV level_event r=64.0 ex=0 type=2001 pos=10,-60,60 data=33571 global=0
 EV sound at=10.387499999254942,-59.9,60.5 r=16.0 ex=0 event=minecraft:item.trident.hit_ground source=neutral vol=1.0 pitch=1.1477425
 E pig minecraft:pig pos=24.5,-60.0,70.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-

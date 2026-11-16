@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 # c1 beehive honey 4: not full, the bottle is dropped (1001)
 BE 0 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
 BE 1 -60 0 {bees:[{entity_data:{id:"minecraft:pig"},min_ticks_in_hive:2400,ticks_in_hive:0}],components:{},id:"minecraft:beehive",x:1,y:-60,z:0}
@@ -176,7 +177,8 @@ E item#5 minecraft:item pos=1.2,-59.65625,60.5 delta=0.2523092964718397,0.264506
 EV level_event r=64.0 ex=0 type=1000 pos=0,-60,66 data=0 global=0
 EV level_event r=64.0 ex=0 type=2000 pos=0,-60,66 data=5 global=0
 # c13 beehive honey 5 with a bee occupant: the bee is released by day (a hive keeps its bees at night; NoAI so it stays put), honey level reset
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 BE 0 -60 72 {Items:[{Slot:0b,count:1,id:"minecraft:honey_bottle"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:72}
 BE 1 -60 72 {bees:[],components:{},id:"minecraft:beehive",x:1,y:-60,z:72}
 B 0 -61 71 minecraft:grass_block[snowy=false]

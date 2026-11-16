@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # fill: modes replace destroy keep hollow outline strict, filters
 CF msg Successfully filled 48 block(s)
 CF result success 48
@@ -274,12 +275,14 @@ CF fail Incomplete (expected 3 coordinates)
 CF fail ...l 0 -60 0 3 -58<--[HERE]
 CF result failure 0
 CF fail No blocks were filled
-C Game rule max_block_modifications is now set to 10
+CF msg Game rule max_block_modifications is now set to 10
+CF result success 10
 CF result failure 0
 CF fail Too many blocks in the specified area (maximum 10, but specified 16)
 CF msg Successfully filled 6 block(s)
 CF result success 6
-C Game rule max_block_modifications is now set to 32768
+CF msg Game rule max_block_modifications is now set to 32768
+CF result success 32768
 # fill: falling blocks, fluids, neighbour updates
 CF msg Successfully filled 6 block(s)
 CF result success 6

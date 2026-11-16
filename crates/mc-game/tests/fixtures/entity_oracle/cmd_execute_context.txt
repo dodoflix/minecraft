@@ -16,7 +16,8 @@ CF msg Summoned new Zombie
 CF result success 1
 CF msg Summoned new Item Display
 CF result success 1
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # as: the executor changes, position and rotation stay
 CF msg Teleported Marker to 0.000000, -60.000000, 0.000000
 CF result success 1

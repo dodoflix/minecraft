@@ -1,5 +1,6 @@
 # bamboo sapling + stalk growth, leaf sizes, stage, bonemeal
-C Set minecraft:overworld to 1000 tick(s)
+CF msg Set minecraft:overworld to 1000 tick(s)
+CF result success 1000
 B -3 -60 0 minecraft:bamboo[age=1,leaves=none,stage=0]
 B -3 -59 0 minecraft:bamboo[age=1,leaves=none,stage=0]
 B -3 -58 0 minecraft:bamboo[age=1,leaves=none,stage=0]

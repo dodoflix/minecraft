@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # basic scheduling: nothing runs before the time
 CF msg Scheduled function 'fn:sched_a' in 3 tick(s) at gametime 4
 CF result success 4

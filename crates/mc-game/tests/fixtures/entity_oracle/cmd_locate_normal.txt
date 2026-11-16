@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 CF msg The nearest minecraft:plains is at [-288, 100, 320] (430 blocks away)
 CF result success 430
 CF msg The nearest minecraft:forest is at [-256, 100, 256] (362 blocks away)

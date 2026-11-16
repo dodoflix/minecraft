@@ -1,5 +1,6 @@
 # the default chance 0.002 almost never hatches in the day
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 B 0 -61 0 minecraft:sand
 B 0 -61 1 minecraft:sand
 B 0 -61 2 minecraft:sand
@@ -55,7 +56,8 @@ B 4 -60 0 minecraft:turtle_egg[eggs=4,hatch=2]
 B 6 -60 3 minecraft:turtle_egg[eggs=2,hatch=0]
 B 8 -60 0 minecraft:turtle_egg[eggs=2,hatch=0]
 # the hatch chance is 1.0 between day time 21062 and 21905
-C Set minecraft:overworld to 21100 tick(s)
+CF msg Set minecraft:overworld to 21100 tick(s)
+CF result success 21100
 B 0 -60 0 minecraft:turtle_egg[eggs=1,hatch=1]
 B 2 -60 0 minecraft:turtle_egg[eggs=3,hatch=2]
 B 6 -60 3 minecraft:turtle_egg[eggs=2,hatch=1]

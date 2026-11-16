@@ -89,7 +89,7 @@ pub fn run_scenario(name: &str) -> Vec<String> {
     let path = scenario_dir().join(format!("{name}.txt"));
     let text = std::fs::read_to_string(&path)
         .unwrap_or_else(|e| panic!("scenario {}: {e}", path.display()));
-    let lines = run_scenario_text(name, &text);
+    let lines = super::command_verbs::legacy_feedback(name, run_scenario_text(name, &text));
     // `ENTITY_SCENARIO_ACTUAL=DIR` writes the replay output to DIR/NAME.txt, to diff it against the fixture by hand
     if let Some(dir) = std::env::var_os("ENTITY_SCENARIO_ACTUAL") {
         std::fs::write(
@@ -105,10 +105,16 @@ pub fn run_scenario_text(label: &str, text: &str) -> Vec<String> {
     let mut h = Harness::new();
     h.label = label.to_string();
     // `command_env`: the vanilla server always has its command environment; the replay installs a real `MinecraftServer` (nothing
-    // started) around every line of the scenario, so `cmd`, `cmd_as` and friends run the real commands (`command_verbs.rs`)
-    let mut server = text
+    // started) around every line of the scenario, so `cmd`, `cmd_as` and friends run the real commands (`command_verbs.rs`).
+    // The `difficulty`, `gamerule` and `time` verbs run real commands for their feedback in every scenario: without `command_env` the
+    // server is entered for those lines only, so the other verbs keep their listener-less paths
+    let verb = |l: &str| l.split_whitespace().next().map(str::to_owned);
+    let explicit = text
         .lines()
-        .any(|l| l.trim() == "command_env")
+        .any(|l| verb(l).is_some_and(|v| v == "command_env"));
+    let feedback_verb =
+        |l: &str| verb(l).is_some_and(|v| matches!(v.as_str(), "difficulty" | "gamerule" | "time"));
+    let mut server = (explicit || text.lines().any(feedback_verb))
         .then(|| super::command_verbs::install_command_env(&[], &[]));
     if let Some((server, _)) = server.as_mut() {
         h.attach_server(server);
@@ -120,10 +126,10 @@ pub fn run_scenario_text(label: &str, text: &str) -> Vec<String> {
             continue;
         }
         match server.as_mut() {
-            Some((server, _keep)) => {
+            Some((server, _keep)) if explicit || feedback_verb(&h.line) => {
                 mc_game::commands::server_access::enter_server(server, || h.run())
             }
-            None => h.run(),
+            _ => h.run(),
         }
     }
     h.out
@@ -696,24 +702,23 @@ impl Harness {
                     "hard" => Difficulty::Hard,
                     other => self.fail(&format!("difficulty {other}")),
                 };
-                self.world.lock().settings.difficulty_settings.difficulty = d;
+                if self.booted {
+                    let command = format!("cmd difficulty {}", a[1]);
+                    super::command_verbs::command(self, &tokens(&command), &command);
+                } else {
+                    self.world.lock().settings.difficulty_settings.difficulty = d;
+                }
             }
             "note" => self.out.push(format!("# {}", self.line[4..].trim())),
             "gamerule" => {
-                self.world();
-                // with a command environment the level reads the installed server's rules
-                if mc_game::commands::server_access::has_server() {
-                    mc_game::commands::server_access::with_server(|server| {
-                        super::block_scenario::set_rule(server.game_rules(), &a[1], &a[2])
-                    });
-                } else {
-                    super::block_scenario::set_rule(&mut self.game_rules, &a[1], &a[2]);
-                    self.level.server_state.rules.refresh(&self.game_rules);
-                }
+                let command = format!("cmd gamerule {} {}", a[1], a[2]);
+                super::command_verbs::command(self, &tokens(&command), &command);
             }
             "time" => {
-                self.world();
-                // `/time set`: the sky follows from the next tick (`updateSkyBrightness`)
+                // `/time set` moves the server's overworld clock; this replay's level reads its own clocks (it never ticks through the
+                // server), the sky follows from the next tick (`updateSkyBrightness`)
+                let command = format!("cmd time set {}", a[1]);
+                super::command_verbs::command(self, &tokens(&command), &command);
                 let ticks = self.num(&a[1]) as i64;
                 self.clocks
                     .set(&Identifier::parse("minecraft:overworld").unwrap(), ticks);

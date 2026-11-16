@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P B minecraft:player pos=2.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
 P C minecraft:player pos=4.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=creative food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
@@ -136,14 +137,16 @@ PKT C minecraft:player_abilities 410d3d4ccccd3dcccccd
 PKT C minecraft:system_chat 7c0a090004776974680a000000010800097472616e736c617465001167616d654d6f64652e6372656174697665000800097472616e736c617465001067616d654d6f64652e6368616e6765640000
 PKT C minecraft:player_info_update 470401b76d4ad38d013150b33368cfb425777400
 PKT C minecraft:player_info_update 470401f44cd58d790230e78bde679d783ee63100
-C Game rule send_command_feedback is now set to false
+CF msg Game rule send_command_feedback is now set to false
+CF result success 0
 CF msg Set A's game mode to Adventure Mode
 CF result success 1
 CF msg Set B's game mode to Adventure Mode
 CF result success 1
 CF msg Set A's game mode to Survival Mode
 CF result success 1
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 CF msg Set B's game mode to Creative Mode
 CF result success 1
 P A minecraft:player pos=0.5,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

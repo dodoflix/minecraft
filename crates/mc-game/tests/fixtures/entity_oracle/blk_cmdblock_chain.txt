@@ -206,7 +206,8 @@ TICK block 0 -60 14 minecraft:repeating_command_block delay=1 prio=0
 TICK block 1 -60 14 minecraft:repeating_command_block delay=1 prio=0
 TICK block 1 -60 16 minecraft:repeating_command_block delay=1 prio=0
 # max_command_sequence_length 2: the chain of five stops after two blocks
-C Game rule max_command_sequence_length is now set to 2
+CF msg Game rule max_command_sequence_length is now set to 2
+CF result success 2
 T 35
 T 36
 T 37
@@ -219,9 +220,11 @@ BE 5 -60 20 {Command:"Searge",SuccessCount:0,TrackOutput:1b,UpdateLastExecution:
 TICK block 0 -60 14 minecraft:repeating_command_block delay=1 prio=0
 TICK block 1 -60 14 minecraft:repeating_command_block delay=1 prio=0
 TICK block 1 -60 16 minecraft:repeating_command_block delay=1 prio=0
-C Game rule max_command_sequence_length is now set to 65536
+CF msg Game rule max_command_sequence_length is now set to 65536
+CF result success 65536
 # command_blocks_work false: a real command is not run, the success count is 0 and the block counts as executed
-C Game rule command_blocks_work is now set to false
+CF msg Game rule command_blocks_work is now set to false
+CF result success 0
 T 38
 T 39
 T 40
@@ -230,7 +233,8 @@ BE 1 -60 24 {Command:"say hi",LastExecution:38L,SuccessCount:0,TrackOutput:1b,Up
 TICK block 0 -60 14 minecraft:repeating_command_block delay=1 prio=0
 TICK block 1 -60 14 minecraft:repeating_command_block delay=1 prio=0
 TICK block 1 -60 16 minecraft:repeating_command_block delay=1 prio=0
-C Game rule command_blocks_work is now set to true
+CF msg Game rule command_blocks_work is now set to true
+CF result success 1
 # an invalid command is no success and resets the count of an automatic repeating block (running real commands = the command dispatcher on a level)
 T 41
 T 42

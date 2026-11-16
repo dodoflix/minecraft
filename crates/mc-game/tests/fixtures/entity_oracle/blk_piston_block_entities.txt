@@ -1,4 +1,5 @@
-C The difficulty has been set to Peaceful
+CF msg The difficulty has been set to Peaceful
+CF result success 0
 BE 1 -60 0 {Items:[{Slot:0b,count:5,id:"minecraft:stone"},{Slot:3b,count:2,id:"minecraft:apple"}],TransferCooldown:3,components:{},id:"minecraft:hopper",x:1,y:-60,z:0}
 BE 1 -60 2 {RecordItem:{count:1,id:"minecraft:music_disc_cat"},components:{},id:"minecraft:jukebox",ticks_since_song_started:5L,x:1,y:-60,z:2}
 BE 1 -60 4 {Book:{components:{"minecraft:writable_book_content":{pages:[{raw:"a"},{raw:"b"}]}},count:1,id:"minecraft:writable_book"},Page:1,components:{},id:"minecraft:lectern",x:1,y:-60,z:4}

@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 WORLD gametime=1 difficulty=normal locked=false
 CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
 CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false
@@ -88,7 +89,8 @@ WEATHER raining=false thundering=false clear=0 rain=0 thunder=0
 SPAWN minecraft:overworld 0,-60,0 yaw=0.0 pitch=0.0
 BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage=0.2 warn_blocks=5 warn_time=300 status=STATIONARY
 TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
-C Game rule advance_time is now set to true
+CF msg Game rule advance_time is now set to true
+CF result success 1
 CF msg Set minecraft:overworld to 100 tick(s)
 CF result success 100
 WORLD gametime=6 difficulty=normal locked=false
@@ -120,7 +122,8 @@ BORDER center=0.0,0.0 size=5.9999968E7 target=5.9999968E7 lerp=0 safe=5.0 damage
 TICKRATE rate=20.0 frozen=false steps=0 sprinting=false
 CF msg Clock minecraft:overworld will now advance at 1.0x normal rate
 CF result success 1
-C Game rule advance_time is now set to false
+CF msg Game rule advance_time is now set to false
+CF result success 0
 WORLD gametime=15 difficulty=normal locked=false
 CLOCK minecraft:overworld total=115 partial=0.0 rate=1.0 paused=false
 CLOCK minecraft:the_end total=12 partial=0.0 rate=1.0 paused=false

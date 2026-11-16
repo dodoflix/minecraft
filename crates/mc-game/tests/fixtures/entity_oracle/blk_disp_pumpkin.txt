@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 # c1 two snow blocks below the target: the pumpkin completes a snow golem
 BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:carved_pumpkin"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
 B -1 -63 -2 minecraft:dirt

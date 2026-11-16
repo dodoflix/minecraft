@@ -318,7 +318,8 @@ B 9 -61 9 minecraft:grass_block[snowy=false]
 E item#1 minecraft:item pos=2.4160930258522146,-58.76679547364189,3.5181846524965468 delta=-0.0036799951024841376,0.2,-0.027489734142291375 rot=111.22638,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*12 age=0 pickup=10 health=5 owner=- thrower=-
 E item#1 minecraft:item pos=2.408806635479106,-58.48999547059014,3.463754978370485 delta=-0.0035342674339988263,0.11446400521850592,-0.02640114169793378 rot=111.22638,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:dirt*12 age=2 pickup=8 health=5 owner=- thrower=-
 # no decay
-C Game rule block_explosion_drop_decay is now set to false
+CF msg Game rule block_explosion_drop_decay is now set to false
+CF result success 0
 B -1 -61 11 minecraft:grass_block[snowy=false]
 B -1 -61 12 minecraft:grass_block[snowy=false]
 B -1 -61 13 minecraft:grass_block[snowy=false]

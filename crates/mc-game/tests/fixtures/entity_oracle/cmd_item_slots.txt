@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # replace entity: single slots, groups, counts, items that vanish
 CF msg Replaced 1 slot(s) on A with [Diamond Sword]
 CF result success 1

@@ -1,5 +1,7 @@
-C 80 biome entry/entries set between 0, -64, 0 and 12, -48, 12
-C Set the weather to rain
+CF msg 80 biome entry/entries set between 0, -64, 0 and 12, -48, 12
+CF result success 80
+CF msg Set the weather to rain
+CF result success 100000
 T 1
 T 2
 T 3

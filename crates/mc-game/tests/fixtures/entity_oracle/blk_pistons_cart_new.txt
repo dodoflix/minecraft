@@ -1,4 +1,5 @@
-C Game rule block_drops is now set to false
+CF msg Game rule block_drops is now set to false
+CF result success 0
 # a: a piston head pushes carts on the ground (an empty one, a chest cart, a hopper cart, a pig in a cart) eastwards
 # b: a cart between the head and a wall, and one under a ceiling that a vertical head pushes up
 # c: a vertical piston lifts a rail with a cart on it (the rail pops, the cart falls back), and a stone block with a rail and a cart on it

@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 # c1 soul sand T below the target: the skull is placed (east: rotation 12), one of 2 used
 BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:wither_skeleton_skull"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
 BE 1 -60 0 {components:{},id:"minecraft:skull",x:1,y:-60,z:0}

@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 T 1
 B 0 -60 0 minecraft:closed_eyeblossom
 B 0 -60 2 minecraft:closed_eyeblossom
@@ -10,7 +11,8 @@ B 3 -60 0 minecraft:closed_eyeblossom
 B 3 -60 2 minecraft:open_eyeblossom
 B 5 -60 0 minecraft:potted_closed_eyeblossom
 B 5 -60 2 minecraft:potted_closed_eyeblossom
-C Set minecraft:overworld to 14000 tick(s)
+CF msg Set minecraft:overworld to 14000 tick(s)
+CF result success 14000
 T 2
 EV sound at=0.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.eyeblossom.close_long source=block vol=1.0 pitch=1.0
 EV sound at=5.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.eyeblossom.close_long source=block vol=1.0 pitch=1.0
@@ -128,7 +130,8 @@ B 3 -60 0 minecraft:open_eyeblossom
 B 3 -60 2 minecraft:open_eyeblossom
 B 5 -60 0 minecraft:potted_open_eyeblossom
 B 5 -60 2 minecraft:potted_open_eyeblossom
-C Set minecraft:overworld to 2000 tick(s)
+CF msg Set minecraft:overworld to 2000 tick(s)
+CF result success 2000
 T 83
 T 84
 EV sound at=1.5,-59.5,2.5 r=16.0 ex=0 event=minecraft:block.eyeblossom.close_long source=block vol=1.0 pitch=1.0

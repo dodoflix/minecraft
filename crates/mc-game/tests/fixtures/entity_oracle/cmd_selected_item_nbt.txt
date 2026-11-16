@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # an empty hand: the tag is absent
 SELECT @a[nbt={SelectedItem:{}}] Steve 0,-60,0 ->
 SELECT @a[nbt=!{SelectedItem:{}}] Steve 0,-60,0 -> Steve Alex

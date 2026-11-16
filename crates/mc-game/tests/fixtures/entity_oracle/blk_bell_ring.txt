@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 100 tick(s)
+CF msg Set minecraft:overworld to 100 tick(s)
+CF result success 100
 BRAIN V1 acts=core;idle
 BRAIN V2 acts=core;idle
 BRAIN V3 acts=core;idle

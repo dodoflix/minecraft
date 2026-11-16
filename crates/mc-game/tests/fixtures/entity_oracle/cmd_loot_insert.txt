@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # empty chests and barrels: free slots in order, same-item stacks merge, the stack limit splits
 CF msg Changed the block at 2, -60, 2
 CF result success 1

@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 # c1 zombie egg facing east: spawned in the block in front, tryMoveDown (not aligned), mobs finalise and play their ambient sound
 BE 0 -60 0 {Items:[],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
 E zombie#1 minecraft:zombie pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=12.480833,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-

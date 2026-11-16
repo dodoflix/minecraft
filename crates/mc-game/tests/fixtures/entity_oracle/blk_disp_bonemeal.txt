@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 # c1 wheat age 0 on farmland: grows by a random number of stages
 BE 2 -60 2 {Items:[],components:{},id:"minecraft:dispenser",x:2,y:-60,z:2}
 B 1 -61 1 minecraft:grass_block[snowy=false]
@@ -1203,7 +1204,8 @@ EV level_event r=64.0 ex=0 type=1505 pos=3,-60,62 data=15 global=0
 EV level_event r=64.0 ex=0 type=1000 pos=2,-60,62 data=0 global=0
 EV level_event r=64.0 ex=0 type=2000 pos=2,-60,62 data=5 global=0
 # c29 the same pool in a warm ocean biome: corals can be placed
-C 18 biome entry/entries set between 12, -64, 56 and 20, -60, 64
+CF msg 18 biome entry/entries set between 12, -64, 56 and 20, -60, 64
+CF result success 18
 BE 14 -60 62 {Items:[],components:{},id:"minecraft:dispenser",x:14,y:-60,z:62}
 B 15 -61 59 minecraft:sand
 B 15 -61 60 minecraft:sand
@@ -1552,7 +1554,8 @@ EV level_event r=64.0 ex=0 type=1505 pos=15,-60,62 data=15 global=0
 EV level_event r=64.0 ex=0 type=1000 pos=14,-60,62 data=0 global=0
 EV level_event r=64.0 ex=0 type=2000 pos=14,-60,62 data=5 global=0
 # c30 a stack of 2 bone meal in the warm ocean pool: one is consumed
-C 18 biome entry/entries set between 24, -64, 56 and 32, -60, 64
+CF msg 18 biome entry/entries set between 24, -64, 56 and 32, -60, 64
+CF result success 18
 BE 26 -60 62 {Items:[{Slot:0b,count:1,id:"minecraft:bone_meal"}],components:{},id:"minecraft:dispenser",x:26,y:-60,z:62}
 B 27 -61 59 minecraft:sand
 B 27 -61 60 minecraft:sand

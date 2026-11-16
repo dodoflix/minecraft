@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # allow_op_features resolves the lines of a sign on /data merge (the sign is the source: @s selects nothing)
 CF msg Modified block data of 6, -60, 4
 CF result success 1

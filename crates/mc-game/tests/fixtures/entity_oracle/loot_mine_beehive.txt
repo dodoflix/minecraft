@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 BE 0 -60 4 {bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1},{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],components:{},id:"minecraft:beehive",x:0,y:-60,z:4}
 BE 2 -60 4 {bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],components:{},id:"minecraft:beehive",x:2,y:-60,z:4}
 BE 4 -60 4 {bees:[{entity_data:{NoAI:1b,id:"minecraft:bee"},min_ticks_in_hive:2400,ticks_in_hive:1}],components:{},id:"minecraft:beehive",x:4,y:-60,z:4}

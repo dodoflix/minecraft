@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 WORLD gametime=1 difficulty=normal locked=false
 CLOCK minecraft:overworld total=0 partial=0.0 rate=1.0 paused=false
 CLOCK minecraft:the_end total=0 partial=0.0 rate=1.0 paused=false

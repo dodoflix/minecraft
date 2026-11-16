@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # chest: execute if slots keeps the table, a filtered source unpacks
 CF msg Changed the block at 2, -60, 2
 CF result success 1

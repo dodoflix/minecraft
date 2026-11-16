@@ -1,4 +1,5 @@
-C Set the weather to rain
+CF msg Set the weather to rain
+CF result success 100000
 T 1
 T 2
 T 3

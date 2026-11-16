@@ -238,7 +238,8 @@ E item#10 minecraft:item pos=29.0,-60.0,2.0 delta=-0.034896385181803824,0.2,-0.0
 E item#11 minecraft:item pos=30.0,-60.0,2.0 delta=0.03349879915648746,0.2,0.0843232966470342 rot=158.1189,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
 EV level_event r=64.0 ex=1 type=2001 pos=31,-60,2 data=25125 global=0
 I Alex 0 minecraft:iron_axe*1
-C Game rule block_drops is now set to false
+CF msg Game rule block_drops is now set to false
+CF result success 0
 # creative with block_drops off: no drop
 DIG Alex ticks=0 broken=true
 BE 32 -60 2 -
@@ -254,7 +255,8 @@ E item#10 minecraft:item pos=29.0,-60.0,2.0 delta=-0.034896385181803824,0.2,-0.0
 E item#11 minecraft:item pos=30.0,-60.0,2.0 delta=0.03349879915648746,0.2,0.0843232966470342 rot=158.1189,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=0 pickup=10 health=5 owner=- thrower=-
 EV level_event r=64.0 ex=1 type=2001 pos=32,-60,2 data=25154 global=0
 I Alex 0 minecraft:iron_axe*1
-C Game rule block_drops is now set to true
+CF msg Game rule block_drops is now set to true
+CF result success 1
 # explosions: TNT and creeper sources release, the block explosion has no source; every hive drops its item by chance
 E item#1 minecraft:item pos=-3.028528712757861,-60.0,1.4152518078954344 delta=1.6404957668636525E-5,0.0,-2.5521327507912197E-5 rot=356.94968,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beehive*1 age=49 pickup=0 health=5 owner=- thrower=-
 E item#2 minecraft:item pos=-2.6410575217175514,-60.0,2.570815233711822 delta=-1.4221009400021778E-5,-0.12,2.2826988754308875E-5 rot=279.93356,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:bee_nest*1 age=47 pickup=0 health=5 owner=- thrower=-

@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is already set to false
+CF result failure 0
+CF fail Game rule send_command_feedback is already set to false
 CF msg Modified block data of 1, -60, 6
 CF result success 1
 CF msg Summoned new Pig

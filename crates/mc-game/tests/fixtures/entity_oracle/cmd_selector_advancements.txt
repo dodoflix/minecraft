@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # Steve: root done, kill_all_mobs partly (cave_spider); Alex: kill_a_mob through zombie, root only crafting_table revoked
 ADV Steve minecraft:husbandry/balanced_diet apple,bread
 ADV Steve minecraft:recipes/decorations/crafting_table unlock_right_away

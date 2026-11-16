@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # a bad path in the second line of the front text
 CF fail An unexpected error occurred while trying to execute that command
 B 6 -60 4 minecraft:oak_sign[rotation=0,waterlogged=false]

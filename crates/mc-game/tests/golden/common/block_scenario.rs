@@ -179,10 +179,13 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
             matches!(
                 l.split_whitespace().next(),
                 Some(
-                    "chunk_batch_received"
+                    "biome"
+                        | "chunk_batch_received"
                         | "command_env"
                         | "datapack"
                         | "debug_subscribe"
+                        | "difficulty"
+                        | "gamerule"
                         | "select"
                         | "close_menu"
                         | "menu_button"
@@ -199,6 +202,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                         | "respawn"
                         | "set_command_block"
                         | "set_command_minecart"
+                        | "time"
                 )
             )
         })
@@ -808,7 +812,12 @@ impl Scenario {
     /// `ActionHost::command_done`: what a command changes outside the installed server.
     fn after_command(&mut self, command: &str, succeeded: bool) {
         // the level shares the installed server's rule handle: only the chunk source's spawn flag follows a `/gamerule`
-        if succeeded && command.split_whitespace().next() == Some("gamerule") {
+        if succeeded
+            && matches!(
+                command.split_whitespace().next(),
+                Some("difficulty" | "gamerule")
+            )
+        {
             self.for_each_level(apply_spawn_settings);
         }
         // a reload (or toggling a pack) swaps the server's registries, recipes and advancements: the replay's entity creation reads the new ones
@@ -1280,10 +1289,9 @@ impl Scenario {
                     other => panic!("difficulty {other}"),
                 };
                 // `/difficulty` of a running world
-                if let Some(data) = &self.world_data {
-                    data.lock().settings.difficulty_settings.difficulty = self.opts.difficulty;
-                    self.env.difficulty = self.opts.difficulty;
-                    self.for_each_level(apply_spawn_settings);
+                if self.world_data.is_some() {
+                    let command = format!("cmd difficulty {}", a[1]);
+                    super::command_verbs::command(self, &tokens(&command), &command);
                 }
             }
             "levels" => {
@@ -1336,24 +1344,13 @@ impl Scenario {
             }
             "note" => self.out.push(format!("# {}", self.line[4..].trim())),
             "gamerule" => {
-                self.world();
-                self.gamerule(&a[1], &a[2]);
+                let command = format!("cmd gamerule {} {}", a[1], a[2]);
+                super::command_verbs::command(self, &tokens(&command), &command);
             }
             "time" => {
-                self.world();
-                let ticks: i64 = a[1].parse().unwrap_or_else(|_| panic!("time {}", a[1]));
-                if mc_game::commands::server_access::has_server() {
-                    // the installed server's own clock, which the level reads
-                    let command = format!("cmd_quiet time set {ticks}");
-                    super::command_verbs::command(self, &tokens(&command), &command);
-                    self.for_each_level(|l| l.tick_state.attributes.invalidate_tick_cache());
-                    return;
-                }
-                self.env.clock = ticks;
-                // `/time set` runs from the overworld command source: it moves the overworld clock whatever `dimension` is
-                // (`modifyClock` then drops the cached attribute values); the sky follows from the next tick (`updateSkyBrightness`)
-                self.clocks
-                    .set(&Identifier::parse("minecraft:overworld").unwrap(), ticks);
+                // the installed server's own clock, which the level reads
+                let command = format!("cmd time set {}", a[1]);
+                super::command_verbs::command(self, &tokens(&command), &command);
                 self.for_each_level(|l| l.tick_state.attributes.invalidate_tick_cache());
             }
             "entity_counter" => {
@@ -1393,15 +1390,8 @@ impl Scenario {
             }
             // `/fillbiome X1 Y1 Z1 X2 Y2 Z2 BIOME`: needs the real biome registry (see `run_scenario_text`)
             "biome" => {
-                self.world();
-                let (from, to) = (pos(a, 1), pos(a, 4));
-                let level = self.level();
-                let registry = level.tick_state.biomes.clone().expect("real biomes");
-                let id = Identifier::parse(&a[7]).unwrap_or_else(|_| panic!("biome {}", a[7]));
-                let biome = registry
-                    .id_of(&id)
-                    .unwrap_or_else(|| panic!("unknown biome {id}"));
-                fill_biomes(level, from, to, biome);
+                let command = format!("cmd fillbiome {}", a[1..8].join(" "));
+                super::command_verbs::command(self, &tokens(&command), &command);
             }
             "bonemeal" => {
                 self.world();
@@ -1456,20 +1446,6 @@ impl Scenario {
                 panic!("command `{other}` is not supported by tests/common/block_scenario.rs yet")
             }
         }
-    }
-
-    fn gamerule(&mut self, name: &str, value: &str) {
-        // the level reads the installed server's rules (the editor packet handlers do as well), else its own set
-        if mc_game::commands::server_access::has_server() {
-            mc_game::commands::server_access::with_server(|server| {
-                set_rule(server.game_rules(), name, value)
-            });
-        } else {
-            set_rule(&mut self.env.game_rules, name, value);
-            let rules = self.env.game_rules.clone();
-            self.level().server_state.rules.refresh(&rules);
-        }
-        self.for_each_level(apply_spawn_settings);
     }
 
     /// `VanillaLevel.drainChunkTasks`: the vanilla server loop runs the chunk source's queued tasks while it waits for the next tick, so
@@ -1833,44 +1809,6 @@ impl Scenario {
             self.out.push(format_broadcast(&r));
         }
     }
-}
-
-/// `FillBiomeCommand.fill` without the command plumbing: the biome cells of the box (corners quantized to the quart grid) become `biome`.
-fn fill_biomes(
-    level: &mut ServerLevel,
-    raw_from: BlockPos,
-    raw_to: BlockPos,
-    biome: mc_world::palette::BiomeId,
-) {
-    use mc_core::pos::quart_pos;
-    let quantize = |c: i32| quart_pos::to_block(quart_pos::from_block(c));
-    let q = |p: BlockPos| BlockPos::new(quantize(p.x()), quantize(p.y()), quantize(p.z()));
-    let region = mc_core::bounding_box::BoundingBox::from_corners(&q(raw_from), &q(raw_to));
-    let mut changed = Vec::new();
-    for chunk_z in (region.min_z() >> 4)..=(region.max_z() >> 4) {
-        for chunk_x in (region.min_x() >> 4)..=(region.max_x() >> 4) {
-            let chunk = level
-                .chunk_now_mut(chunk_x, chunk_z)
-                .expect("fillbiome: chunk not loaded");
-            let access = &mut chunk.data.access;
-            let height = access.level_height;
-            let mut any = false;
-            access.fill_biomes_from_noise_with_current(height, |qx, qy, qz, current| {
-                let inside = region.is_inside_xyz(
-                    quart_pos::to_block(qx),
-                    quart_pos::to_block(qy),
-                    quart_pos::to_block(qz),
-                );
-                any |= inside && current != biome;
-                if inside { biome } else { current }
-            });
-            if any {
-                access.mark_unsaved();
-                changed.push(ChunkPos::new(chunk_x, chunk_z));
-            }
-        }
-    }
-    level.resend_biomes_for_chunks(&changed);
 }
 
 /// `/gamerule NAME VALUE` (unknown rules and rules disabled by the feature flags are ignored like a rejected command).

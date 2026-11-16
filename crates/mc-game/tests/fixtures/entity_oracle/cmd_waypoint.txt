@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # the locator bar of the join and the first ticks: each player's track packet is sent once
 PKT A minecraft:waypoint 8d010001f44cd58d790230e78bde679d783ee631116d696e6563726166743a64656661756c74000106c4ffffff0f00
 PKT B minecraft:waypoint 8d010001b76d4ad38d013150b33368cfb4257774116d696e6563726166743a64656661756c74000100c4ffffff0f00

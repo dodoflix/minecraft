@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 # c1 a sulfur cube in front, a stack of 3 andesite: one is swallowed (absorb sound, body slot, entity_data of the cube)
 BE 0 -60 0 {Items:[{Slot:0b,count:2,id:"minecraft:andesite"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
 E cube1 minecraft:sulfur_cube pos=1.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=4.0 abs=0.0 hurt=0/0 death=0 fx=-

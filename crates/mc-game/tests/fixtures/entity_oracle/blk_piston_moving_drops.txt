@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 # minecraft:glowstone destroyed 1 tick(s) into the push
 B 2 -60 0 minecraft:piston[extended=true,facing=east]
 B 3 -60 0 minecraft:moving_piston[facing=east,type=normal]

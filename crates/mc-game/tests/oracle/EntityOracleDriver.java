@@ -277,7 +277,7 @@ import net.minecraft.util.RandomSource;
  * <p>Output lines: {@code T n} (tick counter header before per-tick dumps), {@code P ...} player, {@code E ...} entity,
  * {@code I ...} inventory slot, {@code PKT player type hex} (hex = id + payload; `update_advancements` prints `-` (timestamps), `level_chunk_with_light` prints
  * `chunk=x,z/len=n` (heightmap map order varies per JVM run), `update_attributes` prints `entity=ID;attr=base[mod/amount/op,..];..` in wire order),
- * {@code B x y z state}, {@code CF msg|fail|json|result ...} (feedback of the `cmd` verbs), {@code C text} (output of the driver's own `time`/`gamerule`/`biome` commands, not compared),
+ * {@code B x y z state}, {@code CF msg|fail|json|result ...} (feedback of the `cmd` verbs and of the `difficulty`, `gamerule`, `time` and `biome` verbs),
  * {@code DIG/HURT ...} action results (entities created by game logic are named {@code type_path#n}, n counting per type in
  * creation order, e.g. {@code item#1}, {@code experience_orb#2}; `dump entities` lists all live non-player entities by name), {@code # ...} notes. Numbers use Java's Double/Float.toString (shortest round trip;
  * the Rust comparator parses numeric tokens instead of comparing text). Entity ids are NOT printed (not stable across servers).
@@ -524,7 +524,7 @@ public final class EntityOracleDriver {
             if (v == null) {
                options.difficulty = a.get(1);
             } else {
-               command("difficulty " + a.get(1));
+               commandAs(null, "difficulty " + a.get(1), false, false, false);
             }
          }
          case "login_detail" -> VanillaLevel.loginDetail = true;
@@ -552,11 +552,11 @@ public final class EntityOracleDriver {
          }
          case "gamerule" -> {
             world();
-            command("gamerule " + a.get(1) + " " + a.get(2));
+            commandAs(null, "gamerule " + a.get(1) + " " + a.get(2), false, false, false);
          }
          case "time" -> {
             world();
-            command("time set " + a.get(1));
+            commandAs(null, "time set " + a.get(1), false, false, false);
          }
          case "find_spawn" -> {
             world();
@@ -1084,7 +1084,7 @@ public final class EntityOracleDriver {
          }
          case "biome" -> {
             world();
-            command("fillbiome " + String.join(" ", a.subList(1, 7)) + " " + a.get(7));
+            commandAs(null, "fillbiome " + String.join(" ", a.subList(1, 7)) + " " + a.get(7), false, false, false);
          }
          case "light" -> {
             world();
@@ -1214,11 +1214,6 @@ public final class EntityOracleDriver {
          }
       }
       nameNewEntities();
-      flushCommandOutput();
-   }
-
-   void command(String c) {
-      v.command(c);
    }
 
    /**
@@ -1317,15 +1312,6 @@ public final class EntityOracleDriver {
             String path = BuiltInRegistries.ENTITY_TYPE.getKey(e.getType()).getPath();
             refs.put(path + "#" + autoCounter.merge(path, 1, Integer::sum) , e);
          }
-      }
-   }
-
-   void flushCommandOutput() {
-      if (v != null) {
-         for (String s : v.commandOutput) {
-            out.println("C " + s);
-         }
-         v.commandOutput.clear();
       }
    }
 

@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 18000 tick(s)
+CF msg Set minecraft:overworld to 18000 tick(s)
+CF result success 18000
 # c1 sheep in front: wool is dropped, the shears lose 1 durability
 BE 0 -60 0 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:shears"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
 N sh1 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,Color:3b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:8.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoAI:1b,OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[1.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Sheared:1b,Silent:1b,attributes:[],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
@@ -769,7 +770,8 @@ EV sound at=1.5,-59.5,156.5 r=16.0 ex=0 event=minecraft:item.shears.snip source=
 EV level_event r=64.0 ex=0 type=1000 pos=0,-60,156 data=0 global=0
 EV level_event r=64.0 ex=0 type=2000 pos=0,-60,156 data=5 global=0
 # c23 beehive honey 5 with a bee occupant: honeycombs drop, the bee is released by day (a hive keeps its bees at night; NoAI so it stays put), honey level reset
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 BE 0 -60 164 {Items:[{Slot:0b,components:{"minecraft:damage":1},count:1,id:"minecraft:shears"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:164}
 BE 1 -60 164 {bees:[],components:{},id:"minecraft:beehive",x:1,y:-60,z:164}
 B 0 -61 163 minecraft:grass_block[snowy=false]

@@ -368,8 +368,10 @@ EV level_event r=64.0 ex=0 type=1501 pos=8,-60,-1 data=0 global=0
 EV level_event r=64.0 ex=0 type=1501 pos=7,-60,0 data=0 global=0
 EV level_event r=64.0 ex=0 type=1501 pos=8,-60,1 data=0 global=0
 EV level_event r=64.0 ex=0 type=1501 pos=6,-60,4 data=0 global=0
-C Game rule lava_source_conversion is now set to true
-C Game rule water_source_conversion is now set to false
+CF msg Game rule lava_source_conversion is now set to true
+CF result success 1
+CF msg Game rule water_source_conversion is now set to false
+CF result success 0
 # lava converts now, water does not
 B 12 -62 -2 minecraft:dirt
 B 12 -62 -1 minecraft:dirt
@@ -747,7 +749,8 @@ EV level_event r=64.0 ex=0 type=1501 pos=21,-60,0 data=0 global=0
 EV level_event r=64.0 ex=0 type=1501 pos=22,-60,1 data=0 global=0
 EV level_event r=64.0 ex=0 type=1501 pos=20,-60,4 data=0 global=0
 # both rules on: a source below also counts
-C Game rule water_source_conversion is now set to true
+CF msg Game rule water_source_conversion is now set to true
+CF result success 1
 B 26 -62 -4 minecraft:dirt
 B 26 -62 -3 minecraft:dirt
 B 26 -62 -2 minecraft:dirt
@@ -1398,8 +1401,10 @@ EV level_event r=64.0 ex=0 type=1501 pos=37,-60,0 data=0 global=0
 EV level_event r=64.0 ex=0 type=1501 pos=37,-60,-1 data=0 global=0
 EV level_event r=64.0 ex=0 type=1501 pos=37,-60,1 data=0 global=0
 # both rules off again: the gaps stay flowing
-C Game rule water_source_conversion is now set to false
-C Game rule lava_source_conversion is now set to false
+CF msg Game rule water_source_conversion is now set to false
+CF result success 0
+CF msg Game rule lava_source_conversion is now set to false
+CF result success 0
 B 46 -62 -2 minecraft:dirt
 B 46 -62 -1 minecraft:dirt
 B 46 -62 0 minecraft:dirt
@@ -1632,7 +1637,8 @@ EV level_event r=64.0 ex=0 type=1501 pos=54,-60,0 data=0 global=0
 EV level_event r=64.0 ex=0 type=1501 pos=43,-60,-3 data=0 global=0
 EV level_event r=64.0 ex=0 type=1501 pos=43,-60,3 data=0 global=0
 # lava random ticks need the fire spread rule: radius 0 and no player means no fire, -1 always
-C Game rule fire_spread_radius_around_player is now set to 0
+CF msg Game rule fire_spread_radius_around_player is now set to 0
+CF result success 0
 B -3 -61 19 minecraft:grass_block[snowy=false]
 B -3 -61 20 minecraft:grass_block[snowy=false]
 B -3 -61 21 minecraft:grass_block[snowy=false]
@@ -1668,7 +1674,8 @@ B 3 -61 20 minecraft:grass_block[snowy=false]
 B 3 -61 21 minecraft:grass_block[snowy=false]
 B 3 -60 20 minecraft:oak_planks
 B 3 -59 20 minecraft:oak_planks
-C Game rule fire_spread_radius_around_player is now set to -1
+CF msg Game rule fire_spread_radius_around_player is now set to -1
+CF result success -1
 B -3 -61 19 minecraft:grass_block[snowy=false]
 B -3 -61 20 minecraft:grass_block[snowy=false]
 B -3 -61 21 minecraft:grass_block[snowy=false]

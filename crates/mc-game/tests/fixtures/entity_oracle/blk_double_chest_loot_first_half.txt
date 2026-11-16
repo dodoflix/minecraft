@@ -1,4 +1,5 @@
-C The difficulty has been set to Peaceful
+CF msg The difficulty has been set to Peaceful
+CF result success 0
 T 1
 T 2
 T 3

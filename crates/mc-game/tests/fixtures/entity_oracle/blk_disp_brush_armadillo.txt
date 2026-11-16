@@ -1,4 +1,5 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 # c1 empty block in front: fails
 BE 0 -60 0 {Items:[{Slot:0b,count:1,id:"minecraft:brush"}],components:{},id:"minecraft:dispenser",x:0,y:-60,z:0}
 EV level_event r=64.0 ex=0 type=1001 pos=0,-60,0 data=0 global=0

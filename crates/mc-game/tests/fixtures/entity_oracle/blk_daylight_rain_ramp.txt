@@ -1,7 +1,9 @@
-C Set minecraft:overworld to 6000 tick(s)
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
 B 1 -60 0 minecraft:daylight_detector[inverted=false,power=15]
 B 3 -60 0 minecraft:daylight_detector[inverted=true,power=0]
-C Set the weather to rain
+CF msg Set the weather to rain
+CF result success 100000
 B 1 -60 0 minecraft:daylight_detector[inverted=false,power=15]
 B 3 -60 0 minecraft:daylight_detector[inverted=true,power=0]
 B 1 -60 0 minecraft:daylight_detector[inverted=false,power=14]
@@ -10,6 +12,7 @@ B 1 -60 0 minecraft:daylight_detector[inverted=false,power=13]
 B 3 -60 0 minecraft:daylight_detector[inverted=true,power=2]
 B 1 -60 0 minecraft:daylight_detector[inverted=false,power=12]
 B 3 -60 0 minecraft:daylight_detector[inverted=true,power=3]
-C Set the weather to clear
+CF msg Set the weather to clear
+CF result success 100000
 B 1 -60 0 minecraft:daylight_detector[inverted=false,power=15]
 B 3 -60 0 minecraft:daylight_detector[inverted=true,power=0]

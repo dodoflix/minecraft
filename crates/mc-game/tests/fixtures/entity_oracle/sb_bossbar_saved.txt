@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is already set to false
+CF result failure 0
+CF fail Game rule send_command_feedback is already set to false
 SAVED custom_boss_events DataVersion=5023
 # before any bar was made
 CF msg Created custom bossbar [Plain]

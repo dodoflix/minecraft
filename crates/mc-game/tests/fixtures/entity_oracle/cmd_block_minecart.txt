@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 CF msg Created new objective [mc]
 CF result success 1
 # a: a cart on a powered activator rail runs its command on the first tick and then every fourth tick, the last output is replaced by each run
@@ -76,15 +77,18 @@ OBJ {DisplayName:"mc",Name:"mc"}
 SCORE {Locked:1b,Name:"#act",Objective:"mc",Score:4}
 DISPLAY {}
 # command_block_output off: the last output is still stored, the operators are not told; send_command_feedback off: only a failure is stored
-C Game rule command_block_output is now set to false
+CF msg Game rule command_block_output is now set to false
+CF result success 0
 T 38
 T 39
 T 40
 T 41
 T 42
 N act {Air:300s,Command:"scoreboard players add #act mc 1",Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,LastExecution:39L,LastOutput:{extra:[{translate:"commands.scoreboard.players.add.success.single",with:[1,{translate:"chat.square_brackets",with:[{hover_event:{action:"show_text",value:"mc"},text:"mc"}]},"#act",5]}],text:"[HH:MM:SS] "},Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[6.5d,-59.9375d,0.5d],Rotation:[0.0f,0.0f],SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,fall_distance:0.0d}
-C Game rule command_block_output is now set to true
-C Game rule send_command_feedback is now set to false
+CF msg Game rule command_block_output is now set to true
+CF result success 1
+CF msg Game rule send_command_feedback is now set to false
+CF result success 0
 T 43
 PKT Op minecraft:system_chat 7c0a090004776974680800000001002073636f7265626f61726420706c6179657273206164642023616374206d6320310800097472616e736c617465001a6164764d6f64652e736574436f6d6d616e642e737563636573730000
 T 44
@@ -102,12 +106,14 @@ T 50
 T 51
 T 52
 N act {Air:300s,Command:"scoreboard players get #nope mc",Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,LastExecution:51L,LastOutput:{extra:[{color:"red",extra:[{translate:"commands.scoreboard.players.get.null",with:["mc","#nope"]}],text:""}],text:"[HH:MM:SS] "},Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[6.5d,-59.9375d,0.5d],Rotation:[0.0f,0.0f],SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,fall_distance:0.0d}
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # the editor packet: not allowed without the permission, command_blocks_work off, a cart of another kind is ignored
 PKT Plain minecraft:system_chat 7c0a0800097472616e736c61746500126164764d6f64652e6e6f74416c6c6f7765640000
 N act {Air:300s,Command:"scoreboard players get #nope mc",Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,LastExecution:51L,LastOutput:{extra:[{color:"red",extra:[{translate:"commands.scoreboard.players.get.null",with:["mc","#nope"]}],text:""}],text:"[HH:MM:SS] "},Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[6.5d,-59.9375d,0.5d],Rotation:[0.0f,0.0f],SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,fall_distance:0.0d}
 N plainCart {Air:300s,Fire:0s,FlippedRotation:0b,HasTicked:1b,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[10.5d,-59.9375d,4.5d],Rotation:[0.0f,0.0f],fall_distance:0.0d}
-C Game rule command_blocks_work is now set to false
+CF msg Game rule command_blocks_work is now set to false
+CF result success 0
 PKT Op minecraft:system_chat 7c0a090004776974680800000001002073636f7265626f61726420706c61796572732061646420236f6666206d6320310800097472616e736c617465001b6164764d6f64652e736574436f6d6d616e642e64697361626c65640000
 N act {Air:300s,Command:"scoreboard players add #off mc 1",Fire:0s,FlippedRotation:0b,HasTicked:0b,Invulnerable:0b,LastExecution:51L,LastOutput:{extra:[{color:"red",extra:[{translate:"commands.scoreboard.players.get.null",with:["mc","#nope"]}],text:""}],text:"[HH:MM:SS] "},Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[6.5d,-59.9375d,0.5d],Rotation:[0.0f,0.0f],SuccessCount:0,TrackOutput:1b,UpdateLastExecution:1b,fall_distance:0.0d}
 ED act 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:1:00 9:1:01 10:3:00000000 11:15:00 12:1:06 13:4:1f73636f7265626f61726420706c61796572732067657420236e6f7065206d63 14:5:0a09000565787472610a00000001080005636f6c6f72000372656409000565787472610a0000000109000477697468080000000200026d630005236e6f70650800097472616e736c6174650024636f6d6d616e64732e73636f7265626f6172642e706c61796572732e6765742e6e756c6c000800047465787400000008000474657874000b5b48483a4d4d3a53535d2000
@@ -120,7 +126,8 @@ N act {Air:300s,Command:"scoreboard players add #off mc 1",Fire:0s,FlippedRotati
 OBJ {DisplayName:"mc",Name:"mc"}
 SCORE {Locked:1b,Name:"#act",Objective:"mc",Score:7}
 DISPLAY {}
-C Game rule command_blocks_work is now set to true
+CF msg Game rule command_blocks_work is now set to true
+CF result success 1
 # a forking command: the success count is the number of entities; a detector rail with a comparator reads the success count of the cart on it (an empty command keeps a saved count)
 T 58
 T 59

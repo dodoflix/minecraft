@@ -1,4 +1,5 @@
-C Game rule send_command_feedback is now set to true
+CF msg Game rule send_command_feedback is now set to true
+CF result success 1
 # burning mobs drop cooked food, each roll under its own level seed
 CF msg Dropped 1 [Steak] from loot table minecraft:entities/cow
 CF result success 1
