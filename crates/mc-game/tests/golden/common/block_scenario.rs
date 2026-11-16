@@ -1176,6 +1176,12 @@ impl Scenario {
                 .gen_live
                 .install(level.registries.clone(), Arc::new(dimension_type.clone()));
         }
+        // `MinecraftServer.setInitialSpawn` searches the overworld's spawn once, when the server creates its levels: before any
+        // preload ticket, so its chunks are the first the generator sees (`world_spawn`)
+        if self.opts.find_world_spawn && dimension == "overworld" {
+            let data = self.world_data.as_ref().expect("world data");
+            mc_game::server::spawn::find_initial_spawn(data, &mut level);
+        }
         let r = self.opts.preload;
         for cx in -r..=r {
             for cz in -r..=r {
@@ -1226,8 +1232,8 @@ impl Scenario {
         } else {
             self.preload_until_ticking(&mut level, r, start);
         }
-        // `MinecraftServer.setInitialSpawn` searches the overworld's spawn once, when the server creates its levels
-        if (self.opts.find_world_spawn || self.multi()) && dimension == "overworld" {
+        // the multi-level replays search after the preload: their recorded chunk counts depend on the chunks the search loads
+        if !self.opts.find_world_spawn && self.multi() && dimension == "overworld" {
             let data = self.world_data.as_ref().expect("world data");
             mc_game::server::spawn::find_initial_spawn(data, &mut level);
         }

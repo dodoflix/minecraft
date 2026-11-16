@@ -5,9 +5,6 @@ end void
 end fight
 dimension the_end
 seed 4242
-# the scan loads 17x17 chunks around the origin; the preloaded 21x21 keep it from generating any (each generated chunk draws a unique seed, which moves
-# the seed of the dragon created in the same tick)
-preload 10
 level_seed 77
 fight_skip_arena
 spawn stray minecraft:ender_dragon 0.5 128 0.5 0 0 {NoAI:1b}

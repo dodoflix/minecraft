@@ -1845,5 +1845,5 @@ FIGHT killed=false prev=true stage=- rtime=0 alive=10 dragon=ender_dragon#2 port
 ED c1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:11:00 9:8:00
 FIGHT killed=false prev=true stage=- rtime=0 alive=10 dragon=ender_dragon#2 portal=0,1,0 gateways=5,16,12,4,1,7,17,2,15,11,10,18,13,8,0,6,3,19,14 scan=false seen=0 pscan=5 cscan=1 crystals=4
 FIGHTBAR visible=false progress=0.93790525 players=Obs name=Ender Dragon color=pink overlay=progress music=true fog=true
-FIGHTHASH area 40731 d4eb98ff7b143d53
+FIGHTHASH area 40731 5fd2d52a85cea1e9
 FIGHTHASH gateways 13 b3951cd7a7c13d7d

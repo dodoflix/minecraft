@@ -346,7 +346,7 @@ pub struct WorldgenThread {
     thread: Option<JoinHandle<()>>,
     results: ResultSender,
     /// Oracle mode: the batch runs on the submitting thread (the vanilla oracle's direct executors), so the unique
-    /// seeds it draws continue the calling thread's reproducible sequence.
+    /// seeds it draws continue the calling thread's reproducible sequence, and [`WorldgenThread::submit`] hands the result back.
     inline: bool,
 }
 
@@ -388,12 +388,21 @@ impl WorldgenThread {
         !self.inline
     }
 
-    pub fn submit(&self, ctx: Arc<WorldGenContext>, batch: GenBatch) {
+    pub fn is_inline(&self) -> bool {
+        self.inline
+    }
+
+    /// Queues the batch for the worldgen thread; inline (oracle mode) it runs now and its result is returned for the caller
+    /// to apply at once, as vanilla's direct executors complete every future of a step inside the call that scheduled it.
+    #[must_use]
+    pub fn submit(&self, ctx: Arc<WorldGenContext>, batch: GenBatch) -> Option<WorkerMessage> {
         if self.inline {
-            let _ = self.results.send(batch_message(run_batch(&ctx, batch)));
-        } else if let Some(tx) = &self.tx {
+            return Some(batch_message(run_batch(&ctx, batch)));
+        }
+        if let Some(tx) = &self.tx {
             let _ = tx.send((ctx, batch));
         }
+        None
     }
 
     /// `CompletableFuture.supplyAsync(..., Util.backgroundExecutor())`: the batch runs on the shared pool, concurrently

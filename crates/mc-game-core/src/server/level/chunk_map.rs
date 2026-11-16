@@ -812,6 +812,11 @@ impl ChunkMap {
             .run_update(&HolderLightChunks(holders), &queue_level);
         for completion in result.completions {
             self.on_light_event(completion);
+            // direct executors resume the task a light future completed inside the completing call
+            if self.worldgen.is_inline() {
+                self.process_ready();
+                self.pump_worldgen();
+            }
         }
     }
 

@@ -3,6 +3,7 @@
 //! light engine) and completing the per-status futures.
 
 use super::chunk_holder::{ChunkHolder, ChunkSlot, FutureState, Waiter};
+use super::chunk_io::WorkerMessage;
 use super::chunk_map::{ChunkMap, ChunkMapEvent, MainTask};
 use super::chunk_status_tasks::{
     BatchResult, GenBatch, GenJob, runs_on_background_executor, runs_on_worldgen_thread,
@@ -132,6 +133,10 @@ impl ChunkMap {
     pub fn run_generation_tasks(&mut self) {
         for id in std::mem::take(&mut self.pending_generation_tasks) {
             self.queue_task_slice(id);
+            // direct executors (oracle mode) run each submitted task, and what its steps wake, before the next is submitted
+            if self.worldgen.is_inline() {
+                self.pump_worldgen();
+            }
         }
         self.pump_worldgen();
     }
@@ -139,13 +144,22 @@ impl ChunkMap {
     /// Hand the next queued task slice to the "executor" while the worldgen thread is idle.
     pub(crate) fn pump_worldgen(&mut self) {
         while !self.worldgen_busy {
-            // light work waits while a batch has chunks lent out: give it its turn before the next batch starts
-            self.run_light_updates();
+            // light work waits while a batch has chunks lent out: give it its turn before the next batch starts. An inline
+            // worldgen thread (oracle mode) lends nothing between batches and vanilla's light engine runs once per poll
+            // (`tryScheduleUpdate`), not between the worldgen tasks of one `runGenerationTasks`
+            if !self.worldgen.is_inline() {
+                self.run_light_updates();
+            }
             let Some((_, tasks)) = self.worldgen_queue.pop() else {
                 return;
             };
             for id in tasks {
                 self.run_generation_task_slice(id);
+            }
+            // vanilla's direct executors run the `thenRun` resubmissions of the futures a chunk's tasks completed before the
+            // dispatcher polls the next chunk's tasks
+            if self.worldgen.is_inline() {
+                self.process_ready();
             }
         }
     }
@@ -156,11 +170,15 @@ impl ChunkMap {
             return;
         }
         let waiting_for = self.run_until_wait(id);
-        self.flush_batch(id);
+        let inline_result = self.flush_batch(id);
         if let Some((key, status)) = waiting_for
             && let Some(h) = self.holders.holder_mut(key)
         {
             h.add_waiter(status, Waiter::Task(id));
+        }
+        // a batch that ran inline completes the futures the task just registered on
+        if let Some(message) = inline_result {
+            self.handle_worker_message(message);
         }
     }
 
@@ -501,13 +519,12 @@ impl ChunkMap {
     // ------------------------------------------------------------------ worldgen batches
 
     /// Send the collected worldgen steps of a task's layer to the executors: the steps vanilla runs on
-    /// `Util.backgroundExecutor()` (biomes, terrain) as one background batch per chunk, the others to the worldgen thread.
-    fn flush_batch(&mut self, id: u64) {
-        let Some(task) = self.tasks.get_mut(&id) else {
-            return;
-        };
+    /// `Util.backgroundExecutor()` (biomes, terrain) as one background batch per chunk, the others to the worldgen thread;
+    /// the result of an inline batch comes back.
+    fn flush_batch(&mut self, id: u64) -> Option<WorkerMessage> {
+        let task = self.tasks.get_mut(&id)?;
         if task.batch_jobs.is_empty() {
-            return;
+            return None;
         }
         let jobs = std::mem::take(&mut task.batch_jobs);
         let (background, jobs): (Vec<GenJob>, Vec<GenJob>) = if self.worldgen.runs_in_parallel() {
@@ -520,7 +537,7 @@ impl ChunkMap {
             self.submit_background_job(job);
         }
         if jobs.is_empty() {
-            return;
+            return None;
         }
         let mut chunks: HashMap<i64, GenChunk> = HashMap::new();
         let mut structure_views: HashMap<i64, Arc<StructureData>> = HashMap::new();
@@ -568,7 +585,7 @@ impl ChunkMap {
                 chunks,
                 structure_views,
             },
-        );
+        )
     }
 
     /// `ChunkStatusTasks.generateBiomes` / `buildTerrain`: the chunk goes to the background pool alone. Its neighbours are

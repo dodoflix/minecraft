@@ -2,6 +2,7 @@
 # (`placed:attack`) come from the age boundary applied when the entity joins the generating region, compared by type, position and saved fields.
 level normal
 seed 297
+world_spawn
 preload 5
 difficulty normal
 bootrule spawn_mobs true

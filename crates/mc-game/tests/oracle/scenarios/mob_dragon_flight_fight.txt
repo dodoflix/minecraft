@@ -6,8 +6,6 @@ end void
 end fight
 dimension the_end
 seed 4242
-# the scan loads 17x17 chunks around the origin; the preloaded 21x21 keep it from generating any (each generated chunk draws a unique seed)
-preload 10
 level_seed 77
 entity_counter 9500
 fight_skip_arena

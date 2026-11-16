@@ -8,4 +8,4 @@ PKT Obs minecraft:boss_event 0900000000000000000000000000000000000a0800097472616
 FIGHTHASH area 61 92d0030376f36b42
 FIGHTHASH gateways 0 cbf29ce484222325
 E stray minecraft:ender_dragon pos=0.5,128.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=-
-E ender_dragon#1 minecraft:ender_dragon pos=0.05971392009302967,127.99399999976158,0.0054538396798572975 delta=0.05670025780955779,-0.005460000374317176,0.00517859345723982 rot=95.220695,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=-
+E ender_dragon#1 minecraft:ender_dragon pos=-0.058512468095363035,127.99399999976158,0.013098170764112016 delta=-0.055559439817939156,-0.005460000374317176,0.012437127572669288 rot=-102.61954,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=200.0 abs=0.0 hurt=0/0 death=0 fx=-
