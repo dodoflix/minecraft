@@ -1,0 +1,28 @@
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF msg Set minecraft:overworld to 13000 tick(s)
+CF result success 13000
+P Bob minecraft:player pos=4.5,-59.3125,1.5 delta=0.0,0.08044396699668764,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=sleeping hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+E Pig minecraft:pig pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+# Alice leaves with a pig on her shoulders, Bob leaves in his sleep: the pig is ejected, Bob is awake in the data that is saved
+STAT Alice minecraft.custom:minecraft.leave_game 1
+STAT Alice minecraft.custom:minecraft.play_time 5
+STAT Alice minecraft.custom:minecraft.time_since_death 5
+STAT Alice minecraft.custom:minecraft.time_since_rest 5
+STAT Alice minecraft.custom:minecraft.total_world_time 5
+E Pig minecraft:pig pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+PL Alice dim=minecraft:overworld
+PL Bob dim=minecraft:overworld
+PL Carol dim=minecraft:overworld
+PLAYERFILE Alice {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,UUID:"Alice",XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:5,warning_level:0}}
+STAT Bob minecraft.custom:minecraft.leave_game 1
+STAT Bob minecraft.custom:minecraft.play_time 6
+STAT Bob minecraft.custom:minecraft.sleep_in_bed 1
+STAT Bob minecraft.custom:minecraft.time_since_death 6
+STAT Bob minecraft.custom:minecraft.time_since_rest 0
+STAT Bob minecraft.custom:minecraft.total_world_time 6
+E Pig minecraft:pig pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=-
+PL Alice dim=minecraft:overworld
+PL Bob dim=minecraft:overworld
+PL Carol dim=minecraft:overworld
+PLAYERFILE Bob {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PortalCooldown:0,Pos:[5.5d,-60.0d,1.5d],Rotation:[89.99999f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,UUID:"Bob",XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},respawn:{dimension:"minecraft:overworld",pitch:0.0f,pos:[I;4,-60,1],yaw:0.0f},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:6,warning_level:0}}

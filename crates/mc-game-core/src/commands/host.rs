@@ -909,19 +909,24 @@ pub fn set_camera(server: &mut MinecraftServer, player: &EntityRef, camera: Opti
         x_rot,
         PostTeleportTransition::DO_NOTHING,
     );
-    if !teleport_player(server, &player.dimension, player.id, &transition) {
-        return;
-    }
+    // the result of `teleportTo` is not looked at: the camera and the chunk source follow either way
+    let teleported = teleport_player(server, &player.dimension, player.id, &transition);
     let moved = EntityRef {
-        dimension: camera.dimension.clone(),
+        dimension: if teleported {
+            camera.dimension.clone()
+        } else {
+            player.dimension.clone()
+        },
         id: player.id,
     };
-    finish_player_teleport(
-        server,
-        &moved,
-        mc_protocol::packets::play::Relatives::NONE,
-        y_rot,
-    );
+    if teleported {
+        finish_player_teleport(
+            server,
+            &moved,
+            mc_protocol::packets::play::Relatives::NONE,
+            y_rot,
+        );
+    }
     if let Some(level) = server.level_mut(&moved.dimension) {
         level.with_player(moved.id, |level, p| {
             p.chunk_source_move(level);

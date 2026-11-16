@@ -1,0 +1,28 @@
+# A player that leaves is disconnected first (ServerPlayer.disconnect): its passengers are ejected and a sleeping player wakes up before the data is saved.
+command_env
+level flat
+preload 2
+level_seed 3
+entity_counter 50
+difficulty normal
+spawn_player Alice survival 0.5 -60 0.5 0 0
+spawn_player Bob survival 4.5 -60 0.5 0 0
+spawn_player Carol survival 8.5 -60 0.5 0 0
+block 4 -60 2 minecraft:red_bed[facing=north,part=foot]
+block 4 -60 1 minecraft:red_bed[facing=north,part=head]
+spawn Pig minecraft:pig 0.5 -60 0.5 0 0 {NoAI:1b,PersistenceRequired:1b,Silent:1b}
+entity_seed Pig 4
+time 13000
+tick 2
+dump packets:Alice:none packets:Bob:none packets:Carol:none
+ride Pig Alice
+use_on Bob 4 -60 1 up main 0.5 0.5 0.5
+tick 3
+dump player:Bob entities packets:Carol:animate,set_passengers,teleport_entity,move_entity_pos,remove_entities,entity_position_sync packets:Alice:none packets:Bob:none
+note Alice leaves with a pig on her shoulders, Bob leaves in his sleep: the pig is ejected, Bob is awake in the data that is saved
+leave Alice
+tick 1
+dump entities players playerfile:Alice packets:Carol:animate,set_passengers,teleport_entity,move_entity_pos,remove_entities,entity_position_sync
+leave Bob
+tick 1
+dump entities players playerfile:Bob packets:Carol:animate,set_passengers,teleport_entity,move_entity_pos,remove_entities,entity_position_sync

@@ -8,8 +8,8 @@
 //! stand-in is found by [`ServerLevel::get_entity`](super::ServerLevel::get_entity) like any entity of the level, but
 //! it is no member of the level: nothing ticks, tracks, saves or lends it, and `with_entity` does not find it.
 //!
-//! Not implemented: an attack on the stand-in (`Mob.doHurtTarget` of vanilla hurts the real player in its level when the
-//! coordinates are within reach); `hasLineOfSight` is false across levels like in vanilla.
+//! `hasLineOfSight` is false across levels like in vanilla, and the melee goals and behaviors of the neutral mobs attack
+//! only with a line of sight, so a mob never hurts the player it walks toward (checked against the real server).
 
 use super::entity_directory::{EntityDirectory, RemoteEntity};
 use crate::world::entity::entity::{DATA_POSE, DATA_SHARED_FLAGS_ID};

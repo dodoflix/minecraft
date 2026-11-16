@@ -1441,6 +1441,16 @@ pub struct PearlRef {
 }
 
 impl ServerPlayer {
+    /// `disconnect()`: the connection is gone; the passengers are ejected and a sleeping player wakes up, before
+    /// `PlayerList.remove` saves the player.
+    pub fn disconnect(&mut self, level: &mut ServerLevel) {
+        self.disconnected = true;
+        level.eject_passengers(self);
+        if self.player.living.is_sleeping() {
+            self.stop_sleep_in_bed_impl(level, true, false);
+        }
+    }
+
     /// `registerEnderPearl(pearl)`: `pearl` is an entity of `dimension`.
     pub fn register_ender_pearl(&mut self, pearl: EntityId, dimension: &Identifier) {
         if !self.ender_pearls.iter().any(|p| p.id == pearl) {

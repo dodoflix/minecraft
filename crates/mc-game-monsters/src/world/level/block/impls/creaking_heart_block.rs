@@ -77,6 +77,7 @@ impl BlockBehaviour for CreakingHeartBlock {
                 })
                 .unwrap_or(false)
         {
+            // Not implemented: an indirect source that is a player of another level (its experience share is skipped)
             let player = explosion
                 .get_indirect_source_entity()
                 .and_then(|id| level.get_entity(id))

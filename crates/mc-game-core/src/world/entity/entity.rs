@@ -689,6 +689,17 @@ pub trait Entity: Any {
         self.living().map(|_| self.id())
     }
 
+    /// [`Entity::explosion_indirect_source`] when the responsible living entity is only tracked by another level (vanilla
+    /// resolves a projectile's or primed TNT's owner in any dimension): the copy that level published.
+    fn explosion_remote_indirect_source(
+        &self,
+        level: &ServerLevel,
+    ) -> Option<crate::server::level::RemoteEntity> {
+        self.as_projectile()?
+            .get_remote_owner(level)
+            .filter(|o| o.is_living)
+    }
+
     /// `ignoreExplosion(explosion)`.
     fn ignore_explosion(&self, _explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
         false
@@ -3123,10 +3134,16 @@ pub trait Entity: Any {
 
     /// `kill(level)` with the level of the command that kills (`/kill` passes `source.getLevel()`, which is another level than the
     /// entity's when the selector reached across levels). Only the End crystal reads the passed level (its fight).
-    /// shortcut: a living entity still acts in its own level (vanilla's `hurtServer(sourceLevel, ...)` broadcasts the damage event
-    /// through the source level, which does not know the victim, and runs the hurt effects there), upgrade when a scenario observes it.
+    /// A living entity hurts itself with `hurtServer(sourceLevel, ..)`: the damage event goes through the source level, which
+    /// does not track the victim, so nobody hears it.
+    /// shortcut: the rest of the hurt (effects, loot) still runs in the entity's own level; no scenario shows a difference.
     fn kill_from_level(&mut self, level: &mut ServerLevel, _source_level: &mut ServerLevel) {
+        if self.living().is_none() {
+            return self.kill_in_level(level);
+        }
+        level.tick_state.hurt_through_other_level = Some(self.id());
         self.kill_in_level(level);
+        level.tick_state.hurt_through_other_level = None;
     }
 
     /// `heal(amount)`.

@@ -1,0 +1,26 @@
+# The end platform replaces what stands where it is built (ServerLevel.makeObsidianPlatform: destroyBlock(pos, true, entity)): a block that is not
+# the platform's own drops its item, and the arriving entity is the breaker.
+level void
+command_env
+end void
+levels overworld,the_end
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -2 -62 -2 4 -62 4 minecraft:stone
+fill 0 -61 0 2 -61 0 minecraft:end_portal
+spawn_player Alice creative 3.5 -61 3.5 180 0
+in the_end level_seed 8
+in the_end block 102 50 0 minecraft:stone
+in the_end block 98 51 -2 minecraft:dirt
+in the_end block 100 49 2 minecraft:stone
+tick 2
+note a cow falls into the end portal: the platform is built first, replacing a stone, a dirt and an obsidian floor block (the chunks the platform covers exist before the build)
+spawn C minecraft:cow 1.5 -60.9 0.5 45 0 {NoAI:1b,PersistenceRequired:1b,CustomName:"Traveller"}
+entity_seed C 9
+tick 1
+dump xentities packets:Alice:remove_entities
+in the_end dump xentities blocks:96,46,-4,104,52,4
+tick 4
+in the_end dump xentities blocks:96,46,-4,104,52,4 events

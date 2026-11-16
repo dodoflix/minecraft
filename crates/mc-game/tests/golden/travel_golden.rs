@@ -110,3 +110,21 @@ fn a_pet_waits_for_its_owner_in_another_level() {
 fn watchers_of_both_levels_hear_of_a_trip() {
     common::block_scenario::check("travel_observer");
 }
+
+/// A primed tnt that used a portal credits the owner it has in another level with what its blast kills.
+#[test]
+fn primed_tnt_credits_an_owner_in_another_level() {
+    common::block_scenario::check("travel_tnt_credit");
+}
+
+/// A fishing bobber standing in a nether portal stays where it is.
+#[test]
+fn fishing_bobber_stays_in_a_portal() {
+    common::block_scenario::check("travel_bobber");
+}
+
+/// The end platform replaces blocks with drops: the items it drops match.
+#[test]
+fn end_platform_replaces_blocks_and_drops_items() {
+    common::block_scenario::check("travel_end_platform_drop");
+}

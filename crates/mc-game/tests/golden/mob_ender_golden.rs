@@ -38,3 +38,9 @@ fn enderman_teleport() {
 fn phantom_circle_swoop() {
     check("mob_phantom_circle_swoop");
 }
+
+/// A mob angry at a player of another level walks to the player's coordinates and never hurts it (no line of sight across levels).
+#[test]
+fn anger_at_a_player_of_another_level_never_hurts() {
+    check("mob_anger_remote_melee");
+}

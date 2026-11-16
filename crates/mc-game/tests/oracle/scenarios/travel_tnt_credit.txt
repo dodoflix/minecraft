@@ -1,0 +1,29 @@
+# A primed tnt that used a nether portal explodes away from its owner, who stays in the overworld: the owner is found in any dimension, so the kill of a
+# cow in the blast counts for the owner (statistics, advancements, the cow's experience).
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice survival 2.5 -61 3.5 180 0
+tick 2
+in the_nether fill -3 69 -3 3 69 3 minecraft:stone
+in the_nether fill -3 70 -3 3 72 3 minecraft:air
+in the_nether spawn C minecraft:cow 1.5 70 1.5 0 0 {NoAI:1b,PersistenceRequired:1b,Health:2f}
+in the_nether entity_seed C 5
+spawn T minecraft:tnt 1.0 -59 0.5 30 0 {fuse:20s,owner:[I;278005000,-707248403,-1814916367,-1817188393],explosion_power:2f}
+entity_seed T 3
+tick 25
+in the_nether dump xentities events
+dump stats:Alice advancements:Alice player:Alice
+dump packets:Alice:none

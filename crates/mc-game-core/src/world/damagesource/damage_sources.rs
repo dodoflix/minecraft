@@ -6,6 +6,7 @@
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 
+use super::damage_source::DamageEntity;
 use super::damage_source::DamageSource;
 use super::damage_types::DamageTypes;
 use crate::registry::typed::damage_type::DamageType;
@@ -250,6 +251,20 @@ impl<'a> DamageSources<'a> {
             DamageTypes::EXPLOSION
         };
         self.source(key, entity, cause)
+    }
+
+    /// [`DamageSources::explosion`] with a cause that only another level tracks (a snapshot of it at its position there).
+    pub fn explosion_with_remote_cause(
+        &self,
+        entity: Option<&dyn Entity>,
+        cause: DamageEntity,
+    ) -> DamageSource {
+        let key = if entity.is_some() {
+            DamageTypes::PLAYER_EXPLOSION
+        } else {
+            DamageTypes::EXPLOSION
+        };
+        self.source(key, entity, None).with_causing_snapshot(cause)
     }
 
     /// `badRespawnPointExplosion(boomPos)`.

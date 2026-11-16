@@ -37,6 +37,9 @@ pub fn broadcast_entity_event(level: &mut ServerLevel, id: EntityId, event_id: i
 
 /// `ServerLevel.broadcastDamageEvent(entity, source)`.
 fn broadcast_damage_event(level: &mut ServerLevel, entity_id: EntityId, source: &DamageSource) {
+    if level.tick_state.hurt_through_other_level == Some(entity_id) {
+        return;
+    }
     let source_type = level
         .registries
         .registry(crate::registry::keys::DAMAGE_TYPE)

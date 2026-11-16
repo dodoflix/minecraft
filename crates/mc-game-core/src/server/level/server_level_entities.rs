@@ -270,6 +270,14 @@ impl ServerLevel {
         self.remote_targets.contains(id) && !self.entity_manager.has_entity_with_id(id)
     }
 
+    /// The copy of the entity `id` of another level of the server (an indirect explosion source that is not here).
+    pub fn remote_entity_by_id(&self, id: EntityId) -> Option<super::RemoteEntity> {
+        self.server_state
+            .entities
+            .get_by_id(id)
+            .filter(|remote| remote.dimension != self.dimension)
+    }
+
     /// [`ServerLevel::get_entity`], or the entity its running code lent although it removed itself meanwhile.
     pub fn get_entity_or_lent(&self, id: EntityId) -> Option<&dyn Entity> {
         self.get_entity(id)

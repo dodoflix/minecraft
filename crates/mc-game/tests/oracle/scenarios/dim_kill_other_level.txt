@@ -1,0 +1,32 @@
+# `/kill` hands the command source's level to `entity.kill`; a living entity hurts itself with `hurtServer(level, genericKill, MAX)` and the damage event
+# is broadcast through that level, which does not track the victim: the players who watch a cow of the nether hear no `damage_event` when the console of
+# the overworld kills it, while `execute in the_nether` tells them.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+level_seed 7
+fill -20 99 -20 40 99 20 minecraft:stone
+in the_nether fill -20 99 -20 40 99 20 minecraft:netherrack
+in the_nether spawn_player Alice survival 0.5 100 0.5 0 0
+tick 1
+in the_nether spawn C1 minecraft:cow 3.5 100 3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["a"]}
+in the_nether spawn C2 minecraft:cow -3.5 100 3.5 0 0 {NoAI:1b,PersistenceRequired:1b,Tags:["b"]}
+in the_nether entity_seed C1 11
+in the_nether entity_seed C2 12
+tick 2
+dump packets:Alice:none
+note the console of the overworld kills a cow of the nether
+cmd kill @e[tag=a]
+dump packets:Alice:damage_event,entity_event,remove_entities,sound events xentities
+tick 2
+dump packets:Alice:damage_event,entity_event,remove_entities,sound events xentities
+note a console in the nether kills the other cow
+cmd execute in minecraft:the_nether run kill @e[tag=b]
+dump packets:Alice:damage_event,entity_event,remove_entities,sound events xentities
+tick 2
+dump packets:Alice:damage_event,entity_event,remove_entities,sound events xentities

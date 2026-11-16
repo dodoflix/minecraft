@@ -265,9 +265,9 @@ pub fn default_on_explosion_hit(
         return;
     }
     let block = state.block();
-    let do_drop_experience_hack = explosion
-        .get_indirect_source_entity()
-        .is_some_and(|id| level.players.contains(&id));
+    let do_drop_experience_hack = explosion.get_indirect_source_entity().is_some_and(|id| {
+        level.players.contains(&id) || level.remote_entity_by_id(id).is_some_and(|r| r.is_player)
+    });
     if behaviour(block).drop_from_explosion(explosion) {
         // `spawnAfterBreak` only pops experience: reading the block entity after it sees the same data as vanilla's params
         behaviour(block).spawn_after_break(

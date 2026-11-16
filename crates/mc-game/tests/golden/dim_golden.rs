@@ -61,3 +61,9 @@ fn portal_arrival_follows_the_game_rule() {
 fn players_in_different_levels_hear_their_own_level() {
     check("dim_players");
 }
+
+/// `/kill` of a living entity of another level hurts it through the command's level: nobody who watches the victim hears the damage event.
+#[test]
+fn kill_from_another_level_broadcasts_no_damage_event() {
+    check("dim_kill_other_level");
+}

@@ -211,6 +211,18 @@ impl Entity for PrimedTnt {
         self.get_owner(level).map(|o| o.id())
     }
 
+    fn explosion_remote_indirect_source(
+        &self,
+        level: &ServerLevel,
+    ) -> Option<crate::server::level::RemoteEntity> {
+        match level.get_entity_in_any_dimension(self.owner?)? {
+            crate::server::level::AnyDimensionEntity::Elsewhere(remote) if remote.is_living => {
+                Some(*remote)
+            }
+            _ => None,
+        }
+    }
+
     fn tick(&mut self, level: &mut ServerLevel) {
         self.handle_portal(level);
         self.apply_gravity();

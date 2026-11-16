@@ -1,0 +1,25 @@
+# A mob of the overworld that is angry at a player of the nether walks to the coordinates of the player and stays there: melee attacks need the sensing
+# line of sight, which is false across levels, so the player is never hurt.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+fill -20 99 -20 40 99 20 minecraft:stone
+in the_nether fill -20 99 -20 40 99 20 minecraft:netherrack
+in the_nether spawn_player Alice survival 0.5 100 0.5 0 0
+mobspawn Z minecraft:zombified_piglin 0.5 100 8.5 180 0 {PersistenceRequired:1b,anger_end_time:4000L,angry_at:[I;278005000,-707248403,-1814916367,-1817188393]}
+mobspawn W minecraft:wolf 20.5 100 8.5 180 0 {PersistenceRequired:1b,AngerTime:600,angry_at:[I;278005000,-707248403,-1814916367,-1817188393]}
+entity_seed Z 3201
+entity_seed W 3204
+tick 1
+dump packets:Alice:none
+tick 150
+dump mob:Z mob:W
+in the_nether dump packets:Alice:set_health,hurt_animation,damage_event,entity_event,set_entity_motion,entity_position_sync
+tick 100
+dump mob:Z mob:W
+in the_nether dump packets:Alice:set_health,hurt_animation,damage_event,entity_event,set_entity_motion,entity_position_sync

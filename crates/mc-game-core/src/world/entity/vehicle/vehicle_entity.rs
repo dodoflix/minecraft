@@ -138,6 +138,16 @@ pub fn ignore_explosion(level: &ServerLevel, explosion: &dyn Explosion) -> bool 
         return false;
     };
     // the exploding entity usually runs outside the level
-    let source = level.get_entity_or_lent(indirect);
-    source.is_some_and(is_mob) && !level.mob_griefing()
+    let is_mob_source = match level.get_entity_or_lent(indirect) {
+        Some(source) => is_mob(source),
+        None => level.remote_entity_by_id(indirect).is_some_and(|r| {
+            r.is_living
+                && !r.is_player
+                && !matches!(
+                    r.entity_type,
+                    EntityType::ARMOR_STAND | EntityType::MANNEQUIN
+                )
+        }),
+    };
+    is_mob_source && !level.mob_griefing()
 }

@@ -1,0 +1,21 @@
+# the console of the overworld kills a cow of the nether
+CF msg Killed Cow
+CF result success 1
+PKT Alice minecraft:sound 77c503060000001c000003200000001c3ecccccd3f85762591ec7fec81c19c21
+PKT Alice minecraft:entity_event 220000006603
+EV sound at=3.5,100.0,3.5 r=16.0 ex=0 event=minecraft:entity.cow.death source=neutral vol=0.4 pitch=1.042668
+E C2 minecraft:cow pos=-3.5,100.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=3.5,100.0,3.5 delta=-0.05607536117021055,0.2,0.08956590870250764 rot=73.68869,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=0 pickup=10 health=5 owner=- thrower=-
+E C2 minecraft:cow pos=-3.5,100.0,3.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=3.3889707838134306,100.27680000305176,3.6773405009392994 delta=-0.0538547789641934,0.11446400521850592,0.08601910206622326 rot=73.68869,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=2 pickup=8 health=5 owner=- thrower=-
+# a console in the nether kills the other cow
+CF msg Killed Cow
+CF result success 1
+PKT Alice minecraft:damage_event 196713000000
+PKT Alice minecraft:sound 77c50306ffffffe4000003200000001c3ecccccd3f8b690f2f23f8a854e5d04b
+PKT Alice minecraft:entity_event 220000006703
+EV sound at=-3.5,100.0,3.5 r=16.0 ex=0 event=minecraft:entity.cow.death source=neutral vol=0.4 pitch=1.0891436
+E item#1 minecraft:item pos=3.3889707838134306,100.27680000305176,3.6773405009392994 delta=-0.0538547789641934,0.11446400521850592,0.08601910206622326 rot=73.68869,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=2 pickup=8 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-3.5,100.0,3.5 delta=-0.09610458122879795,0.2,0.06563663756825822 rot=30.053722,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*2 age=0 pickup=10 health=5 owner=- thrower=-
+E item#1 minecraft:item pos=3.2823383204371295,100.38423873480468,3.8476583246711056 delta=-0.051722131730520204,0.0323152326326785,0.08261274884014183 rot=73.68869,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=4 pickup=6 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=-3.6902870726660693,100.27680000305176,3.629960543637071 delta=-0.09229884340491444,0.11446400521850592,0.06303742917431746 rot=30.053722,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*2 age=2 pickup=8 health=5 owner=- thrower=-

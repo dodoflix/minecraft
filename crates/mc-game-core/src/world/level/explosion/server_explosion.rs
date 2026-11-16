@@ -80,10 +80,28 @@ impl<'a> ServerExplosion<'a> {
         block_interaction: BlockInteraction,
     ) -> Self {
         let source_entity = source.and_then(|id| level.get_entity_or_lent(id));
-        let indirect_source = get_indirect_source_entity(level, source_entity);
+        let local_indirect = get_indirect_source_entity(level, source_entity);
+        // vanilla resolves the owner in any dimension: another level's living owner is the indirect source too
+        let remote_indirect = source_entity
+            .filter(|_| local_indirect.is_none())
+            .and_then(|s| s.explosion_remote_indirect_source(level));
+        let indirect_source = local_indirect.or(remote_indirect.as_ref().map(|r| r.id));
         let damage_source = damage_source.unwrap_or_else(|| {
-            let indirect = indirect_source.and_then(|id| level.get_entity_or_lent(id));
-            level.damage_sources().explosion(source_entity, indirect)
+            match remote_indirect.and_then(|r| {
+                r.damage_entity.map(|owner| {
+                    let mut owner = (*owner).clone();
+                    owner.position = r.position;
+                    owner
+                })
+            }) {
+                Some(owner) => level
+                    .damage_sources()
+                    .explosion_with_remote_cause(source_entity, owner),
+                None => {
+                    let indirect = local_indirect.and_then(|id| level.get_entity_or_lent(id));
+                    level.damage_sources().explosion(source_entity, indirect)
+                }
+            }
         });
         let damage_calculator = match (damage_calculator, source) {
             (Some(c), _) => Calculator::Custom(c),

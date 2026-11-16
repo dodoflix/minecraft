@@ -126,6 +126,9 @@ pub struct LevelTickState {
     pub pending_server_actions: Vec<ServerAction>,
     /// Server actions that found their target level out of the server; the next run of the queue retries them.
     pub deferred_server_actions: Vec<ServerAction>,
+    /// The entity whose `hurtServer` runs with another level as its `level` argument (`/kill` from another level): that level
+    /// does not track it, so its damage event reaches nobody.
+    pub hurt_through_other_level: Option<crate::world::entity::EntityId>,
     /// `subTickCount`.
     pub sub_tick_count: i64,
     /// `randValue` (`getBlockRandomPos`).
@@ -190,6 +193,7 @@ impl LevelTickState {
             pending_functions: Vec::new(),
             pending_server_actions: Vec::new(),
             deferred_server_actions: Vec::new(),
+            hurt_through_other_level: None,
             sub_tick_count: 0,
             rand_value: create_thread_local_instance_new().next_int(),
             random: LevelRandom::new(create_new()),

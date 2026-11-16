@@ -1,0 +1,16 @@
+E item#1 minecraft:item pos=1.1282344164256999,70.37655396743736,1.0451586579088405 delta=-0.06995200859714984,-0.0075310721665503766,-0.0855836765910341 rot=56.400524,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:beef*1 age=5 pickup=5 health=5 owner=- thrower=-
+E item#2 minecraft:item pos=1.3747415048704477,69.65742928249576,-0.3910886336608966 delta=-0.04247988480183284,-0.0075310721665503766,0.061357457911988315 rot=53.97158,0.0 og=0 fall=0.007684767246246338 fire=0 air=300 alive=1 pose=standing item=minecraft:cobblestone*2 age=5 pickup=5 health=5 owner=- thrower=-
+E experience_orb#3 minecraft:experience_orb pos=1.75,-59.278762223157955,1.0423986615403693 delta=-0.0,0.11138840600270149,-0.05793385102019557 rot=161.48381,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=4 health=5
+E experience_orb#4 minecraft:experience_orb pos=1.0484847429746482,-59.73849088389863,1.1613732538738342 delta=-0.09082311206472307,0.012582381437984317,-0.05277574082261863 rot=145.51129,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=1 count=1 age=4 health=5
+EV sound at=1.5,70.0,1.5 r=16.0 ex=0 event=minecraft:entity.cow.ambient source=neutral vol=0.4 pitch=0.96909475
+EV sound at=1.5,70.0,1.5 r=16.0 ex=0 event=minecraft:entity.cow.death source=neutral vol=0.4 pitch=0.97944134
+STAT Alice minecraft.custom:minecraft.mob_kills 1
+STAT Alice minecraft.custom:minecraft.play_time 27
+STAT Alice minecraft.custom:minecraft.time_since_death 27
+STAT Alice minecraft.custom:minecraft.time_since_rest 27
+STAT Alice minecraft.custom:minecraft.total_world_time 27
+STAT Alice minecraft.killed:minecraft.cow 1
+ADV Alice minecraft:adventure/adventuring_time minecraft:plains
+ADV Alice minecraft:adventure/root killed_something
+ADV Alice minecraft:recipes/decorations/crafting_table unlock_right_away
+P Alice minecraft:player pos=2.5,-61.0,3.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

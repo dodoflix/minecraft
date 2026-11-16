@@ -99,9 +99,12 @@ impl BlockBehaviour for TntBlock {
     }
     fn was_exploded(&self, level: &mut ServerLevel, pos: BlockPos, explosion: &dyn Explosion) {
         if level.tnt_explodes() {
-            let owner = explosion
-                .get_indirect_source_entity()
-                .and_then(|id| level.get_entity(id).map(|e| e.uuid()));
+            let owner = explosion.get_indirect_source_entity().and_then(|id| {
+                level
+                    .get_entity(id)
+                    .map(|e| e.uuid())
+                    .or_else(|| level.remote_entity_by_id(id).map(|r| r.uuid))
+            });
             let mut primed = PrimedTnt::at_owner_uuid(
                 level,
                 f64::from(pos.x()) + 0.5,

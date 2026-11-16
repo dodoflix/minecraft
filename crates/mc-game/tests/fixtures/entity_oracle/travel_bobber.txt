@@ -1,0 +1,6 @@
+# Alice casts her rod and the bobber is moved into the portal frame: it stays in the overworld (it has no portal process)
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=143.99998,-0.24916121 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+PORTAL fishing_bobber#1 cooldown=0 time=-
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=37.74873,-0.06531612 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0
+PORTAL fishing_bobber#1 cooldown=0 time=-
+E fishing_bobber#1 minecraft:fishing_bobber pos=0.5,-60.0,0.5 delta=0.0,0.0,0.0 rot=37.74873,-0.06531612 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing owner=Alice leftowner=1 shot=1 canbreak=0 state=flying life=0 nibble=0 lured=0 hooked=0 angle=0.0 biting=0 openwater=1 out=0 hookedin=- luck=0 lure=0

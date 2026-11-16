@@ -66,3 +66,9 @@ fn populated_player_data_round_trips() {
 fn statistics_and_progress_files_are_written_on_save_and_leave() {
     check("persist_stats_files");
 }
+
+/// A player who leaves is disconnected first: passengers are ejected and a sleeper is awake in the saved data.
+#[test]
+fn leaving_ejects_passengers_and_wakes_sleepers() {
+    check("persist_leave_disconnect");
+}

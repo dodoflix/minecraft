@@ -1,0 +1,29 @@
+# A fishing bobber has canUsePortal false: standing in a nether portal it stays where it is (and keeps its owner's rod line).
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+spawn_player Alice creative 2.5 -61 3.5 180 0
+give Alice mainhand minecraft:fishing_rod
+tick 2
+note Alice casts her rod and the bobber is moved into the portal frame: it stays in the overworld (it has no portal process)
+use Alice main
+tick 1
+tp fishing_bobber#1 0.5 -60 0.5
+velocity fishing_bobber#1 0 0 0
+tick 1
+dump xentities packets:Alice:remove_entities portal:fishing_bobber#1
+tick 6
+dump xentities packets:Alice:remove_entities portal:fishing_bobber#1
+in the_nether dump xentities

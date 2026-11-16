@@ -717,6 +717,7 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String]) -> bool {
             h.boot();
             remember_players(h);
             let stats = with_player(h, &a[1], |level, p| {
+                p.disconnect(level);
                 mc_game::commands::server_access::with_server(|server| {
                     mc_game::server::players::player_ops::remove(server, level, p)
                 });

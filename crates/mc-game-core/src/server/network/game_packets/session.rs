@@ -293,7 +293,7 @@ impl PlayCtx<'_> {
         self.server
             .player_list
             .broadcast_system_message(&message, false);
-        self.player.disconnected = true;
+        self.player.disconnect(&mut *self.level);
         self.remove_from_player_list();
     }
 

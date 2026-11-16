@@ -18,4 +18,5 @@ golden!(
     drop_order => "ent_drop_order",
     remove_order => "ent_remove_order",
     ticking_range => "ent_ticking_range",
+    join_same_tick => "track_join_same_tick",
 );
