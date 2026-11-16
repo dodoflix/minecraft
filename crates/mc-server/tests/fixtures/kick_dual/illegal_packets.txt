@@ -1,0 +1,43 @@
+> join Bot
+  log: [Server thread/INFO] System chat: Bot joined the game
+> position is NaN
+Bot disconnected: Invalid move player packet received
+  Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "multiplayer.disconnect.invalid_player_movement", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] System chat: Bot left the game
+> join Bot
+  log: [Server thread/INFO] System chat: Bot joined the game
+> position beyond the world
+Bot connected
+  log: [Server thread/WARN] Bot moved too quickly! <position>
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] System chat: Bot left the game
+> join Bot
+  log: [Server thread/INFO] System chat: Bot joined the game
+> chat with a section sign
+Bot disconnected: Illegal characters in chat
+  Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "multiplayer.disconnect.illegal_characters", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] System chat: Bot left the game
+> join Bot
+  log: [Server thread/INFO] System chat: Bot joined the game
+> command with a section sign
+Bot disconnected: Illegal characters in chat
+  Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "multiplayer.disconnect.illegal_characters", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] System chat: Bot left the game
+> join Bot
+  log: [Server thread/INFO] System chat: Bot joined the game
+> attack itself
+Bot disconnected: Attempting to attack an invalid entity
+  Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "multiplayer.disconnect.invalid_entity_attacked", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] System chat: Bot left the game
+  log: [Server thread/WARN] Player Bot tried to attack an invalid entity
+> join Bot
+  log: [Server thread/INFO] System chat: Bot joined the game
+> unexpected keep alive
+Bot disconnected: Timed out
+  Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "disconnect.timeout", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] System chat: Bot left the game

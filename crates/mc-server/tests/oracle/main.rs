@@ -18,6 +18,7 @@ mod entity_persistence;
 mod join_ours;
 mod join_ours_state;
 mod join_phase;
+mod kick_dual;
 mod network_vanilla_diff;
 mod ours_play;
 mod packet_error;

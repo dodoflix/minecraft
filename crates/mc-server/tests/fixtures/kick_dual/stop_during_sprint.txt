@@ -1,0 +1,9 @@
+> console tick sprint 1000000
+  log: [Server thread/INFO] System chat: The game is sprinting
+> console stop
+client received disconnect: Server closed
+client stream ended: end of stream
+  log: [Server thread/INFO] System chat: Stopping the server
+  log: [Server thread/INFO] Stopping server
+  log: [Server thread/INFO] Saving players
+  log: [Server thread/INFO] Saving worlds

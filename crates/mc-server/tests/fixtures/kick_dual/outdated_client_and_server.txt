@@ -1,0 +1,10 @@
+> one version older
+login disconnect: Incompatible client! Please use 26.3 (multiplayer.disconnect.incompatible)
+> one version newer
+login disconnect: Incompatible client! Please use 26.3 (multiplayer.disconnect.incompatible)
+> far older
+login disconnect: Incompatible client! Please use 26.3 (multiplayer.disconnect.outdated_client)
+> below the first versioned protocol
+login disconnect: Incompatible client! Please use 26.3 (multiplayer.disconnect.outdated_client)
+> the first versioned protocol
+login disconnect: Incompatible client! Please use 26.3 (multiplayer.disconnect.incompatible)

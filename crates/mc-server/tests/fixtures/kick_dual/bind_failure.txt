@@ -1,0 +1,12 @@
+[Server thread/INFO]: Starting minecraft server version 26.3
+[Server thread/INFO]: Loading properties
+[Server thread/INFO]: Default game type: SURVIVAL
+[Server thread/INFO]: Generating keypair
+[Server thread/INFO]: Starting Minecraft server on 127.0.0.1:<port>
+[Server thread/WARN]: **** FAILED TO BIND TO PORT!
+[Server thread/WARN]: The exception was: io.netty.channel.unix.Errors$NativeIoException: bind(..) failed with error(-98): Address already in use
+[Server thread/WARN]: Perhaps a server is already running on that port?
+[Server thread/ERROR]: Encountered an unexpected exception
+[Server thread/INFO]: Stopping server
+[Server thread/INFO]: Saving worlds
+exited: true

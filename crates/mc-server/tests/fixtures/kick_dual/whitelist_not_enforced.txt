@@ -1,0 +1,36 @@
+> console whitelist on
+Victim connected
+Watcher connected
+  Watcher: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "chat.type.admin", fallback: None, args: [String("Server"), Component(Component { contents: Translatable(TranslatableContents { key: "commands.whitelist.enabled", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } })] }), siblings: [], style: Style { color: Some(TextColor { value: 11184810, name: Some("gray") }), shadow_color: None, bold: None, italic: Some(true), underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  log: [Server thread/INFO] System chat: Whitelist is now turned on
+> console whitelist add Victim
+Victim connected
+Watcher connected
+  Watcher: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "chat.type.admin", fallback: None, args: [String("Server"), Component(Component { contents: Translatable(TranslatableContents { key: "commands.whitelist.add.success", fallback: None, args: [String("Victim")] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } })] }), siblings: [], style: Style { color: Some(TextColor { value: 11184810, name: Some("gray") }), shadow_color: None, bold: None, italic: Some(true), underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  log: [Server thread/INFO] System chat: Added Victim to the whitelist
+> console whitelist remove Victim
+Victim connected
+Watcher connected
+  Watcher: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "chat.type.admin", fallback: None, args: [String("Server"), Component(Component { contents: Translatable(TranslatableContents { key: "commands.whitelist.remove.success", fallback: None, args: [String("Victim")] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } })] }), siblings: [], style: Style { color: Some(TextColor { value: 11184810, name: Some("gray") }), shadow_color: None, bold: None, italic: Some(true), underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  log: [Server thread/INFO] System chat: Removed Victim from the whitelist
+> console whitelist off
+Victim connected
+Watcher connected
+  Watcher: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "chat.type.admin", fallback: None, args: [String("Server"), Component(Component { contents: Translatable(TranslatableContents { key: "commands.whitelist.disabled", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } })] }), siblings: [], style: Style { color: Some(TextColor { value: 11184810, name: Some("gray") }), shadow_color: None, bold: None, italic: Some(true), underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  log: [Server thread/INFO] System chat: Whitelist is now turned off
+> console whitelist on
+Victim connected
+Watcher connected
+  Watcher: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "chat.type.admin", fallback: None, args: [String("Server"), Component(Component { contents: Translatable(TranslatableContents { key: "commands.whitelist.enabled", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } })] }), siblings: [], style: Style { color: Some(TextColor { value: 11184810, name: Some("gray") }), shadow_color: None, bold: None, italic: Some(true), underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  log: [Server thread/INFO] System chat: Whitelist is now turned on
+> console whitelist add Victim
+Victim connected
+Watcher connected
+  Watcher: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "chat.type.admin", fallback: None, args: [String("Server"), Component(Component { contents: Translatable(TranslatableContents { key: "commands.whitelist.add.success", fallback: None, args: [String("Victim")] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } })] }), siblings: [], style: Style { color: Some(TextColor { value: 11184810, name: Some("gray") }), shadow_color: None, bold: None, italic: Some(true), underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  log: [Server thread/INFO] System chat: Added Victim to the whitelist
+> whitelist.json emptied on disk
+> console whitelist reload
+Victim connected
+Watcher connected
+  Watcher: <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "chat.type.admin", fallback: None, args: [String("Server"), Component(Component { contents: Translatable(TranslatableContents { key: "commands.whitelist.reloaded", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } })] }), siblings: [], style: Style { color: Some(TextColor { value: 11184810, name: Some("gray") }), shadow_color: None, bold: None, italic: Some(true), underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  log: [Server thread/INFO] System chat: Reloaded the whitelist

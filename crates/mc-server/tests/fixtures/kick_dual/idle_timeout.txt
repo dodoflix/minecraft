@@ -1,0 +1,5 @@
+> stand still for the idle timeout
+Bot disconnected: You have been idle for too long!
+  Bot: <- play/disconnect Disconnect(ClientboundDisconnectPacket { reason: Component { contents: Translatable(TranslatableContents { key: "multiplayer.disconnect.idling", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } } })
+  log: [Server thread/INFO] Bot lost connection: <reason>
+  log: [Server thread/INFO] System chat: Bot left the game
