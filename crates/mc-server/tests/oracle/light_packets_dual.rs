@@ -37,7 +37,13 @@ impl ChunkLight {
             let mut layers = layers.iter();
             for bit in 0..mask.length() {
                 if mask.get(bit) {
-                    held.insert(bit, layers.next().expect("a layer per mask bit").clone());
+                    let layer = layers.next().expect("a layer per mask bit");
+                    // an all-zero layer is the same light as none: whether the engine holds one depends on load order
+                    if layer.iter().all(|b| *b == 0) {
+                        held.remove(&bit);
+                    } else {
+                        held.insert(bit, layer.clone());
+                    }
                 }
             }
             for bit in 0..empty.length() {
@@ -169,9 +175,14 @@ async fn client_light_matches_vanilla() {
         .expect("start vanilla");
     let (v_login, v_edited) = light_after(vanilla.port, |c| vanilla.cmd(c)).await;
     vanilla.stop();
-    let ours = crate::common::ours(12345, "survival", PROPS)
-        .start()
-        .expect("start ours");
+    // `LIGHT_PACKETS_BASELINE=1`: the second server is vanilla too, to see what a run of vanilla itself varies in
+    let ours = if std::env::var_os("LIGHT_PACKETS_BASELINE").is_some() {
+        mc_testbot::harness::vanilla(12345, "survival", PROPS)
+    } else {
+        crate::common::ours(12345, "survival", PROPS)
+    }
+    .start()
+    .expect("start ours");
     let (o_login, o_edited) = light_after(ours.port, |c| ours.cmd(c)).await;
     ours.kill();
     assert_same("light at login", &v_login, &o_login, 9);

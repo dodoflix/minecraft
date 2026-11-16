@@ -4,7 +4,7 @@
 //! server-wide saved data, and the per-player files, each split by file kind (`FileKind`).
 //!
 //! What is normalised (see [`Policy`] and [`POLICY`]): clock values (game time, day time, weather and tick counters, the
-//! times of the scene), all-zero light arrays, unordered collections (attributes, the recipe book, the game rule map) and the
+//! times of the scene), all-zero sky light of light-only sections, unordered collections (attributes, the recipe book, the game rule map) and the
 //! draws of unseeded randoms. Everything else is exact, including tag types and key order. Terrain that is generated
 //! while the server runs is not comparable: vanilla itself differs between two runs, so the scenes use a flat
 //! overworld, compare only the chunks that are full in both runs, and skip the generated nether and end chunks except
@@ -55,6 +55,12 @@ const CHUNK_LOADED: &str = "execute if loaded 8 100 8";
 fn finish(server: &Server) {
     expect(server, "save-all flush", "Saved the game");
     assert!(server.stop(), "stop\n{}", server.log());
+}
+
+/// Waits until the server has processed a bot's disconnect: the socket close and the next console command are two
+/// events a few microseconds apart, and a player that is still online when `save-all` runs is saved twice.
+fn disconnected(server: &Server) {
+    eventually(server, "execute if entity @a", "Test failed");
 }
 
 /// One finding of the comparison: where it is and what differs.
@@ -135,11 +141,12 @@ fn nbt_findings(
     }));
 }
 
-/// `chunk` with the all-zero light arrays removed and the sections that held nothing else dropped. A zero array is
-/// the same light as none, but whether the engine still holds one for a section depends on the order in which the
-/// chunk and its neighbours were loaded (the light section below the world is created from the layer above it when
-/// the chunk loads before its neighbours); two runs of the real vanilla server differ in exactly these.
-fn without_zero_light(chunk: &CompoundTag) -> CompoundTag {
+/// `chunk` without the all-zero `SkyLight` arrays of the light-only sections (no `block_states`), and those sections
+/// dropped when nothing else is left in them. A zero array is the same light as none, but whether the engine still holds
+/// one for the section below the world depends on whether the chunk was reloaded while its neighbours were loaded: it is
+/// built from the layer above when the chunk's light initialises before its neighbours. Two runs of the real vanilla
+/// server differ in exactly this, and nowhere else; every other light array is compared exactly.
+fn without_zero_sky_light(chunk: &CompoundTag) -> CompoundTag {
     let mut chunk = chunk.clone();
     if let Some(sections) = chunk.get_list("sections") {
         let mut kept = ListTag::new();
@@ -148,12 +155,11 @@ fn without_zero_light(chunk: &CompoundTag) -> CompoundTag {
                 continue;
             };
             let mut c = c.clone();
-            for key in ["BlockLight", "SkyLight"] {
-                if c.get_byte_array(key)
+            if !c.contains("block_states")
+                && c.get_byte_array("SkyLight")
                     .is_some_and(|a| a.iter().all(|b| *b == 0))
-                {
-                    c.remove(key);
-                }
+            {
+                c.remove("SkyLight");
             }
             if c.contains("block_states") || c.contains("BlockLight") || c.contains("SkyLight") {
                 kept.push(c);
@@ -244,8 +250,8 @@ fn compare(vdir: &Path, odir: &Path, policy: &Policy) -> Vec<Finding> {
                             policy,
                             kind,
                             name,
-                            &without_zero_light(v),
-                            &without_zero_light(o),
+                            &without_zero_sky_light(v),
+                            &without_zero_sky_light(o),
                             &mut found,
                         );
                         out.extend(found.into_iter().map(|mut f| {
@@ -390,6 +396,8 @@ const POLICY: Policy = Policy {
         (".mca", ".Age", TICKS),
         ("players/data", ".Health", 3.0),
         ("players/data", ".foodExhaustionLevel", 4.0),
+        // exhaustion above 4 turns into one point of saturation (two runs of vanilla differ by one)
+        ("players/data", ".foodSaturationLevel", 1.0),
         ("players/data", ".foodTickTimer", 80.0),
         ("raids.dat", ".data.tick", TICKS),
         (
@@ -642,6 +650,7 @@ fn player(l: &Launch) -> Pin<Box<dyn Future<Output = ()> + '_>> {
         );
         tokio::time::sleep(Duration::from_secs(2)).await;
         bot.disconnect().await;
+        disconnected(&s);
         finish(&s);
     })
 }
@@ -693,6 +702,7 @@ fn nether_logout(l: &Launch) -> Pin<Box<dyn Future<Output = ()> + '_>> {
         );
         tokio::time::sleep(Duration::from_secs(2)).await;
         bot.disconnect().await;
+        disconnected(&s);
         finish(&s);
     })
 }
@@ -739,6 +749,7 @@ fn three_levels_restart(l: &Launch) -> Pin<Box<dyn Future<Output = ()> + '_>> {
         );
         tokio::time::sleep(Duration::from_secs(2)).await;
         bot.disconnect().await;
+        disconnected(&s);
         finish(&s);
         std::fs::remove_dir_all(l.dir.join("world/dimensions/minecraft/the_end"))
             .expect("remove the end");
@@ -746,6 +757,7 @@ fn three_levels_restart(l: &Launch) -> Pin<Box<dyn Future<Output = ()> + '_>> {
         let bot = join("127.0.0.1", s.port, "Bot").await;
         tokio::time::sleep(Duration::from_secs(2)).await;
         bot.disconnect().await;
+        disconnected(&s);
         finish(&s);
     })
 }
