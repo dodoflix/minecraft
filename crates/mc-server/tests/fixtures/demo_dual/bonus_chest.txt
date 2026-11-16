@@ -1,0 +1,27 @@
+> chests 1
+  chunk 6 -2
+  LootTable = String("minecraft:chests/spawn_bonus_chest")
+  components = Compound(CompoundTag { tags: {}, cap: 0 })
+  keepPacked = Byte(0)
+  id = String("minecraft:chest")
+> join Bot
+> loot seed 42L
+> surroundings
+  chest on a block true
+  every torch on a block true
+> open
+  Some("minecraft:generic_9x3") Some("Chest")
+  slot 6 Item(minecraft:stick) x8
+  slot 7 Item(minecraft:birch_log) x2
+  slot 8 Item(minecraft:jungle_log) x2
+  slot 9 Item(minecraft:jungle_log) x1
+  slot 12 Item(minecraft:salmon) x1
+  slot 13 Item(minecraft:apple) x1
+  slot 14 Item(minecraft:apple) x1
+  slot 15 Item(minecraft:oak_planks) x1
+  slot 16 Item(minecraft:apple) x1
+  slot 17 Item(minecraft:stone_pickaxe) x1
+  slot 18 Item(minecraft:stick) x1
+  slot 21 Item(minecraft:birch_log) x1
+  slot 24 Item(minecraft:wooden_axe) x1
+  slot 25 Item(minecraft:apple) x1

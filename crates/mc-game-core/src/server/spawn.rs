@@ -58,11 +58,8 @@ impl MinecraftServer {
             .update_focus(&dimension, spawn_chunk);
         find_initial_spawn(&self.world_data, level);
         if spawn_bonus_chest {
-            // `MiscOverworldFeatures.BONUS_CHEST` placement is not implemented: configured feature placement lives in
-            // `mc-game-levelgen`, which `mc-game-core` cannot call.
-            log::warn!(
-                "The bonus chest cannot be placed: configured feature placement is not available"
-            );
+            let spawn = self.world_data.lock().respawn_data.pos;
+            level.place_feature("bonus_chest", spawn);
         }
         self.level_load_listener.finish(Stage::PrepareGlobalSpawn);
     }

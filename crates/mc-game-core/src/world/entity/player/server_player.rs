@@ -25,9 +25,20 @@ pub struct WardenSpawnTracker {
     pub cooldown_ticks: i32,
 }
 
+/// `DemoMode`'s fields (logic: `server/level/demo_mode.rs`).
+#[derive(Clone, Copy, Debug, Default)]
+pub struct DemoState {
+    pub displayed_intro: bool,
+    pub demo_has_ended: bool,
+    pub demo_ended_reminder: i32,
+    pub game_mode_ticks: i32,
+}
+
 /// `ServerPlayerGameMode` state (logic: `server/level/server_player_game_mode.rs`).
 #[derive(Clone, Debug)]
 pub struct ServerPlayerGameMode {
+    /// `Some` for a `DemoMode` (`MinecraftServer.createGameModeForPlayer` on a demo server).
+    pub demo: Option<DemoState>,
     pub game_mode_for_player: GameType,
     pub previous_game_mode_for_player: Option<GameType>,
     pub is_destroying_block: bool,
@@ -50,6 +61,7 @@ pub struct ServerPlayerGameMode {
 impl Default for ServerPlayerGameMode {
     fn default() -> Self {
         Self {
+            demo: None,
             game_mode_for_player: GameType::Survival,
             previous_game_mode_for_player: None,
             is_destroying_block: false,

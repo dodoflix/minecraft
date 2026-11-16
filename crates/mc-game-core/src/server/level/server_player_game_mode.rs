@@ -101,6 +101,10 @@ impl ServerPlayer {
         max_y: i32,
         under_spawn_protection: bool,
     ) {
+        if self.game_mode.demo.is_some_and(|d| d.demo_has_ended) {
+            self.output_demo_reminder();
+            return;
+        }
         if !self.is_within_block_interaction_range(pos, 1.0) {
             if self.game_mode.is_destroying_block && action == Action::AbortDestroyBlock {
                 self.abort_destroy_block(level, pos);
@@ -424,6 +428,10 @@ impl ServerPlayer {
         level: &mut ServerLevel,
         hand: InteractionHand,
     ) -> InteractionResult {
+        if self.game_mode.demo.is_some_and(|d| d.demo_has_ended) {
+            self.output_demo_reminder();
+            return InteractionResult::PASS;
+        }
         if self.game_mode.game_mode_for_player == GameType::Spectator {
             return InteractionResult::PASS;
         }
@@ -521,6 +529,10 @@ impl ServerPlayer {
         hand: InteractionHand,
         hit: &mc_core::phys::BlockHitResult,
     ) -> InteractionResult {
+        if self.game_mode.demo.is_some_and(|d| d.demo_has_ended) {
+            self.output_demo_reminder();
+            return InteractionResult::PASS;
+        }
         let pos = hit.block_pos;
         let state = level.get_block_state(pos);
         if !block_is_enabled(state.block(), level.enabled_features()) {
@@ -604,6 +616,11 @@ impl ServerPlayer {
     }
     /// `ServerPlayerGameMode.tick()`: `gameTicks++`, the delayed-destroy and digging progress.
     pub fn tick_game_mode(&mut self, level: &mut ServerLevel) {
+        self.tick_digging(level);
+        self.tick_demo(level);
+    }
+
+    fn tick_digging(&mut self, level: &mut ServerLevel) {
         self.game_mode.game_ticks += 1;
         let id = self.base_id();
         if self.game_mode.has_delayed_destroy {

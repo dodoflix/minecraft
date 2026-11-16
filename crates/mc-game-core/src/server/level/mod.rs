@@ -14,6 +14,7 @@ pub mod chunk_send_sink;
 pub mod chunk_status_tasks;
 pub mod chunk_task_queue;
 pub mod chunk_tracking_view;
+pub mod demo_mode;
 pub mod distance_manager;
 pub mod dynamic_graph;
 pub mod entity_directory;

@@ -14,6 +14,7 @@ mod admin_packets_dual;
 mod chunk_delivery_dual;
 mod command_corpora;
 mod common;
+mod demo_dual;
 mod entity_dual;
 mod entity_persistence;
 mod join_ours;

@@ -37,13 +37,13 @@ use std::sync::Arc;
 use std::time::Duration;
 
 /// `MinecraftServer.DEMO_SETTINGS` (demo world: survival, default difficulty, `WorldOptions.DEMO_OPTIONS`).
-fn demo_settings(data_configuration: WorldDataConfiguration) -> LevelSettings {
+fn demo_settings() -> LevelSettings {
     LevelSettings {
         level_name: "Demo World".to_owned(),
         game_type: GameType::Survival,
         difficulty_settings: DifficultySettings::DEFAULT,
         allow_commands: false,
-        data_configuration,
+        data_configuration: WorldDataConfiguration::DEFAULT,
     }
 }
 
@@ -450,7 +450,7 @@ fn create_new_world_data(
 ) -> (PrimaryLevelData, WorldGenSettings, WorldDimensions) {
     let (level_settings, world_options, dimensions) = if demo_mode {
         (
-            demo_settings(context.data_configuration.clone()),
+            demo_settings(),
             demo_world_options(),
             create_normal_world_dimensions(decoder, context),
         )

@@ -1,0 +1,64 @@
+> console tick freeze
+> console difficulty peaceful
+> join Bot
+> intro
+  <- play/game_event GameEvent(ClientboundGameEventPacket { event: 5, param: 0.0 })
+> rest at 96
+> step to 99
+> step to 101
+  <- play/game_event GameEvent(ClientboundGameEventPacket { event: 5, param: 101.0 })
+> rest at 171
+> step to 174
+> step to 176
+  <- play/game_event GameEvent(ClientboundGameEventPacket { event: 5, param: 102.0 })
+> rest at 246
+> step to 249
+> step to 251
+  <- play/game_event GameEvent(ClientboundGameEventPacket { event: 5, param: 103.0 })
+> rest at 496
+> step to 499
+> step to 501
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "demo.day.1", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+> rest at 24496
+> step to 24499
+> step to 24501
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "demo.day.2", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+> rest at 48496
+> step to 48499
+> step to 48501
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "demo.day.3", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+> rest at 72496
+> step to 72499
+> step to 72501
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "demo.day.4", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+> rest at 96496
+> step to 96499
+> step to 96501
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "demo.day.5", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+> rest at 117996
+> step to 117999
+> step to 118001
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "demo.day.warning", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+> rest at 120496
+> step to 120499
+> step to 120501
+  <- play/game_event GameEvent(ClientboundGameEventPacket { event: 5, param: 104.0 })
+> console give Bot minecraft:stick
+> dig right after the end
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 2 })
+> dig after 200 ticks
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "demo.reminder", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 4 })
+> dig at once again
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 6 })
+> dig after 60 ticks
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 8 })
+> dig after 60 more ticks
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "demo.reminder", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 10 })
+> use at once
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 11 })
+> use after 150 ticks
+  <- play/system_chat SystemChat(ClientboundSystemChatPacket { content: Component { contents: Translatable(TranslatableContents { key: "demo.reminder", fallback: None, args: [] }), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, overlay: false })
+  <- play/block_changed_ack BlockChangedAck(ClientboundBlockChangedAckPacket { sequence: 12 })
+> bot connected

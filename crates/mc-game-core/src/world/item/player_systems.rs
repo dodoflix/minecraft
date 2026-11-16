@@ -177,6 +177,7 @@ impl ItemSystems for ItemPlayerSystems {
         // A spectator's PASS means the block is enabled and has no menu: vanilla's `Portal` branch comes next.
         if result == InteractionResult::Pass
             && ctx.player.game_mode.game_mode_for_player == mc_data::enums::GameType::Spectator
+            && !ctx.player.game_mode.demo.is_some_and(|d| d.demo_has_ended)
             && let Some(portal) = crate::server::players::dimension_change::spectator_portal_use(
                 ctx.server,
                 ctx.level,

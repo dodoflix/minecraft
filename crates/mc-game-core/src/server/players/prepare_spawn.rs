@@ -327,6 +327,9 @@ impl PrepareSpawn for PrepareSpawnTask {
                 profile,
                 pending.cookie.client_information.clone(),
             );
+            if server.is_demo {
+                player.use_demo_mode();
+            }
             let loaded_mode = saved
                 .as_ref()
                 .and_then(|t| t.get("playerGameType"))

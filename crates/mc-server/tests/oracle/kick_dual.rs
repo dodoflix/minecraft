@@ -44,6 +44,8 @@ pub(crate) struct Case {
     /// Run the scenario as soon as the process is launched instead of once the server answers status pings (what
     /// happens while the server is still starting).
     pub(crate) unready: bool,
+    /// Command-line arguments after `nogui` (`--demo`, `--bonusChest`).
+    pub(crate) args: &'static [&'static str],
 }
 
 macro_rules! case {
@@ -57,6 +59,9 @@ macro_rules! case {
         case!($name, $props, $attempts, $prepare, false)
     };
     ($name:ident, $props:expr, $attempts:expr, $prepare:expr, $unready:expr) => {
+        case!($name, $props, $attempts, $prepare, $unready, &[])
+    };
+    ($name:ident, $props:expr, $attempts:expr, $prepare:expr, $unready:expr, $args:expr) => {
         Case {
             name: stringify!($name),
             props: $props,
@@ -64,6 +69,7 @@ macro_rules! case {
             attempts: $attempts,
             prepare: $prepare,
             unready: $unready,
+            args: $args,
         }
     };
 }
@@ -801,6 +807,9 @@ pub(crate) async fn record_vanilla(dir: &str, only_var: &str, cases: &[Case]) {
             if let Some(prepare) = case.prepare {
                 builder = builder.prepare(prepare);
             }
+            for arg in case.args {
+                builder = builder.arg(arg);
+            }
             let server = if case.unready {
                 builder.start_unready()
             } else {
@@ -841,6 +850,9 @@ pub(crate) async fn compare_ours(dir: &str, only_var: &str, cases: &[Case]) {
         let mut builder = ours(12345, "survival", &props(case));
         if let Some(prepare) = case.prepare {
             builder = builder.prepare(prepare);
+        }
+        for arg in case.args {
+            builder = builder.arg(arg);
         }
         let server = if case.unready {
             builder.start_unready()

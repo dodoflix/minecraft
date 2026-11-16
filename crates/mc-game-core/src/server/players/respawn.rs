@@ -409,6 +409,9 @@ pub fn respawn(
             keep_inventory,
         )
     })?;
+    if server.is_demo {
+        new.use_demo_mode();
+    }
 
     // 3. the packets and the placement in the new level
     // (`player.getRespawnConfig()` of the new player: a missing respawn block was not copied)
