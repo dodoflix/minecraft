@@ -10,6 +10,7 @@
 #[path = "../../../mc-game/tests/golden/net_common/mod.rs"]
 mod net_support;
 
+mod admin_packets_dual;
 mod command_corpora;
 mod common;
 mod entity_dual;

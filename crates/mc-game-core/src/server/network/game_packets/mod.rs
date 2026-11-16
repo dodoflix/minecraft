@@ -16,6 +16,7 @@
 //! structure blocks, signs, books, pick item, tag queries, ...) call into [`hooks::PlayHandlers`] after the listener
 //! level checks vanilla does itself.
 
+mod admin_handlers;
 mod chat;
 mod commands_host;
 pub(crate) use commands_host::player_command_source_stack;

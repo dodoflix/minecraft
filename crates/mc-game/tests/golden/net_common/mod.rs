@@ -292,6 +292,17 @@ pub async fn write_payload(conn: &mut Connection<TcpStream>, payload: &[u8]) {
     conn.flush().await.unwrap();
 }
 
+/// Login `hello` built by hand (VarInt id, VarInt byte length, UTF-8 name, 16 nil UUID bytes): the packet encoder
+/// enforces the 16-character name limit, which these tests must be able to exceed.
+pub async fn hello(conn: &mut Connection<TcpStream>, name: &str) {
+    let mut payload = Vec::new();
+    mc_protocol::codec::write_varint(&mut payload, 0);
+    mc_protocol::codec::write_varint(&mut payload, name.len() as i32);
+    payload.extend_from_slice(name.as_bytes());
+    payload.extend_from_slice(&[0; 16]);
+    write_payload(conn, &payload).await;
+}
+
 pub async fn handshake(
     conn: &mut Connection<TcpStream>,
     protocol_version: i32,

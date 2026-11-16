@@ -974,21 +974,22 @@ fn string_limits() {
         "The received string length is longer than maximum allowed (32768 > 32767)"
     );
     // DebugGoal name: stringUtf8(255), counted in UTF-16 units
-    let goal = |name: &str| DebugGoalInfo {
-        goals: vec![DebugGoalInfoDebugGoal {
-            priority: 1,
-            is_running: true,
-            name: name.into(),
-        }],
+    // (hand-built: our encoder refuses the over-long names)
+    let goal = |name: &str| {
+        let mut b = varint(1);
+        b.extend(varint(1));
+        b.push(1);
+        b.extend(utf(name));
+        b
     };
-    assert!(from_bytes::<DebugGoalInfo>(&body(&goal(&"x".repeat(255)))).is_ok());
-    assert!(from_bytes::<DebugGoalInfo>(&body(&goal(&"\u{1F600}".repeat(127)))).is_ok());
+    assert!(from_bytes::<DebugGoalInfo>(&goal(&"x".repeat(255))).is_ok());
+    assert!(from_bytes::<DebugGoalInfo>(&goal(&"\u{1F600}".repeat(127))).is_ok());
     assert_eq!(
-        err::<DebugGoalInfo>(&body(&goal(&"x".repeat(256)))),
+        err::<DebugGoalInfo>(&goal(&"x".repeat(256))),
         "The received string length is longer than maximum allowed (256 > 255)"
     );
     assert_eq!(
-        err::<DebugGoalInfo>(&body(&goal(&"\u{1F600}".repeat(128)))),
+        err::<DebugGoalInfo>(&goal(&"\u{1F600}".repeat(128))),
         "The received string length is longer than maximum allowed (256 > 255)"
     );
 }

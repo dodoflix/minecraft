@@ -32,17 +32,6 @@ fn config_payload(p: ServerboundConfigurationPacket) -> Vec<u8> {
     buf
 }
 
-async fn hello(c: &mut Connection<TcpStream>, name: &str) {
-    write_payload(
-        c,
-        &login_payload(ServerboundLoginPacket::Hello(ServerboundHelloPacket {
-            name: name.into(),
-            profile_id: Uuid::nil(),
-        })),
-    )
-    .await;
-}
-
 async fn read_login(c: &mut Connection<TcpStream>) -> ClientboundLoginPacket {
     ClientboundLoginPacket::decode_payload(&read(c).await).unwrap()
 }

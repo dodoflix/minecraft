@@ -206,7 +206,8 @@ impl PlayCtx<'_> {
             return;
         }
         let rules = self.server.game_rules();
-        let values: Vec<(Identifier, String)> = crate::world::level::gamerules::AnyGameRule::all()
+        let values: Vec<(Identifier, String)> = rules
+            .available_rules()
             .map(|rule| (rule.get_identifier(), rules.get_as_string(rule)))
             .collect();
         self.send(&mc_protocol::packets::play::ClientboundGameRuleValuesPacket { values });

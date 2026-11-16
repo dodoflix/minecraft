@@ -6,6 +6,7 @@ use mc_dfu::{Dyn, JSON, record};
 use mc_protocol::components::values::basic::{ADDITIONAL_TRADE_COST, STORED_ENCHANTMENTS};
 use mc_protocol::components::values::predicates::data_driven_set_codec;
 use mc_protocol::components::{HolderSet, ItemStackTemplate, NoDirect};
+use mc_protocol::registry_context::with_scoped_lookup;
 use serde_json::Value;
 
 use super::item_cost::ItemCost;
@@ -14,6 +15,7 @@ use super::trade_cost::{TradeCost, float_holder_field, int_holder_field};
 use crate::registry::codec::RegistryDecodeContext;
 use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
 use crate::registry::{RegistryAccess, keys};
+use crate::world::item::instrument::StageLookup;
 use crate::world::level::storage::loot::LootContextParamSets;
 use crate::world::level::storage::loot::context::LootContext;
 use crate::world::level::storage::loot::functions::{FunctionHolder, function_holder_codec};
@@ -164,8 +166,11 @@ impl Validatable for VillagerTrade {
 
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
     let input = Dyn::from_json_str(&json.to_string())?;
-    let trade =
-        with_decode_context(ctx, || VillagerTrade::codec().parse(&JSON, &input)).into_result()?;
+    // the `double_trade_price_enchantments` set resolves enchantment tags through the registry being loaded
+    let trade = with_scoped_lookup(&StageLookup(ctx), || {
+        with_decode_context(ctx, || VillagerTrade::codec().parse(&JSON, &input))
+    })
+    .into_result()?;
     Ok(DecodedEntry::new(Arc::new(trade)))
 }
 

@@ -16,7 +16,6 @@ use std::sync::Arc;
 use std::time::Duration;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
-use uuid::Uuid;
 
 fn hex(b: &[u8]) -> String {
     b.iter().map(|b| format!("{b:02x}")).collect()
@@ -39,17 +38,6 @@ fn config_bytes(p: ServerboundConfigurationPacket) -> Vec<u8> {
     let mut b = Vec::new();
     p.encode_payload(&mut b).unwrap();
     b
-}
-
-async fn hello(c: &mut Connection<TcpStream>, name: &str) {
-    write_payload(
-        c,
-        &login_bytes(ServerboundLoginPacket::Hello(ServerboundHelloPacket {
-            name: name.into(),
-            profile_id: Uuid::nil(),
-        })),
-    )
-    .await;
 }
 
 /// Raw payload of the one packet the server sends before closing (hex), or `closed`.
