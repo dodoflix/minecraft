@@ -424,7 +424,20 @@ impl PlayCtx<'_> {
             self.disconnect(crate::server::chat::remote_chat_session::expired_profile_public_key());
             return;
         }
-        let Some(validator) = super::services_keys::profile_key_signature_validator() else {
+        let services_keys = self.server.dedicated.services_keys.clone();
+        if services_keys.is_pending() {
+            // vanilla's key set waits for the first fetch on this thread; the game thread never does, so this and every
+            // later chat packet of the player wait for it
+            let received_at_ms = crate::server::network::connection::get_millis();
+            self.lis().held_chat_packets.push((
+                mc_protocol::packets::play::ServerboundPlayPacket::ChatSessionUpdate(
+                    packet.clone(),
+                ),
+                received_at_ms,
+            ));
+            return;
+        }
+        let Some(validator) = services_keys.profile_key_signature_validator() else {
             log::warn!(
                 "Ignoring chat session from {} due to missing Services public key",
                 self.player.get_profile().name

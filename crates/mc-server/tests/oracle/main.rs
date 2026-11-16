@@ -34,6 +34,7 @@ mod rcon_dual;
 mod record_setblock;
 mod server_policy_dual;
 mod server_properties_dual;
+mod services_keys_ours;
 mod vanilla_play;
 mod world_commands_dual;
 mod world_save_compare;

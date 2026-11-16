@@ -198,11 +198,13 @@ pub struct MinecraftServer {
 /// The `PlayerList` settings mirrored from `server.properties` (`uses_authentication` is set by `initServer`).
 pub(super) fn player_list_settings(
     properties: &super::dedicated::properties::DedicatedServerProperties,
+    services_keys: &super::services_keys::ServicesKeys,
 ) -> crate::server::players::player_list::PlayerListSettings {
     crate::server::players::player_list::PlayerListSettings {
         max_players: *properties.max_players.get(),
         using_whitelist: *properties.white_list.get(),
         enforce_secure_profile: properties.enforce_secure_profile && properties.online_mode,
+        services_keys: services_keys.clone(),
         uses_authentication: properties.online_mode,
         log_ips: properties.log_ips,
         operator_user_permissions: *properties.op_permissions.get(),
@@ -264,7 +266,10 @@ impl MinecraftServer {
         saved_data.compute_if_absent(&game_rules_type);
         let now = get_nanos();
         let player_list = crate::server::players::DedicatedPlayerList::new(
-            player_list_settings(init.dedicated.settings.get_properties()),
+            player_list_settings(
+                init.dedicated.settings.get_properties(),
+                &init.dedicated.services_keys,
+            ),
             init.player_data_storage.clone(),
             init.storage_source
                 .get_level_path(mc_world::level_storage::LevelResource::PLAYER_STATS_DIR),

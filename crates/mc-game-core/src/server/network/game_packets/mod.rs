@@ -23,7 +23,6 @@ pub(crate) use commands_host::player_command_source_stack;
 mod interaction;
 mod movement;
 pub(crate) mod play_helpers;
-mod services_keys;
 mod session;
 mod technical_blocks;
 
@@ -82,6 +81,15 @@ impl PlayCtx<'_> {
     pub(super) fn player_is_op(&self) -> bool {
         self.server.player_list.is_op(&self.player.name_and_id())
     }
+}
+
+/// The packets that belong to a player's signed chat chain.
+fn is_chat_packet(packet: &ServerboundPlayPacket) -> bool {
+    use ServerboundPlayPacket as P;
+    matches!(
+        packet,
+        P::Chat(_) | P::ChatCommandSigned(_) | P::ChatAck(_) | P::ChatSessionUpdate(_)
+    )
 }
 
 /// Packets vanilla handles on the netty thread (no `ensureRunningOnSameThread`).
@@ -157,6 +165,7 @@ pub fn process_queued_packets(server: &mut MinecraftServer) {
             continue;
         };
         let Some((pending, deferred)) = with_player(server, uuid, |ctx| {
+            ctx.replay_held_chat_packets();
             ctx.drain_inbound();
             (
                 ctx.lis().pending_respawn.take(),
@@ -297,6 +306,18 @@ impl PlayCtx<'_> {
         }
     }
 
+    /// Handles the chat packets held while the Services keys were being fetched, once they are known.
+    fn replay_held_chat_packets(&mut self) {
+        if self.lis().held_chat_packets.is_empty()
+            || self.server.dedicated.services_keys.is_pending()
+        {
+            return;
+        }
+        for (packet, received_at_ms) in std::mem::take(&mut self.lis().held_chat_packets) {
+            self.dispatch(packet, received_at_ms);
+        }
+    }
+
     /// `ServerPacketListener.onPacketError`: logs the error and keeps the player; a handler exception (here also a
     /// caught panic) drops the packet, never the connection.
     fn on_packet_error(&mut self, packet_name: &str, error: String) {
@@ -317,6 +338,10 @@ impl PlayCtx<'_> {
     /// `packet.handle(listener)` for every serverbound play packet.
     fn dispatch(&mut self, packet: ServerboundPlayPacket, received_at_ms: i64) {
         use ServerboundPlayPacket as P;
+        if is_chat_packet(&packet) && !self.lis().held_chat_packets.is_empty() {
+            self.lis().held_chat_packets.push((packet, received_at_ms));
+            return;
+        }
         let name = packet.name();
         let on_netty_thread = handled_on_netty_thread(&packet);
         let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| match packet {
@@ -386,11 +411,6 @@ impl PlayCtx<'_> {
             }
         }
     }
-}
-
-/// Starts fetching the Mojang Services profile-key validators (idempotent; vanilla does it at server start).
-pub fn start_services_keys_fetch() {
-    services_keys::start_fetch();
 }
 
 /// `handleClientCommand` PERFORM_RESPAWN: `this.player = playerList.respawn(this.player, keepAll, reason)` followed by

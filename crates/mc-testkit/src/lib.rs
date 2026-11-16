@@ -369,6 +369,7 @@ pub struct Builder {
     program: Program,
     args: Vec<String>,
     props: Vec<(String, String)>,
+    envs: Vec<(String, String)>,
     dir: Option<PathBuf>,
     prepare: Option<Prepare>,
     xmx: String,
@@ -380,6 +381,7 @@ impl Builder {
             args: Vec::new(),
             program,
             props: Vec::new(),
+            envs: Vec::new(),
             dir: None,
             prepare: None,
             xmx: "1G".into(),
@@ -421,6 +423,12 @@ impl Builder {
     /// A command-line argument after `nogui` (`--demo`, `--bonusChest`), passed to the vanilla jar and to `mc-server`.
     pub fn arg(mut self, arg: &str) -> Self {
         self.args.push(arg.into());
+        self
+    }
+
+    /// An environment variable of the server process.
+    pub fn env(mut self, key: &str, value: &str) -> Self {
+        self.envs.push((key.into(), value.into()));
         self
     }
 
@@ -530,6 +538,7 @@ impl Builder {
         };
         let mut cmd = cmd;
         cmd.args(&self.args);
+        cmd.envs(self.envs.iter().map(|(k, v)| (k, v)));
         let proc = Proc::start(cmd, dir).map_err(|e| match (e.kind(), &self.program) {
             (io::ErrorKind::NotFound, Program::Vanilla) => Error(
                 "java was not found on PATH: install JDK 25 (scripts/setup-ref.sh needs it too)"

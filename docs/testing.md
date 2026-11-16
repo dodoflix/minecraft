@@ -101,6 +101,8 @@ crate can use it as a dev-dependency.
 - Readiness is the `Done (` log line plus an answered status ping, with a timeout. No fixed sleeps after start.
   With `enable-status=false` the server closes status connections; the helper then treats the close as the ready signal.
 - `Builder::arg("--demo")` passes command-line arguments of the jar and of `mc-server` (after `nogui`).
+- `Builder::env("MINECRAFT_API_DISCOVERY_HOST", url)` sets an environment variable of the server process (here: the Mojang
+  Services discovery URL, read like authlib's `minecraft.api.discovery.host`, so a test can serve its own keys).
 - Each server runs in its own temporary directory (or one the test passes with `.dir(..)`), never in `run/servers/<name>`.
 - A missing `java`, `ref/server.jar` or `MC_ACCEPT_EULA=1` makes `start()` return an error that names the fix; tests
   `expect` it and fail.

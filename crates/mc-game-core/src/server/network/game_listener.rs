@@ -85,6 +85,9 @@ pub struct ServerGamePacketListenerImpl {
     pub(crate) deferred_tasks: Vec<DeferredTask>,
     /// `chatSession`, `signedMessageDecoder`.
     pub(crate) chat_session: Option<RemoteChatSession>,
+    /// The chat packets (`ChatSessionUpdate`, `Chat`, `ChatCommandSigned`, `ChatAck`) received since a `ChatSessionUpdate`
+    /// arrived before the first Mojang Services key fetch finished: handled, in order, once it did.
+    pub(crate) held_chat_packets: Vec<(mc_protocol::packets::play::ServerboundPlayPacket, i64)>,
     pub(crate) signed_message_decoder: Box<dyn Decoder>,
     /// The player handle's outgoing chat state (`lastSeenMessages`, `messageSignatureCache`, `nextChatIndex`); vanilla
     /// synchronizes on `lastSeenMessages`, the handle shares it with `PlayerList` broadcasts.
@@ -117,7 +120,6 @@ impl ServerGamePacketListenerImpl {
         now_ms: i64,
     ) -> Self {
         let profile_id = cookie.profile.id;
-        super::game_packets::start_services_keys_fetch();
         let ListenerSettings {
             command_spam_threshold_seconds,
             chat_spam_threshold_seconds,
@@ -169,6 +171,7 @@ impl ServerGamePacketListenerImpl {
             pending_respawn: None,
             deferred_tasks: Vec::new(),
             chat_session: None,
+            held_chat_packets: Vec::new(),
             signed_message_decoder: Box::new(UnsignedDecoder::new(
                 profile_id,
                 enforce_secure_profile,

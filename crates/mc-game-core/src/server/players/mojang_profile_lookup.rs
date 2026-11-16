@@ -12,9 +12,8 @@ use uuid::Uuid;
 
 use super::name_and_id::NameAndId;
 use super::name_resolver::ProfileLookup;
+use crate::server::services_keys::discovery_url;
 
-/// `MinecraftServicesEnvironment.PROD`.
-const DISCOVERY_URL: &str = "https://discovery.minecraftservices.com/minecraft/client";
 const TIMEOUT: Duration = Duration::from_secs(15);
 
 #[derive(Default)]
@@ -47,11 +46,12 @@ impl MojangProfileLookup {
     fn endpoint(&self, service: &str, key: &str) -> Option<String> {
         let mut discovery = self.discovery.lock();
         if discovery.is_none() {
-            match Self::get_json(DISCOVERY_URL) {
+            let url = discovery_url();
+            match Self::get_json(&url) {
                 Ok(Some(document)) => *discovery = Some(document),
                 Ok(None) => {}
                 Err(e) => {
-                    log::warn!("Failed to fetch discovery document from {DISCOVERY_URL}: {e}")
+                    log::warn!("Failed to fetch discovery document from {url}: {e}")
                 }
             }
         }

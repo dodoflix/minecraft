@@ -24,6 +24,7 @@ pub mod server_info;
 pub mod server_links;
 pub mod server_reload;
 pub mod server_state;
+pub mod services_keys;
 pub mod shared;
 pub mod spawn;
 pub mod spawn_search;

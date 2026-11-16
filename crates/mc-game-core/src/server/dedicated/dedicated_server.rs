@@ -14,6 +14,7 @@ use crate::server::players::UserNameToIdResolver;
 use crate::server::players::name_resolver::ProfileLookup;
 use crate::server::rcon::{QueryServerInfo, QueryThreadGs4, RconThread};
 use crate::server::server_links::{ServerLink, ServerLinks};
+use crate::server::services_keys::ServicesKeys;
 use mc_protocol::packets::common::KnownLinkType;
 use mc_world::level_storage::{Difficulty, GameType};
 use std::collections::HashMap;
@@ -36,6 +37,8 @@ pub struct DedicatedServer {
     pub profile_lookup: Arc<dyn ProfileLookup>,
     /// `serverLinks`, created once from `bug-report-link`.
     pub server_links: ServerLinks,
+    /// `services.servicesKeySet()`: what `canValidateProfileKeys` and `profileKeySignatureValidator` read.
+    pub services_keys: ServicesKeys,
 }
 
 impl DedicatedServer {
@@ -44,6 +47,7 @@ impl DedicatedServer {
         console_input: ConsoleInputQueue,
         stop_signal: ServerStopSignal,
         profile_lookup: Arc<dyn ProfileLookup>,
+        services_keys: ServicesKeys,
     ) -> io::Result<Self> {
         let server_links = create_server_links(settings.get_properties());
         let code_of_conduct_texts = if settings.get_properties().code_of_conduct {
@@ -61,6 +65,7 @@ impl DedicatedServer {
             management_server: None,
             profile_lookup,
             server_links,
+            services_keys,
         })
     }
 }
@@ -188,8 +193,10 @@ impl MinecraftServer {
         self.online_mode = properties.online_mode;
         self.prevent_proxy_connections = properties.prevent_proxy_connections;
         self.local_ip = properties.server_ip.clone();
-        self.player_list.settings =
-            super::super::minecraft_server::player_list_settings(&properties);
+        self.player_list.settings = super::super::minecraft_server::player_list_settings(
+            &properties,
+            &self.dedicated.services_keys,
+        );
 
         let game_mode = *properties.game_mode.get();
         self.world_data.lock().settings.game_type = game_mode;
@@ -634,7 +641,9 @@ impl MinecraftServer {
     /// `enforceSecureProfile`: needs online mode and profile-key validation.
     pub fn enforce_secure_profile(&self) -> bool {
         let properties = self.properties();
-        properties.enforce_secure_profile && properties.online_mode
+        properties.enforce_secure_profile
+            && properties.online_mode
+            && self.dedicated.services_keys.can_validate_profile_keys()
     }
 
     pub fn log_ips(&self) -> bool {

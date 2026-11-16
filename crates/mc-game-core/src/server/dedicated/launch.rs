@@ -18,6 +18,7 @@ use crate::server::players::mojang_profile_lookup::MojangProfileLookup;
 use crate::server::players::name_resolver::{
     CachedProfileResolver, CachedUserNameToIdResolver, NoProfileLookup, ProfileLookup,
 };
+use crate::server::services_keys::{ServicesKeys, discovery_url};
 use crate::server::shared::ServerShared;
 use crate::server::world_dimensions::{DimensionDecoder, WorldDimensions};
 use crate::server::world_loader::{
@@ -97,7 +98,12 @@ pub fn create_server(
         tasks,
         init,
         ..
-    }) = prepare(&options, settings, Arc::new(NoProfileLookup))?
+    }) = prepare(
+        &options,
+        settings,
+        Arc::new(NoProfileLookup),
+        ServicesKeys::unavailable(),
+    )?
     else {
         return Ok(None);
     };
@@ -114,6 +120,7 @@ fn prepare(
     options: &ServerOptions,
     settings: DedicatedServerSettings,
     lookup: Arc<dyn ProfileLookup>,
+    services_keys: ServicesKeys,
 ) -> Result<Option<Prepared>, String> {
     // vanilla installs the command parser's messages and the text hooks in `SharedConstants`' static initialiser: the data packs load with them
     crate::commands::BrigadierExceptions::install();
@@ -248,8 +255,14 @@ fn prepare(
     if let Err(e) = stop_signal.install_signal_handlers() {
         log::warn!("Failed to install the signal handlers: {e}");
     }
-    let dedicated = DedicatedServer::new(settings, console_input, stop_signal.clone(), lookup)
-        .map_err(|e| e.to_string())?;
+    let dedicated = DedicatedServer::new(
+        settings,
+        console_input,
+        stop_signal.clone(),
+        lookup,
+        services_keys,
+    )
+    .map_err(|e| e.to_string())?;
 
     let (shared, tasks) = ServerShared::new();
     let init = ServerInit {
@@ -285,7 +298,12 @@ fn start(options: ServerOptions, settings: DedicatedServerSettings) -> Result<i3
         tasks,
         init,
         stop_signal,
-    }) = prepare(&options, settings, Arc::new(MojangProfileLookup::new()))?
+    }) = prepare(
+        &options,
+        settings,
+        Arc::new(MojangProfileLookup::new()),
+        ServicesKeys::start(discovery_url()),
+    )?
     else {
         return Ok(0);
     };

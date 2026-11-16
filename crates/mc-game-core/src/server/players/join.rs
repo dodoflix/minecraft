@@ -329,7 +329,7 @@ pub fn place_new_player(
         do_limited_crafting: info.limited_crafting,
         common_player_spawn_info: create_common_spawn_info(&player, &info, &player.dimension),
         online_mode: host.list().settings.uses_authentication,
-        enforces_secure_chat: host.list().settings.enforce_secure_profile,
+        enforces_secure_chat: host.list().settings.enforces_secure_profile(),
     });
     player.send(&ClientboundChangeDifficultyPacket {
         difficulty: info.difficulty,

@@ -353,7 +353,7 @@ impl PrepareSpawn for PrepareSpawnTask {
                 ready.angle.x,
                 ready.angle.y,
             );
-            let enforce = server.player_list.settings.enforce_secure_profile;
+            let settings = server.player_list.settings.clone();
             let params = ListenerParams {
                 remote_address: pending.sender.remote_address(),
                 cookie: pending.cookie,
@@ -362,7 +362,7 @@ impl PrepareSpawn for PrepareSpawnTask {
                 chat_spam_threshold_seconds: server.get_chat_spam_threshold_seconds(),
                 memory_connection: false,
                 inbound: pending.inbound,
-                enforce_secure_profile: Arc::new(move || enforce),
+                enforce_secure_profile: Arc::new(move || settings.enforces_secure_profile()),
             };
             let mut host = ServerJoinHost { server, level };
             let handle = place_new_player(&mut host, player, pending.sender, params);

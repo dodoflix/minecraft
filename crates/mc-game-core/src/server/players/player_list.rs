@@ -56,10 +56,19 @@ pub fn duplicate_login_disconnect_message() -> Component {
 pub struct PlayerListSettings {
     pub max_players: i32,
     pub using_whitelist: bool,
+    /// The `enforce-secure-profile` property with online mode; `enforceSecureProfile` also needs the Services keys.
     pub enforce_secure_profile: bool,
+    pub services_keys: crate::server::services_keys::ServicesKeys,
     pub uses_authentication: bool,
     pub log_ips: bool,
     pub operator_user_permissions: LevelBasedPermissionSet,
+}
+
+impl PlayerListSettings {
+    /// `MinecraftServer.enforceSecureProfile`.
+    pub fn enforces_secure_profile(&self) -> bool {
+        self.enforce_secure_profile && self.services_keys.can_validate_profile_keys()
+    }
 }
 
 impl Default for PlayerListSettings {
@@ -69,6 +78,7 @@ impl Default for PlayerListSettings {
             max_players: 20,
             using_whitelist: false,
             enforce_secure_profile: true,
+            services_keys: crate::server::services_keys::ServicesKeys::unavailable(),
             uses_authentication: true,
             log_ips: true,
             operator_user_permissions: LevelBasedPermissionSet::for_level(PermissionLevel::Owners),
