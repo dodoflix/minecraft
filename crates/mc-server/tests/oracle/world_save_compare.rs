@@ -143,9 +143,10 @@ fn nbt_findings(
 
 /// `chunk` without the all-zero `SkyLight` arrays of the light-only sections (no `block_states`), and those sections
 /// dropped when nothing else is left in them. A zero array is the same light as none, but whether the engine still holds
-/// one for the section below the world depends on whether the chunk was reloaded while its neighbours were loaded: it is
-/// built from the layer above when the chunk's light initialises before its neighbours. Two runs of the real vanilla
-/// server differ in exactly this, and nowhere else; every other light array is compared exactly.
+/// one for the section below the world depends on the order in which the light of the chunk and its neighbours initialises
+/// when the chunk is reloaded: it is built from the layer above when the chunk's light initialises first. Which chunk
+/// goes first is a race between vanilla's light thread and the chunk reads, so two runs of the real vanilla server differ
+/// in exactly this (ours takes the arrival order unless a worldgen batch is in flight); every other light array is compared exactly.
 fn without_zero_sky_light(chunk: &CompoundTag) -> CompoundTag {
     let mut chunk = chunk.clone();
     if let Some(sections) = chunk.get_list("sections") {

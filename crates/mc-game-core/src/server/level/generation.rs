@@ -449,6 +449,7 @@ impl ChunkMap {
                     }
                     _ => panic!("light step on a lent chunk"),
                 }
+                self.dispatch_light();
             }
             ChunkStatusTask::Light => {
                 let holder = self.holders.holder_mut(key).expect("holder");
@@ -468,6 +469,7 @@ impl ChunkMap {
                     _ => panic!("light step on a lent chunk"),
                 };
                 self.light.light_chunk(pos, lighted);
+                self.dispatch_light();
             }
             ChunkStatusTask::Full => self.main_tasks.push_back(MainTask::FullStep(key)),
             other => unreachable!("{other:?}"),

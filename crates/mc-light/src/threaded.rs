@@ -288,9 +288,12 @@ impl ThreadedLevelLightEngine {
         }
     }
 
-    /// The light thread runs: every submission goes through the dispatcher into `lightTasks`, then `runUpdate`.
+    /// The dispatcher handles every submission made so far: `getChunkQueueLevel` is evaluated, the tasks go through the
+    /// priority queue and chunk after chunk into `lightTasks` (running `runUpdate` inline whenever it reaches a full
+    /// batch, like `addTask`). Called after each submission, it is the dispatcher keeping up with the submitters (one
+    /// chunk's tasks per pop, so arrival order); called once for many, it is a burst ordered by queue level.
     /// `queue_level` is `ChunkMap.getChunkQueueLevel(pos)`.
-    pub fn run_update(
+    pub fn dispatch(
         &mut self,
         chunks: &dyn LightChunkGetter,
         queue_level: &dyn Fn(i64) -> i32,
@@ -311,6 +314,16 @@ impl ThreadedLevelLightEngine {
                 }
             }
         }
+        result
+    }
+
+    /// The light thread runs: [`Self::dispatch`], then `runUpdate`.
+    pub fn run_update(
+        &mut self,
+        chunks: &dyn LightChunkGetter,
+        queue_level: &dyn Fn(i64) -> i32,
+    ) -> UpdateResult {
+        let mut result = self.dispatch(chunks, queue_level);
         self.run_batch(chunks, &mut result);
         result
     }

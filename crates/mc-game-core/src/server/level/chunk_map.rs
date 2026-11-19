@@ -822,15 +822,37 @@ impl ChunkMap {
             return;
         }
         let holders = &self.holders;
-        let queue_level = |key: i64| {
+        let result = self
+            .light
+            .run_update(&HolderLightChunks(holders), &Self::queue_level_of(holders));
+        self.finish_light_run(result, true);
+    }
+
+    /// The light dispatcher keeping up with a chunk's light step: its tasks are handled before the next chunk's arrive,
+    /// so chunks reaching the light steps in one pass run in arrival order (a burst would be ordered by queue level).
+    pub(super) fn dispatch_light(&mut self) {
+        if self.worldgen_busy {
+            return;
+        }
+        let holders = &self.holders;
+        let result = self
+            .light
+            .dispatch(&HolderLightChunks(holders), &Self::queue_level_of(holders));
+        // inside a generation step: the enclosing pump resumes the tasks the completions made ready
+        self.finish_light_run(result, false);
+    }
+
+    /// `getChunkQueueLevel` over the visible holders.
+    fn queue_level_of(holders: &Holders) -> impl Fn(i64) -> i32 + '_ {
+        move |key| {
             let max = super::chunk_task_queue::priority_level_count() - 1;
             holders
                 .visible_holder(key)
                 .map_or(max, |c| c.get_queue_level().min(max))
-        };
-        let result = self
-            .light
-            .run_update(&HolderLightChunks(holders), &queue_level);
+        }
+    }
+
+    fn finish_light_run(&mut self, result: mc_light::UpdateResult, resume: bool) {
         for (layer, pos) in self.light.engine_mut().take_light_updates() {
             self.events.push(ChunkMapEvent::LightChanged {
                 sky: layer == mc_light::LightLayer::Sky,
@@ -840,7 +862,7 @@ impl ChunkMap {
         for completion in result.completions {
             self.on_light_event(completion);
             // direct executors resume the task a light future completed inside the completing call
-            if self.worldgen.is_inline() {
+            if resume && self.worldgen.is_inline() {
                 self.process_ready();
                 self.pump_worldgen();
             }
