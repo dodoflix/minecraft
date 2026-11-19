@@ -68,7 +68,7 @@ final class SchemaWalk {
     return sb.append('"').toString();
   }
 
-  private static Object field(Object o, String name) {
+  static Object field(Object o, String name) {
     try {
       Field f = o.getClass().getDeclaredField(name);
       f.setAccessible(true);

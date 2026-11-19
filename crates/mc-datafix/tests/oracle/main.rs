@@ -17,4 +17,5 @@ mod oracle_client;
 mod recorded_schemas;
 
 mod recordings;
+mod sample_gen;
 mod self_test;

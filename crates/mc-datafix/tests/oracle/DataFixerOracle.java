@@ -10,6 +10,7 @@
 //   grammar-sample                 the descriptions of a small schema built with the real DSL (GrammarSample.java)
 //   fix TYPE FROM TO FILE [OUT]    one record (below) for the NBT file FILE; OUT receives the result bytes
 //   batch IN OUT                   records for every line of IN (`-` = stdin), written to OUT (`-` = stdout)
+//   gen OPTIONS                    batch lines of schema-driven samples (SampleGen.java: --type --from --to --seed --n --invalid --mutate --matrix --shard --report)
 // Output: the record formats below on stdout (log noise goes to stderr).
 //
 // TYPE is a DataFixTypes constant (CHUNK) or `ref:NAME`, a References type by its type name (ref:item_stack), which
@@ -64,7 +65,7 @@ public class DataFixerOracle {
     proto = new PrintStream(new BufferedOutputStream(new FileOutputStream(FileDescriptor.out), 1 << 16), false, StandardCharsets.UTF_8);
     System.setOut(System.err);
     if (args.length == 0 || args[0].equals("-h") || args[0].equals("--help")) {
-      System.err.println("Usage: scripts/datafix-oracle.sh fixes-list | schema-dump KEY TYPE|all | schema-dump all | fix TYPE FROM TO FILE [OUT] | batch IN OUT");
+      System.err.println("Usage: scripts/datafix-oracle.sh fixes-list | schema-dump KEY TYPE|all | schema-dump all | fix TYPE FROM TO FILE [OUT] | batch IN OUT | gen OPTIONS");
       System.exit(args.length == 0 ? 2 : 0);
     }
     Throwable[] failure = new Throwable[1];
@@ -94,6 +95,7 @@ public class DataFixerOracle {
       case "fixes-list" -> fixesList();
       case "schema-dump" -> schemaDump(args);
       case "grammar-sample" -> proto.print(GrammarSample.dump());
+      case "gen" -> SampleGen.run(args, proto);
       case "fix" -> {
         if (args.length < 5) throw new IllegalArgumentException("fix TYPE FROM TO FILE [OUT]");
         byte[] input = Files.readAllBytes(Path.of(args[4]));
