@@ -393,6 +393,11 @@ pub async fn drowning(c: &Ctx) -> Vec<String> {
         .bot
         .wait_event(mark, Duration::from_secs(40), own_damage)
         .await;
+    // the damage event and the same tick's `SetHealth` are two packets the bot applies one by one: read the health once it dropped
+    let _ = c
+        .bot
+        .wait_for(Duration::from_secs(2), |s| (s.health < h0).then_some(()))
+        .await;
     let health_after_first = c.bot.health();
     let air_at_damage = c.bot.air();
     c.ticks(70).await;

@@ -34,6 +34,9 @@ struct Slack {
     /// `RandomSource.createThreadLocalInstance()`, so two positions around the same spawn are at most two radii apart;
     /// a walking bot adds the distance it walks.
     pos: f64,
+    /// The height of a fresh player: the column `PlayerSpawnFinder` picks has the height of its terrain, and the seeded
+    /// spawn lies beside a cliff of 50 blocks.
+    y: f64,
     /// Exhaustion and saturation: a walk of wall-clock length spends food, so the walked case ignores them.
     food: f64,
 }
@@ -42,6 +45,7 @@ struct Slack {
 /// food level regrows on peaceful, effect durations, the warden tracker) and `slack`.
 fn tolerance(path: &str, slack: Slack) -> f64 {
     match path {
+        ".Pos[1]" => slack.y,
         p if p.starts_with(".Pos[") => slack.pos,
         ".foodSaturationLevel" | ".foodExhaustionLevel" => slack.food,
         ".foodLevel" => 4.0,
@@ -53,6 +57,11 @@ fn tolerance(path: &str, slack: Slack) -> f64 {
 }
 
 async fn scenario(console: &(dyn Console + Sync), port: u16, walk: bool) {
+    if walk {
+        // the spawn lies on a slope: `PlayerSpawnFinder` starts at a random point of the radius (a thread-local
+        // random) and the walk then ends 50 blocks higher or lower on either server, so the walk starts at the spawn
+        console.cmd("gamerule respawn_radius 0");
+    }
     let bot = join("127.0.0.1", port, "Bot").await;
     tokio::time::sleep(Duration::from_secs(3)).await;
     if walk {
@@ -152,6 +161,7 @@ async fn playerdata_matches_vanilla() {
             false,
             Slack {
                 pos: fresh,
+                y: f64::INFINITY,
                 food: 1.0,
             },
         ),
@@ -160,7 +170,9 @@ async fn playerdata_matches_vanilla() {
             true,
             false,
             Slack {
-                pos: fresh + 8.0,
+                // the walk starts at the spawn itself (`respawn_radius` 0) and adds its length
+                pos: 8.0,
+                y: 8.0,
                 food: f64::INFINITY,
             },
         ),
@@ -170,6 +182,7 @@ async fn playerdata_matches_vanilla() {
             true,
             Slack {
                 pos: 0.0,
+                y: 0.0,
                 food: 1.0,
             },
         ),

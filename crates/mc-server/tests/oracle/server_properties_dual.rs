@@ -40,9 +40,10 @@ fn mask_ports(text: &str) -> String {
 }
 
 /// The startup log up to and including `Done`, one normalized line each: no timestamps, durations and ports masked.
-/// Left out: the launcher's own output, the worker threads of vanilla's start (`Worker-Main-N`) and the lines of the
-/// main thread that depend on the machine or on which thread runs the work (`Environment:`, `No existing world data`,
-/// `Loaded N advancements`).
+/// Left out: the launcher's own output, the worker threads of vanilla's start (`Worker-Main-N`), the key fetch thread
+/// (`Minecraft Services Discovery`: its warnings exist only without network access and land anywhere between the
+/// other lines) and the lines of the main thread that depend on the machine or on which thread runs the work
+/// (`Environment:`, `No existing world data`, `Loaded N advancements`).
 fn startup(server: &Server) -> Vec<String> {
     let mut lines = Vec::new();
     for line in server.log().lines() {
@@ -53,7 +54,10 @@ fn startup(server: &Server) -> Vec<String> {
             && ["Environment:", "No existing world data", "advancements"]
                 .iter()
                 .any(|noise| message.contains(noise));
-        if main_thread_noise || message.starts_with("Worker-Main-") {
+        if main_thread_noise
+            || message.starts_with("Worker-Main-")
+            || message.starts_with("Minecraft Services Discovery/")
+        {
             continue;
         }
         if message.contains("Can't keep up") || message.contains("Preparing spawn area") {

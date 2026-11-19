@@ -508,6 +508,9 @@ async fn stop_during_sprint(s: &Server) -> Vec<String> {
     r.ordered = true;
     r.drop_leave_lines = true;
     let client = Silent::join(s, "Bot").await;
+    // A sprint runs as many ticks as the machine manages in the 2 s, so how many mobs spawn and whether one kills the
+    // idle bot (`Bot was slain by Slime`) is machine speed, not behaviour: a creative player cannot be hurt.
+    s.cmd("gamemode creative Bot");
     tokio::time::sleep(Duration::from_secs(1)).await;
     r.log();
     r.out.clear();
