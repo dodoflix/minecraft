@@ -69,6 +69,8 @@ pub struct Actors {
     pub(super) known: HashSet<EntityId>,
     /// The UUID of every reference the persistence verbs saw alive (an unloaded entity is gone from the levels): `rejoin`/`reload` rebind by it.
     pub(super) persist_uuids: HashMap<EntityId, uuid::Uuid>,
+    /// The level an entity was taken out of by a mob verb that names it next to an entity of another level (until it is put back).
+    taken_from: HashMap<EntityId, &'static str>,
     auto: HashMap<String, i32>,
     rx: HashMap<String, UnboundedReceiver<Outbound>>,
     /// The driver's `seq(player)` counters.
@@ -733,6 +735,14 @@ impl Scenario {
             "ride" => {
                 self.world();
                 let (rider, vehicle) = (self.entity_id(&a[1]), self.entity_id(&a[2]));
+                // vanilla would mount across levels, a state no game reaches: the replay refuses it instead of mounting nothing
+                assert_eq!(
+                    self.dimension_of(rider),
+                    self.dimension_of(vehicle),
+                    "`ride {} {}`: the rider and the vehicle are in different levels",
+                    a[1],
+                    a[2]
+                );
                 self.level()
                     .with_entity(rider, |level, e| level.start_riding(e, vehicle, true, true));
             }
@@ -2599,5 +2609,27 @@ impl crate::common::mob_verbs::MobHost for Scenario {
         std::collections::BTreeMap<uuid::Uuid, EntityId>,
     ) {
         self.names_and_uuids()
+    }
+    fn take_remote(&mut self, id: EntityId) -> Option<Box<dyn Entity>> {
+        let home = self.at;
+        let dimension = self.dimension_of(id).filter(|d| *d != home)?;
+        self.focus(dimension);
+        let taken = self.level().take_entity(id);
+        self.focus(home);
+        if taken.is_some() {
+            self.actors.taken_from.insert(id, dimension);
+        }
+        taken
+    }
+    fn put_back_remote(&mut self, id: EntityId, entity: Box<dyn Entity>) {
+        let dimension = self
+            .actors
+            .taken_from
+            .remove(&id)
+            .expect("an entity taken from another level");
+        let home = self.at;
+        self.focus(dimension);
+        self.level().put_back_entity(id, entity);
+        self.focus(home);
     }
 }

@@ -154,6 +154,39 @@ crate can use it as a dev-dependency.
   `advancements:`, `stats:`, `logs`) compare the state the commands changed. `legacy_feedback` keeps older fixtures recorded
   before `CF` lines existed comparable: it turns the replay's `CF` lines back into the plain `C` lines they contain. The dual-server
   command corpora above remain the proof of the operator commands that need a network, a file or a second server.
+- Scenarios with several levels: `levels overworld,the_nether,the_end` (before the first world command) makes the replay and the
+  oracle hold those levels of one server; every level is preloaded with the same `preload R` radius (`preload_settle` too) and
+  ticks with its chunks. `dimension` names the level world verbs act on (default `overworld`), `in DIM LINE` runs one line with
+  `DIM` as that level, and a line that names an entity or a player runs in the level that entity is in. `end void` and
+  `nether void` generate that dimension flat and empty, `end fight` keeps the End's `EnderDragonFight` (removed otherwise).
+  `tp_dim REF DIM X Y Z` is `Entity.teleport` with a transition into `DIM` (a non-player becomes a new entity there and the name
+  follows it), `cmd` runs `/execute in`, `/tp` and the rest through the real commands, `dump levels` prints one `LEVEL` line per
+  level (game time, forced and loaded chunks, players, border) and `dump players` prints `PL NAME dim=DIM` per player. The mob
+  verbs `tame`, `love`, `leash` and `mob_attack` take their second reference from any level (a player may be away in another
+  one; a horse needs the player in its own level); `ride` needs both in one level.
+- Persistence scenarios: `save [flush]`, `unload CX CZ`, `unloadall`, `load CX CZ`, `reload CX CZ`, `leave PLAYER` and
+  `rejoin PLAYER` (the player logs in again from the saved data and the saved dimension, into that level, through the real login
+  path) run in the focused level; the file dumps `region:CX,CZ`, `entityfile:CX,CZ`, `poifile:CX,CZ`, `playerfile:PLAYER`,
+  `datafile:ID`, `statsfile:PLAYER` and `advancementsfile:PLAYER` print the NBT the server wrote, with entity UUIDs replaced by
+  scenario names. Each verb reports the ticks the server needed (`UNLOAD cx cz ticks=N loaded=B`), so unload timing is compared too.
+  Grammar and recorded twin: `tests/oracle/PersistVerbs.java`, replay `golden/common/block_scenario_persist.rs`.
+- Save-compare (`crates/mc-server/tests/oracle/world_save_compare.rs`): the same console and bot script runs against the vanilla
+  server and `mc-server` (seed 12345, `save-all flush`, stop) and the two world directories are compared file by file: file list,
+  `level.dat`, the chunk NBT of every `region`, `entities` and `poi` file, the saved data of every dimension and the player files,
+  each by file kind. Clocks, unordered collections, all-zero light arrays and unseeded random draws are normalised; terrain
+  generated while the server runs is skipped. A difference that is not fixed is a line of its `KNOWN` table with a reason, and a
+  line that no longer matches fails the scene. `SAVE_COMPARE_KEEP=<dir>` keeps both directories, `SAVE_COMPARE_BASELINE=1` runs
+  vanilla twice to show what vanilla itself varies.
+- Dual-server suites (T2, `crates/mc-server/tests/oracle/`; except the two live ones below, each `*_vanilla` test records the
+  committed fixtures in `tests/fixtures/<suite>/` with `MC_UPDATE_FIXTURES=1` and each `*_ours` test compares `mc-server` with
+  them): `light_packets_dual` (the light a client rebuilds from the chunk and `light_update` packets; one live test, no fixtures),
+  `chunk_delivery_dual` (chunk batches and the time to deliver a number of chunks, compared with a tolerance; one live test, no
+  fixtures), `jsonrpc_dual` (the JSON-RPC management server through one websocket
+  client), `rcon_dual` (RCON authentication, feedback, packet limits and the files the server writes; an RCON server gets a free
+  port per launch, `Server::rcon_port`), `demo_dual` (`--demo` and `--bonusChest`), `kick_dual`, `server_policy_dual` and
+  `play_policy_dual`. `services_keys_ours` has no vanilla twin: it proves the profile-key handling against a mock discovery
+  service (`MINECRAFT_API_DISCOVERY_HOST`). `RCON_DUAL_ONLY=name`, `JSONRPC_DUAL_ONLY=name`, `DEMO_DUAL_ONLY=name` and
+  `KICK_DUAL_ONLY=name` run one scenario.
 - Advancement triggers: `golden/advancement_loot_guards.rs` lists, per trigger, the scenario that fires it and the criterion that
   scenario's fixture records as completed (`ADV PLAYER ADVANCEMENT CRITERION`); a trigger that no recorded completion proves, or that
   is not listed, fails the test. A trigger with no observation yet is listed with its reason.

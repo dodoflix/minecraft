@@ -1,0 +1,35 @@
+# A player leaves in the nether and in the End and joins again: the login puts it into the saved level (with the chunk of the level unloaded in
+# the End), and the arrival packets are those of a join, not of a dimension change.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 0
+difficulty normal
+entity_counter 100
+level_seed 7
+spawn_player S survival 0.5 -60 0.5 0 0
+in the_nether fill 0 63 0 15 63 15 minecraft:netherrack
+in the_end fill 0 62 0 15 62 15 minecraft:end_stone
+tick 2
+tp_dim S the_nether 5.5 64 5.5 90 5
+tick 3
+dump levels player:S
+leave S
+tick 2
+dump levels playerfile:S
+rejoin S
+tick 3
+dump levels player:S packets:S:login,respawn,player_position,game_event,set_time,initialize_border,change_difficulty,set_default_spawn_position
+tp_dim S the_end 5.5 63 5.5 180 -10
+tick 3
+leave S
+tick 2
+in the_end unload 0 0
+dump levels playerfile:S
+rejoin S
+tick 5
+dump levels player:S packets:S:login,respawn,player_position,game_event,set_time,initialize_border,change_difficulty,set_default_spawn_position
+save flush
+dump playerfile:S

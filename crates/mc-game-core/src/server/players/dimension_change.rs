@@ -356,12 +356,15 @@ fn teleport_player_cross_dimension(
         old_level.waypoint_tracking_end(id);
         old_level.removing_player_connection = None;
         slot.close_menus_on_removal(old_level);
-        let mut dummy = ServerPlayer::new(
-            id,
-            slot.dimension.clone(),
-            slot.player.game_profile.clone(),
-            Default::default(),
-        );
+        // the stand-in does not exist in vanilla: it must not consume a unique seed
+        let mut dummy = mc_core::random::without_advancing_oracle_uniquifier(|| {
+            ServerPlayer::new(
+                id,
+                slot.dimension.clone(),
+                slot.player.game_profile.clone(),
+                Default::default(),
+            )
+        });
         dummy.remove(RemovalReason::ChangedDimension);
         let mut player = std::mem::replace(slot, dummy);
         if old_dimension == overworld_key() && destination == nether_key() {

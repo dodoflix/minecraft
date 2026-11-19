@@ -20,6 +20,16 @@ pub trait MobHost: ActionHost {
 
     /// The scenario names of the entities and the UUID table of the dump context (the driver's `refs` / `uuidName`).
     fn dump_names(&self) -> (BTreeMap<EntityId, String>, BTreeMap<uuid::Uuid, EntityId>);
+
+    /// Takes the entity `id` out of another level of a replay that holds several (`None`: one level, or it is in no level).
+    fn take_remote(&mut self, _id: EntityId) -> Option<Box<dyn Entity>> {
+        None
+    }
+
+    /// Puts back what [`MobHost::take_remote`] took, into the level it came from.
+    fn put_back_remote(&mut self, id: EntityId, _entity: Box<dyn Entity>) {
+        unreachable!("entity {id} was not taken from another level")
+    }
 }
 
 fn num<H: MobHost>(h: &H, s: &str) -> f64 {
@@ -45,7 +55,8 @@ fn with_entity<H: MobHost, R>(
     }
 }
 
-/// Run `f` on entity `a` with entity `b` taken out of the level next to it (so `f` may read `b` while the level is mutably borrowed).
+/// Run `f` on entity `a` with entity `b` taken out of its level next to it (so `f` may read `b` while the level is mutably borrowed);
+/// `b` may be in another level of the replay than `a`, like a player who left the level of the mob that refers to it.
 fn with_other<H: MobHost, R>(
     h: &mut H,
     a: &str,
@@ -53,13 +64,21 @@ fn with_other<H: MobHost, R>(
     f: impl FnOnce(&mut ServerLevel, &mut dyn Entity, &mut dyn Entity) -> R,
 ) -> R {
     let (ida, idb) = (h.action_ref(a), h.action_ref(b));
-    let Some(mut other) = h.action_level().take_entity(idb) else {
-        h.fail(&format!("entity {b} is not in the level"))
+    let (mut other, remote) = match h.action_level().take_entity(idb) {
+        Some(other) => (other, false),
+        None => match h.take_remote(idb) {
+            Some(other) => (other, true),
+            None => h.fail(&format!("entity {b} is not in a level")),
+        },
     };
     let r = h
         .action_level()
         .with_entity(ida, |level, e| f(level, e, other.as_mut()));
-    h.action_level().put_back_entity(idb, other);
+    if remote {
+        h.put_back_remote(idb, other);
+    } else {
+        h.action_level().put_back_entity(idb, other);
+    }
     r.unwrap_or_else(|| h.fail(&format!("entity {a} is not in the level")))
 }
 
@@ -123,10 +142,22 @@ pub fn command<H: MobHost>(h: &mut H, a: &[String]) -> bool {
             h.boot();
             let player_id = h.action_ref(&a[2]);
             let horse = with_entity(h, &a[1], |level, e| {
-                e.as_abstract_horse_mut()
-                    .map(|horse| horse.tame_with_name(level, player_id))
-                    .is_some()
+                e.as_abstract_horse_mut().map(|horse| {
+                    // `tame_with_name` finds the player in the horse's level
+                    level
+                        .get_entity(player_id)
+                        .is_some()
+                        .then(|| horse.tame_with_name(level, player_id))
+                })
             });
+            let horse = match horse {
+                Some(Some(())) => true,
+                Some(None) => h.fail(&format!(
+                    "a horse is tamed by a player of its own level: {} is elsewhere",
+                    a[2]
+                )),
+                None => false,
+            };
             if !horse {
                 with_other(h, &a[1], &a[2], |level, e, player| {
                     let player = player

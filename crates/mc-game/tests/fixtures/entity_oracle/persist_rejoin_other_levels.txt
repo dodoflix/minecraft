@@ -1,0 +1,33 @@
+LEVEL minecraft:overworld gametime=5 forced=1 loaded=841 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=5 forced=1 loaded=729 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=5 forced=1 loaded=1225 players=1 border=5.9999968E7
+P S minecraft:player pos=5.5,64.0,5.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+STAT S minecraft.custom:minecraft.leave_game 1
+STAT S minecraft.custom:minecraft.play_time 5
+STAT S minecraft.custom:minecraft.time_since_death 5
+STAT S minecraft.custom:minecraft.time_since_rest 5
+STAT S minecraft.custom:minecraft.total_world_time 5
+LEVEL minecraft:overworld gametime=7 forced=1 loaded=841 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=7 forced=1 loaded=729 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=7 forced=1 loaded=729 players=0 border=5.9999968E7
+PLAYERFILE S {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:the_nether",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[5.5d,64.0d,5.5d],Rotation:[90.0f,5.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,UUID:"S",XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,entered_nether_pos:[0.5d,-60.0d,0.5d],fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:5,warning_level:0}}
+LEVEL minecraft:overworld gametime=10 forced=1 loaded=841 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=10 forced=1 loaded=729 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=10 forced=1 loaded=1225 players=1 border=5.9999968E7
+P S minecraft:player pos=5.5,64.0,5.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,5.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+STAT S minecraft.custom:minecraft.leave_game 2
+STAT S minecraft.custom:minecraft.play_time 11
+STAT S minecraft.custom:minecraft.time_since_death 11
+STAT S minecraft.custom:minecraft.time_since_rest 11
+STAT S minecraft.custom:minecraft.total_world_time 11
+UNLOAD 0 0 ticks=1 loaded=false
+LEVEL minecraft:overworld gametime=16 forced=1 loaded=841 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=16 forced=0 loaded=729 players=0 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=16 forced=1 loaded=841 players=0 border=5.9999968E7
+PLAYERFILE S {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:the_end",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[5.5d,63.0d,5.5d],Rotation:[180.0f,-10.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,UUID:"S",XpLevel:0,XpP:0.0f,XpSeed:115571047,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:11,warning_level:0}}
+LEVEL minecraft:overworld gametime=21 forced=1 loaded=841 players=0 border=5.9999968E7
+LEVEL minecraft:the_end gametime=21 forced=0 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=21 forced=1 loaded=841 players=0 border=5.9999968E7
+P S minecraft:player pos=5.5,63.0,5.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,-10.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PKT S minecraft:set_time 73000000000000001300
+PLAYERFILE S {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:the_end",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[5.5d,63.0d,5.5d],Rotation:[-180.0f,-10.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,UUID:"S",XpLevel:0,XpP:0.0f,XpSeed:115571047,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:16,warning_level:0}}

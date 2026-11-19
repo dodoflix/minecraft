@@ -1,0 +1,52 @@
+# A survival player in a boat with a pig drives into a nether portal, rides on in the nether, then is teleported (still seated) across levels by
+# teleport commands; a tamed horse with a player goes through the same portal after the boat.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty easy
+entity_counter 100
+level_seed 7
+fill -1 -61 0 2 -61 0 minecraft:obsidian
+fill -1 -57 0 2 -57 0 minecraft:obsidian
+fill -1 -60 0 -1 -58 0 minecraft:obsidian
+fill 2 -60 0 2 -58 0 minecraft:obsidian
+fill 0 -60 0 1 -58 0 minecraft:nether_portal[axis=x]
+fill 1 -62 2 5 -62 6 minecraft:stone
+in the_nether fill -20 69 -20 20 69 20 minecraft:netherrack
+spawn_player O creative 2.5 -61 3.5 180 0
+spawn_player R survival 0.9 -60 0.5 90 0
+spawn B minecraft:oak_boat 0.9 -60 0.5 90 0
+mobspawn Pig minecraft:pig 0.9 -60 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed Pig 3
+ride Pig B
+ride R B
+accept_teleport R
+dump packets:R:none packets:O:none
+tick 1
+dump xentities players player:R levels packets:R:respawn,player_position,set_passengers,teleport_entity,add_entity,level_event,game_event,remove_entities packets:O:remove_entities,set_passengers
+tick 4
+dump xentities players player:R portal:R packets:R:player_position,set_passengers,teleport_entity,move_entity_pos_rot,rotate_head
+in the_nether dump xentities
+note the rider is moved to the overworld and back while seated
+cmd execute in minecraft:overworld run tp R 3.5 -60 4.5
+tick 2
+dump xentities players player:R levels packets:R:respawn,player_position,set_passengers,teleport_entity,add_entity,remove_entities
+cmd execute in minecraft:the_nether run tp R 3.5 70 4.5
+tick 2
+dump xentities players player:R levels packets:R:respawn,player_position,set_passengers,teleport_entity,add_entity,remove_entities
+in the_nether dump xentities
+note a horse with its rider uses the portal next
+tp_dim R overworld 0.9 -60 0.5
+mobspawn H minecraft:horse 0.9 -60 0.5 0 0 nofinalize {Tame:1b,PersistenceRequired:1b,SaddleItem:{id:"minecraft:saddle",count:1},Variant:1}
+entity_seed H 8
+dump packets:R:none
+ride R H
+accept_teleport R
+tick 1
+dump xentities players player:R levels packets:R:respawn,player_position,set_passengers,teleport_entity,add_entity,remove_entities
+tick 4
+dump xentities players player:R portal:R
+in the_nether dump xentities

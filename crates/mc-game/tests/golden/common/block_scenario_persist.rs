@@ -118,6 +118,14 @@ impl Scenario {
                     3 => "spectator",
                     _ => "survival",
                 };
+                // the login prepares the spawn in the saved dimension (`PrepareSpawnTask.start_world`), not in the level a line runs in
+                let dimension = saved
+                    .get_string("Dimension")
+                    .map(|d| d.strip_prefix("minecraft:").unwrap_or(d))
+                    .and_then(|d| self.dims.iter().copied().find(|dim| *dim == d));
+                if let Some(dimension) = dimension {
+                    self.focus(dimension);
+                }
                 let number = |v: f64| mc_core::math::java::java_double_to_string(v);
                 let mut join: Vec<String> = ["spawn_player", a[1].as_str(), mode]
                     .into_iter()

@@ -146,3 +146,15 @@ fn end_platform_generates_a_chunk_and_drops_items() {
 fn primed_tnt_of_an_owner_in_another_level_pops_a_creaking_hearts_experience() {
     common::block_scenario::check("travel_tnt_creaking_heart");
 }
+
+/// A lead outlives a level change of its holder (home restriction kept), survives the holder's return and drops after its logout.
+#[test]
+fn leash_survives_its_holder_changing_level() {
+    common::block_scenario::check("travel_leash_holder_levels");
+}
+
+/// A boat with a rider and a pig, and a horse with its rider, go through a nether portal and are teleported across levels while seated.
+#[test]
+fn mounted_riders_cross_levels() {
+    common::block_scenario::check("travel_portal_mounted");
+}

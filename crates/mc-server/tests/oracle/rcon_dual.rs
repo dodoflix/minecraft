@@ -20,26 +20,24 @@ use mc_testkit::Server;
 const DIR: &str = "rcon_dual";
 const ONLY: &str = "RCON_DUAL_ONLY";
 
-const PORT: u16 = 25641;
 const PASSWORD: &str = "secret";
 
 const RCON: &[&str] = &[
     "enable-rcon=true",
     "rcon.password=secret",
-    "rcon.port=25641",
     "difficulty=peaceful",
 ];
 
 const CASES: &[Case] = &[
     case!(protocol, RCON),
-    case!(source, &[RCON[0], RCON[1], RCON[2], "allow-nether=true"]),
+    case!(source, &[RCON[0], RCON[1], "allow-nether=true"]),
     case!(
         broadcast_true,
-        &[RCON[0], RCON[1], RCON[2], "broadcast-rcon-to-ops=true"]
+        &[RCON[0], RCON[1], "broadcast-rcon-to-ops=true"]
     ),
     case!(
         broadcast_false,
-        &[RCON[0], RCON[1], RCON[2], "broadcast-rcon-to-ops=false"]
+        &[RCON[0], RCON[1], "broadcast-rcon-to-ops=false"]
     ),
     case!(files, RCON),
 ];
@@ -65,7 +63,8 @@ impl Rcon {
         server
             .wait_log("RCON running on", 120)
             .expect("the RCON listener runs");
-        let stream = TcpStream::connect(("127.0.0.1", PORT)).expect("connect to RCON");
+        let stream = TcpStream::connect(("127.0.0.1", server.rcon_port.expect("an RCON port")))
+            .expect("connect to RCON");
         Rcon {
             stream,
             pending: Vec::new(),

@@ -1,0 +1,36 @@
+# A cow on a lead held by a player who changes level keeps the lead and its home restriction while the holder is away (the holder is checked only
+# while it is in the cow's level); the holder comes back and the lead is intact; it drops after the holder logs out.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+level_seed 7
+fill -8 -62 -8 24 -62 24 minecraft:stone
+in the_nether fill -8 69 -8 24 69 24 minecraft:netherrack
+spawn_player Pl survival 4.5 -61 4.5 0 0
+mobspawn Cow minecraft:cow 6.5 -61 6.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+mobspawn Cow2 minecraft:cow 8.5 -61 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+leash Cow Pl
+leash Cow2 Pl
+tick 3
+dump mob:Cow mob:Cow2 packets:Pl:none
+note the holder goes to the nether: far from the cows' coordinates and in another level
+tp_dim Pl the_nether 100.5 70 100.5
+tick 1
+dump mob:Cow mob:Cow2 xentities
+tick 60
+dump mob:Cow mob:Cow2 xentities
+note the holder comes back near the cows
+tp_dim Pl overworld 5.5 -61 5.5
+tick 5
+dump mob:Cow mob:Cow2 xentities players
+note the holder leaves again and logs out in the nether
+tp_dim Pl the_nether 5.5 70 5.5
+tick 2
+leave Pl
+tick 5
+dump mob:Cow mob:Cow2 xentities

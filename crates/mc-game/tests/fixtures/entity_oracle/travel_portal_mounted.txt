@@ -1,0 +1,67 @@
+E B minecraft:oak_boat pos=0.9,-60.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=R;Pig mdir=north leash=- ooc=0.0
+E Pig minecraft:pig pos=1.3000000357627868,-59.8125,0.5 delta=0.0,0.0,0.0 rot=180.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-105.0 body=180.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+PL O dim=minecraft:overworld
+PL R dim=minecraft:overworld
+P R minecraft:player pos=0.6999999970197678,-60.4125,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+LEVEL minecraft:overworld gametime=1 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=1 forced=25 loaded=961 players=0 border=5.9999968E7
+E pig#1 minecraft:pig pos=1.3000000357627868,70.1875,0.5 delta=0.0,0.0,0.0 rot=360.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=75.0 body=360.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E oak_boat#1 minecraft:oak_boat pos=0.9,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=R;Pig mdir=north leash=- ooc=0.0
+PL O dim=minecraft:overworld
+PL R dim=minecraft:the_nether
+P R minecraft:player pos=0.6999999970197678,69.5875,0.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PORTAL R cooldown=0 time=-
+PKT R minecraft:set_passengers 6d6700
+PKT R minecraft:player_position 49033fe6666664cccccdc04e0000000000003fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT R minecraft:player_position 49043fe6666664cccccd40518000000000003fe00000000000000000000000000000000000000000000000000000000000000000000000000000000001f8
+PKT R minecraft:player_position 49053feccccccccccccd405165999999999a3fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT R minecraft:set_passengers 6d6a0166
+E pig#1 minecraft:pig pos=1.3000000357627868,70.1875,0.5 delta=0.0,0.0,0.0 rot=360.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=75.0 body=360.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E oak_boat#1 minecraft:oak_boat pos=0.9,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=R;Pig mdir=north leash=- ooc=0.0
+# the rider is moved to the overworld and back while seated
+CF msg Teleported R to 3.500000, -60.000000, 4.500000
+CF result success 1
+E pig#1 minecraft:pig pos=0.9,70.1875,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=75.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E oak_boat#1 minecraft:oak_boat pos=0.9,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=Pig mdir=north leash=- ooc=0.0
+PL O dim=minecraft:overworld
+PL R dim=minecraft:overworld
+P R minecraft:player pos=3.5,-60.0,4.5 delta=0.0,-0.1552320045166016,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+LEVEL minecraft:overworld gametime=7 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=7 forced=25 loaded=961 players=0 border=5.9999968E7
+PKT R minecraft:set_passengers 6d6a0169
+PKT R minecraft:respawn 5400136d696e6563726166743a6f766572776f726c64d88694a6a43d2e5e000000010000c1ffffff0f03
+PKT R minecraft:player_position 4906400c000000000000c04e0000000000004012000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+CF msg Teleported R to 3.500000, 70.000000, 4.500000
+CF result success 1
+E pig#1 minecraft:pig pos=0.9,70.1875,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=75.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E oak_boat#1 minecraft:oak_boat pos=0.9,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=Pig mdir=north leash=- ooc=0.0
+PL O dim=minecraft:overworld
+PL R dim=minecraft:the_nether
+P R minecraft:player pos=3.5,70.0,4.5 delta=0.0,-0.0784000015258789,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+LEVEL minecraft:overworld gametime=9 forced=25 loaded=1225 players=1 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=9 forced=25 loaded=1225 players=1 border=5.9999968E7
+PKT R minecraft:respawn 5403146d696e6563726166743a7468655f6e6574686572d88694a6a43d2e5e000000010000c1ffffff0f03
+PKT R minecraft:player_position 4907400c00000000000040518000000000004012000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+E pig#1 minecraft:pig pos=0.9,70.1875,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=75.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E oak_boat#1 minecraft:oak_boat pos=0.9,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=Pig mdir=north leash=- ooc=0.0
+# a horse with its rider uses the portal next
+E pig#1 minecraft:pig pos=0.9,70.1875,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=75.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E oak_boat#1 minecraft:oak_boat pos=0.9,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=Pig mdir=north leash=- ooc=0.0
+E H minecraft:horse pos=0.9,-60.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,14.826412 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=-10.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=7:LookAtPlayerGoal:LOOK tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:fall_damage_multiplier:0.5;minecraft:follow_range:16.0;minecraft:jump_strength:0.7;minecraft:max_health:53.0;minecraft:movement_speed:0.22499999403953552;minecraft:safe_fall_distance:6.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=- owner=- temper=0 eatc=0 mouthc=0 standc=0 tailc=0 sprintc=0 jscale=0.0 slide=0 gallopc=0
+PL O dim=minecraft:overworld
+PL R dim=minecraft:overworld
+P R minecraft:player pos=0.9,-59.15624997615814,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+LEVEL minecraft:overworld gametime=10 forced=25 loaded=1225 players=2 border=5.9999968E7
+LEVEL minecraft:the_nether gametime=10 forced=25 loaded=1225 players=0 border=5.9999968E7
+PKT R minecraft:player_position 49093feccccccccccccdc04d93ffffcccccd3fe0000000000000000000000000000000000000000000000000000000000000000000000000000000000018
+PKT R minecraft:set_passengers 6d6b0166
+E pig#1 minecraft:pig pos=0.9,70.1875,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=75.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E oak_boat#1 minecraft:oak_boat pos=0.9,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=Pig mdir=north leash=- ooc=0.0
+E horse#1 minecraft:horse pos=0.9,70.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:fall_damage_multiplier:0.5;minecraft:follow_range:16.0;minecraft:jump_strength:0.7;minecraft:max_health:53.0;minecraft:movement_speed:0.22499999403953552;minecraft:safe_fall_distance:6.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=- owner=- temper=0 eatc=0 mouthc=0 standc=0 tailc=0 sprintc=0 jscale=0.0 slide=0 gallopc=0
+PL O dim=minecraft:overworld
+PL R dim=minecraft:the_nether
+P R minecraft:player pos=0.9,70.84375002384186,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,14.826412 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+PORTAL R cooldown=0 time=-
+E pig#1 minecraft:pig pos=0.9,70.1875,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=75.0 body=90.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E oak_boat#1 minecraft:oak_boat pos=0.9,70.0,0.5 delta=0.0,0.0,0.0 rot=90.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing status=on_land dmg=0.0 hurt=0/1 bubble=false/0 paddle=00 pass=Pig mdir=north leash=- ooc=0.0
+E horse#1 minecraft:horse pos=0.9,70.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=53.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:fall_damage_multiplier:0.5;minecraft:follow_range:16.0;minecraft:jump_strength:0.7;minecraft:max_health:53.0;minecraft:movement_speed:0.22499999403953552;minecraft:safe_fall_distance:6.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=- owner=- temper=0 eatc=0 mouthc=0 standc=0 tailc=0 sprintc=0 jscale=0.0 slide=0 gallopc=0

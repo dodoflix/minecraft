@@ -238,6 +238,8 @@ impl Drop for Proc {
 /// A running server. Dropping it kills the process group and removes its temporary directory.
 pub struct Server {
     pub port: u16,
+    /// The RCON port of a server with `enable-rcon=true` and no `rcon.port` entry: a fresh free port per launch.
+    pub rcon_port: Option<u16>,
     /// False with `enable-status=false`: the server closes status connections instead of answering them.
     replies_to_status: bool,
     proc: Proc,
@@ -388,8 +390,8 @@ impl Builder {
         }
     }
 
-    /// One `server.properties` entry. `server-port` and `server-ip=127.0.0.1` are set by the launcher; anything else
-    /// is the vanilla default unless set here. A later entry replaces an earlier one of the same key.
+    /// One `server.properties` entry. `server-port` and `server-ip=127.0.0.1` (and `rcon.port` when RCON is enabled
+    /// without one, see [`Server::rcon_port`]) are set by the launcher; anything else is the vanilla default unless set here. A later entry replaces an earlier one of the same key.
     pub fn property(mut self, key: &str, value: &str) -> Self {
         self.props.retain(|(k, _)| k != key);
         self.props.push((key.into(), value.into()));
@@ -509,6 +511,12 @@ impl Builder {
             props.retain(|(pk, _)| pk != k);
             props.push((k.clone(), v.clone()));
         }
+        let rcon_enabled = props.contains(&("enable-rcon".to_owned(), "true".to_owned()));
+        let rcon_port =
+            (rcon_enabled && !props.iter().any(|(k, _)| k == "rcon.port")).then(free_port);
+        if let Some(rcon_port) = rcon_port {
+            props.push(("rcon.port".to_owned(), rcon_port.to_string()));
+        }
         let text: String = props.iter().map(|(k, v)| format!("{k}={v}\n")).collect();
         fs::write(dir.join("server.properties"), text)
             .map_err(|e| Error(format!("write server.properties: {e}")))?;
@@ -548,6 +556,7 @@ impl Builder {
         })?;
         Ok(Server {
             port,
+            rcon_port,
             replies_to_status: !props
                 .iter()
                 .any(|(k, v)| k == "enable-status" && v == "false"),

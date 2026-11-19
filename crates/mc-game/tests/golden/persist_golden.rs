@@ -78,3 +78,9 @@ fn leaving_ejects_passengers_and_wakes_sleepers() {
 fn shape_update_across_a_chunk_border_loads_the_neighbour_chunk() {
     check("persist_shape_update_chunk_load");
 }
+
+/// A player who left in the nether or in the End logs in again into that level, with the packets of a join.
+#[test]
+fn rejoin_logs_into_the_saved_level() {
+    check("persist_rejoin_other_levels");
+}

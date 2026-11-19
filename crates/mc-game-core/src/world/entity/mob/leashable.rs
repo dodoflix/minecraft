@@ -372,9 +372,16 @@ pub fn tick_leash(e: &mut dyn Entity, level: &mut ServerLevel) {
     let Some(holder_id) = data(e).and_then(|d| d.leash_holder) else {
         return;
     };
-    let holder_interacts = level
-        .get_entity(holder_id)
-        .is_some_and(|h| h.can_interact_with_level());
+    // a player holder is the same object in any level, so a lead outlives its level change (another holder is recreated there)
+    let holder_interacts = level.get_entity(holder_id).map_or_else(
+        || {
+            data(e)
+                .and_then(|d| d.holder_uuid)
+                .and_then(|uuid| level.get_entity_in_any_dimension(uuid))
+                .is_some_and(|h| h.is_player() && h.can_interact_with_level())
+        },
+        |h| h.can_interact_with_level(),
+    );
     if !e.can_interact_with_level() || !holder_interacts {
         if level.entity_drops() {
             drop_leash(e, level);

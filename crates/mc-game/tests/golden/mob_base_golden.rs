@@ -48,3 +48,9 @@ fn baby_grows_against_blocks() {
 fn team_push() {
     check("mob_team_push");
 }
+
+/// `tame` and `leash` take a player who is in another level than the mob.
+#[test]
+fn tame_and_leash_reach_a_player_in_another_level() {
+    check("mob_tame_remote_owner");
+}

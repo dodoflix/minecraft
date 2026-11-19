@@ -82,6 +82,14 @@ impl AnyDimensionEntity<'_> {
         }
     }
 
+    /// `canInteractWithLevel()` (an entity a level tracks is not removed).
+    pub fn can_interact_with_level(&self) -> bool {
+        match self {
+            Self::Here(e) => e.can_interact_with_level(),
+            Self::Elsewhere(r) => r.alive && !r.spectator,
+        }
+    }
+
     /// `instanceof Player`.
     pub fn is_player(&self) -> bool {
         match self {

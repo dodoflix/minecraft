@@ -1,0 +1,21 @@
+# The mob verbs `tame` and `leash` name a player who is in another level than the mob: the wolf is tamed by an owner in the nether (the tame trigger and the
+# owner reference reach it) and a cow is leashed to that player.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty peaceful
+entity_counter 100
+fill -8 -62 -8 24 -62 24 minecraft:stone
+in the_nether fill -8 69 -8 24 69 24 minecraft:netherrack
+spawn_player Alice survival 4.5 -61 4.5 0 0
+mobspawn Wolf minecraft:wolf 8.5 -61 8.5 0 0 {PersistenceRequired:1b,NoAI:1b}
+mobspawn Cow minecraft:cow 10.5 -61 10.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+tp_dim Alice the_nether 4.5 70 4.5
+tick 1
+tame Wolf Alice
+leash Cow Alice
+tick 2
+dump mob:Wolf mob:Cow xentities player:Alice advancements:Alice
