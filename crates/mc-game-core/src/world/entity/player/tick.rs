@@ -309,6 +309,7 @@ impl ServerPlayer {
             .get_attribute_value(mc_data::Attribute::MOVEMENT_SPEED) as f32;
         self.set_speed(speed);
         self.touch_nearby_entities(level);
+        self.handle_shoulder_entities(level);
     }
 
     /// `Player.aiStep` pickup part: `playerTouch` for every entity around the player (experience orbs: one random orb).

@@ -116,3 +116,41 @@ impl ServerPlayer {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::world::entity::Entity;
+    use mc_core::ident::Identifier;
+    use mc_protocol::codec::GameProfile;
+
+    fn parrot_tag() -> CompoundTag {
+        let mut tag = CompoundTag::new();
+        tag.put_string("id", "minecraft:parrot");
+        tag
+    }
+
+    /// `Player.aiStep` ends with `handleShoulderEntities()`: a fall beyond half a block drops the shoulder entities.
+    #[test]
+    fn ai_step_drops_the_shoulder_entities_of_a_falling_player() {
+        let mut level = ServerLevel::detached(Identifier::parse("minecraft:overworld").unwrap());
+        level.set_game_time(100);
+        let mut p = ServerPlayer::new(
+            1,
+            Identifier::parse("minecraft:overworld").unwrap(),
+            GameProfile {
+                id: uuid::Uuid::from_u128(1),
+                name: "A".into(),
+                properties: vec![],
+            },
+            Default::default(),
+        );
+        p.set_pos(0.0, 100.0, 0.0);
+        p.shoulder_entity_left = parrot_tag();
+        p.do_tick(&mut level);
+        assert!(!p.shoulder_entity_left.is_empty(), "standing: stays");
+        p.base_mut().fall_distance = 1.0;
+        p.do_tick(&mut level);
+        assert!(p.shoulder_entity_left.is_empty());
+    }
+}
