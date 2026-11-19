@@ -1,3 +1,2 @@
 # Tests that currently fail on main, one per line: <package> <test binary> <test name>.
 # Only failures NOT listed here count as regressions. Delete a line when its test passes; fix new failures instead of adding them.
-mc-datafix tests/golden/main.rs core_smoke::read_write_roundtrip
