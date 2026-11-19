@@ -74,6 +74,11 @@ residuals, `--report x.json` for a machine-readable summary). Output: `DIR/{A,B}
 `scripts/worldgen-diff.sh --cases scripts/worldgen-diff-cases.txt [--only REGEX]`; new structure locations for a seed:
 `scripts/worldgen-locate.sh SEED...` (real `/locate`). Details/limits: header of `scripts/worldgen-diff.sh`.
 Standalone: `cargo run -p worldcmp -- WORLD_A WORLD_B --dim overworld --chunks -4,-4,4,4`.
+Exact modes for worlds that went through the same upgrade or save path: `--exact` compares every chunk of `region/`,
+`entities/` and `poi/` as stored (equal tags, equal key order, equal serialised bytes, no status skip); `--tree` compares
+the directories file by file (file set, gzip NBT decoded exact, region files chunk by chunk, JSON structurally, other
+files by sha256). Neither normalises anything except `--ignore-field GLOB[#FIELD.PATH]` (repeatable; `session.lock`,
+`logs/`, `level.dat#Data.LastPlayed`, ...; syntax in `tools/worldcmp/src/fields.rs`).
 
 ## Mob scenarios (vanilla vs ours, bot over the wire)
 

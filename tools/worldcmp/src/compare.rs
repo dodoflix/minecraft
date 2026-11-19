@@ -132,7 +132,7 @@ impl ChunkDiff {
 // ---------------------------------------------------------------------------------------------------------------------
 // canonical text + deep diff
 
-fn short(mut s: String) -> String {
+pub fn short(mut s: String) -> String {
     if s.chars().count() > 160 {
         s = s.chars().take(157).collect::<String>() + "...";
     }

@@ -12,6 +12,8 @@ publish.workspace = true
 mc-core = { path = "../../crates/mc-core" }
 mc-nbt = { path = "../../crates/mc-nbt" }
 mc-world = { path = "../../crates/mc-world" }
+serde_json = { workspace = true }
+sha2 = { workspace = true }
 
 [dev-dependencies]
 tempfile = { workspace = true }

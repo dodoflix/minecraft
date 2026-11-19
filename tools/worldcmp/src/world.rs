@@ -2,16 +2,19 @@
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::fmt::Write;
+use std::io::Read;
 use std::path::{Path, PathBuf};
 
 use mc_core::ident::Identifier;
 use mc_core::pos::ChunkPos;
-use mc_nbt::CompoundTag;
+use mc_nbt::{CompoundTag, NbtAccounter};
 use mc_world::region::{RegionFileStorage, RegionStorageInfo};
 
 use crate::compare::{
     Category, ChunkDiff, StartMismatch, compare_chunk, compare_entity_chunks, status_rank,
 };
+use crate::exact::{Slot, compare_region, count};
+use crate::fields::Ignores;
 
 /// Folder holding `region/` and `entities/` of a dimension: `dimensions/<ns>/<path>` (26.x layout), else the legacy
 /// layout (`.` / `DIM-1` / `DIM1`). `dim` is `overworld|nether|end|the_nether|the_end|ns:path`.
@@ -36,13 +39,22 @@ pub fn dimension_dir(world: &Path, dim: &str) -> (String, PathBuf) {
     (format!("{ns}:{path}"), dir)
 }
 
-struct Store {
+/// `(x, z)` of a canonically named region file `r.x.z.mca`; any other spelling (`r.00.0.mca`, `r.0.0.old.mca`) is not
+/// the file `Store` would open for those coordinates. Coordinates stay within the world border's chunk range.
+pub(crate) fn region_coords(name: &str) -> Option<(i32, i32)> {
+    let mut it = name.strip_prefix("r.")?.strip_suffix(".mca")?.split('.');
+    let (x, z): (i32, i32) = (it.next()?.parse().ok()?, it.next()?.parse().ok()?);
+    let range = -(1 << 26)..(1 << 26);
+    (range.contains(&x) && range.contains(&z) && name == format!("r.{x}.{z}.mca")).then_some((x, z))
+}
+
+pub(crate) struct Store {
     storage: RegionFileStorage,
     folder: PathBuf,
 }
 
 impl Store {
-    fn new(folder: PathBuf, dim: &str, kind: &str) -> Self {
+    pub(crate) fn new(folder: PathBuf, dim: &str, kind: &str) -> Self {
         let id = Identifier::parse(dim).expect("dimension id validated by caller");
         Self {
             storage: RegionFileStorage::new(
@@ -54,19 +66,56 @@ impl Store {
         }
     }
 
-    fn regions(&self) -> BTreeSet<(i32, i32)> {
+    pub(crate) fn regions(&self) -> BTreeSet<(i32, i32)> {
         let Ok(rd) = std::fs::read_dir(&self.folder) else {
             return BTreeSet::new();
         };
-        rd.filter_map(|e| {
-            let name = e.ok()?.file_name().into_string().ok()?;
-            let mut it = name.strip_prefix("r.")?.strip_suffix(".mca")?.split('.');
-            Some((it.next()?.parse().ok()?, it.next()?.parse().ok()?))
-        })
-        .collect()
+        rd.filter_map(|e| region_coords(&e.ok()?.file_name().into_string().ok()?))
+            .collect()
     }
 
-    fn read(&mut self, pos: ChunkPos) -> Result<Option<CompoundTag>, String> {
+    /// True if the raw region header has a non-zero entry for `pos`, whether or not the record can be read (the
+    /// region reader zeroes entries it rejects, so it cannot answer this).
+    pub(crate) fn allocated(&self, pos: ChunkPos) -> bool {
+        let path = self
+            .folder
+            .join(format!("r.{}.{}.mca", pos.x >> 5, pos.z >> 5));
+        let Ok(file) = std::fs::File::open(path) else {
+            return false;
+        };
+        let (mut entry, index) = ([0u8; 4], (pos.x & 31) + (pos.z & 31) * 32);
+        // a short header reads as zeros; a failed read counts as allocated so it surfaces as an error
+        std::os::unix::fs::FileExt::read_at(&file, &mut entry, index as u64 * 4)
+            .map_or(true, |_| entry != [0; 4])
+    }
+
+    /// The chunk's decoded NBT plus its decompressed payload bytes.
+    pub(crate) fn read_payload(
+        &mut self,
+        pos: ChunkPos,
+    ) -> Result<Option<(CompoundTag, Vec<u8>)>, String> {
+        let folder = self.folder.display().to_string();
+        let err =
+            |e: &dyn std::fmt::Display| format!("chunk [{},{}] in {folder}: {e}", pos.x, pos.z);
+        let region = match self.storage.get_region_file(&pos, false) {
+            Ok(Some(r)) => r,
+            Ok(None) => return Ok(None),
+            Err(e) => return Err(err(&e)),
+        };
+        let mut stream = match region.get_chunk_data_input_stream(&pos) {
+            Ok(Some(s)) => s,
+            Ok(None) => return Ok(None),
+            Err(e) => return Err(err(&e)),
+        };
+        let mut data = Vec::new();
+        let read_error = stream.read_to_end(&mut data).err();
+        match mc_nbt::read_named(&mut data.as_slice(), &mut NbtAccounter::unlimited_heap()) {
+            Ok(tag) => Ok(Some((tag, data))),
+            Err(e) => Err(read_error.map_or_else(|| err(&e), |r| err(&r))),
+        }
+    }
+
+    pub(crate) fn read(&mut self, pos: ChunkPos) -> Result<Option<CompoundTag>, String> {
         self.storage.read(&pos).map_err(|e| {
             format!(
                 "chunk [{},{}] in {}: {e}",
@@ -87,6 +136,10 @@ pub struct Filter {
     /// Chunks whose `Status` ranks below this (in either world) are skipped.
     pub min_status: usize,
     pub max_listed: usize,
+    /// Compare `region/`, `entities/` and `poi/` chunks exactly (see `exact.rs`); `ignore` and `min_status` are unused.
+    pub exact: bool,
+    /// Files and fields left out of an exact comparison.
+    pub ignores: Ignores,
 }
 
 #[derive(Default, Debug)]
@@ -120,6 +173,9 @@ fn rank(c: &CompoundTag) -> usize {
 
 /// Compares one dimension of two worlds.
 pub fn compare_dimension(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) -> DimReport {
+    if f.exact {
+        return compare_dimension_exact(a_world, b_world, dim, f);
+    }
     let (name, da) = dimension_dir(a_world, dim);
     let (_, db) = dimension_dir(b_world, dim);
     let mut r = DimReport {
@@ -206,6 +262,103 @@ pub fn compare_dimension(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) 
     r
 }
 
+/// `--exact`: every chunk of `region/`, `entities/` and `poi/` in both worlds, compared exactly. A chunk's differences
+/// from the three storages are merged into one entry, each sample prefixed with its storage.
+fn compare_dimension_exact(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) -> DimReport {
+    let (name, da) = dimension_dir(a_world, dim);
+    let (_, db) = dimension_dir(b_world, dim);
+    let prefix = match da.strip_prefix(a_world) {
+        Ok(p) if !p.as_os_str().is_empty() => format!("{}/", p.to_string_lossy()),
+        _ => String::new(),
+    };
+    let mut r = DimReport {
+        dim: name.clone(),
+        ..DimReport::default()
+    };
+    let mut merged: BTreeMap<(i32, i32), ChunkDiff> = BTreeMap::new();
+    let mut compared = BTreeSet::new();
+    for (kind, ty) in [
+        ("region", "chunk"),
+        ("entities", "entities"),
+        ("poi", "poi"),
+    ] {
+        let (mut sa, mut sb) = (
+            Store::new(da.join(kind), &name, ty),
+            Store::new(db.join(kind), &name, ty),
+        );
+        let regions: BTreeSet<(i32, i32)> = sa.regions().union(&sb.regions()).copied().collect();
+        for (rx, rz) in regions {
+            let rel = format!("{prefix}{kind}/r.{rx}.{rz}.mca");
+            if f.ignores.whole(&rel) {
+                continue;
+            }
+            let strip = |t: &mut CompoundTag| f.ignores.strip_nbt(&rel, t);
+            let payload = !f.ignores.touches(&rel);
+            compare_region(
+                &mut sa,
+                &mut sb,
+                (rx, rz),
+                f.chunks,
+                f.max_listed,
+                &strip,
+                payload,
+                |pos, slot| {
+                    let key = (pos.x, pos.z);
+                    let region = kind == "region";
+                    match slot {
+                        Slot::OnlyA | Slot::OnlyB => {
+                            let a = matches!(slot, Slot::OnlyA);
+                            merged
+                                .entry(key)
+                                .or_insert_with(|| ChunkDiff::new(f.max_listed))
+                                .note(Category::Other, || {
+                                    format!("{kind}: only in {}", if a { "A" } else { "B" })
+                                });
+                            if region {
+                                r.present_a += a as u64;
+                                r.present_b += !a as u64;
+                                r.only_a += a as u64;
+                                r.only_b += !a as u64;
+                            }
+                        }
+                        Slot::Error(e) => r
+                            .errors
+                            .push(format!("{kind} chunk [{},{}]: {e}", pos.x, pos.z)),
+                        Slot::Same | Slot::Differs(_) => {
+                            if region {
+                                r.present_a += 1;
+                                r.present_b += 1;
+                                r.compared += 1;
+                                compared.insert(key);
+                            }
+                            if let Slot::Differs(d) = slot {
+                                let e = merged
+                                    .entry(key)
+                                    .or_insert_with(|| ChunkDiff::new(f.max_listed));
+                                let into = e.cats.entry(Category::Other).or_default();
+                                into.count += count(&d);
+                                for m in d.cats.into_values().flat_map(|c| c.samples) {
+                                    if into.samples.len() < f.max_listed {
+                                        into.samples.push(format!("{kind}: {m}"));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+            );
+        }
+    }
+    r.identical = compared.iter().filter(|k| !merged.contains_key(*k)).count() as u64;
+    for ((x, z), d) in merged {
+        let t = r.totals.entry(Category::Other).or_default();
+        t.0 += 1;
+        t.1 += count(&d);
+        r.differing.push((ChunkPos::new(x, z), d));
+    }
+    r
+}
+
 // ---------------------------------------------------------------------------------------------------------------------
 // rendering
 
@@ -286,7 +439,7 @@ pub fn render_text(a: &str, b: &str, dims: &[DimReport], max_chunks_listed: usiz
     s
 }
 
-fn js(s: &str) -> String {
+pub(crate) fn js(s: &str) -> String {
     let mut o = String::from("\"");
     for c in s.chars() {
         match c {
