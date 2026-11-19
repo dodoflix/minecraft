@@ -1,6 +1,8 @@
 //! `UserNameToIdResolver`, `CachedUserNameToIdResolver` (`usercache.json`) and `ProfileResolver`.
 
 use std::collections::HashMap;
+use std::fmt;
+use std::ops::ControlFlow;
 use std::path::PathBuf;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
@@ -22,11 +24,39 @@ pub fn is_valid_player_name(name: &str) -> bool {
     name.encode_utf16().count() <= 16 && name.encode_utf16().all(|c| c > 32 && c < 127)
 }
 
+/// Why a name could not be looked up: authlib's `ProfileNotFoundException` (the backend does not know the name)
+/// versus any other exception (the backend could not be asked).
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum ProfileLookupError {
+    NotFound,
+    /// The first line of the Java exception describing the failure.
+    Backend(String),
+}
+
+impl fmt::Display for ProfileLookupError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::NotFound => f.write_str(
+                "com.mojang.authlib.services.ProfileNotFoundException: Server did not find the requested profile",
+            ),
+            Self::Backend(line) => f.write_str(line),
+        }
+    }
+}
+
+/// `ProfileLookupCallback`: `(name, uuid or failure)`; `Break` is the callback throwing.
+pub type ProfileLookupCallback<'a> =
+    dyn FnMut(&str, Result<Uuid, ProfileLookupError>) -> ControlFlow<()> + 'a;
+
 /// The Mojang profile lookups vanilla does through authlib's `GameProfileRepository` / `SessionService`.
 /// The blocking calls are made from the thread that asks (login, command) exactly like vanilla.
 pub trait ProfileLookup: Send + Sync {
     /// `GameProfileRepository.findProfileByName`.
     fn find_profile_by_name(&self, name: &str) -> Option<NameAndId>;
+    /// `GameProfileRepository.findProfilesByNames`: `callback(canonical name, uuid)` per found profile and
+    /// `callback(name, error)` per failed one. Returning `Break` is the callback throwing: the lookup stops at once
+    /// and no further request is made.
+    fn find_profiles_by_names(&self, names: &[String], callback: &mut ProfileLookupCallback);
     /// `SessionService.fetchProfile(id, true)` (the full profile with textures).
     fn fetch_profile(&self, id: Uuid) -> Option<GameProfile>;
 }
@@ -37,6 +67,14 @@ pub struct NoProfileLookup;
 impl ProfileLookup for NoProfileLookup {
     fn find_profile_by_name(&self, _name: &str) -> Option<NameAndId> {
         None
+    }
+
+    fn find_profiles_by_names(&self, names: &[String], callback: &mut ProfileLookupCallback) {
+        for name in names {
+            if callback(name, Err(ProfileLookupError::NotFound)).is_break() {
+                return;
+            }
+        }
     }
 
     fn fetch_profile(&self, _id: Uuid) -> Option<GameProfile> {

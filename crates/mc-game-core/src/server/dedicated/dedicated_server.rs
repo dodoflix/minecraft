@@ -338,30 +338,7 @@ impl MinecraftServer {
         let world_dir = self
             .storage_source
             .get_level_path(mc_world::level_storage::LevelResource::ROOT);
-        let retry = |what: &str, convert: &dyn Fn() -> bool| {
-            let mut done = false;
-            for retries in 0..=2 {
-                if done {
-                    break;
-                }
-                if retries > 0 {
-                    log::warn!(
-                        "Encountered a problem while converting the {what}, retrying in a few seconds"
-                    );
-                    std::thread::sleep(std::time::Duration::from_millis(5000));
-                }
-                done = convert();
-            }
-            done
-        };
-        let user_banlist = retry("user banlist", &|| converter::convert_user_banlist(&ctx));
-        let ip_banlist = retry("ip banlist", &|| converter::convert_ip_banlist(&ctx));
-        let ops_list = retry("op list", &|| converter::convert_ops_list(&ctx));
-        let whitelist = retry("whitelist", &|| converter::convert_white_list(&ctx));
-        let players = retry("player save files", &|| {
-            converter::convert_players(&ctx, &world_dir)
-        });
-        user_banlist || ip_banlist || ops_list || whitelist || players
+        converter::convert_old_users(&ctx, &world_dir, &std::thread::sleep)
     }
 
     // ------------------------------------------------------------------ DedicatedServer overrides
