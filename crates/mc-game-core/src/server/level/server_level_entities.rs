@@ -259,9 +259,12 @@ impl ServerLevel {
     pub fn get_entity_or_remote_target(&self, id: EntityId) -> Option<&dyn Entity> {
         self.get_entity(id).or_else(|| {
             // a player that has come to this level is the level's own entity
-            (!self.entity_manager.has_entity_with_id(id))
+            let stand_in = (!self.entity_manager.has_entity_with_id(id))
                 .then(|| self.remote_targets.get(id))
-                .flatten()
+                .flatten()?;
+            // a reader keeps the player wanted: its full state stays current for the stand-in
+            self.server_state.entities.want(stand_in.uuid());
+            Some(stand_in)
         })
     }
 
@@ -274,14 +277,22 @@ impl ServerLevel {
         let id = self
             .server_state
             .entities
-            .with(uuid, |remote| self.ensure_remote_player(remote))??;
+            .with(uuid, |remote| self.make_stand_in(remote))??;
+        self.server_state.entities.want(uuid);
         self.remote_targets.get(id)
     }
 
     /// Makes the stand-in of `remote` findable by [`ServerLevel::get_entity_or_remote_target`] when it is a player of another level: a
     /// damage source built from a snapshot of its player names the player by id, and the predicates that judge the
-    /// source look that entity up in this level. Returns the player's id.
+    /// source look that entity up in this level. Returns the player's id. The player's saved state reaches the stand-in
+    /// with the player's next refresh: only a player somebody asked for is copied that way.
     pub fn ensure_remote_player(&self, remote: &super::RemoteEntity) -> Option<EntityId> {
+        let id = self.make_stand_in(remote)?;
+        self.server_state.entities.want(remote.uuid);
+        Some(id)
+    }
+
+    fn make_stand_in(&self, remote: &super::RemoteEntity) -> Option<EntityId> {
         (remote.is_player && remote.dimension != self.dimension).then(|| {
             self.remote_targets.ensure(remote);
             remote.id

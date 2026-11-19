@@ -14,7 +14,7 @@
 //! `hasLineOfSight` is false across levels like in vanilla, and the melee goals and behaviors of the neutral mobs attack
 //! only with a line of sight, so a mob never hurts the player it walks toward (checked against the real server).
 
-use super::entity_directory::{EntityDirectory, RemoteEntity};
+use super::entity_directory::{EntityDirectory, RemoteEntity, RemotePlayer};
 use crate::world::entity::entity::{DATA_POSE, DATA_SHARED_FLAGS_ID, load};
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::level::DimensionKey;
@@ -22,19 +22,26 @@ use mc_protocol::codec::GameProfile;
 use mc_protocol::packets::common::ClientInformation;
 use parking_lot::Mutex;
 use std::collections::HashMap;
+use std::sync::Arc;
 
 #[derive(Default)]
 pub struct RemoteTargets {
     /// Stand-ins by entity id. An entry is only replaced or removed through `&mut self`, so the box a shared borrow
     /// handed out stays where it is while that borrow lives.
-    stand_ins: Mutex<HashMap<EntityId, Box<ServerPlayer>>>,
+    stand_ins: Mutex<HashMap<EntityId, StandIn>>,
+}
+
+struct StandIn {
+    player: Box<ServerPlayer>,
+    /// The saved data `player` was last loaded from: a copy that still has it is not loaded again.
+    data: Option<Arc<RemotePlayer>>,
 }
 
 impl RemoteTargets {
     /// The stand-in with `id`, if the level keeps one.
     pub fn get(&self, id: EntityId) -> Option<&dyn Entity> {
         let stand_ins = self.stand_ins.lock();
-        let stand_in: *const ServerPlayer = &**stand_ins.get(&id)?;
+        let stand_in: *const ServerPlayer = &*stand_ins.get(&id)?.player;
         // SAFETY: the box is owned by the map and only dropped through `&mut self` (`refresh`), which cannot
         // run while the `&self` this reference borrows from is alive; inserting into the map moves boxes, not their contents.
         Some(unsafe { &*stand_in })
@@ -53,7 +60,7 @@ impl RemoteTargets {
                 properties: Vec::new(),
             };
             // vanilla creates no entity here: the seeds of the entities created next stay the oracle's
-            let mut player = mc_core::random::without_advancing_oracle_uniquifier(|| {
+            let player = mc_core::random::without_advancing_oracle_uniquifier(|| {
                 Box::new(ServerPlayer::new(
                     remote.id,
                     remote.dimension.clone(),
@@ -61,18 +68,19 @@ impl RemoteTargets {
                     ClientInformation::default(),
                 ))
             });
-            mirror(&mut player, remote);
-            player
+            let mut stand_in = StandIn { player, data: None };
+            mirror(&mut stand_in, remote);
+            stand_in
         });
     }
 
-    /// Brings every stand-in up to date with the directory; one whose player is gone or came to `dimension` is dropped
-    /// (a player that came is the entity of the level itself, with the same id).
+    /// Brings every stand-in up to date with the directory; one whose player is gone, came to `dimension` or that no
+    /// reader asked for lately is dropped (a player that came is the entity of the level itself, with the same id).
     pub fn refresh(&mut self, directory: &EntityDirectory, dimension: &DimensionKey) {
         self.stand_ins.get_mut().retain(|_, stand_in| {
             directory
-                .with(stand_in.uuid(), |remote| {
-                    if remote.dimension == *dimension || remote.id != stand_in.id() {
+                .with_wanted(stand_in.player.uuid(), |remote| {
+                    if remote.dimension == *dimension || remote.id != stand_in.player.id() {
                         return false;
                     }
                     mirror(stand_in, remote);
@@ -84,24 +92,34 @@ impl RemoteTargets {
 }
 
 /// What the directory copy `remote` knows of a player, written into its stand-in.
-fn mirror(stand_in: &mut ServerPlayer, remote: &RemoteEntity) {
-    if let Some(player) = &remote.player {
-        // the player's data first: the fields below are the live values of the copy. A recipe that was taken away
-        // must not survive the load, which only adds
-        stand_in.recipe_book = Default::default();
-        let loaded = load(stand_in, None, &player.saved);
-        debug_assert!(loaded.is_ok(), "the saved data of a live player loads");
-        stand_in.player.living.attributes = player.attributes.lock().clone();
-        stand_in.stats = player.stats.clone();
-        stand_in.advancements = player.advancements.clone();
-        stand_in.last_client_input = remote.last_client_input;
-        stand_in.last_known_client_movement = remote.last_known_client_movement;
-        stand_in.set_y_head_rot(remote.y_head_rot);
-        stand_in.set_y_body_rot(remote.y_body_rot);
+fn mirror(stand_in: &mut StandIn, remote: &RemoteEntity) {
+    let player = &mut *stand_in.player;
+    if let Some(data) = &remote.player {
+        // the player's data first: the fields below are the live values of the copy
+        if !stand_in
+            .data
+            .as_ref()
+            .is_some_and(|loaded| Arc::ptr_eq(loaded, data))
+        {
+            // a recipe that was taken away must not survive the load, which only adds
+            player.recipe_book = Default::default();
+            let loaded = load(player, None, &data.saved);
+            debug_assert!(loaded.is_ok(), "the saved data of a live player loads");
+            player.player.living.attributes = data.attributes.lock().clone();
+            player.stats = data.stats.clone();
+            player.advancements = data.advancements.clone();
+            stand_in.data = Some(data.clone());
+        }
+    } else {
+        stand_in.data = None;
     }
-    stand_in.dimension = remote.dimension.clone();
-    stand_in.game_mode.game_mode_for_player = remote.game_type;
-    let base = stand_in.base_mut();
+    player.last_client_input = remote.last_client_input;
+    player.last_known_client_movement = remote.last_known_client_movement;
+    player.set_y_head_rot(remote.y_head_rot);
+    player.set_y_body_rot(remote.y_body_rot);
+    player.dimension = remote.dimension.clone();
+    player.game_mode.game_mode_for_player = remote.game_type;
+    let base = player.base_mut();
     base.set_pos_raw(remote.position.x, remote.position.y, remote.position.z);
     base.set_bounding_box(remote.bounding_box);
     base.set_y_rot(remote.y_rot);
@@ -112,7 +130,7 @@ fn mirror(stand_in: &mut ServerPlayer, remote: &RemoteEntity) {
     base.entity_data.set(DATA_POSE, remote.pose);
     base.entity_data
         .set(DATA_SHARED_FLAGS_ID, remote.shared_flags);
-    if let Some(living) = stand_in.living_mut() {
+    if let Some(living) = player.living_mut() {
         living.set_health(remote.health);
     }
 }

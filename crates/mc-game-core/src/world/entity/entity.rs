@@ -700,6 +700,12 @@ pub trait Entity: Any {
             .filter(|o| o.is_living)
     }
 
+    /// The uuid of the entity this one answers to as the cause of its damage and explosions (a projectile's or primed
+    /// TNT's owner). The directory keeps such an owner's full state current while this entity exists.
+    fn owner_reference(&self) -> Option<uuid::Uuid> {
+        self.as_projectile()?.projectile_data().owner
+    }
+
     /// `ignoreExplosion(explosion)`.
     fn ignore_explosion(&self, _explosion: &dyn crate::world::level::explosion::Explosion) -> bool {
         false

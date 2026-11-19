@@ -223,6 +223,10 @@ impl Entity for PrimedTnt {
         }
     }
 
+    fn owner_reference(&self) -> Option<uuid::Uuid> {
+        self.owner
+    }
+
     fn tick(&mut self, level: &mut ServerLevel) {
         self.handle_portal(level);
         self.apply_gravity();

@@ -11,6 +11,11 @@
 //! shortcut: a copy is as old as the last time its level got the entity back (end of its tick or of the packet that
 //! changed it); vanilla reads the live object. Upgrade when a reader needs a value that changes between two
 //! `put_back_entity` calls.
+//!
+//! shortcut: the full saved state of a player is copied only while a level asks for its stand-in or a projectile or
+//! primed TNT it owns exists; a stand-in first asked for by anything else (a mob's target, a damage source made by a
+//! command, the owner of a pet that kills) has the live fields of the copy at once and the saved state (gear, effects,
+//! food) from the player's next put-back. Upgrade by naming the player wanted where such a reference is created.
 
 use crate::advancements::SharedAdvancements;
 use crate::stats::SharedStats;
@@ -120,7 +125,7 @@ impl std::fmt::Debug for RemotePlayer {
 }
 
 impl RemoteEntity {
-    fn of(entity: &dyn Entity, dimension: &DimensionKey) -> Self {
+    fn of(entity: &dyn Entity, dimension: &DimensionKey, wanted: bool) -> Self {
         let mut remote = Self {
             uuid: entity.uuid(),
             id: entity.id(),
@@ -159,12 +164,13 @@ impl RemoteEntity {
             held_maps: Arc::new([]),
             map_invisibility: false,
         };
-        remote.update(entity);
+        remote.update(entity, wanted);
         remote
     }
 
-    /// Reads everything but the identity and the level from `entity`.
-    fn update(&mut self, entity: &dyn Entity) {
+    /// Reads everything but the identity and the level from `entity`. `wanted`: a level reads the full state of this
+    /// player (a stand-in), so the saved data is copied too (the full save is too heavy to take of every player).
+    fn update(&mut self, entity: &dyn Entity, wanted: bool) {
         let player = entity.as_any().downcast_ref::<ServerPlayer>();
         let base = entity.base();
         self.position = base.position();
@@ -196,7 +202,9 @@ impl RemoteEntity {
             // shortcut: the saved data is as old as the player's last tick step, not of whatever changed it since (a
             // packet, a hit, a command); the save is too heavy to repeat for every put-back. Upgrade when a reader
             // needs such a change before the player's next tick.
-            if self
+            if !wanted {
+                self.player = None;
+            } else if self
                 .player
                 .as_ref()
                 .is_none_or(|p| p.tick_count != base.tick_count)
@@ -222,11 +230,42 @@ impl RemoteEntity {
     }
 }
 
+/// How many [`EntityDirectory::advance_clock`] steps a player stays wanted after the last time something asked for it:
+/// every level steps the clock once per tick, so this is at least 200 ticks (more than the 100 ticks a kill is credited
+/// to its last attacker) for up to three levels.
+const WANT_WINDOW: u64 = 600;
+
 #[derive(Default)]
 struct Entries {
     by_uuid: HashMap<Uuid, RemoteEntity>,
     /// Entity ids are unique across the levels of a server.
     uuid_by_id: HashMap<EntityId, Uuid>,
+    /// Counts the level ticks of the server (every level steps it once per tick).
+    clock: u64,
+    /// The players whose full state some level reads through a stand-in or may read soon (an owned projectile or
+    /// primed TNT in flight), with the clock value until which it stays so. Only their saved data is copied.
+    wanted_until: HashMap<Uuid, u64>,
+}
+
+impl Entries {
+    fn is_wanted(&self, uuid: &Uuid) -> bool {
+        self.wanted_until
+            .get(uuid)
+            .is_some_and(|&t| t >= self.clock)
+    }
+
+    fn want(&mut self, uuid: Uuid) {
+        self.wanted_until.insert(uuid, self.clock + WANT_WINDOW);
+    }
+
+    /// An entity that names its owner keeps the owner wanted when the owner is a player of the directory.
+    fn want_owner_of(&mut self, entity: &dyn Entity) {
+        if let Some(owner) = entity.owner_reference()
+            && self.by_uuid.get(&owner).is_some_and(|o| o.is_player)
+        {
+            self.want(owner);
+        }
+    }
 }
 
 /// The server-wide index, shared by every level of a server.
@@ -236,20 +275,24 @@ pub struct EntityDirectory(Arc<Mutex<Entries>>);
 impl EntityDirectory {
     /// `entity` of `dimension` became visible (`EntityLookup.add`).
     pub(super) fn publish(&self, entity: &dyn Entity, dimension: &DimensionKey) {
-        let entry = RemoteEntity::of(entity, dimension);
         let mut entries = self.0.lock();
+        let wanted = entries.is_wanted(&entity.uuid());
+        let entry = RemoteEntity::of(entity, dimension, wanted);
         entries.uuid_by_id.insert(entry.id, entry.uuid);
         entries.by_uuid.insert(entry.uuid, entry);
+        entries.want_owner_of(entity);
     }
 
     /// `entity` is back in its level: bring its copy up to date (nothing when it is not published there).
     pub(super) fn refresh(&self, entity: &dyn Entity, dimension: &DimensionKey) {
         let mut entries = self.0.lock();
+        let wanted = entries.is_wanted(&entity.uuid());
         if let Some(entry) = entries.by_uuid.get_mut(&entity.uuid())
             && entry.id == entity.id()
             && entry.dimension == *dimension
         {
-            entry.update(entity);
+            entry.update(entity, wanted);
+            entries.want_owner_of(entity);
         }
     }
 
@@ -268,12 +311,39 @@ impl EntityDirectory {
             Some((true, true)) => {
                 entries.by_uuid.remove(&uuid);
                 entries.uuid_by_id.remove(&id);
+                entries.wanted_until.remove(&uuid);
             }
             Some((true, false)) => {}
             _ => {
                 entries.uuid_by_id.remove(&id);
             }
         }
+    }
+
+    /// Keeps the player `uuid` wanted: its copy carries the full saved state from the next refresh on.
+    pub(super) fn want(&self, uuid: Uuid) {
+        self.0.lock().want(uuid);
+    }
+
+    /// One level tick passed: players nobody asked for lately stop being wanted.
+    pub(super) fn advance_clock(&self) {
+        let mut entries = self.0.lock();
+        entries.clock += 1;
+        let clock = entries.clock;
+        entries.wanted_until.retain(|_, until| *until >= clock);
+    }
+
+    /// `f` on the copy of the player `uuid` while it is wanted (what a stand-in is kept for).
+    pub(super) fn with_wanted<R>(
+        &self,
+        uuid: Uuid,
+        f: impl FnOnce(&RemoteEntity) -> R,
+    ) -> Option<R> {
+        let entries = self.0.lock();
+        entries
+            .is_wanted(&uuid)
+            .then(|| entries.by_uuid.get(&uuid).map(f))
+            .flatten()
     }
 
     /// The copy of the entity with `id` of whichever level tracks it.
@@ -396,5 +466,125 @@ mod tests {
         directory.publish(&*entity, &nether);
         directory.withdraw(id, &overworld);
         assert_eq!(directory.get(uuid).unwrap().dimension, nether);
+    }
+
+    fn player(level: &mut ServerLevel, n: u128) -> (Uuid, EntityId) {
+        level.entity_manager.update_chunk_status(
+            mc_core::pos::chunk_pos::ChunkPos::new(0, 0),
+            crate::world::level::entity::Visibility::Ticking,
+        );
+        let (uuid, id) = (Uuid::from_u128(n), n as EntityId);
+        let mut player = ServerPlayer::new(
+            id,
+            level.dimension.clone(),
+            mc_protocol::codec::GameProfile {
+                id: uuid,
+                name: format!("P{n}"),
+                properties: vec![],
+            },
+            Default::default(),
+        );
+        // a player of a few hours knows a few hundred recipes
+        for recipe in 0..400 {
+            player
+                .recipe_book
+                .add(Identifier::parse(&format!("minecraft:recipe_{recipe}")).unwrap());
+        }
+        level.add_player(Box::new(player));
+        (uuid, id)
+    }
+
+    /// One tick step of a player of `level`: out of its slot, ticked, back.
+    fn tick_player(level: &mut ServerLevel, id: EntityId) {
+        let mut player = level.take_entity(id).expect("player");
+        player.base_mut().tick_count += 1;
+        level.put_back_entity(id, player);
+    }
+
+    /// The saved data of a player is only copied while a level reads it through a stand-in or an entity it owns exists.
+    #[test]
+    fn player_data_is_copied_only_for_wanted_players() {
+        let directory = EntityDirectory::default();
+        let mut overworld = level("minecraft:overworld", &directory);
+        let nether = level("minecraft:the_nether", &directory);
+        let (uuid, id) = player(&mut overworld, 7);
+        tick_player(&mut overworld, id);
+        assert!(directory.get(uuid).unwrap().player.is_none());
+
+        // a level asks for the stand-in: the copy carries the data from the next put-back on, and the stand-in loads it
+        let stand_in = nether.get_entity_or_remote_player(uuid).expect("stand-in");
+        assert_eq!(stand_in.id(), id);
+        tick_player(&mut overworld, id);
+        assert!(directory.get(uuid).unwrap().player.is_some());
+
+        // nobody asks any more: the copy drops the data and the level drops the stand-in
+        for _ in 0..=WANT_WINDOW {
+            directory.advance_clock();
+        }
+        tick_player(&mut overworld, id);
+        assert!(directory.get(uuid).unwrap().player.is_none());
+        let mut nether = nether;
+        nether.remote_targets.refresh(&directory, &nether.dimension);
+        assert!(!nether.remote_targets.contains(id));
+    }
+
+    /// A projectile that names a player as its owner keeps the player's data copied while it exists.
+    #[test]
+    fn an_owned_projectile_keeps_its_owner_wanted() {
+        let directory = EntityDirectory::default();
+        let mut overworld = level("minecraft:overworld", &directory);
+        let mut nether = level("minecraft:the_nether", &directory);
+        let (uuid, id) = player(&mut overworld, 8);
+        let mut arrow = factory::create(
+            EntityType::ARROW,
+            &nether,
+            EntitySpawnRequest {
+                reason: EntitySpawnReason::Command,
+                ignore_checks: true,
+            },
+        )
+        .expect("arrow");
+        arrow
+            .as_projectile_mut()
+            .unwrap()
+            .set_owner_uuid(Some(uuid));
+        nether.entity_manager.update_chunk_status(
+            mc_core::pos::chunk_pos::ChunkPos::new(0, 0),
+            crate::world::level::entity::Visibility::Ticking,
+        );
+        assert!(nether.add_fresh_entity(arrow));
+        tick_player(&mut overworld, id);
+        assert!(directory.get(uuid).unwrap().player.is_some());
+    }
+
+    /// Cost of the put-backs of 20 players in 3 levels over 200 ticks, with no stand-in anywhere:
+    /// `cargo test -p mc-game-core player_copy_cost -- --ignored --nocapture`.
+    #[test]
+    #[ignore = "timing probe"]
+    fn player_copy_cost() {
+        let directory = EntityDirectory::default();
+        let names = [
+            "minecraft:overworld",
+            "minecraft:the_nether",
+            "minecraft:the_end",
+        ];
+        let mut levels: Vec<ServerLevel> = names.iter().map(|n| level(n, &directory)).collect();
+        let ids: Vec<(usize, EntityId)> = (0..20u128)
+            .map(|n| {
+                let l = n as usize % 3;
+                (l, player(&mut levels[l], n + 1).1)
+            })
+            .collect();
+        let start = std::time::Instant::now();
+        for _ in 0..200 {
+            for &(l, id) in &ids {
+                tick_player(&mut levels[l], id);
+            }
+        }
+        let elapsed = start.elapsed();
+        eprintln!(
+            "{:?} per server tick for 20 players in 3 levels",
+            elapsed / 200
+        );
     }
 }
