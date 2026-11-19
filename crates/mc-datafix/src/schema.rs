@@ -308,7 +308,7 @@ impl Schema {
         let supplier = self.0.type_templates.lock().unwrap().get(name).cloned();
         match supplier {
             Some(s) => s(self),
-            None => panic!("Unknown type: {name}"),
+            None => panic!("java.lang.IllegalArgumentException: Unknown type: {name}"),
         }
     }
 
@@ -337,7 +337,7 @@ impl Schema {
             .types
             .get()
             .and_then(|t| t.get(name))
-            .unwrap_or_else(|| panic!("Unknown type: {name}"))
+            .unwrap_or_else(|| panic!("java.lang.IllegalArgumentException: Unknown type: {name}"))
     }
 
     /// `schema.getTypeRaw(type)`.
@@ -350,7 +350,11 @@ impl Schema {
         let t = self.type_named(ty.type_name());
         if t.is_recursive_point() {
             t.find_checked_type(-1)
-                .expect("Could not find choice type in the recursive type")
+                .unwrap_or_else(|| {
+                panic!(
+                    "java.lang.IllegalStateException: Could not find choice type in the recursive type"
+                )
+            })
         } else {
             t.clone()
         }
@@ -360,7 +364,7 @@ impl Schema {
     pub fn find_choice_type(&self, ty: &TypeReference) -> TaggedChoiceType {
         self.get_type(ty)
             .find_choice_type("id", -1)
-            .expect("Not a choice type")
+            .unwrap_or_else(|| panic!("java.lang.IllegalArgumentException: Not a choice type"))
     }
 
     /// `schema.getChoiceType(type, choiceName)`.
@@ -376,7 +380,7 @@ impl Schema {
         match choice.get(choice_name) {
             Some(t) => t.clone(),
             None => panic!(
-                "Data fixer not registered for: {choice_name} in {}",
+                "java.lang.IllegalArgumentException: Data fixer not registered for: {choice_name} in {}",
                 ty.type_name()
             ),
         }

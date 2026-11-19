@@ -3,8 +3,10 @@
 
 use crate::datafix_types::DataFixTypes;
 use crate::fixer::{DataFixer, DataFixerBuilder};
+use crate::ty::ensure_namespaced;
 use mc_nbt::CompoundTag;
-use std::sync::LazyLock;
+use std::collections::HashMap;
+use std::sync::{Arc, LazyLock};
 
 /// `SharedConstants.getCurrentVersion().dataVersion().version()`: the one definition of the world version
 /// (`mc_world::level_storage::WORLD_VERSION` and the chunk/entity/template stamps derive from it).
@@ -50,4 +52,47 @@ pub fn world_version_to_file_fixer_version(level_data_version: i32) -> i32 {
 /// `FileFixerUpper.requiresFileFixing`.
 pub fn requires_file_fixing(level_data_version: i32) -> bool {
     world_version_to_file_fixer_version(level_data_version) < LATEST_FILE_FIXER_VERSION
+}
+
+/// `DataFixers.createRenamerNoNamespace(map)`: exact-id lookup.
+pub fn create_renamer_no_namespace(
+    map: &[(&str, &str)],
+) -> impl Fn(&str) -> String + Clone + Send + Sync + 'static {
+    let map = renames(map);
+    move |id| map.get(id).cloned().unwrap_or_else(|| id.to_string())
+}
+
+/// `DataFixers.createRenamer(map)`: the id is looked up namespaced, an id without a rename is kept as it was written.
+pub fn create_renamer(
+    map: &[(&str, &str)],
+) -> impl Fn(&str) -> String + Clone + Send + Sync + 'static {
+    let map = renames(map);
+    move |id| {
+        map.get(&ensure_namespaced(id))
+            .cloned()
+            .unwrap_or_else(|| id.to_string())
+    }
+}
+
+/// `DataFixers.createRenamer(from, to)`.
+pub fn create_renamer_pair(
+    from: &str,
+    to: &str,
+) -> impl Fn(&str) -> String + Clone + Send + Sync + 'static {
+    let (from, to) = (from.to_string(), to.to_string());
+    move |id| {
+        if ensure_namespaced(id) == from {
+            to.clone()
+        } else {
+            id.to_string()
+        }
+    }
+}
+
+fn renames(map: &[(&str, &str)]) -> Arc<HashMap<String, String>> {
+    Arc::new(
+        map.iter()
+            .map(|(from, to)| (from.to_string(), to.to_string()))
+            .collect(),
+    )
 }

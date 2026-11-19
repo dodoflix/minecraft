@@ -11,6 +11,7 @@ mod recorded_chain;
 #[path = "../common/recorded_schemas.rs"]
 mod recorded_schemas;
 
+mod base_fixes;
 mod chain_parity;
 mod compare_rules;
 mod core_smoke;

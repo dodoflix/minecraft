@@ -1,0 +1,190 @@
+named_entity	-	entity	{id:'minecraft:zombie',Health:20}	{Health:20,fixed:1b,id:"minecraft:zombie"}
+named_entity	-	entity	{id:'zombie',Health:20}	{Health:20,fixed:1b,id:"minecraft:zombie"}
+named_entity	-	entity	{id:'minecraft:pig',Health:10}	{Health:10,id:"minecraft:pig"}
+named_entity	-	entity	{Health:1}	{Health:1}
+named_entity	-	entity	{id:'minecraft:cow'}	{id:"minecraft:cow"}
+named_entity	-	entity	{id:'minecraft:ghost'}	{id:"minecraft:ghost"}
+named_entity	-	entity_tree	{id:'minecraft:zombie',Passengers:[{id:'minecraft:zombie'},{id:'minecraft:pig',Passengers:[{id:'minecraft:zombie',Health:2}]}]}	{Passengers:[{fixed:1b,id:"minecraft:zombie"},{Passengers:[{Health:2,fixed:1b,id:"minecraft:zombie"}],id:"minecraft:pig"}],fixed:1b,id:"minecraft:zombie"}
+named_entity_be	-	block_entity	{id:'minecraft:chest',Items:[{id:'stone',Count:1b}]}	{Items:[{id:"minecraft:stone",Count:1b}],fixed:1b,id:"minecraft:chest"}
+named_entity_be	-	block_entity	{id:'minecraft:sign'}	{id:"minecraft:sign"}
+named_entity_missing	-	entity	{id:'minecraft:zombie'}	EX:IllegalArgumentException:Data fixer not registered for: minecraft:ghost in entity
+named_entity_write_read	pigsaddle	entity	{id:'minecraft:pig',Health:3}	{Health:3,id:"minecraft:pig",wr:2}
+named_entity_write_read	pigsaddle	entity	{id:'minecraft:pig',Health:3,Saddle:{id:'stone',Count:1b}}	{id:"minecraft:pig",wr:2,Health:3,Saddle:{id:"minecraft:stone",Count:1b}}
+named_entity_write_read	pigsaddle	entity	{id:'minecraft:zombie'}	{id:"minecraft:zombie"}
+named_entity_convert	itemfield	entity	{id:'minecraft:item',Item:{id:'stone',Count:1b}}	{ItemStack:{id:"minecraft:stone",Count:1b},Item:{id:"stone",Count:1b},id:"minecraft:item"}
+named_entity_convert	itemfield	entity	{id:'minecraft:item'}	{id:"minecraft:item"}
+named_entity_convert	itemfield	entity	{id:'minecraft:zombie'}	{id:"minecraft:zombie"}
+component_inc	-	data_components	{'minecraft:foo':1}	{minecraft:foo:2}
+component_inc	-	data_components	{'minecraft:foo':'x'}	{}
+component_inc	-	data_components	{}	{}
+component_inc	-	data_components	{'minecraft:other':1}	{minecraft:other:1}
+component_inc	-	data_components	{'minecraft:foo':1,'minecraft:bar':9,z:1}	{minecraft:bar:9,z:1,minecraft:foo:2}
+component_rename	-	data_components	{'minecraft:foo':1}	{minecraft:bar:2}
+component_rename	-	data_components	{'minecraft:foo':'x'}	{}
+component_rename	-	data_components	{}	{}
+component_rename	-	data_components	{'minecraft:other':1}	{minecraft:other:1}
+component_rename	-	data_components	{'minecraft:foo':1,'minecraft:bar':9,z:1}	{minecraft:bar:2,z:1}
+item_stack_tag	-	item_stack	{id:'stone',Count:1b,tag:{a:1}}	{id:"minecraft:stone",Count:1b,tag:{a:1,fixed:1b}}
+item_stack_tag	-	item_stack	{id:'minecraft:dirt',tag:{a:1}}	{id:"minecraft:dirt",tag:{a:1}}
+item_stack_tag	-	item_stack	{id:'stone'}	{id:"minecraft:stone"}
+item_stack_tag	-	item_stack	{id:'stone',tag:{Items:[{id:'stone',Count:1b,tag:{}},{id:'dirt',tag:{b:2}}]}}	{id:"minecraft:stone",tag:{Items:[{id:"minecraft:stone",Count:1b,tag:{fixed:1b}},{id:"minecraft:dirt",tag:{b:2}}],fixed:1b}}
+item_stack_tag	-	item_stack	{Count:1b}	{Count:1b}
+item_stack_tag_remainder	-	item_stack	{id:'sand',tag:{}}	{id:"minecraft:sand",tag:{rem:"y"}}
+item_stack_tag_remainder	-	item_stack	{id:'dirt',tag:{}}	{id:"minecraft:dirt",tag:{}}
+item_stack_tag_remainder	-	item_stack	{id:'minecraft:stone',tag:{k:1}}	{id:"minecraft:stone",tag:{k:1,rem:"y"}}
+uuid	-	entity	{id:'minecraft:zombie',S:'123e4567-e89b-12d3-a456-426614174000',ML:{M:1L,L:2L},LMMost:3L,LMLeast:4L}	{LM2:[I;0,3,0,4],ML2:[I;0,1,0,2],S:"123e4567-e89b-12d3-a456-426614174000",LMLeast:4L,LMMost:3L,id:"minecraft:zombie",ML:{L:2L,M:1L},S2:[I;306070887,-392490285,-1537850778,337068032]}
+uuid	-	entity	{id:'minecraft:zombie',S:'abc'}	{S:"abc",id:"minecraft:zombie"}
+uuid	-	entity	{id:'minecraft:zombie',S:'1-2-3-4-5'}	{S:"1-2-3-4-5",id:"minecraft:zombie",S2:[I;1,131075,262144,5]}
+uuid	-	entity	{id:'minecraft:zombie',S:5}	{S:5,id:"minecraft:zombie"}
+uuid	-	entity	{id:'minecraft:zombie',S:'123e4567-e89b-12d3-a456-4266141740001'}	{S:"123e4567-e89b-12d3-a456-4266141740001",id:"minecraft:zombie"}
+uuid	-	entity	{id:'minecraft:zombie',S:'ABCDEF01-e89b-12d3-a456-426614174000'}	{S:"ABCDEF01-e89b-12d3-a456-426614174000",id:"minecraft:zombie",S2:[I;-1412567295,-392490285,-1537850778,337068032]}
+uuid	-	entity	{id:'minecraft:zombie',ML:{M:0L,L:2L}}	{id:"minecraft:zombie",ML:{L:2L,M:0L}}
+uuid	-	entity	{id:'minecraft:zombie',ML:{M:-1L,L:-2L}}	{ML2:[I;-1,-1,-1,-2],id:"minecraft:zombie",ML:{L:-2L,M:-1L}}
+uuid	-	entity	{id:'minecraft:zombie',LMMost:3L}	{LMMost:3L,id:"minecraft:zombie"}
+uuid	-	entity	{id:'minecraft:zombie',LMMost:3L,LMLeast:0L}	{LMLeast:0L,LMMost:3L,id:"minecraft:zombie"}
+uuid	-	entity	{id:'minecraft:zombie',LMMost:-9223372036854775808L,LMLeast:9223372036854775807L}	{LM2:[I;-2147483648,0,2147483647,-1],id:"minecraft:zombie",LMLeast:9223372036854775807L,LMMost:-9223372036854775808L}
+uuid	-	entity	{id:'minecraft:zombie',ML:5}	{id:"minecraft:zombie",ML:5}
+uuid	-	entity	{id:'minecraft:zombie'}	{id:"minecraft:zombie"}
+uuid	-	entity	{id:'minecraft:pig',S:'123e4567-e89b-12d3-a456-426614174000'}	{S:"123e4567-e89b-12d3-a456-426614174000",id:"minecraft:pig"}
+uuid	-	entity	{id:'minecraft:zombie',S:'-1-2-3-4'}	{S:"-1-2-3-4",id:"minecraft:zombie"}
+uuid	-	entity	{id:'minecraft:zombie',S:'+1-+2-+3-+4-+5'}	{S:"+1-+2-+3-+4-+5",id:"minecraft:zombie",S2:[I;1,131075,262144,5]}
+uuid	-	entity	{id:'minecraft:zombie',S:'ffffffffffffffffff-1-2-3-4'}	{S:"ffffffffffffffffff-1-2-3-4",id:"minecraft:zombie"}
+poi	-	poi_chunk	{Sections:{'0':{Records:[{type:'a'},{type:'drop'},{type:'b'}],Valid:1b},'1':{Records:5},'2':{},'10':{Records:[]}},DataVersion:7}	{Sections:{0:{Valid:1b,Records:[{type:"a",seen:1b},{type:"b",seen:1b}]},1:{Records:5},2:{},10:{Records:[]}},DataVersion:7}
+poi	-	poi_chunk	{}	{}
+poi	-	poi_chunk	{Sections:5}	{Sections:5}
+poi	-	poi_chunk	{Sections:{'0':5}}	{Sections:{0:5}}
+poi	badpoi	poi_chunk	{Sections:{}}	EX:IllegalStateException:Poi type is not what was expected.
+entity_rename	newentities	entity	{id:'minecraft:cow',Health:4}	{Health:4,id:"minecraft:cattle"}
+entity_rename	newentities	entity	{id:'minecraft:zombie'}	{id:"minecraft:zombie"}
+entity_rename	newentities	entity	{id:'minecraft:item',Item:{id:'stone',Count:1b}}	{Item:{id:"minecraft:stone",Count:1b},id:"minecraft:item"}
+entity_rename	newentities	entity	{id:'minecraft:pig'}	{id:"minecraft:pig"}
+entity_rename	newentities	entity_tree	{id:'minecraft:cow',Passengers:[{id:'minecraft:cow'},{id:'minecraft:pig'}]}	{Passengers:[{id:"minecraft:cattle"},{id:"minecraft:pig"}],id:"minecraft:cattle"}
+entity_rename_pig	newentities,pigsaddle	entity	{id:'minecraft:cow'}	EX:IllegalStateException:Dynamic type check failed: ((Tag["Saddle", MuType[V101_0]] | EmptyPart), EmptyPartPassthrough) not equal to EmptyPartPassthrough
+entity_rename_pig	newentities,pigsaddle	entity	{id:'minecraft:zombie'}	{id:"minecraft:zombie"}
+entity_rename_ghost	newentities	entity	{id:'minecraft:cow'}	EX:NullPointerException:Cannot invoke "com.mojang.datafixers.types.Type.equals(Object, boolean, boolean)" because "expectedType" is null
+entity_rename_ghost	newentities	entity	{id:'minecraft:zombie'}	{id:"minecraft:zombie"}
+simple_entity_rename	newentities	entity	{id:'minecraft:cow',Health:4}	{Health:4,renamed:1b,id:"minecraft:cattle"}
+simple_entity_rename	newentities	entity	{id:'minecraft:zombie',Health:4}	{Health:4,id:"minecraft:zombie"}
+simple_entity_rename	newentities	entity	{id:'minecraft:cow'}	{renamed:1b,id:"minecraft:cattle"}
+simplest_entity_rename	newentities	entity	{id:'minecraft:cow',Health:4}	{Health:4,id:"minecraft:cattle"}
+simplest_entity_rename	newentities	entity	{id:'minecraft:zombie'}	{id:"minecraft:zombie"}
+simplest_entity_rename	newentities	entity	{id:'minecraft:pig'}	{id:"minecraft:pig"}
+simplest_entity_rename	newentities	entity_name	'cow'	"minecraft:cattle"
+simplest_entity_rename	newentities	entity_name	'minecraft:cow'	"minecraft:cattle"
+simplest_entity_rename	newentities	entity_name	'minecraft:pig'	"minecraft:pig"
+simplest_entity_rename	newentities	entity_name	'Bad Id'	"Bad Id"
+simplest_entity_rename	newentities,pigsaddle	entity	{id:'minecraft:pig'}	EX:IllegalStateException:Dynamic type check failed: ((Tag["Saddle", MuType[V101_0]] | EmptyPart), EmptyPartPassthrough) not equal to EmptyPartPassthrough
+simplest_entity_rename	newentities,pigsaddle	entity	{id:'minecraft:zombie'}	{id:"minecraft:zombie"}
+simplest_entity_rename	newentities,badentityname	entity	{id:'minecraft:cow'}	EX:IllegalStateException:Entity name type is not what was expected.
+simplest_entity_rename_ghost	newentities	entity	{id:'minecraft:cow'}	EX:NullPointerException:Cannot invoke "com.mojang.datafixers.types.Type.equals(Object, boolean, boolean)" because "newEntityType" is null
+simplest_entity_rename_ghost	newentities	entity	{id:'minecraft:zombie'}	{id:"minecraft:zombie"}
+attributes_rename	-	data_components	{'minecraft:attribute_modifiers':[{type:'minecraft:generic.foo',amount:1.0d,id:'x'},{type:'minecraft:other'},{type:5},7]}	{minecraft:attribute_modifiers:[{type:"minecraft:foo",amount:1.0d,id:"x"},{type:"minecraft:other"},{type:5},7]}
+attributes_rename	-	data_components	{'minecraft:attribute_modifiers':5}	{minecraft:attribute_modifiers:5}
+attributes_rename	-	data_components	{'minecraft:attribute_modifiers':{modifiers:[{type:'minecraft:generic.foo'}]}}	{minecraft:attribute_modifiers:{modifiers:[{type:"minecraft:generic.foo"}]}}
+attributes_rename	-	data_components	{}	{}
+attributes_rename	-	entity	{id:'minecraft:zombie',attributes:[{id:'minecraft:generic.foo',base:1.0d},{id:'minecraft:x'},{id:3}]}	{attributes:[{id:"minecraft:foo",base:1.0d},{id:"minecraft:x"},{id:3}],id:"minecraft:zombie"}
+attributes_rename	-	entity	{id:'minecraft:zombie',attributes:5}	{attributes:5,id:"minecraft:zombie"}
+attributes_rename	-	entity	{id:'minecraft:zombie'}	{id:"minecraft:zombie"}
+attributes_rename	-	player	{Inventory:[],attributes:[{id:'minecraft:generic.foo'}]}	{attributes:[{id:"minecraft:foo"}],Inventory:[]}
+attributes_rename	-	player	{attributes:[]}	{attributes:[]}
+attributes_rename_old	-	data_components	{'minecraft:attribute_modifiers':{modifiers:[{type:'minecraft:generic.foo'},{type:'q'}],show_in_tooltip:1b}}	{minecraft:attribute_modifiers:{show_in_tooltip:1b,modifiers:[{type:"minecraft:foo"},{type:"q"}]}}
+attributes_rename_old	-	data_components	{'minecraft:attribute_modifiers':[{type:'minecraft:generic.foo'}]}	{minecraft:attribute_modifiers:[{type:"minecraft:generic.foo"}]}
+attributes_rename_old	-	data_components	{'minecraft:attribute_modifiers':{modifiers:5}}	{minecraft:attribute_modifiers:{modifiers:5}}
+legacy_block_property	-	block_state	{Name:'stone',Properties:{a:'b'}}	{Properties:{a:"b",fixed:"minecraft:stone"},Name:"stone"}
+legacy_block_property	-	block_state	{Name:'minecraft:dirt',Properties:{}}	{Properties:{},Name:"minecraft:dirt"}
+legacy_block_property	-	block_state	{Name:'stone'}	{Name:"stone"}
+legacy_block_property	-	block_state	{Name:5}	{Name:5}
+legacy_block_property	-	block_state	{}	{}
+legacy_block_property	-	block_state	{Name:'minecraft:stone',Properties:5}	{Properties:5,Name:"minecraft:stone"}
+item_rename	-	item_name	'old_item'	"minecraft:new_item"
+item_rename	-	item_name	'minecraft:other'	"minecraft:other"
+item_rename	-	item_name	'Bad Id'	"Bad Id"
+item_rename	-	item_name	'minecraft:old_item'	"minecraft:new_item"
+item_rename	-	item_stack	{id:'old_item',Count:1b,tag:{Items:[{id:'old_item',Count:2b}]}}	{id:"minecraft:new_item",Count:1b,tag:{Items:[{id:"minecraft:new_item",Count:2b}]}}
+item_rename	-	item_stack	{Count:1b}	{Count:1b}
+item_rename	badnames	item_name	'old_item'	EX:IllegalStateException:item name type is not what was expected.
+legacy_block_rename	-	block_name	'old'	"minecraft:new"
+legacy_block_rename	-	block_name	'minecraft:other'	"minecraft:other"
+legacy_block_rename	-	block_name	'Bad Id'	"Bad Id"
+legacy_block_rename	-	block_state	{Name:'old',Properties:{a:'b'}}	{Properties:{a:"b"},Name:"old"}
+legacy_block_rename	-	block_state	{Name:5}	{Name:5}
+legacy_block_rename	-	block_state	{}	{}
+legacy_block_rename	-	block_state	{Name:'minecraft:old'}	{Name:"minecraft:new"}
+legacy_block_rename	-	flat_block_state	'minecraft:old[a=b]'	"minecraft:new[a=b]"
+legacy_block_rename	-	flat_block_state	'old{x:1}'	"old{x:1}"
+legacy_block_rename	-	flat_block_state	'minecraft:old{x:1}[a=b]'	"minecraft:new{x:1}[a=b]"
+legacy_block_rename	-	flat_block_state	'[x]'	"[x]"
+legacy_block_rename	-	flat_block_state	'{x}'	"{x}"
+legacy_block_rename	-	flat_block_state	'minecraft:old'	"minecraft:new"
+legacy_block_rename	-	flat_block_state	5	5
+legacy_block_rename	-	flat_block_state	'minecraft:old[a=b]{x:1}'	"minecraft:new[a=b]{x:1}"
+legacy_block_rename	-	flat_block_state	''	""
+legacy_block_rename	-	flat_block_state	'old'	"old"
+legacy_block_rename	-	flat_block_state	'a[b[c'	"a[b[c"
+legacy_block_rename	badnames	block_name	'old'	EX:IllegalStateException:block type is not what was expected.
+namespaced_type_rename	-	biome	'old_biome'	"minecraft:new_biome"
+namespaced_type_rename	-	biome	'minecraft:other'	"minecraft:other"
+namespaced_type_rename	-	biome	'Bad Id'	"Bad Id"
+namespaced_type_rename	badnames	biome	'old_biome'	EX:IllegalStateException:"biome" is not what was expected.
+block_entity_rename	newbes,dropsign	block_entity	{id:'minecraft:sign',Text1:'x'}	{id:"minecraft:hanging_sign",Text1:"x"}
+block_entity_rename	newbes,dropsign	block_entity	{id:'minecraft:chest',Items:[]}	{Items:[],id:"minecraft:chest"}
+block_entity_rename	newbes,dropsign	block_entity	{id:'sign'}	{id:"minecraft:hanging_sign"}
+advancements_rename	-	advancements	{'minecraft:a':{done:1b},'minecraft:c':2,DataVersion:7}	{minecraft:c:2,minecraft:b:{done:1b},DataVersion:7}
+advancements_rename	-	advancements	{}	{}
+advancements_rename	-	advancements	{'a':1}	{a:1}
+advancements_rename	-	advancements	5	5
+advancements_rename_changes	-	advancements	{'minecraft:a':{done:1b},'minecraft:c':2,DataVersion:7}	{minecraft:c:2,minecraft:b:{done:1b},DataVersion:7}
+advancements_rename_changes	-	advancements	{}	{}
+advancements_rename_changes	-	advancements	{'a':1}	{a:1}
+advancements_rename_changes	-	advancements	5	5
+advancements_rename_all	-	advancements	{'minecraft:a':{done:1b},'minecraft:c':2}	EX:IllegalStateException:Duplicate key NBT["minecraft:z"] (attempted merging values NBT[2] and NBT[{done:1b}])
+advancements_rename_all	-	advancements	{'minecraft:z':1}	{minecraft:z:1}
+write_and_read	pigsaddle	entity	{id:'minecraft:pig',Health:3}	{Health:3,id:"minecraft:pig"}
+write_and_read	pigsaddle	entity	{id:'minecraft:pig',Saddle:{id:'stone',Count:1b}}	{id:"minecraft:pig",Saddle:{id:"minecraft:stone",Count:1b}}
+write_and_read	pigsaddle	entity	{id:'minecraft:zombie'}	{id:"minecraft:zombie"}
+write_and_read	pigsaddle	entity	{id:'minecraft:pig',Saddle:5}	{id:"minecraft:pig",Saddle:5}
+add_new_choices_entity	newentities	entity	{id:'minecraft:cow'}	{id:"minecraft:cow"}
+add_new_choices_entity	newentities	entity	{id:'minecraft:zombie',Health:1}	{Health:1,id:"minecraft:zombie"}
+add_new_choices_entity	dropcow	entity	{id:'minecraft:cow'}	EX:IllegalArgumentException:AddChoices: Unknown type minecraft:cow in 'entity'
+add_new_choices_entity	dropcow	entity	{id:'minecraft:zombie'}	{id:"minecraft:zombie"}
+add_new_choices_block_entity	newbes	block_entity	{id:'minecraft:sign'}	{id:"minecraft:sign"}
+add_new_choices_block_entity	bekey	block_entity	{id:'minecraft:sign'}	EX:IllegalStateException:Could not inject: key type is not the same
+add_field	-	player	{Inventory:[],x:1}	{x:1,added:7,Inventory:[]}
+add_field	-	player	{}	{added:7}
+add_field	-	player	{added:1}	{added:7}
+add_field_path	-	player	{Inner:{Deep:{a:1}}}	{added:7,Inner:{Deep:{a:1}}}
+add_field_path	-	player	{Inner:{}}	{added:7,Inner:{}}
+add_field_path	-	player	{}	{added:7}
+add_field_path	-	player	{Inner:5}	{added:7,Inner:5}
+add_field_path	-	player	{Inner:{Deep:5}}	{added:7,Inner:{Deep:5}}
+add_flag	-	player	{}	{flag:1b}
+add_flag	-	player	{flag:0b}	{flag:0b}
+add_flag	-	player	{flag:5}	{flag:5}
+add_flag	-	player	{Inventory:[{id:'stone'}]}	{Inventory:[{id:"minecraft:stone"}],flag:1b}
+renamer_map	-	-	minecraft:a	minecraft:x
+renamer_no_namespace	-	-	minecraft:a	minecraft:x
+renamer_pair	-	-	minecraft:a	minecraft:x
+renamer_map	-	-	a	minecraft:x
+renamer_no_namespace	-	-	a	a
+renamer_pair	-	-	a	minecraft:x
+renamer_map	-	-	b	b
+renamer_no_namespace	-	-	b	y
+renamer_pair	-	-	b	b
+renamer_map	-	-	minecraft:b	minecraft:b
+renamer_no_namespace	-	-	minecraft:b	minecraft:b
+renamer_pair	-	-	minecraft:b	minecraft:b
+renamer_map	-	-	Bad Id	Bad Id
+renamer_no_namespace	-	-	Bad Id	Bad Id
+renamer_pair	-	-	Bad Id	Bad Id
+renamer_map	-	-		
+renamer_no_namespace	-	-		
+renamer_pair	-	-		
+renamer_map	-	-	minecraft:a 	minecraft:a 
+renamer_no_namespace	-	-	minecraft:a 	minecraft:a 
+renamer_pair	-	-	minecraft:a 	minecraft:a 
+renamer_map	-	-	MINECRAFT:a	MINECRAFT:a
+renamer_no_namespace	-	-	MINECRAFT:a	MINECRAFT:a
+renamer_pair	-	-	MINECRAFT:a	MINECRAFT:a
+renamer_map	-	-	x:a	x:a
+renamer_no_namespace	-	-	x:a	x:a
+renamer_pair	-	-	x:a	x:a

@@ -1,8 +1,9 @@
 //! Port of `net.minecraft.util.datafix` on top of a Rust port of the DFU type system (`com.mojang.datafixers`).
 //!
 //! What exists: the type system and rewrite machinery, `DataFixTypes`, the `References` constants, `DataFixerBuilder`,
-//! `DataFixer` and the global [`data_fixer`] accessor, which registers the ported part of the chain (`fixers`). Until
-//! the chain is complete, `DataFixer::update` panics for lack of a registered fix; `mc-world` depends on this crate.
+//! `DataFixer`, the global [`data_fixer`] accessor, which registers the ported part of the chain (`fixers`), and the
+//! abstract base and family fix classes (`fixes::named_entity_fix`, `fixes::item_rename_fix`, ...). Until the chain is
+//! complete, `DataFixer::update` panics for lack of a registered fix; `mc-world` depends on this crate.
 //!
 //! # Architecture
 //! DFU's statically typed `Type<A>`/`Typed<A>`/optics are ported *dynamically*: a [`typed::Typed`] is
@@ -40,6 +41,8 @@
 //! | `this.fixTypeEverywhere("n", type, ops -> input -> input.mapSecond(this::rename))` | `fix.fix_type_everywhere("n", &ty, move \|_ops, input\| input.map_second(\|v\| Value::Str(rename(v.as_str()))))` |
 //! | `Either.right(Unit.INSTANCE)`, `Pair.of(a, b)`, `pair.getFirst()` | `Value::none()` (or `Value::right(Value::Unit)`), `Value::pair(a, b)`, `v.first()` |
 //! | `typed.updateTyped(entityF, outputType, this::fix)` / `typed.set(finder, value)` | `typed.update_typed_as(&entity_f, &output_type, fix)` / `typed.set(&finder, value)` |
+//! | `new NamedEntityFix(schema, changesType, name, References.ENTITY, "minecraft:zombie") { fix(entity) {..} }` | `named_entity_fix::new("MyFix", &schema, changes_type, name, &References::ENTITY, "minecraft:zombie", \|entity\| ..)` (the class name first; the other abstract bases take their `abstract` methods as closures the same way) |
+//! | `ItemRenameFix.create(schema, name, createRenamer(Map.of(..)))` | `item_rename_fix::create(&schema, name, create_renamer(&[("minecraft:a", "minecraft:b")]))` (`data_fixers::create_renamer*`) |
 //! | `fixerUpper.addSchema(100, V100::new)` / `addSchema(101, SAME)` / `addSchema(808, 1, SAME_NAMESPACED)` / `addFixer(new X(v100))` | `let v100 = b.add_schema(100, schemas::v100::new);` / `b.add_schema(101, Schema::same);` / `b.add_schema_sub(808, 1, Schema::same_namespaced);` / `b.add_fixer(X::new(&v100, true));` |
 //!
 //! A schema class is a [`schema::SchemaDef`] (overrides of `registerEntities` / `registerBlockEntities` /

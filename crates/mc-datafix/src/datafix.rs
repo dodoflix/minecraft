@@ -142,11 +142,11 @@ impl DataFix {
             move |ops, input| {
                 let patched_type = patched2.get().expect("patched type not set yet");
                 let Some(written) = log_partial(patched_type.write_dynamic(ops, &input)) else {
-                    panic!("Could not write the object in {name2}");
+                    panic!("java.lang.RuntimeException: Could not write the object in {name2}");
                 };
                 let fixed = fix(written);
                 let Some((typed, _)) = log_partial(new_type2.read_typed(&fixed)) else {
-                    panic!("Could not read the new object in {name2}");
+                    panic!("java.lang.RuntimeException: Could not read the new object in {name2}");
                 };
                 typed.value
             },
@@ -228,7 +228,7 @@ impl DataFix {
                 let result = f(Typed::new(ty2.clone(), *ops, a));
                 if !new_type2.equals_with(&result.ty, true, false) {
                     panic!(
-                        "Dynamic type check failed: {} not equal to {}",
+                        "java.lang.IllegalStateException: Dynamic type check failed: {} not equal to {}",
                         new_type2, result.ty
                     );
                 }

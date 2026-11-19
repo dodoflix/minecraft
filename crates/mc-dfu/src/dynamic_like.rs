@@ -807,7 +807,9 @@ impl Dynamic {
             k.cast_typed(&self.ops);
             v.cast_typed(&self.ops);
             if let Some((_, old)) = pairs.iter().find(|(pk, _)| *pk == k) {
-                panic!("Duplicate key {k} (attempted merging values {old} and {v})");
+                panic!(
+                    "java.lang.IllegalStateException: Duplicate key {k} (attempted merging values {old} and {v})"
+                );
             }
             pairs.push((k, v));
         }

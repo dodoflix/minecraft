@@ -14,7 +14,7 @@ use std::sync::Arc;
 
 const GOLDEN: &str = include_str!("../fixtures/library.tsv");
 
-fn dump(d: &Dyn) -> String {
+pub(crate) fn dump(d: &Dyn) -> String {
     let join = |it: &mut dyn Iterator<Item = String>| it.collect::<Vec<_>>().join(",");
     match d {
         Dyn::Byte(v) => format!("{v}b"),
@@ -38,11 +38,11 @@ fn dump(d: &Dyn) -> String {
     }
 }
 
-fn dyn_(snbt: &str) -> Dynamic {
+pub(crate) fn dyn_(snbt: &str) -> Dynamic {
     Dynamic::new(NBT, Dyn::from(&mc_nbt::snbt::parse(snbt).unwrap()))
 }
 
-fn dump_dynamic(d: &Dynamic) -> String {
+pub(crate) fn dump_dynamic(d: &Dynamic) -> String {
     dump(d.value())
 }
 
