@@ -19,3 +19,4 @@ mod recorded_schemas;
 mod recordings;
 mod sample_gen;
 mod self_test;
+mod tables;

@@ -20,3 +20,4 @@ mod json_compat;
 mod library;
 mod schema_hooks;
 mod schema_types;
+mod tables;

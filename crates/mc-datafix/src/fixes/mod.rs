@@ -2,7 +2,9 @@
 //! abstract base and family classes (`NamedEntityFix`, `ItemRenameFix`, ...) are ported; each group below receives the
 //! `pub mod` lines of its classes, in alphabetical order, between its `begin`/`end` markers.
 
+pub mod block_state_data;
 pub mod references;
+pub mod tables;
 
 // begin: base and family classes
 pub mod abstract_poi_section_fix;

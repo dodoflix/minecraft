@@ -30,8 +30,15 @@ here.
 
 The data fixer fixtures (crates/mc-datafix/tests/fixtures) are committed: they list the
 class names of the fixes the vanilla server registers and SHA-256 digests of the
-descriptions of its schema types. They are derived from Mojang's server and are
-Mojang's, not relicensed here.
+descriptions of its schema types, and the results of its lookup-table accessors
+(table_accessors.tsv.gz). They are derived from Mojang's server and are Mojang's, not
+relicensed here.
+
+The lookup tables of the data fixes (crates/mc-datafix/src/fixes/data/*.tsv.gz: the
+legacy block state, item, entity, block entity, stat, key, recipe, biome and other
+renaming tables of the fix classes) are committed and embedded in the build. They are
+dumped from Mojang's server by scripts/datafix-oracle.sh --regen and are Mojang's, not
+relicensed here.
 
 One exception is committed in source form: the witty comments and profile report
 comments that Mojang's CrashReport prints (CRASH_NUGGETS and PROFILE_NUGGETS in
