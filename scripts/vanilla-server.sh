@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run the real vanilla 26.3 server (ref/server.jar) as an oracle, in a scratch dir under run/servers/NAME.
+# Run the real vanilla server (ref/server.jar, or an older release with --jar/--java) as an oracle in run/servers/NAME.
 #
 #   vanilla-server.sh start NAME [opts] [-- key=value ...]   start in background, block until "Done (" (or fail)
 #   vanilla-server.sh cmd NAME "say hi"                      send a console command
@@ -11,11 +11,13 @@
 # start opts: --port N (25565)  --seed S  --level-type T (minecraft:normal|minecraft:flat|minecraft:large_biomes|...)
 #             --view-distance N (6)  --simulation-distance N (6)  --gamemode M (creative)  --difficulty D (peaceful)
 #             --reset (wipe the whole scratch dir first)  --xmx 2G
+#             --jar PATH (a server jar other than ref/server.jar)  --java PATH (a java executable other than the one on PATH;
+#             releases up to 1.16.5 need JDK 8)
 # Trailing `key=value` args override/add any server.properties entry.
 # Env VANILLA_JVM_OPTS: extra JVM flags (e.g. "-Dmax.bg.threads=1").
 # Env MC_ACCEPT_EULA=1 is required to start: it writes eula.txt, i.e. accepts the Minecraft EULA in your name.
 # Defaults: online-mode=false, enforce-secure-profile=false, white-list=false, spawn-protection=0.
-# Needs: java, ref/ (scripts/setup-ref.sh).
+# Needs: java, ref/ (scripts/setup-ref.sh) unless --jar and --java are given.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -35,8 +37,8 @@ D="$(dir_of "$name")"
 
 case "$cmd" in
 start)
-  need java mkfifo setsid
-  port=25565 seed="" level_type="minecraft:normal" vd=6 sd=6 gm=creative diff=peaceful reset=0 xmx=2G
+  need mkfifo setsid
+  port=25565 seed="" level_type="minecraft:normal" vd=6 sd=6 gm=creative diff=peaceful reset=0 xmx=2G jar="$ROOT/ref/server.jar" java=java
   declare -A extra=()
   while (($#)); do
     case "$1" in
@@ -48,12 +50,18 @@ start)
       --gamemode) gm="$2"; shift 2;;
       --difficulty) diff="$2"; shift 2;;
       --xmx) xmx="$2"; shift 2;;
+      --jar) jar="$2"; shift 2;;
+      --java) java="$2"; shift 2;;
       --reset) reset=1; shift;;
       --) shift;;
       *=*) extra["${1%%=*}"]="${1#*=}"; shift;;
       *) die "unknown option $1";;
     esac
   done
+  [[ -f "$jar" ]] || die "no server jar at $jar (scripts/setup-ref.sh builds ref/server.jar)"
+  jar="$(readlink -f "$jar")"
+  command -v "$java" >/dev/null || die "no java executable: $java"
+  [[ $java != */* ]] || java="$(readlink -f "$java")"  # the server starts in another directory
   ! alive "$name" || die "$name already running (pid $(pid_of "$name"))"
   require_eula
   ((reset)) && rm -rf "$D"
@@ -82,8 +90,8 @@ start)
   (cd "$D" && setsid bash -c '
       exec 3<>stdin.fifo
       echo $$ > server.pid
-      exec java -Xms512M -Xmx'"$xmx"' '"${VANILLA_JVM_OPTS:-}"' -jar "$1" nogui <&3 >server.out 2>&1
-    ' _ "$ROOT/ref/server.jar" &) 
+      exec "$2" -Xms512M -Xmx'"$xmx"' '"${VANILLA_JVM_OPTS:-}"' -jar "$1" nogui <&3 >server.out 2>&1
+    ' _ "$jar" "$java" &) 
   for _ in $(seq 100); do [[ -s "$D/server.pid" ]] && break; sleep 0.1; done
   # readiness: "Done (1.2s)! For help, type "help""; also fail fast if the process dies
   for _ in $(seq 240); do

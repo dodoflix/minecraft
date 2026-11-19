@@ -375,6 +375,8 @@ pub struct Builder {
     dir: Option<PathBuf>,
     prepare: Option<Prepare>,
     xmx: String,
+    jar: Option<PathBuf>,
+    java: Option<PathBuf>,
 }
 
 impl Builder {
@@ -387,6 +389,8 @@ impl Builder {
             dir: None,
             prepare: None,
             xmx: "1G".into(),
+            jar: None,
+            java: None,
         }
     }
 
@@ -440,6 +444,19 @@ impl Builder {
         self
     }
 
+    /// Runs this server jar instead of `ref/server.jar` (an older vanilla release). Vanilla only.
+    pub fn jar(mut self, jar: impl Into<PathBuf>) -> Self {
+        self.jar = Some(jar.into());
+        self
+    }
+
+    /// Runs the vanilla jar with this `java` executable instead of the one on `PATH` (releases up to 1.16.5 need
+    /// JDK 8). Vanilla only.
+    pub fn java(mut self, java: impl Into<PathBuf>) -> Self {
+        self.java = Some(java.into());
+        self
+    }
+
     /// Starts the server and returns once it answers status pings.
     pub fn start(mut self) -> Result<Server> {
         let permit = permit::acquire();
@@ -482,9 +499,14 @@ impl Builder {
     }
 
     fn prepare_dir(&mut self) -> Result<(PathBuf, Option<TempDir>)> {
-        if matches!(self.program, Program::Vanilla) && !repo_root().join("ref/server.jar").is_file()
-        {
-            return fail("ref/server.jar is missing: run scripts/setup-ref.sh");
+        match (&self.program, &self.jar) {
+            (Program::Vanilla, None) if !repo_root().join("ref/server.jar").is_file() => {
+                return fail("ref/server.jar is missing: run scripts/setup-ref.sh");
+            }
+            (Program::Vanilla, Some(jar)) if !jar.is_file() => {
+                return fail(format!("{} is missing", jar.display()));
+            }
+            _ => {}
         }
         eula_opt_in(std::env::var("MC_ACCEPT_EULA").ok().as_deref())?;
         let io = |what: &str, e: io::Error| Error(format!("{what}: {e}"));
@@ -529,21 +551,33 @@ impl Builder {
             .map_err(|e| Error(format!("write server.properties: {e}")))?;
         let (program, cmd) = match &self.program {
             Program::Vanilla => {
-                let jar = repo_root()
-                    .join("ref/server.jar")
+                let jar = self
+                    .jar
+                    .clone()
+                    .unwrap_or_else(|| repo_root().join("ref/server.jar"));
+                let jar = jar
                     .canonicalize()
-                    .map_err(|e| Error(format!("ref/server.jar: {e}")))?;
+                    .map_err(|e| Error(format!("{}: {e}", jar.display())))?;
                 // A differently named link keeps `pkill -f server.jar` from touching it.
                 let link = dir.join("vanilla-under-test.jar");
                 let _ = fs::remove_file(&link);
                 std::os::unix::fs::symlink(jar, &link)
                     .map_err(|e| Error(format!("link the jar: {e}")))?;
-                let mut cmd = Command::new("java");
+                // Canonical: the server starts in `dir`, which would otherwise be what a relative path resolves against.
+                let java = match &self.java {
+                    // a bare name is looked up on PATH
+                    Some(java) if java.components().count() > 1 => java
+                        .canonicalize()
+                        .map_err(|e| Error(format!("{}: {e}", java.display())))?,
+                    Some(java) => java.clone(),
+                    None => PathBuf::from("java"),
+                };
+                let mut cmd = Command::new(&java);
                 cmd.arg(format!("-Xmx{}", self.xmx))
                     .arg("-jar")
                     .arg(link)
                     .arg("nogui");
-                ("java".to_owned(), cmd)
+                (java.display().to_string(), cmd)
             }
             Program::Ours(bin) => {
                 let mut cmd = Command::new(bin);
@@ -555,7 +589,7 @@ impl Builder {
         cmd.args(&self.args);
         cmd.envs(self.envs.iter().map(|(k, v)| (k, v)));
         let proc = Proc::start(cmd, dir).map_err(|e| match (e.kind(), &self.program) {
-            (io::ErrorKind::NotFound, Program::Vanilla) => Error(
+            (io::ErrorKind::NotFound, Program::Vanilla) if self.java.is_none() => Error(
                 "java was not found on PATH: install JDK 25 (scripts/setup-ref.sh needs it too)"
                     .into(),
             ),
@@ -666,6 +700,18 @@ mod tests {
         let port = listener.local_addr().unwrap().port();
         std::thread::spawn(move || drop(listener.accept()));
         assert!(status_ping(port, false).is_ok());
+    }
+
+    #[test]
+    fn a_missing_jar_is_an_error_naming_it() {
+        let e = Server::vanilla()
+            .jar("/nonexistent/old-server.jar")
+            .java("/nonexistent/bin/java")
+            .start_unready()
+            .err()
+            .expect("no such jar")
+            .to_string();
+        assert!(e.contains("/nonexistent/old-server.jar"), "{e}");
     }
 
     #[test]

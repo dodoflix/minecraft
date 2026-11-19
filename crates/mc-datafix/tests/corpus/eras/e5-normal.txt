@@ -1,0 +1,9 @@
+# The normal world: seed 12345, structures on. A square around the origin is loaded in each dimension so the chunks reach the disk.
+@until 1.21.11 gamerule doDaylightCycle false
+@since 1.21.11 gamerule advance_time false
+@until 1.21.11 gamerule doMobSpawning false
+@since 1.21.11 gamerule spawn_mobs false
+forceload add -64 -64 64 64
+execute in minecraft:the_nether run forceload add -64 -64 64 64
+execute in minecraft:the_end run forceload add 0 0 15 15
+@sleep 60

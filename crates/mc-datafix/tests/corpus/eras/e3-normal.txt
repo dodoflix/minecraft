@@ -1,0 +1,7 @@
+# The normal world: seed 12345, structures on. 1.13 keeps the spawn area; 1.14 and newer also load a square around the origin.
+gamerule doDaylightCycle false
+gamerule doMobSpawning false
+@since 1.14 forceload add -64 -64 64 64
+@since 1.14 execute in minecraft:the_nether run forceload add -64 -64 64 64
+@since 1.14 execute in minecraft:the_end run forceload add 0 0 15 15
+@sleep 45

@@ -1,0 +1,4 @@
+# The normal world: seed 12345, structures on. The spawn area the server prepares at start-up (every dimension up to 1.15) is the whole world.
+gamerule doDaylightCycle false
+gamerule doMobSpawning false
+@sleep 10

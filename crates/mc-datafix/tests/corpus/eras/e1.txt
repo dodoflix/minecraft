@@ -1,0 +1,94 @@
+# 1.7.10 - 1.8.9: numeric item ids, Damage values, string entity ids, Riding, Equipment, legacy NBT.
+# Flat world: @Y@ is the surface (@Y1@ to @Y4@ are the four blocks above it). Everything stays within x 0-40, z 0-40.
+# --- first: the Nether portal. An item that enters it makes the server create the other side, and servers
+# before 1.14 stop ticking entities 15 s (1.7/1.8: 60 s) after start while no player is online.
+setblock 31 @Y@ 40 minecraft:obsidian
+setblock 32 @Y@ 40 minecraft:obsidian
+setblock 31 @Y4@ 40 minecraft:obsidian
+setblock 32 @Y4@ 40 minecraft:obsidian
+setblock 30 @Y1@ 40 minecraft:obsidian
+setblock 30 @Y2@ 40 minecraft:obsidian
+setblock 30 @Y3@ 40 minecraft:obsidian
+setblock 33 @Y1@ 40 minecraft:obsidian
+setblock 33 @Y2@ 40 minecraft:obsidian
+setblock 33 @Y3@ 40 minecraft:obsidian
+setblock 31 @Y1@ 40 minecraft:fire
+summon Item 31 @Y1@ 40 {Item:{id:264s,Count:1b,Damage:0s},PickupDelay:32767s}
+@sleep 6
+gamerule doDaylightCycle false
+gamerule doMobSpawning false
+time set 18000
+difficulty 1
+# --- blocks with legacy data values
+@since 1.8 fill 0 @Y@ 20 15 @Y@ 20 minecraft:wool 14
+@since 1.8 fill 0 @Y@ 22 15 @Y@ 22 minecraft:stained_hardened_clay 3
+@since 1.8 fill 0 @Y@ 24 7 @Y@ 24 minecraft:log 5
+@since 1.8 fill 8 @Y@ 24 15 @Y@ 24 minecraft:stone_stairs 2
+@since 1.8 fill 0 @Y@ 26 15 @Y@ 26 minecraft:double_stone_slab 3
+@until 1.8 setblock 0 @Y@ 20 minecraft:wool 14
+@until 1.8 setblock 1 @Y@ 20 minecraft:log 5
+@until 1.8 setblock 2 @Y@ 20 minecraft:stone_stairs 2
+setblock 3 @Y@ 20 minecraft:red_flower 4
+setblock 4 @Y@ 20 minecraft:double_plant 1
+setblock 5 @Y@ 20 minecraft:leaves 5
+setblock 6 @Y@ 20 minecraft:water
+setblock 7 @Y@ 20 minecraft:lava
+# --- containers and block entities (numeric item ids, Damage as metadata)
+setblock 1 @Y@ 1 minecraft:chest 2 replace {CustomName:"Legacy",Items:[{Slot:0b,id:35s,Count:64b,Damage:14s},{Slot:1b,id:373s,Count:1b,Damage:8193s},{Slot:2b,id:387s,Count:1b,Damage:0s,tag:{title:"T",author:"A",pages:["p1","p2"]}},{Slot:3b,id:403s,Count:1b,Damage:0s,tag:{StoredEnchantments:[{id:16s,lvl:5s}]}},{Slot:4b,id:383s,Count:1b,Damage:50s},{Slot:5b,id:358s,Count:1b,Damage:0s},{Slot:6b,id:397s,Count:1b,Damage:3s,tag:{SkullOwner:"Notch"}},{Slot:7b,id:276s,Count:1b,Damage:0s,tag:{ench:[{id:16s,lvl:3s}],display:{Name:"Sword",Lore:["l"]}}},{Slot:8b,id:298s,Count:1b,Damage:0s,tag:{display:{color:255}}}]}
+setblock 3 @Y@ 1 minecraft:furnace 2 replace {BurnTime:100s,CookTime:50s,Items:[{Slot:0b,id:15s,Count:3b,Damage:0s},{Slot:1b,id:263s,Count:5b,Damage:0s}]}
+setblock 5 @Y@ 1 minecraft:standing_sign 4 replace {Text1:"first",Text2:"second",Text3:"third",Text4:"fourth"}
+setblock 7 @Y@ 1 minecraft:mob_spawner 0 replace {EntityId:"Zombie",SpawnData:{id:"Zombie"},Delay:20s,SpawnCount:4s,SpawnRange:4s}
+setblock 9 @Y@ 1 minecraft:command_block 0 replace {Command:"say hi",CustomName:"@",TrackOutput:1b}
+setblock 11 @Y@ 1 minecraft:flower_pot 1 replace {Item:"minecraft:red_flower",Data:1}
+setblock 13 @Y@ 1 minecraft:skull 1 replace {SkullType:3b,Owner:{Name:"Notch"},Rot:4b}
+setblock 1 @Y@ 3 minecraft:brewing_stand 0 replace {BrewTime:200s,Items:[{Slot:0b,id:373s,Count:1b,Damage:8193s},{Slot:3b,id:372s,Count:1b,Damage:0s}]}
+setblock 3 @Y@ 3 minecraft:jukebox 0 replace {Record:2256,RecordItem:{id:2256s,Count:1b,Damage:0s}}
+setblock 5 @Y@ 3 minecraft:beacon 0 replace {Levels:1,Primary:1,Secondary:3}
+setblock 7 @Y@ 3 minecraft:noteblock 0 replace {note:12b}
+setblock 9 @Y@ 3 minecraft:hopper 0 replace {TransferCooldown:5,Items:[{Slot:0b,id:264s,Count:2b,Damage:0s}]}
+setblock 11 @Y@ 3 minecraft:dispenser 2 replace {Items:[{Slot:0b,id:262s,Count:20b,Damage:0s}]}
+setblock 13 @Y@ 3 minecraft:enchanting_table 0 replace {CustomName:"Table"}
+@since 1.8 setblock 15 @Y@ 3 minecraft:standing_banner 0 replace {Base:1,Patterns:[{Color:2,Pattern:"bs"},{Color:5,Pattern:"cr"}]}
+@since 1.8 setblock 1 @Y@ 5 minecraft:trapped_chest 3 replace {Items:[{Slot:0b,id:279s,Count:1b,Damage:0s}]}
+@since 1.8 setblock 3 @Y@ 5 minecraft:daylight_detector 0 replace {}
+# --- entities
+summon Pig 2 @Y@ 8 {Saddle:1b,Age:-24000}
+summon Sheep 4 @Y@ 8 {Color:5b,Sheared:1b,CustomName:"Dolly",CustomNameVisible:1b}
+summon Cow 6 @Y@ 8 {Age:0,Invulnerable:1b}
+summon Chicken 8 @Y@ 8 {IsChickenJockey:0b}
+summon Villager 10 @Y@ 8 {Profession:1,Career:2,CareerLevel:1,Riches:5,Offers:{Recipes:[{buy:{id:264s,Count:1b,Damage:0s},sell:{id:266s,Count:2b,Damage:0s},uses:0,maxUses:7},{buy:{id:265s,Count:3b,Damage:0s},buyB:{id:35s,Count:1b,Damage:4s},sell:{id:276s,Count:1b,Damage:0s,tag:{ench:[{id:16s,lvl:2s}]}},uses:1,maxUses:5}]}}
+summon Zombie 12 @Y@ 8 {IsVillager:1b,IsBaby:1b,Equipment:[{id:276s,Count:1b,Damage:5s},{},{},{},{id:298s,Count:1b,Damage:0s}],DropChances:[0.5f,0.085f,0.085f,0.085f,0.085f],PersistenceRequired:1b}
+summon Zombie 14 @Y@ 8 {Riding:{id:"Chicken"},PersistenceRequired:1b}
+summon Skeleton 2 @Y@ 10 {SkeletonType:1,Equipment:[{id:261s,Count:1b,Damage:0s},{},{},{},{}],PersistenceRequired:1b}
+summon Creeper 4 @Y@ 10 {powered:1b,Fuse:20s,ExplosionRadius:3b}
+summon Slime 6 @Y@ 10 {Size:2}
+summon Enderman 8 @Y@ 10 {carried:2s,carriedData:0s}
+summon Wolf 10 @Y@ 10 {Owner:"Steve",CollarColor:3b,Sitting:1b,Angry:0b}
+summon Ozelot 12 @Y@ 10 {CatType:2,Sitting:0b,OwnerUUID:"00000000-0000-0000-0000-000000000001"}
+summon EntityHorse 14 @Y@ 10 {Type:0,Variant:260,Tame:1b,Temper:50,SaddleItem:{id:329s,Count:1b,Damage:0s},ArmorItem:{id:417s,Count:1b,Damage:0s},Bred:1b}
+summon Bat 2 @Y@ 12 {BatFlags:0b}
+summon Item 4 @Y@ 12 {Item:{id:264s,Count:3b,Damage:0s},Age:100s,PickupDelay:10s}
+summon XPOrb 6 @Y@ 12 {Value:5s,Age:100s}
+summon MinecartChest 10 @Y@ 12 {Items:[{Slot:0b,id:264s,Count:1b,Damage:0s}],CustomName:"Cart"}
+summon MinecartFurnace 12 @Y@ 12 {PushX:0.0d,PushZ:0.0d,Fuel:100s}
+summon MinecartSpawner 14 @Y@ 12 {EntityId:"Pig",Delay:20s}
+summon Boat 2 @Y@ 14 {}
+summon FallingSand 4 @Y@ 14 {Block:"minecraft:sand",TileID:12,Data:0b,Time:1b}
+setblock 6 @Y@ 29 minecraft:stone
+setblock 8 @Y@ 29 minecraft:stone
+summon Painting 6 @Y@ 30 {Motive:"Kebab",TileX:6,TileY:@Y@,TileZ:29,Direction:0b,Dir:0b}
+summon ItemFrame 8 @Y@ 30 {TileX:8,TileY:@Y@,TileZ:29,Direction:0b,Dir:0b,Item:{id:358s,Count:1b,Damage:0s},ItemRotation:2b}
+@since 1.8 summon ArmorStand 10 @Y@ 14 {ShowArms:1b,Pose:{Head:[10.0f,20.0f,30.0f]},Equipment:[{id:276s,Count:1b,Damage:0s},{},{},{},{id:86s,Count:1b,Damage:0s}],Marker:0b}
+@since 1.8 summon Rabbit 12 @Y@ 14 {RabbitType:1}
+@since 1.8 summon Endermite 14 @Y@ 14 {Lifetime:100}
+# --- scoreboard
+scoreboard objectives add kills dummy Kills
+scoreboard objectives add health health Health
+scoreboard teams add red Red
+scoreboard teams option red color red
+scoreboard teams option red friendlyfire false
+scoreboard players set Steve kills 5
+scoreboard players set Alex kills 7
+scoreboard teams join red Steve
+scoreboard objectives setdisplay sidebar kills
+scoreboard objectives setdisplay list health
