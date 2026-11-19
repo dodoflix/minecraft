@@ -108,7 +108,7 @@ fn builder_with_fix(mark: bool) -> DataFixer {
     let mut b = DataFixerBuilder::new(5023);
     b.add_schema(99, |k, p| Schema::new(k, p, Root));
     let v100 = b.add_schema(100, Schema::same);
-    b.add_fixer(DataFix::new(&v100, false, move |fix| {
+    b.add_fixer(DataFix::new("ZombieMarkFix", &v100, false, move |fix| {
         let ty = fix.input_schema().get_type(&References::ENTITY);
         fix.fix_type_everywhere_typed("ZombieMark", &ty, move |typed| {
             typed.update_remainder(|mut d: Dynamic| {

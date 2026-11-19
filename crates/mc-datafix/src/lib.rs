@@ -48,7 +48,8 @@
 //! `pub fn new(key: i32, parent: Option<Schema>) -> Schema { Schema::new(key, parent, V100) }`.
 //! Entity/block-entity maps are [`schema::TemplateMap`]s (Java `HashMap` iteration order is reproduced).
 //! A fix is a constructor `pub fn new(schema: &Schema, changes_type: bool) -> DataFix` calling
-//! [`datafix::DataFix::new`] with the body of `makeRule()`; abstract base fixes (`NamedEntityFix`, ...) are
+//! [`datafix::DataFix::new`] (first argument: the Java class name, reported by `fix_name`) with the body of
+//! `makeRule()`; abstract base fixes (`NamedEntityFix`, ...) are
 //! constructors taking closures. Hook functions (`Hook.HookFunction`) are [`ty::HookFunction`] values kept in a
 //! `LazyLock` per Java constant (equality is identity).
 //!

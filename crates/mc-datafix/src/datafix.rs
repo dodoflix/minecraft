@@ -2,7 +2,7 @@
 //! the `DataFix` back (for `input_schema()`, `output_schema()` and the `fix_type_everywhere*` helpers).
 //!
 //! ```ignore
-//! DataFix::new(schema, /*changes_type*/ false, |fix| {
+//! DataFix::new("MyFix", schema, /*changes_type*/ false, |fix| {
 //!     let ty = fix.input_schema().get_type(&References::ITEM_STACK);
 //!     fix.fix_type_everywhere_typed("MyFix", &ty, |typed| typed)
 //! })
@@ -17,6 +17,7 @@ use mc_dfu::{Dynamic, Ops};
 use std::sync::{Arc, OnceLock};
 
 struct DataFixInner {
+    name: String,
     output_schema: Schema,
     changes_type: bool,
     make_rule: Box<dyn Fn(&DataFix) -> TypeRewriteRule + Send + Sync>,
@@ -28,18 +29,26 @@ struct DataFixInner {
 pub struct DataFix(Arc<DataFixInner>);
 
 impl DataFix {
-    /// `new DataFix(outputSchema, changesType)` with `makeRule()` given by `make_rule` (called lazily, once).
+    /// `new DataFix(outputSchema, changesType)` with `makeRule()` given by `make_rule` (called lazily, once). `name`
+    /// is the simple name of the Java class (`ItemStackComponentizationFix`), reported by [`DataFix::fix_name`].
     pub fn new(
+        name: &str,
         output_schema: &Schema,
         changes_type: bool,
         make_rule: impl Fn(&DataFix) -> TypeRewriteRule + Send + Sync + 'static,
     ) -> DataFix {
         DataFix(Arc::new(DataFixInner {
+            name: name.to_string(),
             output_schema: output_schema.clone(),
             changes_type,
             make_rule: Box::new(make_rule),
             rule: OnceLock::new(),
         }))
+    }
+
+    /// The simple name of the Java class this fix is the port of.
+    pub fn fix_name(&self) -> &str {
+        &self.0.name
     }
 
     /// `getVersionKey()`.
