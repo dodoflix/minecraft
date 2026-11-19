@@ -364,7 +364,7 @@ impl Entity for Pig {
                     ServerLevelAccessor::get_current_difficulty_at(&*level, self.block_position());
                 let random = &mut self.mob.living.entity.random;
                 level.with_entity(id, |_, zp| {
-                    mob::equipment::populate_default_equipment_slots(zp, random, &difficulty);
+                    zp.populate_default_equipment_slots(random, &difficulty);
                     if let Some(m) = zp.mob_mut() {
                         m.persistence_required = true;
                     }

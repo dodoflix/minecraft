@@ -181,9 +181,7 @@ pub fn entity_interact(
             };
         }
         let item_stack = player.get_item_in_hand(hand);
-        let holder_is_player = leashable::get_leash_holder(e)
-            .and_then(|h| level.get_entity(h))
-            .is_some_and(|h| h.is_player());
+        let holder_is_player = leashable::holder_is_player(e);
         if item_stack.is(Item::LEAD)
             && !holder_is_player
             && leashable::can_have_a_leash_attached_to(level, e, &*player)

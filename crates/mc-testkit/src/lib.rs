@@ -448,6 +448,13 @@ impl Builder {
         for _ in 0..PORT_ATTEMPTS {
             let server = self.launch(&dir)?;
             match server.wait_ready() {
+                // the RCON port came from a second `free_port()` and was taken before the server bound it
+                Ok(())
+                    if server.rcon_port.is_some()
+                        && server.log().contains("Unable to initialise RCON") =>
+                {
+                    last = Some(Error("Unable to initialise RCON".into()));
+                }
                 Ok(()) => {
                     return Ok(Server {
                         _temp: temp,

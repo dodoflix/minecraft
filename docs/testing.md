@@ -162,8 +162,8 @@ crate can use it as a dev-dependency.
   `tp_dim REF DIM X Y Z` is `Entity.teleport` with a transition into `DIM` (a non-player becomes a new entity there and the name
   follows it), `cmd` runs `/execute in`, `/tp` and the rest through the real commands, `dump levels` prints one `LEVEL` line per
   level (game time, forced and loaded chunks, players, border) and `dump players` prints `PL NAME dim=DIM` per player. The mob
-  verbs `tame`, `love`, `leash` and `mob_attack` take their second reference from any level (a player may be away in another
-  one; a horse needs the player in its own level); `ride` needs both in one level.
+  verbs `tame`, `love` and `leash` take their second reference from any level (a player may be away in another
+  one; a horse needs the player in its own level); `ride` and `mob_attack` need both in one level.
 - Persistence scenarios: `save [flush]`, `unload CX CZ`, `unloadall`, `load CX CZ`, `reload CX CZ`, `leave PLAYER` and
   `rejoin PLAYER` (the player logs in again from the saved data and the saved dimension, into that level, through the real login
   path) run in the focused level; the file dumps `region:CX,CZ`, `entityfile:CX,CZ`, `poifile:CX,CZ`, `playerfile:PLAYER`,

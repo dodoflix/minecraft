@@ -179,13 +179,11 @@ fn convert(
             if let Some(pos) = l(from).get_sleeping_pos() {
                 lm(to).set_sleeping_pos(pos);
             }
-            if let Some(holder) = super::leashable::get_leash_holder(from) {
-                let info = level
-                    .get_entity(holder)
-                    .map(super::leashable::LeashHolder::of);
-                if let Some(info) = info {
-                    super::leashable::set_leashed_to(to, level, info, true);
-                }
+            if let Some(holder) = from
+                .leash_data()
+                .and_then(super::leashable::LeashHolder::of_data)
+            {
+                super::leashable::set_leashed_to(to, level, holder, true);
             }
             convert_common(from, to, level, params);
         }

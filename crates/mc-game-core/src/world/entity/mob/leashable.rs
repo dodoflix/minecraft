@@ -18,6 +18,8 @@ pub struct LeashHolder {
     pub id: EntityId,
     pub uuid: Uuid,
     pub knot_pos: Option<BlockPos>,
+    /// `instanceof Player`.
+    pub is_player: bool,
 }
 
 impl LeashHolder {
@@ -26,7 +28,18 @@ impl LeashHolder {
             id: e.id(),
             uuid: e.uuid(),
             knot_pos: e.leash_knot_pos(),
+            is_player: e.is_player(),
         }
+    }
+
+    /// The holder `data` records (`from.getLeashHolder()` wherever the holder is); `None` while nothing holds the lead.
+    pub fn of_data(data: &LeashData) -> Option<Self> {
+        Some(Self {
+            id: data.leash_holder?,
+            uuid: data.holder_uuid?,
+            knot_pos: data.holder_knot_pos,
+            is_player: data.holder_is_player,
+        })
     }
 }
 
@@ -46,6 +59,10 @@ pub struct LeashData {
     pub holder_uuid: Option<Uuid>,
     /// The knot position when the holder is a `LeashFenceKnotEntity`.
     pub holder_knot_pos: Option<BlockPos>,
+    /// `getLeashHolder() instanceof Player`, kept because the holder may be in another level.
+    pub holder_is_player: bool,
+    /// The player holder was replaced by a new object (`PlayerList.respawn`): vanilla's old object is removed.
+    pub holder_gone: bool,
     pub delayed_leash_info: Option<DelayedLeashInfo>,
     pub angular_momentum: f64,
 }
@@ -57,6 +74,7 @@ impl LeashData {
             leash_holder: Some(holder.id),
             holder_uuid: Some(holder.uuid),
             holder_knot_pos: holder.knot_pos,
+            holder_is_player: holder.is_player,
             ..Default::default()
         }
     }
@@ -82,6 +100,8 @@ impl LeashData {
         self.leash_holder = Some(holder.id);
         self.holder_uuid = Some(holder.uuid);
         self.holder_knot_pos = holder.knot_pos;
+        self.holder_is_player = holder.is_player;
+        self.holder_gone = false;
         self.delayed_leash_info = None;
         self.delayed_leash_holder_id = 0;
     }
@@ -180,6 +200,27 @@ pub fn may_be_leashed(e: &dyn Entity) -> bool {
 /// `getLeashHolder()`.
 pub fn get_leash_holder(e: &dyn Entity) -> Option<EntityId> {
     data(e)?.leash_holder
+}
+
+/// `getLeashHolder() instanceof Player`.
+pub fn holder_is_player(e: &dyn Entity) -> bool {
+    data(e).is_some_and(|d| d.leash_holder.is_some() && d.holder_is_player)
+}
+
+/// `PlayerList.respawn` removes the player object `holder` and puts a new one in with the same id: every lead of this
+/// level held by the old object is held by a removed entity and drops on the mob's next tick.
+pub fn mark_player_holder_gone(level: &mut ServerLevel, holder: EntityId) {
+    let held: Vec<EntityId> = level
+        .entity_manager
+        .get_all()
+        .filter(|e| get_leash_holder(*e) == Some(holder))
+        .map(|e| e.id())
+        .collect();
+    for id in held {
+        if let Some(d) = level.get_entity_mut(id).and_then(|e| e.leash_data_mut()) {
+            d.holder_gone = true;
+        }
+    }
 }
 
 /// `leashDistanceTo(entity)`.
@@ -372,16 +413,20 @@ pub fn tick_leash(e: &mut dyn Entity, level: &mut ServerLevel) {
     let Some(holder_id) = data(e).and_then(|d| d.leash_holder) else {
         return;
     };
-    // a player holder is the same object in any level, so a lead outlives its level change (another holder is recreated there)
-    let holder_interacts = level.get_entity(holder_id).map_or_else(
-        || {
-            data(e)
-                .and_then(|d| d.holder_uuid)
-                .and_then(|uuid| level.get_entity_in_any_dimension(uuid))
-                .is_some_and(|h| h.is_player() && h.can_interact_with_level())
-        },
-        |h| h.can_interact_with_level(),
-    );
+    // a player holder is the same object in any level, so a lead outlives its level change (another holder is recreated
+    // there); a player that came back as a new object (relog: new id, respawn: `holder_gone`) is not the holder
+    let holder_interacts = data(e).is_some_and(|d| !d.holder_gone)
+        && level.get_entity(holder_id).map_or_else(
+            || {
+                data(e)
+                    .and_then(|d| d.holder_uuid)
+                    .and_then(|uuid| level.get_entity_in_any_dimension(uuid))
+                    .is_some_and(|h| {
+                        h.id() == holder_id && h.is_player() && h.can_interact_with_level()
+                    })
+            },
+            |h| h.can_interact_with_level(),
+        );
     if !e.can_interact_with_level() || !holder_interacts {
         if level.entity_drops() {
             drop_leash(e, level);

@@ -398,6 +398,12 @@ pub fn respawn(
     };
     let handle = old.handle.clone()?;
     server.player_list.remove_from_players(&handle);
+    // the removed object held leads in any level
+    for dimension in server.level_keys() {
+        server.with_level(&dimension, |_, level| {
+            crate::world::entity::mob::leashable::mark_player_holder_gone(level, id);
+        });
+    }
 
     // 2. the new player
     let mut new = server.with_level(&transition.level, |_, level| {

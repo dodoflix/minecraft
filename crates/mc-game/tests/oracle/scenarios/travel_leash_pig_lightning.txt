@@ -1,0 +1,23 @@
+# A leashed pig struck by lightning becomes a zombified piglin that stays on the lead of its holder, a player away in another level.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+level_seed 7
+fill -8 -62 -8 24 -62 24 minecraft:stone
+in the_nether fill -8 69 -8 24 69 24 minecraft:netherrack
+spawn_player Pl survival 4.5 -61 4.5 0 0
+mobspawn Pig minecraft:pig 6.5 -61 6.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+leash Pig Pl
+tick 3
+tp_dim Pl the_nether 100.5 70 100.5
+tick 2
+cmd summon minecraft:lightning_bolt 6.5 -61 6.5
+tick 3
+dump mobs xentities players
+tick 40
+dump mobs xentities

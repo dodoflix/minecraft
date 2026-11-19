@@ -1,0 +1,25 @@
+# A lead whose player holder logs out in the nether and in again before the cow ticks again: the new player is another object than the
+# holder, so the lead drops (the holder is held by object, not by UUID).
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+level_seed 7
+fill -8 -62 -8 24 -62 24 minecraft:stone
+in the_nether fill -8 69 -8 24 69 24 minecraft:netherrack
+spawn_player Pl survival 4.5 -61 4.5 0 0
+mobspawn Cow minecraft:cow 6.5 -61 6.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+leash Cow Pl
+tick 3
+tp_dim Pl the_nether 100.5 70 100.5
+tick 2
+dump mob:Cow xentities
+note the holder logs out and in again with no tick of the cow in between
+leave Pl
+rejoin Pl
+tick 5
+dump mob:Cow xentities players

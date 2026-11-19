@@ -54,3 +54,9 @@ fn team_push() {
 fn tame_and_leash_reach_a_player_in_another_level() {
     check("mob_tame_remote_owner");
 }
+
+/// `love` takes a player who is in another level than the animal.
+#[test]
+fn love_reaches_a_player_in_another_level() {
+    check("mob_love_remote_player");
+}

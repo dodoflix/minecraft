@@ -179,9 +179,17 @@ pub fn command<H: MobHost>(h: &mut H, a: &[String]) -> bool {
                 });
             }
         }
-        // mob_attack MOB REF           Mob.doHurtTarget(level, REF); prints `MOBATTACK mob ref -> result`
+        // mob_attack MOB REF           Mob.doHurtTarget(level, REF); prints `MOBATTACK mob ref -> result`; a mob never hurts
+        //                              a player of another level
         "mob_attack" => {
             h.boot();
+            let target = h.action_ref(&a[2]);
+            if h.action_level().get_entity(target).is_none() {
+                h.fail(&format!(
+                    "a mob attacks a target of its own level: {} is elsewhere",
+                    a[2]
+                ));
+            }
             let result = with_other(h, &a[1], &a[2], |level, mob, target| {
                 mob.do_hurt_target(level, target)
             });

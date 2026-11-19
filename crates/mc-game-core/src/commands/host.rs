@@ -1750,7 +1750,8 @@ pub fn entity_relation(
             .into_iter()
             .collect()
     };
-    // a held target (`getTarget()`) is the object itself: the player of another level too
+    // a held target (`getTarget()`) or lead holder (`getLeashHolder()`) is the object itself: the player of another level
+    // too
     let target_any_level = |id: Option<EntityId>| -> Vec<EntityRef> {
         let Some(id) = id else {
             return Vec::new();
@@ -1770,7 +1771,12 @@ pub fn entity_relation(
         EntityRelation::Vehicle => here(e.base().vehicle.into_iter().collect()),
         EntityRelation::Controller => here(e.get_controlling_passenger().into_iter().collect()),
         EntityRelation::Passengers => here(e.base().passengers.clone()),
-        EntityRelation::Leasher => here(e.leash_holder().into_iter().collect()),
+        // the holder of a respawned player is a removed object
+        EntityRelation::Leasher => target_any_level(
+            e.leash_data()
+                .filter(|d| !d.holder_gone)
+                .and_then(|d| d.leash_holder),
+        ),
         EntityRelation::Target => target_any_level(e.targeting_target(level)),
         EntityRelation::Owner => any_level(e.ownable_owner_uuid(), false),
         EntityRelation::Attacker => match e.living() {

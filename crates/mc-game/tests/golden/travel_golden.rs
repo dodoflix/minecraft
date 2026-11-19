@@ -153,6 +153,36 @@ fn leash_survives_its_holder_changing_level() {
     common::block_scenario::check("travel_leash_holder_levels");
 }
 
+/// A lead whose player holder logged out and in again is held by another object: it drops.
+#[test]
+fn leash_drops_when_its_holder_relogs() {
+    common::block_scenario::check("travel_leash_holder_relog");
+}
+
+/// A lead whose player holder died and respawned before the mob ticked drops, for a holder of the mob's level and of another.
+#[test]
+fn leash_drops_when_its_holder_respawns() {
+    common::block_scenario::check("travel_leash_holder_respawn");
+}
+
+/// A second player cannot take a lead from a player holder who is in another level.
+#[test]
+fn second_player_cannot_take_a_lead_held_in_another_level() {
+    common::block_scenario::check("travel_leash_second_player");
+}
+
+/// A leashed pig struck by lightning keeps its lead on its holder in another level.
+#[test]
+fn lightning_keeps_the_lead_of_a_pig_held_in_another_level() {
+    common::block_scenario::check("travel_leash_pig_lightning");
+}
+
+/// `execute on leasher` runs as a holder in another level.
+#[test]
+fn execute_on_leasher_reaches_a_holder_in_another_level() {
+    common::block_scenario::check("travel_execute_on_leasher_levels");
+}
+
 /// A boat with a rider and a pig, and a horse with its rider, go through a nether portal and are teleported across levels while seated.
 #[test]
 fn mounted_riders_cross_levels() {
