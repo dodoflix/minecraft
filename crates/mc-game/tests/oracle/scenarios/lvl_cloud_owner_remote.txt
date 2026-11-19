@@ -1,0 +1,31 @@
+# a lingering potion of harming thrown by a player who then goes through a level change before the cloud acts: the cloud's owner is resolved in any level,
+# so the kill of the cow standing in it is credited to the player in the nether (stats, advancements, the kill packets).
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+level_seed 7
+fill -8 -62 -8 8 -62 8 minecraft:stone
+in the_nether fill -8 69 -8 8 69 8 minecraft:netherrack
+spawn_player Pl survival 0.5 -61 0.5 0 90
+give Pl mainhand minecraft:lingering_potion[potion_contents={custom_effects:[{id:"minecraft:instant_damage",amplifier:3}]}]
+mobspawn Cow minecraft:cow 0.5 -61 2.5 0 0 nofinalize {PersistenceRequired:1b,Health:1.0f,NoAI:1b}
+entity_seed Cow 3
+spawn_player Obs creative 6.5 -61 6.5 0 0
+tick 2
+dump packets:Pl:none packets:Obs:none
+use Pl main
+tick 3
+dump xentities
+note the owner leaves the level before the cloud's wait time is over
+tp_dim Pl the_nether 1.5 70 1.5
+tick 1
+dump xentities mob:Cow
+tick 40
+dump xentities mob:Cow stats:Pl advancements:Pl player:Pl packets:Obs:entity_event,damage_event,remove_entities packets:Pl:system_chat,award_stats
+tick 20
+dump xentities stats:Pl

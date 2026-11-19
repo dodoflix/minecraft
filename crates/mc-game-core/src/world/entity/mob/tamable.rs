@@ -67,11 +67,13 @@ pub fn set_owner(e: &mut dyn Entity, owner: Option<&dyn Entity>) {
     set_owner_reference(e, owner.map(|o| o.uuid()));
 }
 
-/// `OwnableEntity.getOwner()`: the living owner while it is in the level.
+/// `OwnableEntity.getOwner()`: the living owner, in any level. A player of another level is its stand-in (found by
+/// [`ServerLevel::get_entity_or_remote_target`](crate::server::level::ServerLevel::get_entity_or_remote_target), not by
+/// `get_entity`); the owner of another kind that is in another level is not found (see
+/// [`get_owner_in_any_dimension`] for its published facts).
 pub fn get_owner(e: &dyn Entity, level: &ServerLevel) -> Option<EntityId> {
-    let uuid = get_owner_reference(e)?;
     level
-        .get_entity_by_uuid(uuid)
+        .get_entity_or_remote_player(get_owner_reference(e)?)
         .filter(|o| o.living().is_some())
         .map(|o| o.id())
 }

@@ -37,3 +37,27 @@ fn experience_orb_follows_a_player_of_another_level() {
 fn experience_orb_follows_a_dead_player_object() {
     check("lvl_orb_follows_dead_player");
 }
+
+/// A mob hurt by a player that then changes level still holds it as the last attacker and hunts it.
+#[test]
+fn last_hurt_by_mob_is_a_player_of_another_level() {
+    check("lvl_last_hurt_by_remote_player");
+}
+
+/// Two animals in love through a player of another level still count the birth for that player.
+#[test]
+fn love_cause_is_a_player_of_another_level() {
+    check("lvl_love_cause_remote_player");
+}
+
+/// The kill of a lingering potion's cloud is credited to its owner, who is in another level.
+#[test]
+fn area_effect_cloud_owner_is_in_another_level() {
+    check("lvl_cloud_owner_remote");
+}
+
+/// Thorns worn by the victim of an arrow of a player in another level hurts that player, with her own random.
+#[test]
+fn thorns_hurt_the_arrow_owner_in_another_level() {
+    check("lvl_thorns_remote_owner");
+}

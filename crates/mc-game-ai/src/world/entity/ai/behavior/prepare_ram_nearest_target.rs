@@ -171,16 +171,18 @@ impl Behavior for PrepareRamNearestTarget {
         _body: &mut dyn Entity,
         _timestamp: i64,
     ) -> bool {
-        self.ram_candidate
-            .as_ref()
-            .is_some_and(|c| level.get_entity(c.target).is_some_and(|t| t.is_alive()))
+        self.ram_candidate.as_ref().is_some_and(|c| {
+            level
+                .get_held_entity(c.target)
+                .is_some_and(|t| t.is_alive())
+        })
     }
 
     fn tick(&mut self, level: &mut ServerLevel, body: &mut dyn Entity, timestamp: i64) {
         let Some(candidate) = self.ram_candidate.clone() else {
             return;
         };
-        let Some(target) = level.get_entity(candidate.target) else {
+        let Some(target) = level.get_held_entity(candidate.target) else {
             return;
         };
         let look = EntityTracker::new(target, true);

@@ -37,7 +37,7 @@ impl Goal for OwnerHurtTargetGoal {
         let Some(owner_id) = tamable::get_owner(tame_animal, level) else {
             return false;
         };
-        let Some(owner) = level.get_entity(owner_id) else {
+        let Some(owner) = level.get_entity_or_remote_target(owner_id) else {
             return false;
         };
         self.owner_last_hurt = owner.living().and_then(|l| l.last_hurt_mob);
@@ -50,8 +50,8 @@ impl Goal for OwnerHurtTargetGoal {
                 &default_conditions(),
             )
             && match (
-                self.owner_last_hurt.and_then(|t| level.get_entity(t)),
-                level.get_entity(owner_id),
+                self.owner_last_hurt.and_then(|t| level.get_held_entity(t)),
+                level.get_entity_or_remote_target(owner_id),
             ) {
                 (Some(target), Some(owner)) => tame_animal.wants_to_attack(level, target, owner),
                 _ => false,
@@ -64,7 +64,9 @@ impl Goal for OwnerHurtTargetGoal {
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         mob.set_target(level, self.owner_last_hurt);
-        if let Some(owner) = tamable::get_owner(mob, level).and_then(|o| level.get_entity(o)) {
+        if let Some(owner) =
+            tamable::get_owner(mob, level).and_then(|o| level.get_entity_or_remote_target(o))
+        {
             self.timestamp = owner.living().map_or(0, |l| l.last_hurt_mob_timestamp);
         }
         self.target_goal.start();

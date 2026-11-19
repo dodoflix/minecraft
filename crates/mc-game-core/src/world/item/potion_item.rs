@@ -253,7 +253,8 @@ impl ItemBehaviour for BottleItem {
                     e.is_alive()
                         && e.as_any()
                             .downcast_ref::<AreaEffectCloud>()
-                            .and_then(|c| c.get_owner(level_ref))
+                            .and_then(|c| c.owner_uuid())
+                            .and_then(|owner| level_ref.get_entity_in_any_dimension(owner))
                             .is_some_and(|o| o.get_type() == EntityType::ENDER_DRAGON)
                 },
             )

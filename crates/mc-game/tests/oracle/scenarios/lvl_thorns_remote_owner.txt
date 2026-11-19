@@ -1,0 +1,33 @@
+# thorns worn by a player that an arrow of a player in another level hits: the effect hurts the arrow's owner in her own level, with her own random
+# (health, damage events, packets of both players).
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+fill -2 99 -2 2 99 12 minecraft:stone
+in the_nether fill -2 99 -2 2 99 12 minecraft:netherrack
+spawn_player Alice survival 0.5 100 0.5 0 0
+in the_nether spawn_player Bob survival 2.5 100 2.5 180 0
+in the_nether give Bob head minecraft:iron_helmet[enchantments={"minecraft:thorns":3}]
+in the_nether give Bob chest minecraft:iron_chestplate[enchantments={"minecraft:thorns":3}]
+in the_nether give Bob legs minecraft:iron_leggings[enchantments={"minecraft:thorns":3}]
+in the_nether give Bob feet minecraft:iron_boots[enchantments={"minecraft:thorns":3}]
+tick 2
+dump packets:Alice:none player:Alice
+in the_nether dump packets:Bob:none player:Bob
+level_seed 5
+spawn Arrow minecraft:arrow 0.5 101.5 0.5 0 0 {Owner:[I;278005000,-707248403,-1814916367,-1817188393],pickup:0b}
+entity_seed Arrow 41
+tp_dim Arrow the_nether 2.5 100.9 -1.5
+velocity Arrow 0 0 1.5
+note the arrow reaches Bob
+tick 3
+dump player:Alice packets:Alice:entity_event,damage_event,hurt_animation,set_health
+in the_nether dump player:Bob packets:Bob:entity_event,damage_event,hurt_animation,set_health
+tick 2
+dump player:Alice
+in the_nether dump player:Bob

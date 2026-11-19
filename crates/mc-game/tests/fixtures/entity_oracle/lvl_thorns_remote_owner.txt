@@ -1,0 +1,12 @@
+P Alice minecraft:player pos=0.5,100.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+P Bob minecraft:player pos=2.5,100.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=-180.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+# the arrow reaches Bob
+P Alice minecraft:player pos=0.5,100.0,0.5 delta=-0.15443214125005889,0.2751840104494096,-0.15443214125005889 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.587853 abs=0.0 hurt=9/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+PKT Alice minecraft:hurt_animation 2b654233ffff
+PKT Alice minecraft:set_health 6a417967d91440a00000
+P Bob minecraft:player pos=2.5,100.0,2.5 delta=0.0,0.2751840104494096,0.2184000286221508 rot=-180.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.62 abs=0.0 hurt=9/20 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+PKT Bob minecraft:damage_event 196600666900
+PKT Bob minecraft:hurt_animation 2b6642b40001
+PKT Bob minecraft:set_health 6a4194f5c31440a00000
+P Alice minecraft:player pos=0.5,100.0,0.5 delta=-0.1278852635404361,0.10905472940649964,-0.1278852635404361 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=15.587853 abs=0.0 hurt=7/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty
+P Bob minecraft:player pos=2.5,100.0,2.5 delta=0.0,0.10905472940649964,0.18085707412654226 rot=-180.0,0.0 og=0 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=18.62 abs=0.0 hurt=7/18 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.1 xp=0/0/0.0 sel=0 main=empty

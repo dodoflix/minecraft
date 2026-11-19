@@ -26,6 +26,8 @@ const AMBIENT_ALPHA: i32 = 38;
 pub enum EffectCause {
     Mob,
     Entity(crate::world::entity::EntityId),
+    /// A living entity that only another level tracks: only an owner, never a source.
+    Remote(uuid::Uuid),
 }
 
 fn data_operation(op: DataOperation) -> AttributeModifierOperation {
@@ -326,11 +328,26 @@ impl MobEffectExt for MobEffect {
                     let resolve = |c: EffectCause| match c {
                         EffectCause::Mob => Some(mob_ref),
                         EffectCause::Entity(id) => level.get_entity_or_lent(id),
+                        EffectCause::Remote(_) => None,
                     };
                     match resolve(source) {
-                        Some(source) => level
-                            .damage_sources()
-                            .indirect_magic(source, owner.and_then(resolve)),
+                        Some(source) => {
+                            let damage_source = level
+                                .damage_sources()
+                                .indirect_magic(source, owner.and_then(resolve));
+                            // an owner that only another level tracks is the causing entity of the source
+                            match owner {
+                                Some(EffectCause::Remote(uuid)) => {
+                                    match level.living_in_other_level(uuid) {
+                                        Some(remote) => {
+                                            level.attribute_to_remote_entity(damage_source, &remote)
+                                        }
+                                        None => damage_source,
+                                    }
+                                }
+                                _ => damage_source,
+                            }
+                        }
                         None => level.damage_sources().magic(),
                     }
                 }

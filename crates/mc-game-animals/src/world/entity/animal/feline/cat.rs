@@ -240,7 +240,9 @@ impl Goal for CatRelaxOnOwnerGoal {
         if !tamable::is_tame(cat) || tamable::is_ordered_to_sit(cat) {
             return false;
         }
-        let Some(owner) = tamable::get_owner(cat, level).and_then(|o| level.get_entity(o)) else {
+        let Some(owner) =
+            tamable::get_owner(cat, level).and_then(|o| level.get_entity_or_remote_target(o))
+        else {
             return false;
         };
         if !owner.is_player() {
@@ -270,7 +272,7 @@ impl Goal for CatRelaxOnOwnerGoal {
             && !tamable::is_ordered_to_sit(cat)
             && self
                 .owner_player
-                .and_then(|p| level.get_entity(p))
+                .and_then(|p| level.get_entity_or_remote_target(p))
                 .is_some_and(|p| p.living().is_some_and(|l| l.is_sleeping()))
             && self.goal_pos.is_some()
             && !self.space_is_occupied(cat, level)
@@ -296,7 +298,7 @@ impl Goal for CatRelaxOnOwnerGoal {
         }
         let sleep_timer = self
             .owner_player
-            .and_then(|p| level.get_entity(p))
+            .and_then(|p| level.get_entity_or_remote_target(p))
             .and_then(|p| p.as_any().downcast_ref::<ServerPlayer>())
             .map_or(0, |p| p.player.sleep_counter);
         if sleep_timer >= 100 {
@@ -330,7 +332,7 @@ impl Goal for CatRelaxOnOwnerGoal {
             f64::from(goal_pos.z()),
             f64::from(1.1f32),
         );
-        let Some(owner) = level.get_entity(owner_id) else {
+        let Some(owner) = level.get_entity_or_remote_target(owner_id) else {
             return;
         };
         if cat.base().distance_to_sqr_vec(owner.position()) < 2.5 {

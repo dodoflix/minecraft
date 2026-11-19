@@ -15,9 +15,10 @@ use super::{
 };
 use crate::registry::typed::damage_type::DamageType;
 use crate::server::level::ServerLevel;
+use crate::server::players::cross_level::{queue_for_entity, queue_for_player_from};
 use crate::world::damagesource::DamageSource;
-use crate::world::entity::EntityId;
 use crate::world::entity::effect::MobEffectInstance;
+use crate::world::entity::{Entity, EntityId};
 use crate::world::item::enchantment::actors::Actors;
 use crate::world::item::enchantment::enchanted_item_in_use::{EnchantedItemInUse, OnBreak};
 use crate::world::level::{BlockGetter, LevelAccessor};
@@ -50,7 +51,14 @@ pub fn apply(
         E::DamageEntity(e) => damage_entity(e, level, actors, enchantment_level, item, entity),
         E::Ignite { duration } => {
             let seconds = duration.calculate(enchantment_level);
-            actors.with(level, entity, |_, e| e.ignite_for_seconds(seconds));
+            match actors.remote_uuid(level, entity) {
+                Some(uuid) => {
+                    queue_for_entity(level, uuid, move |_, e| e.ignite_for_seconds(seconds))
+                }
+                None => {
+                    actors.with(level, entity, |_, e| e.ignite_for_seconds(seconds));
+                }
+            }
         }
         E::ApplyImpulse(e) => apply_impulse(e, level, actors, enchantment_level, entity),
         E::PlaySound(e) => play_sound(e, level, actors, enchantment_level, entity, position),
@@ -191,27 +199,48 @@ fn apply_mob_effect(
         return;
     }
     let registries = level.registries.clone();
-    let picked = actors.with_random(level, entity, |random| {
-        let selected = random_mob_effect(&registries, &e.to_apply, random)?;
-        let ticks = mc_core::math::java::round_f32(
-            mth::random_between(
-                random,
-                e.min_duration.calculate(enchantment_level),
-                e.max_duration.calculate(enchantment_level),
-            ) * 20.0,
-        );
-        let amplifier = mc_core::math::java::round_f32(mth::random_between(
-            random,
-            e.min_amplifier.calculate(enchantment_level),
-            e.max_amplifier.calculate(enchantment_level),
-        ))
-        .max(0);
-        Some((selected, ticks, amplifier))
-    });
-    if let Some((effect, ticks, amplifier)) = picked {
-        let instance = MobEffectInstance::new(effect, ticks, amplifier, false, true, true, None);
+    if let Some(uuid) = actors.remote_uuid(level, entity) {
+        let e = e.clone();
+        queue_for_entity(level, uuid, move |lvl, t| {
+            if let Some(instance) =
+                pick_mob_effect(&registries, &e, enchantment_level, &mut t.base_mut().random)
+            {
+                t.add_effect(lvl, instance, None);
+            }
+        });
+        return;
+    }
+    if let Some(instance) = actors.with_random(level, entity, |random| {
+        pick_mob_effect(&registries, e, enchantment_level, random)
+    }) {
         actors.with(level, entity, |lvl, t| t.add_effect(lvl, instance, None));
     }
+}
+
+/// `ApplyMobEffect.apply`: the effect, duration and amplifier drawn from the affected entity's random.
+fn pick_mob_effect(
+    registries: &crate::registry::RegistryAccess,
+    e: &ApplyMobEffect,
+    enchantment_level: i32,
+    random: &mut dyn RandomSource,
+) -> Option<MobEffectInstance> {
+    let selected = random_mob_effect(registries, &e.to_apply, random)?;
+    let ticks = mc_core::math::java::round_f32(
+        mth::random_between(
+            random,
+            e.min_duration.calculate(enchantment_level),
+            e.max_duration.calculate(enchantment_level),
+        ) * 20.0,
+    );
+    let amplifier = mc_core::math::java::round_f32(mth::random_between(
+        random,
+        e.min_amplifier.calculate(enchantment_level),
+        e.max_amplifier.calculate(enchantment_level),
+    ))
+    .max(0);
+    Some(MobEffectInstance::new(
+        selected, ticks, amplifier, false, true, true, None,
+    ))
 }
 
 /// `ChangeItemDamage.apply`: `itemStack.hurtAndBreak(change, level, player, onBreak)`.
@@ -299,6 +328,29 @@ fn damage_entity(
     item: &EnchantedItemInUse,
     entity: EntityId,
 ) {
+    if let Some(uuid) = actors.remote_uuid(level, entity) {
+        let source = damage_source_of_owner(level, actors, &e.damage_type, item.owner);
+        let (min, max) = (
+            e.min_damage.calculate(enchantment_level),
+            e.max_damage.calculate(enchantment_level),
+        );
+        // `entity.hurtServer(serverLevel, ...)`: vanilla passes the level of the effect, which does not track the player, so only
+        // the damage event of the hurt goes through that level (nobody hears it); the hurt itself runs in the player's own level
+        // shortcut: the block sound and `onMobHurt` effects (infested silverfish) use that level in vanilla; same limit as `kill_from_level`
+        queue_for_player_from(level, uuid, move |own, player, origin| {
+            let damage = mth::random_between(&mut player.base_mut().random, min, max);
+            let Some(source) = source else {
+                return;
+            };
+            if let Some(wearer) = source.causing_entity {
+                own.get_held_entity(wearer);
+            }
+            own.tick_state.hurt_through_other_level = origin.map(|_| player.id());
+            player.hurt_server(own, &source, damage);
+            own.tick_state.hurt_through_other_level = None;
+        });
+        return;
+    }
     let damage = actors.with_random(level, entity, |r| {
         mth::random_between(
             r,

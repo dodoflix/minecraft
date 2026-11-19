@@ -125,15 +125,7 @@ pub trait Projectile: Entity {
         let Some(remote) = self.get_remote_owner(level) else {
             return source;
         };
-        level.ensure_remote_player(&remote);
-        match remote.damage_entity {
-            Some(owner) => {
-                let mut owner = (*owner).clone();
-                owner.position = remote.position;
-                source.with_causing_snapshot(owner)
-            }
-            None => source,
-        }
+        level.attribute_to_remote_entity(source, &remote)
     }
 
     /// `setOwner(entity)`.
@@ -150,9 +142,18 @@ pub trait Projectile: Entity {
         d.owner_id = None;
     }
 
-    /// `getEffectSource()`: the owner, else this projectile.
+    /// `getEffectSource()`: the owner (of any level), else this projectile.
     fn get_effect_source(&self, level: &ServerLevel) -> EntityId {
-        self.get_owner(level).map_or(self.id(), |o| o.id())
+        if let Some(owner) = self.get_owner(level) {
+            return owner.id();
+        }
+        match self.get_remote_owner(level) {
+            Some(remote) => {
+                level.ensure_remote_player(&remote);
+                remote.id
+            }
+            None => self.id(),
+        }
     }
 
     /// `ownedBy(entity)`.
@@ -422,6 +423,20 @@ macro_rules! impl_projectile_entity {
             2
         }
     };
+}
+
+/// `owner.setLastHurtMob(victim)` of an owner that only another level tracks: runs on the owner when the server runs the queue.
+pub fn set_remote_owner_last_hurt_mob(level: &mut ServerLevel, owner: Uuid, victim: EntityId) {
+    let victim_living = level
+        .get_entity(victim)
+        .is_some_and(|t| t.living().is_some());
+    crate::server::players::cross_level::queue_for_entity(level, owner, move |_, owner| {
+        let tick_count = owner.base().tick_count;
+        if let Some(living) = owner.living_mut() {
+            living.last_hurt_mob = victim_living.then_some(victim);
+            living.last_hurt_mob_timestamp = tick_count;
+        }
+    });
 }
 
 /// `Projectile.isPickable()`: `is(EntityTypeTags.REDIRECTABLE_PROJECTILE)`.

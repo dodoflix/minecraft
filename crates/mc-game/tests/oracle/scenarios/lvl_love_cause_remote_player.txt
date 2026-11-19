@@ -1,0 +1,30 @@
+# two cows in love through a player who has gone to the nether when they breed: the love cause is a server player in any level, so the birth
+# still counts for it (animals bred statistic, trigger) and the experience orbs appear.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+level_seed 7
+fill -8 -62 -8 8 -62 8 minecraft:stone
+in the_nether fill -8 69 -8 8 69 8 minecraft:netherrack
+spawn_player Pl survival 0.5 -61 0.5 0 0
+mobspawn A minecraft:cow 2.5 -61 2.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed A 3
+mobspawn B minecraft:cow 3.5 -61 2.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed B 4
+love A Pl
+love B Pl
+tick 1
+dump packets:Pl:none
+tp_dim Pl the_nether 1.5 70 1.5
+tick 1
+dump mob:A mob:B players
+breed A B
+tick 2
+dump xentities stats:Pl advancements:Pl
+tick 5
+dump xentities stats:Pl advancements:Pl packets:Pl:award_stats,update_advancements,system_chat

@@ -99,12 +99,15 @@ fn on_hit_entity(
                 o.set_last_hurt_mob(target);
             }
         });
+    } else if let Some(owner) = wind_charge.get_remote_owner(level).filter(|o| o.is_living) {
+        crate::world::entity::projectile::set_remote_owner_last_hurt_mob(level, owner.uuid, victim);
     }
     let source = {
         let owner = owner_id.and_then(|id| level.get_entity(id));
-        level
+        let source = level
             .damage_sources()
-            .wind_charge(wind_charge.as_dyn(), owner)
+            .wind_charge(wind_charge.as_dyn(), owner);
+        wind_charge.with_remote_owner(level, source)
     };
     level.with_entity(victim, |level, target| {
         if level.lend(wind_charge.as_dyn_mut(), |level| {

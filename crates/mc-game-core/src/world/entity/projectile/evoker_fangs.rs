@@ -64,10 +64,10 @@ impl EvokerFangs {
         self.owner = owner.map(|o| o.uuid());
     }
 
-    /// `getOwner()`.
+    /// `getOwner()` (`getLivingEntity`): in any level; a player of another level is its stand-in.
     pub fn get_owner<'l>(&self, level: &'l ServerLevel) -> Option<&'l dyn Entity> {
         level
-            .get_entity_by_uuid(self.owner?)
+            .get_entity_or_remote_player(self.owner?)
             .filter(|e| e.living().is_some())
     }
 
@@ -80,13 +80,33 @@ impl EvokerFangs {
         if !(target.is_alive() && !target.is_invulnerable() && Some(victim) != owner_id) {
             return;
         }
-        match owner_id.and_then(|id| level.get_entity(id)) {
+        match owner_id.and_then(|id| level.get_entity_or_remote_target(id)) {
             None => {
-                let source = level.damage_sources().magic();
+                let mut source = level.damage_sources().magic();
+                // shortcut: an owner that only another level tracks and is no player has no stand-in, so only what that
+                // level published of it is the cause and its team is not checked, and the effects that act on that owner (thorns, its weapon
+                // enchantments) are skipped; upgrade with a stand-in for every living entity
+                let remote_owner = self
+                    .owner
+                    .and_then(|uuid| level.living_in_other_level(uuid));
+                if let Some(remote) = &remote_owner {
+                    source = level.attribute_to_remote_entity(
+                        level.damage_sources().indirect_magic(self.as_dyn(), None),
+                        remote,
+                    );
+                }
                 level.with_entity(victim, |level, t| {
-                    level.lend(self.as_dyn_mut(), |level| {
+                    if level.lend(self.as_dyn_mut(), |level| {
                         t.hurt_server(level, &source, 6.0)
-                    })
+                    }) && remote_owner.is_some()
+                    {
+                        crate::world::item::enchantment_helper::do_post_attack_effects(
+                            level,
+                            &mut Actors::of(&mut *t),
+                            victim,
+                            &source,
+                        );
+                    }
                 });
             }
             Some(owner) => {

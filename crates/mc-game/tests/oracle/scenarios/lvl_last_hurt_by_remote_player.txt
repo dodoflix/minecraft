@@ -1,0 +1,42 @@
+# mobs that were hurt by a player who then changes level: `getLastHurtByMob` resolves the reference in any level in vanilla, so the revenge goals
+# of a zombie, a skeleton and an iron golem and the `hurtby` field see the player in the other level; a second player stays in the zombie's level.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+level_seed 7
+fill -4 -62 -4 24 -62 24 minecraft:stone
+in the_nether fill -4 69 -4 24 69 24 minecraft:netherrack
+spawn_player Pl survival 4.5 -61 4.5 0 0
+spawn_player Bystander creative 20.5 -61 20.5 0 0
+mobspawn Z minecraft:zombie 8.5 -61 4.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed Z 4
+mobspawn Sk minecraft:skeleton 8.5 -61 8.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed Sk 5
+mobspawn Cow minecraft:cow 12.5 -61 4.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed Cow 6
+tick 2
+dump packets:Pl:none
+hurt Z player_attack 1 by=Pl direct=Pl
+hurt Sk player_attack 1 by=Pl direct=Pl
+hurt Cow player_attack 1 by=Pl direct=Pl
+tick 1
+dump mob:Z mob:Sk mob:Cow
+note the player leaves the level
+tp_dim Pl the_nether 5.5 70 5.5
+tick 1
+dump mob:Z mob:Sk mob:Cow players
+tick 20
+dump mob:Z mob:Sk mob:Cow
+tick 60
+dump mob:Z mob:Sk mob:Cow
+note back in the level
+tp_dim Pl overworld 4.5 -61 4.5
+hurt Z player_attack 1 by=Pl direct=Pl
+tp_dim Pl the_nether 5.5 70 5.5
+tick 30
+dump mob:Z mob:Sk mob:Cow

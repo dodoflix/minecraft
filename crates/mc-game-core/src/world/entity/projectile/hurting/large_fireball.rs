@@ -97,9 +97,13 @@ impl Projectile for LargeFireball {
     fn on_hit_entity(&mut self, level: &mut ServerLevel, hit: &EntityHitResult) {
         let victim = hit.entity;
         let owner_id = self.get_owner(level).map(|o| o.id());
+        let owner = owner_id.and_then(|id| level.get_entity(id));
+        // an owner that only another level tracks makes it an owned fireball too
+        let owned = owner.is_some() || self.get_remote_owner(level).is_some();
         let source = level
             .damage_sources()
-            .fireball(self.as_dyn(), owner_id.and_then(|id| level.get_entity(id)));
+            .fireball(self.as_dyn(), owner.or(owned.then(|| self.as_dyn())));
+        let source = self.with_remote_owner(level, source);
         level.with_entity(victim, |level, target| {
             level.lend(self.as_dyn_mut(), |level| {
                 target.hurt_server(level, &source, 6.0)

@@ -78,9 +78,13 @@ impl Projectile for SmallFireball {
     fn on_hit_entity(&mut self, level: &mut ServerLevel, hit: &EntityHitResult) {
         let victim = hit.entity;
         let owner_id = self.get_owner(level).map(|o| o.id());
+        let owner = owner_id.and_then(|id| level.get_entity(id));
+        // an owner that only another level tracks makes it an owned fireball too
+        let owned = owner.is_some() || self.get_remote_owner(level).is_some();
         let source = level
             .damage_sources()
-            .fireball(self.as_dyn(), owner_id.and_then(|id| level.get_entity(id)));
+            .fireball(self.as_dyn(), owner.or(owned.then(|| self.as_dyn())));
+        let source = self.with_remote_owner(level, source);
         level.with_entity(victim, |level, target| {
             let remaining_fire_ticks = target.get_remaining_fire_ticks();
             target.ignite_for_seconds(5.0);

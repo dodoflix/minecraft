@@ -35,6 +35,7 @@ impl Goal for SitWhenOrderedToGoal {
         if !mob.base().on_ground() {
             return false;
         }
+        // `owner.level() != this.mob.level()`: the owner of another level is not found here
         let Some(owner) = tamable::get_owner(mob, level).and_then(|o| level.get_entity(o)) else {
             return true;
         };

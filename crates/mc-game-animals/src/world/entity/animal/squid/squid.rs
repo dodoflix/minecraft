@@ -241,10 +241,13 @@ pub fn ai_step<E: SquidLike>(e: &mut E, level: &mut ServerLevel) {
 }
 
 /// `getLastHurtByMob()`: the entity that last hurt `e`, resolved through the level (also while that entity is taken
-/// out of its slot because it is the one running, e.g. the attacker of the hit being processed).
+/// out of its slot because it is the one running, e.g. the attacker of the hit being processed), or in another level.
 pub fn get_last_hurt_by_mob(level: &ServerLevel, e: &dyn Entity) -> Option<EntityId> {
     let uuid = l(e).last_hurt_by_mob?;
-    level.entity_manager.id_by_uuid(uuid)
+    level
+        .entity_manager
+        .id_by_uuid(uuid)
+        .or_else(|| level.living_in_other_level(uuid).map(|remote| remote.id))
 }
 
 /// `Squid.hurtServer(level, source, damage)`.

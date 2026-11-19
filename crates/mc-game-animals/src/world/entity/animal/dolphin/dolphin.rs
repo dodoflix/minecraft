@@ -658,7 +658,7 @@ impl Goal for DolphinSwimWithPlayerGoal {
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         self.player
-            .and_then(|id| level.get_entity(id))
+            .and_then(|id| level.get_held_entity(id))
             .is_some_and(|p| {
                 p.is_swimming() && mob.base().distance_to_sqr_vec(p.position()) < 256.0
             })
@@ -677,7 +677,7 @@ impl Goal for DolphinSwimWithPlayerGoal {
         let Some(player) = self.player else { return };
         let y_rot_speed = (mob.get_max_head_y_rot() + 20) as f32;
         let x_rot_angle = mob.get_max_head_x_rot() as f32;
-        let Some(target) = level.get_entity(player) else {
+        let Some(target) = level.get_held_entity(player) else {
             return;
         };
         let (target_pos, target_block, swimming) = (

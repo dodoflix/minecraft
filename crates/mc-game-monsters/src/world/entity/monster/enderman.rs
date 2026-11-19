@@ -505,7 +505,7 @@ impl Goal for EndermanFreezeWhenLookedAt {
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        if let Some(target) = self.target.and_then(|id| level.get_entity(id)) {
+        if let Some(target) = self.target.and_then(|id| level.get_held_entity(id)) {
             let (x, y, z) = (
                 target.base().x(),
                 target.base().get_eye_y(),
@@ -725,7 +725,7 @@ impl Goal for EndermanLookForPlayerGoal {
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
         if let Some(pending) = self.pending_target {
-            let Some(target) = level.get_entity(pending) else {
+            let Some(target) = level.get_held_entity(pending) else {
                 return false;
             };
             if !Self::is_anger_inducing(mob, target, level) {

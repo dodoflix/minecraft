@@ -80,6 +80,11 @@ fn on_hit_as_potion(
         .get_owner(level)
         .map(|o| o.id())
         .filter(|_| effects.iter().any(|e| e.effect.is_instantaneous()));
+    // an owner that only another level tracks (`getOwner()` in any dimension)
+    let remote_owner = p
+        .get_remote_owner(level)
+        .filter(|r| r.is_living && effects.iter().any(|e| e.effect.is_instantaneous()))
+        .map(|r| r.uuid);
     let potion = p.id();
     for id in entities {
         let Some(entity) = level.get_entity(id) else {
@@ -103,7 +108,7 @@ fn on_hit_as_potion(
                     let owner_cause = match owner_id {
                         Some(owner) if !owner_is_victim => Some(EffectCause::Entity(owner)),
                         Some(_) => Some(EffectCause::Mob),
-                        None => None,
+                        None => remote_owner.map(EffectCause::Remote),
                     };
                     for effect_instance in &effects {
                         if effect_instance.effect.is_instantaneous() {

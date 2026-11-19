@@ -110,9 +110,11 @@ impl ItemEntity {
         self.base.entity_data.set_untracked(DATA_ITEM, stack);
     }
 
-    /// `getOwner()` (the `thrower` reference).
+    /// `getOwner()` (the `thrower` reference, in any level): a player of another level is its stand-in.
     pub fn get_owner(&self, level: &ServerLevel) -> Option<EntityId> {
-        level.get_entity_by_uuid(self.thrower?).map(|e| e.id())
+        level
+            .get_entity_or_remote_player(self.thrower?)
+            .map(|e| e.id())
     }
 
     pub fn get_age(&self) -> i32 {

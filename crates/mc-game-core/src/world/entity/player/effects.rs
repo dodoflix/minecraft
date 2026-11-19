@@ -11,7 +11,8 @@ use crate::world::entity::{Entity, EntityId};
 use mc_data::MobEffect;
 use mc_protocol::packets::play::ClientboundRemoveMobEffectPacket;
 
-/// `CriteriaTriggers.EFFECTS_CHANGED.trigger(player, source)`: the source is looked up in the level (or is the player itself).
+/// `CriteriaTriggers.EFFECTS_CHANGED.trigger(player, source)`: the source is looked up in the level (a player of another
+/// level by its stand-in), or is the player itself.
 fn trigger_effects_changed(
     player: &mut ServerPlayer,
     level: &mut ServerLevel,
@@ -19,7 +20,7 @@ fn trigger_effects_changed(
 ) {
     let source: Option<&dyn Entity> = match source {
         Some(id) if id == player.base_id() => Some(&*player),
-        Some(id) => level.get_entity(id),
+        Some(id) => level.get_entity_or_remote_target(id),
         None => None,
     };
     let matches = CriteriaTriggers::EFFECTS_CHANGED.matches(&*level, &*player, source);

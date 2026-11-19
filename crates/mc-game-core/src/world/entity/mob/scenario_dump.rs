@@ -59,14 +59,10 @@ fn mob_fields(
     let f = |k: &str, v: String| (k.to_string(), v);
     let mut out = vec![
         f("target", ctx.name_opt(tick::get_target_checked(e, level))),
-        // `getLastHurtByMob`: a reference to an entity that is no longer in the level resolves to nothing
+        // `getLastHurtByMob`: a reference to an entity that is gone from every level resolves to nothing
         f(
             "hurtby",
-            ctx.name_uuid(l.last_hurt_by_mob.filter(|u| {
-                level
-                    .get_entity_by_uuid(*u)
-                    .is_some_and(|e| e.living().is_some())
-            })),
+            ctx.name_opt(super::combat::get_last_hurt_by_mob(e, level)),
         ),
         f("aggr", b(e.is_aggressive())),
         f("noai", b(m.is_no_ai())),
@@ -223,7 +219,7 @@ static ANIMAL_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
             ("love".into(), animal::get_in_love_time(e).to_string()),
             (
                 "lovecause".into(),
-                ctx.name_opt(animal::get_love_cause(e, level)),
+                ctx.name_uuid(animal::get_love_cause(e, level)),
             ),
         ]
     },

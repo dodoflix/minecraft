@@ -123,6 +123,11 @@ impl PrimedTnt {
             .filter(|e| e.living().is_some())
     }
 
+    /// The `owner` reference.
+    pub fn owner_uuid(&self) -> Option<Uuid> {
+        self.owner
+    }
+
     pub fn set_fuse(&mut self, time: i32) {
         self.base.entity_data.set(DATA_FUSE_ID, time);
     }

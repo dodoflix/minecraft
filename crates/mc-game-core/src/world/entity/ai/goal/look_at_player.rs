@@ -146,7 +146,7 @@ impl Goal for LookAtPlayerGoal {
     }
 
     fn can_continue_to_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(target) = self.look_at.and_then(|t| level.get_entity(t)) else {
+        let Some(target) = self.look_at.and_then(|t| level.get_held_entity(t)) else {
             return false;
         };
         if !target.is_alive() {
@@ -170,7 +170,7 @@ impl Goal for LookAtPlayerGoal {
     }
 
     fn tick(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
-        let Some(target) = self.look_at.and_then(|t| level.get_entity(t)) else {
+        let Some(target) = self.look_at.and_then(|t| level.get_held_entity(t)) else {
             return;
         };
         if target.is_alive() {

@@ -167,18 +167,19 @@ pub fn base_tick_after_portal(entity: &mut dyn Entity, level: &mut ServerLevel) 
         lm(entity).last_hurt_by_player = None;
     }
     if let Some(target) = l(entity).last_hurt_mob
-        && !level.get_entity(target).is_some_and(|t| t.is_alive())
+        && !level.is_alive_in_any_dimension(target)
     {
         lm(entity).last_hurt_mob = None;
     }
-    // the mob being ticked is out of the level's storage, so a mob hurt by itself (its own shulker bullet) resolves through `entity`
+    // the mob being ticked is out of the level's storage, so a mob hurt by itself (its own shulker bullet) resolves through `entity`;
+    // anyone else resolves in any level (`EntityReference.getLivingEntity`)
     let hurt_by_alive = l(entity).last_hurt_by_mob.and_then(|uuid| {
         if uuid == entity.base().uuid {
             Some(entity.is_alive())
         } else {
             level
-                .get_entity_by_uuid(uuid)
-                .filter(|e| e.living().is_some())
+                .get_entity_in_any_dimension(uuid)
+                .filter(|e| e.is_living())
                 .map(|e| e.is_alive())
         }
     });

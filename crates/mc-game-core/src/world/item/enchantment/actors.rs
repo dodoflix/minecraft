@@ -54,6 +54,15 @@ impl<'a> Actors<'a> {
         self.explicit.iter().find(|e| e.id() == id).map(|e| &**e)
     }
 
+    /// The uuid of `id` when it is a player of another level that this level only holds a stand-in of: a write to it goes through
+    /// the server queue ([`crate::server::players::cross_level::queue_for_entity`]), with the player's own random.
+    pub fn remote_uuid(&self, level: &ServerLevel, id: EntityId) -> Option<uuid::Uuid> {
+        if self.explicit(id).is_some() || level.get_entity(id).is_some() {
+            return None;
+        }
+        level.get_entity_or_remote_target(id).map(|e| e.uuid())
+    }
+
     /// Runs `f` with `id` mutably borrowed (taken out of the level unless explicit). The explicit entities other than
     /// `id` are lent to the level meanwhile, so whatever `f` runs finds them by id (a thorns hit credited to the
     /// wearer, who is out of the level).

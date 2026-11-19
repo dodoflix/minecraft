@@ -20,7 +20,7 @@ use super::{
 };
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
-use crate::server::players::cross_level::{queue_for_player, queue_trigger_in_origin};
+use crate::server::players::cross_level::queue_trigger_in_origin;
 use crate::world::entity::movement::collision_context;
 use crate::world::entity::player::ServerPlayer;
 use crate::world::entity::{Entity, EntityId, MoverType};
@@ -670,17 +670,8 @@ pub fn on_hit_entity(
                 o.set_last_hurt_mob(target);
             }
         });
-    } else if let Some(owner) = &remote_owner {
-        // Not implemented: `setLastHurtMob` of an owner other than a player that is in another level
-        let victim_living = level
-            .get_entity(victim)
-            .is_some_and(|t| t.living().is_some());
-        queue_for_player(level, owner.uuid, move |_, player| {
-            let tick_count = player.base().tick_count;
-            let living = player.living_mut().expect("player");
-            living.last_hurt_mob = victim_living.then_some(victim);
-            living.last_hurt_mob_timestamp = tick_count;
-        });
+    } else if let Some(owner) = arrow.get_remote_owner(level).filter(|o| o.is_living) {
+        super::set_remote_owner_last_hurt_mob(level, owner.uuid, victim);
     }
     let on_fire = arrow.is_on_fire();
     let silent = arrow.base().is_silent();

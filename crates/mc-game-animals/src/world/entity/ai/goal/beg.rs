@@ -50,7 +50,7 @@ impl Goal for BegGoal {
     }
 
     fn can_continue_to_use(&mut self, wolf: &mut dyn Entity, level: &mut ServerLevel) -> bool {
-        let Some(player) = self.player.and_then(|p| level.get_entity(p)) else {
+        let Some(player) = self.player.and_then(|p| level.get_held_entity(p)) else {
             return false;
         };
         if !player.is_alive() {
@@ -80,7 +80,7 @@ impl Goal for BegGoal {
 
     fn tick(&mut self, wolf: &mut dyn Entity, level: &mut ServerLevel) {
         let max_x = wolf.get_max_head_x_rot() as f32;
-        if let Some(player) = self.player.and_then(|p| level.get_entity(p)) {
+        if let Some(player) = self.player.and_then(|p| level.get_held_entity(p)) {
             let (x, y, z) = (
                 player.base().x(),
                 player.base().get_eye_y(),

@@ -1725,43 +1725,79 @@ pub fn entity_relation(
     let Some(e) = level.get_entity(entity.id) else {
         return Vec::new();
     };
-    let by_uuid = |uuid: Option<uuid::Uuid>| -> Vec<EntityId> {
-        uuid.and_then(|u| level.get_entity_by_uuid(u))
-            .map(|o| o.id())
+    let here = |ids: Vec<EntityId>| -> Vec<EntityRef> {
+        ids.into_iter()
+            .map(|id| EntityRef {
+                dimension: entity.dimension.clone(),
+                id,
+            })
+            .collect()
+    };
+    // `EntityReference.getEntity(level)`: the referenced entity in any level (`living_only`: `getLivingEntity`)
+    let any_level = |uuid: Option<uuid::Uuid>, living_only: bool| -> Vec<EntityRef> {
+        let Some(uuid) = uuid else {
+            return Vec::new();
+        };
+        std::iter::once(entity.dimension.clone())
+            .chain(server.level_keys())
+            .find_map(|dimension| {
+                let found = server.level(&dimension)?.get_entity_by_uuid(uuid)?;
+                (!living_only || found.living().is_some()).then(|| EntityRef {
+                    dimension,
+                    id: found.id(),
+                })
+            })
             .into_iter()
             .collect()
     };
-    let ids: Vec<EntityId> = match relation {
-        EntityRelation::Vehicle => e.base().vehicle.into_iter().collect(),
-        EntityRelation::Controller => e.get_controlling_passenger().into_iter().collect(),
-        EntityRelation::Passengers => e.base().passengers.clone(),
-        EntityRelation::Leasher => e.leash_holder().into_iter().collect(),
-        EntityRelation::Target => e.targeting_target(level).into_iter().collect(),
-        EntityRelation::Owner => by_uuid(e.ownable_owner_uuid()),
-        EntityRelation::Attacker => e.attackable_last_attacker(level).into_iter().collect(),
+    // a held target (`getTarget()`) is the object itself: the player of another level too
+    let target_any_level = |id: Option<EntityId>| -> Vec<EntityRef> {
+        let Some(id) = id else {
+            return Vec::new();
+        };
+        std::iter::once(entity.dimension.clone())
+            .chain(server.level_keys())
+            .find(|dimension| {
+                server
+                    .level(dimension)
+                    .is_some_and(|l| l.get_entity(id).is_some())
+            })
+            .map(|dimension| EntityRef { dimension, id })
+            .into_iter()
+            .collect()
+    };
+    let related: Vec<EntityRef> = match relation {
+        EntityRelation::Vehicle => here(e.base().vehicle.into_iter().collect()),
+        EntityRelation::Controller => here(e.get_controlling_passenger().into_iter().collect()),
+        EntityRelation::Passengers => here(e.base().passengers.clone()),
+        EntityRelation::Leasher => here(e.leash_holder().into_iter().collect()),
+        EntityRelation::Target => target_any_level(e.targeting_target(level)),
+        EntityRelation::Owner => any_level(e.ownable_owner_uuid(), false),
+        EntityRelation::Attacker => match e.living() {
+            Some(living) => any_level(living.last_hurt_by_mob, true),
+            None => here(e.attackable_last_attacker(level).into_iter().collect()),
+        },
         EntityRelation::Origin => match e.as_projectile() {
-            Some(projectile) => projectile
-                .get_owner(level)
-                .map(|o| o.id())
-                .into_iter()
-                .collect(),
+            Some(projectile) => any_level(projectile.projectile_data().owner, false),
             None => match (
                 e.as_any().downcast_ref::<ItemEntity>(),
                 e.as_any().downcast_ref::<PrimedTnt>(),
                 e.as_any().downcast_ref::<AreaEffectCloud>(),
             ) {
-                (Some(item), _, _) => item.get_owner(level).into_iter().collect(),
-                (_, Some(tnt), _) => tnt.get_owner(level).map(|o| o.id()).into_iter().collect(),
-                (_, _, Some(cloud)) => cloud.get_owner(level).map(|o| o.id()).into_iter().collect(),
+                (Some(item), _, _) => any_level(item.thrower, false),
+                (_, Some(tnt), _) => any_level(tnt.owner_uuid(), true),
+                (_, _, Some(cloud)) => any_level(cloud.owner_uuid(), true),
                 _ => Vec::new(),
             },
         },
     };
-    ids.into_iter()
-        .filter(|&id| level.get_entity(id).is_some_and(|o| !o.is_removed()))
-        .map(|id| EntityRef {
-            dimension: entity.dimension.clone(),
-            id,
+    related
+        .into_iter()
+        .filter(|r| {
+            server
+                .level(&r.dimension)
+                .and_then(|l| l.get_entity(r.id))
+                .is_some_and(|o| !o.is_removed())
         })
         .collect()
 }

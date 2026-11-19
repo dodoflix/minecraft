@@ -204,10 +204,10 @@ impl AreaEffectCloud {
     pub fn set_owner(&mut self, owner: Option<&dyn Entity>) {
         self.owner = owner.map(|o| o.uuid());
     }
-    pub fn get_owner<'l>(&self, level: &'l ServerLevel) -> Option<&'l dyn Entity> {
-        level
-            .get_entity_by_uuid(self.owner?)
-            .filter(|e| e.living().is_some())
+
+    /// The `owner` reference.
+    pub fn owner_uuid(&self) -> Option<uuid::Uuid> {
+        self.owner
     }
 
     /// `serverTick(serverLevel)`.
@@ -252,7 +252,17 @@ impl AreaEffectCloud {
             |e| e.living().is_some(),
             |e| !e.is_spectator(),
         );
-        let owner_id = self.get_owner(level).map(|o| o.id());
+        // `getOwner()` (`getLivingEntity`): in this level, else the copy of one that another level tracks
+        let owner_id = self
+            .owner
+            .and_then(|uuid| level.get_entity_by_uuid(uuid))
+            .filter(|e| e.living().is_some())
+            .map(|e| e.id());
+        let remote_owner = self
+            .owner
+            .filter(|_| owner_id.is_none())
+            .and_then(|uuid| level.living_in_other_level(uuid))
+            .map(|r| r.uuid);
         for id in entities {
             if self.victims.contains_key(&id) {
                 continue;
@@ -271,7 +281,7 @@ impl AreaEffectCloud {
             if dist <= f64::from(radius * radius) {
                 self.victims
                     .insert(id, tick_count + self.reapplication_delay);
-                self.apply_effects(level, id, owner_id, &all_effects);
+                self.apply_effects(level, id, owner_id, remote_owner, &all_effects);
                 if self.radius_on_use != 0.0 {
                     radius += self.radius_on_use;
                     if radius < MINIMAL_RADIUS {
@@ -292,12 +302,14 @@ impl AreaEffectCloud {
     }
 
     /// The effect loop for one victim. The owner (a live entity of the level) is lent out of the level storage for the
-    /// call so it can be passed by reference next to `&mut level`; when the victim is the owner it is its own cause.
+    /// call so it can be passed by reference next to `&mut level`; when the victim is the owner it is its own cause. An
+    /// owner of another level (`remote_owner`) is the cause by what that level published of it.
     fn apply_effects(
         &mut self,
         level: &mut ServerLevel,
         victim: EntityId,
         owner_id: Option<EntityId>,
+        remote_owner: Option<uuid::Uuid>,
         effects: &[MobEffectInstance],
     ) {
         let cloud = self.base.id;
@@ -310,7 +322,7 @@ impl AreaEffectCloud {
                     let owner_cause = match owner_id {
                         Some(owner) if !owner_is_victim => Some(EffectCause::Entity(owner)),
                         Some(_) => Some(EffectCause::Mob),
-                        None => None,
+                        None => remote_owner.map(EffectCause::Remote),
                     };
                     for effect in effects {
                         if effect.effect.is_instantaneous() {

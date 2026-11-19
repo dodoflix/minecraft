@@ -51,7 +51,7 @@ impl ServerPlayer {
             return;
         }
         living_on_item_pickup(level, &*self, Some(thrower), stack);
-        if let Some(owner) = level.get_entity_by_uuid(thrower) {
+        if let Some(owner) = level.get_entity_or_remote_player(thrower) {
             let matches = CriteriaTriggers::THROWN_ITEM_PICKED_UP_BY_PLAYER
                 .matches(&*level, &*self, stack, owner);
             matches.award(level, self);
@@ -60,23 +60,38 @@ impl ServerPlayer {
 }
 
 /// `LivingEntity.onItemPickup(entity)`: `THROWN_ITEM_PICKED_UP_BY_ENTITY.trigger(owner, item, this)` when the item's thrower
-/// (`getOwner()`) is a `ServerPlayer` in the level.
+/// (`getOwner()`) is a `ServerPlayer`; one in another level gets it when the server runs its queue, with the picker read
+/// in this level then.
 pub fn living_on_item_pickup(
     level: &mut ServerLevel,
     picker: &dyn Entity,
     thrower: Option<uuid::Uuid>,
     stack: &ItemStack,
 ) {
-    let Some(owner) = thrower
-        .and_then(|uuid| level.get_entity_by_uuid(uuid))
+    use crate::advancements::triggers::{CriteriaTriggers, TriggerMatches};
+    let Some(uuid) = thrower.filter(|&uuid| level.is_player_in_any_dimension(uuid)) else {
+        return;
+    };
+    let here = level
+        .get_entity_by_uuid(uuid)
         .filter(|e| e.is_player())
-        .map(|e| e.id())
-    else {
+        .map(|e| e.id());
+    let Some(owner) = here else {
+        let stack = stack.clone();
+        crate::server::players::cross_level::queue_trigger_in_origin(
+            level,
+            uuid,
+            vec![picker.id()],
+            move |level, player, entities| match entities {
+                [picker] => CriteriaTriggers::THROWN_ITEM_PICKED_UP_BY_ENTITY
+                    .matches(level, player, &stack, *picker),
+                _ => TriggerMatches::none(),
+            },
+        );
         return;
     };
     level.with_player(owner, |level, owner| {
-        crate::advancements::triggers::CriteriaTriggers::THROWN_ITEM_PICKED_UP_BY_ENTITY
-            .trigger(level, owner, stack, picker);
+        CriteriaTriggers::THROWN_ITEM_PICKED_UP_BY_ENTITY.trigger(level, owner, stack, picker);
     });
 }
 

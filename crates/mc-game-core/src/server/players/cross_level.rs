@@ -94,6 +94,55 @@ pub fn queue_for_player(
     level.queue_server_action(move |server, level| deliver(server, level, uuid, f));
 }
 
+/// Like [`queue_for_player`], and `f` also gets the running level (`None` when the player has come to that level
+/// meanwhile: `level` is the running level then), for code that vanilla runs with the level of the effect.
+pub fn queue_for_player_from(
+    level: &mut ServerLevel,
+    uuid: Uuid,
+    f: impl FnOnce(&mut ServerLevel, &mut ServerPlayer, Option<&mut ServerLevel>) + Send + 'static,
+) {
+    level.queue_server_action(move |server, origin| deliver_from(server, origin, uuid, f));
+}
+
+/// `f` on the entity `uuid` that some level of the server tracks (the owner of an arrow that is no player), once the server
+/// runs the queue. Nothing runs when no level tracks it any more. A level that a caller further up holds is retried the
+/// next time the running level's queue runs.
+pub fn queue_for_entity(
+    level: &mut ServerLevel,
+    uuid: Uuid,
+    f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) + Send + 'static,
+) {
+    level.queue_server_action(move |server, level| deliver_to_entity(server, level, uuid, f));
+}
+
+fn deliver_to_entity(
+    server: &mut MinecraftServer,
+    level: &mut ServerLevel,
+    uuid: Uuid,
+    f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) + Send + 'static,
+) {
+    let Some((dimension, id)) = level
+        .server_state
+        .entities
+        .with(uuid, |remote| (remote.dimension.clone(), remote.id))
+    else {
+        return;
+    };
+    if dimension == level.dimension {
+        level.with_entity(id, f);
+        return;
+    }
+    let mut f = Some(f);
+    let reached = server.with_level(&dimension, |_, other| {
+        other.with_entity(id, f.take().expect("runs once"))
+    });
+    if reached.is_none()
+        && let Some(f) = f
+    {
+        level.defer_server_action(move |server, level| deliver_to_entity(server, level, uuid, f));
+    }
+}
+
 /// A trigger of the player `uuid` that reads the entities `ids` of the running level, while the player is in another
 /// level: the criteria are matched in the running level (the entities' own, with the player visible there) and awarded
 /// in the player's. The entities are read when the server runs the action, not when the trigger fires.

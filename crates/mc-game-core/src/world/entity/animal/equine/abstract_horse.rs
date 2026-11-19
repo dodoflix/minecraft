@@ -496,15 +496,6 @@ pub fn set_owner(e: &mut (impl AbstractHorse + ?Sized), owner: Option<Uuid>) {
     e.horse_mut().owner = owner;
 }
 
-/// `getOwner()` (`OwnableEntity`): the living owner while it is in the level.
-pub fn get_owner(e: &(impl AbstractHorse + ?Sized), level: &ServerLevel) -> Option<EntityId> {
-    let uuid = e.horse().owner?;
-    level
-        .get_entity_by_uuid(uuid)
-        .filter(|o| o.living().is_some())
-        .map(|o| o.id())
-}
-
 /// `getTemper()` / `setTemper(temper)` / `modifyTemper(amount)`.
 pub fn modify_temper(e: &mut (impl AbstractHorse + ?Sized), amount: i32) -> i32 {
     let temper = mth::clamp_i32(e.horse().temper + amount, 0, e.get_max_temper());

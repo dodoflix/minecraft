@@ -3,7 +3,6 @@
 use super::ageable;
 use super::ext;
 use crate::server::level::ServerLevel;
-use crate::stats::stats::Stats;
 use crate::world::entity::experience_orb::ExperienceOrb;
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::item::{InteractionHand, InteractionResult};
@@ -108,13 +107,11 @@ pub fn reset_love(e: &mut dyn Entity) {
     anm(e).in_love = 0;
 }
 
-/// `getLoveCause()`: the player id when it is still in the level.
-pub fn get_love_cause(e: &dyn Entity, level: &ServerLevel) -> Option<EntityId> {
-    let uuid = an(e).love_cause?;
-    level
-        .get_entity_by_uuid(uuid)
-        .filter(|p| p.is_player())
-        .map(|p| p.id())
+/// `getLoveCause()`: the player (`getPlayerInAnyDimension`), wherever it is.
+pub fn get_love_cause(e: &dyn Entity, level: &ServerLevel) -> Option<Uuid> {
+    an(e)
+        .love_cause
+        .filter(|&uuid| level.is_player_in_any_dimension(uuid))
 }
 
 /// `canMate(partner)`: same class and both in love.
@@ -210,10 +207,7 @@ pub fn finalize_spawn_child_from_breeding(
             .and_then(|p| get_love_cause(p, level))
     });
     if let Some(cause) = cause {
-        level.with_player(cause, |level, player| {
-            player.award_stat(level, Stats::ANIMALS_BRED, 1);
-        });
-        ext::trigger_bred_animals(level, cause, e, partner, offspring.as_deref());
+        ext::award_bred_animals(level, cause, e, partner, offspring.as_deref());
     }
     ageable::set_age_in_level(e, level, PARENT_AGE_AFTER_BREEDING);
     level.with_entity(partner, |level, p| {

@@ -12,7 +12,6 @@ use mc_data::block::{Block, BlockState};
 use mc_data::{EntityType, GameEvent, Item, SoundEvent, props};
 use mc_game_ai::world::entity::ai::goal::{FleeSunGoal, JUMP_GOAL_FLAGS, StrollThroughVillageGoal};
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::stats::stats::Stats;
 use mc_game_core::world::entity::ai::goal::move_to_block::{self, MoveToBlock, MoveToBlockData};
 use mc_game_core::world::entity::ai::goal::target::{NearestAttackableTargetGoal, TargetType};
 use mc_game_core::world::entity::ai::goal::{
@@ -191,7 +190,7 @@ impl Goal for DefendTrustedTargetGoal {
         }
         for uuid in fox(mob).get_trusted_entities() {
             let Some(trusted) = level
-                .get_entity_by_uuid(uuid)
+                .get_entity_or_remote_player(uuid)
                 .filter(|e| e.living().is_some())
             else {
                 continue;
@@ -218,7 +217,10 @@ impl Goal for DefendTrustedTargetGoal {
 
     fn start(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) {
         self.inner.target = self.trusted_last_hurt_by;
-        if let Some(trusted) = self.trusted_last_hurt.and_then(|t| level.get_entity(t)) {
+        if let Some(trusted) = self
+            .trusted_last_hurt
+            .and_then(|t| level.get_entity_or_remote_target(t))
+        {
             self.timestamp = combat::get_last_hurt_by_mob_timestamp(trusted);
         }
         mob.play_sound(level, SoundEvent::ENTITY_FOX_AGGRO, 1.0, 1.0);
@@ -306,24 +308,16 @@ fn fox_breed(animal: &mut dyn Entity, level: &mut ServerLevel, partner: EntityId
     let partner_cause = level
         .get_entity(partner)
         .and_then(|p| animal::get_love_cause(p, level));
-    if let Some(uuid) = animal_cause
-        .and_then(|p| level.get_entity(p))
-        .map(|p| p.uuid())
-    {
+    if let Some(uuid) = animal_cause {
         fox_mut(&mut *offspring).add_trusted_entity(uuid);
     }
     if partner_cause != animal_cause
         && let Some(uuid) = partner_cause
-            .and_then(|p| level.get_entity(p))
-            .map(|p| p.uuid())
     {
         fox_mut(&mut *offspring).add_trusted_entity(uuid);
     }
     if let Some(cause) = animal_cause.or(partner_cause) {
-        level.with_player(cause, |level, player| {
-            player.award_stat(level, Stats::ANIMALS_BRED, 1);
-        });
-        ext::trigger_bred_animals(level, cause, animal, partner, Some(&*offspring));
+        ext::award_bred_animals(level, cause, animal, partner, Some(&*offspring));
     }
     ageable::set_age_in_level(animal, level, animal::PARENT_AGE_AFTER_BREEDING);
     level.with_entity(partner, |level, p| {
@@ -883,7 +877,7 @@ impl Goal for FoxPounceGoal {
             }
         }
         let near = target_id
-            .and_then(|t| level.get_entity(t))
+            .and_then(|t| level.get_held_entity(t))
             .is_some_and(|t| ext::distance_to(mob, t) <= 2.0);
         if near {
             if let Some(t) = target_id {

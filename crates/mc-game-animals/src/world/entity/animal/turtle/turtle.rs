@@ -13,7 +13,6 @@ use mc_data::{Attribute, EntityType, GameEvent, Item, SoundEvent};
 use mc_game_core::define_accessor;
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
-use mc_game_core::stats::stats::Stats;
 use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
 use mc_game_core::world::entity::ai::control::{MoveControl, MoveControlBase, Operation};
@@ -305,17 +304,13 @@ impl Goal for TurtlePanicGoal {
 
 /// `TurtleBreedGoal.breed()`.
 fn turtle_breed(animal_e: &mut dyn Entity, level: &mut ServerLevel, partner: EntityId) {
-    let mut love_cause = animal::get_love_cause(animal_e, level);
-    if love_cause.is_none() {
-        love_cause = level
+    let love_cause = animal::get_love_cause(animal_e, level).or_else(|| {
+        level
             .get_entity(partner)
-            .and_then(|p| animal::get_love_cause(p, level));
-    }
+            .and_then(|p| animal::get_love_cause(p, level))
+    });
     if let Some(cause) = love_cause {
-        level.with_player(cause, |level, p| {
-            p.award_stat(level, Stats::ANIMALS_BRED, 1)
-        });
-        ext::trigger_bred_animals(level, cause, animal_e, partner, None);
+        ext::award_bred_animals(level, cause, animal_e, partner, None);
     }
     turtle_mut(animal_e).set_has_egg(true);
     ageable::set_age_in_level(animal_e, level, 6000);

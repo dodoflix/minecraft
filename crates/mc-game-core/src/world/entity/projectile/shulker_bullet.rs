@@ -178,7 +178,9 @@ impl Projectile for ShulkerBullet {
             self.as_dyn(),
             owner_living_id.and_then(|id| level.get_entity(id)),
         );
-        let effect_source = owner_id.unwrap_or(self.id());
+        // an owner that only another level tracks is the cause too
+        let source = self.with_remote_owner(level, source);
+        let effect_source = self.get_effect_source(level);
         level.with_entity(victim, |level, target| {
             if level.lend(self.as_dyn_mut(), |level| {
                 target.hurt_server(level, &source, 4.0)
@@ -319,15 +321,17 @@ impl Entity for ShulkerBullet {
 
     fn tick(&mut self, level: &mut ServerLevel) {
         super::tick(self, level);
+        // `EntityReference.getEntity(finalTarget, level)`: a player of another level by its stand-in
+        // shortcut: a target that is no player and is in another level is dropped; upgrade with a stand-in for every entity
         let final_target_id = self
             .final_target
-            .and_then(|u| level.get_entity_by_uuid(u))
+            .and_then(|u| level.get_entity_or_remote_player(u))
             .map(|e| e.id());
         if final_target_id.is_none() {
             self.final_target = None;
         }
         let target_alive = final_target_id
-            .and_then(|id| level.get_entity(id))
+            .and_then(|id| level.get_entity_or_remote_target(id))
             .is_some_and(|t| t.is_alive() && !(t.is_player() && t.is_spectator()));
         if !target_alive {
             self.apply_gravity();
@@ -365,7 +369,7 @@ impl Entity for ShulkerBullet {
                 self.flight_steps -= 1;
                 if self.flight_steps == 0 {
                     let axis = self.current_move_direction.map(|d| d.get_axis());
-                    if let Some(t) = level.get_entity(target_id) {
+                    if let Some(t) = level.get_entity_or_remote_target(target_id) {
                         self.select_next_move_direction(level, axis, Some(t));
                     }
                 }
@@ -383,10 +387,10 @@ impl Entity for ShulkerBullet {
                         self,
                     );
                 if can_stand {
-                    if let Some(t) = level.get_entity(target_id) {
+                    if let Some(t) = level.get_entity_or_remote_target(target_id) {
                         self.select_next_move_direction(level, Some(axis), Some(t));
                     }
-                } else if let Some(t) = level.get_entity(target_id) {
+                } else if let Some(t) = level.get_entity_or_remote_target(target_id) {
                     let target_pos = t.block_position();
                     if (axis == Axis::X && current.x() == target_pos.x())
                         || (axis == Axis::Z && current.z() == target_pos.z())

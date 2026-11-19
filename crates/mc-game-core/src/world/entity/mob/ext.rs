@@ -238,17 +238,48 @@ pub fn monsters_burn_at(level: &ServerLevel, pos: Vec3) -> bool {
     level.attribute_bool_vec(crate::world::attribute::attributes::MONSTERS_BURN, &pos)
 }
 
-/// `CriteriaTriggers.BRED_ANIMALS.trigger(cause, parent, partner, offspring)` (`cause` is the love-cause player in the level;
-/// `parent` is the running animal).
-pub fn trigger_bred_animals(
+/// `cause.awardStat(Stats.ANIMALS_BRED)` and `CriteriaTriggers.BRED_ANIMALS.trigger(cause, parent, partner, offspring)` for
+/// the love-cause player `cause`, wherever it is: `parent` is the running animal, `offspring` is not in the level yet. A
+/// player of another level gets both when the server runs its queue, with the entities read in this level then.
+pub fn award_bred_animals(
     level: &mut ServerLevel,
-    cause: EntityId,
+    cause: uuid::Uuid,
     parent: &dyn Entity,
     partner: EntityId,
     offspring: Option<&dyn Entity>,
 ) {
+    use crate::advancements::triggers::{CriteriaTriggers, TriggerMatches};
+    let here = level
+        .entity_id_by_uuid(cause)
+        .filter(|&id| level.get_entity(id).is_some());
+    let Some(cause_id) = here else {
+        let mut ids = vec![parent.id(), partner];
+        ids.extend(offspring.map(|o| o.id()));
+        crate::server::players::cross_level::queue_for_player(level, cause, |own, player| {
+            player.award_stat(own, crate::stats::stats::Stats::ANIMALS_BRED, 1);
+        });
+        crate::server::players::cross_level::queue_trigger_in_origin(
+            level,
+            cause,
+            ids,
+            |level, player, entities| match entities {
+                [parent, partner, child @ ..] => CriteriaTriggers::BRED_ANIMALS.matches(
+                    level,
+                    player,
+                    *parent,
+                    *partner,
+                    child.first().copied(),
+                ),
+                _ => TriggerMatches::none(),
+            },
+        );
+        return;
+    };
+    level.with_player(cause_id, |level, player| {
+        player.award_stat(level, crate::stats::stats::Stats::ANIMALS_BRED, 1);
+    });
     let matches = {
-        let Some(player) = level.get_entity(cause).and_then(|e| {
+        let Some(player) = level.get_entity(cause_id).and_then(|e| {
             e.as_any()
                 .downcast_ref::<crate::world::entity::ServerPlayer>()
         }) else {
@@ -257,10 +288,9 @@ pub fn trigger_bred_animals(
         let Some(partner) = level.get_entity(partner) else {
             return;
         };
-        crate::advancements::triggers::CriteriaTriggers::BRED_ANIMALS
-            .matches(&*level, player, parent, partner, offspring)
+        CriteriaTriggers::BRED_ANIMALS.matches(&*level, player, parent, partner, offspring)
     };
-    level.with_player(cause, |level, player| matches.award(level, player));
+    level.with_player(cause_id, |level, player| matches.award(level, player));
 }
 
 /// `CriteriaTriggers.TAME_ANIMAL.trigger(player, animal)`; `animal` is the running entity.

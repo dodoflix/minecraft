@@ -39,6 +39,14 @@ pub enum AnyDimensionEntity<'a> {
 }
 
 impl AnyDimensionEntity<'_> {
+    /// `getType()`.
+    pub fn get_type(&self) -> EntityType {
+        match self {
+            Self::Here(e) => e.get_type(),
+            Self::Elsewhere(r) => r.entity_type,
+        }
+    }
+
     pub fn id(&self) -> EntityId {
         match self {
             Self::Here(e) => e.id(),
@@ -72,6 +80,14 @@ impl AnyDimensionEntity<'_> {
         match self {
             Self::Here(e) => e.living().is_some(),
             Self::Elsewhere(r) => r.is_living,
+        }
+    }
+
+    /// `isAlive()`.
+    pub fn is_alive(&self) -> bool {
+        match self {
+            Self::Here(e) => e.is_alive(),
+            Self::Elsewhere(r) => r.alive,
         }
     }
 
@@ -282,6 +298,17 @@ impl ServerLevel {
         self.remote_targets.get(id)
     }
 
+    /// The entity that a goal or behavior holds by id between ticks (`lookAt`, a begging player, a ram target): vanilla
+    /// keeps the object, which stays valid when it is a player that went to another level. [`ServerLevel::get_entity`], or the
+    /// stand-in of that player (made when first asked for).
+    pub fn get_held_entity(&self, id: EntityId) -> Option<&dyn Entity> {
+        self.get_entity_or_remote_target(id).or_else(|| {
+            let remote = self.server_state.entities.get_by_id(id)?;
+            self.ensure_remote_player(&remote)?;
+            self.remote_targets.get(id)
+        })
+    }
+
     /// Makes the stand-in of `remote` findable by [`ServerLevel::get_entity_or_remote_target`] when it is a player of another level: a
     /// damage source built from a snapshot of its player names the player by id, and the predicates that judge the
     /// source look that entity up in this level. Returns the player's id. The player's saved state reaches the stand-in
@@ -412,6 +439,56 @@ impl ServerLevel {
         uuid: Uuid,
     ) -> Option<crate::server::players::PlayerHandle> {
         self.server_state.roster.get(uuid)
+    }
+
+    /// `EntityReference.get(reference, level, ServerPlayer.class)` as a yes/no: a player of any level (a dead one that is
+    /// removed from its level is none).
+    pub fn is_player_in_any_dimension(&self, uuid: Uuid) -> bool {
+        self.server_state
+            .entities
+            .with(uuid, |remote| remote.is_player)
+            .unwrap_or(false)
+    }
+
+    /// `isAlive()` of the entity `id` that code holds as an object (`lastHurtMob`): an entity of this level, or the copy
+    /// of one that another level tracks (one of this level that its own code has taken out is read from its copy too).
+    pub fn is_alive_in_any_dimension(&self, id: EntityId) -> bool {
+        self.get_entity(id).map_or_else(
+            || {
+                self.server_state
+                    .entities
+                    .get_by_id(id)
+                    .is_some_and(|r| r.alive)
+            },
+            |e| e.is_alive(),
+        )
+    }
+
+    /// The copy of the living entity `uuid` that another level tracks (`getLivingEntity` of a reference whose entity is not
+    /// in this level).
+    pub fn living_in_other_level(&self, uuid: Uuid) -> Option<super::RemoteEntity> {
+        match self.get_entity_in_any_dimension(uuid)? {
+            AnyDimensionEntity::Elsewhere(remote) if remote.is_living => Some(*remote),
+            _ => None,
+        }
+    }
+
+    /// `source` with `remote`, an entity of another level, as its causing entity (a living one: what the copy kept of it, at
+    /// the position of the copy); a player of another level also becomes findable in this one.
+    pub fn attribute_to_remote_entity(
+        &self,
+        source: crate::world::damagesource::DamageSource,
+        remote: &super::RemoteEntity,
+    ) -> crate::world::damagesource::DamageSource {
+        self.ensure_remote_player(remote);
+        match &remote.damage_entity {
+            Some(owner) => {
+                let mut owner = (**owner).clone();
+                owner.position = remote.position;
+                source.with_causing_snapshot(owner)
+            }
+            None => source,
+        }
     }
 
     /// Mutable lookup; call [`ServerLevel::sync_entity`] after changing position/removal state, or use
