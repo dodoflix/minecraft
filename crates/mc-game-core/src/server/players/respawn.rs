@@ -237,8 +237,8 @@ fn restore_from(
     new.entered_nether_position = old.entered_nether_position;
     new.current_explosion_impact_pos = old.current_explosion_impact_pos;
     new.current_explosion_cause = old.current_explosion_cause;
-    new.shoulder_entity_left = std::mem::take(&mut old.shoulder_entity_left);
-    new.shoulder_entity_right = std::mem::take(&mut old.shoulder_entity_right);
+    new.set_shoulder_entity_left(std::mem::take(&mut old.shoulder_entity_left));
+    new.set_shoulder_entity_right(std::mem::take(&mut old.shoulder_entity_right));
     new.player.last_death_location = old.player.last_death_location.take();
     new.player
         .living

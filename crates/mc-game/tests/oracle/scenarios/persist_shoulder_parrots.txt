@@ -1,0 +1,26 @@
+# Parrots on the shoulders are written to the player's data when the player leaves and come back with the variants synched when the player joins
+# again; they fly off the first time the player falls (the sitting down time is not saved).
+level flat
+preload 4
+entity_counter 9000
+level_seed 9001
+difficulty normal
+spawn_player Alice survival 0.5 -60 0.5 0 0
+spawn_player Carol survival 6.5 -60 0.5 0 0
+entity_seed Alice 9010
+tick 30
+nbt Alice {ShoulderEntityLeft:{id:"minecraft:parrot",UUID:[I;0,21,0,21],Variant:3,Health:6.0f,Owner:[I;0,0,0,7],Tame:1b},ShoulderEntityRight:{id:"minecraft:parrot",UUID:[I;0,22,0,22],Variant:1,Health:6.0f}}
+dump edata:Alice nbt:Alice
+note leaving: both parrots are in the file
+leave Alice
+tick 1
+dump playerfile:Alice
+note joining again: the data is read, the variants are synched to the owner and the observer
+rejoin Alice joinburst
+dump edata:Alice nbt:Alice packets:Alice:set_entity_data packets:Carol:set_entity_data,add_entity
+tick 3
+dump edata:Alice mobs
+note a fall: both fly off at once (timestamp 0 of a fresh player is long past)
+set Alice fall_distance 2.0
+tick 2
+dump edata:Alice nbt:Alice mobs

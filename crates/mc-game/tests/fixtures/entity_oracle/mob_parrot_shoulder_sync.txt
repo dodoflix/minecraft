@@ -1,0 +1,70 @@
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+# nothing sits on the shoulders yet
+ED Steve 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:42:01 16:0:00 17:3:00000000 18:1:00 19:19:00 20:19:00
+N Steve {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,Motion:[-0.010539994864564618d,-0.0784000015258789d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:3,warning_level:0}}
+# the parrots are in the owner's box: they land on the shoulders (left first, then right), one after the other
+T 104
+PKT Carol minecraft:set_entity_data 65fe43090341a00000ff
+PKT Carol minecraft:set_entity_data 65ff43050801090340c00000120004130d015627dd98e6be3c21b8a8e92344183641140102ff
+PKT Steve minecraft:set_entity_data 65fd43090341a00000ff
+PKT Steve minecraft:set_entity_data 65ff43050801090340c00000120004130d015627dd98e6be3c21b8a8e92344183641140102ff
+T 105
+PKT Carol minecraft:remove_entities 4e01ff43
+PKT Steve minecraft:set_entity_data 65fd43131305ff
+T 106
+PKT Steve minecraft:set_entity_data 65fd43141303ff
+T 107
+# on the shoulders: the parrots are gone from the world
+ED Steve 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:42:01 16:0:00 17:3:00000000 18:1:00 19:19:05 20:19:03
+N Steve {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,Motion:[0.0d,-0.0784000015258789d,0.0d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,ShoulderEntityLeft:{AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:6.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],NoGravity:1b,OnGround:0b,Owner:[I;1445453208,-423740383,-1196889821,1142437441],PersistenceRequired:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Rotation:[138.31711f,-40.0f],Sitting:0b,UUID:[I;-2049847192,1593000216,-1448754344,-1772727502],Variant:4,attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:parrot"},ShoulderEntityRight:{AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:6.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[-0.0032563268355993505d,0.007280000155568119d,-0.006511124096771789d],NoGravity:1b,OnGround:0b,Owner:[I;1445453208,-423740383,-1196889821,1142437441],PersistenceRequired:1b,PortalCooldown:0,Pos:[0.49642161896510706d,-59.992000000059605d,0.49284491878118425d],Rotation:[153.43497f,0.0f],Sitting:0b,UUID:[I;1311446817,-440777774,-2028021367,1663467519],Variant:2,attributes:[{base:0.20000000298023224d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:parrot"},SleepTimer:0s,XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:107,warning_level:0}}
+# a fall right after sitting down: the guard of 20 ticks keeps them on
+T 108
+T 109
+T 110
+T 111
+T 112
+T 113
+T 114
+T 115
+T 116
+T 117
+T 118
+T 119
+T 120
+T 121
+T 122
+T 123
+T 124
+T 125
+T 126
+PKT Carol minecraft:add_entity 01814485d1d0685ef34118a9a5c35896565332633fe0000000000000c04da666668000003fe000000000000000e3626200
+PKT Carol minecraft:set_entity_data 658144050801090340c00000120004130d015627dd98e6be3c21b8a8e92344183641140104ff
+PKT Carol minecraft:add_entity 0182444e2b1721e5ba43d2871ed98963267fff633fe0000000000000c04da666668000003fe000000000000051fe7f2901d9006d6d00
+PKT Carol minecraft:set_entity_data 658244050801090340c00000120004130d015627dd98e6be3c21b8a8e92344183641140102ff
+PKT Steve minecraft:set_entity_data 658144050801090340c00000120004130d015627dd98e6be3c21b8a8e92344183641140104ff
+PKT Steve minecraft:set_entity_data 658244050801090340c00000120004130d015627dd98e6be3c21b8a8e92344183641140102ff
+T 127
+PKT Carol minecraft:set_entity_data 658144050801090340c00000120004130d015627dd98e6be3c21b8a8e92344183641140104ff
+PKT Carol minecraft:set_entity_data 658244050801090340c00000120004130d015627dd98e6be3c21b8a8e92344183641140102ff
+PKT Steve minecraft:set_entity_data 658144050801090340c00000120004130d015627dd98e6be3c21b8a8e92344183641140104ff
+PKT Steve minecraft:set_entity_data 65fd43131300141300ff
+PKT Steve minecraft:set_entity_data 658244050801090340c00000120004130d015627dd98e6be3c21b8a8e92344183641140102ff
+T 128
+PKT Carol minecraft:set_entity_data 658244050800ff
+PKT Steve minecraft:set_entity_data 658244050800ff
+T 129
+T 130
+T 131
+T 132
+T 133
+T 134
+T 135
+T 136
+T 137
+E parrot#1 minecraft:parrot pos=-0.9670103402139042,-58.91849332954022,-0.8449144103753605 delta=-0.16074644904303045,0.03766440805470528,-0.14901042155677496 rot=136.7728,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.4 zza=0.4 xxa=0.0 yya=-0.4 head=136.39383 body=136.7728 nav=moving stuck=0 navspeed=1.0 ntarget=-8,-59,-8 path=3/9/1/-8,-59,-8 nodes=0,-59,0:OPEN:0.0;-1,-59,-1:OPEN:0.0;-2,-59,-2:OPEN:0.0;-3,-59,-3:OPEN:0.0;-4,-59,-4:OPEN:0.0;-5,-59,-5:OPEN:0.0;-6,-59,-6:OPEN:0.0;-7,-59,-7:OPEN:0.0;-8,-59,-8:OPEN:0.0 goals=2:Parrot$ParrotWanderGoal:MOVE tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:flying_speed:0.4000000059604645;minecraft:follow_range:16.0;minecraft:max_health:6.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Steve sitting=0 ordered=0 variant=gray flap=19.8 flapspeed=1.0 flapping=0.9 nextflap=1.5745653 party=0 jukebox=-
+E parrot#2 minecraft:parrot pos=1.5765661164127536,-60.0,1.413475190897513 delta=0.0725533739815227,-0.0728000020980835,0.061617110509943084 rot=153.43497,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=153.43497 body=153.43497 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:attack_damage:3.0;minecraft:flying_speed:0.4000000059604645;minecraft:follow_range:16.0;minecraft:max_health:6.0;minecraft:movement_speed:0.20000000298023224 age=0 baby=0 forcedage=0 love=0 lovecause=- tame=1 owner=Steve sitting=0 ordered=0 variant=green flap=19.278 flapspeed=0.39999998 flapping=0.7289999 nextflap=1.0 party=0 jukebox=-
+ED Steve 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:41a00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:42:01 16:0:00 17:3:00000000 18:1:00 19:19:00 20:19:00
+N Steve {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},DataVersion:5023,DeathTime:0s,Dimension:"minecraft:overworld",EnderItems:[],FallFlying:0b,Fire:-20s,Health:20.0f,HurtTime:0s,Inventory:[],Invulnerable:0b,Motion:[-0.002178142688441162d,-0.0784000015258789d,-0.0015331134444589673d],OnGround:1b,PortalCooldown:0,Pos:[0.5d,-60.0d,0.5d],Rotation:[0.0f,0.0f],Score:0,SelectedItemSlot:0,SleepTimer:0s,XpLevel:0,XpP:0.0f,XpSeed:0,XpTotal:0,abilities:{flySpeed:0.05f,flying:0b,instabuild:0b,invulnerable:0b,mayBuild:1b,mayfly:0b,walkSpeed:0.1f},attributes:[{base:3.0d,id:"minecraft:entity_interaction_range"},{base:0.10000000149011612d,id:"minecraft:movement_speed"},{base:4.5d,id:"minecraft:block_interaction_range"},{base:6.0E7d,id:"minecraft:waypoint_transmit_range"}],current_impulse_context_reset_grace_time:0,fall_distance:2.0d,foodExhaustionLevel:0.0f,foodLevel:20,foodSaturationLevel:5.0f,foodTickTimer:0,playerGameType:0,post_effects:[],recipeBook:{recipes:["minecraft:crafting_table"],toBeDisplayed:["minecraft:crafting_table"]},seenCredits:0b,spawn_extra_particles_on_fall:0b,warden_spawn_tracker:{cooldown_ticks:0,ticks_since_last_warning:137,warning_level:0}}
+E parrot#1 minecraft:parrot pos=-0.9670103402139042,-58.91849332954022,-0.8449144103753605 delta=-0.16074644904303045,0.03766440805470528,-0.14901042155677496 rot=136.7728,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-
+E parrot#2 minecraft:parrot pos=1.5765661164127536,-60.0,1.413475190897513 delta=0.0725533739815227,-0.0728000020980835,0.061617110509943084 rot=153.43497,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=6.0 abs=0.0 hurt=0/0 death=0 fx=-

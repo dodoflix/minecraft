@@ -1409,14 +1409,18 @@ impl Entity for ServerPlayer {
                     .filter_map(|s| Identifier::parse(s).ok()),
             );
         }
-        self.shoulder_entity_left = input
-            .get_compound("ShoulderEntityLeft")
-            .cloned()
-            .unwrap_or_default();
-        self.shoulder_entity_right = input
-            .get_compound("ShoulderEntityRight")
-            .cloned()
-            .unwrap_or_default();
+        self.set_shoulder_entity_left(
+            input
+                .get_compound("ShoulderEntityLeft")
+                .cloned()
+                .unwrap_or_default(),
+        );
+        self.set_shoulder_entity_right(
+            input
+                .get_compound("ShoulderEntityRight")
+                .cloned()
+                .unwrap_or_default(),
+        );
         self.saved_ender_pearls = input
             .get_list("ender_pearls")
             .map(|l| l.iter().filter_map(|t| t.as_compound().cloned()).collect())

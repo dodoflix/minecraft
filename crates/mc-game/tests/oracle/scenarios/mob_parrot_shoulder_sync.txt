@@ -1,0 +1,35 @@
+# Two tamed parrots land on their owner's shoulders: the owner's synched shoulder variants are written (left first, then right), the observer sees the
+# parrots vanish and the owner's data change, a fall right after sitting down does not shake them off for 20 ticks, then they fly off next to the owner
+# with the owner set again and the variants cleared.
+level flat
+preload 4
+entity_counter 8700
+level_seed 8701
+difficulty normal
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Carol survival 6.5 -60 0.5 0 0
+mobspawn P minecraft:parrot 3.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,Variant:2}
+mobspawn Q minecraft:parrot 1.0 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,Variant:4}
+entity_seed P 8710
+entity_seed Q 8711
+entity_seed Steve 8712
+tick 3
+tame P Steve
+tame Q Steve
+note nothing sits on the shoulders yet
+dump edata:Steve nbt:Steve
+tick 100
+note the parrots are in the owner's box: they land on the shoulders (left first, then right), one after the other
+tp P 0.5 -60.0 0.5
+tp Q 0.5 -60.0 0.5
+watch packets:Carol:set_entity_data,remove_entities packets:Steve:set_entity_data
+tick 4
+watch off
+note on the shoulders: the parrots are gone from the world
+dump edata:Steve nbt:Steve entities
+note a fall right after sitting down: the guard of 20 ticks keeps them on
+set Steve fall_distance 2.0
+watch packets:Carol:set_entity_data,add_entity,remove_entities packets:Steve:set_entity_data
+tick 30
+watch off
+dump mobs edata:Steve nbt:Steve entities

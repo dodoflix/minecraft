@@ -75,6 +75,24 @@ fn parrot_shoulder() {
     check("mob_parrot_shoulder");
 }
 
+/// Dropping shoulder parrots: falling, swimming, flying, sleeping and powder snow, the owner set again and the shoulder variants cleared.
+#[test]
+fn parrot_shoulder_drops() {
+    check("mob_parrot_shoulder_drops");
+}
+
+/// The owner's random draws for the shoulder parrots' ambient sound and imitation, silent ones and other entities.
+#[test]
+fn parrot_shoulder_sound() {
+    check("mob_parrot_shoulder_sound");
+}
+
+/// Landing on both shoulders: the synched shoulder variants, the 20-tick guard and the flight off again.
+#[test]
+fn parrot_shoulder_sync() {
+    check("mob_parrot_shoulder_sync");
+}
+
 /// Imitating nearby mobs and the flap state.
 #[test]
 fn parrot_imitate() {

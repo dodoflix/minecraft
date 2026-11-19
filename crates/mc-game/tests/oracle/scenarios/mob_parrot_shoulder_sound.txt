@@ -1,0 +1,26 @@
+# A parrot on the shoulder draws one random per tick (one in 200) from the owner's own random source, per shoulder: a silent one draws nothing, a
+# tag that is not a parrot makes no sound. A parrot imitates a mob within 20 blocks of the owner or else makes its own sound at a random pitch.
+level flat
+preload 7
+entity_counter 8900
+level_seed 8901
+difficulty normal
+time 6000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+spawn_player Alex survival 40.5 -60 0.5 0 0
+spawn_player Kim survival 80.5 -60 0.5 0 0
+mobspawn Z minecraft:zombie 5.5 -60 8.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Steve 8910
+entity_seed Alex 8911
+entity_seed Kim 8912
+entity_seed Z 8913
+tick 30
+note Steve: two parrots, a zombie is near; Alex: a parrot and a silent one, nothing near; Kim: a silent parrot and a pig
+nbt Steve {ShoulderEntityLeft:{id:"minecraft:parrot",UUID:[I;0,11,0,11],Variant:2,Health:6.0f},ShoulderEntityRight:{id:"minecraft:parrot",UUID:[I;0,12,0,12],Variant:4,Health:6.0f}}
+nbt Alex {ShoulderEntityLeft:{id:"minecraft:parrot",UUID:[I;0,13,0,13],Variant:0,Health:6.0f},ShoulderEntityRight:{id:"minecraft:parrot",UUID:[I;0,14,0,14],Variant:1,Health:6.0f,Silent:1b}}
+nbt Kim {ShoulderEntityLeft:{id:"minecraft:parrot",UUID:[I;0,15,0,15],Variant:3,Health:6.0f,Silent:1b},ShoulderEntityRight:{id:"minecraft:pig",UUID:[I;0,16,0,16],Health:10.0f}}
+dump rng:Steve rng:Alex rng:Kim
+watch events
+tick 800
+watch off
+dump rng:Steve rng:Alex rng:Kim

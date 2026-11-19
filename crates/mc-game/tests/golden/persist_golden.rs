@@ -61,6 +61,12 @@ fn populated_player_data_round_trips() {
     check("persist_player_populated");
 }
 
+/// Parrots on the shoulders are saved on leaving, synched again on joining, and fly off on the first fall.
+#[test]
+fn shoulder_parrots_round_trip() {
+    check("persist_shoulder_parrots");
+}
+
 /// The statistics and progress files are written by a world save and when the player leaves, not while the player plays.
 #[test]
 fn statistics_and_progress_files_are_written_on_save_and_leave() {

@@ -1,0 +1,67 @@
+# Shoulder entities fly off when the owner falls, swims, flies, sleeps or stands in powder snow, and stay with an owner that does none of these. The
+# entities come back next to the owner (a tameable one with the owner set again, a parrot without an owner tag too), half a block higher up, and the
+# synched shoulder variants are cleared.
+level flat
+preload 6
+entity_counter 8800
+level_seed 8801
+difficulty normal
+time 18000
+block 12 -61 0 minecraft:water[level=0]
+block 42 -60 0 minecraft:powder_snow
+block 24 -60 0 minecraft:red_bed[facing=south,occupied=false,part=foot]
+block 24 -60 1 minecraft:red_bed[facing=south,occupied=false,part=head]
+spawn_player Alice survival 0.5 -60 0.5 0 0
+spawn_player Bob survival 6.5 -60 0.5 0 0
+spawn_player Cara creative 18.5 -60 0.5 0 0
+spawn_player Dan survival 23.5 -60 0.5 0 0
+spawn_player Eve survival 36.5 -60 0.5 0 0
+spawn_player Fay survival 48.5 -60 0.5 0 0
+spawn_player Gus survival 54.5 -60 0.5 0 0
+entity_seed Alice 8810
+entity_seed Bob 8811
+entity_seed Cara 8812
+entity_seed Dan 8813
+entity_seed Eve 8814
+entity_seed Fay 8815
+entity_seed Gus 8816
+tick 30
+note a parrot with an owner and variant (left) and a cat with none (right) on Alice, a parrot on Bob and Cara and Dan, a pig on Eve and Fay, a green parrot on Gus
+nbt Alice {ShoulderEntityLeft:{id:"minecraft:parrot",UUID:[I;0,1,0,1],Variant:2,Health:6.0f,Owner:[I;0,0,0,7],Tame:1b},ShoulderEntityRight:{id:"minecraft:cat",UUID:[I;0,2,0,2],variant:"minecraft:tabby",Health:10.0f}}
+nbt Bob {ShoulderEntityLeft:{id:"minecraft:parrot",UUID:[I;0,3,0,3],Variant:4,Health:6.0f}}
+nbt Cara {ShoulderEntityRight:{id:"minecraft:parrot",UUID:[I;0,4,0,4],Variant:9,Health:6.0f}}
+nbt Dan {ShoulderEntityLeft:{id:"minecraft:parrot",UUID:[I;0,5,0,5],Variant:1,Health:6.0f}}
+nbt Eve {ShoulderEntityLeft:{id:"minecraft:pig",UUID:[I;0,6,0,6],Health:10.0f}}
+nbt Fay {ShoulderEntityLeft:{id:"minecraft:pig",UUID:[I;0,7,0,7],Health:10.0f}}
+nbt Gus {ShoulderEntityLeft:{id:"minecraft:parrot",UUID:[I;0,8,0,8],Variant:0,Health:6.0f},ShoulderEntityRight:{id:"minecraft:parrot",UUID:[I;0,9,0,9],Variant:3,Health:6.0f}}
+dump edata:Alice edata:Bob edata:Cara edata:Dan edata:Eve edata:Fay edata:Gus
+tick 3
+note nobody is falling, swimming, flying or asleep: everything stays
+dump edata:Alice edata:Bob edata:Cara edata:Dan edata:Eve edata:Fay edata:Gus mobs
+note Alice falls beyond half a block
+set Alice fall_distance 0.5
+tick 2
+dump edata:Alice mobs
+set Alice fall_distance 0.75
+tick 2
+dump edata:Alice nbt:Alice mobs
+note Bob moves into the water
+tp Bob 12.5 -61 0.5
+tick 2
+dump edata:Bob mobs
+note Cara flies
+nbt Cara {abilities:{flying:1b,mayfly:1b}}
+tick 2
+dump edata:Cara mobs
+note Dan goes to bed
+use_on Dan 24 -60 1 up
+tick 3
+dump edata:Dan mobs
+note Eve stands in powder snow
+tp Eve 42.5 -60 0.5
+tick 3
+dump edata:Eve mobs
+note Gus has two parrots, a fall makes both leave in the same tick
+set Gus fall_distance 3.0
+tick 2
+dump edata:Gus nbt:Gus mobs entities

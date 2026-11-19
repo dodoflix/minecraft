@@ -2,10 +2,12 @@
 //! `removeEntitiesOnShoulder`.
 //!
 
-use super::ServerPlayer;
+use super::{DATA_SHOULDER_PARROT_LEFT, DATA_SHOULDER_PARROT_RIGHT, ServerPlayer};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
+use crate::world::entity::animal::parrot::parrot::ParrotVariant;
 use crate::world::entity::factory::{EntitySpawnRequest, create_and_load};
+use crate::world::entity::mob::{MobKind, tamable};
 use mc_core::random::RandomSource;
 use mc_data::enums::EntitySpawnReason;
 use mc_nbt::CompoundTag;
@@ -81,9 +83,9 @@ impl ServerPlayer {
             return false;
         }
         if self.shoulder_entity_left.is_empty() {
-            self.shoulder_entity_left = entity_tag;
+            self.set_shoulder_entity_left(entity_tag);
         } else if self.shoulder_entity_right.is_empty() {
-            self.shoulder_entity_right = entity_tag;
+            self.set_shoulder_entity_right(entity_tag);
         } else {
             return false;
         }
@@ -94,11 +96,31 @@ impl ServerPlayer {
     /// `removeEntitiesOnShoulder()`: respawns the shoulder entities next to the player (not within 20 ticks of sitting down).
     pub fn remove_entities_on_shoulder(&mut self, level: &mut ServerLevel) {
         if self.time_entity_sat_on_shoulder + 20 < level.game_time() {
-            let left = std::mem::take(&mut self.shoulder_entity_left);
+            let left = self.shoulder_entity_left.clone();
             self.respawn_entity_on_shoulder(level, &left);
-            let right = std::mem::take(&mut self.shoulder_entity_right);
+            self.set_shoulder_entity_left(CompoundTag::new());
+            let right = self.shoulder_entity_right.clone();
             self.respawn_entity_on_shoulder(level, &right);
+            self.set_shoulder_entity_right(CompoundTag::new());
         }
+    }
+
+    /// `setShoulderEntityLeft(tag)`: also publishes the parrot variant (`setShoulderParrotLeft`).
+    pub fn set_shoulder_entity_left(&mut self, tag: CompoundTag) {
+        let variant = extract_parrot_variant(&tag);
+        self.shoulder_entity_left = tag;
+        self.base_mut()
+            .entity_data
+            .set(DATA_SHOULDER_PARROT_LEFT, variant);
+    }
+
+    /// `setShoulderEntityRight(tag)`: also publishes the parrot variant (`setShoulderParrotRight`).
+    pub fn set_shoulder_entity_right(&mut self, tag: CompoundTag) {
+        let variant = extract_parrot_variant(&tag);
+        self.shoulder_entity_right = tag;
+        self.base_mut()
+            .entity_data
+            .set(DATA_SHOULDER_PARROT_RIGHT, variant);
     }
 
     fn respawn_entity_on_shoulder(&self, level: &mut ServerLevel, tag: &CompoundTag) {
@@ -110,11 +132,27 @@ impl ServerPlayer {
             ignore_checks: false,
         };
         if let Some(mut entity) = create_and_load(tag, level, request) {
+            if entity
+                .mob()
+                .is_some_and(|m| m.kind == MobKind::TamableAnimal)
+            {
+                tamable::set_owner_reference(entity.as_mut(), Some(self.uuid()));
+            }
             let b = self.base();
             entity.set_pos(b.x(), b.y() + f64::from(0.7f32), b.z());
             level.add_fresh_entity(entity);
         }
     }
+}
+
+/// `Player.extractParrotVariant(tag)`: the `Variant` of a parrot tag (clamped like `Parrot.Variant.byId`).
+fn extract_parrot_variant(tag: &CompoundTag) -> Option<i32> {
+    if tag.get_string("id") == Some("minecraft:parrot") {
+        return tag
+            .get_int("Variant")
+            .map(|v| ParrotVariant::by_id(v) as i32);
+    }
+    None
 }
 
 #[cfg(test)]
@@ -152,5 +190,28 @@ mod tests {
         p.base_mut().fall_distance = 1.0;
         p.do_tick(&mut level);
         assert!(p.shoulder_entity_left.is_empty());
+    }
+
+    /// `setShoulderEntityLeft/Right` publish the parrot variant (clamped) in the synched data, `None` for anything else.
+    #[test]
+    fn shoulder_parrot_variant_is_synched() {
+        let mut p = ServerPlayer::new(
+            1,
+            Identifier::parse("minecraft:overworld").unwrap(),
+            GameProfile {
+                id: uuid::Uuid::from_u128(1),
+                name: "A".into(),
+                properties: vec![],
+            },
+            Default::default(),
+        );
+        let mut tag = parrot_tag();
+        tag.put_byte("Variant", 9);
+        p.set_shoulder_entity_left(tag);
+        p.set_shoulder_entity_right(parrot_tag());
+        assert_eq!(p.base().entity_data.get(DATA_SHOULDER_PARROT_LEFT), Some(4));
+        assert_eq!(p.base().entity_data.get(DATA_SHOULDER_PARROT_RIGHT), None);
+        p.set_shoulder_entity_left(CompoundTag::new());
+        assert_eq!(p.base().entity_data.get(DATA_SHOULDER_PARROT_LEFT), None);
     }
 }
