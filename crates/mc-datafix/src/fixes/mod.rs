@@ -8,6 +8,7 @@ pub mod references;
 // end: base and family classes
 
 // begin: versions 99..1343
+pub mod block_entity_id_fix;
 // end: versions 99..1343
 
 // begin: versions 1344..1459

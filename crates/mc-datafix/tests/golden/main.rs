@@ -16,4 +16,5 @@ mod compare_rules;
 mod core_smoke;
 mod json_compat;
 mod library;
+mod schema_hooks;
 mod schema_types;

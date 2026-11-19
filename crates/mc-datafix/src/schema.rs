@@ -102,6 +102,11 @@ pub trait SchemaDef: Send + Sync + 'static {
     fn namespaced(&self) -> bool {
         false
     }
+    /// Whether `getChoiceType(ty, ..)` namespaces the choice name: `namespaced()`, unless a class overrides
+    /// `getChoiceType` for some types only (`V704`).
+    fn namespaces_choice(&self, _ty: &TypeReference) -> bool {
+        self.namespaced()
+    }
 }
 
 /// `new Schema(versionKey, parent)` without overrides (`DataFixers.SAME`).
@@ -361,7 +366,7 @@ impl Schema {
     /// `schema.getChoiceType(type, choiceName)`.
     pub fn get_choice_type(&self, ty: &TypeReference, choice_name: &str) -> Type {
         let owned;
-        let choice_name = if self.0.def.namespaced() {
+        let choice_name = if self.0.def.namespaces_choice(ty) {
             owned = ensure_namespaced(choice_name);
             owned.as_str()
         } else {

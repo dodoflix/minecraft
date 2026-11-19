@@ -1,9 +1,9 @@
 //! Port of `net.minecraft.util.datafix` on top of a Rust port of the DFU type system (`com.mojang.datafixers`).
 //!
 //! What exists: the type system and rewrite machinery, `DataFixTypes`, the `References` constants, `DataFixerBuilder`,
-//! `DataFixer` and the global [`data_fixer`] accessor. What does not exist yet: no schema (`V99`..current) and no fix
-//! is ported, so the global fixer registers neither (`DataFixer::update` on it panics for lack of a schema), and no
-//! other crate depends on this one.
+//! `DataFixer` and the global [`data_fixer`] accessor, which registers the ported part of the chain (`fixers`). Until
+//! the chain is complete, `DataFixer::update` panics for lack of a registered fix, and no other crate depends on this
+//! one.
 //!
 //! # Architecture
 //! DFU's statically typed `Type<A>`/`Typed<A>`/optics are ported *dynamically*: a [`typed::Typed`] is

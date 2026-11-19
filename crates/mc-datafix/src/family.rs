@@ -1,15 +1,17 @@
 //! `RecursiveTypeFamily`: the mutually recursive types of a schema (`registerType(recursive = true, ..)`), their
 //! `Mu` points, and the cata-based `everywhere` rewrite over them.
 //!
-//! Java interns the family *template* (`TEMPLATE_INTERNER`) and compares families by template identity; families are
-//! interned here by template equality for the same effect (and so that equal families share their point types and
-//! unfoldings; the interner lives for the process, bounded by the number of distinct templates ever built).
+//! Java interns the family *template* (`TEMPLATE_INTERNER`) and compares families by template identity, while every
+//! `new RecursiveTypeFamily(name, ..)` keeps its own name (the `mu` nodes of a type name their schema). Templates are
+//! interned here the same way, families by name and template (so that equal families of one schema share their point
+//! types and unfoldings; the interners live for the process, bounded by the number of distinct names and templates
+//! ever built), and families compare equal by template (a pointer comparison for interned templates).
 
 use crate::optic::TypedOptic;
 use crate::rewrite::{BitSet, FoldShared, OptimizationRule, RewriteResult, TypeRewriteRule, View};
 use crate::template::Template;
 use crate::ty::{FindError, Matcher, Type};
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::sync::{Arc, LazyLock, Mutex};
 
 pub struct RecursiveTypeFamily {
@@ -19,8 +21,14 @@ pub struct RecursiveTypeFamily {
     types: Mutex<HashMap<i32, Type>>,
 }
 
-static FAMILIES: LazyLock<Mutex<HashMap<Template, Arc<RecursiveTypeFamily>>>> =
-    LazyLock::new(|| Mutex::new(HashMap::new()));
+/// The process-wide interners: `TEMPLATE_INTERNER`, and the families by name and (interned) template.
+#[derive(Default)]
+struct Interners {
+    templates: HashSet<Template>,
+    families: HashMap<(String, Template), Arc<RecursiveTypeFamily>>,
+}
+
+static INTERNERS: LazyLock<Mutex<Interners>> = LazyLock::new(Mutex::default);
 
 impl PartialEq for RecursiveTypeFamily {
     fn eq(&self, o: &RecursiveTypeFamily) -> bool {
@@ -30,20 +38,28 @@ impl PartialEq for RecursiveTypeFamily {
 impl Eq for RecursiveTypeFamily {}
 
 impl RecursiveTypeFamily {
-    /// `new RecursiveTypeFamily(name, template)` (interned by template).
+    /// `new RecursiveTypeFamily(name, template)` (the template is interned, the family by name and template).
     pub fn new(name: &str, template: Template) -> Arc<RecursiveTypeFamily> {
-        let mut families = FAMILIES.lock().unwrap();
-        if let Some(f) = families.get(&template) {
+        let mut interners = INTERNERS.lock().unwrap();
+        let template = match interners.templates.get(&template) {
+            Some(interned) => interned.clone(),
+            None => {
+                interners.templates.insert(template.clone());
+                template
+            }
+        };
+        let key = (name.to_string(), template);
+        if let Some(f) = interners.families.get(&key) {
             return f.clone();
         }
-        let size = template.size();
+        let size = key.1.size();
         let family = Arc::new(RecursiveTypeFamily {
             name: name.to_string(),
-            template: template.clone(),
+            template: key.1.clone(),
             size,
             types: Mutex::new(HashMap::new()),
         });
-        families.insert(template, family.clone());
+        interners.families.insert(key, family.clone());
         family
     }
 
