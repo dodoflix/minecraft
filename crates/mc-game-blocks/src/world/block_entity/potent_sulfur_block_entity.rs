@@ -284,7 +284,7 @@ impl BlockEntity for PotentSulfurBlockEntity {
 
     fn server_tick(&mut self, level: &mut ServerLevel) {
         let pos = self.get_block_pos();
-        let state = BlockGetter::get_block_state(level, pos);
+        let state = level.chunk_block_state(pos);
         match state.get(props::POTENT_SULFUR_STATE) {
             PotentSulfurState::Dry => {}
             PotentSulfurState::Wet => nausea_effect_ticker(level, pos),

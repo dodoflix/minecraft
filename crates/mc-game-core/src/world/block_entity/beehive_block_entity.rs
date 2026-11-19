@@ -515,7 +515,7 @@ impl BlockEntity for BeehiveBlockEntity {
     /// `BeehiveBlockEntity.serverTick`.
     fn server_tick(&mut self, level: &mut ServerLevel) {
         let pos = self.get_block_pos();
-        let state = level.get_block_state(pos);
+        let state = level.chunk_block_state(pos);
         self.tick_occupants(level, pos, state);
         if !self.stored.is_empty() && level.random().next_double() < 0.005 {
             let x = f64::from(pos.x()) + 0.5;

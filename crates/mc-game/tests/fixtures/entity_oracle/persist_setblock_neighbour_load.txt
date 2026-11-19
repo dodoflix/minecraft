@@ -1,0 +1,7 @@
+LOAD 3 0 ticks=1 loaded=true
+UNLOAD 3 0 ticks=2 loaded=false
+# the fence at 47 is placed in the full chunk 2; its neighbour at 48 is in chunk 3, which is not loaded
+CF msg Changed the block at 47, -60, 0
+CF result success 1
+B 47 -60 0 minecraft:oak_fence[east=true,north=false,south=false,waterlogged=false,west=false]
+B 48 -60 0 minecraft:oak_fence[east=false,north=false,south=false,waterlogged=false,west=true]

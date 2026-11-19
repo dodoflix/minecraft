@@ -223,14 +223,17 @@ impl BlockStateExt for BlockState {
         neighbour_pos: BlockPos,
         neighbour_state: BlockState,
     ) -> BlockState {
-        behaviour(self.block()).update_shape(
-            self,
-            level,
-            pos,
-            direction,
-            neighbour_pos,
-            neighbour_state,
-        )
+        let behaviour = behaviour(self.block());
+        // shortcut: most shape updates read at most two blocks around `pos`, so only a block this close to the edge of its
+        // chunk is probed; a longer read (the portal frame scan of a nether portal block) across a border is not loaded
+        let (x, z) = (pos.x() & 15, pos.z() & 15);
+        if !(2..14).contains(&x) || !(2..14).contains(&z) {
+            // `Level.getBlockState` loads the chunk it reads: so do the probe runs of this update (see `load_chunks_read_by`)
+            level.load_chunks_read_by(&mut |level| {
+                behaviour.update_shape(self, level, pos, direction, neighbour_pos, neighbour_state);
+            });
+        }
+        behaviour.update_shape(self, level, pos, direction, neighbour_pos, neighbour_state)
     }
     fn handle_neighbor_changed(
         self,

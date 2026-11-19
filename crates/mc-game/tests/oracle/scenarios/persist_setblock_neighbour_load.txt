@@ -1,0 +1,14 @@
+# /setblock computes the placed state from its neighbours (Block.updateFromNeighbourShapes reads them with Level.getBlockState, which waits for the full chunk):
+# the fence saved in the chunk that unloaded is read from disk and the new fence connects to it.
+level void
+command_env
+preload 0
+difficulty normal
+entity_counter 100
+level_seed 5
+load 3 0
+block 48 -60 0 minecraft:oak_fence
+unload 3 0
+note the fence at 47 is placed in the full chunk 2; its neighbour at 48 is in chunk 3, which is not loaded
+cmd setblock 47 -60 0 minecraft:oak_fence
+dump blocks:45,-61,-1,49,-59,1 events

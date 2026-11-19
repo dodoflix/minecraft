@@ -4,6 +4,7 @@
 
 use super::FullChunkStatus;
 use super::ServerLevel;
+use super::level_tick_state::LevelRandom;
 use crate::world::entity::EntityId;
 use crate::world::entity::ai::village::poi::{PoiTypeHolder, PoiTypes};
 use crate::world::entity::mob::navigation;
@@ -20,7 +21,7 @@ use mc_core::direction::{Direction, Plane};
 use mc_core::phys::Vec3;
 use mc_core::phys::shapes::{BooleanOp, Shapes};
 use mc_core::pos::{BlockPos, ChunkPos};
-use mc_core::random::RandomSource;
+use mc_core::random::{LegacyRandomSource, RandomSource};
 use mc_data::GameEvent;
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::Fluid;
@@ -45,8 +46,34 @@ impl ServerLevel {
     /// Make sure the full chunk of `pos` is loaded (vanilla `getChunkAt(pos)` blocks until it is).
     pub fn ensure_chunk_loaded(&mut self, pos: BlockPos) {
         let (cx, cz) = (pos.x() >> 4, pos.z() >> 4);
-        if self.chunk_now(cx, cz).is_none() {
+        if self.chunk_source.touch_loaded_chunk(cx, cz).is_none() {
             self.chunk_blocking_mut(cx, cz);
+        }
+    }
+
+    /// `getBlockState(pos)` as vanilla answers it: the chunk is generated and loaded now when it is not. The plain
+    /// [`BlockGetter::get_block_state`] reads through `&self` and answers air for a chunk that is not loaded (vanilla's
+    /// `getBlockStateIfLoaded` minus the null).
+    pub fn get_block_state_loading(&mut self, pos: BlockPos) -> BlockState {
+        if self.is_in_valid_bounds(pos) {
+            self.ensure_chunk_loaded(pos);
+        }
+        BlockGetter::get_block_state(self, pos)
+    }
+
+    /// Runs `read`, a computation that only reads blocks (it may schedule ticks, which are deduplicated), until it runs
+    /// without meeting a chunk that is not loaded: each such chunk is generated and loaded as vanilla's `getBlockState`
+    /// does at that read, and the computation starts again.
+    pub fn with_loading_reads<R>(&mut self, mut read: impl FnMut(&mut Self) -> R) -> R {
+        loop {
+            self.chunk_source.take_unloaded_read();
+            let result = read(self);
+            match self.chunk_source.take_unloaded_read() {
+                Some(chunk) if chunk.is_valid() => {
+                    self.chunk_blocking_mut(chunk.x, chunk.z);
+                }
+                _ => return result,
+            }
         }
     }
 
@@ -444,7 +471,30 @@ impl LevelAccessor for ServerLevel {
     }
 
     fn as_server_level_mut(&mut self) -> Option<&mut ServerLevel> {
+        // a probe run must not reach the effects behind the downcast (a hive releasing its bees)
+        if self.read_probe.is_some() {
+            return None;
+        }
         Some(self)
+    }
+
+    fn get_block_state_loading(&mut self, pos: BlockPos) -> BlockState {
+        ServerLevel::get_block_state_loading(self, pos)
+    }
+
+    fn load_chunks_read_by(&mut self, probe: &mut dyn FnMut(&mut dyn LevelAccessor)) {
+        loop {
+            self.chunk_source.take_unloaded_read();
+            self.read_probe = Some(LevelRandom::new(LegacyRandomSource::new(0)));
+            probe(self);
+            self.read_probe = None;
+            match self.chunk_source.take_unloaded_read() {
+                Some(chunk) if chunk.is_valid() => {
+                    self.chunk_blocking_mut(chunk.x, chunk.z);
+                }
+                _ => return,
+            }
+        }
     }
 
     fn is_unobstructed_block(&self, pos: BlockPos) -> bool {
@@ -488,7 +538,10 @@ impl LevelAccessor for ServerLevel {
     }
 
     fn random(&mut self) -> &mut dyn RandomSource {
-        &mut self.tick_state.random
+        match &mut self.read_probe {
+            Some(scratch) => scratch,
+            None => &mut self.tick_state.random,
+        }
     }
 
     fn get_block_entity_mut(
@@ -505,6 +558,9 @@ impl LevelAccessor for ServerLevel {
         delay: i32,
         priority: TickPriority,
     ) {
+        if self.read_probe.is_some() {
+            return;
+        }
         let tick = self.create_tick(pos, block, delay, priority);
         self.tick_state.ticks.lock().block.schedule(tick);
     }
@@ -516,6 +572,9 @@ impl LevelAccessor for ServerLevel {
         delay: i32,
         priority: TickPriority,
     ) {
+        if self.read_probe.is_some() {
+            return;
+        }
         let tick = self.create_tick(pos, fluid, delay, priority);
         self.tick_state.ticks.lock().fluid.schedule(tick);
     }
@@ -606,11 +665,7 @@ impl NeighborUpdateHost for ServerLevel {
     fn host_block_state(&mut self, pos: BlockPos) -> BlockState {
         // vanilla's `getBlockState` generates and loads the chunk of a neighbour across a chunk border, now and not with the next
         // tick: its unique seeds and its entering the ticking set belong to this moment
-        let (chunk_x, chunk_z) = (pos.x() >> 4, pos.z() >> 4);
-        if !self.is_outside_build_height(pos.y()) && self.chunk_now(chunk_x, chunk_z).is_none() {
-            self.chunk_blocking_mut(chunk_x, chunk_z);
-        }
-        BlockGetter::get_block_state(self, pos)
+        self.get_block_state_loading(pos)
     }
 
     fn execute_shape_update(

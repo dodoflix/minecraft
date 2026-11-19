@@ -1,0 +1,18 @@
+# The power a redstone wire takes from its neighbours (RedStoneWireBlock.getBlockSignal: a conductor passes on the direct signals around it) reads blocks two
+# steps away with Level.getBlockState: the lever saved in the chunk that unloaded powers the new wire through the stone.
+level void
+command_env
+preload 0
+difficulty normal
+entity_counter 100
+level_seed 5
+load 3 0
+block 47 -61 0 minecraft:stone
+block 48 -60 0 minecraft:stone
+block 49 -60 0 minecraft:lever[face=wall,facing=east,powered=true]
+unload 3 0
+note the wire at 47 is in the full chunk 2, the stone at 48 and the lever at 49 in chunk 3, which is not loaded
+cmd setblock 47 -60 0 minecraft:redstone_wire
+dump blocks:45,-61,-1,50,-59,1 events
+tick 2
+dump blocks:45,-61,-1,50,-59,1 events

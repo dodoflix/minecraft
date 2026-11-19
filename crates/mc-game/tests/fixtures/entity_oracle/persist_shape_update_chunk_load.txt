@@ -1,7 +1,7 @@
 LOAD 3 0 ticks=1 loaded=true
 CF msg Changed the block at 47, -60, 0
 CF result success 1
-UNLOAD 3 0 ticks=1 loaded=false
+UNLOAD 3 0 ticks=2 loaded=false
 # /setblock places the fence at 46 in the full chunk 2: its shape update connects the fence at 47, whose own shape update is the first read of chunk 3, which is not loaded
 CF msg Changed the block at 46, -60, 0
 CF result success 1

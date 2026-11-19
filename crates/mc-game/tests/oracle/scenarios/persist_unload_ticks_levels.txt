@@ -1,0 +1,31 @@
+# How many ticks the unload of a forced chunk takes in each level, with and without an entity in it and with a flushed save in front of it.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 0
+difficulty normal
+entity_counter 100
+level_seed 7
+spawn_player Alice creative 200.5 -60 0.5 0 0
+in the_nether fill 0 63 0 15 63 15 minecraft:netherrack
+in the_end fill 0 62 0 15 62 15 minecraft:end_stone
+fill 0 -61 0 15 -61 15 minecraft:stone
+in the_nether mobspawn Pig minecraft:pig 5.5 64 5.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+in the_end mobspawn Cow minecraft:cow 5.5 63 5.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+mobspawn Sheep minecraft:sheep 5.5 -60 5.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+tick 5
+note no save first: each level, entity in the chunk
+in the_nether unload 0 0
+in the_end unload 0 0
+unload 0 0
+note loaded again, a flushed save, then unload
+in the_nether load 0 0
+in the_end load 0 0
+load 0 0
+tick 3
+save flush
+in the_nether unload 0 0
+in the_end unload 0 0
+unload 0 0

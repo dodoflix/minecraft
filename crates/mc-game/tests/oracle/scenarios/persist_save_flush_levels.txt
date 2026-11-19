@@ -1,0 +1,46 @@
+# Entities that live in the nether and the End are written by `save flush` into those levels' own entity files, survive the unload of their chunk, and a minecart's
+# contents come back in the right level.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether,the_end
+preload 0
+difficulty normal
+entity_counter 100
+level_seed 7
+spawn_player Alice creative 0.5 -60 0.5 0 0
+in the_nether fill 0 63 0 15 63 15 minecraft:netherrack
+in the_end fill 0 62 0 15 62 15 minecraft:end_stone
+in the_nether spawn Cart minecraft:chest_minecart 3.5 64 3.5 0 0 {Items:[{Slot:0b,id:"minecraft:apple",count:3}]}
+in the_nether mobspawn Pig minecraft:pig 5.5 64 5.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b,CustomName:'"nether pig"'}
+in the_nether spawn Stand minecraft:armor_stand 8.5 64 8.5 30 0 {ShowArms:1b,equipment:{head:{id:"minecraft:netherite_helmet",count:1}}}
+in the_end mobspawn Cow minecraft:cow 5.5 63 5.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b,CustomName:'"end cow"'}
+in the_end spawn_item It minecraft:diamond 7.5 63 7.5 0 0 0 5
+in the_end mobspawn Cat minecraft:cat 9.5 63 9.5 0 0 nofinalize {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+in the_end spawn_player Pal creative 12.5 63 12.5 0 0
+in the_end tame Cat Pal
+cmd execute in minecraft:the_nether run forceload add 0 0
+cmd execute in minecraft:the_end run forceload add 0 0
+tick 5
+dump levels
+save flush
+in the_nether dump entityfile:0,0 datafile:minecraft:chunk_tickets
+in the_end dump entityfile:0,0 datafile:minecraft:chunk_tickets
+dump entityfile:0,0
+note unload both chunks, the entities are written and gone
+in the_nether unload 0 0
+in the_end unload 0 0
+dump levels
+in the_nether dump entities entityfile:0,0
+in the_end dump entities entityfile:0,0
+note the chunks load again
+in the_nether load 0 0
+in the_end load 0 0
+tick 3
+in the_nether dump xentities nbt:Cart nbt:Pig nbt:Stand
+in the_end dump xentities nbt:Cow nbt:Cat
+dump levels
+save flush
+in the_nether dump entityfile:0,0
+in the_end dump entityfile:0,0

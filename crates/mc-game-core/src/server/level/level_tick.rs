@@ -747,7 +747,8 @@ impl ServerLevel {
         if !ticking {
             return;
         }
-        let state = BlockGetter::get_block_state(self, pos);
+        // `LevelChunk.getBlockState`: the chunk's own read, not `Level.getBlockState`
+        let state = self.chunk_block_state(pos);
         let valid = self
             .chunk_now(cx, cz)
             .and_then(|c| c.block_entities.get(&pos))

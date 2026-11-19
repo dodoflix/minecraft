@@ -1766,14 +1766,12 @@ impl Scenario {
                         .map(int)
                         .collect();
                     assert_eq!(c.len(), 6, "blocks:x1,y1,z1,x2,y2,z2");
-                    if self.multi() {
-                        // the oracle reads through `Level.getBlockState`, which asks the chunk source for the full chunk and waits for it:
-                        // a chunk that is not there is generated now (its seeds come from the unique-seed sequence of this moment, not
-                        // of the next tick) and the one-tick `UNKNOWN` ticket keeps the chunk (and its neighbours) from unloading in that tick
-                        for cx in (c[0].min(c[3]) >> 4)..=(c[0].max(c[3]) >> 4) {
-                            for cz in (c[2].min(c[5]) >> 4)..=(c[2].max(c[5]) >> 4) {
-                                self.level().chunk_blocking_mut(cx, cz);
-                            }
+                    // the oracle reads through `Level.getBlockState`, which asks the chunk source for the full chunk and waits for it:
+                    // a chunk that is not there is generated now (its seeds come from the unique-seed sequence of this moment, not
+                    // of the next tick) and the one-tick `UNKNOWN` ticket keeps the chunk (and its neighbours) from unloading in that tick
+                    for cx in (c[0].min(c[3]) >> 4)..=(c[0].max(c[3]) >> 4) {
+                        for cz in (c[2].min(c[5]) >> 4)..=(c[2].max(c[5]) >> 4) {
+                            self.level().chunk_blocking_mut(cx, cz);
                         }
                     }
                     for x in c[0].min(c[3])..=c[0].max(c[3]) {

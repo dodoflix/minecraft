@@ -126,7 +126,10 @@ fn has_fluid_and_loaded(
     let mut has_fluid = false;
     for chunk_z in section_z0..=section_z1 {
         for chunk_x in section_x0..=section_x1 {
-            let Some(chunk) = level.chunk_now(chunk_x, chunk_z) else {
+            let Some(chunk) = level
+                .chunk_source
+                .get_chunk_without_loading(chunk_x, chunk_z)
+            else {
                 return false;
             };
             let sections = &chunk.data.access.sections;

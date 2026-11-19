@@ -12,7 +12,6 @@ use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::block_entity::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, set_changed,
 };
-use mc_game_core::world::level::BlockGetter;
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::level::ClientboundBlockEntityDataPacket;
 
@@ -68,7 +67,7 @@ impl BlockEntity for TrialSpawnerBlockEntity {
 
     fn server_tick(&mut self, level: &mut ServerLevel) {
         let pos = self.get_block_pos();
-        let state = level.get_block_state(pos);
+        let state = level.chunk_block_state(pos);
         let ominous = state.has_property(props::OMINOUS) && state.get(props::OMINOUS);
         self.trial_spawner.tick_server(level, pos, ominous);
     }

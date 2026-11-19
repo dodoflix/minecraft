@@ -26,7 +26,7 @@ pub fn update_from_neighbour_shapes(
     let mut new_state = state;
     for direction in UPDATE_SHAPE_ORDER {
         let neighbour_pos = pos.relative(direction);
-        let neighbour_state = level.get_block_state(neighbour_pos);
+        let neighbour_state = level.get_block_state_loading(neighbour_pos);
         new_state = new_state.update_shape(level, pos, direction, neighbour_pos, neighbour_state);
     }
     new_state

@@ -65,7 +65,10 @@ fn update_power_strength(
 }
 
 fn check_corner_change_at(level: &mut ServerLevel, pos: BlockPos) {
-    if BlockGetter::get_block_state(level, pos).is_block(Block::REDSTONE_WIRE) {
+    if level
+        .get_block_state_loading(pos)
+        .is_block(Block::REDSTONE_WIRE)
+    {
         level.update_neighbors_at(pos, Block::REDSTONE_WIRE);
         for direction in Direction::ALL {
             level.update_neighbors_at(pos.relative(direction), Block::REDSTONE_WIRE);
@@ -79,7 +82,10 @@ fn update_neighbors_of_neighboring_wires(level: &mut ServerLevel, pos: BlockPos)
     }
     for direction in Direction::HORIZONTAL {
         let target = pos.relative(direction);
-        if BlockGetter::get_block_state(level, target).is_redstone_conductor() {
+        if level
+            .get_block_state_loading(target)
+            .is_redstone_conductor()
+        {
             check_corner_change_at(level, target.above());
         } else {
             check_corner_change_at(level, target.below());
@@ -99,7 +105,9 @@ fn updates_on_shape_change(
         let relative_pos = pos.relative(direction);
         if is_connected(old_state.get(side_property(direction)))
             != is_connected(new_state.get(side_property(direction)))
-            && BlockGetter::get_block_state(level, relative_pos).is_redstone_conductor()
+            && level
+                .get_block_state_loading(relative_pos)
+                .is_redstone_conductor()
         {
             level.update_neighbors_at_except_from_facing(
                 relative_pos,
@@ -303,13 +311,16 @@ impl BlockBehaviour for RedstoneWireBlock {
             let value = state.get(side_property(direction));
             if value != RedstoneSide::None
                 && !level
-                    .get_block_state(pos.relative(direction))
+                    .get_block_state_loading(pos.relative(direction))
                     .is_block(state.block())
             {
                 let down_pos = pos.relative(direction).below();
-                if level.get_block_state(down_pos).is_block(state.block()) {
+                if level
+                    .get_block_state_loading(down_pos)
+                    .is_block(state.block())
+                {
                     let neighbor_pos = down_pos.relative(direction.get_opposite());
-                    let neighbor_state = level.get_block_state(neighbor_pos);
+                    let neighbor_state = level.get_block_state_loading(neighbor_pos);
                     level.neighbor_shape_changed(
                         direction.get_opposite(),
                         down_pos,
@@ -320,9 +331,12 @@ impl BlockBehaviour for RedstoneWireBlock {
                     );
                 }
                 let up_pos = pos.relative(direction).above();
-                if level.get_block_state(up_pos).is_block(state.block()) {
+                if level
+                    .get_block_state_loading(up_pos)
+                    .is_block(state.block())
+                {
                     let neighbor_pos = up_pos.relative(direction.get_opposite());
-                    let neighbor_state = level.get_block_state(neighbor_pos);
+                    let neighbor_state = level.get_block_state_loading(neighbor_pos);
                     level.neighbor_shape_changed(
                         direction.get_opposite(),
                         up_pos,

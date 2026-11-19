@@ -1,0 +1,14 @@
+# /fill places each block like /setblock does (BlockInput.place, Block.updateFromNeighbourShapes): the fence at the edge of the filled line connects to the fence
+# saved in the chunk that unloaded.
+level void
+command_env
+preload 0
+difficulty normal
+entity_counter 100
+level_seed 5
+load 3 0
+block 48 -60 0 minecraft:oak_fence
+unload 3 0
+note the filled blocks are in the full chunk 2; the neighbour of the last one at 48 is in chunk 3, which is not loaded
+cmd fill 45 -60 0 47 -60 0 minecraft:oak_fence
+dump blocks:44,-61,-1,49,-59,1 events

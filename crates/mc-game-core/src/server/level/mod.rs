@@ -10,6 +10,7 @@ pub mod chunk_load_counter;
 pub mod chunk_map;
 mod chunk_map_io;
 mod chunk_map_tracking;
+mod chunk_read_cache;
 pub mod chunk_send_sink;
 pub mod chunk_status_tasks;
 pub mod chunk_task_queue;

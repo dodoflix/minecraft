@@ -37,7 +37,13 @@ impl<'a> PathNavigationRegion<'a> {
         let mut loaded = Vec::with_capacity((width * depth) as usize);
         for xc in center_x..=xc2 {
             for zc in center_z..=zc2 {
-                loaded.push(level.chunk_now(xc, zc).is_some());
+                // `getChunkNow` caches the chunk and takes no ticket
+                loaded.push(
+                    level
+                        .chunk_source
+                        .get_chunk_without_loading(xc, zc)
+                        .is_some(),
+                );
             }
         }
         PathNavigationRegion {
@@ -76,7 +82,8 @@ impl BlockGetter for PathNavigationRegion<'_> {
             return Block::AIR.default_state();
         }
         if self.chunk_loaded(pos.x() >> 4, pos.z() >> 4) {
-            self.level.get_block_state(pos)
+            // the region's own chunk: no `Level.getBlockState` ticket
+            self.level.chunk_block_state(pos)
         } else {
             // `EmptyLevelChunk.getBlockState`
             Block::VOID_AIR.default_state()
@@ -87,12 +94,19 @@ impl BlockGetter for PathNavigationRegion<'_> {
         if self.is_outside_build_height(pos.y()) || !self.chunk_loaded(pos.x() >> 4, pos.z() >> 4) {
             return FluidState::EMPTY;
         }
-        self.level.get_fluid_state(pos)
+        self.level
+            .chunk_now(pos.x() >> 4, pos.z() >> 4)
+            .map_or(FluidState::EMPTY, |c| {
+                c.data.get_fluid_state(pos.x(), pos.y(), pos.z())
+            })
     }
 
     fn get_block_entity(&self, pos: BlockPos) -> Option<&dyn BlockEntity> {
         if self.chunk_loaded(pos.x() >> 4, pos.z() >> 4) {
-            self.level.get_block_entity(pos)
+            self.level
+                .chunk_now(pos.x() >> 4, pos.z() >> 4)?
+                .block_entities
+                .get(&pos)
         } else {
             None
         }

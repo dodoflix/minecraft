@@ -17,7 +17,6 @@ use mc_game_core::world::block_entity::{
 };
 use mc_game_core::world::entity::{Entity, ServerPlayer};
 use mc_game_core::world::item::{ItemStack, ItemStackExt};
-use mc_game_core::world::level::BlockGetter;
 use mc_game_core::world::level::storage::loot::loading::get_loot_table;
 use mc_game_core::world::level::storage::loot::{LootContextParamSets, LootParams};
 use mc_nbt::CompoundTag;
@@ -82,7 +81,7 @@ impl BlockEntity for VaultBlockEntity {
 
     fn server_tick(&mut self, level: &mut ServerLevel) {
         let pos = self.get_block_pos();
-        let state = level.get_block_state(pos);
+        let state = level.chunk_block_state(pos);
         server_tick(
             level,
             pos,

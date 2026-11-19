@@ -64,7 +64,7 @@ impl ExperimentalRedstoneWireEvaluator {
             for neighbor_direction in orientation.get_directions() {
                 if is_connected(state, neighbor_direction) {
                     let neighbor_pos = wire_pos.relative(neighbor_direction);
-                    let neighbor_state = BlockGetter::get_block_state(level, neighbor_pos);
+                    let neighbor_state = level.get_block_state_loading(neighbor_pos);
                     let neighbor_orientation =
                         orientation.with_front_preserve_up(neighbor_direction);
                     level.neighbor_changed_with_state(
@@ -261,7 +261,13 @@ impl RedstoneWireEvaluator for ExperimentalRedstoneWireEvaluator {
         shape_update_wires_around_initial_position: bool,
     ) {
         let initial_orientation = get_initial_orientation(level, orientation);
-        self.calculate_current_changes(level, initial_pos, initial_orientation);
+        // the reads of the network load their chunks, as `Level.getBlockState` does: the calculation starts again after each
+        level.with_loading_reads(|level| {
+            self.updated_wires.clear();
+            self.wires_to_turn_off.clear();
+            self.wires_to_turn_on.clear();
+            self.calculate_current_changes(level, initial_pos, initial_orientation);
+        });
         let mut initial_wire = true;
         let keys: Vec<BlockPos> = self.updated_wires.keys().copied().collect();
         for pos in keys {

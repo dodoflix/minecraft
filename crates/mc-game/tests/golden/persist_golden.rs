@@ -84,3 +84,39 @@ fn shape_update_across_a_chunk_border_loads_the_neighbour_chunk() {
 fn rejoin_logs_into_the_saved_level() {
     check("persist_rejoin_other_levels");
 }
+
+/// `/setblock` computes the state of the placed block from its neighbours: a neighbour saved in an unloaded chunk is read from disk and connects.
+#[test]
+fn setblock_reads_the_neighbour_across_a_chunk_border_from_disk() {
+    check("persist_setblock_neighbour_load");
+}
+
+/// `/fill` places its blocks like `/setblock`: the last one connects to the neighbour saved in an unloaded chunk.
+#[test]
+fn fill_reads_the_neighbour_across_a_chunk_border_from_disk() {
+    check("persist_fill_neighbour_load");
+}
+
+/// A redstone wire whose shape is updated by a new wire reads its other neighbours, and connects to the wire saved in an unloaded chunk.
+#[test]
+fn wire_shape_update_loads_the_chunk_across_the_border() {
+    check("persist_wire_border_load");
+}
+
+/// A new redstone wire takes its power through a conductor from a lever saved in an unloaded chunk two blocks away.
+#[test]
+fn wire_power_reads_two_blocks_across_a_chunk_border() {
+    check("persist_wire_power_load");
+}
+
+/// A flushed save in front of the unload of a chunk with entities, in the nether and the End.
+#[test]
+fn unload_after_a_flushed_save_with_entities_in_other_levels() {
+    check("persist_save_flush_levels");
+}
+
+/// Forced chunks of all three levels unload in one tick, with and without a flushed save in front.
+#[test]
+fn unload_takes_one_tick_in_every_level() {
+    check("persist_unload_ticks_levels");
+}

@@ -5,6 +5,7 @@
 use super::chunk_holder::{ChunkHolder, ChunkSlot, FutureState, PromotionFuture};
 use super::chunk_level;
 use super::chunk_map::{ChunkMap, ChunkMapEvent, ChunkMapParams};
+use super::chunk_read_cache::ChunkReadCache;
 use super::fastutil::LongOpenHashSet;
 use super::{Ticket, TicketType};
 use crate::world::level::chunk::LevelChunk;
@@ -31,6 +32,8 @@ pub struct ServerChunkCache {
     spawn_enemies: bool,
     /// `chunkHoldersToBroadcast`.
     chunk_holders_to_broadcast: indexmap::IndexSet<i64>,
+    /// `lastChunkPos`: what block reads through `&self` owe the tickets, and which of them missed a chunk.
+    read_cache: ChunkReadCache,
 }
 
 impl ServerChunkCache {
@@ -54,6 +57,7 @@ impl ServerChunkCache {
             data_storage,
             spawn_enemies: true,
             chunk_holders_to_broadcast: indexmap::IndexSet::new(),
+            read_cache: ChunkReadCache::new(),
         }
     }
 
@@ -69,6 +73,46 @@ impl ServerChunkCache {
         self.chunk_map
             .get_visible_chunk_if_present(ChunkPos::pack_xz(x, z))?
             .get_chunk_if_present_full()
+    }
+
+    /// `getChunk(x, z, FULL, true)` as `Level.setBlock` and `Level.getBlockState` call it, for a chunk that is loaded (`None`
+    /// when it is not): a cache miss owes the chunk an `UNKNOWN` ticket (see [`ChunkReadCache`]).
+    pub fn touch_loaded_chunk(&self, x: i32, z: i32) -> Option<&LevelChunk> {
+        let chunk = self.get_chunk_now(x, z);
+        if chunk.is_some() {
+            self.read_cache.read(ChunkPos::pack_xz(x, z));
+        }
+        chunk
+    }
+
+    /// `getChunk(x, z, FULL, false)` (`getChunkForCollisions`): the chunk if it is loaded, cached without a ticket.
+    pub fn get_chunk_without_loading(&self, x: i32, z: i32) -> Option<&LevelChunk> {
+        let chunk = self.get_chunk_now(x, z);
+        if chunk.is_some() {
+            self.read_cache.cache_only(ChunkPos::pack_xz(x, z));
+        }
+        chunk
+    }
+
+    /// A plain block read found no chunk at `x, z`: vanilla loads it there, a read through `&self` cannot (see
+    /// [`Self::take_unloaded_read`]).
+    pub fn note_unloaded_read(&self, x: i32, z: i32) {
+        self.read_cache.note_unloaded_read(ChunkPos::pack_xz(x, z));
+    }
+
+    /// The first chunk a plain read found unloaded since the last call.
+    pub fn take_unloaded_read(&self) -> Option<ChunkPos> {
+        self.read_cache.take_unloaded_read().map(ChunkPos::unpack)
+    }
+
+    /// Adds the `UNKNOWN` tickets the cache misses of [`Self::touch_loaded_chunk`] owe, before anything looks at the tickets.
+    fn add_owed_read_tickets(&mut self) {
+        let level = chunk_level::by_status(ChunkStatus::Full);
+        for key in self.read_cache.take_owed() {
+            self.chunk_map
+                .tickets
+                .add_ticket_at(key, Ticket::new(TicketType::UNKNOWN, level));
+        }
     }
 
     /// The stored biome of the chunk `getChunk(x, z, ChunkStatus.BIOMES, false)` returns when it already exists: a loaded
@@ -192,9 +236,13 @@ impl ServerChunkCache {
 
     /// `runDistanceManagerUpdates()`.
     pub fn run_distance_manager_updates(&mut self) -> bool {
+        self.add_owed_read_tickets();
         let updated = self.chunk_map.run_all_updates();
         let promoted = self.chunk_map.promote_chunk_map();
         self.chunk_map.run_generation_tasks();
+        if updated || promoted {
+            self.read_cache.clear();
+        }
         updated || promoted
     }
 
@@ -214,6 +262,7 @@ impl ServerChunkCache {
     /// `ServerChunkCache.tick(haveTime, tickChunks)` minus `tickChunks()` (which needs the level): purges expired
     /// tickets, runs the distance updates and the chunk map tick. Returns whether chunks should be ticked by the level.
     pub fn tick_pre(&mut self, runs_normally: bool, tick_chunks: bool) {
+        self.add_owed_read_tickets();
         if runs_normally || !tick_chunks {
             let holders = &self.chunk_map.holders;
             self.chunk_map.tickets.purge_stale_tickets(&|pos| {
@@ -229,6 +278,7 @@ impl ServerChunkCache {
     /// `ServerChunkCache.tick`'s `chunkMap.tick(haveTime)` part (unloads).
     pub fn tick_unload(&mut self, have_time: &dyn Fn() -> bool) {
         self.chunk_map.tick(have_time);
+        self.read_cache.clear();
     }
 
     /// `broadcastChangedChunks()`.

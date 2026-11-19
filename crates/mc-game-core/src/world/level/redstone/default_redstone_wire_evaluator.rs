@@ -31,7 +31,9 @@ impl RedstoneWireEvaluator for DefaultRedstoneWireEvaluator {
         _orientation: Option<Orientation>,
         _skip_shape_updates: bool,
     ) {
-        let target_strength = self.calculate_target_strength(level, pos);
+        // the reads of the neighbours' neighbours load their chunks, as `Level.getBlockState` does
+        let target_strength =
+            level.with_loading_reads(|level| self.calculate_target_strength(level, pos));
         if state.get(props::POWER) != target_strength {
             if level.get_block_state(pos) == state {
                 level.set_block_flags(pos, state.set(props::POWER, target_strength), 2);

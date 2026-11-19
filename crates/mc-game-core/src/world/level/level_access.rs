@@ -135,6 +135,16 @@ pub trait LevelAccessor: LevelReader {
     fn as_world_gen_level(&self) -> Option<&dyn crate::world::level::levelgen::WorldGenLevel> {
         None
     }
+    /// `getBlockState(pos)` the way a `ServerLevel` answers it: the chunk of `pos` is generated and loaded now when it is
+    /// not. [`BlockGetter::get_block_state`] reads through `&self` and cannot, it answers air for a chunk that is not
+    /// loaded. Other levels have nothing to load.
+    fn get_block_state_loading(&mut self, pos: BlockPos) -> BlockState {
+        self.get_block_state(pos)
+    }
+    /// Loads the chunks that `probe`, a computation of block reads, reads while they are not loaded, as `getBlockState`
+    /// would at that read: the computation runs (once more) after each load, with its random draws and scheduled ticks
+    /// discarded, until a run meets no unloaded chunk. Its real run, by the caller, follows. No-op for other levels.
+    fn load_chunks_read_by(&mut self, _probe: &mut dyn FnMut(&mut dyn LevelAccessor)) {}
     /// `isUnobstructed(null, Shapes.block().move(pos))`: no entity blocks building in the block at `pos` (a
     /// `WorldGenRegion` has no entities).
     fn is_unobstructed_block(&self, _pos: BlockPos) -> bool {

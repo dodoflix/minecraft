@@ -1184,7 +1184,9 @@ impl ServerLevel {
 
 impl crate::world::level::collision::CollisionGetter for ServerLevel {
     fn chunk_available_for_collisions(&self, chunk_x: i32, chunk_z: i32) -> bool {
-        self.chunk_now(chunk_x, chunk_z).is_some()
+        self.chunk_source
+            .get_chunk_without_loading(chunk_x, chunk_z)
+            .is_some()
     }
 
     /// `borderCollision(source, box)`.

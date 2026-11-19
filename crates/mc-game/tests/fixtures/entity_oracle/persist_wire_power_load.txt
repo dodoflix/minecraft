@@ -1,0 +1,13 @@
+LOAD 3 0 ticks=1 loaded=true
+UNLOAD 3 0 ticks=2 loaded=false
+# the wire at 47 is in the full chunk 2, the stone at 48 and the lever at 49 in chunk 3, which is not loaded
+CF msg Changed the block at 47, -60, 0
+CF result success 1
+B 47 -61 0 minecraft:stone
+B 47 -60 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 48 -60 0 minecraft:stone
+B 49 -60 0 minecraft:lever[face=wall,facing=east,powered=true]
+B 47 -61 0 minecraft:stone
+B 47 -60 0 minecraft:redstone_wire[east=none,north=none,power=15,south=none,west=none]
+B 48 -60 0 minecraft:stone
+B 49 -60 0 minecraft:lever[face=wall,facing=east,powered=true]

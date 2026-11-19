@@ -92,6 +92,9 @@ pub struct ServerLevel {
 
     /// `chunkSource`.
     pub chunk_source: ServerChunkCache,
+    /// `Some` while `load_chunks_read_by` probes a computation: its random draws come from this scratch source and its
+    /// scheduled ticks are dropped, so the real run that follows is the only one that has effects.
+    pub(super) read_probe: Option<super::level_tick_state::LevelRandom>,
     pub shared: Arc<ServerShared>,
     /// `serverLevelData`.
     pub level_data: Box<dyn super::level_data::ServerLevelData>,
@@ -216,6 +219,7 @@ impl ServerLevel {
             player_records: Default::default(),
             registries: Default::default(),
             chunk_source,
+            read_probe: None,
             shared: params.shared,
             level_data: params.level_data,
             no_save: false,
@@ -520,6 +524,26 @@ impl ServerLevel {
     /// `getChunkNow(x, z)`.
     pub fn chunk_now(&self, x: i32, z: i32) -> Option<&LevelChunk> {
         self.chunk_source.get_chunk_now(x, z)
+    }
+
+    /// `LevelChunk.getBlockState(pos)` of the loaded chunk that holds `pos` (what a block entity ticker is handed as its
+    /// state): the chunk's own read, not `Level.getBlockState`, so it takes no chunk ticket. Air for a chunk that is not loaded.
+    pub fn chunk_block_state(&self, pos: BlockPos) -> BlockState {
+        self.chunk_now(pos.x() >> 4, pos.z() >> 4).map_or_else(
+            || Block::AIR.default_state(),
+            |c| c.data.get_block_state(pos),
+        )
+    }
+
+    /// The chunk a plain block read through `&self` reaches, as `Level.getBlockState` gets it (a ticket for the chunk when
+    /// the cache misses); a chunk that is not loaded is noted for the callers that can load it.
+    fn plain_read_chunk(&self, pos: BlockPos) -> Option<&LevelChunk> {
+        let (x, z) = (pos.x() >> 4, pos.z() >> 4);
+        let chunk = self.chunk_source.touch_loaded_chunk(x, z);
+        if chunk.is_none() {
+            self.chunk_source.note_unloaded_read(x, z);
+        }
+        chunk
     }
 
     pub fn chunk_now_mut(&mut self, x: i32, z: i32) -> Option<&mut LevelChunk> {
@@ -840,9 +864,24 @@ impl BlockGetter for ServerLevel {
         if self.is_outside_build_height(pos.y()) {
             return Block::VOID_AIR.default_state();
         }
-        match self.chunk_now(pos.x() >> 4, pos.z() >> 4) {
+        match self.plain_read_chunk(pos) {
             Some(chunk) => chunk.data.get_block_state(pos),
-            // Vanilla loads the chunk here; `&self` cannot, callers that need loading use `chunk_blocking_mut`.
+            // Vanilla loads the chunk here; `&self` cannot: the miss is noted for `load_chunks_read_by` and
+            // `with_loading_reads`, and the callers that can load use `get_block_state_loading`.
+            None => Block::AIR.default_state(),
+        }
+    }
+
+    /// `getChunkForCollisions(x, z)` loads nothing and owes no ticket.
+    fn get_block_state_for_collisions(&self, pos: BlockPos) -> BlockState {
+        if self.is_outside_build_height(pos.y()) {
+            return Block::VOID_AIR.default_state();
+        }
+        match self
+            .chunk_source
+            .get_chunk_without_loading(pos.x() >> 4, pos.z() >> 4)
+        {
+            Some(chunk) => chunk.data.get_block_state(pos),
             None => Block::AIR.default_state(),
         }
     }
@@ -851,16 +890,14 @@ impl BlockGetter for ServerLevel {
         if self.is_outside_build_height(pos.y()) {
             return FluidState::EMPTY;
         }
-        match self.chunk_now(pos.x() >> 4, pos.z() >> 4) {
+        match self.plain_read_chunk(pos) {
             Some(chunk) => chunk.data.get_fluid_state(pos.x(), pos.y(), pos.z()),
             None => FluidState::EMPTY,
         }
     }
 
     fn get_block_entity(&self, pos: BlockPos) -> Option<&dyn BlockEntity> {
-        self.chunk_now(pos.x() >> 4, pos.z() >> 4)?
-            .block_entities
-            .get(&pos)
+        self.plain_read_chunk(pos)?.block_entities.get(&pos)
     }
 
     fn level_height(&self) -> LevelHeight {
@@ -879,8 +916,9 @@ impl LevelReader for ServerLevel {
 
     fn get_height_at(&self, ty: HeightmapType, x: i32, z: i32) -> i32 {
         if x >= -30_000_000 && z >= -30_000_000 && x < 30_000_000 && z < 30_000_000 {
+            // `getChunk(x, z, FULL, true)`: a read of a loaded chunk takes the cache miss ticket
             if self.has_chunk(x >> 4, z >> 4)
-                && let Some(chunk) = self.chunk_now(x >> 4, z >> 4)
+                && let Some(chunk) = self.chunk_source.touch_loaded_chunk(x >> 4, z >> 4)
             {
                 if let Some(h) = chunk.data.access.heightmaps.get(&ty) {
                     return h.get_first_available(x & 15, z & 15);

@@ -870,7 +870,10 @@ pub fn default_create_path_pos<N: PathNavigation + ?Sized>(
     }
     if this.data().class.is_ground() {
         // GroundPathNavigation.createPath(pos, reachRange)
-        level.chunk_now(pos.x() >> 4, pos.z() >> 4)?;
+        // `getChunkNow`: cached, no ticket
+        level
+            .chunk_source
+            .get_chunk_without_loading(pos.x() >> 4, pos.z() >> 4)?;
         if !this.data().can_path_to_targets_below_surface {
             pos = find_surface_position(level, pos);
         }
@@ -889,27 +892,28 @@ pub fn default_create_path_pos<N: PathNavigation + ?Sized>(
 }
 
 /// `GroundPathNavigation.findSurfacePosition(chunk, pos, reachRange)`.
+// `chunk.getBlockState`: the chunk's own read, no ticket
 pub fn find_surface_position(level: &ServerLevel, mut pos: BlockPos) -> BlockPos {
     let (min_y, max_y) = (level.get_min_y(), level.get_max_y());
-    if level.get_block_state(pos).is_air() {
+    if level.chunk_block_state(pos).is_air() {
         let mut column = pos.below();
-        while column.y() >= min_y && level.get_block_state(column).is_air() {
+        while column.y() >= min_y && level.chunk_block_state(column).is_air() {
             column = column.below();
         }
         if column.y() >= min_y {
             return column.above();
         }
         column = BlockPos::new(column.x(), pos.y() + 1, column.z());
-        while column.y() <= max_y && level.get_block_state(column).is_air() {
+        while column.y() <= max_y && level.chunk_block_state(column).is_air() {
             column = column.above();
         }
         pos = column;
     }
-    if !level.get_block_state(pos).is_solid() {
+    if !level.chunk_block_state(pos).is_solid() {
         return pos;
     }
     let mut column = pos.above();
-    while column.y() <= max_y && level.get_block_state(column).is_solid() {
+    while column.y() <= max_y && level.chunk_block_state(column).is_solid() {
         column = column.above();
     }
     column

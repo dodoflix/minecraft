@@ -1,0 +1,11 @@
+# no save first: each level, entity in the chunk
+UNLOAD 0 0 ticks=1 loaded=false
+UNLOAD 0 0 ticks=1 loaded=false
+UNLOAD 0 0 ticks=1 loaded=false
+# loaded again, a flushed save, then unload
+LOAD 0 0 ticks=1 loaded=true
+LOAD 0 0 ticks=1 loaded=true
+LOAD 0 0 ticks=1 loaded=true
+UNLOAD 0 0 ticks=1 loaded=false
+UNLOAD 0 0 ticks=1 loaded=false
+UNLOAD 0 0 ticks=1 loaded=false

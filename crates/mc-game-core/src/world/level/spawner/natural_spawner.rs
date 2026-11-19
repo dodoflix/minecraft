@@ -307,7 +307,8 @@ pub fn spawn_category_for_position(
     hooks: &mut dyn SpawnHooks,
 ) {
     let y_start = start.y();
-    let state = BlockGetter::get_block_state(&*level, start);
+    // `chunk.getBlockState(start)`: the chunk's own read, no chunk ticket
+    let state = level.chunk_block_state(start);
     if state.is_redstone_conductor() {
         return;
     }

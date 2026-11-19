@@ -10,7 +10,6 @@ level_seed 5
 load 3 0
 block 48 -60 0 minecraft:oak_fence
 cmd setblock 47 -60 0 minecraft:oak_fence strict
-tick 1
 unload 3 0
 note /setblock places the fence at 46 in the full chunk 2: its shape update connects the fence at 47, whose own shape update is the first read of chunk 3, which is not loaded
 cmd setblock 46 -60 0 minecraft:oak_fence
