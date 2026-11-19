@@ -10,9 +10,13 @@
 #   scripts/datafix-oracle.sh fix TYPE FROM TO FILE [OUT]   one NBT file through DataFixTypes.update (TYPE: CHUNK or ref:item_stack)
 #   scripts/datafix-oracle.sh batch IN|- OUT|-              many updates, one line each (record format: DataFixerOracle.java)
 #   scripts/datafix-oracle.sh gen OPTIONS                   schema-driven samples as batch lines (options and shapes: SampleGen.java)
-#   scripts/datafix-oracle.sh --regen                       rewrite fixes.tsv and schema_types.tsv.gz under crates/mc-datafix/tests/fixtures
+#   scripts/datafix-oracle.sh tables DIR                    the lookup tables of the fix classes as DIR/<class>.tsv (format: TableDump.java)
+#   scripts/datafix-oracle.sh table-accessors               rows of the public table accessors over every key (format: TableDump.java)
+#   scripts/datafix-oracle.sh --regen                       rewrite fixes.tsv, schema_types.tsv.gz and table_accessors.tsv.gz under
+#                                                           crates/mc-datafix/tests/fixtures and the tables under crates/mc-datafix/src/fixes/data
 #
-# Output: stdout of the verb (--regen writes crates/mc-datafix/tests/fixtures/fixes.tsv and schema_types.tsv.gz).
+# Output: stdout of the verb (--regen writes crates/mc-datafix/tests/fixtures/fixes.tsv, schema_types.tsv.gz,
+# table_accessors.tsv.gz and crates/mc-datafix/src/fixes/data/*.tsv.gz).
 # `gen` reads the vocabulary target/datafix/vocab.txt (string literals of the datafix sources plus the registry ids of
 # ref/extracted), rebuilt when a datafix source is newer.
 # The Java sources in crates/mc-datafix/tests/oracle are compiled into target/datafix-oracle when they changed.
@@ -26,6 +30,7 @@ help_flag "$@"
 need java javac flock sha256sum grep sort
 SRC="$ROOT/crates/mc-datafix/tests/oracle"
 FX="$ROOT/crates/mc-datafix/tests/fixtures"
+TABLES="$ROOT/crates/mc-datafix/src/fixes/data"
 OUT="$ROOT/target/datafix-oracle"
 CP="$("$ROOT/scripts/vanilla-cp.sh")"
 
@@ -63,6 +68,25 @@ vocab() {
 }
 
 compile
+
+# regen_tables: the tables dump of every table class as TABLES/<class>.tsv.gz (gzip -9n); a class that is no longer
+# dumped loses its file. Nothing is touched when the dump fails.
+regen_tables() {
+  local tmp f
+  tmp="$(mktemp -d "$ROOT/target/datafix-tables.XXXXXX")"
+  "${ORACLE[@]}" tables "$tmp" || { rm -rf "$tmp"; return 1; }
+  for f in "$tmp"/*.tsv; do
+    gzip -9n <"$f" >"$f.gz"
+    chmod 644 "$f.gz"
+  done
+  mkdir -p "$TABLES"
+  for f in "$TABLES"/*.tsv.gz; do
+    [ ! -e "$f" ] || [ -e "$tmp/$(basename "$f")" ] || rm "$f"
+  done
+  mv "$tmp"/*.tsv.gz "$TABLES"/
+  rm -rf "$tmp"
+}
+
 ORACLE=(java -Dlog4j2.configurationFile="$SRC/log4j2-oracle.xml" -cp "$OUT:$CP")
 if [ "$1" = gen ]; then
   VOCAB="$(vocab)" # a failing assignment stops the script
@@ -72,6 +96,8 @@ ORACLE+=(DataFixerOracle)
 if [ "$1" = --regen ]; then
   to_file "$FX/fixes.tsv" "${ORACLE[@]}" fixes-list
   to_file "$FX/schema_types.tsv.gz" "${ORACLE[@]}" schema-dump all
+  to_file "$FX/table_accessors.tsv.gz" "${ORACLE[@]}" table-accessors
+  regen_tables
   wc -l "$FX/fixes.tsv" >&2
 else
   exec "${ORACLE[@]}" "$@" # the JVM replaces the script: a caller's process group and parent-death signal reach it
