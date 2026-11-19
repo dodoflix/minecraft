@@ -138,15 +138,14 @@ impl Entity for EndCrystal {
             if !source.is_tag(level, DamageTypeTags::IS_EXPLOSION) {
                 // the attacker is lent by whoever hits (a player's hit runs inside `ServerLevel::lend`), so it is
                 // found here and takes part in the explosion where vanilla runs it
-                let damage_source =
-                    source
-                        .get_entity()
-                        .and_then(|id| level.get_entity(id))
-                        .map(|cause| {
-                            level
-                                .damage_sources()
-                                .explosion(Some(self.as_dyn()), Some(cause))
-                        });
+                let damage_source = source
+                    .get_entity()
+                    .and_then(|id| level.get_source_entity(id))
+                    .map(|cause| {
+                        level
+                            .damage_sources()
+                            .explosion(Some(self.as_dyn()), Some(cause))
+                    });
                 explode(level, self.as_dyn_mut(), damage_source);
             }
             self.on_destroyed_by(level, source);

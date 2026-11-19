@@ -43,8 +43,8 @@ pub fn begin(dragon: &mut EnderDragon) {
 
 /// `setTarget(target)`.
 pub fn set_target(dragon: &mut EnderDragon, level: &mut ServerLevel, target: EntityId) {
-    // shortcut: a target that left the level reads as no target, vanilla keeps reading the stale entity
-    let Some(target_entity) = level.get_entity(target) else {
+    // shortcut: a target that is gone reads as no target, vanilla keeps reading the stale entity
+    let Some(target_entity) = level.get_entity_or_remote_target(target) else {
         return;
     };
     let (target_x, target_y, target_z) = (
@@ -85,8 +85,8 @@ pub fn do_server_tick(dragon: &mut EnderDragon, level: &mut ServerLevel) {
         dragon.set_phase(level, EnderDragonPhase::HoldingPattern);
         return;
     };
-    // shortcut: a target that left the level reads as no target, vanilla keeps reading the stale entity
-    let Some(target_entity) = level.get_entity(target) else {
+    // shortcut: a target that is gone reads as no target, vanilla keeps reading the stale entity
+    let Some(target_entity) = level.get_entity_or_remote_target(target) else {
         dragon.phases.strafe_player.attack_target = None;
         return;
     };
@@ -121,11 +121,11 @@ pub fn do_server_tick(dragon: &mut EnderDragon, level: &mut ServerLevel) {
         find_new_target(dragon, level);
     }
     let in_range = level
-        .get_entity(target)
+        .get_entity_or_remote_target(target)
         .is_some_and(|t| t.base().distance_to_sqr_vec(dragon.base().position()) < 4096.0);
     if in_range {
         let sees = level
-            .get_entity(target)
+            .get_entity_or_remote_target(target)
             .is_some_and(|t| has_line_of_sight(level, &*dragon, t));
         if sees {
             dragon.phases.strafe_player.fireball_charge += 1;
@@ -168,7 +168,7 @@ fn shoot_fireball(dragon: &mut EnderDragon, level: &mut ServerLevel, target: Ent
     let starting_x = head.base().x() - view_vector.x * 1.0;
     let starting_y = head.base().get_y_progress(0.5) + 0.5;
     let starting_z = head.base().z() - view_vector.z * 1.0;
-    let Some(target_entity) = level.get_entity(target) else {
+    let Some(target_entity) = level.get_entity_or_remote_target(target) else {
         return;
     };
     let xdd = target_entity.base().x() - starting_x;

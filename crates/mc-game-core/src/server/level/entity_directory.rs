@@ -13,9 +13,10 @@
 //! `put_back_entity` calls.
 //!
 //! shortcut: the full saved state of a player is copied only while a level asks for its stand-in or a projectile or
-//! primed TNT it owns exists; a stand-in first asked for by anything else (a mob's target, a damage source made by a
-//! command, the owner of a pet that kills) has the live fields of the copy at once and the saved state (gear, effects,
-//! food) from the player's next put-back. Upgrade by naming the player wanted where such a reference is created.
+//! primed TNT it owns exists in another level; a stand-in first asked for by anything else (a mob's target, a damage
+//! source made by a command, the owner of a pet that kills) has the live fields of the copy at once and the saved state
+//! (gear, effects, food) from the player's next put-back. Upgrade by naming the player wanted where such a reference is
+//! created.
 
 use crate::advancements::SharedAdvancements;
 use crate::stats::SharedStats;
@@ -99,8 +100,6 @@ pub struct RemotePlayer {
     pub attributes: Mutex<AttributeMap>,
     pub stats: SharedStats,
     pub advancements: SharedAdvancements,
-    /// `tickCount` of the player when this was taken.
-    pub tick_count: i32,
 }
 
 impl RemotePlayer {
@@ -113,7 +112,6 @@ impl RemotePlayer {
             attributes: Mutex::new(player.player.living.attributes.clone()),
             stats: player.stats.clone(),
             advancements: player.advancements.clone(),
-            tick_count: player.base().tick_count,
         }
     }
 }
@@ -199,18 +197,9 @@ impl RemoteEntity {
             self.damage_entity = Some(Arc::new(DamageEntity::of(entity)));
             self.last_client_input = player.last_client_input;
             self.last_known_client_movement = player.last_known_client_movement;
-            // shortcut: the saved data is as old as the player's last tick step, not of whatever changed it since (a
-            // packet, a hit, a command); the save is too heavy to repeat for every put-back. Upgrade when a reader
-            // needs such a change before the player's next tick.
-            if !wanted {
-                self.player = None;
-            } else if self
-                .player
-                .as_ref()
-                .is_none_or(|p| p.tick_count != base.tick_count)
-            {
-                self.player = Some(Arc::new(RemotePlayer::of(player)));
-            }
+            // the saved data is taken again with every put-back (a packet, a hit, a command change it between ticks) but
+            // only of a player a level reads
+            self.player = wanted.then(|| Arc::new(RemotePlayer::of(player)));
         }
         if let Some(data) = entity.player() {
             let (maps, invisibility) =
@@ -258,10 +247,14 @@ impl Entries {
         self.wanted_until.insert(uuid, self.clock + WANT_WINDOW);
     }
 
-    /// An entity that names its owner keeps the owner wanted when the owner is a player of the directory.
-    fn want_owner_of(&mut self, entity: &dyn Entity) {
+    /// An entity that names its owner keeps the owner wanted when the owner is a player of another level (the level of
+    /// `entity` reads it through a stand-in).
+    fn want_owner_of(&mut self, entity: &dyn Entity, dimension: &DimensionKey) {
         if let Some(owner) = entity.owner_reference()
-            && self.by_uuid.get(&owner).is_some_and(|o| o.is_player)
+            && self
+                .by_uuid
+                .get(&owner)
+                .is_some_and(|o| o.is_player && o.dimension != *dimension)
         {
             self.want(owner);
         }
@@ -280,7 +273,7 @@ impl EntityDirectory {
         let entry = RemoteEntity::of(entity, dimension, wanted);
         entries.uuid_by_id.insert(entry.id, entry.uuid);
         entries.by_uuid.insert(entry.uuid, entry);
-        entries.want_owner_of(entity);
+        entries.want_owner_of(entity, dimension);
     }
 
     /// `entity` is back in its level: bring its copy up to date (nothing when it is not published there).
@@ -292,7 +285,7 @@ impl EntityDirectory {
             && entry.dimension == *dimension
         {
             entry.update(entity, wanted);
-            entries.want_owner_of(entity);
+            entries.want_owner_of(entity, dimension);
         }
     }
 
@@ -526,6 +519,27 @@ mod tests {
         let mut nether = nether;
         nether.remote_targets.refresh(&directory, &nether.dimension);
         assert!(!nether.remote_targets.contains(id));
+    }
+
+    /// A change made between two ticks of a wanted player (a packet, a hit, a command) reaches its copy at the next put-back.
+    #[test]
+    fn a_wanted_player_is_copied_again_within_one_tick() {
+        let directory = EntityDirectory::default();
+        let mut overworld = level("minecraft:overworld", &directory);
+        let nether = level("minecraft:the_nether", &directory);
+        let (uuid, id) = player(&mut overworld, 9);
+        nether.get_entity_or_remote_player(uuid).expect("stand-in");
+        tick_player(&mut overworld, id);
+        let tags_of = |directory: &EntityDirectory| {
+            let remote = directory.get(uuid).unwrap();
+            remote.player.unwrap().saved.get("Tags").cloned()
+        };
+        assert!(tags_of(&directory).is_none());
+
+        let mut player = overworld.take_entity(id).expect("player");
+        player.base_mut().add_tag("changed");
+        overworld.put_back_entity(id, player);
+        assert!(tags_of(&directory).is_some());
     }
 
     /// A projectile that names a player as its owner keeps the player's data copied while it exists.

@@ -303,7 +303,7 @@ impl Entity for Allay {
     fn hurt_server(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) -> bool {
         let liked_attacker = source
             .get_entity()
-            .and_then(|id| level.get_entity(id))
+            .and_then(|id| level.get_source_entity(id))
             .is_some_and(|attacker| self.is_liked_player(attacker));
         !liked_attacker
             && mc_game_core::world::entity::living_entity::damage::hurt_server(

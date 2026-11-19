@@ -56,7 +56,7 @@ pub fn on_crystal_destroyed(
 ) {
     let Some(player) = player else { return };
     let can_attack = level
-        .get_entity(player)
+        .get_source_entity(player)
         .is_some_and(|p| dragon.can_attack(level, p));
     if can_attack {
         strafe_player(dragon, level, player);

@@ -356,11 +356,7 @@ impl<'a> ServerExplosion<'a> {
         let redirectable = mc_data::tags::get::<EntityType>("redirectable_projectile")
             .is_some_and(|t| t.contains(entity.get_type()));
         if redirectable && entity.as_projectile().is_some() {
-            let owner = self
-                .damage_source
-                .get_entity()
-                .and_then(|id| level.get_entity_or_lent(id))
-                .map(|e| e.uuid());
+            let owner = self.damage_source.causing_info().map(|e| e.uuid);
             if let Some(projectile) = entity.as_projectile_mut() {
                 projectile.set_owner_uuid(owner);
             }

@@ -94,6 +94,8 @@ impl RemoteTargets {
 /// What the directory copy `remote` knows of a player, written into its stand-in.
 fn mirror(stand_in: &mut StandIn, remote: &RemoteEntity) {
     let player = &mut *stand_in.player;
+    // before the load: the saved data of timed state reads the player's age
+    player.base_mut().tick_count = remote.tick_count;
     if let Some(data) = &remote.player {
         // the player's data first: the fields below are the live values of the copy
         if !stand_in
@@ -125,7 +127,6 @@ fn mirror(stand_in: &mut StandIn, remote: &RemoteEntity) {
     base.set_y_rot(remote.y_rot);
     base.set_x_rot(remote.x_rot);
     base.eye_height = remote.eye_height;
-    base.tick_count = remote.tick_count;
     base.was_touching_water = remote.was_touching_water;
     base.entity_data.set(DATA_POSE, remote.pose);
     base.entity_data

@@ -241,7 +241,7 @@ impl EnderDragon {
     ) {
         let causing_player = source
             .get_entity()
-            .filter(|id| level.get_entity(*id).is_some_and(|e| e.is_player()));
+            .filter(|id| level.get_source_entity(*id).is_some_and(|e| e.is_player()));
         let player = causing_player.or_else(|| {
             // `CRYSTAL_DESTROY_TARGETING`: `forCombat().range(64.0)`, no source
             let conditions = TargetingConditions::for_combat().range(64.0);
@@ -263,9 +263,10 @@ impl EnderDragon {
             result
         });
         if self.nearest_crystal == Some(crystal.id()) {
-            let explosion = level
-                .damage_sources()
-                .explosion(Some(crystal), player.and_then(|id| level.get_entity(id)));
+            let explosion = level.damage_sources().explosion(
+                Some(crystal),
+                player.and_then(|id| level.get_source_entity(id)),
+            );
             self.hurt_part(level, HEAD, &explosion, 10.0);
         }
         phases::on_crystal_destroyed(self, level, player);

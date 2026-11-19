@@ -85,7 +85,9 @@ fn damage_source_ignites_tnt(level: &ServerLevel, source: &DamageSource) -> bool
 
 /// `damageSources().explosion(this, source.getEntity())`.
 fn explosion_source(level: &ServerLevel, cart: &dyn Entity, source: &DamageSource) -> DamageSource {
-    let cause = source.get_entity().and_then(|id| level.get_entity(id));
+    let cause = source
+        .get_entity()
+        .and_then(|id| level.get_source_entity(id));
     level.damage_sources().explosion(Some(cart), cause)
 }
 

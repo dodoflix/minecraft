@@ -67,7 +67,10 @@ impl Goal for DefendVillageTargetGoal {
                 }
             }
         }
-        match self.potential_target.and_then(|t| level.get_entity(t)) {
+        match self
+            .potential_target
+            .and_then(|t| level.get_entity_or_remote_target(t))
+        {
             None => false,
             Some(t) => !(t.is_player() && (t.is_spectator() || ext::is_creative_player(t))),
         }

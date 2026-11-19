@@ -563,7 +563,7 @@ pub fn hurt_server(
     if was_hurt
         && let Some(attacker) = source
             .get_entity()
-            .and_then(|id| level.get_entity_or_recently_removed(id))
+            .and_then(|id| level.get_source_entity(id))
             .filter(|a| a.living().is_some())
     {
         set_anger_target(&*level, e.as_dyn_mut(), attacker);
