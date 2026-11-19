@@ -1,0 +1,44 @@
+# thorns worn by a player in the nether that hurt a player of the overworld whose evoker fangs hit the wearer: the hurt is given the level of the wearer, so a shield
+# that blocks it plays its sound there (the pitch drawn from that level's random), and the infested effect of the attacker spawns its silverfish there
+# (at the attacker's coordinates, with the attacker's own random) while the attacker's own level hears nothing.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+fill -2 99 -2 2 99 12 minecraft:stone
+in the_nether fill -2 99 -2 2 99 12 minecraft:netherrack
+spawn_player Alice survival 0.5 100 0.5 -45 0
+in the_nether spawn_player Bob survival 2.5 100 2.5 180 0
+in the_nether give Bob chest minecraft:iron_chestplate[enchantments={"minecraft:thorns":10}]
+in the_nether spawn_player Obs creative 1.5 100 1.5 0 0
+give Alice offhand minecraft:shield
+effect Alice minecraft:infested 0 6000
+tick 2
+dump packets:Alice:none player:Alice
+in the_nether dump packets:Bob:none player:Bob packets:Obs:none
+note Alice holds her shield up towards Bob, and her fangs hurt Bob: the thorns are blocked
+use Alice off
+tick 6
+level_seed 5
+in the_nether level_seed 11
+in the_nether spawn F1 minecraft:evoker_fangs 2.5 100 2.5 0 0 {Warmup:0,Owner:[I;278005000,-707248403,-1814916367,-1817188393]}
+in the_nether entity_seed F1 21
+tick 10
+dump player:Alice packets:Alice:entity_event,damage_event,hurt_animation,set_health,sound xentities
+in the_nether dump player:Bob packets:Bob:entity_event,damage_event,hurt_animation,set_health packets:Obs:sound,add_entity xentities
+note the shield is lowered and her fangs hurt Bob again: the thorns hurt her and her infested effect spawns silverfish in the nether
+release Alice
+tick 30
+entity_seed Alice 29
+in the_nether spawn F2 minecraft:evoker_fangs 2.5 100 2.5 0 0 {Warmup:0,Owner:[I;278005000,-707248403,-1814916367,-1817188393]}
+in the_nether entity_seed F2 22
+tick 10
+dump player:Alice packets:Alice:entity_event,damage_event,hurt_animation,set_health xentities
+in the_nether dump player:Bob packets:Bob:entity_event,damage_event,hurt_animation,set_health packets:Obs:sound,add_entity xentities
+tick 3
+dump xentities
+in the_nether dump xentities

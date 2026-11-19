@@ -75,11 +75,27 @@ impl AnyDimensionEntity<'_> {
         }
     }
 
+    /// `getBbHeight()`.
+    pub fn bb_height(&self) -> f32 {
+        match self {
+            Self::Here(e) => e.base().get_bb_height(),
+            Self::Elsewhere(r) => r.bb_height,
+        }
+    }
+
     /// `instanceof LivingEntity`.
     pub fn is_living(&self) -> bool {
         match self {
             Self::Here(e) => e.living().is_some(),
             Self::Elsewhere(r) => r.is_living,
+        }
+    }
+
+    /// `instanceof Mob`.
+    pub fn is_mob(&self) -> bool {
+        match self {
+            Self::Here(e) => e.is_mob(),
+            Self::Elsewhere(r) => r.is_mob,
         }
     }
 
@@ -260,6 +276,21 @@ impl ServerLevel {
 
     // ---- lookups ----------------------------------------------------------------------------------------------
 
+    /// What `hurtServer(level, ..)` does with its `level` argument (the damage event, the block sound, `onMobHurt` effects)
+    /// when that is not the level of the entity `entity` it hurts: queued on `tick_state.hurt_level_work` for the caller that
+    /// hurt it from the other level to run there; here and now otherwise.
+    pub fn in_hurt_level(
+        &mut self,
+        entity: EntityId,
+        f: impl FnOnce(&mut ServerLevel) + Send + 'static,
+    ) {
+        if self.tick_state.hurt_through_other_level == Some(entity) {
+            self.tick_state.hurt_level_work.push(Box::new(f));
+        } else {
+            f(self);
+        }
+    }
+
     /// `getEntity(id)`: a tracked entity that is not currently taken out, or the entity that is loading. A player of another
     /// level is no entity of this level, so not found here: see [`ServerLevel::get_entity_or_remote_target`].
     pub fn get_entity(&self, id: EntityId) -> Option<&dyn Entity> {
@@ -298,14 +329,13 @@ impl ServerLevel {
         self.remote_targets.get(id)
     }
 
-    /// The entity that a goal or behavior holds by id between ticks (`lookAt`, a begging player, a ram target): vanilla
-    /// keeps the object, which stays valid when it is a player that went to another level. [`ServerLevel::get_entity`], or the
-    /// stand-in of that player (made when first asked for).
+    /// The entity that a goal or behavior holds by id between ticks (`lookAt`, a begging player, a ram target, a mob's target):
+    /// vanilla keeps the object, which stays valid when it is a living entity that went to another level (a player that
+    /// changed level). [`ServerLevel::get_entity`], or the stand-in of that entity (made when first asked for).
     pub fn get_held_entity(&self, id: EntityId) -> Option<&dyn Entity> {
         self.get_entity_or_remote_target(id).or_else(|| {
-            let remote = self.server_state.entities.get_by_id(id)?;
-            self.ensure_remote_player(&remote)?;
-            self.remote_targets.get(id)
+            self.hold_entity_of_other_level(id);
+            self.get_entity_or_remote_target(id)
         })
     }
 
@@ -319,11 +349,43 @@ impl ServerLevel {
         Some(id)
     }
 
+    /// Makes the living entity `id` of another level findable by [`ServerLevel::get_entity_or_remote_target`] (the cause of a
+    /// damage source that was made in that level, which this level's predicates look up by id). Nothing for an entity of this level.
+    pub fn hold_entity_of_other_level(&self, id: EntityId) {
+        if self.get_entity_or_remote_target(id).is_some() {
+            return;
+        }
+        if let Some(remote) = self.remote_entity_by_id(id)
+            && remote.is_living
+        {
+            self.remote_targets.ensure(&remote, &self.registries);
+            self.server_state.entities.want(remote.uuid);
+        }
+    }
+
     fn make_stand_in(&self, remote: &super::RemoteEntity) -> Option<EntityId> {
         (remote.is_player && remote.dimension != self.dimension).then(|| {
-            self.remote_targets.ensure(remote);
+            self.remote_targets.ensure(remote, &self.registries);
             remote.id
         })
+    }
+
+    /// `EntityReference.getLivingEntity(reference, level)`: the living entity `uuid` of this level, or the stand-in of
+    /// one that another level tracks (made when first asked for; a player's by [`ServerLevel::get_entity_or_remote_player`]
+    /// too). Its saved state reaches the stand-in with the entity's next put-back once the entity is wanted, so the
+    /// reference should be one that names it (see `owner_reference`) for the state to be there.
+    pub fn get_entity_or_remote_living(&self, uuid: Uuid) -> Option<&dyn Entity> {
+        if let Some(entity) = self.get_entity_by_uuid(uuid) {
+            return Some(entity).filter(|e| e.living().is_some());
+        }
+        let id = self.server_state.entities.with(uuid, |remote| {
+            (remote.is_living && remote.dimension != self.dimension).then(|| {
+                self.remote_targets.ensure(remote, &self.registries);
+                remote.id
+            })
+        })??;
+        self.server_state.entities.want(uuid);
+        self.remote_targets.get(id)
     }
 
     /// Whether `id` names the stand-in of a player of another level (`entity.level() != this.level()`).

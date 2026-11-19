@@ -17,6 +17,7 @@ use mc_game_ai::world::entity::ai::goal::{
 use mc_game_core::define_accessor;
 use mc_game_core::registry::keys;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::server::players::cross_level::{add_effect_to_held_entity, write_to_held_entity};
 use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
 use mc_game_core::world::entity::ai::control::smooth_swimming_look_control::SmoothSwimmingLookControl;
@@ -627,12 +628,32 @@ struct DolphinSwimWithPlayerGoal {
 impl DolphinSwimWithPlayerGoal {
     fn give_grace(&self, level: &mut ServerLevel, dolphin: EntityId) {
         if let Some(player) = self.player {
-            level.with_entity(player, |level, p| {
-                p.add_effect(
-                    level,
-                    MobEffectInstance::of(MobEffect::DOLPHINS_GRACE, 100, 0),
-                    Some(dolphin),
-                );
+            add_effect_to_held_entity(
+                level,
+                player,
+                MobEffectInstance::of(MobEffect::DOLPHINS_GRACE, 100, 0),
+                dolphin,
+            );
+        }
+    }
+
+    /// `this.player.level().getRandom().nextInt(6) == 0` then the grace: the random of the level the player is in.
+    fn maybe_give_grace(&self, level: &mut ServerLevel, dolphin: EntityId) {
+        let Some(player) = self.player else { return };
+        if level.get_entity(player).is_some() {
+            if level.random().next_int_bounded(6) == 0 {
+                self.give_grace(level, dolphin);
+            }
+        } else {
+            write_to_held_entity(level, player, move |own, player| {
+                if own.random().next_int_bounded(6) == 0 {
+                    own.hold_entity_of_other_level(dolphin);
+                    player.add_effect(
+                        own,
+                        MobEffectInstance::of(MobEffect::DOLPHINS_GRACE, 100, 0),
+                        Some(dolphin),
+                    );
+                }
             });
         }
     }
@@ -691,8 +712,8 @@ impl Goal for DolphinSwimWithPlayerGoal {
         } else {
             navigation::move_to_entity(mob, level, target_block, self.speed_modifier);
         }
-        if swimming && level.random().next_int_bounded(6) == 0 {
-            self.give_grace(level, mob.id());
+        if swimming {
+            self.maybe_give_grace(level, mob.id());
         }
     }
 

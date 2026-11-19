@@ -9,6 +9,7 @@ use mc_data::{EntityType, Item, MobEffect, SoundEvent};
 use mc_game_ai::world::entity::ai::goal::{AvoidEntityGoal, RangedBowAttackGoal};
 use mc_game_core::registry::RegistryAccess;
 use mc_game_core::server::level::ServerLevel;
+use mc_game_core::server::players::cross_level::add_effect_to_held_entity;
 use mc_game_core::world::damagesource::DamageSource;
 use mc_game_core::world::difficulty_instance::DifficultyInstance;
 use mc_game_core::world::entity::ai::goal::look_at_player::LookAtType;
@@ -320,14 +321,12 @@ impl UseSpell for IllusionerBlindnessSpell {
         let Some(target) = mob::tick::get_target_checked(mob, level) else {
             return;
         };
-        let source = mob.id();
-        level.with_entity(target, |level, target| {
-            target.add_effect(
-                level,
-                MobEffectInstance::of(MobEffect::BLINDNESS, 400, 0),
-                Some(source),
-            );
-        });
+        add_effect_to_held_entity(
+            level,
+            target,
+            MobEffectInstance::of(MobEffect::BLINDNESS, 400, 0),
+            mob.id(),
+        );
     }
 }
 

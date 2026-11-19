@@ -1,0 +1,47 @@
+ADV Th minecraft:recipes/decorations/crafting_table unlock_right_away
+E MHusk minecraft:husk pos=0.5,100.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+E MVil minecraft:villager pos=4.5,100.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+I Taker 0 minecraft:gold_ingot*1
+E MHusk minecraft:husk pos=0.5,100.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=mainhand:minecraft:iron_ingot*1 attrs=minecraft:armor:2.0;minecraft:attack_damage:3.0;minecraft:follow_range:35.0;minecraft:movement_speed:0.23000000417232513
+E MVil minecraft:villager pos=4.5,100.0,6.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=1 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;rest mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:movement_speed:0.5 age=0 baby=0 forcedage=0 vdata=minecraft:plains/minecraft:none/1 vxp=0
+ADV Taker items:inventory/any c
+ADV Taker items:thrown/player_any c
+ADV Taker items:thrown/player_from_player c
+ADV Taker items:thrown/player_gold c
+ADV Taker minecraft:recipes/building_blocks/gold_block has_gold_ingot
+ADV Taker minecraft:recipes/combat/golden_boots has_gold_ingot
+ADV Taker minecraft:recipes/combat/golden_chestplate has_gold_ingot
+ADV Taker minecraft:recipes/combat/golden_helmet has_gold_ingot
+ADV Taker minecraft:recipes/combat/golden_leggings has_gold_ingot
+ADV Taker minecraft:recipes/combat/golden_spear has_gold_ingot
+ADV Taker minecraft:recipes/combat/golden_sword has_gold_ingot
+ADV Taker minecraft:recipes/decorations/crafting_table unlock_right_away
+ADV Taker minecraft:recipes/food/golden_apple has_gold_ingot
+ADV Taker minecraft:recipes/misc/gold_nugget has_gold_ingot
+ADV Taker minecraft:recipes/redstone/light_weighted_pressure_plate has_gold_ingot
+ADV Taker minecraft:recipes/tools/golden_axe has_gold_ingot
+ADV Taker minecraft:recipes/tools/golden_hoe has_gold_ingot
+ADV Taker minecraft:recipes/tools/golden_pickaxe has_gold_ingot
+ADV Taker minecraft:recipes/tools/golden_shovel has_gold_ingot
+PKT Taker minecraft:take_item_entity 7f676a01
+PKT Taker minecraft:take_item_entity 7f686b01
+PKT Taker minecraft:take_item_entity 7f696601
+PKT Taker minecraft:update_advancements -
+ADV Th items:thrown/entity_any c
+ADV Th items:thrown/entity_player c
+ADV Th items:thrown/entity_villager c
+ADV Th minecraft:recipes/decorations/crafting_table unlock_right_away
+PKT Th minecraft:update_advancements -
+PKT Th minecraft:update_advancements -
+STAT Th minecraft.custom:minecraft.play_time 7
+STAT Th minecraft.custom:minecraft.time_since_death 7
+STAT Th minecraft.custom:minecraft.time_since_rest 7
+STAT Th minecraft.custom:minecraft.total_world_time 7
+ADV Th items:thrown/entity_any c
+ADV Th items:thrown/entity_player c
+ADV Th items:thrown/entity_villager c
+ADV Th minecraft:recipes/decorations/crafting_table unlock_right_away
+STAT Th minecraft.custom:minecraft.play_time 12
+STAT Th minecraft.custom:minecraft.time_since_death 12
+STAT Th minecraft.custom:minecraft.time_since_rest 12
+STAT Th minecraft.custom:minecraft.total_world_time 12

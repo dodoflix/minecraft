@@ -1,0 +1,56 @@
+T 3
+P Pl minecraft:player pos=0.5,98.98653999994397,0.5199999995529652 delta=0.0,-0.006768000145673753,0.0179999991208315 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=297 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 4
+P Pl minecraft:player pos=0.5,98.98017807980703,0.5579999982267618 delta=0.0,-0.00508953618538666,0.03647999791145329 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=296 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/99 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 5
+P Pl minecraft:player pos=0.5,98.97539391579276,0.6144799956911803 delta=0.0,-0.0038273312684424477,0.05422079635391245 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=295 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/98 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 6
+P Pl minecraft:player pos=0.5,98.97,1.0199999995529652 delta=0.0,0.0,0.019199999141693125 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=294 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/97 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 7
+P Pl minecraft:player pos=0.5,98.97,1.0591999982476235 delta=0.0,0.0,0.03763199790573124 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=293 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/96 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 8
+P Pl minecraft:player pos=0.5,98.97,1.11683199570632 delta=0.0,0.0,0.055326716323700044 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=292 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/99 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 9
+P Pl minecraft:player pos=0.5,98.97,1.1921587115829853 delta=0.0,0.0,0.07231364562526262 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=291 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/98 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 10
+P Pl minecraft:player pos=0.5,98.97,1.284472356761213 delta=0.0,0.0,0.08862109739026273 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=290 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/97 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 11
+P Pl minecraft:player pos=0.5,98.97,1.393093453704441 delta=0.0,0.0,0.1042762507347429 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=289 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/96 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 12
+P Pl minecraft:player pos=0.5,98.97,1.5173697039921492 delta=0.0,0.0,0.11930519760952071 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=288 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/95 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 13
+P Pl minecraft:player pos=0.5,98.97,1.6566749011546351 delta=0.0,0.0,0.1337329862868212 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=287 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/94 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 14
+P Pl minecraft:player pos=0.5,98.97,1.8104078869944216 delta=0.0,0.0,0.14758366310744292 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=286 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/99 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 15
+P Pl minecraft:player pos=0.5,98.97,1.9779915496548297 delta=0.0,0.0,0.16088031255803648 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=285 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/98 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 16
+P Pl minecraft:player pos=0.5,98.97,2.1588718617658316 delta=0.0,0.0,0.17364509574529113 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=284 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/97 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 17
+P Pl minecraft:player pos=0.5,98.97,2.352516957064088 delta=0.0,0.0,0.18589928733115307 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=283 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/96 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 18
+P Pl minecraft:player pos=0.5,98.97,2.5584162439482063 delta=0.0,0.0,0.1976633109906341 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=282 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/95 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 19
+P Pl minecraft:player pos=0.5,98.97,2.7760795544918055 delta=0.0,0.0,0.20895677345130736 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=281 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/94 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 20
+P Pl minecraft:player pos=0.5,98.97,3.005036327496078 delta=0.0,0.0,0.21979849717122227 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=280 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/99 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 21
+P Pl minecraft:player pos=0.5,98.97,3.2448348242202654 delta=0.0,0.0,0.23020655170970242 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=279 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/98 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 22
+P Pl minecraft:player pos=0.5,98.97,3.495041375482933 delta=0.0,0.0,0.2401982838433107 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=278 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/97 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 23
+P Pl minecraft:player pos=0.5,98.97,3.7552396588792085 delta=0.0,0.0,0.24979034647717538 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=277 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/96 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 24
+P Pl minecraft:player pos=0.5,98.97,4.025030004909349 delta=0.0,0.0,0.2589987263998621 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=276 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/99 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 25
+P Pl minecraft:player pos=0.5,98.97,4.304028730862176 delta=0.0,0.0,0.267838770928051 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=275 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/98 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 26
+P Pl minecraft:player pos=0.5,98.97,4.5918675013431915 delta=0.0,0.0,0.27632521348542555 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=274 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/99 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 27
+P Pl minecraft:player pos=0.5,98.97,4.888192714381582 delta=0.0,0.0,0.2844721981584058 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=273 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/98 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 28
+P Pl minecraft:player pos=0.5,98.97,5.192664912092954 delta=0.0,0.0,0.2922933032696515 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=272 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/97 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 29
+P Pl minecraft:player pos=0.5,98.97,5.50495821491557 delta=0.0,0.0,0.29980156400862473 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=271 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/96 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+T 30
+P Pl minecraft:player pos=0.5,98.97,5.82475977847716 delta=0.0,0.0,0.3070094941569292 rot=0.0,0.0 og=0 fall=0.0 fire=-20 air=270 alive=1 pose=swimming hp=20.0 abs=0.0 hurt=0/0 death=0 fx=minecraft:dolphins_grace/0/95 gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty

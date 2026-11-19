@@ -1,0 +1,31 @@
+# an illusioner of the overworld that is preparing its blindness spell when its target goes to the nether: it still holds the player (its targeting goal
+# remembers a target it cannot see for 300 ticks), and the spell blinds the player in the nether (effect packets, effects_changed advancement).
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty hard
+entity_counter 100
+level_seed 5
+fill -6 99 -6 12 99 12 minecraft:stone
+in the_nether fill -6 99 -6 12 99 12 minecraft:netherrack
+spawn_player Pl survival 0.5 100 0.5 0 0
+mobspawn Il minecraft:illusioner 4.5 100 0.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed Il 3
+tick 2
+dump packets:Pl:none
+target Il Pl
+watch mob:Il
+tick 4
+watch off
+tp_dim Pl the_nether 0.5 100 0.5
+player_loaded Pl
+in the_nether dump packets:Pl:none
+tick 30
+dump mob:Il
+in the_nether dump player:Pl packets:Pl:update_mob_effect,sound
+tick 20
+dump mob:Il
+in the_nether dump player:Pl packets:Pl:update_mob_effect,remove_mob_effect,sound

@@ -61,3 +61,63 @@ fn area_effect_cloud_owner_is_in_another_level() {
 fn thorns_hurt_the_arrow_owner_in_another_level() {
     check("lvl_thorns_remote_owner");
 }
+
+/// Evoker fangs of an evoker in another level hurt with that evoker as the cause, spare its team, and the thorns they meet hurt the evoker.
+#[test]
+fn fangs_owner_is_a_mob_in_another_level() {
+    check("lvl_fangs_owner_remote_mob");
+}
+
+/// Evoker fangs of a player in another level: the player is the cause and the kill credit; its team is spared.
+#[test]
+fn fangs_owner_is_a_player_in_another_level() {
+    check("lvl_fangs_owner_remote_player");
+}
+
+/// A shulker bullet keeps homing in on a player or a mob in another level, and falls for a spectator or an unknown target.
+#[test]
+fn shulker_bullet_target_is_in_another_level() {
+    check("lvl_shulker_bullet_target_remote");
+}
+
+/// An item thrown by a player who is in another level fires the thrown-item pickup triggers for that player.
+#[test]
+fn thrown_item_pickup_triggers_for_a_thrower_in_another_level() {
+    check("lvl_thrown_pickup_remote_thrower");
+}
+
+/// `execute on owner` reaches the owner of a horse in another level.
+#[test]
+fn horse_owner_is_in_another_level() {
+    check("lvl_horse_owner_remote");
+}
+
+/// What the hurt of thorns does with the level of the arrow (a shield's block sound, infested silverfish) happens in that level, not the owner's.
+#[test]
+fn thorns_hurt_effects_happen_in_the_level_of_the_effect() {
+    check("lvl_thorns_remote_owner_effects");
+}
+
+/// A small fireball whose owner is a mob in another level counts as a mob's: it lights no fire with mob griefing off.
+#[test]
+fn small_fireball_owner_is_a_mob_in_another_level() {
+    check("lvl_small_fireball_owner_remote_mob");
+}
+
+/// A phantom that was swooping at a player who went to another level loses its target and never bites.
+#[test]
+fn phantom_loses_a_target_that_left_its_level() {
+    check("lvl_phantom_swoop_remote_player");
+}
+
+/// The blindness spell of an illusioner reaches its target in another level.
+#[test]
+fn illusioner_blinds_a_target_in_another_level() {
+    check("lvl_illusioner_blindness_remote_player");
+}
+
+/// A dolphin swimming with a player who went to another level refreshes the grace of that player with the random of the player's level.
+#[test]
+fn dolphin_grace_reaches_a_player_in_another_level() {
+    check("lvl_dolphin_grace_remote_player");
+}

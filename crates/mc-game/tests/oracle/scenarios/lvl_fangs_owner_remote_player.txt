@@ -1,0 +1,35 @@
+# evoker fangs whose owner is a player in another level: the player is the cause of the damage event and the last attacker of the pig, is credited
+# with the kill and keeps its team; a pig of the owner's team is spared.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+level_seed 5
+fill -4 99 -4 8 99 8 minecraft:stone
+in the_nether fill -4 99 -4 8 99 8 minecraft:netherrack
+spawn_player Obs creative 6.5 100 6.5 0 0
+in the_nether spawn_player Pl survival 0.5 100 0.5 0 0
+mobspawn Pg minecraft:pig 0.5 100 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,Health:6.0f}
+entity_seed Pg 4
+mobspawn Pk minecraft:pig 4.5 100 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,UUID:[I;11,12,13,14]}
+entity_seed Pk 5
+cmd team add red
+cmd team join red Pl
+cmd team join red 0000000b-0000-000c-0000-000d0000000e
+tick 2
+dump packets:Obs:none packets:Pl:none
+in the_nether dump packets:Pl:none
+spawn F1 minecraft:evoker_fangs 0.5 100 0.5 0 0 {Warmup:0,Owner:[I;2096506240,1443246745,-1971821799,-875989337]}
+entity_seed F1 21
+spawn F2 minecraft:evoker_fangs 4.5 100 0.5 0 0 {Warmup:0,Owner:[I;2096506240,1443246745,-1971821799,-875989337]}
+entity_seed F2 22
+tick 10
+dump mob:Pg mob:Pk packets:Obs:entity_event,damage_event,hurt_animation,set_health events
+in the_nether dump player:Pl stats:Pl advancements:Pl packets:Pl:award_stats,system_chat,update_advancements events
+tick 20
+dump mob:Pk xentities
+in the_nether dump player:Pl stats:Pl

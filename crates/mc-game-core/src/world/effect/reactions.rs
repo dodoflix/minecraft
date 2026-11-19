@@ -53,20 +53,45 @@ pub fn weaving(level: &mut ServerLevel, mob: &mut dyn Entity) {
 }
 
 /// `InfestedMobEffect.onMobHurt`: `chanceToSpawn = 0.1F`, `spawnedCount = random -> randomBetweenInclusive(1, 2)`.
+/// The silverfish appear in the level that `hurtServer` was given (see `ServerLevel::in_hurt_level`).
 pub fn infested(level: &mut ServerLevel, mob: &mut dyn Entity) {
     if mob.base_mut().random.next_float() > 0.1 {
         return;
     }
     let count = mth::random_between_inclusive(&mut mob.base_mut().random, 1, 2);
+    // `EntityTypes.SILVERFISH.create` gives nothing in peaceful, and the mob's random is drawn only for a silverfish that exists
+    if !level.can_spawn_entity_type(EntityType::SILVERFISH) {
+        return;
+    }
     let pos = mob.base().position();
     let y = pos.y + f64::from(mob.base().get_bb_height()) / 2.0;
-    for _ in 0..count {
-        spawn_silverfish(level, mob, pos.x, y, pos.z);
-    }
+    // `InfestedMobEffect.spawnSilverfish`: the mob's random and look give the motion of each
+    let motions: Vec<Vec3> = (0..count)
+        .map(|_| {
+            let random_angle = mth::random_between(
+                &mut mob.base_mut().random,
+                -std::f32::consts::FRAC_PI_2,
+                std::f32::consts::FRAC_PI_2,
+            );
+            let look = mob.get_look_angle();
+            let (vx, vy, vz) = rotate_y(
+                look.x as f32 * 0.3,
+                look.y as f32 * 0.3 * 1.5,
+                look.z as f32 * 0.3,
+                random_angle,
+            );
+            Vec3::new(f64::from(vx), f64::from(vy), f64::from(vz))
+        })
+        .collect();
+    level.in_hurt_level(mob.id(), move |level| {
+        for motion in motions {
+            spawn_silverfish(level, pos.x, y, pos.z, motion);
+        }
+    });
 }
 
 /// `InfestedMobEffect.spawnSilverfish`.
-fn spawn_silverfish(level: &mut ServerLevel, mob: &mut dyn Entity, x: f64, y: f64, z: f64) {
+fn spawn_silverfish(level: &mut ServerLevel, x: f64, y: f64, z: f64, motion: Vec3) {
     let Some(mut silverfish) = factory::create(
         EntityType::SILVERFISH,
         level,
@@ -77,25 +102,9 @@ fn spawn_silverfish(level: &mut ServerLevel, mob: &mut dyn Entity, x: f64, y: f6
     ) else {
         return;
     };
-    let random_angle = mth::random_between(
-        &mut mob.base_mut().random,
-        -std::f32::consts::FRAC_PI_2,
-        std::f32::consts::FRAC_PI_2,
-    );
-    let look = mob.get_look_angle();
-    let (vx, vy, vz) = rotate_y(
-        look.x as f32 * 0.3,
-        look.y as f32 * 0.3 * 1.5,
-        look.z as f32 * 0.3,
-        random_angle,
-    );
     let yaw = level.tick_state.random.next_float() * 360.0;
     silverfish.snap_to(x, y, z, yaw, 0.0);
-    silverfish.base_mut().set_delta_movement(Vec3::new(
-        f64::from(vx),
-        f64::from(vy),
-        f64::from(vz),
-    ));
+    silverfish.base_mut().set_delta_movement(motion);
     level.add_fresh_entity(silverfish);
     level.play_sound_at(
         None,

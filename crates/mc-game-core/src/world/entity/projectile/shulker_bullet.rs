@@ -1,7 +1,7 @@
 //! `net.minecraft.world.entity.projectile.ShulkerBullet`: the homing bullet of the shulker (levitation on hit).
 
 use super::{EntityHitResult, HitResult, Projectile, ProjectileData, ProjectileDeflection};
-use crate::server::level::ServerLevel;
+use crate::server::level::{AnyDimensionEntity, ServerLevel};
 use crate::world::damagesource::DamageSource;
 use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::factory::{ENTITY_FACTORIES, EntityRegistration};
@@ -69,7 +69,8 @@ impl ShulkerBullet {
         bullet.snap_to(position.x, position.y, position.z, y_rot, x_rot);
         bullet.final_target = Some(target.uuid());
         bullet.current_move_direction = Some(Direction::Up);
-        bullet.select_next_move_direction(level, Some(invalid_start_axis), Some(target));
+        let held = AnyDimensionEntity::Here(target);
+        bullet.select_next_move_direction(level, Some(invalid_start_axis), Some(&held));
         bullet
     }
 
@@ -78,14 +79,15 @@ impl ShulkerBullet {
         &mut self,
         level: &ServerLevel,
         avoid_axis: Option<Axis>,
-        target: Option<&dyn Entity>,
+        target: Option<&AnyDimensionEntity<'_>>,
     ) {
         let mut y_offset = 0.5;
         let target_pos = match target {
             None => self.block_position().below(),
             Some(t) => {
-                y_offset = f64::from(t.base().get_bb_height()) * 0.5;
-                BlockPos::containing(t.base().x(), t.base().y() + y_offset, t.base().z())
+                y_offset = f64::from(t.bb_height()) * 0.5;
+                let at = t.position();
+                BlockPos::containing(at.x, at.y + y_offset, at.z)
             }
         };
         let mut target_x = f64::from(target_pos.x()) + 0.5;
@@ -321,17 +323,15 @@ impl Entity for ShulkerBullet {
 
     fn tick(&mut self, level: &mut ServerLevel) {
         super::tick(self, level);
-        // `EntityReference.getEntity(finalTarget, level)`: a player of another level by its stand-in
-        // shortcut: a target that is no player and is in another level is dropped; upgrade with a stand-in for every entity
-        let final_target_id = self
+        // `EntityReference.getEntity(finalTarget, level)`: an entity of any level of the server
+        let final_target = self
             .final_target
-            .and_then(|u| level.get_entity_or_remote_player(u))
-            .map(|e| e.id());
-        if final_target_id.is_none() {
+            .and_then(|u| level.get_entity_in_any_dimension(u));
+        if final_target.is_none() {
             self.final_target = None;
         }
-        let target_alive = final_target_id
-            .and_then(|id| level.get_entity_or_remote_target(id))
+        let target_alive = final_target
+            .as_ref()
             .is_some_and(|t| t.is_alive() && !(t.is_player() && t.is_spectator()));
         if !target_alive {
             self.apply_gravity();
@@ -364,13 +364,13 @@ impl Entity for ShulkerBullet {
             super::hit_target_or_deflect_self(self, level, &hit_result);
         }
         super::util::rotate_towards_movement(self, 0.5);
-        if let Some(target_id) = final_target_id {
+        if let Some(target_uuid) = self.final_target {
             if self.flight_steps > 0 {
                 self.flight_steps -= 1;
                 if self.flight_steps == 0 {
                     let axis = self.current_move_direction.map(|d| d.get_axis());
-                    if let Some(t) = level.get_entity_or_remote_target(target_id) {
-                        self.select_next_move_direction(level, axis, Some(t));
+                    if let Some(t) = level.get_entity_in_any_dimension(target_uuid) {
+                        self.select_next_move_direction(level, axis, Some(&t));
                     }
                 }
             }
@@ -387,16 +387,16 @@ impl Entity for ShulkerBullet {
                         self,
                     );
                 if can_stand {
-                    if let Some(t) = level.get_entity_or_remote_target(target_id) {
-                        self.select_next_move_direction(level, Some(axis), Some(t));
+                    if let Some(t) = level.get_entity_in_any_dimension(target_uuid) {
+                        self.select_next_move_direction(level, Some(axis), Some(&t));
                     }
-                } else if let Some(t) = level.get_entity_or_remote_target(target_id) {
+                } else if let Some(t) = level.get_entity_in_any_dimension(target_uuid) {
                     let target_pos = t.block_position();
                     if (axis == Axis::X && current.x() == target_pos.x())
                         || (axis == Axis::Z && current.z() == target_pos.z())
                         || (axis == Axis::Y && current.y() == target_pos.y())
                     {
-                        self.select_next_move_direction(level, Some(axis), Some(t));
+                        self.select_next_move_direction(level, Some(axis), Some(&t));
                     }
                 }
             }

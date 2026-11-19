@@ -1,0 +1,32 @@
+CF msg Created team [red]
+CF result success 1
+CF msg Added Pl to team [red]
+CF result success 1
+CF msg Added Pig to team [red]
+CF result success 1
+E Pg minecraft:pig pos=0.5,100.0,0.5 delta=0.28722310042746313,0.0,-0.278393418293621 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=0 pose=dying hp=0.0 abs=0.0 hurt=8/18 death=2 fx=- target=- hurtby=Pl aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Pk minecraft:pig pos=4.5,100.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+PKT Obs minecraft:entity_event 220000006904
+PKT Obs minecraft:entity_event 220000006a04
+EV sound at=0.5,100.0,0.5 r=16.0 ex=0 event=minecraft:entity.pig.death source=neutral vol=1.0 pitch=1.1008323
+P Pl minecraft:player pos=0.5,100.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+STAT Pl minecraft.custom:minecraft.mob_kills 1
+STAT Pl minecraft.custom:minecraft.play_time 12
+STAT Pl minecraft.custom:minecraft.time_since_death 12
+STAT Pl minecraft.custom:minecraft.time_since_rest 12
+STAT Pl minecraft.custom:minecraft.total_world_time 12
+STAT Pl minecraft.killed:minecraft.pig 1
+ADV Pl minecraft:adventure/root killed_something
+ADV Pl minecraft:recipes/decorations/crafting_table unlock_right_away
+PKT Pl minecraft:update_advancements -
+E Pk minecraft:pig pos=4.5,100.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E Pk minecraft:pig pos=4.5,100.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+E item#1 minecraft:item pos=1.108585371662562,100.0,0.8494398660267876 delta=7.790205592192585E-4,-0.04,4.4730099098837223E-4 rot=152.1689,0.0 og=1 fall=0.0 fire=0 air=300 alive=1 pose=standing item=minecraft:porkchop*3 age=22 pickup=0 health=5 owner=- thrower=-
+E experience_orb#1 minecraft:experience_orb pos=0.16570984930108848,100.12782199857892,0.5904214023483473 delta=-0.007502950435672304,0.011318543754806391,0.0020294564429290634 rot=205.19293,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing value=3 count=1 age=22 health=5
+P Pl minecraft:player pos=0.5,100.0,0.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=1 fall=0.0 fire=-20 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- gm=survival food=20 sat=5.0 exh=0.0 xp=0/0/0.0 sel=0 main=empty
+STAT Pl minecraft.custom:minecraft.mob_kills 1
+STAT Pl minecraft.custom:minecraft.play_time 32
+STAT Pl minecraft.custom:minecraft.time_since_death 32
+STAT Pl minecraft.custom:minecraft.time_since_rest 32
+STAT Pl minecraft.custom:minecraft.total_world_time 32
+STAT Pl minecraft.killed:minecraft.pig 1

@@ -64,11 +64,9 @@ impl EvokerFangs {
         self.owner = owner.map(|o| o.uuid());
     }
 
-    /// `getOwner()` (`getLivingEntity`): in any level; a player of another level is its stand-in.
+    /// `getOwner()` (`getLivingEntity`): in any level; one that only another level tracks is its stand-in.
     pub fn get_owner<'l>(&self, level: &'l ServerLevel) -> Option<&'l dyn Entity> {
-        level
-            .get_entity_or_remote_player(self.owner?)
-            .filter(|e| e.living().is_some())
+        level.get_entity_or_remote_living(self.owner?)
     }
 
     /// `dealDamageTo(entity)`.
@@ -82,31 +80,11 @@ impl EvokerFangs {
         }
         match owner_id.and_then(|id| level.get_entity_or_remote_target(id)) {
             None => {
-                let mut source = level.damage_sources().magic();
-                // shortcut: an owner that only another level tracks and is no player has no stand-in, so only what that
-                // level published of it is the cause and its team is not checked, and the effects that act on that owner (thorns, its weapon
-                // enchantments) are skipped; upgrade with a stand-in for every living entity
-                let remote_owner = self
-                    .owner
-                    .and_then(|uuid| level.living_in_other_level(uuid));
-                if let Some(remote) = &remote_owner {
-                    source = level.attribute_to_remote_entity(
-                        level.damage_sources().indirect_magic(self.as_dyn(), None),
-                        remote,
-                    );
-                }
+                let source = level.damage_sources().magic();
                 level.with_entity(victim, |level, t| {
-                    if level.lend(self.as_dyn_mut(), |level| {
+                    level.lend(self.as_dyn_mut(), |level| {
                         t.hurt_server(level, &source, 6.0)
-                    }) && remote_owner.is_some()
-                    {
-                        crate::world::item::enchantment_helper::do_post_attack_effects(
-                            level,
-                            &mut Actors::of(&mut *t),
-                            victim,
-                            &source,
-                        );
-                    }
+                    });
                 });
             }
             Some(owner) => {
@@ -151,6 +129,10 @@ impl Entity for EvokerFangs {
     }
     fn as_dyn_mut(&mut self) -> &mut dyn Entity {
         self
+    }
+
+    fn owner_reference(&self) -> Option<Uuid> {
+        self.owner
     }
 
     fn tick(&mut self, level: &mut ServerLevel) {

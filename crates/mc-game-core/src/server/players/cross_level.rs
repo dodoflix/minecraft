@@ -94,16 +94,6 @@ pub fn queue_for_player(
     level.queue_server_action(move |server, level| deliver(server, level, uuid, f));
 }
 
-/// Like [`queue_for_player`], and `f` also gets the running level (`None` when the player has come to that level
-/// meanwhile: `level` is the running level then), for code that vanilla runs with the level of the effect.
-pub fn queue_for_player_from(
-    level: &mut ServerLevel,
-    uuid: Uuid,
-    f: impl FnOnce(&mut ServerLevel, &mut ServerPlayer, Option<&mut ServerLevel>) + Send + 'static,
-) {
-    level.queue_server_action(move |server, origin| deliver_from(server, origin, uuid, f));
-}
-
 /// `f` on the entity `uuid` that some level of the server tracks (the owner of an arrow that is no player), once the server
 /// runs the queue. Nothing runs when no level tracks it any more. A level that a caller further up holds is retried the
 /// next time the running level's queue runs.
@@ -113,6 +103,82 @@ pub fn queue_for_entity(
     f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) + Send + 'static,
 ) {
     level.queue_server_action(move |server, level| deliver_to_entity(server, level, uuid, f));
+}
+
+/// `f` on the entity `id` that code of the running level holds as an object (a mob's target): at once when the level has it,
+/// queued for the real entity when `id` is the stand-in of one that another level tracks (a player that went there).
+pub fn write_to_held_entity(
+    level: &mut ServerLevel,
+    id: EntityId,
+    f: impl FnOnce(&mut ServerLevel, &mut dyn Entity) + Send + 'static,
+) {
+    if level.get_entity(id).is_some() {
+        level.with_entity(id, f);
+    } else if level.is_remote_target(id)
+        && let Some(uuid) = level.get_entity_or_remote_target(id).map(|e| e.uuid())
+    {
+        queue_for_entity(level, uuid, f);
+    }
+}
+
+/// `target.addEffect(effect, source)` on an entity that code of the running level holds as an object ([`write_to_held_entity`]);
+/// `source` is an entity of the running level, which the target's own level learns as a stand-in.
+pub fn add_effect_to_held_entity(
+    level: &mut ServerLevel,
+    target: EntityId,
+    effect: crate::world::entity::effect::MobEffectInstance,
+    source: EntityId,
+) {
+    write_to_held_entity(level, target, move |own, target| {
+        own.hold_entity_of_other_level(source);
+        target.add_effect(own, effect, Some(source));
+    });
+}
+
+/// Like [`queue_for_entity`], and `f` also gets the running level (`None` when the entity has come to that level
+/// meanwhile: `level` is the running level then), for code that vanilla runs with the level of the effect. A player is
+/// found where [`deliver_from`] finds it.
+pub fn queue_for_entity_from(
+    level: &mut ServerLevel,
+    uuid: Uuid,
+    f: impl FnOnce(&mut ServerLevel, &mut dyn Entity, Option<&mut ServerLevel>) + Send + 'static,
+) {
+    level
+        .queue_server_action(move |server, origin| deliver_to_entity_from(server, origin, uuid, f));
+}
+
+fn deliver_to_entity_from(
+    server: &mut MinecraftServer,
+    origin: &mut ServerLevel,
+    uuid: Uuid,
+    f: impl FnOnce(&mut ServerLevel, &mut dyn Entity, Option<&mut ServerLevel>) + Send + 'static,
+) {
+    let known = origin.server_state.entities.with(uuid, |remote| {
+        (remote.dimension.clone(), remote.id, remote.is_player)
+    });
+    // a player is found where `deliver_from` finds it (also a dead one, which is in no level)
+    let Some((dimension, id, false)) = known else {
+        deliver_from(server, origin, uuid, move |own, player, origin| {
+            f(own, player, origin)
+        });
+        return;
+    };
+    if dimension == origin.dimension {
+        origin.with_entity(id, |level, e| f(level, e, None));
+        return;
+    }
+    let mut f = Some(f);
+    let reached = server.with_level(&dimension, |_, level| {
+        let f = f.take().expect("runs once");
+        level.with_entity(id, |level, e| f(level, e, Some(origin)))
+    });
+    if reached.is_none()
+        && let Some(f) = f
+    {
+        origin.defer_server_action(move |server, origin| {
+            deliver_to_entity_from(server, origin, uuid, f);
+        });
+    }
 }
 
 fn deliver_to_entity(

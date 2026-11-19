@@ -15,10 +15,10 @@ use super::{
 };
 use crate::registry::typed::damage_type::DamageType;
 use crate::server::level::ServerLevel;
-use crate::server::players::cross_level::{queue_for_entity, queue_for_player_from};
+use crate::server::players::cross_level::{queue_for_entity, queue_for_entity_from};
 use crate::world::damagesource::DamageSource;
+use crate::world::entity::EntityId;
 use crate::world::entity::effect::MobEffectInstance;
-use crate::world::entity::{Entity, EntityId};
 use crate::world::item::enchantment::actors::Actors;
 use crate::world::item::enchantment::enchanted_item_in_use::{EnchantedItemInUse, OnBreak};
 use crate::world::level::{BlockGetter, LevelAccessor};
@@ -334,20 +334,26 @@ fn damage_entity(
             e.min_damage.calculate(enchantment_level),
             e.max_damage.calculate(enchantment_level),
         );
-        // `entity.hurtServer(serverLevel, ...)`: vanilla passes the level of the effect, which does not track the player, so only
-        // the damage event of the hurt goes through that level (nobody hears it); the hurt itself runs in the player's own level
-        // shortcut: the block sound and `onMobHurt` effects (infested silverfish) use that level in vanilla; same limit as `kill_from_level`
-        queue_for_player_from(level, uuid, move |own, player, origin| {
-            let damage = mth::random_between(&mut player.base_mut().random, min, max);
+        // `entity.hurtServer(serverLevel, ...)`: vanilla passes the level of the effect, which does not track the entity, so what
+        // the hurt does with that argument (the damage event, the block sound, infested silverfish) goes through that level
+        // (`in_hurt_level`); the hurt itself runs in the entity's own level
+        queue_for_entity_from(level, uuid, move |own, victim, origin| {
+            let damage = mth::random_between(&mut victim.base_mut().random, min, max);
             let Some(source) = source else {
                 return;
             };
             if let Some(wearer) = source.causing_entity {
-                own.get_held_entity(wearer);
+                own.hold_entity_of_other_level(wearer);
             }
-            own.tick_state.hurt_through_other_level = origin.map(|_| player.id());
-            player.hurt_server(own, &source, damage);
+            own.tick_state.hurt_through_other_level = origin.as_ref().map(|_| victim.id());
+            victim.hurt_server(own, &source, damage);
             own.tick_state.hurt_through_other_level = None;
+            let work = std::mem::take(&mut own.tick_state.hurt_level_work);
+            if let Some(origin) = origin {
+                for f in work {
+                    f(origin);
+                }
+            }
         });
         return;
     }

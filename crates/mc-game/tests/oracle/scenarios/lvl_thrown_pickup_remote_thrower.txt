@@ -1,0 +1,35 @@
+# items thrown by a player who is in the nether now and picked up in the overworld: the thrower is read in any level, so the thrown_item_picked_up
+# triggers fire for it (the entity that took the item: a husk, a villager) and for the player that took the item (the thrower is the entity there).
+datapack adv_items
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+level_seed 5
+fill -4 99 -4 12 99 12 minecraft:stone
+in the_nether fill -4 99 -4 12 99 12 minecraft:netherrack
+in the_nether spawn_player Th survival 0.5 100 0.5 0 0
+spawn_player Taker survival 8.5 100 8.5 0 0
+tick 2
+dump packets:Taker:none
+in the_nether dump packets:Th:none advancements:Th
+spawn_item I1 minecraft:iron_ingot 0.5 100 6.5 0 0 0 1
+nbt I1 {Thrower:[I;-1325794167,-957335366,-2033756920,-1605560608],PickupDelay:0s}
+spawn_item I2 minecraft:bread 4.5 100 6.5 0 0 0 1
+nbt I2 {Thrower:[I;-1325794167,-957335366,-2033756920,-1605560608],PickupDelay:0s}
+spawn_item I3 minecraft:gold_ingot 8.5 100 8.5 0 0 0 1
+nbt I3 {Thrower:[I;-1325794167,-957335366,-2033756920,-1605560608],PickupDelay:0s}
+mobspawn MHusk minecraft:husk 0.5 100 6.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,CanPickUpLoot:1b}
+entity_seed MHusk 3
+mobspawn MVil minecraft:villager 4.5 100 6.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed MVil 4
+tick 5
+dump entities events inventory:Taker mob:MHusk mob:MVil
+dump advancements:Taker packets:Taker:system_chat,update_advancements,take_item_entity
+in the_nether dump advancements:Th packets:Th:system_chat,update_advancements stats:Th
+tick 5
+in the_nether dump advancements:Th stats:Th

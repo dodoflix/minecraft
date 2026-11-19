@@ -107,6 +107,9 @@ pub struct TakenBlockEntity {
 pub type ServerAction =
     Box<dyn FnOnce(&mut crate::server::MinecraftServer, &mut ServerLevel) + Send>;
 
+/// What a hurt does in the level it was given (see `ServerLevel::in_hurt_level`).
+pub type HurtLevelWork = Box<dyn FnOnce(&mut ServerLevel) + Send>;
+
 pub struct LevelTickState {
     /// `neighborUpdater`.
     pub neighbor_updater: CollectingNeighborUpdater,
@@ -129,6 +132,8 @@ pub struct LevelTickState {
     /// The entity whose `hurtServer` runs with another level as its `level` argument (`/kill` from another level): that level
     /// does not track it, so its damage event reaches nobody.
     pub hurt_through_other_level: Option<crate::world::entity::EntityId>,
+    /// What that hurt does in the level it was given (`ServerLevel::in_hurt_level`), for the caller to run there.
+    pub hurt_level_work: Vec<HurtLevelWork>,
     /// `subTickCount`.
     pub sub_tick_count: i64,
     /// `randValue` (`getBlockRandomPos`).
@@ -194,6 +199,7 @@ impl LevelTickState {
             pending_server_actions: Vec::new(),
             deferred_server_actions: Vec::new(),
             hurt_through_other_level: None,
+            hurt_level_work: Vec::new(),
             sub_tick_count: 0,
             rand_value: create_thread_local_instance_new().next_int(),
             random: LevelRandom::new(create_new()),

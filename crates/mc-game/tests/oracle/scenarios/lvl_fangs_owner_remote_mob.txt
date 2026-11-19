@@ -1,0 +1,40 @@
+# evoker fangs whose owner is an evoker in another level: the fangs read the owner in any level, so the hit is magic damage caused by that evoker (the
+# victim holds it as its last attacker), its team is respected, the thorns the victim wears hurt the evoker in the nether and the owner of the fangs is
+# the cause of the damage event packet.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+level_seed 5
+fill -4 99 -4 8 99 8 minecraft:stone
+in the_nether fill -4 99 -4 8 99 8 minecraft:netherrack
+spawn_player Obs creative 6.5 100 6.5 0 0
+in the_nether mobspawn Ev minecraft:evoker 0.5 100 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,UUID:[I;7,8,9,10]}
+in the_nether entity_seed Ev 3
+mobspawn Hu minecraft:husk 0.5 100 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b}
+entity_seed Hu 4
+give Hu head minecraft:iron_helmet[enchantments={"minecraft:thorns":3}]
+give Hu chest minecraft:iron_chestplate[enchantments={"minecraft:thorns":3}]
+give Hu legs minecraft:iron_leggings[enchantments={"minecraft:thorns":3}]
+give Hu feet minecraft:iron_boots[enchantments={"minecraft:thorns":3}]
+mobspawn Cw minecraft:cow 4.5 100 0.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,UUID:[I;11,12,13,14]}
+entity_seed Cw 5
+cmd team add red
+cmd team join red 00000007-0000-0008-0000-00090000000a
+cmd team join red 0000000b-0000-000c-0000-000d0000000e
+tick 2
+dump packets:Obs:none
+spawn F1 minecraft:evoker_fangs 0.5 100 0.5 0 0 {Warmup:0,Owner:[I;7,8,9,10]}
+entity_seed F1 21
+spawn F2 minecraft:evoker_fangs 4.5 100 0.5 0 0 {Warmup:0,Owner:[I;7,8,9,10]}
+entity_seed F2 22
+tick 10
+dump mob:Hu mob:Cw packets:Obs:entity_event,damage_event,hurt_animation,set_health events
+in the_nether dump mob:Ev events
+tick 20
+dump mob:Hu mob:Cw xentities
+in the_nether dump mob:Ev xentities

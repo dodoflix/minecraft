@@ -3140,16 +3140,18 @@ pub trait Entity: Any {
 
     /// `kill(level)` with the level of the command that kills (`/kill` passes `source.getLevel()`, which is another level than the
     /// entity's when the selector reached across levels). Only the End crystal reads the passed level (its fight).
-    /// A living entity hurts itself with `hurtServer(sourceLevel, ..)`: the damage event goes through the source level, which
-    /// does not track the victim, so nobody hears it.
-    /// shortcut: the rest of the hurt (effects, loot) still runs in the entity's own level; no scenario shows a difference.
-    fn kill_from_level(&mut self, level: &mut ServerLevel, _source_level: &mut ServerLevel) {
+    /// A living entity hurts itself with `hurtServer(sourceLevel, ..)`: what the hurt does with that level (the damage event,
+    /// the block sound, infested silverfish) happens in the source level, which does not track the victim.
+    fn kill_from_level(&mut self, level: &mut ServerLevel, source_level: &mut ServerLevel) {
         if self.living().is_none() {
             return self.kill_in_level(level);
         }
         level.tick_state.hurt_through_other_level = Some(self.id());
         self.kill_in_level(level);
         level.tick_state.hurt_through_other_level = None;
+        for f in std::mem::take(&mut level.tick_state.hurt_level_work) {
+            f(source_level);
+        }
     }
 
     /// `heal(amount)`.

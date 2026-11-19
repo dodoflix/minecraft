@@ -1,0 +1,27 @@
+# a tamed horse whose owner went to the nether: the owner is a living entity in any level, so `execute on owner` reaches it, and the horse keeps its
+# owner when the owner is far from it.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+level_seed 5
+fill -4 99 -4 12 99 12 minecraft:stone
+in the_nether fill -4 99 -4 12 99 12 minecraft:netherrack
+spawn_player Pl survival 0.5 100 0.5 0 0
+mobspawn Hs minecraft:horse 3.5 100 3.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b}
+entity_seed Hs 3
+tame Hs Pl
+tick 2
+dump packets:Pl:none mob:Hs
+tp_dim Pl the_nether 1.5 100 1.5
+tick 2
+dump mob:Hs players
+cmd execute as @e[type=minecraft:horse] on owner run tag @s add owned
+cmd execute as @e[type=minecraft:horse] if entity @s[tag=!x] on owner run say owner found
+tick 2
+dump mob:Hs packets:Pl:system_chat,action_bar
+in the_nether dump player:Pl

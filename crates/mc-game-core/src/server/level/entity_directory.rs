@@ -53,6 +53,8 @@ pub struct RemoteEntity {
     pub is_player: bool,
     /// `instanceof LivingEntity`.
     pub is_living: bool,
+    /// `instanceof Mob`.
+    pub is_mob: bool,
     pub spectator: bool,
     /// `canUsePortal(true)` (a living entity that sleeps cannot).
     pub can_use_portal: bool,
@@ -61,6 +63,8 @@ pub struct RemoteEntity {
     pub seen_credits: bool,
     /// `eyeHeight` (`getEyeY()` is `position.y + eyeHeight`).
     pub eye_height: f32,
+    /// `getBbHeight()`.
+    pub bb_height: f32,
     /// `getHealth()` of a living entity.
     pub health: f32,
     /// The game mode of a player (survival for the others).
@@ -98,21 +102,24 @@ pub struct RemotePlayer {
     pub saved: CompoundTag,
     /// Behind a lock because an attribute instance caches its value in a `Cell`, which a shared `Arc` must not expose.
     pub attributes: Mutex<AttributeMap>,
-    pub stats: SharedStats,
-    pub advancements: SharedAdvancements,
+    /// Only a player has them.
+    pub player_state: Option<(SharedStats, SharedAdvancements)>,
 }
 
 impl RemotePlayer {
-    fn of(player: &ServerPlayer) -> Self {
+    /// The state of a living entity (`None` for any other).
+    fn of(entity: &dyn Entity) -> Option<Self> {
         let mut saved = CompoundTag::new();
-        // the generic save: the vehicle and the ender pearls of a player in another level cannot be looked up from here
-        entity::save_without_id(player, &mut saved, &|_| None);
-        Self {
+        // the generic save: the vehicle and the ender pearls of an entity in another level cannot be looked up from here
+        entity::save_without_id(entity, &mut saved, &|_| None);
+        Some(Self {
             saved,
-            attributes: Mutex::new(player.player.living.attributes.clone()),
-            stats: player.stats.clone(),
-            advancements: player.advancements.clone(),
-        }
+            attributes: Mutex::new(entity.living()?.attributes.clone()),
+            player_state: entity
+                .as_any()
+                .downcast_ref::<ServerPlayer>()
+                .map(|p| (p.stats.clone(), p.advancements.clone())),
+        })
     }
 }
 
@@ -136,11 +143,13 @@ impl RemoteEntity {
             alive: false,
             is_player: false,
             is_living: false,
+            is_mob: false,
             spectator: false,
             can_use_portal: false,
             won_game: false,
             seen_credits: false,
             eye_height: 0.0,
+            bb_height: 0.0,
             health: 0.0,
             game_type: GameType::Survival,
             pose: Pose::Standing,
@@ -178,11 +187,13 @@ impl RemoteEntity {
         self.alive = entity.is_alive();
         self.is_player = entity.is_player();
         self.is_living = entity.living().is_some();
+        self.is_mob = entity.is_mob();
         self.spectator = entity.is_spectator();
         self.can_use_portal = entity.can_use_portal(true) && !entity.is_sleeping();
         self.won_game = player.is_some_and(|p| p.won_game);
         self.seen_credits = player.is_some_and(|p| p.seen_credits);
         self.eye_height = base.eye_height;
+        self.bb_height = base.get_bb_height();
         self.health = entity.living().map_or(0.0, |l| l.get_health());
         self.game_type = player.map_or(GameType::Survival, |p| p.game_mode.game_mode_for_player);
         self.pose = base.get_pose();
@@ -197,10 +208,12 @@ impl RemoteEntity {
             self.damage_entity = Some(Arc::new(DamageEntity::of(entity)));
             self.last_client_input = player.last_client_input;
             self.last_known_client_movement = player.last_known_client_movement;
-            // the saved data is taken again with every put-back (a packet, a hit, a command change it between ticks) but
-            // only of a player a level reads
-            self.player = wanted.then(|| Arc::new(RemotePlayer::of(player)));
         }
+        // the saved data is taken again with every put-back (a packet, a hit, a command change it between ticks) but
+        // only of an entity a level reads
+        self.player = wanted
+            .then(|| RemotePlayer::of(entity).map(Arc::new))
+            .flatten();
         if let Some(data) = entity.player() {
             let (maps, invisibility) =
                 crate::world::item::map_item::held_maps_and_invisibility(data);
@@ -247,14 +260,14 @@ impl Entries {
         self.wanted_until.insert(uuid, self.clock + WANT_WINDOW);
     }
 
-    /// An entity that names its owner keeps the owner wanted when the owner is a player of another level (the level of
-    /// `entity` reads it through a stand-in).
+    /// An entity that names its owner keeps the owner wanted when the owner is a living entity of another level (the
+    /// level of `entity` reads it through a stand-in).
     fn want_owner_of(&mut self, entity: &dyn Entity, dimension: &DimensionKey) {
         if let Some(owner) = entity.owner_reference()
             && self
                 .by_uuid
                 .get(&owner)
-                .is_some_and(|o| o.is_player && o.dimension != *dimension)
+                .is_some_and(|o| o.is_living && o.dimension != *dimension)
         {
             self.want(owner);
         }

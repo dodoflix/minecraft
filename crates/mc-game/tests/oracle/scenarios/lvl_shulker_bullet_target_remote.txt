@@ -1,0 +1,34 @@
+# shulker bullets of the overworld that home in on a target in the nether: a player and a cow. The reference resolves the entity in any level, so the
+# bullet keeps its target (it is alive and no spectator), steers by its position and never hits it from another level; a bullet whose target is a
+# spectator player of the nether falls; a target that no level tracks is dropped.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+level_seed 5
+fill -4 99 -4 20 99 20 minecraft:stone
+in the_nether fill -4 99 -4 20 99 20 minecraft:netherrack
+spawn_player Obs creative 6.5 100 6.5 0 0
+in the_nether spawn_player Pl survival 12.5 100 0.5 0 0
+in the_nether spawn_player Sp spectator 12.5 100 8.5 0 0
+in the_nether mobspawn Cw minecraft:cow 0.5 100 12.5 0 0 nofinalize {NoAI:1b,PersistenceRequired:1b,UUID:[I;11,12,13,14]}
+tick 2
+dump packets:Obs:none
+spawn B1 minecraft:shulker_bullet 0.5 100.5 0.5 0 0 {Steps:1,Dir:1,TXD:0.0,TYD:0.15,TZD:0.0,Target:[I;2096506240,1443246745,-1971821799,-875989337]}
+entity_seed B1 41
+spawn B2 minecraft:shulker_bullet 0.5 100.5 4.5 0 0 {Steps:1,Dir:1,TXD:0.0,TYD:0.15,TZD:0.0,Target:[I;11,12,13,14]}
+entity_seed B2 42
+spawn B3 minecraft:shulker_bullet 0.5 100.5 8.5 0 0 {Steps:1,Dir:1,TXD:0.0,TYD:0.0,TZD:0.15,Target:[I;1,2,3,4]}
+entity_seed B3 43
+spawn B4 minecraft:shulker_bullet 4.5 100.5 8.5 0 0 {Steps:1,Dir:1,TXD:0.0,TYD:0.15,TZD:0.0,Target:[I;-989906305,1862284771,-1844570789,2028498932]}
+entity_seed B4 44
+watch xentity:B1 xentity:B2 xentity:B3 xentity:B4
+tick 15
+watch off
+dump xentities nbt:B1 nbt:B2 nbt:B3 nbt:B4
+tick 40
+dump xentities nbt:B1 nbt:B2 nbt:B3 nbt:B4

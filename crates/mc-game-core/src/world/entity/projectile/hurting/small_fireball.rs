@@ -105,7 +105,11 @@ impl Projectile for SmallFireball {
 
     fn on_hit_block(&mut self, level: &mut ServerLevel, hit: &BlockHitResult) {
         crate::world::entity::projectile::on_hit_block_base(self, level, hit);
-        let owner_is_mob = self.get_owner(level).is_some_and(|o| o.is_mob());
+        let owner_is_mob = self
+            .projectile_data()
+            .owner
+            .and_then(|uuid| level.get_entity_in_any_dimension(uuid))
+            .is_some_and(|o| o.is_mob());
         if !owner_is_mob || level.mob_griefing() {
             let pos = hit.block_pos.relative(hit.direction);
             if level.is_empty_block(pos) {

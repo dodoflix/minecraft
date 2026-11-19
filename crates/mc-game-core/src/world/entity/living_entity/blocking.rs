@@ -166,7 +166,7 @@ fn hurt_blocking_item(
     }
 }
 
-/// `BlocksAttacks.onBlocked(level, user)`.
+/// `BlocksAttacks.onBlocked(level, user)`, with the level `hurtServer` was given (see `ServerLevel::in_hurt_level`).
 pub fn on_blocked(level: &mut ServerLevel, user: &dyn Entity, blocks_attacks: &BlocksAttacks) {
     if let Some(sound) = blocks_attacks
         .block_sound
@@ -174,17 +174,11 @@ pub fn on_blocked(level: &mut ServerLevel, user: &dyn Entity, blocks_attacks: &B
         .and_then(crate::world::item::holder_sound)
     {
         let p = user.position();
-        let pitch = 0.8 + level.tick_state.random.next_float() * 0.4;
-        level.play_sound_at(
-            None,
-            p.x,
-            p.y,
-            p.z,
-            sound,
-            user.get_sound_source(),
-            1.0,
-            pitch,
-        );
+        let source = user.get_sound_source();
+        level.in_hurt_level(user.id(), move |level| {
+            let pitch = 0.8 + level.tick_state.random.next_float() * 0.4;
+            level.play_sound_at(None, p.x, p.y, p.z, sound, source, 1.0, pitch);
+        });
     }
 }
 

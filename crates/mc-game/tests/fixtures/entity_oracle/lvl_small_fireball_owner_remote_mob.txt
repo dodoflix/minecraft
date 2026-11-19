@@ -1,0 +1,39 @@
+CF msg Game rule mob_griefing is now set to false
+CF result success 0
+B -1 99 -1 minecraft:stone
+B -1 99 0 minecraft:stone
+B -1 99 1 minecraft:stone
+B -1 99 2 minecraft:stone
+B 0 99 -1 minecraft:stone
+B 0 99 0 minecraft:stone
+B 0 99 1 minecraft:stone
+B 0 99 2 minecraft:stone
+B 1 99 -1 minecraft:stone
+B 1 99 0 minecraft:stone
+B 1 99 1 minecraft:stone
+B 1 99 2 minecraft:stone
+B 2 99 -1 minecraft:stone
+B 2 99 0 minecraft:stone
+B 2 99 1 minecraft:stone
+B 2 99 2 minecraft:stone
+E Owner minecraft:pig pos=0.5,100.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-
+CF msg Game rule mob_griefing is now set to true
+CF result success 1
+B 3 99 -1 minecraft:stone
+B 3 99 0 minecraft:stone
+B 3 99 1 minecraft:stone
+B 3 99 2 minecraft:stone
+B 4 99 -1 minecraft:stone
+B 4 99 0 minecraft:stone
+B 4 99 1 minecraft:stone
+B 4 99 2 minecraft:stone
+B 4 100 0 minecraft:fire[age=0,east=false,north=false,south=false,up=false,west=false]
+B 5 99 -1 minecraft:stone
+B 5 99 0 minecraft:stone
+B 5 99 1 minecraft:stone
+B 5 99 2 minecraft:stone
+B 6 99 -1 minecraft:stone
+B 6 99 0 minecraft:stone
+B 6 99 1 minecraft:stone
+B 6 99 2 minecraft:stone
+E Owner minecraft:pig pos=0.5,100.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=10.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=1 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.0;minecraft:max_health:10.0;minecraft:movement_speed:0.25 age=0 baby=0 forcedage=0 love=0 lovecause=-

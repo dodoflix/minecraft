@@ -1,0 +1,41 @@
+# a dolphin swimming with a player who goes to the nether into water at the same place: the dolphin keeps the player (its goal reads the player's
+# pose and distance), and refreshes the grace of the real player when a draw of the random of the player's level (not the dolphin's) comes up 0.
+level void
+command_env
+end void
+nether void
+levels overworld,the_nether
+preload 2
+difficulty normal
+entity_counter 100
+level_seed 5
+fill -6 94 -6 8 94 8 minecraft:stone
+fill -6 95 -6 8 106 -6 minecraft:stone
+fill -6 95 8 8 106 8 minecraft:stone
+fill -6 95 -6 -6 106 8 minecraft:stone
+fill 8 95 -6 8 106 8 minecraft:stone
+fill -5 95 -5 7 106 7 minecraft:water[level=0]
+in the_nether fill -6 94 -6 8 94 8 minecraft:stone
+in the_nether fill -6 95 -6 8 106 -6 minecraft:stone
+in the_nether fill -6 95 8 8 106 8 minecraft:stone
+in the_nether fill -6 95 -6 -6 106 8 minecraft:stone
+in the_nether fill 8 95 -6 8 106 8 minecraft:stone
+in the_nether fill -5 95 -5 7 106 7 minecraft:water[level=0]
+spawn_player Pl survival 0.5 99 0.5 0 0 sim
+mobspawn Dh minecraft:dolphin 4.5 97 0.5 0 0 nofinalize {PersistenceRequired:1b}
+entity_seed Dh 3
+tick 2
+dump packets:Pl:none
+pcommand Pl START_SPRINTING
+input Pl forward,sprint
+watch player:Pl
+tick 3
+watch off
+tp_dim Pl the_nether 0.5 98.97 1.0
+player_loaded Pl
+in the_nether level_seed 77
+pcommand Pl START_SPRINTING
+input Pl forward,sprint
+watch player:Pl
+tick 25
+watch off
