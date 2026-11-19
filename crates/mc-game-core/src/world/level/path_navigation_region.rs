@@ -38,12 +38,7 @@ impl<'a> PathNavigationRegion<'a> {
         for xc in center_x..=xc2 {
             for zc in center_z..=zc2 {
                 // `getChunkNow` caches the chunk and takes no ticket
-                loaded.push(
-                    level
-                        .chunk_source
-                        .get_chunk_without_loading(xc, zc)
-                        .is_some(),
-                );
+                loaded.push(level.chunk_source.get_chunk_now_cached(xc, zc).is_some());
             }
         }
         PathNavigationRegion {

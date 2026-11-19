@@ -1,0 +1,28 @@
+# A sculk sensor in chunk 3 receives the vibration of a destroyed block: when it arrives, the vibration system looks at the nine chunks around the sensor with getChunkNow, which leaves the sensor chunk in the chunk cache
+# of the level, so the block reads of the activation add no ticket; the ticks until the chunk is unloaded after the vibration depend on it.
+level void
+command_env
+preload 0
+difficulty normal
+entity_counter 100
+level_seed 5
+load 3 0
+block 56 -61 0 minecraft:stone
+block 56 -60 0 minecraft:sculk_sensor
+block 52 -60 0 minecraft:stone
+destroy 52 -60 0
+tick 3
+unload 3 0
+load 3 0
+destroy 56 -60 0
+block 56 -60 0 minecraft:sculk_sensor
+block 52 -60 0 minecraft:stone
+destroy 52 -60 0
+tick 4
+unload 3 0
+load 3 0
+block 56 -60 0 minecraft:sculk_sensor
+block 52 -60 0 minecraft:stone
+destroy 52 -60 0
+tick 5
+unload 3 0

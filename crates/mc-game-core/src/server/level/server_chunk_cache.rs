@@ -85,13 +85,37 @@ impl ServerChunkCache {
         chunk
     }
 
-    /// `getChunk(x, z, FULL, false)` (`getChunkForCollisions`): the chunk if it is loaded, cached without a ticket.
+    /// `getChunk(x, z, FULL, false)` (`getChunkForCollisions`): the chunk if it is loaded, cached (also when it is not)
+    /// without a ticket.
     pub fn get_chunk_without_loading(&self, x: i32, z: i32) -> Option<&LevelChunk> {
-        let chunk = self.get_chunk_now(x, z);
-        if chunk.is_some() {
-            self.read_cache.cache_only(ChunkPos::pack_xz(x, z));
+        let key = ChunkPos::pack_xz(x, z);
+        match self.read_cache.cached(key) {
+            Some(found) => found.then(|| self.get_chunk_now(x, z)).flatten(),
+            None => {
+                let chunk = self.get_chunk_now(x, z);
+                // vanilla caches the null only of an absent chunk: a chunk that is still loading is waited for
+                if chunk.is_some() || !self.has_chunk(x, z) {
+                    self.read_cache.store(key, chunk.is_some());
+                }
+                chunk
+            }
         }
-        chunk
+    }
+
+    /// `getChunkNow(x, z)` as the game event dispatcher and the vibration system call it: a chunk that is found is cached
+    /// without a ticket, one that is not found is not.
+    pub fn get_chunk_now_cached(&self, x: i32, z: i32) -> Option<&LevelChunk> {
+        let key = ChunkPos::pack_xz(x, z);
+        match self.read_cache.cached(key) {
+            Some(found) => found.then(|| self.get_chunk_now(x, z)).flatten(),
+            None => {
+                let chunk = self.get_chunk_now(x, z);
+                if chunk.is_some() {
+                    self.read_cache.store(key, true);
+                }
+                chunk
+            }
+        }
     }
 
     /// A plain block read found no chunk at `x, z`: vanilla loads it there, a read through `&self` cannot (see

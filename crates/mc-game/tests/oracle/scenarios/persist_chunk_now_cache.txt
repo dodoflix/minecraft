@@ -1,0 +1,21 @@
+# The game event of a block destroyed in chunk 2 (loaded by the placement) is posted to the chunks around it with getChunkNow, which leaves chunk 3 in the chunk cache of the level: a block placed in chunk 3 in the same
+# tick finds it there and adds no ticket, so the chunk unloads a tick earlier than after a block placed in chunk 3 alone.
+level void
+command_env
+preload 0
+difficulty normal
+entity_counter 100
+level_seed 5
+note baseline: no block read
+load 3 0
+unload 3 0
+note a block read of chunk 3 adds a ticket
+load 3 0
+cmd setblock 56 -61 0 minecraft:stone
+unload 3 0
+note the game event of the block destroyed in chunk 2 reaches chunk 3 first
+load 3 0
+cmd setblock 40 -61 0 minecraft:stone
+destroy 40 -61 0
+cmd setblock 56 -61 0 minecraft:dirt
+unload 3 0

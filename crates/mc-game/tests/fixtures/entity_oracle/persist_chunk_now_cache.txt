@@ -1,0 +1,16 @@
+# baseline: no block read
+LOAD 3 0 ticks=1 loaded=true
+UNLOAD 3 0 ticks=1 loaded=false
+# a block read of chunk 3 adds a ticket
+LOAD 3 0 ticks=1 loaded=true
+CF msg Changed the block at 56, -61, 0
+CF result success 1
+UNLOAD 3 0 ticks=2 loaded=false
+# the game event of the block destroyed in chunk 2 reaches chunk 3 first
+LOAD 3 0 ticks=1 loaded=true
+CF msg Changed the block at 40, -61, 0
+CF result success 1
+DESTROY true
+CF msg Changed the block at 56, -61, 0
+CF result success 1
+UNLOAD 3 0 ticks=1 loaded=false

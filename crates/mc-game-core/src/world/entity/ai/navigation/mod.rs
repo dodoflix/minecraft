@@ -873,7 +873,7 @@ pub fn default_create_path_pos<N: PathNavigation + ?Sized>(
         // `getChunkNow`: cached, no ticket
         level
             .chunk_source
-            .get_chunk_without_loading(pos.x() >> 4, pos.z() >> 4)?;
+            .get_chunk_now_cached(pos.x() >> 4, pos.z() >> 4)?;
         if !this.data().can_path_to_targets_below_surface {
             pos = find_surface_position(level, pos);
         }

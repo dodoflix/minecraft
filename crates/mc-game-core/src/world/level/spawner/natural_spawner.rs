@@ -283,6 +283,8 @@ pub fn spawn_category_for_position_debug(
     level: &mut ServerLevel,
     start: BlockPos,
 ) {
+    // `level.getChunk(start)` loads the chunk
+    level.ensure_chunk_loaded(start);
     spawn_category_for_position(
         category,
         level,

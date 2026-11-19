@@ -51,7 +51,9 @@ fn in_portal_dimension(level: &ServerLevel) -> bool {
 pub fn on_place(state: BlockState, level: &mut ServerLevel, pos: BlockPos, old_state: BlockState) {
     if !old_state.is_block(state.block()) {
         if in_portal_dimension(level)
-            && let Some(shape) = PortalShape::find_empty_portal_shape(&*level, pos, Axis::X)
+            && let Some(shape) = level.with_loading_reads(|level| {
+                PortalShape::find_empty_portal_shape(&*level, pos, Axis::X)
+            })
         {
             shape.create_portal_blocks(level);
             return;
@@ -69,11 +71,11 @@ pub fn can_be_placed_at(
     pos: BlockPos,
     forward_direction: Direction,
 ) -> bool {
-    let state = level.get_block_state(pos);
+    let state = level.get_block_state_loading(pos);
     if !state.is_air() {
         false
     } else {
-        get_state(&*level, pos).can_survive(&*level, pos)
+        level.with_loading_reads(|level| get_state(&*level, pos).can_survive(&*level, pos))
             || is_portal(level, pos, forward_direction)
     }
 }
@@ -83,14 +85,16 @@ fn is_portal(level: &mut ServerLevel, pos: BlockPos, forward_direction: Directio
         return false;
     }
     for face in Direction::ALL {
-        let state = level.get_block_state(pos.relative(face));
+        let state = level.get_block_state_loading(pos.relative(face));
         if crate::world::level::portal::portal_shape::is_frame(state) {
             let preferred_axis = if forward_direction.get_axis().is_horizontal() {
                 forward_direction.get_counter_clockwise().get_axis()
             } else {
                 Plane::Horizontal.get_random_axis(level.random())
             };
-            return PortalShape::find_empty_portal_shape(&*level, pos, preferred_axis).is_some();
+            return level.with_loading_reads(|level| {
+                PortalShape::find_empty_portal_shape(&*level, pos, preferred_axis).is_some()
+            });
         }
     }
     false

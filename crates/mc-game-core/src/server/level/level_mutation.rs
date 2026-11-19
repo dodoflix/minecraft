@@ -4,7 +4,6 @@
 
 use super::FullChunkStatus;
 use super::ServerLevel;
-use super::level_tick_state::LevelRandom;
 use crate::world::entity::EntityId;
 use crate::world::entity::ai::village::poi::{PoiTypeHolder, PoiTypes};
 use crate::world::entity::mob::navigation;
@@ -482,12 +481,28 @@ impl LevelAccessor for ServerLevel {
         ServerLevel::get_block_state_loading(self, pos)
     }
 
-    fn load_chunks_read_by(&mut self, probe: &mut dyn FnMut(&mut dyn LevelAccessor)) {
+    fn load_chunks_read_by(
+        &mut self,
+        pos: BlockPos,
+        reach: i32,
+        probe: &mut dyn FnMut(&mut dyn LevelAccessor),
+    ) {
+        // nothing to load when every chunk the computation can reach is there
+        let all_loaded = ((pos.x() - reach) >> 4..=(pos.x() + reach) >> 4).all(|x| {
+            ((pos.z() - reach) >> 4..=(pos.z() + reach) >> 4)
+                .all(|z| self.chunk_source.get_chunk_now(x, z).is_some())
+        });
+        if all_loaded {
+            return;
+        }
         loop {
             self.chunk_source.take_unloaded_read();
-            self.read_probe = Some(LevelRandom::new(LegacyRandomSource::new(0)));
-            probe(self);
+            self.read_probe = Some(LegacyRandomSource::new(0));
+            let run = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| probe(&mut *self)));
             self.read_probe = None;
+            if let Err(panic) = run {
+                std::panic::resume_unwind(panic);
+            }
             match self.chunk_source.take_unloaded_read() {
                 Some(chunk) if chunk.is_valid() => {
                     self.chunk_blocking_mut(chunk.x, chunk.z);
@@ -539,7 +554,7 @@ impl LevelAccessor for ServerLevel {
 
     fn random(&mut self) -> &mut dyn RandomSource {
         match &mut self.read_probe {
-            Some(scratch) => scratch,
+            Some(scratch) => scratch as &mut dyn RandomSource,
             None => &mut self.tick_state.random,
         }
     }

@@ -31,6 +31,9 @@ pub const UPDATE_SHAPE_ORDER: [Direction; 6] = [
     Direction::Up,
 ];
 
+/// The blocks a `PortalShape` scan reaches from a portal block: the widest frame (21) and its post.
+const PORTAL_SHAPE_REACH: i32 = 22;
+
 pub trait BlockStateExt: Copy {
     /// `state.is(block)`.
     fn is_block(self, block: Block) -> bool;
@@ -224,12 +227,18 @@ impl BlockStateExt for BlockState {
         neighbour_state: BlockState,
     ) -> BlockState {
         let behaviour = behaviour(self.block());
-        // shortcut: most shape updates read at most two blocks around `pos`, so only a block this close to the edge of its
-        // chunk is probed; a longer read (the portal frame scan of a nether portal block) across a border is not loaded
-        let (x, z) = (pos.x() & 15, pos.z() & 15);
-        if !(2..14).contains(&x) || !(2..14).contains(&z) {
-            // `Level.getBlockState` loads the chunk it reads: so do the probe runs of this update (see `load_chunks_read_by`)
-            level.load_chunks_read_by(&mut |level| {
+        // shortcut: most shape updates read at most two blocks around `pos`; the portal frame scan of a nether portal block
+        // reaches across a whole frame
+        let reach = if self.is_block(Block::NETHER_PORTAL) {
+            PORTAL_SHAPE_REACH
+        } else {
+            2
+        };
+        // `Level.getBlockState` loads the chunk it reads: so do the probe runs of this update (see `load_chunks_read_by`)
+        if (pos.x() - reach) >> 4 != (pos.x() + reach) >> 4
+            || (pos.z() - reach) >> 4 != (pos.z() + reach) >> 4
+        {
+            level.load_chunks_read_by(pos, reach, &mut |level| {
                 behaviour.update_shape(self, level, pos, direction, neighbour_pos, neighbour_state);
             });
         }

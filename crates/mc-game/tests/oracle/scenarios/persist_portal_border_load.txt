@@ -1,0 +1,17 @@
+# A fire placed in an empty portal frame scans the whole frame with Level.getBlockState (PortalShape): the frame crosses the chunk border and its east half is saved in a chunk that is not loaded; the
+# scan reads it from disk, so the portal is lit, and the portal blocks read it again when their shapes update.
+level void
+command_env
+preload 0
+difficulty normal
+entity_counter 100
+level_seed 5
+load 3 0
+fill 46 -61 0 49 -57 0 minecraft:obsidian
+fill 47 -60 0 48 -58 0 minecraft:air
+unload 3 0
+note the interior is x 47 (chunk 2, full) and x 48 (chunk 3, not loaded); the frame post at 49 is in chunk 3 too
+block 47 -60 0 minecraft:fire
+dump blocks:45,-62,-1,50,-56,1 events
+tick 3
+dump blocks:45,-62,-1,50,-56,1 events

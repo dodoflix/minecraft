@@ -1,0 +1,10 @@
+LOAD 3 0 ticks=1 loaded=true
+DESTROY true
+UNLOAD 3 0 ticks=1 loaded=false
+LOAD 3 0 ticks=1 loaded=true
+DESTROY true
+DESTROY true
+UNLOAD 3 0 ticks=2 loaded=false
+LOAD 3 0 ticks=1 loaded=true
+DESTROY true
+UNLOAD 3 0 ticks=1 loaded=false

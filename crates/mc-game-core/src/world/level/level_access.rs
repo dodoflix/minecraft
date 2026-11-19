@@ -141,10 +141,17 @@ pub trait LevelAccessor: LevelReader {
     fn get_block_state_loading(&mut self, pos: BlockPos) -> BlockState {
         self.get_block_state(pos)
     }
-    /// Loads the chunks that `probe`, a computation of block reads, reads while they are not loaded, as `getBlockState`
-    /// would at that read: the computation runs (once more) after each load, with its random draws and scheduled ticks
-    /// discarded, until a run meets no unloaded chunk. Its real run, by the caller, follows. No-op for other levels.
-    fn load_chunks_read_by(&mut self, _probe: &mut dyn FnMut(&mut dyn LevelAccessor)) {}
+    /// Loads the chunks that `probe`, a computation of block reads within `reach` blocks of `pos`, reads while they are
+    /// not loaded, as `getBlockState` would at that read: the computation runs (once more) after each load, with its
+    /// random draws and scheduled ticks discarded, until a run meets no unloaded chunk. Its real run, by the caller,
+    /// follows. No-op for other levels and when every chunk around `pos` is loaded.
+    fn load_chunks_read_by(
+        &mut self,
+        _pos: BlockPos,
+        _reach: i32,
+        _probe: &mut dyn FnMut(&mut dyn LevelAccessor),
+    ) {
+    }
     /// `isUnobstructed(null, Shapes.block().move(pos))`: no entity blocks building in the block at `pos` (a
     /// `WorldGenRegion` has no entities).
     fn is_unobstructed_block(&self, _pos: BlockPos) -> bool {

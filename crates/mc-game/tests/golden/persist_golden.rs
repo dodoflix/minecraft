@@ -120,3 +120,21 @@ fn unload_after_a_flushed_save_with_entities_in_other_levels() {
 fn unload_takes_one_tick_in_every_level() {
     check("persist_unload_ticks_levels");
 }
+
+/// A fire in a portal frame that crosses a chunk border scans the half saved in an unloaded chunk and lights the portal.
+#[test]
+fn portal_lit_across_an_unloaded_chunk_border() {
+    check("persist_portal_border_load");
+}
+
+/// A game event posts to the chunks around it with `getChunkNow`, which caches them: a block read of such a chunk in the same tick adds no ticket, so the chunk unloads a tick sooner.
+#[test]
+fn game_event_posting_leaves_the_chunks_it_visited_in_the_chunk_cache() {
+    check("persist_chunk_now_cache");
+}
+
+/// A vibration that arrives at a sculk sensor looks at the chunks around it with `getChunkNow`, which caches them: the ticks until its chunk unloads depend on it.
+#[test]
+fn vibration_arrival_leaves_the_chunks_it_visited_in_the_chunk_cache() {
+    check("persist_vibration_chunk_cache");
+}

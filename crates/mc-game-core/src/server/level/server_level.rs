@@ -16,6 +16,7 @@ use crate::world::level::spawner::natural_spawner;
 use crate::world::level::ticket_storage::TicketStorage;
 use crate::world::level::{BlockGetter, DimensionKey, LevelHeight, LevelReader, LightLayer};
 use mc_core::pos::{BlockPos, ChunkPos};
+use mc_core::random::LegacyRandomSource;
 use mc_data::block::{Block, BlockState};
 use mc_data::fluid::FluidState;
 use mc_world::chunk::ProtoChunk;
@@ -94,7 +95,7 @@ pub struct ServerLevel {
     pub chunk_source: ServerChunkCache,
     /// `Some` while `load_chunks_read_by` probes a computation: its random draws come from this scratch source and its
     /// scheduled ticks are dropped, so the real run that follows is the only one that has effects.
-    pub(super) read_probe: Option<super::level_tick_state::LevelRandom>,
+    pub(super) read_probe: Option<LegacyRandomSource>,
     pub shared: Arc<ServerShared>,
     /// `serverLevelData`.
     pub level_data: Box<dyn super::level_data::ServerLevelData>,
@@ -539,7 +540,12 @@ impl ServerLevel {
     /// the cache misses); a chunk that is not loaded is noted for the callers that can load it.
     fn plain_read_chunk(&self, pos: BlockPos) -> Option<&LevelChunk> {
         let (x, z) = (pos.x() >> 4, pos.z() >> 4);
-        let chunk = self.chunk_source.touch_loaded_chunk(x, z);
+        // a probe run reads without the cache, so that the real run that follows finds it as vanilla's single pass does
+        let chunk = if self.read_probe.is_some() {
+            self.chunk_now(x, z)
+        } else {
+            self.chunk_source.touch_loaded_chunk(x, z)
+        };
         if chunk.is_none() {
             self.chunk_source.note_unloaded_read(x, z);
         }

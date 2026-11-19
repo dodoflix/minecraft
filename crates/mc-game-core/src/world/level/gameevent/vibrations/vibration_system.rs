@@ -509,7 +509,7 @@ fn are_adjacent_chunks_ticking(level: &ServerLevel, listener_pos: BlockPos) -> b
     for x in listener_x - 1..=listener_x + 1 {
         for z in listener_z - 1..=listener_z + 1 {
             if !level.should_tick_blocks_at(ChunkPos::pack_xz(x, z))
-                || level.chunk_now(x, z).is_none()
+                || level.chunk_source.get_chunk_now_cached(x, z).is_none()
             {
                 return false;
             }

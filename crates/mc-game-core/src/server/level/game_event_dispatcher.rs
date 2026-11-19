@@ -137,7 +137,8 @@ impl ServerLevel {
             for chunk_z in section_min_z..=section_max_z {
                 for section in section_min_y..=section_max_y {
                     let candidates = {
-                        let Some(chunk) = self.chunk_now(chunk_x, chunk_z) else {
+                        let Some(chunk) = self.chunk_source.get_chunk_now_cached(chunk_x, chunk_z)
+                        else {
                             break;
                         };
                         let Some(registry) = chunk.game_event_registries.get(&section) else {
