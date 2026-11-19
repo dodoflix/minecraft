@@ -6,6 +6,7 @@ use crate::finder::OpticFinder;
 use crate::schema::{Schema, TemplateMap};
 use crate::template::Template;
 use crate::ty::{HookFunction, Type};
+use crate::value::Value;
 
 /// `DSL.TypeReference`: a named type of the data (`References.ITEM_STACK`, ...).
 #[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
@@ -66,6 +67,11 @@ impl DSL {
     }
     pub fn remainder_type() -> Type {
         Type::remainder()
+    }
+
+    /// `DSL.unit()`: the `Unit` value of an absent optional.
+    pub fn unit() -> Value {
+        Value::Unit
     }
 
     // ---- templates ----------------------------------------------------------------------------------------------

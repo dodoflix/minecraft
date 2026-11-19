@@ -9,7 +9,6 @@ pub mod codec;
 pub mod command_tree_diff;
 pub mod components;
 pub mod dialog;
-pub mod gson;
 pub mod packet;
 pub mod registry_context;
 

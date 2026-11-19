@@ -2,7 +2,7 @@
 
 pub mod ban_list_entry;
 pub mod cross_level;
-pub use mc_protocol::gson;
+pub use mc_core::gson;
 pub mod dedicated_player_list;
 pub mod dimension_change;
 pub mod end_credits;

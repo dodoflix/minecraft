@@ -53,6 +53,9 @@
 //! constructors taking closures. Hook functions (`Hook.HookFunction`) are [`ty::HookFunction`] values kept in a
 //! `LazyLock` per Java constant (equality is identity).
 //!
+//! Gson (`JsonElement`, `GsonHelper.toStableString`, `LenientJsonParser`, `StrictJsonParser`) is `mc_core::gson`;
+//! `LegacyComponentDataFixUtils` and `PackedBitStorage` are modules of this crate.
+//!
 //! Observable-order rule (design contract): fix logic that iterates a Java `HashMap`/`HashSet` and builds ordered output
 //! must iterate in Java's order (`mc_core::java_collections`, `mc_dfu::extra::java_hash_map_order`).
 
@@ -66,7 +69,9 @@ pub mod finder;
 pub mod fixer;
 pub mod fixers;
 pub mod fixes;
+pub mod legacy_component_data_fix_utils;
 pub mod optic;
+pub mod packed_bit_storage;
 pub mod rewrite;
 pub mod schema;
 pub mod schemas;

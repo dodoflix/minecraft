@@ -8,8 +8,8 @@ use uuid::Uuid;
 use crate::codec::{
     DecodeError, DecodeResult, EncodeError, EncodeResult, MAX_STRING_LENGTH, read_utf, write_utf,
 };
-use crate::gson::{self, JsonElement, JsonObject};
 use crate::{Decode, Encode, Packet, packet_enum};
+use mc_core::gson::{self, JsonElement, JsonObject};
 
 const FAVICON_PREFIX: &str = "data:image/png;base64,";
 

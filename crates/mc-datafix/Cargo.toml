@@ -14,5 +14,8 @@ mc-nbt = { path = "../mc-nbt" }
 mc-dfu = { path = "../mc-dfu" }
 log = { workspace = true }
 
+[dev-dependencies]
+mc-testkit = { path = "../mc-testkit" }
+
 [lints]
 workspace = true

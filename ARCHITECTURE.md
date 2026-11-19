@@ -37,7 +37,8 @@ The real vanilla server: `java -jar ref/server.jar nogui` in a scratch dir (you 
 
 ```
 crates/
-  mc-core             math (Mth), positions, Direction/Axis, AABB, random sources, BitStorage, Identifier, UUID utils
+  mc-core             math (Mth), positions, Direction/Axis, AABB, random sources, BitStorage, Identifier, UUID utils,
+                      the Gson JSON model (`gson`: lenient/strict reader, JsonWriter formats; shared by mc-protocol, mc-datafix, mc-game-core)
   mc-nbt              NBT tags, binary IO (named + network/unnamed root), SNBT, compression helpers
   mc-text             Chat Component model + JSON and NBT codecs
   mc-brigadier        Port of com.mojang.brigadier

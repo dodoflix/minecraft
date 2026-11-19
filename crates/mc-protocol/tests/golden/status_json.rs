@@ -3,8 +3,8 @@
 //! `tests/fixtures/StatusJsonGolden.java` (see its header).
 use std::io::Read;
 
+use mc_core::gson;
 use mc_protocol::codec::write_utf;
-use mc_protocol::gson;
 use mc_protocol::packets::status::ClientboundStatusResponsePacket;
 use mc_protocol::{Decode, Encode};
 

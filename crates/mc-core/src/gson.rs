@@ -4,9 +4,16 @@
 
 use std::fmt::Write as _;
 
-#[derive(Debug, Clone, PartialEq, thiserror::Error)]
-#[error("{0}")]
+#[derive(Debug, Clone, PartialEq)]
 pub struct JsonError(pub String);
+
+impl std::fmt::Display for JsonError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(&self.0)
+    }
+}
+
+impl std::error::Error for JsonError {}
 
 impl JsonError {
     fn new(msg: impl Into<String>) -> JsonError {
@@ -137,6 +144,7 @@ impl JsonElement {
                 indent: false,
                 html_safe: false,
                 serialize_nulls: true,
+                sort_keys: false,
             },
             0,
         );
@@ -153,6 +161,7 @@ impl JsonElement {
                 indent: false,
                 html_safe: true,
                 serialize_nulls: false,
+                sort_keys: false,
             },
             0,
         );
@@ -170,6 +179,7 @@ impl JsonElement {
                 indent: false,
                 html_safe: false,
                 serialize_nulls: false,
+                sort_keys: false,
             },
             0,
         );
@@ -186,6 +196,24 @@ impl JsonElement {
                 indent: true,
                 html_safe: true,
                 serialize_nulls: false,
+                sort_keys: false,
+            },
+            0,
+        );
+        out
+    }
+
+    /// `GsonHelper.toStableString`: compact, nulls kept, object members sorted by key (`String.compareTo`).
+    pub fn to_stable_string(&self) -> String {
+        let mut out = String::new();
+        write_element(
+            &mut out,
+            self,
+            &Format {
+                indent: false,
+                html_safe: false,
+                serialize_nulls: true,
+                sort_keys: true,
             },
             0,
         );
@@ -197,6 +225,7 @@ struct Format {
     indent: bool,
     html_safe: bool,
     serialize_nulls: bool,
+    sort_keys: bool,
 }
 
 fn write_element(out: &mut String, element: &JsonElement, f: &Format, depth: usize) {
@@ -230,10 +259,14 @@ fn write_element(out: &mut String, element: &JsonElement, f: &Format, depth: usi
             out.push(']');
         }
         JsonElement::Object(obj) => {
-            let members: Vec<_> = obj
+            let mut members: Vec<_> = obj
                 .iter()
                 .filter(|(_, v)| f.serialize_nulls || *v != &JsonElement::Null)
                 .collect();
+            if f.sort_keys {
+                // `String.compareTo` orders by UTF-16 code unit, which differs from `str` order above the BMP
+                members.sort_by(|a, b| a.0.encode_utf16().cmp(b.0.encode_utf16()));
+            }
             if members.is_empty() {
                 out.push_str("{}");
                 return;
@@ -325,6 +358,25 @@ pub fn parse_lenient_json_parser(text: &str) -> Result<JsonElement, JsonError> {
         Ok(_) => r.read_element().map_err(ReadErr::into_error)?,
     };
     r.strictness = Strictness::LegacyStrict;
+    if element != JsonElement::Null {
+        match r.peek() {
+            Ok(Token::EndDocument) => {}
+            Ok(_) => return Err(JsonError::new("Did not consume the entire document.")),
+            Err(e) => return Err(e.into_error()),
+        }
+    }
+    Ok(element)
+}
+
+/// `StrictJsonParser.parse(String)`: STRICT read of one value (an empty document is `JsonNull`), trailing data is
+/// rejected unless the value is `null`. `Err` carries the exception message.
+pub fn parse_strict_json_parser(text: &str) -> Result<JsonElement, JsonError> {
+    let mut r = Reader::new(text, Strictness::Strict);
+    let element = match r.peek() {
+        Err(e) if e.eof => JsonElement::Null,
+        Err(e) => return Err(e.into_error()),
+        Ok(_) => r.read_element().map_err(ReadErr::into_error)?,
+    };
     if element != JsonElement::Null {
         match r.peek() {
             Ok(Token::EndDocument) => {}

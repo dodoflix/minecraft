@@ -1140,6 +1140,7 @@ dependencies = [
  "mc-core",
  "mc-dfu",
  "mc-nbt",
+ "mc-testkit",
 ]
 
 [[package]]
