@@ -73,3 +73,19 @@ fn objective_criteria_names_are_unpacked_on_read_and_repacked_on_write() {
         assert!(out.java_eq(&input, false), "{name}: {out:?}");
     }
 }
+
+#[test]
+fn schema_1460_reuses_the_item_stack_and_objective_hooks() {
+    let chest = round_trip(
+        14600,
+        &References::ITEM_STACK,
+        stack("minecraft:chest", "BlockEntityTag"),
+    );
+    assert_stack(&chest, "BlockEntityTag", "minecraft:chest");
+    let input = Dyn::map_of([
+        ("CriteriaName", s("minecraft.killed:minecraft.pig")),
+        ("DisplayName", s("\"x\"")),
+    ]);
+    let out = round_trip(14600, &References::OBJECTIVE, input.clone());
+    assert!(out.java_eq(&input, false), "{out:?}");
+}
