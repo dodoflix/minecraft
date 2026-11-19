@@ -15,7 +15,9 @@ mc-dfu = { path = "../mc-dfu" }
 log = { workspace = true }
 
 [dev-dependencies]
+base64 = { workspace = true }
 mc-testkit = { path = "../mc-testkit" }
+sha2 = { workspace = true }
 
 [lints]
 workspace = true

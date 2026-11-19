@@ -203,7 +203,7 @@ pub fn ensure_namespaced(input: &str) -> String {
 }
 
 impl PrimKind {
-    fn name(self) -> &'static str {
+    pub(crate) fn name(self) -> &'static str {
         match self {
             PrimKind::Bool => "Bool",
             PrimKind::Byte => "Byte",

@@ -77,6 +77,7 @@ pub mod schema;
 pub mod schemas;
 pub mod template;
 pub mod ty;
+pub mod type_description;
 pub mod typed;
 pub mod util;
 pub mod value;

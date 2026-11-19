@@ -120,6 +120,16 @@ pub struct DataFixer {
 }
 
 impl DataFixer {
+    /// The keys of the registered schemas, ascending.
+    pub fn schema_keys(&self) -> impl Iterator<Item = i32> + '_ {
+        self.schemas.keys().copied()
+    }
+
+    /// `globalList`: the registered fixes in registration order.
+    pub fn fixes(&self) -> &[DataFix] {
+        &self.global_list
+    }
+
     /// `getSchema(key)`.
     pub fn get_schema(&self, key: i32) -> &Schema {
         &self.schemas[&lowest_schema_same_version(&self.schemas, key)]

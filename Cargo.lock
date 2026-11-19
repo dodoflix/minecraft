@@ -1136,11 +1136,13 @@ dependencies = [
 name = "mc-datafix"
 version = "0.1.0"
 dependencies = [
+ "base64",
  "log",
  "mc-core",
  "mc-dfu",
  "mc-nbt",
  "mc-testkit",
+ "sha2 0.10.9",
 ]
 
 [[package]]

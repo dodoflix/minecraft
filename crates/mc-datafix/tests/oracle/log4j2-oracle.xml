@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- log noise goes to stderr so stdout stays the oracle protocol; DataFixerOracle adds its own ERROR-counting appender -->
+<Configuration status="WARN">
+  <Appenders><Console name="E" target="SYSTEM_ERR"><PatternLayout pattern="[%d{HH:mm:ss}] [%t/%level]: %msg%n"/></Console></Appenders>
+  <Loggers><Root level="error"><AppenderRef ref="E"/></Root></Loggers>
+</Configuration>

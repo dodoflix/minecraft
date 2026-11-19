@@ -28,6 +28,11 @@ data derived from it: the registries, block and item data and data pack
 (crates/mc-text). None of that data is committed; it is Mojang's, not relicensed
 here.
 
+The data fixer fixtures (crates/mc-datafix/tests/fixtures) are committed: they list the
+class names of the fixes the vanilla server registers and SHA-256 digests of the
+descriptions of its schema types. They are derived from Mojang's server and are
+Mojang's, not relicensed here.
+
 One exception is committed in source form: the witty comments and profile report
 comments that Mojang's CrashReport prints (CRASH_NUGGETS and PROFILE_NUGGETS in
 crates/mc-game-core/src/crash_report.rs). They are kept so that crash and
