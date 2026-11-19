@@ -11,7 +11,7 @@ use std::io;
 const ENTITIES_TAG: &str = "Entities";
 const POSITION_TAG: &str = "Position";
 /// `SharedConstants.getCurrentVersion().dataVersion().version()` (world version of 26.3).
-pub const CURRENT_DATA_VERSION: i32 = 5023;
+pub const CURRENT_DATA_VERSION: i32 = crate::level_storage::WORLD_VERSION;
 
 /// `ChunkEntities`
 #[derive(Debug, Clone, PartialEq)]

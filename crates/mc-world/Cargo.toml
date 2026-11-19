@@ -11,6 +11,7 @@ publish.workspace = true
 [dependencies]
 mc-core = { path = "../mc-core" }
 mc-nbt = { path = "../mc-nbt" }
+mc-datafix = { path = "../mc-datafix" }
 mc-data = { path = "../mc-data" }
 flate2 = { workspace = true }
 twox-hash = { workspace = true, features = ["xxhash32"] }

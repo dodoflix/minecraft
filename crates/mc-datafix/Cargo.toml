@@ -16,7 +16,9 @@ log = { workspace = true }
 
 [dev-dependencies]
 base64 = { workspace = true }
+mc-data = { path = "../mc-data" }
 mc-testkit = { path = "../mc-testkit" }
+serde_json = { workspace = true }
 sha2 = { workspace = true }
 
 [lints]

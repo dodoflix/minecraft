@@ -14,6 +14,7 @@ mod recorded_schemas;
 mod chain_parity;
 mod compare_rules;
 mod core_smoke;
+mod facade;
 mod json_compat;
 mod library;
 mod schema_hooks;

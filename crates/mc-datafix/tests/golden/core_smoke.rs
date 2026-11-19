@@ -371,3 +371,41 @@ fn update_error_returns_the_input_and_logs() {
         "no error logged: {logged:?}"
     );
 }
+
+/// A schema whose `STATS` type has a required int field.
+struct Strict;
+
+impl SchemaDef for Strict {
+    fn register_entities(&self, _: &Schema, _: &Schema) -> TemplateMap {
+        TemplateMap::new()
+    }
+    fn register_block_entities(&self, _: &Schema, _: &Schema) -> TemplateMap {
+        TemplateMap::new()
+    }
+    fn register_types(&self, _: &Schema, schema: &Schema, _: &TemplateMap, _: &TemplateMap) {
+        schema.register_type(true, &References::STATS, |_| {
+            DSL::fields(&[("must", DSL::const_type(&DSL::int_type()))])
+        });
+    }
+}
+
+#[test]
+fn update_tag_with_a_missing_required_field_returns_the_tag_and_logs() {
+    let mut b = DataFixerBuilder::new(5023);
+    b.add_schema(99, |k, p| Schema::new(k, p, Strict));
+    let v100 = b.add_schema(100, Schema::same);
+    b.add_fixer(DataFix::new("NopFix", &v100, false, |fix| {
+        let ty = fix.input_schema().get_type(&References::STATS);
+        fix.fix_type_everywhere_typed("Nop", &ty, |typed| typed)
+    }));
+    let fixer = b.build();
+    let mut tag = mc_nbt::CompoundTag::new();
+    tag.put_string("other", "kept");
+    let (out, logged) =
+        capture_logs(|| DataFixTypes::STATS.update_tag_to_current_version(&fixer, &tag, 99));
+    assert_eq!(out, tag);
+    assert!(
+        logged.iter().any(|l| l.starts_with("ERROR: ")),
+        "no error logged: {logged:?}"
+    );
+}

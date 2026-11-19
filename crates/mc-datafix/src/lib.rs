@@ -2,8 +2,7 @@
 //!
 //! What exists: the type system and rewrite machinery, `DataFixTypes`, the `References` constants, `DataFixerBuilder`,
 //! `DataFixer` and the global [`data_fixer`] accessor, which registers the ported part of the chain (`fixers`). Until
-//! the chain is complete, `DataFixer::update` panics for lack of a registered fix, and no other crate depends on this
-//! one.
+//! the chain is complete, `DataFixer::update` panics for lack of a registered fix; `mc-world` depends on this crate.
 //!
 //! # Architecture
 //! DFU's statically typed `Type<A>`/`Typed<A>`/optics are ported *dynamically*: a [`typed::Typed`] is
@@ -82,7 +81,10 @@ pub mod typed;
 pub mod util;
 pub mod value;
 
-pub use data_fixers::data_fixer;
+pub use data_fixers::{
+    CURRENT_VERSION, LATEST_FILE_FIXER_VERSION, data_fixer, requires_file_fixing,
+    update_to_current, world_version_to_file_fixer_version,
+};
 pub use datafix::DataFix;
 pub use datafix_types::DataFixTypes;
 pub use dsl::{DSL, TypeReference};

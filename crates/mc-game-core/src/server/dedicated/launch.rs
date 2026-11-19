@@ -28,7 +28,6 @@ use mc_nbt::CompoundTag;
 use mc_world::level_storage::{
     DifficultySettings, FeatureFlagSet, GameType, LevelResource, LevelSettings, LevelStorageSource,
     PrimaryLevelData, WorldDataConfiguration, WorldGenSettings, WorldOptions, get_data_version,
-    requires_file_fixing,
 };
 use mc_worldgen::flat::FlatLevelGeneratorSettings;
 use serde_json::Value;
@@ -54,6 +53,21 @@ fn demo_world_options() -> WorldOptions {
         true,
         true,
     )
+}
+
+/// Oldest `DataVersion` this server can bring to the current version for now. Older worlds are refused at start-up
+/// until the data fixer chain and the file fixer cover them; the floor goes down as they do and disappears with the
+/// last one.
+pub const OLDEST_SUPPORTED_DATA_VERSION: i32 = 4899;
+
+/// `Err` with the refusal when a world saved at `data_version` (`-1` without a `DataVersion`) is below the floor.
+fn check_supported_data_version(data_version: i32) -> Result<(), String> {
+    if data_version < OLDEST_SUPPORTED_DATA_VERSION {
+        return Err(format!(
+            "This world was saved by an older version (data version {data_version}) than this server can upgrade yet (oldest supported: {OLDEST_SUPPORTED_DATA_VERSION})"
+        ));
+    }
+    Ok(())
 }
 
 /// `LOGGER.error(FATAL_MARKER, "Failed to start the minecraft server", e)`.
@@ -176,10 +190,7 @@ fn prepare(
             log::info!("This world was created by an incompatible version.");
             return Ok(None);
         }
-        if requires_file_fixing(get_data_version(&unfixed)) {
-            // `DataFixers.getFileFixer().fix(..)`: the file fixer steps are not ported.
-            return Err("This world was saved by an older version and must be upgraded first: the file fixer is not available".to_owned());
-        }
+        check_supported_data_version(get_data_version(&unfixed))?;
         Some(unfixed)
     } else {
         None
@@ -542,4 +553,23 @@ fn create_dimensions(
         }
     }
     dimensions
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn worlds_below_the_floor_are_refused() {
+        for version in [-1, 0, 99, 4771, 4772, OLDEST_SUPPORTED_DATA_VERSION - 1] {
+            let error = check_supported_data_version(version).unwrap_err();
+            assert!(
+                error.contains(&format!("data version {version})")),
+                "{error}"
+            );
+        }
+        for version in [OLDEST_SUPPORTED_DATA_VERSION, 5022, 5023, 9999] {
+            assert_eq!(check_supported_data_version(version), Ok(()), "{version}");
+        }
+    }
 }

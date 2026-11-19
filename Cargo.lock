@@ -1139,9 +1139,11 @@ dependencies = [
  "base64",
  "log",
  "mc-core",
+ "mc-data",
  "mc-dfu",
  "mc-nbt",
  "mc-testkit",
+ "serde_json",
  "sha2 0.10.9",
 ]
 
@@ -1470,6 +1472,7 @@ dependencies = [
  "log",
  "mc-core",
  "mc-data",
+ "mc-datafix",
  "mc-nbt",
  "mc-testkit",
  "regex",

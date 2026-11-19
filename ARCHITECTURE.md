@@ -76,7 +76,7 @@ The area crates keep the file paths of vanilla-shaped modules (`world/entity/ani
 is found by its path.
 
 Dependency direction (lower never imports higher):
-`mc-core, mc-nbt, mc-brigadier` → `mc-text, mc-data, mc-dfu` → `mc-datafix, mc-protocol, mc-world` → `mc-light, mc-worldgen`
+`mc-core, mc-nbt, mc-brigadier` → `mc-text, mc-data, mc-dfu` → `mc-datafix, mc-protocol` → `mc-world` → `mc-light, mc-worldgen`
 → `mc-game-core` → `mc-game-{blocks,levelgen,cmds,ai}` → `mc-game-{animals,monsters}` (over `ai`) → `mc-game` → `mc-server`;
 `mc-testbot` → `mc-protocol`.
 
