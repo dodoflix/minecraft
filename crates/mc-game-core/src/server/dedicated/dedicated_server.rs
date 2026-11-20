@@ -274,6 +274,8 @@ impl MinecraftServer {
 
         if properties.enable_query {
             log::info!("Starting GS4 status listener");
+            // the listener reads the motd, port and world name once, at creation: publish them before the first tick
+            self.refresh_shared_info();
             let info: Arc<dyn QueryServerInfo> = Arc::new(ServerHandle(self.shared.clone()));
             self.dedicated.query_thread =
                 QueryThreadGs4::create(info, &self.local_ip, properties.query_port);
