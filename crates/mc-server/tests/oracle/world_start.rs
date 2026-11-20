@@ -16,7 +16,9 @@
 //!   server rewrites a loaded chunk with runtime fields and the saved result depends on when the save ran. The POI files
 //!   of the loaded chunks are still exact, and so are the chunks below status full inside the rectangle, except for
 //!   their light layers ([`PARTIAL_CHUNK_LIGHT`]) and, for a chunk the servers generated while running (the world
-//!   does not store it), the fields two runs of the real server disagree on ([`GENERATED_CHUNK_RACES`]).
+//!   does not store it), the fields two runs of the real server disagree on ([`GENERATED_CHUNK_RACES`]). In the overworld
+//!   of a normal world older than 1.18 the sections, ticks and block entities below y = 0 and the post processing
+//!   marks are left out of every comparison ([`BELOW_ZERO_RACES`]).
 //! * Random ticks are off in both copies of the world (`random_tick_speed` 0): they draw from an unseeded random source.
 //! * Tick-driven values ([`CLOCKS`]): the two runs do not execute the same number of ticks between `Done` and the
 //!   freeze. `LastPlayed` is wall-clock time. `session.lock` and `level.dat_old` are not compared (a timestamp, and the
@@ -25,7 +27,8 @@
 //!   two runs of it disagree on the key order of the file ([`game_rules_difference`]).
 //! * The log: warnings, errors and the lines of [`INTEREST`] in order, the time and the thread removed, stack traces
 //!   dropped (the lines of a `Serialization errors:` report kept), the failed request for the services' public keys and
-//!   the discovery thread's warning left out ([`log_records`]).
+//!   the discovery thread's warning left out; a run of `Failed to fetch mob spawner entity` errors (logged from
+//!   concurrent worker threads) is sorted ([`log_records`]).
 
 use std::collections::BTreeSet;
 use std::fs;
@@ -52,6 +55,9 @@ const NEWER: i32 = 5100;
 
 /// Chunks around (0, 0) that are loaded after the start: the spawn area and the area the scripts force-load.
 const LOADED: i32 = 8;
+
+/// The data version of 1.18, the first with the world height of the current version (older worlds stop at y = 0).
+const NORMAL_WORLD_BELOW_ZERO: i32 = 2825;
 
 /// Entries of the server directory that are not part of the comparison (the output of the server process itself).
 pub(crate) const SERVER_FILES: &[&str] = &[
@@ -103,6 +109,21 @@ const GENERATED_CHUNK_RACES: &[&str] = &[
     "**/region/*.mca#PostProcessing",
 ];
 
+/// The overworld below y = 0 of a normal world a version before 1.18 generated. Such a world has no blocks there; the
+/// servers generate them when they load a chunk (the lush and deep caves of the current version), and two runs of the
+/// real server on the same world disagree on them in about half of the 17 x 17 chunks around the spawn: the blocks of the
+/// sections below 0 (placement order of overlapping cave features), their light, the scheduled ticks and block entities
+/// below 0, and the post processing marks. Seen between runs of the real server on the 1.14.4, 1.16.5 and 1.17.1
+/// normal worlds (thousands of block differences per run pair, all of them at y < 0 but five at y 13 to 16).
+/// The part of these chunks at y >= 0 stays compared. Only for `World::below_zero` worlds, in the overworld.
+const BELOW_ZERO_RACES: &[&str] = &[
+    "dimensions/minecraft/overworld/region/*.mca#sections.*[Y<0]",
+    "dimensions/minecraft/overworld/region/*.mca#block_ticks.*[y<0]",
+    "dimensions/minecraft/overworld/region/*.mca#fluid_ticks.*[y<0]",
+    "dimensions/minecraft/overworld/region/*.mca#block_entities.*[y<0]",
+    "dimensions/minecraft/overworld/region/*.mca#PostProcessing",
+];
+
 /// Info lines that belong to the world loading and the file fixer (warnings and errors are always compared).
 pub(crate) const INTEREST: &[&str] = &[
     "Starting upgrade for world",
@@ -148,6 +169,9 @@ const FORCE_UPGRADE: &[&str] = &["--forceUpgrade"];
 pub(crate) struct World {
     pub(crate) name: String,
     pub(crate) dir: PathBuf,
+    /// A normal world of a version before 1.18: the overworld has no blocks below y = 0 and the servers generate them
+    /// while loading ([`BELOW_ZERO_RACES`]).
+    pub(crate) below_zero: bool,
 }
 
 pub(crate) fn cache_dir() -> PathBuf {
@@ -192,6 +216,7 @@ pub(crate) fn worlds() -> Vec<World> {
     let kinds = std::env::var("DATAFIX_DUAL_KINDS").unwrap_or_else(|_| "flat".into());
     let mut out = Vec::new();
     for id in ids {
+        let version = all.iter().find(|(i, _)| *i == id).map_or(-1, |(_, v)| *v);
         for kind in kinds.split(',') {
             let name = if kind == "normal" {
                 format!("{id}-normal")
@@ -204,7 +229,12 @@ pub(crate) fn worlds() -> Vec<World> {
                 "{}: no corpus world: run scripts/datafix-worlds.sh {id}",
                 dir.display()
             );
-            out.push(World { name, dir });
+            let below_zero = kind == "normal" && version < NORMAL_WORLD_BELOW_ZERO;
+            out.push(World {
+                name,
+                dir,
+                below_zero,
+            });
         }
     }
     assert!(
@@ -328,6 +358,8 @@ pub(crate) struct Run {
     pub(crate) raw_log: String,
     /// The world the server was started on, when it was copied from one ([`run_on`]).
     pub(crate) source: Option<PathBuf>,
+    /// The overworld below y = 0 of the world is generated while the server loads it ([`World::below_zero`]).
+    pub(crate) below_zero: bool,
 }
 
 /// A server in `dir` (which `prepare` fills before the start) with the arguments `args`: when it starts, it freezes,
@@ -369,6 +401,7 @@ pub(crate) fn run(
         log,
         raw_log,
         source: None,
+        below_zero: false,
     }
 }
 
@@ -423,6 +456,18 @@ pub(crate) fn log_records(log: &str) -> Vec<String> {
             out.push(format!("{level} {message}"));
         }
         report = interesting && message.ends_with("Serialization errors:");
+    }
+    // Two rooms of the 1.14.4 normal world fail to fetch their spawner, each on its own worker thread: the real server
+    // logged them in the order (50, 38, 67), (-59, 31, 37) in one run and in the reverse order in another, `mc-server`
+    // logs both positions too. A run of such records is compared sorted.
+    let mut start = 0;
+    while start < out.len() {
+        let run = out[start..]
+            .iter()
+            .take_while(|r| r.starts_with("ERROR Failed to fetch mob spawner entity"))
+            .count();
+        out[start..start + run].sort();
+        start += run.max(1);
     }
     out
 }
@@ -586,20 +631,25 @@ pub(crate) fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
         (-LOADED, LOADED + 1, LOADED, FAR),
     ];
     let inner = (-LOADED, -LOADED, LOADED, LOADED);
-    let semantic = Filter {
+    let semantic = |skip: &[&str]| Filter {
         chunks: Some(inner),
         min_status: status_rank("full").expect("status"),
         max_listed: 10,
         ignore: Vec::new(),
         exact: false,
-        ignores: Ignores::default(),
+        ignores: ignores(skip, &[]),
     };
     let mut reports = Vec::new();
     for dim in ["overworld", "the_nether", "the_end"] {
+        let below_zero = if dim == "overworld" && vanilla.below_zero {
+            BELOW_ZERO_RACES
+        } else {
+            &[]
+        };
         for rect in outside {
-            reports.push(compare_dimension(&v, &o, dim, &exact(rect, &[])));
+            reports.push(compare_dimension(&v, &o, dim, &exact(rect, below_zero)));
         }
-        reports.push(compare_dimension(&v, &o, dim, &semantic));
+        reports.push(compare_dimension(&v, &o, dim, &semantic(below_zero)));
         // the semantic mode skips chunks below status full: those are compared exactly, one by one; the chunks the
         // servers generated while running (the world has no such chunk) also leave out [`GENERATED_CHUNK_RACES`]
         let stored = vanilla
@@ -608,11 +658,12 @@ pub(crate) fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
             .map(|source| stored_chunks(source, dim));
         for (x, z) in chunks_below_full(&v, &o, dim, inner) {
             let generated = stored.as_ref().is_some_and(|s| !s.contains(&(x, z)));
-            let skip = if generated {
-                [PARTIAL_CHUNK_LIGHT, GENERATED_CHUNK_RACES].concat()
+            let races = if generated {
+                GENERATED_CHUNK_RACES
             } else {
-                PARTIAL_CHUNK_LIGHT.to_vec()
+                &[]
             };
+            let skip = [PARTIAL_CHUNK_LIGHT, races, below_zero].concat();
             reports.push(compare_dimension(&v, &o, dim, &exact((x, z, x, z), &skip)));
         }
         // the POI files of the loaded chunks are still exact (the exact mode with the other storages left out)
@@ -701,7 +752,8 @@ fn dual(case: Case) {
             tempfile::tempdir().expect("temp dir"),
             tempfile::tempdir().expect("temp dir"),
         ];
-        let vanilla = run_on(Side::Vanilla, dirs[0].path(), &source, &[]);
+        let mut vanilla = run_on(Side::Vanilla, dirs[0].path(), &source, &[]);
+        vanilla.below_zero = world.below_zero && matches!(case, Case::Normal);
         let ours = run_on(Side::Ours, dirs[1].path(), &source, &[]);
         keep(case, &world, &vanilla, &ours);
         let findings = compare(&vanilla, &ours);

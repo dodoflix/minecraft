@@ -190,6 +190,7 @@ fn run_with_bots(side: Side, dir: &Path, cases: Vec<(&'static str, &'static str,
         log: log_records(&raw_log),
         raw_log,
         source: None,
+        below_zero: false,
     }
 }
 
