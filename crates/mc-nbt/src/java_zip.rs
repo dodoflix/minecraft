@@ -399,6 +399,41 @@ mod tests {
         assert_eq!(text(read_all(&[0x1f, 0x8b, 8, 0, 0]).unwrap_err()), eof);
     }
 
+    /// A source of `left` bytes that records how much each read of it asks for.
+    struct Asked {
+        sizes: Vec<usize>,
+        left: usize,
+    }
+
+    impl Read for Asked {
+        fn read(&mut self, out: &mut [u8]) -> io::Result<usize> {
+            self.sizes.push(out.len());
+            let n = out.len().min(self.left);
+            self.left -= n;
+            out[..n].fill(7);
+            Ok(n)
+        }
+    }
+
+    #[test]
+    fn requests_of_a_buffer_or_more_bypass_the_buffer() {
+        let mut stream = FastBufferedInputStream::new(Asked {
+            sizes: Vec::new(),
+            left: 40_000,
+        });
+        ByteInput::take(&mut stream, 10).unwrap();
+        ByteInput::take(&mut stream, 8182).unwrap();
+        assert_eq!(ByteInput::take(&mut stream, 20_000).unwrap().len(), 20_000);
+        assert_eq!(stream.inner.sizes, [8192, 20_000]);
+        // an empty buffer skips by reading 512 bytes at a time
+        stream.skip(600).unwrap();
+        assert_eq!(stream.inner.sizes[2..], [512, 88]);
+        // a short source ends a skip quietly and a take with an EOF
+        stream.skip(1_000_000).unwrap();
+        assert_eq!(ByteInput::take(&mut stream, 1).unwrap_err(), NbtError::Eof);
+        assert!(ByteInput::take(&mut stream, 0).unwrap().is_empty());
+    }
+
     #[test]
     fn a_stream_that_needs_a_dictionary_ends() {
         let mut out = [0; 8];
@@ -437,8 +472,7 @@ mod tests {
     }
 
     fn read_root(data: &[u8]) -> Result<crate::CompoundTag, String> {
-        let stream = FastBufferedInputStream::new(GzipInputStream::new(data).unwrap());
-        let mut input = stream;
+        let mut input = FastBufferedInputStream::new(GzipInputStream::new(data).unwrap());
         crate::read_named(&mut input, &mut crate::NbtAccounter::unlimited_heap())
             .map_err(|e| e.java_exception().to_string())
     }

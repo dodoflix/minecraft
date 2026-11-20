@@ -160,22 +160,20 @@ pub fn parse_type(
             acc.account_bytes(24)?;
             let len = read_i32(input)?;
             acc.account_bytes_n(4, len as i64)?;
-            let bytes = take(input, len as usize * 4)?;
-            let data: Vec<i32> = bytes
-                .chunks_exact(4)
-                .map(|c| i32::from_be_bytes(c.try_into().unwrap()))
-                .collect();
+            let mut data = Vec::with_capacity(input.reserve_hint(len as usize));
+            for _ in 0..len {
+                data.push(read_i32(input)?);
+            }
             visitor.visit_int_array(&data)
         }
         TAG_LONG_ARRAY => {
             acc.account_bytes(24)?;
             let len = read_i32(input)?;
             acc.account_bytes_n(8, len as i64)?;
-            let bytes = take(input, len as usize * 8)?;
-            let data: Vec<i64> = bytes
-                .chunks_exact(8)
-                .map(|c| i64::from_be_bytes(c.try_into().unwrap()))
-                .collect();
+            let mut data = Vec::with_capacity(input.reserve_hint(len as usize));
+            for _ in 0..len {
+                data.push(read_i64(input)?);
+            }
             visitor.visit_long_array(&data)
         }
         _ => return Err(invalid_tag_id(type_id)),

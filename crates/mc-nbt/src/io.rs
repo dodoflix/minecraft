@@ -353,25 +353,22 @@ impl Tag {
                 acc.account_bytes(24)?;
                 let len = read_i32(input)?;
                 acc.account_bytes_n(4, len as i64)?;
-                let bytes = take(input, len as usize * 4)?;
-                Ok(Tag::IntArray(
-                    bytes
-                        .chunks_exact(4)
-                        .map(|c| i32::from_be_bytes(c.try_into().unwrap()))
-                        .collect(),
-                ))
+                // one `readInt` per element, so each goes through the buffer of the stream
+                let mut data = Vec::with_capacity(input.reserve_hint(len as usize));
+                for _ in 0..len {
+                    data.push(read_i32(input)?);
+                }
+                Ok(Tag::IntArray(data))
             }
             TAG_LONG_ARRAY => {
                 acc.account_bytes(24)?;
                 let len = read_i32(input)?;
                 acc.account_bytes_n(8, len as i64)?;
-                let bytes = take(input, len as usize * 8)?;
-                Ok(Tag::LongArray(
-                    bytes
-                        .chunks_exact(8)
-                        .map(|c| i64::from_be_bytes(c.try_into().unwrap()))
-                        .collect(),
-                ))
+                let mut data = Vec::with_capacity(input.reserve_hint(len as usize));
+                for _ in 0..len {
+                    data.push(read_i64(input)?);
+                }
+                Ok(Tag::LongArray(data))
             }
             _ => Err(NbtError::InvalidTagId(id as i8 as i32)),
         }
