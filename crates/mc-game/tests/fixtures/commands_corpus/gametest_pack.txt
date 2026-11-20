@@ -8,8 +8,9 @@
 !datapack gametest/gepack
 !ignore passed! \(
 !mask (\d+)ms
-# vanilla's ops sometimes miss the summary of a passing test, and the bots sometimes miss the failure of a test on its first tick
-# (two recordings of the same file differ in exactly these lines)
+# the summary lines the bots receive are not compared for any test (vanilla's ops sometimes miss the summary of a passing test; the
+# console copy `log| System chat: ...` of every summary stays compared), and the bots sometimes miss the failure of a test on its first
+# tick (two recordings of the same file differ in exactly these lines)
 !ignore ^Bot\| .*(Game Test complete! |All required tests passed|commands\.test\.summary)
 !ignore ^Bot0?\| .*(Test structure missing Start block|Too many Start blocks)
 datapack list enabled

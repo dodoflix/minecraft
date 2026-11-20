@@ -4,9 +4,9 @@
 #   scripts/gametest-pack.sh
 #
 # Output: crates/mc-game/tests/fixtures/commands_corpus/gametest/gtpack/data/gt/structure/*.nbt (gzip NBT, byte-stable:
-#         no timestamp, fixed compression level). The JSON files and functions of the pack are written by hand; test
-#         structures hold test blocks (start, accept, fail, log) and one structure is written at an old data version so
-#         that loading it runs the structure data fixers.
+#         no timestamp, stored (uncompressed) deflate blocks, identical for every zlib). The JSON files and functions of
+#         the pack are written by hand; test structures hold test blocks (start, accept, fail, log) and one structure is
+#         written at an old data version so that loading it runs the structure data fixers.
 # Needs: python3.
 set -euo pipefail
 
@@ -54,7 +54,7 @@ def payload(t, v):
 def write_gz(path, root):
     data = bytes([10]) + payload(8, "") + payload(10, root)
     with open(path, "wb") as f:
-        with gzip.GzipFile(filename="", mode="wb", fileobj=f, compresslevel=9, mtime=0) as g:
+        with gzip.GzipFile(filename="", mode="wb", fileobj=f, compresslevel=0, mtime=0) as g:
             g.write(data)
 
 
