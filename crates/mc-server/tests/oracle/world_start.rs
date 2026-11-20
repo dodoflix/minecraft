@@ -23,7 +23,8 @@
 //! * `game_rules.dat` as a set of entries: the real server writes the rules in the order of an identity-hashed map, so even
 //!   two runs of it disagree on the key order of the file ([`game_rules_difference`]).
 //! * The log: warnings, errors and the lines of [`INTEREST`] in order, the time and the thread removed, stack traces
-//!   dropped, the failed request for the services' public keys and the discovery thread's warning left out ([`log_records`]).
+//!   dropped (the lines of a `Serialization errors:` report kept), the failed request for the services' public keys and
+//!   the discovery thread's warning left out ([`log_records`]).
 
 use std::collections::BTreeSet;
 use std::fs;
@@ -365,17 +366,23 @@ fn run_on(side: Side, dir: &Path, world: &Path, args: &[&str]) -> Run {
 /// The records of `log` that are compared: `LEVEL message`, in order (see the module documentation).
 pub(crate) fn log_records(log: &str) -> Vec<String> {
     let mut out = Vec::new();
+    // the lines under a `Serialization errors:` record are its report (the paths and texts of the problems)
+    let mut report = false;
     for line in log.lines() {
+        if !line.starts_with('[') {
+            if report && let Some(record) = out.last_mut() {
+                *record = format!("{record}\n{line}");
+            }
+            continue;
+        }
         // `[12:00:00] [Server thread/INFO]: message`; every other line is a continuation of the previous record.
+        report = false;
         let Some((head, message)) = line.split_once("]: ") else {
             continue;
         };
         let Some((_, thread_level)) = head.rsplit_once(" [") else {
             continue;
         };
-        if !line.starts_with('[') {
-            continue;
-        }
         let level = thread_level.rsplit('/').next().unwrap_or("");
         // a request to the Mojang services: it fails (or not) with the network, and with a different text in each server.
         // The discovery thread logs the failure of its request whenever the request ends, so the WARN lands at any record
@@ -391,6 +398,7 @@ pub(crate) fn log_records(log: &str) -> Vec<String> {
         if interesting {
             out.push(format!("{level} {message}"));
         }
+        report = interesting && message.ends_with("Serialization errors:");
     }
     out
 }
