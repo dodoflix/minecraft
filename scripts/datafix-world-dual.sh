@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # World dual: the real server and mc-server open identical copies of worlds that older vanilla servers generated, then
-# the two server directories (and the log lines) are compared. Also the legacy user list dual.
+# the two server directories (and the log lines) are compared. Also the legacy user list dual and the upgrade flags
+# (--forceUpgrade, --eraseCache, --recreateRegionFiles).
 #
 #   Usage: scripts/datafix-world-dual.sh [--nightly | --all | ID...] [--normal-worlds] [--cases CASE[,CASE..]] [--keep DIR]
 #
@@ -8,12 +9,14 @@
 #   --nightly        1.12.2, 1.16.5, 1.20.4 and 1.21.11 (the default)
 #   --all            every version of crates/mc-datafix/tests/fixtures/versions.tsv
 #   --normal-worlds  also the seed-12345 worlds (<id>-normal), not only the flat scripted ones
-#   --cases LIST     normal, newer, legacy-users, gates, resume (default: all of them; gates = the start-up checks on
-#                    hand-made level.dat files, resume = a world with an interrupted file fix; neither takes the worlds)
+#   --cases LIST     normal, newer, legacy-users, gates, resume, upgrade (default: all of them; gates = the start-up
+#                    checks on hand-made level.dat files, resume = a world with an interrupted file fix; neither takes
+#                    the worlds; upgrade always runs on the 26.2 corpus worlds)
 #   --keep DIR       keep both server directories of every run under DIR/<case>/<world>/{vanilla,ours}
 #
-# The cases are the tests of crates/mc-server/tests/oracle/{world_start,legacy_users}.rs; what they compare and what they
-# normalise is documented there. A failure prints the first differing log record and the differing files and chunks.
+# The cases are the tests of crates/mc-server/tests/oracle/{world_start,legacy_users,world_upgrade}.rs; what they compare
+# and what they normalise is documented there. The upgrade case always runs on the 26.2 corpus worlds (26.2 and
+# 26.2-normal), whatever IDs are selected. A failure prints the first differing log record and the differing files and chunks.
 # Env: MC_ACCEPT_EULA=1 (running a server accepts the Minecraft EULA in your name), MC_DATAFIX_CACHE (default
 #      ${XDG_CACHE_HOME:-$HOME/.cache}/mc-datafix-corpus; scripts/datafix-worlds.sh fills it), DATAFIX_DUAL_WORLDS,
 #      DATAFIX_DUAL_KINDS and WORLD_UPGRADE_KEEP (what the options above set).
@@ -50,12 +53,13 @@ test_for() {
     legacy-users) echo legacy_users:: ;;
     gates) echo startup_gates:: ;;
     resume) echo file_fix_resume:: ;;
+    upgrade) echo world_upgrade:: ;;
     *) die "unknown case $1" ;;
   esac
 }
 
 filters=()
-for c in $(echo "${cases:-normal,newer,legacy-users,gates,resume}" | tr , ' '); do
+for c in $(echo "${cases:-normal,newer,legacy-users,gates,resume,upgrade}" | tr , ' '); do
   filters+=("$(test_for "$c")")
 done
 cd "$ROOT"

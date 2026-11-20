@@ -48,7 +48,7 @@ impl SimpleRegionStorage {
         }
         self.storage
             .read(pos)
-            .inspect_err(|e| log::warn!("Failed to read chunk {}: {}", pos, e))
+            .inspect_err(|e| log::warn!("Failed to read chunk {}\n{}", pos, e))
     }
 
     /// `write(pos, value)`: queues the write (`None` = remove the chunk). An already queued chunk

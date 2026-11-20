@@ -194,7 +194,9 @@ crate can use it as a dev-dependency.
   generated) in a normal start and as a world newer than the current data version, save and stop; the server directories are
   compared (chunks outside the loaded area exactly, inside it semantically; the module header lists what is normalised) and
   so are the log records that concern the world load. `legacy_users.rs` does the same for `ops.txt`, `white-list.txt`,
-  `banned-players.txt`, `banned-ips.txt` and `players/<name>.dat` in offline mode. `DATAFIX_DUAL_WORLDS` (`supported`, `all` or
+  `banned-players.txt`, `banned-ips.txt` and `players/<name>.dat` in offline mode. `world_upgrade.rs` runs `--forceUpgrade`,
+  `--eraseCache` and `--recreateRegionFiles` on the 26.2 corpus worlds in both servers and compares the upgrade log and the
+  world directories (chunk NBT exact), plus chunks whose compressed stream is damaged (skipped or aborting the upgrade). `DATAFIX_DUAL_WORLDS` (`supported`, `all` or
   ids), `DATAFIX_DUAL_KINDS` (`flat,normal`) and `WORLD_UPGRADE_KEEP=<dir>` select worlds and keep both directories.
 - Data-fix coverage (`crates/mc-datafix/tests/oracle/Coverage.java`, the oracle's `coverage` verb, run by
   `scripts/datafix-corpus.sh coverage`): vanilla's `DataFixers` run over every fixture of `tests/fixtures/samples` with a watch

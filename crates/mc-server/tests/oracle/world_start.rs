@@ -453,7 +453,7 @@ pub(crate) fn game_rules_difference(vanilla: &Path, ours: &Path) -> Option<Strin
 
 /// The tickets of every dimension's `chunk_tickets.dat` as sorted lists of `(chunk_pos, type, level, ticks_left)`: both
 /// servers hold the tickets in a fastutil table; the order they write them in and the key order of a ticket differ.
-fn ticket_findings(vanilla: &Path, ours: &Path) -> Vec<String> {
+pub(crate) fn ticket_findings(vanilla: &Path, ours: &Path) -> Vec<String> {
     let tickets = |world: &Path, rel: &str| -> Vec<String> {
         let file = world.join(rel);
         if !file.is_file() {

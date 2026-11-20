@@ -223,3 +223,89 @@ fn entity_storage_layout_and_empty_chunks() {
     assert!(l.chunk.is_empty() && l.position_problem == Some(PositionProblem::Unparseable));
     es.close().unwrap();
 }
+
+/// A chunk with the compressible payload `blob`, stored at chunk (0, 0), and the byte offset of its stream in the file.
+fn stored_big_chunk(folder: &std::path::Path, blob: Vec<i8>) -> usize {
+    let mut tag = sample(1);
+    tag.put_byte_array("blob", blob);
+    let mut s = RegionFileStorage::new(info(), folder, false);
+    s.write(&ChunkPos::new(0, 0), Some(&tag)).unwrap();
+    s.close().unwrap();
+    8192 + 5
+}
+
+/// What reading chunk (0, 0) of `folder` reports: `None` for a chunk, else whether the error is unchecked (the upgrader
+/// does not catch those).
+fn read_outcome(folder: &std::path::Path) -> Option<bool> {
+    let mut s = RegionFileStorage::new(info(), folder, false);
+    let result = s.read(&ChunkPos::new(0, 0));
+    result
+        .err()
+        .map(|e| mc_world::region::region_file_storage::is_unchecked_nbt_error(&e))
+}
+
+/// Vanilla reads a deflate stream through an `InflaterInputStream` that takes 512 compressed bytes per refill: a stream
+/// that fails before the first bytes come out is an `IOException`, one that fails after the root tag's header is
+/// wrapped by the tag loader into the unchecked `ReportedNbtException` (the oracle `world_upgrade::corrupt_stream_*`
+/// cases record both from the real server).
+#[test]
+fn a_failing_deflate_stream_is_an_io_error_only_before_its_first_bytes() {
+    let dir = tempfile::tempdir().unwrap();
+    let folder = dir.path().join("region");
+    let blob = (0..200_000u32)
+        .map(|i| (i.wrapping_mul(i) % 251) as i8 ^ (i / 7 % 13) as i8)
+        .collect();
+    let stream = stored_big_chunk(&folder, blob);
+    let file = folder.join("r.0.0.mca");
+    let intact = std::fs::read(&file).unwrap();
+    assert_eq!(read_outcome(&folder), None);
+    let patched = |edit: &dyn Fn(&mut Vec<u8>)| {
+        let mut bytes = intact.clone();
+        edit(&mut bytes);
+        std::fs::write(&file, bytes).unwrap();
+        read_outcome(&folder)
+    };
+    // the zlib header is wrong: the first refill fails
+    assert_eq!(patched(&|b| b[stream..stream + 2].fill(0)), Some(false));
+    // the stream ends after its header, and after 3000 bytes
+    let truncate = |len: usize| {
+        move |b: &mut Vec<u8>| b[8192..8196].copy_from_slice(&(len as u32 + 1).to_be_bytes())
+    };
+    assert_eq!(patched(&truncate(2)), Some(false));
+    assert_eq!(patched(&truncate(3000)), Some(true));
+    // a byte that breaks the stream in the first 512 bytes, and one that breaks it later
+    let first_error = |range: std::ops::Range<usize>| {
+        range
+            .map(|at| patched(&|b| b[stream + at] ^= 0xff))
+            .find_map(|outcome| outcome)
+    };
+    assert_eq!(first_error(2..500), Some(false));
+    assert_eq!(first_error(2000..4000), Some(true));
+}
+
+/// zlib stops decoding when its 8192-byte buffer is full, so a bad symbol inside the first 512 compressed bytes that comes
+/// after 8192 decoded bytes fails a later refill: the root tag's header was read, the tag loader wraps the failure.
+#[test]
+fn a_bad_symbol_after_a_full_refill_is_found_by_a_later_refill() {
+    let dir = tempfile::tempdir().unwrap();
+    let folder = dir.path().join("region");
+    let stream = stored_big_chunk(
+        &folder,
+        (0..200_000u32)
+            .map(|i| ((i / 64).wrapping_mul(2654435761) >> 13) as i8)
+            .collect(),
+    );
+    let file = folder.join("r.0.0.mca");
+    let intact = std::fs::read(&file).unwrap();
+    let outcome = |at: usize| {
+        let mut bytes = intact.clone();
+        bytes[stream + at] ^= 0xff;
+        std::fs::write(&file, bytes).unwrap();
+        read_outcome(&folder)
+    };
+    // the last byte of the first 512 that breaks the stream: a few thousand bytes were decoded before it
+    let broken = (100..500)
+        .rev()
+        .find_map(|at| outcome(at).map(|unchecked| (at, unchecked)));
+    assert!(matches!(broken, Some((_, true))), "{broken:?}");
+}

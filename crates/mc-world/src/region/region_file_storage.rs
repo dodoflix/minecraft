@@ -41,6 +41,29 @@ fn unchecked(e: &NbtError) -> bool {
     )
 }
 
+/// Everything `stream` yields before it fails, read in the 8192-byte refills of `FastBufferedInputStream`, and the
+/// failure. A refill that fails delivers none of its bytes, which is what decides how far a Java caller gets.
+fn drain(stream: &mut impl Read) -> (Vec<u8>, Option<io::Error>) {
+    let (mut data, mut buffer) = (Vec::new(), [0u8; 8192]);
+    loop {
+        match stream.read(&mut buffer) {
+            Ok(0) => return (data, None),
+            Ok(n) => data.extend_from_slice(&buffer[..n]),
+            Err(e) if e.kind() == io::ErrorKind::Interrupted => {}
+            Err(e) => return (data, Some(e)),
+        }
+    }
+}
+
+/// Whether `data` ends before the root tag's type byte and name are complete.
+fn header_incomplete(data: &[u8]) -> bool {
+    match data {
+        [0, ..] => false,
+        [_, hi, lo, ..] => data.len() < 3 + usize::from(u16::from_be_bytes([*hi, *lo])),
+        _ => true,
+    }
+}
+
 pub struct RegionFileStorage {
     /// Most recently used entry last (`Long2ObjectLinkedOpenHashMap` with `getAndMoveToFirst`);
     /// `None` caches "no such region file".
@@ -117,12 +140,14 @@ impl RegionFileStorage {
         };
         // Vanilla parses incrementally and never looks past the end of the root compound, so a
         // decoding error after a complete tag is irrelevant: parse whatever was decoded first.
-        let mut data = Vec::new();
-        let read_error = stream.read_to_end(&mut data).err();
+        let (data, read_error) = drain(&mut stream);
         match mc_nbt::read_named(&mut data.as_slice(), &mut NbtAccounter::unlimited_heap()) {
             Ok(tag) => Ok(Some(tag)),
-            // a failing stream is an `IOException`; a tag that does not parse from a stream that decoded is not
-            Err(e) => Err(read_error.unwrap_or_else(|| nbt_io_error(e))),
+            // the stream failed before the root tag's header (type, name) was complete: the stream's own `IOException`; a
+            // failure further in surfaces from the tag loader as the unchecked `ReportedNbtException`
+            Err(e) => Err(read_error
+                .filter(|_| header_incomplete(&data))
+                .unwrap_or_else(|| nbt_io_error(e))),
         }
     }
 
@@ -140,8 +165,7 @@ impl RegionFileStorage {
             return Ok(());
         };
         // as in `read`: what follows a complete tag is never looked at
-        let mut data = Vec::new();
-        let read_error = stream.read_to_end(&mut data).err();
+        let (data, read_error) = drain(&mut stream);
         mc_nbt::stream::parse(
             &mut data.as_slice(),
             visitor,

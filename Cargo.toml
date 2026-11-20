@@ -45,6 +45,7 @@ tokio-tungstenite = "0.30"
 twox-hash = { version = "2", default-features = false }
 uuid = "1.29.0"
 zip = { version = "9", default-features = false }
+zlib-rs = { version = "0.6.8", default-features = false, features = ["std"] }
 
 [workspace.package]
 edition = "2024"

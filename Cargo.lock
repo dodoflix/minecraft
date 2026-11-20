@@ -1498,6 +1498,7 @@ dependencies = [
  "tempfile",
  "twox-hash",
  "uuid",
+ "zlib-rs",
 ]
 
 [[package]]
