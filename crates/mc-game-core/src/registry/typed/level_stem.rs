@@ -10,7 +10,7 @@ use serde_json::Value;
 
 use super::biome;
 use super::dimension_type::{DimensionType, Y_SIZE};
-use crate::registry::codec::{RegistryDecodeContext, Schema, default, req};
+use crate::registry::codec::{Failure, RegistryDecodeContext, Schema, default, req};
 use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
 use crate::registry::keys;
 
@@ -83,11 +83,12 @@ fn biome_source_types(ty: &str) -> Option<Schema> {
 
 /// `FlatLevelGeneratorSettings.CODEC` (`parse` + `encodeStart`): `lakes`, `features` and `biome` are always written (a
 /// missing or undecodable biome encodes as the default `minecraft:plains`), `structure_overrides` and the biome are lenient.
+/// A failed `validateHeight` keeps the settings as the partial result.
 fn flat_settings(
     v: &Value,
     ctx: &RegistryDecodeContext,
     validate_height: bool,
-) -> Result<Tag, String> {
+) -> Result<Tag, Failure> {
     let o = v
         .as_object()
         .ok_or_else(|| format!("Not a JSON object: {v}"))?;
@@ -121,9 +122,6 @@ fn flat_settings(
         }),
         _ => 0,
     };
-    if validate_height && total > Y_SIZE {
-        return Err(format!("Sum of layer heights is > {Y_SIZE}"));
-    }
     out.put("layers", layers);
     for flag in ["lakes", "features"] {
         out.put(
@@ -138,6 +136,12 @@ fn flat_settings(
         "biome",
         biome.unwrap_or_else(|| Tag::String("minecraft:plains".to_owned().into())),
     );
+    if validate_height && total > Y_SIZE {
+        return Err(Failure {
+            message: format!("Sum of layer heights is > {Y_SIZE}"),
+            partial: Some(Tag::Compound(out)),
+        });
+    }
     Ok(Tag::Compound(out))
 }
 
@@ -162,7 +166,7 @@ fn generator_types(ty: &str) -> Option<Schema> {
         ]),
         "minecraft:flat" => S::Record(vec![req(
             "settings",
-            S::custom(|v, ctx| flat_settings(v, ctx, true)),
+            S::custom_partial(|v, ctx| flat_settings(v, ctx, true)),
         )]),
         "minecraft:debug" => S::Record(vec![]),
         _ => return None,
@@ -196,7 +200,8 @@ pub fn flat_generator_tag(
     validate_height: bool,
 ) -> Result<Tag, String> {
     let mut generator = CompoundTag::new();
-    generator.put("settings", flat_settings(settings, ctx, validate_height)?);
+    let settings = flat_settings(settings, ctx, validate_height).map_err(|f| f.message)?;
+    generator.put("settings", settings);
     generator.put("type", Tag::String("minecraft:flat".to_owned().into()));
     Ok(Tag::Compound(generator))
 }
@@ -213,6 +218,14 @@ fn unknown_generator_type(e: String) -> String {
 /// `LevelStem.CODEC` `parse` + `encodeStart`: validates `json` and returns the canonical stem compound.
 pub fn encode(json: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, String> {
     schema().convert(json, ctx).map_err(unknown_generator_type)
+}
+
+/// [`encode`] for a codec that goes on with the partial result of a failed stem (`DataResult.Error.partialValue`).
+pub fn encode_partial(json: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, Failure> {
+    schema().decode(json, ctx).map_err(|failure| Failure {
+        message: unknown_generator_type(failure.message),
+        partial: failure.partial,
+    })
 }
 
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {

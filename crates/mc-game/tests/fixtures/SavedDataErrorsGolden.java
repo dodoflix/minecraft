@@ -185,7 +185,8 @@ public class SavedDataErrorsGolden {
         snbt("{\"minecraft:max_entity_cramming\":24,\"minecraft:random_tick_speed\":3,\"minecraft:keep_inventory\":1b}"));
     run("world_gen_settings", WorldGenSettings.TYPE, true, true,
         snbt("{seed:5L,generate_structures:1b,bonus_chest:0b,legacy_custom_options:\"x\",dimensions:{\"minecraft:overworld\":{generator:{biome_source:{preset:\"minecraft:overworld\",type:\"minecraft:multi_noise\"},settings:\"minecraft:overworld\",type:\"minecraft:noise\"},type:\"minecraft:overworld\"}}}"),
-        snbt("{seed:5L,dimensions:{\"minecraft:overworld\":{generator:{biome_source:{preset:\"minecraft:overworld\",type:\"minecraft:multi_noise\"},settings:\"minecraft:overworld\",type:\"minecraft:noise\"},type:\"minecraft:overworld\"},\"Bad Key\":{},\"x:y\":5}}"));
+        snbt("{seed:5L,dimensions:{\"minecraft:overworld\":{generator:{biome_source:{preset:\"minecraft:overworld\",type:\"minecraft:multi_noise\"},settings:\"minecraft:overworld\",type:\"minecraft:noise\"},type:\"minecraft:overworld\"},\"Bad Key\":{},\"x:y\":5}}"),
+        snbt("{seed:5L,dimensions:{\"minecraft:overworld\":{generator:{type:\"minecraft:flat\",settings:{biome:\"minecraft:plains\",layers:[{block:\"minecraft:stone\",height:3000},{block:\"minecraft:dirt\",height:3000}]}},type:\"minecraft:overworld\"}}}"));
     run("wandering_trader", WanderingTraderData.TYPE, false, true, snbt("{spawn_delay:5,spawn_chance:7}"));
     run("weather", WeatherData.TYPE, false, true, file("data/minecraft/weather.dat"));
     run("map_index", MapIndex.TYPE, false, true, snbt("{map:5}"));

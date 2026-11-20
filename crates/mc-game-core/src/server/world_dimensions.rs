@@ -136,9 +136,14 @@ impl<'a> DimensionDecoder<'a> {
                 let lookup = AccessLookup(&access);
                 let mut ctx = RegistryDecodeContext::new(&lookup);
                 ctx.numeric_booleans = true;
-                match level_stem::encode(&nbt_to_json(&tag), &ctx) {
+                match level_stem::encode_partial(&nbt_to_json(&tag), &ctx) {
                     Ok(tag) => DataResult::success(tag),
-                    Err(message) => DataResult::error(move || message.clone()),
+                    Err(failure) => match failure.partial {
+                        Some(partial) => {
+                            DataResult::error_partial(move || failure.message.clone(), partial)
+                        }
+                        None => DataResult::error(move || failure.message.clone()),
+                    },
                 }
             },
             |tag: &Tag| DataResult::success(Dynamic::new(NBT, Dyn::from(tag))),
