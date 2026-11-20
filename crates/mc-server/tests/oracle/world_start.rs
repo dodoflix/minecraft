@@ -239,7 +239,8 @@ fn bump_data_versions(world: &Path, version: i32) {
     }
 }
 
-/// The `DataVersion` of the saved data files (`data/**/*.dat`, `players/**`).
+/// The `DataVersion` of the saved data files (`data/**/*.dat`, `players/**`). `data/minecraft/maps/last_id.dat` is written
+/// uncompressed and has no `DataVersion`: it stays as it is.
 fn bump_saved_data(dir: &Path, version: i32) {
     for entry in fs::read_dir(dir).expect("world folder").flatten() {
         let path = entry.path();
@@ -249,6 +250,9 @@ fn bump_saved_data(dir: &Path, version: i32) {
             && path.file_name().is_some_and(|n| n != "level.dat")
         {
             let bytes = fs::read(&path).expect("saved data");
+            if !bytes.starts_with(&[0x1f, 0x8b]) {
+                continue;
+            }
             let mut tag = read_compressed(&bytes, &mut NbtAccounter::unlimited_heap())
                 .unwrap_or_else(|e| panic!("{}: {e}", path.display()));
             if tag.get_int("DataVersion").is_some() {
