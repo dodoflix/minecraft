@@ -196,6 +196,13 @@ impl Feature for MonsterRoomFeature {
         {
             let entity = MOBS[random.next_int_bounded(MOBS.len() as i32) as usize];
             level.set_block_entity_nbt(spawner_tag(origin, entity));
+        } else {
+            log::error!(
+                "Failed to fetch mob spawner entity at ({}, {}, {})",
+                origin.x(),
+                origin.y(),
+                origin.z()
+            );
         }
         true
     }
