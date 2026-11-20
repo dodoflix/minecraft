@@ -1,7 +1,7 @@
 //! `String.toLowerCase(Locale.ROOT)` against the real JDK 25 (`fixtures/java_case/CaseGolden.java`): every code point
 //! that changes, and random strings of letters, sigmas and word-break characters.
 
-use mc_core::java_case::to_lower_case_root;
+use mc_core::java_case::{self, to_lower_case_root};
 use mc_core::java_string::JavaString;
 use std::collections::HashMap;
 use std::sync::LazyLock;
@@ -64,4 +64,65 @@ fn lower_case_of_strings_matches_java() {
         failures.len(),
         failures[..failures.len().min(30)].join("\n")
     );
+}
+
+static EQUALS_IGNORE_CASE: LazyLock<String> =
+    LazyLock::new(|| mc_testkit::include_gz!("../fixtures/java_case/equals_ignore_case.txt.gz"));
+
+fn mapping(kind: &str) -> HashMap<u32, u32> {
+    EQUALS_IGNORE_CASE
+        .lines()
+        .filter_map(|l| l.strip_prefix(kind)?.strip_prefix('\t'))
+        .map(|l| {
+            let (cp, to) = l.split_once('\t').unwrap();
+            (
+                u32::from_str_radix(cp, 16).unwrap(),
+                u32::from_str_radix(to, 16).unwrap(),
+            )
+        })
+        .collect()
+}
+
+#[test]
+fn simple_case_mappings_of_every_code_point_match_java() {
+    let (upper, lower) = (mapping("up"), mapping("lo"));
+    assert!(upper.len() > 1400 && lower.len() > 1400);
+    let mut wrong = Vec::new();
+    for cp in (0..=0x10FFFF).filter(|cp| !(0xD800..=0xDFFF).contains(cp)) {
+        let (up, lo) = (java_case::simple_upper(cp), java_case::simple_lower(cp));
+        if up != upper.get(&cp).copied().unwrap_or(cp) {
+            wrong.push(format!("toUpperCase U+{cp:04X}: got U+{up:04X}"));
+        }
+        if lo != lower.get(&cp).copied().unwrap_or(cp) {
+            wrong.push(format!("toLowerCase U+{cp:04X}: got U+{lo:04X}"));
+        }
+    }
+    assert!(wrong.is_empty(), "{}", wrong.join("\n"));
+}
+
+fn from_hex_units(hex: &str) -> String {
+    String::from_utf16(&units(hex)).unwrap()
+}
+
+#[test]
+fn equals_ignore_case_matches_java() {
+    let mut n = 0;
+    for l in EQUALS_IGNORE_CASE.lines() {
+        let fields: Vec<&str> = l.split('\t').collect();
+        let (a, b, want) = match fields[..] {
+            ["eq", a, b, want] => {
+                let cp = |h| char::from_u32(u32::from_str_radix(h, 16).unwrap()).unwrap();
+                (cp(a).to_string(), cp(b).to_string(), want)
+            }
+            ["str", a, b, want] => (from_hex_units(a), from_hex_units(b), want),
+            _ => continue,
+        };
+        assert_eq!(
+            java_case::equals_ignore_case(&a, &b),
+            want == "1",
+            "{a:?} {b:?}"
+        );
+        n += 1;
+    }
+    assert!(n > 40000, "{n}");
 }

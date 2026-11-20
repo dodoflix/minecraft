@@ -1,4 +1,4 @@
-//! `String.toLowerCase(Locale.ROOT)` of JDK 25 (the Java the vanilla server runs on).
+//! `String.toLowerCase(Locale.ROOT)` and `String.equalsIgnoreCase` of JDK 25 (the Java the vanilla server runs on).
 //!
 //! The mapping is `Character.toLowerCase(int)` per code point, except for two characters:
 //! * `U+0130` becomes `i` followed by `U+0307`.
@@ -374,10 +374,13 @@ fn is_final_cased(units: &[u16], index: usize) -> bool {
 
 /// `Character.toLowerCase(int)`. Rust's tables are newer than JDK 25's Unicode 16: the characters added since are not
 /// lower-cased by the JDK.
-fn simple_lower(cp: u32) -> u32 {
+pub fn simple_lower(cp: u32) -> u32 {
     let Some(c) = char::from_u32(cp) else {
         return cp;
     };
+    if cp == 0x130 {
+        return 0x69;
+    }
     if matches!(cp, 0xA7CE | 0xA7D2 | 0xA7D4 | 0x16EA0..=0x16EB8) {
         return cp;
     }
@@ -386,6 +389,133 @@ fn simple_lower(cp: u32) -> u32 {
         (Some(l), None) => l as u32,
         _ => cp,
     }
+}
+
+/// `Character.toUpperCase(int)`: the one-character mapping of `UnicodeData.txt`. Rust's `to_uppercase` is the full
+/// mapping, which is longer than one character for `U+00DF` and the like (no one-character mapping: the character
+/// stays) and for the Greek letters with iota subscript, whose one-character mapping is the title-case letter.
+/// Rust's tables are newer than JDK 25's Unicode 16 here too.
+pub fn simple_upper(cp: u32) -> u32 {
+    let Some(c) = char::from_u32(cp) else {
+        return cp;
+    };
+    if matches!(cp, 0xA7CF | 0xA7D3 | 0xA7D5 | 0x16EBB..=0x16ED3) {
+        return cp;
+    }
+    match cp {
+        0x1F80..=0x1F87 | 0x1F90..=0x1F97 | 0x1FA0..=0x1FA7 => return cp + 8,
+        0x1FB3 => return 0x1FBC,
+        0x1FC3 => return 0x1FCC,
+        0x1FF3 => return 0x1FFC,
+        _ => {}
+    }
+    let mut upper = c.to_uppercase();
+    match (upper.next(), upper.next()) {
+        (Some(u), None) => u as u32,
+        _ => cp,
+    }
+}
+
+/// `Character.toUpperCase` then `Character.toLowerCase` comparison of `StringUTF16.compareCodePointCI`.
+fn code_points_equal_ignore_case(cp1: u32, cp2: u32) -> bool {
+    let (u1, u2) = (simple_upper(cp1), simple_upper(cp2));
+    u1 == u2 || simple_lower(u1) == simple_lower(u2)
+}
+
+/// `CharacterDataLatin1.equalsIgnoreCase`.
+fn latin1_equals_ignore_case(b1: u8, b2: u8) -> bool {
+    if b1 == b2 {
+        return true;
+    }
+    let upper = b1 & 0xDF;
+    upper >= b'A'
+        && (upper <= b'Z' || ((0xC0..=0xDE).contains(&upper) && upper != 0xD7))
+        && upper == b2 & 0xDF
+}
+
+/// `StringUTF16.codePointIncluding`: the code point the unit at `index` belongs to (looking within `start..end`),
+/// negated when the unit is the high surrogate of a pair (the pair's low surrogate follows).
+fn code_point_including(units: &[u16], cp: u32, index: usize, start: usize, end: usize) -> i64 {
+    match char::from_u32(cp) {
+        Some(_) => i64::from(cp),
+        None if (0xDC00..0xE000).contains(&cp) => match units.get(index.wrapping_sub(1)) {
+            Some(&high) if index > start && (0xD800..0xDC00).contains(&high) => {
+                i64::from(to_code_point(high, cp as u16))
+            }
+            _ => i64::from(cp),
+        },
+        None => match units.get(index + 1) {
+            Some(&low) if index + 1 < end && (0xDC00..0xE000).contains(&low) => {
+                -i64::from(to_code_point(cp as u16, low))
+            }
+            _ => i64::from(cp),
+        },
+    }
+}
+
+/// `String.regionMatches(true, a_offset, b, b_offset, len)` (JDK 25) of the strings with UTF-16 units `a` and `b`.
+/// The comparison depends on how the two strings are stored (compact strings: Latin-1 when every character is at most
+/// `U+00FF`): two Latin-1 strings compare byte by byte, a Latin-1 and a UTF-16 string unit by unit, two UTF-16 strings
+/// by code point where a surrogate pair is involved.
+pub fn region_matches_ignore_case(
+    a: &[u16],
+    a_offset: usize,
+    b: &[u16],
+    b_offset: usize,
+    len: usize,
+) -> bool {
+    if a_offset.checked_add(len).is_none_or(|end| end > a.len())
+        || b_offset.checked_add(len).is_none_or(|end| end > b.len())
+    {
+        return false;
+    }
+    let latin1 = |s: &[u16]| s.iter().all(|&u| u <= 0xFF);
+    let (ra, rb) = (&a[a_offset..a_offset + len], &b[b_offset..b_offset + len]);
+    match (latin1(a), latin1(b)) {
+        (true, true) => ra
+            .iter()
+            .zip(rb)
+            .all(|(&x, &y)| latin1_equals_ignore_case(x as u8, y as u8)),
+        (true, false) | (false, true) => ra.iter().zip(rb).all(|(&x, &y)| {
+            let (u1, u2) = (
+                simple_upper(u32::from(x)) as u16,
+                simple_upper(u32::from(y)) as u16,
+            );
+            x == y || u1 == u2 || simple_lower(u32::from(u1)) == simple_lower(u32::from(u2))
+        }),
+        (false, false) => {
+            let (mut k1, mut k2) = (a_offset, b_offset);
+            let (end1, end2) = (a_offset + len, b_offset + len);
+            while k1 < end1 && k2 < end2 {
+                let (cp1, cp2) = (u32::from(a[k1]), u32::from(b[k2]));
+                if cp1 != cp2 && !code_points_equal_ignore_case(cp1, cp2) {
+                    let mut c1 = code_point_including(a, cp1, k1, a_offset, end1);
+                    let mut c2 = code_point_including(b, cp2, k2, b_offset, end2);
+                    if c1 < 0 {
+                        k1 += 1;
+                        c1 = -c1;
+                    }
+                    if c2 < 0 {
+                        k2 += 1;
+                        c2 = -c2;
+                    }
+                    if !code_points_equal_ignore_case(c1 as u32, c2 as u32) {
+                        return false;
+                    }
+                }
+                k1 += 1;
+                k2 += 1;
+            }
+            true
+        }
+    }
+}
+
+/// `String.equalsIgnoreCase` (JDK 25), see [`region_matches_ignore_case`].
+pub fn equals_ignore_case(a: &str, b: &str) -> bool {
+    let a: Vec<u16> = a.encode_utf16().collect();
+    let b: Vec<u16> = b.encode_utf16().collect();
+    a.len() == b.len() && region_matches_ignore_case(&a, 0, &b, 0, a.len())
 }
 
 /// `String.toLowerCase(Locale.ROOT)` of the UTF-16 units `units` (lone surrogates stay as they are).
