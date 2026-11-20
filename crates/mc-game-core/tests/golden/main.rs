@@ -4,6 +4,7 @@ extern crate mc_game_core as mc_game;
 mod advancement_predicates;
 mod attribute_golden;
 mod ban_date;
+mod ban_date_format;
 mod beacon_golden;
 mod border_golden;
 mod brain_golden;

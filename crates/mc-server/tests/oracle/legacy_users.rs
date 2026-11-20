@@ -393,6 +393,95 @@ fn unparsable_creation_dates() {
     );
 }
 
+/// `SimpleDateFormat` is lenient: a field past its range rolls over into the next one (month 13, hour 25, day 0), a
+/// number may carry a sign or any Unicode digit, and a field of the date may be missing its leading zeros.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn dates_with_fields_out_of_range() {
+    dual_case(
+        &[
+            (
+                "banned-players.txt",
+                "Alex_B|2013-02-30 25:61:61 +0100|Server|2013-13-32 00:00:00 +0000|Griefing\n\
+                 Steve|2013-00-00 24:60:60 +0000|Console|2014-1-3 4:5:6 +0000|x\n\
+                 Notch|0000-01-01 00:00:00 +0000|C|-1-01-01 00:00:00 +0000|y\n\
+                 Dan|\u{ff12}\u{ff10}13-02-03 04:05:06 +0100|C|2013-02-03 -1:-1:-1 +0100|z\n\
+                 Eve|2013E0-02-03 04:05:06 +0100|C|2013-02-03.9 04:05:06 +0100|w\n"
+                    .as_bytes(),
+            ),
+            (
+                "banned-ips.txt",
+                b"10.0.0.1|2013-02-30 25:61:61 +0100|S|2013-13-32 00:00:00 +0000|r\n",
+            ),
+        ],
+        &["Steve.dat"],
+        Expect::Converts { fails: false },
+        &[],
+    );
+}
+
+/// The date is parsed from the start of the text: what follows the zone is ignored, and a zone is `+hhmm`, `GMT` or
+/// `GMT+hh:mm` (not `+hh`, not `GMT+hhmm`; those expiry dates do not parse).
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn dates_with_text_after_the_zone() {
+    dual_case(
+        &[(
+            "banned-players.txt",
+            b"Alex_B|2013-02-03 04:05:06 +0100 trailing|Server|2014-05-06 07:08:09 +0100x|r\n\
+              Steve|2013-02-03 04:05:06 +01001|C|2015-01-01 00:00:00 GMT+02:00 more|r\n\
+              Notch|  2013-02-03 04:05:06  +0100|C|2013-02-03 04:05:06 +01|r\n\
+              Dan|2013-02-03 04:05:06 GMT|C|2013-02-03 04:05:06 GMT+0200|r\n\
+              Eve|2013-02-03 04:05:06 +0100|C|2013-02-03 04:05:06 +2400|r\n\
+              Fay|2013-02-03 04:05:06 gmt-05:30|C|forever|r\n",
+        )],
+        &["Steve.dat"],
+        Expect::Converts { fails: false },
+        &[],
+    );
+}
+
+/// A parsed `UTC` zone name leaves its zone in the shared format: every date it writes afterwards is in UTC.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn a_utc_zone_name_changes_the_zone_of_the_written_dates() {
+    dual_case(
+        &[
+            (
+                "banned-players.txt",
+                b"Alex_B|2013-02-03 04:05:06 +0100|Server|2014-01-01 00:00:00 +0300|r\n\
+                  Steve|2013-02-03 04:05:06 UTC|C|2014-01-01 00:00:00 utc|r\n",
+            ),
+            (
+                "banned-ips.txt",
+                b"10.0.0.1|2013-02-03 04:05:06 +0100|S|2014-01-01 00:00:00 +0300|r\n",
+            ),
+        ],
+        &["Steve.dat"],
+        Expect::Converts { fails: false },
+        &[],
+    );
+}
+
+/// Before 1582-10-15 the calendar is the Julian one: 1500-01-01 is ten days later than the Gregorian date of the same
+/// instant, the ten days after 1582-10-04 do not exist (the later date is kept), and 1000-02-29 is a leap day.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn dates_before_the_gregorian_cutover() {
+    dual_case(
+        &[(
+            "banned-players.txt",
+            b"Alex_B|1500-01-01 00:00:00 +0000|S|1582-10-10 12:00:00 +0000|r\n\
+              Steve|1582-10-04 23:59:59 +0000|C|1582-10-15 00:00:00 +0000|r\n\
+              Notch|1000-02-29 00:00:00 +0000|C|0001-01-01 00:00:00 +0000|r\n\
+              Dan|1582-13-01 00:00:00 +0000|C|1581-13-01 00:00:00 +0000|r\n",
+        )],
+        &["Steve.dat"],
+        Expect::Converts { fails: false },
+        &[],
+    );
+}
+
 /// `trim` removes every character up to U+0020 and nothing above (not U+00A0); `readLines` ends a line at a lone CR.
 #[test]
 #[ignore = "oracle: spawns vanilla server"]
@@ -416,6 +505,24 @@ fn java_trim_and_line_ends() {
 #[ignore = "oracle: spawns vanilla server"]
 fn player_files_differing_in_non_ascii_case() {
     dual(&["\u{c4}rger.dat", "\u{e4}rger.dat", "Steve.dat"], true);
+}
+
+/// Characters whose `Character.toUpperCase` is a one-character mapping that differs from the full case mapping
+/// (`U+1FB3` becomes `U+1FBC`; `U+0130` lower-cases to `i`): their files are found for the profile names that differ in
+/// that case only.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn player_files_differing_in_one_character_case_mappings() {
+    dual(
+        &[
+            "\u{1fb3}.dat",
+            "\u{1fbc}.dat",
+            "\u{130}.dat",
+            "I.dat",
+            "Steve.dat",
+        ],
+        true,
+    );
 }
 
 /// A world from before the file fixer's version is moved into a new folder before the server starts: the files of

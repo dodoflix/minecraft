@@ -457,6 +457,11 @@ pub fn format_ban_date(date: &chrono::DateTime<chrono::Utc>) -> String {
     )
 }
 
+/// The offset of the default time zone from UTC at `epoch_seconds`, in seconds.
+pub(crate) fn local_offset_seconds(epoch_seconds: i64) -> i32 {
+    local_time(epoch_seconds).map_or(0, |tm| tm.tm_gmtoff as i32)
+}
+
 /// `localtime_r` (honours the process `TZ`, which chrono's cached `Local` does not re-read).
 fn local_time(epoch_seconds: i64) -> Option<libc::tm> {
     // SAFETY: `localtime_r` fills the zeroed `tm` for a valid `time_t` and returns null on failure.

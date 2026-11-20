@@ -13,7 +13,8 @@ use mc_protocol::codec::GameProfile;
 use parking_lot::Mutex;
 use uuid::Uuid;
 
-use super::ban_list_entry::{Date, format_date, parse_date};
+use super::ban_date_format::DateFormat;
+use super::ban_list_entry::Date;
 use super::gson::{self, JsonElement, JsonObject};
 use super::name_and_id::NameAndId;
 
@@ -197,7 +198,12 @@ impl CachedUserNameToIdResolver {
                 return Vec::new();
             }
         };
-        elements.iter().filter_map(read_game_profile).collect()
+        // `createDateFormat()`: one format for the whole load
+        let date_format = DateFormat::new();
+        elements
+            .iter()
+            .filter_map(|json| read_game_profile(json, &date_format))
+            .collect()
     }
 
     /// `getTopMRUProfiles(1000)` in file order.
@@ -209,11 +215,11 @@ impl CachedUserNameToIdResolver {
     }
 }
 
-fn read_game_profile(json: &JsonElement) -> Option<GameProfileInfo> {
+fn read_game_profile(json: &JsonElement, date_format: &DateFormat) -> Option<GameProfileInfo> {
     let object = json.as_object()?;
     let name_and_id = NameAndId::from_json(object).ok()??;
     let date_string = object.get("expiresOn")?.as_string().ok()?;
-    match parse_date(date_string.as_lossy_str()) {
+    match date_format.parse(date_string.as_lossy_str()) {
         Some(expiration_date) => Some(GameProfileInfo {
             name_and_id,
             expiration_date,
@@ -276,14 +282,17 @@ impl UserNameToIdResolver for CachedUserNameToIdResolver {
     }
 
     fn save(&self) {
+        let date_format = DateFormat::new();
         let list = JsonElement::Array(
             self.top_mru()
                 .iter()
                 .map(|entry| {
                     let mut object = JsonObject::new();
                     entry.name_and_id.append_to(&mut object);
-                    object
-                        .add_property_str("expiresOn", Some(&format_date(&entry.expiration_date)));
+                    object.add_property_str(
+                        "expiresOn",
+                        Some(&date_format.format(&entry.expiration_date)),
+                    );
                     JsonElement::Object(object)
                 })
                 .collect(),

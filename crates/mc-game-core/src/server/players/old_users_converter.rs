@@ -7,9 +7,11 @@ use std::path::{Path, PathBuf};
 use std::sync::Arc;
 use std::time::Duration;
 
+use mc_core::java_case::equals_ignore_case;
 use uuid::Uuid;
 
-use super::ban_list_entry::{IpBanListEntry, UserBanListEntry, parse_date};
+use super::ban_date_format::DATE_FORMAT;
+use super::ban_list_entry::{IpBanListEntry, UserBanListEntry};
 use super::java_hash_map::JavaHashMap;
 use super::name_and_id::NameAndId;
 use super::name_resolver::{ProfileLookup, ProfileLookupError, UserNameToIdResolver};
@@ -154,27 +156,6 @@ fn read_lines(file: &Path) -> std::io::Result<Vec<String>> {
         .collect())
 }
 
-/// `String.equalsIgnoreCase`: every character pair is equal, or equal after `Character.toUpperCase`, or after
-/// `toLowerCase` of that.
-/// shortcut: the one-character case mapping is Rust's full mapping where that is one character and the character
-/// itself otherwise, which differs from the JDK for the few characters that have only a one-character mapping
-/// (`U+1FB3`, `U+0130`), when such a name is a player file.
-fn equals_ignore_case(a: &str, b: &str) -> bool {
-    fn one(mut mapped: impl Iterator<Item = char>, c: char) -> char {
-        match (mapped.next(), mapped.next()) {
-            (Some(m), None) => m,
-            _ => c,
-        }
-    }
-    let upper = |c: char| one(c.to_uppercase(), c);
-    let lower = |c: char| one(c.to_lowercase(), c);
-    a.chars().count() == b.chars().count()
-        && a.chars().zip(b.chars()).all(|(x, y)| {
-            let (ux, uy) = (upper(x), upper(y));
-            x == y || ux == uy || lower(ux) == lower(uy)
-        })
-}
-
 fn is_file(path: &Path) -> bool {
     path.is_file()
 }
@@ -195,9 +176,9 @@ fn old_columns(
     Option<super::ban_list_entry::Date>,
     Option<&str>,
 ) {
-    let created = def.get(1).and_then(|d| parse_date(d));
+    let created = def.get(1).and_then(|d| DATE_FORMAT.parse(d));
     let source = def.get(2).map(String::as_str);
-    let expires = def.get(3).and_then(|d| parse_date(d));
+    let expires = def.get(3).and_then(|d| DATE_FORMAT.parse(d));
     let reason = def.get(4).map(String::as_str);
     (created, source, expires, reason)
 }
@@ -811,13 +792,5 @@ mod tests {
         let file = dir.path().join(OLD_USERBANLIST);
         fs::write(&file, "Steve|2013-01-01 00:00:00 +0000\n |  \n  |\n").unwrap();
         let _ = read_old_list_format(&file, &mut JavaHashMap::new());
-    }
-
-    #[test]
-    fn equals_ignore_case_compares_every_character_pair() {
-        assert!(equals_ignore_case("Steve", "sTEVE"));
-        assert!(equals_ignore_case("\u{c4}rger", "\u{e4}RGER"));
-        assert!(!equals_ignore_case("Steve", "Steven"));
-        assert!(!equals_ignore_case("a", "b"));
     }
 }

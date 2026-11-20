@@ -1,8 +1,9 @@
 //! `BanListEntry`, `UserBanListEntry`, `IpBanListEntry`.
 
-use chrono::{DateTime, Local, NaiveDate, NaiveDateTime, SubsecRound, Utc};
+use chrono::{DateTime, SubsecRound, Utc};
 use mc_text::Component;
 
+use super::ban_date_format::DATE_FORMAT;
 use super::gson::{JsonElement, JsonError, JsonObject};
 use super::name_and_id::NameAndId;
 use super::stored_user_list::StoredUserEntry;
@@ -14,57 +15,6 @@ pub const EXPIRES_NEVER: &str = "forever";
 /// `new Date()` (millisecond precision like `java.util.Date`).
 pub fn now() -> Date {
     Utc::now().trunc_subsecs(3)
-}
-
-/// `BanListEntry.DATE_FORMAT.format` (`yyyy-MM-dd HH:mm:ss Z`, default time zone).
-pub fn format_date(date: &Date) -> String {
-    date.with_timezone(&Local)
-        .format("%Y-%m-%d %H:%M:%S %z")
-        .to_string()
-}
-
-/// `BanListEntry.DATE_FORMAT.parse`: `yyyy-MM-dd HH:mm:ss` plus a zone (`+hhmm`, `+hh:mm`, `GMT+hh:mm`, `GMT`, `UTC`).
-/// shortcut: SimpleDateFormat's lenient field roll-over (e.g. month 13) is not reproduced and rejects the string.
-pub fn parse_date(s: &str) -> Option<Date> {
-    let mut parts = s.split_whitespace();
-    let (date, time, zone) = (parts.next()?, parts.next()?, parts.next()?);
-    if parts.next().is_some() {
-        return None;
-    }
-    let mut d = date.splitn(3, '-').map(|p| p.parse::<u32>().ok());
-    let (y, m, day) = (d.next()??, d.next()??, d.next()??);
-    let mut t = time.splitn(3, ':').map(|p| p.parse::<u32>().ok());
-    let (h, mi, sec) = (t.next()??, t.next()??, t.next()??);
-    let naive: NaiveDateTime =
-        NaiveDate::from_ymd_opt(y as i32, m, day)?.and_hms_opt(h, mi, sec)?;
-    let zone = zone
-        .strip_prefix("GMT")
-        .or_else(|| zone.strip_prefix("UTC"))
-        .unwrap_or(zone);
-    let offset_secs = if zone.is_empty() {
-        0
-    } else {
-        let sign = match zone.as_bytes()[0] {
-            b'+' => 1,
-            b'-' => -1,
-            _ => return None,
-        };
-        let digits: String = zone[1..].chars().filter(|c| *c != ':').collect();
-        if !digits.bytes().all(|b| b.is_ascii_digit()) || digits.is_empty() || digits.len() > 4 {
-            return None;
-        }
-        let n: i32 = digits.parse().ok()?;
-        let (hh, mm) = if digits.len() <= 2 {
-            (n, 0)
-        } else {
-            (n / 100, n % 100)
-        };
-        sign * (hh * 3600 + mm * 60)
-    };
-    Some(DateTime::from_naive_utc_and_offset(
-        naive - chrono::Duration::seconds(offset_secs as i64),
-        Utc,
-    ))
 }
 
 /// The user type of a ban list (`NameAndId` or an ip `String`).
@@ -147,7 +97,7 @@ impl<T: BanUser> BanListEntry<T> {
 
     fn from_object(user: Option<T>, object: &JsonObject) -> Result<Self, JsonError> {
         let created = match object.get("created") {
-            Some(c) => parse_date(&lossy_string(c)?).unwrap_or_else(now),
+            Some(c) => DATE_FORMAT.parse(&lossy_string(c)?).unwrap_or_else(now),
             None => now(),
         };
         let source = match object.get("source") {
@@ -155,7 +105,7 @@ impl<T: BanUser> BanListEntry<T> {
             None => "(Unknown)".to_owned(),
         };
         let expires = match object.get("expires") {
-            Some(e) => parse_date(&lossy_string(e)?),
+            Some(e) => DATE_FORMAT.parse(&lossy_string(e)?),
             None => None,
         };
         let reason = object.get("reason").map(lossy_string).transpose()?;
@@ -187,7 +137,7 @@ impl<T: BanUser> StoredUserEntry for BanListEntry<T> {
     fn serialize(&self, object: &mut JsonObject) {
         let Some(user) = &self.user else { return };
         user.append_to(object);
-        object.add_property_str("created", Some(&format_date(&self.created)));
+        object.add_property_str("created", Some(&DATE_FORMAT.format(&self.created)));
         object.add_property_str("source", Some(&self.source));
         object.add_property_str(
             "expires",
@@ -195,7 +145,9 @@ impl<T: BanUser> StoredUserEntry for BanListEntry<T> {
                 &self
                     .expires
                     .as_ref()
-                    .map_or(EXPIRES_NEVER.to_owned(), format_date),
+                    .map_or(EXPIRES_NEVER.to_owned(), |expires| {
+                        DATE_FORMAT.format(expires)
+                    }),
             ),
         );
         object.add_property_str("reason", self.reason.as_deref());
