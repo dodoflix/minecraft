@@ -1,5 +1,5 @@
 //! Cost of the first `CHUNK` update from the oldest to the current version, which builds and applies the rules of the
-//! whole chain without vanilla's point-free optimizer. Prints the timings and the peak resident memory of the
+//! whole chain through vanilla's point-free optimizer. Prints the timings and the peak resident memory of the
 //! process; run it alone (`cargo test -p mc-datafix --test golden rule_cost -- --ignored --nocapture`), the caches
 //! are process wide.
 //!

@@ -1,9 +1,13 @@
 //! `View`, `RewriteResult`, `TypeRewriteRule` and the point-free function representation behind them.
 //!
-//! Java keeps rewrite functions as `PointFree` expression trees (so the optimiser can fuse them) and evaluates them with
-//! `evalCached().apply(ops)`. The optimiser (`PointFreeRule`) only changes performance, so it is not ported; the tree is
-//! kept (`PointFree`) because rule/cache-key equality (`Fun` equality is by *name*, which decides whether two fixes
-//! share a cached rewrite) and `isNop` are observable, and evaluated to a closure on first use.
+//! Java keeps rewrite functions as `PointFree` expression trees and evaluates them with `evalCached().apply(ops)`. The
+//! optimiser (`DataFixerUpper.OPTIMIZATION_RULE`, in [`optimizer`]) rewrites those trees before they run: it fuses the
+//! folds of one recursive family, merges and reorders the optic applications of a composition. That changes observable
+//! results (the order the fields of a product are fixed in, and what a fix of a version sees of the output of an earlier
+//! fix of that version), so it is ported. `Fun` equality is by *name*, which decides whether two fixes share a cached
+//! rewrite; the trees are evaluated to a closure on first use.
+
+mod optimizer;
 
 use crate::family::RecursiveTypeFamily;
 use crate::optic::TypedOptic;
@@ -43,6 +47,10 @@ impl BitSet {
     }
     pub fn is_empty(&self) -> bool {
         self.0 == 0
+    }
+    /// `BitSet.intersects`.
+    pub fn intersects(&self, other: BitSet) -> bool {
+        self.0 & other.0 != 0
     }
 }
 
@@ -188,6 +196,31 @@ impl PointFree {
         let ty = functions[functions.len() - 1].0.ty.clone();
         let new_ty = functions[0].0.new_ty.clone();
         PointFree::new(PfKind::Comp(functions), ty, new_ty)
+    }
+
+    /// `new Comp(functions)`: the composition as given (no flattening), typed by its ends.
+    fn comp_raw(functions: Vec<PointFree>) -> PointFree {
+        let ty = functions[functions.len() - 1].0.ty.clone();
+        let new_ty = functions[0].0.new_ty.clone();
+        PointFree::new(PfKind::Comp(functions), ty, new_ty)
+    }
+
+    /// `Functions.app(Functions.profunctorTransformer(optic), f)`.
+    pub(crate) fn app(optic: TypedOptic, f: &PointFree) -> PointFree {
+        let (s, t) = (optic.s_type().clone(), optic.t_type().clone());
+        PointFree::new(
+            PfKind::App {
+                optic,
+                f: f.clone(),
+            },
+            s,
+            t,
+        )
+    }
+
+    /// Reference identity, the `==` of Java on a function tree.
+    fn ptr_eq(&self, other: &PointFree) -> bool {
+        Arc::ptr_eq(&self.0, &other.0)
     }
 
     pub fn ty(&self) -> &Type {
@@ -346,15 +379,14 @@ impl View {
     }
     /// `Functions.app(profunctorTransformer(optic), function)`.
     pub(crate) fn app(optic: TypedOptic, inner: &View) -> View {
-        let (s, t) = (optic.s_type().clone(), optic.t_type().clone());
-        View(PointFree::new(
-            PfKind::App {
-                optic,
-                f: inner.0.clone(),
-            },
-            s,
-            t,
-        ))
+        View(PointFree::app(optic, &inner.0))
+    }
+    /// `view.rewrite(rule)` of the optimiser `fRule` (`View::new` of the rewritten function).
+    pub(crate) fn optimize(&self, opt: OptimizationRule) -> View {
+        match opt {
+            OptimizationRule::Standard => View(optimizer::optimize(&self.0)),
+            OptimizationRule::Nop => self.clone(),
+        }
     }
     /// `View.create(Functions.in(type))`.
     pub(crate) fn in_(point: &Type, unfolded: &Type) -> View {
@@ -451,8 +483,7 @@ pub(crate) fn optic_view(ty: &Type, view: &RewriteResult, optic: TypedOptic) -> 
     }
 }
 
-/// `DataFixerUpper.OPTIMIZATION_RULE` vs `PointFreeRule.nop()`. Only part of rule identity here: the optimiser is not
-/// ported (it never changes results).
+/// `DataFixerUpper.OPTIMIZATION_RULE` vs `PointFreeRule.nop()`.
 #[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
 pub enum OptimizationRule {
     Standard,

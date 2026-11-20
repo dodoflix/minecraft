@@ -11,8 +11,8 @@
 //! `equals(ignoreRecursionPoints, checkIndex)`; [`value::Value`] mirrors the Java runtime representation (`Pair`,
 //! `Either`, `List`, `Dynamic` remainder, ...); optics are paths computed from types ([`optic::TypedOptic`]) with
 //! DFU's exact search order and `tType` computation. `TypeRewriteRule`/`RewriteResult`/`View` are ported faithfully
-//! including the recursive-family (`Mu`) cata ([`family::RecursiveTypeFamily`]) and the rewrite cache. The PointFree
-//! *optimizer* is not ported (performance only). Everything is `Send + Sync`.
+//! including the recursive-family (`Mu`) cata ([`family::RecursiveTypeFamily`]), the rewrite cache and the point-free
+//! optimiser (`DataFixerUpper.OPTIMIZATION_RULE`), which changes the order fixes apply in. Everything is `Send + Sync`.
 //!
 //! Deviations (all unobservable in vanilla): `findType(.., recurse = true)` through a recursive family (used by no
 //! vanilla fix), `TypeTemplate.findFieldOrType/applyO/toSimpleType`, `Type.updateMu`, `DataFixerBuilder.Result.optimize`.

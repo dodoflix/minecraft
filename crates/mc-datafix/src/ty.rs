@@ -1050,13 +1050,15 @@ impl Type {
             .unwrap_or_else(|| RewriteResult::nop(self))
     }
 
-    /// `type.rewrite(rule, fRule)` with the global `REWRITE_CACHE`.
+    /// `type.rewrite(rule, fRule)` with the global `REWRITE_CACHE`: the rule's view, run through the optimiser.
     pub fn rewrite(&self, rule: &TypeRewriteRule, opt: OptimizationRule) -> Option<RewriteResult> {
         let key = (self.clone(), rule.clone(), opt);
         if let Some(r) = REWRITE_CACHE.lock().unwrap().get(&key) {
             return r.clone();
         }
-        let result = rule.rewrite(self);
+        let result = rule
+            .rewrite(self)
+            .map(|r| RewriteResult::create(r.view.optimize(opt), r.rec_data));
         REWRITE_CACHE.lock().unwrap().insert(key, result.clone());
         result
     }

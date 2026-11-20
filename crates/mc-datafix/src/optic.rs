@@ -288,6 +288,18 @@ impl TypedOptic {
         }
     }
 
+    /// `TypedOptic.elements()`, outermost first.
+    pub(crate) fn elements(&self) -> &[Element] {
+        &self.elements
+    }
+
+    /// `new TypedOptic(bounds, elements)` over a slice of the elements of an optic.
+    pub(crate) fn from_elements(elements: &[Element]) -> TypedOptic {
+        TypedOptic {
+            elements: Arc::new(elements.to_vec()),
+        }
+    }
+
     /// `castOuterUnchecked(sType, tType)`.
     pub fn cast_outer(&self, s: Type, t: Type) -> TypedOptic {
         let mut v: Vec<Element> = (*self.elements).clone();

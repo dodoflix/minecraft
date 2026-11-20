@@ -155,7 +155,7 @@ impl RecursiveTypeFamily {
                 .unwrap_or_else(|| RewriteResult::nop(&unfold));
             let nop1 = view.view.is_nop();
             let new_mu_type = self.build_mu_type(view.view.new_type(), Some(&new_family));
-            let nop = self.cap2(&mut views, rule, nop1, view, &new_mu_type);
+            let nop = self.cap2(&mut views, rule, opt, nop1, view, &new_mu_type);
             found_any = found_any || !nop;
         }
         if !found_any {
@@ -170,6 +170,7 @@ impl RecursiveTypeFamily {
         self: &Arc<Self>,
         views: &mut Vec<RewriteResult>,
         rule: &TypeRewriteRule,
+        opt: OptimizationRule,
         nop: bool,
         view: RewriteResult,
         new_type: &Type,
@@ -185,7 +186,10 @@ impl RecursiveTypeFamily {
             nop = false;
             view = rewrite.compose(&new_view);
         }
-        views.push(view);
+        views.push(RewriteResult::create(
+            view.view.optimize(opt),
+            view.rec_data,
+        ));
         nop
     }
 }
