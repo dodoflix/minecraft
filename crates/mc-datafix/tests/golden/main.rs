@@ -6,6 +6,8 @@
 )]
 #[path = "../common/compare.rs"]
 mod compare;
+#[path = "../common/corpus_samples.rs"]
+mod corpus_samples;
 #[path = "../common/recorded_chain.rs"]
 mod recorded_chain;
 #[path = "../common/recorded_schemas.rs"]
@@ -26,6 +28,7 @@ mod json_compat;
 mod legacy_fixes;
 mod library;
 mod rule_cost;
+mod samples_corpus;
 mod samples_json_files;
 mod samples_saved_data;
 mod samples_step_1344_1459;

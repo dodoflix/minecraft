@@ -7,3 +7,15 @@ status-level = "fail"
 final-status-level = "flaky"
 # a hung test is killed after 10 minutes instead of stalling the job
 slow-timeout = { period = "60s", terminate-after = 10 }
+
+# The corpus replays of the data fixers build the rules of long version ranges: several GB per test, so they run one at a time.
+[test-groups.datafix-corpus]
+max-threads = 1
+
+[[profile.default.overrides]]
+filter = "package(mc-datafix) & test(/^samples_corpus::/)"
+test-group = "datafix-corpus"
+
+[[profile.ci.overrides]]
+filter = "package(mc-datafix) & test(/^samples_corpus::/)"
+test-group = "datafix-corpus"

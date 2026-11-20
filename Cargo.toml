@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["crates/*", "tools/worldcmp"]
+members = ["crates/*", "tools/datafix-corpus", "tools/worldcmp"]
 
 # Every external crate is declared here once and used with `workspace = true`; a crate adds only the features it needs.
 [workspace.dependencies]

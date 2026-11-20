@@ -67,7 +67,8 @@ crates/
   mc-server           thin binary: parses the command line, sets up logging, `server.properties` and `eula.txt`, then starts mc-game
   mc-testbot          headless protocol client (scriptable bot) used by integration/E2E tests
   mc-testkit          test support: guarded launcher for the vanilla server and our own (no workspace dependencies)
-tools/                tools/extractor (Java data extractor), tools/worldcmp (chunk-by-chunk comparison of two world directories)
+tools/                tools/extractor (Java data extractor), tools/worldcmp (chunk-by-chunk comparison of two world directories),
+                      tools/datafix-corpus (data fixer sample fixtures from the worlds of old servers)
 scripts/              helper scripts (setup-ref, vanilla oracle, real client harness, check.sh)
 ```
 

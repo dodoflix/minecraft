@@ -60,7 +60,7 @@ Enforced: `scripts/check.sh` runs `cargo clippy --workspace --all-targets --all-
 - Test code may `unwrap`, `expect`, `panic!`, index, print and use `dbg!` (`clippy.toml` `allow-*-in-tests`). Tests that
   compare NaN on purpose use `#[expect(clippy::eq_op, reason = "NaN != NaN")]`.
 - Output: library crates log through the `log` crate; `print_stdout` and `print_stderr` are `deny`. The binaries that print
-  (`mc-testbot`, `worldcmp`) and examples are exempt through a crate-root
+  (`mc-testbot`, `worldcmp`, `datafix-corpus`) and examples are exempt through a crate-root
   `#![expect(clippy::print_stdout, clippy::print_stderr, reason = "...")]` that says why. Enforced: clippy.
 - Documentation lint policy:
   - Every crate has a crate-level `//!` comment of at least three lines saying what the crate is and which vanilla

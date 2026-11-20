@@ -228,6 +228,12 @@ pub struct DataFixer {
 }
 
 impl DataFixer {
+    /// Drops the rules built so far; `update` builds them again on demand. A caller that updates over many different
+    /// version ranges one after the other keeps its memory bounded this way.
+    pub fn clear_rule_cache(&self) {
+        self.rules.lock().unwrap().clear();
+    }
+
     /// The oldest data version that [`DataFixer::update`] upgrades with every fix of the chain (`i32::MIN` once the
     /// whole chain is registered).
     pub fn oldest_supported_version(&self) -> i32 {

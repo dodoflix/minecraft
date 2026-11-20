@@ -34,6 +34,12 @@ descriptions of its schema types, and the results of its lookup-table accessors
 (table_accessors.tsv.gz). They are derived from Mojang's server and are Mojang's, not
 relicensed here.
 
+The corpus samples of the data fixers (crates/mc-datafix/tests/fixtures/samples/corpus_*.tsv.gz,
+written by scripts/datafix-corpus.sh) hold chunks, level data and saved data that old
+Mojang servers wrote into scripted worlds, inputs generated from the schemas of the
+vanilla data fixers, and the results of vanilla's data fixers for them. They are derived
+from Mojang's software and are Mojang's, not relicensed here.
+
 The lookup tables of the data fixes (crates/mc-datafix/src/fixes/data/*.tsv.gz: the
 legacy block state, item, entity, block entity, stat, key, recipe, biome and other
 renaming tables of the fix classes) are committed and embedded in the build. They are
