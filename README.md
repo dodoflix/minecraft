@@ -101,6 +101,11 @@ Options are the vanilla ones: `--help` prints them, among them `--port`,
 `--initSettings` (create `server.properties` and `eula.txt`, then quit). Like the
 vanilla server, startup errors are logged and the process still exits with status 0.
 
+`--forceUpgrade` upgrades every chunk, entity chunk and point-of-interest chunk of the
+world to the current data version before the server starts; with `--eraseCache` it also
+drops the cached heightmaps and light. `--recreateRegionFiles` runs the upgrade as well
+and rewrites every region file with the configured compression.
+
 ## Tests
 
 ```sh

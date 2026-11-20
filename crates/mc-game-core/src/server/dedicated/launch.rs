@@ -240,8 +240,16 @@ fn prepare(
     };
 
     if options.force_upgrade || options.recreate_region_files {
-        log::info!("Forcing world upgrade!");
-        log::error!("The world upgrader is not available: continuing without upgrading the world");
+        let dimensions = crate::server::world_upgrader::upgrade_dimensions(
+            &access,
+            world_stem.registries.composite_access(),
+        )?;
+        crate::server::world_upgrader::force_upgrade(
+            &access,
+            dimensions,
+            options.erase_cache,
+            options.recreate_region_files,
+        );
     }
 
     let WorldStem {
