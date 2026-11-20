@@ -19,6 +19,7 @@ use std::path::{Path, PathBuf};
 use std::time::{Duration, SystemTime};
 
 use mc_core::ident::Identifier;
+use mc_datafix::{DataFixTypes, UnsupportedVersion, update_to_current};
 use mc_nbt::{CompoundTag, NbtAccounter};
 
 use super::directory_lock::DirectoryLock;
@@ -36,9 +37,10 @@ use super::player_data_storage::PlayerDataStorage;
 use super::saved_data_storage::resolve_against;
 use super::validation::{ContentValidationException, DirectoryValidator, PathAllowList};
 use super::version::{
-    ANVIL_VERSION_ID, MCREGION_VERSION_ID, get_data_version, requires_file_fixing,
+    ANVIL_VERSION_ID, MCREGION_VERSION_ID, WORLD_VERSION, get_data_version, requires_file_fixing,
 };
 use super::world_gen_settings::WorldGenSettings;
+use crate::filefix::add_versions_to_level_data;
 
 /// `LevelStorageSource.TAG_DATA`.
 pub const TAG_DATA: &str = "Data";
@@ -202,7 +204,7 @@ pub struct LevelStorageSource {
 }
 
 impl LevelStorageSource {
-    /// `new LevelStorageSource(baseDir, backupDir, validator, fixer)` (no datafixer here).
+    /// `new LevelStorageSource(baseDir, backupDir, validator, fixer)`; the fixer is the global one.
     pub fn new(
         base_dir: impl Into<PathBuf>,
         backup_dir: impl Into<PathBuf>,
@@ -273,6 +275,18 @@ impl LevelStorageSource {
 
     pub fn get_name(&self) -> &'static str {
         "Anvil"
+    }
+
+    /// The tail of `FileFixerUpper.fix` for level data of a version that needs no file fixing:
+    /// `DataFixTypes.LEVEL.updateToCurrentVersion` and the stamps of the running game. `Err` for data older than the
+    /// registered fix chain.
+    pub fn fix_level_data(level_data_tag: &CompoundTag) -> Result<CompoundTag, UnsupportedVersion> {
+        let fixed = update_to_current(
+            DataFixTypes::LEVEL,
+            level_data_tag,
+            get_data_version(level_data_tag),
+        )?;
+        Ok(add_versions_to_level_data(fixed, WORLD_VERSION))
     }
 
     /// `findLevelCandidates`.
@@ -355,7 +369,9 @@ impl LevelStorageSource {
                     .map_err(|e| e.to_string())?;
                 let tag = root.get_compound_or_empty(TAG_DATA);
                 let data_version = get_data_version(tag);
-                LevelStorageSource::make_level_summary(tag, level, locked, data_version).map(Some)
+                let updated = update_for_summary(DataFixTypes::LEVEL_SUMMARY, tag, data_version);
+                LevelStorageSource::make_level_summary(&updated, level, locked, data_version)
+                    .map(Some)
             })();
             match result {
                 Ok(Some(summary)) => return summary,
@@ -393,8 +409,7 @@ impl LevelStorageSource {
         fs::metadata(path).and_then(|m| m.modified()).ok()
     }
 
-    /// `makeLevelSummary` (over the datafixed `Data` tag — the datafixer step is not implemented). `Err` is the
-    /// `NbtFormatException("Unknown data version: ...")`.
+    /// `makeLevelSummary` over the datafixed `Data` tag. `Err` is the `NbtFormatException("Unknown data version: ...")`.
     pub fn make_level_summary(
         data_tag: &CompoundTag,
         level_directory: &LevelDirectory,
@@ -488,6 +503,13 @@ impl LevelStorageSource {
     pub fn get_world_dir_validator(&self) -> &DirectoryValidator {
         &self.world_dir_validator
     }
+}
+
+/// `DataFixTypes.updateToCurrentVersion` for the level data types of the summary. Data older than the registered fix
+/// chain cannot be fixed yet: its summary is made from the tag as read, which is enough for the manual conversion and
+/// compatibility checks of the start-up (it refuses such a world right after).
+fn update_for_summary(ty: DataFixTypes, tag: &CompoundTag, data_version: i32) -> CompoundTag {
+    update_to_current(ty, tag, data_version).unwrap_or_else(|_| tag.clone())
 }
 
 /// `FileStore.getUsableSpace()` of the file system holding `path` (`u64::MAX` when unknown).
@@ -600,12 +622,13 @@ impl LevelStorageAccess {
         ))
     }
 
-    /// `collectIssues`: parse the level data as the world list would (datafixer step omitted).
+    /// `collectIssues`: parse the level data as the world list would.
     pub fn collect_issues(&self, use_fallback: bool) -> io::Result<()> {
         self.check_lock()?;
         let unfixed = self.get_unfixed_data_tag(use_fallback)?;
         let data_version = get_data_version(&unfixed);
-        self.make_level_summary_checked(&unfixed, data_version)
+        let fixed = update_for_summary(DataFixTypes::LEVEL, &unfixed, data_version);
+        self.make_level_summary_checked(&fixed, data_version)
             .map(|_| ())
     }
 
@@ -618,7 +641,7 @@ impl LevelStorageAccess {
             .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))
     }
 
-    /// `fixAndGetSummary` (no datafixer: the tag is summarized as read).
+    /// `fixAndGetSummary`.
     pub fn fix_and_get_summary(&self) -> io::Result<LevelSummary> {
         self.check_lock()?;
         let tag = self.get_unfixed_data_tag(false)?;
@@ -628,7 +651,9 @@ impl LevelStorageAccess {
     /// `fixAndGetSummaryFromTag`.
     pub fn fix_and_get_summary_from_tag(&self, data_tag: &CompoundTag) -> io::Result<LevelSummary> {
         self.check_lock()?;
-        self.make_level_summary_checked(data_tag, get_data_version(data_tag))
+        let data_version = get_data_version(data_tag);
+        let fixed = update_for_summary(DataFixTypes::LEVEL_SUMMARY, data_tag, data_version);
+        self.make_level_summary_checked(&fixed, data_version)
     }
 
     /// `getUnfixedDataTagWithFallback`: level.dat, else (any read failure) level.dat_old, which is then restored

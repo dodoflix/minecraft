@@ -171,15 +171,10 @@ fn prepare(
                 return Ok(None);
             }
         };
-        let summary = match access.fix_and_get_summary_from_tag(&unfixed) {
-            Ok(summary) => summary,
-            Err(e) => {
-                log::error!(
-                    "Failed to load world data. World files may be corrupted. Shutting down.\n{e}"
-                );
-                return Ok(None);
-            }
-        };
+        // outside vanilla's try around the read: the exception ends in the catch of `Main.main`
+        let summary = access
+            .fix_and_get_summary_from_tag(&unfixed)
+            .map_err(|e| format!("net.minecraft.nbt.NbtFormatException: {e}"))?;
         if summary.requires_manual_conversion {
             log::info!(
                 "This world must be opened in an older version (like 1.6.4) to be safely converted"
@@ -191,7 +186,7 @@ fn prepare(
             return Ok(None);
         }
         check_supported_data_version(get_data_version(&unfixed))?;
-        Some(unfixed)
+        Some(LevelStorageSource::fix_level_data(&unfixed).map_err(|e| e.to_string())?)
     } else {
         None
     };
@@ -571,5 +566,132 @@ mod tests {
         for version in [OLDEST_SUPPORTED_DATA_VERSION, 5022, 5023, 9999] {
             assert_eq!(check_supported_data_version(version), Ok(()), "{version}");
         }
+    }
+
+    // ---- start-up routing of the level data --------------------------------------------------------------------
+
+    thread_local! {
+        static LOGGED: std::cell::RefCell<Vec<String>> = const { std::cell::RefCell::new(Vec::new()) };
+    }
+
+    struct CaptureLogger;
+
+    impl log::Log for CaptureLogger {
+        fn enabled(&self, _: &log::Metadata) -> bool {
+            true
+        }
+        fn log(&self, record: &log::Record) {
+            LOGGED.with(|l| {
+                l.borrow_mut()
+                    .push(format!("{}: {}", record.level(), record.args()))
+            });
+        }
+        fn flush(&self) {}
+    }
+
+    /// Starts the launch on a world whose level.dat holds `data` (raw bytes when `Err`) and returns whether it went
+    /// on (`Ok(true)`), stopped early (`Ok(false)`) or failed, with what was logged.
+    fn launch_on_level_dat(
+        level_dat: Result<CompoundTag, &[u8]>,
+    ) -> (Result<bool, String>, Vec<String>) {
+        static INIT: std::sync::Once = std::sync::Once::new();
+        INIT.call_once(|| {
+            log::set_logger(&CaptureLogger).expect("no other logger in this test binary");
+            log::set_max_level(log::LevelFilter::Trace);
+        });
+        let dir = tempfile::tempdir().unwrap();
+        let world = dir.path().join("world");
+        std::fs::create_dir_all(&world).unwrap();
+        match level_dat {
+            Ok(data) => {
+                let mut root = CompoundTag::new();
+                root.put("Data", mc_nbt::Tag::Compound(data));
+                mc_world::level_storage::write_compressed(&root, &world.join("level.dat")).unwrap();
+            }
+            Err(bytes) => std::fs::write(world.join("level.dat"), bytes).unwrap(),
+        }
+        std::fs::write(dir.path().join("server.properties"), "").unwrap();
+        let options = ServerOptions {
+            universe: dir.path().to_string_lossy().into_owned(),
+            ..ServerOptions::default()
+        };
+        let settings = DedicatedServerSettings::new(dir.path().join("server.properties")).unwrap();
+        LOGGED.with(|l| l.borrow_mut().clear());
+        let result = create_server(options, settings).map(|server| server.is_some());
+        (
+            result,
+            LOGGED.with(|l| std::mem::take(&mut *l.borrow_mut())),
+        )
+    }
+
+    fn level_data(data_version: i32, version: Option<i32>, series: &str) -> CompoundTag {
+        let mut data = CompoundTag::new();
+        data.put_int("DataVersion", data_version);
+        if let Some(version) = version {
+            data.put_int("version", version);
+        }
+        let mut version_tag = CompoundTag::new();
+        version_tag.put_int("Id", data_version);
+        version_tag.put_string("Name", "x");
+        version_tag.put_string("Series", series);
+        version_tag.put_boolean("Snapshot", false);
+        data.put("Version", mc_nbt::Tag::Compound(version_tag));
+        data
+    }
+
+    #[test]
+    fn a_level_dat_without_a_known_version_is_a_fatal_format_error() {
+        for (version, text) in [(None, "0"), (Some(12345), "3039")] {
+            let (result, _) = launch_on_level_dat(Ok(level_data(5000, version, "main")));
+            assert_eq!(
+                result.err().as_deref(),
+                Some(
+                    format!("net.minecraft.nbt.NbtFormatException: Unknown data version: {text}")
+                        .as_str()
+                )
+            );
+        }
+    }
+
+    #[test]
+    fn a_mcregion_or_foreign_series_world_stops_the_start_with_the_vanilla_message() {
+        // older than the floor too: the summary comes first, as in vanilla
+        for (data, text) in [
+            (
+                level_data(5000, Some(19132), "main"),
+                "This world must be opened in an older version (like 1.6.4) to be safely converted",
+            ),
+            (
+                level_data(-1, Some(19132), "main"),
+                "This world must be opened in an older version (like 1.6.4) to be safely converted",
+            ),
+            (
+                level_data(5000, Some(19133), "other"),
+                "This world was created by an incompatible version.",
+            ),
+        ] {
+            let (result, logged) = launch_on_level_dat(Ok(data));
+            assert_eq!(result, Ok(false));
+            assert_eq!(logged, [format!("INFO: {text}")]);
+        }
+    }
+
+    #[test]
+    fn a_corrupt_level_dat_keeps_the_world_data_error() {
+        let (result, logged) = launch_on_level_dat(Err(b"not nbt"));
+        assert_eq!(result, Ok(false));
+        assert!(
+            logged.iter().any(|l| l.starts_with(
+                "ERROR: Failed to load world data. World files may be corrupted. Shutting down.\n"
+            )),
+            "{logged:?}"
+        );
+    }
+
+    #[test]
+    fn a_world_below_the_floor_is_refused_after_the_summary_checks() {
+        let (result, _) = launch_on_level_dat(Ok(level_data(4000, Some(19133), "main")));
+        let error = result.expect_err("refused");
+        assert!(error.contains("data version 4000)"), "{error}");
     }
 }

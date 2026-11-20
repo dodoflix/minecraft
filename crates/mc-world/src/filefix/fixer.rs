@@ -165,7 +165,7 @@ fn cleanup(file_fix_directory: &Path) {
 }
 
 /// `addVersionsToLevelData`: the data version, the time and the `Version` of the running game.
-fn add_versions_to_level_data(mut fixed: CompoundTag, to_version: i32) -> CompoundTag {
+pub(crate) fn add_versions_to_level_data(mut fixed: CompoundTag, to_version: i32) -> CompoundTag {
     fixed.put_int("DataVersion", to_version);
     fixed.put_long("LastPlayed", epoch_millis());
     write_version_tag(&mut fixed);

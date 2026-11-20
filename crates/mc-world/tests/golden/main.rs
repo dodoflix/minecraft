@@ -9,6 +9,7 @@ mod height_status_common;
 mod heightmap_golden;
 mod level_storage_golden;
 mod level_storage_world;
+mod level_summary_golden;
 mod palette_decode_golden;
 mod palette_golden;
 mod region_common;
