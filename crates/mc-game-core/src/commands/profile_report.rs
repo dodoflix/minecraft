@@ -4,6 +4,7 @@ use super::CommandSourceStack;
 use crate::translatable;
 use crate::world::entity::decoration::mannequin::Mannequin;
 use crate::world::entity::{Entity, ServerPlayer};
+use mc_core::java_string::JavaString;
 use mc_protocol::codec::{Either, GameProfile};
 use mc_protocol::components::{PlayerModelType, PlayerSkinPatch, ResolvableProfile};
 use mc_text::component::ObjectInfo;
@@ -88,8 +89,8 @@ pub fn report_resolved_profile(
     // `ResolvableProfile.CODEC.encodeStart(NbtOps.INSTANCE, profile)`
     let encoded_profile = match ResolvableProfile::codec()
         .encode_start(&mc_dfu::NBT, profile)
-        .into_result()
-        .and_then(|d| d.to_tag())
+        .into_result_java()
+        .and_then(|d| d.to_tag().map_err(JavaString::from))
     {
         Ok(tag) => tag.to_string(),
         Err(error) => {

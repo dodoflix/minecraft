@@ -23,6 +23,7 @@ import java.util.Optional;
 import net.minecraft.SharedConstants;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.arguments.item.ItemArgument;
+import net.minecraft.commands.arguments.item.ItemPredicateArgument;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -39,6 +40,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.Utf8String;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
+import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
 import net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket;
 import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
@@ -214,6 +216,23 @@ public class LoneSurrogateGolden {
             return bytes(b);
          }),
          cell(() -> s[0].getHoverName().getString()),
+      };
+   }
+
+   /** The message of a thrown `CommandSyntaxException` and the component built from its raw message (what the client gets). */
+   static String[] errorCells(Thr<Object> f) {
+      CommandSyntaxException[] e = new CommandSyntaxException[1];
+      try {
+         f.get();
+      } catch (CommandSyntaxException t) {
+         e[0] = t;
+      } catch (Throwable t) {
+         return new String[] {err(t), err(t)};
+      }
+      if (e[0] == null) return new String[] {"parsed", "parsed"};
+      return new String[] {
+         cell(() -> e[0].getMessage()),
+         cell(() -> hex(nbtAny(ComponentSerialization.CODEC.encodeStart(nbtOps, ComponentUtils.fromMessage(e[0].getRawMessage())).getOrThrow()))),
       };
    }
 
@@ -410,6 +429,16 @@ public class LoneSurrogateGolden {
          "stick[lore=[\"\\ud800\"]]", "writable_book[writable_book_content={pages:[\"\\ud800\"]}]", "stick[custom_name={text:\"a\\ud83d\",extra:[\"\\ude00\"]}]",
          "stick[custom_data={\"\\ud800\":1}]", "stick[custom_name=\"\\ud83d\\ude00\"]"})
          row("game.tsv", "item_cmd", s, concat(itemCells(() -> new ItemArgument(ctx).parse(new StringReader(s)).createItemStack(1))));
+
+      // item argument failures that quote a string with a lone surrogate: the message of the exception and the component the client gets
+      String[] itemErrors = {"stick[rarity=\"\\ud800\"]", "stick[item_model=\"\\ud800\"]", "stick[item_model=\"a:\\ud83d\"]", "stick[tooltip_style=\"a\\ud83d\"]",
+         "stick[jukebox_playable=\"\\ude00x\"]", "stick[enchantments={\"\\ud800\":1}]", "stick[custom_name={text:\"a\",color:\"\\ud800\"}]",
+         "stick[custom_data=\"\\ud800\"]", "stick[lore=[{text:\"a\",font:\"\\ud800\"}]]",
+         "stick[item_model=\"\\ud800:a\"]", "stick[item_model=\":\\ud800\"]", "stick[item_model=\"\\ud83d\\ude00a\\ud800:b\"]", "stick[item_model=\"a:\\ud83d\\ude00\\ud800\"]"};
+      for (String s : itemErrors) {
+         row("game.tsv", "item_err", s, errorCells(() -> new ItemArgument(ctx).parse(new StringReader(s)).createItemStack(1)));
+         row("game.tsv", "item_pred_err", s, errorCells(() -> ItemPredicateArgument.itemPredicate(ctx).parse(new StringReader(s))));
+      }
 
       // `resource-pack-prompt` of server.properties: a prompt that decodes only partly is kept (`resultOrPartial`), one that does not parse is dropped
       for (String s : new String[] {"{\"text\":\"hi\"}", "\"plain\"", "{\"text\":\"a\",\"color\":\"nope\"}", "{\"text\":\"a\",\"extra\":[\"b\",1,{\"text\":\"c\"}]}", "[{\"text\":\"a\"},{\"text\":5,\"bold\":\"x\"}]",

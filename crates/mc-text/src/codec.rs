@@ -360,33 +360,8 @@ pub(crate) fn identifier<O: Ops>(v: &O) -> R<Identifier> {
     read_identifier(&java_string(v)?)
 }
 
-/// `Identifier.read(String)`. A lone surrogate is never valid in an identifier; the message shows it raw in the input
-/// and as its own `\uXXXX` escape in the exception text.
 fn read_identifier(input: &JavaString) -> R<Identifier> {
-    let text = input.as_lossy_str();
-    let Err(e) = Identifier::parse(text) else {
-        return Identifier::read(text).map_err(CodecError::new);
-    };
-    // the units shown as U+FFFD in the text, in order
-    let mut shown = char::decode_utf16(input.encode_utf16())
-        .filter_map(|r| match r {
-            Ok('\u{fffd}') => Some(0xFFFD),
-            Ok(_) => None,
-            Err(e) => Some(e.unpaired_surrogate()),
-        })
-        .collect::<Vec<u16>>()
-        .into_iter();
-    let mut detail = String::new();
-    for (i, piece) in e.0.split("\\uFFFD").enumerate() {
-        if i > 0 {
-            detail.push_str(&format!("\\u{:04X}", shown.next().unwrap_or(0xFFFD)));
-        }
-        detail.push_str(piece);
-    }
-    let mut m = JavaString::from("Not a valid resource location: ");
-    m.push_java(input);
-    m.push_str(&format!(" {detail}"));
-    Err(CodecError(m))
+    Identifier::read_java(input).map_err(CodecError)
 }
 pub(crate) fn map_of<O: Ops>(v: &O) -> R<MapView<'_, O>> {
     v.get_map().ok_or_else(|| v.not_a(Prim::Map))
@@ -845,7 +820,7 @@ pub(crate) fn decode_style<O: Ops>(map: &MapView<'_, O>) -> P<Style> {
     let mut record = Record::default();
     let color = record
         .take(opt_p(map, "color", |v| {
-            TextColor::parse_color(&string(v)?).map_err(CodecError::new)
+            TextColor::parse_color(&java_string(v)?).map_err(CodecError::new)
         }))
         .flatten();
     let shadow_color = record

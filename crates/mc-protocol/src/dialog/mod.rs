@@ -414,8 +414,8 @@ fn resolve(name: &mc_core::ident::Identifier) -> Option<Dialog> {
 
 impl Dialog {
     /// `Dialog.DIRECT_CODEC.parse(NbtOps, tag)`: the typed dialog of an inline (SNBT / NBT) definition.
-    pub fn from_inline_tag(tag: &mc_nbt::Tag) -> Result<Dialog, String> {
-        mc_dfu::parse_nbt(&Self::direct_codec(), tag).into_result()
+    pub fn from_inline_tag(tag: &mc_nbt::Tag) -> Result<Dialog, mc_core::java_string::JavaString> {
+        mc_dfu::parse_nbt(&Self::direct_codec(), tag).into_result_java()
     }
 
     /// `Dialog.DIRECT_CODEC.encodeStart(NbtOps, dialog)`: the normalised NBT vanilla puts on the wire.

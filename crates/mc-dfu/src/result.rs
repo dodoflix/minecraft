@@ -127,6 +127,14 @@ impl<A> DataResult<A> {
             Error { message, .. } => Err(message.get()),
         }
     }
+    /// [`into_result`](Self::into_result) with the message as a Java string, which keeps a lone surrogate (for a message
+    /// that goes into a component or a protocol error).
+    pub fn into_result_java(self) -> Result<A, JavaString> {
+        match self {
+            Success(a) => Ok(a),
+            Error { message, .. } => Err(message.get_java()),
+        }
+    }
     /// `getPartialOrThrow`.
     pub fn into_partial_result(self) -> Result<A, String> {
         match self {

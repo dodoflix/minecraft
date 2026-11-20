@@ -210,7 +210,7 @@ pub fn component_codec() -> Codec<Component> {
             match r {
                 Ok(c) => DataResult::success((c, ops.empty())),
                 Err(p) => {
-                    let e = p.error.to_string();
+                    let e = p.error.0.clone();
                     match p.value {
                         Some(c) => DataResult::error_partial(move || e.clone(), (c, ops.empty())),
                         None => DataResult::error(move || e.clone()),
@@ -415,7 +415,12 @@ pub fn compound_tag_codec() -> Codec<mc_nbt::CompoundTag> {
             let converted = d.ops.convert_to(&mc_dfu::NBT, &d.value);
             match converted.to_tag() {
                 Ok(Tag::Compound(c)) => DataResult::success(c),
-                Ok(other) => DataResult::error(move || format!("Not a compound tag: {other}")),
+                Ok(other) => DataResult::error(move || {
+                    mc_core::jformat!(
+                        "Not a compound tag: {}",
+                        mc_nbt::snbt::print_compact(&other)
+                    )
+                }),
                 Err(e) => DataResult::error(move || e.clone()),
             }
         },
@@ -430,13 +435,18 @@ pub fn compound_tag_codec() -> Codec<mc_nbt::CompoundTag> {
 
 /// `TagParser.FLATTENED_CODEC`: a compound as an SNBT string.
 pub fn flattened_compound_codec() -> Codec<mc_nbt::CompoundTag> {
-    mc_dfu::STRING.comap_flat_map(
-        |s| match mc_nbt::snbt::parse(&s) {
+    mc_dfu::JAVA_STRING.comap_flat_map(
+        |s| match mc_nbt::snbt::parse_java(&s) {
             Ok(Tag::Compound(c)) => DataResult::success(c),
-            Ok(other) => DataResult::error(move || format!("Expected compound tag, got {other}")),
-            Err(e) => DataResult::error(move || e.to_string()),
+            Ok(other) => DataResult::error(move || {
+                mc_core::jformat!(
+                    "Expected compound tag, got {}",
+                    mc_nbt::snbt::print_compact(&other)
+                )
+            }),
+            Err(e) => DataResult::error(move || e.message_with_context()),
         },
-        |c: &mc_nbt::CompoundTag| Tag::Compound(c.clone()).to_string(),
+        |c: &mc_nbt::CompoundTag| mc_nbt::snbt::print_compact(&Tag::Compound(c.clone())),
     )
 }
 

@@ -12,6 +12,7 @@ use mc_brigadier::{
     SuggestionsBuilder,
 };
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_data::{DataComponentPredicateType, DataComponentType, Item};
 use mc_nbt::Tag;
 use mc_protocol::components::ItemStack;
@@ -24,9 +25,9 @@ static ERROR_UNKNOWN_TAG: LazyLock<DynamicCommandExceptionType<String>> =
     LazyLock::new(|| dynamic_translatable("arguments.item.tag.unknown"));
 static ERROR_UNKNOWN_PREDICATE: LazyLock<DynamicCommandExceptionType<String>> =
     LazyLock::new(|| dynamic_translatable("arguments.item.predicate.unknown"));
-static ERROR_MALFORMED_PREDICATE: LazyLock<Dynamic2CommandExceptionType<String, String>> =
+static ERROR_MALFORMED_PREDICATE: LazyLock<Dynamic2CommandExceptionType<String, JavaString>> =
     LazyLock::new(|| {
-        Dynamic2CommandExceptionType::new(|t: String, m: String| {
+        Dynamic2CommandExceptionType::new(|t: String, m: JavaString| {
             message(translatable!("arguments.item.predicate.malformed", t, m))
         })
     });
@@ -61,8 +62,8 @@ enum PredicateWrapper {
     Existence(DataComponentType),
 }
 
-fn count_predicate(tag: &Tag) -> Result<Pred, String> {
-    let range = mc_dfu::parse_nbt(&Ints::codec(), tag).into_result()?;
+fn count_predicate(tag: &Tag) -> Result<Pred, JavaString> {
+    let range = mc_dfu::parse_nbt(&Ints::codec(), tag).into_result_java()?;
     Ok(Arc::new(move |s: &ItemStack| range.matches(s.count())))
 }
 
@@ -93,7 +94,7 @@ impl ComponentWrapper {
             ComponentWrapper::Type(t) => {
                 let def = try_def(t).expect("checked at lookup");
                 mc_dfu::parse_nbt(def.codec_or_throw(), tag)
-                    .into_result()
+                    .into_result_java()
                     .map(|expected| -> Pred {
                         Arc::new(move |s: &ItemStack| s.get_value(t) == Some(&expected))
                     })
@@ -121,11 +122,11 @@ impl PredicateWrapper {
             PredicateWrapper::Count => count_predicate(tag),
             PredicateWrapper::Type(t) => {
                 mc_dfu::parse_nbt(&PredicateType::Concrete(t).value_codec(), tag)
-                    .into_result()
+                    .into_result_java()
                     .map(|p| -> Pred { Arc::new(move |s: &ItemStack| p.matches(s)) })
             }
             PredicateWrapper::Existence(t) => mc_dfu::parse_nbt(&mc_dfu::Codec::unit(()), tag)
-                .into_result()
+                .into_result_java()
                 .map(|()| -> Pred { Arc::new(move |s: &ItemStack| s.has(t)) }),
         };
         result.map_err(|msg| ERROR_MALFORMED_PREDICATE.create_with_context(reader, self.id(), msg))

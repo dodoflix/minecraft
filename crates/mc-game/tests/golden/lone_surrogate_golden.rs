@@ -2,11 +2,11 @@
 //! `fixtures/lone_surrogate.tsv`, recorded by `crates/mc-protocol/tests/fixtures/lone_surrogate/LoneSurrogateGolden.java`.
 //! Per row the item as NBT (hex), as sent to a client (hex) and its hover name.
 
-use mc_brigadier::{ArgumentType, StringReader};
+use mc_brigadier::{ArgumentType, CommandSyntaxException, StringReader};
 use mc_core::java_string::JavaString;
 use mc_dfu::NBT;
 use mc_game::commands::CommandBuildContext;
-use mc_game::commands::arguments::item::{ItemArgument, ItemInput};
+use mc_game::commands::arguments::item::{ItemArgument, ItemInput, ItemPredicateArgument};
 use mc_game::commands::command_build_context::AccessRegistries;
 use mc_game::server::dedicated::java_properties::Properties;
 use mc_game::server::dedicated::properties::DedicatedServerProperties;
@@ -63,6 +63,64 @@ fn items_from_commands_match_vanilla() {
         n += 1;
     }
     assert_eq!(n, 9);
+}
+
+/// An item argument that fails on a string with a lone surrogate: the exception message and the component built from its raw
+/// message (what the client is sent) keep the unit.
+fn assert_error_row(c: &[&str], error: CommandSyntaxException, command: &str) {
+    let message = error.get_message();
+    assert_eq!(
+        message,
+        JavaString::from_utf16_units(&unesc_units(c[2])),
+        "message of {command}"
+    );
+    let mut out = Vec::new();
+    let component = mc_game::commands::message::from_message(error.get_raw_message().as_ref());
+    mc_nbt::nbt_io::write_any_tag(&component.to_nbt().unwrap(), &mut out).unwrap();
+    assert_eq!(hex(&out), c[3], "component of {command}");
+}
+
+#[test]
+fn item_argument_errors_match_vanilla() {
+    mc_game::commands::BrigadierExceptions::install();
+    mc_game::commands::install_text_validators();
+    mc_protocol::components::install_text_hooks();
+    let (server, _keep) = command_common::test_server();
+    let build = CommandBuildContext::simple(
+        Arc::new(AccessRegistries(
+            server.registries.composite_access().clone(),
+        )),
+        mc_world::level_storage::FeatureFlagSet::VANILLA,
+    );
+    let item = ItemArgument::item(&build);
+    let predicate = ItemPredicateArgument::item_predicate(&build);
+    let mut n = 0;
+    for c in rows(GOLDEN, "item_err") {
+        let command =
+            String::from_utf16(&unesc_units(c[1])).expect("a command without a lone surrogate");
+        let error = match item.parse(&mut StringReader::new(command.clone())) {
+            Err(e) => e,
+            Ok(value) => value
+                .downcast_ref::<ItemInput>()
+                .unwrap()
+                .create_item_stack(1)
+                .err()
+                .unwrap_or_else(|| panic!("{command} should fail")),
+        };
+        assert_error_row(&c, error, &command);
+        n += 1;
+    }
+    for c in rows(GOLDEN, "item_pred_err") {
+        let command =
+            String::from_utf16(&unesc_units(c[1])).expect("a command without a lone surrogate");
+        let error = predicate
+            .parse(&mut StringReader::new(command.clone()))
+            .err()
+            .unwrap_or_else(|| panic!("{command} should fail"));
+        assert_error_row(&c, error, &command);
+        n += 1;
+    }
+    assert_eq!(n, 26);
 }
 
 /// `resource-pack-prompt` of `server.properties`: a prompt that decodes only partly is kept, one that does not parse is dropped.

@@ -13,6 +13,7 @@ use mc_brigadier::{
     SuggestionsBuilder,
 };
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_data::{DataComponentType, Item};
 use mc_protocol::components::DataComponentPatch;
 use mc_protocol::components::registry::try_def;
@@ -23,9 +24,9 @@ pub(super) static ERROR_UNKNOWN_ITEM: LazyLock<DynamicCommandExceptionType<Strin
 pub(super) static ERROR_UNKNOWN_COMPONENT: LazyLock<DynamicCommandExceptionType<String>> =
     LazyLock::new(|| dynamic_translatable("arguments.item.component.unknown"));
 pub(super) static ERROR_MALFORMED_COMPONENT: LazyLock<
-    Dynamic2CommandExceptionType<String, String>,
+    Dynamic2CommandExceptionType<String, JavaString>,
 > = LazyLock::new(|| {
-    Dynamic2CommandExceptionType::new(|t: String, m: String| {
+    Dynamic2CommandExceptionType::new(|t: String, m: JavaString| {
         message(translatable!("arguments.item.component.malformed", t, m))
     })
 });
@@ -267,7 +268,7 @@ impl State<'_> {
     ) -> Result<(), CommandSyntaxException> {
         let cursor = self.reader.get_cursor();
         let tag = parse_tag_as_argument(self.reader)?;
-        let malformed = |reader: &mut StringReader, msg: String| {
+        let malformed = |reader: &mut StringReader, msg: JavaString| {
             reader.set_cursor(cursor);
             ERROR_MALFORMED_COMPONENT.create_with_context(
                 reader,
@@ -278,10 +279,10 @@ impl State<'_> {
         let Some(def) = try_def(component_type) else {
             return Err(malformed(
                 self.reader,
-                format!("Component {} is not implemented", component_type.name()),
+                format!("Component {} is not implemented", component_type.name()).into(),
             ));
         };
-        match mc_dfu::parse_nbt(def.codec_or_throw(), &tag).into_result() {
+        match mc_dfu::parse_nbt(def.codec_or_throw(), &tag).into_result_java() {
             Ok(value) => {
                 sink(Event::Component(component_type, value));
                 Ok(())

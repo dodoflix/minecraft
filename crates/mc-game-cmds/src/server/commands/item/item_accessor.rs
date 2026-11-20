@@ -8,6 +8,7 @@
 //! evaluated for one target no longer sees the slot writes made to another target of the same command.
 use crate::server::commands::command_response_tracker::CommandResponseTracker;
 use mc_brigadier::{CommandSyntaxException, DynamicCommandExceptionType};
+use mc_core::java_string::JavaString;
 use mc_core::pos::BlockPos;
 use mc_dfu::Codec;
 use mc_game_core::commands::CommandSourceStack;
@@ -148,14 +149,15 @@ pub fn provide_all<'a>(
         .collect()
 }
 
-static ERROR_FAILED_TO_PARSE: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| {
-    DynamicCommandExceptionType::new(|error: String| {
-        message(translatable!(
-            "argument.resource_or_id.failed_to_parse",
-            error
-        ))
-    })
-});
+static ERROR_FAILED_TO_PARSE: LazyLock<DynamicCommandExceptionType<JavaString>> =
+    LazyLock::new(|| {
+        DynamicCommandExceptionType::new(|error: JavaString| {
+            message(translatable!(
+                "argument.resource_or_id.failed_to_parse",
+                error
+            ))
+        })
+    });
 
 /// `ResourceOrIdArgument` result as the element: a registered element of `registry` or an inline definition decoded
 /// with `codec`. Inline definitions are decoded here, not while parsing (the argument keeps the raw tag), so a malformed
@@ -180,7 +182,7 @@ pub fn resolve_resource_or_id<T: Clone + Send + Sync + 'static>(
                 )
             })),
         ResourceOrId::Inline(tag) => mc_dfu::parse_nbt(&codec, tag)
-            .into_result()
+            .into_result_java()
             .map_err(|msg| ERROR_FAILED_TO_PARSE.create(msg)),
     }
 }

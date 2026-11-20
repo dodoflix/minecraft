@@ -5,6 +5,7 @@ use std::fmt;
 
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
+use crate::java_string::JavaString;
 use crate::math::java::java_string_hash;
 
 pub const NAMESPACE_SEPARATOR: char = ':';
@@ -34,24 +35,40 @@ impl std::error::Error for IdentifierException {}
 pub fn escape_java(s: &str) -> String {
     let mut out = String::with_capacity(s.len());
     for c in s.chars() {
-        match c {
-            '"' => out.push_str("\\\""),
-            '\\' => out.push_str("\\\\"),
-            '\u{8}' => out.push_str("\\b"),
-            '\n' => out.push_str("\\n"),
-            '\t' => out.push_str("\\t"),
-            '\u{c}' => out.push_str("\\f"),
-            '\r' => out.push_str("\\r"),
-            ' '..='\u{7f}' => out.push(c),
-            _ => {
-                let mut buf = [0u16; 2];
-                for unit in c.encode_utf16(&mut buf) {
-                    out.push_str(&format!("\\u{unit:04X}"));
-                }
-            }
+        escape_java_char(c, &mut out);
+    }
+    out
+}
+
+/// [`escape_java`] of a Java string: a lone surrogate is escaped as its own unit.
+pub fn escape_java_string(s: &JavaString) -> String {
+    let mut out = String::with_capacity(s.utf16_len());
+    for r in char::decode_utf16(s.encode_utf16()) {
+        match r {
+            Ok(c) => escape_java_char(c, &mut out),
+            Err(e) => out.push_str(&format!("\\u{:04X}", e.unpaired_surrogate())),
         }
     }
     out
+}
+
+fn escape_java_char(c: char, out: &mut String) {
+    match c {
+        '"' => out.push_str("\\\""),
+        '\\' => out.push_str("\\\\"),
+        '\u{8}' => out.push_str("\\b"),
+        '\n' => out.push_str("\\n"),
+        '\t' => out.push_str("\\t"),
+        '\u{c}' => out.push_str("\\f"),
+        '\r' => out.push_str("\\r"),
+        ' '..='\u{7f}' => out.push(c),
+        _ => {
+            let mut buf = [0u16; 2];
+            for unit in c.encode_utf16(&mut buf) {
+                out.push_str(&format!("\\u{unit:04X}"));
+            }
+        }
+    }
 }
 
 #[derive(Clone, PartialEq, Eq, Hash)]
@@ -148,6 +165,42 @@ impl Identifier {
     /// `Identifier.read(String)`: the `DataResult` error message on failure.
     pub fn read(input: &str) -> Result<Self, String> {
         Self::parse(input).map_err(|e| format!("Not a valid resource location: {input} {}", e.0))
+    }
+
+    /// [`read`](Self::read) of a Java string. A lone surrogate is never valid in an identifier; the message shows it raw
+    /// in the input and as its own `\uXXXX` escape in the exception text.
+    pub fn read_java(input: &JavaString) -> Result<Self, JavaString> {
+        if let Some(text) = input.exact_str() {
+            return Self::read(text).map_err(JavaString::from);
+        }
+        let text = input.as_lossy_str();
+        let (namespace, path) = match text.find(':') {
+            Some(i) if i != 0 => {
+                let at = text[..i].encode_utf16().count();
+                (
+                    input.substring(0, at),
+                    input.substring(at + 1, input.utf16_len()),
+                )
+            }
+            Some(_) => (
+                DEFAULT_NAMESPACE.into(),
+                input.substring(1, input.utf16_len()),
+            ),
+            None => (DEFAULT_NAMESPACE.into(), input.clone()),
+        };
+        let mut exception = JavaString::from(if is_valid_namespace(namespace.as_lossy_str()) {
+            "Non [a-z0-9/._-] character in path of location: "
+        } else {
+            "Non [a-z0-9_.-] character in namespace of identifier: "
+        });
+        exception.push_java(&namespace);
+        exception.push(':');
+        exception.push_java(&path);
+        let mut message = JavaString::from("Not a valid resource location: ");
+        message.push_java(input);
+        message.push(' ');
+        message.push_str(&escape_java_string(&exception));
+        Err(message)
     }
 
     pub fn path(&self) -> &str {

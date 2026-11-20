@@ -5,6 +5,7 @@ use crate::translatable;
 use mc_brigadier::{
     CommandSyntaxException, Dynamic2CommandExceptionType, DynamicCommandExceptionType,
 };
+use mc_core::java_string::JavaString;
 use mc_data::Item;
 use mc_protocol::components::{DataComponentPatch, ItemStack};
 use std::sync::LazyLock;
@@ -15,11 +16,12 @@ static ERROR_STACK_TOO_BIG: LazyLock<Dynamic2CommandExceptionType<String, i32>> 
             message(translatable!("arguments.item.overstacked", item, count))
         })
     });
-static ERROR_MALFORMED_ITEM: LazyLock<DynamicCommandExceptionType<String>> = LazyLock::new(|| {
-    DynamicCommandExceptionType::new(|error: String| {
-        message(translatable!("arguments.item.malformed", error))
-    })
-});
+static ERROR_MALFORMED_ITEM: LazyLock<DynamicCommandExceptionType<JavaString>> =
+    LazyLock::new(|| {
+        DynamicCommandExceptionType::new(|error: JavaString| {
+            message(translatable!("arguments.item.malformed", error))
+        })
+    });
 
 #[derive(Clone, Debug)]
 pub struct ItemInput {
@@ -36,7 +38,7 @@ impl ItemInput {
             return Err(ERROR_STACK_TOO_BIG.create(self.item.name().to_owned(), max));
         }
         ItemStack::validate_strict(result)
-            .into_result()
+            .into_result_java()
             .map_err(|e| ERROR_MALFORMED_ITEM.create(e))
     }
 }

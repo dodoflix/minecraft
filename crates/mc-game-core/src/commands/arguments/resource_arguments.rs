@@ -17,6 +17,7 @@ use mc_brigadier::{
     StringReader, Suggestions, SuggestionsBuilder,
 };
 use mc_core::ident::{Identifier, is_allowed_in_identifier};
+use mc_core::java_string::JavaString;
 use mc_nbt::Tag;
 use mc_protocol::packets::play::ArgumentTypeTemplate;
 use std::sync::{Arc, LazyLock};
@@ -110,9 +111,9 @@ pub static ERROR_NO_MATCHES: LazyLock<Dynamic2CommandExceptionType<String, Strin
             ))
         })
     });
-pub static ERROR_FAILED_TO_PARSE: LazyLock<DynamicCommandExceptionType<String>> =
+pub static ERROR_FAILED_TO_PARSE: LazyLock<DynamicCommandExceptionType<JavaString>> =
     LazyLock::new(|| {
-        DynamicCommandExceptionType::new(|e: String| {
+        DynamicCommandExceptionType::new(|e: JavaString| {
             message(translatable!("argument.resource_or_id.failed_to_parse", e))
         })
     });
@@ -911,10 +912,16 @@ impl crate::registry::codec::RegistryLookup for BuildContextLookup<'_> {
 
 /// `codec.parse(createSerializationContext(ops), value)` of the registries whose elements are code-defined (loot data);
 /// other registries are not checked while parsing.
-fn check_inline(context: &CommandBuildContext, registry: &str, tag: &Tag) -> Result<(), String> {
+fn check_inline(
+    context: &CommandBuildContext,
+    registry: &str,
+    tag: &Tag,
+) -> Result<(), JavaString> {
     use crate::world::level::storage::loot::holder::with_decode_context;
-    fn run<T: 'static>(codec: mc_dfu::Codec<T>, tag: &Tag) -> Result<(), String> {
-        mc_dfu::parse_nbt(&codec, tag).into_result().map(|_| ())
+    fn run<T: 'static>(codec: mc_dfu::Codec<T>, tag: &Tag) -> Result<(), JavaString> {
+        mc_dfu::parse_nbt(&codec, tag)
+            .into_result_java()
+            .map(|_| ())
     }
     let lookup = BuildContextLookup(context);
     let decode = crate::registry::codec::RegistryDecodeContext::new(&lookup);
@@ -942,6 +949,7 @@ fn check_inline(context: &CommandBuildContext, registry: &str, tag: &Tag) -> Res
         ),
         "minecraft:worldgen/feature" => {
             crate::world::level::levelgen::feature::check_direct_definition(tag)
+                .map_err(JavaString::from)
         }
         "minecraft:dialog" => mc_protocol::dialog::Dialog::from_inline_tag(tag).map(|_| ()),
         _ => Ok(()),

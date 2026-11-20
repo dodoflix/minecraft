@@ -319,7 +319,7 @@ pub fn place_feature_command(
                 &env.biomes,
                 &nbt_to_json(tag),
             )
-            .map_err(|e| ERROR_FAILED_TO_PARSE.create(e.to_string()))?,
+            .map_err(|e| ERROR_FAILED_TO_PARSE.create(e.to_string().into()))?,
         };
         let chunk = ChunkPos::containing(&pos);
         check_loaded(

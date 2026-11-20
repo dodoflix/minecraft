@@ -3,6 +3,7 @@
 
 use std::borrow::Cow;
 use std::cmp::Ordering;
+use std::collections::HashMap;
 use std::fmt;
 use std::hash::{Hash, Hasher};
 
@@ -97,42 +98,60 @@ impl JavaString {
 
     /// `f` called with the text of the string, each lone surrogate standing as a private-use character, and the function
     /// that turns text made from it back into a Java string (the stand-ins become the same units again): for a rewrite
-    /// that builds several strings from one. The stand-ins are one unit long like the surrogate and come from a
-    /// 2048-character block of U+E000..U+F7FF that the string does not use (`f` may only copy or drop them), so the text
-    /// measures and splits like the Java string; it sorts differently. Without a free block the lone surrogates show as
-    /// U+FFFD, like [`as_lossy_str`](Self::as_lossy_str).
+    /// that builds several strings from one. Each distinct lone unit gets its own stand-in, one unit long like the
+    /// surrogate, from the characters of U+E000..U+F8FF that the string does not use (`f` may only copy or drop them), so
+    /// the text measures and splits like the Java string; it sorts differently. A string that uses almost the whole range
+    /// has its lone surrogates shown as U+FFFD, like [`as_lossy_str`](Self::as_lossy_str).
     pub fn with_stand_ins<R>(&self, f: impl FnOnce(&str, &dyn Fn(&str) -> JavaString) -> R) -> R {
         let plain = |s: &str| JavaString::from(s);
         let Some(units) = &self.units else {
             return f(&self.text, &plain);
         };
-        let used = |base: u32| {
-            self.text
-                .chars()
-                .any(|c| (base..base + 0x800).contains(&(c as u32)))
-        };
-        let Some(base) = [0xE000, 0xE800, 0xF000].into_iter().find(|&b| !used(b)) else {
-            return f(&self.text, &plain);
-        };
-        let standing: String = char::decode_utf16(units.0.iter().copied())
-            .map(|r| match r {
-                Ok(c) => c,
-                Err(e) => char::from_u32(base + u32::from(e.unpaired_surrogate()) - 0xD800)
-                    .expect("a private-use character"),
-            })
-            .collect();
-        let back = |s: &str| {
-            if !s
-                .chars()
-                .any(|c| (base..base + 0x800).contains(&(c as u32)))
+        const FIRST: u32 = 0xE000;
+        let mut used = [false; 0x1900];
+        for c in self.text.chars() {
+            if let Some(slot) = (c as u32)
+                .checked_sub(FIRST)
+                .and_then(|i| used.get_mut(i as usize))
             {
+                *slot = true;
+            }
+        }
+        let mut free = (FIRST..).zip(used).filter(|&(_, u)| !u).map(|(c, _)| c);
+        let mut stand_in = HashMap::new();
+        let mut unit_of = HashMap::new();
+        let mut standing = String::with_capacity(self.text.len());
+        for r in char::decode_utf16(units.0.iter().copied()) {
+            let c = match r {
+                Ok(c) => c,
+                Err(e) => {
+                    let unit = e.unpaired_surrogate();
+                    match stand_in.get(&unit) {
+                        Some(&c) => c,
+                        None => {
+                            let Some(c) = free.next().and_then(char::from_u32) else {
+                                return f(&self.text, &plain);
+                            };
+                            stand_in.insert(unit, c);
+                            unit_of.insert(c, unit);
+                            c
+                        }
+                    }
+                }
+            };
+            standing.push(c);
+        }
+        let is_stand_in =
+            |c: char| ('\u{E000}'..='\u{F8FF}').contains(&c) && unit_of.contains_key(&c);
+        let back = |s: &str| {
+            if !s.chars().any(is_stand_in) {
                 return JavaString::from(s);
             }
             let mut out = Vec::with_capacity(s.len());
             for c in s.chars() {
-                match c as u32 {
-                    u if (base..base + 0x800).contains(&u) => out.push((u - base + 0xD800) as u16),
-                    _ => out.extend(c.encode_utf16(&mut [0; 2]).iter()),
+                match unit_of.get(&c) {
+                    Some(&unit) => out.push(unit),
+                    None => out.extend(c.encode_utf16(&mut [0; 2]).iter()),
                 }
             }
             JavaString::from_utf16_units(&out)
@@ -598,6 +617,13 @@ mod tests {
         assert_eq!(units(&replaced), [0x62, 0x62, 0xDC00, 0x62, 0x62]);
         // a plain string is just mapped
         assert_eq!(JavaString::from("Ab").map_lossless(str::to_lowercase), "ab");
+        // private-use characters in every old stand-in block still leave room for a stand-in per distinct lone unit
+        let crowded = [0xE000, 0xE800, 0xF000, 0xD800, 0x41, 0xDC00, 0x42, 0xD800];
+        let lower = JavaString::from_utf16_units(&crowded).map_lossless(str::to_lowercase);
+        assert_eq!(
+            units(&lower),
+            [0xE000, 0xE800, 0xF000, 0xD800, 0x61, 0xDC00, 0x62, 0xD800]
+        );
     }
 
     #[test]

@@ -312,7 +312,10 @@ fn style_color_and_legacy_helpers_match_vanilla() {
             "color" => {
                 colors += 1;
                 let input = rec["in"].as_str().unwrap();
-                match (TextColor::parse_color(input), rec["ok"].as_bool().unwrap()) {
+                match (
+                    TextColor::parse_color(&input.into()),
+                    rec["ok"].as_bool().unwrap(),
+                ) {
                     (Ok(c), true) => {
                         if c.serialize() != rec["ser"].as_str().unwrap()
                             || i64::from(c.value()) != rec["value"].as_i64().unwrap()

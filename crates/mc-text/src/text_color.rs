@@ -1,6 +1,7 @@
 //! `net.minecraft.network.chat.TextColor`.
 
 use crate::chat_formatting::ChatFormatting;
+use mc_core::java_string::JavaString;
 use std::fmt;
 
 /// An RGB text colour. Equality (like vanilla) compares only the RGB value; the optional name only
@@ -81,19 +82,21 @@ impl TextColor {
     }
 
     /// `TextColor.parseColor` (the `TextColor.CODEC` decoder). Errors carry vanilla's message.
-    pub fn parse_color(color: &str) -> Result<TextColor, String> {
-        if let Some(hex) = color.strip_prefix('#') {
+    pub fn parse_color(color: &JavaString) -> Result<TextColor, JavaString> {
+        // a lone surrogate (shown as U+FFFD) is neither a hex digit nor part of a colour name
+        let text = color.as_lossy_str();
+        if let Some(hex) = text.strip_prefix('#') {
             match java_parse_int_radix16(hex) {
-                None => Err(format!("Invalid color value: {color}")),
+                None => Err(mc_core::jformat!("Invalid color value: {}", *color)),
                 Some(v) if (0..=0xFFFFFF).contains(&v) => Ok(Self::from_rgb(v)),
-                Some(_) => Err(format!("Color value out of range: {color}")),
+                Some(_) => Err(mc_core::jformat!("Color value out of range: {}", *color)),
             }
         } else {
             Self::NAMED_COLORS
                 .iter()
-                .find(|c| c.name == Some(color))
+                .find(|c| c.name == Some(text))
                 .copied()
-                .ok_or_else(|| format!("Invalid color name: {color}"))
+                .ok_or_else(|| mc_core::jformat!("Invalid color name: {}", *color))
         }
     }
 }

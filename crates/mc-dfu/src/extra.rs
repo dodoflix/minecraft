@@ -271,12 +271,12 @@ use crate::Dyn;
 
 /// `Identifier.CODEC`.
 pub static IDENTIFIER: LazyLock<Codec<mc_core::ident::Identifier>> = LazyLock::new(|| {
-    STRING.comap_flat_map(
-        |s| match mc_core::ident::Identifier::read(&s) {
+    crate::builtin::JAVA_STRING.comap_flat_map(
+        |s| match mc_core::ident::Identifier::read_java(&s) {
             Ok(id) => DataResult::success(id),
             Err(e) => DataResult::error(move || e.clone()),
         },
-        |id| id.to_string(),
+        |id| id.to_string().into(),
     )
 });
 

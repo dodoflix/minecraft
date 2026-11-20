@@ -259,13 +259,13 @@ pub fn string_resolver<E: 'static>(
     to_string: impl Fn(&E) -> Option<String> + Send + Sync + 'static,
     from_string: impl Fn(&str) -> Option<E> + Send + Sync + 'static,
 ) -> Codec<E> {
-    STRING.flat_xmap(
-        move |name| match from_string(&name) {
+    JAVA_STRING.flat_xmap(
+        move |name| match name.exact_str().and_then(&from_string) {
             Some(e) => DataResult::success(e),
-            None => DataResult::error(move || format!("Unknown element name:{name}")),
+            None => DataResult::error(move || mc_core::jformat!("Unknown element name:{}", name)),
         },
         move |e| match to_string(e) {
-            Some(s) => DataResult::success(s),
+            Some(s) => DataResult::success(s.into()),
             None => DataResult::error_str("Element with unknown name"),
         },
     )
