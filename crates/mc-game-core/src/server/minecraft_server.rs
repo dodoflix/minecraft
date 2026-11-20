@@ -672,6 +672,13 @@ impl MinecraftServer {
         while self.poll_task() {}
     }
 
+    /// `runAllTasks()` inside `managedBlock`: the chunk sources' tasks run whether or not the tick has time left.
+    pub(super) fn run_all_tasks_blocking(&mut self) {
+        self.tasks.blocking_count += 1;
+        self.run_all_tasks();
+        self.tasks.blocking_count -= 1;
+    }
+
     /// `doRunTask`: a panicking task is logged and the loop carries on (vanilla catches `Exception` there).
     fn do_run_task(&mut self, task: TickTask) {
         self.tasks.reentrant_count += 1;

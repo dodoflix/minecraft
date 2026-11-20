@@ -532,6 +532,10 @@ impl MinecraftServer {
                 break;
             }
         }
+        // Vanilla's main-thread tasks take microseconds, so the window that ends the loop has also run what the last FULL
+        // step queued (the promotions of the chunks around it). Ours take longer and the deadline cuts the window with that
+        // tail still queued: the first tick would then find the spawn chunks not yet entity ticking.
+        self.run_all_tasks_blocking();
         self.level_load_listener.finish(Stage::LoadInitialChunks);
         self.update_mob_spawning_flags();
         self.update_effective_respawn_data();
