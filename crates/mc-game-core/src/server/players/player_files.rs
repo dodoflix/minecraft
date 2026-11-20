@@ -2,8 +2,11 @@
 //! `<name>.json` migration) and the shared JSON writer of the per-player files (`players/advancements/<uuid>.json` is
 //! `crate::advancements::PlayerAdvancements`).
 
+use mc_core::gson::{self, JsonElement, JsonError};
+use mc_core::java_exception::JavaException;
 use serde_json::Value;
 use std::fs;
+use std::io::Read;
 use std::path::{Path, PathBuf};
 use uuid::Uuid;
 
@@ -35,6 +38,38 @@ pub(crate) fn save_json(file: &Path, json: &Value) -> std::io::Result<()> {
 }
 
 /// `PlayerList.locateStatsFile`: `<uuid>.json`, migrating a legacy `<name>.json` (`FileUtil.isValidPathSegment`).
+/// Why [`read_strict_json`] failed.
+pub(crate) enum JsonFileError {
+    /// `IOException` of `Files.newBufferedReader`.
+    Open(JavaException),
+    /// The `IOException` (its cause) a read of the reader threw inside the parser: a `JsonIOException`.
+    Reader(JavaException),
+    /// `JsonSyntaxException`: the message.
+    Parse(JsonError),
+}
+
+/// `Files.newBufferedReader(file, UTF_8)` into `StrictJsonParser.parse`: a BOM is skipped and an empty file is
+/// `JsonNull`; malformed UTF-8 is a `MalformedInputException`, not a replacement character.
+pub(crate) fn read_strict_json(file: &Path) -> Result<JsonElement, JsonFileError> {
+    let mut bytes = Vec::new();
+    fs::File::open(file)
+        .map_err(|e| JavaException::of_io(&JavaException::from_file_error(e, file)))
+        .map_err(JsonFileError::Open)?
+        .read_to_end(&mut bytes)
+        .map_err(|e| JsonFileError::Reader(JavaException::read_failure(&e)))?;
+    let text = String::from_utf8(bytes).map_err(|e| {
+        let length = e
+            .utf8_error()
+            .error_len()
+            .unwrap_or(e.as_bytes().len() - e.utf8_error().valid_up_to());
+        JsonFileError::Reader(JavaException::new(
+            "java.nio.charset.MalformedInputException",
+            format!("Input length = {length}"),
+        ))
+    })?;
+    gson::parse_strict_json_parser(&text).map_err(JsonFileError::Parse)
+}
+
 pub fn locate_stats_file(stats_dir: &Path, id: Uuid, name: &str) -> PathBuf {
     let uuid_file = stats_dir.join(format!("{id}.json"));
     if uuid_file.exists() {

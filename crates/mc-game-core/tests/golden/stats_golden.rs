@@ -85,7 +85,7 @@ fn matches_vanilla() {
         let packet = lines.next().unwrap().strip_prefix("packet\t").unwrap();
         let mut c = ServerStatsCounter::detached();
         if kind == "parse" {
-            c.parse(&serde_json::from_str(input).unwrap());
+            c.parse(&mc_core::gson::parse_strict_json_parser(input).unwrap());
             c.mark_all_dirty();
         } else {
             for op in input.split(';').filter(|o| !o.is_empty()) {

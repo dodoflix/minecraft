@@ -10,6 +10,7 @@ use std::path::PathBuf;
 use std::sync::Arc;
 
 use indexmap::IndexMap;
+use mc_core::gson::JsonElement;
 use mc_core::ident::Identifier;
 use mc_datafix::{DataFixTypes, data_fixer};
 use mc_dfu::extra::IDENTIFIER;
@@ -30,6 +31,7 @@ use super::server_advancement_manager::ServerAdvancementManager;
 use super::triggers::{Criterion, CriterionTriggerInstance};
 use crate::server::level::ServerLevel;
 use crate::server::level::level_commands::PendingAnnouncement;
+use crate::server::players::player_files::{JsonFileError, read_strict_json};
 use crate::world::entity::Entity as _;
 use crate::world::entity::player::ServerPlayer;
 
@@ -127,16 +129,24 @@ impl PlayerAdvancements {
 
     fn load(&mut self, manager: &ServerAdvancementManager) {
         if let Some(path) = self.player_save_path.clone().filter(|p| p.is_file()) {
-            match std::fs::read_to_string(&path) {
-                Ok(text) => match parse_player_file(&text) {
+            match read_strict_json(&path) {
+                Ok(json) => match parse_player_file(&json) {
                     Ok(data) => self.apply_from(manager, data),
                     Err(e) => log::error!(
-                        "Couldn't parse player advancements in {}: {e}",
+                        "Couldn't parse player advancements in {}\ncom.google.gson.JsonParseException: {e}",
                         path.display()
                     ),
                 },
-                Err(e) => log::error!(
-                    "Couldn't access player advancements in {}: {e}",
+                Err(JsonFileError::Open(e)) => log::error!(
+                    "Couldn't access player advancements in {}\n{e}",
+                    path.display()
+                ),
+                Err(JsonFileError::Reader(e)) => log::error!(
+                    "Couldn't access player advancements in {}\ncom.google.gson.JsonIOException: {e}",
+                    path.display()
+                ),
+                Err(JsonFileError::Parse(e)) => log::error!(
+                    "Couldn't parse player advancements in {}\ncom.google.gson.JsonSyntaxException: {e}",
                     path.display()
                 ),
             }
@@ -483,9 +493,8 @@ fn progress_file_json(
 
 /// Strict JSON parse of a progress file + the wrapped codec (the `DataFixTypes.ADVANCEMENTS` upgrade from the file's
 /// `DataVersion`, 1343 when absent).
-fn parse_player_file(text: &str) -> Result<Vec<(Identifier, AdvancementProgress)>, String> {
-    let json = Dyn::from_json_str(text)?;
-    match file_codec().parse(&JSON, &json) {
+fn parse_player_file(json: &JsonElement) -> Result<Vec<(Identifier, AdvancementProgress)>, String> {
+    match file_codec().parse(&JSON, &Dyn::from_json_element(json)) {
         DataResult::Success(v) => Ok(v),
         DataResult::Error { message, .. } => Err(message.get()),
     }
@@ -672,13 +681,19 @@ mod tests {
         json.to_string()
     }
 
+    fn strict(text: &str) -> JsonElement {
+        mc_core::gson::parse_strict_json_parser(text).unwrap()
+    }
+
     #[test]
     fn a_file_of_an_older_version_goes_through_the_fixer() {
         for input in golden_inputs() {
             let current = progress_file_json(
-                parse_player_file(&with_version(input, mc_datafix::CURRENT_VERSION)).unwrap(),
+                parse_player_file(&strict(&with_version(input, mc_datafix::CURRENT_VERSION)))
+                    .unwrap(),
             );
-            let older = progress_file_json(parse_player_file(&with_version(input, 4903)).unwrap());
+            let older =
+                progress_file_json(parse_player_file(&strict(&with_version(input, 4903))).unwrap());
             assert_eq!(older, current, "{input}");
         }
     }

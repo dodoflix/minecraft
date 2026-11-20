@@ -9,15 +9,19 @@ use super::hash_order::{
 };
 use super::stat::{Stat, build_name, by_names, stat_type, stat_type_name, value_name};
 use super::stats_counter::StatsCounter;
+use crate::server::players::player_files::{JsonFileError, read_strict_json};
 use indexmap::IndexSet;
+use mc_core::gson::JsonElement;
 use mc_core::ident::Identifier;
 use mc_core::math::java::java_string_hash;
 use mc_data::StatType;
 use mc_datafix::{DataFixTypes, data_fixer};
-use mc_dfu::{Dyn, Dynamic, JSON};
+use mc_dfu::extra::{IDENTIFIER, dispatched_map};
+use mc_dfu::{Codec, DataResult, Dyn, Dynamic, INT, JSON};
 use mc_protocol::packets::play::ClientboundAwardStatsPacket;
 use serde_json::{Map, Value};
 use std::path::{Path, PathBuf};
+use std::sync::LazyLock;
 
 pub struct ServerStatsCounter {
     pub counter: StatsCounter,
@@ -26,16 +30,39 @@ pub struct ServerStatsCounter {
     dirty: IndexSet<Stat>,
 }
 
-/// `Codec.INT` on a `JsonOps` element: numbers only (`Number.intValue`); strings and booleans are errors.
-fn json_int(value: &Value) -> Result<i32, String> {
-    match value {
-        Value::Number(n) => Ok(n
-            .as_i64()
-            .map(|v| v as i32)
-            .or_else(|| n.as_u64().map(|v| v as i32))
-            .unwrap_or_else(|| n.as_f64().map_or(0, |f| f as i64 as i32))),
-        other => Err(format!("Not a number: {other}")),
-    }
+/// The entries of a stats file per stat type.
+type StatsByType = Vec<(StatType, Vec<(Stat, i32)>)>;
+
+/// `STATS_CODEC` up to its `xmap`: `Codec.dispatchedMap(STAT_TYPE.byNameCodec(), type -> Codec.unboundedMap(statCodec, Codec.INT))`
+/// as the entries per stat type. Only decoding is needed (the file is written by [`ServerStatsCounter::to_json`], in the
+/// order of vanilla's hash maps), so the encoding halves of the registry codecs refuse.
+fn stats_codec() -> &'static Codec<StatsByType> {
+    static CODEC: LazyLock<Codec<StatsByType>> = LazyLock::new(|| {
+        let unsupported = || DataResult::error(|| "Not encoded by this codec".to_owned());
+        let type_codec = IDENTIFIER.flat_xmap(
+            |id| match StatType::by_name(&id.to_string()) {
+                Some(ty) => DataResult::success(ty),
+                None => DataResult::error(move || {
+                    format!(
+                        "Unknown registry key in ResourceKey[minecraft:root / minecraft:stat_type]: {id}"
+                    )
+                }),
+            },
+            move |_: &StatType| unsupported(),
+        );
+        dispatched_map(&type_codec, |ty: &StatType| {
+            let type_id = Identifier::parse(ty.name()).expect("a vanilla stat type id");
+            let stat_codec = IDENTIFIER.flat_xmap(
+                move |value_id| match by_names(&type_id, &value_id) {
+                    Ok(stat) => DataResult::success(stat),
+                    Err(message) => DataResult::error(move || message.clone()),
+                },
+                |_: &Stat| DataResult::error(|| "Not encoded by this codec".to_owned()),
+            );
+            DataResult::success(stat_codec.unbounded_map(&INT))
+        })
+    });
+    &CODEC
 }
 
 impl ServerStatsCounter {
@@ -58,12 +85,19 @@ impl ServerStatsCounter {
         };
         let file = this.file.clone().expect("just set");
         if file.is_file() {
-            match std::fs::read_to_string(&file) {
-                Ok(text) => match serde_json::from_str::<Value>(&text) {
-                    Ok(element) => this.parse(&element),
-                    Err(e) => log::error!("Couldn't parse statistics file {}: {e}", file.display()),
-                },
-                Err(e) => log::error!("Couldn't read statistics file {}: {e}", file.display()),
+            match read_strict_json(&file) {
+                Ok(element) => this.parse(&element),
+                Err(JsonFileError::Open(e)) => {
+                    log::error!("Couldn't read statistics file {}\n{e}", file.display());
+                }
+                Err(JsonFileError::Reader(e)) => log::error!(
+                    "Couldn't parse statistics file {}\ncom.google.gson.JsonIOException: {e}",
+                    file.display()
+                ),
+                Err(JsonFileError::Parse(e)) => log::error!(
+                    "Couldn't parse statistics file {}\ncom.google.gson.JsonSyntaxException: {e}",
+                    file.display()
+                ),
             }
         }
         this
@@ -99,75 +133,39 @@ impl ServerStatsCounter {
 
     /// `DataFixTypes.STATS.updateToCurrentVersion(fixerUpper, data, NbtUtils.getDataVersion(data, 1343))` over the
     /// JSON element.
-    fn upgrade(element: &Value) -> Result<Value, String> {
-        let data = Dynamic::new(JSON, Dyn::from_json_str(&element.to_string())?);
+    fn upgrade(element: &JsonElement) -> JsonElement {
+        let data = Dynamic::new(JSON, Dyn::from_json_element(element));
         let version = data.get("DataVersion").as_int_or(1343);
         let fixed = DataFixTypes::STATS.update_to_current_version(data_fixer(), data, version);
-        serde_json::from_str(fixed.value().to_json_string().as_lossy_str())
-            .map_err(|e| e.to_string())
+        fixed.value().to_json_element()
     }
 
     /// `parse(fixerUpper, element)`: the upgrade, then `STATS_CODEC.parse(data.get("stats").orElseEmptyMap())`
     /// with `resultOrPartial`: malformed entries are skipped (and logged), the rest is loaded.
-    pub fn parse(&mut self, element: &Value) {
-        let element = match Self::upgrade(element) {
-            Ok(element) => element,
-            Err(e) => {
-                log::error!(
-                    "Couldn't parse statistics file {}: {e}",
-                    self.file
-                        .as_deref()
-                        .map(|f| f.display().to_string())
-                        .unwrap_or_default()
-                );
-                return;
-            }
-        };
-        let element = &element;
-        let empty = Value::Object(Map::new());
+    pub fn parse(&mut self, element: &JsonElement) {
+        let element = Self::upgrade(element);
         let stats = element
             .as_object()
             .and_then(|o| o.get("stats"))
-            .unwrap_or(&empty);
-        let Some(types) = stats.as_object() else {
-            log::error!(
-                "Failed to parse statistics for {}: Not a map: {stats}",
-                self.file
-                    .as_deref()
-                    .map(|f| f.display().to_string())
-                    .unwrap_or_default()
-            );
-            return;
-        };
-        let mut errors = Vec::new();
+            .map_or_else(|| Dyn::Map(Vec::new()), Dyn::from_json_element);
         // the codec's result: the valid entries per stat type, in file order
-        let mut grouped: Vec<Vec<(Stat, i32)>> = Vec::new();
-        for (type_key, values) in types {
-            let Ok(type_id) = Identifier::parse(type_key) else {
-                errors.push(format!("Non [a-z0-9_.:-] character in key: {type_key}"));
-                continue;
-            };
-            if StatType::by_name(&type_id.to_string()).is_none() {
-                errors.push(format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:stat_type]: {type_id}"));
-                continue;
+        let grouped: Vec<Vec<(Stat, i32)>> = match stats_codec().parse(&JSON, &stats) {
+            DataResult::Success(grouped) => grouped,
+            DataResult::Error { message, partial } => {
+                log::error!(
+                    "Failed to parse statistics for {}: {}",
+                    self.file
+                        .as_deref()
+                        .map(|f| f.display().to_string())
+                        .unwrap_or_default(),
+                    message.get()
+                );
+                partial.unwrap_or_default()
             }
-            let Some(values) = values.as_object() else {
-                errors.push(format!("Not a JSON object: {values}"));
-                continue;
-            };
-            let mut of_type = Vec::new();
-            for (value_key, count) in values {
-                let parsed = Identifier::parse(value_key)
-                    .map_err(|_| format!("Non [a-z0-9_.:-] character in key: {value_key}"))
-                    .and_then(|value_id| by_names(&type_id, &value_id))
-                    .and_then(|stat| json_int(count).map(|c| (stat, c)));
-                match parsed {
-                    Ok(entry) => of_type.push(entry),
-                    Err(e) => errors.push(e),
-                }
-            }
-            grouped.push(of_type);
         }
+        .into_iter()
+        .map(|(_, of_type)| of_type)
+        .collect();
         // `xmap`: `HashMap<Stat, Integer> stats = new HashMap<>(); groupedStats.forEach((type, values) -> stats.putAll(values))`
         let flat: Vec<(Stat, i32)> = grouped.iter().flatten().copied().collect();
         let mut hash_map = JavaHashMapSim::new();
@@ -184,16 +182,6 @@ impl ServerStatsCounter {
             presized_table(self.counter.table, self.counter.stats.len() + flat.len());
         for i in hash_map.order() {
             self.counter.set_value(flat[i].0, flat[i].1);
-        }
-        if !errors.is_empty() {
-            log::error!(
-                "Failed to parse statistics for {}: {}",
-                self.file
-                    .as_deref()
-                    .map(|f| f.display().to_string())
-                    .unwrap_or_default(),
-                errors.join("; ")
-            );
         }
     }
 
@@ -300,6 +288,30 @@ mod tests {
         assert_eq!(
             counter.get_value(&stat("minecraft:used", "minecraft:ocean_monument_map")),
             3
+        );
+    }
+
+    /// `StrictJsonParser`: a BOM is skipped and an empty file is `JsonNull`; numbers are `LazilyParsedNumber`s.
+    #[test]
+    fn the_strict_parser_reads_a_bom_an_empty_file_and_number_texts() {
+        let jump = stat("minecraft:custom", "minecraft:jump");
+        let bom = read(
+            "\u{feff}{\"stats\":{\"minecraft:custom\":{\"minecraft:jump\":5}},\"DataVersion\":5023}",
+        );
+        assert_eq!(bom.get_value(&jump), 5);
+        assert_eq!(read("").get_value(&jump), 0);
+        assert_eq!(read("  \n").get_value(&jump), 0);
+        let numbers = read(
+            r#"{"stats":{"minecraft:custom":{"minecraft:jump":3000000000,"minecraft:walk_one_cm":1e2,"minecraft:fly_one_cm":1.5}},"DataVersion":5023}"#,
+        );
+        assert_eq!(numbers.get_value(&jump), 3_000_000_000_i64 as i32);
+        assert_eq!(
+            numbers.get_value(&stat("minecraft:custom", "minecraft:walk_one_cm")),
+            100
+        );
+        assert_eq!(
+            numbers.get_value(&stat("minecraft:custom", "minecraft:fly_one_cm")),
+            1
         );
     }
 }
