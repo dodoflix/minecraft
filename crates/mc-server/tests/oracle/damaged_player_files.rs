@@ -164,6 +164,7 @@ fn run_with_bots(side: Side, dir: &Path, cases: Vec<(&'static str, &'static str,
         started,
         log: log_records(&raw_log),
         raw_log,
+        source: None,
     }
 }
 

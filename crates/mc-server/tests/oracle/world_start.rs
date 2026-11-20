@@ -15,7 +15,8 @@
 //!   chunks of status full on both sides: `LastUpdate`, `InhabitedTime` and light are not compared), because the
 //!   server rewrites a loaded chunk with runtime fields and the saved result depends on when the save ran. The POI files
 //!   of the loaded chunks are still exact, and so are the chunks below status full inside the rectangle, except for
-//!   their light layers ([`PARTIAL_CHUNK_LIGHT`]).
+//!   their light layers ([`PARTIAL_CHUNK_LIGHT`]) and, for a chunk the servers generated while running (the world
+//!   does not store it), the fields two runs of the real server disagree on ([`GENERATED_CHUNK_RACES`]).
 //! * Random ticks are off in both copies of the world (`random_tick_speed` 0): they draw from an unseeded random source.
 //! * Tick-driven values ([`CLOCKS`]): the two runs do not execute the same number of ticks between `Done` and the
 //!   freeze. `LastPlayed` is wall-clock time. `session.lock` and `level.dat_old` are not compared (a timestamp, and the
@@ -84,6 +85,22 @@ const PARTIAL_CHUNK_LIGHT: &[&str] = &[
     "region/*.mca#sections.*.SkyLight",
     "**/region/*.mca#sections.*.BlockLight",
     "**/region/*.mca#sections.*.SkyLight",
+];
+
+/// The fields of a chunk that the servers generated while running (the world has no such chunk) that two runs of the
+/// real server on the same world disagree on: which block a feature of a neighbour chunk places first depends on the
+/// order the worker threads finish in. Seen between two runs of the real server on the 1.16.5 and 1.17.1 corpus worlds:
+/// the blocks of a section (data and palette order, the age of vines), the fluid tick queue (nether), the post
+/// processing marks (overworld) and the UUID of an end crystal (end).
+const GENERATED_CHUNK_RACES: &[&str] = &[
+    "region/*.mca#sections.*.block_states",
+    "**/region/*.mca#sections.*.block_states",
+    "region/*.mca#fluid_ticks",
+    "**/region/*.mca#fluid_ticks",
+    "region/*.mca#entities.*.UUID",
+    "**/region/*.mca#entities.*.UUID",
+    "region/*.mca#PostProcessing",
+    "**/region/*.mca#PostProcessing",
 ];
 
 /// Info lines that belong to the world loading and the file fixer (warnings and errors are always compared).
@@ -309,6 +326,8 @@ pub(crate) struct Run {
     pub(crate) log: Vec<String>,
     /// The whole output of the server.
     pub(crate) raw_log: String,
+    /// The world the server was started on, when it was copied from one ([`run_on`]).
+    pub(crate) source: Option<PathBuf>,
 }
 
 /// A server in `dir` (which `prepare` fills before the start) with the arguments `args`: when it starts, it freezes,
@@ -349,18 +368,23 @@ pub(crate) fn run(
         started,
         log,
         raw_log,
+        source: None,
     }
 }
 
 /// A server on a copy of `world` (the directory `world` of the server directory).
 fn run_on(side: Side, dir: &Path, world: &Path, args: &[&str]) -> Run {
-    let world = world.to_owned();
-    run(
-        side,
-        dir,
-        move |dir| copy_dir(&world, &dir.join("world")),
-        args,
-    )
+    let source = world.to_owned();
+    let copied = source.clone();
+    Run {
+        source: Some(source),
+        ..run(
+            side,
+            dir,
+            move |dir| copy_dir(&copied, &dir.join("world")),
+            args,
+        )
+    }
 }
 
 /// The records of `log` that are compared: `LEVEL message`, in order (see the module documentation).
@@ -473,6 +497,19 @@ pub(crate) fn game_rules_difference(vanilla: &Path, ours: &Path) -> Option<Strin
     })
 }
 
+/// The positions of the chunks that `world` stores in `dim`, whatever their status.
+fn stored_chunks(world: &Path, dim: &str) -> BTreeSet<(i32, i32)> {
+    let Ok(files) = fs::read_dir(dimension_dir(world, dim).1.join("region")) else {
+        return BTreeSet::new();
+    };
+    files
+        .flatten()
+        .map(|f| f.path())
+        .filter(|f| f.extension().is_some_and(|e| e == "mca"))
+        .flat_map(|file| read_region(&file).into_keys())
+        .collect()
+}
+
 /// The chunks inside `rect` whose status is below full in either world (the semantic mode skips them).
 fn chunks_below_full(
     vanilla: &Path,
@@ -563,14 +600,20 @@ pub(crate) fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
             reports.push(compare_dimension(&v, &o, dim, &exact(rect, &[])));
         }
         reports.push(compare_dimension(&v, &o, dim, &semantic));
-        // the semantic mode skips chunks below status full: those are compared exactly, one by one
+        // the semantic mode skips chunks below status full: those are compared exactly, one by one; the chunks the
+        // servers generated while running (the world has no such chunk) also leave out [`GENERATED_CHUNK_RACES`]
+        let stored = vanilla
+            .source
+            .as_deref()
+            .map(|source| stored_chunks(source, dim));
         for (x, z) in chunks_below_full(&v, &o, dim, inner) {
-            reports.push(compare_dimension(
-                &v,
-                &o,
-                dim,
-                &exact((x, z, x, z), PARTIAL_CHUNK_LIGHT),
-            ));
+            let generated = stored.as_ref().is_some_and(|s| !s.contains(&(x, z)));
+            let skip = if generated {
+                [PARTIAL_CHUNK_LIGHT, GENERATED_CHUNK_RACES].concat()
+            } else {
+                PARTIAL_CHUNK_LIGHT.to_vec()
+            };
+            reports.push(compare_dimension(&v, &o, dim, &exact((x, z, x, z), &skip)));
         }
         // the POI files of the loaded chunks are still exact (the exact mode with the other storages left out)
         let chunk_storages = ["region/", "**/region/", "entities/", "**/entities/"];
