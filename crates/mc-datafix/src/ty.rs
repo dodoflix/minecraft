@@ -1479,8 +1479,9 @@ impl Type {
     /// `type.findFieldType(name)`; panics like Java's `IllegalArgumentException("Field not found: name")`.
     #[track_caller]
     pub fn find_field_type(&self, name: &str) -> Type {
-        self.find_field_type_opt(name)
-            .unwrap_or_else(|| panic!("Field not found: {name}"))
+        self.find_field_type_opt(name).unwrap_or_else(|| {
+            panic!("java.lang.IllegalArgumentException: Field not found: {name}")
+        })
     }
 
     /// `type.findField(name)`.
@@ -1498,7 +1499,7 @@ impl Type {
     pub fn get_set_type(&self, optic: &crate::finder::OpticFinder, new_type: &Type) -> Type {
         optic
             .find_type(self, new_type, false)
-            .unwrap_or_else(|e| panic!("{e}"))
+            .unwrap_or_else(|e| panic!("java.lang.RuntimeException: {e}"))
             .t_type()
             .clone()
     }
@@ -1822,7 +1823,7 @@ impl TaggedChoiceType {
         let data = self.data();
         match data.get(key) {
             Some(t) if t == a => {}
-            _ => panic!("Focused type doesn't match."),
+            _ => panic!("java.lang.IllegalArgumentException: Focused type doesn't match."),
         }
         // `Maps.newHashMap(sType.types())` (java.util.HashMap iteration order), `put(key, bType)`
         let copy: Vec<(String, Type)> = data.types.clone();

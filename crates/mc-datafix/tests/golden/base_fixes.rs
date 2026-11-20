@@ -434,7 +434,9 @@ fn thrown(payload: &(dyn std::any::Any + Send)) -> String {
         .or_else(|| payload.downcast_ref::<&str>().copied())
         .unwrap_or("");
     match message.split_once(": ") {
-        Some((class, rest)) if class.starts_with("java.") => {
+        Some((class, rest))
+            if (class.starts_with("java.") || class.starts_with("net.minecraft.")) =>
+        {
             let simple = class.rsplit('.').next().unwrap();
             format!("EX:{simple}:{rest}")
         }

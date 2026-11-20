@@ -2,7 +2,7 @@
 //! `.clone()` when the original is still needed) and the reading methods borrow it.
 //!
 //! Every method that resolves an [`OpticFinder`] panics when the finder does not match the type (Java:
-//! `Either.orThrow()` -> `IllegalArgumentException`), exactly like vanilla fixes that mis-name a field.
+//! `Either.orThrow()` -> `RuntimeException`), exactly like vanilla fixes that mis-name a field.
 
 use crate::finder::{OpticFinder, remainder_finder};
 use crate::optic::TypedOptic;
@@ -39,7 +39,7 @@ impl Typed {
     fn find(&self, f: &OpticFinder, result: &Type, recurse: bool) -> TypedOptic {
         match f.find_type(&self.ty, result, recurse) {
             Ok(o) => o,
-            Err(e) => panic!("{e}"),
+            Err(e) => panic!("java.lang.RuntimeException: {e}"),
         }
     }
 
@@ -77,7 +77,12 @@ impl Typed {
     pub fn get_or_create(&self, f: &OpticFinder) -> Value {
         self.get_optional(f)
             .or_else(|| f.ty().point(&self.ops))
-            .unwrap_or_else(|| panic!("Could not create default value for type: {}", f.ty()))
+            .unwrap_or_else(|| {
+                panic!(
+                    "java.lang.IllegalStateException: Could not create default value for type: {}",
+                    f.ty()
+                )
+            })
     }
 
     /// `typed.getOrDefault(optic, def)`.
@@ -99,7 +104,12 @@ impl Typed {
     pub fn get_or_create_typed(&self, f: &OpticFinder) -> Typed {
         self.get_optional_typed(f)
             .or_else(|| f.ty().point_typed(&self.ops))
-            .unwrap_or_else(|| panic!("Could not create default value for type: {}", f.ty()))
+            .unwrap_or_else(|| {
+                panic!(
+                    "java.lang.IllegalStateException: Could not create default value for type: {}",
+                    f.ty()
+                )
+            })
     }
 
     /// `typed.getAllTyped(optic)`.
@@ -182,7 +192,7 @@ impl Typed {
             let new_value = updater(Typed::new(ft.clone(), ops, v));
             b_type
                 .if_same(&new_value)
-                .unwrap_or_else(|| panic!("Function didn't update to the expected type"))
+                .unwrap_or_else(|| panic!("java.lang.IllegalArgumentException: Function didn't update to the expected type"))
         })
     }
 
@@ -250,7 +260,10 @@ impl Typed {
     /// `typed.out()`: unfold a recursion point.
     #[track_caller]
     pub fn out(&self) -> Typed {
-        assert!(self.ty.is_recursive_point(), "Not recursive");
+        assert!(
+            self.ty.is_recursive_point(),
+            "java.lang.IllegalArgumentException: Not recursive"
+        );
         Typed::new(self.ty.unfold(), self.ops, self.value.clone())
     }
 

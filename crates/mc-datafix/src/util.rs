@@ -4,7 +4,8 @@ use crate::ty::Type;
 use crate::typed::Typed;
 use mc_dfu::Dynamic;
 
-/// `Util.readTypedOrThrow(type, dynamic, acceptPartial)`; panics with the codec error (Java: a `ReportedException`).
+/// `Util.readTypedOrThrow(type, dynamic, acceptPartial)`; panics like Java's `ReportedException` (message = the crash
+/// report title; the codec error, data and type are its report details, logged at debug level).
 #[track_caller]
 pub fn read_typed_or_throw(ty: &Type, dynamic: &Dynamic, accept_partial: bool) -> Typed {
     let result = ty.read_typed(dynamic).map(|(typed, _)| typed);
@@ -13,7 +14,10 @@ pub fn read_typed_or_throw(ty: &Type, dynamic: &Dynamic, accept_partial: bool) -
     } else {
         result.into_result()
     };
-    r.unwrap_or_else(|e| panic!("Reading type: {e}\nData: {}\nType: {ty}", dynamic.value))
+    r.unwrap_or_else(|e| {
+        log::debug!("Reading type: {e}\nData: {}\nType: {ty}", dynamic.value);
+        panic!("net.minecraft.ReportedException: Reading type")
+    })
 }
 
 /// `Util.writeAndReadTypedOrThrow(typed, newType, function)`: write `typed`, transform the `Dynamic`, read it back as

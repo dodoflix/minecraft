@@ -134,7 +134,7 @@ impl<A> DataResult<A> {
     pub fn get_or_throw(self) -> A {
         match self {
             Success(a) => a,
-            Error { message, .. } => panic!("{}", message.get()),
+            Error { message, .. } => panic!("java.lang.IllegalStateException: {}", message.get()),
         }
     }
 
