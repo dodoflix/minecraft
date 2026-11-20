@@ -9,6 +9,7 @@ use crate::world::entity::ai::village::poi::PoiTypeHolder;
 use crate::world::level::DimensionKey;
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
+use mc_data::block::BlockState;
 use mc_nbt::CompoundTag;
 use mc_world::chunk::{LevelHeight, LightEngineHook, ProtoChunk, StructureData};
 use mc_world::palette::PalettedContainerFactory;
@@ -98,6 +99,9 @@ pub struct WorldGenRegion {
     /// The light engine calls of every `setBlock` into a chunk past `INITIALIZE_LIGHT` (a neighbour's features reach it), in call
     /// order: the game thread submits them to the light engine when the batch is back.
     pub light_events: Vec<LightEvent>,
+    /// The raw section writes (`ore` veins) that reached a read-only snapshot, in call order: vanilla's imposter shares the
+    /// full chunk's sections, so the game thread replays them into the real chunk when the batch is back.
+    pub section_writes: Vec<(BlockPos, BlockState)>,
     /// Structure start tags rewritten for chunks this region does not own (see [`Self::update_structure_start`]); the
     /// game thread applies them to the real chunks when the batch is done.
     pub start_updates: Vec<(ChunkPos, String, CompoundTag)>,
@@ -128,6 +132,7 @@ impl WorldGenRegion {
             level_height,
             poi_changes: Vec::new(),
             light_events: Vec::new(),
+            section_writes: Vec::new(),
             start_updates: Vec::new(),
             old_chunk_scan: DeferredChunkScan::default(),
             old_chunks: HashMap::new(),

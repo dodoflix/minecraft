@@ -49,6 +49,8 @@ pub struct BatchResult {
     )>,
     /// Light engine calls of the batch's block writes (see `WorldGenRegion::light_events`), in call order.
     pub light_events: Vec<LightEvent>,
+    /// Raw section writes that reached read-only snapshots, in call order (see `WorldGenRegion::section_writes`).
+    pub section_writes: Vec<(mc_core::pos::BlockPos, mc_data::block::BlockState)>,
     /// Structure start rewrites for chunks the batch did not lend (`WorldGenRegion::update_structure_start`).
     pub start_updates: Vec<(ChunkPos, String, mc_nbt::CompoundTag)>,
     /// The blending data `BlendingData.calculateData` filled in chunks the batch only saw as snapshots (the game thread
@@ -70,6 +72,7 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
     let mut completed = Vec::with_capacity(jobs.len());
     let mut poi_changes = Vec::new();
     let mut light_events = Vec::new();
+    let mut section_writes = Vec::new();
     let mut start_updates = Vec::new();
     for job in &jobs {
         let step = &job.step;
@@ -102,6 +105,7 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
         }
         poi_changes.append(&mut region.poi_changes);
         light_events.append(&mut region.light_events);
+        section_writes.append(&mut region.section_writes);
         start_updates.append(&mut region.start_updates);
         old_chunks = std::mem::take(&mut region.old_chunks);
         chunks = region.into_chunks();
@@ -131,6 +135,7 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
         completed,
         poi_changes,
         light_events,
+        section_writes,
         start_updates,
         blending_updates,
     })

@@ -11,7 +11,8 @@
 //!   type changes are queued in `WorldGenRegion::poi_changes` for the game thread), the `DUMMY` block entity NBT of block-entity states (the real NBT arrives through
 //!   [`WorldGenLevel::set_block_entity_nbt`]) and `getPostProcessPos` post-processing marks (`flags & 16 == 0`);
 //! * chunks the game thread merely lends read-only (`GenChunk::Snapshot`, vanilla `ImposterProtoChunk(allowWrites=false)`)
-//!   drop block, block entity, post-processing, entity and tick writes silently;
+//!   drop block, block entity, post-processing, entity and tick writes silently; raw section writes (ore veins) land in
+//!   the snapshot and are recorded for the game thread to replay into the real chunk, as the imposter shares its sections;
 //! * scheduled ticks land in the owning chunk's `ProtoChunkTicks` (delay is not stored), game events, level events,
 //!   sounds, particles and neighbor updates are no-ops, entity queries are empty and there are no live block entities.
 //!
@@ -752,16 +753,32 @@ impl WorldGenLevel for GenLevel<'_> {
             .get_block_state(pos.x() & 15, pos.y() & 15, pos.z() & 15)
     }
 
-    /// `section.setBlockState(x, y, z, state, false)`: raw palette write (read-only snapshots drop it).
+    /// `section.setBlockState(x, y, z, state, false)`: raw palette write. A read-only snapshot's section is the wrapped
+    /// full chunk's own (`ImposterProtoChunk.getSection` ignores `allowWrites`), so the write lands in the snapshot and is
+    /// recorded in [`WorldGenRegion::section_writes`] for the game thread to replay into the real chunk.
     fn set_block_state_in_section(&mut self, pos: BlockPos, state: BlockState) {
         let index = self.region.level_height.section_index(pos.y()) as usize;
-        if let Some(chunk) = self.chunk_for_write(pos) {
+        let (chunk_x, chunk_z) = (pos.x() >> 4, pos.z() >> 4);
+        let snapshot = matches!(
+            self.region.gen_chunk(chunk_x, chunk_z),
+            Some(GenChunk::Snapshot(_))
+        );
+        let chunk = if snapshot {
+            self.chunk(chunk_x, chunk_z);
+            self.region.gen_chunk_mut(chunk_x, chunk_z)
+        } else {
+            self.chunk_for_write(pos)
+        };
+        if let Some(chunk) = chunk {
             chunk.access.get_section_mut(index).set_block_state(
                 pos.x() & 15,
                 pos.y() & 15,
                 pos.z() & 15,
                 state,
             );
+            if snapshot {
+                self.region.section_writes.push((pos, state));
+            }
         }
     }
 

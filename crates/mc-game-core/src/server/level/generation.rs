@@ -853,6 +853,22 @@ impl ChunkMap {
                 }
             }
         }
+        // `OreFeature` wrote into the sections a snapshot shares with its full chunk (raw: no heightmaps, light or unsaved mark)
+        for (pos, state) in result.section_writes {
+            if let Some(holder) = self
+                .holders
+                .holder_mut(ChunkPos::pack_xz(pos.x() >> 4, pos.z() >> 4))
+                && let ChunkSlot::Level(l) = &mut holder.slot
+            {
+                let index = self.level_height.section_index(pos.y()) as usize;
+                l.data.access.get_section_mut(index).set_block_state(
+                    pos.x() & 15,
+                    pos.y() & 15,
+                    pos.z() & 15,
+                    state,
+                );
+            }
+        }
         // `BlendingData.calculateData` ran on the chunk's own data object in vanilla
         for (pos, data) in result.blending_updates {
             if let Some(holder) = self.holders.holder_mut(pos.pack()) {

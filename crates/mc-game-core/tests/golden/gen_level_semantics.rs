@@ -141,6 +141,30 @@ fn read_only_snapshot_chunks_drop_writes() {
     assert_eq!(chunk.block_ticks.scheduled_ticks().len(), 0);
 }
 
+/// `ImposterProtoChunk.getSection` ignores `allowWrites`: a raw section write (an ore vein) lands in the full chunk the
+/// snapshot wraps, so it is recorded for the game thread, while `setBlock` stays dropped.
+#[test]
+fn read_only_snapshot_section_writes_are_recorded() {
+    let mut synth = SynthRegion::new(11, 0, 0, ChunkStatus::Features, 1);
+    let pos = ChunkPos::new(1, 0);
+    let Some(GenChunk::Loaned(chunk)) = synth.region.take_chunk(pos) else {
+        panic!("lent chunk")
+    };
+    synth.region.put_chunk(pos, GenChunk::Snapshot(chunk));
+    let p = BlockPos::new(20, 90, 5);
+    let ore = Block::DIAMOND_ORE.default_state();
+    {
+        let mut level = synth.level();
+        level.set_block_state_in_section(p, ore);
+        assert_eq!(level.get_block_state_in_section(p), ore);
+    }
+    assert_eq!(
+        synth.region.get_chunk(1, 0).unwrap().get_block_state(p),
+        ore
+    );
+    assert_eq!(synth.region.section_writes, [(p, ore)]);
+}
+
 #[test]
 fn block_entity_placeholder_is_replaced_and_removed() {
     let mut synth = SynthRegion::new(13, 0, 0, ChunkStatus::Features, 1);
