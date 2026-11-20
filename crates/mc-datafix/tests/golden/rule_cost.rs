@@ -3,10 +3,10 @@
 //! process; run it alone (`cargo test -p mc-datafix --test golden rule_cost -- --ignored --nocapture`), the caches
 //! are process wide.
 //!
-//! The chain registers one stand-in per recorded data fix (`fixtures/fixes.tsv`): an identity rewrite of the type named
-//! by `MC_RULE_COST_TARGET` (`item_stack` (default), `entity_tree`, `block_entity` or `chunk`) in the fix's schema,
-//! which also changes the type when the schema's type differs from its parent's. Real fixes replace the stand-ins as
-//! they are ported.
+//! The chain registers every fix `data_fixer()` has, and one stand-in per recorded data fix (`fixtures/fixes.tsv`) it
+//! does not have yet: an identity rewrite of the type named by `MC_RULE_COST_TARGET` (`item_stack` (default),
+//! `entity_tree`, `block_entity` or `chunk`) in the fix's schema, which also changes the type when the schema's type
+//! differs from its parent's.
 
 use crate::recorded_chain::parse;
 use mc_datafix::{DataFix, DataFixerBuilder, References, TypeReference, data_fixer};
@@ -46,8 +46,14 @@ fn chunk_rule_cost() {
         builder.add_schema_object(schemas.get_schema(key).clone());
     }
     let rows = parse(include_str!("../fixtures/fixes.tsv"));
+    let mut real = schemas.fixes().iter().peekable();
     for row in rows.iter().filter(|r| r.kind == "data") {
-        let schema = schemas.get_schema(row.version * 10 + row.sub).clone();
+        let key = row.version * 10 + row.sub;
+        if let Some(fix) = real.next_if(|f| f.version_key() == key && f.fix_name() == row.class) {
+            builder.add_fixer(fix.clone());
+            continue;
+        }
+        let schema = schemas.get_schema(key).clone();
         let changes_type = schema
             .parent()
             .is_some_and(|p| p.get_type(&target) != schema.get_type(&target));

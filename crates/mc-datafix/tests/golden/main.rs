@@ -25,6 +25,7 @@ mod facade;
 mod json_compat;
 mod library;
 mod rule_cost;
+mod samples_tail;
 mod schema_hooks;
 mod schema_types;
 mod tables;

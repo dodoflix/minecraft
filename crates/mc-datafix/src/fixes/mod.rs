@@ -54,4 +54,17 @@ pub mod block_entity_id_fix;
 // end: versions 4000..4898
 
 // begin: versions 4899..5023
+pub mod blending_data_fix;
+pub mod blending_data_no_value_height_fix;
+pub mod block_state_field_names_fix;
+pub mod debug_profile_rename_entry_fix;
+pub mod explorer_map_item_fix;
+pub mod map_color_component_removal_fix;
+pub mod merge_terrain_chunk_status_fix;
+pub mod pot_decorations_block_entity_unflattening_fix;
+pub mod pot_decorations_component_unflattening_fix;
+pub mod remove_block_transformer_component_fix;
+pub mod signs_op_flag_fix;
+pub mod swing_animation_component_split_fix;
+pub mod unfilled_buried_treasure_map_fix;
 // end: versions 4899..5023
