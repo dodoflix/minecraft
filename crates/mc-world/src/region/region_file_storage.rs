@@ -14,12 +14,31 @@ use std::path::PathBuf;
 pub const ANVIL_EXTENSION: &str = ".mca";
 const MAX_CACHE_SIZE: usize = 256;
 
-/// NBT failures reach callers as `IOException`/runtime exceptions in vanilla; here all are `io::Error`.
+/// NBT failures reach callers as `IOException`/runtime exceptions in vanilla; here all are `io::Error`, the parse error
+/// stays reachable as the source (see [`is_unchecked_nbt_error`]).
 pub fn nbt_io_error(e: NbtError) -> io::Error {
     match e {
         NbtError::Eof => io::Error::from(io::ErrorKind::UnexpectedEof),
-        other => io::Error::new(io::ErrorKind::InvalidData, other.to_string()),
+        other => io::Error::new(io::ErrorKind::InvalidData, other),
     }
+}
+
+/// Whether `e` is a parse failure that vanilla throws as an unchecked exception (`NbtFormatException`,
+/// `NbtAccounterException`, `ReportedNbtException`), which callers that only handle an `IOException` do not catch.
+pub fn is_unchecked_nbt_error(e: &io::Error) -> bool {
+    e.get_ref()
+        .and_then(|source| source.downcast_ref::<NbtError>())
+        .is_some_and(unchecked)
+}
+
+fn unchecked(e: &NbtError) -> bool {
+    matches!(
+        e,
+        NbtError::Reported { .. }
+            | NbtError::Format(_)
+            | NbtError::Accounter(_)
+            | NbtError::IllegalArgument(_)
+    )
 }
 
 pub struct RegionFileStorage {
@@ -102,6 +121,7 @@ impl RegionFileStorage {
         let read_error = stream.read_to_end(&mut data).err();
         match mc_nbt::read_named(&mut data.as_slice(), &mut NbtAccounter::unlimited_heap()) {
             Ok(tag) => Ok(Some(tag)),
+            // a failing stream is an `IOException`; a tag that does not parse from a stream that decoded is not
             Err(e) => Err(read_error.unwrap_or_else(|| nbt_io_error(e))),
         }
     }

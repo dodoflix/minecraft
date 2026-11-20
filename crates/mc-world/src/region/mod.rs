@@ -3,6 +3,7 @@
 pub mod entity_storage;
 pub mod lz4;
 pub mod old_chunks;
+pub mod recreating_simple_region_storage;
 pub mod region_bitmap;
 pub mod region_file;
 pub mod region_file_storage;
@@ -12,6 +13,7 @@ pub mod simple_region_storage;
 pub mod upgrade;
 
 pub use entity_storage::{ChunkEntities, EntityStorage};
+pub use recreating_simple_region_storage::RecreatingSimpleRegionStorage;
 pub use region_bitmap::RegionBitmap;
 pub use region_file::RegionFile;
 pub use region_file_storage::RegionFileStorage;
