@@ -1,5 +1,6 @@
 //! fastutil 8.5 `LongOpenHashSet` (open addressing, linear probing, backwards iteration): the iteration order is
-//! observable because the light engine processes queued block checks in set order.
+//! observable (the light engine processes queued block checks in set order, `toLongArray()` writes the structure
+//! references of a chunk in it).
 
 /// `HashCommon.mix(long)`.
 fn mix(x: i64) -> usize {
@@ -8,12 +9,9 @@ fn mix(x: i64) -> usize {
     (h ^ (((h as u64) >> 16) as i64)) as i32 as u32 as usize
 }
 
+/// `HashCommon.nextPowerOfTwo(long)`: the smallest power of two that is at least `x`.
 fn next_power_of_two(x: u64) -> u64 {
-    if x == 0 {
-        1
-    } else {
-        (x - 1).next_power_of_two().max(1)
-    }
+    x.next_power_of_two()
 }
 
 /// `HashCommon.arraySize(expected, f)`.
@@ -60,12 +58,38 @@ impl LongOpenHashSet {
         }
     }
 
+    /// `new LongOpenHashSet(long[] a)`: a table sized for `a.length`, filled in array order.
+    pub fn from_array(a: &[i64]) -> Self {
+        let mut set = Self::with_capacity(a.len(), 0.75);
+        for &k in a {
+            set.add(k);
+        }
+        set
+    }
+
     pub fn len(&self) -> usize {
         self.size
     }
 
     pub fn is_empty(&self) -> bool {
         self.size == 0
+    }
+
+    pub fn contains(&self, k: i64) -> bool {
+        if k == 0 {
+            return self.contains_null;
+        }
+        let mut pos = mix(k) & self.mask;
+        loop {
+            let curr = self.key[pos];
+            if curr == 0 {
+                return false;
+            }
+            if curr == k {
+                return true;
+            }
+            pos = (pos + 1) & self.mask;
+        }
     }
 
     pub fn add(&mut self, k: i64) -> bool {
@@ -143,6 +167,11 @@ impl LongOpenHashSet {
         self.rehash(l);
     }
 
+    /// `toLongArray()`: the elements in the order of `iterator()`.
+    pub fn to_long_array(&self) -> Vec<i64> {
+        self.iter().collect()
+    }
+
     /// Iteration order of `iterator()`: the `0` key first, then slots from the top down.
     pub fn iter(&self) -> impl Iterator<Item = i64> + '_ {
         self.contains_null
@@ -151,3 +180,12 @@ impl LongOpenHashSet {
             .chain(self.key.iter().rev().copied().filter(|&k| k != 0))
     }
 }
+
+/// `AbstractSet.equals`: the same elements, whatever their table layout.
+impl PartialEq for LongOpenHashSet {
+    fn eq(&self, other: &Self) -> bool {
+        self.size == other.size && self.iter().all(|k| other.contains(k))
+    }
+}
+
+impl Eq for LongOpenHashSet {}

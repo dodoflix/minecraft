@@ -1,6 +1,6 @@
 //! `LongOpenHashSet` iteration order against fastutil (`fixtures/SetGolden.java`).
 
-use mc_light::long_set::LongOpenHashSet;
+use mc_core::long_open_hash_set::LongOpenHashSet;
 use std::path::Path;
 
 #[test]

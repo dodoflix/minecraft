@@ -1,8 +1,8 @@
 //! `DataLayerStorageMap`, `LayerLightSectionStorage` and the sky/block specializations
 //! (`SkyLightSectionStorage`, `BlockLightSectionStorage`) in one type.
 
-use crate::long_set::LongOpenHashSet;
 use mc_core::direction::Direction;
+use mc_core::long_open_hash_set::LongOpenHashSet;
 use mc_core::pos::{BlockPos, SectionPos};
 use mc_world::data_layer::DataLayer;
 use std::collections::{HashMap, HashSet};

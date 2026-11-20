@@ -1,9 +1,9 @@
 //! `LightEngine` (queue semantics shared by both layers) with `BlockLightEngine` and `SkyLightEngine` behavior.
 
 use crate::chunk_source::{LightChunk, LightChunkGetter};
-use crate::long_set::LongOpenHashSet;
 use crate::storage::{LayerLightSectionStorage, LayerReader, LightLayer, SectionType};
 use mc_core::direction::Direction;
+use mc_core::long_open_hash_set::LongOpenHashSet;
 use mc_core::phys::shapes::Shapes;
 use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
 use mc_data::block::{Block, BlockState};

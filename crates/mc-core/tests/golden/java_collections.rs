@@ -2,6 +2,7 @@
 //! (`fixtures/java_collections/HashOrderGolden.java`).
 
 use mc_core::java_collections::*;
+use mc_core::long_open_hash_set::LongOpenHashSet;
 use mc_core::math::java::java_string_hash;
 use mc_core::pos::BlockPos;
 use std::sync::LazyLock;
@@ -148,6 +149,19 @@ fn matches_java_iteration_order() {
                     }
                 }
                 m.keys().cloned().collect()
+            }
+            "longset" | "longsetadd" => {
+                let values: Vec<i64> = keys.iter().map(|k| k.parse().unwrap()).collect();
+                let set = if kind == "longset" {
+                    LongOpenHashSet::from_array(&values)
+                } else {
+                    let mut set = LongOpenHashSet::default();
+                    values.iter().for_each(|v| {
+                        set.add(*v);
+                    });
+                    set
+                };
+                set.to_long_array().iter().map(i64::to_string).collect()
             }
             "posmap" | "posfast" | "posunion" => block_pos_order(kind, cap, &keys),
             _ => panic!("kind {kind}"),

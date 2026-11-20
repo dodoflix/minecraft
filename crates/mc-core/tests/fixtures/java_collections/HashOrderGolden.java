@@ -1,5 +1,6 @@
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.nio.file.*;
 import java.util.*;
@@ -14,6 +15,8 @@ import net.minecraft.core.BlockPos;
  * that is copied with putAll into the pending map before any P operation, "P+x,y,z"/"P-x,y,z"/"PC" put/remove/clear on a HashMap, "L+"/"L-"/"LC" on an
  * Object2ObjectOpenHashMap with expected n): posmap (the pending map's keys), posfast (the live map's keys), posunion (ChunkAccess.getBlockEntitiesPos:
  * new HashSet(pending.keySet()) then addAll(live.keySet())).
+ * Chunk position sets (the long arrays of `structures.References`, packed `ChunkPos` values around a chunk): longset (`new LongOpenHashSet(long[])`, the
+ * keys column is the array, possibly with repeats) and longsetadd (`new LongOpenHashSet()` then `add` of each), both listed by `toLongArray()`.
  * Usage: crates/mc-core/tests/fixtures/java_collections/gen.sh
  * Output: crates/mc-core/tests/fixtures/java_collections/golden.txt.gz
  */
@@ -29,6 +32,12 @@ public class HashOrderGolden {
       List<String> l = new ArrayList<>();
       for (BlockPos p : c) l.add(pos(p));
       return join(l);
+   }
+
+   static List<Long> longs(long[] a) {
+      List<Long> l = new ArrayList<>();
+      for (long v : a) l.add(v);
+      return l;
    }
 
    static String key(Random r, int alphabet, int maxLen) {
@@ -156,6 +165,25 @@ public class HashOrderGolden {
             ops.add("ACP".charAt(verb) + k);
          }
          out.append("hashmap-compute\t").append(cap).append('\t').append(join(ops)).append('\t').append(join(m.keySet())).append('\n');
+      }
+      // reference sets: ChunkPos.pack(x, z) around a chunk, 2..20 values most of the time, in file order (not canonical)
+      Random refRandom = new Random(20261120);
+      for (int round = 0; round < 500; round++) {
+         int n = round < 100 ? 1 + round % 20 : 2 + refRandom.nextInt(round < 450 ? 19 : 289);
+         int cx = refRandom.nextInt(400) - 200, cz = refRandom.nextInt(400) - 200;
+         long[] values = new long[n];
+         for (int i = 0; i < n; i++) {
+            int x = round % 7 == 0 ? refRandom.nextInt(33) - 16 : cx + refRandom.nextInt(17) - 8;
+            int z = round % 7 == 0 ? refRandom.nextInt(33) - 16 : cz + refRandom.nextInt(17) - 8;
+            values[i] = (x & 0xFFFFFFFFL) | ((z & 0xFFFFFFFFL) << 32);
+         }
+         List<Long> list = new ArrayList<>();
+         for (long v : values) list.add(v);
+         LongOpenHashSet fromArray = new LongOpenHashSet(values);
+         LongOpenHashSet added = new LongOpenHashSet();
+         for (long v : values) added.add(v);
+         out.append("longset\t").append(n).append('\t').append(join(list)).append('\t').append(join(longs(fromArray.toLongArray()))).append('\n');
+         out.append("longsetadd\t").append(n).append('\t').append(join(list)).append('\t').append(join(longs(added.toLongArray()))).append('\n');
       }
       Files.writeString(Path.of(args[0]), out.toString());
    }

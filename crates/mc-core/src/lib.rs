@@ -11,6 +11,7 @@ mod java_cased_letters;
 pub mod java_collections;
 pub mod java_exception;
 pub mod java_string;
+pub mod long_open_hash_set;
 pub mod math;
 pub mod mirror;
 pub mod phys;
