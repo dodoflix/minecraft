@@ -483,7 +483,7 @@ impl ChunkMap {
                     .access
                     .get_proto_block_entities_pos()
                     .iter()
-                    .filter_map(|pos| p.access.get_block_entity_nbt(*pos).cloned())
+                    .filter_map(|pos| p.access.get_block_entity_nbt(*pos).map(CompoundTag::share))
                     .collect();
                 SerializableChunkData::from_proto_chunk(p, game_time, &light_fn, block_entities)
             }

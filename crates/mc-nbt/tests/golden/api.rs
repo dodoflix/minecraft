@@ -168,3 +168,28 @@ fn file_roundtrip() {
     );
     std::fs::remove_dir_all(&dir).unwrap();
 }
+
+#[test]
+fn share_keeps_the_table_where_copy_rebuilds_it() {
+    // "id", "modifiers" and "base" hash to buckets 11, 12 and 15 of a 16-table and to 3, 0 and 3 of a 4-table
+    let mut packed = CompoundTag::new();
+    for k in ["id", "base", "modifiers"] {
+        packed.put_int(k, 1);
+    }
+    let shallow = packed.shallow_copy();
+    let mut nested = CompoundTag::new();
+    nested.put("list", ListTag::from(vec![Tag::Compound(shallow.share())]));
+    let order = |c: &CompoundTag| {
+        c.iter_java_order()
+            .iter()
+            .map(|e| e.0.as_lossy_str().to_owned())
+            .collect::<Vec<_>>()
+    };
+    assert_eq!(order(&packed), ["id", "modifiers", "base"]);
+    assert_eq!(order(&shallow), ["modifiers", "id", "base"]);
+    assert_eq!(order(&shallow.share()), ["modifiers", "id", "base"]);
+    assert_eq!(order(&shallow.clone()), ["id", "modifiers", "base"]);
+    let inner = |c: &CompoundTag| order(c.get_list("list").unwrap()[0].as_compound().unwrap());
+    assert_eq!(inner(&nested.share()), ["modifiers", "id", "base"]);
+    assert_eq!(inner(&nested.clone()), ["id", "modifiers", "base"]);
+}

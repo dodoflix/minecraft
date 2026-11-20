@@ -204,6 +204,16 @@ impl PartialEq for Tag {
 }
 
 impl Tag {
+    /// The tag as a second handle on the same Java object: compounds inside keep their tables
+    /// ([`CompoundTag::share`]), where [`Clone`] copies them like `copy()`.
+    pub fn share(&self) -> Tag {
+        match self {
+            Tag::List(l) => Tag::List(l.share()),
+            Tag::Compound(c) => Tag::Compound(c.share()),
+            other => other.clone(),
+        }
+    }
+
     /// `Tag.getId()`.
     pub fn id(&self) -> u8 {
         match self {

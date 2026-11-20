@@ -23,6 +23,13 @@ pub(crate) fn is_wrapper(tag: &CompoundTag) -> bool {
 }
 
 impl ListTag {
+    /// [`Tag::share`] of every element.
+    pub fn share(&self) -> ListTag {
+        ListTag {
+            list: self.list.iter().map(Tag::share).collect(),
+        }
+    }
+
     pub fn new() -> Self {
         Self::default()
     }

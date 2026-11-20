@@ -175,12 +175,12 @@ impl SerializableChunkData {
         let compounds = |key: &str| -> Vec<CompoundTag> {
             chunk_data
                 .get_list(key)
-                .map(|l| l.compounds().cloned().collect())
+                .map(|l| l.compounds().map(CompoundTag::share).collect())
                 .unwrap_or_default()
         };
         let entities = compounds("entities");
         let block_entities = compounds("block_entities");
-        let structure_data = chunk_data.get_compound_or_empty("structures").clone();
+        let structure_data = chunk_data.get_compound_or_empty("structures").share();
 
         let mut section_data = Vec::new();
         for section_tag in chunk_data.get_list_or_empty("sections") {
@@ -325,8 +325,7 @@ impl SerializableChunkData {
             "block_entities",
             self.block_entities
                 .iter()
-                .cloned()
-                .map(Tag::Compound)
+                .map(|t| Tag::Compound(t.share()))
                 .collect::<ListTag>(),
         );
         if self.chunk_status.chunk_type() == ChunkType::ProtoChunk {
@@ -334,8 +333,7 @@ impl SerializableChunkData {
                 "entities",
                 self.entities
                     .iter()
-                    .cloned()
-                    .map(Tag::Compound)
+                    .map(|t| Tag::Compound(t.share()))
                     .collect::<ListTag>(),
             );
         }
@@ -356,7 +354,7 @@ impl SerializableChunkData {
             heightmaps_tag.put_long_array(ty.serialization_key(), data.clone());
         }
         tag.put("Heightmaps", heightmaps_tag);
-        tag.put("structures", self.structure_data.clone());
+        tag.put("structures", self.structure_data.share());
         Ok(tag)
     }
 
@@ -442,7 +440,7 @@ impl SerializableChunkData {
             light,
             block_entities,
             if chunk.get_persisted_status().chunk_type() == ChunkType::ProtoChunk {
-                chunk.entities.clone()
+                chunk.entities.iter().map(CompoundTag::share).collect()
             } else {
                 Vec::new()
             },

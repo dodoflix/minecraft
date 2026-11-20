@@ -321,6 +321,20 @@ impl CompoundTag {
         self.clone()
     }
 
+    /// A second handle on this compound for code where Java passes the object itself (a list of `CompoundTag`
+    /// references, a field kept as read): every table stays as it is, where [`Clone`] (`copy()`) re-inserts each
+    /// level into a fresh table and so can reorder the keys.
+    pub fn share(&self) -> CompoundTag {
+        CompoundTag {
+            tags: self
+                .tags
+                .iter()
+                .map(|(k, v)| (k.clone(), v.share()))
+                .collect(),
+            cap: self.cap,
+        }
+    }
+
     /// `shallowCopy()`: `new HashMap<>(tags)`; the table is sized from the entry count.
     pub fn shallow_copy(&self) -> CompoundTag {
         let mut out = CompoundTag::new();
