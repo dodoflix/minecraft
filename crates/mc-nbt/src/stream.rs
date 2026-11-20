@@ -8,8 +8,8 @@
 use crate::accounter::NbtAccounter;
 use crate::error::{NbtError, Result};
 use crate::io::{
-    read_f32, read_f64, read_i8, read_i16, read_i32, read_i64, read_u8, read_u16, read_utf,
-    skip_bytes, take,
+    ByteInput, read_f32, read_f64, read_i8, read_i16, read_i32, read_i64, read_u8, read_u16,
+    read_utf, skip_bytes, take,
 };
 use crate::list::is_wrapper;
 use crate::tag::*;
@@ -64,20 +64,20 @@ fn invalid_tag_id(id: u8) -> NbtError {
 }
 
 /// `StringTag.skipString`.
-fn skip_string(input: &mut &[u8]) -> Result<()> {
+fn skip_string(input: &mut impl ByteInput) -> Result<()> {
     let len = read_u16(input)?;
-    skip_bytes(input, len as usize);
-    Ok(())
+    skip_bytes(input, len as usize)
 }
 
 /// `DataInput.skipBytes(int)`: non-positive counts skip nothing, a short stream is not an error.
-fn skip_i32(input: &mut &[u8], count: i32) {
+fn skip_i32(input: &mut impl ByteInput, count: i32) -> Result<()> {
     if count > 0 {
-        skip_bytes(input, count as usize);
+        skip_bytes(input, count as usize)?;
     }
+    Ok(())
 }
 
-fn read_list_count(input: &mut &[u8]) -> Result<i32> {
+fn read_list_count(input: &mut impl ByteInput) -> Result<i32> {
     let count = read_i32(input)?;
     if count < 0 {
         return Err(NbtError::Format(format!(
@@ -88,7 +88,7 @@ fn read_list_count(input: &mut &[u8]) -> Result<i32> {
 }
 
 /// `readString` of `CompoundTag.TYPE.parseCompound` (key accounting).
-fn read_key(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<JavaString> {
+fn read_key(input: &mut impl ByteInput, acc: &mut NbtAccounter) -> Result<JavaString> {
     let key = read_utf(input)?;
     acc.account_bytes(28)?;
     acc.account_bytes_n(2, key.encode_utf16().count() as i64)?;
@@ -98,7 +98,7 @@ fn read_key(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<JavaString> {
 /// `TagType.parse`: reads a payload of type `type_id`, feeding `visitor`.
 pub fn parse_type(
     type_id: u8,
-    input: &mut &[u8],
+    input: &mut impl ByteInput,
     visitor: &mut dyn StreamTagVisitor,
     acc: &mut NbtAccounter,
 ) -> Result<ValueResult> {
@@ -183,7 +183,7 @@ pub fn parse_type(
 }
 
 fn parse_list(
-    input: &mut &[u8],
+    input: &mut impl ByteInput,
     visitor: &mut dyn StreamTagVisitor,
     acc: &mut NbtAccounter,
 ) -> Result<ValueResult> {
@@ -225,7 +225,7 @@ fn parse_list(
 }
 
 fn parse_compound(
-    input: &mut &[u8],
+    input: &mut impl ByteInput,
     visitor: &mut dyn StreamTagVisitor,
     acc: &mut NbtAccounter,
 ) -> Result<ValueResult> {
@@ -281,24 +281,24 @@ fn parse_compound(
 }
 
 /// `TagType.skip(input, accounter)`: skips one payload of type `type_id`.
-pub fn skip_type(type_id: u8, input: &mut &[u8], acc: &mut NbtAccounter) -> Result<()> {
+pub fn skip_type(type_id: u8, input: &mut impl ByteInput, acc: &mut NbtAccounter) -> Result<()> {
     match type_id {
         TAG_END => {}
-        TAG_BYTE => skip_i32(input, 1),
-        TAG_SHORT => skip_i32(input, 2),
-        TAG_INT | TAG_FLOAT => skip_i32(input, 4),
-        TAG_LONG | TAG_DOUBLE => skip_i32(input, 8),
+        TAG_BYTE => skip_i32(input, 1)?,
+        TAG_SHORT => skip_i32(input, 2)?,
+        TAG_INT | TAG_FLOAT => skip_i32(input, 4)?,
+        TAG_LONG | TAG_DOUBLE => skip_i32(input, 8)?,
         TAG_BYTE_ARRAY => {
             let len = read_i32(input)?;
-            skip_i32(input, len);
+            skip_i32(input, len)?;
         }
         TAG_INT_ARRAY => {
             let len = read_i32(input)?;
-            skip_i32(input, len.wrapping_mul(4));
+            skip_i32(input, len.wrapping_mul(4))?;
         }
         TAG_LONG_ARRAY => {
             let len = read_i32(input)?;
-            skip_i32(input, len.wrapping_mul(8));
+            skip_i32(input, len.wrapping_mul(8))?;
         }
         TAG_STRING => skip_string(input)?,
         TAG_LIST => {
@@ -334,7 +334,7 @@ pub fn skip_type(type_id: u8, input: &mut &[u8], acc: &mut NbtAccounter) -> Resu
 /// `TagType.skip(input, count, accounter)`: skips `count` consecutive payloads.
 pub fn skip_type_n(
     type_id: u8,
-    input: &mut &[u8],
+    input: &mut impl ByteInput,
     count: i32,
     acc: &mut NbtAccounter,
 ) -> Result<()> {
@@ -348,8 +348,7 @@ pub fn skip_type_n(
                 TAG_INT | TAG_FLOAT => 4,
                 _ => 8,
             };
-            skip_i32(input, count.wrapping_mul(size));
-            Ok(())
+            skip_i32(input, count.wrapping_mul(size))
         }
         // VariableSize.
         TAG_BYTE_ARRAY | TAG_STRING | TAG_LIST | TAG_COMPOUND | TAG_INT_ARRAY | TAG_LONG_ARRAY => {
@@ -365,7 +364,7 @@ pub fn skip_type_n(
 /// `TagType.parseRoot`.
 pub fn parse_root(
     type_id: u8,
-    input: &mut &[u8],
+    input: &mut impl ByteInput,
     visitor: &mut dyn StreamTagVisitor,
     acc: &mut NbtAccounter,
 ) -> Result<()> {
@@ -381,7 +380,7 @@ pub fn parse_root(
 
 /// `NbtIo.parse`: a named root of any type.
 pub fn parse(
-    input: &mut &[u8],
+    input: &mut impl ByteInput,
     visitor: &mut dyn StreamTagVisitor,
     acc: &mut NbtAccounter,
 ) -> Result<()> {
@@ -412,8 +411,7 @@ pub fn parse_compressed(
     visitor: &mut dyn StreamTagVisitor,
     acc: &mut NbtAccounter,
 ) -> Result<()> {
-    let (raw, failure) = compress::gunzip(data, acc)?;
-    compress::after_stream(parse(&mut raw.as_slice(), visitor, acc), &raw, failure)
+    parse(&mut compress::decompressor(data)?, visitor, acc)
 }
 
 // ------------------------------------------------------------------- accept

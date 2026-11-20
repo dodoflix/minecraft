@@ -5,7 +5,7 @@ use super::region_file::RegionFile;
 use super::region_storage_info::RegionStorageInfo;
 use indexmap::IndexMap;
 use mc_core::pos::chunk_pos::ChunkPos;
-use mc_nbt::java_zip::{drain, header_incomplete};
+use mc_nbt::java_zip::FastBufferedInputStream;
 use mc_nbt::stream::StreamTagVisitor;
 use mc_nbt::{CompoundTag, NbtAccounter};
 use std::fs;
@@ -89,17 +89,15 @@ impl RegionFileStorage {
         let Some(mut stream) = region.get_chunk_data_input_stream(pos)? else {
             return Ok(None);
         };
-        // Vanilla parses incrementally and never looks past the end of the root compound, so a
-        // decoding error after a complete tag is irrelevant: parse whatever was decoded first.
-        let (data, read_error) = drain(&mut stream, None);
-        match mc_nbt::read_named(&mut data.as_slice(), &mut NbtAccounter::unlimited_heap()) {
-            Ok(tag) => Ok(Some(tag)),
-            // the stream failed before the root tag's header (type, name) was complete: the stream's own `IOException`; a
-            // failure further in surfaces from the tag loader as the unchecked `ReportedNbtException`
-            Err(e) => Err(read_error
-                .filter(|_| header_incomplete(&data))
-                .unwrap_or_else(|| e.into())),
-        }
+        // The stream inflates while the tag is read: a decoding error after a complete tag is never met. One before
+        // the root tag's header (type, name) is complete is the stream's own `IOException`, one further in surfaces
+        // from the tag loader as the unchecked `ReportedNbtException`.
+        mc_nbt::read_named(
+            &mut FastBufferedInputStream::new(&mut stream),
+            &mut NbtAccounter::unlimited_heap(),
+        )
+        .map(Some)
+        .map_err(io::Error::from)
     }
 
     /// `scanChunk(pos, visitor)`: streams the stored chunk through `visitor`; nothing happens (no region file is created)
@@ -115,14 +113,12 @@ impl RegionFileStorage {
         let Some(mut stream) = region.get_chunk_data_input_stream(pos)? else {
             return Ok(());
         };
-        // as in `read`: what follows a complete tag is never looked at
-        let (data, read_error) = drain(&mut stream, None);
         mc_nbt::stream::parse(
-            &mut data.as_slice(),
+            &mut FastBufferedInputStream::new(&mut stream),
             visitor,
             &mut NbtAccounter::unlimited_heap(),
         )
-        .map_err(|e| read_error.unwrap_or_else(|| e.into()))
+        .map_err(io::Error::from)
     }
 
     /// `write(pos, value)`: `None` clears the chunk.

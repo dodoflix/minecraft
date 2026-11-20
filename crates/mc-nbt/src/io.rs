@@ -10,44 +10,75 @@ use mc_core::java_string::JavaString;
 
 // ---------------------------------------------------------------- DataInput
 
-pub(crate) fn take<'a>(input: &mut &'a [u8], n: usize) -> Result<&'a [u8]> {
-    if input.len() < n {
-        // DataInputStream consumes what is left before throwing EOF.
-        *input = &input[input.len()..];
-        return Err(NbtError::Eof);
-    }
-    let (head, tail) = input.split_at(n);
-    *input = tail;
-    Ok(head)
+/// Where the readers take their bytes from: `DataInput`, over a byte slice or over a stream that decodes while it is
+/// read.
+pub trait ByteInput {
+    /// `readFully` of `n` bytes. A source that ends first fails with [`NbtError::Eof`] (a slice consumes what is left
+    /// first, like `DataInputStream`); a failing stream fails with its own exception.
+    fn take(&mut self, n: usize) -> Result<&[u8]>;
+
+    /// `skipBytes`: a source that ends first is not an error; a failing stream is.
+    fn skip(&mut self, n: usize) -> Result<()>;
+
+    /// How many elements of `count` to make room for up front.
+    fn reserve_hint(&self, count: usize) -> usize;
 }
 
-pub(crate) fn read_u8(input: &mut &[u8]) -> Result<u8> {
+impl ByteInput for &[u8] {
+    fn take(&mut self, n: usize) -> Result<&[u8]> {
+        let input: &[u8] = self;
+        if input.len() < n {
+            // DataInputStream consumes what is left before throwing EOF.
+            *self = &input[input.len()..];
+            return Err(NbtError::Eof);
+        }
+        let (head, tail) = input.split_at(n);
+        *self = tail;
+        Ok(head)
+    }
+
+    fn skip(&mut self, n: usize) -> Result<()> {
+        *self = &self[n.min(self.len())..];
+        Ok(())
+    }
+
+    fn reserve_hint(&self, count: usize) -> usize {
+        // Every element occupies at least one byte, so never trust `count` for allocation.
+        count.min(self.len())
+    }
+}
+
+pub(crate) fn take(input: &mut impl ByteInput, n: usize) -> Result<&[u8]> {
+    input.take(n)
+}
+
+pub(crate) fn read_u8(input: &mut impl ByteInput) -> Result<u8> {
     Ok(take(input, 1)?[0])
 }
-pub(crate) fn read_i8(input: &mut &[u8]) -> Result<i8> {
+pub(crate) fn read_i8(input: &mut impl ByteInput) -> Result<i8> {
     Ok(read_u8(input)? as i8)
 }
-pub(crate) fn read_u16(input: &mut &[u8]) -> Result<u16> {
+pub(crate) fn read_u16(input: &mut impl ByteInput) -> Result<u16> {
     Ok(u16::from_be_bytes(take(input, 2)?.try_into().unwrap()))
 }
-pub(crate) fn read_i16(input: &mut &[u8]) -> Result<i16> {
+pub(crate) fn read_i16(input: &mut impl ByteInput) -> Result<i16> {
     Ok(read_u16(input)? as i16)
 }
-pub(crate) fn read_i32(input: &mut &[u8]) -> Result<i32> {
+pub(crate) fn read_i32(input: &mut impl ByteInput) -> Result<i32> {
     Ok(i32::from_be_bytes(take(input, 4)?.try_into().unwrap()))
 }
-pub(crate) fn read_i64(input: &mut &[u8]) -> Result<i64> {
+pub(crate) fn read_i64(input: &mut impl ByteInput) -> Result<i64> {
     Ok(i64::from_be_bytes(take(input, 8)?.try_into().unwrap()))
 }
-pub(crate) fn read_f32(input: &mut &[u8]) -> Result<f32> {
+pub(crate) fn read_f32(input: &mut impl ByteInput) -> Result<f32> {
     Ok(f32::from_bits(read_i32(input)? as u32))
 }
-pub(crate) fn read_f64(input: &mut &[u8]) -> Result<f64> {
+pub(crate) fn read_f64(input: &mut impl ByteInput) -> Result<f64> {
     Ok(f64::from_bits(read_i64(input)? as u64))
 }
 
 /// `DataInputStream.readUTF`.
-pub(crate) fn read_utf(input: &mut &[u8]) -> Result<JavaString> {
+pub(crate) fn read_utf(input: &mut impl ByteInput) -> Result<JavaString> {
     let utflen = read_u16(input)? as usize;
     let bytes = take(input, utflen)?;
     if bytes.is_ascii() {
@@ -104,10 +135,8 @@ pub(crate) fn read_utf(input: &mut &[u8]) -> Result<JavaString> {
     Ok(JavaString::from_utf16_units(&units))
 }
 
-pub(crate) fn skip_bytes(input: &mut &[u8], n: usize) {
-    // DataInput.skipBytes never throws on a short stream; it just skips what is there.
-    let n = n.min(input.len());
-    *input = &input[n..];
+pub(crate) fn skip_bytes(input: &mut impl ByteInput, n: usize) -> Result<()> {
+    input.skip(n)
 }
 
 // --------------------------------------------------------------- DataOutput
@@ -265,7 +294,7 @@ impl ListTag {
 
 impl Tag {
     /// `TagType.load`: reads the payload of a tag of type `id`.
-    pub fn load(id: u8, input: &mut &[u8], acc: &mut NbtAccounter) -> Result<Tag> {
+    pub fn load(id: u8, input: &mut impl ByteInput, acc: &mut NbtAccounter) -> Result<Tag> {
         match id {
             TAG_END => {
                 acc.account_bytes(8)?;
@@ -349,7 +378,7 @@ impl Tag {
     }
 }
 
-fn read_list_count(input: &mut &[u8]) -> Result<i32> {
+fn read_list_count(input: &mut impl ByteInput) -> Result<i32> {
     let count = read_i32(input)?;
     if count < 0 {
         return Err(NbtError::Format(format!(
@@ -359,7 +388,7 @@ fn read_list_count(input: &mut &[u8]) -> Result<i32> {
     Ok(count)
 }
 
-fn load_list(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<ListTag> {
+fn load_list(input: &mut impl ByteInput, acc: &mut NbtAccounter) -> Result<ListTag> {
     acc.account_bytes(36)?;
     let type_id = read_u8(input)?;
     let count = read_list_count(input)?;
@@ -367,22 +396,21 @@ fn load_list(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<ListTag> {
         return Err(NbtError::Format("Missing type on ListTag".into()));
     }
     acc.account_bytes_n(4, count as i64)?;
-    // Every element occupies at least one byte, so never trust `count` for allocation.
-    let mut list = ListTag::with_capacity((count as usize).min(input.len()));
+    let mut list = ListTag::with_capacity(input.reserve_hint(count as usize));
     for _ in 0..count {
         list.add_and_unwrap(Tag::load(type_id, input, acc)?);
     }
     Ok(list)
 }
 
-fn read_key(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<JavaString> {
+fn read_key(input: &mut impl ByteInput, acc: &mut NbtAccounter) -> Result<JavaString> {
     let key = read_utf(input)?;
     acc.account_bytes(28)?;
     acc.account_bytes_n(2, key.utf16_len() as i64)?;
     Ok(key)
 }
 
-fn load_compound(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<CompoundTag> {
+fn load_compound(input: &mut impl ByteInput, acc: &mut NbtAccounter) -> Result<CompoundTag> {
     acc.account_bytes(48)?;
     let mut tag = CompoundTag::new();
     loop {
@@ -403,7 +431,7 @@ fn load_compound(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<CompoundTa
 fn read_named_tag_data(
     tag_type: u8,
     name: &str,
-    input: &mut &[u8],
+    input: &mut impl ByteInput,
     acc: &mut NbtAccounter,
 ) -> Result<Tag> {
     Tag::load(tag_type, input, acc).map_err(|e| {
@@ -420,7 +448,7 @@ fn read_named_tag_data(
 }
 
 /// `NbtIo.readTagSafe`.
-fn read_tag_safe(input: &mut &[u8], acc: &mut NbtAccounter, type_id: u8) -> Result<Tag> {
+fn read_tag_safe(input: &mut impl ByteInput, acc: &mut NbtAccounter, type_id: u8) -> Result<Tag> {
     Tag::load(type_id, input, acc).map_err(|e| {
         if e.is_io() {
             NbtError::Reported {
@@ -437,18 +465,18 @@ fn read_tag_safe(input: &mut &[u8], acc: &mut NbtAccounter, type_id: u8) -> Resu
 // ------------------------------------------------------------------- NbtIo
 
 /// `NbtIo.readUnnamedTag`: type id, an (ignored) name, then the payload. `End` for id 0.
-pub fn read_unnamed_tag(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<Tag> {
+pub fn read_unnamed_tag(input: &mut impl ByteInput, acc: &mut NbtAccounter) -> Result<Tag> {
     let type_id = read_u8(input)?;
     if type_id == 0 {
         return Ok(Tag::End);
     }
     let name_len = read_u16(input)? as usize;
-    skip_bytes(input, name_len);
+    skip_bytes(input, name_len)?;
     read_tag_safe(input, acc, type_id)
 }
 
 /// `NbtIo.read(DataInput, NbtAccounter)`: a named root that must be a compound (files).
-pub fn read(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<CompoundTag> {
+pub fn read(input: &mut impl ByteInput, acc: &mut NbtAccounter) -> Result<CompoundTag> {
     match read_unnamed_tag(input, acc)? {
         Tag::Compound(c) => Ok(c),
         _ => Err(NbtError::Io("Root tag must be a named compound tag".into())),
@@ -456,7 +484,7 @@ pub fn read(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<CompoundTag> {
 }
 
 /// `NbtIo.readAnyTag`: network format — type id then payload, no name. `End` for id 0.
-pub fn read_any_tag(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<Tag> {
+pub fn read_any_tag(input: &mut impl ByteInput, acc: &mut NbtAccounter) -> Result<Tag> {
     let type_id = read_u8(input)?;
     if type_id == 0 {
         return Ok(Tag::End);

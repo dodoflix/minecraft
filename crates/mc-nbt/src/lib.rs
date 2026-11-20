@@ -21,6 +21,7 @@ mod tag;
 pub use accounter::NbtAccounter;
 pub use compound::CompoundTag;
 pub use error::NbtError;
+pub use io::ByteInput;
 pub use list::ListTag;
 pub use tag::*;
 

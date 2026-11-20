@@ -3,7 +3,7 @@
 
 use crate::accounter::NbtAccounter;
 use crate::error::{NbtError, Result};
-use crate::java_zip::{self, GzipInputStream};
+use crate::java_zip::{FastBufferedInputStream, GzipInputStream};
 use crate::{CompoundTag, io};
 use flate2::Compression;
 use flate2::read::{MultiGzDecoder, ZlibDecoder};
@@ -62,33 +62,16 @@ fn limit(acc: &NbtAccounter) -> Option<u64> {
     (acc.quota() != i64::MAX).then(|| acc.quota().max(0) as u64)
 }
 
-/// What `NbtIo.createDecompressorStream(in)` delivers over `data` and the failure that ended it. The stream inflates
-/// while the reader reads, so a broken stream is only an error where the reader runs out of the decoded bytes; the
-/// header (`GZIPInputStream`'s constructor) is checked at once.
-pub(crate) fn gunzip(data: &[u8], acc: &NbtAccounter) -> Result<(Vec<u8>, Option<NbtError>)> {
-    let limit = limit(acc);
-    let mut stream = GzipInputStream::new(data)?;
-    let (raw, failure) = java_zip::drain(&mut stream, limit);
-    if let Some(max) = limit {
-        check_limit(&raw, max)?;
-    }
-    Ok((raw, failure.map(NbtError::from)))
-}
-
-/// The outcome of a read over `raw` that stopped at the end of the delivered bytes: the stream's own failure when the
-/// root tag's header (type, name) was not complete (an `IOException` outside the tag loader), otherwise what the read
-/// found (inside the root compound an `IOException` is the unchecked `ReportedNbtException`).
-pub(crate) fn after_stream<T>(read: Result<T>, raw: &[u8], failure: Option<NbtError>) -> Result<T> {
-    match (read, failure) {
-        (Err(_), Some(failure)) if java_zip::header_incomplete(raw) => Err(failure),
-        (read, _) => read,
-    }
+/// `NbtIo.createDecompressorStream(in)` over `data`: the stream inflates while the reader reads, so a broken stream is
+/// only an error where the reader needs the bytes it would have delivered; the header (`GZIPInputStream`'s
+/// constructor) is checked at once.
+pub(crate) fn decompressor(data: &[u8]) -> Result<FastBufferedInputStream<GzipInputStream<&[u8]>>> {
+    Ok(FastBufferedInputStream::new(GzipInputStream::new(data)?))
 }
 
 /// `NbtIo.readCompressed`: gzip-wrapped named compound root.
 pub fn read_compressed(data: &[u8], acc: &mut NbtAccounter) -> Result<CompoundTag> {
-    let (raw, failure) = gunzip(data, acc)?;
-    after_stream(io::read(&mut raw.as_slice(), acc), &raw, failure)
+    io::read(&mut decompressor(data)?, acc)
 }
 
 /// `NbtIo.writeCompressed`: gzip-wrapped named compound root.

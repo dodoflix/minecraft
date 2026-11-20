@@ -18,6 +18,7 @@ use std::sync::LazyLock;
 
 use mc_nbt::compress::{gzip_compress, write_compressed};
 use mc_nbt::{CompoundTag, Tag};
+use mc_testkit::{Corrupt, Deflate};
 use worldcmp::tree::{self, TreeOptions, compare_trees};
 
 use crate::world_start::{
@@ -123,6 +124,39 @@ fn zeroed_magic() -> Vec<u8> {
     bytes
 }
 
+/// A gzip stream of the type byte of a compound followed by a block the inflater rejects: the reader fails on the
+/// stream itself, before the root tag has a name, so the exception is not wrapped by the tag loader.
+fn corrupt_deflate(kind: Corrupt) -> Vec<u8> {
+    Deflate::new().stored(&[10]).corrupt(kind).gzip()
+}
+
+/// A gzip stream of a root compound (`pad` zero bytes in a byte array, an int and a string) and `after` zero bytes behind
+/// it, followed by a block the inflater rejects. The reader never looks behind the root compound, so whether the
+/// failure is met depends on which refill of the stream the end of the compound falls in.
+fn refill_window(pad: usize, after: usize) -> Vec<u8> {
+    let mut root = CompoundTag::new();
+    root.put("pad", Tag::ByteArray(vec![0; pad]));
+    root.put_int("x", 1);
+    root.put_string("name", "level");
+    let bytes = mc_nbt::nbt_io::to_bytes(&root);
+    let mut entry = vec![7u8, 0, 3, b'p', b'a', b'd'];
+    entry.extend((pad as i32).to_be_bytes());
+    let at = bytes
+        .windows(entry.len())
+        .position(|window| window == entry)
+        .expect("the pad entry")
+        + entry.len();
+    let mut deflate = Deflate::new().stored(&bytes[..at]);
+    if pad > 0 {
+        deflate = deflate.zeros(pad);
+    }
+    deflate
+        .stored(&bytes[at + pad..])
+        .zeros(after)
+        .corrupt(Corrupt::BlockType)
+        .gzip()
+}
+
 /// A gzip stream whose root tag is a list, not a compound.
 fn list_root() -> Vec<u8> {
     gzip_compress(&[9, 0, 0, 0, 0, 0, 0, 0])
@@ -207,6 +241,42 @@ fn cases() -> Vec<(&'static str, Files)> {
         ("corrupt_zeroed_magic", raw(zeroed_magic())),
         ("corrupt_one_byte", raw(vec![0x1f])),
         ("corrupt_gzip_header_only", raw(vec![0x1f, 0x8b, 8])),
+        (
+            "corrupt_deflate_block_type",
+            raw(corrupt_deflate(Corrupt::BlockType)),
+        ),
+        (
+            "corrupt_deflate_stored_lengths",
+            raw(corrupt_deflate(Corrupt::StoredLengths)),
+        ),
+        (
+            "corrupt_deflate_distance_too_far",
+            raw(corrupt_deflate(Corrupt::DistanceTooFar)),
+        ),
+        (
+            "corrupt_deflate_literal_length_code",
+            raw(corrupt_deflate(Corrupt::LiteralLengthCode)),
+        ),
+        (
+            "corrupt_deflate_distance_code",
+            raw(corrupt_deflate(Corrupt::DistanceCode)),
+        ),
+        (
+            "corrupt_deflate_code_lengths_set",
+            raw(corrupt_deflate(Corrupt::CodeLengthsSet)),
+        ),
+        (
+            "corrupt_deflate_too_many_symbols",
+            raw(corrupt_deflate(Corrupt::TooManySymbols)),
+        ),
+        ("refill_window_24540_1", raw(refill_window(24540, 1))),
+        ("refill_window_21550_3000", raw(refill_window(21550, 3000))),
+        ("refill_window_22000_3000", raw(refill_window(22000, 3000))),
+        ("refill_window_24520_3000", raw(refill_window(24520, 3000))),
+        ("refill_window_29750_3000", raw(refill_window(29750, 3000))),
+        ("refill_window_10000_3000", raw(refill_window(10000, 3000))),
+        ("refill_window_22200_3000", raw(refill_window(22200, 3000))),
+        ("refill_window_5_9000", raw(refill_window(5, 9000))),
         (
             "corrupt_three_bytes_junk_old",
             Some(vec![
@@ -405,8 +475,21 @@ fn dual(selected: impl Fn(&str) -> bool) {
     assert!(failures.is_empty(), "{}", failures.join("\n\n"));
 }
 
+/// The cases whose gzip stream the inflater rejects after a valid start.
+fn is_inflater_case(name: &str) -> bool {
+    name.starts_with("corrupt_deflate_") || name.starts_with("refill_window_")
+}
+
 #[test]
 #[ignore = "oracle: spawns vanilla server"]
 fn start_up_gates() {
-    dual(|_| true);
+    dual(|name| !is_inflater_case(name));
+}
+
+/// Streams that break in the middle of the deflate data: zlib's message for each kind of damage, and which refill the
+/// failure is met in.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn start_up_inflater_failures() {
+    dual(is_inflater_case);
 }

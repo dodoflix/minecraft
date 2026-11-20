@@ -1,6 +1,8 @@
 //! The JDK's `InflaterInputStream` and `GZIPInputStream` over a byte slice, failing with the exceptions the JDK throws
 //! (`ZipException`, `EOFException`) as the [`JavaException`] payload of the returned [`io::Error`].
 
+use crate::error::{NbtError, Result as NbtResult};
+use crate::io::ByteInput;
 use flate2::Crc;
 use mc_core::java_exception::{EOF_EXCEPTION, JavaException, ZIP_EXCEPTION};
 use std::io::{self, Read};
@@ -74,7 +76,7 @@ impl<D: AsRef<[u8]>> Read for InflaterInputStream<D> {
                 .inflater
                 .decompress(input, out, zlib_rs::InflateFlush::NoFlush)
                 .or_else(|e| match e {
-                    // `needsDictionary()` ends the stream like its end
+                    // `inflate` returning 0 with `needsDictionary()` sets `reachEOF`, so `read` returns -1
                     zlib_rs::InflateError::NeedDict { .. } => Ok(zlib_rs::Status::StreamEnd),
                     other => Err(other),
                 })
@@ -242,30 +244,125 @@ impl<D: AsRef<[u8]>> Read for GzipInputStream<D> {
     }
 }
 
-/// Everything `stream` yields before it fails, read in the 8192-byte refills of `FastBufferedInputStream`, and the
-/// failure. A refill that fails delivers none of its bytes, which is what decides how far a Java caller gets. Reading
-/// stops once more than `max` bytes are in (the caller reports the overflow).
-pub fn drain(stream: &mut impl Read, max: Option<u64>) -> (Vec<u8>, Option<io::Error>) {
-    let (mut data, mut buffer) = (Vec::new(), [0u8; 8192]);
-    loop {
-        match stream.read(&mut buffer) {
-            Ok(0) => return (data, None),
-            Ok(n) => data.extend_from_slice(&buffer[..n]),
-            Err(e) if e.kind() == io::ErrorKind::Interrupted => {}
-            Err(e) => return (data, Some(e)),
+/// `InflaterInputStream.skip`: reads (and drops) up to `n` bytes, 512 at a time; stops early at the end of the stream.
+fn skip_by_reading(stream: &mut impl Read, n: u64) -> io::Result<u64> {
+    let max = n.min(i32::MAX as u64);
+    let mut buffer = [0u8; 512];
+    let mut total = 0;
+    while total < max {
+        let want = (max - total).min(buffer.len() as u64) as usize;
+        match stream.read(&mut buffer[..want])? {
+            0 => break,
+            read => total += read as u64,
         }
-        if max.is_some_and(|max| data.len() as u64 > max) {
-            return (data, None);
+    }
+    Ok(total)
+}
+
+/// `net.minecraft.util.FastBufferedInputStream` under a `DataInputStream`: an 8192-byte buffer refilled by one `read` of
+/// the stream below, which a request of at least that size bypasses. The NBT readers take their bytes from it, so
+/// where a failing stream stops a read is where the Java readers' requests put the refills.
+pub struct FastBufferedInputStream<R> {
+    inner: R,
+    buffer: Box<[u8; 8192]>,
+    position: usize,
+    limit: usize,
+    /// What `take` returns a slice of.
+    scratch: Vec<u8>,
+}
+
+impl<R: Read> FastBufferedInputStream<R> {
+    pub fn new(inner: R) -> Self {
+        Self {
+            inner,
+            buffer: Box::new([0; 8192]),
+            position: 0,
+            limit: 0,
+            scratch: Vec::new(),
         }
+    }
+
+    fn fill(&mut self) -> io::Result<()> {
+        self.limit = 0;
+        self.position = 0;
+        self.limit = self.inner.read(&mut self.buffer[..])?;
+        Ok(())
+    }
+
+    /// `skip(count)`: what the buffer holds, or else what the stream below skips.
+    fn skip_bytes(&mut self, count: u64) -> io::Result<u64> {
+        let buffered = (self.limit - self.position) as u64;
+        if buffered == 0 {
+            return skip_by_reading(&mut self.inner, count);
+        }
+        let skipped = count.min(buffered);
+        self.position += skipped as usize;
+        Ok(skipped)
     }
 }
 
-/// Whether `data` ends before the root tag's type byte and name are complete.
-pub fn header_incomplete(data: &[u8]) -> bool {
-    match data {
-        [0, ..] => false,
-        [_, hi, lo, ..] => data.len() < 3 + usize::from(u16::from_be_bytes([*hi, *lo])),
-        _ => true,
+impl<R: Read> Read for FastBufferedInputStream<R> {
+    /// `read(output, 0, length)`; `Ok(0)` is the end of the stream.
+    fn read(&mut self, out: &mut [u8]) -> io::Result<usize> {
+        let mut buffered = self.limit - self.position;
+        if buffered == 0 {
+            if out.len() >= self.buffer.len() {
+                return self.inner.read(out);
+            }
+            self.fill()?;
+            buffered = self.limit;
+            if buffered == 0 {
+                return Ok(0);
+            }
+        }
+        let length = out.len().min(buffered);
+        out[..length].copy_from_slice(&self.buffer[self.position..self.position + length]);
+        self.position += length;
+        Ok(length)
+    }
+}
+
+/// What one call of the stream below may be asked for in a single `take` (a call decodes at most what 512 input bytes
+/// hold, far less than this, so a bigger request reads like the unbounded one of the JDK).
+const TAKE_CHUNK: usize = 1 << 20;
+
+impl<R: Read> ByteInput for FastBufferedInputStream<R> {
+    /// `DataInputStream.readFully`.
+    fn take(&mut self, n: usize) -> NbtResult<&[u8]> {
+        let mut scratch = std::mem::take(&mut self.scratch);
+        let mut got = 0;
+        let result = loop {
+            if got == n {
+                break Ok(());
+            }
+            let want = (n - got).min(TAKE_CHUNK);
+            if scratch.len() < got + want {
+                scratch.resize(got + want, 0);
+            }
+            match self.read(&mut scratch[got..got + want]) {
+                Ok(0) => break Err(NbtError::Eof),
+                Ok(read) => got += read,
+                Err(e) => break Err(NbtError::from(e)),
+            }
+        };
+        self.scratch = scratch;
+        result.map(|()| &self.scratch[..n])
+    }
+
+    /// `DataInputStream.skipBytes`.
+    fn skip(&mut self, n: usize) -> NbtResult<()> {
+        let mut total = 0;
+        while total < n {
+            match self.skip_bytes((n - total) as u64)? {
+                0 => break,
+                skipped => total += skipped as usize,
+            }
+        }
+        Ok(())
+    }
+
+    fn reserve_hint(&self, count: usize) -> usize {
+        count.min(1024)
     }
 }
 
@@ -300,6 +397,63 @@ mod tests {
             "java.util.zip.ZipException: Unsupported compression method"
         );
         assert_eq!(text(read_all(&[0x1f, 0x8b, 8, 0, 0]).unwrap_err()), eof);
+    }
+
+    #[test]
+    fn a_stream_that_needs_a_dictionary_ends() {
+        let mut out = [0; 8];
+        // a zlib header with FDICT set and the dictionary id
+        let needs = [0x78, 0xbb, 1, 2, 3, 4, 0xff];
+        let mut stream = InflaterInputStream::new(needs.as_slice(), 0, true);
+        assert_eq!(stream.read(&mut out).unwrap(), 0);
+        assert_eq!(stream.read(&mut out).unwrap(), 0);
+        let cut = [0x78, 0xbb, 1, 2];
+        let error = InflaterInputStream::new(cut.as_slice(), 0, true)
+            .read(&mut out)
+            .unwrap_err();
+        assert_eq!(
+            text(error),
+            "java.io.EOFException: Unexpected end of ZLIB input stream"
+        );
+    }
+
+    /// The root compound (`pad` zero bytes, an int, a string) and `after` zero bytes behind it, then an invalid block.
+    fn refill_window(pad: usize, after: usize) -> Vec<u8> {
+        let mut root = crate::CompoundTag::new();
+        root.put("pad", crate::Tag::ByteArray(vec![0; pad]));
+        root.put_int("x", 1);
+        root.put_string("name", "level");
+        let bytes = crate::nbt_io::to_bytes(&root);
+        let mut entry = vec![7u8, 0, 3, b'p', b'a', b'd'];
+        entry.extend((pad as i32).to_be_bytes());
+        let at = bytes.windows(entry.len()).position(|w| w == entry).unwrap() + entry.len();
+        mc_testkit::Deflate::new()
+            .stored(&bytes[..at])
+            .zeros(pad)
+            .stored(&bytes[at + pad..])
+            .zeros(after)
+            .corrupt(mc_testkit::Corrupt::BlockType)
+            .gzip()
+    }
+
+    fn read_root(data: &[u8]) -> Result<crate::CompoundTag, String> {
+        let stream = FastBufferedInputStream::new(GzipInputStream::new(data).unwrap());
+        let mut input = stream;
+        crate::read_named(&mut input, &mut crate::NbtAccounter::unlimited_heap())
+            .map_err(|e| e.java_exception().to_string())
+    }
+
+    /// A request of 8192 bytes or more bypasses the buffer, so the refills after it start where the request ended: the
+    /// same stream is read whole or breaks, by where its end falls.
+    #[test]
+    fn a_failure_is_met_by_the_refill_that_reaches_it() {
+        let failed = "net.minecraft.nbt.ReportedNbtException: Loading NBT data";
+        // the root ends in a refill that reaches the invalid block, which fails and takes the bytes of the root with it
+        assert_eq!(read_root(&refill_window(24540, 1)).unwrap_err(), failed);
+        assert_eq!(read_root(&refill_window(21550, 3000)).unwrap_err(), failed);
+        // the root ends in a refill that is full before the invalid block
+        assert!(read_root(&refill_window(10000, 9000)).is_ok());
+        assert!(read_root(&refill_window(5, 9000)).is_ok());
     }
 
     #[test]

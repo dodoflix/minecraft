@@ -26,11 +26,13 @@ use std::time::{Duration, Instant};
 
 use tempfile::TempDir;
 
+mod deflate;
 mod fixture;
 mod permit;
 mod query;
 mod units;
 mod worldref;
+pub use deflate::{Corrupt, Deflate};
 pub use fixture::{gunzip, read_gz};
 pub use query::{Answer, QueryClient};
 pub use units::{hex, rows, unesc_units, unhex};
