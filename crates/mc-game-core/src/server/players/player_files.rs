@@ -37,7 +37,6 @@ pub(crate) fn save_json(file: &Path, json: &Value) -> std::io::Result<()> {
     fs::write(file, to_gson_pretty(json))
 }
 
-/// `PlayerList.locateStatsFile`: `<uuid>.json`, migrating a legacy `<name>.json` (`FileUtil.isValidPathSegment`).
 /// Why [`read_strict_json`] failed.
 pub(crate) enum JsonFileError {
     /// `IOException` of `Files.newBufferedReader`.
@@ -70,6 +69,7 @@ pub(crate) fn read_strict_json(file: &Path) -> Result<JsonElement, JsonFileError
     gson::parse_strict_json_parser(&text).map_err(JsonFileError::Parse)
 }
 
+/// `PlayerList.locateStatsFile`: `<uuid>.json`, migrating a legacy `<name>.json` (`FileUtil.isValidPathSegment`).
 pub fn locate_stats_file(stats_dir: &Path, id: Uuid, name: &str) -> PathBuf {
     let uuid_file = stats_dir.join(format!("{id}.json"));
     if uuid_file.exists() {

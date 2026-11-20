@@ -480,8 +480,11 @@ impl FileFixerUpper {
                         .world_upgrade_failed("The world upgrade failed while reading level.dat");
                     let kind = e.kind();
                     return Err(FileFixError::Io(
-                        JavaException::new("java.io.UncheckedIOException", java_to_string(&e))
-                            .into_io(kind),
+                        JavaException::unchecked(
+                            "java.io.UncheckedIOException",
+                            java_to_string(&e),
+                        )
+                        .into_io(kind),
                     ));
                 }
             };

@@ -73,6 +73,11 @@ impl<D: AsRef<[u8]>> Read for InflaterInputStream<D> {
             let status = self
                 .inflater
                 .decompress(input, out, zlib_rs::InflateFlush::NoFlush)
+                .or_else(|e| match e {
+                    // `needsDictionary()` ends the stream like its end
+                    zlib_rs::InflateError::NeedDict { .. } => Ok(zlib_rs::Status::StreamEnd),
+                    other => Err(other),
+                })
                 .map_err(|e| match e {
                     // `DataFormatException`: the JDK turns its message into a `ZipException`
                     zlib_rs::InflateError::DataError => zip_error(
