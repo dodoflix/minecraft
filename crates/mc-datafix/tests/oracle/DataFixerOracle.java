@@ -17,6 +17,7 @@
 //
 // TYPE is a DataFixTypes constant (CHUNK) or `ref:NAME`, a References type by its type name (ref:item_stack), which
 // reaches the types no DataFixTypes names. Input of `batch`, tab separated: ID TYPE FROM TO BASE64(NbtIo bytes of a named root) or SNBT text starting with `{`.
+// A TYPE `json:CONSTANT` takes strict JSON text as the input field and answers with the UTF-8 of `JsonElement.toString()` as the bytes.
 // Record, tab separated: ID STATUS SHA256 BASE64 EXCEPTION EXCEPTION_HASH ERRORS ERRORS_HASH SNBT where STATUS is
 //   ok       SHA256 and BASE64 describe NbtIo.write of the result (HashMap key order), EXCEPTION is -
 //   threw    EXCEPTION is the class name of what update threw, EXCEPTION_HASH the sha256 of its message
@@ -123,7 +124,10 @@ public class DataFixerOracle {
           if (line.isEmpty()) continue;
           String[] f = line.split("\t", -1);
           if (f.length != 5) throw new IllegalArgumentException("batch line needs 5 tab separated fields: " + line);
-          out.println(update(f[1], Integer.parseInt(f[2]), Integer.parseInt(f[3]), input(f[4])).line(f[0]));
+          Outcome result = f[1].startsWith("json:")
+              ? updateJson(f[1].substring(5), Integer.parseInt(f[2]), Integer.parseInt(f[3]), f[4])
+              : update(f[1], Integer.parseInt(f[2]), Integer.parseInt(f[3]), input(f[4]));
+          out.println(result.line(f[0]));
           out.flush();
         }
         out.flush();
@@ -221,6 +225,21 @@ public class DataFixerOracle {
       ByteArrayOutputStream bytes = new ByteArrayOutputStream();
       NbtIo.write(out, new DataOutputStream(bytes));
       return new Outcome("ok", bytes.toByteArray(), "-", "-", List.copyOf(errors), escape(out.toString()));
+    } catch (Throwable t) {
+      return new Outcome("threw", null, t.getClass().getName(), sha256(String.valueOf(t.getMessage()).getBytes(StandardCharsets.UTF_8)), List.copyOf(errors), "-");
+    }
+  }
+
+  /** `json:TYPE` of `batch`: TYPE is a DataFixTypes constant over a strict JSON element (STATS, ADVANCEMENTS); the record's bytes are the UTF-8 of `JsonElement.toString()`. */
+  static Outcome updateJson(String type, int from, int to, String text) {
+    errors.clear();
+    try {
+      com.google.gson.JsonElement in = net.minecraft.util.StrictJsonParser.parse(text);
+      DataFixer fixer = DataFixers.getDataFixer();
+      com.google.gson.JsonElement out =
+          DataFixTypes.valueOf(type).update(fixer, new Dynamic<>(com.mojang.serialization.JsonOps.INSTANCE, in), from, to).getValue();
+      byte[] bytes = out.toString().getBytes(StandardCharsets.UTF_8);
+      return new Outcome("ok", bytes, "-", "-", List.copyOf(errors), escape(out.toString()));
     } catch (Throwable t) {
       return new Outcome("threw", null, t.getClass().getName(), sha256(String.valueOf(t.getMessage()).getBytes(StandardCharsets.UTF_8)), List.copyOf(errors), "-");
     }

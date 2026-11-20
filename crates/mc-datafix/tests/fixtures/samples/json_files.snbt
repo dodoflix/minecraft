@@ -1,0 +1,13 @@
+# STATS and ADVANCEMENTS over strict JSON (`json:TYPE`): ID TYPE FROM TO JSON
+stats-renamed-stat	json:STATS	2700	2711	{"stats":{"minecraft:custom":{"minecraft:play_one_minute":5,"minecraft:jump":2},"minecraft:mined":{"minecraft:stone":3}},"DataVersion":2700}
+stats-renamed-stat-absent	json:STATS	2700	2711	{"stats":{"minecraft:custom":{"minecraft:jump":2}},"DataVersion":2700}
+stats-no-stats-key	json:STATS	2700	2711	{"DataVersion":2700}
+stats-array-root	json:STATS	2700	2711	[1,2,3]
+stats-string-root	json:STATS	2700	2711	"stats"
+stats-current-chain	json:STATS	4903	5023	{"stats":{"minecraft:custom":{"minecraft:play_time":5}},"DataVersion":4903}
+stats-current-chain-no-version	json:STATS	4903	5023	{"stats":{"minecraft:killed":{"minecraft:zombie":1}}}
+adv-composter	json:ADVANCEMENTS	2502	2504	{"minecraft:recipes/misc/composter":{"criteria":{"has_composter":"2020-01-01 00:00:00 +0000"},"done":true},"minecraft:story/root":{"criteria":{"crafting_table":"2020-01-01 00:00:00 +0000"},"done":true},"DataVersion":2502}
+adv-cliff-rename	json:ADVANCEMENTS	2845	2847	{"minecraft:husbandry/play_jukebox_in_meadows":{"criteria":{"play_jukebox_in_meadows":"2021-12-01 10:00:00 +0000"},"done":true},"minecraft:adventure/caves_and_cliff":{"criteria":{"c":"2021-12-01 10:00:00 +0000"},"done":false},"DataVersion":2845}
+adv-array-root	json:ADVANCEMENTS	2502	2504	[]
+adv-current-chain	json:ADVANCEMENTS	4903	5023	{"minecraft:story/root":{"criteria":{"crafting_table":"2020-01-01 00:00:00 +0000"},"done":true},"DataVersion":4903}
+stats-item-rename	json:STATS	5011	5012	{"stats":{"minecraft:used":{"minecraft:ocean_explorer_map":3,"minecraft:stone":1},"minecraft:crafted":{"minecraft:swamp_explorer_map":2}},"DataVersion":5011}
