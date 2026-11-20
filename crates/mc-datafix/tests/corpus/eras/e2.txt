@@ -59,16 +59,16 @@ setblock 3 @Y@ 5 minecraft:structure_block 0 replace {name:"example",mode:"SAVE"
 @since 1.11 summon minecraft:pig 2 @Y@ 8 {NoAI:1b,Invulnerable:1b,Saddle:1b,Age:-24000}
 @until 1.11 summon Sheep 4 @Y@ 8 {NoAI:1b,Invulnerable:1b,Color:5b,Sheared:1b,CustomName:"Dolly",CustomNameVisible:1b}
 @since 1.11 summon minecraft:sheep 4 @Y@ 8 {NoAI:1b,Invulnerable:1b,Color:5b,Sheared:1b,CustomName:"Dolly",CustomNameVisible:1b}
-@until 1.11 summon Cow 6 @Y@ 8 {NoAI:1b,Invulnerable:1b,Age:0,Invulnerable:1b}
-@since 1.11 summon minecraft:cow 6 @Y@ 8 {NoAI:1b,Invulnerable:1b,Age:0,Invulnerable:1b}
+@until 1.11 summon Cow 6 @Y@ 8 {NoAI:1b,Invulnerable:1b,Age:0}
+@since 1.11 summon minecraft:cow 6 @Y@ 8 {NoAI:1b,Invulnerable:1b,Age:0}
 @until 1.11 summon Chicken 8 @Y@ 8 {NoAI:1b,Invulnerable:1b,IsChickenJockey:0b}
 @since 1.11 summon minecraft:chicken 8 @Y@ 8 {NoAI:1b,Invulnerable:1b,IsChickenJockey:0b}
 @until 1.11 summon Villager 10 @Y@ 8 {NoAI:1b,Invulnerable:1b,Profession:1,Career:2,CareerLevel:1,Riches:5,Offers:{Recipes:[{buy:{id:"minecraft:diamond",Count:1b,Damage:0s},sell:{id:"minecraft:gold_ingot",Count:2b,Damage:0s},uses:0,maxUses:7,rewardExp:1b},{buy:{id:"minecraft:iron_ingot",Count:3b,Damage:0s},buyB:{id:"minecraft:wool",Count:1b,Damage:4s},sell:{id:"minecraft:diamond_sword",Count:1b,Damage:0s,tag:{ench:[{id:16s,lvl:2s}]}},uses:1,maxUses:5}]}}
 @since 1.11 summon minecraft:villager 10 @Y@ 8 {NoAI:1b,Invulnerable:1b,Profession:1,Career:2,CareerLevel:1,Riches:5,Offers:{Recipes:[{buy:{id:"minecraft:diamond",Count:1b,Damage:0s},sell:{id:"minecraft:gold_ingot",Count:2b,Damage:0s},uses:0,maxUses:7,rewardExp:1b},{buy:{id:"minecraft:iron_ingot",Count:3b,Damage:0s},buyB:{id:"minecraft:wool",Count:1b,Damage:4s},sell:{id:"minecraft:diamond_sword",Count:1b,Damage:0s,tag:{ench:[{id:16s,lvl:2s}]}},uses:1,maxUses:5}]}}
 @until 1.11 summon Zombie 12 @Y@ 8 {NoAI:1b,Invulnerable:1b,ZombieType:1,IsBaby:1b,HandItems:[{id:"minecraft:diamond_sword",Count:1b,Damage:5s},{}],ArmorItems:[{},{},{},{id:"minecraft:leather_helmet",Count:1b,Damage:0s}],HandDropChances:[0.5f,0.085f],PersistenceRequired:1b}
 @since 1.11 summon minecraft:zombie_villager 12 @Y@ 8 {NoAI:1b,Invulnerable:1b,Profession:1,IsBaby:1b,HandItems:[{id:"minecraft:diamond_sword",Count:1b,Damage:5s},{}],ArmorItems:[{},{},{},{id:"minecraft:leather_helmet",Count:1b,Damage:0s}],PersistenceRequired:1b}
-@until 1.11 summon Zombie 14 @Y@ 8 {NoAI:1b,Invulnerable:1b,Passengers:[{id:"Chicken"}],PersistenceRequired:1b}
-@since 1.11 summon minecraft:zombie 14 @Y@ 8 {NoAI:1b,Invulnerable:1b,Passengers:[{id:"minecraft:chicken"}],PersistenceRequired:1b}
+@until 1.11 summon Zombie 14 @Y@ 8 {NoAI:1b,Invulnerable:1b,Passengers:[{id:"Chicken",NoAI:1b,Invulnerable:1b}],PersistenceRequired:1b}
+@since 1.11 summon minecraft:zombie 14 @Y@ 8 {NoAI:1b,Invulnerable:1b,Passengers:[{id:"minecraft:chicken",NoAI:1b,Invulnerable:1b}],PersistenceRequired:1b}
 @until 1.11 summon Skeleton 2 @Y@ 10 {NoAI:1b,Invulnerable:1b,SkeletonType:1,HandItems:[{id:"minecraft:bow",Count:1b,Damage:0s},{}],PersistenceRequired:1b}
 @since 1.11 summon minecraft:wither_skeleton 2 @Y@ 10 {NoAI:1b,Invulnerable:1b,HandItems:[{id:"minecraft:stone_sword",Count:1b,Damage:0s},{}],PersistenceRequired:1b}
 @since 1.11 summon minecraft:stray 3 @Y@ 10 {NoAI:1b,Invulnerable:1b,PersistenceRequired:1b}
@@ -96,11 +96,11 @@ setblock 3 @Y@ 5 minecraft:structure_block 0 replace {name:"example",mode:"SAVE"
 @since 1.11 summon minecraft:xp_orb 6 @Y@ 12 {Value:5s,Age:100s}
 @until 1.11 summon PrimedTnt 8 @Y@ 12 {Fuse:32767s}
 @since 1.11 summon minecraft:tnt 8 @Y@ 12 {Fuse:32767s}
-@until 1.11 summon MinecartChest 10 @Y@ 12 {NoAI:1b,Invulnerable:1b,Items:[{Slot:0b,id:"minecraft:diamond",Count:1b,Damage:0s}],CustomName:"Cart"}
+@until 1.11 summon MinecartChest 10 @Y@ 12 {Items:[{Slot:0b,id:"minecraft:diamond",Count:1b,Damage:0s}],CustomName:"Cart"}
 @since 1.11 summon minecraft:chest_minecart 10 @Y@ 12 {Items:[{Slot:0b,id:"minecraft:diamond",Count:1b,Damage:0s}],CustomName:"Cart"}
-@until 1.11 summon MinecartFurnace 12 @Y@ 12 {NoAI:1b,Invulnerable:1b,PushX:0.0d,PushZ:0.0d,Fuel:100s}
+@until 1.11 summon MinecartFurnace 12 @Y@ 12 {PushX:0.0d,PushZ:0.0d,Fuel:100s}
 @since 1.11 summon minecraft:furnace_minecart 12 @Y@ 12 {PushX:0.0d,PushZ:0.0d,Fuel:100s}
-@until 1.11 summon MinecartSpawner 14 @Y@ 12 {NoAI:1b,Invulnerable:1b,Delay:20s}
+@until 1.11 summon MinecartSpawner 14 @Y@ 12 {Delay:20s}
 @since 1.11 summon minecraft:spawner_minecart 14 @Y@ 12 {Delay:20s}
 @until 1.11 summon Boat 2 @Y@ 14 {Type:"birch"}
 @since 1.11 summon minecraft:boat 2 @Y@ 14 {Type:"birch"}
@@ -118,7 +118,7 @@ setblock 8 @Y@ 29 minecraft:stone
 @since 1.11 summon minecraft:rabbit 12 @Y@ 14 {NoAI:1b,Invulnerable:1b,RabbitType:1}
 @until 1.11 summon Shulker 14 @Y@ 14 {NoAI:1b,Invulnerable:1b,Peek:0b,AttachFace:0b,Color:5b}
 @since 1.11 summon minecraft:shulker 14 @Y@ 14 {NoAI:1b,Invulnerable:1b,Peek:0b,AttachFace:0b,Color:5b}
-@until 1.11 summon AreaEffectCloud 2 @Y@ 16 {NoAI:1b,Invulnerable:1b,Duration:600,Radius:3.0f,Particle:"mobSpell",Effects:[{Id:1b,Amplifier:0b,Duration:200}],Color:255}
+@until 1.11 summon AreaEffectCloud 2 @Y@ 16 {NoAI:1b,Invulnerable:1b,Duration:2000000,Radius:3.0f,Particle:"mobSpell",Effects:[{Id:1b,Amplifier:0b,Duration:200}],Color:255}
 @since 1.11 summon minecraft:area_effect_cloud 2 @Y@ 16 {Duration:2000000,Radius:3.0f,Particle:"mobSpell",Effects:[{Id:1b,Amplifier:0b,Duration:200}],Color:255}
 # --- scoreboard
 scoreboard objectives add kills dummy Kills

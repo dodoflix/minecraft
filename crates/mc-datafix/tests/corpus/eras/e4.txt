@@ -60,11 +60,11 @@ setblock 17 @Y@ 5 minecraft:bee_nest[facing=north,honey_level=2]{Bees:[{MinOccup
 # --- entities
 summon minecraft:pig 2 @Y@ 8 {NoAI:1b,Invulnerable:1b,Saddle:1b,Age:-24000}
 summon minecraft:sheep 4 @Y@ 8 {NoAI:1b,Invulnerable:1b,Color:5b,Sheared:1b,CustomName:'{"text":"Dolly"}',CustomNameVisible:1b}
-summon minecraft:cow 6 @Y@ 8 {NoAI:1b,Invulnerable:1b,Age:0,Invulnerable:1b}
+summon minecraft:cow 6 @Y@ 8 {NoAI:1b,Invulnerable:1b,Age:0}
 summon minecraft:chicken 8 @Y@ 8 {NoAI:1b,Invulnerable:1b,IsChickenJockey:0b}
 summon minecraft:villager 10 @Y@ 8 {NoAI:1b,Invulnerable:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:2},Xp:20,Offers:{Recipes:[{buy:{id:"minecraft:paper",Count:24b},sell:{id:"minecraft:emerald",Count:1b},uses:0,maxUses:16,rewardExp:1b,xp:2,priceMultiplier:0.05f,demand:0,specialPrice:0},{buy:{id:"minecraft:emerald",Count:5b},buyB:{id:"minecraft:book",Count:1b},sell:{id:"minecraft:enchanted_book",Count:1b,tag:{StoredEnchantments:[{id:"minecraft:mending",lvl:1s}]}},uses:1,maxUses:5,rewardExp:1b,xp:5,priceMultiplier:0.2f,demand:1,specialPrice:-3}]},FoodLevel:1b,Inventory:[{id:"minecraft:bread",Count:3b}]}
 summon minecraft:zombie_villager 12 @Y@ 8 {NoAI:1b,Invulnerable:1b,IsBaby:1b,VillagerData:{type:"minecraft:desert",profession:"minecraft:farmer",level:1},HandItems:[{id:"minecraft:diamond_sword",Count:1b,tag:{Damage:5}},{}],ArmorItems:[{},{},{},{id:"minecraft:leather_helmet",Count:1b}],HandDropChances:[0.5f,0.085f],PersistenceRequired:1b}
-summon minecraft:zombie 14 @Y@ 8 {NoAI:1b,Invulnerable:1b,Passengers:[{id:"minecraft:chicken"}],PersistenceRequired:1b}
+summon minecraft:zombie 14 @Y@ 8 {NoAI:1b,Invulnerable:1b,Passengers:[{id:"minecraft:chicken",NoAI:1b,Invulnerable:1b}],PersistenceRequired:1b}
 summon minecraft:wither_skeleton 2 @Y@ 10 {NoAI:1b,Invulnerable:1b,HandItems:[{id:"minecraft:stone_sword",Count:1b},{}],PersistenceRequired:1b}
 summon minecraft:creeper 4 @Y@ 10 {NoAI:1b,Invulnerable:1b,powered:1b,Fuse:20s,ExplosionRadius:3b}
 summon minecraft:slime 6 @Y@ 10 {NoAI:1b,Invulnerable:1b,Size:2}
@@ -89,7 +89,7 @@ summon minecraft:falling_block 4 @Y@ 14 {BlockState:{Name:"minecraft:sand"},Time
 setblock 6 @Y@ 29 minecraft:stone
 setblock 8 @Y@ 29 minecraft:stone
 @until 1.19 summon minecraft:painting 6 @Y@ 30 {Pos:[6.5d,@Y@.0d,30.5d],Motive:"minecraft:kebab",TileX:6,TileY:@Y@,TileZ:30,Facing:0b}
-@since 1.19 summon minecraft:painting 6 @Y@ 30 {Pos:[6.5d,@Y@.0d,30.5d],variant:"minecraft:kebab",TileX:6,TileY:@Y@,TileZ:30,Facing:0b}
+@since 1.19 summon minecraft:painting 6 @Y@ 30 {Pos:[6.5d,@Y@.0d,30.5d],variant:"minecraft:kebab",TileX:6,TileY:@Y@,TileZ:30,facing:0b}
 summon minecraft:item_frame 8 @Y@ 30 {Pos:[8.5d,@Y@.0d,30.5d],TileX:8,TileY:@Y@,TileZ:30,Facing:3b,Item:{id:"minecraft:filled_map",Count:1b,tag:{map:2}},ItemRotation:2b}
 summon minecraft:armor_stand 10 @Y@ 14 {ShowArms:1b,Pose:{Head:[10.0f,20.0f,30.0f]},HandItems:[{id:"minecraft:diamond_sword",Count:1b},{}],ArmorItems:[{},{},{},{id:"minecraft:carved_pumpkin",Count:1b}],Marker:0b}
 summon minecraft:rabbit 12 @Y@ 14 {NoAI:1b,Invulnerable:1b,RabbitType:1}
