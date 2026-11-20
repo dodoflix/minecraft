@@ -188,7 +188,11 @@ fn subparse_number(
             {
                 exponent = if exponent_digits.fits_into_long(exponent_positive, true) {
                     let value = exponent_digits.get_long();
-                    if exponent_positive { value } else { -value }
+                    if exponent_positive {
+                        value
+                    } else {
+                        value.wrapping_neg()
+                    }
                 } else if exponent_positive {
                     i64::MAX
                 } else {
