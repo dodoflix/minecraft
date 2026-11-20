@@ -42,3 +42,4 @@ mod world_commands_dual;
 mod world_save_compare;
 mod world_settings;
 mod world_start;
+mod world_upgrade;
