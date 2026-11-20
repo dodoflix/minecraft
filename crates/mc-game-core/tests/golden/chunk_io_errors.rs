@@ -166,7 +166,7 @@ fn a_corrupt_chunk_loads_empty_and_is_reported() {
         Some(ChunkPos::new(3, 3)),
     );
     assert!(
-        suppressed(&shared).contains("chunk/load:class java.io.IOException x 1\n"),
+        suppressed(&shared).contains("chunk/load:class java.util.zip.ZipException x 1\n"),
         "{}",
         suppressed(&shared)
     );
@@ -279,7 +279,7 @@ fn an_entity_chunk_that_cannot_be_read_is_reported() {
         Some(pos),
     );
     assert!(
-        suppressed(&shared).contains("chunk/load:class java.io.IOException x 1\n"),
+        suppressed(&shared).contains("chunk/load:class java.util.zip.ZipException x 1\n"),
         "{}",
         suppressed(&shared)
     );
