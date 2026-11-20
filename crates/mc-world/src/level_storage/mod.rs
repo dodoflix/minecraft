@@ -48,9 +48,9 @@ pub use validation::{
     PathAllowList, PathMatcher,
 };
 pub use version::{
-    ANVIL_VERSION_ID, DATA_VERSION_TAG, DataVersion, LATEST_FILE_FIXER_VERSION, MAIN_SERIES,
-    MCREGION_VERSION_ID, WORLD_VERSION, WORLD_VERSION_NAME, WORLD_VERSION_STABLE,
-    add_current_data_version, get_data_version, get_data_version_or, requires_file_fixing,
+    ANVIL_VERSION_ID, DATA_VERSION_TAG, DataVersion, MAIN_SERIES, MCREGION_VERSION_ID,
+    WORLD_VERSION, WORLD_VERSION_NAME, WORLD_VERSION_STABLE, add_current_data_version,
+    get_data_version, get_data_version_or, latest_file_fixer_version, requires_file_fixing,
     world_version_to_file_fixer_version,
 };
 pub use world_gen_settings::{WorldGenSettings, WorldOptions, world_gen_settings_id};

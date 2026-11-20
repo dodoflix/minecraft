@@ -85,14 +85,14 @@ pub mod util;
 pub mod value;
 
 pub use data_fixers::{
-    CURRENT_VERSION, LATEST_FILE_FIXER_VERSION, data_fixer, requires_file_fixing,
+    CURRENT_VERSION, data_fixer, get_file_fixer, latest_file_fixer_version, requires_file_fixing,
     update_to_current, world_version_to_file_fixer_version,
 };
 pub use datafix::DataFix;
 pub use datafix_types::DataFixTypes;
 pub use dsl::{DSL, TypeReference};
 pub use finder::OpticFinder;
-pub use fixer::{DataFixer, DataFixerBuilder};
+pub use fixer::{DataFixer, DataFixerBuilder, FileFixRegistration, FileFixerRegistry};
 pub use fixes::references::References;
 pub use rewrite::TypeRewriteRule;
 pub use schema::{Schema, SchemaDef, TemplateMap};

@@ -3,7 +3,7 @@
 
 use crate::recorded_chain::parse;
 use mc_datafix::{
-    CURRENT_VERSION, DataFixTypes, LATEST_FILE_FIXER_VERSION, requires_file_fixing,
+    CURRENT_VERSION, DataFixTypes, latest_file_fixer_version, requires_file_fixing,
     update_to_current, world_version_to_file_fixer_version,
 };
 use mc_nbt::CompoundTag;
@@ -24,16 +24,17 @@ fn latest_file_fixer_version_is_the_newest_recorded_file_fix() {
         .filter(|r| r.kind == "file")
         .map(|r| r.version)
         .max();
-    assert_eq!(newest, Some(LATEST_FILE_FIXER_VERSION));
+    assert_eq!(newest, Some(latest_file_fixer_version()));
 }
 
 #[test]
 fn file_fixing_follows_the_file_fixer_version() {
+    let latest = latest_file_fixer_version();
     for (version, required) in [
         (-1, true),
         (4771, true),
-        (LATEST_FILE_FIXER_VERSION - 1, true),
-        (LATEST_FILE_FIXER_VERSION, false),
+        (latest - 1, true),
+        (latest, false),
         (CURRENT_VERSION + 1, false),
     ] {
         assert_eq!(requires_file_fixing(version), required, "{version}");

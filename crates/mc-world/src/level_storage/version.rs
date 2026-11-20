@@ -4,7 +4,7 @@
 use mc_nbt::CompoundTag;
 
 pub use mc_datafix::{
-    LATEST_FILE_FIXER_VERSION, requires_file_fixing, world_version_to_file_fixer_version,
+    latest_file_fixer_version, requires_file_fixing, world_version_to_file_fixer_version,
 };
 
 /// `SharedConstants.WORLD_VERSION` (`getCurrentVersion().dataVersion().version()`).

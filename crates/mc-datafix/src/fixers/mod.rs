@@ -3,6 +3,7 @@
 
 use crate::fixer::DataFixerBuilder;
 
+pub mod file_fixes;
 pub mod range_000_165;
 pub mod range_1344_1459;
 pub mod range_1460_2199;
@@ -24,4 +25,5 @@ pub fn add_fixers(b: &mut DataFixerBuilder) {
     range_3300_3999::add(b);
     range_4000_4649::add(b);
     range_4650_5023::add(b);
+    file_fixes::add(b);
 }

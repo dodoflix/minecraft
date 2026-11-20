@@ -1,10 +1,11 @@
 //! The registered fixes against the recorded chain of vanilla (`fixtures/fixes.tsv`): every fix we register is the next
 //! one of the recorded chain with the same version and class, and the rows we do not register yet are exactly the
-//! rows of `fixtures/chain_expected_missing.tsv` (delete a row there in the commit that ports the fix; a listed row we
-//! now register fails the test, so the list only shrinks).
+//! data rows of `fixtures/chain_expected_missing.tsv` (delete a row there in the commit that ports the fix; a listed row
+//! we now register fails the test, so the list only shrinks). The registered file fixes are exactly the recorded file
+//! rows.
 
 use crate::recorded_chain::{Row, parse};
-use mc_datafix::data_fixer;
+use mc_datafix::{data_fixer, get_file_fixer};
 use std::collections::BTreeSet;
 
 const RECORDED: &str = include_str!("../fixtures/fixes.tsv");
@@ -53,7 +54,7 @@ fn registered_fixes_follow_the_recorded_chain() {
     }
     let missing: BTreeSet<Row> = rows
         .iter()
-        .filter(|r| r.kind == "file" || !matched.contains(&r.index))
+        .filter(|r| r.kind == "data" && !matched.contains(&r.index))
         .cloned()
         .collect();
     let expected: BTreeSet<Row> = parse(EXPECTED_MISSING).into_iter().collect();
@@ -69,4 +70,47 @@ fn registered_fixes_follow_the_recorded_chain() {
         "not registered and not listed in chain_expected_missing.tsv:\n{}",
         unlisted.join("\n")
     );
+}
+
+#[test]
+fn registered_file_fixes_equal_the_recorded_file_chain() {
+    let rows = parse(RECORDED);
+    let recorded: Vec<(i32, &str)> = rows
+        .iter()
+        .filter(|r| r.kind == "file")
+        .map(|r| (r.version, r.class.as_str()))
+        .collect();
+    let registry = get_file_fixer();
+    let registered: Vec<(i32, &str)> = registry
+        .fixes()
+        .iter()
+        .map(|f| (f.version, f.name))
+        .collect();
+    assert_eq!(registered, recorded);
+    assert_eq!(
+        Some(registry.latest_file_fixer_version()),
+        recorded.iter().map(|(v, _)| *v).max()
+    );
+}
+
+/// A file fix shares its version with a data schema; the schemas not registered yet are the keys of
+/// `fixtures/schema_types_expected_missing.txt`.
+#[test]
+fn every_file_fix_version_is_a_registered_data_schema_or_a_known_missing_one() {
+    const MISSING_SCHEMAS: &str = include_str!("../fixtures/schema_types_expected_missing.txt");
+    let missing: BTreeSet<i32> = MISSING_SCHEMAS
+        .lines()
+        .filter(|l| !l.is_empty())
+        .map(|l| l.parse().expect("schema key"))
+        .collect();
+    let registered: BTreeSet<i32> = data_fixer().schema_keys().collect();
+    for fix in get_file_fixer().fixes() {
+        let key = fix.version * 10;
+        assert_eq!(
+            registered.contains(&key),
+            !missing.contains(&key),
+            "{} (schema {key}) must be a registered schema unless listed as not registered yet",
+            fix.name
+        );
+    }
 }

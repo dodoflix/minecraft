@@ -8,6 +8,7 @@ pub mod carving_mask;
 pub mod chunk;
 pub mod chunk_packet;
 pub mod data_layer;
+pub mod filefix;
 pub mod heightmap;
 pub mod level_storage;
 pub mod palette;

@@ -422,11 +422,3 @@
 421	5013	0	data	MergeTerrainChunkStatusFix
 422	5014	0	data	RemoveBlockTransformerComponentFix
 423	5016	0	data	UnfilledBuriedTreasureMapFix
-0	1493	0	file	LegacyStructureFileFix
-1	4772	0	file	ResourcePackLocationFileFix
-2	4772	0	file	DimensionStorageFileFix
-3	4772	0	file	PlayerStorageFileFix
-4	4772	0	file	LevelDatToSavedDataFileFix
-5	4772	0	file	RemoveObsoleteFilesFileFix
-6	4773	0	file	GeneratedStructuresRenameFileFix
-7	4899	0	file	ReenableSpectatorsGenerateChunksInHardcoreWorldsFileFix

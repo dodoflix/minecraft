@@ -4,8 +4,8 @@ use crate::data_fixers::CURRENT_VERSION;
 use crate::dsl::TypeReference;
 use crate::fixer::DataFixer;
 use crate::fixes::references::References;
-use mc_dfu::{Codec, DataResult, Dyn, Dynamic, NBT};
-use mc_nbt::{CompoundTag, Tag};
+use mc_dfu::{Codec, DataResult, Dynamic};
+use mc_nbt::CompoundTag;
 
 #[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
 #[expect(
@@ -202,16 +202,7 @@ impl DataFixTypes {
         from_version: i32,
         to_version: i32,
     ) -> CompoundTag {
-        let input = Dynamic::new(NBT, Dyn::from(&Tag::Compound(tag.clone())));
-        match self
-            .update(fixer, input, from_version, to_version)
-            .value
-            .to_tag()
-        {
-            Ok(Tag::Compound(c)) => c,
-            Ok(other) => panic!("data fixing turned a compound into {other:?}"),
-            Err(e) => panic!("data fixing produced an invalid NBT tree: {e}"),
-        }
+        fixer.update_tag(&self.type_ref(), tag, from_version, to_version)
     }
 
     /// `updateToCurrentVersion(fixer, CompoundTag, fromVersion)`.

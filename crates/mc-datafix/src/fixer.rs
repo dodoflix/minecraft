@@ -8,7 +8,8 @@ use crate::dsl::TypeReference;
 use crate::rewrite::{OptimizationRule, TypeRewriteRule};
 use crate::schema::Schema;
 use crate::ty::Type;
-use mc_dfu::Dynamic;
+use mc_dfu::{Dyn, Dynamic, NBT};
+use mc_nbt::{CompoundTag, Tag};
 use std::collections::{BTreeMap, BTreeSet, HashMap};
 use std::sync::Mutex;
 
@@ -36,11 +37,41 @@ fn lowest_schema_same_version(schemas: &BTreeMap<i32, Schema>, version_key: i32)
     }
 }
 
+/// One `FileFixerUpper.Builder.addFixer`: the file fix `name` (the simple name of the Java class) and the version of
+/// the schema it was registered with. The fix itself is built where the files are handled (`mc-world`).
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub struct FileFixRegistration {
+    pub name: &'static str,
+    pub version: i32,
+}
+
+/// The `FileFixerUpper.Builder` state: the registered file fixes in registration order and
+/// `latestFileFixerVersion`, the highest file schema version (every file schema carries a fix, so it is the highest
+/// registered fix version).
+#[derive(Clone, PartialEq, Eq, Debug, Default)]
+pub struct FileFixerRegistry {
+    fixes: Vec<FileFixRegistration>,
+    latest_file_fixer_version: i32,
+}
+
+impl FileFixerRegistry {
+    /// `FileFixerUpper.fileFixes`.
+    pub fn fixes(&self) -> &[FileFixRegistration] {
+        &self.fixes
+    }
+
+    /// `FileFixerUpper.latestFileFixerVersion`.
+    pub fn latest_file_fixer_version(&self) -> i32 {
+        self.latest_file_fixer_version
+    }
+}
+
 pub struct DataFixerBuilder {
     data_version: i32,
     schemas: BTreeMap<i32, Schema>,
     global_list: Vec<DataFix>,
     fixer_versions: BTreeSet<i32>,
+    file_fixer: FileFixerRegistry,
 }
 
 impl DataFixerBuilder {
@@ -51,6 +82,7 @@ impl DataFixerBuilder {
             schemas: BTreeMap::new(),
             global_list: Vec::new(),
             fixer_versions: BTreeSet::new(),
+            file_fixer: FileFixerRegistry::default(),
         }
     }
 
@@ -98,6 +130,37 @@ impl DataFixerBuilder {
             self.fixer_versions.insert(fix.version_key());
             self.global_list.push(fix);
         }
+    }
+
+    /// `FileFixerUpper.Builder.addFixer(fix)` for the file fix `name` of the schema `version`: file fixes run in
+    /// registration order, which must not go back in version and never past the game's data version.
+    ///
+    /// # Panics
+    /// Like vanilla's `IllegalArgumentException`.
+    pub fn add_file_fix(&mut self, name: &'static str, version: i32) {
+        assert!(
+            version <= self.data_version,
+            "Tried to add too recent file fix for version: {version}. The data version of the game is: {}",
+            self.data_version
+        );
+        if let Some(last) = self.file_fixer.fixes.last() {
+            assert!(
+                last.version <= version,
+                "Tried to add too recent file fix for version: {version}. The most recent file fix version is {}",
+                last.version
+            );
+        }
+        self.file_fixer
+            .fixes
+            .push(FileFixRegistration { name, version });
+        self.file_fixer.latest_file_fixer_version =
+            self.file_fixer.latest_file_fixer_version.max(version);
+    }
+
+    /// `build()`: the data fixer and the file fix registrations.
+    pub fn build_with_file_fixes(mut self) -> (DataFixer, FileFixerRegistry) {
+        let file_fixer = std::mem::take(&mut self.file_fixer);
+        (self.build(), file_fixer)
     }
 
     /// `build().fixer()`.
@@ -212,5 +275,21 @@ impl DataFixer {
         let ops = input.ops;
         let result = read.result_or_partial().unwrap_or(input.value);
         Dynamic::new(ops, result)
+    }
+
+    /// `update` of an NBT compound: the unchanged input when the update fails, like [`DataFixer::update`].
+    pub fn update_tag(
+        &self,
+        ty: &TypeReference,
+        tag: &CompoundTag,
+        version: i32,
+        new_version: i32,
+    ) -> CompoundTag {
+        let input = Dynamic::new(NBT, Dyn::from(&Tag::Compound(tag.clone())));
+        match self.update(ty, input, version, new_version).value.to_tag() {
+            Ok(Tag::Compound(c)) => c,
+            Ok(other) => panic!("data fixing turned a compound into {other:?}"),
+            Err(e) => panic!("data fixing produced an invalid NBT tree: {e}"),
+        }
     }
 }
