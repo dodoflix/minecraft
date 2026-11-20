@@ -1,4 +1,5 @@
 # 1.13 - 1.15: block states, flattened item and entity ids, text components as JSON strings, villager brains and POI (1.14), bees (1.15).
+# Mobs carry NoAI and Invulnerable so that none of them fights, drowns or wanders off before the world is saved.
 # Flat world: @Y@ is the surface (@Y1@ to @Y4@ are the four blocks above it). Everything stays within x 0-47, z 0-47.
 # --- first: the Nether portal. An item that enters it makes the server create the other side, and servers
 # before 1.14 stop ticking entities 15 s (1.7/1.8: 60 s) after start while no player is online.
@@ -46,14 +47,14 @@ setblock 7 @Y@ 20 minecraft:red_bed[facing=north,part=foot]
 @since 1.14 setblock 18 @Y@ 20 minecraft:loom[facing=north]
 @since 1.14 setblock 19 @Y@ 20 minecraft:smithing_table
 # --- containers and block entities
-setblock 1 @Y@ 1 minecraft:chest[facing=north]{CustomName:"{\"text\":\"Flat\"}",Items:[{Slot:0b,id:"minecraft:red_wool",Count:64b},{Slot:1b,id:"minecraft:potion",Count:1b,tag:{Potion:"minecraft:strong_healing"}},{Slot:2b,id:"minecraft:written_book",Count:1b,tag:{title:"T",author:"A",generation:1,pages:["{\"text\":\"p1\"}","p2"]}},{Slot:3b,id:"minecraft:enchanted_book",Count:1b,tag:{StoredEnchantments:[{id:"minecraft:sharpness",lvl:5s}]}},{Slot:4b,id:"minecraft:pig_spawn_egg",Count:1b,tag:{EntityTag:{id:"minecraft:pig"}}},{Slot:5b,id:"minecraft:filled_map",Count:1b,tag:{map:1}},{Slot:6b,id:"minecraft:player_head",Count:1b,tag:{SkullOwner:"Notch"}},{Slot:7b,id:"minecraft:diamond_sword",Count:1b,tag:{Damage:5,Enchantments:[{id:"minecraft:sharpness",lvl:3s}],display:{Name:"{\"text\":\"Sword\"}",Lore:["{\"text\":\"l\"}"]},AttributeModifiers:[{AttributeName:"generic.attackDamage",Name:"generic.attackDamage",Amount:5,Operation:0,UUIDMost:1L,UUIDLeast:2L,Slot:"mainhand"}]}},{Slot:8b,id:"minecraft:white_banner",Count:1b,tag:{BlockEntityTag:{Patterns:[{Color:2,Pattern:"bs"}]}}},{Slot:9b,id:"minecraft:tipped_arrow",Count:8b,tag:{Potion:"minecraft:poison"}},{Slot:10b,id:"minecraft:leather_chestplate",Count:1b,tag:{display:{color:255}}},{Slot:11b,id:"minecraft:crossbow",Count:1b,tag:{Charged:1b}}]}
+setblock 1 @Y@ 1 minecraft:chest[facing=north]{CustomName:"{\"text\":\"Flat\"}",Items:[{Slot:0b,id:"minecraft:red_wool",Count:64b},{Slot:1b,id:"minecraft:potion",Count:1b,tag:{Potion:"minecraft:strong_healing"}},{Slot:2b,id:"minecraft:written_book",Count:1b,tag:{title:"T",author:"A",generation:1,pages:["{\"text\":\"p1\"}","p2"]}},{Slot:3b,id:"minecraft:enchanted_book",Count:1b,tag:{StoredEnchantments:[{id:"minecraft:sharpness",lvl:5s}]}},{Slot:4b,id:"minecraft:pig_spawn_egg",Count:1b,tag:{EntityTag:{id:"minecraft:pig"}}},{Slot:5b,id:"minecraft:filled_map",Count:1b,tag:{map:1}},{Slot:6b,id:"minecraft:player_head",Count:1b,tag:{SkullOwner:{Id:"069a79f4-44e9-4726-a5be-fca90e38aaf5",Name:"Notch",Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6e319"}]}}}},{Slot:7b,id:"minecraft:diamond_sword",Count:1b,tag:{Damage:5,Enchantments:[{id:"minecraft:sharpness",lvl:3s}],display:{Name:"{\"text\":\"Sword\"}",Lore:["{\"text\":\"l\"}"]},AttributeModifiers:[{AttributeName:"generic.attackDamage",Name:"generic.attackDamage",Amount:5,Operation:0,UUIDMost:1L,UUIDLeast:2L,Slot:"mainhand"}]}},{Slot:8b,id:"minecraft:white_banner",Count:1b,tag:{BlockEntityTag:{Patterns:[{Color:2,Pattern:"bs"}]}}},{Slot:9b,id:"minecraft:tipped_arrow",Count:8b,tag:{Potion:"minecraft:poison"}},{Slot:10b,id:"minecraft:leather_chestplate",Count:1b,tag:{display:{color:255}}},{Slot:11b,id:"minecraft:crossbow",Count:1b,tag:{Charged:1b}}]}
 setblock 3 @Y@ 1 minecraft:furnace[facing=east,lit=true]{BurnTime:100s,CookTime:50s,Items:[{Slot:0b,id:"minecraft:iron_ore",Count:3b},{Slot:1b,id:"minecraft:charcoal",Count:5b}]}
 @until 1.14 setblock 5 @Y@ 1 minecraft:sign[rotation=4]{Text1:"{\"text\":\"first\"}",Text2:"{\"text\":\"second\",\"color\":\"red\"}",Text3:"{\"text\":\"plain\"}",Text4:"{\"text\":\"\"}"}
 @since 1.14 setblock 5 @Y@ 1 minecraft:oak_sign[rotation=4]{Text1:"{\"text\":\"first\"}",Text2:"{\"text\":\"second\",\"color\":\"red\"}",Text3:"{\"text\":\"plain\"}",Text4:"{\"text\":\"\"}"}
 setblock 7 @Y@ 1 minecraft:spawner{SpawnData:{id:"minecraft:zombie"},Delay:20s,SpawnCount:4s,SpawnRange:4s,SpawnPotentials:[{Entity:{id:"minecraft:zombie"},Weight:1}]}
 setblock 9 @Y@ 1 minecraft:command_block[facing=north]{Command:"say hi",CustomName:"{\"text\":\"@\"}",TrackOutput:1b,auto:0b}
 setblock 11 @Y@ 1 minecraft:potted_red_tulip
-setblock 13 @Y@ 1 minecraft:player_head[rotation=4]{Owner:{Name:"Notch"}}
+setblock 13 @Y@ 1 minecraft:player_head[rotation=4]{Owner:{Id:"069a79f4-44e9-4726-a5be-fca90e38aaf5",Name:"Notch",Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6e319"}]}}}
 setblock 1 @Y@ 3 minecraft:brewing_stand{BrewTime:200s,Fuel:10b,Items:[{Slot:0b,id:"minecraft:potion",Count:1b,tag:{Potion:"minecraft:water"}},{Slot:3b,id:"minecraft:nether_wart",Count:1b}]}
 setblock 3 @Y@ 3 minecraft:jukebox{RecordItem:{id:"minecraft:music_disc_13",Count:1b}}
 setblock 5 @Y@ 3 minecraft:beacon{Levels:1,Primary:1,Secondary:3}
@@ -72,27 +73,27 @@ setblock 11 @Y@ 5 minecraft:daylight_detector[inverted=true]
 @since 1.14 setblock 15 @Y@ 5 minecraft:lectern[facing=west,has_book=true]{Book:{id:"minecraft:written_book",Count:1b,tag:{title:"B",author:"A",pages:["{\"text\":\"p\"}"]}},Page:0}
 @since 1.15 setblock 17 @Y@ 5 minecraft:bee_nest[facing=north,honey_level=2]{Bees:[{MinOccupationTicks:100,TicksInHive:0,EntityData:{id:"minecraft:bee",Age:0}}],FlowerPos:{X:1,Y:@Y@,Z:1}}
 # --- entities
-summon minecraft:pig 2 @Y@ 8 {Saddle:1b,Age:-24000}
-summon minecraft:sheep 4 @Y@ 8 {Color:5b,Sheared:1b,CustomName:"{\"text\":\"Dolly\"}",CustomNameVisible:1b}
-summon minecraft:cow 6 @Y@ 8 {Age:0,Invulnerable:1b}
-summon minecraft:chicken 8 @Y@ 8 {IsChickenJockey:0b}
-@until 1.14 summon minecraft:villager 10 @Y@ 8 {Profession:1,Career:2,CareerLevel:1,Riches:5,Offers:{Recipes:[{buy:{id:"minecraft:diamond",Count:1b},sell:{id:"minecraft:gold_ingot",Count:2b},uses:0,maxUses:7,rewardExp:1b},{buy:{id:"minecraft:iron_ingot",Count:3b},buyB:{id:"minecraft:red_wool",Count:1b},sell:{id:"minecraft:diamond_sword",Count:1b,tag:{Enchantments:[{id:"minecraft:sharpness",lvl:2s}]}},uses:1,maxUses:5}]}}
-@since 1.14 summon minecraft:villager 10 @Y@ 8 {VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:2},Xp:20,Offers:{Recipes:[{buy:{id:"minecraft:paper",Count:24b},sell:{id:"minecraft:emerald",Count:1b},uses:0,maxUses:16,rewardExp:1b,xp:2,priceMultiplier:0.05f,demand:0,specialPrice:0},{buy:{id:"minecraft:emerald",Count:5b},buyB:{id:"minecraft:book",Count:1b},sell:{id:"minecraft:enchanted_book",Count:1b,tag:{StoredEnchantments:[{id:"minecraft:mending",lvl:1s}]}},uses:1,maxUses:5,rewardExp:1b,xp:5,priceMultiplier:0.2f,demand:1,specialPrice:-3}]},FoodLevel:1b,Inventory:[{id:"minecraft:bread",Count:3b}]}
-summon minecraft:zombie_villager 12 @Y@ 8 {IsBaby:1b,VillagerData:{type:"minecraft:desert",profession:"minecraft:farmer",level:1},HandItems:[{id:"minecraft:diamond_sword",Count:1b,tag:{Damage:5}},{}],ArmorItems:[{},{},{},{id:"minecraft:leather_helmet",Count:1b}],HandDropChances:[0.5f,0.085f],PersistenceRequired:1b}
-summon minecraft:zombie 14 @Y@ 8 {Passengers:[{id:"minecraft:chicken"}],PersistenceRequired:1b}
-summon minecraft:wither_skeleton 2 @Y@ 10 {HandItems:[{id:"minecraft:stone_sword",Count:1b},{}],PersistenceRequired:1b}
-summon minecraft:creeper 4 @Y@ 10 {powered:1b,Fuse:20s,ExplosionRadius:3b}
-summon minecraft:slime 6 @Y@ 10 {Size:2}
-summon minecraft:enderman 8 @Y@ 10 {carriedBlockState:{Name:"minecraft:grass_block",Properties:{snowy:"false"}}}
-summon minecraft:wolf 10 @Y@ 10 {Owner:"00000000-0000-0000-0000-000000000001",CollarColor:3b,Sitting:1b,Angry:0b}
-@until 1.14 summon minecraft:ocelot 12 @Y@ 10 {CatType:2,Sitting:0b}
-@since 1.14 summon minecraft:cat 12 @Y@ 10 {CatType:2,CollarColor:3b,Sitting:0b}
-summon minecraft:horse 14 @Y@ 10 {Variant:260,Tame:1b,Temper:50,SaddleItem:{id:"minecraft:saddle",Count:1b},ArmorItem:{id:"minecraft:iron_horse_armor",Count:1b},Bred:1b}
-summon minecraft:llama 15 @Y@ 10 {Strength:3,Variant:1,DecorItem:{id:"minecraft:white_carpet",Count:1b}}
-summon minecraft:parrot 15 @Y@ 12 {Variant:2}
-summon minecraft:dolphin 15 @Y@ 14 {Moistness:1000}
-summon minecraft:turtle 15 @Y@ 16 {HasEgg:1b,HomePosX:0,HomePosY:@Y@,HomePosZ:0,TravelPosX:5,TravelPosY:@Y@,TravelPosZ:5}
-summon minecraft:bat 2 @Y@ 12 {BatFlags:0b}
+summon minecraft:pig 2 @Y@ 8 {NoAI:1b,Invulnerable:1b,Saddle:1b,Age:-24000}
+summon minecraft:sheep 4 @Y@ 8 {NoAI:1b,Invulnerable:1b,Color:5b,Sheared:1b,CustomName:"{\"text\":\"Dolly\"}",CustomNameVisible:1b}
+summon minecraft:cow 6 @Y@ 8 {NoAI:1b,Invulnerable:1b,Age:0,Invulnerable:1b}
+summon minecraft:chicken 8 @Y@ 8 {NoAI:1b,Invulnerable:1b,IsChickenJockey:0b}
+@until 1.14 summon minecraft:villager 10 @Y@ 8 {NoAI:1b,Invulnerable:1b,Profession:1,Career:2,CareerLevel:1,Riches:5,Offers:{Recipes:[{buy:{id:"minecraft:diamond",Count:1b},sell:{id:"minecraft:gold_ingot",Count:2b},uses:0,maxUses:7,rewardExp:1b},{buy:{id:"minecraft:iron_ingot",Count:3b},buyB:{id:"minecraft:red_wool",Count:1b},sell:{id:"minecraft:diamond_sword",Count:1b,tag:{Enchantments:[{id:"minecraft:sharpness",lvl:2s}]}},uses:1,maxUses:5}]}}
+@since 1.14 summon minecraft:villager 10 @Y@ 8 {NoAI:1b,Invulnerable:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:librarian",level:2},Xp:20,Offers:{Recipes:[{buy:{id:"minecraft:paper",Count:24b},sell:{id:"minecraft:emerald",Count:1b},uses:0,maxUses:16,rewardExp:1b,xp:2,priceMultiplier:0.05f,demand:0,specialPrice:0},{buy:{id:"minecraft:emerald",Count:5b},buyB:{id:"minecraft:book",Count:1b},sell:{id:"minecraft:enchanted_book",Count:1b,tag:{StoredEnchantments:[{id:"minecraft:mending",lvl:1s}]}},uses:1,maxUses:5,rewardExp:1b,xp:5,priceMultiplier:0.2f,demand:1,specialPrice:-3}]},FoodLevel:1b,Inventory:[{id:"minecraft:bread",Count:3b}]}
+summon minecraft:zombie_villager 12 @Y@ 8 {NoAI:1b,Invulnerable:1b,IsBaby:1b,VillagerData:{type:"minecraft:desert",profession:"minecraft:farmer",level:1},HandItems:[{id:"minecraft:diamond_sword",Count:1b,tag:{Damage:5}},{}],ArmorItems:[{},{},{},{id:"minecraft:leather_helmet",Count:1b}],HandDropChances:[0.5f,0.085f],PersistenceRequired:1b}
+summon minecraft:zombie 14 @Y@ 8 {NoAI:1b,Invulnerable:1b,Passengers:[{id:"minecraft:chicken"}],PersistenceRequired:1b}
+summon minecraft:wither_skeleton 2 @Y@ 10 {NoAI:1b,Invulnerable:1b,HandItems:[{id:"minecraft:stone_sword",Count:1b},{}],PersistenceRequired:1b}
+summon minecraft:creeper 4 @Y@ 10 {NoAI:1b,Invulnerable:1b,powered:1b,Fuse:20s,ExplosionRadius:3b}
+summon minecraft:slime 6 @Y@ 10 {NoAI:1b,Invulnerable:1b,Size:2}
+summon minecraft:enderman 8 @Y@ 10 {NoAI:1b,Invulnerable:1b,carriedBlockState:{Name:"minecraft:grass_block",Properties:{snowy:"false"}}}
+summon minecraft:wolf 10 @Y@ 10 {NoAI:1b,Invulnerable:1b,Owner:"00000000-0000-0000-0000-000000000001",CollarColor:3b,Sitting:1b,Angry:0b}
+@until 1.14 summon minecraft:ocelot 12 @Y@ 10 {NoAI:1b,Invulnerable:1b,CatType:2,Sitting:0b}
+@since 1.14 summon minecraft:cat 12 @Y@ 10 {NoAI:1b,Invulnerable:1b,CatType:2,CollarColor:3b,Sitting:0b}
+summon minecraft:horse 14 @Y@ 10 {NoAI:1b,Invulnerable:1b,Variant:260,Tame:1b,Temper:50,SaddleItem:{id:"minecraft:saddle",Count:1b},ArmorItem:{id:"minecraft:iron_horse_armor",Count:1b},Bred:1b}
+summon minecraft:llama 15 @Y@ 10 {NoAI:1b,Invulnerable:1b,Strength:3,Variant:1,DecorItem:{id:"minecraft:white_carpet",Count:1b}}
+summon minecraft:parrot 15 @Y@ 12 {NoAI:1b,Invulnerable:1b,Variant:2}
+summon minecraft:dolphin 15 @Y@ 14 {NoAI:1b,Invulnerable:1b,Moistness:1000}
+summon minecraft:turtle 15 @Y@ 16 {NoAI:1b,Invulnerable:1b,HasEgg:1b,HomePosX:0,HomePosY:@Y@,HomePosZ:0,TravelPosX:5,TravelPosY:@Y@,TravelPosZ:5}
+summon minecraft:bat 2 @Y@ 12 {NoAI:1b,Invulnerable:1b,BatFlags:0b}
 summon minecraft:item 4 @Y@ 12 {Item:{id:"minecraft:diamond",Count:3b},Age:100s,PickupDelay:10s}
 summon minecraft:experience_orb 6 @Y@ 12 {Value:5s,Age:100s}
 summon minecraft:tnt 8 @Y@ 12 {Fuse:32767s}
@@ -106,18 +107,18 @@ setblock 8 @Y@ 29 minecraft:stone
 summon minecraft:painting 6 @Y@ 30 {Motive:"minecraft:kebab",TileX:6,TileY:@Y@,TileZ:30,Facing:0b}
 summon minecraft:item_frame 8 @Y@ 30 {TileX:8,TileY:@Y@,TileZ:30,Facing:3b,Item:{id:"minecraft:filled_map",Count:1b,tag:{map:2}},ItemRotation:2b}
 summon minecraft:armor_stand 10 @Y@ 14 {ShowArms:1b,Pose:{Head:[10.0f,20.0f,30.0f]},HandItems:[{id:"minecraft:diamond_sword",Count:1b},{}],ArmorItems:[{},{},{},{id:"minecraft:carved_pumpkin",Count:1b}],Marker:0b}
-summon minecraft:rabbit 12 @Y@ 14 {RabbitType:1}
-summon minecraft:shulker 14 @Y@ 14 {Peek:0b,AttachFace:0b,Color:5b}
-summon minecraft:area_effect_cloud 2 @Y@ 16 {Duration:600,Radius:3.0f,Particle:"entity_effect",Effects:[{Id:1b,Amplifier:0b,Duration:200}],Color:255}
-summon minecraft:drowned 4 @Y@ 16 {HandItems:[{id:"minecraft:trident",Count:1b},{}],PersistenceRequired:1b}
-summon minecraft:phantom 6 @Y@ 16 {Size:2,AX:0,AY:@Y@,AZ:0}
-@since 1.14 summon minecraft:pillager 8 @Y@ 16 {PersistenceRequired:1b,Patrolling:0b,CanJoinRaid:1b,Wave:0}
-@since 1.14 summon minecraft:ravager 10 @Y@ 16 {PersistenceRequired:1b}
-@since 1.14 summon minecraft:fox 12 @Y@ 16 {Type:"snow",Trusted:[],Sitting:0b}
-@since 1.14 summon minecraft:panda 14 @Y@ 16 {MainGene:"lazy",HiddenGene:"worried"}
-@since 1.14 summon minecraft:wandering_trader 2 @Y@ 18 {DespawnDelay:48000,Offers:{Recipes:[{buy:{id:"minecraft:emerald",Count:1b},sell:{id:"minecraft:sand",Count:8b},uses:0,maxUses:5}]}}
-@since 1.14 summon minecraft:trader_llama 4 @Y@ 18 {Strength:2}
-@since 1.15 summon minecraft:bee 6 @Y@ 18 {HasNectar:1b,HasStung:0b,CannotEnterHiveTicks:100}
+summon minecraft:rabbit 12 @Y@ 14 {NoAI:1b,Invulnerable:1b,RabbitType:1}
+summon minecraft:shulker 14 @Y@ 14 {NoAI:1b,Invulnerable:1b,Peek:0b,AttachFace:0b,Color:5b}
+summon minecraft:area_effect_cloud 2 @Y@ 16 {Duration:2000000,Radius:3.0f,Particle:"entity_effect",Effects:[{Id:1b,Amplifier:0b,Duration:200}],Color:255}
+summon minecraft:drowned 4 @Y@ 16 {NoAI:1b,Invulnerable:1b,HandItems:[{id:"minecraft:trident",Count:1b},{}],PersistenceRequired:1b}
+summon minecraft:phantom 6 @Y@ 16 {NoAI:1b,Invulnerable:1b,Size:2,AX:0,AY:@Y@,AZ:0}
+@since 1.14 summon minecraft:pillager 8 @Y@ 16 {NoAI:1b,Invulnerable:1b,PersistenceRequired:1b,Patrolling:0b,CanJoinRaid:1b,Wave:0}
+@since 1.14 summon minecraft:ravager 10 @Y@ 16 {NoAI:1b,Invulnerable:1b,PersistenceRequired:1b}
+@since 1.14 summon minecraft:fox 12 @Y@ 16 {NoAI:1b,Invulnerable:1b,Type:"snow",Trusted:[],Sitting:0b}
+@since 1.14 summon minecraft:panda 14 @Y@ 16 {NoAI:1b,Invulnerable:1b,MainGene:"lazy",HiddenGene:"worried"}
+@since 1.14 summon minecraft:wandering_trader 2 @Y@ 18 {NoAI:1b,Invulnerable:1b,DespawnDelay:48000,Offers:{Recipes:[{buy:{id:"minecraft:emerald",Count:1b},sell:{id:"minecraft:sand",Count:8b},uses:0,maxUses:5}]}}
+@since 1.14 summon minecraft:trader_llama 4 @Y@ 18 {NoAI:1b,Invulnerable:1b,Strength:2}
+@since 1.15 summon minecraft:bee 6 @Y@ 18 {NoAI:1b,Invulnerable:1b,HasNectar:1b,HasStung:0b,CannotEnterHiveTicks:100}
 # --- scoreboard
 scoreboard objectives add kills dummy {"text":"Kills"}
 scoreboard objectives add health health {"text":"Health"}

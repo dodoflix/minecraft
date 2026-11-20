@@ -9,8 +9,11 @@
 # Output: $MC_DATAFIX_CACHE/jars/<id>.jar (sha1 checked against the Mojang version manifest; never tracked),
 #         $MC_DATAFIX_CACHE/worlds/<id>/ (flat world, scripted) and <id>-normal/ (seed 12345, structures), exactly as the
 #         server left them, $MC_DATAFIX_CACHE/logs/<id>-<kind>.log (server log and the command lines that failed),
-#         crates/mc-datafix/tests/fixtures/versions.tsv (id, DataVersion, jar sha1, Java major, jar_runs) and
-#         crates/mc-datafix/tests/fixtures/world_hashes/<id>.txt (sha256 of every world file).
+#         crates/mc-datafix/tests/fixtures/versions.tsv (id, DataVersion (-1: 1.7 and 1.8 worlds carry none), jar sha1, Java major,
+#         jar_runs) and crates/mc-datafix/tests/fixtures/world_hashes/<id>.txt (sha256 of every world file of the copy in the cache).
+# Reruns: a regenerated world differs in the clock, tick counters, entity UUIDs and the like. The flat worlds compare clean with
+#         `worldcmp A B --tree` once the specs of crates/mc-datafix/tests/fixtures/world_run_dependent.txt are ignored (that file
+#         says how, and why the -normal worlds cannot be reproduced bit for bit).
 # Env: MC_DATAFIX_CACHE (default ${XDG_CACHE_HOME:-$HOME/.cache}/mc-datafix-corpus),
 #      MC_ACCEPT_EULA=1 (running a server accepts the Minecraft EULA in your name; --list/--download/--hashes need no opt-in),
 #      MC_OLD_JAVA=<JDK 8 home> (releases up to 1.16.5 need it; without it they are skipped with a message, no JDK is ever downloaded),
@@ -258,7 +261,10 @@ gen_world() {
   mkdir -p "$CACHE/logs" "$CACHE/worlds"
   log="$CACHE/logs/$id-$kind.log"
   cp "$srv/logs/latest.log" "$log" || return 1
-  bad="$(grep -ciE 'unknown|usage:|incorrect argument|expected |invalid|unable to|cannot|can.t|couldn.t|could not|not a valid|no such|no entity|no blocks|failed|not loaded|does not|unexpected error' "$log" || true)"
+  # Not failures: a flat world without generator settings logs "No key layers" and falls back to the default layers, a slow
+  # start logs "Can't keep up", a fresh server directory has no ban/ops/whitelist files, and the offline key fetch fails.
+  bad="$(grep -iE 'unknown|usage:|incorrect argument|expected |invalid|unable to|cannot|can.t|couldn.t|could not|not a valid|no such|no entity|no blocks|failed|not loaded|does not|unexpected error|/error\]' "$log" |
+    grep -vciE "can't keep up|no key layers|failed to load (user|ip) banlist|failed to load (operators list|white-list)|FileNotFoundException|failed to (request yggdrasil|read from)|UnknownHostException" || true)"
   [ "$bad" = 0 ] || echo "datafix-worlds: $id $kind: $bad console lines look like failed commands, see $log" >&2
   rm -rf "$out.part"
   cp -a "$srv/world" "$out.part" || return 1

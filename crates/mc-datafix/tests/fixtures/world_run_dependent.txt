@@ -1,0 +1,67 @@
+# What differs between two runs of scripts/datafix-worlds.sh for the same version, as `worldcmp --ignore-field` specs
+# (one per line, syntax in tools/worldcmp/src/fields.rs). With these left out, the scripted (flat) worlds of 1.7.10,
+# 1.12.2, 1.13.2, 1.16.5, 1.20.4, 1.21.5 and 26.2 generated twice compare clean:
+#
+#   args=(); while read -r s; do args+=(--ignore-field "$s"); done < <(grep -vE '^(#|$)' world_run_dependent.txt)
+#   worldcmp WORLD_A WORLD_B --tree "${args[@]}"
+#
+# Why each group differs:
+#  - session.lock, LastPlayed, Time, LastUpdate, ticks of the saved data: wall clock and the number of ticks the server ran.
+#  - rain/thunder timers: drawn from the clock-seeded random of a new server.
+#  - game_rules.dat of 26.x: the rules are stored in hash order, which differs between runs.
+#  - furnace, brewing stand, beehive and sculk sensor counters: tick-driven, and the number of ticks differs.
+#  - Entities: random UUIDs, rotations and movement, chickens laying eggs, so no entity list is comparable (the entity
+#    files of 1.17+ and Level.Entities of older releases are left out as a whole).
+#  - The other dimensions: they are generated at the server's pace, so which chunks exist and how far each got differs.
+#  - Section block data, heightmaps, Status: chunks at the edge of the loaded area depend on the generation order of their
+#    neighbours. The scripted blocks stay covered through block entities and the unchanged parts of every other file.
+# The seed-12345 worlds (<id>-normal) are not reproducible bit for bit at all: the set of generated chunks and their
+# generation stage depends on how fast the server ran during the 60 s wait. Their world_hashes only identify the copy
+# in the cache.
+session.lock
+data/minecraft/game_rules.dat
+DIM-1/
+DIM1/
+dimensions/minecraft/the_nether/
+dimensions/minecraft/the_end/
+entities/
+dimensions/minecraft/overworld/entities/
+**.mca#Level.Entities
+**.mca#LastUpdate
+**.mca#Level.LastUpdate
+**.mca#Level.Status
+**.mca#Level.Heightmaps.LIGHT_BLOCKING
+**.mca#Level.Heightmaps.MOTION_BLOCKING
+**.mca#Level.Heightmaps.MOTION_BLOCKING_NO_LEAVES
+**.mca#Level.Heightmaps.OCEAN_FLOOR
+**.mca#Level.Heightmaps.WORLD_SURFACE
+**.mca#Level.Sections.*.BlockLight
+**.mca#Level.Sections.*.BlockStates
+**.mca#Level.Sections.*.Palette
+**.mca#Level.Sections.*.SkyLight
+**.mca#Level.TileEntities.*.BrewTime
+**.mca#Level.TileEntities.*.Bees.*.TicksInHive
+**.mca#Level.TileEntities.*.BurnTime
+**.mca#Level.TileEntities.*.CookTime
+**.mca#block_entities.*.Bees.*.TicksInHive
+**.mca#block_entities.*.BurnTime
+**.mca#block_entities.*.CookTime
+**.mca#block_entities.*.bees.*.ticks_in_hive
+**.mca#block_entities.*.last_vibration_frequency
+**.mca#block_entities.*.lit_time_remaining
+**.mca#block_entities.*.server_data.state_updating_resumes_at
+**.mca#sections.*.block_states.data
+data/minecraft/weather.dat#data.rain_time
+data/minecraft/weather.dat#data.thunder_time
+data/raids.dat#data.Tick
+data/villages.dat#data.Tick
+data/villages_end.dat#data.Tick
+data/villages_nether.dat#data.Tick
+level.dat#Data.LastPlayed
+level.dat#Data.Time
+level.dat#Data.rainTime
+level.dat#Data.thunderTime
+level.dat_old#Data.LastPlayed
+level.dat_old#Data.Time
+level.dat_old#Data.rainTime
+level.dat_old#Data.thunderTime
