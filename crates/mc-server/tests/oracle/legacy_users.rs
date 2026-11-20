@@ -417,3 +417,18 @@ fn java_trim_and_line_ends() {
 fn player_files_differing_in_non_ascii_case() {
     dual(&["\u{c4}rger.dat", "\u{e4}rger.dat", "Steve.dat"], true);
 }
+
+/// A world from before the file fixer's version is moved into a new folder before the server starts: the files of
+/// `players/` are listed in the order the new folder was filled in (the order of a `HashMap` of the names), which
+/// is the order the player files are converted in, so the order of the user cache.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn player_files_of_a_world_that_needs_file_fixing() {
+    dual_on(
+        Some("1.7.10"),
+        &[],
+        &["Steve.dat", "alex_1.dat", "Notch.dat"],
+        Expect::Converts { fails: false },
+        &[],
+    );
+}

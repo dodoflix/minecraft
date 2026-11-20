@@ -8,13 +8,14 @@
 //! [`Moves`] [`CowTree::collect_move_operations`] returns. Paths are relative to the tree root; `.` and `..` are
 //! resolved like `Path.normalize` (`..` stops at the root).
 
-use std::collections::BTreeMap;
 use std::fmt;
 use std::fs;
 use std::io;
 use std::path::{Component, Path, PathBuf};
 
+use mc_core::java_collections::JavaHashMap;
 use mc_core::java_exception::{FILE_ALREADY_EXISTS_EXCEPTION, JavaException};
+use mc_core::math::java::java_string_hash;
 
 use super::error::FileMove;
 use super::ops::shown;
@@ -108,8 +109,16 @@ impl From<CowFsError> for io::Error {
     }
 }
 
+/// `DirectoryNode.childNodes`, a `HashMap<String, Node>`: its iteration order is the order the fixes list a directory
+/// in and the order the files are moved into the new world, which sets the order the world is listed in afterwards.
+type Children = JavaHashMap<String, Node>;
+
+fn new_children() -> Children {
+    JavaHashMap::new(|name| java_string_hash(name))
+}
+
 enum Node {
-    Dir(BTreeMap<String, Node>),
+    Dir(Children),
     File { storage: PathBuf, is_copy: bool },
 }
 
@@ -126,7 +135,7 @@ pub struct Moves {
 
 pub struct CowTree {
     tmp_directory: PathBuf,
-    root: BTreeMap<String, Node>,
+    root: Children,
     tmp_file_index: u32,
 }
 
@@ -165,8 +174,8 @@ fn check_attributes(real: &Path, file_type: fs::FileType) -> io::Result<()> {
     Ok(())
 }
 
-fn build(real_dir: &Path, skipped: &dyn Fn(&Path) -> bool) -> io::Result<BTreeMap<String, Node>> {
-    let mut children = BTreeMap::new();
+fn build(real_dir: &Path, skipped: &dyn Fn(&Path) -> bool) -> io::Result<Children> {
+    let mut children = new_children();
     for entry in fs::read_dir(real_dir)? {
         let real = entry?.path();
         let file_type = fs::symlink_metadata(&real)?.file_type();
@@ -207,10 +216,7 @@ fn names(path: &Path) -> Vec<String> {
     names
 }
 
-fn dir_of<'a>(
-    root: &'a BTreeMap<String, Node>,
-    names: &[String],
-) -> Option<&'a BTreeMap<String, Node>> {
+fn dir_of<'a>(root: &'a Children, names: &[String]) -> Option<&'a Children> {
     let mut dir = root;
     for name in names {
         match dir.get(name)? {
@@ -276,11 +282,7 @@ impl CowTree {
     }
 
     /// The directory at `names`: a missing path is `NoSuchFile`, a file `NotDirectory`.
-    fn dir_mut(
-        &mut self,
-        names: &[String],
-        shown_path: &Path,
-    ) -> io::Result<&mut BTreeMap<String, Node>> {
+    fn dir_mut(&mut self, names: &[String], shown_path: &Path) -> io::Result<&mut Children> {
         let mut dir = &mut self.root;
         for name in names {
             match dir.get_mut(name) {
@@ -312,7 +314,7 @@ impl CowTree {
         matches!(self.node(&names(path)), Some(Node::File { .. }))
     }
 
-    /// `Files.list`: the names of the directory's children, sorted.
+    /// `Files.list`: the names of the directory's children in `HashMap` order.
     pub fn list(&self, path: &Path) -> io::Result<Vec<String>> {
         let names = names(path);
         if names.is_empty() {
@@ -340,7 +342,7 @@ impl CowTree {
         if dir.contains_key(&name) {
             return Err(CowFsError::FileAlreadyExists(shown(path)).into());
         }
-        dir.insert(name, Node::Dir(BTreeMap::new()));
+        dir.insert(name, Node::Dir(new_children()));
         Ok(())
     }
 
@@ -349,10 +351,10 @@ impl CowTree {
         let names = names(path);
         let mut dir = &mut self.root;
         for name in &names {
-            let node = dir
-                .entry(name.clone())
-                .or_insert_with(|| Node::Dir(BTreeMap::new()));
-            match node {
+            if !dir.contains_key(name) {
+                dir.insert(name.clone(), Node::Dir(new_children()));
+            }
+            match dir.get_mut(name).expect("inserted above") {
                 Node::Dir(children) => dir = children,
                 Node::File { .. } => {
                     return Err(CowFsError::FileAlreadyExists(shown(path)).into());
@@ -560,7 +562,7 @@ impl CowTree {
 
     /// `collectMoveOperations(outPath)`.
     pub fn collect_move_operations(&self, out_path: &Path) -> Moves {
-        fn collect(out: &Path, folder: &BTreeMap<String, Node>, result: &mut Moves) {
+        fn collect(out: &Path, folder: &Children, result: &mut Moves) {
             for (name, node) in folder {
                 let target = out.join(name);
                 match node {

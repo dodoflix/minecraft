@@ -461,7 +461,8 @@ fn the_view_copies_a_file_on_its_first_write_and_leaves_the_world_alone() {
     let before = snapshot(&world, &[]);
     let mut tree = CowTree::create(&world, &tmp.path().join("cow"), |_| false).unwrap();
 
-    assert_eq!(tree.list(Path::new("d")).unwrap(), ["a.dat", "e"]);
+    // `HashMap` order: `e` is in bucket 5 and `a.dat` in bucket 7 of the 16
+    assert_eq!(tree.list(Path::new("d")).unwrap(), ["e", "a.dat"]);
     assert!(tree.is_dir(Path::new("d/e")) && tree.is_file(Path::new("d/a.dat")));
     assert_eq!(
         tree.file_for_read(Path::new("d/a.dat")).unwrap(),
@@ -577,10 +578,9 @@ fn operations_skip_a_missing_source_and_refuse_an_existing_target() {
     }
     .fix(&mut tree, base, &progress)
     .unwrap();
-    assert_eq!(
-        tree.list(Path::new("data")).unwrap(),
-        ["map_x.dat", "minecraft", "ns"]
-    );
+    let mut listed = tree.list(Path::new("data")).unwrap();
+    listed.sort();
+    assert_eq!(listed, ["map_x.dat", "minecraft", "ns"]);
     assert!(tree.is_file(Path::new("data/ns/command_storage.dat")));
     assert!(tree.is_file(Path::new("data/minecraft/maps/12.dat")));
 
@@ -1325,7 +1325,14 @@ fn a_journal_that_cannot_be_read_stops_the_start_without_touching_anything() {
     let new_world = setup.world.join("filefix/new_world");
     let sabotage = Arc::new(move |at: Checkpoint| {
         if at == Checkpoint::MoveFile(1) {
-            fs::remove_file(new_world.join("players/data/p.dat")).unwrap();
+            // the one file moved so far (the moves go in `HashMap` order of the names)
+            for file in [
+                "players/data/p.dat",
+                "stats/s.json",
+                "resourcepacks/resources.zip",
+            ] {
+                let _ = fs::remove_file(new_world.join(file));
+            }
         }
     });
     let hooks = TestHooks {
