@@ -2,7 +2,7 @@
 //!
 //! Everything is compared semantically (palette-independent blocks/biomes, order-insensitive lists where vanilla's order
 //! is not observable) and reported as short human-readable messages. Ignored: `LastUpdate`, `InhabitedTime`, light data
-//! (`sections[].BlockLight/SkyLight`), entity `UUID`s and `EggLayTime` (own-RNG fields, see `NONDETERMINISTIC_ENTITY_FIELDS`).
+//! (`sections[].BlockLight/SkyLight`), entity `UUID`s and `EggLayTime` (own-RNG fields, see `NONDETERMINISTIC_ENTITY_FIELDS`), and the order of an entity's `attributes`.
 
 use std::collections::{BTreeMap, BTreeSet};
 
@@ -551,17 +551,42 @@ pub fn entity_key(t: &Tag) -> String {
 }
 
 /// Entity fields drawn from the entity's own unseeded RandomSource / UUID generator, i.e. not reproducible in vanilla
-/// itself: `UUID` (random), chicken `EggLayTime` (`random.nextInt(6000) + 6000` in the constructor).
+/// itself: `UUID` (random), chicken `EggLayTime` (`random.nextInt(6000) + 6000` in the constructor). The `attributes`
+/// list is sorted by id: vanilla writes it in the iteration order of an identity-hashed map, which changes between runs.
 pub const NONDETERMINISTIC_ENTITY_FIELDS: [&str; 2] = ["UUID", "EggLayTime"];
 
 pub fn normalize_entity(t: &Tag) -> Tag {
     let mut t = t.clone();
     if let Tag::Compound(c) = &mut t {
-        for k in NONDETERMINISTIC_ENTITY_FIELDS {
-            c.remove(k);
-        }
+        normalize_entity_compound(c);
     }
     t
+}
+
+fn normalize_entity_compound(c: &mut CompoundTag) {
+    for k in NONDETERMINISTIC_ENTITY_FIELDS {
+        c.remove(k);
+    }
+    if let Some(Tag::List(attributes)) = c.get_mut("attributes") {
+        let mut sorted: Vec<Tag> = attributes.iter().cloned().collect();
+        sorted.sort_by(|a, b| {
+            let id = |t: &Tag| {
+                t.as_compound()
+                    .map(|c| c.get_string_or("id", "").to_owned())
+            };
+            id(a).cmp(&id(b))
+        });
+        *attributes = sorted.into_iter().collect();
+    }
+    if let Some(Tag::List(riders)) = c.get_mut("Passengers") {
+        let mut normalized: Vec<Tag> = riders.iter().cloned().collect();
+        for rider in &mut normalized {
+            if let Tag::Compound(r) = rider {
+                normalize_entity_compound(r);
+            }
+        }
+        *riders = normalized.into_iter().collect();
+    }
 }
 
 fn unpack_chunk_key(k: i64) -> String {

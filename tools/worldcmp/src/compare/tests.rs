@@ -489,6 +489,54 @@ fn entities_ignore_uuid_and_match_by_position() {
 }
 
 #[test]
+fn entity_attributes_compare_in_any_order() {
+    let attributes = |ids: &[&str]| -> Tag {
+        let list: Vec<Tag> = ids
+            .iter()
+            .map(|id| {
+                let mut a = CompoundTag::new();
+                a.put_string("id", *id);
+                a.put_double("base", 1.0);
+                Tag::Compound(a)
+            })
+            .collect();
+        Tag::List(list.into_iter().collect())
+    };
+    // the attributes of the entity and of its rider
+    let ent = |ids: &[&str]| {
+        let mut rider = CompoundTag::new();
+        rider.put_string("id", "minecraft:skeleton");
+        rider.put("attributes", attributes(ids));
+        let mut c = CompoundTag::new();
+        c.put_string("id", "minecraft:horse");
+        c.put("attributes", attributes(ids));
+        c.put(
+            "Passengers",
+            Tag::List(vec![Tag::Compound(rider)].into_iter().collect()),
+        );
+        let mut w = CompoundTag::new();
+        w.put(
+            "Entities",
+            Tag::List(vec![Tag::Compound(c)].into_iter().collect()),
+        );
+        w
+    };
+    let mut d = ChunkDiff::new(10);
+    compare_entity_chunks(
+        Some(&ent(&["minecraft:armor", "minecraft:movement_speed"])),
+        Some(&ent(&["minecraft:movement_speed", "minecraft:armor"])),
+        &mut d,
+    );
+    assert!(d.is_empty());
+    compare_entity_chunks(
+        Some(&ent(&["minecraft:armor"])),
+        Some(&ent(&["minecraft:movement_speed"])),
+        &mut d,
+    );
+    assert!(!d.is_empty());
+}
+
+#[test]
 fn sample_cap_does_not_cap_count() {
     let set: Vec<(usize, u32)> = (0..100).map(|i| (i, 1)).collect();
     let d = compare_chunk(&stone_chunk(&set, 0), &stone_chunk(&[], 0), 3);

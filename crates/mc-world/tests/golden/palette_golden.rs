@@ -171,3 +171,27 @@ fn palette_matches_vanilla() {
     }
     assert_eq!(checks, 69);
 }
+
+/// `BlockState.CODEC` fills the `properties` compound in descending name order (nested `Codec.mapPair`), which decides the
+/// order of colliding keys (`half` and `waterlogged` share a bucket) in the bytes: the order the real server writes for stairs.
+#[test]
+fn block_state_properties_are_written_in_vanilla_key_order() {
+    let stairs = mc_data::block::Block::by_name("minecraft:oak_stairs").expect("oak_stairs");
+    let state = stairs.default_state().with_property_str("half", "top");
+    let tag = BlockStateCodec
+        .encode(state.expect("half"))
+        .expect("encode");
+    let bytes = mc_nbt::nbt_io::to_bytes(tag.as_compound().expect("compound"));
+    let read = mc_nbt::nbt_io::read(
+        &mut bytes.as_slice(),
+        &mut mc_nbt::NbtAccounter::unlimited_heap(),
+    )
+    .expect("read back");
+    let keys: Vec<&str> = read
+        .get_compound("properties")
+        .expect("properties")
+        .keys()
+        .map(String::as_str)
+        .collect();
+    assert_eq!(keys, ["waterlogged", "half", "shape", "facing"]);
+}

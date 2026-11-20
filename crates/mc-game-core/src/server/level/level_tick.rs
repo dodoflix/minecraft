@@ -957,6 +957,8 @@ impl ServerLevel {
             env.set_game_time(time);
             self.set_game_time(time);
             env.tick_scheduled_events(time, self);
+        } else {
+            self.sync_game_time();
         }
     }
 

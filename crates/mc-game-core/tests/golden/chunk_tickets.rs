@@ -31,6 +31,18 @@ impl ChunkGeneratorBackend for VoidGenerator {
 }
 
 fn open(dir: &Path) -> ServerLevel {
+    open_with(
+        dir,
+        Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(
+            mc_game::server::level::level_data::default_world_data(),
+        )),
+    )
+}
+
+fn open_with(
+    dir: &Path,
+    level_data: Box<dyn mc_game::server::level::level_data::ServerLevelData>,
+) -> ServerLevel {
     let (shared, _rx) = ServerShared::new();
     let biomes = BiomeRegistry::new(vec!["minecraft:plains".to_string()]);
     ServerLevel::new(ServerLevelParams {
@@ -54,9 +66,7 @@ fn open(dir: &Path) -> ServerLevel {
         simulation_distance: 4,
         sync_writes: false,
         is_debug: false,
-        level_data: Box::new(mc_game::server::level::level_data::PrimaryServerLevelData(
-            mc_game::server::level::level_data::default_world_data(),
-        )),
+        level_data,
     })
 }
 
@@ -111,5 +121,43 @@ fn forced_chunks_survive_a_restart() {
         });
         level.close();
     }
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+/// A level that does not advance the game time (the nether, the end) saves its chunks with the time of the world.
+#[test]
+fn a_derived_level_saves_chunks_at_the_game_time_of_the_world() {
+    use mc_game::server::level::level_data::{
+        DerivedLevelData, PrimaryServerLevelData, default_world_data,
+    };
+    use mc_world::region::{RegionFileStorage, RegionStorageInfo};
+    let dir = std::env::temp_dir().join(format!("mc-derived-time-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&dir);
+    let world = default_world_data();
+    let data = DerivedLevelData::new(
+        world.clone(),
+        Box::new(PrimaryServerLevelData(world.clone())),
+    );
+    let mut level = open_with(&dir, Box::new(data));
+    // the world's time moves after the level was built: the save must read the current one
+    world.lock().game_time = 1234;
+    assert!(
+        level
+            .chunk_source
+            .update_chunk_forced(ChunkPos::new(3, 4), true)
+    );
+    run_until(&mut level, |l| l.chunk_now(3, 4).is_some());
+    level.close();
+    let info = RegionStorageInfo::new(
+        "t",
+        Identifier::parse("minecraft:the_nether").unwrap(),
+        "chunk",
+    );
+    let mut storage = RegionFileStorage::new(info, dir.join("region"), false);
+    let chunk = storage
+        .read(&ChunkPos::new(3, 4))
+        .unwrap()
+        .expect("the chunk was saved");
+    assert_eq!(chunk.get_long_or("LastUpdate", -1), 1234);
     let _ = std::fs::remove_dir_all(&dir);
 }

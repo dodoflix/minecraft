@@ -86,6 +86,16 @@ jobs:
         with:
           shared-key: test
           save-if: false
+      # The world start tests open worlds that an older vanilla server generated (flat and seed 12345, version 26.2).
+      - name: Cache the corpus worlds
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/mc-datafix-corpus
+          key: datafix-corpus-26.2-${{ hashFiles('scripts/datafix-worlds.sh', 'crates/mc-datafix/tests/corpus/eras/*.txt') }}
+      - name: Generate the corpus worlds
+        env:
+          MC_ACCEPT_EULA: "1"
+        run: scripts/datafix-worlds.sh 26.2
       - name: Test (oracle, T2)
         env:
           MC_ACCEPT_EULA: "1"

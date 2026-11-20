@@ -189,6 +189,13 @@ crate can use it as a dev-dependency.
   `play_policy_dual`. `services_keys_ours` has no vanilla twin: it proves the profile-key handling against a mock discovery
   service (`MINECRAFT_API_DISCOVERY_HOST`). `RCON_DUAL_ONLY=name`, `JSONRPC_DUAL_ONLY=name`, `DEMO_DUAL_ONLY=name` and
   `KICK_DUAL_ONLY=name` run one scenario.
+- World start dual (T2, `crates/mc-server/tests/oracle/world_start.rs`, runner `scripts/datafix-world-dual.sh`): the vanilla server
+  and `mc-server` open identical copies of a corpus world (`scripts/datafix-worlds.sh`; worlds that older vanilla servers
+  generated) in a normal start and as a world newer than the current data version, save and stop; the server directories are
+  compared (chunks outside the loaded area exactly, inside it semantically; the module header lists what is normalised) and
+  so are the log records that concern the world load. `legacy_users.rs` does the same for `ops.txt`, `white-list.txt`,
+  `banned-players.txt`, `banned-ips.txt` and `players/<name>.dat` in offline mode. `DATAFIX_DUAL_WORLDS` (`supported`, `all` or
+  ids), `DATAFIX_DUAL_KINDS` (`flat,normal`) and `WORLD_UPGRADE_KEEP=<dir>` select worlds and keep both directories.
 - Advancement triggers: `golden/advancement_loot_guards.rs` lists, per trigger, the scenario that fires it and the criterion that
   scenario's fixture records as completed (`ADV PLAYER ADVANCEMENT CRITERION`); a trigger that no recorded completion proves, or that
   is not listed, fails the test. A trigger with no observation yet is listed with its reason.

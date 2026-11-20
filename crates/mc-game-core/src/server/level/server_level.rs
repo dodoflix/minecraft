@@ -205,6 +205,9 @@ impl ServerLevel {
             ServerChunkCache::new(data_dir, chunk_params, params.simulation_distance);
         let tick_state = super::level_tick_state::LevelTickState::default();
         chunk_source.chunk_map.tick_containers = Some(tick_state.ticks.clone());
+        // `level.getGameTime()` at a save: the time of the loaded world, also for a level that does not tick it
+        let game_time = params.level_data.get_game_time();
+        chunk_source.chunk_map.game_time = game_time;
         Self {
             dimension: params.dimension,
             entity_manager,
@@ -232,7 +235,7 @@ impl ServerLevel {
             level_height: params.level_height,
             factory: params.factory,
             sky_darken: 0,
-            game_time: 0,
+            game_time,
             tick_state,
             gen_env: None,
             worldgen_data: None,
@@ -334,8 +337,14 @@ impl ServerLevel {
 
     pub fn set_game_time(&mut self, game_time: i64) {
         self.level_data.set_game_time(game_time);
-        self.game_time = game_time;
-        self.chunk_source.chunk_map.game_time = game_time;
+        self.sync_game_time();
+    }
+
+    /// Copies the time of `level_data` (the overworld's for a derived level) to the places that cache it: a chunk is
+    /// saved with the time `level.getGameTime()` has at that moment, also on a level that does not advance it.
+    pub(crate) fn sync_game_time(&mut self) {
+        self.game_time = self.level_data.get_game_time();
+        self.chunk_source.chunk_map.game_time = self.game_time;
     }
 
     // ------------------------------------------------------------------ chunk events
@@ -758,6 +767,7 @@ impl ServerLevel {
 
     /// `ServerChunkCache.save(flushStorage)`.
     pub fn save_chunks(&mut self, flush_storage: bool) {
+        self.sync_game_time();
         self.run_distance_manager_updates();
         if flush_storage {
             let keys = self.chunk_source.chunk_map.collect_chunks_to_save();
