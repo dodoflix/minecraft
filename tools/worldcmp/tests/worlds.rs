@@ -453,7 +453,7 @@ fn usage_errors_exit_two() {
         &["--tree", "--dim", "end"],
         &["--exact", "--ignore", "blocks"],
         &["--exact", "--ignore-status-below", "full"],
-        &["--ignore-field", "a"],
+        &["--ignore-field", "a#b..c"],
         &["--exact", "--ignore-field", "a#b..c"],
     ] {
         assert_eq!(run(&[&[pa, pb][..], extra].concat()).0, 2, "{extra:?}");

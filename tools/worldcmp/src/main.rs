@@ -1,5 +1,5 @@
 //! `worldcmp A_DIR B_DIR [--dim overworld,nether,end] [--chunks x1,z1,x2,z2] [--ignore-status-below full]
-//! [--max-listed N] [--ignore cat[,cat..]] [--report out.txt|out.json]`
+//! [--max-listed N] [--ignore cat[,cat..]] [--ignore-field SPEC].. [--report out.txt|out.json]`
 //! `worldcmp A_DIR B_DIR --exact [--dim ..] [--chunks ..] [--max-listed N] [--ignore-field SPEC].. [--report ..]`
 //! `worldcmp A_DIR B_DIR --tree [--chunks ..] [--max-listed N] [--ignore-field SPEC].. [--report ..]`
 //!
@@ -29,7 +29,7 @@ use worldcmp::world::{Filter, compare_dimension, render_json, render_text};
 
 fn usage() -> ExitCode {
     eprintln!(
-        "usage: worldcmp A_DIR B_DIR [--dim overworld,nether,end] [--chunks x1,z1,x2,z2] [--ignore-status-below full] [--max-listed N=10] [--ignore cat[,cat..]] [--report out.txt|out.json]\n       worldcmp A_DIR B_DIR --exact|--tree [--dim overworld,nether,end (--exact only)] [--chunks x1,z1,x2,z2] [--max-listed N=10] [--ignore-field GLOB[#FIELD.PATH]].. [--report out.txt|out.json]"
+        "usage: worldcmp A_DIR B_DIR [--dim overworld,nether,end] [--chunks x1,z1,x2,z2] [--ignore-status-below full] [--max-listed N=10] [--ignore cat[,cat..]] [--ignore-field GLOB#FIELD.PATH].. [--report out.txt|out.json]\n       worldcmp A_DIR B_DIR --exact|--tree [--dim overworld,nether,end (--exact only)] [--chunks x1,z1,x2,z2] [--max-listed N=10] [--ignore-field GLOB[#FIELD.PATH]].. [--report out.txt|out.json]"
     );
     ExitCode::from(2)
 }
@@ -113,7 +113,6 @@ fn main() -> ExitCode {
     if (f.exact && tree_mode)
         || (exact && (status_set || !f.ignore.is_empty()))
         || (tree_mode && dims_set)
-        || (!exact && !f.ignores.0.is_empty())
     {
         return usage();
     }

@@ -171,6 +171,14 @@ fn rank(c: &CompoundTag) -> usize {
     status_rank(c.get_string_or("Status", "")).unwrap_or(0)
 }
 
+/// The directory of a dimension relative to its world as a `--ignore-field` path prefix (`DIM-1/`, empty for the overworld).
+fn rel_prefix(world: &Path, dimension: &Path) -> String {
+    match dimension.strip_prefix(world) {
+        Ok(p) if !p.as_os_str().is_empty() => format!("{}/", p.to_string_lossy()),
+        _ => String::new(),
+    }
+}
+
 /// Compares one dimension of two worlds.
 pub fn compare_dimension(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) -> DimReport {
     if f.exact {
@@ -178,6 +186,7 @@ pub fn compare_dimension(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) 
     }
     let (name, da) = dimension_dir(a_world, dim);
     let (_, db) = dimension_dir(b_world, dim);
+    let prefix = rel_prefix(a_world, &da);
     let mut r = DimReport {
         dim: name.clone(),
         ignored: f.ignore.iter().map(|c| c.name()).collect(),
@@ -193,6 +202,7 @@ pub fn compare_dimension(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) 
     );
     let regions: BTreeSet<(i32, i32)> = ca.regions().union(&cb.regions()).copied().collect();
     for (rx, rz) in regions {
+        let rel = format!("{prefix}region/r.{rx}.{rz}.mca");
         for lz in 0..32 {
             for lx in 0..32 {
                 let pos = ChunkPos::new(rx * 32 + lx, rz * 32 + lz);
@@ -217,12 +227,14 @@ pub fn compare_dimension(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) 
                     (None, None) => {}
                     (Some(a), None) => r.only_a += (rank(&a) >= f.min_status) as u64,
                     (None, Some(b)) => r.only_b += (rank(&b) >= f.min_status) as u64,
-                    (Some(a), Some(b)) => {
+                    (Some(mut a), Some(mut b)) => {
                         if rank(&a) < f.min_status || rank(&b) < f.min_status {
                             r.skipped_status += 1;
                             continue;
                         }
                         r.compared += 1;
+                        f.ignores.strip_nbt(&rel, &mut a);
+                        f.ignores.strip_nbt(&rel, &mut b);
                         let mut d = compare_chunk(&a, &b, f.max_listed);
                         match (ea.read(pos), eb.read(pos)) {
                             (Ok(x), Ok(y)) => compare_entity_chunks(x.as_ref(), y.as_ref(), &mut d),
@@ -267,10 +279,7 @@ pub fn compare_dimension(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) 
 fn compare_dimension_exact(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) -> DimReport {
     let (name, da) = dimension_dir(a_world, dim);
     let (_, db) = dimension_dir(b_world, dim);
-    let prefix = match da.strip_prefix(a_world) {
-        Ok(p) if !p.as_os_str().is_empty() => format!("{}/", p.to_string_lossy()),
-        _ => String::new(),
-    };
+    let prefix = rel_prefix(a_world, &da);
     let mut r = DimReport {
         dim: name.clone(),
         ..DimReport::default()

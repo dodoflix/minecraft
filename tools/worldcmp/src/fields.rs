@@ -7,8 +7,10 @@
 //! * `#FIELD.PATH` removes a field from the decoded content of every matching file (NBT: `.dat`/`.nbt` files and
 //!   every chunk of a `.mca` file; JSON: `.json`) on both sides before comparing: `level.dat#Data.LastPlayed`,
 //!   `data/*.dat#data.*.ticks`. Segments are compound/object keys; `*` matches every key of a compound/object or
-//!   every element of a list/array. Keys containing `.` cannot be addressed (shortcut: split on every dot, add an
-//!   escape when such a key has to be ignored).
+//!   every element of a list/array; in an NBT list `*[KEY<N]` matches only the compound elements whose integer field
+//!   `KEY` is below `N` (`region/*.mca#sections.*[Y<0].block_states`; as the last segment it removes those elements).
+//!   Keys containing `.` cannot be addressed (shortcut: split on every dot, add an escape when such a key has to be
+//!   ignored).
 
 use std::str::FromStr;
 
@@ -118,18 +120,42 @@ fn strip_compound(c: &mut CompoundTag, path: &[String]) {
     }
 }
 
+/// `KEY` and `N` of a list segment `*[KEY<N]`.
+fn below_predicate(segment: &str) -> Option<(&str, i64)> {
+    let (key, limit) = segment
+        .strip_prefix("*[")?
+        .strip_suffix(']')?
+        .split_once('<')?;
+    Some((key, limit.parse().ok()?))
+}
+
 fn strip_tag(tag: &mut Tag, path: &[String]) {
     match tag {
         Tag::Compound(c) => strip_compound(c, path),
-        Tag::List(l) if path[0] == "*" => {
+        Tag::List(l) if path[0].starts_with('*') => {
+            let below = below_predicate(&path[0]);
+            let selected = |e: &Tag| {
+                below.is_none_or(|(key, limit)| {
+                    e.as_compound()
+                        .and_then(|c| c.get(key))
+                        .and_then(Tag::as_long)
+                        .is_some_and(|v| v < limit)
+                })
+            };
             if path.len() == 1 {
-                l.clear();
-            }
-            for i in 0..l.len() {
-                if path.len() > 1
-                    && let Some(e) = l.get_mut(i)
-                {
-                    strip_tag(e, &path[1..]);
+                // removing from the back keeps the indices below valid
+                for i in (0..l.len()).rev() {
+                    if l.get(i).is_some_and(selected) {
+                        l.remove(i);
+                    }
+                }
+            } else {
+                for i in 0..l.len() {
+                    if let Some(e) = l.get_mut(i)
+                        && selected(e)
+                    {
+                        strip_tag(e, &path[1..]);
+                    }
                 }
             }
         }
@@ -203,5 +229,31 @@ mod tests {
         let mut j: Value = serde_json::from_str(r#"{"a":[{"t":1,"u":2}],"b":1}"#).unwrap();
         Ignores(vec!["x.json#a.*.t".parse().unwrap()]).strip_json("x.json", &mut j);
         assert_eq!(j, serde_json::json!({"a":[{"u":2}],"b":1}));
+    }
+
+    #[test]
+    fn strips_list_elements_below_a_limit() {
+        let chunk = || {
+            mc_nbt::snbt::parse_compound(
+                "{sections:[{Y:-1b,b:1},{Y:0b,b:2}],ticks:[{y:-5,t:1},{y:7,t:2},{y:-1,t:3}]}",
+            )
+            .unwrap()
+        };
+        let strip = |spec: &[&str]| {
+            let mut t = chunk();
+            Ignores(spec.iter().map(|s| s.parse().unwrap()).collect()).strip_nbt("c.mca", &mut t);
+            t
+        };
+        let want =
+            mc_nbt::snbt::parse_compound("{sections:[{Y:0b,b:2}],ticks:[{y:7,t:2}]}").unwrap();
+        assert_eq!(
+            strip(&["c.mca#sections.*[Y<0]", "c.mca#ticks.*[y<0]"]),
+            want
+        );
+        let want = mc_nbt::snbt::parse_compound(
+            "{sections:[{Y:-1b},{Y:0b,b:2}],ticks:[{y:-5,t:1},{y:7,t:2},{y:-1,t:3}]}",
+        )
+        .unwrap();
+        assert_eq!(strip(&["c.mca#sections.*[Y<0].b"]), want);
     }
 }
