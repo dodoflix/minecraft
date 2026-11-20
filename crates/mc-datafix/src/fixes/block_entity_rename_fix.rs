@@ -23,7 +23,7 @@ pub fn create(
             .find_choice_type(&References::BLOCK_ENTITY);
         let lookup = lookup.clone();
         df.fix_type_everywhere_new(&name, old_type.ty(), new_type.ty(), move |_, input| {
-            input.map_first(|id| Value::Str(id.as_java_string().map_text(|t| lookup(t))))
+            input.map_first(|id| Value::Str(id.as_java_string().map_lossless(|t| lookup(t))))
         })
     })
 }

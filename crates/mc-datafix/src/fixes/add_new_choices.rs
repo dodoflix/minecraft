@@ -19,10 +19,11 @@ pub fn new(output_schema: &Schema, name: &str, ty: &TypeReference) -> DataFix {
         }
         let (output_choice, name2) = (output_type.clone(), name.clone());
         df.fix_type_everywhere_new(&name, input_type.ty(), output_type.ty(), move |_, input| {
-            let id = input.first().as_lossy_str();
-            if !output_choice.has_type(id) {
+            let id = input.first().as_java_string();
+            if !output_choice.has_type(id.as_lossy_str()) {
                 panic!(
-                    "java.lang.IllegalArgumentException: {name2}: Unknown type {id} in '{}'",
+                    "java.lang.IllegalArgumentException: {name2}: Unknown type {} in '{}'",
+                    id.to_utf8_string(),
                     ty.type_name()
                 );
             }

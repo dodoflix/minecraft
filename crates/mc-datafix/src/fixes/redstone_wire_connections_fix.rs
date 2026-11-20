@@ -3,6 +3,7 @@
 use crate::datafix::DataFix;
 use crate::fixes::references::References;
 use crate::schema::Schema;
+use mc_core::java_string::JavaString;
 use mc_dfu::Dynamic;
 
 /// `new RedstoneWireConnectionsFix(outputSchema)`.
@@ -29,10 +30,13 @@ fn update_redstone_connections(state: Dynamic) -> Dynamic {
         let south = props.get("south").as_string_or("none");
         let eastwest = is_connected(east.as_lossy_str()) || is_connected(west.as_lossy_str());
         let northsouth = is_connected(north.as_lossy_str()) || is_connected(south.as_lossy_str());
-        let new_east = side_unless_connected(east.as_lossy_str(), northsouth);
-        let new_west = side_unless_connected(west.as_lossy_str(), northsouth);
-        let new_north = side_unless_connected(north.as_lossy_str(), eastwest);
-        let new_south = side_unless_connected(south.as_lossy_str(), eastwest);
+        let side = |value: &JavaString, cross_connected| {
+            value.map_lossless(|t| side_unless_connected(t, cross_connected).to_owned())
+        };
+        let new_east = side(&east, northsouth);
+        let new_west = side(&west, northsouth);
+        let new_north = side(&north, eastwest);
+        let new_south = side(&south, eastwest);
         props
             .update("east", |value| value.create_string(new_east))
             .update("west", |value| value.create_string(new_west))

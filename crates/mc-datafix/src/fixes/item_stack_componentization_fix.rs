@@ -486,7 +486,7 @@ fn fix_enchantments(
     hide_in_tooltip: bool,
 ) {
     let raw_enchantments = item_stack.remove_tag(key);
-    let enchantments: Vec<(String, i32)> = raw_enchantments
+    let enchantments: Vec<(JavaString, i32)> = raw_enchantments
         .as_list(|enchantment| enchantment)
         .iter()
         .filter_map(parse_enchantment)
@@ -516,8 +516,8 @@ fn fix_enchantments(
     }
 }
 
-fn parse_enchantment(entry: &Dynamic) -> Option<(String, i32)> {
-    let id = entry.get("id").as_string_lossy();
+fn parse_enchantment(entry: &Dynamic) -> Option<(JavaString, i32)> {
+    let id = entry.get("id").as_string();
     let level = entry.get("lvl").as_number();
     match (id.result(), level.result()) {
         // `Mth.clamp(level, 0, 255)`
@@ -555,7 +555,8 @@ fn fix_block_state_predicates(
             .as_stream()
             .into_iter()
             .map(|value| match value.as_string().result() {
-                Some(string) => fix_block_state_predicate(&value, string.as_lossy_str()),
+                Some(string) => string
+                    .with_stand_ins(|text, back| fix_block_state_predicate(&value, text, back)),
                 None => value,
             })
             .collect();
@@ -570,7 +571,12 @@ fn fix_block_state_predicates(
     }
 }
 
-fn fix_block_state_predicate(dynamic: &Dynamic, string: &str) -> Dynamic {
+/// `back` turns text of `string` into a Java string.
+fn fix_block_state_predicate(
+    dynamic: &Dynamic,
+    string: &str,
+    back: &dyn Fn(&str) -> JavaString,
+) -> Dynamic {
     let start_properties = string.find('[');
     let start_nbt = string.find('{');
     let mut block_name_end = string.len();
@@ -585,7 +591,7 @@ fn fix_block_state_predicate(dynamic: &Dynamic, string: &str) -> Dynamic {
     let block_or_tag_name = &string[..block_name_end];
     let mut predicate = dynamic.empty_map().set(
         "blocks",
-        dynamic.create_string(java_trim(block_or_tag_name)),
+        dynamic.create_string(back(java_trim(block_or_tag_name))),
     );
     let end_properties = string.find(']');
     if let (Some(start_properties), Some(end_properties)) = (start_properties, end_properties) {
@@ -596,7 +602,7 @@ fn fix_block_state_predicate(dynamic: &Dynamic, string: &str) -> Dynamic {
             if let Some(assignment) = property.find('=') {
                 let key = java_trim(&property[..assignment]);
                 let value = java_trim(&property[assignment + 1..]);
-                properties = properties.set(key, dynamic.create_string(value));
+                properties = properties.set(back(key), dynamic.create_string(back(value)));
             }
         }
 
@@ -607,7 +613,7 @@ fn fix_block_state_predicate(dynamic: &Dynamic, string: &str) -> Dynamic {
     if let (Some(start_nbt), Some(end_nbt)) = (start_nbt, end_nbt) {
         predicate = predicate.set(
             "nbt",
-            dynamic.create_string(substring(string, start_nbt, end_nbt + 1)),
+            dynamic.create_string(back(substring(string, start_nbt, end_nbt + 1))),
         );
     }
 
@@ -963,7 +969,7 @@ fn fix_profile_properties(dynamic: &OptionalDynamic) -> Option<Dynamic> {
 
 /// `ItemStackComponentizationFix.ItemStackData`.
 struct ItemStackData {
-    item: String,
+    item: JavaString,
     count: i32,
     components: Dynamic,
     remainder: Dynamic,
@@ -971,9 +977,9 @@ struct ItemStackData {
 }
 
 impl ItemStackData {
-    fn new(item: &str, count: i32, remainder: &Dynamic) -> ItemStackData {
+    fn new(item: &JavaString, count: i32, remainder: &Dynamic) -> ItemStackData {
         ItemStackData {
-            item: ensure_namespaced(item),
+            item: item.map_lossless(ensure_namespaced),
             count,
             components: remainder.empty_map(),
             tag: remainder.get("tag").or_else_empty_map(),
@@ -986,7 +992,7 @@ impl ItemStackData {
         let count = dynamic.get("Count").as_number();
         match (item.result(), count.result()) {
             (Some(item), Some(count)) => Some(ItemStackData::new(
-                item.as_lossy_str(),
+                &item,
                 count.int_value(),
                 &dynamic.remove("id").remove("Count"),
             )),
@@ -1055,7 +1061,7 @@ impl ItemStackData {
         let mut result = self
             .tag
             .empty_map()
-            .set("id", self.tag.create_string(self.item.as_str()))
+            .set("id", self.tag.create_string(self.item.clone()))
             .set("count", self.tag.create_int(self.count));
         if self.tag != self.tag.empty_map() {
             self.components = self
@@ -1071,12 +1077,12 @@ impl ItemStackData {
     }
 
     fn is(&self, id: &str) -> bool {
-        self.item == id
+        self.item == *id
     }
 
     /// The `is(Set<String>)` overload.
     fn is_one_of(&self, ids: &[&str]) -> bool {
-        ids.contains(&self.item.as_str())
+        ids.contains(&self.item.as_lossy_str())
     }
 }
 

@@ -5,6 +5,7 @@ use crate::extra_data_fix_utils::dye_color_id_to_name;
 use crate::fixes::named_entity_fix;
 use crate::fixes::references::References;
 use crate::schema::Schema;
+use mc_core::java_string::JavaString;
 use mc_dfu::Dynamic;
 
 const PATTERN_ID_MAP: [(&str, &str); 41] = [
@@ -78,7 +79,7 @@ fn fix_layer(dynamic: Dynamic) -> Dynamic {
                 let mapped = PATTERN_ID_MAP
                     .iter()
                     .find(|(short, _)| *short == id)
-                    .map_or(id.as_lossy_str(), |(_, long)| long);
+                    .map_or(id.clone(), |(_, long)| JavaString::from(long.to_string()));
                 pattern.create_string(mapped)
             }
             None => pattern,

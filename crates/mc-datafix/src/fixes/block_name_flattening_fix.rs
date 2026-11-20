@@ -35,9 +35,12 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
                             Value::Left(id) => {
                                 Value::str(block_state_data::upgrade_block_id(id.as_int()))
                             }
-                            Value::Right(name) => Value::str(block_state_data::upgrade_block(
-                                &ensure_namespaced(name.as_lossy_str()),
-                            )),
+                            Value::Right(name) => {
+                                Value::Str(name.as_java_string().map_lossless(|t| {
+                                    block_state_data::upgrade_block(&ensure_namespaced(t))
+                                        .to_owned()
+                                }))
+                            }
                             other => panic!("expected an Either, got {other:?}"),
                         })
                     },

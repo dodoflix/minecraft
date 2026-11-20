@@ -17,9 +17,10 @@ impl Msg {
         let s: JavaString = s.into();
         Msg(Arc::new(move || s.clone()))
     }
-    /// The message, each lone surrogate shown as U+FFFD.
+    /// The message as UTF-8 text, each lone surrogate shown as `?` like `String.getBytes(UTF_8)` does for a logged or
+    /// thrown message (`get_java` keeps it).
     pub fn get(&self) -> String {
-        self.get_java().into_string_lossy()
+        self.get_java().to_utf8_string().into_owned()
     }
     pub fn get_java(&self) -> JavaString {
         (self.0)()
@@ -109,7 +110,7 @@ impl<A> DataResult<A> {
             Error { partial, .. } => partial.as_ref(),
         }
     }
-    /// The error message (`None` for a success), each lone surrogate shown as U+FFFD (`error_msg_ref().get_java()` keeps it).
+    /// The error message (`None` for a success), each lone surrogate shown as `?` (`error_msg_ref().get_java()` keeps it).
     pub fn error_message(&self) -> Option<String> {
         self.error_msg_ref().map(Msg::get)
     }

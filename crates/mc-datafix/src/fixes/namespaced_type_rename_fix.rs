@@ -24,7 +24,7 @@ pub fn new(
         }
         let renamer = renamer.clone();
         df.fix_type_everywhere(&name, &field_type, move |_, input| {
-            input.map_second(|id| Value::Str(id.as_java_string().map_text(|t| renamer(t))))
+            input.map_second(|id| Value::Str(id.as_java_string().map_lossless(|t| renamer(t))))
         })
     })
 }

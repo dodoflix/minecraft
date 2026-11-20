@@ -249,6 +249,12 @@ pub fn parse(input: &str) -> Result<Tag, SnbtError> {
     parse_fully_units(&units).map(|(t, _)| t)
 }
 
+/// [`parse`] of a Java string, which may hold lone surrogates.
+pub fn parse_java(input: &JavaString) -> Result<Tag, SnbtError> {
+    let units: Vec<u16> = input.encode_utf16().collect();
+    parse_fully_units(&units).map(|(t, _)| t)
+}
+
 /// `TagParser.parseCompoundFully`.
 pub fn parse_compound(input: &str) -> Result<CompoundTag, SnbtError> {
     let units: Vec<u16> = input.encode_utf16().collect();

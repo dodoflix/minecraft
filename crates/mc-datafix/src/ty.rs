@@ -231,7 +231,7 @@ impl PrimKind {
             PrimKind::Str => ops.get_string_value(input).map(Value::Str),
             PrimKind::NamespacedStr => ops
                 .get_string_value(input)
-                .map(|s| Value::Str(s.map_text(ensure_namespaced))),
+                .map(|s| Value::Str(s.map_lossless(ensure_namespaced))),
         }
     }
 
@@ -345,8 +345,8 @@ thread_local! {
 fn no_key_error<A>(name: &str, map: &mc_dfu::MapLike<'_>) -> DataResult<A> {
     let name = name.to_string();
     if DECODE_MODE.get() == DecodeMode::WithMapDumps {
-        let map = map.to_string();
-        DataResult::error(move || format!("No key {name} in {map}"))
+        let map = map.to_java_string();
+        DataResult::error(move || mc_core::jformat!("No key {} in {}", name, map))
     } else {
         DataResult::error(move || format!("No key {name} in MapLike[..]"))
     }
@@ -864,10 +864,10 @@ impl Type {
                     second_read.error_msg_ref().cloned().unwrap(),
                 );
                 DataResult::error(move || {
-                    format!(
+                    mc_core::jformat!(
                         "Failed to parse either. First: {}; Second: {}",
-                        m1.get(),
-                        m2.get()
+                        m1.get_java(),
+                        m2.get_java()
                     )
                 })
             }
@@ -922,9 +922,11 @@ impl Type {
                         }
                     },
                 };
-                let name = key.as_lossy_str().to_string();
-                match tc.get(&name) {
-                    None => DataResult::error(move || format!("Unsupported key: {name}")),
+                match tc.get(key.as_lossy_str()) {
+                    None => {
+                        let name = key.as_java_string().clone();
+                        DataResult::error(move || mc_core::jformat!("Unsupported key: {}", name))
+                    }
                     Some(ty) => ty
                         .decode(ops, input)
                         .map(|(v, _)| (Value::pair(key, v), Rest::Same)),
@@ -981,7 +983,9 @@ impl Type {
                             message: m2,
                             partial,
                         } => DataResult::error_msg(
-                            Msg::new(move || format!("{}; {}", message.get(), m2.get())),
+                            Msg::new(move || {
+                                mc_core::jformat!("{}; {}", message.get_java(), m2.get_java())
+                            }),
                             partial,
                         ),
                     },
@@ -991,11 +995,13 @@ impl Type {
             Named(name, element) => {
                 let (n, v) = value.as_pair();
                 if n.as_lossy_str() != name {
-                    let (expected, got) = (name.clone(), n.as_lossy_str().to_string());
+                    let (expected, got) = (name.clone(), n.as_java_string().clone());
                     DataResult::error_partial(
                         move || {
-                            format!(
-                                "Named type name doesn't match: expected: {expected}, got: {got}"
+                            mc_core::jformat!(
+                                "Named type name doesn't match: expected: {}, got: {}",
+                                expected,
+                                got
                             )
                         },
                         prefix,
@@ -1012,8 +1018,8 @@ impl Type {
                 let (key, v) = value.as_pair();
                 let key_name = key.as_lossy_str();
                 let Some(ty) = tc.get(key_name) else {
-                    let k = key_name.to_string();
-                    return DataResult::error(move || format!("Unsupported key: {k}"));
+                    let k = key.as_java_string().clone();
+                    return DataResult::error(move || mc_core::jformat!("Unsupported key: {}", k));
                 };
                 // assumeMapUnsafe(type.codec()): encode the value, add its entries to the builder, then the type key
                 let encoded = ty.encode(ops, v, Dyn::Empty);

@@ -23,7 +23,7 @@ pub fn new(
                 input.update_remainder(|tag| {
                     tag.update_map_values(|(key, value)| {
                         let id = key.as_string().result().unwrap_or_default();
-                        (tag.create_string(renamer(id.as_lossy_str())), value)
+                        (tag.create_string(id.map_lossless(|t| renamer(t))), value)
                     })
                 })
             },

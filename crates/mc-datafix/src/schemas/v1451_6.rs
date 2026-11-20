@@ -53,10 +53,10 @@ pub(crate) static REPACK_OBJECTIVE_ID: LazyLock<HookFunction> = LazyLock::new(||
             Some(if stat_type == SPECIAL_OBJECTIVE_MARKER {
                 input.create_string(stat_id)
             } else {
-                ty.create_string(format!(
+                ty.create_string(mc_core::jformat!(
                     "{}:{}",
-                    pack_namespaced_with_dot(stat_type.as_lossy_str()),
-                    pack_namespaced_with_dot(stat_id.as_lossy_str())
+                    stat_type.map_lossless(pack_namespaced_with_dot),
+                    stat_id.map_lossless(pack_namespaced_with_dot)
                 ))
             })
         });

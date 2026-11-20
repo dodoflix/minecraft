@@ -18,7 +18,7 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
                         return tag;
                     };
                     let uuid =
-                        uuid_from_string(uuid_string.as_lossy_str()).unwrap_or_else(|message| {
+                        uuid_from_string(&uuid_string.to_utf8_string()).unwrap_or_else(|message| {
                             // `UUID.fromString` throws `IllegalArgumentException`; its hex parse a `NumberFormatException`
                             let class = if message.starts_with("Invalid UUID string: ")
                                 || message == "UUID string too large"

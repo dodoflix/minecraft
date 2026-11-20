@@ -47,7 +47,7 @@ fn fix_remainder(remainder: Dynamic) -> Dynamic {
 fn add_slot_chances(mut output: Dynamic, chances: &[f32], slot_names: &[&str]) -> Dynamic {
     for (slot, &chance) in slot_names.iter().zip(chances) {
         if chance != DEFAULT_CHANCE {
-            output = output.set(slot, output.create_float(chance));
+            output = output.set(*slot, output.create_float(chance));
         }
     }
     output

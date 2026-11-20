@@ -35,7 +35,7 @@ pub fn fix_lock(input: Dynamic) -> Option<Dynamic> {
     if name.as_lossy_str().is_empty() {
         return None;
     }
-    let name_component = input.create_string(format!("\"{}\"", escape(name.as_lossy_str())));
+    let name_component = input.create_string(name.map_lossless(|t| format!("\"{}\"", escape(t))));
     let components = input
         .empty_map()
         .set("minecraft:custom_name", name_component);

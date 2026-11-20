@@ -7,6 +7,7 @@ use crate::ty::ensure_namespaced;
 use mc_brigadier::exceptions::CommandSyntaxException;
 use mc_brigadier::string_reader::{ImmutableStringReader, StringReader};
 use mc_core::java_collections::JavaHashMap;
+use mc_core::java_string::JavaString;
 use mc_core::math::mth::floor_f32;
 use mc_dfu::{Dyn, Dynamic, NBT};
 use mc_nbt::snbt;
@@ -20,44 +21,56 @@ pub fn new(output_schema: &Schema) -> DataFix {
     })
 }
 
+/// The UTF-16 offset of the first `c` of `s`.
+fn find_unit(s: &JavaString, c: char) -> Option<usize> {
+    let text = s.as_lossy_str();
+    text.find(c).map(|at| text[..at].encode_utf16().count())
+}
+
 fn fix(input: Dynamic) -> Dynamic {
     let Some(particle_description) = input.as_string().result() else {
         return input;
     };
     // `String.split(" ", 2)`
-    let mut parts = particle_description.as_lossy_str().splitn(2, ' ');
-    let part0 = parts.next().unwrap_or("");
-    let part1 = parts.next();
-    let id = ensure_namespaced(part0);
+    let (part0, part1) = match find_unit(&particle_description, ' ') {
+        Some(at) => (
+            particle_description.substring(0, at),
+            Some(particle_description.substring(at + 1, particle_description.utf16_len())),
+        ),
+        None => (particle_description, None),
+    };
+    let id = part0.map_lossless(ensure_namespaced);
     let result = input.create_map([(input.create_string("type"), input.create_string(id.clone()))]);
     let Some(contents) = part1 else {
         return result;
     };
-    match id.as_str() {
-        "minecraft:item" => update_item(&result, contents),
+    match id.as_lossy_str() {
+        "minecraft:item" => update_item(&result, &contents),
         "minecraft:block"
         | "minecraft:block_marker"
         | "minecraft:falling_dust"
-        | "minecraft:dust_pillar" => update_block(&result, contents),
-        "minecraft:dust" => update_dust(&result, contents),
-        "minecraft:dust_color_transition" => update_dust_transition(&result, contents),
-        "minecraft:sculk_charge" => update_sculk_charge(&result, contents),
-        "minecraft:vibration" => update_vibration(&result, contents),
-        "minecraft:shriek" => update_shriek(&result, contents),
+        | "minecraft:dust_pillar" => update_block(&result, &contents),
+        "minecraft:dust" => update_dust(&result, &contents),
+        "minecraft:dust_color_transition" => update_dust_transition(&result, &contents),
+        "minecraft:sculk_charge" => update_sculk_charge(&result, &contents),
+        "minecraft:vibration" => update_vibration(&result, &contents),
+        "minecraft:shriek" => update_shriek(&result, &contents),
         _ => result,
     }
 }
 
-fn update_item(result: &Dynamic, contents: &str) -> Dynamic {
-    let tag_part_start = contents.find('{');
+fn update_item(result: &Dynamic, contents: &JavaString) -> Dynamic {
+    let tag_part_start = find_unit(contents, '{');
     let mut item_stack = result.create_map([(result.create_string("Count"), result.create_int(1))]);
     match tag_part_start {
         None => {
-            item_stack = item_stack.set("id", result.create_string(contents));
+            item_stack = item_stack.set("id", result.create_string(contents.clone()));
         }
         Some(start) => {
-            item_stack = item_stack.set("id", result.create_string(&contents[..start]));
-            if let Some(item_tag) = parse_tag(result, &contents[start..]) {
+            item_stack = item_stack.set("id", result.create_string(contents.substring(0, start)));
+            if let Some(item_tag) =
+                parse_tag(result, &contents.substring(start, contents.utf16_len()))
+            {
                 item_stack = item_stack.set("tag", item_tag);
             }
         }
@@ -66,8 +79,8 @@ fn update_item(result: &Dynamic, contents: &str) -> Dynamic {
 }
 
 /// `parseTag`: `TagParser.create(ops).parseFully(contents)`, `None` (and a warning) when it fails.
-fn parse_tag(result: &Dynamic, contents: &str) -> Option<Dynamic> {
-    match snbt::parse(contents) {
+fn parse_tag(result: &Dynamic, contents: &JavaString) -> Option<Dynamic> {
+    match snbt::parse_java(contents) {
         Ok(tag) => {
             let parsed = Dynamic::new(NBT, Dyn::from(&tag));
             Some(if result.ops() == NBT {
@@ -77,26 +90,29 @@ fn parse_tag(result: &Dynamic, contents: &str) -> Option<Dynamic> {
             })
         }
         Err(e) => {
-            log::warn!("Failed to parse tag: {contents}: {e}");
+            log::warn!("Failed to parse tag: {}: {e}", contents.to_utf8_string());
             None
         }
     }
 }
 
-fn update_block(result: &Dynamic, contents: &str) -> Dynamic {
-    let state_part_start = contents.find('[');
+fn update_block(result: &Dynamic, contents: &JavaString) -> Dynamic {
+    let state_part_start = find_unit(contents, '[');
     let mut block_state = result.empty_map();
     match state_part_start {
         None => {
-            block_state =
-                block_state.set("Name", result.create_string(ensure_namespaced(contents)));
+            block_state = block_state.set(
+                "Name",
+                result.create_string(contents.map_lossless(ensure_namespaced)),
+            );
         }
         Some(start) => {
             block_state = block_state.set(
                 "Name",
-                result.create_string(ensure_namespaced(&contents[..start])),
+                result.create_string(contents.substring(0, start).map_lossless(ensure_namespaced)),
             );
-            let properties = parse_block_properties(result, &contents[start..]);
+            let properties =
+                parse_block_properties(result, &contents.substring(start, contents.utf16_len()));
             if !properties.is_empty() {
                 block_state = block_state.set(
                     "Properties",
@@ -108,19 +124,22 @@ fn update_block(result: &Dynamic, contents: &str) -> Dynamic {
     result.set("block_state", block_state)
 }
 
-fn parse_block_properties(dynamic: &Dynamic, contents: &str) -> JavaHashMap<Dynamic, Dynamic> {
+fn parse_block_properties(
+    dynamic: &Dynamic,
+    contents: &JavaString,
+) -> JavaHashMap<Dynamic, Dynamic> {
     let attempt = || -> Result<JavaHashMap<Dynamic, Dynamic>, CommandSyntaxException> {
         let mut result = JavaHashMap::new(Dynamic::hash_code);
-        let mut reader = StringReader::new(contents);
+        let mut reader = StringReader::new(contents.clone());
         reader.expect('[')?;
         reader.skip_whitespace();
         while reader.can_read() && reader.peek() != ']' {
             reader.skip_whitespace();
-            let key = reader.read_string()?;
+            let key = reader.read_string_java()?;
             reader.skip_whitespace();
             reader.expect('=')?;
             reader.skip_whitespace();
-            let value = reader.read_string()?;
+            let value = reader.read_string_java()?;
             reader.skip_whitespace();
             result.insert(dynamic.create_string(key), dynamic.create_string(value));
             if reader.can_read() {
@@ -136,7 +155,10 @@ fn parse_block_properties(dynamic: &Dynamic, contents: &str) -> JavaHashMap<Dyna
     match attempt() {
         Ok(result) => result,
         Err(e) => {
-            log::warn!("Failed to parse block properties: {contents}: {e}");
+            log::warn!(
+                "Failed to parse block properties: {}: {e}",
+                contents.to_utf8_string()
+            );
             JavaHashMap::new(Dynamic::hash_code)
         }
     }
@@ -157,20 +179,23 @@ fn read_vector(
 /// Runs `f`; a failure is logged (`Failed to parse particle options`) and `result` returned unchanged.
 fn or_unchanged(
     result: &Dynamic,
-    contents: &str,
+    contents: &JavaString,
     f: impl FnOnce(&mut StringReader) -> Result<Dynamic, CommandSyntaxException>,
 ) -> Dynamic {
-    let mut reader = StringReader::new(contents);
+    let mut reader = StringReader::new(contents.clone());
     match f(&mut reader) {
         Ok(fixed) => fixed,
         Err(e) => {
-            log::warn!("Failed to parse particle options: {contents}: {e}");
+            log::warn!(
+                "Failed to parse particle options: {}: {e}",
+                contents.to_utf8_string()
+            );
             result.clone()
         }
     }
 }
 
-fn update_dust(result: &Dynamic, contents: &str) -> Dynamic {
+fn update_dust(result: &Dynamic, contents: &JavaString) -> Dynamic {
     or_unchanged(result, contents, |reader| {
         let vector = read_vector(result, reader)?;
         reader.expect(' ')?;
@@ -181,7 +206,7 @@ fn update_dust(result: &Dynamic, contents: &str) -> Dynamic {
     })
 }
 
-fn update_dust_transition(result: &Dynamic, contents: &str) -> Dynamic {
+fn update_dust_transition(result: &Dynamic, contents: &JavaString) -> Dynamic {
     or_unchanged(result, contents, |reader| {
         let from = read_vector(result, reader)?;
         reader.expect(' ')?;
@@ -195,14 +220,14 @@ fn update_dust_transition(result: &Dynamic, contents: &str) -> Dynamic {
     })
 }
 
-fn update_sculk_charge(result: &Dynamic, contents: &str) -> Dynamic {
+fn update_sculk_charge(result: &Dynamic, contents: &JavaString) -> Dynamic {
     or_unchanged(result, contents, |reader| {
         let roll = reader.read_float()?;
         Ok(result.set("roll", result.create_float(roll)))
     })
 }
 
-fn update_vibration(result: &Dynamic, contents: &str) -> Dynamic {
+fn update_vibration(result: &Dynamic, contents: &JavaString) -> Dynamic {
     or_unchanged(result, contents, |reader| {
         let dest_x = reader.read_double()? as f32;
         reader.expect(' ')?;
@@ -226,7 +251,7 @@ fn update_vibration(result: &Dynamic, contents: &str) -> Dynamic {
     })
 }
 
-fn update_shriek(result: &Dynamic, contents: &str) -> Dynamic {
+fn update_shriek(result: &Dynamic, contents: &JavaString) -> Dynamic {
     or_unchanged(result, contents, |reader| {
         let delay = reader.read_int()?;
         Ok(result.set("delay", result.create_int(delay)))

@@ -33,6 +33,7 @@ mod rule_cost;
 mod samples_corpus;
 mod samples_hand_written;
 mod samples_json_files;
+mod samples_lone_surrogate;
 mod samples_saved_data;
 mod samples_step_1344_1459;
 mod samples_step_1460_2199;

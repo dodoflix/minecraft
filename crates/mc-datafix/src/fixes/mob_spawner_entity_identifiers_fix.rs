@@ -5,6 +5,7 @@ use crate::datafix::DataFix;
 use crate::dsl::DSL;
 use crate::fixes::references::References;
 use crate::schema::Schema;
+use mc_core::java_string::JavaString;
 use mc_dfu::Dynamic;
 
 /// `new MobSpawnerEntityIdentifiersFix(outputSchema, changesType)`.
@@ -46,9 +47,9 @@ fn fix(input: Dynamic) -> Dynamic {
         let spawn_data = spawn_data.set(
             "id",
             spawn_data.create_string(if entity_id.as_lossy_str().is_empty() {
-                "Pig"
+                JavaString::from("Pig")
             } else {
-                entity_id.as_lossy_str()
+                entity_id.clone()
             }),
         );
         input = input.set("SpawnData", spawn_data);

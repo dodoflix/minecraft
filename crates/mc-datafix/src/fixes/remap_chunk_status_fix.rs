@@ -36,7 +36,9 @@ pub fn new(
 
 fn fix_status(mapper: &Mapper, dynamic: Dynamic) -> Dynamic {
     match dynamic.as_string().result() {
-        Some(status) => dynamic.create_string(mapper(&ensure_namespaced(status.as_lossy_str()))),
+        Some(status) => {
+            dynamic.create_string(status.map_lossless(|t| mapper(&ensure_namespaced(t))))
+        }
         None => dynamic,
     }
 }

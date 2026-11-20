@@ -2,7 +2,7 @@
 // to it (the input of the `batch` verb), so the generator needs no knowledge of Minecraft formats and follows every schema.
 //
 // Usage: scripts/datafix-oracle.sh gen [--type T[,T..]|all] [--from F[,F..]] [--to V] [--seed S] [--n N] [--invalid P]
-//                                      [--mutate FILE] [--matrix step|chain|random] [--shard I/K] [--report FILE]
+//                                      [--mutate FILE] [--matrix step|chain|random] [--shard I/K] [--report FILE] [--poison P]
 //   --type     DataFixTypes constants or `ref:NAME` (a References type); `all` = every DataFixTypes constant
 //   --from     data versions whose schema describes the samples (-1 and everything below the first schema read as 99)
 //   --to       the version written into every batch line (default: the current data version)
@@ -20,6 +20,8 @@
 //              random: seeded (type, from, to) triples with to below the current version, from >= to and from -1/99/100, sorted
 //              by (type, from, to) so a runner reuses one rule per group
 //   --shard    I/K: only the groups whose position in the matrix order is I modulo K
+//   --poison   probability P (0..1) that every string value and compound key of an emitted sample gets an unpaired UTF-16
+//              surrogate (appended, prepended or in the middle); the sample id then ends in `-lone`. Seeded per sample id.
 //   --report   file for one TSV row per group: TYPE FROM TO STATE N FIRST_OK EMITTED DROPPED INVALID, STATE ok | absent (the
 //              type does not exist in that schema) | noncompound (the root is not a compound: no batch line can carry it)
 // The vocabulary (old ids and field names the fixers mention, registry ids) is read from the file named by the system property
@@ -516,6 +518,7 @@ final class SampleGen {
     final Vocab vocab;
     final long seed;
     final double invalid;
+    final double poison;
     final int to;
     final int shardI, shardK;
     final boolean quiet;
@@ -523,10 +526,11 @@ final class SampleGen {
     final List<String> report = new ArrayList<>();
     int groups, total, firstOk, emitted, dropped, damaged, absent, nonCompound;
 
-    Emitter(Vocab vocab, long seed, double invalid, int to, int shardI, int shardK, boolean quiet, PrintStream out) {
+    Emitter(Vocab vocab, long seed, double invalid, double poison, int to, int shardI, int shardK, boolean quiet, PrintStream out) {
       this.vocab = vocab;
       this.seed = seed;
       this.invalid = invalid;
+      this.poison = poison;
       this.to = to;
       this.shardI = shardI;
       this.shardK = shardK;
@@ -534,7 +538,47 @@ final class SampleGen {
       this.out = out;
     }
 
+    static final String[] LONE = {"\ud800", "\udc00", "\ud83d", "\ude00", "\udbff", "\udfff"};
+
+    /** {@code tag} with unpaired surrogates mixed into strings and compound keys (keys are re-inserted in sorted order). */
+    Tag poison(Tag tag, Gen g) {
+      if (tag instanceof StringTag t) return g.chance(poison) ? StringTag.valueOf(lone(t.value(), g)) : t;
+      if (tag instanceof CompoundTag c) {
+        CompoundTag r = new CompoundTag();
+        for (String k : new TreeSet<>(c.keySet())) {
+          String key = g.chance(poison) ? lone(k, g) : k;
+          if (!r.contains(key)) r.put(key, poison(c.get(k), g));
+        }
+        return r;
+      }
+      if (tag instanceof ListTag l) {
+        ListTag r = new ListTag();
+        for (int i = 0; i < l.size(); i++) {
+          Tag e = poison(l.get(i), g);
+          if (r.isEmpty() || r.get(0).getId() == e.getId()) r.add(e);
+        }
+        return r;
+      }
+      return tag;
+    }
+
+    static String lone(String s, Gen g) {
+      String u = LONE[g.upto(LONE.length)];
+      return switch (g.upto(3)) {
+        case 0 -> s + u;
+        case 1 -> u + s;
+        default -> {
+          int at = s.isEmpty() ? 0 : s.offsetByCodePoints(0, g.upto(s.codePointCount(0, s.length()) + 1));
+          yield s.substring(0, at) + u + s.substring(at);
+        }
+      };
+    }
+
     void line(String id, String type, int from, int toVersion, CompoundTag tag) throws IOException {
+      if (poison > 0) {
+        tag = (CompoundTag) poison(tag, new Gen(mix(seed, "poison", id), vocab));
+        id += "-lone";
+      }
       out.println(id + "\t" + type + "\t" + from + "\t" + toVersion + "\t" + encode(tag));
     }
 
@@ -629,7 +673,7 @@ final class SampleGen {
 
   // ---- verb ------------------------------------------------------------------------------------------------------------
 
-  static final Set<String> OPTIONS = Set.of("type", "from", "to", "seed", "n", "invalid", "mutate", "matrix", "shard", "report");
+  static final Set<String> OPTIONS = Set.of("type", "from", "to", "seed", "n", "invalid", "mutate", "matrix", "shard", "report", "poison");
 
   static Map<String, String> options(String[] args) {
     Map<String, String> o = new HashMap<>();
@@ -653,7 +697,7 @@ final class SampleGen {
     }
     int to = o.containsKey("to") ? Integer.parseInt(o.get("to")) : current();
     String matrix = o.get("matrix");
-    Emitter e = new Emitter(Vocab.load(), Long.parseLong(o.getOrDefault("seed", "1")), Double.parseDouble(o.getOrDefault("invalid", "0")), to, shard[0], shard[1], matrix != null, out);
+    Emitter e = new Emitter(Vocab.load(), Long.parseLong(o.getOrDefault("seed", "1")), Double.parseDouble(o.getOrDefault("invalid", "0")), Double.parseDouble(o.getOrDefault("poison", "0")), to, shard[0], shard[1], matrix != null, out);
     if (o.containsKey("mutate")) {
       e.mutate(o.get("mutate"), Integer.parseInt(o.getOrDefault("n", "20")));
     } else if (matrix == null) {

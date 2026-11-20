@@ -1,0 +1,41 @@
+# Hand written samples with unpaired UTF-16 surrogates at the strings the rewriting fixes write back: ID TYPE FROM TO SNBT
+lone-spawner-id	ref:block_entity	105	106	{id:"MobSpawner",x:0,y:0,z:0,EntityId:"\ud800Zombie"}
+lone-spawner-potentials	ref:block_entity	105	106	{id:"MobSpawner",x:0,y:0,z:0,EntityId:"Zombie",SpawnPotentials:[{Type:"A\ud800b",Weight:1,Properties:{id:"\udc00"}}]}
+lone-options-lang	ref:options	815	816	{lang:"EN_us\ud800"}
+lone-options-key	ref:options	1445	1446	{"key_key.use":"key.\ud800a","key_key.attack":"\ud800key.","key_other":"key.m\ud800"}
+lone-flat-info	ref:level	1450	1451	{generatorName:"flat",generatorOptions:"3;minecraft:bedrock,2*minecraft:dirt,minecraft:grass_block;1;village(size=\ud800)"}
+lone-flat-info-layer	ref:level	1450	1451	{generatorName:"flat",generatorOptions:"2;7,2x3,2x3,1x2;\ud800;village"}
+lone-stats	ref:stats	1450	1451	{"stat.mineBlock.minecraft.stone\ud800":1,"stat.walkOneCm":2,"stat.useItem.minecraft.\ud800stick":3,"stat.killEntity.\ud800Zombie":4}
+lone-stats-valid	ref:stats	1450	1451	{"stat.mineBlock.minecraft.stone":1,"stat.walkOneCm":2,"stat.useItem.minecraft.stick":3,"stat.killEntity.Zombie":4}
+lone-objective	ref:objective	1450	1451	{CriteriaName:"stat.mineBlock.minecraft.\ud800stone",DisplayName:"x"}
+lone-objective-special	ref:objective	1450	1451	{CriteriaName:"\ud800_special",DisplayName:"x"}
+lone-painting	ref:entity	1459	1460	{id:"minecraft:painting",Motive:"KEBAB\ud800"}
+lone-painting-b	ref:entity	1459	1460	{id:"minecraft:painting",Motive:"\udc00Kebab"}
+lone-level-flat	ref:level	1505	1506	{generatorName:"flat",generatorOptions:"3;minecraft:bedrock,2*minecraft:dirt;minecraft:plains;V\ud800ILLAGE(size=1 \ud800a=b\udc00)"}
+lone-level-flat-layers	ref:level	1505	1506	{generatorName:"flat",generatorOptions:"2*minecraft:dirt\ud800,minecraft:stone"}
+lone-level-buffet	ref:level	1505	1506	{generatorName:"buffet",generatorOptions:"{\"chunk_generator\":{\"type\":\"a\ud800\"}}"}
+lone-ominous	ref:item_stack	1947	1948	{id:"minecraft:white_banner",Count:1b,tag:{display:{Name:"\ud800{\"translate\":\"block.minecraft.illager_banner\"}"}}}
+lone-poi	ref:poi_chunk	2208	2209	{DataVersion:2208,Sections:{"0":{Valid:1b,Records:[{type:"minecraft:\ud800bee_hive",free_tickets:0,pos:[I;1,2,3]},{type:"minecraft:bee_hive",free_tickets:0,pos:[I;1,2,3]}]}}}
+lone-attribute	ref:entity	2522	2523	{id:"minecraft:zombie",Attributes:[{Name:"generic.\ud800maxHealth",Base:20d},{Name:"generic.maxHealth",Base:20d}]}
+lone-criteria-cat	ref:advancements	3085	3086	{"minecraft:husbandry/complete_catalogue":{criteria:{"minecraft:tabby_\ud800":"d","\udc00":"e"}}}
+lone-criteria-british	ref:advancements	3096	3097	{"minecraft:husbandry/complete_catalogue":{criteria:{"minecraft:british\ud800":"d","minecraft:british":"e"}}}
+lone-cat-variant	ref:entity	3096	3097	{id:"minecraft:cat",variant:"minecraft:brit\ud800ish"}
+lone-programmer-art	ref:options	3200	3201	{resourcePacks:"[\"programer_art\",\"\ud800\"]",incompatibleResourcePacks:"[\"\ud800programer_art\"]"}
+lone-ambient-occlusion	ref:options	3213	3214	{ao:"\ud800"}
+lone-remap-status	ref:chunk	3449	3450	{Status:"\ud800minecraft:empty",below_zero_retrogen:{target_status:"minecraft:\ud800full"}}
+lone-banner-pattern	ref:block_entity	3817	3818	{id:"minecraft:banner",x:0,y:0,z:0,Patterns:[{Pattern:"\ud800",Color:1},{Pattern:"mr",Color:2}]}
+lone-componentization-id	ref:item_stack	3817	3818	{id:"minecraft:\ud800stick",Count:1b}
+lone-componentization-tag	ref:item_stack	3817	3818	{id:"minecraft:stick",Count:1b,tag:{Enchantments:[{id:"\ud800minecraft:sharpness",lvl:1s}],CanPlaceOn:["minecraft:stone[a\ud800b=c]{x:1\ud800}","\ud800"],SkullOwner:"\ud800ab"}}
+lone-componentization-block-entity	ref:item_stack	3817	3818	{id:"minecraft:stick",Count:1b,tag:{BlockEntityTag:{id:"minecraft:\ud800"},display:{Name:"\ud800"}}}
+lone-lock	ref:data_components	4067	4068	{"minecraft:lock":"a\"\\\ud800"}
+lone-block-state	ref:block_state	1473	1474	{Name:"\ud800minecraft:x"}
+lone-item-name	ref:item_stack	1473	1474	{id:"\ud800minecraft:x",Count:1b}
+lone-block-name-flattening	ref:block_state	1450	1451	{Name:"\ud800stone",Properties:{a:"\ud800"}}
+lone-particle-item	ref:entity	3817	3818	{id:"minecraft:area_effect_cloud",Particle:"minecraft:item \ud800stone{display:{Name:'\ud800'}}"}
+lone-particle-block	ref:entity	3817	3818	{id:"minecraft:area_effect_cloud",Particle:"minecraft:block stone[\ud800a=\ud800b]"}
+lone-particle-type	ref:entity	3817	3818	{id:"minecraft:area_effect_cloud",Particle:"minecraft:\ud800 x"}
+lone-redstone-wire	ref:block_state	2530	2531	{Name:"minecraft:redstone_wire",Properties:{east:"\ud800",west:"none",north:"up",south:"side"}}
+lone-terrain-status	ref:chunk	5012	5013	{Status:"\ud800minecraft:carvers",below_zero_retrogen:{target_status:"minecraft:\ud800features"}}
+lone-pot-sherds	ref:block_entity	4995	4996	{id:"minecraft:decorated_pot",x:0,y:0,z:0,sherds:["minecraft:brick","\ud800","minecraft:brick","\udc00x"]}
+lone-particle-block-quoted	ref:entity	3817	3818	{id:"minecraft:area_effect_cloud",Particle:"minecraft:block stone[\"\ud800a\"=\"\ud800b\"]"}
+lone-particle-item-tag	ref:entity	3817	3818	{id:"minecraft:area_effect_cloud",Particle:"minecraft:item stone{a:\"\ud800\"}"}

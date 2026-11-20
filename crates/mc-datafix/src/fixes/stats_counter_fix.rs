@@ -43,14 +43,14 @@ const NEW_CUSTOM_KEY: &str = "minecraft:custom";
 /// `StatsCounterFix.StatType`.
 struct StatType {
     ty: String,
-    type_key: String,
+    type_key: JavaString,
 }
 
 impl StatType {
-    fn new(ty: &str, type_key: &str) -> StatType {
+    fn new(ty: &str, type_key: impl Into<JavaString>) -> StatType {
         StatType {
             ty: ty.to_string(),
-            type_key: type_key.to_string(),
+            type_key: type_key.into(),
         }
     }
 }
@@ -62,28 +62,38 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
     })
 }
 
-fn unpack_legacy_key(key: &str) -> Option<StatType> {
+fn unpack_legacy_key(key: &JavaString) -> Option<StatType> {
     let t = &*TABLES;
-    if t.skip.contains(key) {
+    // a table key never holds a lone surrogate, so the text decides every lookup; the rest of the key keeps its units
+    let text = key.as_lossy_str();
+    if t.skip.contains(text) {
         return None;
     }
-    if let Some(custom_key) = t.custom_map.get(key) {
-        return Some(StatType::new(NEW_CUSTOM_KEY, custom_key));
+    if let Some(custom_key) = t.custom_map.get(text) {
+        return Some(StatType::new(NEW_CUSTOM_KEY, custom_key.as_str()));
     }
     // `StringUtils.ordinalIndexOf(key, ".", 2)`
-    let split_index = key.match_indices('.').nth(1)?.0;
-    let prefix = &key[..split_index];
-    let rest = key[split_index + 1..].replace('.', ":");
+    let split_index = text.match_indices('.').nth(1)?.0;
+    let prefix = &text[..split_index];
+    let rest_start = text[..=split_index].encode_utf16().count();
+    let rest = key
+        .substring(rest_start, key.utf16_len())
+        .map_lossless(|r| r.replace('.', ":"));
     if prefix == BLOCK_KEY {
-        let new_key = block_state_data::upgrade_block(&rest);
+        let new_key = rest.map_lossless(|r| block_state_data::upgrade_block(r).to_owned());
         return Some(StatType::new(NEW_BLOCK_KEY, new_key));
     }
     if let Some(item_key) = t.item_keys.get(prefix) {
-        let new_key = item_stack_the_flattening_fix::update_item(&rest, 0).unwrap_or(rest.as_str());
+        let new_key = rest.map_lossless(|r| {
+            item_stack_the_flattening_fix::update_item(r, 0)
+                .unwrap_or(r)
+                .to_owned()
+        });
         return Some(StatType::new(item_key, new_key));
     }
     if let Some(entity_key) = t.entity_keys.get(prefix) {
-        let new_key = t.entities.get(rest.as_str()).unwrap_or(&rest);
+        let new_key =
+            rest.map_lossless(|r| t.entities.get(r).cloned().unwrap_or_else(|| r.to_owned()));
         return Some(StatType::new(entity_key, new_key));
     }
     None
@@ -101,7 +111,7 @@ fn make_stat_fixer(df: &DataFix) -> TypeRewriteRule {
             for (entry_key, entry_value) in map {
                 if entry_value.as_number().result().is_some() {
                     let key = entry_key.as_string_or("");
-                    if let Some(stat_type) = unpack_legacy_key(key.as_lossy_str()) {
+                    if let Some(stat_type) = unpack_legacy_key(&key) {
                         let new_type_key = tag.create_string(stat_type.ty);
                         let index = match stats.iter().position(|(k, _)| *k == new_type_key) {
                             Some(index) => index,
@@ -142,14 +152,14 @@ fn make_objective_fixer(df: &DataFix) -> TypeRewriteRule {
                     {
                         key
                     } else {
-                        JavaString::from(match unpack_legacy_key(key.as_lossy_str()) {
-                            None => "dummy".to_string(),
-                            Some(stat_type) => format!(
+                        match unpack_legacy_key(&key) {
+                            None => JavaString::from("dummy"),
+                            Some(stat_type) => mc_core::jformat!(
                                 "{}:{}",
                                 pack_namespaced_with_dot(&stat_type.ty),
-                                pack_namespaced_with_dot(&stat_type.type_key)
+                                stat_type.type_key.map_lossless(pack_namespaced_with_dot)
                             ),
-                        })
+                        }
                     };
                     name.create_string(new_key)
                 }

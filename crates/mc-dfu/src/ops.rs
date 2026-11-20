@@ -602,7 +602,7 @@ impl Ops {
     }
 
     /// `DynamicOps.set(input, key, value)`: `mergeToMap(..).result().orElse(input)`.
-    pub fn set(&self, input: &Dyn, key: &str, value: Dyn) -> Dyn {
+    pub fn set(&self, input: &Dyn, key: impl Into<JavaString>, value: Dyn) -> Dyn {
         self.merge_to_map_one(input, Dyn::str(key), value)
             .result()
             .unwrap_or_else(|| input.clone())

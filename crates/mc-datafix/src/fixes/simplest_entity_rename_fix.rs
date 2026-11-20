@@ -45,7 +45,7 @@ pub fn new(
                         old_entity_type.map_or("null".to_string(), |t| t.to_string())
                     );
                 }
-                Value::Str(old_name.map_text(|_| new_name))
+                Value::Str(old_name.map_lossless(|_| new_name))
             })
         });
         let rename = rename.clone();
@@ -53,7 +53,7 @@ pub fn new(
             &format!("{name} for entity name"),
             &entity_name_type,
             move |_, input| {
-                input.map_second(|n| Value::Str(n.as_java_string().map_text(|t| rename(t))))
+                input.map_second(|n| Value::Str(n.as_java_string().map_lossless(|t| rename(t))))
             },
         );
         TypeRewriteRule::seq(entities, names)

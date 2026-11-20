@@ -84,15 +84,57 @@ impl JavaString {
         self.text
     }
 
-    /// `f` applied to the text, keeping the exact string when `f` returns the text unchanged (a table lookup that found
-    /// no entry): a string with lone surrogates then passes through a rename untouched, as in Java.
-    pub fn map_text(&self, f: impl FnOnce(&str) -> String) -> JavaString {
-        let mapped = f(&self.text);
-        if self.units.is_some() && mapped == self.text {
-            self.clone()
-        } else {
-            JavaString::from(mapped)
-        }
+    /// `f` applied to the string, each lone surrogate standing as a private-use character in `f`'s text and coming back
+    /// as the same unit from its result: a rename, `replace`, `toLowerCase` or a split and join keeps every lone
+    /// surrogate where Java does, and a string that no rule matches passes through untouched. See
+    /// [`with_stand_ins`](Self::with_stand_ins) for what `f` may rely on.
+    pub fn map_lossless(&self, f: impl FnOnce(&str) -> String) -> JavaString {
+        self.with_stand_ins(|text, back| back(&f(text)))
+    }
+
+    /// `f` called with the text of the string, each lone surrogate standing as a private-use character, and the function
+    /// that turns text made from it back into a Java string (the stand-ins become the same units again): for a rewrite
+    /// that builds several strings from one. The stand-ins are one unit long like the surrogate and come from a
+    /// 2048-character block of U+E000..U+F7FF that the string does not use (`f` may only copy or drop them), so the text
+    /// measures and splits like the Java string; it sorts differently. Without a free block the lone surrogates show as
+    /// U+FFFD, like [`as_lossy_str`](Self::as_lossy_str).
+    pub fn with_stand_ins<R>(&self, f: impl FnOnce(&str, &dyn Fn(&str) -> JavaString) -> R) -> R {
+        let plain = |s: &str| JavaString::from(s);
+        let Some(units) = &self.units else {
+            return f(&self.text, &plain);
+        };
+        let used = |base: u32| {
+            self.text
+                .chars()
+                .any(|c| (base..base + 0x800).contains(&(c as u32)))
+        };
+        let Some(base) = [0xE000, 0xE800, 0xF000].into_iter().find(|&b| !used(b)) else {
+            return f(&self.text, &plain);
+        };
+        let standing: String = char::decode_utf16(units.0.iter().copied())
+            .map(|r| match r {
+                Ok(c) => c,
+                Err(e) => char::from_u32(base + u32::from(e.unpaired_surrogate()) - 0xD800)
+                    .expect("a private-use character"),
+            })
+            .collect();
+        let back = |s: &str| {
+            if !s
+                .chars()
+                .any(|c| (base..base + 0x800).contains(&(c as u32)))
+            {
+                return JavaString::from(s);
+            }
+            let mut out = Vec::with_capacity(s.len());
+            for c in s.chars() {
+                match c as u32 {
+                    u if (base..base + 0x800).contains(&u) => out.push((u - base + 0xD800) as u16),
+                    _ => out.extend(c.encode_utf16(&mut [0; 2]).iter()),
+                }
+            }
+            JavaString::from_utf16_units(&out)
+        };
+        f(&standing, &back)
     }
 
     /// The text, only when the string holds no lone surrogate (so it can equal a Rust string).
@@ -508,6 +550,30 @@ mod tests {
                 .map(|u| if u == 0 { 0xD800 } else { u })
                 .collect::<Vec<_>>()
         );
+    }
+
+    #[test]
+    fn map_lossless_keeps_lone_surrogates_through_a_rewrite() {
+        let units = |s: &JavaString| s.encode_utf16().collect::<Vec<_>>();
+        // `Ab` + lone high + `Cd` + a private-use character of the first stand-in block
+        let s = JavaString::from_utf16_units(&[0x41, 0x62, 0xD800, 0x43, 0x64, 0xE000]);
+        let lower = s.map_lossless(str::to_lowercase);
+        assert_eq!(units(&lower), [0x61, 0x62, 0xD800, 0x63, 0x64, 0xE000]);
+        // the text `f` sees measures like the Java string
+        let n = std::cell::Cell::new(0);
+        let same = s.map_lossless(|t| {
+            n.set(t.encode_utf16().count());
+            t.to_owned()
+        });
+        assert_eq!((n.get(), same == s), (6, true));
+        // text around a lone surrogate is rewritten, a lone surrogate may be dropped or moved
+        let dropped = lone().map_lossless(|_| String::new());
+        assert_eq!(dropped.utf16_len(), 0);
+        let replaced = JavaString::from_utf16_units(&[0x61, 0xDC00, 0x61])
+            .map_lossless(|t| t.replace('a', "bb"));
+        assert_eq!(units(&replaced), [0x62, 0x62, 0xDC00, 0x62, 0x62]);
+        // a plain string is just mapped
+        assert_eq!(JavaString::from("Ab").map_lossless(str::to_lowercase), "ab");
     }
 
     #[test]

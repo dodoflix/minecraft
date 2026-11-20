@@ -5,6 +5,7 @@ use crate::fixes::references::References;
 use crate::schema::Schema;
 use crate::util::read_typed_or_throw;
 use mc_core::gson::{self, JsonElement};
+use mc_core::java_string::JavaString;
 use mc_dfu::{Dyn, Dynamic, JSON, Ops};
 
 /// `new UnflattenTextComponentFix(outputSchema)`.
@@ -20,7 +21,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
             move |ops, input| {
                 read_typed_or_throw(
                     &new_type,
-                    &unflatten_json(ops, input.second().as_lossy_str()),
+                    &unflatten_json(ops, input.second().as_java_string()),
                     true,
                 )
                 .value
@@ -29,19 +30,25 @@ pub fn new(output_schema: &Schema) -> DataFix {
     })
 }
 
-fn unflatten_json(ops: &Ops, json_string: &str) -> Dynamic {
+fn unflatten_json(ops: &Ops, json_string: &JavaString) -> Dynamic {
     match gson::parse_lenient_json_parser(json_string) {
         Ok(JsonElement::Null) => {}
         // `JsonOps.convertTo` dereferences the `null` it is handed for a nested `JsonNull` and reads every number as a
         // `BigDecimal`, which refuses the texts beyond Gson's `NumberLimits`: both throw into the `catch (Exception)`
         Ok(json) if convert_throws(&json) => {
-            log::error!("Failed to unflatten text component json: {json_string}");
+            log::error!(
+                "Failed to unflatten text component json: {}",
+                json_string.to_utf8_string()
+            );
         }
         Ok(json) => return Dynamic::new(*ops, JSON.convert_to(ops, &json_to_dyn(&json))),
         // slf4j formats the message without the trailing throwable
-        Err(_) => log::error!("Failed to unflatten text component json: {json_string}"),
+        Err(_) => log::error!(
+            "Failed to unflatten text component json: {}",
+            json_string.to_utf8_string()
+        ),
     }
-    Dynamic::new(*ops, ops.create_string(json_string))
+    Dynamic::new(*ops, ops.create_string(json_string.clone()))
 }
 
 fn convert_throws(json: &JsonElement) -> bool {

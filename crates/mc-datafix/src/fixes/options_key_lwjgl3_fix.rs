@@ -35,7 +35,7 @@ fn fix_entry((key, value): (Dynamic, Dynamic)) -> (Dynamic, Dynamic) {
     let old_value = parse_int(text.as_lossy_str()).unwrap_or_else(|| {
         panic!(
             "java.lang.NumberFormatException: For input string: \"{}\"",
-            text.as_lossy_str()
+            text.to_utf8_string()
         )
     });
     let name = if old_value < 0 {

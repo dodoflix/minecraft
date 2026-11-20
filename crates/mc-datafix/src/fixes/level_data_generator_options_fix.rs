@@ -8,8 +8,8 @@ use crate::schema::Schema;
 use crate::util::write_and_read_typed_or_throw;
 use mc_core::gson::{self, JsonElement};
 use mc_core::java_collections::{HASH_MAP_DEFAULT_CAPACITY, hash_map_ordered};
+use mc_core::java_string::JavaString;
 use mc_core::math::java::parse_int;
-use mc_dfu::extra::java_hash_map_order;
 use mc_dfu::{Dyn, Dynamic, JSON};
 use std::sync::LazyLock;
 
@@ -52,7 +52,7 @@ fn fix_tag(tag: Dynamic) -> Dynamic {
         let flat_option_string = generator_options.unwrap_or_default();
         tag.set(
             "generatorOptions",
-            convert(flat_option_string.as_lossy_str(), &tag),
+            flat_option_string.with_stand_ins(|text, back| convert(text, back, &tag)),
         )
     } else if tag
         .get("generatorName")
@@ -61,7 +61,7 @@ fn fix_tag(tag: Dynamic) -> Dynamic {
         .eq_ignore_ascii_case("buffet")
         && let Some(generator_options) = generator_options
     {
-        let legacy_options = gson::parse_lenient_json_parser(generator_options.as_lossy_str())
+        let legacy_options = gson::parse_lenient_json_parser(&generator_options)
             .unwrap_or_else(|e| panic!("com.google.gson.JsonSyntaxException: {e}"));
         let json = Dynamic::new(JSON, json_to_dyn(&legacy_options));
         tag.set("generatorOptions", json.convert(&tag.ops()))
@@ -110,8 +110,17 @@ fn put(map: &mut Vec<(String, Vec<(String, String)>)>, key: &str, value: Vec<(St
     }
 }
 
-/// `convert(flatOptionString, ops)`, with the ops of `tag`.
-fn convert(flat_option_string: &str, tag: &Dynamic) -> Dynamic {
+/// The iteration order of a `HashMap<String, V>` filled in this order: the hash of the Java string `back` makes of a key.
+fn hash_order<V>(back: &dyn Fn(&str) -> JavaString, entries: Vec<(String, V)>) -> Vec<(String, V)> {
+    hash_map_ordered(
+        entries,
+        |e| back(&e.0).java_hash_code(),
+        HASH_MAP_DEFAULT_CAPACITY,
+    )
+}
+
+/// `convert(flatOptionString, ops)`, with the ops of `tag`; `back` turns text of the option string into a Java string.
+fn convert(flat_option_string: &str, back: &dyn Fn(&str) -> JavaString, tag: &Dynamic) -> Dynamic {
     let mut parts = flat_option_string.split(';');
     let mut biome = "minecraft:plains".to_string();
     let mut structures_options: Vec<(String, Vec<(String, String)>)> = Vec::new();
@@ -179,10 +188,7 @@ fn convert(flat_option_string: &str, tag: &Dynamic) -> Dynamic {
     let layers = tag.create_list(layer_list.iter().map(|(height, block)| {
         tag.create_map([
             (tag.create_string("height"), tag.create_int(*height)),
-            (
-                tag.create_string("block"),
-                tag.create_string(block.as_str()),
-            ),
+            (tag.create_string("block"), tag.create_string(back(block))),
         ])
     }));
     // `Collectors.toMap` into a `HashMap` keyed by the created string values
@@ -194,16 +200,16 @@ fn convert(flat_option_string: &str, tag: &Dynamic) -> Dynamic {
         )
     };
     let structures = tag.create_map(to_map(
-        java_hash_map_order(structures_options)
+        hash_order(back, structures_options)
             .into_iter()
             .map(|(name, options)| {
                 let options = tag.create_map(to_map(
-                    java_hash_map_order(options)
+                    hash_order(back, options)
                         .into_iter()
-                        .map(|(k, v)| (tag.create_string(k), tag.create_string(v)))
+                        .map(|(k, v)| (tag.create_string(back(&k)), tag.create_string(back(&v))))
                         .collect(),
                 ));
-                (tag.create_string(name.to_lowercase()), options)
+                (tag.create_string(back(&name.to_lowercase())), options)
             })
             .collect(),
     ));

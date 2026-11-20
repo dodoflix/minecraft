@@ -30,7 +30,7 @@ fn rename(renames: &HashMap<String, String>, value: Value) -> Value {
     Value::Str(
         value
             .as_java_string()
-            .map_text(|t| renames.get(t).cloned().unwrap_or_else(|| t.to_owned())),
+            .map_lossless(|t| renames.get(t).cloned().unwrap_or_else(|| t.to_owned())),
     )
 }
 

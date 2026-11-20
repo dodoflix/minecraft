@@ -28,10 +28,11 @@ fn fix_entry((key, value): (Dynamic, Dynamic)) -> (Dynamic, Dynamic) {
         if !old_value.as_lossy_str().starts_with("key.mouse")
             && !old_value.as_lossy_str().starts_with("scancode.")
         {
-            let new_value = value.create_string(format!(
-                "key.keyboard.{}",
-                substring_from_key_prefix(old_value.as_lossy_str())
-            ));
+            let new_value =
+                value
+                    .create_string(old_value.map_lossless(|t| {
+                        format!("key.keyboard.{}", substring_from_key_prefix(t))
+                    }));
             return (key, new_value);
         }
     }

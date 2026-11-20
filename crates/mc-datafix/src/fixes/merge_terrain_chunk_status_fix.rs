@@ -9,6 +9,7 @@ use crate::schema::Schema;
 use crate::ty::{Type, ensure_namespaced};
 use crate::typed::Typed;
 use crate::value::Value;
+use mc_core::java_string::JavaString;
 use mc_dfu::OptionalDynamic;
 
 const OLD_INTERMEDIATE_TERRAIN_STATUSES: [&str; 2] = ["minecraft:noise", "minecraft:surface"];
@@ -96,13 +97,17 @@ fn remove_block_states(
 /// `fixStatuses(chunk)`: the chunk with fixed statuses, the old status and the old target status of the retrogen.
 fn fix_statuses(chunk: Typed) -> (Typed, String, Option<String>) {
     let mut remainder = chunk.get_remainder();
-    let old_status = unwrap_status(&remainder.get("Status"));
-    remainder = remainder.set("Status", remainder.create_string(fix_status(&old_status)));
+    let status = remainder.get("Status");
+    let old_status = unwrap_status(&status);
+    remainder = remainder.set("Status", remainder.create_string(fixed_status(&status)));
     let mut old_target_status = None;
     if let Some(mut below_zero_retrogen) = remainder.get("below_zero_retrogen").result() {
-        let old = unwrap_status(&below_zero_retrogen.get("target_status"));
-        below_zero_retrogen =
-            below_zero_retrogen.set("target_status", remainder.create_string(fix_status(&old)));
+        let target_status = below_zero_retrogen.get("target_status");
+        let old = unwrap_status(&target_status);
+        below_zero_retrogen = below_zero_retrogen.set(
+            "target_status",
+            remainder.create_string(fixed_status(&target_status)),
+        );
         remainder = remainder.set("below_zero_retrogen", below_zero_retrogen);
         old_target_status = Some(old);
     }
@@ -115,6 +120,13 @@ fn fix_statuses(chunk: Typed) -> (Typed, String, Option<String>) {
 
 fn unwrap_status(status: &OptionalDynamic) -> String {
     ensure_namespaced(status.as_string_or("minecraft:empty").as_lossy_str())
+}
+
+/// `fixStatus(unwrapStatus(status))`, a status that is no identifier keeps its lone surrogates.
+fn fixed_status(status: &OptionalDynamic) -> JavaString {
+    status
+        .as_string_or("minecraft:empty")
+        .map_lossless(|t| fix_status(&ensure_namespaced(t)).to_owned())
 }
 
 fn fix_status(status: &str) -> &str {

@@ -25,7 +25,7 @@ pub fn new(
         }
         let fix_item = fix_item.clone();
         df.fix_type_everywhere(&name, &item_name_type, move |_, input| {
-            input.map_second(|item| Value::Str(item.as_java_string().map_text(|t| fix_item(t))))
+            input.map_second(|item| Value::Str(item.as_java_string().map_lossless(|t| fix_item(t))))
         })
     })
 }

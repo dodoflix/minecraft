@@ -37,7 +37,7 @@ fn fix(input: Dynamic) -> Dynamic {
         input.update("generatorOptions", |options| {
             match options.as_string().result() {
                 Some(generator_options) => {
-                    options.create_string(fix_string(generator_options.as_lossy_str()))
+                    options.create_string(generator_options.map_lossless(fix_string))
                 }
                 None => options,
             }

@@ -5,6 +5,7 @@ use crate::datafix::DataFix;
 use crate::fixes::references::References;
 use crate::fixes::tables::table;
 use crate::schema::Schema;
+use mc_core::java_string::JavaString;
 use mc_dfu::Dynamic;
 use mc_nbt::Tag;
 use std::collections::HashMap;
@@ -84,7 +85,7 @@ fn fix_tag(structure: &Dynamic, mut child: Dynamic) -> Dynamic {
         let renamed = templates
             .get(template.as_lossy_str())
             .copied()
-            .unwrap_or(template.as_lossy_str());
+            .map_or(template.clone(), JavaString::from);
         child = child.set("Template", child.create_string(renamed));
     }
     child

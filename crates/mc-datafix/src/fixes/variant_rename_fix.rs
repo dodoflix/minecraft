@@ -4,6 +4,7 @@ use crate::datafix::DataFix;
 use crate::dsl::TypeReference;
 use crate::fixes::named_entity_fix;
 use crate::schema::Schema;
+use mc_core::java_string::JavaString;
 
 /// `new VariantRenameFix(outputSchema, name, type, entityName, renames)`; `renames` are the `(old, new)` entries.
 pub fn new(
@@ -31,7 +32,7 @@ pub fn new(
                         let renamed = renames
                             .iter()
                             .find(|(old, _)| *old == v)
-                            .map_or(v.as_lossy_str(), |(_, new)| new.as_str());
+                            .map_or(v.clone(), |(_, new)| JavaString::from(new.as_str()));
                         variant.create_string(renamed)
                     }
                     None => variant,

@@ -46,7 +46,7 @@ pub fn new(
 
 fn fix_name(renames: &Renames, name: Dynamic) -> Dynamic {
     match name.as_string().result() {
-        Some(s) => name.create_string(renames(s.as_lossy_str())),
+        Some(s) => name.create_string(s.map_lossless(|t| renames(t))),
         None => name,
     }
 }

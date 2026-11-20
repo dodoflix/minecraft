@@ -115,9 +115,9 @@ fn create_placeholder_hover(
     let empty = Dynamic::empty(*ops);
     let contents = empty.create_map([(
         empty.create_string("text"),
-        empty.create_string(format!(
+        empty.create_string(mc_core::jformat!(
             "Legacy hoverEvent: {}",
-            old_json.to_stable_string().as_lossy_str()
+            old_json.to_stable_string()
         )),
     )]);
     let placeholder_hover_event = empty.create_map([

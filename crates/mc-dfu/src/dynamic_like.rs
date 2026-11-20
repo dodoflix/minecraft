@@ -842,7 +842,7 @@ impl Dynamic {
         }
     }
     /// `set(key, value)`: `mergeToMap(..).result().orElse(this)`; a non-map target is returned unchanged.
-    pub fn set(&self, key: &str, value: Dynamic) -> Dynamic {
+    pub fn set(&self, key: impl Into<JavaString>, value: Dynamic) -> Dynamic {
         Dynamic {
             ops: self.ops,
             value: self

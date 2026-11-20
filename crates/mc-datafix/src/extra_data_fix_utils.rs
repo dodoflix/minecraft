@@ -58,7 +58,7 @@ pub fn fix_string_field(
     fix: impl FnOnce(&str) -> String,
 ) -> Dynamic {
     dynamic.update(field_name, |field| match field.as_string().result() {
-        Some(string) => dynamic.create_string(string.map_text(fix)),
+        Some(string) => dynamic.create_string(string.map_lossless(fix)),
         None => field,
     })
 }

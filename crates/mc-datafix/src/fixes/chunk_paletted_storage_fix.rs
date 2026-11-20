@@ -630,7 +630,7 @@ impl UpgradeChunk {
         for section in self.sections.iter().flatten() {
             sections.push(section.write());
             indices = indices.set(
-                &section.y.to_string(),
+                section.y.to_string(),
                 indices.create_int_list(section.update.iter().copied()),
             );
         }

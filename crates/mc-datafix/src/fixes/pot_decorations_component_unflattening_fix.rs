@@ -5,6 +5,7 @@ use crate::datafix::DataFix;
 use crate::fixes::references::References;
 use crate::schema::Schema;
 use mc_core::java_collections::hash_map_ordered;
+use mc_core::java_string::JavaString;
 use mc_dfu::Dynamic;
 
 /// `new PotDecorationsComponentUnflatteningFix(outputSchema)`.
@@ -31,9 +32,9 @@ pub fn unpack_list(original: &Dynamic) -> Dynamic {
     let Some(decoration_ids) = original.as_stream_opt().result() else {
         return original.clone();
     };
-    let ids: Vec<Option<String>> = decoration_ids
+    let ids: Vec<Option<JavaString>> = decoration_ids
         .iter()
-        .map(|s| s.as_string_lossy().result())
+        .map(|s| s.as_string().result())
         .collect();
     let mut result = Vec::with_capacity(4);
     for (i, side) in ["back", "left", "right", "front"].into_iter().enumerate() {
@@ -41,8 +42,8 @@ pub fn unpack_list(original: &Dynamic) -> Dynamic {
             .get(i)
             .cloned()
             .flatten()
-            .unwrap_or_else(|| "minecraft:brick".to_string());
-        if id.is_empty() {
+            .unwrap_or_else(|| JavaString::from("minecraft:brick"));
+        if id.utf16_len() == 0 {
             return original.clone();
         }
         let new_stack =
