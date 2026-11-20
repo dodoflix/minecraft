@@ -6,14 +6,27 @@
 //!
 //! The online-mode variant needs a profile service both servers can be pointed at; ours has no such hook yet.
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 use mc_nbt::CompoundTag;
 use mc_nbt::compress::write_compressed;
 use worldcmp::fields::{FieldSpec, Ignores};
 use worldcmp::tree::{self, TreeOptions, compare_trees};
 
-use crate::world_start::{Run, Side, first_log_difference, run};
+use crate::world_start::{Run, Side, copy_dir, first_log_difference, run};
+
+/// The world folder of a corpus world of the data fixer tests (extracted into the user cache).
+fn corpus_world(id: &str) -> PathBuf {
+    let world = Path::new(&std::env::var_os("HOME").expect("HOME"))
+        .join(".cache/mc-datafix-corpus/worlds")
+        .join(id);
+    assert!(
+        world.is_dir(),
+        "corpus world {id} is not extracted: {}",
+        world.display()
+    );
+    world
+}
 
 const OPS: &str = "\
 Steve
@@ -45,14 +58,31 @@ fn player_file(dir: &Path, name: &str) {
     fs::write(dir.join(name), write_compressed(&tag)).expect("player file");
 }
 
-/// The legacy files, with player files named `players`.
-fn prepare(dir: &Path, players: &[&str]) {
-    for (name, text) in [
+/// The legacy lists: file name and bytes.
+type Lists<'a> = &'a [(&'a str, &'a [u8])];
+
+/// The default lists, with the lists of `replaced` (by file name) in place of the default ones.
+fn lists_with(replaced: Lists) -> Vec<(String, Vec<u8>)> {
+    [
         ("ops.txt", OPS),
         ("white-list.txt", WHITE_LIST),
         ("banned-players.txt", BANNED_PLAYERS),
         ("banned-ips.txt", BANNED_IPS),
-    ] {
+    ]
+    .into_iter()
+    .map(|(name, text)| {
+        let text = replaced
+            .iter()
+            .find(|(n, _)| *n == name)
+            .map_or(text.as_bytes(), |(_, text)| text);
+        (name.to_owned(), text.to_vec())
+    })
+    .collect()
+}
+
+/// The legacy files, with player files named `players`.
+fn prepare(dir: &Path, lists: &[(String, Vec<u8>)], players: &[&str]) {
+    for (name, text) in lists {
         fs::write(dir.join(name), text).expect("legacy list");
     }
     let old = dir.join("world/players");
@@ -91,7 +121,15 @@ fn view(run: &Run) -> std::path::PathBuf {
     view
 }
 
-fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
+/// The log records that are compared: a crash report is saved under a path of the server directory and a time.
+fn records(run: &Run) -> Vec<&String> {
+    run.log
+        .iter()
+        .filter(|l| !l.starts_with("ERROR This crash report has been saved to:"))
+        .collect()
+}
+
+fn compare(vanilla: &Run, ours: &Run, ignored: &[&str]) -> Vec<String> {
     let mut findings = Vec::new();
     if (vanilla.started, vanilla.exit) != (ours.started, ours.exit) {
         findings.push(format!(
@@ -99,13 +137,18 @@ fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
             vanilla.started, vanilla.exit, ours.started, ours.exit
         ));
     }
-    if let Some(d) = first_log_difference(&vanilla.log, &ours.log) {
+    let (v, o): (Vec<String>, Vec<String>) = (
+        records(vanilla).into_iter().cloned().collect(),
+        records(ours).into_iter().cloned().collect(),
+    );
+    if let Some(d) = first_log_difference(&v, &o) {
         findings.push(d);
     }
     let ignores = Ignores(
         // the cache entries expire a month after they were made
         ["usercache.json#*.expiresOn"]
             .iter()
+            .chain(ignored)
             .map(|s| s.parse::<FieldSpec>().expect("spec"))
             .collect(),
     );
@@ -124,36 +167,89 @@ fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
     findings
 }
 
-/// `fails`: whether the conversion of the player files is expected to fail (the lists are converted and the server starts anyway).
-fn dual(players: &'static [&'static str], fails: bool) {
+/// What the real server does with the files.
+#[derive(Clone, Copy)]
+enum Expect {
+    /// It starts; `fails`: the conversion of the player files is reported as failed and retried (the lists are
+    /// converted and the server starts anyway).
+    Converts { fails: bool },
+    /// An exception ends the start; `unconverted`: the old lists it did not get to rename.
+    Aborts {
+        unconverted: &'static [&'static str],
+    },
+}
+
+/// Both servers on the same files: `ignored` are the fields (`file#path` specs) that hold the time of the run.
+fn dual_case(lists: Lists, players: &'static [&'static str], expect: Expect, ignored: &[&str]) {
+    dual_on(None, lists, players, expect, ignored);
+}
+
+/// [`dual_case`] on a copy of the corpus world `world` (the world folder of the server directory) when there is one.
+fn dual_on(
+    world: Option<&str>,
+    lists: Lists,
+    players: &'static [&'static str],
+    expect: Expect,
+    ignored: &[&str],
+) {
+    let world = world.map(corpus_world);
+    let lists = lists_with(lists);
     let dirs = [
         tempfile::tempdir().expect("temp dir"),
         tempfile::tempdir().expect("temp dir"),
     ];
     let args: [&str; 0] = [];
-    let vanilla = run(
-        Side::Vanilla,
-        dirs[0].path(),
-        move |dir| prepare(dir, players),
-        &args,
-    );
-    let ours = run(
-        Side::Ours,
-        dirs[1].path(),
-        move |dir| prepare(dir, players),
-        &args,
-    );
-    // the comparison must have seen a conversion, not two servers that stopped at the same point
-    assert!(vanilla.started, "{:?}", vanilla.log);
-    assert!(
-        dirs[0].path().join("ops.txt.converted").exists(),
-        "{:?}",
-        vanilla.log
-    );
-    let failed = vanilla.log.iter().any(|l| l.contains("Conversion failed"));
-    assert_eq!(failed, fails, "{:?}", vanilla.log);
-    let findings = compare(&vanilla, &ours);
+    let start = |side, dir: &Path| {
+        let lists = lists.clone();
+        let world = world.clone();
+        run(
+            side,
+            dir,
+            move |dir| {
+                if let Some(world) = &world {
+                    copy_dir(world, &dir.join("world"));
+                    let _ = fs::remove_file(dir.join("world/session.lock"));
+                }
+                prepare(dir, &lists, players);
+            },
+            &args,
+        )
+    };
+    let vanilla = start(Side::Vanilla, dirs[0].path());
+    let ours = start(Side::Ours, dirs[1].path());
+    // the comparison must have seen what is expected, not two servers that stopped at the same point
+    match expect {
+        Expect::Converts { fails } => {
+            assert!(vanilla.started, "{:?}", vanilla.log);
+            assert!(
+                dirs[0].path().join("ops.txt.converted").exists(),
+                "{:?}",
+                vanilla.log
+            );
+            let failed = vanilla.log.iter().any(|l| l.contains("Conversion failed"));
+            assert_eq!(failed, fails, "{:?}", vanilla.log);
+        }
+        Expect::Aborts { unconverted } => {
+            assert!(!vanilla.started, "{:?}", vanilla.log);
+            assert!(
+                vanilla
+                    .log
+                    .iter()
+                    .any(|l| l == "ERROR Encountered an unexpected exception"),
+                "{:?}",
+                vanilla.log
+            );
+            for name in unconverted {
+                assert!(dirs[0].path().join(name).exists(), "{name}");
+            }
+        }
+    }
+    let findings = compare(&vanilla, &ours, ignored);
     assert!(findings.is_empty(), "{}", findings.join("\n"));
+}
+
+fn dual(players: &'static [&'static str], fails: bool) {
+    dual_case(&[], players, Expect::Converts { fails }, &[]);
 }
 
 #[test]
@@ -170,4 +266,154 @@ fn offline_lists_and_player_files() {
 #[ignore = "oracle: spawns vanilla server"]
 fn player_file_with_an_upper_case_extension() {
     dual(&["Steve.dat", "Herobrine.DAT"], true);
+}
+
+const BAN_LIST_WITH_PIPES_ONLY: &str = "\
+Alex_B|2013-01-01 00:00:00 +0000|Server|forever|Griefing
+||||
+Notch|2015-06-07 08:09:10 +0000|Console
+";
+
+/// `parts[0]` of a line made of `|` only (`split` leaves no part): the exception is not caught by the conversion, so the start ends and not one old list is converted.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn pipes_only_line_in_the_old_player_ban_list() {
+    dual_case(
+        &[("banned-players.txt", BAN_LIST_WITH_PIPES_ONLY.as_bytes())],
+        &["Steve.dat"],
+        Expect::Aborts {
+            unconverted: &[
+                "banned-players.txt",
+                "banned-ips.txt",
+                "ops.txt",
+                "white-list.txt",
+            ],
+        },
+        &[],
+    );
+}
+
+/// The ip list is the second conversion: the player ban list is converted before the exception ends the start.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn single_pipe_line_in_the_old_ip_ban_list() {
+    dual_case(
+        &[(
+            "banned-ips.txt",
+            b"10.0.0.1|2013-01-01 00:00:00 +0000|Server\n  |  \n|\n",
+        )],
+        &["Steve.dat"],
+        Expect::Aborts {
+            unconverted: &["banned-ips.txt", "ops.txt", "white-list.txt"],
+        },
+        &[],
+    );
+}
+
+/// A line of `|` and blanks is not empty after `trim`, so it is a name for the op and white lists.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn pipe_lines_are_names_in_the_op_and_white_lists() {
+    dual_case(
+        &[
+            ("ops.txt", b"||||\n|\nSteve\n"),
+            ("white-list.txt", b"||||\nSteve|x\n"),
+        ],
+        &["Steve.dat"],
+        Expect::Converts { fails: false },
+        &[],
+    );
+}
+
+const ODD_OPS: &str =
+    "  Steve  \nalex 1\nthis_name_is_much_longer_than_16\n\n#c\n\u{c4}rger\nSteve\nsteve\n";
+const ODD_WHITE_LIST: &str = "Steve\nSTEVE\n\t\nx\n";
+const ODD_BANNED_PLAYERS: &str = "\
+Steve|2013-01-01 00:00:00 +0000|Server|forever|r
+STEVE|2014-01-01 00:00:00 +0000|Other
+ \u{c4}rger |2013-01-01 00:00:00 +0000
+this_name_is_much_longer_than_16|2013-01-01 00:00:00 +0000|S|forever
+x y|2013-01-01 00:00:00 +0000|S|2099-01-01 00:00:00 +0000
+";
+
+/// Names with spaces, longer than 16 characters, non-ASCII, repeated in other case, and the white space only name.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn odd_names_in_all_lists() {
+    dual_case(
+        &[
+            ("ops.txt", ODD_OPS.as_bytes()),
+            ("white-list.txt", ODD_WHITE_LIST.as_bytes()),
+            ("banned-players.txt", ODD_BANNED_PLAYERS.as_bytes()),
+        ],
+        &["Steve.dat"],
+        Expect::Converts { fails: false },
+        &[],
+    );
+}
+
+/// Numbers without padding, a zone name, and expiry columns that are not dates (no expiry) or empty.
+const SHORT_DATES: &str = "\
+a|2013-1-1 0:0:0 +0000|S|2013-1-1 0:0:0 +0000|r
+e|2013-01-01 00:00:00 +0000|S|2013-01-01 00:00:00 UTC|r
+f|2013-01-01 00:00:00 -0830|S||r
+g|2013-01-01 00:00:00 +0000|||
+h|2013-01-01 00:00:00 +0000|S|not a date|r
+";
+
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn short_and_unparsable_expiry_dates() {
+    dual_case(
+        &[("banned-players.txt", SHORT_DATES.as_bytes())],
+        &["Steve.dat"],
+        Expect::Converts { fails: false },
+        &[],
+    );
+}
+
+/// An unparsable creation date is the time of the conversion.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn unparsable_creation_dates() {
+    dual_case(
+        &[
+            (
+                "banned-players.txt",
+                b"a|bad date|S|forever|r\nb|2013-01-01\nc|\n",
+            ),
+            (
+                "banned-ips.txt",
+                b"10.0.0.1|bad date|S\nnot-an-ip|2013-01-01 00:00:00 +0000|S|forever|r\n::1\n",
+            ),
+        ],
+        &["Steve.dat"],
+        Expect::Converts { fails: false },
+        &["banned-players.json#*.created", "banned-ips.json#*.created"],
+    );
+}
+
+/// `trim` removes every character up to U+0020 and nothing above (not U+00A0); `readLines` ends a line at a lone CR.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn java_trim_and_line_ends() {
+    dual_case(
+        &[
+            ("ops.txt", "\u{a0}Alex\u{a0}\n\u{1}Bob\u{1}\nCar\rDan\n".as_bytes()),
+            (
+                "banned-players.txt",
+                "\u{a0}Alex\u{a0}|2013-01-01 00:00:00 +0000|S\n\u{1}Bob\u{1}|2013-01-01 00:00:00 +0000|S\n\u{1}#hidden\nCar|2013-01-01 00:00:00 +0000|S\rDan|2013-01-01 00:00:00 +0000|S\n".as_bytes(),
+            ),
+        ],
+        &["Steve.dat"],
+        Expect::Converts { fails: false },
+        &[],
+    );
+}
+
+/// `equalsIgnoreCase` finds the file of a profile: two files whose names differ only in the case of a non-ASCII letter are one profile for it, the first is moved twice and the second move fails.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn player_files_differing_in_non_ascii_case() {
+    dual(&["\u{c4}rger.dat", "\u{e4}rger.dat", "Steve.dat"], true);
 }

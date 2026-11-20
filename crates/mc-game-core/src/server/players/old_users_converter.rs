@@ -108,11 +108,14 @@ fn backend_error(name: &str) -> ConversionError {
     ))
 }
 
-/// `String.split("\\|")`: trailing empty strings are dropped.
+/// `String.split("\\|")`: trailing empty strings are dropped, so a line of only `|` gives no parts at all (a line
+/// without `|` is one part).
 fn split_pipe(line: &str) -> Vec<String> {
     let mut parts: Vec<String> = line.split('|').map(str::to_owned).collect();
-    while parts.len() > 1 && parts.last().is_some_and(String::is_empty) {
-        parts.pop();
+    if parts.len() > 1 {
+        while parts.last().is_some_and(String::is_empty) {
+            parts.pop();
+        }
     }
     parts
 }
@@ -124,21 +127,52 @@ fn read_old_list_format(
 ) -> std::io::Result<Vec<String>> {
     let lines = read_lines(file)?;
     for line in &lines {
-        let line = line.trim();
+        let line = line.trim_matches(|c| c <= ' ');
         if !line.starts_with('#') && !line.is_empty() {
             let parts = split_pipe(line);
-            user_map.insert(mc_core::java_case::to_lower_case_root(&parts[0]), parts);
+            // `parts[0]`: a line of only `|` throws out of the conversion (it catches no `RuntimeException`) and ends the start
+            let Some(first) = parts.first() else {
+                panic!(
+                    "java.lang.ArrayIndexOutOfBoundsException: Index 0 out of bounds for length 0"
+                );
+            };
+            let key = mc_core::java_case::to_lower_case_root(first);
+            user_map.insert(key, parts);
         }
     }
     Ok(lines)
 }
 
-/// Guava `Files.readLines(file, UTF_8)`.
+/// Guava `Files.readLines(file, UTF_8)`: a line ends at LF, CR or CRLF.
 fn read_lines(file: &Path) -> std::io::Result<Vec<String>> {
-    Ok(String::from_utf8_lossy(&fs::read(file)?)
+    let text = mc_core::java_string::decode_utf8(&fs::read(file)?);
+    Ok(text
+        .replace("\r\n", "\n")
+        .replace('\r', "\n")
         .lines()
         .map(str::to_owned)
         .collect())
+}
+
+/// `String.equalsIgnoreCase`: every character pair is equal, or equal after `Character.toUpperCase`, or after
+/// `toLowerCase` of that.
+/// shortcut: the one-character case mapping is Rust's full mapping where that is one character and the character
+/// itself otherwise, which differs from the JDK for the few characters that have only a one-character mapping
+/// (`U+1FB3`, `U+0130`), when such a name is a player file.
+fn equals_ignore_case(a: &str, b: &str) -> bool {
+    fn one(mut mapped: impl Iterator<Item = char>, c: char) -> char {
+        match (mapped.next(), mapped.next()) {
+            (Some(m), None) => m,
+            _ => c,
+        }
+    }
+    let upper = |c: char| one(c.to_uppercase(), c);
+    let lower = |c: char| one(c.to_lowercase(), c);
+    a.chars().count() == b.chars().count()
+        && a.chars().zip(b.chars()).all(|(x, y)| {
+            let (ux, uy) = (upper(x), upper(y));
+            x == y || ux == uy || lower(ux) == lower(uy)
+        })
 }
 
 fn is_file(path: &Path) -> bool {
@@ -409,7 +443,7 @@ pub fn convert_players(ctx: &ConversionContext, world_dir: &Path) -> bool {
     let file_name_for_profile = |profile_name: &str| {
         names
             .iter()
-            .find(|n| n.eq_ignore_ascii_case(profile_name))
+            .find(|n| equals_ignore_case(n, profile_name))
             .ok_or_else(|| {
                 ConversionError(format!(
                     "Could not find the filename for {profile_name} anymore"
@@ -756,5 +790,34 @@ mod tests {
             .borrow_mut()
             .push(pause)));
         assert!(sleeps.borrow().is_empty());
+    }
+    #[test]
+    fn java_split_trim_and_line_ends() {
+        assert_eq!(split_pipe("a"), ["a"]);
+        assert_eq!(split_pipe("a|b||"), ["a", "b"]);
+        assert_eq!(split_pipe("|a"), ["", "a"]);
+        assert!(split_pipe("||||").is_empty());
+
+        let dir = tempfile::tempdir().unwrap();
+        let file = dir.path().join("list.txt");
+        fs::write(&file, "a\r\nb\rc\n\nd").unwrap();
+        assert_eq!(read_lines(&file).unwrap(), ["a", "b", "c", "", "d"]);
+    }
+
+    #[test]
+    #[should_panic(expected = "ArrayIndexOutOfBoundsException: Index 0 out of bounds for length 0")]
+    fn a_line_of_pipes_ends_the_conversion_with_an_exception() {
+        let dir = tempfile::tempdir().unwrap();
+        let file = dir.path().join(OLD_USERBANLIST);
+        fs::write(&file, "Steve|2013-01-01 00:00:00 +0000\n |  \n  |\n").unwrap();
+        let _ = read_old_list_format(&file, &mut JavaHashMap::new());
+    }
+
+    #[test]
+    fn equals_ignore_case_compares_every_character_pair() {
+        assert!(equals_ignore_case("Steve", "sTEVE"));
+        assert!(equals_ignore_case("\u{c4}rger", "\u{e4}RGER"));
+        assert!(!equals_ignore_case("Steve", "Steven"));
+        assert!(!equals_ignore_case("a", "b"));
     }
 }
