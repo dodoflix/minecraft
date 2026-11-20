@@ -48,17 +48,26 @@ impl ChunkMap {
                     let context = self.data_fix_context_tag();
                     // `readChunk`: the data fix runs between the read and the parse
                     let seq = self.next_result_seq();
-                    self.pool.submit_sequenced(seq, move || {
-                        let tag = match upgrade_level_chunk_tag(tag, &context) {
-                            Ok(tag) => tag,
-                            Err(e) => {
-                                let result = Box::new(Err(ChunkReadException(e.to_string())));
-                                return WorkerMessage::ChunkParsed { key, result };
-                            }
-                        };
-                        let result = Box::new(SerializableChunkData::parse(height, &factory, &tag));
-                        WorkerMessage::ChunkParsed { key, result }
-                    });
+                    self.pool.submit_sequenced(
+                        seq,
+                        move || {
+                            let tag = match upgrade_level_chunk_tag(tag, &context) {
+                                Ok(tag) => tag,
+                                Err(e) => {
+                                    let result = Box::new(Err(ChunkReadException(e.to_string())));
+                                    return WorkerMessage::ChunkParsed { key, result };
+                                }
+                            };
+                            let result =
+                                Box::new(SerializableChunkData::parse(height, &factory, &tag));
+                            WorkerMessage::ChunkParsed { key, result }
+                        },
+                        // `parseChunk` throwing: `handleChunkLoadFailure` reports it and continues with an empty chunk
+                        move |text| WorkerMessage::ChunkParsed {
+                            key,
+                            result: Box::new(Err(ChunkReadException(text))),
+                        },
+                    );
                 }
                 Err(e) => self.handle_chunk_load_failure(key, &e.to_string()),
             },

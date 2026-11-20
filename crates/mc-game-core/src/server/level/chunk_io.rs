@@ -312,7 +312,16 @@ fn io_loop(mut storage: SimpleRegionStorage, rx: Receiver<IoRequest>, results: R
     loop {
         match rx.recv_timeout(Duration::from_millis(5)) {
             Ok(IoRequest::Read { key, seq }) => {
-                let result = storage.read(&ChunkPos::unpack(key));
+                // a panic of the read must still answer: the chunk map applies results in submission order, a missing one
+                // would hold every later result back
+                let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+                    storage.read(&ChunkPos::unpack(key))
+                }))
+                .unwrap_or_else(|payload| {
+                    Err(io::Error::other(crate::crash_report::exception_text(
+                        payload.as_ref(),
+                    )))
+                });
                 if results
                     .send(seq, WorkerMessage::ChunkRead { key, result })
                     .is_err()
@@ -411,11 +420,22 @@ impl WorkerPool {
         }
     }
 
-    /// A job whose message is applied by the game thread as number `seq` of the submitted jobs.
-    pub fn submit_sequenced(&self, seq: u64, job: impl FnOnce() -> WorkerMessage + Send + 'static) {
+    /// A job whose message is applied by the game thread as number `seq` of the submitted jobs. A panic of the job is
+    /// answered with `on_panic(text)` instead, so the sequence never has a gap that would hold every later result back
+    /// (vanilla: the failed future completes exceptionally and its `exceptionally` stage runs).
+    pub fn submit_sequenced(
+        &self,
+        seq: u64,
+        job: impl FnOnce() -> WorkerMessage + Send + 'static,
+        on_panic: impl FnOnce(String) -> WorkerMessage + Send + 'static,
+    ) {
         if let Some(tx) = &self.tx {
             let _ = tx.send(Box::new(move |results| {
-                let _ = results.send(seq, job());
+                let message = std::panic::catch_unwind(std::panic::AssertUnwindSafe(job))
+                    .unwrap_or_else(|payload| {
+                        on_panic(crate::crash_report::exception_text(payload.as_ref()))
+                    });
+                let _ = results.send(seq, message);
             }));
         }
     }
@@ -458,6 +478,19 @@ static BACKGROUND: LazyLock<BackgroundExecutor> = LazyLock::new(|| {
     BackgroundExecutor { tx }
 });
 
+/// Runs a batch; a panic outside the per-step guard of `run_batch` is a crash report like a failed step.
+fn run_batch_message(ctx: &WorldGenContext, batch: GenBatch) -> WorkerMessage {
+    batch_message(
+        std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| run_batch(ctx, batch)))
+            .unwrap_or_else(|payload| {
+                Err(CrashReport::for_throwable(
+                    payload,
+                    "Exception generating new chunk",
+                ))
+            }),
+    )
+}
+
 fn batch_message(result: Result<BatchResult, CrashReport>) -> WorkerMessage {
     match result {
         Ok(result) => WorkerMessage::BatchDone(Box::new(result)),
@@ -493,7 +526,7 @@ impl WorldgenThread {
             .spawn(move || {
                 while let Ok((seq, ctx, batch)) = rx.recv() {
                     if thread_results
-                        .send(seq, batch_message(run_batch(&ctx, batch)))
+                        .send(seq, run_batch_message(&ctx, batch))
                         .is_err()
                     {
                         return;
@@ -529,7 +562,7 @@ impl WorldgenThread {
         seq: u64,
     ) -> Option<WorkerMessage> {
         if self.inline {
-            return Some(batch_message(run_batch(&ctx, batch)));
+            return Some(run_batch_message(&ctx, batch));
         }
         if let Some(tx) = &self.tx {
             let _ = tx.send((seq, ctx, batch));
@@ -542,7 +575,7 @@ impl WorldgenThread {
     pub fn submit_background(&self, ctx: Arc<WorldGenContext>, batch: GenBatch, seq: u64) {
         let results = self.results.clone();
         let job = Box::new(move || {
-            let _ = results.send(seq, batch_message(run_batch(&ctx, batch)));
+            let _ = results.send(seq, run_batch_message(&ctx, batch));
         });
         let _ = BACKGROUND.tx.send(job);
     }
@@ -581,6 +614,37 @@ mod tests {
         }
         assert!(start.elapsed() < Duration::from_secs(5));
         sender.join().unwrap();
+    }
+
+    /// A job that panics still delivers a message in its place, and the thread runs the next job.
+    #[test]
+    fn a_panicking_sequenced_job_still_answers() {
+        let (results, rx) = ResultSender::channel();
+        let mut pool = WorkerPool::new("test-pool", 1, results);
+        let parse_failed = |text: String| WorkerMessage::ChunkRead {
+            key: 7,
+            result: Err(io::Error::other(text)),
+        };
+        pool.submit_sequenced(0, || panic!("boom"), parse_failed);
+        pool.submit_sequenced(
+            1,
+            || WorkerMessage::ChunkRead {
+                key: 8,
+                result: Ok(None),
+            },
+            parse_failed,
+        );
+        let first = rx.recv_timeout(Duration::from_secs(10)).expect("first");
+        let second = rx.recv_timeout(Duration::from_secs(10)).expect("second");
+        assert!(matches!(
+            first,
+            (0, WorkerMessage::ChunkRead { key: 7, result: Err(e) }) if e.to_string().contains("boom")
+        ));
+        assert!(matches!(
+            second,
+            (1, WorkerMessage::ChunkRead { key: 8, .. })
+        ));
+        pool.close();
     }
 
     /// `IOWorker.scanChunk`: a queued write answers first, then the region file; scanning never creates a region file.
