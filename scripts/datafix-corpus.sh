@@ -6,12 +6,17 @@
 #          scripts/datafix-corpus.sh select             keep a deduplicated set cover per constant, write the update requests
 #          scripts/datafix-corpus.sh record             run the requests through vanilla's DataFixers and write the fixtures
 #          scripts/datafix-corpus.sh all                extract every world, synth, select and record
+#          scripts/datafix-corpus.sh coverage           measure which fixes the committed fixtures exercise, rewrite coverage.tsv
 #
 # Input:  the worlds of scripts/datafix-worlds.sh ($MC_DATAFIX_CACHE/worlds/<id>[-normal]); `all` needs them all.
 # Output: crates/mc-datafix/tests/fixtures/samples/corpus_<type>.tsv.gz, one per DataFixTypes constant (format and replay:
 #         crates/mc-datafix/tests/common/corpus_samples.rs), working files in $MC_DATAFIX_CACHE/corpus/{candidates,requests,records}.
 # Reruns: the fixtures are a function of the worlds in the cache and of the seed; recording twice from the same worlds gives
 #         identical files. A different set of worlds is a reviewed diff of the fixtures, never an automatic update.
+# Coverage: the oracle's `coverage` verb runs every fixture of samples/ through vanilla's DataFixers with a watch around each fix and
+#         writes crates/mc-datafix/tests/fixtures/coverage.tsv (row per fix: samples it changed, real and synthetic); the summary
+#         names the fixes nothing exercises that coverage_expected_unexercised.txt does not list, and the listed ones that are
+#         exercised now. One pass over every committed sample (minutes); run it after fixtures change, nightly checks the file.
 # Budget: the fixtures stay under 6 MiB together (docs/testing.md allows 8 MiB per file); the counts and sizes per constant are
 #         in budget() below.
 # Env: MC_DATAFIX_CACHE (default ${XDG_CACHE_HOME:-$HOME/.cache}/mc-datafix-corpus).
@@ -123,6 +128,20 @@ cmd_record() {
   trap - EXIT
 }
 
+cmd_coverage() {
+  local fx="$ROOT/crates/mc-datafix/tests/fixtures"
+  to_file "$fx/coverage.tsv" quiet "$ORACLE" coverage --samples "$FIXTURES"
+  awk -F'\t' -v listed="$fx/coverage_expected_unexercised.txt" '
+    BEGIN { while ((getline l < listed) > 0) if (l !~ /^#/ && l != "") { split(l, f, "\t"); entry[f[1]] = 1 } }
+    /^#/ || NF == 0 { next }
+    { total++; if ($5 + $6 > 0) { hit++; if ($1 in entry) stale = stale "  " $1 " " $2 "." $3 " " $4 "\n" } else if (!($1 in entry)) open = open "  " $1 " " $2 "." $3 " " $4 "\n"; else listed_n++ }
+    END {
+      printf "datafix-corpus: %d of %d fixes exercised, %d listed as unexercised\n", hit, total, listed_n
+      if (open != "") printf "not exercised and not listed:\n%s", open
+      if (stale != "") printf "listed but exercised now (delete from coverage_expected_unexercised.txt):\n%s", stale
+    }' "$fx/coverage.tsv"
+}
+
 [ $# -gt 0 ] || { usage >&2; exit 2; }
 sub="$1"
 shift
@@ -131,6 +150,7 @@ case "$sub" in
   synth) cmd_synth ;;
   select) cmd_select ;;
   record) cmd_record ;;
+  coverage) cmd_coverage ;;
   all) [ $# -eq 0 ] || die "all takes no worlds: it records every world of the cache"; rm -rf "$WORK/candidates"; cmd_extract; cmd_synth; cmd_select; cmd_record ;;
   *) usage >&2; exit 2 ;;
 esac

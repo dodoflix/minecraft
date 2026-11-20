@@ -16,6 +16,7 @@ mod oracle_client;
 #[path = "../common/recorded_schemas.rs"]
 mod recorded_schemas;
 
+mod coverage;
 mod recordings;
 mod sample_gen;
 mod self_test;

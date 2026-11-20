@@ -196,6 +196,12 @@ crate can use it as a dev-dependency.
   so are the log records that concern the world load. `legacy_users.rs` does the same for `ops.txt`, `white-list.txt`,
   `banned-players.txt`, `banned-ips.txt` and `players/<name>.dat` in offline mode. `DATAFIX_DUAL_WORLDS` (`supported`, `all` or
   ids), `DATAFIX_DUAL_KINDS` (`flat,normal`) and `WORLD_UPGRADE_KEEP=<dir>` select worlds and keep both directories.
+- Data-fix coverage (`crates/mc-datafix/tests/oracle/Coverage.java`, the oracle's `coverage` verb, run by
+  `scripts/datafix-corpus.sh coverage`): vanilla's `DataFixers` run over every fixture of `tests/fixtures/samples` with a watch
+  around each fix, and `tests/fixtures/coverage.tsv` records per fix how many real and synthetic samples it changed. The
+  `fix_coverage` golden fails on a fix no sample exercises unless `coverage_expected_unexercised.txt` lists it with a reason, on a
+  listed fix that a sample exercises now (the list only shrinks), and on a sample fixture that is not measured or has no replay
+  test. Regenerate `coverage.tsv` whenever the sample fixtures change.
 - Advancement triggers: `golden/advancement_loot_guards.rs` lists, per trigger, the scenario that fires it and the criterion that
   scenario's fixture records as completed (`ADV PLAYER ADVANCEMENT CRITERION`); a trigger that no recorded completion proves, or that
   is not listed, fails the test. A trigger with no observation yet is listed with its reason.

@@ -16,6 +16,7 @@
 //   gen OPTIONS                    batch lines of schema-driven samples (SampleGen.java: --type --from --to --seed --n --invalid --mutate --matrix --shard --report)
 //   filefix WORLD_DIR --out TREE.txt [--from V --to V] [--saves]   the file fixer on a copy of a world: log lines, level data, tree listing (FileFixVerbs.java)
 //   summary-after WORLD_DIR [--from V --to V] [--saves]  the LevelSummary of that world afterwards (FileFixVerbs.java)
+//   coverage --samples DIR         which fixes the committed sample fixtures in DIR exercise (Coverage.java)
 //   tables DIR                     the lookup tables of the fix classes as DIR/<class>.tsv (TableDump.java)
 //   table-accessors                rows of the public table accessors over every key (TableDump.java)
 // Output: the record formats below on stdout (log noise goes to stderr).
@@ -79,11 +80,18 @@ public class DataFixerOracle {
 
   static final List<String> errors = Collections.synchronizedList(new ArrayList<>());
 
+  /** The fixer `update` runs through; null: vanilla's own (the coverage verb substitutes a watched copy of it). */
+  static DataFixer fixerInUse;
+
+  static DataFixer fixer() {
+    return fixerInUse != null ? fixerInUse : DataFixers.getDataFixer();
+  }
+
   public static void main(String[] args) throws Exception {
     proto = new PrintStream(new BufferedOutputStream(new FileOutputStream(FileDescriptor.out), 1 << 16), false, StandardCharsets.UTF_8);
     System.setOut(System.err);
     if (args.length == 0 || args[0].equals("-h") || args[0].equals("--help")) {
-      System.err.println("Usage: scripts/datafix-oracle.sh fixes-list | schema-dump KEY TYPE|all | schema-dump all | fix TYPE FROM TO FILE [OUT] | batch IN OUT | gen OPTIONS | filefix WORLD_DIR --out TREE.txt | summary-after WORLD_DIR | tables DIR | table-accessors");
+      System.err.println("Usage: scripts/datafix-oracle.sh fixes-list | schema-dump KEY TYPE|all | schema-dump all | fix TYPE FROM TO FILE [OUT] | batch IN OUT | gen OPTIONS | coverage --samples DIR | filefix WORLD_DIR --out TREE.txt | summary-after WORLD_DIR | tables DIR | table-accessors");
       System.exit(args.length == 0 ? 2 : 0);
     }
     Throwable[] failure = new Throwable[1];
@@ -116,6 +124,7 @@ public class DataFixerOracle {
       case "grammar-sample" -> proto.print(GrammarSample.dump());
       case "gen" -> SampleGen.run(args, proto);
       case "filefix", "summary-after" -> FileFixVerbs.run(args[0], args, proto);
+      case "coverage" -> Coverage.run(args, proto);
       case "tables" -> {
         if (args.length != 2) throw new IllegalArgumentException("tables DIR");
         TableDump.dump(Path.of(args[1]));
@@ -231,7 +240,7 @@ public class DataFixerOracle {
     }
     errors.clear();
     try {
-      DataFixer fixer = DataFixers.getDataFixer();
+      DataFixer fixer = fixer();
       CompoundTag out;
       if (type.startsWith("ref:")) {
         out = (CompoundTag) fixer.update(reference(type.substring(4)), new Dynamic<>(NbtOps.INSTANCE, in), from, to).getValue();
@@ -255,7 +264,7 @@ public class DataFixerOracle {
     errors.clear();
     try {
       com.google.gson.JsonElement in = net.minecraft.util.StrictJsonParser.parse(text);
-      DataFixer fixer = DataFixers.getDataFixer();
+      DataFixer fixer = fixer();
       com.google.gson.JsonElement out =
           DataFixTypes.valueOf(type).update(fixer, new Dynamic<>(com.mojang.serialization.JsonOps.INSTANCE, in), from, to).getValue();
       byte[] bytes = out.toString().getBytes(StandardCharsets.UTF_8);

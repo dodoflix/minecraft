@@ -12,6 +12,7 @@
 #   scripts/datafix-oracle.sh gen OPTIONS                   schema-driven samples as batch lines (options and shapes: SampleGen.java)
 #   scripts/datafix-oracle.sh filefix WORLD_DIR --out TREE.txt [--from V --to V]   the file fixer on a copy of a world (format: FileFixVerbs.java)
 #   scripts/datafix-oracle.sh summary-after WORLD_DIR [--from V --to V]            the level summary of that world afterwards
+#   scripts/datafix-oracle.sh coverage --samples DIR        which fixes the sample fixtures in DIR exercise (Coverage.java; scripts/datafix-corpus.sh coverage)
 #   scripts/datafix-oracle.sh tables DIR                    the lookup tables of the fix classes as DIR/<class>.tsv (format: TableDump.java)
 #   scripts/datafix-oracle.sh table-accessors               rows of the public table accessors over every key (format: TableDump.java)
 #   scripts/datafix-oracle.sh --regen                       rewrite fixes.tsv, schema_types.tsv.gz and table_accessors.tsv.gz under
@@ -112,6 +113,8 @@ if [ "$1" = gen ]; then
   VOCAB="$(vocab)" # a failing assignment stops the script
   ORACLE+=("-Ddatafix.vocab=$VOCAB")
 fi
+# coverage holds one rewrite rule of the whole chain at a time: the heap is capped so it cannot crowd out other work
+[ "$1" != coverage ] || ORACLE+=(-Xmx4g)
 ORACLE+=(DataFixerOracle)
 if [ "$1" = --regen ]; then
   to_file "$FX/fixes.tsv" "${ORACLE[@]}" fixes-list

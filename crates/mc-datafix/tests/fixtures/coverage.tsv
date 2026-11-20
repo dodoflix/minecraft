@@ -1,0 +1,472 @@
+# INDEX VERSION SUBVERSION CLASS CHANGED_BY_REAL CHANGED_BY_SYNTH (samples the fix changed; runs: 1370 real, 35791 synthetic)
+# of 35641 runs recorded in STEP fixtures, 12 answer differently from vanilla's own chain in content and 0 in key order only
+# fixture	corpus_advancements.tsv.gz	3a5248705c9b6793d3d908c9111d1f83887141a3431e40289f647634b782716d	75
+# fixture	corpus_chunk.tsv.gz	d3534108aac37a69e04a2abb7faece368398e833dba04df12224612385661e1a	300
+# fixture	corpus_debug_profile.tsv.gz	c82c8a671965ae393494545214f0789fc2479125c78acdc50433bf23ee5cd34d	75
+# fixture	corpus_entity_chunk.tsv.gz	7ba846e076caf55cfb51248ea6e3d0925ef22ff1a48171339553bec84b031737	245
+# fixture	corpus_hotbar.tsv.gz	67602a2adc22d3fe6538d2639ec6711ac9fafd99bd1286edc0a21ab099547574	75
+# fixture	corpus_level.tsv.gz	be0cb9f79ee08e3cca0026bf47bdd026bd91bcabf7744b9293a7790ce11b9659	44
+# fixture	corpus_level_summary.tsv.gz	2f69301f0645da0a57c3718ae869145b1c8c28c44d7e01e3b61c1647efcf7169	44
+# fixture	corpus_options.tsv.gz	c4a4e5ba2610be28b32be78f6e6d9af4eebb6862560fc89f60db49573bd78db4	75
+# fixture	corpus_player.tsv.gz	4729843a67065d5bc0f6862ac90b6270abd2eaf21f5a79dc5e8a0891676074cc	75
+# fixture	corpus_poi_chunk.tsv.gz	8e6dc3e121dcfc18abfe5cece2692166d309893f541e5ac1862feb571c110cdb	82
+# fixture	corpus_saved_data_command_storage.tsv.gz	9f66fc3fd41a5f9fabb791ddeedc1a3d6c53e5a25cad5a2b9c0e2217b203be57	75
+# fixture	corpus_saved_data_custom_boss_events.tsv.gz	fa99c6c855a9989d691e1fc019bf749bfb3fff4999609c63d2c00b925368c4b4	2
+# fixture	corpus_saved_data_ender_dragon_fight.tsv.gz	bbe3a22b3099ebc85d308ef223746e4609b0a4ead98a080ddc3842545bcd0499	2
+# fixture	corpus_saved_data_forced_chunks.tsv.gz	d97250c3f6f1d2f0d3ceb241f5fa281f7d7d4a410b8f5ca591850f36c211561a	19
+# fixture	corpus_saved_data_game_rules.tsv.gz	52c4522c63077a5ef762b256a4c03b78e55c4e53bbf2b860966c7c372cf3ee23	2
+# fixture	corpus_saved_data_map_data.tsv.gz	e27d2bb2b329dd52503da0ca6d9645ba94c6fb6f65a005ccff0e0d1a502a9361	5
+# fixture	corpus_saved_data_map_index.tsv.gz	0aa6cb937688de5b4a599d3f4369e3d86a3cd02cfd57b0e2619aa67856ce00bb	5
+# fixture	corpus_saved_data_raids.tsv.gz	f66da47a86832973ecc7e581110d9caf46053e8240de05ae2e1527ca042b24d6	15
+# fixture	corpus_saved_data_random_sequences.tsv.gz	a5d945724f4a65e843e490393715e2ad0867f06b35e2b2cc0585e80c1b27e657	14
+# fixture	corpus_saved_data_scheduled_events.tsv.gz	3af69f678c910f00310151f748f5f14450d9f7897867fa1b8553d5a19048ed0f	2
+# fixture	corpus_saved_data_scoreboard.tsv.gz	78b4780d8ac13f5a40cb6fbf8986eeb772d710d364e7a04f0f9d341a435fffb5	25
+# fixture	corpus_saved_data_stopwatches.tsv.gz	f8839c44f9ab1367febe3d32d2d2ae0577948d0b125808ce15ac979d965eb0f9	3
+# fixture	corpus_saved_data_structure_feature_indices.tsv.gz	26e1bdd17c29d6f26be6dc63e4c2b337da6fa5292e08a7f74bcc6596b4fb45f8	3
+# fixture	corpus_saved_data_wandering_trader.tsv.gz	d80e97c9a60ccc4a92cb716006105c408618a24eb80aca27af26c3fce392f1d0	75
+# fixture	corpus_saved_data_weather.tsv.gz	e0667a76224bded43244886e9f8d0492286977c8c7776cafc94c83a801c1855e	2
+# fixture	corpus_saved_data_world_border.tsv.gz	eecbf561e2c48d335fb95578053ab8faa82ca70d8a44cc80fcee1443bd756034	3
+# fixture	corpus_saved_data_world_clocks.tsv.gz	6a68961ae5efb9f3650bdeafef234a3dcce86a8c6047ef37b11f67733b6f8a51	2
+# fixture	corpus_saved_data_world_gen_settings.tsv.gz	49aa85a4cd0be0c9c83fa020c61dafcb296f27bde86848b463cd146a5e2fc7bf	4
+# fixture	corpus_stats.tsv.gz	48f9dcb0d69f914b85e2aae5eeaab6046cc0b74fb7e917e6e69e4d21d5383939	75
+# fixture	corpus_structure.tsv.gz	b68e50444beec2f26a18eae66b04549b7048e9ca644ff053f8f12f710cf51688	75
+# fixture	corpus_world_gen_settings.tsv.gz	9a1c40505d2644cf3757a8b4f17f18c354214747de1adc8223c166a175ba899e	22
+# fixture	hand_written.tsv.gz	c4a86608a40da1d3f76e7e63a8e6c4332a99ed5a6a4770dd29d89f2762f1d712	43
+# fixture	json_files.tsv.gz	30c94abea65b536d543d2e16d6474be25994871087ba6e70764b2a059db32e6c	12
+# fixture	region_upgrade.tsv.gz	e7add3faec47e28d9998433615d83be3bdaac5b7c21d205c16d47e93474e5cb2	129
+# fixture	saved_data.tsv.gz	31aaf097402680d54191a8a14a88447cac99c732cdcece1733afe3c560574dce	182
+# fixture	step_1344_1459.tsv.gz	c635e8c2e2827954d6f785fc276b098789ac2fb3f26229bd6ba6e35d79eec3c5	8355
+# fixture	step_1460_2199.tsv.gz	8859b8df26460b6ae646e238dddfeddfbd15f726364d3ff27f04320b13722059	3194
+# fixture	step_2200_2699.tsv.gz	30c7292547a5f1dc79b75d29a0a7a7c4639521af8a18c728be0b42a50ff0f3df	3791
+# fixture	step_2700_3299.tsv.gz	7059d2f17878655050001fc619e925f9f0e638110bf5c5107a940e3db0a01a9e	2614
+# fixture	step_3300_3999.tsv.gz	518424536e313e7fcc0932ea5453ecd5e2afef6917f195c7be515d40ef8a7cfe	7714
+# fixture	step_4000_4898.tsv.gz	825205036562c27aef89a6a5d51fcf7e09f807d1a94783b2eb33814c83da5163	5675
+# fixture	step_99_1343.tsv.gz	eb52f583bbd13b6983f20d8b6f9666c4094d53de18d1b57e6a0b2f0bd91b38a3	3128
+# fixture	step_real_1344_1459.tsv.gz	fcad3b6d35b1f41f2f8c7c37d95c6ac01bbf99774fbe6d078fe4282d4ce03081	68
+# fixture	step_real_1460_2199.tsv.gz	8299eeb534c28891115904b10f19a5e0d8871307cc612ef9d7b282d31f3351d0	76
+# fixture	step_real_4000_4898.tsv.gz	93a74dfdab20e9f34bb228a58d63b74b1971b9bde57d2d3fedeb0b702293e1fe	264
+# fixture	tail.tsv.gz	84831f9a8a740dc6ade409b5140c34d5356a31e5bebb7a83ae32ba98ef240516	396
+0	100	0	EntityEquipmentToArmorAndHandFix	12	39
+1	101	0	VillagerSetCanPickUpLootFix	2	9
+2	102	0	ItemIdFix	16	81
+3	102	0	ItemPotionFix	0	10
+4	105	0	ItemSpawnEggFix	1	9
+5	106	0	MobSpawnerEntityIdentifiersFix	13	27
+6	107	0	EntityMinecartIdentifiersFix	0	11
+7	108	0	EntityStringUuidFix	0	13
+8	109	0	EntityHealthFix	25	7
+9	110	0	EntityHorseSaddleFix	0	3
+10	111	0	EntityPaintingItemFrameDirectionFix	2	29
+11	113	0	EntityRedundantChanceTagsFix	0	6
+12	135	0	EntityRidingToPassengersFix	2	67
+13	143	0	EntityTippedArrowFix	0	8
+14	147	0	EntityArmorStandSilentFix	0	2
+15	165	0	SignTextStrictJsonFix	1	25
+16	165	0	WrittenBookPagesStrictJsonFix	1	7
+17	501	0	AddNewChoices	0	0
+18	502	0	ItemRenameFix$1	0	2
+19	502	0	EntityZombieVillagerTypeFix	0	7
+20	505	0	OptionsForceVBOFix	0	38
+21	700	0	EntityElderGuardianSplitFix	0	1
+22	701	0	EntitySkeletonSplitFix	4	3
+23	702	0	EntityZombieSplitFix	1	11
+24	703	0	EntityHorseSplitFix	4	14
+25	704	0	BlockEntityIdFix	20	133
+26	705	0	EntityIdFix	50	165
+27	804	0	ItemBannerColorFix	0	7
+28	806	0	ItemWaterPotionFix	1	9
+29	808	0	AddNewChoices	0	0
+30	808	1	EntityShulkerColorFix	3	11
+31	813	0	ItemShulkerBoxColorFix	0	10
+32	813	0	BlockEntityShulkerBoxColorFix	0	9
+33	816	0	OptionsLowerCaseLanguageFix	0	6
+34	820	0	ItemRenameFix$1	0	2
+35	1022	0	WriteAndReadFix	0	2
+36	1125	0	ChunkBedBlockEntityInjecterFix	0	5
+37	1125	0	BedItemColorFix	4	5
+38	1344	0	OptionsKeyLwjgl3Fix	0	63
+39	1446	0	OptionsKeyTranslationFix	0	60
+40	1450	0	BlockStateStructureTemplateFix	0	4610
+41	1451	0	AddNewChoices	0	0
+42	1451	1	ChunkPalettedStorageFix	162	69
+43	1451	2	BlockEntityBlockStateFix	0	44
+44	1451	3	EntityBlockStateFix	8	209
+45	1451	3	ItemStackMapIdFix	6	50
+46	1451	4	BlockNameFlatteningFix	30	153
+47	1451	4	ItemStackTheFlatteningFix	54	623
+48	1451	5	RemoveBlockEntityTagFix	0	102
+49	1451	5	ItemStackSpawnEggFix	8	21
+50	1451	5	EntityWolfColorFix	9	45
+51	1451	5	BlockEntityBannerColorFix	8	89
+52	1451	5	LevelFlatGeneratorInfoFix	6	48
+53	1451	6	StatsCounterFix	0	201
+54	1451	6	BlockEntityJukeboxFix	1	12
+55	1451	7	VillagerTradeFix	0	23
+56	1456	0	EntityItemFrameDirectionFix	10	23
+57	1458	0	EntityCustomNameToComponentFix	15	145
+58	1458	0	ItemCustomNameToComponentFix	9	153
+59	1458	0	BlockEntityCustomNameToComponentFix	9	22
+60	1460	0	EntityPaintingMotiveFix	4	19
+61	1466	0	AddNewChoices	0	0
+62	1466	0	ChunkToProtochunkFix	108	94
+63	1470	0	AddNewChoices	0	0
+64	1474	0	ColorlessShulkerEntityFix	2	9
+65	1474	0	LegacyBlockRenameFix$1	0	1
+66	1474	0	ItemRenameFix$1	0	1
+67	1475	0	LegacyBlockRenameFix$1	0	1
+68	1480	0	LegacyBlockRenameFix$1	0	1
+69	1480	0	ItemRenameFix$1	0	2
+70	1481	0	AddNewChoices	0	0
+71	1483	0	EntityPufferfishRenameFix	0	13
+72	1483	0	ItemRenameFix$1	0	1
+73	1484	0	ItemRenameFix$1	0	1
+74	1484	0	LegacyBlockRenameFix$1	0	1
+75	1484	0	HeightmapRenamingFix	0	40
+76	1486	0	EntityCodSalmonFix	0	10
+77	1486	0	ItemRenameFix$1	0	1
+78	1487	0	ItemRenameFix$1	0	1
+79	1487	0	LegacyBlockRenameFix$1	0	1
+80	1488	0	LegacyBlockRenameFix$1	0	1
+81	1488	0	ItemRenameFix$1	0	1
+82	1488	0	DataFixers$1	4	18
+83	1488	0	DataFixers$2	0	7
+84	1488	0	IglooMetadataRemovalFix	0	45
+85	1490	0	LegacyBlockRenameFix$1	0	1
+86	1490	0	ItemRenameFix$1	0	1
+87	1492	0	ChunkStructuresTemplateRenameFix	0	47
+88	1494	0	ItemStackEnchantmentNamesFix	9	45
+89	1496	0	LeavesFix	58	176
+90	1500	0	BlockEntityKeepPacked	0	9
+91	1501	0	AdvancementsFix	0	1
+92	1502	0	NamespacedTypeRenameFix	0	1
+93	1506	0	LevelDataGeneratorOptionsFix	6	59
+94	1510	0	LegacyBlockRenameFix$1	20	2
+95	1510	0	ItemRenameFix$1	0	2
+96	1510	0	NamespacedTypeRenameFix	0	1
+97	1510	0	EntityTheRenameningFix	4	36
+98	1510	0	StatsRenameFix	0	31
+99	1514	0	ScoreboardDisplayNameFix	3	41
+100	1514	0	ScoreboardDisplayNameFix	3	41
+101	1514	0	ObjectiveRenderTypeFix	1	56
+102	1515	0	LegacyBlockRenameFix$1	0	1
+103	1624	0	TrappedChestBlockEntityFix	4	31
+104	1800	0	AddNewChoices	0	0
+105	1800	0	ItemRenameFix$1	0	1
+106	1801	0	AddNewChoices	0	0
+107	1802	0	LegacyBlockRenameFix$1	9	0
+108	1802	0	ItemRenameFix$1	0	1
+109	1803	0	ItemLoreFix	7	84
+110	1904	0	AddNewChoices	0	0
+111	1904	0	EntityCatSplitFix	7	11
+112	1905	0	ChunkStatusFix	32	2
+113	1906	0	AddNewChoices	0	0
+114	1909	0	AddNewChoices	0	0
+115	1911	0	ChunkStatusFix2	203	28
+116	1914	0	WeaponSmithChestLootTableFix	0	1
+117	1917	0	CatTypeFix	0	10
+118	1918	0	VillagerDataFix	8	41
+119	1918	0	VillagerDataFix	6	29
+120	1920	0	NewVillageFix	0	57
+121	1920	0	AddNewChoices	0	0
+122	1925	0	MapIdFix	4	25
+123	1928	0	EntityRavagerRenameFix	0	13
+124	1928	0	ItemRenameFix$1	0	1
+125	1929	0	AddNewChoices	0	0
+126	1931	0	AddNewChoices	0	0
+127	1936	0	OptionsAddTextBackgroundFix	0	34
+128	1946	0	ReorganizePoi	0	56
+129	1948	0	OminousBannerRenameFix	0	12
+130	1953	0	OminousBannerBlockEntityRenameFix	0	9
+131	1955	0	VillagerRebuildLevelAndXpFix	8	31
+132	1955	0	ZombieVillagerRebuildXpFix	6	19
+133	1961	0	ChunkLightRemoveFix	0	8
+134	1963	0	RemoveGolemGossipFix	0	16
+135	2100	0	AddNewChoices	0	0
+136	2100	0	AddNewChoices	0	0
+137	2100	0	NamespacedTypeRenameFix	0	1
+138	2100	0	AdvancementsRenameFix	0	1
+139	2202	0	ChunkBiomeFix	173	1
+140	2209	0	ItemRenameFix$1	0	1
+141	2209	0	PoiTypeRenameFix	0	1
+142	2209	0	LegacyBlockRenameFix$1	0	1
+143	2211	0	StructureReferenceCountFix	1	7
+144	2218	0	ForcePoiRebuild	3	2
+145	2501	0	FurnaceRecipeFix	6	29
+146	2502	0	AddNewChoices	0	0
+147	2503	0	WallPropertyFix	0	9
+148	2503	0	AdvancementsRenameFix	0	3
+149	2505	0	AddNewChoices	0	0
+150	2505	0	MemoryExpiryDataFix	0	1
+151	2508	0	ItemRenameFix$1	0	3
+152	2508	0	LegacyBlockRenameFix$1	0	3
+153	2509	0	EntityZombifiedPiglinRenameFix	0	6
+154	2509	0	ItemRenameFix$1	0	1
+155	2511	0	EntityProjectileOwnerFix	0	54
+156	2511	1	NamedEntityConvertUncheckedFix	0	1
+157	2514	0	EntityUUIDFix	42	106
+158	2514	0	BlockEntityUUIDFix	5	17
+159	2514	0	PlayerUUIDFix	0	8
+160	2514	0	LevelUUIDFix	0	12
+161	2514	0	SavedDataUUIDFix	0	4
+162	2514	0	ItemStackUUIDFix	5	11
+163	2516	0	GossipUUIDFix	0	4
+164	2516	0	GossipUUIDFix	0	4
+165	2518	0	JigsawPropertiesFix	0	5
+166	2518	0	LegacyJigsawRotationFix	0	8
+167	2519	0	AddNewChoices	0	0
+168	2522	0	AddNewChoices	0	0
+169	2523	0	AttributesRenameLegacy	19	12
+170	2527	0	BitStorageAlignFix	142	34
+171	2528	0	ItemRenameFix$1	0	1
+172	2528	0	LegacyBlockRenameFix$1	0	1
+173	2529	0	StriderGravityFix	0	4
+174	2531	0	RedstoneWireConnectionsFix	0	9
+175	2533	0	VillagerFollowRangeFix	0	4
+176	2535	0	EntityShulkerRotationFix	5	6
+177	2537	0	LegacyDimensionIdFix	4	24
+178	2538	0	LevelLegacyWorldGenSettingsFix	20	50
+179	2550	0	WorldGenSettingsFix	0	141
+180	2551	0	WriteAndReadFix	0	31
+181	2552	0	NamespacedTypeRenameFix	0	1
+182	2553	0	NamespacedTypeRenameFix	0	1
+183	2556	0	OptionsFancyGraphicsToGraphicsModeFix	0	5
+184	2558	0	MissingDimensionFix	0	8
+185	2558	0	OptionsRenameFieldFix	0	2
+186	2568	0	AddNewChoices	0	0
+187	2571	0	AddNewChoices	0	0
+188	2679	0	CauldronRenameFix	0	6
+189	2680	0	ItemRenameFix$1	0	1
+190	2680	0	LegacyBlockRenameFix$1	0	1
+191	2684	0	AddNewChoices	0	0
+192	2686	0	AddNewChoices	0	0
+193	2688	0	AddNewChoices	0	0
+194	2688	0	AddNewChoices	0	0
+195	2690	0	ItemRenameFix$1	0	1
+196	2690	0	LegacyBlockRenameFix$1	0	1
+197	2691	0	ItemRenameFix$1	0	2
+198	2691	0	LegacyBlockRenameFix$1	0	1
+199	2693	0	AddFlagIfNotPresentFix	2	29
+200	2696	0	ItemRenameFix$1	0	1
+201	2696	0	LegacyBlockRenameFix$1	0	1
+202	2700	0	LegacyBlockRenameFix$1	0	35
+203	2701	0	SavedDataFeaturePoolElementFix	0	39
+204	2702	0	AbstractArrowPickupFix	0	67
+205	2704	0	AddNewChoices	0	0
+206	2707	0	AddNewChoices	0	0
+207	2707	0	AddFlagIfNotPresentFix	0	20
+208	2710	0	StatsRenameFix	0	17
+209	2717	0	ItemRenameFix$1	0	23
+210	2717	0	LegacyBlockRenameFix$1	0	27
+211	2825	0	AddFlagIfNotPresentFix	2	19
+212	2831	0	SpawnerDataFix	29	60
+213	2832	0	WorldGenSettingsHeightAndBiomeFix	4	42
+214	2832	0	ChunkHeightAndBiomeFix	227	79
+215	2833	0	WorldGenSettingsDisallowOldCustomWorldsFix	0	25
+216	2838	0	NamespacedTypeRenameFix	105	10
+217	2841	0	ChunkProtoTickListFix	227	63
+218	2842	0	ChunkRenamesFix	227	43
+219	2843	0	OverreachingTickFix	14	22
+220	2843	0	NamespacedTypeRenameFix	0	6
+221	2846	0	AdvancementsRenameFix	0	15
+222	2852	0	WorldGenSettingsDisallowOldCustomWorldsFix	0	24
+223	2967	0	StructureSettingsFlattenFix	4	27
+224	2970	0	StructuresBecomeConfiguredFix	227	74
+225	3076	0	AddNewChoices	0	0
+226	3077	0	ChunkDeleteIgnoredLightDataFix	198	18
+227	3078	0	AddNewChoices	0	0
+228	3078	0	AddNewChoices	0	0
+229	3078	0	AddNewChoices	0	0
+230	3081	0	AddNewChoices	0	0
+231	3082	0	AddNewChoices	0	0
+232	3083	0	AddNewChoices	0	0
+233	3084	0	NamespacedTypeRenameFix	0	1
+234	3086	0	EntityVariantFix	8	40
+235	3086	0	CriteriaRenameFix	0	9
+236	3087	0	EntityVariantFix	0	20
+237	3090	0	EntityFieldsRenameFix	7	14
+238	3093	0	EntityGoatMissingStateFix	8	16
+239	3094	0	GoatHornIdFix	0	43
+240	3097	0	FilteredBooksFix	0	23
+241	3097	0	FilteredSignsFix	0	26
+242	3097	0	VariantRenameFix	0	6
+243	3097	0	CriteriaRenameFix	0	6
+244	3097	0	PoiTypeRemoveFix	0	13
+245	3108	0	BlendingDataRemoveFromNetherEndFix	0	28
+246	3201	0	OptionsProgrammerArtFix	0	9
+247	3202	0	AddNewChoices	0	0
+248	3203	0	AddNewChoices	0	0
+249	3204	0	AddNewChoices	0	0
+250	3209	0	ItemStackSpawnEggFix	0	67
+251	3214	0	OptionsAmbientOcclusionFix	0	5
+252	3319	0	OptionsAccessibilityOnboardFix	0	97
+253	3322	0	EffectDurationFix	0	108
+254	3325	0	AddNewChoices	0	0
+255	3326	0	AddNewChoices	0	0
+256	3327	0	AddNewChoices	0	0
+257	3328	0	AddNewChoices	0	0
+258	3438	0	BlockEntityRenameFix	0	15
+259	3438	0	EntityBrushableBlockFieldsRenameFix	0	10
+260	3438	0	ItemRenameFix$1	0	22
+261	3438	0	AddNewChoices	0	0
+262	3439	0	BlockEntitySignDoubleSidedEditableTextFix	8	49
+263	3439	1	BlockEntitySignDoubleSidedEditableTextFix	0	25
+264	3440	0	NamespacedTypeRenameFix	0	1
+265	3440	0	FeatureFlagRemoveFix	0	12
+266	3447	0	ItemRenameFix$1	0	54
+267	3448	0	DecoratedPotFieldRenameFix	0	16
+268	3450	0	RemapChunkStatusFix	236	25
+269	3451	0	ChunkDeleteLightFix	176	30
+270	3459	0	LegacyDragonFightFix	20	82
+271	3564	0	DropInvalidSignDataFix	8	55
+272	3564	1	DropInvalidSignDataFix	0	22
+273	3565	0	RandomSequenceSettingsFix	1	30
+274	3566	0	ScoreboardDisplaySlotFix	12	20
+275	3568	0	MobEffectIdFix	17	376
+276	3682	0	AddNewChoices	0	0
+277	3683	0	PrimedTntBlockStateFixer	10	40
+278	3685	0	FixProjectileStoredItem	0	73
+279	3689	0	AddNewChoices	0	0
+280	3689	0	AddNewChoices	0	0
+281	3692	0	LegacyBlockRenameFix$1	83	16
+282	3692	0	ItemRenameFix$1	0	17
+283	3799	0	AddNewChoices	0	0
+284	3800	0	ItemRenameFix$1	0	14
+285	3803	0	RenameEnchantmentsFix	0	17
+286	3807	0	AddNewChoices	0	0
+287	3807	1	MapBannerBlockPosFormatFix	0	9
+288	3808	0	HorseBodyArmorItemFix	11	6
+289	3808	1	HorseBodyArmorItemFix	9	5
+290	3808	2	HorseBodyArmorItemFix	0	3
+291	3809	0	ChestedHorsesInventoryZeroIndexingFix	0	18
+292	3812	0	FixWolfHealth	11	3
+293	3813	0	BlockPosFormatAndRenamesFix	2	100
+294	3814	0	AttributesRenameLegacy	7	36
+295	3816	0	AddNewChoices	0	0
+296	3818	0	BeehiveFieldRenameFix	2	23
+297	3818	0	EmptyItemInHotbarFix	0	63
+298	3818	1	BannerPatternFormatFix	10	55
+299	3818	2	TippedArrowPotionToItemFix	0	25
+300	3818	3	WriteAndReadFix	0	1
+301	3818	4	ParticleUnflatteningFix	8	118
+302	3818	5	ItemStackComponentizationFix	140	1205
+303	3818	6	AreaEffectCloudPotionFix	8	24
+304	3820	0	PlayerHeadBlockProfileFix	10	13
+305	3820	0	LodestoneCompassComponentFix	0	56
+306	3825	0	ItemStackCustomNameToOverrideComponentFix	0	6
+307	3825	0	BannerEntityCustomNameToOverrideComponentFix	0	13
+308	3825	0	TrialSpawnerConfigFix	0	17
+309	3825	0	AddNewChoices	0	0
+310	3828	0	EmptyItemInVillagerTradeFix	19	46
+311	3833	0	RemoveEmptyItemInBrushableBlockFix	1	19
+312	3938	0	ProjectileStoredWeaponFix	0	1
+313	3939	0	FeatureFlagRemoveFix	0	16
+314	3943	0	OptionsMenuBlurrinessFix	0	90
+315	3945	0	AttributeModifierIdFix	119	338
+316	3945	0	JukeboxTicksSinceSongStartedFix	3	26
+317	4054	0	OminousBannerRarityFix	0	2
+318	4055	0	AttributeIdPrefixFix	128	59
+319	4059	0	FoodToConsumableFix	0	89
+320	4061	0	TrialSpawnerConfigInRegistryFix	0	30
+321	4064	0	FireResistantToDamageResistantComponentFix	0	6
+322	4067	0	BoatSplitFix	15	40
+323	4067	0	FeatureFlagRemoveFix	0	4
+324	4068	0	LockComponentPredicateFix	0	9
+325	4068	0	ContainerBlockEntityLockPredicateFix	12	11
+326	4070	0	AddNewChoices	0	0
+327	4071	0	AddNewChoices	0	0
+328	4071	0	AddNewChoices	0	0
+329	4081	0	EntitySalmonSizeFix	0	8
+330	4173	0	EntityFieldsRenameFix	0	1
+331	4175	0	EquippableAssetRenameFix	0	12
+332	4175	0	CustomModelDataExpandFix	0	12
+333	4176	0	InvalidBlockEntityLockFix	0	4
+334	4176	0	InvalidLockComponentFix	0	4
+335	4180	0	FeatureFlagRemoveFix	0	2
+336	4181	0	BlockEntityFurnaceBurnTimeFix	13	3
+337	4181	0	BlockEntityFurnaceBurnTimeFix	3	3
+338	4181	0	BlockEntityFurnaceBurnTimeFix	3	3
+339	4187	0	EntityAttributeBaseValueFix	1	2
+340	4187	0	EntityAttributeBaseValueFix	1	3
+341	4187	0	EntityAttributeBaseValueFix	0	3
+342	4187	0	EntityAttributeBaseValueFix	6	4
+343	4187	0	EntityAttributeBaseValueFix	0	4
+344	4187	0	EntityAttributeBaseValueFix	0	3
+345	4290	0	UnflattenTextComponentFix	53	622
+346	4291	0	LegacyHoverEventFix	0	187
+347	4291	0	TextComponentStringifiedFlagsFix	0	199
+348	4292	0	TextComponentHoverAndClickEventFix	0	587
+349	4293	0	DropChancesFormatFix	130	34
+350	4294	0	LegacyBlockPropertyRenameAndFix	0	7
+351	4296	0	AreaEffectCloudDurationScaleFix	12	11
+352	4297	0	ForcedChunkToTicketFix	29	9
+353	4299	0	EntitySpawnerItemVariantComponentFix	0	52
+354	4300	0	SaddleEquipmentSlotFix	40	33
+355	4301	0	EquipmentFormatFix	39	63
+356	4302	0	AddNewChoices	0	0
+357	4303	0	EntityFallDistanceFloatToDoubleFix	270	6
+358	4303	0	EntityFallDistanceFloatToDoubleFix	0	6
+359	4305	0	LegacyBlockPropertyRenameAndFix	0	2
+360	4306	0	ThrownPotionSplitFix	0	11
+361	4307	0	TooltipDisplayComponentFix	32	227
+362	4309	0	RaidRenamesDataFix	29	14
+363	4309	0	ChunkTicketUnpackPosFix	29	10
+364	4311	0	AdvancementsRenameFix	0	3
+365	4312	0	PlayerEquipmentFix	0	103
+366	4314	0	InlineBlockPosFormatFix	18	24
+367	4420	0	NamedEntityConvertUncheckedFix	13	1
+368	4421	0	AddNewChoices	0	0
+369	4424	0	FeatureFlagRemoveFix	0	2
+370	4424	0	AddFieldFix	0	1
+371	4424	0	AddFieldFix	0	1
+372	4531	0	AddNewChoices	0	0
+373	4532	0	AddNewChoices	0	0
+374	4533	0	AddNewChoices	0	0
+375	4535	0	CopperGolemWeatherStateFix	0	9
+376	4537	0	ChunkDeleteLightFix	62	0
+377	4541	0	LegacyBlockRenameFix$1	2	1
+378	4541	0	ItemRenameFix$1	0	1
+379	4543	0	AddNewChoices	0	0
+380	4544	0	LegacyWorldBorderFix	56	25
+381	4548	0	WorldSpawnDataFix	56	23
+382	4548	0	PlayerRespawnDataFix	0	10
+383	4648	0	AddNewChoices	0	0
+384	4649	0	TridentAnimationFix	0	1
+385	4650	0	DebugProfileOverlayReferenceFix	0	6
+386	4651	0	OptionsGraphicsModeSplitFix	0	81
+387	4651	0	OptionsGraphicsModeSplitFix	0	84
+388	4651	0	OptionsGraphicsModeSplitFix	0	82
+389	4651	0	OptionsGraphicsModeSplitFix	0	79
+390	4651	0	OptionsSetGraphicsPresetToCustomFix	0	80
+391	4656	0	AddNewChoices	0	0
+392	4657	0	WorldBorderWarningTimeFix	0	9
+393	4658	0	GameRuleRegistryFix	48	58
+394	4661	0	OptionsMusicToastFix	0	11
+395	4763	0	DebugProfileLookingAtSplitFix	0	11
+396	4763	0	VillagerSetVillagerDataFinalized	22	2
+397	4763	0	ZombieVillagerSetVillagerDataFinalized	20	6
+398	4766	0	DayTimeToClockFix	62	25
+399	4769	0	NamespacedTypeRenameFix	0	1
+400	4769	0	AdvancementsRenameFix	0	11
+401	4771	0	LevelDatDifficultyFix	104	66
+402	4771	0	LevelDatToSavedDataPreparationFix	62	43
+403	4881	0	AddNewChoices	0	0
+404	4881	0	AddNewChoices	0	0
+405	4885	0	RemoveBlockEntityTagFix	0	23
+406	4888	0	RenameNameplateToNameTagFix	0	3
+407	4892	0	OptionsForceDefaultGraphicsApiFix	0	95
+408	4996	0	PotDecorationsComponentUnflatteningFix	0	80
+409	4996	1	PotDecorationsBlockEntityUnflatteningFix	2	13
+410	4997	0	BlendingDataFix	231	11
+411	4997	0	AddNewChoices	0	0
+412	5000	0	AddNewChoices	0	0
+413	5001	0	DebugProfileRenameEntryFix	0	3
+414	5002	0	SignsOpFlagFix	12	12
+415	5006	0	BlockStateFieldNamesFix	348	13
+416	5007	0	SwingAnimationComponentSplitFix	0	4
+417	5008	0	ExplorerMapItemFix	0	18
+418	5008	0	MapColorComponentRemovalFix	0	3
+419	5009	0	BlendingDataNoValueHeightFix	0	3
+420	5012	0	ItemRenameFix$1	0	8
+421	5013	0	MergeTerrainChunkStatusFix	58	55
+422	5014	0	RemoveBlockTransformerComponentFix	0	3
+423	5016	0	UnfilledBuriedTreasureMapFix	0	2
