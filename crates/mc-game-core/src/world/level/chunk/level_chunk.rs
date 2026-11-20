@@ -135,13 +135,30 @@ pub struct LevelChunk {
 }
 
 impl LevelChunk {
-    /// `new LevelChunk(level, protoChunk, postLoad)`: the data part (block entities stay pending raw NBT in
-    /// `data.access.block_entities` until registered).
-    pub fn from_proto(proto: ProtoChunk, factory: &PalettedContainerFactory) -> Self {
-        Self::from_data(
+    /// `new LevelChunk(level, protoChunk, postLoad)`: the block entities that world generation held as instances become
+    /// live ones first, in their map's order (`setBlockEntity` per entry), a tag that cannot be instantiated joins the
+    /// pending ones; the pending tags stay raw NBT in `data.access.block_entities` until
+    /// [`Self::promote_pending_block_entities`].
+    pub fn from_proto(mut proto: ProtoChunk, factory: &PalettedContainerFactory) -> Self {
+        let live = std::mem::replace(
+            &mut proto.access.live_block_entities,
+            FastOpenHashMap::new(16, block_pos_hash),
+        );
+        let mut chunk = Self::from_data(
             mc_world::chunk::LevelChunk::from_proto(proto, factory),
             Vec::new(),
-        )
+        );
+        for (pos, tag) in live.into_entries() {
+            match chunk.instantiate(pos, &tag) {
+                Some(be) => {
+                    chunk.block_entities.insert(pos, be);
+                }
+                None => {
+                    chunk.data.access.block_entities.insert(pos, tag);
+                }
+            }
+        }
+        chunk
     }
 
     /// A chunk read from disk with the block entity tags its `postLoad` instantiates.

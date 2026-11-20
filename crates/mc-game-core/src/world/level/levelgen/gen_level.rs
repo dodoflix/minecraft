@@ -481,20 +481,14 @@ impl LevelAccessor for GenLevel<'_> {
             old_state_written = Some(old_state);
             if state.has_block_entity() {
                 // A ProtoChunk never has the LEVELCHUNK type: the placeholder the real block entity NBT replaces. A live
-                // block entity (anything but the placeholder: vanilla keeps the instance in `ProtoChunk.blockEntities`, the
-                // placeholder only goes to the pending NBT) survives the block being set again.
-                let live = chunk
-                    .access
-                    .get_block_entity_nbt(pos)
-                    .is_some_and(|tag| tag.get_string("id") != Some("DUMMY"));
-                if !live {
-                    let mut tag = CompoundTag::new();
-                    tag.put_int("x", pos.x());
-                    tag.put_int("y", pos.y());
-                    tag.put_int("z", pos.z());
-                    tag.put_string("id", "DUMMY");
-                    chunk.access.set_block_entity_nbt(tag);
-                }
+                // block entity (vanilla keeps the instance in `ProtoChunk.blockEntities`, the placeholder only goes to the
+                // pending NBT) survives the block being set again.
+                let mut tag = CompoundTag::new();
+                tag.put_int("x", pos.x());
+                tag.put_int("y", pos.y());
+                tag.put_int("z", pos.z());
+                tag.put_string("id", "DUMMY");
+                chunk.access.set_block_entity_nbt(tag);
             } else if old_state.has_block_entity() {
                 chunk.access.remove_block_entity(pos);
             }
@@ -687,7 +681,7 @@ impl WorldGenLevel for GenLevel<'_> {
             tag.get_int_or("z", 0),
         );
         if let Some(chunk) = self.chunk_for_write(pos) {
-            chunk.access.set_block_entity_nbt(tag);
+            chunk.access.set_live_block_entity_nbt(tag);
         }
     }
 

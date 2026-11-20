@@ -17,7 +17,9 @@ use crate::status::ChunkStatus;
 use crate::ticks::{LevelChunkTicks, PackedTicks, ProtoChunkTicks, SerializableTickContainer};
 use crate::upgrade_data::UpgradeData;
 use indexmap::{IndexMap, IndexSet};
-use mc_core::java_collections::{JavaHashMap, block_pos_hash, hash_set_union_order};
+use mc_core::java_collections::{
+    FastOpenHashMap, JavaHashMap, block_pos_hash, hash_set_union_order,
+};
 use mc_core::math::mth;
 use mc_core::pos::{BlockPos, ChunkPos, SectionPos, quart_pos};
 use mc_data::block::{Block, BlockState};
@@ -224,6 +226,10 @@ pub struct ChunkAccess {
     pub structures: StructureData,
     /// `pendingBlockEntities` (raw block entity NBT keyed by position). Live instances are `mc-game`'s.
     pub block_entities: JavaHashMap<BlockPos, CompoundTag>,
+    /// `ProtoChunk.blockEntities`: the block entities that world generation holds as instances, as their saved NBT (a
+    /// full chunk's live instances are `mc-game`'s, so this stays empty there). Only the iteration order of the map is
+    /// kept: it decides the order a proto chunk saves its block entities in.
+    pub live_block_entities: FastOpenHashMap<BlockPos, CompoundTag>,
     /// `skyLightSources`.
     pub sky_light_sources: ChunkSkyLightSources,
     inhabited_time: i64,
@@ -271,6 +277,7 @@ impl ChunkAccess {
             blending_data,
             structures: StructureData::default(),
             block_entities: JavaHashMap::new(block_pos_hash),
+            live_block_entities: FastOpenHashMap::new(16, block_pos_hash),
             sky_light_sources: ChunkSkyLightSources::new(level_height.min_y, level_height.height),
             inhabited_time,
             unsaved: false,
@@ -331,17 +338,38 @@ impl ChunkAccess {
         )
     }
 
-    /// `setBlockEntityNbt(tag)`: `pendingBlockEntities.put` (an existing entry is replaced; live instances do not exist here).
+    /// `getBlockEntitiesPos()` of a proto chunk, whose live block entities are [`Self::live_block_entities`].
+    pub fn get_proto_block_entities_pos(&self) -> Vec<BlockPos> {
+        self.get_block_entities_pos(self.live_block_entities.iter().map(|(pos, _)| *pos))
+    }
+
+    /// `setBlockEntityNbt(tag)`: `pendingBlockEntities.put` unless the block entity is live (an existing entry is
+    /// replaced).
     pub fn set_block_entity_nbt(&mut self, tag: CompoundTag) {
         let pos = block_entity_pos_from_tag(self.pos, &tag);
-        self.block_entities.insert(pos, tag);
+        if !self.live_block_entities.contains_key(&pos) {
+            self.block_entities.insert(pos, tag);
+        }
     }
 
+    /// `ProtoChunk.setBlockEntity(blockEntity)`: the block entity (as its saved NBT) leaves the pending NBT and joins
+    /// the live ones.
+    pub fn set_live_block_entity_nbt(&mut self, tag: CompoundTag) {
+        let pos = block_entity_pos_from_tag(self.pos, &tag);
+        self.block_entities.remove(&pos);
+        self.live_block_entities.put(pos, tag);
+    }
+
+    /// `getBlockEntityNbtForSaving(pos)` of a proto chunk: the live block entity's NBT, else the pending one.
     pub fn get_block_entity_nbt(&self, pos: BlockPos) -> Option<&CompoundTag> {
-        self.block_entities.get(&pos)
+        self.live_block_entities
+            .get(&pos)
+            .or_else(|| self.block_entities.get(&pos))
     }
 
+    /// `removeBlockEntity(pos)`: live and pending.
     pub fn remove_block_entity(&mut self, pos: BlockPos) {
+        self.live_block_entities.remove(&pos);
         self.block_entities.remove(&pos);
     }
 
@@ -924,7 +952,8 @@ impl LevelChunk {
     }
 
     /// `new LevelChunk(level, protoChunk, postLoad)` for the data parts (block entity instances, post-load
-    /// processing and sky light sources are the gameplay layer's).
+    /// processing and sky light sources are the gameplay layer's; the live block entities of a proto chunk join the
+    /// pending map as NBT).
     pub fn from_proto(proto: ProtoChunk, factory: &PalettedContainerFactory) -> Self {
         let ProtoChunk {
             access: p,
@@ -944,11 +973,9 @@ impl LevelChunk {
             Some(p.sections.into_iter().map(Some).collect()),
             p.blending_data.clone(),
         );
-        if chunk
-            .access
-            .block_entities
+        if p.block_entities
             .keys()
-            .any(|k| p.block_entities.contains_key(k))
+            .any(|k| p.live_block_entities.contains_key(k))
         {
             log::error!("Chunk at {} contains duplicated block entities", p.pos);
         }
@@ -956,6 +983,10 @@ impl LevelChunk {
             .access
             .block_entities
             .put_all(p.block_entities.into_entries().into_iter());
+        // the instances of world generation wait as NBT until the game layer creates the full chunk's block entities
+        for (pos, tag) in p.live_block_entities.into_entries() {
+            chunk.access.block_entities.insert(pos, tag);
+        }
         chunk.access.post_processing = p.post_processing;
         chunk.access.set_all_starts(p.structures.starts);
         chunk.access.set_all_references(p.structures.references);

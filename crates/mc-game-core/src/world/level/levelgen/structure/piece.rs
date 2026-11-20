@@ -333,7 +333,6 @@ pub fn set_loot_table(
     } else {
         tag.remove("LootTableSeed");
     }
-    level.remove_block_entity_nbt(pos);
     level.set_block_entity_nbt(tag);
     true
 }

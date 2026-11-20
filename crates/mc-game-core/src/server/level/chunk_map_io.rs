@@ -481,7 +481,7 @@ impl ChunkMap {
             ChunkSlot::Proto(p) => {
                 let block_entities = p
                     .access
-                    .get_block_entities_pos(std::iter::empty())
+                    .get_proto_block_entities_pos()
                     .iter()
                     .filter_map(|pos| p.access.get_block_entity_nbt(*pos).cloned())
                     .collect();

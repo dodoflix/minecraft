@@ -779,7 +779,12 @@ pub fn dump(level: &mut GenLevel<'_>, before: &Snapshot) -> Vec<String> {
                     out.push(format!("B {x} {y} {z} {}", state_string(now)));
                 }
             }
-            let mut bes: Vec<_> = chunk.access.block_entities.iter().collect();
+            let mut bes: Vec<_> = chunk
+                .access
+                .get_proto_block_entities_pos()
+                .into_iter()
+                .filter_map(|p| chunk.access.get_block_entity_nbt(p).map(|tag| (p, tag)))
+                .collect();
             bes.sort_by_key(|(p, _)| (p.x(), p.y(), p.z()));
             for (p, tag) in bes {
                 out.push(format!(
