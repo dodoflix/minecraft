@@ -8,7 +8,9 @@ use crate::world::level::levelgen::holder::Holder;
 use mc_core::ident::Identifier;
 use mc_core::pos::ChunkPos;
 use mc_nbt::CompoundTag;
-use mc_world::level_storage::{DATA_VERSION_TAG, WORLD_VERSION};
+use mc_world::region::upgrade::{
+    ChunkUpgradeError, chunk_data_fix_context_tag, collect_scanned_fields, update_scanned_chunk_tag,
+};
 use mc_worldgen::structure_placement::StructurePlacement;
 use std::collections::{HashMap, HashSet};
 use std::io;
@@ -62,6 +64,8 @@ impl State {
 /// `StructureCheck`.
 pub struct StructureCheck {
     storage_access: Box<dyn ChunkScanAccess>,
+    /// `chunkGenerator.getTypeNameForDataFixer()`.
+    generator_type_name: Option<Identifier>,
     state: Mutex<State>,
 }
 
@@ -83,8 +87,15 @@ impl StructureCheck {
     pub fn new(storage_access: Box<dyn ChunkScanAccess>) -> StructureCheck {
         StructureCheck {
             storage_access,
+            generator_type_name: None,
             state: Mutex::new(State::default()),
         }
+    }
+
+    /// The generator type id the chunk data fixes read from their context (`getTypeNameForDataFixer`).
+    pub fn with_generator_type_name(mut self, name: Option<Identifier>) -> StructureCheck {
+        self.generator_type_name = name;
+        self
     }
 
     fn state(&self) -> std::sync::MutexGuard<'_, State> {
@@ -186,27 +197,36 @@ impl StructureCheck {
                 return Some(StructureCheckResult::ChunkLoadNeeded);
             }
         };
-        // Gap: chunks from older data versions are not datafixed; their `Level.Structures.Starts` is read as is.
-        let starts = if chunk_tag.get_int_or(DATA_VERSION_TAG, 0) < WORLD_VERSION {
-            chunk_tag
-                .get_compound("structures")
-                .and_then(|t| t.get_compound("starts"))
-                .or_else(|| {
-                    chunk_tag
-                        .get_compound("Level")
-                        .and_then(|l| l.get_compound("Structures"))
-                        .and_then(|s| s.get_compound("Starts"))
-                })
-        } else {
-            chunk_tag
-                .get_compound("structures")
-                .and_then(|t| t.get_compound("starts"))
+        let fixed = match self.fix_scanned_chunk(&env.dimension, &chunk_tag) {
+            Ok(fixed) => fixed,
+            Err(e) => {
+                log::warn!("Failed to partially datafix chunk {pos}: {e}");
+                return Some(StructureCheckResult::ChunkLoadNeeded);
+            }
         };
-        let starts = starts?;
+        let starts = fixed
+            .get_compound("structures")
+            .and_then(|t| t.get_compound("starts"))?;
         let known_starts = Self::load_structures(env, starts);
         let result = check_structure_info(&known_starts, structure, require_unreferenced);
         self.state().store_full_results(pos.pack(), known_starts);
         Some(result)
+    }
+
+    /// The scanned fields of a stored chunk, data fixed to the current version with the context of this level.
+    fn fix_scanned_chunk(
+        &self,
+        dimension: &Identifier,
+        chunk_tag: &CompoundTag,
+    ) -> Result<CompoundTag, ChunkUpgradeError> {
+        let context = chunk_data_fix_context_tag(
+            &dimension.to_string(),
+            self.generator_type_name
+                .as_ref()
+                .map(ToString::to_string)
+                .as_deref(),
+        );
+        update_scanned_chunk_tag(collect_scanned_fields(chunk_tag), &context)
     }
 
     /// `loadStructures(chunkTag)` (`structures.starts` present).
@@ -258,5 +278,56 @@ impl StructureCheck {
             .entry(structure.clone())
             .or_insert(0) += 1;
         state.chunks_without_starts_in_storage.remove(&pos_key);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn chunk(version: i32) -> CompoundTag {
+        let mut village = CompoundTag::new();
+        village.put_string("id", "minecraft:village");
+        village.put_int("references", 1);
+        let mut starts = CompoundTag::new();
+        starts.put("minecraft:village", village);
+        let mut structures = CompoundTag::new();
+        structures.put("starts", starts);
+        let mut chunk = CompoundTag::new();
+        chunk.put_int("DataVersion", version);
+        chunk.put_string("Status", "minecraft:full");
+        chunk.put("structures", structures);
+        chunk
+    }
+
+    #[test]
+    fn a_current_chunk_keeps_its_starts_and_the_context_stays_in_the_result() {
+        let check = StructureCheck::new(Box::new(NoChunkScan))
+            .with_generator_type_name(Some(Identifier::parse("minecraft:noise").unwrap()));
+        let dimension = Identifier::parse("minecraft:the_nether").unwrap();
+        let fixed = check
+            .fix_scanned_chunk(&dimension, &chunk(mc_world::level_storage::WORLD_VERSION))
+            .unwrap();
+        assert!(
+            fixed
+                .get_compound("structures")
+                .and_then(|s| s.get_compound("starts"))
+                .is_some_and(|starts| starts.get("minecraft:village").is_some())
+        );
+        assert_eq!(
+            fixed.get("Status"),
+            None,
+            "only the scanned fields are fixed"
+        );
+    }
+
+    #[test]
+    fn a_chunk_older_than_the_fixer_chain_cannot_be_fixed() {
+        let check = StructureCheck::new(Box::new(NoChunkScan));
+        let dimension = Identifier::parse("minecraft:overworld").unwrap();
+        let error = check
+            .fix_scanned_chunk(&dimension, &chunk(100))
+            .unwrap_err();
+        assert_eq!(error.data_version, 100);
     }
 }

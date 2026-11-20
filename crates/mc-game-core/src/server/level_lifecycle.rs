@@ -211,7 +211,8 @@ impl MinecraftServer {
             structures: structures.clone(),
             start_cache: StartCache::default(),
             structure_state: Some(structure_state),
-            structure_check: StructureCheck::new(Box::new(chunk_scan.clone())),
+            structure_check: StructureCheck::new(Box::new(chunk_scan.clone()))
+                .with_generator_type_name(Some(stem.generator.type_name())),
             generate_structures: self.world_gen_settings.options.generate_structures,
             level_height,
         });

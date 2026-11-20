@@ -255,6 +255,9 @@ pub struct ChunkMap {
     pub(crate) worldgen: WorldgenThread,
     pub(crate) results: Receiver<WorkerMessage>,
     pub(crate) worldgen_busy: bool,
+    /// `BlockableEventLoop.delayedCrash`: the report of a stop thrown while a worker message was handled, thrown again by
+    /// every poll (a handler that swallows the first throw cannot leave the server running without the chunk).
+    pub(crate) delayed_crash: Option<crate::crash_report::CrashReport>,
     /// Holders whose chunk just became ready to send (`ServerChunkCache.onChunkReadyToSend` input).
     pub chunk_ready_to_send: Vec<i64>,
 
@@ -379,6 +382,7 @@ impl ChunkMap {
             worldgen,
             results,
             worldgen_busy: false,
+            delayed_crash: None,
             chunk_ready_to_send: Vec::new(),
             tasks: HashMap::new(),
             next_task_id: 1,
@@ -871,6 +875,9 @@ impl ChunkMap {
 
     /// `ServerChunkCache.MainThreadExecutor.pollTask` minus the distance updates: run one queued task.
     pub fn poll_main_task(&mut self) -> bool {
+        if let Some(report) = &self.delayed_crash {
+            crate::crash_report::ReportedException::throw(report.clone());
+        }
         self.drain_worker_results();
         self.run_light_updates();
         self.process_ready();
@@ -884,7 +891,20 @@ impl ChunkMap {
 
     fn run_main_task(&mut self, task: MainTask) {
         match task {
-            MainTask::Worker(msg) => self.handle_worker_message(*msg),
+            MainTask::Worker(msg) => {
+                // a stop thrown while the message is handled (a failed worker task, a chunk this server cannot read) is
+                // latched where it passes
+                if let Err(payload) = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+                    self.handle_worker_message(*msg)
+                })) {
+                    if let Some(reported) =
+                        payload.downcast_ref::<crate::crash_report::ReportedException>()
+                    {
+                        self.delayed_crash = Some(reported.0.clone());
+                    }
+                    std::panic::resume_unwind(payload);
+                }
+            }
             MainTask::Distance(t) => {
                 self.distance_manager.run_main_task(t, &mut self.tickets);
                 self.queue_distance_tasks();

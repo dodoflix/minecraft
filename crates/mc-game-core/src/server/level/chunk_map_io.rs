@@ -3,14 +3,18 @@
 
 use super::chunk_holder::{ChunkHolder, ChunkSlot};
 use super::chunk_io::WorkerMessage;
+use super::chunk_io_reporter::unreadable_chunk_report;
 use super::chunk_map::{ChunkMap, ChunkMapEvent};
 use crate::crash_report::ReportedException;
 use crate::world::level::chunk::LevelChunk;
 use mc_core::pos::{ChunkPos, SectionPos};
+use mc_nbt::CompoundTag;
 use mc_world::chunk::ProtoChunk;
-use mc_world::serial::{LoadedChunk, ReadContext, SerializableChunkData};
+use mc_world::region::upgrade::{chunk_data_fix_context_tag, upgrade_level_chunk_tag};
+use mc_world::serial::{ChunkReadException, LoadedChunk, ReadContext, SerializableChunkData};
 use mc_world::status::{ChunkStatus, ChunkType};
 use mc_world::upgrade_data::UpgradeData;
+use std::io;
 use std::sync::atomic::Ordering;
 
 const CHUNK_TYPE_REPLACEABLE: i8 = -1;
@@ -41,7 +45,23 @@ impl ChunkMap {
                 Ok(Some(tag)) => {
                     let height = self.level_height;
                     let factory = self.factory.clone();
+                    let context = self.data_fix_context_tag();
+                    // `readChunk`: the data fix runs between the read and the parse
                     self.pool.submit(move || {
+                        let tag = match upgrade_level_chunk_tag(tag, &context) {
+                            Ok(tag) => tag,
+                            // a chunk this server cannot read must not be replaced by a generated one: stop with the
+                            // report (`handleChunkLoadFailure` for an `Error`)
+                            Err(e) if e.unsupported => {
+                                return Some(WorkerMessage::BatchFailed(Box::new(
+                                    unreadable_chunk_report(ChunkPos::unpack(key), &e),
+                                )));
+                            }
+                            Err(e) => {
+                                let result = Box::new(Err(ChunkReadException(e.to_string())));
+                                return Some(WorkerMessage::ChunkParsed { key, result });
+                            }
+                        };
                         let result = Box::new(SerializableChunkData::parse(height, &factory, &tag));
                         Some(WorkerMessage::ChunkParsed { key, result })
                     });
@@ -62,6 +82,28 @@ impl ChunkMap {
             WorkerMessage::BatchDone(result) => self.on_batch_done(*result),
             WorkerMessage::BatchFailed(report) => ReportedException::throw(*report),
         }
+    }
+
+    /// `ChunkMap.getChunkDataFixContextTag(dimension, generator().getTypeNameForDataFixer())`.
+    pub(crate) fn data_fix_context_tag(&self) -> CompoundTag {
+        chunk_data_fix_context_tag(
+            &self.dimension.to_string(),
+            self.gen_context
+                .generator
+                .type_name_for_data_fixer()
+                .map(|id| id.to_string())
+                .as_deref(),
+        )
+    }
+
+    /// `readChunk(pos).join()`: the stored chunk, data fixed; a failed update is an error like a failed read.
+    pub(crate) fn read_chunk_blocking(&self, pos: ChunkPos) -> io::Result<Option<CompoundTag>> {
+        self.io
+            .read_blocking(pos)?
+            .map(|tag| {
+                upgrade_level_chunk_tag(tag, &self.data_fix_context_tag()).map_err(io::Error::other)
+            })
+            .transpose()
     }
 
     /// `handleChunkLoadFailure` (non-fatal): report and continue with an empty chunk.
@@ -478,7 +520,7 @@ impl ChunkMap {
         if let Some(&cached) = self.chunk_type_cache.get(&key) {
             return cached == CHUNK_TYPE_FULL;
         }
-        match self.io.read_blocking(pos) {
+        match self.read_chunk_blocking(pos) {
             Ok(None) => {
                 self.chunk_type_cache.insert(key, CHUNK_TYPE_REPLACEABLE);
                 false

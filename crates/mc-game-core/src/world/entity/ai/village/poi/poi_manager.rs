@@ -13,7 +13,8 @@ use super::poi_codec::{self, PackedPoiSection};
 use super::poi_record::PoiRecord;
 use super::poi_section::{Occupancy, PoiNeverRegistered, PoiSection};
 use super::poi_type::{PoiTypeHolder, PoiTypes};
-use crate::server::level::chunk_io_reporter::ChunkIoReporter;
+use crate::crash_report::ReportedException;
+use crate::server::level::chunk_io_reporter::{ChunkIoReporter, unreadable_chunk_report};
 use crate::server::level::dynamic_graph::{GraphBehavior, GraphState};
 use indexmap::IndexSet;
 use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
@@ -22,6 +23,7 @@ use mc_data::misc::POI_TYPES;
 use mc_nbt::CompoundTag;
 use mc_world::chunk::LevelHeight;
 use mc_world::level_storage::WORLD_VERSION;
+use mc_world::region::upgrade::upgrade_poi_chunk_tag;
 use mc_world::region::{RegionStorageInfo, SimpleRegionStorage};
 use mc_world::section::LevelChunkSection;
 use parking_lot::Mutex;
@@ -236,6 +238,28 @@ impl Storage {
                 None
             }
         };
+        // `PackedChunk.parse`: `upgradeChunkTag(tag, 1945)`. Vanilla lets a failed update fail the load of the whole
+        // chunk's sections; here it is reported like a failed read and the chunk has no sections, except for a chunk this
+        // server cannot read at all, whose records the next write would replace: that stops the server.
+        let tag = tag.and_then(|tag| match upgrade_poi_chunk_tag(tag) {
+            Ok(tag) => Some(tag),
+            Err(e) if e.unsupported => {
+                // a handler that swallows the stop must find the chunk unloaded, and stop again, on the next access
+                self.loaded_chunks.remove(&chunk_pos.pack());
+                ReportedException::throw(unreadable_chunk_report(chunk_pos, &e))
+            }
+            Err(e) => {
+                log::error!("Error upgrading chunk {chunk_pos} data: {e}");
+                if let Some(reporter) = &self.reporter {
+                    reporter.report_chunk_load_failure(
+                        &e.to_string(),
+                        self.storage.storage_info(),
+                        chunk_pos,
+                    );
+                }
+                None
+            }
+        });
         let packed = tag.map(|tag| {
             poi_codec::decode_chunk(
                 &tag,

@@ -13,9 +13,8 @@ use mc_datafix::{DataFixTypes, References, TypeReference, data_fixer};
 use mc_nbt::{CompoundTag, NbtAccounter};
 
 use super::cow_tree::CowTree;
-use crate::level_storage::{
-    get_data_version, get_data_version_or, read_compressed, write_compressed,
-};
+use crate::level_storage::{get_data_version, read_compressed, write_compressed};
+use crate::region::upgrade::upgrade_chunk_tag_to;
 use crate::region::{RegionFileStorage, RegionStorageInfo};
 
 /// `CompressedNbt.MissingSeverity`: how loudly a missing file is logged.
@@ -279,29 +278,10 @@ impl ChunkNbt {
         let Some(tag) = self.storage.read(pos)? else {
             return Ok(());
         };
-        let tag = fixer(self.upgrade_chunk_tag(tag, data_fix_context));
+        let tag = upgrade_chunk_tag_to(self.ty, tag, -1, data_fix_context, self.target_version)
+            .map_err(io::Error::other)?;
+        let tag = fixer(tag);
         self.storage.write(pos, Some(&tag))
-    }
-
-    /// `SimpleRegionStorage.upgradeChunkTag(tag, -1, context, targetVersion)`.
-    fn upgrade_chunk_tag(
-        &self,
-        mut chunk_tag: CompoundTag,
-        data_fix_context: Option<&CompoundTag>,
-    ) -> CompoundTag {
-        let version = get_data_version_or(&chunk_tag, -1);
-        if version >= self.target_version {
-            return chunk_tag;
-        }
-        if let Some(context) = data_fix_context {
-            chunk_tag.put("__context", context.clone());
-        }
-        let mut fixed = self
-            .ty
-            .update_tag(data_fixer(), &chunk_tag, version, self.target_version);
-        fixed.remove("__context");
-        fixed.put_int("DataVersion", self.target_version);
-        fixed
     }
 
     /// `close`: closes the region files and moves the staged files into `tree`; a region file or external chunk

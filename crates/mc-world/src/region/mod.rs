@@ -8,6 +8,7 @@ pub mod region_file_storage;
 pub mod region_file_version;
 pub mod region_storage_info;
 pub mod simple_region_storage;
+pub mod upgrade;
 
 pub use entity_storage::{ChunkEntities, EntityStorage};
 pub use region_bitmap::RegionBitmap;

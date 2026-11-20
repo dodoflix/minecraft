@@ -1,6 +1,7 @@
 //! A chunk, entity chunk or points-of-interest chunk that cannot be read from its region file loads empty (entities: never
 //! loads) and leaves `debug/chunk-<level>-<time>-server.txt` with the "Chunk Info" category; one that cannot be written is
-//! reported as a save failure; a chunk stored at the wrong position is reported as misplaced. Every report is also a
+//! reported as a save failure; a chunk stored at the wrong position is reported as misplaced; one saved by a version older
+//! than the data fixer chain covers fails to load the same way as one whose data fix throws. Every report is also a
 //! suppressed exception of the server.
 
 use super::entity_persistence::{PIG, load_chunk, open_with, run_until, spawn};
@@ -68,6 +69,23 @@ fn corrupt_chunk(dir: &Path, folder: &str, pos: ChunkPos) {
     // 4 bytes length and 1 byte compression type precede the payload
     f.seek(SeekFrom::Start(sector * 4096 + 5)).unwrap();
     f.write_all(&[0xFF; 32]).unwrap();
+}
+
+/// Stamps the stored chunk `pos` of `folder` (`storage` is its `RegionStorageInfo` type) as saved by `version`.
+fn age_chunk(dir: &Path, folder: &str, storage: &str, pos: ChunkPos, version: i32) {
+    let mut region = SimpleRegionStorage::new(
+        RegionStorageInfo::new(
+            LEVEL_ID,
+            Identifier::parse("minecraft:overworld").unwrap(),
+            storage,
+        ),
+        dir.join(folder),
+        false,
+    );
+    let mut tag = region.read(&pos).unwrap().expect("stored");
+    tag.put_int("DataVersion", version);
+    region.write(&pos, Some(tag));
+    region.close().unwrap();
 }
 
 /// Makes `folder` a file, so nothing can be stored in it.
@@ -302,4 +320,126 @@ fn a_poi_chunk_that_cannot_be_read_is_reported() {
     );
     assert_report(&only_report(&debug), "Chunk load failure", "poi", Some(pos));
     level.close();
+}
+
+/// A data version the registered fix chain refuses (`None`: it registers every fix, nothing is refused any more).
+fn before_the_chain() -> Option<i32> {
+    let oldest = mc_world::region::upgrade::oldest_supported_data_version();
+    (oldest != i32::MIN).then(|| oldest - 1)
+}
+
+/// The report of the `ReportedException` a closure panics with.
+fn thrown_report(f: impl FnOnce()) -> mc_game::crash_report::CrashReport {
+    let payload = std::panic::catch_unwind(std::panic::AssertUnwindSafe(f)).expect_err("stops");
+    payload
+        .downcast::<mc_game::crash_report::ReportedException>()
+        .expect("a ReportedException")
+        .0
+}
+
+#[test]
+fn a_chunk_older_than_the_fixer_chain_stops_the_server_and_stays_stored() {
+    let Some(version) = before_the_chain() else {
+        return;
+    };
+    let scratch = tempfile::tempdir().unwrap();
+    let pos = ChunkPos::new(3, 3);
+    store_chunk(scratch.path(), pos);
+    age_chunk(scratch.path(), "region", "chunk", pos, version);
+    let report = thrown_report(|| {
+        let mut level = open_with(
+            scratch.path(),
+            reporting_shared(&scratch.path().join("debug")),
+        );
+        load_chunk_without_entities(&mut level, pos);
+    });
+    assert_eq!(report.title(), "Exception loading chunk");
+    assert!(
+        report.get_details().contains("pos: [3, 3]"),
+        "{}",
+        report.get_details()
+    );
+    // nothing replaced the stored chunk
+    let mut storage = SimpleRegionStorage::new(
+        RegionStorageInfo::new(
+            LEVEL_ID,
+            Identifier::parse("minecraft:overworld").unwrap(),
+            "chunk",
+        ),
+        scratch.path().join("region"),
+        false,
+    );
+    let stored = storage.read(&pos).unwrap().expect("still stored");
+    assert_eq!(stored.get_int("DataVersion"), Some(version));
+}
+
+#[test]
+fn a_swallowed_stop_for_an_old_chunk_is_thrown_again_by_the_next_poll() {
+    let Some(version) = before_the_chain() else {
+        return;
+    };
+    let scratch = tempfile::tempdir().unwrap();
+    let pos = ChunkPos::new(3, 3);
+    store_chunk(scratch.path(), pos);
+    age_chunk(scratch.path(), "region", "chunk", pos, version);
+    let mut level = open_with(
+        scratch.path(),
+        reporting_shared(&scratch.path().join("debug")),
+    );
+    level.chunk_source.update_chunk_forced(pos, true);
+    for _ in 0..2 {
+        let thrown = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            run_until(&mut level, |l| l.chunk_now(pos.x, pos.z).is_some())
+        }));
+        assert!(
+            thrown.is_err_and(|p| p.is::<mc_game::crash_report::ReportedException>()),
+            "every poll stops again"
+        );
+    }
+}
+
+#[test]
+fn an_entity_chunk_older_than_the_fixer_chain_stops_the_server() {
+    let Some(version) = before_the_chain() else {
+        return;
+    };
+    let scratch = tempfile::tempdir().unwrap();
+    let pos = ChunkPos::new(3, 3);
+    store_chunk(scratch.path(), pos);
+    age_chunk(scratch.path(), "entities", "entities", pos, version);
+    let report = thrown_report(|| {
+        let mut level = open_with(
+            scratch.path(),
+            reporting_shared(&scratch.path().join("debug")),
+        );
+        // the entities are requested once the chunk is visible: this runs until the request stops the server
+        level.chunk_source.update_chunk_forced(pos, true);
+        run_until(&mut level, |l| {
+            l.entity_manager.are_entities_loaded(pos.pack())
+        });
+    });
+    assert_eq!(report.title(), "Exception loading chunk");
+}
+
+#[test]
+fn a_poi_chunk_older_than_the_fixer_chain_stops_the_server() {
+    let Some(version) = before_the_chain() else {
+        return;
+    };
+    let scratch = tempfile::tempdir().unwrap();
+    let pos = ChunkPos::new(3, 3);
+    store_chunk(scratch.path(), pos);
+    age_chunk(scratch.path(), "poi", "poi", pos, version);
+    let report = thrown_report(|| {
+        let level = open_with(
+            scratch.path(),
+            reporting_shared(&scratch.path().join("debug")),
+        );
+        level
+            .chunk_source
+            .chunk_map
+            .poi_manager
+            .get_type(BlockPos::new(56, 64, 56));
+    });
+    assert_eq!(report.title(), "Exception loading chunk");
 }

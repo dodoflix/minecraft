@@ -307,6 +307,39 @@ impl CompoundTag {
         out
     }
 
+    /// `shallowCopy()` of an owned compound: the same table sizing and iteration order as [`Self::shallow_copy`], with the
+    /// values moved (a shallow copy shares them in Java).
+    pub fn into_shallow_copy(self) -> CompoundTag {
+        let n = self.tags.len();
+        let cap = if n > 0 {
+            ((n as f64 / 0.75f64).ceil() as u32)
+                .max(1)
+                .next_power_of_two()
+        } else {
+            0
+        };
+        let mask = self.cap.wrapping_sub(1);
+        let mut entries: Vec<(u32, (String, Tag))> = self
+            .tags
+            .into_iter()
+            .map(|(k, t)| {
+                (
+                    if self.cap == 0 {
+                        0
+                    } else {
+                        java_hash(&k) & mask
+                    },
+                    (k, t),
+                )
+            })
+            .collect();
+        entries.sort_by_key(|(bucket, _)| *bucket); // stable: insertion order within a bucket
+        CompoundTag {
+            cap,
+            tags: entries.into_iter().map(|(_, e)| e).collect(),
+        }
+    }
+
     /// `merge(other)`: recursively merges compounds, otherwise `other`'s values win.
     pub fn merge(&mut self, other: &CompoundTag) -> &mut Self {
         for (name, other_tag) in other.iter_java_order() {

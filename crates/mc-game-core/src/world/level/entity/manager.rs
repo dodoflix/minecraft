@@ -1,12 +1,16 @@
 //! `net.minecraft.world.level.entity.PersistentEntitySectionManager` + `EntityLookup` + `LevelEntityGetterAdapter`.
 use super::{EntitySectionStorage, EntityTickList, Visibility};
+use crate::crash_report::ReportedException;
+use crate::server::level::chunk_io_reporter::unreadable_chunk_report;
 use crate::world::entity::{Entity, EntityId, RemovalReason, entity as entity_mod};
 use indexmap::{IndexMap, IndexSet};
 use mc_core::phys::AABB;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_core::pos::{BlockPos, SectionPos};
 use mc_nbt::CompoundTag;
-use mc_world::region::entity_storage::{ChunkEntities, EntityStorage, PositionProblem};
+use mc_world::region::entity_storage::{
+    ChunkEntities, EntityLoadError, EntityStorage, PositionProblem,
+};
 use std::collections::{HashMap, HashSet, VecDeque};
 use std::ops::ControlFlow;
 use std::panic::{AssertUnwindSafe, catch_unwind, resume_unwind};
@@ -348,31 +352,44 @@ impl PersistentEntitySectionManager {
                 .push_back(ChunkEntities::new(pos, Vec::new()));
             return;
         };
-        match storage.load_entities(&pos) {
-            Ok(loaded) => {
-                if let (Some(problem), Some(reporter)) =
-                    (&loaded.position_problem, &self.chunk_io_reporter)
-                {
-                    let info = storage.simple_region_storage().storage_info().clone();
-                    match problem {
-                        PositionProblem::Misplaced { stored } => {
-                            reporter.report_misplaced_chunk(*stored, pos, &info)
-                        }
-                        // `Optional.orElseThrow()` of the missing `Position`
-                        PositionProblem::Unparseable => reporter.report_chunk_load_failure(
-                            "java.util.NoSuchElementException: No value present",
-                            &info,
-                            pos,
-                        ),
-                    }
+        let result = storage.load_entities(&pos);
+        let position_problem = match &result {
+            Ok(loaded) => loaded.position_problem.as_ref(),
+            Err(EntityLoadError::Upgrade {
+                position_problem, ..
+            }) => position_problem.as_ref(),
+            Err(EntityLoadError::Io(_)) => None,
+        };
+        if let (Some(problem), Some(reporter)) = (position_problem, &self.chunk_io_reporter) {
+            let info = storage.simple_region_storage().storage_info().clone();
+            match problem {
+                PositionProblem::Misplaced { stored } => {
+                    reporter.report_misplaced_chunk(*stored, pos, &info)
                 }
-                self.loading_inbox.push_back(loaded.chunk);
+                // `Optional.orElseThrow()` of the missing `Position`
+                PositionProblem::Unparseable => reporter.report_chunk_load_failure(
+                    "java.util.NoSuchElementException: No value present",
+                    &info,
+                    pos,
+                ),
+            }
+        }
+        match result {
+            Ok(loaded) => self.loading_inbox.push_back(loaded.chunk),
+            Err(EntityLoadError::Upgrade { error, .. }) if error.unsupported => {
+                // an entity chunk this server cannot read stops it like the chunk and POI of that place (the next request
+                // stops again if a handler swallows this one)
+                self.chunk_load_statuses.remove(&chunk_key);
+                ReportedException::throw(unreadable_chunk_report(pos, &error))
             }
             Err(e) => {
-                log::error!("Failed to load entity chunk {pos}: {e}");
-                if let Some(reporter) = &self.chunk_io_reporter {
-                    let info = storage.simple_region_storage().storage_info().clone();
-                    reporter.report_chunk_load_failure(&e.to_string(), &info, pos);
+                // only a failed read is reported (`reportLoadFailureIfPresent` is attached to the read, not to the data fix)
+                if let EntityLoadError::Io(_) = &e {
+                    log::error!("Failed to load entity chunk {pos}: {e}");
+                    if let Some(reporter) = &self.chunk_io_reporter {
+                        let info = storage.simple_region_storage().storage_info().clone();
+                        reporter.report_chunk_load_failure(&e.to_string(), &info, pos);
+                    }
                 }
                 log::error!("Failed to read chunk {pos}: {e}");
             }

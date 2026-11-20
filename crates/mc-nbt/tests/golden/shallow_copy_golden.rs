@@ -11,9 +11,12 @@ fn shallow_copy_presizes_like_the_jdk() {
         let n: i32 = n.parse().unwrap();
         let c: CompoundTag = (0..n).map(|i| (format!("k{i}"), i)).collect();
         let mut d = c.shallow_copy();
+        let mut moved = c.clone().into_shallow_copy();
         for i in 0..7 {
             d.put_int(format!("z{i}"), i);
+            moved.put_int(format!("z{i}"), i);
         }
+        assert_eq!(nbt_io::to_bytes(&moved), nbt_io::to_bytes(&d), "n = {n}");
         let got: String = nbt_io::to_bytes(&d)
             .iter()
             .map(|x| format!("{x:02x}"))

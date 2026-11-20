@@ -16,6 +16,7 @@ mod region_common;
 mod region_file;
 mod region_lz4;
 mod region_storage;
+mod region_upgrade;
 mod retrogen_blending_golden;
 mod status_golden;
 mod ticks_golden;

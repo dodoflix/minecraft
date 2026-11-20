@@ -4,7 +4,7 @@
 use crate::region_common::*;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_nbt::{CompoundTag, ListTag};
-use mc_world::region::entity_storage::{ChunkEntities, PositionProblem};
+use mc_world::region::entity_storage::{ChunkEntities, EntityLoadError, PositionProblem};
 use mc_world::region::region_file_version::VERSION_NONE;
 use mc_world::region::{EntityStorage, RegionFile, RegionFileStorage, SimpleRegionStorage};
 
@@ -221,5 +221,26 @@ fn entity_storage_layout_and_empty_chunks() {
     es.simple_region_storage().write(&t, Some(tag));
     let l = es.load_entities(&t).unwrap();
     assert!(l.chunk.is_empty() && l.position_problem == Some(PositionProblem::Unparseable));
+    es.close().unwrap();
+}
+
+#[test]
+fn an_entity_chunk_older_than_the_fixer_chain_fails_to_load() {
+    let oldest = mc_world::region::upgrade::oldest_supported_data_version();
+    if oldest == i32::MIN {
+        return; // the whole fix chain is registered
+    }
+    let dir = tempfile::tempdir().unwrap();
+    let mut es = EntityStorage::new(SimpleRegionStorage::new(info(), dir.path(), false));
+    let p = ChunkPos::new(1, 1);
+    let mut tag = CompoundTag::new();
+    tag.put_int("DataVersion", oldest - 1);
+    tag.put("Entities", ListTag::new());
+    tag.put_int_array("Position", vec![1, 1]);
+    es.simple_region_storage().write(&p, Some(tag));
+    match es.load_entities(&p) {
+        Err(EntityLoadError::Upgrade { error, .. }) => assert_eq!(error.data_version, oldest - 1),
+        other => panic!("{other:?}"),
+    }
     es.close().unwrap();
 }

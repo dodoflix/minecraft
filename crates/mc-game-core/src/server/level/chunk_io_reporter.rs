@@ -8,12 +8,22 @@ use crate::util::file_util::sanitize_name;
 use mc_core::pos::ChunkPos;
 use mc_world::level_storage::usable_space;
 use mc_world::region::RegionStorageInfo;
+use mc_world::region::upgrade::ChunkUpgradeError;
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, OnceLock};
 
 /// Reports stay unwritten when the drive has less usable space than this.
 const MIN_REPORT_SPACE: u64 = 8192;
+
+/// `handleChunkLoadFailure` for a throwable that always stops the server: `Exception loading chunk`.
+pub(crate) fn unreadable_chunk_report(pos: ChunkPos, error: &ChunkUpgradeError) -> CrashReport {
+    let mut report = CrashReport::new("Exception loading chunk", error.cause.clone());
+    report
+        .add_category("Chunk being loaded")
+        .set_detail("pos", pos);
+    report
+}
 
 /// The server's chunk IO error reporter, shared by every level (`MinecraftServer implements ChunkIOErrorReporter`).
 pub struct ChunkIoReporter {

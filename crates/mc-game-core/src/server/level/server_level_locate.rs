@@ -147,7 +147,7 @@ impl ServerLevel {
         let is_known = |id: &str| {
             Identifier::try_parse(id).is_some_and(|id| env.structures.get(&id).is_some())
         };
-        match map.io.read_blocking(pos) {
+        match map.read_chunk_blocking(pos) {
             Ok(Some(tag))
                 if SerializableChunkData::get_chunk_status_from_tag(Some(&tag))
                     .is_or_after(ChunkStatus::StructureStarts) =>

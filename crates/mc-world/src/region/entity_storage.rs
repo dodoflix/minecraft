@@ -1,9 +1,12 @@
 //! IO half of `net.minecraft.world.level.chunk.storage.EntityStorage` (`entities/` region files):
 //! chunk tag layout `{DataVersion, Entities: [..], Position: [I; x, z]}` and the empty-chunk set.
-//! Entity contents stay raw `CompoundTag`s; data fixing and entity instantiation are not part of it.
+//! Entity contents stay raw `CompoundTag`s (instantiation is not part of it); a stored chunk is data fixed
+//! (`DataFixTypes.ENTITY_CHUNK`, default version -1) when it is loaded.
 
 use super::simple_region_storage::SimpleRegionStorage;
+use super::upgrade::{ChunkUpgradeError, upgrade_chunk_tag};
 use mc_core::pos::chunk_pos::ChunkPos;
+use mc_datafix::DataFixTypes;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use std::collections::HashSet;
 use std::io;
@@ -56,6 +59,26 @@ pub struct LoadedEntities {
     pub skipped_entries: Vec<usize>,
 }
 
+/// Why `loadEntities` failed: the read (reported to the server's chunk IO error reporter) or the data fix of the tag
+/// (after the stored `Position` was checked, whose problem is reported either way).
+#[derive(Debug)]
+pub enum EntityLoadError {
+    Io(io::Error),
+    Upgrade {
+        error: ChunkUpgradeError,
+        position_problem: Option<PositionProblem>,
+    },
+}
+
+impl std::fmt::Display for EntityLoadError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            EntityLoadError::Io(e) => e.fmt(f),
+            EntityLoadError::Upgrade { error, .. } => error.fmt(f),
+        }
+    }
+}
+
 pub struct EntityStorage {
     storage: SimpleRegionStorage,
     empty_chunks: HashSet<i64>,
@@ -88,7 +111,7 @@ impl EntityStorage {
     }
 
     /// `loadEntities(pos)`
-    pub fn load_entities(&mut self, pos: &ChunkPos) -> io::Result<LoadedEntities> {
+    pub fn load_entities(&mut self, pos: &ChunkPos) -> Result<LoadedEntities, EntityLoadError> {
         let empty = |problem| LoadedEntities {
             chunk: ChunkEntities::new(*pos, Vec::new()),
             position_problem: problem,
@@ -97,7 +120,7 @@ impl EntityStorage {
         if self.empty_chunks.contains(&pos.pack()) {
             return Ok(empty(None));
         }
-        let Some(tag) = self.storage.read(pos)? else {
+        let Some(tag) = self.storage.read(pos).map_err(EntityLoadError::Io)? else {
             self.empty_chunks.insert(pos.pack());
             return Ok(empty(None));
         };
@@ -117,6 +140,12 @@ impl EntityStorage {
                 Some(PositionProblem::Unparseable)
             }
         };
+        let tag = upgrade_chunk_tag(DataFixTypes::ENTITY_CHUNK, tag, -1).map_err(|error| {
+            EntityLoadError::Upgrade {
+                error,
+                position_problem: position_problem.clone(),
+            }
+        })?;
         let mut entities = Vec::new();
         let mut skipped_entries = Vec::new();
         if let Some(list) = tag.get_list(ENTITIES_TAG) {

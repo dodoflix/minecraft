@@ -22,6 +22,7 @@ regex = { workspace = true }
 uuid = { workspace = true }
 
 [dev-dependencies]
+base64 = { workspace = true }
 mc-testkit = { path = "../mc-testkit" }
 tempfile = { workspace = true }
 

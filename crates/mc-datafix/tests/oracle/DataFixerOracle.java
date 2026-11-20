@@ -10,7 +10,8 @@
 //   grammar-sample                 the descriptions of a small schema built with the real DSL (GrammarSample.java)
 //   fix TYPE FROM TO FILE [OUT]    one record (below) for the NBT file FILE; OUT receives the result bytes
 //                                  (TYPE `upgrade:DATAFIXTYPE[@DIMENSION[@GENERATOR]]`: SimpleRegionStorage.upgradeChunkTag with
-//                                  default version FROM and target TO, the ChunkMap data fix context when a dimension is given)
+//                                  default version FROM and target TO, the ChunkMap data fix context when a dimension is given;
+//                                  TYPE `scan:DIMENSION[@GENERATOR]`: the partial chunk fix of StructureCheck, FROM and TO unused)
 //   batch IN OUT                   records for every line of IN (`-` = stdin), written to OUT (`-` = stdout)
 //   gen OPTIONS                    batch lines of schema-driven samples (SampleGen.java: --type --from --to --seed --n --invalid --mutate --matrix --shard --report)
 //   tables DIR                     the lookup tables of the fix classes as DIR/<class>.tsv (TableDump.java)
@@ -44,9 +45,13 @@ import java.util.*;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.NbtAccounter;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.visitors.CollectFields;
+import net.minecraft.nbt.visitors.FieldSelector;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.Bootstrap;
@@ -227,6 +232,8 @@ public class DataFixerOracle {
       CompoundTag out;
       if (type.startsWith("ref:")) {
         out = (CompoundTag) fixer.update(reference(type.substring(4)), new Dynamic<>(NbtOps.INSTANCE, in), from, to).getValue();
+      } else if (type.startsWith("scan:")) {
+        out = scanAndFixChunk(fixer, type.substring(5), in);
       } else if (type.startsWith("upgrade:")) {
         out = upgradeChunkTag(fixer, type.substring(8), from, to, in);
       } else {
@@ -276,6 +283,25 @@ public class DataFixerOracle {
       storage.close();
       Files.deleteIfExists(folder);
     }
+  }
+
+  /**
+   * The partial fix of `StructureCheck.tryLoadFromStorage`: the fields `IOWorker.scanChunk` collects, the data fix context
+   * of SPEC (`DIMENSION[@GENERATOR]`) injected, `DataFixTypes.CHUNK.updateToCurrentVersion` at the stored version.
+   */
+  static CompoundTag scanAndFixChunk(DataFixer fixer, String spec, CompoundTag chunk) {
+    String[] p = spec.split("@", -1);
+    CollectFields collect = new CollectFields(
+        new FieldSelector(IntTag.TYPE, "DataVersion"),
+        new FieldSelector("Level", "Structures", CompoundTag.TYPE, "Starts"),
+        new FieldSelector("structures", CompoundTag.TYPE, "starts"));
+    chunk.acceptAsRoot(collect);
+    if (!(collect.getResult() instanceof CompoundTag chunkTag)) throw new IllegalStateException("no compound collected");
+    int version = NbtUtils.getDataVersion(chunkTag);
+    ResourceKey<net.minecraft.world.level.Level> dimension = ResourceKey.create(Registries.DIMENSION, Identifier.parse(p[0]));
+    Optional<Identifier> generator = p.length > 1 && !p[1].isEmpty() ? Optional.of(Identifier.parse(p[1])) : Optional.empty();
+    SimpleRegionStorage.injectDatafixingContext(chunkTag, ChunkMap.getChunkDataFixContextTag(dimension, generator));
+    return DataFixTypes.CHUNK.updateToCurrentVersion(fixer, chunkTag, version);
   }
 
   // ---- chain and schemas ----------------------------------------------------------------------------------------
