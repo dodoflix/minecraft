@@ -56,7 +56,7 @@ const NEWER: i32 = 5100;
 /// Chunks around (0, 0) that are loaded after the start: the spawn area and the area the scripts force-load.
 const LOADED: i32 = 8;
 
-/// The data version of 1.18, the first with the world height of the current version (older worlds stop at y = 0).
+/// The first data version that has the world height of 1.18 (`has_increased_height_already`): older worlds stop at y = 0.
 const NORMAL_WORLD_BELOW_ZERO: i32 = 2825;
 
 /// Entries of the server directory that are not part of the comparison (the output of the server process itself).
@@ -115,7 +115,8 @@ const GENERATED_CHUNK_RACES: &[&str] = &[
 /// sections below 0 (placement order of overlapping cave features), their light, the scheduled ticks and block entities
 /// below 0, and the post processing marks. Seen between runs of the real server on the 1.14.4, 1.16.5 and 1.17.1
 /// normal worlds (thousands of block differences per run pair, all of them at y < 0 but five at y 13 to 16).
-/// The part of these chunks at y >= 0 stays compared. Only for `World::below_zero` worlds, in the overworld.
+/// The part of these chunks at y >= 0 stays compared, except `PostProcessing` (one list per section, left out whole), and a
+/// file the specs touch is not compared by its decompressed bytes. Only for `World::below_zero` worlds, in the overworld.
 const BELOW_ZERO_RACES: &[&str] = &[
     "dimensions/minecraft/overworld/region/*.mca#sections.*[Y<0]",
     "dimensions/minecraft/overworld/region/*.mca#block_ticks.*[y<0]",

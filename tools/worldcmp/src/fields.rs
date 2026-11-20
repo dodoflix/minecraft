@@ -1,4 +1,4 @@
-//! `--ignore-field` specs: which files (or which fields inside decoded files) are left out of an exact comparison.
+//! `--ignore-field` specs: which files (or which fields inside decoded files) are left out of a comparison.
 //!
 //! A spec is `GLOB` or `GLOB#FIELD.PATH`.
 //! * `GLOB` matches a path relative to the world directory, `/`-separated: `*` matches within one path segment, `**`
@@ -132,7 +132,7 @@ fn below_predicate(segment: &str) -> Option<(&str, i64)> {
 fn strip_tag(tag: &mut Tag, path: &[String]) {
     match tag {
         Tag::Compound(c) => strip_compound(c, path),
-        Tag::List(l) if path[0].starts_with('*') => {
+        Tag::List(l) if path[0] == "*" || below_predicate(&path[0]).is_some() => {
             let below = below_predicate(&path[0]);
             let selected = |e: &Tag| {
                 below.is_none_or(|(key, limit)| {
