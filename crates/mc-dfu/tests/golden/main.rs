@@ -2,3 +2,4 @@
 
 mod basic;
 mod dynamic_golden;
+mod nbt_order_golden;

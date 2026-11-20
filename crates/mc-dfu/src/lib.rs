@@ -7,6 +7,7 @@ pub mod dynamic_like;
 mod dynv;
 pub mod extra;
 mod hash;
+mod hash_bins;
 mod nbt_order;
 mod ops;
 #[macro_use]
