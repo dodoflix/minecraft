@@ -24,6 +24,7 @@ mod chain_parity;
 mod compare_rules;
 mod core_smoke;
 mod facade;
+mod final_state;
 mod fix_coverage;
 mod json_compat;
 mod legacy_fixes;

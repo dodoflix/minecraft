@@ -122,7 +122,7 @@ impl RecursiveTypeFamily {
         let t_type = new_family.apply(index);
         if recurse {
             panic!(
-                "findType(recurse = true) through a recursive family is not ported (no vanilla fix uses \
+                "findType(recurse = true) through a recursive family is unsupported (no vanilla fix uses \
                  Typed.updateRecursive / getAll with recursion)"
             );
         }

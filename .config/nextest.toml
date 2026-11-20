@@ -1,10 +1,13 @@
-# Local runs skip the corpus replays: they need several GB per test; run them with `--ignore-default-filter`.
-[profile.default]
-default-filter = "not (package(mc-datafix) & test(/^samples_corpus::/))"
+# The data fixer corpus replays take under 0.7 GB each; two at a time bound the memory.
+[test-groups]
+datafix-corpus = { max-threads = 2 }
+
+[[profile.default.overrides]]
+filter = "package(mc-datafix) & test(/^samples_corpus::/)"
+test-group = "datafix-corpus"
 
 # cargo-nextest profile of the push and pull request CI (.github/workflows/ci.yml, `--profile ci`).
 [profile.ci]
-default-filter = "all()"    # the CI runs the corpus replays except the slow ones (the filterset of scripts/nextest-filter.py)
 retries = 1                 # a test that passes on retry is reported as FLAKY, not as a failure
 fail-fast = false
 failure-output = "final"
@@ -12,3 +15,7 @@ status-level = "fail"
 final-status-level = "flaky"
 # a hung test is killed after 10 minutes instead of stalling the job
 slow-timeout = { period = "60s", terminate-after = 10 }
+
+[[profile.ci.overrides]]
+filter = "package(mc-datafix) & test(/^samples_corpus::/)"
+test-group = "datafix-corpus"

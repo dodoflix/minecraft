@@ -1,5 +1,5 @@
 //! `LevelSummary` (+ `CorruptedLevelSummary` / `SymlinkLevelSummary`): what the world list / server start shows
-//! about a world. UI-only parts (`getInfo` components, button messages) are not ported; the predicates that
+//! about a world. UI-only parts (`getInfo` components, button messages) are not implemented; the predicates that
 //! drive them are.
 
 use std::cmp::Ordering;

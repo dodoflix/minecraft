@@ -1,7 +1,7 @@
 //! DFU `TypeTemplate` (`com.mojang.datafixers.types.templates.*`): the family-parametric type descriptions schemas
 //! register. A template is turned into a [`Type`] by [`Template::apply_at`] (Java `apply(family).apply(index)`).
 //!
-//! Not ported (unused by vanilla and by the DFU machinery reachable from it): `findFieldOrType`, `applyO` /
+//! Not implemented (unused by vanilla and by the DFU machinery reachable from it): `findFieldOrType`, `applyO` /
 //! `FamilyOptic` (only needed by `findType(.., recurse = true)`), `toSimpleType`.
 
 use crate::family::RecursiveTypeFamily;

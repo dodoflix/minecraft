@@ -1,9 +1,9 @@
 //! Port of `net.minecraft.util.datafix` on top of a Rust port of the DFU type system (`com.mojang.datafixers`).
 //!
-//! What exists: the type system and rewrite machinery, `DataFixTypes`, the `References` constants, `DataFixerBuilder`,
-//! `DataFixer`, the global [`data_fixer`] accessor, which registers the ported part of the chain (`fixers`), and the
-//! abstract base and family fix classes (`fixes::named_entity_fix`, `fixes::item_rename_fix`, ...). Until the chain is
-//! complete, `DataFixer::update` panics for lack of a registered fix; `mc-world` depends on this crate.
+//! What it holds: the type system and rewrite machinery, `DataFixTypes`, the `References` constants, `DataFixerBuilder`,
+//! `DataFixer`, the global [`data_fixer`] accessor, which registers the whole chain of vanilla's schemas and data fixes
+//! (`fixers`, 424 data fixes and the registrations of the 8 file fixes) and the schema and fix classes (`schemas`, `fixes`).
+//! `mc-world` (file fixer, load paths) and `mc-game-core` depend on this crate.
 //!
 //! # Architecture
 //! DFU's statically typed `Type<A>`/`Typed<A>`/optics are ported *dynamically*: a [`typed::Typed`] is
@@ -26,8 +26,7 @@
 //! Java overloads on `TypeTemplate` vs `Type` become `name` vs `name_type` ([`dsl::DSL`]). `Typed` update methods
 //! consume `self` (clone if you still need it); getters borrow. Finder misuse panics (Java throws).
 //!
-//! The rows below are the mapping; the schemas and fixes they name (`schemas::v100`, `X`, ...) are examples, not ported
-//! items.
+//! The rows below are the mapping; the schemas and fixes they name (`schemas::v100`, `X`, ...) are examples.
 //!
 //! | Java | Rust |
 //! |---|---|

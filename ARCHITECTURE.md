@@ -52,11 +52,13 @@ crates/
   mc-worldgen         pure levelgen: noise synth, density functions, NoiseChunk/aquifer/ore veins, biome sources + climate,
                       surface rules, carvers (everything that needs only block *states*, not block *behavior*)
   mc-world            chunk storage: PalettedContainer, sections, ChunkAccess/ProtoChunk/LevelChunk data, heightmaps,
-                      chunk NBT serialization, Anvil region files, level.dat / playerdata IO, chunk packet data
+                      chunk NBT serialization, Anvil region files, level.dat / playerdata IO, chunk packet data, the file fixer
+                      (`filefix`: the 8 file fixes and the `FileFixerUpper` driver that upgrades old worlds before the server loads them)
   mc-light            light engine (sky + block) over mc-world chunks
   mc-game-core        the gameplay spine: MinecraftServer, PlayerList, ServerLevel, chunk map/tickets, network listeners
                       (login/config/play), Entity/LivingEntity/Mob/Player + AI framework, BlockBehaviour + state, item base,
-                      enchantments, recipes, menus, loot, advancements, command infra + arguments, scoreboard, raids, ...
+                      enchantments, recipes, menus, loot, advancements, command infra + arguments, scoreboard, raids, the world
+                      upgrader (`--forceUpgrade`, `--eraseCache`, `--recreateRegionFiles`), ...
   mc-game-blocks      block behavior implementations + block entities           (leaf over core)
   mc-game-levelgen    features, structures, placement, template processors, /place (leaf over core)
   mc-game-cmds        the vanilla commands, registered via linkme               (leaf over core)

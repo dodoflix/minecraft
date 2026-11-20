@@ -3,9 +3,10 @@
 //! ([`PlayerDataStorage`]) and raw saved data ([`SavedDataStorage`]); plus the `world.level` types that shape
 //! the serialized files ([`LevelSettings`], [`WorldDataConfiguration`], [`WorldGenSettings`], ...).
 //!
-//! Not ported (belong to the runtime / need registries, datafixers or zip IO): `DerivedLevelData` and the
+//! Not implemented (belong to the runtime / need registries or zip IO): `DerivedLevelData` and the
 //! `ServerLevelData`/`WritableLevelData` view traits (weather, border, clocks live in `data/*.dat` in 26.3 and are
-//! owned by the game crate), the datafixer upgrade steps, `makeWorldBackup`, typed `GameRules`.
+//! owned by the game crate), `makeWorldBackup`, typed `GameRules`. The data fixers run on the load paths
+//! (`PrimaryLevelData`, player and saved data) and in the file fixer (`mc-world::filefix`).
 
 mod directory_lock;
 mod dynamic;

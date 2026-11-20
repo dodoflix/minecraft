@@ -383,8 +383,8 @@ commit, so the proof has tiers (section 1) that need different amounts of them:
 | T2 | vanilla's `DataFixers` in a JVM against ours: the oracle self-checks, the sample generator (it harvests its vocabulary from the vanilla sources in `ref/`), the recordings against the live chain, the tables, the file fixer records | `ref/` with the decompiled sources (`scripts/setup-ref.sh --decompile`), JDK 25 | `crates/mc-datafix/tests/oracle/` |
 | T2 dual | the vanilla server and `mc-server` open identical copies of a corpus world (normal start, a world newer than the current version, `--forceUpgrade`, `--eraseCache`, `--recreateRegionFiles`) and the legacy user lists, then the server directories and the log lines are compared | the corpus worlds, `ref/`, JDK 25, `MC_ACCEPT_EULA=1` | `crates/mc-server/tests/oracle/{world_start,world_upgrade,legacy_users}.rs`, `scripts/datafix-world-dual.sh` |
 
-T0 runs in every `cargo test` and in push CI. The corpus replays (`samples_corpus::*`) are the heaviest of it; they are
-skipped by local `cargo nextest run` through the default profile (`.config/nextest.toml`); CI runs them, except the
+T0 runs in every `cargo test` and in push CI. The corpus replays (`samples_corpus::*`) are the heaviest of it (under 0.7 GB per test); the `datafix-corpus` test
+group of `.config/nextest.toml` runs at most two of them at a time in the default and the `ci` profile; CI runs them, except the
 largest (`tests/slow-tests.txt`), which only the nightly `full` job runs.
 Proof is differential: the same input goes to both implementations, because an old server's world differs from run to
 run (clocks, entity UUIDs, tick counters; `crates/mc-datafix/tests/fixtures/world_run_dependent.txt` says what).
@@ -423,7 +423,7 @@ scripts/datafix-corpus.sh all            # extract, synth, select, record: rewri
 scripts/datafix-oracle.sh --regen        # fixes.tsv, schema types, tables, table accessors, file fixer records of the minimal worlds
 scripts/datafix-oracle.sh --regen-filefix-corpus   # the file fixer records of the corpus worlds
 git diff --stat                          # review (section 5): only expected files, sizes within budget
-cargo nextest run -p mc-datafix --ignore-default-filter -E 'test(/^samples_corpus::/)'   # replay green
+cargo nextest run -p mc-datafix -E 'test(/^samples_corpus::/)'   # replay green
 ```
 
 Rules:

@@ -1,6 +1,6 @@
 //! `DataFixerBuilder` and `DataFixerUpper` (the `DataFixer`): schema/fix registration and `update`.
 //!
-//! Not ported: `DataFixerBuilder.Result.optimize` (pre-warming the rewrite caches on an executor; the caches fill
+//! Not implemented: `DataFixerBuilder.Result.optimize` (pre-warming the rewrite caches on an executor; the caches fill
 //! lazily instead) and `DataFixerUpper.ERRORS_ARE_FATAL` (always `false` in vanilla).
 
 use crate::datafix::DataFix;
