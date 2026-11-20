@@ -157,9 +157,115 @@ pub fn default_always(name: &'static str, schema: Schema, default: Value) -> Fie
     }
 }
 
+/// A failed `DataResult`: its message and the partial result (`DataResult.Error.partialValue`) the codec still decoded.
+/// Partial results decide what list size checks and `validate` steps see after an element failed.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Failure {
+    pub message: String,
+    pub partial: Option<Tag>,
+}
+
+impl From<String> for Failure {
+    fn from(message: String) -> Failure {
+        Failure {
+            message,
+            partial: None,
+        }
+    }
+}
+
+/// Marks an `IllegalArgumentException` vanilla throws while decoding (a constructor check) instead of returning a
+/// `DataResult` error: it aborts the whole entry (no other message is collected) and names its own class in the load error.
+const THROWN: &str = "\u{0}thrown: ";
+
+/// The error of an `IllegalArgumentException(message)` thrown while decoding.
+pub fn illegal_argument(message: &str) -> String {
+    format!("{THROWN}{message}")
+}
+
+/// `(class, message)` of an error made by [`illegal_argument`].
+pub fn split_thrown(error: &str) -> Option<(&'static str, &str)> {
+    error
+        .strip_prefix(THROWN)
+        .map(|message| ("java.lang.IllegalArgumentException", message))
+}
+
+impl Failure {
+    fn is_thrown(&self) -> bool {
+        self.message.starts_with(THROWN)
+    }
+}
+
+/// `DataResult.flatMap`: `f` also runs on the partial result of a failure; its error is appended and drops the partial
+/// result, its success keeps the failure with the mapped partial result.
+pub fn flat_map(
+    result: Result<Tag, Failure>,
+    f: impl Fn(&Tag) -> Result<Tag, String>,
+) -> Result<Tag, Failure> {
+    match result {
+        Ok(tag) => f(&tag).map_err(Failure::from),
+        Err(failure) if failure.is_thrown() => Err(failure),
+        Err(failure) => match failure.partial.as_ref().map(&f) {
+            None => Err(failure),
+            Some(Ok(mapped)) => Err(Failure {
+                message: failure.message,
+                partial: Some(mapped),
+            }),
+            Some(Err(error)) if error.starts_with(THROWN) => Err(Failure::from(error)),
+            Some(Err(error)) => Err(Failure::from(format!("{}; {error}", failure.message))),
+        },
+    }
+}
+
+/// `Codec.validate`: [`flat_map`] with a check that keeps the value.
+pub fn validate(
+    result: Result<Tag, Failure>,
+    check: impl Fn(&Tag) -> Result<(), String>,
+) -> Result<Tag, Failure> {
+    flat_map(result, |tag| check(tag).map(|()| tag.clone()))
+}
+
+/// `ExtraCodecs.intervalCodec(point, lower, upper, make, ..)`: a bare point, a `[lower, upper]` list or a
+/// `{lower, upper}` object. `make` builds the interval from two decoded points (`InclusiveRange.create`) and returns what
+/// the codec encodes it back to: the single point when both bounds are equal, else the two-element list.
+pub fn interval_codec(
+    point: Schema,
+    lower: &'static str,
+    upper: &'static str,
+    make: impl Fn(&Tag, &Tag) -> Result<Tag, String> + Clone + Send + Sync + 'static,
+) -> Schema {
+    let from_point = {
+        let (point, make) = (point.clone(), make.clone());
+        Schema::custom_partial(move |v, ctx| flat_map(point.decode(v, ctx), |tag| make(tag, tag)))
+    };
+    let from_list = {
+        let (point, make) = (point.clone(), make.clone());
+        Schema::custom_partial(move |v, ctx| {
+            flat_map(
+                Schema::list_of(point.clone()).decode(v, ctx),
+                |list| match list {
+                    Tag::List(list) if list.len() == 2 => make(&list[0], &list[1]),
+                    _ => Err("Input is not a list of 2 elements".to_owned()),
+                },
+            )
+        })
+    };
+    let from_object = Schema::custom_partial(move |v, ctx| {
+        let bounds = Schema::Record(vec![req(lower, point.clone()), req(upper, point.clone())]);
+        flat_map(bounds.decode(v, ctx), |record| match record {
+            Tag::Compound(c) => match (c.get(lower), c.get(upper)) {
+                (Some(min), Some(max)) => make(min, max),
+                _ => Err("Not a JSON object".to_owned()),
+            },
+            _ => Err("Not a JSON object".to_owned()),
+        })
+    });
+    Schema::either(from_point, Schema::either(from_list, from_object))
+}
+
 /// `parse` + `encodeStart` of a hand-written codec.
 pub type CustomCodec =
-    std::sync::Arc<dyn Fn(&Value, &RegistryDecodeContext) -> Result<Tag, String> + Send + Sync>;
+    std::sync::Arc<dyn Fn(&Value, &RegistryDecodeContext) -> Result<Tag, Failure> + Send + Sync>;
 
 /// The element codec of an inline holder (`DIRECT_CODEC`): `parse` + `encodeStart`.
 pub type DirectCodec = fn(&Value, &RegistryDecodeContext) -> Result<Tag, String>;
@@ -203,13 +309,15 @@ pub enum Schema {
         direct: DirectCodec,
     },
     List(Box<Schema>),
+    /// `Codec.listOf(min, max)`: elements past `max` are not decoded, a list that is too long fails with its length alone.
+    SizedList(Box<Schema>, usize, usize),
     /// A list with at least one element (`ExtraCodecs.nonEmptyList`).
     NonEmptyList(Box<Schema>),
     Record(Vec<Field>),
     /// `Codec.simpleMap` / `unboundedMap`: object with codec-validated keys.
     Map(Box<Schema>, Box<Schema>),
-    /// First alternative that decodes wins (`Codec.either`, `withAlternative`).
-    Either(Vec<Schema>),
+    /// `Codec.either(first, second)` (also `withAlternative`).
+    Either(Box<Schema>, Box<Schema>),
     /// `Codec.dispatch(typeKey, ..)`: `type` (an id) selects the record schema; the `type` key is re-emitted as an identifier.
     Dispatch {
         key: &'static str,
@@ -313,7 +421,22 @@ impl Schema {
     pub fn custom(
         f: impl Fn(&Value, &RegistryDecodeContext) -> Result<Tag, String> + Send + Sync + 'static,
     ) -> Schema {
+        Schema::custom_partial(move |v, ctx| f(v, ctx).map_err(Failure::from))
+    }
+
+    /// [`Schema::custom`] for a codec whose failures carry a partial result.
+    pub fn custom_partial(
+        f: impl Fn(&Value, &RegistryDecodeContext) -> Result<Tag, Failure> + Send + Sync + 'static,
+    ) -> Schema {
         Schema::Custom(std::sync::Arc::new(f))
+    }
+
+    pub fn sized_list(item: Schema, min: usize, max: usize) -> Schema {
+        Schema::SizedList(Box::new(item), min, max)
+    }
+
+    pub fn either(first: Schema, second: Schema) -> Schema {
+        Schema::Either(Box::new(first), Box::new(second))
     }
 
     pub fn list_of(item: Schema) -> Schema {
@@ -428,9 +551,12 @@ impl Schema {
                 always_list,
                 direct,
             } => convert_holder_set(registry, *always_list, Some(*direct), v, ctx),
-            Schema::List(item) => convert_list(item, v, ctx, false),
-            Schema::NonEmptyList(item) => convert_list(item, v, ctx, true),
-            Schema::Record(fields) => convert_record(fields, v, ctx).map(Tag::Compound),
+            Schema::List(_)
+            | Schema::SizedList(..)
+            | Schema::NonEmptyList(_)
+            | Schema::Record(_)
+            | Schema::Either(..)
+            | Schema::Custom(_) => self.decode(v, ctx).map_err(|failure| failure.message),
             Schema::Map(key, value) => {
                 let o = v
                     .as_object()
@@ -444,20 +570,6 @@ impl Schema {
                     out.put(k, value.convert(item, ctx)?);
                 }
                 Ok(Tag::Compound(out))
-            }
-            Schema::Either(alternatives) => {
-                let mut errors = Vec::new();
-                for alt in alternatives {
-                    match alt.convert(v, ctx) {
-                        Ok(t) => return Ok(t),
-                        Err(e) => errors.push(e),
-                    }
-                }
-                Err(format!(
-                    "Failed to parse either. First: {}; Second: {}",
-                    errors.first().cloned().unwrap_or_default(),
-                    errors.last().cloned().unwrap_or_default()
-                ))
             }
             Schema::Dispatch { key, resolve } => {
                 let o = v
@@ -487,28 +599,103 @@ impl Schema {
                 .to_nbt()
                 .map_err(|e| e.to_string()),
             Schema::Raw => Ok(json_to_nbt(v)),
+        }
+    }
+
+    /// [`Schema::convert`] that keeps the partial result of a failure (what the codecs of lists, records and `either`
+    /// pass on), see [`Failure`].
+    pub fn decode(&self, v: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, Failure> {
+        match self {
+            Schema::List(item) => decode_list(item, v, ctx, 0, usize::MAX),
+            Schema::SizedList(item, min, max) => decode_list(item, v, ctx, *min, *max),
+            Schema::NonEmptyList(item) => validate(
+                decode_list(item, v, ctx, 0, usize::MAX),
+                |list| match list {
+                    Tag::List(list) if list.is_empty() => Err("List must have contents".to_owned()),
+                    _ => Ok(()),
+                },
+            ),
+            Schema::Record(fields) => decode_record(fields, v, ctx).map(Tag::Compound),
+            // `EitherCodec.decode`: a failed first alternative that still has a partial result is reported alone
+            Schema::Either(first, second) => {
+                let first = match first.decode(v, ctx) {
+                    Ok(tag) => return Ok(tag),
+                    Err(failure) if failure.is_thrown() => return Err(failure),
+                    Err(failure) => failure,
+                };
+                let second = match second.decode(v, ctx) {
+                    Ok(tag) => return Ok(tag),
+                    Err(failure) if failure.is_thrown() => return Err(failure),
+                    Err(failure) => failure,
+                };
+                Err(if first.partial.is_some() {
+                    first
+                } else if second.partial.is_some() {
+                    second
+                } else {
+                    Failure::from(format!(
+                        "Failed to parse either. First: {}; Second: {}",
+                        first.message, second.message
+                    ))
+                })
+            }
             Schema::Custom(f) => f(v, ctx),
+            _ => self.convert(v, ctx).map_err(Failure::from),
         }
     }
 }
 
-fn convert_list(
+/// `ListCodec`: every element is decoded, the errors of all failed elements are collected (later elements first) and the
+/// elements that decoded or have a partial result are kept.
+fn decode_list(
     item: &Schema,
     v: &Value,
     ctx: &RegistryDecodeContext,
-    non_empty: bool,
-) -> Result<Tag, String> {
+    min: usize,
+    max: usize,
+) -> Result<Tag, Failure> {
     let list = v
         .as_array()
-        .ok_or_else(|| format!("Not a list: {}", compact(v)))?;
-    if non_empty && list.is_empty() {
-        return Err("List must have contents".to_owned());
-    }
-    let mut out = ListTag::new();
+        .ok_or_else(|| Failure::from(format!("Not a json array: {}", compact(v))))?;
+    let mut kept = ListTag::new();
+    let mut errors: Vec<String> = Vec::new();
     for element in list {
-        out.push(item.convert(element, ctx)?);
+        // `elements.size() >= maxSize`: an element that failed does not use up a slot
+        if kept.len() >= max {
+            continue;
+        }
+        match item.decode(element, ctx) {
+            Ok(tag) => kept.push(tag),
+            Err(failure) if failure.is_thrown() => return Err(failure),
+            Err(failure) => {
+                errors.push(failure.message);
+                if let Some(partial) = failure.partial {
+                    kept.push(partial);
+                }
+            }
+        }
     }
-    Ok(Tag::List(out))
+    if kept.len() < min {
+        return Err(Failure::from(format!(
+            "List is too short: {}, expected range [{min}-{max}]",
+            kept.len()
+        )));
+    }
+    if list.len() > max {
+        errors = vec![format!(
+            "List is too long: {}, expected range [{min}-{max}]",
+            list.len()
+        )];
+    }
+    if errors.is_empty() {
+        return Ok(Tag::List(kept));
+    }
+    // DFU's applicative `ap` lists the errors of later elements first
+    errors.reverse();
+    Err(Failure {
+        message: errors.join("; "),
+        partial: Some(Tag::List(kept)),
+    })
 }
 
 /// `HolderSetCodec`: `"#tag"`, a single id (compact form) or a list of ids; direct sets re-encode compactly unless `always_list`.
@@ -552,29 +739,36 @@ fn convert_holder_set(
     Ok(Tag::List(out))
 }
 
-fn convert_record(
+/// `RecordCodecBuilder`: the errors of all fields are collected (later fields first). The partial result exists when every
+/// field has one: a `fieldOf` field only passes on its own, an `optionalFieldOf` field always has one (its default).
+fn decode_record(
     fields: &[Field],
     v: &Value,
     ctx: &RegistryDecodeContext,
-) -> Result<CompoundTag, String> {
+) -> Result<CompoundTag, Failure> {
     let o = v
         .as_object()
-        .ok_or_else(|| format!("Not a JSON object: {}", compact(v)))?;
+        .ok_or_else(|| Failure::from(format!("Not a JSON object: {}", compact(v))))?;
     let mut out = CompoundTag::new();
     let mut errors: Vec<String> = Vec::new();
+    let mut has_partial = true;
     for field in fields {
         match (o.get(field.name), &field.kind) {
             (None, FieldKind::Required) => {
-                errors.push(format!("No key {} in MapLike[{}]", field.name, compact(v)))
+                errors.push(format!("No key {} in MapLike[{}]", field.name, compact(v)));
+                has_partial = false;
             }
             (None, FieldKind::Optional | FieldKind::Lenient | FieldKind::Default(_)) => {}
             (None, FieldKind::DefaultAlways(d)) => match field.schema.convert(d, ctx) {
                 Ok(tag) => {
                     out.put(field.name, tag);
                 }
-                Err(e) => errors.push(e),
+                Err(e) => {
+                    errors.push(e);
+                    has_partial = false;
+                }
             },
-            (Some(value), kind) => match field.schema.convert(value, ctx) {
+            (Some(value), kind) => match field.schema.decode(value, ctx) {
                 Ok(tag) => {
                     let is_default = match kind {
                         FieldKind::Default(d) => {
@@ -586,18 +780,30 @@ fn convert_record(
                         out.put(field.name, tag);
                     }
                 }
+                Err(failure) if failure.is_thrown() => return Err(failure),
                 Err(_) if matches!(kind, FieldKind::Lenient) => {}
-                Err(e) => errors.push(e.to_string()),
+                Err(failure) => {
+                    errors.push(failure.message);
+                    match (kind, failure.partial) {
+                        (_, Some(partial)) => {
+                            out.put(field.name, partial);
+                        }
+                        (FieldKind::Required, None) => has_partial = false,
+                        _ => {}
+                    }
+                }
             },
         }
     }
+    if errors.is_empty() {
+        return Ok(out);
+    }
     // DFU's applicative `ap` lists the errors of later fields first
     errors.reverse();
-    if errors.is_empty() {
-        Ok(out)
-    } else {
-        Err(errors.join("; "))
-    }
+    Err(Failure {
+        message: errors.join("; "),
+        partial: has_partial.then_some(Tag::Compound(out)),
+    })
 }
 
 #[cfg(test)]
@@ -705,5 +911,96 @@ mod tests {
             .convert(&json!("foo:later"), &ctx)
             .unwrap();
         assert_eq!(ctx.unbound_values.borrow().len(), 1);
+    }
+
+    fn decode(schema: &Schema, v: Value) -> Result<Tag, Failure> {
+        let l = Lookups;
+        schema.decode(&v, &RegistryDecodeContext::new(&l))
+    }
+
+    #[test]
+    fn lists_collect_every_error_later_elements_first() {
+        let failure = decode(&Schema::list_of(Schema::Int), json!([1, "a", 2, "b"])).unwrap_err();
+        assert_eq!(failure.message, "Not a number: \"b\"; Not a number: \"a\"");
+        // the elements that decoded are the partial result
+        assert_eq!(
+            failure.partial,
+            Some(Tag::List(vec![Tag::Int(1), Tag::Int(2)].into()))
+        );
+        assert_eq!(
+            decode(&Schema::list_of(Schema::Int), json!(5))
+                .unwrap_err()
+                .message,
+            "Not a json array: 5"
+        );
+    }
+
+    #[test]
+    fn list_sizes_count_the_elements_that_survived() {
+        let list = Schema::sized_list(Schema::Int, 1, 2);
+        // no element decoded: only the size error remains
+        assert_eq!(
+            decode(&list, json!(["a"])).unwrap_err().message,
+            "List is too short: 0, expected range [1-2]"
+        );
+        // too long: the length replaces the element errors; a failed element does not use up one of the `max` slots
+        let failure = decode(&list, json!([1, "a", 3, 4])).unwrap_err();
+        assert_eq!(failure.message, "List is too long: 4, expected range [1-2]");
+        assert_eq!(
+            failure.partial,
+            Some(Tag::List(vec![Tag::Int(1), Tag::Int(3)].into()))
+        );
+        // an element with a partial result still counts
+        let list = Schema::sized_list(
+            Schema::Record(vec![default("flags", Schema::Bool, json!(false))]),
+            1,
+            2,
+        );
+        assert_eq!(
+            decode(&list, json!([{"flags": 3}])).unwrap_err().message,
+            "Not a boolean: 3"
+        );
+    }
+
+    #[test]
+    fn validate_runs_on_the_partial_result_and_appends() {
+        let non_empty = Schema::NonEmptyList(Box::new(Schema::Int));
+        assert_eq!(
+            decode(&non_empty, json!([])).unwrap_err(),
+            Failure::from("List must have contents".to_owned())
+        );
+        assert_eq!(
+            decode(&non_empty, json!(["a"])).unwrap_err().message,
+            "Not a number: \"a\"; List must have contents"
+        );
+        // a surviving element satisfies the check: the element error stays alone
+        assert_eq!(
+            decode(&non_empty, json!(["a", 1])).unwrap_err().message,
+            "Not a number: \"a\""
+        );
+    }
+
+    #[test]
+    fn either_reports_a_failure_with_a_partial_result_alone() {
+        let either = Schema::either(Schema::Bool, Schema::list_of(Schema::Int));
+        assert_eq!(
+            decode(&either, json!("x")).unwrap_err().message,
+            "Failed to parse either. First: Not a boolean: \"x\"; Second: Not a json array: \"x\""
+        );
+        assert_eq!(
+            decode(&either, json!([1, "x"])).unwrap_err().message,
+            "Not a number: \"x\""
+        );
+    }
+
+    #[test]
+    fn a_thrown_exception_aborts_everything() {
+        let thrown = Schema::custom(|_, _| Err(illegal_argument("boom")));
+        let record = Schema::Record(vec![req("a", thrown), req("b", Schema::Int)]);
+        let failure = decode(&Schema::list_of(record), json!([{"a": 1}, {"b": "x"}])).unwrap_err();
+        assert_eq!(
+            split_thrown(&failure.message),
+            Some(("java.lang.IllegalArgumentException", "boom"))
+        );
     }
 }

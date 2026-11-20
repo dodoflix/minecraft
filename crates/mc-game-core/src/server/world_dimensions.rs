@@ -401,6 +401,10 @@ pub fn nbt_to_json(tag: &Tag) -> Value {
         Tag::Long(v) => Value::Number((*v).into()),
         Tag::Float(v) => Number::from_f64(f64::from(*v)).map_or(Value::Null, Value::Number),
         Tag::Double(v) => Number::from_f64(*v).map_or(Value::Null, Value::Number),
-        other => Value::String(other.to_string()),
+        // `NbtOps.convertTo` turns the array tags into lists of numbers
+        Tag::ByteArray(v) => Value::Array(v.iter().map(|n| Value::Number((*n).into())).collect()),
+        Tag::IntArray(v) => Value::Array(v.iter().map(|n| Value::Number((*n).into())).collect()),
+        Tag::LongArray(v) => Value::Array(v.iter().map(|n| Value::Number((*n).into())).collect()),
+        Tag::End => Value::Null,
     }
 }

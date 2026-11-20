@@ -12,6 +12,7 @@ pub mod enchantment;
 pub mod int_provider;
 pub mod level_stem;
 pub mod network;
+pub mod noise_settings;
 pub mod painting_variant;
 pub mod state_provider;
 pub mod worldgen;

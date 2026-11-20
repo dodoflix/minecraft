@@ -191,3 +191,37 @@ fn regen_oracle_fixtures() {
         );
     });
 }
+
+/// Starts the vanilla server on a new world created from the `test:custom` world preset (dimensions with inline noise
+/// settings), stops it so that it saves, and stores the saved `world_gen_settings.dat` as `world_gen_settings.dat`.
+/// Regenerate: `MC_UPDATE_FIXTURES=1 cargo test -p mc-game --test oracle -- --ignored regen_world_gen_settings_fixture`.
+#[test]
+#[ignore = "oracle: starts the vanilla server (only with MC_UPDATE_FIXTURES=1)"]
+fn regen_world_gen_settings_fixture() {
+    if !std::env::var("MC_UPDATE_FIXTURES").is_ok_and(|v| v == "1") {
+        return;
+    }
+    let server = mc_testkit::Server::vanilla()
+        .properties([
+            "online-mode=false",
+            "level-type=test:custom",
+            "level-seed=1234",
+            "generate-structures=false",
+            "max-tick-time=-1",
+            "view-distance=2",
+            "simulation-distance=2",
+            "enable-rcon=false",
+            "enable-query=false",
+        ])
+        .prepare(|dir| test_packs::write_dimension_pack(&dir.join("world")))
+        .start()
+        .expect("start vanilla");
+    assert!(server.stop(), "vanilla did not stop by itself");
+    let saved = std::fs::read(
+        server
+            .dir()
+            .join("world/data/minecraft/world_gen_settings.dat"),
+    )
+    .expect("vanilla saves world_gen_settings.dat");
+    std::fs::write(fixture_dir().join("world_gen_settings.dat"), saved).unwrap();
+}

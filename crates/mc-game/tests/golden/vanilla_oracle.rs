@@ -270,7 +270,7 @@ fn broken_pack_fails_like_vanilla() {
             }
         }
     }
-    assert_eq!(expected.len(), 11);
+    assert_eq!(expected.len(), 54);
     let ours: Vec<(String, String, Vec<String>)> = failure
         .errors
         .iter()
@@ -299,7 +299,8 @@ fn broken_pack_fails_like_vanilla() {
     }
     // the first lines of the full report are the same shape as vanilla's
     let details = failure.full_details();
-    assert!(details.starts_with("> Errors in registry minecraft:block_transformer:\n>> Errors in element test:bad_face:\njava.lang.IllegalStateException: Failed to parse test:bad_face from pack file/broken\nCaused by: "));
+    let (registry, element, _) = &expected[0];
+    assert!(details.starts_with(&format!("> Errors in registry {registry}:\n>> Errors in element {element}:\njava.lang.IllegalStateException: Failed to parse {element} from pack file/broken\nCaused by: ")));
 }
 
 /// Whether `ours` writes every compound's keys in the order they arrived in from vanilla (`vanilla` was read from the
@@ -350,4 +351,82 @@ fn first_diff(a: Option<&Tag>, b: Option<&Tag>, path: &str) -> String {
         }
         (a, b) => format!("{path}: ours {a:?} vanilla {b:?}"),
     }
+}
+
+/// The `dimensions` a server stores in `world_gen_settings.dat` for a world created from a world preset whose dimensions
+/// hold inline noise settings (the density function trees, material rules and every number's tag type) are the NBT
+/// vanilla saved for the same preset, key for key and in the order the server writes them.
+#[test]
+fn stored_dimensions_match_vanilla() {
+    use mc_game::server::world_dimensions::{DimensionDecoder, WorldDimensions};
+
+    let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+    common::init_logger();
+    let dir = tempfile::tempdir().unwrap();
+    let world = dir.path().join("world");
+    common::test_packs::write_dimension_pack(&world);
+    let (_, stem) =
+        common::load_world(&world, WorldDataConfiguration::DEFAULT, true).expect("loads");
+    let access = stem.registries.composite_access();
+    let decoder = DimensionDecoder::new(access).unwrap();
+    let preset = access
+        .registry(keys::WORLD_PRESET)
+        .and_then(|r| r.entry_by_key(&Identifier::read("test:custom").unwrap()))
+        .expect("the world preset of the data pack");
+    let ours = WorldDimensions::from_preset_json(&decoder, &preset.json)
+        .unwrap_or_else(|e| panic!("{e}"))
+        .to_stored();
+
+    let saved = mc_nbt::nbt_io::read_compressed_file(
+        &fixture_dir().join("world_gen_settings.dat"),
+        &mut mc_nbt::NbtAccounter::unlimited_heap(),
+    )
+    .unwrap();
+    let vanilla = saved
+        .get_compound("data")
+        .and_then(|data| data.get_compound("dimensions"))
+        .expect("stored dimensions");
+    assert_eq!(
+        ours.iter_java_order()
+            .into_iter()
+            .map(|(k, _)| k.as_str())
+            .collect::<Vec<_>>(),
+        vanilla.iter().map(|(k, _)| k.as_str()).collect::<Vec<_>>(),
+        "dimensions in the order of the stored compound"
+    );
+    for (id, stem) in vanilla.iter() {
+        let ours = ours.get(id).expect("every dimension is stored");
+        assert!(
+            ours == stem && same_key_order(ours, stem),
+            "dimension {id} differs at {}",
+            if ours == stem {
+                "the key order".to_owned()
+            } else {
+                first_diff(Some(ours), Some(stem), "")
+            }
+        );
+    }
+    // the settings really are inline and typed like the codecs write them (`63.0` is an int, not a byte)
+    assert_eq!(vanilla.len(), 9);
+    let synthetic = vanilla
+        .get_compound("test:synthetic")
+        .and_then(|stem| stem.get_compound("generator"))
+        .and_then(|generator| generator.get_compound("settings"))
+        .expect("inline settings");
+    assert_eq!(synthetic.get("sea_level"), Some(&Tag::Int(63)));
+    assert_eq!(
+        synthetic
+            .get_compound("noise_router")
+            .and_then(|r| r.get("vegetation")),
+        Some(&Tag::Float(1.0))
+    );
+
+    // a world loaded from the stored dimensions stores the very same ones
+    let reloaded = WorldDimensions::from_stored(&decoder, &ours)
+        .unwrap_or_else(|e| panic!("{e}"))
+        .to_stored();
+    assert!(
+        reloaded == ours,
+        "the stored dimensions change when they are loaded"
+    );
 }

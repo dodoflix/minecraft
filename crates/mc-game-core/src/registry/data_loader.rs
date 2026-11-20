@@ -18,7 +18,7 @@ use mc_worldgen::data::{
 use serde_json::Value;
 
 use super::access::{RegistrationInfo, Registry, RegistryAccess, RegistryEntry};
-use super::codec::{Lookup, RegistryDecodeContext, RegistryLookup};
+use super::codec::{Lookup, RegistryDecodeContext, RegistryLookup, split_thrown};
 use super::decoders::{DecodedEntry, decoder_for};
 use super::keys::{self, RegistryData, RegistryValidator};
 use super::tags::{ElementRef, TagLoader};
@@ -350,12 +350,15 @@ pub fn load(
                     });
                 }
                 Err(message) => {
+                    let thrown = split_thrown(&message).map(|(c, m)| (c, m.to_owned()));
+                    let (class, message) =
+                        thrown.unwrap_or(("java.lang.IllegalStateException", message));
                     errors.insert(
                         (data.key.to_owned(), element.id.clone()),
                         LoadingError::failed_to_parse(
                             &element.id,
                             &element.source_pack,
-                            "java.lang.IllegalStateException",
+                            class,
                             message,
                         ),
                     );
