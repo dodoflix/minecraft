@@ -1435,8 +1435,7 @@ impl Scenario {
                 mc_game::advancements::player_advancements::PlayerAdvancements::new(
                     self.actors.advancements(),
                     Some(save_path),
-                )
-                .unwrap(),
+                ),
             ))
         };
         let level = self.level();
@@ -1464,7 +1463,6 @@ impl Scenario {
                         profile.id,
                         profile.name.clone(),
                     ))
-                    .expect("the saved player data upgrades")
             });
             if let Some(tag) = saved {
                 p.load(level, &tag).expect("the saved player data loads");
@@ -1561,7 +1559,6 @@ impl Scenario {
                     server.with_level(&dimension, |server, level| {
                         let mut host = ServerJoinHost { server, level };
                         place_new_player(&mut host, p, sender, params)
-                            .expect("the player's files upgrade")
                     })
                 })
             })

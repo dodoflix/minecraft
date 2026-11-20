@@ -264,39 +264,6 @@ fn wrap_codec_decode_strips_the_version_and_fixes() {
 }
 
 #[test]
-fn wrap_codec_decode_refuses_a_version_below_the_registered_fixes() {
-    let mut b = DataFixerBuilder::new(5023);
-    b.add_schema(99, |k, p| Schema::new(k, p, Root));
-    b.add_schema(100, Schema::same);
-    let fixer = leaked(b.build());
-    assert_eq!(fixer.oldest_supported_version(), 100);
-    let codec = DataFixTypes::CHUNK.wrap_codec(&PASSTHROUGH, fixer, 99);
-    let result = codec.parse(&NBT, &chunk());
-    assert!(
-        result
-            .error_message()
-            .is_some_and(|m| m.contains("Data version 99 is older")),
-        "{result:?}"
-    );
-}
-
-#[test]
-fn a_schema_of_a_file_fix_needs_no_data_fix_to_be_supported() {
-    let mut b = DataFixerBuilder::new(5023);
-    b.add_schema(99, |k, p| Schema::new(k, p, Root));
-    b.add_schema(100, Schema::same);
-    assert_eq!(b.build_with_file_fixes().0.oldest_supported_version(), 100);
-    let mut b = DataFixerBuilder::new(5023);
-    b.add_schema(99, |k, p| Schema::new(k, p, Root));
-    b.add_schema(100, Schema::same);
-    b.add_file_fix("SomeFileFix", 100);
-    assert_eq!(
-        b.build_with_file_fixes().0.oldest_supported_version(),
-        i32::MIN
-    );
-}
-
-#[test]
 fn update_tag_on_a_compound() {
     let fixer = builder_with_fix(true);
     let Ok(Tag::Compound(tag)) = chunk().to_tag() else {

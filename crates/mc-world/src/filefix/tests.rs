@@ -172,7 +172,7 @@ fn fix_of_version() -> FileFix {
         ))?;
         let data = counter.read(ctx.tree)?.expect("counter.dat exists");
         let next = data.get("counter").as_int_or(0) + 1;
-        counter.write(ctx.tree, &data.set("counter", data.create_int(next)));
+        counter.write(ctx.tree, &data.set("counter", data.create_int(next)))?;
         let mut chunks = only_file(ctx.chunk_nbt(
             &FileRelation::region(),
             &region_info(),
@@ -1424,10 +1424,12 @@ fn level_dat_player_data_and_saved_data_are_read_and_written_in_the_view() {
     let level = LevelDat::new(PathBuf::from("level.dat"), FIX_VERSION);
     let data = level.read(&tree).unwrap().expect("level.dat exists");
     assert_eq!(data.get("LevelName").as_string_or(""), "world");
-    level.write(
-        &mut tree,
-        &data.set("LevelName", data.create_string("renamed")),
-    );
+    level
+        .write(
+            &mut tree,
+            &data.set("LevelName", data.create_string("renamed")),
+        )
+        .unwrap();
     let data = level.read(&tree).unwrap().unwrap();
     assert_eq!(data.get("LevelName").as_string_or(""), "renamed");
     assert_eq!(data.get("DataVersion").as_int_or(0), FIX_VERSION);
@@ -1435,7 +1437,9 @@ fn level_dat_player_data_and_saved_data_are_read_and_written_in_the_view() {
     let player_file = PlayerData::new(PathBuf::from("players/data/p.dat"), FIX_VERSION);
     let player = player_file.read(&tree).unwrap().unwrap();
     assert_eq!(player.get("Health").as_int_or(0), 20);
-    player_file.write(&mut tree, &player.set("Health", player.create_int(10)));
+    player_file
+        .write(&mut tree, &player.set("Health", player.create_int(10)))
+        .unwrap();
     assert_eq!(
         player_file
             .read(&tree)
@@ -1458,7 +1462,9 @@ fn level_dat_player_data_and_saved_data_are_read_and_written_in_the_view() {
         MissingSeverity::Minor,
     );
     let rules = Dynamic::new(NBT, Dyn::from(&Tag::Compound(CompoundTag::new())));
-    saved.write(&mut tree, &rules.set("n", rules.create_int(3)));
+    saved
+        .write(&mut tree, &rules.set("n", rules.create_int(3)))
+        .unwrap();
     assert_eq!(saved.read(&tree).unwrap().unwrap().get("n").as_int_or(0), 3);
 
     assert_eq!(snapshot(&world, &[]), before, "the world is not changed");

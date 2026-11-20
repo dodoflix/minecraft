@@ -17,8 +17,10 @@ have its final name yet.
   level storage, the light engine, and the dedicated-server start-up flow
   (`server.properties`, `eula.txt`, command-line options).
 - **Working:** the vanilla commands and Brigadier, plus the entity, block and item behaviour
-  implemented so far in the `mc-game-*` crates (see the known gaps below). The DataFixerUpper
-  library core is ported, but no schema or data fix is registered yet.
+  implemented so far in the `mc-game-*` crates (see the known gaps below). The data fixers
+  (the DataFixerUpper port with every schema and data fix of the vanilla chain, and the
+  file fixer) bring worlds of any data version to the current layout when the server starts,
+  and `--forceUpgrade`, `--eraseCache` and `--recreateRegionFiles` upgrade the chunks.
 - **In progress:** world generation. Noise, density functions, biome sources and
   state-only chunk generation exist; behaviour is checked against vanilla output
   where fixtures exist.
@@ -37,7 +39,6 @@ bullet links to the `parity` issue that tracks the category, and known differenc
 
 - **Commands, advancements and loot:** each of the 87 commands has scenarios that compare its feedback with vanilla recordings, as do selectors, advancement triggers and rewards, loot tables and statistics; commands and selectors that cross dimensions are replayed with several levels. Not compared: outputs that carry elapsed time, file paths or network lookups (`perf stop`, `debug stop`, profile lookups by id or name in `fetchprofile`), which only the nightly dual-server corpora cover, and seven hand-driven test files that run no commands. Text with selector, score or NBT contents in `set_name`/`set_lore` is resolved only where the roll has a server (commands, not mob deaths or block breaks), a bad inline `/place feature` config reports only the first error of vanilla's DFU wording, and the `/gamerule` literals sit in a different order in the command tree than vanilla's. ([#22](https://github.com/dodoflix/minecraft/issues/22))
 - **Floating point:** Java's `Math.sin`/`Math.cos` (HotSpot intrinsics) differ from the port in the last bit for about 0.15% of inputs, which can shift guardian, fox, ravager, TNT and random-position motion by one ulp. ([#32](https://github.com/dodoflix/minecraft/issues/32))
-- **World upgrade and data fixers:** no data fix is ported, so old worlds are not upgraded. ([#20](https://github.com/dodoflix/minecraft/issues/20))
 - **Server features:** the moderation text filter service (`text-filtering-config`) is not ported; chat and sign text pass through unfiltered, as on a vanilla server without that setting. ([#21](https://github.com/dodoflix/minecraft/issues/21))
 
 ## Prerequisites

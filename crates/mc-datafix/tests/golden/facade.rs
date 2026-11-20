@@ -3,8 +3,8 @@
 
 use crate::recorded_chain::parse;
 use mc_datafix::{
-    CURRENT_VERSION, DataFixTypes, UnsupportedVersion, data_fixer, latest_file_fixer_version,
-    requires_file_fixing, update_to_current, world_version_to_file_fixer_version,
+    CURRENT_VERSION, DataFixTypes, latest_file_fixer_version, requires_file_fixing,
+    update_to_current, world_version_to_file_fixer_version,
 };
 use mc_nbt::CompoundTag;
 
@@ -51,29 +51,10 @@ fn a_tag_of_the_current_or_a_newer_version_is_returned_unchanged() {
     for from in [CURRENT_VERSION, CURRENT_VERSION + 1] {
         for ty in DataFixTypes::ALL {
             assert_eq!(
-                update_to_current(*ty, &tag, from).as_ref(),
-                Ok(&tag),
+                update_to_current(*ty, &tag, from),
+                tag,
                 "{ty:?} from {from}"
             );
         }
     }
-}
-
-#[test]
-fn a_version_below_the_registered_chain_is_refused_instead_of_upgraded() {
-    let oldest = data_fixer().oldest_supported_version();
-    let tag = CompoundTag::new();
-    if oldest > i32::MIN {
-        for ty in DataFixTypes::ALL {
-            assert_eq!(
-                update_to_current(*ty, &tag, oldest - 1),
-                Err(UnsupportedVersion {
-                    from_version: oldest - 1,
-                    oldest_supported: oldest
-                }),
-                "{ty:?}"
-            );
-        }
-    }
-    assert!(update_to_current(DataFixTypes::LEVEL, &tag, oldest.max(CURRENT_VERSION)).is_ok());
 }

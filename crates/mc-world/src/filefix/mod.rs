@@ -21,7 +21,6 @@ pub use error::{
     CrashReportCategory, FileFixCrashReport, FileFixError, FileMove, FileSystemCapabilities,
 };
 pub use fix::FileFix;
-pub(crate) use fixer::add_versions_to_level_data;
 pub use fixer::{Checkpoint, FileFixerUpper, FixHooks, detect_file_system_capabilities};
 pub use fixes::{file_fixer, new_file_fixer};
 pub use ops::{

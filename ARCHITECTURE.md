@@ -43,7 +43,7 @@ crates/
   mc-text             Chat Component model + JSON and NBT codecs
   mc-brigadier        Port of com.mojang.brigadier
   mc-dfu              Port of the DFU Codec/DataResult/DynamicOps framework (NBT, JSON, CRC32C-hash ops) for vanilla data codecs
-  mc-datafix          Port of the DataFixerUpper type system, `DataFixTypes` and the global `DataFixer` on top of mc-dfu; no schema or fix is ported yet
+  mc-datafix          Port of the DataFixerUpper type system, `DataFixTypes`, the global `DataFixer` on top of mc-dfu and the whole chain of schemas and data fixes of vanilla
   mc-data             Generated static data (blocks/states/items/entities/registries/packet ids) + vanilla data pack access
   mc-protocol         Wire codec primitives, framing, compression, encryption, packet structs (all states);
                       module `components`: all data component types + DataComponentMap/Patch + ItemStack value type,

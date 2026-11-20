@@ -31,7 +31,7 @@ pub fn new(version: i32) -> FileFix {
                     let fixed = data_tag.update("minecraft:spectators_generate_chunks", |old| {
                         old.create_boolean(true)
                     });
-                    game_rules_file.write(ctx.tree, &fixed);
+                    game_rules_file.write(ctx.tree, &fixed)?;
                 }
             }
         }

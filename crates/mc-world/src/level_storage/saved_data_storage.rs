@@ -112,25 +112,11 @@ impl SavedDataStorage {
     }
 
     /// `readTagFromDisk(dataFile, type, currentVersion)`: the stored file through the data fixer of `ty` from its
-    /// `DataVersion` (1343 when absent). A version below the registered part of the fix chain is an error.
+    /// `DataVersion` (1343 when absent).
     pub fn read_fixed_tag_from_disk(data_file: &Path, ty: DataFixTypes) -> io::Result<CompoundTag> {
         let tag = SavedDataStorage::read_tag_from_disk(data_file)?;
         let version = get_data_version_or(&tag, 1343);
-        mc_datafix::update_to_current(ty, &tag, version).map_err(io::Error::other)
-    }
-
-    /// Whether the file of `id` exists but is older than the registered part of the fix chain, so that
-    /// [`SavedDataStorage::read_data`] refuses it.
-    pub fn is_older_than_fix_chain(&self, id: &Identifier) -> bool {
-        let Ok(file) = self.get_data_file(id) else {
-            return false;
-        };
-        file.exists()
-            && SavedDataStorage::read_tag_from_disk(&file).is_ok_and(|tag| {
-                mc_datafix::data_fixer()
-                    .check_supported(get_data_version_or(&tag, 1343))
-                    .is_err()
-            })
+        Ok(mc_datafix::update_to_current(ty, &tag, version))
     }
 
     /// `readSavedData` up to the codec: the fixed `data` tag of `id`, `None` when the file does not exist or has no
@@ -246,29 +232,5 @@ mod tests {
         let id = Identifier::parse("minecraft:no_data").unwrap();
         let fixed = storage.read_data(&id, DataFixTypes::SAVED_DATA_WEATHER);
         assert_eq!(fixed.unwrap(), None);
-    }
-
-    #[test]
-    fn file_below_the_registered_chain_is_an_error() {
-        let oldest = mc_datafix::data_fixer().oldest_supported_version();
-        if oldest == i32::MIN {
-            return; // the whole chain is registered: there is no version below it
-        }
-        let dir = tempfile::tempdir().unwrap();
-        let storage = SavedDataStorage::new(dir.path());
-        let data = Tag::Compound(CompoundTag::new().with("raining", Tag::Byte(1)));
-        write_plain(dir.path(), "old", Some(data.clone()), Some(oldest - 1));
-        // no DataVersion: read as 1343
-        write_plain(dir.path(), "unversioned", Some(data), None);
-        for (name, version) in [("old", oldest - 1), ("unversioned", 1343)] {
-            let id = Identifier::parse(&format!("minecraft:{name}")).unwrap();
-            let read = storage.read_data(&id, DataFixTypes::SAVED_DATA_WEATHER);
-            if version < oldest {
-                let err = read.unwrap_err();
-                assert!(err.to_string().contains("older than"), "{name}: {err}");
-            } else {
-                assert!(read.is_ok(), "{name}");
-            }
-        }
     }
 }

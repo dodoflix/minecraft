@@ -9,12 +9,11 @@ use super::hash_order::{
 };
 use super::stat::{Stat, build_name, by_names, stat_type, stat_type_name, value_name};
 use super::stats_counter::StatsCounter;
-use crate::server::players::player_files::check_file_version;
 use indexmap::IndexSet;
 use mc_core::ident::Identifier;
 use mc_core::math::java::java_string_hash;
 use mc_data::StatType;
-use mc_datafix::{DataFixTypes, UnsupportedVersion, data_fixer};
+use mc_datafix::{DataFixTypes, data_fixer};
 use mc_dfu::{Dyn, Dynamic, JSON};
 use mc_protocol::packets::play::ClientboundAwardStatsPacket;
 use serde_json::{Map, Value};
@@ -50,9 +49,8 @@ impl ServerStatsCounter {
     }
 
     /// `new ServerStatsCounter(server, file)`: reads `file` when it is a regular file; unreadable or unparsable files
-    /// are logged and ignored (the stats stay empty). A file older than the registered part of the fix chain is an
-    /// error: vanilla's fixer throws there and the exception leaves the constructor.
-    pub fn new(file: PathBuf) -> Result<Self, UnsupportedVersion> {
+    /// are logged and ignored (the stats stay empty).
+    pub fn new(file: PathBuf) -> Self {
         let mut this = Self {
             counter: StatsCounter::default(),
             file: Some(file),
@@ -62,18 +60,13 @@ impl ServerStatsCounter {
         if file.is_file() {
             match std::fs::read_to_string(&file) {
                 Ok(text) => match serde_json::from_str::<Value>(&text) {
-                    Ok(element) => {
-                        if let Ok(json) = Dyn::from_json_str(&text) {
-                            check_file_version(&json)?;
-                        }
-                        this.parse(&element)
-                    }
+                    Ok(element) => this.parse(&element),
                     Err(e) => log::error!("Couldn't parse statistics file {}: {e}", file.display()),
                 },
                 Err(e) => log::error!("Couldn't read statistics file {}: {e}", file.display()),
             }
         }
-        Ok(this)
+        this
     }
 
     pub fn file(&self) -> Option<&Path> {
@@ -105,13 +98,10 @@ impl ServerStatsCounter {
     }
 
     /// `DataFixTypes.STATS.updateToCurrentVersion(fixerUpper, data, NbtUtils.getDataVersion(data, 1343))` over the
-    /// JSON element. A file older than the registered part of the fix chain is an error.
+    /// JSON element.
     fn upgrade(element: &Value) -> Result<Value, String> {
         let data = Dynamic::new(JSON, Dyn::from_json_str(&element.to_string())?);
         let version = data.get("DataVersion").as_int_or(1343);
-        data_fixer()
-            .check_supported(version)
-            .map_err(|e| e.to_string())?;
         let fixed = DataFixTypes::STATS.update_to_current_version(data_fixer(), data, version);
         serde_json::from_str(&fixed.value().to_json_string()).map_err(|e| e.to_string())
     }
@@ -293,48 +283,22 @@ mod tests {
         .unwrap()
     }
 
-    fn read(
-        json: &str,
-    ) -> (
-        Result<ServerStatsCounter, UnsupportedVersion>,
-        tempfile::TempDir,
-    ) {
+    fn read(json: &str) -> ServerStatsCounter {
         let dir = tempfile::tempdir().unwrap();
         let file = dir.path().join("stats.json");
         std::fs::write(&file, json).unwrap();
-        (ServerStatsCounter::new(file), dir)
+        ServerStatsCounter::new(file)
     }
 
     #[test]
     fn a_file_of_an_older_version_goes_through_the_fixer() {
         // the explorer map items were renamed by data version 5012
-        let (counter, _dir) = read(
+        let counter = read(
             r#"{"stats":{"minecraft:used":{"minecraft:ocean_explorer_map":3}},"DataVersion":5011}"#,
         );
         assert_eq!(
-            counter
-                .unwrap()
-                .get_value(&stat("minecraft:used", "minecraft:ocean_monument_map")),
+            counter.get_value(&stat("minecraft:used", "minecraft:ocean_monument_map")),
             3
-        );
-    }
-
-    #[test]
-    fn a_file_below_the_chain_fails_the_load_and_stays_untouched() {
-        let oldest = data_fixer().oldest_supported_version();
-        if oldest == i32::MIN {
-            return;
-        }
-        let text = format!(
-            r#"{{"stats":{{"minecraft:custom":{{"minecraft:play_time":5}}}},"DataVersion":{}}}"#,
-            oldest - 1
-        );
-        let (counter, dir) = read(&text);
-        assert_eq!(counter.err().unwrap().from_version, oldest - 1);
-        assert_eq!(std::fs::read_dir(dir.path()).unwrap().count(), 1);
-        assert_eq!(
-            std::fs::read_to_string(dir.path().join("stats.json")).unwrap(),
-            text
         );
     }
 }

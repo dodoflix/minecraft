@@ -1,20 +1,19 @@
 //! Saved data files go through the data fixer of their type when they are read: every vanilla `SavedDataType` has a
-//! `DataFixTypes`, an older file of a current world loads and is re-saved at the current version, and a file older than
-//! the registered fix chain is refused like an unreadable one instead of being half-fixed.
+//! `DataFixTypes`, and an older file of a current world loads and is re-saved at the current version.
 
 use std::collections::BTreeSet;
 use std::path::Path;
 
 use mc_core::ident::Identifier;
-use mc_datafix::{CURRENT_VERSION, DataFixTypes, data_fixer};
+use mc_datafix::{CURRENT_VERSION, DataFixTypes};
 use mc_game::server::bossevents::CustomBossEvents;
 use mc_game::util::timer_queue::{FunctionHost, TimerQueue};
 use mc_game::world::clock::ServerClockManager;
 use mc_game::world::entity::raid::raids::raids_type;
 use mc_game::world::level::dimension::end::ender_dragon_fight_type;
 use mc_game::world::level::gamerules::{GameRuleMap, GameRules};
-use mc_game::world::level::saveddata::command_storage::{CommandStorage, Container};
-use mc_game::world::level::saveddata::maps::{MapIndex, MapItemSavedData, MapStorage};
+use mc_game::world::level::saveddata::command_storage::Container;
+use mc_game::world::level::saveddata::maps::{MapIndex, MapItemSavedData};
 use mc_game::world::level::saveddata::random_sequences::RandomSequences;
 use mc_game::world::level::saveddata::stopwatches::Stopwatches;
 use mc_game::world::level::saveddata::wandering_trader_data::WanderingTraderData;
@@ -174,91 +173,4 @@ fn an_older_file_of_a_current_world_loads_and_is_saved_at_the_current_version() 
         file.get_compound("data").unwrap().get_int("rain_time"),
         Some(4321)
     );
-}
-
-#[test]
-fn a_file_older_than_the_registered_chain_is_not_loaded() {
-    let oldest = data_fixer().oldest_supported_version();
-    if oldest == i32::MIN {
-        return; // the whole chain is registered: there is no version below it
-    }
-    for version in [Some(oldest - 1), None]
-        .into_iter()
-        .filter(|v| v.unwrap_or(1343) < oldest)
-    {
-        let dir = tempfile::tempdir().unwrap();
-        let data_dir = dir.path().join("data");
-        write_weather(&data_dir, version);
-        let file = data_dir.join("minecraft/weather.dat");
-        let before = std::fs::read(&file).unwrap();
-
-        // read first: the default instance that replaces the file must not overwrite it
-        let mut manager = SavedDataManager::new(SavedDataStorage::new(&data_dir));
-        assert!(manager.get(&WeatherData::type_()).is_none(), "{version:?}");
-        manager.compute_if_absent(&WeatherData::type_());
-        manager.save_and_join();
-        assert_eq!(std::fs::read(&file).unwrap(), before, "{version:?}");
-
-        // replaced before it was ever read
-        let mut manager = SavedDataManager::new(SavedDataStorage::new(&data_dir));
-        manager.set(&WeatherData::type_(), WeatherData::default());
-        manager.save_and_join();
-        assert_eq!(std::fs::read(&file).unwrap(), before, "{version:?}");
-
-        // command storage: the view and the manager both see an empty namespace, and writing leaves the file alone
-        let contents = CompoundTag::new().with(
-            "x",
-            Tag::Compound(CompoundTag::new().with("a", Tag::Int(1))),
-        );
-        write_file(
-            &data_dir,
-            "command_storage",
-            CompoundTag::new().with("contents", Tag::Compound(contents)),
-            version,
-        );
-        let file = data_dir.join("minecraft/command_storage.dat");
-        let before = std::fs::read(&file).unwrap();
-        let id = Identifier::parse("minecraft:x").unwrap();
-        assert!(
-            CommandStorage::with_data_folder(&data_dir)
-                .view()
-                .get(&id)
-                .is_empty()
-        );
-        let mut manager = SavedDataManager::new(SavedDataStorage::new(&data_dir));
-        let mut command_storage = CommandStorage::new();
-        assert!(command_storage.get(&mut manager, &id).is_empty());
-        command_storage.set(&mut manager, &id, CompoundTag::new().with("b", Tag::Int(2)));
-        manager.save_and_join();
-        assert_eq!(std::fs::read(&file).unwrap(), before, "{version:?}");
-    }
-}
-
-#[test]
-fn a_refused_map_index_does_not_hand_out_the_id_of_an_existing_map() {
-    let oldest = data_fixer().oldest_supported_version();
-    if oldest == i32::MIN || 1343 >= oldest {
-        return; // there is no version below the chain to refuse
-    }
-    let dir = tempfile::tempdir().unwrap();
-    let data_dir = dir.path().join("data");
-    // the index is older than the chain (no DataVersion), maps 0 and 1 exist at the current version
-    write_file(
-        &data_dir,
-        "maps/last_id",
-        CompoundTag::new().with("map", Tag::Int(1)),
-        None,
-    );
-    for id in 0..2 {
-        write_file(
-            &data_dir,
-            &format!("maps/{id}"),
-            CompoundTag::new(),
-            Some(CURRENT_VERSION),
-        );
-    }
-    let maps = MapStorage::default();
-    maps.init(SavedDataStorage::new(&data_dir));
-    assert_eq!(maps.get_free_map_id(), MapId(2));
-    assert_eq!(maps.get_free_map_id(), MapId(3));
 }

@@ -11,7 +11,7 @@ use std::sync::Arc;
 
 use indexmap::IndexMap;
 use mc_core::ident::Identifier;
-use mc_datafix::{DataFixTypes, UnsupportedVersion, data_fixer};
+use mc_datafix::{DataFixTypes, data_fixer};
 use mc_dfu::extra::IDENTIFIER;
 use mc_dfu::{Codec, DataResult, Dyn, JSON};
 use mc_protocol::packets::play::{
@@ -30,7 +30,6 @@ use super::server_advancement_manager::ServerAdvancementManager;
 use super::triggers::{Criterion, CriterionTriggerInstance};
 use crate::server::level::ServerLevel;
 use crate::server::level::level_commands::PendingAnnouncement;
-use crate::server::players::player_files::check_file_version;
 use crate::world::entity::Entity as _;
 use crate::world::entity::player::ServerPlayer;
 
@@ -71,13 +70,12 @@ pub struct PlayerAdvancements {
 }
 
 impl PlayerAdvancements {
-    /// `new PlayerAdvancements(dataFixer, playerList, manager, playerSavePath, player)`: loads the file; one older
-    /// than the registered part of the fix chain is an error (vanilla's fixer throws and the constructor ends).
+    /// `new PlayerAdvancements(dataFixer, playerList, manager, playerSavePath, player)`: loads the file.
     /// `None` path: nothing is read or written (players without a player list).
     pub fn new(
         manager: &ServerAdvancementManager,
         player_save_path: Option<PathBuf>,
-    ) -> Result<PlayerAdvancements, UnsupportedVersion> {
+    ) -> PlayerAdvancements {
         let mut this = PlayerAdvancements {
             player_save_path,
             tree: manager.tree().clone(),
@@ -89,14 +87,13 @@ impl PlayerAdvancements {
             is_first_packet: true,
             active_triggers: HashMap::new(),
         };
-        this.load(manager)?;
-        Ok(this)
+        this.load(manager);
+        this
     }
 
     /// Advancements of a player that has no advancement data (an empty manager, no file).
     pub fn detached() -> PlayerAdvancements {
         PlayerAdvancements::new(&ServerAdvancementManager::default(), None)
-            .expect("a set without a file has nothing the fixer could refuse")
     }
 
     /// The progress file this player's advancements are loaded from and saved to (`None`: no file).
@@ -109,8 +106,7 @@ impl PlayerAdvancements {
         self.active_triggers.clear();
     }
 
-    /// `reload(manager)`. The file was read when the player joined, so it can only fail the fixer when it was replaced
-    /// by an older one since; that is logged (vanilla's exception would end the reload).
+    /// `reload(manager)`.
     pub fn reload(&mut self, manager: &ServerAdvancementManager) {
         self.clear_triggers();
         self.progress.clear();
@@ -120,9 +116,7 @@ impl PlayerAdvancements {
         self.is_first_packet = true;
         self.last_selected_tab = None;
         self.tree = manager.tree().clone();
-        if let Err(e) = self.load(manager) {
-            log::error!("Couldn't reload player advancements: {e}");
-        }
+        self.load(manager);
     }
 
     fn register_all_listeners(&mut self, manager: &ServerAdvancementManager) {
@@ -131,22 +125,16 @@ impl PlayerAdvancements {
         }
     }
 
-    fn load(&mut self, manager: &ServerAdvancementManager) -> Result<(), UnsupportedVersion> {
+    fn load(&mut self, manager: &ServerAdvancementManager) {
         if let Some(path) = self.player_save_path.clone().filter(|p| p.is_file()) {
             match std::fs::read_to_string(&path) {
-                Ok(text) => {
-                    // the fixer's exception is not a `JsonParseException`: it leaves `load`, the file stays as it is
-                    if let Ok(json) = Dyn::from_json_str(&text) {
-                        check_file_version(&json)?;
-                    }
-                    match parse_player_file(&text) {
-                        Ok(data) => self.apply_from(manager, data),
-                        Err(e) => log::error!(
-                            "Couldn't parse player advancements in {}: {e}",
-                            path.display()
-                        ),
-                    }
-                }
+                Ok(text) => match parse_player_file(&text) {
+                    Ok(data) => self.apply_from(manager, data),
+                    Err(e) => log::error!(
+                        "Couldn't parse player advancements in {}: {e}",
+                        path.display()
+                    ),
+                },
                 Err(e) => log::error!(
                     "Couldn't access player advancements in {}: {e}",
                     path.display()
@@ -155,7 +143,6 @@ impl PlayerAdvancements {
         }
         // `checkForAutomaticTriggers`: an advancement without criteria cannot exist (`Advancement.CODEC` rejects it)
         self.register_all_listeners(manager);
-        Ok(())
     }
 
     /// `save()`: logs `Couldn't save player advancements to {}` on failure.
@@ -495,7 +482,7 @@ fn progress_file_json(
 }
 
 /// Strict JSON parse of a progress file + the wrapped codec (the `DataFixTypes.ADVANCEMENTS` upgrade from the file's
-/// `DataVersion`, 1343 when absent). A file older than the registered part of the fix chain is a parse error.
+/// `DataVersion`, 1343 when absent).
 fn parse_player_file(text: &str) -> Result<Vec<(Identifier, AdvancementProgress)>, String> {
     let json = Dyn::from_json_str(text)?;
     match file_codec().parse(&JSON, &json) {
@@ -697,37 +684,11 @@ mod tests {
     }
 
     #[test]
-    fn a_file_below_the_chain_is_a_parse_error_not_a_panic() {
-        let oldest = data_fixer().oldest_supported_version();
-        if oldest == i32::MIN {
-            return;
-        }
-        let input = golden_inputs()[0];
-        let Err(err) = parse_player_file(&with_version(input, oldest - 1)) else {
-            panic!("a file below the chain was upgraded");
-        };
-        assert!(err.contains("older than"), "{err}");
-        // no `DataVersion` reads as 1343
-        let mut json: Value = serde_json::from_str(input).unwrap();
-        json.as_object_mut().unwrap().remove("DataVersion");
-        if oldest > 1343 {
-            assert!(parse_player_file(&json.to_string()).is_err());
-        }
-        // the load fails (vanilla's fixer throws) and the file stays as it is: no copy, no overwrite
+    fn a_file_that_is_not_json_is_logged_and_read_as_empty() {
         let dir = tempfile::tempdir().unwrap();
         let file = dir.path().join("a.json");
-        let text = with_version(input, oldest - 1);
-        std::fs::write(&file, &text).unwrap();
-        let manager = ServerAdvancementManager::default();
-        let err = PlayerAdvancements::new(&manager, Some(file.clone()))
-            .err()
-            .unwrap();
-        assert_eq!(err.from_version, oldest - 1);
-        assert_eq!(std::fs::read_to_string(&file).unwrap(), text);
-        assert_eq!(std::fs::read_dir(dir.path()).unwrap().count(), 1);
-        // a file that is not JSON is still logged and read as empty
         std::fs::write(&file, "not json").unwrap();
-        let loaded = PlayerAdvancements::new(&manager, Some(file)).unwrap();
+        let loaded = PlayerAdvancements::new(&ServerAdvancementManager::default(), Some(file));
         assert!(loaded.progress.is_empty());
     }
 }

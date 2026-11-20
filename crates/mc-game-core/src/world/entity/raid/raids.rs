@@ -182,8 +182,17 @@ impl Raids {
             next_id: 0,
             tick: 0,
         };
-        raids.next_id = codec::int(codec::field(m, "next_id")?)?;
-        raids.tick = codec::int(codec::field(m, "tick")?)?;
+        // the record applicative reports the failures of the last field first
+        let next_id = codec::field(m, "next_id").and_then(codec::int);
+        let tick = codec::field(m, "tick").and_then(codec::int);
+        match (next_id, tick) {
+            (Ok(next_id), Ok(tick)) => (raids.next_id, raids.tick) = (next_id, tick),
+            (next_id, tick) => {
+                let errors: Vec<String> =
+                    [tick.err(), next_id.err()].into_iter().flatten().collect();
+                return Err(errors.join("; ").into());
+            }
+        }
         // `RaidWithId.CODEC.listOf()`: an entry that fails without a partial value is dropped, one with a partial value
         // (a bad `heroes_of_the_village` element) is kept; the first error is the result's error
         let mut error = None;

@@ -3,7 +3,6 @@ use mc_core::ident::Identifier;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_datafix::CURRENT_VERSION;
 use mc_nbt::CompoundTag;
-use mc_world::region::upgrade::oldest_supported_data_version;
 use mc_world::region::{RegionFile, RegionFileStorage, RegionStorageInfo};
 use std::path::Path;
 use std::time::{Duration, Instant};
@@ -60,8 +59,8 @@ fn run(dir: &Path, erase_cache: bool, recreate: bool) -> WorldUpgrader {
 }
 
 fn old_version() -> i32 {
-    // inside the registered chain, below the current version
-    5000.max(oldest_supported_data_version())
+    // inside the chain, below the current version
+    5000
 }
 
 #[test]
@@ -113,23 +112,6 @@ fn recreated_region_files_replace_the_originals_and_leave_no_new_folder() {
     assert!(!dir.path().join("new_region").exists());
     let tag = read_chunk(&region, 1, 0).expect("chunk");
     assert_eq!(tag.get_int("DataVersion"), Some(CURRENT_VERSION));
-}
-
-#[test]
-fn a_chunk_below_the_fix_chain_fails_the_upgrade_without_touching_the_file() {
-    let oldest = oldest_supported_data_version();
-    if oldest == i32::MIN {
-        return; // the whole chain is registered
-    }
-    let dir = tempfile::tempdir().unwrap();
-    let region = dir.path().join("region");
-    write_chunks(&region, Some(oldest - 1), &[(0, 0)]);
-    let upgrader = run(dir.path(), false, false);
-    assert_eq!(upgrader.get_status(), "optimizeWorld.stage.failed");
-    assert_eq!(
-        read_chunk(&region, 0, 0).unwrap().get_int("DataVersion"),
-        Some(oldest - 1)
-    );
 }
 
 #[test]

@@ -376,11 +376,6 @@ fn vanilla_server_loads_our_level_dat() {
         let data = access.get_unfixed_data_tag(false).unwrap();
         let level = PrimaryLevelData::parse(&data, SpecialWorldProperty::None);
         assert!(level.game_time >= 5_000_000);
-        assert!(
-            level.extra.is_empty(),
-            "vanilla wrote unexpected level.dat keys: {:?}",
-            level.extra
-        );
         assert_eq!(
             PrimaryLevelData::parse(&data, SpecialWorldProperty::None)
                 .to_tag_at(None, data.get_long("LastPlayed").unwrap()),

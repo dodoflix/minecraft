@@ -19,8 +19,8 @@ use std::path::{Path, PathBuf};
 use std::time::{Duration, SystemTime};
 
 use mc_core::ident::Identifier;
-use mc_datafix::{DataFixTypes, UnsupportedVersion, update_to_current};
-use mc_nbt::{CompoundTag, NbtAccounter};
+use mc_datafix::{DataFixTypes, update_to_current};
+use mc_nbt::{CompoundTag, NbtAccounter, NbtError};
 
 use super::directory_lock::DirectoryLock;
 use super::feature_flags::FeatureFlagSet;
@@ -37,10 +37,9 @@ use super::player_data_storage::PlayerDataStorage;
 use super::saved_data_storage::resolve_against;
 use super::validation::{ContentValidationException, DirectoryValidator, PathAllowList};
 use super::version::{
-    ANVIL_VERSION_ID, MCREGION_VERSION_ID, WORLD_VERSION, get_data_version, requires_file_fixing,
+    ANVIL_VERSION_ID, MCREGION_VERSION_ID, get_data_version, requires_file_fixing,
 };
 use super::world_gen_settings::WorldGenSettings;
-use crate::filefix::add_versions_to_level_data;
 
 /// `LevelStorageSource.TAG_DATA`.
 pub const TAG_DATA: &str = "Data";
@@ -103,6 +102,22 @@ impl fmt::Display for AccessError {
 }
 
 impl std::error::Error for AccessError {}
+
+/// `Throwable.toString()` of the exception `NbtIo.readCompressed(path)` throws for `e`.
+fn java_read_exception(e: &io::Error, path: &Path) -> String {
+    if e.kind() == io::ErrorKind::NotFound {
+        return format!("java.nio.file.NoSuchFileException: {}", path.display());
+    }
+    match e.get_ref().and_then(|i| i.downcast_ref::<NbtError>()) {
+        Some(NbtError::Eof) => "java.io.EOFException".to_owned(),
+        Some(NbtError::Format(m)) => format!("net.minecraft.nbt.NbtFormatException: {m}"),
+        Some(NbtError::Accounter(m)) => format!("net.minecraft.nbt.NbtAccounterException: {m}"),
+        Some(NbtError::Reported { .. }) => {
+            "net.minecraft.nbt.ReportedNbtException: Loading NBT data".to_owned()
+        }
+        _ => format!("java.io.IOException: {e}"),
+    }
+}
 
 impl From<io::Error> for AccessError {
     fn from(e: io::Error) -> Self {
@@ -260,8 +275,9 @@ impl LevelStorageSource {
         if requires_file_fixing(get_data_version(level_data_tag)) {
             return Err("Cannot get level data without file fixing first".to_owned());
         }
-        let world_gen_settings =
-            WorldGenSettings::read_existing(&world_access.get_level_path(LevelResource::ROOT));
+        let world_gen_settings = WorldGenSettings::read_existing_in_data_dir(
+            &world_access.get_level_path(LevelResource::DATA),
+        );
         let special = world_gen_settings
             .as_ref()
             .map(WorldGenSettings::special_world_property)
@@ -275,18 +291,6 @@ impl LevelStorageSource {
 
     pub fn get_name(&self) -> &'static str {
         "Anvil"
-    }
-
-    /// The tail of `FileFixerUpper.fix` for level data of a version that needs no file fixing:
-    /// `DataFixTypes.LEVEL.updateToCurrentVersion` and the stamps of the running game. `Err` for data older than the
-    /// registered fix chain.
-    pub fn fix_level_data(level_data_tag: &CompoundTag) -> Result<CompoundTag, UnsupportedVersion> {
-        let fixed = update_to_current(
-            DataFixTypes::LEVEL,
-            level_data_tag,
-            get_data_version(level_data_tag),
-        )?;
-        Ok(add_versions_to_level_data(fixed, WORLD_VERSION))
     }
 
     /// `findLevelCandidates`.
@@ -333,8 +337,10 @@ impl LevelStorageSource {
     }
 
     /// `readLevelDataTagRaw`: `NbtAccounter.uncompressedQuota()`.
+    /// The error prints as the Java exception does (`<class>: <message>`).
     pub fn read_level_data_tag_raw(data_file: &Path) -> io::Result<CompoundTag> {
         read_compressed(data_file, &mut NbtAccounter::uncompressed_quota())
+            .map_err(|e| io::Error::new(e.kind(), java_read_exception(&e, data_file)))
     }
 
     fn read_level_summary(&self, level: &LevelDirectory, locked: bool) -> LevelSummary {
@@ -369,7 +375,7 @@ impl LevelStorageSource {
                     .map_err(|e| e.to_string())?;
                 let tag = root.get_compound_or_empty(TAG_DATA);
                 let data_version = get_data_version(tag);
-                let updated = update_for_summary(DataFixTypes::LEVEL_SUMMARY, tag, data_version);
+                let updated = update_to_current(DataFixTypes::LEVEL_SUMMARY, tag, data_version);
                 LevelStorageSource::make_level_summary(&updated, level, locked, data_version)
                     .map(Some)
             })();
@@ -505,13 +511,6 @@ impl LevelStorageSource {
     }
 }
 
-/// `DataFixTypes.updateToCurrentVersion` for the level data types of the summary. Data older than the registered fix
-/// chain cannot be fixed yet: its summary is made from the tag as read, which is enough for the manual conversion and
-/// compatibility checks of the start-up (it refuses such a world right after).
-fn update_for_summary(ty: DataFixTypes, tag: &CompoundTag, data_version: i32) -> CompoundTag {
-    update_to_current(ty, tag, data_version).unwrap_or_else(|_| tag.clone())
-}
-
 /// `FileStore.getUsableSpace()` of the file system holding `path` (`u64::MAX` when unknown).
 pub fn usable_space(path: &Path) -> u64 {
     #[cfg(unix)]
@@ -627,7 +626,7 @@ impl LevelStorageAccess {
         self.check_lock()?;
         let unfixed = self.get_unfixed_data_tag(use_fallback)?;
         let data_version = get_data_version(&unfixed);
-        let fixed = update_for_summary(DataFixTypes::LEVEL, &unfixed, data_version);
+        let fixed = update_to_current(DataFixTypes::LEVEL, &unfixed, data_version);
         self.make_level_summary_checked(&fixed, data_version)
             .map(|_| ())
     }
@@ -652,7 +651,7 @@ impl LevelStorageAccess {
     pub fn fix_and_get_summary_from_tag(&self, data_tag: &CompoundTag) -> io::Result<LevelSummary> {
         self.check_lock()?;
         let data_version = get_data_version(data_tag);
-        let fixed = update_for_summary(DataFixTypes::LEVEL_SUMMARY, data_tag, data_version);
+        let fixed = update_to_current(DataFixTypes::LEVEL_SUMMARY, data_tag, data_version);
         self.make_level_summary_checked(&fixed, data_version)
     }
 
@@ -663,7 +662,7 @@ impl LevelStorageAccess {
             Ok(tag) => Ok(tag),
             Err(e) => {
                 log::warn!(
-                    "Failed to load world data from {}: {e}",
+                    "Failed to load world data from {}\n{e}",
                     self.level_directory.data_file().display()
                 );
                 log::info!(

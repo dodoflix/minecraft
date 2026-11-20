@@ -3,7 +3,6 @@
 
 use super::chunk_holder::{ChunkHolder, ChunkSlot};
 use super::chunk_io::WorkerMessage;
-use super::chunk_io_reporter::unreadable_chunk_report;
 use super::chunk_map::{ChunkMap, ChunkMapEvent};
 use crate::crash_report::ReportedException;
 use crate::world::level::chunk::LevelChunk;
@@ -50,13 +49,6 @@ impl ChunkMap {
                     self.pool.submit(move || {
                         let tag = match upgrade_level_chunk_tag(tag, &context) {
                             Ok(tag) => tag,
-                            // a chunk this server cannot read must not be replaced by a generated one: stop with the
-                            // report (`handleChunkLoadFailure` for an `Error`)
-                            Err(e) if e.unsupported => {
-                                return Some(WorkerMessage::BatchFailed(Box::new(
-                                    unreadable_chunk_report(ChunkPos::unpack(key), &e),
-                                )));
-                            }
                             Err(e) => {
                                 let result = Box::new(Err(ChunkReadException(e.to_string())));
                                 return Some(WorkerMessage::ChunkParsed { key, result });

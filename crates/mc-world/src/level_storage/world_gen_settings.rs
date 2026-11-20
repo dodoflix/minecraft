@@ -145,12 +145,22 @@ impl WorldGenSettings {
     /// `LevelStorageSource.readExistingSavedData(access, registries, WorldGenSettings.TYPE)`: reads
     /// `<world>/data/minecraft/world_gen_settings.dat`. The error string is the `DataResult` message.
     pub fn read_existing(world_dir: &Path) -> Result<WorldGenSettings, String> {
-        let data_dir = world_dir.join("data");
-        let path = SavedDataStorage::new(&data_dir)
+        WorldGenSettings::read_existing_in_data_dir(&world_dir.join("data"))
+    }
+
+    /// [`Self::read_existing`] with the `data` folder (`LevelResource.DATA`) given.
+    pub fn read_existing_in_data_dir(data_dir: &Path) -> Result<WorldGenSettings, String> {
+        let path = SavedDataStorage::new(data_dir)
             .get_data_file(&world_gen_settings_id())
             .map_err(|e| e.to_string())?;
-        let file = read_compressed(&path, &mut NbtAccounter::unlimited_heap())
-            .map_err(|e| e.to_string())?;
+        // `NoSuchFileException.getMessage()` is the path
+        let file = read_compressed(&path, &mut NbtAccounter::unlimited_heap()).map_err(|e| {
+            if e.kind() == std::io::ErrorKind::NotFound {
+                path.display().to_string()
+            } else {
+                e.to_string()
+            }
+        })?;
         WorldGenSettings::decode(&Tag::Compound(file.get_compound_or_empty("data").clone()))
     }
 

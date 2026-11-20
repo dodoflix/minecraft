@@ -2,7 +2,7 @@
 //! `HashSet` iteration order, which vanilla's list-from-set encoders expose in the written files.
 
 use mc_core::math::java::java_string_hash;
-use mc_nbt::{CompoundTag, ListTag, Tag};
+use mc_nbt::{ListTag, Tag};
 
 /// `Dynamic.get(key)`: only compounds have keys; anything else behaves like an absent field.
 pub(crate) fn get<'a>(tag: Option<&'a Tag>, key: &str) -> Option<&'a Tag> {
@@ -113,14 +113,6 @@ pub(crate) fn java_string_set_order(items: &[String]) -> Vec<String> {
             .map(|s| (java_string_hash(s), s.clone()))
             .collect(),
     )
-}
-
-/// Copy of `tag` without the keys listed in `known` (what vanilla's parse does not consume).
-pub(crate) fn without_keys(tag: &CompoundTag, known: &[&str]) -> CompoundTag {
-    tag.iter()
-        .filter(|(k, _)| !known.contains(&k.as_str()))
-        .map(|(k, v)| (k.clone(), v.clone()))
-        .collect()
 }
 
 #[cfg(test)]

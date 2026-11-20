@@ -14,6 +14,7 @@ use mc_dfu::{Dyn, Dynamic, NBT};
 use mc_nbt::{CompoundTag, NbtAccounter, Tag};
 
 use super::cow_tree::CowTree;
+use super::error::FileFixError;
 use super::ops::shown;
 use crate::level_storage::{read_compressed, write_compressed};
 use crate::region::upgrade::upgrade_chunk_tag_to;
@@ -56,15 +57,15 @@ fn read_file(
     }
 }
 
-/// `CompressedNbt.writeFile`: creates the folders and writes; a failure is logged and the file left as it is.
-fn write_file(tree: &mut CowTree, path: &Path, data: &Dynamic) {
+/// `CompressedNbt.writeFile`: creates the folders and writes; an I/O failure is logged and the file left as it is.
+/// A value that is not a compound is the `ClassCastException` of `(CompoundTag) data.cast(NbtOps.INSTANCE)`, which
+/// nothing catches.
+fn write_file(tree: &mut CowTree, path: &Path, data: &Dynamic) -> Result<(), FileFixError> {
+    let data = match data.cast(&NBT).to_tag() {
+        Ok(Tag::Compound(data)) => data,
+        other => return Err(FileFixError::Unchecked(class_cast(other.ok()))),
+    };
     let result = (|| {
-        let Ok(Tag::Compound(data)) = data.cast(&NBT).to_tag() else {
-            panic!(
-                "Cannot write a value that is not a compound to {}",
-                path.display()
-            );
-        };
         if let Some(parent) = path.parent() {
             tree.create_dir_all(parent)?;
         }
@@ -74,6 +75,29 @@ fn write_file(tree: &mut CowTree, path: &Path, data: &Dynamic) {
     if let Err(e) = result {
         log::error!("Failed to write to {}: {e}", shown(path));
     }
+    Ok(())
+}
+
+/// The message of the `ClassCastException` of casting `tag` to `CompoundTag`.
+fn class_cast(tag: Option<Tag>) -> String {
+    let class = match tag {
+        Some(Tag::End) | None => "EndTag",
+        Some(Tag::Byte(_)) => "ByteTag",
+        Some(Tag::Short(_)) => "ShortTag",
+        Some(Tag::Int(_)) => "IntTag",
+        Some(Tag::Long(_)) => "LongTag",
+        Some(Tag::Float(_)) => "FloatTag",
+        Some(Tag::Double(_)) => "DoubleTag",
+        Some(Tag::ByteArray(_)) => "ByteArrayTag",
+        Some(Tag::String(_)) => "StringTag",
+        Some(Tag::List(_)) => "ListTag",
+        Some(Tag::IntArray(_)) => "IntArrayTag",
+        Some(Tag::LongArray(_)) => "LongArrayTag",
+        Some(Tag::Compound(_)) => unreachable!("a compound casts"),
+    };
+    format!(
+        "java.lang.ClassCastException: class net.minecraft.nbt.{class} cannot be cast to class net.minecraft.nbt.CompoundTag (net.minecraft.nbt.{class} and net.minecraft.nbt.CompoundTag are in unnamed module of loader 'app')"
+    )
 }
 
 /// `NbtUtils.getDataVersion(Dynamic)`.
@@ -115,9 +139,9 @@ impl LevelDat {
         )
     }
 
-    pub fn write(&self, tree: &mut CowTree, data: &Dynamic) {
+    pub fn write(&self, tree: &mut CowTree, data: &Dynamic) -> Result<(), FileFixError> {
         let versioned = add_data_version(data, self.target_version);
-        write_file(tree, &self.path, &data.empty_map().set("Data", versioned));
+        write_file(tree, &self.path, &data.empty_map().set("Data", versioned))
     }
 }
 
@@ -148,12 +172,12 @@ impl PlayerData {
         )
     }
 
-    pub fn write(&self, tree: &mut CowTree, data: &Dynamic) {
+    pub fn write(&self, tree: &mut CowTree, data: &Dynamic) -> Result<(), FileFixError> {
         write_file(
             tree,
             &self.path,
             &add_data_version(data, self.target_version),
-        );
+        )
     }
 }
 
@@ -196,13 +220,13 @@ impl SavedDataNbt {
         )
     }
 
-    pub fn write(&self, tree: &mut CowTree, data: &Dynamic) {
+    pub fn write(&self, tree: &mut CowTree, data: &Dynamic) -> Result<(), FileFixError> {
         let data_tag = data.empty_map().set("data", data.clone());
         write_file(
             tree,
             &self.path,
             &add_data_version(&data_tag, self.target_version),
-        );
+        )
     }
 }
 

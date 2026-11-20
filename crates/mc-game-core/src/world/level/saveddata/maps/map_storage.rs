@@ -70,22 +70,12 @@ impl MapStorage {
         }
     }
 
-    /// `getFreeMapId()`. When `maps/last_id.dat` could not be read (older than the fix chain), the counter starts over
-    /// and skips the ids whose map file exists instead of overwriting them.
+    /// `getFreeMapId()`.
     pub fn get_free_map_id(&self) -> MapId {
         self.with(|storage| {
-            let index = MapIndex::type_();
-            storage.compute_if_absent(&index);
-            let refused = storage.is_refused(&index);
-            loop {
-                let id = storage.compute_if_absent(&index).get_next_map_id();
-                let file = storage
-                    .storage()
-                    .get_data_file(&MapItemSavedData::type_(id).id);
-                if !refused || !file.is_ok_and(|file| file.exists()) {
-                    return id;
-                }
-            }
+            storage
+                .compute_if_absent(&MapIndex::type_())
+                .get_next_map_id()
         })
     }
 }

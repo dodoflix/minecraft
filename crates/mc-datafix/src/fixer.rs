@@ -166,11 +166,6 @@ impl DataFixerBuilder {
     /// `build().fixer()`.
     pub fn build(self) -> DataFixer {
         DataFixer {
-            oldest_supported_version: oldest_supported_version(
-                &self.schemas,
-                &self.fixer_versions,
-                &self.file_fixer,
-            ),
             schemas: self.schemas,
             global_list: self.global_list,
             fixer_versions: self.fixer_versions,
@@ -179,48 +174,8 @@ impl DataFixerBuilder {
     }
 }
 
-/// The oldest data version [`DataFixer::update`] brings to the current one correctly: vanilla registers a data fix
-/// with every schema but its first and the schemas of its file fixes, so any other schema key without a registered
-/// fix is a fix that is not ported yet and data older than it would silently skip it (`i32::MIN` when there is none).
-/// A fix of key `v * 10 + s` is skipped by data of every version below `ceil(key / 10)`: the fixes of a sub-version
-/// still run for data of version `v`.
-fn oldest_supported_version(
-    schemas: &BTreeMap<i32, Schema>,
-    fixer_versions: &BTreeSet<i32>,
-    file_fixer: &FileFixerRegistry,
-) -> i32 {
-    schemas
-        .keys()
-        .skip(1)
-        .filter(|key| !fixer_versions.contains(key))
-        .filter(|key| !file_fixer.fixes.iter().any(|f| f.version * 10 == **key))
-        .map(|key| (key + 9).div_euclid(10))
-        .max()
-        .unwrap_or(i32::MIN)
-}
-
-/// A data version below the part of the fix chain that is registered: updating it would skip fixes.
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
-pub struct UnsupportedVersion {
-    pub from_version: i32,
-    pub oldest_supported: i32,
-}
-
-impl std::fmt::Display for UnsupportedVersion {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "Data version {} is older than the oldest version that can be upgraded ({})",
-            self.from_version, self.oldest_supported
-        )
-    }
-}
-
-impl std::error::Error for UnsupportedVersion {}
-
 /// `DataFixerUpper`.
 pub struct DataFixer {
-    oldest_supported_version: i32,
     schemas: BTreeMap<i32, Schema>,
     global_list: Vec<DataFix>,
     fixer_versions: BTreeSet<i32>,
@@ -234,23 +189,6 @@ impl DataFixer {
     pub fn clear_rule_cache(&self) {
         self.rules.lock().unwrap().clear();
         crate::ty::clear_rewrite_cache();
-    }
-
-    /// The oldest data version that [`DataFixer::update`] upgrades with every fix of the chain (`i32::MIN` once the
-    /// whole chain is registered).
-    pub fn oldest_supported_version(&self) -> i32 {
-        self.oldest_supported_version
-    }
-
-    /// `Err` when `from_version` is below [`DataFixer::oldest_supported_version`].
-    pub fn check_supported(&self, from_version: i32) -> Result<(), UnsupportedVersion> {
-        if from_version < self.oldest_supported_version {
-            return Err(UnsupportedVersion {
-                from_version,
-                oldest_supported: self.oldest_supported_version,
-            });
-        }
-        Ok(())
     }
 
     /// The keys of the registered schemas, ascending.

@@ -25,9 +25,10 @@ use crate::server::world_loader::{
     DataLoadContext, DataLoadOutput, PackConfig, WorldLoadError, WorldStem, load,
 };
 use mc_nbt::CompoundTag;
+use mc_world::filefix::{UpgradeProgress, file_fixer};
 use mc_world::level_storage::{
     DifficultySettings, FeatureFlagSet, GameType, LevelResource, LevelSettings, LevelStorageSource,
-    PrimaryLevelData, WorldDataConfiguration, WorldGenSettings, WorldOptions, get_data_version,
+    PrimaryLevelData, WorldDataConfiguration, WorldGenSettings, WorldOptions,
 };
 use mc_worldgen::flat::FlatLevelGeneratorSettings;
 use serde_json::Value;
@@ -53,21 +54,6 @@ fn demo_world_options() -> WorldOptions {
         true,
         true,
     )
-}
-
-/// Oldest `DataVersion` this server can bring to the current version for now. Older worlds are refused at start-up
-/// until the data fixer chain and the file fixer cover them; the floor goes down as they do and disappears with the
-/// last one.
-pub const OLDEST_SUPPORTED_DATA_VERSION: i32 = 4899;
-
-/// `Err` with the refusal when a world saved at `data_version` (`-1` without a `DataVersion`) is below the floor.
-fn check_supported_data_version(data_version: i32) -> Result<(), String> {
-    if data_version < OLDEST_SUPPORTED_DATA_VERSION {
-        return Err(format!(
-            "This world was saved by an older version (data version {data_version}) than this server can upgrade yet (oldest supported: {OLDEST_SUPPORTED_DATA_VERSION})"
-        ));
-    }
-    Ok(())
 }
 
 /// `LOGGER.error(FATAL_MARKER, "Failed to start the minecraft server", e)`.
@@ -157,7 +143,7 @@ fn prepare(
         .unwrap_or_else(|| properties.level_name.clone());
     let level_storage_source =
         LevelStorageSource::create_default(&universe).map_err(|e| e.to_string())?;
-    let access = level_storage_source
+    let mut access = level_storage_source
         .validate_and_create_access(&level_name)
         .map_err(|e| e.to_string())?;
 
@@ -185,8 +171,12 @@ fn prepare(
             log::info!("This world was created by an incompatible version.");
             return Ok(None);
         }
-        check_supported_data_version(get_data_version(&unfixed))?;
-        Some(LevelStorageSource::fix_level_data(&unfixed).map_err(|e| e.to_string())?)
+        // an exception of the file fixer is not caught: it ends in the catch of `Main.main`
+        Some(
+            file_fixer()
+                .fix(&mut access, unfixed, &UpgradeProgress::default())
+                .map_err(|e| e.to_string())?,
+        )
     } else {
         None
     };
@@ -259,9 +249,8 @@ fn prepare(
         world_data,
     } = world_stem;
     let WorldDataAndGenSettings { data, gen_settings } = world_data;
-    if let Err(e) = access.save_data_tag(&data, None) {
-        return Err(format!("Failed to save the level data: {e}"));
-    }
+    // `saveDataTag` logs a failure to save (`Failed to save level`) and the start goes on
+    let _ = access.save_data_tag(&data, None);
     let player_data_storage = access.create_player_storage().map_err(|e| e.to_string())?;
 
     let console_input = ConsoleInputQueue::new();
@@ -361,7 +350,7 @@ fn world_data_supplier(
     level_data_tag: Option<&CompoundTag>,
     properties: &DedicatedServerProperties,
     options: &ServerOptions,
-) -> DataLoadOutput<WorldDataAndGenSettings> {
+) -> Result<DataLoadOutput<WorldDataAndGenSettings>, String> {
     let decoder =
         DimensionDecoder::new(&context.datapack_world_registries).unwrap_or_else(|e| panic!("{e}"));
     let datapack_dimensions: Option<&Registry> = context
@@ -390,13 +379,26 @@ fn world_data_supplier(
                         dimensions,
                     ))
                 });
-            let (gen_settings, dimensions) = stored.unwrap_or_else(|e| {
-                log::error!("Unable to read or access the world gen settings file! Falling back to the default settings with a random world seed. {e}");
-                let dimensions = datapack_dimensions
-                    .map(|registry| WorldDimensions::from_registry(&decoder, registry).unwrap_or_else(|e| panic!("{e}")))
-                    .expect("the datapack dimensions registry is loaded");
-                (WorldGenSettings { options: random_world_options(), dimensions: dimensions.to_stored() }, dimensions)
-            });
+            let (gen_settings, dimensions) = match stored {
+                Ok(stored) => stored,
+                Err(e) => {
+                    log::error!(
+                        "Unable to read or access the world gen settings file! Falling back to the default settings with a random world seed. {e}"
+                    );
+                    // `new WorldDimensions(datapackDimensions)` throws without an overworld stem
+                    let dimensions = datapack_dimensions
+                        .map(|registry| WorldDimensions::from_registry(&decoder, registry))
+                        .expect("the datapack dimensions registry is loaded")
+                        .map_err(|e| format!("java.lang.IllegalStateException: {e}"))?;
+                    (
+                        WorldGenSettings {
+                            options: random_world_options(),
+                            dimensions: dimensions.to_stored(),
+                        },
+                        dimensions,
+                    )
+                }
+            };
             (result.world_data, gen_settings, dimensions)
         }
         None => {
@@ -415,10 +417,10 @@ fn world_data_supplier(
         .unwrap_or_else(|e| panic!("{e}"));
     let mut data = data;
     data.special_world_property = complete.special_world_property;
-    DataLoadOutput {
+    Ok(DataLoadOutput {
         cookie: WorldDataAndGenSettings { data, gen_settings },
         final_dimensions: complete.dimensions,
-    }
+    })
 }
 
 fn random_world_options() -> WorldOptions {
@@ -562,20 +564,6 @@ fn create_dimensions(
 mod tests {
     use super::*;
 
-    #[test]
-    fn worlds_below_the_floor_are_refused() {
-        for version in [-1, 0, 99, 4771, 4772, OLDEST_SUPPORTED_DATA_VERSION - 1] {
-            let error = check_supported_data_version(version).unwrap_err();
-            assert!(
-                error.contains(&format!("data version {version})")),
-                "{error}"
-            );
-        }
-        for version in [OLDEST_SUPPORTED_DATA_VERSION, 5022, 5023, 9999] {
-            assert_eq!(check_supported_data_version(version), Ok(()), "{version}");
-        }
-    }
-
     // ---- start-up routing of the level data --------------------------------------------------------------------
 
     thread_local! {
@@ -663,7 +651,7 @@ mod tests {
 
     #[test]
     fn a_mcregion_or_foreign_series_world_stops_the_start_with_the_vanilla_message() {
-        // older than the floor too: the summary comes first, as in vanilla
+        // older than the current version too: the summary comes first, as in vanilla
         for (data, text) in [
             (
                 level_data(5000, Some(19132), "main"),
@@ -694,12 +682,5 @@ mod tests {
             )),
             "{logged:?}"
         );
-    }
-
-    #[test]
-    fn a_world_below_the_floor_is_refused_after_the_summary_checks() {
-        let (result, _) = launch_on_level_dat(Ok(level_data(4000, Some(19133), "main")));
-        let error = result.expect_err("refused");
-        assert!(error.contains("data version 4000)"), "{error}");
     }
 }

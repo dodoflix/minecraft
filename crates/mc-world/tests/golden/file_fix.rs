@@ -515,3 +515,28 @@ fn an_upgrade_killed_on_a_file_system_without_hard_links_is_continued_to_the_wor
         );
     }
 }
+
+/// `(CompoundTag) data.cast(NbtOps.INSTANCE)` of a single player that is not a compound throws a `ClassCastException`
+/// that nothing catches: the upgrade ends, the staging folder is cleaned up and the world is as it was.
+#[test]
+fn a_player_that_is_not_a_compound_ends_the_upgrade_like_a_class_cast_exception() {
+    let dir = tempfile::tempdir().unwrap();
+    let world = dir.path().join("world");
+    fs::create_dir_all(&world).unwrap();
+    let mut data = CompoundTag::new();
+    data.put_int("DataVersion", 4000);
+    data.put_int("Player", 5);
+    let mut root = CompoundTag::new();
+    root.put("Data", Tag::Compound(data));
+    mc_world::level_storage::write_compressed(&root, &world.join("level.dat")).unwrap();
+    let source = LevelStorageSource::create_default(dir.path()).unwrap();
+    let error = fix_world(&source, file_fixer()).unwrap_err();
+    assert!(
+        matches!(&error, FileFixError::Unchecked(m) if m.starts_with(
+            "java.lang.ClassCastException: class net.minecraft.nbt.IntTag cannot be cast to class net.minecraft.nbt.CompoundTag"
+        )),
+        "{error:?}"
+    );
+    assert!(!world.join("filefix").exists());
+    assert!(world.join("level.dat").is_file());
+}

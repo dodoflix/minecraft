@@ -2,8 +2,6 @@
 //! `<name>.json` migration) and the shared JSON writer of the per-player files (`players/advancements/<uuid>.json` is
 //! `crate::advancements::PlayerAdvancements`).
 
-use mc_datafix::UnsupportedVersion;
-use mc_dfu::{Dyn, Dynamic, JSON};
 use serde_json::Value;
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -34,16 +32,6 @@ pub(crate) fn save_json(file: &Path, json: &Value) -> std::io::Result<()> {
         fs::create_dir_all(parent)?;
     }
     fs::write(file, to_gson_pretty(json))
-}
-
-/// `NbtUtils.getDataVersion(data, 1343)` of a stats or advancements file, checked against the registered part of the
-/// fix chain. Vanilla's fixer throws for a version it cannot upgrade and that exception leaves the load (the
-/// `IOException`/`JsonParseException` handlers do not catch it), so the player's join fails and the file stays as it is.
-pub(crate) fn check_file_version(json: &Dyn) -> Result<(), UnsupportedVersion> {
-    let version = Dynamic::new(JSON, json.clone())
-        .get("DataVersion")
-        .as_int_or(1343);
-    mc_datafix::data_fixer().check_supported(version)
 }
 
 /// `PlayerList.locateStatsFile`: `<uuid>.json`, migrating a legacy `<name>.json` (`FileUtil.isValidPathSegment`).

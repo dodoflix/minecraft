@@ -25,12 +25,12 @@ fn extract_to_file(
     target: &crate::filefix::SavedDataNbt,
     content: Dynamic,
     key: &str,
-) -> Dynamic {
+) -> Result<Dynamic, FileFixError> {
     match content.get(key).result() {
-        None => content,
+        None => Ok(content),
         Some(tag) => {
-            target.write(ctx.tree, &tag);
-            content.remove(key)
+            target.write(ctx.tree, &tag)?;
+            Ok(content.remove(key))
         }
     }
 }
@@ -41,7 +41,7 @@ fn extract_world_border_to_file(
     target: &crate::filefix::SavedDataNbt,
     content: &Dynamic,
     divider: f64,
-) {
+) -> Result<(), FileFixError> {
     if let Some(world_border_tag) = content.get("world_border").result() {
         let world_border_tag = world_border_tag
             .update("center_x", |x| {
@@ -50,8 +50,9 @@ fn extract_world_border_to_file(
             .update("center_z", |z| {
                 z.create_double(z.as_double_or(0.0) / divider)
             });
-        target.write(ctx.tree, &world_border_tag);
+        target.write(ctx.tree, &world_border_tag)?;
     }
+    Ok(())
 }
 
 pub fn new(version: i32) -> FileFix {
@@ -107,25 +108,25 @@ pub fn new(version: i32) -> FileFix {
         let Some(mut content) = level_dat.read(ctx.tree)? else {
             return Ok(());
         };
-        content = extract_to_file(ctx, &dragon_fight, content, "dragon_fight");
-        content = extract_player_data_to_file(ctx, &fallback_player_data, content);
+        content = extract_to_file(ctx, &dragon_fight, content, "dragon_fight")?;
+        content = extract_player_data_to_file(ctx, &fallback_player_data, content)?;
         content = extract_to_file(
             ctx,
             &wandering_trader,
             content,
             "wandering_trader_migration_data",
-        );
-        content = extract_to_file(ctx, &custom_boss_events, content, "CustomBossEvents");
-        content = extract_to_file(ctx, &weather_data, content, "weather_data");
-        content = extract_to_file(ctx, &scheduled_events, content, "scheduled_events");
-        extract_world_border_to_file(ctx, &world_border_overworld, &content, 1.0);
-        extract_world_border_to_file(ctx, &world_border_nether, &content, 8.0);
-        extract_world_border_to_file(ctx, &world_border_end, &content, 1.0);
+        )?;
+        content = extract_to_file(ctx, &custom_boss_events, content, "CustomBossEvents")?;
+        content = extract_to_file(ctx, &weather_data, content, "weather_data")?;
+        content = extract_to_file(ctx, &scheduled_events, content, "scheduled_events")?;
+        extract_world_border_to_file(ctx, &world_border_overworld, &content, 1.0)?;
+        extract_world_border_to_file(ctx, &world_border_nether, &content, 8.0)?;
+        extract_world_border_to_file(ctx, &world_border_end, &content, 1.0)?;
         content = content.remove("world_border");
-        content = extract_to_file(ctx, &game_rules, content, "game_rules");
-        content = extract_world_gen_settings_to_file(ctx, &world_gen_settings, content);
-        content = extract_to_file(ctx, &world_clocks, content, "world_clocks");
-        level_dat.write(ctx.tree, &content);
+        content = extract_to_file(ctx, &game_rules, content, "game_rules")?;
+        content = extract_world_gen_settings_to_file(ctx, &world_gen_settings, content)?;
+        content = extract_to_file(ctx, &world_clocks, content, "world_clocks")?;
+        level_dat.write(ctx.tree, &content)?;
         Ok(())
     });
     fix
@@ -137,9 +138,9 @@ fn extract_player_data_to_file(
     ctx: &mut ContentContext<'_>,
     fallback_file: &crate::filefix::PlayerData,
     content: Dynamic,
-) -> Dynamic {
+) -> Result<Dynamic, FileFixError> {
     let Some(player_tag) = content.get("Player").result() else {
-        return content;
+        return Ok(content);
     };
     let data_version = player_tag.get("DataVersion").as_int_or(-1);
     let player_tag_fixed =
@@ -147,11 +148,11 @@ fn extract_player_data_to_file(
     let used_uuid = match player_tag_fixed.get("UUID").result() {
         Some(uuid) => uuid,
         None => {
-            fallback_file.write(ctx.tree, &player_tag_fixed);
+            fallback_file.write(ctx.tree, &player_tag_fixed)?;
             content.create_int_list([0, 0, 0, 0])
         }
     };
-    content.remove("Player").set("singleplayer_uuid", used_uuid)
+    Ok(content.remove("Player").set("singleplayer_uuid", used_uuid))
 }
 
 /// `extractWorldGenSettingsToFile`.
@@ -159,9 +160,9 @@ fn extract_world_gen_settings_to_file(
     ctx: &mut ContentContext<'_>,
     target: &crate::filefix::SavedDataNbt,
     content: Dynamic,
-) -> Dynamic {
+) -> Result<Dynamic, FileFixError> {
     let Some(world_gen_settings_tag) = content.get("world_gen_settings").result() else {
-        return content;
+        return Ok(content);
     };
     let data_version = content.get("DataVersion").as_int_or(-1);
     let fixed = DataFixTypes::WORLD_GEN_SETTINGS.update(
@@ -170,6 +171,6 @@ fn extract_world_gen_settings_to_file(
         data_version,
         ctx.data_version,
     );
-    target.write(ctx.tree, &fixed);
-    content.remove("world_gen_settings")
+    target.write(ctx.tree, &fixed)?;
+    Ok(content.remove("world_gen_settings"))
 }

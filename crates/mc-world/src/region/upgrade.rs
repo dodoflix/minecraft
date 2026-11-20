@@ -15,9 +15,6 @@ pub struct ChunkUpgradeError {
     pub target_version: i32,
     /// What the fixer threw.
     pub cause: String,
-    /// The tag is older than the fix chain this server has registered: nothing was tried, and the stored tag is in a shape
-    /// this server cannot read (a caller that would replace it must stop instead).
-    pub unsupported: bool,
 }
 
 impl fmt::Display for ChunkUpgradeError {
@@ -27,12 +24,6 @@ impl fmt::Display for ChunkUpgradeError {
 }
 
 impl std::error::Error for ChunkUpgradeError {}
-
-/// The oldest data version the registered fix chain can bring to the current one (`i32::MIN` once it covers all): older
-/// tags are refused with [`ChunkUpgradeError::unsupported`].
-pub fn oldest_supported_data_version() -> i32 {
-    data_fixer().oldest_supported_version()
-}
 
 /// `ChunkMap.getChunkDataFixContextTag(dimension, generatorIdentifier)`: the tag the chunk fixes read their dimension and
 /// generator from.
@@ -172,15 +163,11 @@ pub fn upgrade_chunk_tag(
 /// Why one update did not produce a tag.
 struct Failure {
     cause: String,
-    unsupported: bool,
 }
 
 impl Failure {
     fn thrown(cause: String) -> Self {
-        Failure {
-            cause,
-            unsupported: false,
-        }
+        Failure { cause }
     }
 
     fn into_error(self, data_version: i32, target_version: i32) -> ChunkUpgradeError {
@@ -188,18 +175,12 @@ impl Failure {
             data_version,
             target_version,
             cause: self.cause,
-            unsupported: self.unsupported,
         }
     }
 }
 
-/// `DataFixTypes.update(fixer, tag, from, to)` with what the fixer throws, or the refusal of a version below the
-/// registered fix chain, as the error text.
+/// `DataFixTypes.update(fixer, tag, from, to)` with what the fixer throws as the error text.
 fn update(ty: DataFixTypes, tag: &CompoundTag, from: i32, to: i32) -> Result<CompoundTag, Failure> {
-    data_fixer().check_supported(from).map_err(|e| Failure {
-        cause: e.to_string(),
-        unsupported: true,
-    })?;
     unwinding(|| ty.update_tag(data_fixer(), tag, from, to))
 }
 
@@ -246,7 +227,6 @@ mod tests {
                 data_version: 4900,
                 target_version: 5023,
                 cause: "boom".to_owned(),
-                unsupported: false
             }
         );
     }
@@ -300,19 +280,5 @@ mod tests {
             assert_eq!(out, input, "{version:?}");
             assert_eq!(out.get_int("DataVersion"), version);
         }
-    }
-
-    #[test]
-    fn a_chunk_older_than_the_chain_is_refused_with_an_error() {
-        let oldest = data_fixer().oldest_supported_version();
-        if oldest == i32::MIN {
-            return; // the whole chain is registered
-        }
-        let error =
-            upgrade_chunk_tag_to(DataFixTypes::CHUNK, tag(Some(oldest - 1)), -1, None, 5023)
-                .unwrap_err();
-        assert_eq!(error.data_version, oldest - 1);
-        assert!(error.unsupported);
-        assert!(error.cause.contains(&(oldest - 1).to_string()), "{error}");
     }
 }

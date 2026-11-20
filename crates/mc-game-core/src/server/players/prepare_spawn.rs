@@ -26,7 +26,6 @@ use crate::world::level::gamerules::GameRules;
 use mc_core::phys::{Vec2, Vec3};
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::enums::{EntitySpawnReason, GameType};
-use mc_datafix::UnsupportedVersion;
 use mc_nbt::CompoundTag;
 use mc_protocol::codec::GameProfile;
 use std::sync::Arc;
@@ -106,11 +105,11 @@ impl PrepareSpawnTask {
         }
     }
 
-    /// `PrepareSpawnTask.start`: a player file the fixer cannot upgrade ends the task with an error (vanilla's exception).
-    fn start_world(&mut self, server: &mut MinecraftServer) -> Result<(), UnsupportedVersion> {
+    /// `PrepareSpawnTask.start`.
+    fn start_world(&mut self, server: &mut MinecraftServer) {
         let loaded = server
             .player_list
-            .load_player_data_with_position(&self.name_and_id)?;
+            .load_player_data_with_position(&self.name_and_id);
         self.saved = loaded.data;
         let respawn = server.world_data.lock().respawn_data.clone();
         let level = loaded
@@ -150,7 +149,6 @@ impl PrepareSpawnTask {
             spawn,
             angle,
         });
-        Ok(())
     }
 
     /// Advances the search; `Some(position)` once found.
@@ -245,7 +243,7 @@ fn calculate_game_mode_for_new_player(
 impl PrepareSpawn for PrepareSpawnTask {
     fn start(&mut self, server: &mut dyn ServerHandle) -> Result<(), TaskError> {
         let server = real(server)?;
-        self.start_world(server)?;
+        self.start_world(server);
         Ok(())
     }
 
@@ -371,7 +369,7 @@ impl PrepareSpawn for PrepareSpawnTask {
                 enforce_secure_profile: Arc::new(move || settings.enforces_secure_profile()),
             };
             let mut host = ServerJoinHost { server, level };
-            let handle = place_new_player(&mut host, player, pending.sender, params)?;
+            let handle = place_new_player(&mut host, player, pending.sender, params);
             load_and_spawn_ender_pearls(server, level, handle.id);
             load_and_spawn_parent_vehicle(level, handle.id);
             Ok(())

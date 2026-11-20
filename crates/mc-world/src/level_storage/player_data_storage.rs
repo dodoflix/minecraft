@@ -6,7 +6,7 @@ use std::fs;
 use std::io;
 use std::path::{Path, PathBuf};
 
-use mc_datafix::{DataFixTypes, UnsupportedVersion, update_to_current};
+use mc_datafix::{DataFixTypes, update_to_current};
 use mc_nbt::{CompoundTag, NbtAccounter};
 use uuid::Uuid;
 
@@ -84,17 +84,13 @@ impl PlayerDataStorage {
 
     /// `load(nameAndId)`: `<uuid>.dat`; if that is unreadable, back it up and fall back to `<uuid>.dat_old`; the file
     /// found is upgraded to the current version (`DataFixTypes.PLAYER`).
-    ///
-    /// A file older than the registered part of the fix chain cannot be upgraded: like the exception of vanilla's fixer
-    /// the error leaves `load` and the files stay as they are.
-    pub fn load(&self, uuid: &Uuid, name: &str) -> Result<Option<CompoundTag>, UnsupportedVersion> {
+    pub fn load(&self, uuid: &Uuid, name: &str) -> Option<CompoundTag> {
         let tag = self.load_suffix(uuid, name, ".dat");
         if tag.is_none() {
             self.backup(uuid, name, ".dat");
         }
         tag.or_else(|| self.load_suffix(uuid, name, ".dat_old"))
             .map(|tag| update_to_current(DataFixTypes::PLAYER, &tag, get_data_version(&tag)))
-            .transpose()
     }
 }
 
@@ -108,7 +104,7 @@ mod tests {
         let dir = tempfile::tempdir().unwrap();
         let storage = PlayerDataStorage::new(dir.path().join("players/data"));
         let uuid = Uuid::from_u128(0x1234_5678_9abc_def0_1122_3344_5566_7788);
-        assert!(storage.load(&uuid, "Bob").unwrap().is_none());
+        assert!(storage.load(&uuid, "Bob").is_none());
 
         storage
             .save(&uuid, CompoundTag::new().with("Health", Tag::float(20.0)))
@@ -116,7 +112,7 @@ mod tests {
         storage
             .save(&uuid, CompoundTag::new().with("Health", Tag::float(10.0)))
             .unwrap();
-        let tag = storage.load(&uuid, "Bob").unwrap().unwrap();
+        let tag = storage.load(&uuid, "Bob").unwrap();
         assert_eq!(tag.get_float("Health"), Some(10.0));
         assert_eq!(tag.get_int("DataVersion"), Some(5023));
         let old = read_compressed(
@@ -130,7 +126,7 @@ mod tests {
 
         // corrupt .dat -> backed up copy + fallback to .dat_old
         fs::write(storage.player_dir().join(format!("{uuid}.dat")), b"garbage").unwrap();
-        let fallback = storage.load(&uuid, "Bob").unwrap().unwrap();
+        let fallback = storage.load(&uuid, "Bob").unwrap();
         assert_eq!(fallback.get_float("Health"), Some(20.0));
         let corrupted = fs::read_dir(storage.player_dir())
             .unwrap()
@@ -163,11 +159,8 @@ mod tests {
         let uuid = Uuid::from_u128(7);
         let old = pot_player(4995);
         write_player(&storage, &uuid, &old);
-        let loaded = storage.load(&uuid, "Bob").unwrap().unwrap();
-        assert_eq!(
-            loaded,
-            update_to_current(DataFixTypes::PLAYER, &old, 4995).unwrap()
-        );
+        let loaded = storage.load(&uuid, "Bob").unwrap();
+        assert_eq!(loaded, update_to_current(DataFixTypes::PLAYER, &old, 4995));
         assert_ne!(loaded, old);
         let decorations = loaded
             .get_list("Inventory")
@@ -176,24 +169,5 @@ mod tests {
             .and_then(|c| c.get("minecraft:pot_decorations"))
             .unwrap();
         assert!(matches!(decorations, Tag::Compound(_)), "{decorations:?}");
-    }
-
-    #[test]
-    fn a_file_below_the_chain_fails_the_load_and_stays_untouched() {
-        let oldest = mc_datafix::data_fixer().oldest_supported_version();
-        if oldest == i32::MIN {
-            return;
-        }
-        let dir = tempfile::tempdir().unwrap();
-        let storage = PlayerDataStorage::new(dir.path().join("players/data"));
-        let uuid = Uuid::from_u128(8);
-        write_player(&storage, &uuid, &pot_player(oldest - 1));
-        let file = storage.player_dir().join(format!("{uuid}.dat"));
-        let before = fs::read(&file).unwrap();
-        let err = storage.load(&uuid, "Bob").unwrap_err();
-        assert_eq!(err.from_version, oldest - 1);
-        // no backup, no rotation: the only file is the unchanged player file
-        assert_eq!(fs::read(&file).unwrap(), before);
-        assert_eq!(fs::read_dir(storage.player_dir()).unwrap().count(), 1);
     }
 }

@@ -4,12 +4,12 @@
 #
 #   Usage: scripts/datafix-world-dual.sh [--nightly | --all | ID...] [--normal-worlds] [--cases CASE[,CASE..]] [--keep DIR]
 #
-#   ID...            corpus worlds by version id (see scripts/datafix-worlds.sh --list); default: every corpus version this
-#                    server accepts (the versions at or above its start-up floor)
-#   --nightly        1.12.2, 1.16.5, 1.20.4 and 1.21.11 (every run ends in a finding while the server's start-up floor is above them)
+#   ID...            corpus worlds by version id (see scripts/datafix-worlds.sh --list)
+#   --nightly        1.12.2, 1.16.5, 1.20.4 and 1.21.11 (the default)
 #   --all            every version of crates/mc-datafix/tests/fixtures/versions.tsv
 #   --normal-worlds  also the seed-12345 worlds (<id>-normal), not only the flat scripted ones
-#   --cases LIST     normal, newer, legacy-users (default: all of them)
+#   --cases LIST     normal, newer, legacy-users, gates, resume (default: all of them; gates = the start-up checks on
+#                    hand-made level.dat files, resume = a world with an interrupted file fix; neither takes the worlds)
 #   --keep DIR       keep both server directories of every run under DIR/<case>/<world>/{vanilla,ours}
 #
 # The cases are the tests of crates/mc-server/tests/oracle/{world_start,legacy_users}.rs; what they compare and what they
@@ -26,7 +26,7 @@ help_flag "$@"
 need cargo java
 require_eula
 
-worlds=supported kinds=flat cases="" ids=()
+worlds=1.12.2,1.16.5,1.20.4,1.21.11 kinds=flat cases="" ids=()
 while [ $# -gt 0 ]; do
   case $1 in
     --nightly) worlds=1.12.2,1.16.5,1.20.4,1.21.11 ;;
@@ -48,12 +48,14 @@ test_for() {
     normal) echo world_start::normal_start ;;
     newer) echo world_start::world_newer_than_the_current_version ;;
     legacy-users) echo legacy_users:: ;;
+    gates) echo startup_gates:: ;;
+    resume) echo file_fix_resume:: ;;
     *) die "unknown case $1" ;;
   esac
 }
 
 filters=()
-for c in $(echo "${cases:-normal,newer,legacy-users}" | tr , ' '); do
+for c in $(echo "${cases:-normal,newer,legacy-users,gates,resume}" | tr , ' '); do
   filters+=("$(test_for "$c")")
 done
 cd "$ROOT"

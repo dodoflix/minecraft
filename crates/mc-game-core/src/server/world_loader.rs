@@ -65,6 +65,8 @@ pub struct DataLoadOutput<D> {
 pub enum WorldLoadError {
     Registries(RegistryLoadFailure),
     Reload(ReloadError),
+    /// An exception the `WorldDataSupplier` threw: `<class>: <message>`.
+    Thrown(String),
 }
 
 impl std::fmt::Display for WorldLoadError {
@@ -72,6 +74,7 @@ impl std::fmt::Display for WorldLoadError {
         match self {
             WorldLoadError::Registries(e) => e.fmt(f),
             WorldLoadError::Reload(e) => e.fmt(f),
+            WorldLoadError::Thrown(e) => f.write_str(e),
         }
     }
 }
@@ -111,6 +114,7 @@ impl WorldLoadError {
                     WorldLoadError::Reload(e) => format!(
                         "net.minecraft.ReportedException: Failed to load registries due to errors: {e}"
                     ),
+                    WorldLoadError::Thrown(e) => e.clone(),
                 }
             )
         );
@@ -153,7 +157,7 @@ impl<D> WorldStem<D> {
 /// Returns the result of `result_factory` and the data configuration chosen by the pack selection (to persist in `level.dat`).
 pub fn load<D, R>(
     config: &mut PackConfig,
-    world_data_supplier: impl FnOnce(&DataLoadContext) -> DataLoadOutput<D>,
+    world_data_supplier: impl FnOnce(&DataLoadContext) -> Result<DataLoadOutput<D>, String>,
     result_factory: impl FnOnce(
         MultiPackResourceManager,
         ReloadableServerResources,
@@ -176,7 +180,7 @@ fn load_with_resources<D, R>(
     world_data_configuration: &WorldDataConfiguration,
     function_compilation_permissions: &PermissionSet,
     resources: MultiPackResourceManager,
-    world_data_supplier: impl FnOnce(&DataLoadContext) -> DataLoadOutput<D>,
+    world_data_supplier: impl FnOnce(&DataLoadContext) -> Result<DataLoadOutput<D>, String>,
     result_factory: impl FnOnce(
         MultiPackResourceManager,
         ReloadableServerResources,
@@ -197,7 +201,8 @@ fn load_with_resources<D, R>(
             data_configuration: world_data_configuration,
             datapack_world_registries: dimension_context_registries,
             datapack_dimensions: initial_worldgen_dimensions,
-        });
+        })
+        .map_err(WorldLoadError::Thrown)?;
         let resources_load_context = initial_layers.replace_from(RegistryLayer::World, vec![loaded_world_registries, world_data_and_registries.final_dimensions]);
         let enabled: FeatureFlagSet = world_data_configuration.enabled_features;
         let mut managers = ReloadableServerResources::load_resources(&resources, &resources_load_context, static_layer_tags, enabled, function_compilation_permissions)?;

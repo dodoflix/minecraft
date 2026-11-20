@@ -64,7 +64,6 @@ fn fixture_level_dat_round_trips_exactly() {
     assert_eq!(p.settings.game_type, GameType::Creative);
     assert_eq!(p.version, 19133);
     assert_eq!(p.version_history, vec![5023]);
-    assert!(p.extra.is_empty());
     assert_eq!(p.respawn_data.pos.x(), 96);
 }
 

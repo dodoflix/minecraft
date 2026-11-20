@@ -1,7 +1,5 @@
 //! `net.minecraft.world.level.entity.PersistentEntitySectionManager` + `EntityLookup` + `LevelEntityGetterAdapter`.
 use super::{EntitySectionStorage, EntityTickList, Visibility};
-use crate::crash_report::ReportedException;
-use crate::server::level::chunk_io_reporter::unreadable_chunk_report;
 use crate::world::entity::{Entity, EntityId, RemovalReason, entity as entity_mod};
 use indexmap::{IndexMap, IndexSet};
 use mc_core::phys::AABB;
@@ -376,12 +374,6 @@ impl PersistentEntitySectionManager {
         }
         match result {
             Ok(loaded) => self.loading_inbox.push_back(loaded.chunk),
-            Err(EntityLoadError::Upgrade { error, .. }) if error.unsupported => {
-                // an entity chunk this server cannot read stops it like the chunk and POI of that place (the next request
-                // stops again if a handler swallows this one)
-                self.chunk_load_statuses.remove(&chunk_key);
-                ReportedException::throw(unreadable_chunk_report(pos, &error))
-            }
             Err(e) => {
                 // only a failed read is reported (`reportLoadFailureIfPresent` is attached to the read, not to the data fix)
                 if let EntityLoadError::Io(_) = &e {

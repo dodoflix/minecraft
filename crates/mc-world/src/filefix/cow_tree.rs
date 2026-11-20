@@ -15,6 +15,7 @@ use std::io;
 use std::path::{Component, Path, PathBuf};
 
 use super::error::FileMove;
+use super::ops::shown;
 use crate::level_storage::safe_move_file;
 
 /// The `CowFS*Exception` classes: the message is the Java message; carried as the payload of the [`io::Error`]
@@ -275,7 +276,7 @@ impl CowTree {
     fn dir_mut(
         &mut self,
         names: &[String],
-        shown: &Path,
+        shown_path: &Path,
     ) -> io::Result<&mut BTreeMap<String, Node>> {
         let mut dir = &mut self.root;
         for name in names {
@@ -284,11 +285,11 @@ impl CowTree {
                 Some(Node::File { .. }) => {
                     return Err(CowFsError::NotDirectory(format!(
                         "{} was a file, expected directory",
-                        shown.display()
+                        shown(shown_path)
                     ))
                     .into());
                 }
-                None => return Err(CowFsError::NoSuchFile(shown.display().to_string()).into()),
+                None => return Err(CowFsError::NoSuchFile(shown(shown_path)).into()),
             }
         }
         Ok(dir)
@@ -318,10 +319,10 @@ impl CowTree {
             Some(Node::Dir(children)) => Ok(children.keys().cloned().collect()),
             Some(Node::File { .. }) => Err(CowFsError::NotDirectory(format!(
                 "{} was a file, expected directory",
-                path.display()
+                shown(path)
             ))
             .into()),
-            None => Err(CowFsError::NoSuchFile(path.display().to_string()).into()),
+            None => Err(CowFsError::NoSuchFile(shown(path)).into()),
         }
     }
 
@@ -329,12 +330,12 @@ impl CowTree {
     pub fn create_dir(&mut self, path: &Path) -> io::Result<()> {
         let mut names = names(path);
         let Some(name) = names.pop() else {
-            return Err(CowFsError::FileAlreadyExists(path.display().to_string()).into());
+            return Err(CowFsError::FileAlreadyExists(shown(path)).into());
         };
         let parent = path.parent().unwrap_or(Path::new(""));
         let dir = self.dir_mut(&names, parent)?;
         if dir.contains_key(&name) {
-            return Err(CowFsError::FileAlreadyExists(path.display().to_string()).into());
+            return Err(CowFsError::FileAlreadyExists(shown(path)).into());
         }
         dir.insert(name, Node::Dir(BTreeMap::new()));
         Ok(())
@@ -351,7 +352,7 @@ impl CowTree {
             match node {
                 Node::Dir(children) => dir = children,
                 Node::File { .. } => {
-                    return Err(CowFsError::FileAlreadyExists(path.display().to_string()).into());
+                    return Err(CowFsError::FileAlreadyExists(shown(path)).into());
                 }
             }
         }
@@ -368,15 +369,15 @@ impl CowTree {
         let dir = self.dir_mut(&names, parent).map_err(|e| {
             // A path below a missing or non-directory parent does not exist.
             if e.kind() == io::ErrorKind::NotFound || e.kind() == io::ErrorKind::NotADirectory {
-                CowFsError::NoSuchFile(path.display().to_string()).into()
+                CowFsError::NoSuchFile(shown(path)).into()
             } else {
                 e
             }
         })?;
         match dir.get(&name) {
-            None => return Err(CowFsError::NoSuchFile(path.display().to_string()).into()),
+            None => return Err(CowFsError::NoSuchFile(shown(path)).into()),
             Some(Node::Dir(children)) if !children.is_empty() => {
-                return Err(CowFsError::DirectoryNotEmpty(path.display().to_string()).into());
+                return Err(CowFsError::DirectoryNotEmpty(shown(path)).into());
             }
             Some(Node::File {
                 storage,
@@ -409,16 +410,16 @@ impl CowTree {
         if from_names.is_empty() {
             return Err(CowFsError::FileSystem(format!(
                 "{}: can't move root directory",
-                from.display()
+                shown(from)
             ))
             .into());
         }
         if self.node(&from_names).is_none() {
-            return Err(CowFsError::NoSuchFile(from.display().to_string()).into());
+            return Err(CowFsError::NoSuchFile(shown(from)).into());
         }
         let mut to_names = names(to);
         let Some(to_name) = to_names.pop() else {
-            return Err(CowFsError::FileAlreadyExists(to.display().to_string()).into());
+            return Err(CowFsError::FileAlreadyExists(shown(to)).into());
         };
         if to_names == from_names[..from_names.len() - 1]
             && to_name == from_names[from_names.len() - 1]
@@ -428,14 +429,14 @@ impl CowTree {
         if to_names.starts_with(&from_names) {
             return Err(CowFsError::FileSystem(format!(
                 "{}: can't move a directory into itself",
-                from.display()
+                shown(from)
             ))
             .into());
         }
-        let target = dir_of(&self.root, &to_names)
-            .ok_or_else(|| CowFsError::NoSuchFile(to.display().to_string()))?;
+        let target =
+            dir_of(&self.root, &to_names).ok_or_else(|| CowFsError::NoSuchFile(shown(to)))?;
         if target.contains_key(&to_name) {
-            return Err(CowFsError::FileAlreadyExists(to.display().to_string()).into());
+            return Err(CowFsError::FileAlreadyExists(shown(to)).into());
         }
         let (from_name, from_parents) = from_names.split_last().expect("not the root");
         let node = self
@@ -450,17 +451,13 @@ impl CowTree {
     pub fn file_for_read(&self, path: &Path) -> io::Result<&Path> {
         match self.node(&names(path)) {
             Some(Node::File { storage, .. }) => Ok(storage),
-            Some(Node::Dir(_)) => Err(CowFsError::FileSystem(format!(
-                "{}: not a regular file",
-                path.display()
-            ))
-            .into()),
-            None if names(path).is_empty() => Err(CowFsError::FileSystem(format!(
-                "{}: not a regular file",
-                path.display()
-            ))
-            .into()),
-            None => Err(CowFsError::NoSuchFile(path.display().to_string()).into()),
+            Some(Node::Dir(_)) => {
+                Err(CowFsError::FileSystem(format!("{}: not a regular file", shown(path))).into())
+            }
+            None if names(path).is_empty() => {
+                Err(CowFsError::FileSystem(format!("{}: not a regular file", shown(path))).into())
+            }
+            None => Err(CowFsError::NoSuchFile(shown(path)).into()),
         }
     }
 
@@ -485,15 +482,13 @@ impl CowTree {
             Some(Node::Dir(_)) => Found::Directory,
         };
         match found {
-            Found::Directory => Err(CowFsError::FileSystem(format!(
-                "{}: not a regular file",
-                path.display()
-            ))
-            .into()),
+            Found::Directory => {
+                Err(CowFsError::FileSystem(format!("{}: not a regular file", shown(path))).into())
+            }
             Found::Copy(storage) => Ok(storage),
             Found::Missing => {
                 if !create {
-                    return Err(CowFsError::NoSuchFile(path.display().to_string()).into());
+                    return Err(CowFsError::NoSuchFile(shown(path)).into());
                 }
                 let (name, parents) = names.split_last().expect("not the root");
                 let parent = path.parent().unwrap_or(Path::new(""));
@@ -531,18 +526,16 @@ impl CowTree {
         let mut names = names(path);
         let Some(name) = names.pop() else {
             return Err(
-                CowFsError::FileSystem(format!("{}: not a regular file", path.display())).into(),
+                CowFsError::FileSystem(format!("{}: not a regular file", shown(path))).into(),
             );
         };
         let parent = path.parent().unwrap_or(Path::new(""));
         let dir = self.dir_mut(&names, parent)?;
         match dir.get(&name) {
             Some(Node::Dir(_)) => {
-                return Err(CowFsError::FileSystem(format!(
-                    "{}: not a regular file",
-                    path.display()
-                ))
-                .into());
+                return Err(
+                    CowFsError::FileSystem(format!("{}: not a regular file", shown(path))).into(),
+                );
             }
             Some(Node::File {
                 storage,

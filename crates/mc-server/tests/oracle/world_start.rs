@@ -3,8 +3,8 @@
 //!
 //! Cases: a normal start, and a world newer than the current data version (what the current vanilla server made of the
 //! corpus world, with every data version raised). The worlds come from `$MC_DATAFIX_CACHE/worlds` (`<id>`, and
-//! `<id>-normal` with `DATAFIX_DUAL_KINDS=flat,normal`); `DATAFIX_DUAL_WORLDS` selects them: `supported` (default: the
-//! versions of `versions.tsv` this server accepts), `all`, or a list of ids. `WORLD_UPGRADE_KEEP=<dir>` keeps both server
+//! `<id>-normal` with `DATAFIX_DUAL_KINDS=flat,normal`); `DATAFIX_DUAL_WORLDS` selects them: `all` (default: every
+//! version of `versions.tsv`) or a list of ids. `WORLD_UPGRADE_KEEP=<dir>` keeps both server
 //! directories of a run under `<dir>/<case>/<world>/{vanilla,ours}`. `scripts/datafix-world-dual.sh` runs the matrix.
 //!
 //! What is compared, and what is normalised (everything else is exact: tag types, key order, serialised bytes):
@@ -19,6 +19,8 @@
 //! * Tick-driven values ([`CLOCKS`]): the two runs do not execute the same number of ticks between `Done` and the
 //!   freeze. `LastPlayed` is wall-clock time. `session.lock` and `level.dat_old` are not compared (a timestamp, and the
 //!   copy of the previous `level.dat`).
+//! * `game_rules.dat` as a set of entries: the real server writes the rules in the order of an identity-hashed map, so even
+//!   two runs of it disagree on the key order of the file ([`game_rules_difference`]).
 //! * The tickets of `chunk_tickets.dat` as a set: both servers write them in the order of a hash table that they fill
 //!   differently, and the key order of a ticket with a timeout differs ([`ticket_findings`]).
 //! * The log: warnings, errors and the lines of [`INTEREST`] in order, the time and the thread removed, stack traces
@@ -32,7 +34,6 @@ use std::time::Duration;
 
 use mc_core::ident::Identifier;
 use mc_core::pos::chunk_pos::ChunkPos;
-use mc_game::server::dedicated::launch::OLDEST_SUPPORTED_DATA_VERSION;
 use mc_nbt::NbtAccounter;
 use mc_nbt::compress::{read_compressed, write_compressed};
 use mc_testkit::{Builder, Server};
@@ -52,7 +53,7 @@ const NEWER: i32 = 5100;
 const LOADED: i32 = 8;
 
 /// Entries of the server directory that are not part of the comparison (the output of the server process itself).
-const SERVER_FILES: &[&str] = &[
+pub(crate) const SERVER_FILES: &[&str] = &[
     "logs/",
     "libraries/",
     "versions/",
@@ -67,7 +68,7 @@ const SERVER_FILES: &[&str] = &[
 ];
 
 /// Wall-clock and tick-driven values (the runs start at different times and execute a different number of ticks).
-const CLOCKS: &[&str] = &[
+pub(crate) const CLOCKS: &[&str] = &[
     "*/level.dat#Data.LastPlayed",
     "*/level.dat#Data.Time",
     "*/data/minecraft/weather.dat#data.rain_time",
@@ -79,7 +80,7 @@ const CLOCKS: &[&str] = &[
 ];
 
 /// Info lines that belong to the world loading and the file fixer (warnings and errors are always compared).
-const INTEREST: &[&str] = &[
+pub(crate) const INTEREST: &[&str] = &[
     "Starting upgrade for world",
     "Moving out old world folder",
     "Moving in new world folder",
@@ -89,7 +90,9 @@ const INTEREST: &[&str] = &[
     "Loaded ",
 ];
 
-const PROPERTIES: [&str; 8] = [
+const PROPERTIES: [&str; 9] = [
+    // a world that is created has the same seed on both sides
+    "level-seed=12345",
     "online-mode=false",
     "enable-rcon=false",
     "enable-query=false",
@@ -118,9 +121,9 @@ impl Case {
 /// The arguments with which the current vanilla server brings every chunk of a world to the current format.
 const FORCE_UPGRADE: &[&str] = &["--forceUpgrade"];
 
-struct World {
-    name: String,
-    dir: PathBuf,
+pub(crate) struct World {
+    pub(crate) name: String,
+    pub(crate) dir: PathBuf,
 }
 
 fn cache_dir() -> PathBuf {
@@ -155,15 +158,10 @@ fn versions() -> Vec<(String, i32)> {
 }
 
 /// The worlds of this run (see the module documentation); a missing world directory fails with the command that makes it.
-fn worlds() -> Vec<World> {
+pub(crate) fn worlds() -> Vec<World> {
     let all = versions();
-    let selection = std::env::var("DATAFIX_DUAL_WORLDS").unwrap_or_else(|_| "supported".into());
+    let selection = std::env::var("DATAFIX_DUAL_WORLDS").unwrap_or_else(|_| "all".into());
     let ids: Vec<String> = match selection.as_str() {
-        "supported" => all
-            .iter()
-            .filter(|(_, v)| *v >= OLDEST_SUPPORTED_DATA_VERSION)
-            .map(|(id, _)| id.clone())
-            .collect(),
         "all" => all.iter().map(|(id, _)| id.clone()).collect(),
         list => list.split(',').map(str::to_owned).collect(),
     };
@@ -192,7 +190,7 @@ fn worlds() -> Vec<World> {
     out
 }
 
-fn copy_dir(from: &Path, to: &Path) {
+pub(crate) fn copy_dir(from: &Path, to: &Path) {
     let status = Command::new("cp")
         .arg("-r")
         .arg(from)
@@ -302,6 +300,8 @@ pub(crate) struct Run {
     /// Whether the server got as far as accepting players.
     pub(crate) started: bool,
     pub(crate) log: Vec<String>,
+    /// The whole output of the server.
+    pub(crate) raw_log: String,
 }
 
 /// A server in `dir` (which `prepare` fills before the start) with the arguments `args`: when it starts, it freezes,
@@ -334,12 +334,14 @@ pub(crate) fn run(
             .wait_exit(Duration::from_secs(120))
             .and_then(|s| s.code())
     };
-    let log = log_records(&server.log());
+    let raw_log = server.log();
+    let log = log_records(&raw_log);
     Run {
         dir: dir.to_owned(),
         exit,
         started,
         log,
+        raw_log,
     }
 }
 
@@ -396,7 +398,7 @@ pub(crate) fn first_log_difference(vanilla: &[String], ours: &[String]) -> Optio
     })
 }
 
-fn ignores(patterns: &[&str], extra: &[&str]) -> Ignores {
+pub(crate) fn ignores(patterns: &[&str], extra: &[&str]) -> Ignores {
     Ignores(
         patterns
             .iter()
@@ -404,6 +406,49 @@ fn ignores(patterns: &[&str], extra: &[&str]) -> Ignores {
             .map(|p| p.parse::<FieldSpec>().expect("ignore spec"))
             .collect(),
     )
+}
+
+/// `game_rules.dat`, compared by [`game_rules_difference`] and not by the tree comparison.
+pub(crate) const GAME_RULES: &str = "*/data/minecraft/game_rules.dat";
+
+/// `game_rules.dat` as sorted `key = value` lines (`None` when absent): the real server writes the rules in the order of
+/// an identity-hashed map, so even two runs of it disagree on the key order of the file.
+pub(crate) fn game_rules_difference(vanilla: &Path, ours: &Path) -> Option<String> {
+    let rules = |dir: &Path| -> Option<Vec<String>> {
+        let file = dir.join("world/data/minecraft/game_rules.dat");
+        file.is_file().then(|| {
+            let tag = read_dat(&file);
+            let mut lines: Vec<String> = tag
+                .keys()
+                .filter(|k| *k != "data")
+                .map(|k| format!("{k} = {:?}", tag.get(k)))
+                .collect();
+            let data = tag.get_compound_or_empty("data");
+            lines.extend(data.keys().map(|k| format!("data.{k} = {:?}", data.get(k))));
+            lines.sort();
+            lines
+        })
+    };
+    let (v, o) = (rules(vanilla), rules(ours));
+    (v != o).then(|| {
+        let only = |a: &Option<Vec<String>>, b: &Option<Vec<String>>| {
+            a.as_ref().map_or_else(
+                || "absent".to_owned(),
+                |a| {
+                    let missing: Vec<&String> = a
+                        .iter()
+                        .filter(|l| !b.as_ref().is_some_and(|b| b.contains(l)))
+                        .collect();
+                    format!("{missing:?}")
+                },
+            )
+        };
+        format!(
+            "game_rules.dat (compared as a set): only vanilla {}, only ours {}",
+            only(&v, &o),
+            only(&o, &v)
+        )
+    })
 }
 
 /// The tickets of every dimension's `chunk_tickets.dat` as sorted lists of `(chunk_pos, type, level, ticks_left)`: both
@@ -479,7 +524,7 @@ fn chunks_below_full(
 }
 
 /// Differences between two finished runs, as printable findings (empty: equal under the normalisation above).
-fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
+pub(crate) fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
     let mut findings = Vec::new();
     if (vanilla.started, vanilla.exit) != (ours.started, ours.exit) {
         findings.push(format!(
@@ -494,13 +539,16 @@ fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
         &vanilla.dir,
         &ours.dir,
         &TreeOptions {
-            ignores: ignores(SERVER_FILES, CLOCKS),
+            ignores: ignores(SERVER_FILES, &[CLOCKS, &[GAME_RULES]].concat()),
             chunks: None,
             max_listed: 10,
         },
     );
     if !files.is_clean() {
         findings.push(tree::render_text("vanilla", "ours", &files, 20));
+    }
+    if let Some(d) = game_rules_difference(&vanilla.dir, &ours.dir) {
+        findings.push(d);
     }
     let (v, o) = (vanilla.dir.join("world"), ours.dir.join("world"));
     if !v.is_dir() || !o.is_dir() {
@@ -591,7 +639,7 @@ fn source_world(case: Case, world: &World, staging: &Path) -> PathBuf {
 /// `random_tick_speed` 0 in the game rules of `world` (the saved data file, or `level.dat` of a world that has none yet):
 /// the random ticks of a loaded chunk (vine growth, leaf decay) draw from an unseeded random source in both servers, and
 /// the two runs do not execute the same number of ticks before the freeze.
-fn stop_random_ticks(world: &Path) {
+pub(crate) fn stop_random_ticks(world: &Path) {
     let rules = world.join("data/minecraft/game_rules.dat");
     let (path, key) = if rules.is_file() {
         (rules, None)

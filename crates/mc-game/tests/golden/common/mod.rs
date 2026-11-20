@@ -71,9 +71,11 @@ pub fn load_world(
     };
     world_loader::load(
         &mut pc,
-        |_ctx| DataLoadOutput {
-            cookie: (),
-            final_dimensions: RegistryAccess::empty(),
+        |_ctx| {
+            Ok(DataLoadOutput {
+                cookie: (),
+                final_dimensions: RegistryAccess::empty(),
+            })
         },
         WorldStem::new,
     )

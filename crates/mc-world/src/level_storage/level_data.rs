@@ -4,8 +4,7 @@
 //! In 26.3 `level.dat` only carries the settings listed in [`PrimaryLevelData::to_tag_at`]; everything else
 //! (game rules, weather, clocks, world border, world gen settings/seed, boss events, scheduled events, the
 //! scoreboard, ...) lives in `data/<namespace>/<id>.dat` saved data (see [`super::saved_data_storage`],
-//! [`super::world_gen_settings`]). Keys vanilla's `parse` does not consume (e.g. pre-26 `Player` /
-//! `WorldGenSettings`) are kept in [`PrimaryLevelData::extra`] and written back unchanged.
+//! [`super::world_gen_settings`]). Keys `parse` does not consume are dropped on the next write, like vanilla.
 
 use indexmap::IndexSet;
 use mc_core::ident::Identifier;
@@ -14,9 +13,7 @@ use mc_core::uuid_util::{uuid_from_int_array, uuid_to_int_array};
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use uuid::Uuid;
 
-use super::dynamic::{
-    self, as_boolean, as_int, as_long, as_string, get, java_string_set_order, without_keys,
-};
+use super::dynamic::{self, as_boolean, as_int, as_long, as_string, get, java_string_set_order};
 use super::feature_flags::FeatureFlagSet;
 use super::version::{
     ANVIL_VERSION_ID, DataVersion, MAIN_SERIES, WORLD_VERSION, WORLD_VERSION_NAME,
@@ -398,28 +395,6 @@ pub enum SpecialWorldProperty {
     Debug,
 }
 
-/// Keys `PrimaryLevelData` consumes/produces; everything else survives in `extra`.
-const KNOWN_KEYS: [&str; 18] = [
-    "ServerBrands",
-    "WasModded",
-    "removed_features",
-    "Version",
-    "version_history",
-    "DataVersion",
-    "GameType",
-    "spawn",
-    "Time",
-    "LastPlayed",
-    "LevelName",
-    "version",
-    "allowCommands",
-    "initialized",
-    "difficulty_settings",
-    "singleplayer_uuid",
-    "DataPacks",
-    "enabled_features",
-];
-
 #[derive(Clone, PartialEq, Debug)]
 pub struct PrimaryLevelData {
     pub settings: LevelSettings,
@@ -435,8 +410,6 @@ pub struct PrimaryLevelData {
     /// A `HashSet` in vanilla; held in file order here and re-ordered like `HashSet` iteration on write.
     pub removed_feature_flags: IndexSet<String>,
     pub version_history: Vec<i32>,
-    /// Top-level keys vanilla's parse ignores, preserved verbatim.
-    pub extra: CompoundTag,
 }
 
 impl PrimaryLevelData {
@@ -457,7 +430,6 @@ impl PrimaryLevelData {
             was_modded: false,
             removed_feature_flags: IndexSet::new(),
             version_history: Vec::new(),
-            extra: CompoundTag::new(),
         }
     }
 
@@ -504,7 +476,6 @@ impl PrimaryLevelData {
                 .map_or_else(Vec::new, |v| {
                     v.iter().map(|t| as_int(Some(t), -1)).collect()
                 }),
-            extra: without_keys(input, &KNOWN_KEYS),
         }
     }
 
@@ -521,7 +492,7 @@ impl PrimaryLevelData {
     /// `createTag` with an explicit `LastPlayed` (`Util.getEpochMillis()` in vanilla).
     pub fn to_tag_at(&self, single_player_uuid: Option<Uuid>, last_played: i64) -> CompoundTag {
         let single_player_uuid = single_player_uuid.or(self.single_player_uuid);
-        let mut tag = self.extra.clone();
+        let mut tag = CompoundTag::new();
         tag.put(
             "ServerBrands",
             Tag::List(dynamic::string_list_tag(&self.known_server_brands)),

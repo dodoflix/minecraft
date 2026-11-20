@@ -108,17 +108,7 @@ fn parse_and_reserialize_match_vanilla() {
                 "case {name}: parsed fields"
             );
 
-            let mut out = parsed.to_tag_at(None, 0);
-            // vanilla's parse drops these; ours preserves them (documented deviation) — compare without them.
-            for key in ["Player", "WorldGenSettings", "custom_unknown"] {
-                if data.contains(key) {
-                    assert_eq!(
-                        out.remove(key).as_ref(),
-                        data.get(key),
-                        "case {name}: extra key {key} preserved"
-                    );
-                }
-            }
+            let out = parsed.to_tag_at(None, 0);
             assert_eq!(
                 out,
                 expected_out,

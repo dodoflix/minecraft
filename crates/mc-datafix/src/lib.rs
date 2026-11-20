@@ -92,9 +92,7 @@ pub use datafix::DataFix;
 pub use datafix_types::DataFixTypes;
 pub use dsl::{DSL, TypeReference};
 pub use finder::OpticFinder;
-pub use fixer::{
-    DataFixer, DataFixerBuilder, FileFixRegistration, FileFixerRegistry, UnsupportedVersion,
-};
+pub use fixer::{DataFixer, DataFixerBuilder, FileFixRegistration, FileFixerRegistry};
 pub use fixes::references::References;
 pub use rewrite::TypeRewriteRule;
 pub use schema::{Schema, SchemaDef, TemplateMap};

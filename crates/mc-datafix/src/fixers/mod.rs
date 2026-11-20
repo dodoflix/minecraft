@@ -1,5 +1,5 @@
 //! `DataFixers.addFixers`, split by version range; the ranges run in ascending order, so the registration order is the
-//! Java one. Each range registers the schemas and fixes of its versions; a range not ported yet registers nothing.
+//! Java one. Each range registers the schemas and fixes of its versions.
 
 use crate::fixer::DataFixerBuilder;
 

@@ -17,8 +17,7 @@ pub trait TemplateSource: Send + Sync {
 }
 
 /// `TemplateSource.load(opener, asText = false, onError)` once the bytes are read: `readCompressed` + `readStructure`.
-/// Malformed data, or a template older than the registered part of the fix chain, is reported through `on_error` and
-/// yields `None`.
+/// Malformed data is reported through `on_error` and yields `None`.
 pub(super) fn load_from_bytes(
     bytes: &[u8],
     on_error: impl FnOnce(String),
@@ -41,8 +40,7 @@ pub(super) fn load_from_bytes(
 /// `readStructure(tag)`: the template of the tag upgraded to the current version.
 pub fn read_structure(tag: &CompoundTag) -> Result<StructureTemplate, String> {
     let version = mc_nbt::nbt_utils::get_data_version_or(tag, 500);
-    let fixed =
-        update_to_current(DataFixTypes::STRUCTURE, tag, version).map_err(|e| e.to_string())?;
+    let fixed = update_to_current(DataFixTypes::STRUCTURE, tag, version);
     let mut template = StructureTemplate::new();
     template.load(&fixed);
     Ok(template)
@@ -77,17 +75,5 @@ mod tests {
         let blocks = palettes.palettes()[0].blocks();
         assert_eq!(blocks.len(), 1);
         assert_eq!(blocks[0].state, Block::STONE.default_state());
-    }
-
-    #[test]
-    fn a_template_below_the_chain_is_reported_not_loaded() {
-        let oldest = mc_datafix::data_fixer().oldest_supported_version();
-        if oldest == i32::MIN {
-            return;
-        }
-        let (loaded, errors) = load(&template(oldest - 1));
-        assert!(loaded.is_none());
-        assert_eq!(errors.len(), 1, "{errors:?}");
-        assert!(errors[0].contains("older than"), "{errors:?}");
     }
 }

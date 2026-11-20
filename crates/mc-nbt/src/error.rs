@@ -46,6 +46,26 @@ impl NbtError {
     }
 }
 
+impl NbtError {
+    /// The error with the end of the input (`EOFException`) that stopped a read replaced by `cause`, the failure of
+    /// the stream the bytes came from.
+    pub(crate) fn with_eof_replaced(self, cause: NbtError) -> NbtError {
+        match self {
+            NbtError::Eof => cause,
+            NbtError::Reported {
+                tag_name,
+                tag_type,
+                cause: inner,
+            } => NbtError::Reported {
+                tag_name,
+                tag_type,
+                cause: Box::new(inner.with_eof_replaced(cause)),
+            },
+            other => other,
+        }
+    }
+}
+
 impl fmt::Display for NbtError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {

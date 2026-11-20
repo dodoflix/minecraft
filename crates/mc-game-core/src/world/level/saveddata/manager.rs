@@ -1,13 +1,13 @@
 //! `SavedData`, `SavedDataType` and `SavedDataStorage` (typed, cached, dirty-tracked).
 
 use std::any::Any;
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 use std::io;
 use std::path::PathBuf;
 use std::sync::Arc;
 
 use mc_core::ident::Identifier;
-use mc_datafix::{DataFixTypes, UnsupportedVersion};
+use mc_datafix::DataFixTypes;
 use mc_nbt::{CompoundTag, Tag};
 use mc_world::level_storage::{SavedDataStorage, create_directories_safe, write_compressed};
 
@@ -136,9 +136,6 @@ impl PendingSave {
 pub struct SavedDataManager {
     storage: SavedDataStorage,
     cache: HashMap<Identifier, Entry>,
-    /// Files the fixer refused for being older than the registered fix chain: kept as they are (never overwritten by
-    /// the default instance that replaces them), so a server that can upgrade them later still finds them.
-    refused: HashSet<Identifier>,
     closed: bool,
 }
 
@@ -147,18 +144,12 @@ impl SavedDataManager {
         SavedDataManager {
             storage,
             cache: HashMap::new(),
-            refused: HashSet::new(),
             closed: false,
         }
     }
 
     pub fn storage(&self) -> &SavedDataStorage {
         &self.storage
-    }
-
-    /// Whether the file of `ty` was refused by the fixer (older than the registered fix chain) and is kept as it is.
-    pub fn is_refused<T: SavedData>(&self, ty: &SavedDataType<T>) -> bool {
-        self.refused.contains(&ty.id)
     }
 
     /// `computeIfAbsent`.
@@ -206,9 +197,6 @@ impl SavedDataManager {
             Ok(tag) => tag?,
             Err(e) => {
                 log::error!("Error loading saved data: {ty}: {e}");
-                if e.get_ref().is_some_and(|e| e.is::<UnsupportedVersion>()) {
-                    self.refused.insert(ty.id.clone());
-                }
                 return None;
             }
         };
@@ -222,12 +210,8 @@ impl SavedDataManager {
         }
     }
 
-    /// `set`: stores `data` and marks it dirty. Returns the stored instance. A file the fixer would refuse is kept
-    /// untouched even when it is replaced before it was ever read.
+    /// `set`: stores `data` and marks it dirty. Returns the stored instance.
     pub fn set<T: SavedData>(&mut self, ty: &SavedDataType<T>, mut data: T) -> &mut T {
-        if !self.cache.contains_key(&ty.id) && self.storage.is_older_than_fix_chain(&ty.id) {
-            self.refused.insert(ty.id.clone());
-        }
         data.set_dirty();
         self.cache.insert(
             ty.id.clone(),
@@ -251,9 +235,6 @@ impl SavedDataManager {
             let Some(data) = entry.data.as_mut().filter(|d| d.is_dirty()) else {
                 continue;
             };
-            if self.refused.contains(id) {
-                continue;
-            }
             let tag = match (entry.encode)(&**data) {
                 Ok(tag) => tag,
                 Err(e) => {
