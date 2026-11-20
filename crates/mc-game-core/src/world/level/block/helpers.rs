@@ -450,7 +450,7 @@ pub fn set_block_state_property(
     stack.set(
         BLOCK_STATE,
         BlockItemStateProperties {
-            properties: vec![(property.to_string(), value.to_string())],
+            properties: vec![(property.into(), value.into())],
         },
     );
 }

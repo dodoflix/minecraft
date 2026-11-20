@@ -520,7 +520,7 @@ fn decode_contents<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
 
 fn decode_translatable<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
     let mut record = Record::default();
-    let key = record.take(req(map, "translate").and_then(string));
+    let key = record.take(req(map, "translate").and_then(java_string));
     let fallback = lenient(map, "fallback", java_string);
     let args = record
         .take(opt_p(map, "with", |w| decode_list_partial(w, decode_arg)))

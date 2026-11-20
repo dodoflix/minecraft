@@ -354,14 +354,14 @@ impl MapItemSavedData {
         if !static_decorations
             .decorations
             .iter()
-            .all(|(id, _)| self.decorations.contains_key(id))
+            .all(|(id, _)| self.decorations.contains_key(id.as_lossy_str()))
         {
             for (id, entry) in &static_decorations.decorations {
-                if !self.decorations.contains_key(id) {
+                if !self.decorations.contains_key(id.as_lossy_str()) {
                     self.add_decoration(
                         entry.ty,
                         Some(env.game_time),
-                        id,
+                        id.as_lossy_str(),
                         entry.x,
                         entry.z,
                         f64::from(entry.rotation),
@@ -399,9 +399,13 @@ impl MapItemSavedData {
             .cloned()
             .unwrap_or_default();
         // `MapDecorations.withDecoration`: a copy of the LinkedHashMap with the entry put.
-        match decorations.decorations.iter_mut().find(|(k, _)| k == key) {
+        match decorations
+            .decorations
+            .iter_mut()
+            .find(|(k, _)| k.exact_str() == Some(key))
+        {
             Some((_, existing)) => *existing = entry,
-            None => decorations.decorations.push((key.to_owned(), entry)),
+            None => decorations.decorations.push((key.into(), entry)),
         }
         stack.set(mc_protocol::components::MAP_DECORATIONS, decorations);
     }

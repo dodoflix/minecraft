@@ -62,7 +62,7 @@ fn items_from_commands_match_vanilla() {
         );
         n += 1;
     }
-    assert_eq!(n, 9);
+    assert_eq!(n, 14);
 }
 
 /// An item argument that fails on a string with a lone surrogate: the exception message and the component built from its raw
@@ -120,7 +120,7 @@ fn item_argument_errors_match_vanilla() {
         assert_error_row(&c, error, &command);
         n += 1;
     }
-    assert_eq!(n, 26);
+    assert_eq!(n, 28);
 }
 
 /// `resource-pack-prompt` of `server.properties`: a prompt that decodes only partly is kept, one that does not parse is dropped.

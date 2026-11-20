@@ -8,7 +8,7 @@ use mc_core::ident::Identifier;
 use mc_core::math::mth;
 use mc_data::{Item, MobEffect, Potion};
 use mc_dfu::extra::{UNSIGNED_BYTE, extra_int_range, non_empty_list};
-use mc_dfu::{BOOL, BYTE, Codec, DataResult, INT, MapCodec, STRING, record};
+use mc_dfu::{BOOL, BYTE, Codec, DataResult, INT, JAVA_STRING, MapCodec, record};
 use mc_protocol::components::holder::registry_by_name_codec;
 use mc_protocol::components::values::basic::{
     CUSTOM_MODEL_DATA, DYED_COLOR, DyedItemColor, OMINOUS_BOTTLE_AMPLIFIER, OminousBottleAmplifier,
@@ -490,7 +490,7 @@ pub struct SetCustomModelDataFunction {
     pub condition: Option<ConditionHolder>,
     pub floats: Option<StandAlone<FloatHolder>>,
     pub flags: Option<StandAlone<bool>>,
-    pub strings: Option<StandAlone<String>>,
+    pub strings: Option<StandAlone<JavaString>>,
     pub colors: Option<StandAlone<IntHolder>>,
 }
 
@@ -692,7 +692,7 @@ pub(super) fn register(entries: &mut Entries) {
         entry(record!(SetBookCoverFunction {
             condition: cond(),
             title: Filterable::codec(&mc_dfu::java_string_range(0, 32)).optional_field_of("title"),
-            author: mc_dfu::JAVA_STRING.optional_field_of("author"),
+            author: JAVA_STRING.optional_field_of("author"),
             generation: extra_int_range(0, 3).optional_field_of("generation"),
         })),
     ));
@@ -730,7 +730,7 @@ pub(super) fn register(entries: &mut Entries) {
             condition: cond(),
             floats: StandAlone::codec(&float_holder_codec(), UNLIMITED).optional_field_of("floats"),
             flags: StandAlone::codec(&BOOL, UNLIMITED).optional_field_of("flags"),
-            strings: StandAlone::codec(&STRING, UNLIMITED).optional_field_of("strings"),
+            strings: StandAlone::codec(&JAVA_STRING, UNLIMITED).optional_field_of("strings"),
             colors: StandAlone::codec(&color_provider_codec(), UNLIMITED)
                 .optional_field_of("colors"),
         })),

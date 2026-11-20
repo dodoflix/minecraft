@@ -10,10 +10,11 @@ use crate::packets::play::{AttributeModifier, AttributeModifierOperation};
 use crate::string_enum;
 use crate::{Decode, Encode};
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_data::{Attribute, ConsumeEffectType, DataComponentType, MobEffect, Potion};
 use mc_dfu::extra::{IDENTIFIER, NON_NEGATIVE_FLOAT, NON_NEGATIVE_INT, POSITIVE_FLOAT};
 use mc_dfu::{
-    BOOL, Codec, DOUBLE, FLOAT, INT, MapCodec, STRING, float_range, java_double_cmp,
+    BOOL, Codec, DOUBLE, FLOAT, INT, JAVA_STRING, MapCodec, float_range, java_double_cmp,
     java_float_cmp, string_enum_codec,
 };
 use mc_text::Component;
@@ -480,7 +481,7 @@ pub struct PotionContents {
     pub potion: Option<Potion>,
     pub custom_color: Option<i32>,
     pub custom_effects: Vec<MobEffectInstance>,
-    pub custom_name: Option<String>,
+    pub custom_name: Option<JavaString>,
 }
 
 impl PotionContents {
@@ -493,7 +494,7 @@ impl PotionContents {
                 .list_of()
                 .optional_field_of_default("custom_effects", Vec::new())
                 .xmap(|v| v, |v: &Vec<MobEffectInstance>| without_hidden(v)),
-            custom_name: STRING.optional_field_of("custom_name"),
+            custom_name: JAVA_STRING.optional_field_of("custom_name"),
         })
         .codec();
         full.with_alternative_conv(&potion, |p| PotionContents {
@@ -532,7 +533,7 @@ impl Decode for PotionContents {
             potion: dec_opt(input, read_registry_id::<Potion>)?,
             custom_color: Option::<i32>::decode(input)?,
             custom_effects: Vec::<MobEffectInstance>::decode(input)?,
-            custom_name: Option::<String>::decode(input)?,
+            custom_name: Option::<JavaString>::decode(input)?,
         })
     }
 }

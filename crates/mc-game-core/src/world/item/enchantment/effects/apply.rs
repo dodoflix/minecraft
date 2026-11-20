@@ -536,7 +536,9 @@ pub fn apply_block_item_state_properties(
 ) -> BlockState {
     let mut state = state;
     for (name, value) in &properties.properties {
-        if let Some(next) = state.with_property_str(name, value) {
+        if let (Some(name), Some(value)) = (name.exact_str(), value.exact_str())
+            && let Some(next) = state.with_property_str(name, value)
+        {
             state = next;
         }
     }

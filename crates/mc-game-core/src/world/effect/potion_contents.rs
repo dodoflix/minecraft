@@ -5,6 +5,7 @@ use super::mob_effect::{EffectCause, MobEffectExt};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::effect::MobEffectInstance;
+use mc_core::java_string::JavaString;
 use mc_data::Potion;
 use mc_protocol::components::PotionContents;
 
@@ -132,13 +133,17 @@ pub fn get_color_optional(effects: &[MobEffectInstance]) -> Option<i32> {
 }
 
 /// `PotionContents.getName(prefix)` as the translation key.
-pub fn get_name_key(contents: &PotionContents, prefix: &str) -> String {
+pub fn get_name_key(contents: &PotionContents, prefix: &str) -> JavaString {
     let suffix = contents
         .custom_name
         .clone()
-        .or_else(|| contents.potion.map(|p| p.data().base_name.to_owned()))
-        .unwrap_or_else(|| "empty".to_owned());
-    format!("{prefix}{suffix}")
+        .or_else(|| {
+            contents
+                .potion
+                .map(|p| JavaString::from(p.data().base_name))
+        })
+        .unwrap_or_else(|| "empty".into());
+    mc_core::jformat!("{}{}", prefix, suffix)
 }
 
 /// `PotionContents.applyToLivingEntity(entity, durationScale)`.

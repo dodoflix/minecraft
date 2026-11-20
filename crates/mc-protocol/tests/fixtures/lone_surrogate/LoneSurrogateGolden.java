@@ -46,6 +46,7 @@ import net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket;
 import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
 import net.minecraft.network.protocol.status.ServerStatus;
 import net.minecraft.server.dedicated.DedicatedServerProperties;
+import net.minecraft.server.dialog.Dialog;
 import net.minecraft.server.network.Filterable;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
@@ -63,7 +64,7 @@ import net.minecraft.world.level.block.entity.SignText;
  * A failing cell is `ERR:<exception class>:<message>`.
  *   nbt.tsv        NBT binary (modified UTF-8) and SNBT of strings, keys and tags
  *   text.tsv       text components from JSON / SNBT: string, JSON, NBT bytes, system chat packet bytes
- *   wire.tsv       network strings and the signs, books and item names sent to a client
+ *   wire.tsv       network strings and the signs, books, item names and dialogs sent to a client
  *   brigadier.tsv  command syntax exception contexts (a context window can split a surrogate pair)
  *   game.tsv       items parsed by the command argument
  * Every op is replayed by the tests of the crate that consumes the file.
@@ -365,13 +366,14 @@ public class LoneSurrogateGolden {
       for (String s : new String[] {"\"\\ud800\"", "{\"text\":\"\\ud83d\"}", "{\"text\":\"a\\ud83d\",\"extra\":[\"\\ude00b\"]}", "{\"text\":\"x\",\"extra\":[\"\\ud83d\",\"\\ude00\"]}",
          "{\"translate\":\"%s\",\"fallback\":\"[%s]\",\"with\":[\"\\ud800\"]}", "{\"text\":\"b\",\"insertion\":\"\\ud800\"}",
          "{\"text\":\"b\",\"click_event\":{\"action\":\"copy_to_clipboard\",\"value\":\"\\ud800\"}}", "{\"text\":\"b\",\"hover_event\":{\"action\":\"show_text\",\"value\":\"\\ud800\"}}",
-         "{\"keybind\":\"\\ud800\"}", "{\"text\":\"b\",\"font\":\"\\ud800\"}", "[\"\\ud83d\",\"\\ude00\"]", "\"\\ud83d\\ude00\"", "{\"text\":\"\\ud83d\\u0041\"}"})
+         "{\"keybind\":\"\\ud800\"}", "{\"translate\":\"\\ud800\"}", "{\"translate\":\"a\\ud83d\",\"fallback\":\"f\\ud800\"}", "{\"translate\":\"\\ud800\",\"with\":[\"x\"]}", "{\"translate\":\"b.\\ud800\",\"fallback\":\"x%s\",\"with\":[\"\\ud83d\"]}", "{\"text\":\"b\",\"font\":\"\\ud800\"}", "[\"\\ud83d\",\"\\ude00\"]", "\"\\ud83d\\ude00\"", "{\"text\":\"\\ud83d\\u0041\"}"})
          row("text.tsv", "comp_json", s, concat(componentCells(() -> fromJson(s))));
       // numbers of a JSON text beyond the range of a double or a float (`JsonOps.convertTo`: exact long, else float when exact, else double)
       for (String s : new String[] {"1e400", "-1e400", "1e-400", "3.4028236e38", "3.4028235e38", "0.1", "1.0E10", "12345678901234567890", "-9223372036854775808", "9223372036854775808", "1e2", "0.5e1", "100e-2"})
          row("text.tsv", "comp_num", s, concat(componentCells(() -> fromJson("{\"translate\":\"%s\",\"with\":[" + s + "]}"))));
       for (String s : new String[] {"\"\\ud800\"", "'\\ud83d'", "{text:\"\\ud83d\"}", "{text:\"a\\ud83d\",extra:[\"\\ude00b\"]}", "[\"\\ud83d\",\"\\ude00\"]",
          "{translate:\"%s\",fallback:\"[%s]\",with:[\"\\ud800\"]}", "{text:\"b\",insertion:\"\\ud800\"}",
+         "{translate:\"\\ud800\"}", "{translate:\"a\\ud83d\",fallback:\"f\\ud800\"}",
          "{text:\"b\",click_event:{action:\"copy_to_clipboard\",value:\"\\ud800\"}}", "{text:\"b\",hover_event:{action:\"show_text\",value:\"\\ud800\"}}",
          "{text:\"a\",extra:[{text:\"\\ud83d\"},{text:\"\\ude00\"}]}"})
          row("text.tsv", "comp_snbt", s, concat(componentCells(() -> fromSnbt(s))));
@@ -427,18 +429,46 @@ public class LoneSurrogateGolden {
       CommandBuildContext ctx = CommandBuildContext.simple(access, FeatureFlags.VANILLA_SET);
       for (String s : new String[] {"stick[custom_name=\"\\ud800\"]", "stick[custom_name='\"\\\\ud800\"']", "stick[item_name=\"\\ud83d\"]", "stick[custom_data={x:\"\\ud800\"}]",
          "stick[lore=[\"\\ud800\"]]", "writable_book[writable_book_content={pages:[\"\\ud800\"]}]", "stick[custom_name={text:\"a\\ud83d\",extra:[\"\\ude00\"]}]",
-         "stick[custom_data={\"\\ud800\":1}]", "stick[custom_name=\"\\ud83d\\ude00\"]"})
+         "stick[custom_data={\"\\ud800\":1}]", "stick[custom_name=\"\\ud83d\\ude00\"]",
+         "stick[block_state={\"\\ud800\":\"\\ud83d\"}]", "stick[block_state={a:\"\\ude00\"}]", "stick[custom_model_data={strings:[\"\\ud800\",\"a\\ud83d\"]}]",
+         "potion[potion_contents={custom_name:\"\\ud800\"}]", "filled_map[map_decorations={\"\\ud800\":{type:\"player\",x:1d,z:1d,rotation:1f}}]"})
          row("game.tsv", "item_cmd", s, concat(itemCells(() -> new ItemArgument(ctx).parse(new StringReader(s)).createItemStack(1))));
 
       // item argument failures that quote a string with a lone surrogate: the message of the exception and the component the client gets
       String[] itemErrors = {"stick[rarity=\"\\ud800\"]", "stick[item_model=\"\\ud800\"]", "stick[item_model=\"a:\\ud83d\"]", "stick[tooltip_style=\"a\\ud83d\"]",
          "stick[jukebox_playable=\"\\ude00x\"]", "stick[enchantments={\"\\ud800\":1}]", "stick[custom_name={text:\"a\",color:\"\\ud800\"}]",
          "stick[custom_data=\"\\ud800\"]", "stick[lore=[{text:\"a\",font:\"\\ud800\"}]]",
-         "stick[item_model=\"\\ud800:a\"]", "stick[item_model=\":\\ud800\"]", "stick[item_model=\"\\ud83d\\ude00a\\ud800:b\"]", "stick[item_model=\"a:\\ud83d\\ude00\\ud800\"]"};
+         "stick[item_model=\"\\ud800:a\"]", "stick[item_model=\":\\ud800\"]", "stick[item_model=\"\\ud83d\\ude00a\\ud800:b\"]", "stick[item_model=\"a:\\ud83d\\ude00\\ud800\"]",
+         "debug_stick[debug_stick_state={\"minecraft:stone\":\"\\ud800\"}]"};
       for (String s : itemErrors) {
          row("game.tsv", "item_err", s, errorCells(() -> new ItemArgument(ctx).parse(new StringReader(s)).createItemStack(1)));
          row("game.tsv", "item_pred_err", s, errorCells(() -> ItemPredicateArgument.itemPredicate(ctx).parse(new StringReader(s))));
       }
+
+      // dialogs as sent to a client: the form controls (`initial`, `on_true`, `label_format`, option ids, keys) and command templates keep a lone surrogate
+      String dialogHead = "{type:\"minecraft:notice\",title:\"t\",";
+      String[] dialogs = {
+         dialogHead + "inputs:[{type:\"minecraft:text\",key:\"k\",label:\"l\",initial:\"\\ud800\",max_length:5}]}",
+         dialogHead + "inputs:[{type:\"minecraft:text\",key:\"k\",label:\"l\",initial:\"\\ud800\\ud800\",max_length:1}]}",
+         dialogHead + "inputs:[{type:\"minecraft:text\",key:\"k\",label:\"l\",initial:\"\\ud83d\\ude00\",max_length:2}]}",
+         dialogHead + "inputs:[{type:\"minecraft:boolean\",key:\"k\",label:\"l\",on_true:\"\\ud800\",on_false:\"a\\ud83d\"}]}",
+         dialogHead + "inputs:[{type:\"minecraft:number_range\",key:\"k\",label:\"l\",label_format:\"\\ud800\",start:0f,end:1f}]}",
+         dialogHead + "inputs:[{type:\"minecraft:single_option\",key:\"k\",label:\"l\",options:[{id:\"\\ud800\",initial:1b},\"\\ud83d\"]}]}",
+         dialogHead + "inputs:[{type:\"minecraft:text\",key:\"\\ud800\",label:\"l\"}]}",
+         dialogHead + "inputs:[{type:\"minecraft:text\",key:\"a\\ud83d\\ude00\",label:\"l\"}]}",
+         dialogHead + "action:{label:\"x\",action:{type:\"minecraft:dynamic/run_command\",template:\"say \\ud800 $(a)\"}}}",
+         dialogHead + "action:{label:\"x\",action:{type:\"minecraft:dynamic/run_command\",template:\"say $(a\\ud800)\"}}}",
+         dialogHead + "action:{label:\"x\",action:{type:\"minecraft:dynamic/run_command\",template:\"\\ud83d$(a\"}}}",
+         dialogHead + "action:{label:\"x\",action:{type:\"minecraft:dynamic/run_command\",template:\"\\ude00\"}}}",
+      };
+      for (String s : dialogs)
+         row("wire.tsv", "dialog", s,
+            cell(() -> hex(nbtAny(Dialog.DIRECT_CODEC.encodeStart(nbtOps, Dialog.DIRECT_CODEC.parse(nbtOps, parseSnbt(s)).getOrThrow()).getOrThrow()))),
+            cell(() -> {
+               ByteBuf b = Unpooled.buffer();
+               Dialog.CONTEXT_FREE_STREAM_CODEC.encode(b, Dialog.DIRECT_CODEC.parse(nbtOps, parseSnbt(s)).getOrThrow());
+               return bytes(b);
+            }));
 
       // `resource-pack-prompt` of server.properties: a prompt that decodes only partly is kept (`resultOrPartial`), one that does not parse is dropped
       for (String s : new String[] {"{\"text\":\"hi\"}", "\"plain\"", "{\"text\":\"a\",\"color\":\"nope\"}", "{\"text\":\"a\",\"extra\":[\"b\",1,{\"text\":\"c\"}]}", "[{\"text\":\"a\"},{\"text\":5,\"bold\":\"x\"}]",

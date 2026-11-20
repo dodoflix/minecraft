@@ -22,7 +22,8 @@ impl BlockBehaviour for TestBlock {
             && let Some((_, mode)) = properties
                 .properties
                 .iter()
-                .find(|(name, _)| name == "mode")
+                .find(|(name, _)| name.exact_str() == Some("mode"))
+            && let Some(mode) = mode.exact_str()
             && let Some(state) = to_place.with_property_str("mode", mode)
         {
             to_place = state;
@@ -114,10 +115,14 @@ impl BlockBehaviour for TestBlock {
 pub fn set_mode_on_stack(stack: &mut ItemStack, mode: TestBlockMode) {
     let mut properties: BlockItemStateProperties =
         stack.get(&BLOCK_STATE).cloned().unwrap_or_default();
-    let value = mode.serialized_name().expect("serialized").to_owned();
-    match properties.properties.iter_mut().find(|(k, _)| k == "mode") {
+    let value = mode.serialized_name().expect("serialized").into();
+    match properties
+        .properties
+        .iter_mut()
+        .find(|(k, _)| k.exact_str() == Some("mode"))
+    {
         Some(entry) => entry.1 = value,
-        None => properties.properties.push(("mode".to_owned(), value)),
+        None => properties.properties.push(("mode".into(), value)),
     }
     stack.set(BLOCK_STATE, properties);
 }

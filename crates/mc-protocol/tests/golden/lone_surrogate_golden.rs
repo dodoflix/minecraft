@@ -11,6 +11,7 @@ use mc_protocol::codec::{Decode, Encode, read_utf, write_java_utf};
 use mc_protocol::components::{
     CUSTOM_NAME, Filterable, ItemStack, SignText, WritableBookContent, WrittenBookContent,
 };
+use mc_protocol::dialog::Dialog;
 use mc_protocol::packets::login::ClientboundLoginDisconnectPacket;
 use mc_protocol::packets::play::ClientboundSystemChatPacket;
 use mc_protocol::packets::status::{ClientboundStatusResponsePacket, ServerStatus};
@@ -202,7 +203,7 @@ fn system_chat_packets_match_vanilla() {
             n += 1;
         }
     }
-    assert_eq!(n, 13 - 1 + 10 + 17);
+    assert_eq!(n, 17 - 1 + 12 + 17);
 }
 
 /// `lenientJson`: Gson without HTML escaping, then `Utf8String.write` (Netty's `writeUtf8`).
@@ -231,4 +232,33 @@ fn status_and_login_json_match_vanilla() {
         n += 1;
     }
     assert_eq!(n, 10);
+}
+
+/// Dialogs as a client receives them: the form controls and command templates keep a lone surrogate in the NBT, the network
+/// bytes are the NBT, and a decode that fails quotes the string with the unit in its message.
+#[test]
+fn dialogs_match_vanilla() {
+    let mut n = 0;
+    for c in rows(GOLDEN, "dialog") {
+        let input = String::from_utf16(&unesc_units(c[1])).unwrap();
+        let tag = mc_nbt::snbt::parse(&input).unwrap();
+        match Dialog::from_inline_tag(&tag) {
+            Err(message) => {
+                let mut want = JavaString::from("ERR:IllegalStateException:");
+                want.push_java(&message);
+                assert_eq!(want, java(c[2]), "error of {input}");
+                assert_eq!(want, java(c[3]), "error of {input}");
+            }
+            Ok(dialog) => {
+                let mut nbt = Vec::new();
+                nbt_io::write_any_tag(&dialog.to_tag().unwrap(), &mut nbt).unwrap();
+                assert_eq!(hex(&nbt), c[2], "nbt of {input}");
+                let mut out = Vec::new();
+                dialog.encode_context_free(&mut out).unwrap();
+                assert_eq!(hex(&out), c[3], "network bytes of {input}");
+            }
+        }
+        n += 1;
+    }
+    assert_eq!(n, 12);
 }

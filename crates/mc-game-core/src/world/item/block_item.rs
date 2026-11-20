@@ -834,7 +834,9 @@ fn update_block_state_from_tag(
     // `BlockItemStateProperties.apply(state)`: every named property that exists and parses
     let mut modified = placed;
     for (name, value) in &props.properties {
-        if let Some(s) = modified.with_property_str(name, value) {
+        if let (Some(name), Some(value)) = (name.exact_str(), value.exact_str())
+            && let Some(s) = modified.with_property_str(name, value)
+        {
             modified = s;
         }
     }

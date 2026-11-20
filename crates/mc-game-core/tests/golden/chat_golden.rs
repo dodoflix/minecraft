@@ -174,7 +174,7 @@ fn last_seen_window_matches_vanilla() {
 
 fn translation_key(c: &Component) -> String {
     match c.contents() {
-        ComponentContents::Translatable(t) => t.key.clone(),
+        ComponentContents::Translatable(t) => t.key.to_utf8_string().into_owned(),
         other => panic!("{other:?}"),
     }
 }

@@ -117,8 +117,8 @@ impl DebugStickItem {
             let property = properties[index];
             let mut new_state = debug_stick_state;
             match new_state.properties.iter_mut().find(|(b, _)| *b == block) {
-                Some(entry) => entry.1 = property.name.to_owned(),
-                None => new_state.properties.push((block, property.name.to_owned())),
+                Some(entry) => entry.1 = property.name.into(),
+                None => new_state.properties.push((block, property.name.into())),
             }
             stack.set(DEBUG_STICK_STATE, new_state);
             Self::message(

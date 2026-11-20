@@ -5,18 +5,19 @@ use super::entity::TypedEntityData;
 use super::predicates::ItemPredicate;
 use crate::codec::EncodeResult;
 use crate::codec::{
-    Decode, DecodeResult, Encode, GlobalPos, MAX_STRING_LENGTH, read_count, read_utf, write_utf,
-    write_varint,
+    Decode, DecodeResult, Encode, GlobalPos, MAX_STRING_LENGTH, read_count, read_utf,
+    write_java_utf, write_varint,
 };
 use crate::components::component::{ComponentDef, ComponentKey};
 use crate::components::holder::registry_by_name_codec;
 use crate::components::item_stack::{ItemStack, ItemStackTemplate, item_prototype};
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_core::pos::block_pos::BlockPos;
 use mc_data::{Block, DataComponentType, EntityType, MapDecorationType};
 use mc_dfu::extra::IDENTIFIER;
 use mc_dfu::{
-    BOOL, Codec, DOUBLE, DataResult, FLOAT, INT, INT_STREAM, LONG, STRING, int_range, record,
+    BOOL, Codec, DOUBLE, DataResult, FLOAT, INT, INT_STREAM, JAVA_STRING, LONG, int_range, record,
 };
 
 pub const CONTAINER: ComponentKey<ItemContainerContents> =
@@ -661,7 +662,7 @@ impl SeededContainerLoot {
 /// `BlockItemStateProperties`: property name -> value (a `Map`: equality ignores order).
 #[derive(Clone, Debug, Default)]
 pub struct BlockItemStateProperties {
-    pub properties: Vec<(String, String)>,
+    pub properties: Vec<(JavaString, JavaString)>,
 }
 
 impl PartialEq for BlockItemStateProperties {
@@ -679,7 +680,7 @@ fn map_eq<K: PartialEq, V: PartialEq>(a: &[(K, V)], b: &[(K, V)]) -> bool {
 
 impl BlockItemStateProperties {
     pub fn codec() -> Codec<BlockItemStateProperties> {
-        STRING.unbounded_map(&STRING).xmap(
+        JAVA_STRING.unbounded_map(&JAVA_STRING).xmap(
             |properties| BlockItemStateProperties { properties },
             |b: &BlockItemStateProperties| b.properties.clone(),
         )
@@ -689,8 +690,8 @@ impl BlockItemStateProperties {
 impl Encode for BlockItemStateProperties {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_list(out, i32::MAX as usize, &self.properties, |(k, v), o| {
-            write_utf(o, k, MAX_STRING_LENGTH)?;
-            write_utf(o, v, MAX_STRING_LENGTH)
+            write_java_utf(o, k, MAX_STRING_LENGTH)?;
+            write_java_utf(o, v, MAX_STRING_LENGTH)
         })
     }
 }
@@ -698,13 +699,13 @@ impl Decode for BlockItemStateProperties {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let count = read_count(input, i32::MAX as usize)?;
         // `ByteBufCodecs.map(Object2ObjectOpenHashMap::new, ..)`: the vanilla map iterates in fastutil table order
-        let mut map =
-            mc_core::java_collections::FastOpenHashMap::new(count.min(65536), |k: &String| {
-                mc_core::math::java::java_string_hash(k)
-            });
+        let mut map = mc_core::java_collections::FastOpenHashMap::new(
+            count.min(65536),
+            JavaString::java_hash_code,
+        );
         for _ in 0..count {
-            let k = read_utf(input, MAX_STRING_LENGTH)?;
-            let v = read_utf(input, MAX_STRING_LENGTH)?;
+            let k = JavaString::from(read_utf(input, MAX_STRING_LENGTH)?);
+            let v = JavaString::from(read_utf(input, MAX_STRING_LENGTH)?);
             map.put(k, v);
         }
         Ok(BlockItemStateProperties {
@@ -750,7 +751,7 @@ impl Decode for SulfurCubeContent {
 /// `DebugStickState`: block -> the name of the block property last selected (no stream codec: NBT fallback).
 #[derive(Clone, Debug, Default)]
 pub struct DebugStickState {
-    pub properties: Vec<(Block, String)>,
+    pub properties: Vec<(Block, JavaString)>,
 }
 
 impl PartialEq for DebugStickState {
@@ -763,16 +764,21 @@ impl DebugStickState {
     pub fn codec() -> Codec<DebugStickState> {
         mc_dfu::extra::dispatched_map(&registry_by_name_codec::<Block>(), |block: &Block| {
             let block = *block;
-            DataResult::success(STRING.comap_flat_map(
+            DataResult::success(JAVA_STRING.comap_flat_map(
                 move |name| {
-                    if block.properties().any(|p| p.name == name) {
+                    if name
+                        .exact_str()
+                        .is_some_and(|n| block.properties().any(|p| p.name == n))
+                    {
                         DataResult::success(name)
                     } else {
-                        let m = format!("No property on {} with name: {name}", block.name());
-                        DataResult::error(move || m.clone())
+                        let block_name = block.name();
+                        DataResult::error(move || {
+                            mc_core::jformat!("No property on {} with name: {}", block_name, name)
+                        })
                     }
                 },
-                |name: &String| name.clone(),
+                |name: &JavaString| name.clone(),
             ))
         })
         .xmap(
@@ -882,7 +888,7 @@ pub struct MapDecorationEntry {
 
 #[derive(Clone, Debug, Default)]
 pub struct MapDecorations {
-    pub decorations: Vec<(String, MapDecorationEntry)>,
+    pub decorations: Vec<(JavaString, MapDecorationEntry)>,
 }
 
 impl PartialEq for MapDecorations {
@@ -900,7 +906,7 @@ impl MapDecorations {
             rotation: FLOAT.field_of("rotation"),
         })
         .codec();
-        STRING.unbounded_map(&entry).xmap(
+        JAVA_STRING.unbounded_map(&entry).xmap(
             |decorations| MapDecorations { decorations },
             |m: &MapDecorations| m.decorations.clone(),
         )

@@ -2,7 +2,8 @@
 //! inputs and `dynamic/run_command` actions. Only the validation half is needed server side: instantiation happens in the client.
 
 use super::java_letter_or_digit::LETTER_OR_DIGIT;
-use mc_dfu::{Codec, DataResult};
+use mc_core::java_string::JavaString;
+use mc_dfu::{Codec, DataResult, JAVA_STRING};
 use std::sync::LazyLock;
 
 /// `Character.isLetterOrDigit(char)` for one UTF-16 code unit.
@@ -21,7 +22,7 @@ fn is_letter_or_digit(unit: u16) -> bool {
 }
 
 /// `StringTemplate.isValidVariableName` (iterates UTF-16 code units like Java `char`s).
-pub fn is_valid_variable_name(variable: &str) -> bool {
+pub fn is_valid_variable_name(variable: &JavaString) -> bool {
     variable
         .encode_utf16()
         .all(|c| is_letter_or_digit(c) || c == u16::from(b'_'))
@@ -30,13 +31,13 @@ pub fn is_valid_variable_name(variable: &str) -> bool {
 /// `StringTemplate`: literal segments around `$(variable)` placeholders.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct StringTemplate {
-    pub segments: Vec<String>,
-    pub variables: Vec<String>,
+    pub segments: Vec<JavaString>,
+    pub variables: Vec<JavaString>,
 }
 
 impl StringTemplate {
     /// `fromString`; `Err` carries the `IllegalArgumentException` message.
-    pub fn from_string(input: &str) -> Result<StringTemplate, String> {
+    pub fn from_string(input: &JavaString) -> Result<StringTemplate, JavaString> {
         let units: Vec<u16> = input.encode_utf16().collect();
         let (dollar, open, close) = (u16::from(b'$'), u16::from(b'('), u16::from(b')'));
         let find = |c: u16, from: usize| {
@@ -45,7 +46,7 @@ impl StringTemplate {
                 .position(|u| *u == c)
                 .map(|p| p + from)
         };
-        let text = |a: usize, b: usize| String::from_utf16_lossy(&units[a..b]);
+        let text = |a: usize, b: usize| JavaString::from_utf16_units(&units[a..b]);
         let (mut segments, mut variables) = (Vec::new(), Vec::new());
         let mut start = 0;
         let mut index = find(dollar, 0);
@@ -57,7 +58,10 @@ impl StringTemplate {
                 };
                 let variable = text(i + 2, end);
                 if !is_valid_variable_name(&variable) {
-                    return Err(format!("Invalid macro variable name '{variable}'"));
+                    return Err(mc_core::jformat!(
+                        "Invalid macro variable name '{}'",
+                        variable
+                    ));
                 }
                 variables.push(variable);
                 start = end + 1;
@@ -82,12 +86,12 @@ impl StringTemplate {
 /// `ParsedTemplate`: the raw template string plus its parse (the codec's value, written back as the raw string).
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ParsedTemplate {
-    raw: String,
+    raw: JavaString,
     parsed: StringTemplate,
 }
 
 impl ParsedTemplate {
-    pub fn raw(&self) -> &str {
+    pub fn raw(&self) -> &JavaString {
         &self.raw
     }
     pub fn parsed(&self) -> &StringTemplate {
@@ -96,25 +100,25 @@ impl ParsedTemplate {
 
     /// `ParsedTemplate.CODEC`.
     pub fn codec() -> Codec<ParsedTemplate> {
-        mc_dfu::STRING.comap_flat_map(
+        JAVA_STRING.comap_flat_map(
             |value| match StringTemplate::from_string(&value) {
                 Ok(parsed) => DataResult::success(ParsedTemplate { raw: value, parsed }),
-                Err(e) => {
-                    DataResult::error(move || format!("Failed to parse template {value}: {e}"))
-                }
+                Err(e) => DataResult::error(move || {
+                    mc_core::jformat!("Failed to parse template {}: {}", value, e)
+                }),
             },
             |t: &ParsedTemplate| t.raw.clone(),
         )
     }
 
     /// `ParsedTemplate.VARIABLE_CODEC`.
-    pub fn variable_codec() -> Codec<String> {
-        static CODEC: LazyLock<Codec<String>> = LazyLock::new(|| {
-            mc_dfu::STRING.validate(|s| {
+    pub fn variable_codec() -> Codec<JavaString> {
+        static CODEC: LazyLock<Codec<JavaString>> = LazyLock::new(|| {
+            JAVA_STRING.validate(|s| {
                 if is_valid_variable_name(&s) {
                     DataResult::success(s)
                 } else {
-                    DataResult::error(move || format!("{s} is not a valid input name"))
+                    DataResult::error(move || mc_core::jformat!("{} is not a valid input name", s))
                 }
             })
         });

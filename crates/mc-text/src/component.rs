@@ -106,7 +106,7 @@ impl From<Component> for TranslatableArg {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct TranslatableContents {
-    pub key: String,
+    pub key: JavaString,
     pub fallback: Option<JavaString>,
     pub args: Vec<TranslatableArg>,
 }
@@ -119,7 +119,7 @@ enum Part<'a> {
 
 impl TranslatableContents {
     pub fn new(
-        key: impl Into<String>,
+        key: impl Into<JavaString>,
         fallback: Option<JavaString>,
         args: Vec<TranslatableArg>,
     ) -> Self {
@@ -134,7 +134,7 @@ impl TranslatableContents {
     /// vanilla fall back to the raw format string as a single part.
     fn decompose(&self, language: &Language) -> Vec<Part<'_>> {
         let from_language;
-        let format: &JavaString = match language.get(&self.key) {
+        let format: &JavaString = match self.key.exact_str().and_then(|key| language.get(key)) {
             Some(text) => {
                 from_language = JavaString::from(text);
                 &from_language
@@ -142,7 +142,7 @@ impl TranslatableContents {
             None => match &self.fallback {
                 Some(fallback) => fallback,
                 None => {
-                    from_language = JavaString::from(self.key.as_str());
+                    from_language = self.key.clone();
                     &from_language
                 }
             },
@@ -352,14 +352,14 @@ impl Component {
         Component::literal(text.unwrap_or(""))
     }
 
-    pub fn translatable(key: impl Into<String>, args: Vec<TranslatableArg>) -> Component {
+    pub fn translatable(key: impl Into<JavaString>, args: Vec<TranslatableArg>) -> Component {
         Component::new(ComponentContents::Translatable(TranslatableContents::new(
             key, None, args,
         )))
     }
 
     pub fn translatable_with_fallback(
-        key: impl Into<String>,
+        key: impl Into<JavaString>,
         fallback: Option<JavaString>,
         args: Vec<TranslatableArg>,
     ) -> Component {
@@ -699,7 +699,7 @@ impl fmt::Display for ComponentContents {
             ComponentContents::Literal(t) if t.as_lossy_str().is_empty() => f.write_str("empty"),
             ComponentContents::Literal(t) => write!(f, "literal{{{}}}", t.as_lossy_str()),
             ComponentContents::Translatable(t) => {
-                write!(f, "translation{{key='{}'", t.key)?;
+                write!(f, "translation{{key='{}'", t.key.as_lossy_str())?;
                 if let Some(fb) = &t.fallback {
                     write!(f, ", fallback='{}'", fb.as_lossy_str())?;
                 }

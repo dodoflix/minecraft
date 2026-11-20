@@ -63,7 +63,7 @@ fn test_block_item_places_the_mode_of_its_block_state() {
         stack.set(
             BLOCK_STATE,
             BlockItemStateProperties {
-                properties: vec![("mode".to_owned(), mode.to_owned())],
+                properties: vec![("mode".into(), mode.into())],
             },
         );
         stack

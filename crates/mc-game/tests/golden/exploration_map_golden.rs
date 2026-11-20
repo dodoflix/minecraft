@@ -107,8 +107,9 @@ fn render(level: &ServerLevel, stack: &ItemStack, out: &mut Vec<String>) {
     );
     if let Some(decorations) = stack.get(&MAP_DECORATIONS) {
         let mut entries = decorations.decorations.clone();
-        entries.sort_by(|a, b| a.0.cmp(&b.0));
+        entries.sort_by(|a, b| a.0.java_cmp(&b.0));
         for (key, e) in entries {
+            let key = key.to_utf8_string();
             out.push(format!(
                 "D {key} {} {:?} {:?} {:?}",
                 e.ty.name(),

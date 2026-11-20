@@ -739,10 +739,10 @@ impl ConditionalFunction for CopyBlockState {
                     match item_state
                         .properties
                         .iter_mut()
-                        .find(|(k, _)| k == def.name)
+                        .find(|(k, _)| k.exact_str() == Some(def.name))
                     {
-                        Some(e) => e.1 = value,
-                        None => item_state.properties.push((def.name.to_owned(), value)),
+                        Some(e) => e.1 = value.into(),
+                        None => item_state.properties.push((def.name.into(), value.into())),
                     }
                 }
             }

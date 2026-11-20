@@ -63,7 +63,7 @@ fn components_from_json_match_vanilla() {
         }
         n += 1;
     }
-    assert_eq!(n, 13);
+    assert_eq!(n, 17);
 }
 
 /// A number of a JSON text beyond the range of a double or a float is converted like `JsonOps.convertTo`.
@@ -98,7 +98,7 @@ fn components_from_snbt_match_vanilla() {
         check_component(&component, &c, &text);
         n += 1;
     }
-    assert_eq!(n, 10);
+    assert_eq!(n, 12);
 }
 
 #[test]

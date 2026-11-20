@@ -4,10 +4,11 @@ use super::Dialog;
 use super::template::ParsedTemplate;
 use crate::components::component_codec;
 use crate::components::holder::registry_by_name_codec;
+use mc_core::java_string::JavaString;
 use mc_core::math::java::java_double_to_string;
 use mc_data::InputControlType;
 use mc_dfu::extra::{POSITIVE_FLOAT, POSITIVE_INT, extra_int_range};
-use mc_dfu::{BOOL, Codec, DataResult, FLOAT, MapCodec, STRING, java_len};
+use mc_dfu::{BOOL, Codec, DataResult, FLOAT, JAVA_STRING, MapCodec};
 use mc_text::Component;
 use std::sync::LazyLock;
 
@@ -16,8 +17,8 @@ use std::sync::LazyLock;
 pub struct BooleanInput {
     pub label: Component,
     pub initial: bool,
-    pub on_true: String,
-    pub on_false: String,
+    pub on_true: JavaString,
+    pub on_false: JavaString,
 }
 
 impl BooleanInput {
@@ -25,8 +26,8 @@ impl BooleanInput {
         mc_dfu::record!(BooleanInput {
             label: component_codec().field_of("label"),
             initial: BOOL.optional_field_of_default("initial", false),
-            on_true: STRING.optional_field_of_default("on_true", "true".to_owned()),
-            on_false: STRING.optional_field_of_default("on_false", "false".to_owned()),
+            on_true: JAVA_STRING.optional_field_of_default("on_true", "true".into()),
+            on_false: JAVA_STRING.optional_field_of_default("on_false", "false".into()),
         })
     }
 }
@@ -100,7 +101,7 @@ impl RangeInfo {
 pub struct NumberRangeInput {
     pub width: i32,
     pub label: Component,
-    pub label_format: String,
+    pub label_format: JavaString,
     pub range_info: RangeInfo,
 }
 
@@ -109,8 +110,8 @@ impl NumberRangeInput {
         mc_dfu::record!(NumberRangeInput {
             width: Dialog::width_codec().optional_field_of_default("width", 200),
             label: component_codec().field_of("label"),
-            label_format: STRING
-                .optional_field_of_default("label_format", "options.generic_value".to_owned()),
+            label_format: JAVA_STRING
+                .optional_field_of_default("label_format", "options.generic_value".into()),
             range_info: RangeInfo::map_codec(),
         })
     }
@@ -119,7 +120,7 @@ impl NumberRangeInput {
 /// `SingleOptionInput.Entry`.
 #[derive(Clone, Debug, PartialEq)]
 pub struct SingleOptionEntry {
-    pub id: String,
+    pub id: JavaString,
     pub display: Option<Component>,
     pub initial: bool,
 }
@@ -128,12 +129,12 @@ impl SingleOptionEntry {
     /// `Entry.CODEC`: the record form, or a bare id string.
     pub fn codec() -> Codec<SingleOptionEntry> {
         let full = mc_dfu::record!(SingleOptionEntry {
-            id: STRING.field_of("id"),
+            id: JAVA_STRING.field_of("id"),
             display: component_codec().optional_field_of("display"),
             initial: BOOL.optional_field_of_default("initial", false),
         })
         .codec();
-        full.with_alternative_conv(&STRING, |id| SingleOptionEntry {
+        full.with_alternative_conv(&JAVA_STRING, |id| SingleOptionEntry {
             id,
             display: None,
             initial: false,
@@ -194,7 +195,7 @@ pub struct TextInput {
     pub width: i32,
     pub label: Component,
     pub label_visible: bool,
-    pub initial: String,
+    pub initial: JavaString,
     pub max_length: i32,
     pub multiline: Option<MultilineOptions>,
 }
@@ -205,12 +206,12 @@ impl TextInput {
             width: Dialog::width_codec().optional_field_of_default("width", 200),
             label: component_codec().field_of("label"),
             label_visible: BOOL.optional_field_of_default("label_visible", true),
-            initial: STRING.optional_field_of_default("initial", String::new()),
+            initial: JAVA_STRING.optional_field_of_default("initial", JavaString::new()),
             max_length: POSITIVE_INT.optional_field_of_default("max_length", 32),
             multiline: MultilineOptions::codec().optional_field_of("multiline"),
         })
         .validate(|o| {
-            if java_len(&o.initial) as i64 > i64::from(o.max_length) {
+            if o.initial.utf16_len() as i64 > i64::from(o.max_length) {
                 DataResult::error_str("Default text length exceeds allowed size")
             } else {
                 DataResult::success(o)
@@ -272,7 +273,7 @@ impl InputControl {
 /// `Input`: a named control.
 #[derive(Clone, Debug, PartialEq)]
 pub struct Input {
-    pub key: String,
+    pub key: JavaString,
     pub control: InputControl,
 }
 

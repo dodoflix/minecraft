@@ -13,12 +13,13 @@ use crate::components::component::{ComponentDef, ComponentKey};
 use crate::components::holder::{self, Holder, NoDirect};
 use mc_core::ident::Identifier;
 use mc_core::java_collections::FastOpenHashMap;
+use mc_core::java_string::JavaString;
 use mc_data::{DataComponentType, EntityType, Item};
 use mc_dfu::extra::{
     IDENTIFIER, NON_NEGATIVE_FLOAT, NON_NEGATIVE_INT, POSITIVE_INT, RGB_COLOR_CODEC,
     extra_float_range, extra_int_range,
 };
-use mc_dfu::{BOOL, Codec, DataResult, Either, FLOAT, INT, STRING, UNIT, record};
+use mc_dfu::{BOOL, Codec, DataResult, Either, FLOAT, INT, JAVA_STRING, UNIT, record};
 use mc_nbt::CompoundTag;
 use mc_text::{ChatFormatting, Component, Style};
 
@@ -324,7 +325,7 @@ impl Decode for OminousBottleAmplifier {
 pub struct CustomModelData {
     pub floats: Vec<f32>,
     pub flags: Vec<bool>,
-    pub strings: Vec<String>,
+    pub strings: Vec<JavaString>,
     pub colors: Vec<i32>,
 }
 
@@ -337,7 +338,7 @@ impl CustomModelData {
             flags: BOOL
                 .list_of()
                 .optional_field_of_default("flags", Vec::new()),
-            strings: STRING
+            strings: JAVA_STRING
                 .list_of()
                 .optional_field_of_default("strings", Vec::new()),
             colors: RGB_COLOR_CODEC
@@ -356,11 +357,10 @@ impl CustomModelData {
             .ok()
             .and_then(|i| self.flags.get(i).copied())
     }
-    pub fn get_string(&self, index: i32) -> Option<&str> {
+    pub fn get_string(&self, index: i32) -> Option<&JavaString> {
         usize::try_from(index)
             .ok()
             .and_then(|i| self.strings.get(i))
-            .map(String::as_str)
     }
     pub fn get_color(&self, index: i32) -> Option<i32> {
         usize::try_from(index)
