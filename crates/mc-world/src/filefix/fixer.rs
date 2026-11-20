@@ -278,8 +278,14 @@ pub(super) fn read_moves(
 ) -> Result<Journal, FileFixError> {
     // A journal that cannot be parsed is a `RuntimeException` of Gson or the codec, not an `IOException`.
     let invalid = |message: String| FileFixError::Unchecked(message);
-    let json = mc_core::gson::parse_object_strict(&read_string(file_path)?)
-        .map_err(|e| invalid(e.to_string()))?;
+    let text = read_string(file_path)?;
+    // `Gson.fromJson` reads an empty document as `null`, which the codec then refuses
+    if text.trim_matches([' ', '\t', '\n', '\r']).is_empty() {
+        return Err(invalid(
+            "java.lang.IllegalStateException: Not a JSON object: null".to_owned(),
+        ));
+    }
+    let json = mc_core::gson::parse_object_strict(&text).map_err(|e| invalid(e.to_string()))?;
     let Some(JsonElement::Array(entries)) = json.get("moves") else {
         return Err(invalid("No key moves in MapLike".to_owned()));
     };
