@@ -45,6 +45,33 @@ pub mod block_entity_id_fix;
 // end: versions 2200..2699
 
 // begin: versions 2700..3299
+pub mod abstract_arrow_pickup_fix;
+pub mod blending_data_remove_from_nether_end_fix;
+pub mod caves_and_cliffs_renames;
+pub mod chunk_delete_ignored_light_data_fix;
+pub mod chunk_height_and_biome_fix;
+pub mod chunk_proto_tick_list_fix;
+pub mod chunk_renames_fix;
+pub mod criteria_rename_fix;
+pub mod entity_fields_rename_fix;
+pub mod entity_goat_missing_state_fix;
+pub mod entity_variant_fix;
+pub mod filtered_books_fix;
+pub mod filtered_signs_fix;
+pub mod goat_horn_id_fix;
+pub mod item_stack_spawn_egg_fix;
+pub mod options_ambient_occlusion_fix;
+pub mod options_programmer_art_fix;
+pub mod overreaching_tick_fix;
+pub mod poi_type_remove_fix;
+pub mod saved_data_feature_pool_element_fix;
+pub mod spawner_data_fix;
+pub mod stats_rename_fix;
+pub mod structure_settings_flatten_fix;
+pub mod structures_become_configured_fix;
+pub mod variant_rename_fix;
+pub mod world_gen_settings_disallow_old_custom_worlds_fix;
+pub mod world_gen_settings_height_and_biome_fix;
 // end: versions 2700..3299
 
 // begin: versions 3300..3999

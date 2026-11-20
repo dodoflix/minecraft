@@ -157,8 +157,8 @@ impl Typed {
     #[track_caller]
     pub fn set_typed(self, f: &OpticFinder, new_value: Typed) -> Typed {
         let field = self.find(f, &new_value.ty, false);
-        let nv = new_value.value;
-        self.update_cap(&field, move |_| nv.clone())
+        let b = field.set(self.value, new_value.value);
+        Typed::new(field.t_type().clone(), self.ops, b)
     }
 
     /// `typed.updateTyped(optic, updater)`.
