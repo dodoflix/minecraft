@@ -8,7 +8,8 @@ import java.util.*;
  *   seq    inputs (joined by ;) formatted epoch 0 and 1.7e12 before and after each input, default zone Europe/Berlin:
  *                               the format is one shared object, as in vanilla, so a parsed zone name stays
  *   fmt    epoch ms, offset     the format of the instant in the zone GMT+offset (offset in seconds)
- * Usage (JDK 25): scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/legacy_date_golden.txt.gz crates/mc-game/tests/fixtures/LegacyDateGolden.java
+ * Run with JDK 25 (the version the vanilla server runs on) first on PATH.
+ * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/legacy_date_golden.txt.gz crates/mc-game/tests/fixtures/LegacyDateGolden.java
  * Output: crates/mc-game/tests/fixtures/legacy_date_golden.txt.gz
  */
 public class LegacyDateGolden {

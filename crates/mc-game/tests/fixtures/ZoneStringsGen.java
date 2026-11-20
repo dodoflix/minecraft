@@ -6,7 +6,8 @@ import java.util.*;
  * The zone strings `SimpleDateFormat(.., Locale.ROOT)` matches a parsed zone name against: for each zone of
  * `DateFormatSymbols.getInstance(Locale.ROOT).getZoneStrings()`, in that order, `id`, long and short standard name,
  * long and short daylight name, and the raw offset and DST saving of the zone in milliseconds, tab separated.
- * Usage (JDK 25): java crates/mc-game/tests/fixtures/ZoneStringsGen.java crates/mc-game-core/src/server/players/java_zone_strings.tsv
+ * Run with JDK 25 (the version the vanilla server runs on) first on PATH.
+ * Usage: java crates/mc-game/tests/fixtures/ZoneStringsGen.java crates/mc-game-core/src/server/players/java_zone_strings.tsv
  * Output: crates/mc-game-core/src/server/players/java_zone_strings.tsv
  */
 public class ZoneStringsGen {
