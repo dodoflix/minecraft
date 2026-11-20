@@ -28,9 +28,11 @@ use tempfile::TempDir;
 
 mod fixture;
 mod permit;
+mod query;
 mod units;
 mod worldref;
 pub use fixture::{gunzip, read_gz};
+pub use query::{Answer, QueryClient};
 pub use units::{hex, rows, unesc_units, unhex};
 pub use worldref::worldref;
 
