@@ -424,7 +424,7 @@ fn drop_light_only_sections(world: &Path) {
 /// `mc-server` on the 26.2 normal world, in the overworld chunks [-4,-2], [-3,-2], [-2,-2] and [3,4]). In such a chunk
 /// the fluid ticks queued at that game time have fired in one run and not in the other: `fluid_ticks`, the blocks the
 /// fluids placed (`block_states`) and the block light they give (`BlockLight`) differ. Those three are removed from
-/// both copies of a chunk whose `LastUpdate` differs; every other field of it, and every chunk saved at the same
+/// both copies of a chunk whose `LastUpdate` differs by one tick (any other difference fails the test); every other field of it, and every chunk saved at the same
 /// game time, stays compared.
 fn settle_tick_races(vanilla: &Path, ours: &Path) {
     let mut racing = std::collections::BTreeSet::new();
@@ -436,14 +436,22 @@ fn settle_tick_races(vanilla: &Path, ours: &Path) {
             read_region(&vanilla.join(rel)),
             read_region(&ours.join(rel)),
         );
-        racing.extend(
-            a.iter()
-                .filter(|(pos, chunk)| {
-                    b.get(pos)
-                        .is_some_and(|o| o.get_long("LastUpdate") != chunk.get_long("LastUpdate"))
-                })
-                .map(|(&(x, z), _)| (rel.clone(), x, z)),
-        );
+        for (&(x, z), chunk) in &a {
+            let Some(other) = b.get(&(x, z)) else {
+                continue;
+            };
+            let times = (chunk.get_long("LastUpdate"), other.get_long("LastUpdate"));
+            match times {
+                (Some(t), Some(u)) if t == u => {}
+                (Some(t), Some(u)) if (t - u).abs() == 1 => {
+                    racing.insert((rel.clone(), x, z));
+                }
+                (None, None) => {}
+                _ => panic!(
+                    "{rel} chunk [{x},{z}]: LastUpdate {times:?} is neither equal nor one tick apart"
+                ),
+            }
+        }
     }
     for world in [vanilla, ours] {
         rewrite_chunks(world, |rel, x, z, chunk| {
