@@ -63,7 +63,8 @@ impl SimpleRegionStorage {
             return Ok(false);
         };
         let pos = ChunkPos::unpack(key);
-        self.storage.write(&pos, data.as_ref()).inspect_err(|e| {
+        // `IOWorker.runStore` catches every exception of the write: the thread goes on and the write fails
+        caught(|| self.storage.write(&pos, data.as_ref())).inspect_err(|e| {
             log::error!("Failed to store chunk {}: {}", pos, e);
             if let Some(handler) = &self.on_store_failure {
                 handler(pos, e);
@@ -130,7 +131,8 @@ impl SimpleRegionStorage {
                     FieldSelector::new(TAG_INT, "DataVersion"),
                     FieldSelector::new(TAG_COMPOUND, "blending_data"),
                 ]);
-                match self.scan_chunk_with(&pos, &mut collect) {
+                // `createOldDataForRegion` catches the exception of one chunk, logs it and goes on with the next
+                match caught(|| self.scan_chunk_with(&pos, &mut collect)) {
                     Ok(()) => {
                         if let Some(Tag::Compound(tag)) = collect.get_result()
                             && is_old_chunk(tag)
@@ -181,5 +183,31 @@ impl SimpleRegionStorage {
 
     pub fn region_file_storage(&mut self) -> &mut RegionFileStorage {
         &mut self.storage
+    }
+}
+
+/// `IOWorker` catches every exception of a storage operation and fails the operation: a panic is the same failure, with its
+/// message as the error.
+fn caught<T>(f: impl FnOnce() -> io::Result<T>) -> io::Result<T> {
+    std::panic::catch_unwind(std::panic::AssertUnwindSafe(f)).unwrap_or_else(|payload| {
+        Err(io::Error::other(
+            payload
+                .downcast_ref::<String>()
+                .map(String::as_str)
+                .or_else(|| payload.downcast_ref::<&str>().copied())
+                .unwrap_or("storage operation panicked"),
+        ))
+    })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn a_panicking_operation_fails_with_its_message() {
+        let error = caught::<()>(|| panic!("write boom")).unwrap_err();
+        assert_eq!(error.to_string(), "write boom");
+        assert_eq!(caught(|| Ok(3)).unwrap(), 3);
     }
 }

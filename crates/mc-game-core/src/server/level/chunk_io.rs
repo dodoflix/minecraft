@@ -301,7 +301,57 @@ impl RegionIoHandle {
     }
 }
 
-fn io_loop(mut storage: SimpleRegionStorage, rx: Receiver<IoRequest>, results: ResultSender) {
+/// What the IO thread asks of its region storage.
+trait IoStorage {
+    fn read(&mut self, pos: &ChunkPos) -> io::Result<Option<CompoundTag>>;
+    fn scan_chunk(&mut self, pos: &ChunkPos) -> io::Result<Option<CompoundTag>>;
+    fn scan_old_region(&mut self, region_x: i32, region_z: i32) -> OldChunkBits;
+    fn write(&mut self, pos: &ChunkPos, tag: Option<CompoundTag>);
+    fn store_pending_chunk(&mut self) -> io::Result<bool>;
+    fn synchronize(&mut self, flush: bool) -> io::Result<()>;
+    fn close(&mut self) -> io::Result<()>;
+}
+
+impl IoStorage for SimpleRegionStorage {
+    fn read(&mut self, pos: &ChunkPos) -> io::Result<Option<CompoundTag>> {
+        SimpleRegionStorage::read(self, pos)
+    }
+    fn scan_chunk(&mut self, pos: &ChunkPos) -> io::Result<Option<CompoundTag>> {
+        SimpleRegionStorage::scan_chunk(self, pos)
+    }
+    fn scan_old_region(&mut self, region_x: i32, region_z: i32) -> OldChunkBits {
+        SimpleRegionStorage::scan_old_region(self, region_x, region_z)
+    }
+    fn write(&mut self, pos: &ChunkPos, tag: Option<CompoundTag>) {
+        SimpleRegionStorage::write(self, pos, tag)
+    }
+    fn store_pending_chunk(&mut self) -> io::Result<bool> {
+        SimpleRegionStorage::store_pending_chunk(self)
+    }
+    fn synchronize(&mut self, flush: bool) -> io::Result<()> {
+        SimpleRegionStorage::synchronize(self, flush)
+    }
+    fn close(&mut self) -> io::Result<()> {
+        SimpleRegionStorage::close(self)
+    }
+}
+
+/// `IOWorker` catches every exception of a task: it is logged (`level`, `what`) and completes the task's future
+/// exceptionally, the thread goes on. A panic is the same failure; waiters must still be answered, so the error is
+/// returned for the reply.
+fn contained<T>(
+    level: log::Level,
+    what: std::fmt::Arguments<'_>,
+    f: impl FnOnce() -> io::Result<T>,
+) -> io::Result<T> {
+    std::panic::catch_unwind(std::panic::AssertUnwindSafe(f)).unwrap_or_else(|payload| {
+        let text = crate::crash_report::exception_text(payload.as_ref());
+        log::log!(level, "{what}\n{text}");
+        Err(io::Error::other(text))
+    })
+}
+
+fn io_loop(mut storage: impl IoStorage, rx: Receiver<IoRequest>, results: ResultSender) {
     // Mirror of the storage's pending-write order (same insertion semantics): the counters to release per chunk.
     let mut pending: indexmap::IndexMap<i64, Vec<Arc<AtomicI32>>> = indexmap::IndexMap::new();
     fn release(counters: Vec<Arc<AtomicI32>>) {
@@ -314,14 +364,12 @@ fn io_loop(mut storage: SimpleRegionStorage, rx: Receiver<IoRequest>, results: R
             Ok(IoRequest::Read { key, seq }) => {
                 // a panic of the read must still answer: the chunk map applies results in submission order, a missing one
                 // would hold every later result back
-                let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
-                    storage.read(&ChunkPos::unpack(key))
-                }))
-                .unwrap_or_else(|payload| {
-                    Err(io::Error::other(crate::crash_report::exception_text(
-                        payload.as_ref(),
-                    )))
-                });
+                let pos = ChunkPos::unpack(key);
+                let result = contained(
+                    log::Level::Warn,
+                    format_args!("Failed to read chunk {pos}"),
+                    || storage.read(&pos),
+                );
                 if results
                     .send(seq, WorkerMessage::ChunkRead { key, result })
                     .is_err()
@@ -330,47 +378,90 @@ fn io_loop(mut storage: SimpleRegionStorage, rx: Receiver<IoRequest>, results: R
                 }
             }
             Ok(IoRequest::ReadBlocking { key, reply }) => {
-                let _ = reply.send(storage.read(&ChunkPos::unpack(key)));
+                let pos = ChunkPos::unpack(key);
+                let _ = reply.send(contained(
+                    log::Level::Warn,
+                    format_args!("Failed to read chunk {pos}"),
+                    || storage.read(&pos),
+                ));
             }
             Ok(IoRequest::Scan { key, reply }) => {
-                let _ = reply.send(storage.scan_chunk(&ChunkPos::unpack(key)));
+                let pos = ChunkPos::unpack(key);
+                let _ = reply.send(contained(
+                    log::Level::Warn,
+                    format_args!("Failed to bulk scan chunk {pos}"),
+                    || storage.scan_chunk(&pos),
+                ));
             }
             Ok(IoRequest::OldRegion {
                 region_x,
                 region_z,
                 reply,
             }) => {
-                let _ = reply.send(storage.scan_old_region(region_x, region_z));
+                // `createOldDataForRegion` skips a chunk that fails to scan; a panic outside one chunk loses the region
+                let bits = contained(
+                    log::Level::Warn,
+                    format_args!("Failed to scan region"),
+                    || Ok(storage.scan_old_region(region_x, region_z)),
+                )
+                .unwrap_or_default();
+                let _ = reply.send(bits);
             }
             Ok(IoRequest::Write {
                 pos,
                 tag,
                 active_writes,
             }) => {
-                storage.write(&pos, tag);
-                let entry = pending.entry(pos.pack()).or_default();
-                entry.extend(active_writes);
+                let queued = contained(
+                    log::Level::Error,
+                    format_args!("Failed to store chunk {pos}"),
+                    || {
+                        storage.write(&pos, tag);
+                        Ok(())
+                    },
+                );
+                match queued {
+                    Ok(()) => pending.entry(pos.pack()).or_default().extend(active_writes),
+                    // never queued: nothing will release the counter later
+                    Err(_) => release(active_writes.into_iter().collect()),
+                }
             }
             Ok(IoRequest::Synchronize { flush, done }) => {
-                let r = storage.synchronize(flush);
+                let r = contained(
+                    log::Level::Warn,
+                    format_args!("Failed to synchronize chunks"),
+                    || storage.synchronize(flush),
+                );
                 pending.drain(..).for_each(|(_, v)| release(v));
                 let _ = done.send(r);
             }
             Ok(IoRequest::Close { done }) => {
-                let r = storage.close();
+                let r = contained(
+                    log::Level::Error,
+                    format_args!("Failed to close storage"),
+                    || storage.close(),
+                );
                 pending.drain(..).for_each(|(_, v)| release(v));
                 let _ = done.send(r);
                 return;
             }
             Err(std::sync::mpsc::RecvTimeoutError::Timeout) => {
                 // Idle: persist the oldest queued chunk, like `IOWorker.storePendingChunk` between tasks.
-                let _ = storage.store_pending_chunk();
+                let _ = contained(
+                    log::Level::Error,
+                    format_args!("Failed to store chunk"),
+                    || storage.store_pending_chunk(),
+                );
                 if let Some((_, v)) = pending.shift_remove_index(0) {
                     release(v);
                 }
             }
             Err(std::sync::mpsc::RecvTimeoutError::Disconnected) => {
-                let _ = storage.close();
+                let _ = contained(
+                    log::Level::Error,
+                    format_args!("Failed to close storage"),
+                    || storage.close(),
+                );
                 return;
             }
         }
@@ -645,6 +736,104 @@ mod tests {
             (1, WorkerMessage::ChunkRead { key: 8, .. })
         ));
         pool.close();
+    }
+
+    /// Storage whose every operation panics.
+    struct PanickingStorage;
+
+    impl IoStorage for PanickingStorage {
+        fn read(&mut self, _: &ChunkPos) -> io::Result<Option<CompoundTag>> {
+            panic!("read boom")
+        }
+        fn scan_chunk(&mut self, _: &ChunkPos) -> io::Result<Option<CompoundTag>> {
+            panic!("scan boom")
+        }
+        fn scan_old_region(&mut self, _: i32, _: i32) -> OldChunkBits {
+            panic!("old region boom")
+        }
+        fn write(&mut self, _: &ChunkPos, _: Option<CompoundTag>) {
+            panic!("write boom")
+        }
+        fn store_pending_chunk(&mut self) -> io::Result<bool> {
+            panic!("store boom")
+        }
+        fn synchronize(&mut self, _: bool) -> io::Result<()> {
+            panic!("synchronize boom")
+        }
+        fn close(&mut self) -> io::Result<()> {
+            panic!("close boom")
+        }
+    }
+
+    /// Like `IOWorker`, which catches the exception of every task: a panic in any arm of the IO thread answers its
+    /// waiter with the failure and leaves the thread running.
+    #[test]
+    fn a_panic_in_any_io_arm_is_answered_and_the_thread_survives() {
+        let (results, rx) = ResultSender::channel();
+        let (tx, requests) = channel();
+        let io = std::thread::spawn(move || io_loop(PanickingStorage, requests, results));
+        let wait = Duration::from_secs(10);
+        let pos = ChunkPos::new(3, 4);
+        let text = |r: io::Result<Option<CompoundTag>>| r.expect_err("failed").to_string();
+
+        let (reply, answer) = channel();
+        tx.send(IoRequest::ReadBlocking {
+            key: pos.pack(),
+            reply,
+        })
+        .unwrap();
+        assert!(text(answer.recv_timeout(wait).expect("read")).contains("read boom"));
+
+        let (reply, answer) = channel();
+        tx.send(IoRequest::Scan {
+            key: pos.pack(),
+            reply,
+        })
+        .unwrap();
+        assert!(text(answer.recv_timeout(wait).expect("scan")).contains("scan boom"));
+
+        let (reply, answer) = channel();
+        tx.send(IoRequest::OldRegion {
+            region_x: 0,
+            region_z: 0,
+            reply,
+        })
+        .unwrap();
+        answer.recv_timeout(wait).expect("old region");
+
+        let counter = Arc::new(AtomicI32::new(1));
+        tx.send(IoRequest::Write {
+            pos,
+            tag: None,
+            active_writes: Some(counter.clone()),
+        })
+        .unwrap();
+
+        tx.send(IoRequest::Read {
+            key: pos.pack(),
+            seq: 5,
+        })
+        .unwrap();
+        assert!(matches!(
+            rx.recv_timeout(wait).expect("sequenced read"),
+            (5, WorkerMessage::ChunkRead { result: Err(e), .. }) if e.to_string().contains("read boom")
+        ));
+        // the write never queued: its counter was released with no later store
+        assert_eq!(counter.load(Ordering::Acquire), 0);
+
+        let (done, answer) = channel();
+        tx.send(IoRequest::Synchronize { flush: true, done })
+            .unwrap();
+        let err = answer.recv_timeout(wait).expect("synchronize").unwrap_err();
+        assert!(err.to_string().contains("synchronize boom"));
+
+        // the idle store panics too, on every timeout tick
+        std::thread::sleep(Duration::from_millis(30));
+        let (done, answer) = channel();
+        tx.send(IoRequest::Close { done }).unwrap();
+        let err = answer.recv_timeout(wait).expect("close").unwrap_err();
+        assert!(err.to_string().contains("close boom"));
+        io.join().expect("the IO thread did not die");
     }
 
     /// `IOWorker.scanChunk`: a queued write answers first, then the region file; scanning never creates a region file.
