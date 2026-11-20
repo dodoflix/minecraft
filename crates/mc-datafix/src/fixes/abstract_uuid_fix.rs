@@ -53,7 +53,7 @@ pub fn replace_uuid_least_most(tag: &Dynamic, old_key: &str, new_key: &str) -> O
 /// `createUUIDFromString(tag, oldKey)`: `UUID.fromString` of the string at `oldKey` (a malformed string gives `None`).
 pub fn create_uuid_from_string(tag: &Dynamic, old_key: &str) -> Option<Dynamic> {
     let uuid_string = tag.get(old_key).result()?.as_string().result()?;
-    let uuid = uuid_from_string(&uuid_string).ok()?;
+    let uuid = uuid_from_string(uuid_string.as_lossy_str()).ok()?;
     Some(create_uuid_tag(
         tag,
         most_significant_bits(&uuid),

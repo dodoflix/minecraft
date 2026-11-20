@@ -1295,7 +1295,7 @@ impl Entity for ServerPlayer {
         }
         let mut post = ListTag::new();
         for id in &p.post_effects {
-            post.push(Tag::String(id.to_string()));
+            post.push(Tag::String(id.to_string().into()));
         }
         out.put("post_effects", post);
         if !self.shoulder_entity_left.is_empty() {

@@ -1,8 +1,6 @@
 //! `status` state: server list ping.
-use mc_core::math::java::java_double_to_string;
 use mc_core::uuid_util::uuid_from_string;
 use mc_text::Component;
-use serde_json::{Map, Number, Value};
 use uuid::Uuid;
 
 use crate::codec::{
@@ -41,51 +39,7 @@ pub struct ServerStatus {
 }
 
 fn string(s: &str) -> JsonElement {
-    JsonElement::String(s.to_owned())
-}
-
-/// `JsonOps` view of a `ComponentSerialization` encoding (`serde_json` floats print like `Double.toString`).
-fn value_to_element(v: &Value) -> JsonElement {
-    match v {
-        Value::Null => JsonElement::Null,
-        Value::Bool(b) => JsonElement::Bool(*b),
-        Value::Number(n) if n.is_i64() || n.is_u64() => JsonElement::Number(n.to_string()),
-        Value::Number(n) => JsonElement::Number(java_double_to_string(n.as_f64().unwrap_or(0.0))),
-        Value::String(s) => string(s),
-        Value::Array(a) => JsonElement::Array(a.iter().map(value_to_element).collect()),
-        Value::Object(o) => {
-            let mut obj = JsonObject::new();
-            for (k, v) in o {
-                obj.add(k, value_to_element(v));
-            }
-            JsonElement::Object(obj)
-        }
-    }
-}
-
-/// The reverse, for the `description` input of `ComponentSerialization`. `None` for a number `serde_json` cannot hold
-/// (outside the `f64` range), where vanilla's `BigDecimal` conversion would still succeed.
-fn element_to_value(e: &JsonElement) -> Option<Value> {
-    Some(match e {
-        JsonElement::Null => Value::Null,
-        JsonElement::Bool(b) => Value::Bool(*b),
-        JsonElement::Number(t) => Value::Number(match (t.parse::<i64>(), t.parse::<u64>()) {
-            (Ok(i), _) => Number::from(i),
-            (_, Ok(u)) => Number::from(u),
-            _ => Number::from_f64(t.parse::<f64>().ok()?)?,
-        }),
-        JsonElement::String(s) => Value::String(s.clone()),
-        JsonElement::Array(a) => {
-            Value::Array(a.iter().map(element_to_value).collect::<Option<_>>()?)
-        }
-        JsonElement::Object(o) => {
-            let mut m = Map::new();
-            for (k, v) in o.iter() {
-                m.insert(k.to_owned(), element_to_value(v)?);
-            }
-            Value::Object(m)
-        }
-    })
+    JsonElement::String(s.into())
 }
 
 /// `MapLike.get`: a missing key and a JSON `null` both read as absent.
@@ -104,7 +58,7 @@ fn codec_int(e: &JsonElement) -> Result<Option<i32>, String> {
 
 fn codec_string(e: &JsonElement) -> Option<&str> {
     match e {
-        JsonElement::String(s) => Some(s),
+        JsonElement::String(s) => Some(s.as_lossy_str()),
         _ => None,
     }
 }
@@ -119,7 +73,7 @@ impl ServerStatus {
                 .description
                 .to_json()
                 .map_err(|e| EncodeError(format!("Failed to encode: {e}")))?;
-            o.add("description", value_to_element(&d));
+            o.add("description", d);
         }
         if let Some(p) = &self.players {
             let mut po = JsonObject::new();
@@ -175,8 +129,7 @@ impl ServerStatus {
             ));
         };
         let description = field(o, "description")
-            .and_then(element_to_value)
-            .and_then(|v| Component::from_json(&v).ok())
+            .and_then(|v| Component::from_json(v).ok())
             .unwrap_or_else(Component::empty);
         let players = match field(o, "players") {
             Some(p) => Self::decode_players(p)?,

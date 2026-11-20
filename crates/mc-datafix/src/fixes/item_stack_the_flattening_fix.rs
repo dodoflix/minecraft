@@ -29,7 +29,7 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
                     let Some(id) = input.get_optional(&id_f) else {
                         return input;
                     };
-                    let name = id.second().as_str();
+                    let name = id.second().as_lossy_str();
                     let rest = input.get(&remainder_finder()).into_dynamic();
                     let data = rest.get("Damage").as_int_or(0);
                     let tag = is_damage_id(name).then(|| input.get_or_create_typed(&tag_f));

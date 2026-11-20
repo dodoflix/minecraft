@@ -40,7 +40,8 @@ pub fn resolve_component(
     let Some(source) = source else {
         return Ok(line.clone());
     };
-    resolve(&ResolutionContext::create(&source), line).map_err(|e| e.get_message())
+    resolve(&ResolutionContext::create(&source), line)
+        .map_err(|e| e.get_message().into_string_lossy())
 }
 
 /// `ResolvableProfile.createResolved(player.getGameProfile())`.

@@ -145,7 +145,8 @@ impl StructurePoolElement for FeaturePoolElement {
             Tag::String(
                 self.feature
                     .id()
-                    .map_or_else(String::new, ToString::to_string),
+                    .map_or_else(String::new, ToString::to_string)
+                    .into(),
             ),
         );
         tag.put_string("projection", self.projection.get_name());

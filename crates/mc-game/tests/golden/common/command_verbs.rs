@@ -84,7 +84,10 @@ impl CommandSource for Feedback {
         ));
         if self.json {
             let json = message.to_json().expect("feedback component encodes");
-            lines.push(format!("CF json {}", canonical_json(&json)));
+            lines.push(format!(
+                "CF json {}",
+                canonical_json(&mc_text::json::value_from_element(&json))
+            ));
         }
     }
     fn accepts_success(&self) -> bool {
@@ -195,7 +198,7 @@ pub fn command<H: ActionHost>(h: &mut H, a: &[String], line: &str) -> bool {
                 let mut keys: Vec<String> = bars
                     .keys()
                     .map(|k| {
-                        mc_core::ident::Identifier::parse(k)
+                        mc_core::ident::Identifier::parse(k.as_lossy_str())
                             .expect("bar id")
                             .to_string()
                     })
@@ -431,19 +434,20 @@ fn canon_with_sorted(tag: &Tag, sorted_key: &str) -> String {
     let Tag::Compound(compound) = tag else {
         return canon(tag);
     };
-    let mut keys: Vec<&String> = compound.keys().collect();
-    keys.sort();
+    let mut keys: Vec<&mc_core::java_string::JavaString> = compound.keys().collect();
+    keys.sort_by(|a, b| a.java_cmp(b));
     let parts: Vec<String> = keys
         .into_iter()
         .map(|key| {
-            let value = compound.get(key).expect("key exists");
+            let name = key.as_lossy_str();
+            let value = compound.get_java(key).expect("key exists");
             match value {
-                Tag::List(list) if key == sorted_key => {
+                Tag::List(list) if name == sorted_key => {
                     let mut items: Vec<String> = list.iter().map(canon).collect();
                     items.sort();
-                    format!("{key}:[{}]", items.join(","))
+                    format!("{name}:[{}]", items.join(","))
                 }
-                other => format!("{key}:{}", canon(other)),
+                other => format!("{name}:{}", canon(other)),
             }
         })
         .collect();
@@ -522,7 +526,11 @@ pub fn dump<H: MobHost>(h: &mut H, kind: &str, arg: Option<&str>) -> bool {
             let mut bars: Vec<String> = saved
                 .iter()
                 .map(|(id, packed)| {
-                    format!("BOSSBAR {id} {}", canon_with_sorted(packed, "Players"))
+                    format!(
+                        "BOSSBAR {1} {}",
+                        canon_with_sorted(packed, "Players"),
+                        id.as_lossy_str()
+                    )
                 })
                 .collect();
             bars.sort();
@@ -608,12 +616,13 @@ fn saved_lines(id: &str) -> Vec<String> {
     };
     let mut lines = vec![format!("SAVED {id} DataVersion={version}")];
     if let Some(Tag::Compound(data)) = root.get("data") {
-        let mut ids: Vec<&String> = data.keys().collect();
-        ids.sort();
+        let mut ids: Vec<&mc_core::java_string::JavaString> = data.keys().collect();
+        ids.sort_by(|a, b| a.java_cmp(b));
         for key in ids {
             lines.push(format!(
-                "SAVEDBAR {key} {}",
-                canon_with_sorted(data.get(key).expect("key exists"), "Players")
+                "SAVEDBAR {} {}",
+                key.as_lossy_str(),
+                canon_with_sorted(data.get_java(key).expect("key exists"), "Players")
             ));
         }
     }

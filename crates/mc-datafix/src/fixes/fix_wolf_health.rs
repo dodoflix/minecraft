@@ -27,7 +27,9 @@ pub fn new(output_schema: &Schema) -> DataFix {
                         .into_iter()
                         .map(|attribute| {
                             if WOLF_HEALTH
-                                == ensure_namespaced(&attribute.get("Name").as_string_or(""))
+                                == ensure_namespaced(
+                                    attribute.get("Name").as_string_or("").as_lossy_str(),
+                                )
                             {
                                 attribute.update("Base", |base| {
                                     if base.as_double_or(0.0) == 20.0 {

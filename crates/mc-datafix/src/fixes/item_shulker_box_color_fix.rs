@@ -33,7 +33,7 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
             df.fix_type_everywhere_typed("ItemShulkerBoxColorFix", &item_stack_type, move |input| {
             let is_shulker_box = input
                 .get_optional(&id_f)
-                .is_some_and(|id| id.second().as_str() == "minecraft:shulker_box");
+                .is_some_and(|id| id.second().as_lossy_str() == "minecraft:shulker_box");
             if !is_shulker_box {
                 return input;
             }

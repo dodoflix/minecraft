@@ -153,7 +153,7 @@ pub fn from_lines(
                     Err(e) => {
                         return Err(format!(
                             "Whilst parsing command on line {line_number}: {}",
-                            e.get_message()
+                            e.get_message().as_lossy_str()
                         ));
                     }
                 }

@@ -56,7 +56,7 @@ fn map_right(either: Value, f: impl FnOnce(Value) -> Value) -> Value {
 fn string_to_bool(input: Dynamic) -> Dynamic {
     match input.as_string().result() {
         // `Boolean.parseBoolean`
-        Some(string) => input.create_boolean(string.eq_ignore_ascii_case("true")),
+        Some(string) => input.create_boolean(string.as_lossy_str().eq_ignore_ascii_case("true")),
         None => input,
     }
 }

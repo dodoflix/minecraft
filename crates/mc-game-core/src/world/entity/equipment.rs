@@ -221,7 +221,7 @@ impl EntityEquipment {
         let mut eq = EntityEquipment::new();
         for (name, value) in tag.iter() {
             if let (Some(slot), Some(item)) = (
-                EquipmentSlot::by_name(name),
+                EquipmentSlot::by_name(name.as_lossy_str()),
                 value.as_compound().and_then(load_item_stack),
             ) {
                 eq.set(slot, item);

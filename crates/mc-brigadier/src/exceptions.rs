@@ -8,7 +8,8 @@ use std::sync::{Arc, LazyLock, RwLock};
 use crate::java_fmt::{double_to_string, float_to_string};
 use crate::message::{MessageRef, literal};
 use crate::string_reader::ImmutableStringReader;
-use crate::utf16::{len16, substring};
+use crate::utf16::{len16, substring_java};
+use mc_core::java_string::JavaString;
 
 /// Identity of an exception type (`CommandExceptionType`): two exceptions have the same type iff
 /// they were created by the same `*CommandExceptionType` instance.
@@ -72,14 +73,14 @@ impl CommandSyntaxException {
     }
 
     /// `getMessage()`: message plus " at position N: ...<--\[HERE\]" when there is a context.
-    pub fn get_message(&self) -> String {
-        let mut message = self.message.get_string();
+    pub fn get_message(&self) -> JavaString {
+        let mut message = JavaString::from(self.message.get_string());
         if let Some(context) = self.get_context() {
             message.push_str(&format!(
-                " at position {}: {}",
-                self.context.as_ref().map_or(0, |c| c.1),
-                context
+                " at position {}: ",
+                self.context.as_ref().map_or(0, |c| c.1)
             ));
+            message.push_java(&context);
         }
         message
     }
@@ -88,14 +89,15 @@ impl CommandSyntaxException {
         &self.message
     }
 
-    pub fn get_context(&self) -> Option<String> {
+    /// The window of the input before the cursor; it can start inside a surrogate pair, so it is a Java string.
+    pub fn get_context(&self) -> Option<JavaString> {
         let (input, cursor) = self.context.as_ref()?;
         let cursor = (*cursor).min(len16(input));
-        let mut out = String::new();
+        let mut out = JavaString::new();
         if cursor > Self::CONTEXT_AMOUNT {
             out.push_str("...");
         }
-        out.push_str(&substring(
+        out.push_java(&substring_java(
             input,
             cursor.saturating_sub(Self::CONTEXT_AMOUNT),
             cursor,
@@ -119,7 +121,7 @@ impl CommandSyntaxException {
 
 impl fmt::Display for CommandSyntaxException {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.write_str(&self.get_message())
+        f.write_str(self.get_message().as_lossy_str())
     }
 }
 

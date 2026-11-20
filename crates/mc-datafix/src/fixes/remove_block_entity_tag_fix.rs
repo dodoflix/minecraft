@@ -188,7 +188,7 @@ fn create_chunk_block_entity_remover(
                         typed_block_entity.get_or_create_typed(&block_entity_type_finder);
                     let block_entity_id = typed_block_entity_unwrapped
                         .get_optional(&block_entity_id_f)
-                        .map(|id| id.as_str().to_string())
+                        .map(|id| id.as_lossy_str().to_string())
                         .unwrap_or_default();
                     if !ids.contains(&block_entity_id) {
                         kept_block_entities.push(untyped_block_entity);
@@ -223,7 +223,7 @@ fn remove_block_entity(
     };
     let block_entity_id = block_entity
         .get_optional(block_entity_id_f)
-        .map(|id| id.as_str().to_string())
+        .map(|id| id.as_lossy_str().to_string())
         .unwrap_or_default();
     if !ids.contains(&block_entity_id) {
         tag

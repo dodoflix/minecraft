@@ -78,7 +78,7 @@ impl Decode for Rarity {
     }
 }
 
-// ---- Dyn <-> serde_json (the text component codecs speak serde_json) -------------------------------------------
+// ---- Dyn <-> serde_json (data pack JSON read by serde_json cannot hold a lone surrogate; the other way each one shows as U+FFFD) --
 
 pub fn dyn_to_serde(d: &Dyn) -> serde_json::Value {
     use serde_json::{Number, Value};
@@ -112,7 +112,7 @@ pub fn dyn_to_serde(d: &Dyn) -> serde_json::Value {
                 })
             })
             .unwrap_or(Value::Null),
-        Dyn::Str(s) => Value::String(s.clone()),
+        Dyn::Str(s) => Value::String(s.as_lossy_str().to_owned()),
         Dyn::List(l) => Value::Array(l.iter().map(dyn_to_serde).collect()),
         Dyn::Map(m) => Value::Object(
             m.iter()
@@ -135,11 +135,11 @@ pub fn serde_to_dyn(v: &serde_json::Value) -> Dyn {
             (None, Some(f)) => Dyn::Double(f),
             _ => Dyn::JsonNum(n.to_string()),
         },
-        Value::String(s) => Dyn::Str(s.clone()),
+        Value::String(s) => Dyn::str(s.as_str()),
         Value::Array(a) => Dyn::List(a.iter().map(serde_to_dyn).collect()),
         Value::Object(o) => Dyn::Map(
             o.iter()
-                .map(|(k, v)| (Dyn::Str(k.clone()), serde_to_dyn(v)))
+                .map(|(k, v)| (Dyn::str(k.as_str()), serde_to_dyn(v)))
                 .collect(),
         ),
     }
@@ -179,7 +179,7 @@ pub fn component_codec() -> Codec<Component> {
             let encoded: Result<Dyn, String> = match ops.kind() {
                 OpsKind::Json => input
                     .to_json()
-                    .map(|v| serde_to_dyn(&v))
+                    .map(|v| Dyn::from_json_element(&v))
                     .map_err(|e| e.to_string()),
                 OpsKind::Nbt => input
                     .to_nbt()
@@ -188,7 +188,7 @@ pub fn component_codec() -> Codec<Component> {
                 OpsKind::Hash => input.to_nbt().map_err(|e| e.to_string()).map(|t| {
                     let nbt = Dyn::from(&t);
                     match input.to_json() {
-                        Ok(j) => mark_bools(nbt, &serde_to_dyn(&j)),
+                        Ok(j) => mark_bools(nbt, &Dyn::from_json_element(&j)),
                         Err(_) => nbt,
                     }
                 }),
@@ -200,12 +200,12 @@ pub fn component_codec() -> Codec<Component> {
         },
         |ops, input| {
             let r: mc_text::codec::P<Component> = match ops.kind() {
-                OpsKind::Json => Component::from_json_partial(&dyn_to_serde(input)),
+                OpsKind::Json => Component::from_json_partial(&input.to_json_element()),
                 OpsKind::Nbt => match input.to_tag() {
                     Ok(t) => Component::from_nbt_partial(&t),
-                    Err(e) => Err(mc_text::CodecError(e).into()),
+                    Err(e) => Err(mc_text::CodecError::new(e).into()),
                 },
-                OpsKind::Hash => Err(mc_text::CodecError("Unsupported operation".into()).into()),
+                OpsKind::Hash => Err(mc_text::CodecError::new("Unsupported operation").into()),
             };
             match r {
                 Ok(c) => DataResult::success((c, ops.empty())),

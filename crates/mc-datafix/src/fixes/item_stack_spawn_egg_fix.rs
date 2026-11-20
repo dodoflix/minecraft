@@ -104,14 +104,14 @@ pub fn new(output_schema: &Schema, changes_type: bool, item_type: &str) -> DataF
                 &item_stack_type,
                 move |input| {
                     if let Some(id) = input.get_optional(&id_f)
-                        && id.second().as_str() == item_type
+                        && id.second().as_lossy_str() == item_type
                     {
                         let tag = input.get_or_create_typed(&tag_f);
                         let entity = tag.get_or_create_typed(&entity_f);
                         if let Some(entity_id) = entity.get_optional(&entity_id_f) {
                             let egg = MAP
                                 .iter()
-                                .find(|(key, _)| *key == entity_id.as_str())
+                                .find(|(key, _)| *key == entity_id.as_lossy_str())
                                 .map_or("minecraft:pig_spawn_egg", |(_, egg)| *egg);
                             return input.set(
                                 &id_f,

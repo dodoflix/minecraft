@@ -91,7 +91,7 @@ fn item_predicates_parse_like_vanilla() {
                 Err(e) => format!(
                     "ERR{}:{}",
                     e.get_cursor().map_or(-1, |c| c as i64),
-                    e.get_message().replace('\n', "\\n")
+                    e.get_message().as_lossy_str().replace('\n', "\\n")
                 ),
             };
             let suggestions = argument

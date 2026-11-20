@@ -2,6 +2,7 @@
 //! accept. Errors are plain strings like `DataResult.error`; the saved-data layer logs them like vanilla.
 
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 
 pub type DataResult<T> = Result<T, String>;
@@ -144,14 +145,14 @@ pub fn unbounded_map_hash_order<K, V>(
 }
 
 fn unbounded_map_in<'a, K, V>(
-    entries: impl ExactSizeIterator<Item = (&'a String, &'a Tag)>,
+    entries: impl ExactSizeIterator<Item = (&'a JavaString, &'a Tag)>,
     mut key: impl FnMut(&str) -> DataResult<K>,
     mut value: impl FnMut(&Tag) -> DecodeResult<V>,
 ) -> DecodeResult<Vec<(K, V)>> {
     let mut ok = Vec::with_capacity(entries.len());
     let mut errors = Vec::new();
     for (k, v) in entries {
-        let key = match key(k) {
+        let key = match key(k.as_lossy_str()) {
             Ok(key) => key,
             Err(e) => {
                 errors.push(format!("{e} missed input: {{{k:?}:{v}}}"));

@@ -69,7 +69,8 @@ fn decoration(json: &Value) -> Result<ChatTypeDecoration, String> {
             })
             .unwrap_or_default(),
         style: match json.get("style") {
-            Some(s) => Style::from_json(s).map_err(|e| e.to_string())?,
+            Some(s) => Style::from_json(&mc_text::json::element_from_value(s))
+                .map_err(|e| e.to_string())?,
             None => Style::EMPTY,
         },
     })

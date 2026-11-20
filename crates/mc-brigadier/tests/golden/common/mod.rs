@@ -163,7 +163,7 @@ pub fn exec(d: &mut D, src: i32, input: &str) -> String {
         Ok(n) => format!("OK {n}"),
         Err(e) => format!(
             "ERR {} | {} | {}",
-            e.get_message(),
+            e.get_message().as_lossy_str(),
             e.get_raw_message().get_string(),
             e.get_cursor().map_or(-1, |c| c as i64)
         ),

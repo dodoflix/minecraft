@@ -98,7 +98,7 @@ impl WorldGenSettings {
             .as_compound()
             .ok_or("Not a map")?;
         for key in dimensions.keys() {
-            Identifier::read(key)?;
+            Identifier::read(key.as_lossy_str())?;
         }
         Ok(WorldGenSettings {
             options: WorldOptions {

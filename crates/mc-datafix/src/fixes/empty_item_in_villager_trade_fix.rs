@@ -15,7 +15,8 @@ pub fn new(output_schema: &Schema) -> DataFix {
             &trade_type,
             |input| {
                 let buy_b = input.get("buyB").or_else_empty_map();
-                let id = ensure_namespaced(&buy_b.get("id").as_string_or("minecraft:air"));
+                let id =
+                    ensure_namespaced(buy_b.get("id").as_string_or("minecraft:air").as_lossy_str());
                 let count = buy_b.get("count").as_int_or(0);
                 if id != "minecraft:air" && count != 0 {
                     input

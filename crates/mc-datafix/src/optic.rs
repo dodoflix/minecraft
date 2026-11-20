@@ -531,7 +531,9 @@ impl TypedOptic {
                 left @ Value::Left(_) => left,
                 other => crate::value::mismatch("Either", &other),
             },
-            Optic::InjTagged(key) if builds => Value::pair(Value::Str(key.clone()), inner(None, r)),
+            Optic::InjTagged(key) if builds => {
+                Value::pair(Value::str(key.as_str()), inner(None, r))
+            }
             Optic::InjTagged(key) => {
                 let (k2, v) = existing(s).into_pair();
                 if matches!(&k2, Value::Str(s) if s == key) {

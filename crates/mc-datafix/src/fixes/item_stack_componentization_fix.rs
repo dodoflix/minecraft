@@ -9,11 +9,12 @@ use crate::legacy_component_data_fix_utils::{
 use crate::schema::Schema;
 use crate::ty::ensure_namespaced;
 use mc_core::java_collections::hash_map_ordered;
+use mc_core::java_string::JavaString;
 use mc_core::math::java::{java_double_to_string, java_float_to_string};
 use mc_dfu::{Dynamic, JNum, OptionalDynamic};
 
 /// The `Value` and optional `Signature` of every property of a profile, by property name.
-type ProfileProperties = Vec<(String, Vec<(String, Option<String>)>)>;
+type ProfileProperties = Vec<(JavaString, Vec<(JavaString, Option<JavaString>)>)>;
 
 const POTION_HOLDER_IDS: &[&str] = &[
     "minecraft:potion",
@@ -160,7 +161,7 @@ fn fix_item_stack(item_stack: &mut ItemStackData, dynamic: &Dynamic) {
 
     item_stack.move_tag_to_component("EntityTag", "minecraft:entity_data");
     item_stack.fix_sub_tag("BlockEntityTag", false, |item_stack, block_entity_tag| {
-        let id = ensure_namespaced(&block_entity_tag.get("id").as_string_or(""));
+        let id = ensure_namespaced(block_entity_tag.get("id").as_string_or("").as_lossy_str());
         let block_entity_tag = fix_block_entity_tag(item_stack, block_entity_tag, &id);
         let without_id = block_entity_tag.remove("id");
         if without_id == block_entity_tag.empty_map() {
@@ -311,7 +312,7 @@ fn fix_block_state_tag(block_state_tag: &Dynamic) -> Dynamic {
     for (key_dynamic, value) in entries {
         let key = key_dynamic.as_string_or("");
         let mut new_value = None;
-        if BOOLEAN_BLOCK_STATE_PROPERTIES.contains(&key.as_str())
+        if BOOLEAN_BLOCK_STATE_PROPERTIES.contains(&key.as_lossy_str())
             && let Some(bool_value) = value.as_boolean().result()
         {
             new_value = Some(value.create_string(bool_value.to_string()));
@@ -373,7 +374,7 @@ fn fix_display(item_stack: &mut ItemStackData, mut display: Dynamic, hide_flags:
     if let Some(loc_name) = display.get("LocName").as_string().result() {
         item_stack.set_component(
             "minecraft:item_name",
-            create_translatable_component(display.ops(), &loc_name),
+            create_translatable_component(display.ops(), loc_name),
         );
     }
 
@@ -516,7 +517,7 @@ fn fix_enchantments(
 }
 
 fn parse_enchantment(entry: &Dynamic) -> Option<(String, i32)> {
-    let id = entry.get("id").as_string();
+    let id = entry.get("id").as_string_lossy();
     let level = entry.get("lvl").as_number();
     match (id.result(), level.result()) {
         // `Mth.clamp(level, 0, 255)`
@@ -554,7 +555,7 @@ fn fix_block_state_predicates(
             .as_stream()
             .into_iter()
             .map(|value| match value.as_string().result() {
-                Some(string) => fix_block_state_predicate(&value, &string),
+                Some(string) => fix_block_state_predicate(&value, string.as_lossy_str()),
                 None => value,
             })
             .collect();
@@ -762,10 +763,10 @@ fn fix_written_book(item_stack: &mut ItemStackData, dynamic: &Dynamic) {
 }
 
 fn fix_book_pages(item_stack: &mut ItemStackData, dynamic: &Dynamic) -> Option<Dynamic> {
-    let pages: Vec<String> = item_stack
+    let pages: Vec<JavaString> = item_stack
         .remove_tag("pages")
         .as_list(|page| page.as_string_or(""));
-    let filtered_pages: Vec<(String, String)> = item_stack
+    let filtered_pages: Vec<(JavaString, JavaString)> = item_stack
         .remove_tag("filtered_pages")
         .as_map(|key| key.as_string_or("0"), |page| page.as_string_or(""));
     if pages.is_empty() {
@@ -786,8 +787,14 @@ fn fix_book_pages(item_stack: &mut ItemStackData, dynamic: &Dynamic) -> Option<D
     }
 }
 
-fn create_filtered_text(dynamic: &Dynamic, text: &str, filtered: Option<String>) -> Dynamic {
-    let mut fixed_page = dynamic.empty_map().set("raw", dynamic.create_string(text));
+fn create_filtered_text(
+    dynamic: &Dynamic,
+    text: &JavaString,
+    filtered: Option<JavaString>,
+) -> Dynamic {
+    let mut fixed_page = dynamic
+        .empty_map()
+        .set("raw", dynamic.create_string(text.clone()));
     if let Some(filtered) = filtered {
         fixed_page = fixed_page.set("filtered", dynamic.create_string(filtered));
     }
@@ -888,7 +895,7 @@ fn fix_firework_explosion(mut explosion: Dynamic) -> Dynamic {
 /// `ItemStackComponentizationFix.fixProfile(dynamic)`.
 pub fn fix_profile(dynamic: &Dynamic) -> Dynamic {
     if let Some(simple_name) = dynamic.as_string().result() {
-        if is_valid_player_name(&simple_name) {
+        if is_valid_player_name(simple_name.as_lossy_str()) {
             dynamic
                 .empty_map()
                 .set("name", dynamic.create_string(simple_name))
@@ -900,7 +907,7 @@ pub fn fix_profile(dynamic: &Dynamic) -> Dynamic {
         let id = dynamic.get("Id").result();
         let properties = fix_profile_properties(&dynamic.get("Properties"));
         let mut profile = dynamic.empty_map();
-        if is_valid_player_name(&name) {
+        if is_valid_player_name(name.as_lossy_str()) {
             profile = profile.set("name", dynamic.create_string(name));
         }
 
@@ -940,11 +947,11 @@ fn fix_profile_properties(dynamic: &OptionalDynamic) -> Option<Dynamic> {
             for (value, signature) in entries {
                 let property = dynamic
                     .empty_map()
-                    .set("name", dynamic.create_string(key.as_str()))
-                    .set("value", dynamic.create_string(value.as_str()));
+                    .set("name", dynamic.create_string(key.clone()))
+                    .set("value", dynamic.create_string(value.clone()));
                 list.push(match signature {
                     Some(signature) => {
-                        property.set("signature", dynamic.create_string(signature.as_str()))
+                        property.set("signature", dynamic.create_string(signature.clone()))
                     }
                     None => property,
                 });
@@ -979,7 +986,7 @@ impl ItemStackData {
         let count = dynamic.get("Count").as_number();
         match (item.result(), count.result()) {
             (Some(item), Some(count)) => Some(ItemStackData::new(
-                &item,
+                item.as_lossy_str(),
                 count.int_value(),
                 &dynamic.remove("id").remove("Count"),
             )),

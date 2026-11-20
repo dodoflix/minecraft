@@ -655,15 +655,15 @@ pub fn unpack_structure_starts(
     let mut out = IndexMap::new();
     let starts = tag.get_compound_or_empty("starts");
     for (key, value) in starts {
-        if !is_known(key) {
-            log::error!("Unknown structure start: {key}");
+        if !is_known(key.as_lossy_str()) {
+            log::error!("Unknown structure start: {0}", key.as_lossy_str());
             continue;
         }
         let start = value.as_compound().cloned().unwrap_or_default();
         if start.get_string_or("id", "INVALID") == "INVALID" {
             continue;
         }
-        out.insert(key.clone(), start);
+        out.insert(key.as_lossy_str().to_owned(), start);
     }
     out
 }
@@ -676,8 +676,11 @@ pub fn unpack_structure_references(
 ) -> IndexMap<String, IndexSet<i64>> {
     let mut out = IndexMap::new();
     for (key, entry) in tag.get_compound_or_empty("References") {
-        if !is_known(key) {
-            log::warn!("Found reference to unknown structure '{key}' in chunk {pos}, discarding");
+        if !is_known(key.as_lossy_str()) {
+            log::warn!(
+                "Found reference to unknown structure '{0}' in chunk {pos}, discarding",
+                key.as_lossy_str()
+            );
             continue;
         }
         let Some(longs) = entry.as_long_array() else {
@@ -690,7 +693,8 @@ pub fn unpack_structure_references(
                 let ref_pos = ChunkPos::unpack(packed);
                 if ref_pos.get_chessboard_distance(&pos) > 8 {
                     log::warn!(
-                        "Found invalid structure reference [ {key} @ {ref_pos} ] for chunk {pos}."
+                        "Found invalid structure reference [ {0} @ {ref_pos} ] for chunk {pos}.",
+                        key.as_lossy_str()
                     );
                     false
                 } else {
@@ -698,7 +702,7 @@ pub fn unpack_structure_references(
                 }
             })
             .collect();
-        out.insert(key.clone(), set);
+        out.insert(key.as_lossy_str().to_owned(), set);
     }
     out
 }

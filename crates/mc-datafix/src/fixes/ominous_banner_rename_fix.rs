@@ -21,7 +21,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
 fn fix_item_stack_tag(tag: Dynamic) -> Dynamic {
     tag.update("display", |display| {
         display.update("Name", |name| match name.as_string().result() {
-            Some(string) => name.create_string(string.replace(
+            Some(string) => name.create_string(string.as_lossy_str().replace(
                 "\"translate\":\"block.minecraft.illager_banner\"",
                 "\"translate\":\"block.minecraft.ominous_banner\"",
             )),

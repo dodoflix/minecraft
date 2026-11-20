@@ -3,6 +3,8 @@
 //! One tree type keeps codecs object-safe; the *kind* of ops (see [`crate::Ops`]) decides which constructors and
 //! accessors are legal and how the tree is finally rendered (`Tag`, JSON text, CRC32C hash).
 
+use mc_core::gson::{JsonElement, JsonObject};
+use mc_core::java_string::JavaString;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use std::fmt;
 
@@ -20,7 +22,7 @@ pub enum Dyn {
     Double(f64),
     /// Gson `LazilyParsedNumber`: a number kept as its source text (JSON input only).
     JsonNum(String),
-    Str(String),
+    Str(JavaString),
     List(Vec<Dyn>),
     /// Ordered entries (NBT compound / JSON object / hash map). Keys are strings except for hash maps.
     Map(Vec<(Dyn, Dyn)>),
@@ -30,25 +32,34 @@ pub enum Dyn {
 }
 
 impl Dyn {
-    pub fn str(s: impl Into<String>) -> Dyn {
+    pub fn str(s: impl Into<JavaString>) -> Dyn {
         Dyn::Str(s.into())
     }
     pub fn is_empty_value(&self) -> bool {
         matches!(self, Dyn::Empty)
     }
+    /// The text of a string, each lone surrogate shown as U+FFFD.
     pub fn as_str(&self) -> Option<&str> {
+        match self {
+            Dyn::Str(s) => Some(s.as_lossy_str()),
+            _ => None,
+        }
+    }
+    /// The exact string, lone surrogates included.
+    pub fn as_java_string(&self) -> Option<&JavaString> {
         match self {
             Dyn::Str(s) => Some(s),
             _ => None,
         }
     }
+    /// Whether this is the string `key` (never a string with lone surrogates).
+    pub fn is_str(&self, key: &str) -> bool {
+        matches!(self, Dyn::Str(s) if *s == *key)
+    }
     /// String-keyed lookup in a `Map` (no JSON-null handling; see `MapLike::get`).
     pub fn map_get(&self, key: &str) -> Option<&Dyn> {
         match self {
-            Dyn::Map(m) => m
-                .iter()
-                .find(|(k, _)| k.as_str() == Some(key))
-                .map(|(_, v)| v),
+            Dyn::Map(m) => m.iter().find(|(k, _)| k.is_str(key)).map(|(_, v)| v),
             _ => None,
         }
     }
@@ -239,13 +250,13 @@ impl Dyn {
     }
 
     /// Compact JSON text like `JsonElement.toString()` (no HTML escaping). Floats print like `Float.toString`.
-    pub fn to_json_string(&self) -> String {
-        let mut out = String::new();
+    pub fn to_json_string(&self) -> JavaString {
+        let mut out = JavaString::new();
         self.write_json(&mut out);
         out
     }
 
-    fn write_json(&self, out: &mut String) {
+    fn write_json(&self, out: &mut JavaString) {
         match self {
             Dyn::Empty => out.push_str("null"),
             Dyn::Bool(b) => out.push_str(if *b { "true" } else { "false" }),
@@ -289,7 +300,60 @@ impl Dyn {
     }
 }
 
-fn write_nums(out: &mut String, it: impl Iterator<Item = String>) {
+impl Dyn {
+    /// The Gson tree of this value (`JsonOps.convertTo`-like): numbers print like Java prints them (`Float.toString`
+    /// for floats), a `NaN` or infinite float is `null` (Gson rejects it), a non-string map key is its JSON text.
+    pub fn to_json_element(&self) -> JsonElement {
+        let num = |t: String| JsonElement::Number(t);
+        let nums = |it: &mut dyn Iterator<Item = String>| JsonElement::Array(it.map(num).collect());
+        match self {
+            Dyn::Empty => JsonElement::Null,
+            Dyn::Bool(b) => JsonElement::Bool(*b),
+            Dyn::Byte(v) => num(v.to_string()),
+            Dyn::Short(v) => num(v.to_string()),
+            Dyn::Int(v) => num(v.to_string()),
+            Dyn::Long(v) => num(v.to_string()),
+            Dyn::Float(v) if v.is_finite() => num(mc_core::math::java::java_float_to_string(*v)),
+            Dyn::Double(v) if v.is_finite() => num(mc_core::math::java::java_double_to_string(*v)),
+            Dyn::Float(_) | Dyn::Double(_) => JsonElement::Null,
+            Dyn::JsonNum(t) => num(t.clone()),
+            Dyn::Str(s) => JsonElement::String(s.clone()),
+            Dyn::List(l) => JsonElement::Array(l.iter().map(Dyn::to_json_element).collect()),
+            Dyn::Map(m) => JsonElement::Object(JsonObject::from_distinct_members(
+                m.iter()
+                    .map(|(k, v)| {
+                        let key = match k {
+                            Dyn::Str(s) => s.clone(),
+                            other => other.to_json_string(),
+                        };
+                        (key, v.to_json_element())
+                    })
+                    .collect(),
+            )),
+            Dyn::Bytes(v) => nums(&mut v.iter().map(|x| x.to_string())),
+            Dyn::Ints(v) => nums(&mut v.iter().map(|x| x.to_string())),
+            Dyn::Longs(v) => nums(&mut v.iter().map(|x| x.to_string())),
+        }
+    }
+
+    /// The value of a Gson tree: numbers keep their source text (`JsonNum`), `null` is `Empty`.
+    pub fn from_json_element(e: &JsonElement) -> Dyn {
+        match e {
+            JsonElement::Null => Dyn::Empty,
+            JsonElement::Bool(b) => Dyn::Bool(*b),
+            JsonElement::Number(t) => Dyn::JsonNum(t.clone()),
+            JsonElement::String(s) => Dyn::Str(s.clone()),
+            JsonElement::Array(a) => Dyn::List(a.iter().map(Dyn::from_json_element).collect()),
+            JsonElement::Object(o) => Dyn::Map(
+                o.iter()
+                    .map(|(k, v)| (Dyn::Str(k.clone()), Dyn::from_json_element(v)))
+                    .collect(),
+            ),
+        }
+    }
+}
+
+fn write_nums(out: &mut JavaString, it: impl Iterator<Item = String>) {
     out.push('[');
     for (i, n) in it.enumerate() {
         if i > 0 {
@@ -300,9 +364,16 @@ fn write_nums(out: &mut String, it: impl Iterator<Item = String>) {
     out.push(']');
 }
 
-fn write_json_string(out: &mut String, s: &str) {
+fn write_json_string(out: &mut JavaString, s: &JavaString) {
     out.push('"');
-    for c in s.chars() {
+    for c in char::decode_utf16(s.encode_utf16()) {
+        let c = match c {
+            Ok(c) => c,
+            Err(e) => {
+                out.push_utf16_unit(e.unpaired_surrogate());
+                continue;
+            }
+        };
         match c {
             '"' => out.push_str("\\\""),
             '\\' => out.push_str("\\\\"),
@@ -467,7 +538,7 @@ impl JsonParser<'_> {
             _ => self.err("Unexpected character"),
         }
     }
-    fn string(&mut self) -> Result<String, String> {
+    fn string(&mut self) -> Result<JavaString, String> {
         self.i += 1;
         let mut units: Vec<u16> = Vec::new();
         loop {
@@ -519,12 +590,12 @@ impl JsonParser<'_> {
                 }
             }
         }
-        Ok(String::from_utf16_lossy(&units))
+        Ok(JavaString::from_utf16_units(&units))
     }
 }
 
 impl fmt::Display for Dyn {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.write_str(&self.to_json_string())
+        f.write_str(self.to_json_string().as_lossy_str())
     }
 }

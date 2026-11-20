@@ -367,7 +367,7 @@ pub fn json_to_nbt(v: &Value) -> Tag {
     match v {
         Value::Null => Tag::End,
         Value::Bool(b) => Tag::Byte(*b as i8),
-        Value::String(s) => Tag::String(s.clone()),
+        Value::String(s) => Tag::String(s.clone().into()),
         Value::Number(n) => {
             // `BigDecimal.longValueExact()`: integral values (even `1.0`) narrow to the smallest integer tag
             if let Some(l) = n.as_i64() {
@@ -500,20 +500,20 @@ impl Schema {
             }
             Schema::String => v
                 .as_str()
-                .map(|s| Tag::String(s.to_owned()))
+                .map(|s| Tag::String(s.to_owned().into()))
                 .ok_or_else(|| format!("Not a string: {}", compact(v))),
             Schema::Identifier => {
                 let s = v
                     .as_str()
                     .ok_or_else(|| format!("Not a string: {}", compact(v)))?;
-                Ok(Tag::String(Identifier::read(s)?.to_string()))
+                Ok(Tag::String(Identifier::read(s)?.to_string().into()))
             }
             Schema::Enum(names) => {
                 let s = v
                     .as_str()
                     .ok_or_else(|| format!("Not a string: {}", compact(v)))?;
                 if names.contains(&s) {
-                    Ok(Tag::String(s.to_owned()))
+                    Ok(Tag::String(s.to_owned().into()))
                 } else {
                     Err(format!("Unknown element name:{s}"))
                 }
@@ -524,7 +524,7 @@ impl Schema {
                     .ok_or_else(|| format!("Not a string: {}", compact(v)))?;
                 let id = Identifier::read(s)?;
                 match ctx.lookup.contains(registry, &id) {
-                    Lookup::Yes | Lookup::Pending => Ok(Tag::String(id.to_string())),
+                    Lookup::Yes | Lookup::Pending => Ok(Tag::String(id.to_string().into())),
                     _ => Err(format!(
                         "Unknown registry key in ResourceKey[minecraft:root / {registry}]: ResourceKey[{registry} / {id}]"
                     )),
@@ -534,7 +534,7 @@ impl Schema {
                 Value::String(s) => {
                     let id = Identifier::read(s)?;
                     ctx.check_holder(registry, &id)?;
-                    Ok(Tag::String(id.to_string()))
+                    Ok(Tag::String(id.to_string().into()))
                 }
                 _ => Err("Inline definitions not allowed here".to_owned()),
             },
@@ -587,14 +587,14 @@ impl Schema {
                 let Tag::Compound(mut body) = schema.convert(v, ctx)? else {
                     return Err("Dispatched codec is not a map".to_owned());
                 };
-                body.put(key.to_string(), Tag::String(type_id.to_string()));
+                body.put(key.to_string(), Tag::String(type_id.to_string().into()));
                 Ok(Tag::Compound(body))
             }
-            Schema::Text => mc_text::Component::from_json(v)
+            Schema::Text => mc_text::Component::from_json(&mc_text::json::element_from_value(v))
                 .map_err(|e| e.to_string())?
                 .to_nbt()
                 .map_err(|e| e.to_string()),
-            Schema::Style => mc_text::Style::from_json(v)
+            Schema::Style => mc_text::Style::from_json(&mc_text::json::element_from_value(v))
                 .map_err(|e| e.to_string())?
                 .to_nbt()
                 .map_err(|e| e.to_string()),
@@ -715,14 +715,14 @@ fn convert_holder_set(
             .ok_or_else(|| format!("Not a string: {}", compact(e)))?;
         let id = Identifier::read(s)?;
         ctx.check_holder(registry, &id)?;
-        Ok(Tag::String(id.to_string()))
+        Ok(Tag::String(id.to_string().into()))
     };
     if let Some(s) = v.as_str()
         && let Some(tag) = s.strip_prefix('#')
     {
         let id = Identifier::read(tag)?;
         ctx.check_tag(registry, &id)?;
-        return Ok(Tag::String(format!("#{id}")));
+        return Ok(Tag::String(format!("#{id}").into()));
     }
     let elements: Vec<Tag> = match v {
         Value::Array(list) => list.iter().map(holder).collect::<Result<_, _>>()?,

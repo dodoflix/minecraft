@@ -90,7 +90,7 @@ pub(crate) fn uuid_from_ints<O: Ops>(v: &O) -> R<u128> {
         .collect::<R<_>>()?;
     let [a, b, c, d]: [i32; 4] = ints
         .try_into()
-        .map_err(|_| CodecError("Input is not a list of 4 ints".into()))?;
+        .map_err(|_| CodecError::new("Input is not a list of 4 ints"))?;
     let most = ((a as u64) << 32) | (b as u32 as u64);
     let least = ((c as u64) << 32) | (d as u32 as u64);
     Ok(((most as u128) << 64) | least as u128)
@@ -298,7 +298,7 @@ pub(crate) fn encode_profile<O: Ops>(p: &ResolvableProfile) -> O {
         ("elytra", &s.elytra),
     ] {
         if let Some(id) = v {
-            f.push((key.into(), O::create_string(&id.to_string())));
+            f.push((key.into(), O::create_string(id.to_string())));
         }
     }
     if let Some(m) = &s.model {

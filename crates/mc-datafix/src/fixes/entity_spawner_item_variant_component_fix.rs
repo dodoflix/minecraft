@@ -32,7 +32,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
                 move |input| {
                     let id = input
                         .get_optional(&id_finder)
-                        .map(|id| id.second().as_str().to_string())
+                        .map(|id| id.second().as_lossy_str().to_string())
                         .unwrap_or_default();
                     match id.as_str() {
                         "minecraft:salmon_bucket" => input
@@ -148,7 +148,7 @@ fn fix_painting(components: Dynamic) -> Dynamic {
     let Some(entity_data) = components.get("minecraft:entity_data").result() else {
         return components;
     };
-    if entity_data.get("id").as_string().result().as_deref() != Some("minecraft:painting") {
+    if entity_data.get("id").as_string_lossy().result().as_deref() != Some("minecraft:painting") {
         return components;
     }
     let result = entity_data.get("variant").result();

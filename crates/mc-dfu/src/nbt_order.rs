@@ -13,13 +13,12 @@
 
 use crate::dynv::Dyn;
 use mc_core::java_collections::hash_map_copy_capacity;
-use mc_core::math::java::java_string_hash;
 
 type Entries = Vec<(Dyn, Dyn)>;
 
 fn bucket(key: &Dyn, cap: usize) -> usize {
     let h = match key {
-        Dyn::Str(s) => java_string_hash(s),
+        Dyn::Str(s) => s.java_hash_code(),
         _ => 0,
     };
     ((h ^ ((h as u32) >> 16) as i32) as u32 as usize) & (cap - 1)
@@ -77,6 +76,6 @@ pub(crate) fn copy_put(src: &[(Dyn, Dyn)], items: impl IntoIterator<Item = (Dyn,
 pub(crate) fn copy_remove(src: &[(Dyn, Dyn)], key: &str) -> Entries {
     let mut out = src.to_vec();
     let cap = copy_cap(out.len());
-    out.retain(|(k, _)| k.as_str() != Some(key));
+    out.retain(|(k, _)| !k.is_str(key));
     finish(out, cap)
 }

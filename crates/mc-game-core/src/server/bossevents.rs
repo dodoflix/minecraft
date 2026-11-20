@@ -581,7 +581,7 @@ impl CustomBossEvent {
         wrap_in_square_brackets(self.state.name.clone()).with_style_fn(|s| {
             s.with_color_formatting(Some(self.state.color.get_formatting()))
                 .with_hover_event(Some(HoverEvent::show_text(Component::literal(id.clone()))))
-                .with_insertion(Some(id.clone()))
+                .with_insertion(Some(id.clone().into()))
         })
     }
 

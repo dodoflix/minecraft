@@ -15,6 +15,7 @@ use crate::world::container::Container;
 use crate::world::entity::ServerPlayer;
 use crate::world::entity::equipment::EquipmentSlot;
 use linkme::distributed_slice;
+use mc_core::java_string::JavaString;
 use mc_data::{DataComponentType, Item};
 use mc_protocol::components::{
     Filterable, WRITABLE_BOOK_CONTENT, WRITTEN_BOOK_CONTENT, WritableBookContent,
@@ -161,13 +162,13 @@ pub fn flush_open_item_gui(ctx: &mut PlayCtx) {
 fn filterable_from_outgoing(
     text: &FilteredText,
     text_filtering_enabled: bool,
-) -> Filterable<String> {
+) -> Filterable<JavaString> {
     if text_filtering_enabled {
-        Filterable::pass_through(text.filtered_or_empty())
+        Filterable::pass_through(text.filtered_or_empty().into())
     } else {
         Filterable {
-            raw: text.raw.clone(),
-            filtered: text.is_filtered().then(|| text.filtered_or_empty()),
+            raw: text.raw.clone().into(),
+            filtered: text.is_filtered().then(|| text.filtered_or_empty().into()),
         }
     }
 }
@@ -216,7 +217,7 @@ fn sign_book(
         WRITTEN_BOOK_CONTENT,
         WrittenBookContent {
             title: filterable_from_outgoing(title, enabled),
-            author,
+            author: author.into(),
             generation: 0,
             pages,
             resolved: true,
@@ -320,13 +321,13 @@ mod tests {
         let text = FilteredText::fully_filtered("secret");
         assert_eq!(
             filterable_from_outgoing(&text, true),
-            Filterable::pass_through(String::new())
+            Filterable::pass_through(JavaString::new())
         );
         assert_eq!(
             filterable_from_outgoing(&text, false),
             Filterable {
                 raw: "secret".into(),
-                filtered: Some(String::new())
+                filtered: Some(JavaString::new())
             }
         );
         assert_eq!(
@@ -372,8 +373,8 @@ mod tests {
         assert_eq!(
             content.pages,
             vec![
-                Filterable::pass_through("a".to_owned()),
-                Filterable::pass_through("b".to_owned())
+                Filterable::pass_through("a".into()),
+                Filterable::pass_through("b".into())
             ]
         );
         // a slot without a writable book is left alone
@@ -411,7 +412,7 @@ mod tests {
             "mine"
         );
         let content = signed.get(&WRITTEN_BOOK_CONTENT).unwrap();
-        assert_eq!(content.title, Filterable::pass_through("Title".to_owned()));
+        assert_eq!(content.title, Filterable::pass_through("Title".into()));
         assert_eq!(content.author, "Steve");
         assert_eq!(content.generation, 0);
         assert!(content.resolved);

@@ -6,6 +6,7 @@ use crate::error::{NbtError, Result};
 use crate::list::is_wrapper;
 use crate::tag::*;
 use crate::{CompoundTag, ListTag};
+use mc_core::java_string::JavaString;
 
 // ---------------------------------------------------------------- DataInput
 
@@ -45,13 +46,13 @@ pub(crate) fn read_f64(input: &mut &[u8]) -> Result<f64> {
     Ok(f64::from_bits(read_i64(input)? as u64))
 }
 
-/// `DataInputStream.readUTF`. Lone surrogates (representable in Java strings) become U+FFFD.
-pub(crate) fn read_utf(input: &mut &[u8]) -> Result<String> {
+/// `DataInputStream.readUTF`.
+pub(crate) fn read_utf(input: &mut &[u8]) -> Result<JavaString> {
     let utflen = read_u16(input)? as usize;
     let bytes = take(input, utflen)?;
     if bytes.is_ascii() {
         // Safe fast path; embedded NUL bytes are valid single-byte chars as well.
-        return Ok(String::from_utf8_lossy(bytes).into_owned());
+        return Ok(String::from_utf8_lossy(bytes).into_owned().into());
     }
     let mut units: Vec<u16> = Vec::with_capacity(utflen);
     let mut count = 0usize;
@@ -71,9 +72,9 @@ pub(crate) fn read_utf(input: &mut &[u8]) -> Result<String> {
                 }
                 let c2 = bytes[count - 1] as u32;
                 if c2 & 0xC0 != 0x80 {
-                    return Err(NbtError::MalformedUtf(format!(
-                        "malformed input around byte {count}"
-                    )));
+                    return Err(NbtError::MalformedUtf(
+                        format!("malformed input around byte {count}").into(),
+                    ));
                 }
                 units.push((((c & 0x1F) << 6) | (c2 & 0x3F)) as u16);
             }
@@ -87,21 +88,20 @@ pub(crate) fn read_utf(input: &mut &[u8]) -> Result<String> {
                 let c2 = bytes[count - 2] as u32;
                 let c3 = bytes[count - 1] as u32;
                 if c2 & 0xC0 != 0x80 || c3 & 0xC0 != 0x80 {
-                    return Err(NbtError::MalformedUtf(format!(
-                        "malformed input around byte {}",
-                        count - 1
-                    )));
+                    return Err(NbtError::MalformedUtf(
+                        format!("malformed input around byte {}", count - 1).into(),
+                    ));
                 }
                 units.push((((c & 0x0F) << 12) | ((c2 & 0x3F) << 6) | (c3 & 0x3F)) as u16);
             }
             _ => {
-                return Err(NbtError::MalformedUtf(format!(
-                    "malformed input around byte {count}"
-                )));
+                return Err(NbtError::MalformedUtf(
+                    format!("malformed input around byte {count}").into(),
+                ));
             }
         }
     }
-    Ok(String::from_utf16_lossy(&units))
+    Ok(JavaString::from_utf16_units(&units))
 }
 
 pub(crate) fn skip_bytes(input: &mut &[u8], n: usize) {
@@ -114,7 +114,16 @@ pub(crate) fn skip_bytes(input: &mut &[u8], n: usize) {
 
 /// `DataOutputStream.writeUTF`. With `fallback`, an over-long string is replaced by `""`
 /// (`NbtIo.StringFallbackDataOutput`).
-pub(crate) fn write_utf(out: &mut Vec<u8>, s: &str, fallback: bool) -> Result<()> {
+pub(crate) fn write_utf(out: &mut Vec<u8>, s: &JavaString, fallback: bool) -> Result<()> {
+    if let Some(text) = s.exact_str()
+        && text.len() <= usize::from(u16::MAX)
+        && text.is_ascii()
+        && !text.contains('\0')
+    {
+        out.extend_from_slice(&(text.len() as u16).to_be_bytes());
+        out.extend_from_slice(text.as_bytes());
+        return Ok(());
+    }
     let mut utflen = 0usize;
     for u in s.encode_utf16() {
         utflen += match u {
@@ -129,15 +138,18 @@ pub(crate) fn write_utf(out: &mut Vec<u8>, s: &str, fallback: bool) -> Result<()
             return Ok(());
         }
         let units: Vec<u16> = s.encode_utf16().collect();
-        let head = String::from_utf16_lossy(&units[..8]);
-        let tail = String::from_utf16_lossy(&units[units.len() - 8..]);
-        return Err(NbtError::MalformedUtf(format!(
-            "encoded string ({head}...{tail}) too long: {utflen} bytes"
-        )));
+        let mut message = JavaString::from("encoded string (");
+        message.push_java(&JavaString::from_utf16_units(&units[..8]));
+        message.push_str("...");
+        message.push_java(&JavaString::from_utf16_units(&units[units.len() - 8..]));
+        message.push_str(&format!(") too long: {utflen} bytes"));
+        return Err(NbtError::MalformedUtf(message));
     }
     out.extend_from_slice(&(utflen as u16).to_be_bytes());
-    if s.is_ascii() && !s.contains('\0') {
-        out.extend_from_slice(s.as_bytes());
+    // a lone surrogate shows as U+FFFD in the text, so this is never ASCII then
+    let text = s.as_lossy_str();
+    if text.is_ascii() && !text.contains('\0') {
+        out.extend_from_slice(text.as_bytes());
         return Ok(());
     }
     for u in s.encode_utf16() {
@@ -237,7 +249,7 @@ impl ListTag {
                     // wrapElement: {"": element}
                     out.push(element.id());
                     if element.id() != 0 {
-                        write_utf(out, "", fallback)?;
+                        write_utf(out, &JavaString::new(), fallback)?;
                         element.write_payload(out, fallback)?;
                     }
                     out.push(0);
@@ -293,7 +305,7 @@ impl Tag {
             TAG_STRING => {
                 acc.account_bytes(36)?;
                 let s = read_utf(input)?;
-                acc.account_bytes_n(2, s.encode_utf16().count() as i64)?;
+                acc.account_bytes_n(2, s.utf16_len() as i64)?;
                 Ok(Tag::String(s))
             }
             TAG_LIST => {
@@ -363,10 +375,10 @@ fn load_list(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<ListTag> {
     Ok(list)
 }
 
-fn read_key(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<String> {
+fn read_key(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<JavaString> {
     let key = read_utf(input)?;
     acc.account_bytes(28)?;
-    acc.account_bytes_n(2, key.encode_utf16().count() as i64)?;
+    acc.account_bytes_n(2, key.utf16_len() as i64)?;
     Ok(key)
 }
 
@@ -379,7 +391,7 @@ fn load_compound(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<CompoundTa
             break;
         }
         let key = read_key(input, acc)?;
-        let value = read_named_tag_data(tag_type, &key, input, acc)?;
+        let value = read_named_tag_data(tag_type, key.as_lossy_str(), input, acc)?;
         if tag.put(key, value).is_none() {
             acc.account_bytes(36)?;
         }
@@ -465,7 +477,7 @@ pub fn write_any_tag(tag: &Tag, out: &mut Vec<u8>) -> Result<()> {
 pub fn write_unnamed_tag(tag: &Tag, out: &mut Vec<u8>) -> Result<()> {
     out.push(tag.id());
     if tag.id() != 0 {
-        write_utf(out, "", false)?;
+        write_utf(out, &JavaString::new(), false)?;
         tag.write_payload(out, false)?;
     }
     Ok(())

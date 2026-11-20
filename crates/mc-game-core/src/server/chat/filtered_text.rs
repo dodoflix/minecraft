@@ -1,6 +1,7 @@
 //! `net.minecraft.server.network.FilteredText`.
 
 use super::filter_mask::FilterMaskExt;
+use mc_core::java_string::JavaString;
 use mc_protocol::packets::play::FilterMask;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -28,11 +29,11 @@ impl FilteredText {
         }
     }
 
-    pub fn filtered(&self) -> Option<String> {
+    pub fn filtered(&self) -> Option<JavaString> {
         self.mask.apply(&self.raw)
     }
 
-    pub fn filtered_or_empty(&self) -> String {
+    pub fn filtered_or_empty(&self) -> JavaString {
         self.filtered().unwrap_or_default()
     }
 

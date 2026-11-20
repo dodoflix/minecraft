@@ -598,7 +598,7 @@ impl<A: 'static> Codec<A> {
                 }
                 Some(v) => d.parse(ops, v),
             },
-            move || vec![Dyn::Str(n3.clone())],
+            move || vec![Dyn::str(n3.as_str())],
         )
     }
 
@@ -635,7 +635,7 @@ impl<A: 'static> Codec<A> {
                     }
                 }
             },
-            move || vec![Dyn::Str(n3.clone())],
+            move || vec![Dyn::str(n3.as_str())],
         )
     }
 

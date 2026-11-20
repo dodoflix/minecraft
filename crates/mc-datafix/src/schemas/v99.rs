@@ -587,7 +587,7 @@ pub(crate) fn add_names(
                         .get("id")
                         .as_string()
                         .result()
-                        .map(|id| ensure_namespaced(&id))
+                        .map(|id| ensure_namespaced(id.as_lossy_str()))
                         .unwrap_or_else(|| "minecraft:air".to_string());
                     if item_id != "minecraft:air" {
                         if let Some(expected_id) = item_to_block_entity.get(item_id.as_str()) {
@@ -601,7 +601,8 @@ pub(crate) fn add_names(
                     if entity.get("id").is_present() {
                         return entity;
                     }
-                    let item_id = ensure_namespaced(&input.get("id").as_string_or(""));
+                    let item_id =
+                        ensure_namespaced(input.get("id").as_string_or("").as_lossy_str());
                     match item_to_entity.get(item_id.as_str()) {
                         Some(expected_id) => entity.set("id", input.create_string(*expected_id)),
                         None => entity,

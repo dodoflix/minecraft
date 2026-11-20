@@ -32,7 +32,7 @@ fn not(kind: &str, e: &JsonElement) -> DecodeError {
 
 pub fn decode_string(e: &JsonElement) -> Decoded<String> {
     match e {
-        JsonElement::String(s) => Ok(s.clone()),
+        JsonElement::String(s) => Ok(s.as_lossy_str().to_owned()),
         _ => Err(not("string", e)),
     }
 }
@@ -119,7 +119,7 @@ pub fn encode_instant(d: &Date) -> JsonElement {
         n if n % 1_000 == 0 => SecondsFormat::Micros,
         _ => SecondsFormat::Nanos,
     };
-    JsonElement::String(d.to_rfc3339_opts(format, true))
+    JsonElement::String(d.to_rfc3339_opts(format, true).into())
 }
 
 fn obj(members: Vec<(&str, Option<JsonElement>)>) -> JsonElement {
@@ -133,7 +133,7 @@ fn obj(members: Vec<(&str, Option<JsonElement>)>) -> JsonElement {
 }
 
 fn str_e(s: &str) -> JsonElement {
-    JsonElement::String(s.to_owned())
+    JsonElement::String(s.to_owned().into())
 }
 
 fn num(n: i64) -> JsonElement {
@@ -203,7 +203,7 @@ impl Message {
                 .translatable_params
                 .iter()
                 .flatten()
-                .map(|a| TranslatableArg::String(a.clone()))
+                .map(|a| TranslatableArg::String(a.clone().into()))
                 .collect();
             return Some(Component::translatable(key.clone(), args));
         }
@@ -612,7 +612,7 @@ mod tests {
     }
 
     fn parse_instant(s: &str) -> Date {
-        decode_instant(&JsonElement::String(s.to_owned())).unwrap()
+        decode_instant(&JsonElement::String(s.into())).unwrap()
     }
 
     #[test]

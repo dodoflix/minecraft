@@ -3,11 +3,11 @@ use super::arg_provider::ArgProvider;
 use super::data::{DataAccessor, block_data_accessor, entity_data_accessor, storage_data_accessor};
 use super::loot_context_sources::{add_context_sources, evaluate_float, evaluate_int};
 use mc_brigadier::arguments::{DoubleArgumentType, IntegerArgumentType, double_arg, integer};
-use mc_brigadier::utf16::{len16, substring};
 use mc_brigadier::{
     ArgumentBuilder, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType,
     DynamicCommandExceptionType, LiteralArgumentBuilder, NodeBuilder, SimpleCommandExceptionType,
 };
+use mc_core::java_string::JavaString;
 use mc_core::math::mth;
 use mc_game_core::commands::arguments::nbt_path_argument::{ERROR_DATA_TOO_DEEP, NbtPath};
 use mc_game_core::commands::arguments::resource_arguments::{
@@ -141,10 +141,10 @@ register_command!("DataCommands", |ctx| {
 });
 
 /// `DataCommands.getAsText(tag)`.
-fn get_as_text(tag: &Tag) -> Result<String, CommandSyntaxException> {
+fn get_as_text(tag: &Tag) -> Result<JavaString, CommandSyntaxException> {
     match tag {
         Tag::String(s) => Ok(s.clone()),
-        t if t.is_numeric() => Ok(t.to_string()),
+        t if t.is_numeric() => Ok(t.to_string().into()),
         t => Err(ERROR_EXPECTED_VALUE.create(t.to_string())),
     }
 }
@@ -152,7 +152,7 @@ fn get_as_text(tag: &Tag) -> Result<String, CommandSyntaxException> {
 /// `DataCommands.stringifyTagList(source, stringProcessor)`.
 fn stringify_tag_list(
     source: Vec<Tag>,
-    processor: &dyn Fn(&str) -> Result<String, CommandSyntaxException>,
+    processor: &dyn Fn(&JavaString) -> Result<JavaString, CommandSyntaxException>,
 ) -> Result<Vec<Tag>, CommandSyntaxException> {
     source
         .iter()
@@ -286,7 +286,7 @@ fn decorators(
                         c,
                         &tp,
                         &manipulator,
-                        stringify_tag_list(get_singleton_source(c, &sp)?, &|s| Ok(s.to_owned()))?,
+                        stringify_tag_list(get_singleton_source(c, &sp)?, &|s| Ok(s.clone()))?,
                     )
                 })
                 .then(
@@ -297,7 +297,7 @@ fn decorators(
                                 &tp1,
                                 &m1,
                                 stringify_tag_list(resolve_source_path(c, &sp1)?, &|s| {
-                                    Ok(s.to_owned())
+                                    Ok(s.clone())
                                 })?,
                             )
                         })
@@ -463,12 +463,12 @@ fn merge_into(
 
 /// `DataCommands.validatedSubstring(input, start, end)` (UTF-16 indices like `String.substring`).
 fn validated_substring(
-    input: &str,
+    input: &JavaString,
     start: i32,
     end: i32,
-) -> Result<String, CommandSyntaxException> {
-    if start >= 0 && i64::from(end) <= len16(input) as i64 && start <= end {
-        Ok(substring(input, start as usize, end as usize))
+) -> Result<JavaString, CommandSyntaxException> {
+    if start >= 0 && i64::from(end) <= input.utf16_len() as i64 && start <= end {
+        Ok(input.substring(start as usize, end as usize))
     } else {
         Err(ERROR_INVALID_SUBSTRING.create(start, end))
     }
@@ -484,14 +484,21 @@ fn get_offset(index: i32, length: i32) -> i32 {
 }
 
 /// `DataCommands.substring(input, start, end)`.
-fn substring_range(input: &str, start: i32, end: i32) -> Result<String, CommandSyntaxException> {
-    let length = len16(input) as i32;
+fn substring_range(
+    input: &JavaString,
+    start: i32,
+    end: i32,
+) -> Result<JavaString, CommandSyntaxException> {
+    let length = input.utf16_len() as i32;
     validated_substring(input, get_offset(start, length), get_offset(end, length))
 }
 
 /// `DataCommands.substring(input, start)`.
-fn substring_from_index(input: &str, start: i32) -> Result<String, CommandSyntaxException> {
-    let length = len16(input) as i32;
+fn substring_from_index(
+    input: &JavaString,
+    start: i32,
+) -> Result<JavaString, CommandSyntaxException> {
+    let length = input.utf16_len() as i32;
     validated_substring(input, get_offset(start, length), length)
 }
 
@@ -584,7 +591,7 @@ fn get_data_at(
         Tag::IntArray(a) => a.len() as i32,
         Tag::LongArray(a) => a.len() as i32,
         Tag::Compound(c) => c.len() as i32,
-        Tag::String(s) => len16(s) as i32,
+        Tag::String(s) => s.utf16_len() as i32,
         Tag::End => return Err(ERROR_GET_NON_EXISTENT.create(path.to_string())),
         numeric => mth::floor_f64(numeric.as_number().expect("numeric tag").double_value()),
     };

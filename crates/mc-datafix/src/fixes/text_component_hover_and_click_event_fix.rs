@@ -120,7 +120,7 @@ fn copy_fields(mut target: Dynamic, source: &Dynamic, fields: &[&str]) -> Dynami
 
 fn fix_hover_event(dynamic: Dynamic) -> Dynamic {
     let action = dynamic.get("action").as_string_or("");
-    match action.as_str() {
+    match action.as_lossy_str() {
         "show_text" => dynamic.rename_field("contents", "value"),
         "show_item" => {
             let contents = dynamic.get("contents").or_else_empty_map();
@@ -147,11 +147,13 @@ fn fix_hover_event(dynamic: Dynamic) -> Dynamic {
 fn fix_click_event(dynamic: Dynamic) -> Option<Dynamic> {
     let action = dynamic.get("action").as_string_or("");
     let value = dynamic.get("value").as_string_or("");
-    match action.as_str() {
-        "open_url" => validate_uri(&value).then(|| dynamic.rename_field("value", "url")),
+    match action.as_lossy_str() {
+        "open_url" => {
+            validate_uri(value.as_lossy_str()).then(|| dynamic.rename_field("value", "url"))
+        }
         "open_file" => Some(dynamic.rename_field("value", "path")),
         "run_command" | "suggest_command" => {
-            validate_chat(&value).then(|| dynamic.rename_field("value", "command"))
+            validate_chat(value.as_lossy_str()).then(|| dynamic.rename_field("value", "command"))
         }
         "change_page" => {
             let old_page = dynamic.get("value").result().and_then(parse_old_page)?;
@@ -171,7 +173,7 @@ fn parse_old_page(value: Dynamic) -> Option<i32> {
         return Some(number_value.int_value());
     }
     // `Integer.parseInt` failing is caught
-    parse_int(&value.as_string_or(""))
+    parse_int(value.as_string_or("").as_lossy_str())
 }
 
 fn validate_uri(uri: &str) -> bool {

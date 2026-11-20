@@ -2,6 +2,7 @@
 //! `fixtures/StreamOracle.java` (real `NbtIo.parse`, `Tag.acceptAsRoot`, `nbt.visitors`). Every cell of
 //! a row is rebuilt here in the same order and compared as a whole string.
 
+use mc_core::java_string::JavaString;
 use mc_nbt::snbt::print_compact;
 use mc_nbt::stream::{
     self, CollectFields, CollectToTag, EntryResult, FieldSelector, SkipAll, SkipFields,
@@ -39,7 +40,7 @@ fn status(e: &NbtError) -> String {
         NbtError::Eof => return "EOF".into(),
         NbtError::InvalidTagId(id) => format!("IOException:Invalid tag id: {id}"),
         NbtError::Io(m) => format!("IOException:{m}"),
-        NbtError::MalformedUtf(m) => format!("UTFDataFormatException:{m}"),
+        NbtError::MalformedUtf(m) => format!("UTFDataFormatException:{}", m.as_lossy_str()),
         NbtError::Accounter(m) => format!("NbtAccounterException:{m}"),
         NbtError::Format(m) => format!("NbtFormatException:{m}"),
         NbtError::IllegalArgument(m) => format!("IllegalArgumentException:{m}"),
@@ -48,7 +49,7 @@ fn status(e: &NbtError) -> String {
 }
 
 fn tag_str(t: Option<&Tag>) -> String {
-    t.map_or_else(|| "null".into(), |t| esc(&print_compact(t)))
+    t.map_or_else(|| "null".into(), |t| esc(print_compact(t).as_lossy_str()))
 }
 
 fn run(b: &[u8], v: &mut dyn StreamTagVisitor, mut acc: NbtAccounter) -> String {
@@ -146,8 +147,8 @@ impl StreamTagVisitor for Trace {
         self.log("E");
         self.value()
     }
-    fn visit_string(&mut self, v: &str) -> ValueResult {
-        self.log(&format!("S{v}"));
+    fn visit_string(&mut self, v: &JavaString) -> ValueResult {
+        self.log(&format!("S{}", v.as_lossy_str()));
         self.value()
     }
     fn visit_byte(&mut self, v: i8) -> ValueResult {
@@ -197,8 +198,8 @@ impl StreamTagVisitor for Trace {
         self.log(&format!("e{}", t as i8));
         self.entry()
     }
-    fn visit_entry_named(&mut self, t: u8, id: &str) -> EntryResult {
-        self.log(&format!("k{}:{id}", t as i8));
+    fn visit_entry_named(&mut self, t: u8, id: &JavaString) -> EntryResult {
+        self.log(&format!("k{}:{}", t as i8, id.as_lossy_str()));
         self.entry()
     }
     fn visit_element(&mut self, t: u8, index: i32) -> EntryResult {

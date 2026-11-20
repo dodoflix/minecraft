@@ -16,7 +16,10 @@ pub fn new(output_schema: &Schema) -> DataFix {
             move |input| {
                 input.update(&item_stack_f, |named_stack| {
                     named_stack.map_second(|item_stack| {
-                        let id = item_stack.first().as_option().map(|p| p.second().as_str());
+                        let id = item_stack
+                            .first()
+                            .as_option()
+                            .map(|p| p.second().as_lossy_str());
                         let remainder = item_stack.second().second().as_dynamic();
                         let is_air = id.is_none_or(|id| id == "minecraft:air");
                         let is_empty = remainder.get("Count").as_int_or(0) <= 0;

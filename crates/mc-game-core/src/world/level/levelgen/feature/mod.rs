@@ -92,7 +92,7 @@ pub fn check_direct_definition(tag: &mc_nbt::Tag) -> Result<(), String> {
             for (k, v) in map.entries() {
                 let parsed = k
                     .as_str()
-                    .zip(serde_json::from_str(&v.to_json_string()).ok());
+                    .zip(serde_json::from_str(v.to_json_string().as_lossy_str()).ok());
                 if let Some((k, v)) = parsed {
                     object.insert(k.to_owned(), v);
                 }

@@ -25,7 +25,9 @@ pub fn new(output_schema: &Schema) -> DataFix {
                         display.update_typed(&custom_name_finder, |custom_name| {
                             custom_name.update(&text_component_finder, |text_component| {
                                 text_component.map_second(|text| {
-                                    Value::Str(create_text_component_json(text.as_str()))
+                                    Value::Str(create_text_component_json(
+                                        text.as_java_string().clone(),
+                                    ))
                                 })
                             })
                         })

@@ -31,7 +31,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
 fn update_item_stack(id_f: &OpticFinder, item_stack: Typed) -> Typed {
     item_stack.update(id_f, |pair| {
         pair.map_second(|name| {
-            if name.as_str() == "minecraft:carved_pumpkin" {
+            if name.as_lossy_str() == "minecraft:carved_pumpkin" {
                 Value::str("minecraft:pumpkin")
             } else {
                 name

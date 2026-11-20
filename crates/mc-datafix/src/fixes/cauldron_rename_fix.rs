@@ -18,7 +18,7 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
 }
 
 fn fix(tag: Dynamic) -> Dynamic {
-    if tag.get("Name").as_string().result().as_deref() != Some("minecraft:cauldron") {
+    if tag.get("Name").as_string_lossy().result().as_deref() != Some("minecraft:cauldron") {
         return tag;
     }
     let properties = tag.get("Properties").or_else_empty_map();

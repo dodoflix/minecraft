@@ -51,7 +51,9 @@ fn stop_jfr(source: &CommandSourceStack) -> Result<i32, CommandSyntaxException> 
         .with_format(ChatFormatting::Underline)
         .with_style_fn(|style| {
             style
-                .with_click_event(Some(ClickEvent::CopyToClipboard(saved_recording.clone())))
+                .with_click_event(Some(ClickEvent::CopyToClipboard(
+                    saved_recording.clone().into(),
+                )))
                 .with_hover_event(Some(HoverEvent::show_text(translatable!(
                     "chat.copy.click"
                 ))))

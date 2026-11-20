@@ -1,6 +1,7 @@
 //! Item-specific loot functions: potions, stews, attributes, instruments, dyes, books, banners, fireworks, custom model
 //! data, exploration maps.
 
+use mc_core::java_string::JavaString;
 use std::sync::Arc;
 
 use mc_core::ident::Identifier;
@@ -383,8 +384,8 @@ fn apply_dyes(stack: &ItemStack, dyes: &[mc_protocol::components::DyeColor]) -> 
 #[derive(Clone)]
 pub struct SetBookCoverFunction {
     pub condition: Option<ConditionHolder>,
-    pub title: Option<Filterable<String>>,
-    pub author: Option<String>,
+    pub title: Option<Filterable<JavaString>>,
+    pub author: Option<JavaString>,
     pub generation: Option<i32>,
 }
 
@@ -553,7 +554,7 @@ impl ConditionalFunction for SetCustomModelDataFunction {
 #[derive(Clone)]
 pub struct SetWritableBookPagesFunction {
     pub condition: Option<ConditionHolder>,
-    pub pages: Vec<Filterable<String>>,
+    pub pages: Vec<Filterable<JavaString>>,
     pub page_operation: ListOperation,
 }
 
@@ -690,8 +691,8 @@ pub(super) fn register(entries: &mut Entries) {
         "set_book_cover",
         entry(record!(SetBookCoverFunction {
             condition: cond(),
-            title: Filterable::codec(&mc_dfu::string_range(0, 32)).optional_field_of("title"),
-            author: STRING.optional_field_of("author"),
+            title: Filterable::codec(&mc_dfu::java_string_range(0, 32)).optional_field_of("title"),
+            author: mc_dfu::JAVA_STRING.optional_field_of("author"),
             generation: extra_int_range(0, 3).optional_field_of("generation"),
         })),
     ));

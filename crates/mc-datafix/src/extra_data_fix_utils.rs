@@ -6,6 +6,7 @@ use crate::ty::Type;
 use crate::typed::Typed;
 use crate::util::read_typed_or_throw;
 use crate::value::Value;
+use mc_core::java_string::JavaString;
 use mc_dfu::{Dynamic, Ops};
 
 /// `ExtraDataFixUtils.fixBlockPos(pos)`: `{X, Y, Z}` numbers become an int list `[X, Y, Z]`; anything else is kept.
@@ -57,14 +58,14 @@ pub fn fix_string_field(
     fix: impl FnOnce(&str) -> String,
 ) -> Dynamic {
     dynamic.update(field_name, |field| match field.as_string().result() {
-        Some(string) => dynamic.create_string(fix(&string)),
+        Some(string) => dynamic.create_string(string.map_text(fix)),
         None => field,
     })
 }
 
 /// `ExtraDataFixUtils.getPlainTranslationKey(textComponent)`: the `translate` string of a component whose only field
 /// it is.
-pub fn get_plain_translation_key(text_component: &Dynamic) -> Option<String> {
+pub fn get_plain_translation_key(text_component: &Dynamic) -> Option<JavaString> {
     text_component
         .get_map_values()
         .result()

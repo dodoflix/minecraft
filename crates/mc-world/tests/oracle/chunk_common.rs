@@ -109,18 +109,20 @@ pub fn diff(a: &Tag, b: &Tag, path: &str) -> Option<String> {
     match (a, b) {
         (Tag::Compound(x), Tag::Compound(y)) => {
             for (k, v) in x {
-                match y.get(k) {
-                    None => return Some(format!("{path}/{k}: missing in second")),
+                match y.get_java(k) {
+                    None => {
+                        return Some(format!("{path}/{0}: missing in second", k.as_lossy_str()));
+                    }
                     Some(w) => {
-                        if let Some(d) = diff(v, w, &format!("{path}/{k}")) {
+                        if let Some(d) = diff(v, w, &format!("{path}/{0}", k.as_lossy_str())) {
                             return Some(d);
                         }
                     }
                 }
             }
             y.keys()
-                .find(|k| !x.contains(k))
-                .map(|k| format!("{path}/{k}: missing in first"))
+                .find(|k| x.get_java(k).is_none())
+                .map(|k| format!("{path}/{0}: missing in first", k.as_lossy_str()))
         }
         (Tag::List(x), Tag::List(y)) => {
             if x.len() != y.len() {

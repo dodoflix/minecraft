@@ -27,12 +27,12 @@ impl NameAndId {
             return Ok(None);
         };
         let uuid_string = uuid.as_string()?;
-        let Ok(id) = uuid_util::uuid_from_string(&uuid_string) else {
+        let Ok(id) = uuid_util::uuid_from_string(uuid_string.as_lossy_str()) else {
             return Ok(None);
         };
         Ok(Some(NameAndId {
             id,
-            name: name.as_string()?,
+            name: name.as_string()?.into_string_lossy(),
         }))
     }
 

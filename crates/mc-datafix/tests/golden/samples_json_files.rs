@@ -41,9 +41,10 @@ fn json_file_fixes_equal_vanilla() {
             || vanilla_errors != errors_hash(&errors)
         {
             failures.push(format!(
-                "{}: vanilla {vanilla} ({} errors), ours {ours} ({} errors)",
+                "{}: vanilla {vanilla} ({} errors), ours {} ({} errors)",
                 f[0],
                 record[6],
+                ours.as_lossy_str(),
                 errors.len()
             ));
         }

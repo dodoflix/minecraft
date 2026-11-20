@@ -424,7 +424,7 @@ fn parse_resource_pack_prompt(prompt: &str) -> Option<Component> {
     if prompt.is_empty() {
         return None;
     }
-    let json: serde_json::Value = match serde_json::from_str(prompt) {
+    let json = match mc_core::gson::parse_strict_json_parser(prompt) {
         Ok(j) => j,
         Err(e) => {
             log::warn!("Failed to parse resource pack prompt '{prompt}'\n{e}");

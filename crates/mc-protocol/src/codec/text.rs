@@ -64,10 +64,13 @@ impl Encode for JsonComponent {
 impl Decode for JsonComponent {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         let s = read_utf(input, JSON_MAX)?;
-        let json: serde_json::Value = serde_json::from_str(&s)
+        let json = mc_core::gson::parse_lenient_json_parser(&s)
             .map_err(|e| DecodeError::Message(format!("Failed to parse JSON: {e}")))?;
-        Component::from_json(&json)
-            .map(Self)
-            .map_err(|e| DecodeError::Message(format!("Failed to decode: {e} {json}")))
+        Component::from_json(&json).map(Self).map_err(|e| {
+            DecodeError::Message(format!(
+                "Failed to decode: {e} {}",
+                json.to_compact_string()
+            ))
+        })
     }
 }

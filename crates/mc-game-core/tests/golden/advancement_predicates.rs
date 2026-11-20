@@ -44,7 +44,10 @@ fn entity_predicate_codec_round_trips() {
     let encoded = mc_dfu::encode_json(&EntityPredicate::codec(), &predicate)
         .into_result()
         .unwrap();
-    assert_eq!(decode(&EntityPredicate::codec(), &encoded), predicate);
+    assert_eq!(
+        decode(&EntityPredicate::codec(), encoded.as_lossy_str()),
+        predicate
+    );
     assert!(mc_dfu::parse_json(&EntityPredicate::codec(), r#"{"minecraft:nope":{}}"#).is_error());
 }
 
@@ -83,7 +86,10 @@ fn location_and_damage_source_codecs() {
     let encoded = mc_dfu::encode_json(&LocationPredicate::codec(), &location)
         .into_result()
         .unwrap();
-    assert_eq!(decode(&LocationPredicate::codec(), &encoded), location);
+    assert_eq!(
+        decode(&LocationPredicate::codec(), encoded.as_lossy_str()),
+        location
+    );
     let source = decode(
         &DamageSourcePredicate::codec(),
         r##"{"tags":[{"id":"#minecraft:is_fire","expected":true}],"is_direct":true}"##,
@@ -91,5 +97,8 @@ fn location_and_damage_source_codecs() {
     let encoded = mc_dfu::encode_json(&DamageSourcePredicate::codec(), &source)
         .into_result()
         .unwrap();
-    assert_eq!(decode(&DamageSourcePredicate::codec(), &encoded), source);
+    assert_eq!(
+        decode(&DamageSourcePredicate::codec(), encoded.as_lossy_str()),
+        source
+    );
 }

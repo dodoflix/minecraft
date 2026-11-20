@@ -40,7 +40,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
                 &block_entity_type,
                 move |input| {
                     let block_entity_id = input.get(&id_finder);
-                    if block_entity_id.first().as_str() == "minecraft:banner" {
+                    if block_entity_id.first().as_lossy_str() == "minecraft:banner" {
                         fix(
                             input,
                             &block_entity_components_field_finder,
@@ -58,7 +58,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
                 move |input| {
                     let is_white_banner = input
                         .get_optional(&item_stack_id_finder)
-                        .is_some_and(|id| id.second().as_str() == "minecraft:white_banner");
+                        .is_some_and(|id| id.second().as_lossy_str() == "minecraft:white_banner");
                     if is_white_banner {
                         fix(
                             input,
@@ -85,7 +85,7 @@ fn fix(
         let is_ominous_banner = components
             .get_optional_typed(item_name_finder)
             .and_then(|item_name| item_name.get_optional(text_component_finder))
-            .and_then(|component| extract_translation_string(component.second().as_str()))
+            .and_then(|component| extract_translation_string(component.second().as_java_string()))
             .is_some_and(|key| key == "block.minecraft.ominous_banner");
         if is_ominous_banner {
             components

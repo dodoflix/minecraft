@@ -5,6 +5,7 @@ use crate::events::{ClickEvent, HoverEvent};
 use crate::profile::ResolvableProfile;
 use crate::text_color::TextColor;
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use std::fmt;
 
 /// `FontDescription`. Only `Resource` is serialisable (vanilla's codec rejects the sprite variants);
@@ -42,7 +43,7 @@ pub struct Style {
     // boxed: these are rare and large, keeping `Style`/`Component` small
     click_event: Option<Box<ClickEvent>>,
     hover_event: Option<Box<HoverEvent>>,
-    insertion: Option<String>,
+    insertion: Option<JavaString>,
     font: Option<Box<FontDescription>>,
 }
 
@@ -84,7 +85,7 @@ impl Style {
         obfuscated: Option<bool>,
         click_event: Option<ClickEvent>,
         hover_event: Option<HoverEvent>,
-        insertion: Option<String>,
+        insertion: Option<JavaString>,
         font: Option<FontDescription>,
     ) -> Style {
         Style {
@@ -148,8 +149,8 @@ impl Style {
     pub fn hover_event(&self) -> Option<&HoverEvent> {
         self.hover_event.as_deref()
     }
-    pub fn insertion(&self) -> Option<&str> {
-        self.insertion.as_deref()
+    pub fn insertion(&self) -> Option<&JavaString> {
+        self.insertion.as_ref()
     }
     /// `getFont()`: the explicit font or `minecraft:default`.
     pub fn font(&self) -> FontDescription {
@@ -169,7 +170,7 @@ impl Style {
     with_fn!(with_underlined, underlined, Option<bool>);
     with_fn!(with_strikethrough, strikethrough, Option<bool>);
     with_fn!(with_obfuscated, obfuscated, Option<bool>);
-    with_fn!(with_insertion, insertion, Option<String>);
+    with_fn!(with_insertion, insertion, Option<JavaString>);
 
     pub fn with_click_event(&self, click_event: Option<ClickEvent>) -> Style {
         Style {
@@ -346,7 +347,7 @@ impl fmt::Display for Style {
         }
         if let Some(c) = &self.insertion {
             sep(f)?;
-            write!(f, "insertion={c}")?;
+            write!(f, "insertion={}", c.as_lossy_str())?;
         }
         if let Some(c) = &self.font {
             sep(f)?;

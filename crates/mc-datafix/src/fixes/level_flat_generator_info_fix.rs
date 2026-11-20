@@ -31,11 +31,14 @@ fn fix(input: Dynamic) -> Dynamic {
     if input
         .get("generatorName")
         .as_string_or("")
+        .as_lossy_str()
         .eq_ignore_ascii_case("flat")
     {
         input.update("generatorOptions", |options| {
             match options.as_string().result() {
-                Some(generator_options) => options.create_string(fix_string(&generator_options)),
+                Some(generator_options) => {
+                    options.create_string(fix_string(generator_options.as_lossy_str()))
+                }
                 None => options,
             }
         })

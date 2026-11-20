@@ -75,7 +75,7 @@ pub fn render_operation(op: mc_game::commands::arguments::Operation) -> String {
     ] {
         match op.apply(a, b) {
             Ok((na, nb)) => out.push_str(&format!("{na},{}", nb.unwrap_or(b))),
-            Err(e) => out.push_str(&e.get_message()),
+            Err(e) => out.push_str(e.get_message().as_lossy_str()),
         }
         out.push(';');
     }
@@ -185,7 +185,7 @@ pub fn render_score_holder(
                 .collect::<Vec<_>>()
                 .join(", ")
         ),
-        Err(e) => format!("error {}", e.get_message()),
+        Err(e) => format!("error {}", e.get_message().as_lossy_str()),
     }
 }
 
@@ -295,7 +295,7 @@ pub fn unesc(s: &str) -> String {
 fn exception_line(e: &mc_brigadier::CommandSyntaxException) -> String {
     format!(
         "{}@{}",
-        esc(&e.get_message()),
+        esc(e.get_message().as_lossy_str()),
         e.get_cursor().map_or(-1, |c| c as i64) - 2
     )
 }
@@ -366,7 +366,7 @@ pub fn render_nbt_path(path: &mc_game::commands::arguments::NbtPath) -> String {
     ) -> Result<String, mc_brigadier::CommandSyntaxException>| {
         let r = match catch_unwind(AssertUnwindSafe(|| f(doc))) {
             Ok(Ok(r)) => r,
-            Ok(Err(e)) => format!("!{}", e.get_message()),
+            Ok(Err(e)) => format!("!{}", e.get_message().as_lossy_str()),
             Err(_) => "!THREW".to_owned(),
         };
         let shown = if show {
@@ -406,8 +406,12 @@ pub fn render_nbt_path(path: &mc_game::commands::arguments::NbtPath) -> String {
     for index in [0, -1, 5] {
         let mut d = root();
         out += &op(&format!("insert{index}"), true, &mut d, &|d| {
-            path.insert(index, d, &[Tag::Int(100), Tag::String("v".to_owned())])
-                .map(|n| n.to_string())
+            path.insert(
+                index,
+                d,
+                &[Tag::Int(100), Tag::String("v".to_owned().into())],
+            )
+            .map(|n| n.to_string())
         });
     }
     let mut d = root();

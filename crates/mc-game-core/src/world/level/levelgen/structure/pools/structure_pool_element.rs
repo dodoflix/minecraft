@@ -158,7 +158,7 @@ impl ProcessorListRef {
     /// The NBT form of the holder (`RegistryCodecs.holder` encode): the id of a reference, the list for a direct value.
     pub fn encode(&self) -> Tag {
         match self.holder.id() {
-            Some(id) => Tag::String(id.to_string()),
+            Some(id) => Tag::String(id.to_string().into()),
             // `StructureProcessorList.DIRECT_CODEC` always encodes the `{processors: [...]}` form, whichever form was read
             None => match self.inline.as_ref() {
                 Some(Value::Array(list)) => json_to_tag(&Value::Object(Map::from_iter([(
@@ -250,11 +250,13 @@ pub fn decode_element_from_nbt(
 /// `NbtOps` -> `JsonOps` conversion of a tag.
 pub fn tag_to_json(tag: &Tag) -> Value {
     match tag {
-        Tag::Compound(c) => {
-            Value::Object(c.iter().map(|(k, v)| (k.clone(), tag_to_json(v))).collect())
-        }
+        Tag::Compound(c) => Value::Object(
+            c.iter()
+                .map(|(k, v)| (k.as_lossy_str().to_owned(), tag_to_json(v)))
+                .collect(),
+        ),
         Tag::List(items) => Value::Array(items.iter().map(tag_to_json).collect()),
-        Tag::String(s) => Value::String(s.clone()),
+        Tag::String(s) => Value::String(s.as_lossy_str().to_owned()),
         Tag::Byte(v) => Value::from(*v),
         Tag::Short(v) => Value::from(*v),
         Tag::Int(v) => Value::from(*v),
@@ -282,7 +284,7 @@ pub fn json_to_tag(value: &Value) -> Tag {
             }
             Tag::List(list)
         }
-        Value::String(s) => Tag::String(s.clone()),
+        Value::String(s) => Tag::String(s.clone().into()),
         Value::Bool(b) => Tag::Byte(i8::from(*b)),
         Value::Number(n) => match (n.as_i64(), n.as_f64()) {
             (Some(i), _) => i32::try_from(i).map_or(Tag::Long(i), Tag::Int),

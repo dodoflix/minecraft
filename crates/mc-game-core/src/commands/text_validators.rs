@@ -42,7 +42,7 @@ fn entity_selector(s: &str) -> Result<(), String> {
         |original, e| {
             format!(
                 "Invalid selector component: {original}: {}",
-                e.get_message()
+                e.get_message().as_lossy_str()
             )
         },
     )
@@ -52,7 +52,12 @@ fn nbt_path(s: &str) -> Result<(), String> {
     compile(
         s,
         |r| NbtPathArgument.parse(r).map(|_| ()),
-        |original, e| format!("Invalid NBT path: {original}: {}", e.get_message()),
+        |original, e| {
+            format!(
+                "Invalid NBT path: {original}: {}",
+                e.get_message().as_lossy_str()
+            )
+        },
     )
 }
 
@@ -60,7 +65,12 @@ fn block_coordinates(s: &str) -> Result<(), String> {
     compile(
         s,
         |r| BlockPosArgument::block_pos().parse(r).map(|_| ()),
-        |original, e| format!("Invalid coordinates path: {original}: {}", e.get_message()),
+        |original, e| {
+            format!(
+                "Invalid coordinates path: {original}: {}",
+                e.get_message().as_lossy_str()
+            )
+        },
     )
 }
 

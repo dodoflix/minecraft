@@ -195,7 +195,7 @@ fn parse_line(d: &D, input: &str) -> String {
         pr.get_exceptions().len()
     );
     for (n, e) in pr.get_exceptions() {
-        b.push_str(&format!(" {{{n}: {}}}", e.get_message()));
+        b.push_str(&format!(" {{{n}: {}}}", e.get_message().as_lossy_str()));
     }
     let mut c = Some(pr.get_context());
     while let Some(ctx) = c {
@@ -243,7 +243,7 @@ fn read_line(method: &str, input: &str) -> String {
     })();
     let res = match res {
         Ok(v) => format!("OK {v}"),
-        Err(e) => format!("ERR {}", e.get_message()),
+        Err(e) => format!("ERR {}", e.get_message().as_lossy_str()),
     };
     format!(
         "{res}\tcursor={} read=<{}> rem=<{}>",
@@ -344,7 +344,7 @@ fn golden() {
                 let mut r = StringReader::new(input);
                 let res = match r.expect('x') {
                     Ok(()) => "OK".to_owned(),
-                    Err(e) => format!("ERR {}", e.get_message()),
+                    Err(e) => format!("ERR {}", e.get_message().as_lossy_str()),
                 };
                 format!("EXPECT\t{input}\t{res}\t{}", r.get_cursor())
             }
@@ -363,7 +363,7 @@ fn golden() {
                 let mut r = StringReader::new(format!("{input} tail"));
                 let res = match t.parse(&mut r) {
                     Ok(v) => format!("OK {}", value_string(&v)),
-                    Err(e) => format!("ERR {}", e.get_message()),
+                    Err(e) => format!("ERR {}", e.get_message().as_lossy_str()),
                 };
                 format!("BOUND {ty}\t{input}\t{res}\t{}", r.get_cursor())
             }
@@ -390,13 +390,13 @@ fn golden() {
                 let mut r = StringReader::new(input.as_str());
                 r.set_cursor(cur.parse::<usize>().unwrap().min(33));
                 let e = SimpleCommandExceptionType::new(msg("m")).create_with_context(&r);
-                format!("CTX {cur}\t{}", e.get_message())
+                format!("CTX {cur}\t{}", e.get_message().as_lossy_str())
             }
             "NOCTX" => {
                 let e = SimpleCommandExceptionType::new(msg("plain")).create();
                 format!(
                     "NOCTX {} {:?} {:?} {}",
-                    e.get_message(),
+                    e.get_message().as_lossy_str(),
                     e.get_context(),
                     e.get_input(),
                     e.get_cursor().map_or(-1, |c| c as i64)
@@ -411,6 +411,7 @@ fn golden() {
                     SimpleCommandExceptionType::new(msg("big"))
                         .create_with_context(&r)
                         .get_message()
+                        .as_lossy_str()
                 )
             }
             "DYN2" => {
@@ -418,7 +419,7 @@ fn golden() {
                     msg(format!("{a}/{b}"))
                 })
                 .create(1, "x");
-                format!("DYN2 {}", e.get_message())
+                format!("DYN2 {}", e.get_message().as_lossy_str())
             }
             other => panic!("unhandled fixture line kind {other}: {line}"),
         };

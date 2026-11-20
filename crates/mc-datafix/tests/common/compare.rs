@@ -130,11 +130,11 @@ fn sort_block_state_properties(tag: &mut Tag) {
         Tag::Compound(c) => {
             let is_block_state = matches!(c.get("Name"), Some(Tag::String(_)));
             if is_block_state && let Some(Tag::Compound(properties)) = c.get_mut("Properties") {
-                let mut entries: Vec<(String, Tag)> = properties
+                let mut entries: Vec<(mc_core::java_string::JavaString, Tag)> = properties
                     .iter()
                     .map(|(k, v)| (k.clone(), v.clone()))
                     .collect();
-                entries.sort_by(|a, b| a.0.cmp(&b.0));
+                entries.sort_by(|a, b| a.0.java_cmp(&b.0));
                 *properties = entries.into_iter().collect();
             }
             c.values_mut().for_each(sort_block_state_properties);
@@ -368,12 +368,16 @@ pub fn parse_record(line: &str) -> (String, Outcome) {
 pub fn first_order_difference(a: &Tag, b: &Tag) -> Option<String> {
     match (a, b) {
         (Tag::Compound(x), Tag::Compound(y)) => {
-            let (kx, ky): (Vec<&String>, Vec<&String>) = (x.keys().collect(), y.keys().collect());
+            let (kx, ky): (
+                Vec<&mc_core::java_string::JavaString>,
+                Vec<&mc_core::java_string::JavaString>,
+            ) = (x.keys().collect(), y.keys().collect());
             if kx != ky {
                 return Some(format!("keys {kx:?} vs {ky:?}"));
             }
             kx.iter().find_map(|k| {
-                first_order_difference(x.get(k)?, y.get(k)?).map(|d| format!("{k}/{d}"))
+                first_order_difference(x.get_java(k)?, y.get_java(k)?)
+                    .map(|d| format!("{}/{d}", k.as_lossy_str()))
             })
         }
         (Tag::List(x), Tag::List(y)) => x

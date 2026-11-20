@@ -14,6 +14,7 @@ pub use print::{
 };
 
 use crate::{CompoundTag, Tag};
+use mc_core::java_string::JavaString;
 use packrat::{Ps, Reason, Val};
 use std::fmt;
 
@@ -25,18 +26,20 @@ pub struct SnbtError {
     cursor: usize,
     /// Byte offset of `cursor` in the input.
     byte_cursor: usize,
-    context: String,
+    context: JavaString,
 }
 
 impl SnbtError {
     fn new(message: String, input: &str, units: &[u16], cursor: usize) -> Self {
         // CommandSyntaxException.getContext
         let c = cursor.min(units.len());
-        let mut context = String::new();
+        let mut context = JavaString::new();
         if c > 10 {
             context.push_str("...");
         }
-        context.push_str(&String::from_utf16_lossy(&units[c.saturating_sub(10)..c]));
+        context.push_java(&JavaString::from_utf16_units(
+            &units[c.saturating_sub(10)..c],
+        ));
         context.push_str("<--[HERE]");
         let byte_cursor = utf16_to_byte(input, cursor);
         SnbtError {
@@ -63,8 +66,15 @@ impl SnbtError {
     }
 
     /// `CommandSyntaxException.getContext()`.
-    pub fn context(&self) -> &str {
+    pub fn context(&self) -> &JavaString {
         &self.context
+    }
+
+    /// `getMessage()`: the message, position and context; the context can end inside a surrogate pair.
+    pub fn message_with_context(&self) -> JavaString {
+        let mut out = JavaString::from(format!("{} at position {}: ", self.message, self.cursor));
+        out.push_java(&self.context);
+        out
     }
 }
 
@@ -73,7 +83,9 @@ impl fmt::Display for SnbtError {
         write!(
             f,
             "{} at position {}: {}",
-            self.message, self.cursor, self.context
+            self.message,
+            self.cursor,
+            self.context.as_lossy_str()
         )
     }
 }

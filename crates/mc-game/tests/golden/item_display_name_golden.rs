@@ -13,7 +13,7 @@ fn book(title: &str) -> ItemStack {
     s.set(
         WRITTEN_BOOK_CONTENT,
         WrittenBookContent {
-            title: Filterable::pass_through(title.to_owned()),
+            title: Filterable::pass_through(title.to_owned().into()),
             author: "me".into(),
             generation: 0,
             pages: Vec::new(),
@@ -50,7 +50,9 @@ fn display_name_golden() {
             id => ItemStack::new(Item::by_name(id).unwrap()),
         };
         let expected: serde_json::Value = serde_json::from_str(json).unwrap();
-        if stack.get_display_name().to_json().unwrap() != expected {
+        if mc_text::json::value_from_element(&stack.get_display_name().to_json().unwrap())
+            != expected
+        {
             failures.push(label);
         }
     }

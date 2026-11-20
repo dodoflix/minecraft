@@ -35,7 +35,7 @@ pub fn new(
         let block_rule = df.fix_type_everywhere(
             &format!("{name} for block"),
             &expected_type,
-            move |_, input| input.map_second(|b| Value::Str(r(b.as_str()))),
+            move |_, input| input.map_second(|b| Value::Str(b.as_java_string().map_text(|t| r(t)))),
         );
         let r = rename_block.clone();
         let block_state_rule = df.fix_type_everywhere_typed(
@@ -49,7 +49,7 @@ pub fn new(
             &input_schema.get_type(&References::FLAT_BLOCK_STATE),
             move |input| {
                 input.update_remainder(|tag| match tag.as_string().result() {
-                    Some(s) => tag.create_string(fix_flat_block_state(&r, &s)),
+                    Some(s) => tag.create_string(fix_flat_block_state(&r, s.as_lossy_str())),
                     None => tag,
                 })
             },
@@ -60,7 +60,7 @@ pub fn new(
 
 fn fix_block_state(rename_block: &Renamer, tag: Dynamic) -> Dynamic {
     match tag.get("Name").as_string().result() {
-        Some(name) => tag.set("Name", tag.create_string(rename_block(&name))),
+        Some(name) => tag.set("Name", tag.create_string(rename_block(name.as_lossy_str()))),
         None => tag,
     }
 }

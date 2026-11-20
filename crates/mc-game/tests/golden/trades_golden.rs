@@ -135,13 +135,13 @@ fn canon(tag: &Tag, out: &mut String) {
     match tag {
         Tag::Compound(c) => {
             let mut entries: Vec<_> = c.iter().collect();
-            entries.sort_by(|a, b| a.0.cmp(b.0));
+            entries.sort_by(|a, b| a.0.java_cmp(b.0));
             out.push('{');
             for (i, (k, v)) in entries.into_iter().enumerate() {
                 if i > 0 {
                     out.push(',');
                 }
-                write!(out, "{k}:").unwrap();
+                write!(out, "{0}:", k.as_lossy_str()).unwrap();
                 canon(v, out);
             }
             out.push('}');
@@ -162,7 +162,7 @@ fn canon(tag: &Tag, out: &mut String) {
         Tag::Long(v) => write!(out, "{v}l").unwrap(),
         Tag::Float(v) => write!(out, "{:x}f", v.to_bits()).unwrap(),
         Tag::Double(v) => write!(out, "{:x}d", v.to_bits()).unwrap(),
-        Tag::String(s) => write!(out, "\"{s}\"").unwrap(),
+        Tag::String(s) => write!(out, "\"{0}\"", s.as_lossy_str()).unwrap(),
         Tag::ByteArray(a) => write!(
             out,
             "B[{}]",

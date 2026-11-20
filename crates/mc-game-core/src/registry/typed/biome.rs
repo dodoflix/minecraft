@@ -57,9 +57,8 @@ fn color_schema() -> Schema {
     // `ExtraCodecs.STRING_RGB_COLOR`
     Schema::custom(|v, _ctx| {
         let tag = match v {
-            Value::String(_) | Value::Number(_) | Value::Array(_) => {
-                parse_rgb(v).map(|c| Tag::String(format!("#{:06x}", c as u32 & 0xFF_FFFF)))?
-            }
+            Value::String(_) | Value::Number(_) | Value::Array(_) => parse_rgb(v)
+                .map(|c| Tag::String(format!("#{:06x}", c as u32 & 0xFF_FFFF).into()))?,
             other => return Err(format!("Not a string: {other}")),
         };
         Ok(tag)

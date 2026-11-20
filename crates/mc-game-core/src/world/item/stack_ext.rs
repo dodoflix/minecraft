@@ -72,7 +72,7 @@ impl ItemStackExt for ItemStack {
         // `StringUtil.isBlank`: `Character.isWhitespace || Character.isSpaceChar` (Rust's White_Space differs at U+0085 and U+001C..1F).
         let whitespace =
             |c: char| (c.is_whitespace() && c != '\u{85}') || ('\u{1c}'..='\u{1f}').contains(&c);
-        (!title.chars().all(whitespace)).then(|| Component::literal(title.clone()))
+        (!title.as_lossy_str().chars().all(whitespace)).then(|| Component::literal(title.clone()))
     }
 
     fn get_hover_name(&self) -> Component {

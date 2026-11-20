@@ -23,7 +23,7 @@ pub fn new(output_schema: &Schema, name: &str, ty: &TypeReference) -> DataFix {
                 team.update_typed(&display_name_f, |display_name| {
                     display_name.update(&text_component_f, |text_component| {
                         text_component.map_second(|json| {
-                            Value::Str(create_text_component_json(json.as_str()))
+                            Value::Str(create_text_component_json(json.as_java_string().clone()))
                         })
                     })
                 })

@@ -4,6 +4,7 @@ use crate::datafix::DataFix;
 use crate::fixes::references::References;
 use crate::schema::Schema;
 use crate::ty::ensure_namespaced;
+use mc_core::java_string::JavaString;
 use mc_dfu::Dynamic;
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -47,10 +48,11 @@ fn fix_enchantment_list(
                     let source = element.clone();
                     element.update("id", |id| match id.as_string().result() {
                         Some(string_id) => {
-                            let renamed = renames
-                                .get(&ensure_namespaced(&string_id))
-                                .cloned()
-                                .unwrap_or(string_id);
+                            let renamed =
+                                match renames.get(&ensure_namespaced(string_id.as_lossy_str())) {
+                                    Some(renamed) => JavaString::from(renamed.as_str()),
+                                    None => string_id,
+                                };
                             source.create_string(renamed)
                         }
                         None => id,

@@ -36,7 +36,7 @@ pub fn new(
                 move |input| {
                     input.update_remainder(|tag| {
                         let value = match tag.get("graphicsMode").as_string().result() {
-                            Some(mode) => match mode.as_str() {
+                            Some(mode) => match mode.as_lossy_str() {
                                 "2" => &value_if_fabulous,
                                 "0" => &value_if_fast,
                                 _ => &value_if_fancy,

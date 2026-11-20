@@ -13,6 +13,7 @@
 //! | `field(n, a)`, check, hook    | `A`                     | `a` itself                            |
 //! | `emptyPart`                   | `Unit`                  | `Unit`                                |
 
+use mc_core::java_string::JavaString;
 use mc_dfu::{Dyn, Dynamic};
 
 #[derive(Clone, Debug, PartialEq)]
@@ -25,7 +26,7 @@ pub enum Value {
     Long(i64),
     Float(f32),
     Double(f64),
-    Str(String),
+    Str(JavaString),
     /// `Dynamic<?>` (the type of `DSL.remainderType()`): a value together with the ops that built it.
     Dynamic(Dynamic),
     /// `Pair<A, B>` (Product, `named`, tagged choice entries).
@@ -112,11 +113,11 @@ impl Value {
     pub fn none() -> Value {
         Value::right(Value::Unit)
     }
-    pub fn str(s: impl Into<String>) -> Value {
+    pub fn str(s: impl Into<JavaString>) -> Value {
         Value::Str(s.into())
     }
     /// `Pair.of(name, value)` as stored by `DSL.named(name, ..)` / tagged choices.
-    pub fn named(name: impl Into<String>, value: Value) -> Value {
+    pub fn named(name: impl Into<JavaString>, value: Value) -> Value {
         Value::pair(Value::Str(name.into()), value)
     }
     pub fn dynamic(d: Dynamic) -> Value {
@@ -161,7 +162,7 @@ impl Value {
     }
     /// A `named(..)` / tagged-choice entry as `(name, value)`.
     #[track_caller]
-    pub fn into_named(self) -> (String, Value) {
+    pub fn into_named(self) -> (JavaString, Value) {
         let (a, b) = self.into_pair();
         (a.into_string(), b)
     }
@@ -191,14 +192,18 @@ impl Value {
     }
 
     #[track_caller]
-    pub fn as_str(&self) -> &str {
+    pub fn as_lossy_str(&self) -> &str {
+        self.as_java_string().as_lossy_str()
+    }
+    #[track_caller]
+    pub fn as_java_string(&self) -> &JavaString {
         match self {
             Value::Str(s) => s,
             other => mismatch("String", other),
         }
     }
     #[track_caller]
-    pub fn into_string(self) -> String {
+    pub fn into_string(self) -> JavaString {
         match self {
             Value::Str(s) => s,
             other => mismatch("String", &other),
@@ -267,14 +272,19 @@ impl From<Dynamic> for Value {
         Value::Dynamic(d)
     }
 }
+impl From<JavaString> for Value {
+    fn from(s: JavaString) -> Value {
+        Value::Str(s)
+    }
+}
 impl From<String> for Value {
     fn from(s: String) -> Value {
-        Value::Str(s)
+        Value::Str(s.into())
     }
 }
 impl From<&str> for Value {
     fn from(s: &str) -> Value {
-        Value::Str(s.to_string())
+        Value::Str(s.into())
     }
 }
 impl From<i32> for Value {

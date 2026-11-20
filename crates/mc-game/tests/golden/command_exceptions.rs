@@ -21,7 +21,7 @@ fn invalid_commands_fail_like_vanilla() {
             let parse = dispatcher.parse(command, source.clone());
             match dispatcher.execute_parsed(&parse) {
                 Ok(_) => "<no error>".to_owned(),
-                Err(e) => e.get_message().replace('\n', "\\n"),
+                Err(e) => e.get_message().as_lossy_str().replace('\n', "\\n"),
             }
         });
         assert_eq!(ours, expected, "command {command:?}");

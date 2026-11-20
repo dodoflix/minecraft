@@ -3,7 +3,7 @@
 use chrono::{DateTime, Local, NaiveDate, NaiveDateTime, SubsecRound, Utc};
 use mc_text::Component;
 
-use super::gson::{JsonError, JsonObject};
+use super::gson::{JsonElement, JsonError, JsonObject};
 use super::name_and_id::NameAndId;
 use super::stored_user_list::StoredUserEntry;
 
@@ -88,6 +88,12 @@ impl BanUser for NameAndId {
     }
 }
 
+/// `getAsString` of a ban list field, which the entries keep as text (a lone surrogate shows as U+FFFD).
+fn lossy_string(e: &JsonElement) -> Result<String, JsonError> {
+    e.as_string()
+        .map(mc_core::java_string::JavaString::into_string_lossy)
+}
+
 impl BanUser for String {
     fn key(&self) -> String {
         self.clone()
@@ -95,7 +101,7 @@ impl BanUser for String {
 
     /// `IpBanListEntry.createIpInfo`.
     fn from_json(object: &JsonObject) -> Result<Option<Self>, JsonError> {
-        object.get("ip").map(|ip| ip.as_string()).transpose()
+        object.get("ip").map(lossy_string).transpose()
     }
 
     fn append_to(&self, object: &mut JsonObject) {
@@ -141,18 +147,18 @@ impl<T: BanUser> BanListEntry<T> {
 
     fn from_object(user: Option<T>, object: &JsonObject) -> Result<Self, JsonError> {
         let created = match object.get("created") {
-            Some(c) => parse_date(&c.as_string()?).unwrap_or_else(now),
+            Some(c) => parse_date(&lossy_string(c)?).unwrap_or_else(now),
             None => now(),
         };
         let source = match object.get("source") {
-            Some(s) => s.as_string()?,
+            Some(s) => lossy_string(s)?,
             None => "(Unknown)".to_owned(),
         };
         let expires = match object.get("expires") {
-            Some(e) => parse_date(&e.as_string()?),
+            Some(e) => parse_date(&lossy_string(e)?),
             None => None,
         };
-        let reason = object.get("reason").map(|r| r.as_string()).transpose()?;
+        let reason = object.get("reason").map(lossy_string).transpose()?;
         Ok(BanListEntry {
             user,
             created,

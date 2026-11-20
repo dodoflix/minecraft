@@ -5,7 +5,7 @@ use super::containers::{read_list, read_optional, write_list, write_optional};
 use crate::codec::EncodeResult;
 use crate::codec::{
     Decode, DecodeError, DecodeResult, Encode, MAX_STRING_LENGTH, NbtLimit, decode_tag_with,
-    encode_tag, read_utf, read_varint, write_utf, write_varint,
+    encode_tag, read_utf, read_varint, write_java_utf, write_utf, write_varint,
 };
 use crate::components::common::{DyeColor, SoundEvent, component_codec, read_enum_zero};
 use crate::components::component::{ComponentDef, ComponentKey};
@@ -13,12 +13,13 @@ use crate::components::holder::{self, Holder, HolderSet, NoDirect};
 use crate::components::item_stack::ItemStackTemplate;
 use crate::string_enum;
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_data::DataComponentType;
 use mc_dfu::extra::{
     IDENTIFIER, NON_NEGATIVE_FLOAT, NON_NEGATIVE_INT, POSITIVE_FLOAT, UNSIGNED_BYTE,
     extra_int_range, optional_always_present_field_of,
 };
-use mc_dfu::{BOOL, Codec, DataResult, INT, STRING, record, string_range};
+use mc_dfu::{BOOL, Codec, DataResult, INT, JAVA_STRING, STRING, java_string_range, record};
 use mc_text::Component;
 
 pub const WRITABLE_BOOK_CONTENT: ComponentKey<WritableBookContent> =
@@ -160,7 +161,7 @@ impl<T> Filterable<T> {
 
 #[derive(Clone, Debug, PartialEq, Default)]
 pub struct WritableBookContent {
-    pub pages: Vec<Filterable<String>>,
+    pub pages: Vec<Filterable<JavaString>>,
 }
 
 impl WritableBookContent {
@@ -168,12 +169,12 @@ impl WritableBookContent {
     pub const MAX_PAGES: usize = 100;
 
     /// `WritableBookContent.PAGES_CODEC`.
-    pub fn pages_codec() -> Codec<Vec<Filterable<String>>> {
-        Filterable::codec(&string_range(0, 1024)).size_limited_list_of(100)
+    pub fn pages_codec() -> Codec<Vec<Filterable<JavaString>>> {
+        Filterable::codec(&java_string_range(0, 1024)).size_limited_list_of(100)
     }
 
     pub fn codec() -> Codec<WritableBookContent> {
-        let page = Filterable::codec(&string_range(0, 1024));
+        let page = Filterable::codec(&java_string_range(0, 1024));
         record!(WritableBookContent {
             pages: page
                 .size_limited_list_of(100)
@@ -186,14 +187,14 @@ impl WritableBookContent {
 impl Encode for WritableBookContent {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_list(out, 100, &self.pages, |p, o| {
-            p.encode_stream(o, |s, o| write_utf(o, s, 1024))
+            p.encode_stream(o, |s, o| write_java_utf(o, s, 1024))
         })
     }
 }
 impl Decode for WritableBookContent {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
         read_list(input, 100, |i| {
-            Filterable::decode_stream(i, |i| read_utf(i, 1024))
+            Filterable::decode_stream(i, |i| read_utf(i, 1024).map(JavaString::from))
         })
         .map(|pages| WritableBookContent { pages })
     }
@@ -201,8 +202,8 @@ impl Decode for WritableBookContent {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct WrittenBookContent {
-    pub title: Filterable<String>,
-    pub author: String,
+    pub title: Filterable<JavaString>,
+    pub author: JavaString,
     pub generation: i32,
     pub pages: Vec<Filterable<Component>>,
     pub resolved: bool,
@@ -212,8 +213,8 @@ impl Default for WrittenBookContent {
     /// `WrittenBookContent.EMPTY`.
     fn default() -> Self {
         WrittenBookContent {
-            title: Filterable::pass_through(String::new()),
-            author: String::new(),
+            title: Filterable::pass_through(JavaString::new()),
+            author: JavaString::new(),
             generation: 0,
             pages: Vec::new(),
             resolved: true,
@@ -234,8 +235,8 @@ impl WrittenBookContent {
     pub fn codec() -> Codec<WrittenBookContent> {
         let pages = Filterable::codec(&flat_restricted_codec(32767)).list_of();
         record!(WrittenBookContent {
-            title: Filterable::codec(&string_range(0, 32)).field_of("title"),
-            author: STRING.field_of("author"),
+            title: Filterable::codec(&java_string_range(0, 32)).field_of("title"),
+            author: JAVA_STRING.field_of("author"),
             generation: extra_int_range(0, 3).optional_field_of_default("generation", 0),
             pages: pages.optional_field_of_default("pages", Vec::new()),
             resolved: BOOL.optional_field_of_default("resolved", false),
@@ -246,8 +247,9 @@ impl WrittenBookContent {
 
 impl Encode for WrittenBookContent {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        self.title.encode_stream(out, |s, o| write_utf(o, s, 32))?;
-        write_utf(out, &self.author, MAX_STRING_LENGTH)?;
+        self.title
+            .encode_stream(out, |s, o| write_java_utf(o, s, 32))?;
+        write_java_utf(out, &self.author, MAX_STRING_LENGTH)?;
         write_varint(out, self.generation);
         write_list(out, i32::MAX as usize, &self.pages, |p, o| {
             p.encode_stream(o, encode_component)
@@ -258,8 +260,8 @@ impl Encode for WrittenBookContent {
 }
 impl Decode for WrittenBookContent {
     fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
-        let title = Filterable::decode_stream(input, |i| read_utf(i, 32))?;
-        let author = read_utf(input, MAX_STRING_LENGTH)?;
+        let title = Filterable::decode_stream(input, |i| read_utf(i, 32).map(JavaString::from))?;
+        let author = JavaString::from(read_utf(input, MAX_STRING_LENGTH)?);
         let generation = read_varint(input)?;
         let pages = read_list(input, i32::MAX as usize, |i| {
             Filterable::decode_stream(i, decode_component)

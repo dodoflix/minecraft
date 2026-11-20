@@ -474,7 +474,7 @@ fn progress_file_json(
         .into_result()
         .map(|d| d.to_json_string())
         .ok()
-        .and_then(|s| serde_json::from_str::<Value>(&s).ok())
+        .and_then(|s| serde_json::from_str::<Value>(s.as_lossy_str()).ok())
     {
         Some(Value::Object(json)) => Some(json),
         _ => None,

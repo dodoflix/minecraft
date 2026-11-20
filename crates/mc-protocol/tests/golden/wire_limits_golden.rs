@@ -299,7 +299,7 @@ fn fixed_size_list_mismatch_fails_like_vanilla() {
 }
 
 fn nbt_cases() -> Vec<(&'static str, Tag)> {
-    let s = |n: usize, c: &str| Tag::String(c.repeat(n));
+    let s = |n: usize, c: &str| Tag::String(c.repeat(n).into());
     let smile = "\u{1F600}";
     let mut v = vec![
         ("nbt/tag/end", Tag::End),
@@ -326,7 +326,7 @@ fn nbt_cases() -> Vec<(&'static str, Tag)> {
     c.put_int("k".repeat(65535), 1);
     v.push(("nbt/compound/key_65535", Tag::Compound(c)));
     let mut list = ListTag::new();
-    list.push(Tag::String("c".repeat(65536)));
+    list.push(Tag::String("c".repeat(65536).into()));
     let mut c = CompoundTag::new();
     c.put("l", Tag::List(list));
     v.push(("nbt/compound/long_string_in_list", Tag::Compound(c)));

@@ -2,6 +2,7 @@
 
 use crate::codec::{Codec, Dynamic};
 use crate::result::DataResult;
+use mc_core::java_string::JavaString;
 use mc_core::math::java::{java_double_to_string, java_float_to_string};
 use std::cmp::Ordering;
 use std::sync::LazyLock;
@@ -43,7 +44,20 @@ pub static BOOL: LazyLock<Codec<bool>> = LazyLock::new(|| {
     )
 });
 
+/// `Codec.STRING` for a Rust `String`: a lone surrogate read from the input becomes U+FFFD. Use [`JAVA_STRING`] where
+/// the exact Java string matters.
 pub static STRING: LazyLock<Codec<String>> = LazyLock::new(|| {
+    Codec::primitive(
+        |ops, input| {
+            ops.get_string_value(input)
+                .map(JavaString::into_string_lossy)
+        },
+        |ops, v| ops.create_string(v.as_str()),
+    )
+});
+
+/// `Codec.STRING`, keeping lone surrogates.
+pub static JAVA_STRING: LazyLock<Codec<JavaString>> = LazyLock::new(|| {
     Codec::primitive(
         |ops, input| ops.get_string_value(input),
         |ops, v| ops.create_string(v.clone()),
@@ -190,6 +204,25 @@ pub fn string_range(min: usize, max: usize) -> Codec<String> {
         } else if length > max {
             DataResult::error(move || {
                 format!("String \"{value}\" is too long: {length}, expected range [{min}-{max}]")
+            })
+        } else {
+            DataResult::success(value)
+        }
+    })
+}
+
+/// [`string_range`] over [`JAVA_STRING`]: the value keeps lone surrogates (the error message shows them as U+FFFD).
+pub fn java_string_range(min: usize, max: usize) -> Codec<JavaString> {
+    JAVA_STRING.validate(move |value| {
+        let length = value.utf16_len();
+        let shown = value.as_lossy_str().to_owned();
+        if length < min {
+            DataResult::error(move || {
+                format!("String \"{shown}\" is too short: {length}, expected range [{min}-{max}]")
+            })
+        } else if length > max {
+            DataResult::error(move || {
+                format!("String \"{shown}\" is too long: {length}, expected range [{min}-{max}]")
             })
         } else {
             DataResult::success(value)

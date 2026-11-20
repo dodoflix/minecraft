@@ -7,6 +7,7 @@ use crate::profile::ResolvableProfile;
 use crate::style::{FontDescription, Style};
 use crate::value::Num;
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use std::fmt;
 
 /// U+FFFC, what `ObjectContents` emits for styled visiting.
@@ -25,10 +26,10 @@ pub struct Component {
 #[derive(Clone, Debug, PartialEq)]
 pub enum ComponentContents {
     /// `PlainTextContents` (the empty string is `PlainTextContents.EMPTY`).
-    Literal(String),
+    Literal(JavaString),
     Translatable(TranslatableContents),
     /// `KeybindContents` (the key name).
-    Keybind(String),
+    Keybind(JavaString),
     Score(ScoreContents),
     Selector(SelectorContents),
     Nbt(NbtContents),
@@ -38,7 +39,7 @@ pub enum ComponentContents {
 /// A `TranslatableContents` argument (`Object` in vanilla): a primitive or a component.
 #[derive(Clone, Debug, PartialEq)]
 pub enum TranslatableArg {
-    String(String),
+    String(JavaString),
     Bool(bool),
     Number(Num),
     Component(Component),
@@ -47,11 +48,11 @@ pub enum TranslatableArg {
 impl TranslatableArg {
     /// `TranslatableContents.isAllowedPrimitiveArgument` is statically guaranteed by this enum.
     /// `Object.toString()` of a primitive argument.
-    fn primitive_string(&self) -> Option<String> {
+    fn primitive_string(&self) -> Option<JavaString> {
         match self {
             TranslatableArg::String(s) => Some(s.clone()),
-            TranslatableArg::Bool(b) => Some(b.to_string()),
-            TranslatableArg::Number(n) => Some(n.to_string()),
+            TranslatableArg::Bool(b) => Some(b.to_string().into()),
+            TranslatableArg::Number(n) => Some(n.to_string().into()),
             TranslatableArg::Component(_) => None,
         }
     }
@@ -59,11 +60,16 @@ impl TranslatableArg {
 
 impl From<&str> for TranslatableArg {
     fn from(s: &str) -> Self {
-        TranslatableArg::String(s.to_owned())
+        TranslatableArg::String(s.into())
     }
 }
 impl From<String> for TranslatableArg {
     fn from(s: String) -> Self {
+        TranslatableArg::String(s.into())
+    }
+}
+impl From<JavaString> for TranslatableArg {
+    fn from(s: JavaString) -> Self {
         TranslatableArg::String(s)
     }
 }
@@ -101,20 +107,20 @@ impl From<Component> for TranslatableArg {
 #[derive(Clone, Debug, PartialEq)]
 pub struct TranslatableContents {
     pub key: String,
-    pub fallback: Option<String>,
+    pub fallback: Option<JavaString>,
     pub args: Vec<TranslatableArg>,
 }
 
 /// One piece of a decomposed translation template.
 enum Part<'a> {
-    Text(String),
+    Text(JavaString),
     Component(&'a Component),
 }
 
 impl TranslatableContents {
     pub fn new(
         key: impl Into<String>,
-        fallback: Option<String>,
+        fallback: Option<JavaString>,
         args: Vec<TranslatableArg>,
     ) -> Self {
         TranslatableContents {
@@ -127,16 +133,38 @@ impl TranslatableContents {
     /// `decompose()`: the template with `%s`/`%n$s`/`%%` substituted. Any malformed template makes
     /// vanilla fall back to the raw format string as a single part.
     fn decompose(&self, language: &Language) -> Vec<Part<'_>> {
-        let format = match &self.fallback {
-            Some(fallback) => language.get_or_default(&self.key, fallback),
-            None => language.get_or_default(&self.key, &self.key),
+        let from_language;
+        let format: &JavaString = match language.get(&self.key) {
+            Some(text) => {
+                from_language = JavaString::from(text);
+                &from_language
+            }
+            None => match &self.fallback {
+                Some(fallback) => fallback,
+                None => {
+                    from_language = JavaString::from(self.key.as_str());
+                    &from_language
+                }
+            },
         };
         self.decompose_template(format)
-            .unwrap_or_else(|()| vec![Part::Text(format.to_owned())])
+            .unwrap_or_else(|()| vec![Part::Text(format.clone())])
     }
 
     /// `decomposeTemplate`; `Err` stands for `TranslatableFormatException`/`IllegalArgumentException`.
-    fn decompose_template(&self, template: &str) -> Result<Vec<Part<'_>>, ()> {
+    fn decompose_template(&self, format: &JavaString) -> Result<Vec<Part<'_>>, ()> {
+        // The text between two byte offsets of the template; a lone surrogate is one unit and one character of the
+        // text, so unit offsets can be counted on the text.
+        let slice = |from: usize, to: usize| -> JavaString {
+            let text = format.as_lossy_str();
+            if format.has_lone_surrogate() {
+                let unit = |byte: usize| text[..byte].encode_utf16().count();
+                format.substring(unit(from), unit(to))
+            } else {
+                text[from..to].into()
+            }
+        };
+        let template = format.as_lossy_str();
         let b = template.as_bytes();
         let mut parts = Vec::new();
         let mut replacement_index = 0usize;
@@ -146,7 +174,7 @@ impl TranslatableContents {
         while let Some(rel) = template[current..].find('%') {
             let start = current + rel;
             if start > current {
-                parts.push(Part::Text(template[current..start].to_owned()));
+                parts.push(Part::Text(slice(current, start)));
             }
             let mut j = start + 1;
             while j < b.len() && b[j].is_ascii_digit() {
@@ -163,7 +191,7 @@ impl TranslatableContents {
             };
             let end = m + 1;
             if format_type == b'%' && &template[start..end] == "%%" {
-                parts.push(Part::Text("%".to_owned()));
+                parts.push(Part::Text("%".into()));
             } else {
                 if format_type != b's' {
                     return Err(());
@@ -187,7 +215,7 @@ impl TranslatableContents {
             current = end;
         }
         if current < template.len() {
-            parts.push(Part::Text(template[current..].to_owned()));
+            parts.push(Part::Text(slice(current, template.len())));
         }
         Ok(parts)
     }
@@ -310,7 +338,7 @@ impl Component {
     }
 
     /// `Component.literal` (`PlainTextContents.create`).
-    pub fn literal(text: impl Into<String>) -> Component {
+    pub fn literal(text: impl Into<JavaString>) -> Component {
         Component::new(ComponentContents::Literal(text.into()))
     }
 
@@ -332,7 +360,7 @@ impl Component {
 
     pub fn translatable_with_fallback(
         key: impl Into<String>,
-        fallback: Option<String>,
+        fallback: Option<JavaString>,
         args: Vec<TranslatableArg>,
     ) -> Component {
         Component::new(ComponentContents::Translatable(TranslatableContents::new(
@@ -340,7 +368,7 @@ impl Component {
         )))
     }
 
-    pub fn keybind(name: impl Into<String>) -> Component {
+    pub fn keybind(name: impl Into<JavaString>) -> Component {
         Component::new(ComponentContents::Keybind(name.into()))
     }
 
@@ -462,6 +490,12 @@ impl Component {
 
     /// `tryCollapseToString`: the text when this is plain, unstyled and childless.
     pub fn try_collapse_to_string(&self) -> Option<&str> {
+        self.try_collapse_to_java_string()
+            .map(JavaString::as_lossy_str)
+    }
+
+    /// [`try_collapse_to_string`](Self::try_collapse_to_string) with the exact string.
+    pub fn try_collapse_to_java_string(&self) -> Option<&JavaString> {
         match &self.contents {
             ComponentContents::Literal(text)
                 if self.siblings.is_empty() && self.style.is_empty() =>
@@ -484,12 +518,18 @@ impl Component {
 
     // ---- visiting -----------------------------------------------------------------------
 
-    /// `visit(ContentConsumer)`: stops at the first `Some`.
+    /// `visit(ContentConsumer)`: stops at the first `Some`. A lone surrogate shows as U+FFFD; see
+    /// [`visit_java`](Self::visit_java).
     pub fn visit<T>(&self, output: &mut dyn FnMut(&str) -> Option<T>) -> Option<T> {
+        self.visit_java(&mut |s| output(s.as_lossy_str()))
+    }
+
+    /// [`visit`](Self::visit) with the exact strings.
+    pub fn visit_java<T>(&self, output: &mut dyn FnMut(&JavaString) -> Option<T>) -> Option<T> {
         if let Some(r) = self.contents.visit(output) {
             return Some(r);
         }
-        self.siblings.iter().find_map(|s| s.visit(output))
+        self.siblings.iter().find_map(|s| s.visit_java(output))
     }
 
     /// `visit(StyledContentConsumer, parentStyle)`.
@@ -498,23 +538,41 @@ impl Component {
         output: &mut dyn FnMut(&Style, &str) -> Option<T>,
         parent_style: &Style,
     ) -> Option<T> {
+        self.visit_styled_java(
+            &mut |style, s| output(style, s.as_lossy_str()),
+            parent_style,
+        )
+    }
+
+    /// [`visit_styled`](Self::visit_styled) with the exact strings.
+    pub fn visit_styled_java<T>(
+        &self,
+        output: &mut dyn FnMut(&Style, &JavaString) -> Option<T>,
+        parent_style: &Style,
+    ) -> Option<T> {
         let self_style = self.style.apply_to(parent_style);
         if let Some(r) = self.contents.visit_styled(output, &self_style) {
             return Some(r);
         }
         self.siblings
             .iter()
-            .find_map(|s| s.visit_styled(output, &self_style))
+            .find_map(|s| s.visit_styled_java(output, &self_style))
     }
 
-    /// `getString()`: the plain text (translations resolved with the current `Language`).
-    pub fn get_string(&self) -> String {
-        let mut out = String::new();
-        self.visit::<()>(&mut |s| {
-            out.push_str(s);
+    /// `getString()`: the plain text (translations resolved with the current `Language`). The halves of a surrogate
+    /// pair that sit in different components join into one character.
+    pub fn get_java_string(&self) -> JavaString {
+        let mut out = JavaString::new();
+        self.visit_java::<()>(&mut |s| {
+            out.push_java(s);
             None
         });
         out
+    }
+
+    /// [`get_java_string`](Self::get_java_string) with each lone surrogate shown as U+FFFD.
+    pub fn get_string(&self) -> String {
+        self.get_java_string().into_string_lossy()
     }
 
     /// `getString(int limit)`; the limit is in UTF-16 code units.
@@ -548,10 +606,10 @@ impl Component {
 
     pub fn to_flat_list_styled(&self, root_style: &Style) -> Vec<Component> {
         let mut result = Vec::new();
-        self.visit_styled::<()>(
+        self.visit_styled_java::<()>(
             &mut |style, contents| {
-                if !contents.is_empty() {
-                    result.push(Component::literal(contents).with_style(style));
+                if !contents.as_lossy_str().is_empty() {
+                    result.push(Component::literal(contents.clone()).with_style(style));
                 }
                 None
             },
@@ -576,7 +634,7 @@ impl Component {
 }
 
 impl ComponentContents {
-    fn visit<T>(&self, output: &mut dyn FnMut(&str) -> Option<T>) -> Option<T> {
+    fn visit<T>(&self, output: &mut dyn FnMut(&JavaString) -> Option<T>) -> Option<T> {
         match self {
             ComponentContents::Literal(text) => output(text),
             ComponentContents::Translatable(t) => {
@@ -584,7 +642,7 @@ impl ComponentContents {
                 for part in t.decompose(&language) {
                     let r = match part {
                         Part::Text(s) => output(&s),
-                        Part::Component(c) => c.visit(output),
+                        Part::Component(c) => c.visit_java(output),
                     };
                     if r.is_some() {
                         return r;
@@ -593,10 +651,10 @@ impl ComponentContents {
                 None
             }
             ComponentContents::Keybind(name) => output(name),
-            ComponentContents::Selector(s) => output(&s.selector),
+            ComponentContents::Selector(s) => output(&s.selector.as_str().into()),
             ComponentContents::Object(o) => match &o.fallback {
-                Some(f) => f.visit(output),
-                None => output(&o.contents.default_fallback()),
+                Some(f) => f.visit_java(output),
+                None => output(&o.contents.default_fallback().into()),
             },
             ComponentContents::Score(_) | ComponentContents::Nbt(_) => None,
         }
@@ -604,7 +662,7 @@ impl ComponentContents {
 
     fn visit_styled<T>(
         &self,
-        output: &mut dyn FnMut(&Style, &str) -> Option<T>,
+        output: &mut dyn FnMut(&Style, &JavaString) -> Option<T>,
         current_style: &Style,
     ) -> Option<T> {
         match self {
@@ -614,7 +672,7 @@ impl ComponentContents {
                 for part in t.decompose(&language) {
                     let r = match part {
                         Part::Text(s) => output(current_style, &s),
-                        Part::Component(c) => c.visit_styled(output, current_style),
+                        Part::Component(c) => c.visit_styled_java(output, current_style),
                     };
                     if r.is_some() {
                         return r;
@@ -624,10 +682,10 @@ impl ComponentContents {
             }
             // KeybindResolver default: `Component.literal(name)`, which inherits the current style.
             ComponentContents::Keybind(name) => output(current_style, name),
-            ComponentContents::Selector(s) => output(current_style, &s.selector),
+            ComponentContents::Selector(s) => output(current_style, &s.selector.as_str().into()),
             ComponentContents::Object(o) => output(
                 &current_style.with_font(Some(o.contents.font_description())),
-                OBJECT_PLACEHOLDER,
+                &OBJECT_PLACEHOLDER.into(),
             ),
             ComponentContents::Score(_) | ComponentContents::Nbt(_) => None,
         }
@@ -638,16 +696,16 @@ impl ComponentContents {
 impl fmt::Display for ComponentContents {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            ComponentContents::Literal(t) if t.is_empty() => f.write_str("empty"),
-            ComponentContents::Literal(t) => write!(f, "literal{{{t}}}"),
+            ComponentContents::Literal(t) if t.as_lossy_str().is_empty() => f.write_str("empty"),
+            ComponentContents::Literal(t) => write!(f, "literal{{{}}}", t.as_lossy_str()),
             ComponentContents::Translatable(t) => {
                 write!(f, "translation{{key='{}'", t.key)?;
                 if let Some(fb) = &t.fallback {
-                    write!(f, ", fallback='{fb}'")?;
+                    write!(f, ", fallback='{}'", fb.as_lossy_str())?;
                 }
                 write!(f, ", args={:?}}}", t.args)
             }
-            ComponentContents::Keybind(k) => write!(f, "keybind{{{k}}}"),
+            ComponentContents::Keybind(k) => write!(f, "keybind{{{}}}", k.as_lossy_str()),
             ComponentContents::Score(s) => write!(
                 f,
                 "score{{name='{:?}', objective='{}'}}",

@@ -209,11 +209,8 @@ impl WorldDimensions {
     ) -> Result<WorldDimensions, String> {
         let decoder = &decoder.for_nbt();
         let mut stems = Map::new();
-        for key in dimensions.keys() {
-            stems.insert(
-                key.to_string(),
-                nbt_to_json(dimensions.get(key).expect("key of the compound")),
-            );
+        for (key, value) in dimensions.iter() {
+            stems.insert(key.as_lossy_str().to_owned(), nbt_to_json(value));
         }
         let stems = Value::Object(stems);
         let typed = decoder
@@ -229,7 +226,7 @@ impl WorldDimensions {
         // keep the stored order: the typed object is in the (sorted) order of the JSON map
         let mut ordered = Vec::new();
         for key in dimensions.keys() {
-            let id = Identifier::read(key)?;
+            let id = Identifier::read(key.as_lossy_str())?;
             if let Some(stem) = typed.get(&id) {
                 ordered.push((id, stem.clone()));
             }
@@ -385,16 +382,13 @@ pub fn nbt_to_json(tag: &Tag) -> Value {
     match tag {
         Tag::Compound(c) => {
             let mut map = Map::new();
-            for key in c.keys() {
-                map.insert(
-                    key.to_string(),
-                    nbt_to_json(c.get(key).expect("key of the compound")),
-                );
+            for (key, value) in c.iter() {
+                map.insert(key.as_lossy_str().to_owned(), nbt_to_json(value));
             }
             Value::Object(map)
         }
         Tag::List(items) => Value::Array(items.iter().map(nbt_to_json).collect()),
-        Tag::String(s) => Value::String(s.to_string()),
+        Tag::String(s) => Value::String(s.as_lossy_str().to_owned()),
         Tag::Byte(v) => Value::Number((*v).into()),
         Tag::Short(v) => Value::Number((*v).into()),
         Tag::Int(v) => Value::Number((*v).into()),

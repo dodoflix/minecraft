@@ -344,7 +344,9 @@ impl ClickActions {
     pub fn run(&self, level: &mut ServerLevel, player: &mut ServerPlayer, pos: BlockPos) {
         for event in &self.events {
             match event {
-                ClickEvent::RunCommand(command) => run_click_command(level, player, pos, command),
+                ClickEvent::RunCommand(command) => {
+                    run_click_command(level, player, pos, command.as_lossy_str())
+                }
                 ClickEvent::ShowDialog(dialog) => open_dialog(player, dialog),
                 // `server.handleCustomClickAction(id, payload)`: the dedicated server only logs it
                 ClickEvent::Custom { id, .. } => log::debug!("Unhandled custom click action {id}"),

@@ -28,12 +28,16 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
 }
 
 fn fix_entry((key, value): (Dynamic, Dynamic)) -> (Dynamic, Dynamic) {
-    if !key.as_string_or("").starts_with("key_") {
+    if !key.as_string_or("").as_lossy_str().starts_with("key_") {
         return (key, value);
     }
     let text = value.as_string_or("");
-    let old_value = parse_int(&text)
-        .unwrap_or_else(|| panic!("java.lang.NumberFormatException: For input string: \"{text}\""));
+    let old_value = parse_int(text.as_lossy_str()).unwrap_or_else(|| {
+        panic!(
+            "java.lang.NumberFormatException: For input string: \"{}\"",
+            text.as_lossy_str()
+        )
+    });
     let name = if old_value < 0 {
         let button = old_value + 100;
         match button {

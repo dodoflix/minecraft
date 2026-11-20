@@ -18,13 +18,13 @@ use mc_world::level_storage::WorldDataConfiguration;
 fn canon(tag: &Tag) -> String {
     match tag {
         Tag::Compound(c) => {
-            let mut entries: Vec<(&String, &Tag)> = c.iter().collect();
-            entries.sort_by(|a, b| a.0.cmp(b.0));
+            let mut entries: Vec<(&mc_core::java_string::JavaString, &Tag)> = c.iter().collect();
+            entries.sort_by(|a, b| a.0.java_cmp(b.0));
             format!(
                 "{{{}}}",
                 entries
                     .iter()
-                    .map(|(k, v)| format!("{k}:{}", canon(v)))
+                    .map(|(k, v)| format!("{}:{}", k.as_lossy_str(), canon(v)))
                     .collect::<Vec<_>>()
                     .join(",")
             )

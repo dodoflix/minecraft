@@ -411,7 +411,7 @@ fn parse_entry(
                     return Ok(("override".to_owned(), argument.clone(), arg_tag));
                 }
                 let mut c = CompoundTag::new();
-                c.put("modifier", Tag::String(modifier.to_owned()));
+                c.put("modifier", Tag::String(modifier.to_owned().into()));
                 c.put("argument", arg_tag);
                 Ok((modifier.to_owned(), argument.clone(), Tag::Compound(c)))
             })();
@@ -598,11 +598,14 @@ fn color(digits: usize) -> Schema {
             }
             other => return Err(format!("Not a string: {other}")),
         };
-        Ok(Tag::String(if digits == 6 {
-            format!("#{:06x}", argb & 0xFF_FFFF)
-        } else {
-            format!("#{argb:08x}")
-        }))
+        Ok(Tag::String(
+            if digits == 6 {
+                format!("#{:06x}", argb & 0xFF_FFFF)
+            } else {
+                format!("#{argb:08x}")
+            }
+            .into(),
+        ))
     })
 }
 

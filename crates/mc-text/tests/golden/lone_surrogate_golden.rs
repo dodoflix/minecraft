@@ -1,71 +1,34 @@
 //! Components made from strings with lone UTF-16 surrogates against vanilla: `fixtures/lone_surrogate.tsv`, recorded by
-//! `crates/mc-protocol/tests/fixtures/lone_surrogate/LoneSurrogateGolden.java`.
-//!
-//! A Rust `String` cannot hold a lone surrogate, so each recorded one is compared as U+FFFD (in text) or as
-//! `ef bf bd` (in modified UTF-8). Rows that need a lone surrogate in the input are skipped.
+//! `crates/mc-protocol/tests/fixtures/lone_surrogate/LoneSurrogateGolden.java`. Every cell is replayed exactly:
+//! `getString`, the stable JSON text, the NBT bytes (modified UTF-8 writes a lone surrogate as `ed a0 80`) and the
+//! text of failures.
 
+use mc_core::gson::parse_lenient_json_parser;
+use mc_core::java_string::JavaString;
 use mc_nbt::snbt::parse;
 use mc_nbt::{Tag, nbt_io};
+use mc_testkit::{hex, rows, unesc_units};
 use mc_text::Component;
 use mc_text::nbt_text::{Styling, TextComponentTagVisitor};
 
 const GOLDEN: &str = include_str!("../fixtures/lone_surrogate.tsv");
 
-fn hex(b: &[u8]) -> String {
-    b.iter().map(|x| format!("{x:02x}")).collect()
+/// A recorded string, exactly.
+fn java(cell: &str) -> JavaString {
+    JavaString::from_utf16_units(&unesc_units(cell))
 }
 
-fn unhex(h: &str) -> Vec<u8> {
-    (0..h.len() / 2)
-        .map(|i| u8::from_str_radix(&h[2 * i..2 * i + 2], 16).unwrap())
-        .collect()
+/// A recorded input; the inputs spell a lone surrogate as the six characters `\ud800`, so they are valid text.
+fn input(cell: &str) -> String {
+    String::from_utf16(&unesc_units(cell)).unwrap()
 }
 
-/// Inverse of the recorder's `esc`, as UTF-16 units.
-fn unesc_units(s: &str) -> Vec<u16> {
-    let mut units: Vec<u16> = Vec::new();
-    let mut chars = s.chars();
-    while let Some(c) = chars.next() {
-        if c != '\\' {
-            units.extend(c.encode_utf16(&mut [0; 2]).iter());
-            continue;
-        }
-        units.push(match chars.next().unwrap() {
-            '\\' => u16::from(b'\\'),
-            't' => u16::from(b'\t'),
-            'n' => u16::from(b'\n'),
-            'r' => u16::from(b'\r'),
-            'u' => u16::from_str_radix(&chars.by_ref().take(4).collect::<String>(), 16).unwrap(),
-            other => panic!("bad escape \\{other}"),
-        });
-    }
-    units
-}
-
-fn lossy(s: &str) -> String {
-    String::from_utf16_lossy(&unesc_units(s))
-}
-
-/// Modified UTF-8 bytes with each lone surrogate (`ed a0..bf xx` not forming a pair) replaced by U+FFFD.
-fn lossy_hex(h: &str) -> String {
-    let b = unhex(h);
-    let triple = |i: usize| b.len() >= i + 3 && b[i] == 0xED && b[i + 1] >= 0xA0;
-    let (mut out, mut i) = (Vec::new(), 0);
-    while i < b.len() {
-        if triple(i) {
-            if b[i + 1] < 0xB0 && triple(i + 3) && b[i + 4] >= 0xB0 {
-                out.extend_from_slice(&b[i..i + 6]);
-                i += 6;
-            } else {
-                out.extend_from_slice(&[0xEF, 0xBF, 0xBD]);
-                i += 3;
-            }
-        } else {
-            out.push(b[i]);
-            i += 1;
-        }
-    }
-    hex(&out)
+/// The message of a recorded `ERR:<class>:<message>` cell.
+fn err_message(cell: &str) -> JavaString {
+    let cell = java(cell);
+    let text = cell.as_lossy_str();
+    let skip = text.match_indices(':').nth(1).expect("class and message").0 + 1;
+    cell.substring(text[..skip].encode_utf16().count(), cell.utf16_len())
 }
 
 fn nbt_hex(c: &Component) -> String {
@@ -74,24 +37,42 @@ fn nbt_hex(c: &Component) -> String {
     hex(&out)
 }
 
-fn rows(op: &str) -> impl Iterator<Item = Vec<&'static str>> + '_ {
-    GOLDEN
-        .lines()
-        .map(|l| l.split('\t').collect::<Vec<_>>())
-        .filter(move |c| c[0] == op)
+/// The cells `getString`, stable JSON and NBT bytes of a component (`c[2..5]`).
+fn check_component(component: &Component, c: &[&str], what: &str) {
+    assert_eq!(
+        component.get_java_string(),
+        java(c[2]),
+        "getString of {what}"
+    );
+    let json = component.to_json().unwrap().to_stable_string();
+    assert_eq!(json, java(c[3]), "stable JSON of {what}");
+    assert_eq!(nbt_hex(component), c[4], "nbt of {what}");
+}
+
+#[test]
+fn components_from_json_match_vanilla() {
+    let mut n = 0;
+    for c in rows(GOLDEN, "comp_json") {
+        let text = input(c[1]);
+        let decoded = Component::from_json(&parse_lenient_json_parser(&text).unwrap());
+        if c[2].starts_with("ERR:") {
+            let e = decoded.expect_err(&text);
+            assert_eq!(e.0, err_message(c[2]), "error of {text}");
+        } else {
+            check_component(&decoded.expect(&text), &c, &text);
+        }
+        n += 1;
+    }
+    assert_eq!(n, 13);
 }
 
 #[test]
 fn components_from_snbt_match_vanilla() {
     let mut n = 0;
-    for c in rows("comp_snbt") {
-        let input = String::from_utf16(&unesc_units(c[1])).unwrap();
-        let component = Component::from_nbt(&parse(&input).unwrap()).unwrap();
-        // `getString` joins the halves of a pair that sit in different components into one character
-        if !input.contains("extra") && !input.starts_with('[') {
-            assert_eq!(component.get_string(), lossy(c[2]), "getString of {input}");
-        }
-        assert_eq!(nbt_hex(&component), lossy_hex(c[4]), "nbt of {input}");
+    for c in rows(GOLDEN, "comp_snbt") {
+        let text = input(c[1]);
+        let component = Component::from_nbt(&parse(&text).unwrap()).expect(&text);
+        check_component(&component, &c, &text);
         n += 1;
     }
     assert_eq!(n, 10);
@@ -100,18 +81,22 @@ fn components_from_snbt_match_vanilla() {
 #[test]
 fn nbt_shown_as_text_matches_vanilla() {
     let mut n = 0;
-    for c in rows("tag_pretty") {
-        let input = String::from_utf16(&unesc_units(c[1])).unwrap();
-        // two keys that only differ by a lone surrogate collapse into one here
-        if c[2].starts_with("ERR:") || input.contains("\\ufffd") {
-            continue;
+    for c in rows(GOLDEN, "tag_pretty") {
+        let text = input(c[1]);
+        if c[2].starts_with("ERR:") {
+            let e = parse(&text).expect_err(&text);
+            assert_eq!(
+                e.message_with_context(),
+                err_message(c[2]),
+                "error of {text}"
+            );
+        } else {
+            let tag: Tag = parse(&text).unwrap();
+            let component =
+                TextComponentTagVisitor::with_options("  ", Styling::Plain, true).visit(&tag);
+            check_component(&component, &c, &text);
         }
-        let tag: Tag = parse(&input).unwrap();
-        let component =
-            TextComponentTagVisitor::with_options("  ", Styling::Plain, true).visit(&tag);
-        assert_eq!(component.get_string(), lossy(c[2]), "getString of {input}");
-        assert_eq!(nbt_hex(&component), lossy_hex(c[4]), "nbt of {input}");
         n += 1;
     }
-    assert!(n >= 10, "{n} rows");
+    assert_eq!(n, 20);
 }

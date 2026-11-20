@@ -12,6 +12,7 @@ use std::io::{self, Write};
 use std::path::{Path, PathBuf};
 
 use mc_core::gson::{JsonElement, JsonObject};
+use mc_core::java_string::JavaString;
 use mc_datafix::{
     CURRENT_VERSION, DataFixTypes, DataFixer, FileFixRegistration, FileFixerRegistry, References,
     world_version_to_file_fixer_version,
@@ -217,7 +218,9 @@ pub(super) fn write_moves(
                 base.display()
             ))
         })?;
-        Ok(JsonElement::String(relative.to_string_lossy().into_owned()))
+        Ok(JsonElement::String(
+            relative.to_string_lossy().into_owned().into(),
+        ))
     };
     let mut list = Vec::new();
     for m in moves {
@@ -230,7 +233,7 @@ pub(super) fn write_moves(
     root.add("moves", JsonElement::Array(list));
     root.add(
         "upgraded_folder",
-        JsonElement::String(upgraded_folder.to_owned()),
+        JsonElement::String(upgraded_folder.to_owned().into()),
     );
     let json = JsonElement::Object(root).to_pretty_string();
 
@@ -281,7 +284,10 @@ pub(super) fn read_moves(
     };
     let field = |entry: &JsonElement, name: &str| -> Result<String, FileFixError> {
         match entry.as_object().and_then(|o| o.get(name)) {
-            Some(value) => value.as_string().map_err(|e| invalid(e.to_string())),
+            Some(value) => value
+                .as_string()
+                .map(JavaString::into_string_lossy)
+                .map_err(|e| invalid(e.to_string())),
             None => Err(invalid(format!("No key {name} in MapLike"))),
         }
     };
@@ -296,7 +302,10 @@ pub(super) fn read_moves(
         .collect::<Result<Vec<_>, FileFixError>>()?;
     let upgraded_folder = match json.get("upgraded_folder") {
         Some(name) => {
-            let name = name.as_string().map_err(|e| invalid(e.to_string()))?;
+            let name = name
+                .as_string()
+                .map(JavaString::into_string_lossy)
+                .map_err(|e| invalid(e.to_string()))?;
             if Path::new(&name).components().count() != 1
                 || guarded_path(Path::new(""), &name).is_err()
             {

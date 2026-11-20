@@ -19,7 +19,10 @@ fn dump(d: &Dyn) -> String {
         Dyn::Long(v) => format!("{v}L"),
         Dyn::Float(v) => format!("{}f", java_float_to_string(*v)),
         Dyn::Double(v) => format!("{}d", java_double_to_string(*v)),
-        Dyn::Str(s) => format!("\"{}\"", s.replace('\\', "\\\\").replace('"', "\\\"")),
+        Dyn::Str(s) => format!(
+            "\"{}\"",
+            s.as_lossy_str().replace('\\', "\\\\").replace('"', "\\\"")
+        ),
         Dyn::List(l) => format!("[{}]", arr(&mut l.iter().map(dump))),
         Dyn::Map(m) => format!(
             "{{{}}}",
@@ -38,7 +41,7 @@ fn dump_val(ops: &Ops, d: &Dyn) -> String {
     if ops.is_nbt() {
         dump(d)
     } else {
-        d.to_json_string()
+        d.to_json_string().into_string_lossy()
     }
 }
 
@@ -113,7 +116,7 @@ fn exec(op: &str, d: &Dynamic, a: &[&str]) -> String {
         "get" => res(d.get(a[0]).into_data_result(), dyn_),
         "get2" => res(d.get(a[0]).get(a[1]).into_data_result(), dyn_),
         "as_number" => res(d.as_number(), num),
-        "as_string" => res(d.as_string(), |s| s.clone()),
+        "as_string" => res(d.as_string(), |s| s.as_lossy_str().to_owned()),
         "as_boolean" => res(d.as_boolean(), |b| b.to_string()),
         "as_stream_opt" => res(d.as_stream_opt(), |s| list(s)),
         "as_map_opt" => res(d.as_map_opt(), |s| pairs(s)),
@@ -150,7 +153,7 @@ fn exec(op: &str, d: &Dynamic, a: &[&str]) -> String {
         "as_byte_or" => format!("OK:{}", d.as_byte_or(a[0].parse().unwrap())),
         "as_short_or" => format!("OK:{}", d.as_short_or(a[0].parse().unwrap())),
         "as_boolean_or" => format!("OK:{}", d.as_boolean_or(a[0].parse().unwrap())),
-        "as_string_or" => format!("OK:{}", d.as_string_or(a[0])),
+        "as_string_or" => format!("OK:{}", d.as_string_or(a[0]).as_lossy_str()),
         "get_element" => res(d.get_element(a[0]), |v| dump_val(&ops, v)),
         "get_generic" => res(d.get_generic(&ops.create_string(a[0])), |v| {
             dump_val(&ops, v)
@@ -159,8 +162,8 @@ fn exec(op: &str, d: &Dynamic, a: &[&str]) -> String {
             "OK:{}",
             dump_val(&ops, &d.get_element_or(a[0], ops.create_int(-1)))
         ),
-        "opt_as_string" => res(d.get(a[0]).as_string(), |s| s.clone()),
-        "opt_as_string_or" => format!("OK:{}", d.get(a[0]).as_string_or(a[1])),
+        "opt_as_string" => res(d.get(a[0]).as_string(), |s| s.as_lossy_str().to_owned()),
+        "opt_as_string_or" => format!("OK:{}", d.get(a[0]).as_string_or(a[1]).as_lossy_str()),
         "opt_as_int_or" => format!("OK:{}", d.get(a[0]).as_int_or(a[1].parse().unwrap())),
         "opt_as_number" => res(d.get(a[0]).as_number(), num),
         "opt_as_stream" => res(d.get(a[0]).as_stream_opt(), |s| list(s)),
@@ -196,7 +199,7 @@ fn exec(op: &str, d: &Dynamic, a: &[&str]) -> String {
             format!(
                 "OK:{}",
                 dyn_(&d.update_map_values(|(k, v)| {
-                    let ks = k.as_string_or("");
+                    let ks = k.as_string_or("").into_string_lossy();
                     match mode {
                         0 => (k, v),
                         1 => (k.create_string(format!("{ks}_x")), v),

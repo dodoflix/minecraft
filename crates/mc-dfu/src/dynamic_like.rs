@@ -49,6 +49,7 @@ use crate::codec::{Codec, Dynamic};
 use crate::dynv::{Dyn, JNum};
 use crate::ops::Ops;
 use crate::result::DataResult;
+use mc_core::java_string::JavaString;
 use mc_core::math::java::java_string_hash;
 use std::fmt;
 
@@ -130,7 +131,7 @@ impl Dyn {
                     && a.iter().all(|(k, v)| match k {
                         Dyn::Str(s) => b
                             .iter()
-                            .find(|(k2, _)| k2.as_str() == Some(s))
+                            .find(|(k2, _)| k2.as_java_string() == Some(s))
                             .is_some_and(|(_, v2)| v.java_eq(v2, json)),
                         _ => b
                             .iter()
@@ -166,7 +167,7 @@ impl Dyn {
             Dyn::Float(v) => float_bits(*v),
             Dyn::Double(v) => long_hash(double_bits(*v)),
             Dyn::JsonNum(t) => java_string_hash(t),
-            Dyn::Str(s) => java_string_hash(s),
+            Dyn::Str(s) => s.java_hash_code(),
             Dyn::List(l) => l.iter().fold(1i32, |h, e| {
                 h.wrapping_mul(31).wrapping_add(e.java_hash(json))
             }),
@@ -266,7 +267,7 @@ impl Dynamic {
     pub fn as_number(&self) -> DataResult<JNum> {
         self.ops.get_number_value(&self.value)
     }
-    pub fn as_string(&self) -> DataResult<String> {
+    pub fn as_string(&self) -> DataResult<JavaString> {
         self.ops.get_string_value(&self.value)
     }
     pub fn as_boolean(&self) -> DataResult<bool> {
@@ -315,10 +316,7 @@ impl Dynamic {
     pub fn get_ref(&self, key: &str) -> Option<&Dyn> {
         match &self.value {
             Dyn::Map(m) if !self.ops.is_hash() => {
-                let v = m
-                    .iter()
-                    .find(|(k, _)| k.as_str() == Some(key))
-                    .map(|(_, v)| v)?;
+                let v = m.iter().find(|(k, _)| k.is_str(key)).map(|(_, v)| v)?;
                 if self.ops.is_json() && v.is_empty_value() {
                     None
                 } else {
@@ -408,7 +406,7 @@ impl OptionalDynamic {
     pub fn as_number(&self) -> DataResult<JNum> {
         self.flat_map(|d| d.as_number())
     }
-    pub fn as_string(&self) -> DataResult<String> {
+    pub fn as_string(&self) -> DataResult<JavaString> {
         self.flat_map(|d| d.as_string())
     }
     pub fn as_boolean(&self) -> DataResult<bool> {
@@ -495,10 +493,19 @@ macro_rules! dynamic_like_defaults {
                 self.as_boolean().result().unwrap_or(default)
             }
             /// `asString(default)`.
-            pub fn as_string_or(&self, default: &str) -> String {
+            pub fn as_string_or(&self, default: &str) -> JavaString {
                 self.as_string()
                     .result()
-                    .unwrap_or_else(|| default.to_string())
+                    .unwrap_or_else(|| JavaString::from(default))
+            }
+            /// [`as_string_or`](Self::as_string_or) as text, for logic on identifiers and names: a lone surrogate shows as
+            /// U+FFFD, so the result cannot be written back without losing it.
+            pub fn as_string_or_lossy(&self, default: &str) -> String {
+                self.as_string_or(default).into_string_lossy()
+            }
+            /// [`as_string`](Self::as_string) as text; see [`as_string_or_lossy`](Self::as_string_or_lossy).
+            pub fn as_string_lossy(&self) -> DataResult<String> {
+                self.as_string().map(JavaString::into_string_lossy)
             }
             /// `asStream()`.
             pub fn as_stream(&self) -> Vec<Dynamic> {
@@ -691,7 +698,7 @@ macro_rules! dynamic_like_defaults {
                     value: self.ops().create_boolean(v),
                 }
             }
-            pub fn create_string(&self, v: impl Into<String>) -> Dynamic {
+            pub fn create_string(&self, v: impl Into<JavaString>) -> Dynamic {
                 Dynamic {
                     ops: self.ops(),
                     value: self.ops().create_string(v),

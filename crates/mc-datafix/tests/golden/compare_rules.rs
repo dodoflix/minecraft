@@ -55,7 +55,7 @@ fn reordered_pair() -> Vec<String> {
             let order = |t: &CompoundTag| -> Vec<String> {
                 t.iter_java_order()
                     .into_iter()
-                    .map(|(k, _)| k.clone())
+                    .map(|(k, _)| k.as_lossy_str().to_owned())
                     .collect()
             };
             if a != b && order(&plain(&pair)) != order(&grown(&pair)) {

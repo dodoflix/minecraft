@@ -431,10 +431,13 @@ pub(crate) fn game_rules_difference(vanilla: &Path, ours: &Path) -> Option<Strin
             let mut lines: Vec<String> = tag
                 .keys()
                 .filter(|k| *k != "data")
-                .map(|k| format!("{k} = {:?}", tag.get(k)))
+                .map(|k| format!("{} = {:?}", k.as_lossy_str(), tag.get_java(k)))
                 .collect();
             let data = tag.get_compound_or_empty("data");
-            lines.extend(data.keys().map(|k| format!("data.{k} = {:?}", data.get(k))));
+            lines.extend(
+                data.keys()
+                    .map(|k| format!("data.{} = {:?}", k.as_lossy_str(), data.get_java(k))),
+            );
             lines.sort();
             lines
         })

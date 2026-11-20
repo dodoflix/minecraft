@@ -243,7 +243,7 @@ fn item_stack_fixer(df: &DataFix) -> TypeRewriteRule {
     let tag_f = item_stack_type.find_field("tag");
     df.fix_type_everywhere_typed("ItemStackMobEffectIdFix", &item_stack_type, move |input| {
         if let Some(id_opt) = input.get_optional(&id_f) {
-            let id = id_opt.second().as_str();
+            let id = id_opt.second().as_lossy_str();
             if id == "minecraft:suspicious_stew" {
                 return input.update_typed(&tag_f, |item_tag| {
                     item_tag.update_remainder(fix_suspicious_stew_tag)

@@ -43,7 +43,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
                     move |input| {
                         let is_potion = input
                             .get_optional(&id_finder)
-                            .is_some_and(|id| POTION_ITEMS.contains(&id.second().as_str()));
+                            .is_some_and(|id| POTION_ITEMS.contains(&id.second().as_lossy_str()));
                         if is_potion && let Some(tag) = input.get_optional_typed(&tag_finder) {
                             let tag_rest = tag.get_remainder();
                             let new_tag = tag

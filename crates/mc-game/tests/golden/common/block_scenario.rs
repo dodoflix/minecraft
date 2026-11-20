@@ -2025,7 +2025,7 @@ pub fn state_string(state: BlockState) -> String {
 
 /// `CompoundTag.toString()` (sorted keys).
 pub fn snbt(tag: CompoundTag) -> String {
-    mc_nbt::snbt::print_compact(&Tag::Compound(tag))
+    mc_nbt::snbt::print_compact(&Tag::Compound(tag)).into_string_lossy()
 }
 
 fn sound_source_name(s: SoundSource) -> &'static str {

@@ -141,7 +141,12 @@ public class LoneSurrogateGolden {
 
    static String compoundKeys(Tag t) {
       StringBuilder sb = new StringBuilder();
-      for (String k : ((CompoundTag) t).keySet()) sb.append(sb.length() > 0 ? "," : "").append(k);
+      boolean first = true;
+      for (String k : ((CompoundTag) t).keySet()) {
+         if (!first) sb.append(',');
+         first = false;
+         sb.append(k);
+      }
       return sb.toString();
    }
 

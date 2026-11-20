@@ -209,7 +209,7 @@ impl PackedTeam {
         if !self.players.is_empty() {
             let mut list = ListTag::new();
             for p in &self.players {
-                list.push(Tag::String(p.clone()));
+                list.push(Tag::String(p.clone().into()));
             }
             m.put("Players", list);
         }

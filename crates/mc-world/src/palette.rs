@@ -955,18 +955,18 @@ impl ElementCodec<BlockState> for BlockStateCodec {
                 .ok_or_else(|| format!("Unknown registry key in minecraft:block: {name}"))
         };
         match tag {
-            Tag::String(name) => by_name(name).map(Block::default_state),
+            Tag::String(name) => by_name(name.as_lossy_str()).map(Block::default_state),
             Tag::Compound(c) => {
                 let Some(Tag::String(name)) = c.get("id") else {
                     return Err("No key id in MapLike[...]".into());
                 };
-                let block = by_name(name)?;
+                let block = by_name(name.as_lossy_str())?;
                 let mut state = block.default_state();
                 // lenientOptionalFieldOf("properties") + per-property orElseGet(default)
                 if let Some(Tag::Compound(props)) = c.get("properties") {
                     for def in block.properties() {
                         if let Some(Tag::String(value)) = props.get(def.name)
-                            && let Some(s) = state.with_property_str(def.name, value)
+                            && let Some(s) = state.with_property_str(def.name, value.as_lossy_str())
                         {
                             state = s;
                         }
@@ -981,7 +981,7 @@ impl ElementCodec<BlockState> for BlockStateCodec {
     fn encode(&self, state: BlockState) -> Result<Tag, String> {
         let block = state.block();
         if state == block.default_state() {
-            return Ok(Tag::String(block.name().to_owned()));
+            return Ok(Tag::String(block.name().to_owned().into()));
         }
         // the keys go into the compound in the order `BlockState.CODEC` writes them, which decides the order of colliding keys
         let mut props = CompoundTag::new();
@@ -1039,15 +1039,20 @@ impl ElementCodec<BiomeId> for BiomeRegistry {
         let Tag::String(name) = tag else {
             return Err("Not a string".into());
         };
-        let valid = mc_core::ident::Identifier::parse(name).ok();
+        let valid = mc_core::ident::Identifier::parse(name.as_lossy_str()).ok();
         valid
             .and_then(|id| self.id_of(&id.to_string()))
-            .ok_or_else(|| format!("Unknown registry key in minecraft:worldgen/biome: {name}"))
+            .ok_or_else(|| {
+                format!(
+                    "Unknown registry key in minecraft:worldgen/biome: {0}",
+                    name.as_lossy_str()
+                )
+            })
     }
 
     fn encode(&self, value: BiomeId) -> Result<Tag, String> {
         self.name_of(value)
-            .map(|n| Tag::String(n.to_owned()))
+            .map(|n| Tag::String(n.to_owned().into()))
             .ok_or_else(|| format!("Unregistered holder in minecraft:worldgen/biome: {value:?}"))
     }
 }

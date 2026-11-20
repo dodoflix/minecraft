@@ -81,24 +81,27 @@ pub fn diff_compound(
     out: &mut Vec<String>,
 ) {
     for (k, vv) in v.iter() {
-        let at = format!("{path}.{k}");
+        let at = format!("{path}.{0}", k.as_lossy_str());
         if (rules.ignore)(&at) {
             continue;
         }
-        match o.get(k) {
+        match o.get_java(k) {
             None => out.push(format!("{at}: missing in ours (vanilla {vv:?})")),
             Some(ov) => diff_tag(&at, vv, ov, rules, out),
         }
     }
     for (k, ov) in o.iter() {
-        let at = format!("{path}.{k}");
-        if v.get(k).is_none() && !(rules.ignore)(&at) {
+        let at = format!("{path}.{0}", k.as_lossy_str());
+        if v.get_java(k).is_none() && !(rules.ignore)(&at) {
             out.push(format!("{at}: extra in ours ({ov:?})"));
         }
     }
     let common = |c: &CompoundTag, other: &CompoundTag| {
         c.keys()
-            .filter(|k| other.get(k).is_some() && !(rules.ignore)(&format!("{path}.{k}")))
+            .filter(|k| {
+                other.get_java(k).is_some()
+                    && !(rules.ignore)(&format!("{path}.{0}", k.as_lossy_str()))
+            })
             .cloned()
             .collect::<Vec<_>>()
     };

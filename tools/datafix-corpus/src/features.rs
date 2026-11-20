@@ -45,16 +45,18 @@ fn compound(c: &CompoundTag, path: &mut String, out: &mut BTreeSet<u64>) {
     for (key, tag) in c.iter() {
         let len = path.len();
         path.push('/');
-        path.push_str(key);
+        path.push_str(key.as_lossy_str());
         add(out, &format!("{path}:{}", tag.id()));
-        value(key, tag, path, out);
+        value(key.as_lossy_str(), tag, path, out);
         path.truncate(len);
     }
 }
 
 fn value(key: &str, tag: &Tag, path: &mut String, out: &mut BTreeSet<u64>) {
     match tag {
-        Tag::String(s) if s.len() <= MAX_STRING => add(out, &format!("{path}={s}")),
+        Tag::String(s) if s.as_lossy_str().len() <= MAX_STRING => {
+            add(out, &format!("{path}={}", s.as_lossy_str()))
+        }
         Tag::Byte(n) if id_like(key) => add(out, &format!("{path}={n}")),
         Tag::Short(n) if id_like(key) => add(out, &format!("{path}={n}")),
         Tag::Int(n) if id_like(key) => add(out, &format!("{path}={n}")),

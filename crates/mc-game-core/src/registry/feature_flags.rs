@@ -81,7 +81,8 @@ pub fn decode_json(value: &Value) -> Result<FeatureFlagSet, String> {
         tag.push(Tag::String(
             v.as_str()
                 .ok_or_else(|| format!("Not a string: {v}"))?
-                .to_owned(),
+                .to_owned()
+                .into(),
         ));
     }
     FeatureFlagSet::decode(&Tag::List(tag))

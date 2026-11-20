@@ -52,7 +52,7 @@ fn update_options(custom: Dynamic) -> Dynamic {
 
 fn renamed_key(key_dynamic: &Dynamic) -> Option<Dynamic> {
     let key = key_dynamic.as_string().result()?;
-    let new_key = match key.as_str() {
+    let new_key = match key.as_lossy_str() {
         "minecraft:looking_at_block" => "minecraft:looking_at_block_state",
         "minecraft:looking_at_fluid" => "minecraft:looking_at_fluid_state",
         _ => return None,

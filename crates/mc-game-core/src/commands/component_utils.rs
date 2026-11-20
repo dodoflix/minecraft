@@ -217,10 +217,15 @@ fn resolve_contents(
                         Ok(c) => match resolve_at(context, &c, depth) {
                             Ok(r) => parts.push(r),
                             Err(e) => {
-                                log::warn!("Failed to parse component: {tag}: {}", e.get_message())
+                                log::warn!(
+                                    "Failed to parse component: {tag}: {}",
+                                    e.get_message().as_lossy_str()
+                                )
                             }
                         },
-                        Err(e) => log::warn!("Failed to parse component: {tag}: {e}"),
+                        Err(e) => {
+                            log::warn!("Failed to parse component: {tag}: {0}", e.as_lossy_str())
+                        }
                     }
                 }
             } else {

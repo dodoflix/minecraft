@@ -37,7 +37,7 @@ fn fix_advancements(
             criteria.update_map_values(|(key, value)| {
                 let converted = key
                     .as_string()
-                    .map(|s| key.create_string(conversions(&s)))
+                    .map(|s| key.create_string(conversions(s.as_lossy_str())))
                     .result();
                 (converted.unwrap_or(key), value)
             })

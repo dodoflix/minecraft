@@ -51,13 +51,18 @@ fn read_region(path: &Path) -> Vec<CompoundTag> {
 /// A palette entry (`BlockState.CODEC`): a bare `"minecraft:air"` string for the default state, else `{id, properties}`.
 fn decode_state(entry: &Tag) -> BlockState {
     let (name, props): (&str, Vec<(String, String)>) = match entry {
-        Tag::String(name) => (name, Vec::new()),
+        Tag::String(name) => (name.as_lossy_str(), Vec::new()),
         Tag::Compound(c) => (
             c.get_string("id").unwrap(),
             c.get_compound("properties")
                 .map(|p| {
                     p.iter()
-                        .map(|(k, v)| (k.clone(), v.as_string().unwrap().to_owned()))
+                        .map(|(k, v)| {
+                            (
+                                k.clone().into_string_lossy(),
+                                v.as_string().unwrap().to_owned(),
+                            )
+                        })
                         .collect()
                 })
                 .unwrap_or_default(),
@@ -202,7 +207,7 @@ fn status_and_retrogen_tags_of_real_chunks() {
     for nbt in read_region(&file) {
         let status_tag = nbt.get("Status").expect("chunk has Status");
         let status = ChunkStatus::decode(status_tag).expect("vanilla-written status decodes");
-        assert_eq!(status_tag, &Tag::String(status.name()));
+        assert_eq!(status_tag, &Tag::String(status.name().into()));
         *seen.entry(status.name()).or_insert(0) += 1;
         assert!(nbt.get("below_zero_retrogen").is_none() && nbt.get("blending_data").is_none());
     }

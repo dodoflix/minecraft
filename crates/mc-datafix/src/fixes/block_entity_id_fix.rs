@@ -74,8 +74,8 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
                         let id = id.into_string();
                         let new_id = id_map()
                             .iter()
-                            .find(|(old, _)| *old == id)
-                            .map_or(id, |(_, new)| (*new).to_string());
+                            .find(|(old, _)| id == *old)
+                            .map_or(id, |(_, new)| (*new).into());
                         Value::Str(new_id)
                     })
                 },

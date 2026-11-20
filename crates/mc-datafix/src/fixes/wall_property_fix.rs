@@ -39,7 +39,7 @@ fn map_property(value: &str) -> &'static str {
 
 fn fix_wall_property(state: Dynamic, property: &str) -> Dynamic {
     state.update(property, |value| match value.as_string().result() {
-        Some(s) => value.create_string(map_property(&s)),
+        Some(s) => value.create_string(map_property(s.as_lossy_str())),
         None => value,
     })
 }
@@ -49,7 +49,7 @@ fn upgrade_block_state_tag(state: Dynamic) -> Dynamic {
         .get("Name")
         .as_string()
         .result()
-        .is_some_and(|name| WALL_BLOCKS.contains(&name.as_str()));
+        .is_some_and(|name| WALL_BLOCKS.contains(&name.as_lossy_str()));
     if !is_wall {
         return state;
     }

@@ -45,10 +45,10 @@ fn fix(input: Dynamic) -> Dynamic {
             .unwrap_or_else(|| input.empty_map());
         let spawn_data = spawn_data.set(
             "id",
-            spawn_data.create_string(if entity_id.is_empty() {
+            spawn_data.create_string(if entity_id.as_lossy_str().is_empty() {
                 "Pig"
             } else {
-                entity_id.as_str()
+                entity_id.as_lossy_str()
             }),
         );
         input = input.set("SpawnData", spawn_data);

@@ -25,7 +25,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
             let page_f = DSL::type_finder(&text_component_type);
             tag.update_typed(&pages_f, |pages| {
                 pages.update(&page_f, |page| {
-                    page.map_second(|json| Value::Str(rewrite_from_lenient(json.as_str())))
+                    page.map_second(|json| Value::Str(rewrite_from_lenient(json.as_java_string())))
                 })
             })
         },

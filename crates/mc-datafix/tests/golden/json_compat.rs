@@ -2,51 +2,29 @@
 //! classes (`fixtures/json_compat/JsonCompatGolden.java`, regenerate with `fixtures/json_compat/gen.sh`).
 
 use mc_core::gson;
+use mc_core::java_string::JavaString;
 use mc_datafix::legacy_component_data_fix_utils as legacy;
 use mc_dfu::{Dyn, Dynamic, NBT};
+use mc_testkit::unesc_units;
 
 const GOLDEN: &str = include_str!("../fixtures/json_compat.tsv");
-
-/// Inverse of the recorder's `esc`, as UTF-16 units.
-fn unesc_units(s: &str) -> Vec<u16> {
-    let mut units: Vec<u16> = Vec::new();
-    let mut chars = s.chars();
-    while let Some(c) = chars.next() {
-        if c != '\\' {
-            units.extend(c.encode_utf16(&mut [0; 2]).iter());
-            continue;
-        }
-        let unit = match chars.next().unwrap() {
-            '\\' => u16::from(b'\\'),
-            't' => u16::from(b'\t'),
-            'n' => u16::from(b'\n'),
-            'r' => u16::from(b'\r'),
-            'u' => {
-                let hex: String = chars.by_ref().take(4).collect();
-                u16::from_str_radix(&hex, 16).unwrap()
-            }
-            other => panic!("bad escape \\{other}"),
-        };
-        units.push(unit);
-    }
-    units
-}
 
 /// An input: the recorded inputs hold no lone surrogates (JSON escapes are spelled out in ASCII).
 fn unesc(s: &str) -> String {
     String::from_utf16(&unesc_units(s)).expect("the recorded inputs have no lone surrogates")
 }
 
-/// A recorded result: a Rust `String` cannot hold the lone surrogates Java keeps, so they read back as U+FFFD.
-fn unesc_result(s: &str) -> String {
-    String::from_utf16_lossy(&unesc_units(s))
+/// A recorded result, exactly (Java keeps lone surrogates).
+fn unesc_result(s: &str) -> JavaString {
+    JavaString::from_utf16_units(&unesc_units(s))
 }
 
-fn err(e: gson::JsonError) -> String {
-    format!("ERR:{}", e.0)
+fn err(e: gson::JsonError) -> JavaString {
+    format!("ERR:{}", e.0).into()
 }
 
-fn run(op: &str, input: &str) -> String {
+fn run(op: &str, input: &str) -> JavaString {
+    let java = JavaString::from(input);
     match op {
         "lenient_stable" => {
             gson::parse_lenient_json_parser(input).map_or_else(err, |e| e.to_stable_string())
@@ -54,12 +32,16 @@ fn run(op: &str, input: &str) -> String {
         "strict_stable" => {
             gson::parse_strict_json_parser(input).map_or_else(err, |e| e.to_stable_string())
         }
-        "rewrite_from_lenient" => legacy::rewrite_from_lenient(input),
-        "strict_valid" => {
-            legacy::is_strictly_valid_json(&Dynamic::new(NBT, Dyn::Str(input.into()))).to_string()
-        }
+        "rewrite_from_lenient" => legacy::rewrite_from_lenient(&java),
+        "strict_valid" => legacy::is_strictly_valid_json(&Dynamic::new(NBT, Dyn::Str(java)))
+            .to_string()
+            .into(),
         "extract_translation" => {
-            legacy::extract_translation_string(input).map_or("none".into(), |v| format!("some:{v}"))
+            legacy::extract_translation_string(&java).map_or("none".into(), |v| {
+                let mut out = JavaString::from("some:");
+                out.push_java(&v);
+                out
+            })
         }
         "text_json" => legacy::create_text_component_json(input),
         "translatable_json" => legacy::create_translatable_component_json(input),
@@ -69,19 +51,27 @@ fn run(op: &str, input: &str) -> String {
             legacy::create_translatable_component(NBT, input).as_string_or("?")
         }
         "lazy_long" => gson::lazily_parsed_long_value(input)
-            .map_or_else(|e| format!("ERR:{e}"), |v| v.to_string()),
+            .map_or_else(|e| format!("ERR:{e}"), |v| v.to_string())
+            .into(),
         "lazy_int" => gson::lazily_parsed_int_value(input)
-            .map_or_else(|e| format!("ERR:{e}"), |v| v.to_string()),
+            .map_or_else(|e| format!("ERR:{e}"), |v| v.to_string())
+            .into(),
         other => panic!("unknown op {other}"),
     }
 }
 
 /// `ERR:<exception class>:<message>` -> `ERR:<message>` (the Rust side has no exception classes).
-fn without_class(want: String) -> String {
-    match want.strip_prefix("ERR:") {
-        Some(rest) => format!("ERR:{}", rest.split_once(':').unwrap().1),
-        None => want,
-    }
+fn without_class(want: JavaString) -> JavaString {
+    let text = want.as_lossy_str();
+    let Some(rest) = text.strip_prefix("ERR:") else {
+        return want;
+    };
+    let colon = 4 + rest.find(':').unwrap();
+    let mut out = JavaString::from("ERR:");
+    // the byte offset of the text counts a lone surrogate as three bytes; the units count it as one
+    let from = text[..colon + 1].encode_utf16().count();
+    out.push_java(&want.substring(from, want.utf16_len()));
+    out
 }
 
 #[test]

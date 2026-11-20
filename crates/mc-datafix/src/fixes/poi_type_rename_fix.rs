@@ -15,7 +15,7 @@ pub fn new(
             .into_iter()
             .map(|element| {
                 element.update("type", |ty| match ty.as_string().result() {
-                    Some(s) => ty.create_string(renamer(&s)),
+                    Some(s) => ty.create_string(renamer(s.as_lossy_str())),
                     None => ty,
                 })
             })

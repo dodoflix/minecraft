@@ -151,7 +151,8 @@ impl MemoryMap {
     pub fn from_nbt(tag: &CompoundTag) -> MemoryMap {
         let mut out = MemoryMap::default();
         for (key, value) in tag.iter() {
-            let Some(type_id) = Identifier::try_parse(key).and_then(|id| MemoryTypeId::by_id(&id))
+            let Some(type_id) =
+                Identifier::try_parse(key.as_lossy_str()).and_then(|id| MemoryTypeId::by_id(&id))
             else {
                 continue;
             };

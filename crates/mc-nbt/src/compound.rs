@@ -10,12 +10,14 @@
 
 use crate::ListTag;
 use crate::tag::{Number, Tag};
-use indexmap::IndexMap;
+use indexmap::{Equivalent, IndexMap};
+use mc_core::java_string::JavaString;
+use std::hash::{Hash, Hasher};
 use std::sync::LazyLock;
 
 #[derive(Debug, Default)]
 pub struct CompoundTag {
-    tags: IndexMap<String, Tag>,
+    tags: IndexMap<JavaString, Tag>,
     /// Capacity of the Java `HashMap` table (0 = not yet allocated).
     cap: u32,
 }
@@ -23,12 +25,24 @@ pub struct CompoundTag {
 static EMPTY_COMPOUND: LazyLock<CompoundTag> = LazyLock::new(CompoundTag::new);
 static EMPTY_LIST: LazyLock<ListTag> = LazyLock::new(ListTag::new);
 
-/// `String.hashCode()` followed by `HashMap.hash` spreading.
-fn java_hash(key: &str) -> u32 {
-    let mut h: i32 = 0;
-    for u in key.encode_utf16() {
-        h = h.wrapping_mul(31).wrapping_add(u as i32);
+/// A lookup by text: finds the key of a [`JavaString`] without lone surrogates that has this text, and hashes like it.
+struct Name<'a>(&'a str);
+
+impl Hash for Name<'_> {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.0.hash(state);
     }
+}
+
+impl Equivalent<JavaString> for Name<'_> {
+    fn equivalent(&self, key: &JavaString) -> bool {
+        *key == *self.0
+    }
+}
+
+/// `String.hashCode()` followed by `HashMap.hash` spreading.
+fn java_hash(key: &JavaString) -> u32 {
+    let h = key.java_hash_code();
     (h ^ ((h as u32) >> 16) as i32) as u32
 }
 
@@ -61,7 +75,7 @@ impl CompoundTag {
     pub(crate) fn size_in_bytes(&self) -> i32 {
         let mut size = 48i32;
         for (k, v) in &self.tags {
-            size += 28 + 2 * k.encode_utf16().count() as i32;
+            size += 28 + 2 * k.utf16_len() as i32;
             size += 36;
             size += v.size_in_bytes();
         }
@@ -69,29 +83,29 @@ impl CompoundTag {
     }
 
     /// Insertion-ordered iteration.
-    pub fn iter(&self) -> indexmap::map::Iter<'_, String, Tag> {
+    pub fn iter(&self) -> indexmap::map::Iter<'_, JavaString, Tag> {
         self.tags.iter()
     }
 
-    pub fn iter_mut(&mut self) -> indexmap::map::IterMut<'_, String, Tag> {
+    pub fn iter_mut(&mut self) -> indexmap::map::IterMut<'_, JavaString, Tag> {
         self.tags.iter_mut()
     }
 
-    pub fn keys(&self) -> indexmap::map::Keys<'_, String, Tag> {
+    pub fn keys(&self) -> indexmap::map::Keys<'_, JavaString, Tag> {
         self.tags.keys()
     }
 
-    pub fn values(&self) -> indexmap::map::Values<'_, String, Tag> {
+    pub fn values(&self) -> indexmap::map::Values<'_, JavaString, Tag> {
         self.tags.values()
     }
 
-    pub fn values_mut(&mut self) -> indexmap::map::ValuesMut<'_, String, Tag> {
+    pub fn values_mut(&mut self) -> indexmap::map::ValuesMut<'_, JavaString, Tag> {
         self.tags.values_mut()
     }
 
     /// Entries in the order a vanilla `HashMap` would iterate them (bucket index, then insertion).
-    pub fn iter_java_order(&self) -> Vec<(&String, &Tag)> {
-        let mut v: Vec<(u32, (&String, &Tag))> = if self.cap == 0 {
+    pub fn iter_java_order(&self) -> Vec<(&JavaString, &Tag)> {
+        let mut v: Vec<(u32, (&JavaString, &Tag))> = if self.cap == 0 {
             Vec::new()
         } else {
             let mask = self.cap - 1;
@@ -108,9 +122,12 @@ impl CompoundTag {
     /// vanilla compound whose table capacity is unknown, for example the result of a `Dynamic` rewrite). The table
     /// capacity is the one of an organically filled map when that yields the order, else the smallest that does, so the
     /// binary form lists the entries as given.
-    pub fn from_hash_order(entries: impl IntoIterator<Item = (String, Tag)>) -> Self {
-        let tags: IndexMap<String, Tag> = entries.into_iter().collect();
-        let hashes: Vec<u32> = tags.keys().map(|k| java_hash(k)).collect();
+    pub fn from_hash_order<K: Into<JavaString>>(
+        entries: impl IntoIterator<Item = (K, Tag)>,
+    ) -> Self {
+        let tags: IndexMap<JavaString, Tag> =
+            entries.into_iter().map(|(k, t)| (k.into(), t)).collect();
+        let hashes: Vec<u32> = tags.keys().map(java_hash).collect();
         let fits = |cap: u32| {
             hashes.len() * 4 <= cap as usize * 3
                 && hashes
@@ -134,7 +151,7 @@ impl CompoundTag {
     }
 
     /// `put(name, tag)`, returning the previous value.
-    pub fn put(&mut self, name: impl Into<String>, tag: impl Into<Tag>) -> Option<Tag> {
+    pub fn put(&mut self, name: impl Into<JavaString>, tag: impl Into<Tag>) -> Option<Tag> {
         let (_, old) = self.tags.insert_full(name.into(), tag.into());
         if old.is_none() {
             if self.cap == 0 {
@@ -147,56 +164,61 @@ impl CompoundTag {
         old
     }
 
-    pub fn put_byte(&mut self, name: impl Into<String>, value: i8) {
+    pub fn put_byte(&mut self, name: impl Into<JavaString>, value: i8) {
         self.put(name, Tag::Byte(value));
     }
-    pub fn put_short(&mut self, name: impl Into<String>, value: i16) {
+    pub fn put_short(&mut self, name: impl Into<JavaString>, value: i16) {
         self.put(name, Tag::Short(value));
     }
-    pub fn put_int(&mut self, name: impl Into<String>, value: i32) {
+    pub fn put_int(&mut self, name: impl Into<JavaString>, value: i32) {
         self.put(name, Tag::Int(value));
     }
-    pub fn put_long(&mut self, name: impl Into<String>, value: i64) {
+    pub fn put_long(&mut self, name: impl Into<JavaString>, value: i64) {
         self.put(name, Tag::Long(value));
     }
-    pub fn put_float(&mut self, name: impl Into<String>, value: f32) {
+    pub fn put_float(&mut self, name: impl Into<JavaString>, value: f32) {
         self.put(name, Tag::float(value));
     }
-    pub fn put_double(&mut self, name: impl Into<String>, value: f64) {
+    pub fn put_double(&mut self, name: impl Into<JavaString>, value: f64) {
         self.put(name, Tag::double(value));
     }
-    pub fn put_string(&mut self, name: impl Into<String>, value: impl Into<String>) {
+    pub fn put_string(&mut self, name: impl Into<JavaString>, value: impl Into<JavaString>) {
         self.put(name, Tag::String(value.into()));
     }
-    pub fn put_byte_array(&mut self, name: impl Into<String>, value: Vec<i8>) {
+    pub fn put_byte_array(&mut self, name: impl Into<JavaString>, value: Vec<i8>) {
         self.put(name, Tag::ByteArray(value));
     }
-    pub fn put_int_array(&mut self, name: impl Into<String>, value: Vec<i32>) {
+    pub fn put_int_array(&mut self, name: impl Into<JavaString>, value: Vec<i32>) {
         self.put(name, Tag::IntArray(value));
     }
-    pub fn put_long_array(&mut self, name: impl Into<String>, value: Vec<i64>) {
+    pub fn put_long_array(&mut self, name: impl Into<JavaString>, value: Vec<i64>) {
         self.put(name, Tag::LongArray(value));
     }
-    pub fn put_boolean(&mut self, name: impl Into<String>, value: bool) {
+    pub fn put_boolean(&mut self, name: impl Into<JavaString>, value: bool) {
         self.put(name, Tag::from_bool(value));
     }
 
     /// Builder form of [`put`](Self::put).
-    pub fn with(mut self, name: impl Into<String>, tag: impl Into<Tag>) -> Self {
+    pub fn with(mut self, name: impl Into<JavaString>, tag: impl Into<Tag>) -> Self {
         self.put(name, tag);
         self
     }
 
     pub fn get(&self, name: &str) -> Option<&Tag> {
-        self.tags.get(name)
+        self.tags.get(&Name(name))
     }
 
     pub fn get_mut(&mut self, name: &str) -> Option<&mut Tag> {
-        self.tags.get_mut(name)
+        self.tags.get_mut(&Name(name))
+    }
+
+    /// `get(name)` for a name that may hold lone surrogates.
+    pub fn get_java(&self, name: &JavaString) -> Option<&Tag> {
+        self.tags.get(name)
     }
 
     pub fn contains(&self, name: &str) -> bool {
-        self.tags.contains_key(name)
+        self.tags.contains_key(&Name(name))
     }
 
     fn number(&self, name: &str) -> Option<Number> {
@@ -248,6 +270,13 @@ impl CompoundTag {
     pub fn get_string(&self, name: &str) -> Option<&str> {
         self.get(name).and_then(Tag::as_string)
     }
+    /// The exact string, lone surrogates included.
+    pub fn get_java_string(&self, name: &str) -> Option<&JavaString> {
+        match self.get(name)? {
+            Tag::String(s) => Some(s),
+            _ => None,
+        }
+    }
     pub fn get_string_or<'a>(&'a self, name: &str, default: &'a str) -> &'a str {
         self.get_string(name).unwrap_or(default)
     }
@@ -283,7 +312,7 @@ impl CompoundTag {
 
     /// `remove(name)`, preserving the order of the remaining entries.
     pub fn remove(&mut self, name: &str) -> Option<Tag> {
-        self.tags.shift_remove(name)
+        self.tags.shift_remove(&Name(name))
     }
 
     /// `copy()`: deep copy, reproducing the key order of a Java copy (entries re-inserted in the
@@ -319,7 +348,7 @@ impl CompoundTag {
             0
         };
         let mask = self.cap.wrapping_sub(1);
-        let mut entries: Vec<(u32, (String, Tag))> = self
+        let mut entries: Vec<(u32, (JavaString, Tag))> = self
             .tags
             .into_iter()
             .map(|(k, t)| {
@@ -343,8 +372,7 @@ impl CompoundTag {
     /// `merge(other)`: recursively merges compounds, otherwise `other`'s values win.
     pub fn merge(&mut self, other: &CompoundTag) -> &mut Self {
         for (name, other_tag) in other.iter_java_order() {
-            if let (Tag::Compound(o), Some(Tag::Compound(s))) =
-                (other_tag, self.tags.get_mut(name.as_str()))
+            if let (Tag::Compound(o), Some(Tag::Compound(s))) = (other_tag, self.tags.get_mut(name))
             {
                 s.merge(o);
             } else {
@@ -381,14 +409,14 @@ impl PartialEq for CompoundTag {
 }
 
 impl<'a> IntoIterator for &'a CompoundTag {
-    type Item = (&'a String, &'a Tag);
-    type IntoIter = indexmap::map::Iter<'a, String, Tag>;
+    type Item = (&'a JavaString, &'a Tag);
+    type IntoIter = indexmap::map::Iter<'a, JavaString, Tag>;
     fn into_iter(self) -> Self::IntoIter {
         self.tags.iter()
     }
 }
 
-impl<K: Into<String>, T: Into<Tag>> FromIterator<(K, T)> for CompoundTag {
+impl<K: Into<JavaString>, T: Into<Tag>> FromIterator<(K, T)> for CompoundTag {
     fn from_iter<I: IntoIterator<Item = (K, T)>>(iter: I) -> Self {
         let mut c = CompoundTag::new();
         for (k, v) in iter {

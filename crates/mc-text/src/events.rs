@@ -2,6 +2,7 @@
 
 use crate::component::Component;
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_nbt::Tag;
 
 /// `ClickEvent.Action`.
@@ -55,13 +56,13 @@ pub enum ClickEvent {
     OpenUrl(String),
     /// Client-only; vanilla refuses to (de)serialise it.
     OpenFile(String),
-    RunCommand(String),
-    SuggestCommand(String),
+    RunCommand(JavaString),
+    SuggestCommand(JavaString),
     /// `Holder<Dialog>` in its canonical NBT form: a registry id string or an inline dialog compound, normalised by the
     /// `PayloadKind::Dialog` hook (identity until `mc_protocol::components::install_text_hooks` ran).
     ShowDialog(Tag),
     ChangePage(i32),
-    CopyToClipboard(String),
+    CopyToClipboard(JavaString),
     Custom {
         id: Identifier,
         payload: Option<Tag>,

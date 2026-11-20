@@ -152,7 +152,7 @@ impl MinecraftServer {
                         self.run_pending_function(level, &queued);
                         continue;
                     }
-                    PendingReward::Announcement(queued) => queued,
+                    PendingReward::Announcement(queued) => *queued,
                 };
                 if !level.show_advancement_messages() {
                     continue;

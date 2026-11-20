@@ -1,5 +1,6 @@
 //! Errors raised by NBT IO and parsing. Variants map onto the Java exceptions vanilla throws.
 
+use mc_core::java_string::JavaString;
 use std::fmt;
 
 /// Failure while reading or writing NBT.
@@ -19,7 +20,7 @@ pub enum NbtError {
     /// Any other `IOException` with its message.
     Io(String),
     /// `UTFDataFormatException` (malformed or too long modified UTF-8).
-    MalformedUtf(String),
+    MalformedUtf(JavaString),
     /// `ReportedNbtException`: an IO error wrapped while loading a named tag.
     Reported {
         /// Name of the tag being loaded (absent for a root tag).
@@ -71,8 +72,8 @@ impl fmt::Display for NbtError {
         match self {
             NbtError::Eof => f.write_str("java.io.EOFException"),
             NbtError::InvalidTagId(id) => write!(f, "Invalid tag id: {id}"),
+            NbtError::MalformedUtf(m) => f.write_str(m.as_lossy_str()),
             NbtError::Io(m)
-            | NbtError::MalformedUtf(m)
             | NbtError::Format(m)
             | NbtError::Accounter(m)
             | NbtError::IllegalArgument(m) => f.write_str(m),

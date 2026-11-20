@@ -48,7 +48,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
         df.fix_type_everywhere_typed("ExplorerMapItemFix", &item_stack_type, move |item_stack| {
             let is_filled_map = item_stack
                 .get_optional(&id_finder)
-                .is_some_and(|id| id.second().as_str() == "minecraft:filled_map");
+                .is_some_and(|id| id.second().as_lossy_str() == "minecraft:filled_map");
             if !is_filled_map {
                 return item_stack;
             }
@@ -63,8 +63,12 @@ pub fn new(output_schema: &Schema) -> DataFix {
             let Some(explorer_decoration) = map_decorations.get("+").result() else {
                 return item_stack;
             };
-            let decoration_type =
-                ensure_namespaced(&explorer_decoration.get("type").as_string_or(""));
+            let decoration_type = ensure_namespaced(
+                explorer_decoration
+                    .get("type")
+                    .as_string_or("")
+                    .as_lossy_str(),
+            );
             let Some((new_item_id, legacy_name_key)) = decoration(&decoration_type) else {
                 return item_stack;
             };

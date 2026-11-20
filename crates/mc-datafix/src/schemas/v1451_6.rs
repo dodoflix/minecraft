@@ -16,14 +16,15 @@ pub(crate) static UNPACK_OBJECTIVE_ID: LazyLock<HookFunction> = LazyLock::new(||
     HookFunction::new(|ops, value| {
         let input = Dynamic::new(*ops, value);
         let exploded_id = input.get("CriteriaName").as_string().result().map(|name| {
-            let Some(colon_pos) = name.find(':') else {
+            let text = name.as_lossy_str();
+            let Some(colon_pos) = text.find(':') else {
                 return (SPECIAL_OBJECTIVE_MARKER.to_string(), name);
             };
             match (
-                Identifier::by_separator(&name[..colon_pos], '.'),
-                Identifier::by_separator(&name[colon_pos + 1..], '.'),
+                Identifier::by_separator(&text[..colon_pos], '.'),
+                Identifier::by_separator(&text[colon_pos + 1..], '.'),
             ) {
-                (Ok(stat_type), Ok(stat_id)) => (stat_type.to_string(), stat_id.to_string()),
+                (Ok(stat_type), Ok(stat_id)) => (stat_type.to_string(), stat_id.to_string().into()),
                 _ => (SPECIAL_OBJECTIVE_MARKER.to_string(), name),
             }
         });
@@ -54,8 +55,8 @@ pub(crate) static REPACK_OBJECTIVE_ID: LazyLock<HookFunction> = LazyLock::new(||
             } else {
                 ty.create_string(format!(
                     "{}:{}",
-                    pack_namespaced_with_dot(&stat_type),
-                    pack_namespaced_with_dot(&stat_id)
+                    pack_namespaced_with_dot(stat_type.as_lossy_str()),
+                    pack_namespaced_with_dot(stat_id.as_lossy_str())
                 ))
             })
         });

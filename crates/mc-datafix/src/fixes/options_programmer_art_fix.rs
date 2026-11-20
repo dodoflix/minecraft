@@ -7,7 +7,10 @@ use mc_dfu::Dynamic;
 
 fn fix_list(entry: Dynamic) -> Dynamic {
     match entry.as_string().result() {
-        Some(s) => entry.create_string(s.replace("\"programer_art\"", "\"programmer_art\"")),
+        Some(s) => entry.create_string(
+            s.as_lossy_str()
+                .replace("\"programer_art\"", "\"programmer_art\""),
+        ),
         None => entry,
     }
 }

@@ -19,7 +19,7 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
         df.fix_type_everywhere_typed("ItemBannerColorFix", &item_stack_type, move |input| {
             let is_banner = input
                 .get_optional(&id_f)
-                .is_some_and(|id| id.second().as_str() == "minecraft:banner");
+                .is_some_and(|id| id.second().as_lossy_str() == "minecraft:banner");
             if !is_banner {
                 return input;
             }

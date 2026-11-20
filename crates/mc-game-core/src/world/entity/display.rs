@@ -565,7 +565,7 @@ pub fn resolve_loaded_text(
     let resolved = enter_server(server, || {
         component_utils::resolve(&ResolutionContext::create(&source), &text)
     })
-    .map_err(|e| e.get_message().to_string());
+    .map_err(|e| e.get_message().into_string_lossy());
     let mut entity = server
         .level_mut(dimension)
         .and_then(|level| level.loading_entity.take())
@@ -603,7 +603,7 @@ pub fn resolve_loaded_text_in_level(
     let resolved = enter_server(server, || {
         component_utils::resolve(&ResolutionContext::create(&source), &text)
     })
-    .map_err(|e| e.get_message().to_string());
+    .map_err(|e| e.get_message().into_string_lossy());
     if let Some(level) = server.level_mut(dimension) {
         level.with_entity(id, |_, e| store_resolved(e, &text, resolved));
     }

@@ -258,7 +258,9 @@ fn unfuzz(out: Tag, input: &Tag) -> Tag {
         .map(|c| c.get_compound_or_empty("stopwatches"));
     if let Some(Tag::Compound(inner)) = out.get_mut("stopwatches") {
         for (k, v) in inner.iter_mut() {
-            let was = given.and_then(|g| g.get(k)).and_then(Tag::as_number);
+            let was = given
+                .and_then(|g| g.get(k.as_lossy_str()))
+                .and_then(Tag::as_number);
             if let (Some(got), Some(was)) = (v.as_long(), was)
                 && (got - was.long_value()).abs() <= 50
             {

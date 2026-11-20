@@ -25,7 +25,7 @@ fn fix(input: Dynamic) -> Dynamic {
         return input;
     };
     // `String.split(" ", 2)`
-    let mut parts = particle_description.splitn(2, ' ');
+    let mut parts = particle_description.as_lossy_str().splitn(2, ' ');
     let part0 = parts.next().unwrap_or("");
     let part1 = parts.next();
     let id = ensure_namespaced(part0);

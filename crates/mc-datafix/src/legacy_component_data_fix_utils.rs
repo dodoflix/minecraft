@@ -1,10 +1,11 @@
 //! `net.minecraft.util.datafix.LegacyComponentDataFixUtils`: text components stored as JSON strings (pre-1.21.5).
 
 use mc_core::gson::{self, JsonElement, JsonObject};
+use mc_core::java_string::JavaString;
 use mc_dfu::{Dynamic, Ops};
 
 /// `createPlainTextComponent(ops, text)`.
-pub fn create_plain_text_component(ops: Ops, text: &str) -> Dynamic {
+pub fn create_plain_text_component(ops: Ops, text: impl Into<JavaString>) -> Dynamic {
     Dynamic::new(ops, ops.create_string(create_text_component_json(text)))
 }
 
@@ -14,21 +15,21 @@ pub fn create_empty_component(ops: Ops) -> Dynamic {
 }
 
 /// `createTextComponentJson(text)`: `{"text":"<text>"}` through `GsonHelper.toStableString`.
-pub fn create_text_component_json(text: &str) -> String {
+pub fn create_text_component_json(text: impl Into<JavaString>) -> JavaString {
     let mut result = JsonObject::new();
-    result.add_property_str("text", Some(text));
+    result.add("text", JsonElement::String(text.into()));
     JsonElement::Object(result).to_stable_string()
 }
 
 /// `createTranslatableComponentJson(key)`.
-pub fn create_translatable_component_json(key: &str) -> String {
+pub fn create_translatable_component_json(key: impl Into<JavaString>) -> JavaString {
     let mut result = JsonObject::new();
-    result.add_property_str("translate", Some(key));
+    result.add("translate", JsonElement::String(key.into()));
     JsonElement::Object(result).to_stable_string()
 }
 
 /// `createTranslatableComponent(ops, key)`.
-pub fn create_translatable_component(ops: Ops, key: &str) -> Dynamic {
+pub fn create_translatable_component(ops: Ops, key: impl Into<JavaString>) -> Dynamic {
     Dynamic::new(
         ops,
         ops.create_string(create_translatable_component_json(key)),
@@ -37,12 +38,13 @@ pub fn create_translatable_component(ops: Ops, key: &str) -> Dynamic {
 
 /// `rewriteFromLenient(string)`: a lenient-JSON string (quoted, object or array by its first and last character) is
 /// re-serialised in stable form; anything else, or unparsable text, becomes a plain text component.
-pub fn rewrite_from_lenient(string: &str) -> String {
-    if string.is_empty() || string == "null" {
+pub fn rewrite_from_lenient(string: &JavaString) -> JavaString {
+    let text = string.as_lossy_str();
+    if text.is_empty() || *string == *"null" {
         return create_text_component_json("");
     }
-    let first = string.chars().next();
-    let last = string.chars().next_back();
+    let first = text.chars().next();
+    let last = text.chars().next_back();
     if matches!(
         (first, last),
         (Some('"'), Some('"')) | (Some('{'), Some('}')) | (Some('['), Some(']'))
@@ -50,12 +52,12 @@ pub fn rewrite_from_lenient(string: &str) -> String {
     {
         return match &json {
             JsonElement::Bool(_) | JsonElement::Number(_) | JsonElement::String(_) => {
-                create_text_component_json(&json.as_string().unwrap_or_default())
+                create_text_component_json(json.as_string().unwrap_or_default())
             }
             _ => json.to_stable_string(),
         };
     }
-    create_text_component_json(string)
+    create_text_component_json(string.clone())
 }
 
 /// `isStrictlyValidJson(component)`: a string value that `StrictJsonParser` accepts.
@@ -67,7 +69,7 @@ pub fn is_strictly_valid_json(component: &Dynamic) -> bool {
 }
 
 /// `extractTranslationString(component)`: the `translate` primitive of a lenient-JSON object.
-pub fn extract_translation_string(component: &str) -> Option<String> {
+pub fn extract_translation_string(component: &JavaString) -> Option<JavaString> {
     let Ok(JsonElement::Object(parsed)) = gson::parse_lenient_json_parser(component) else {
         return None;
     };

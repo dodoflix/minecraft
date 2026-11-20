@@ -56,8 +56,8 @@ pub fn dispatch_optional_value<K: Clone + 'static, V: 'static>(
         },
         move || {
             vec![
-                Dyn::Str(type_key.to_owned()),
-                Dyn::Str(value_key.to_owned()),
+                Dyn::Str(type_key.to_owned().into()),
+                Dyn::Str(value_key.to_owned().into()),
             ]
         },
     )

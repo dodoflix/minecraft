@@ -18,7 +18,7 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
         df.fix_type_everywhere_typed("ItemWaterPotionFix", &item_stack_type, move |input| {
             let is_potion = input.get_optional(&id_f).is_some_and(|id| {
                 matches!(
-                    id.second().as_str(),
+                    id.second().as_lossy_str(),
                     "minecraft:potion"
                         | "minecraft:splash_potion"
                         | "minecraft:lingering_potion"

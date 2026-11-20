@@ -31,10 +31,12 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
             entity.update_typed(&custom_name_f, |custom_name| {
                 custom_name.update(&text_component_f, |pair| {
                     pair.map_second(|name| {
-                        Value::Str(name.as_str().replace(
-                            "\"translate\":\"block.minecraft.illager_banner\"",
-                            "\"translate\":\"block.minecraft.ominous_banner\"",
-                        ))
+                        Value::Str(name.as_java_string().map_text(|t| {
+                            t.replace(
+                                "\"translate\":\"block.minecraft.illager_banner\"",
+                                "\"translate\":\"block.minecraft.ominous_banner\"",
+                            )
+                        }))
                     })
                 })
             })

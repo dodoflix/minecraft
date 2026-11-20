@@ -21,7 +21,7 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
                             .get("chatOpacity")
                             .as_string()
                             .map(|value| {
-                                let opacity = calculate_background(&value);
+                                let opacity = calculate_background(value.as_lossy_str());
                                 tag.set(
                                     "textBackgroundOpacity",
                                     tag.create_string(java_double_to_string(opacity)),

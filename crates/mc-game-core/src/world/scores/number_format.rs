@@ -82,7 +82,7 @@ impl NumberFormat {
                 other => return Err(format!("Not a map: {other}")),
             },
         };
-        m.put("type", Tag::String(self.type_id().to_string()));
+        m.put("type", Tag::String(self.type_id().to_string().into()));
         Ok(Tag::Compound(m))
     }
 }

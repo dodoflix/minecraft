@@ -28,7 +28,7 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
         df.fix_type_everywhere_typed("ItemPotionFix", &item_stack_type, move |input| {
             let is_potion = input
                 .get_optional(&id_finder)
-                .is_some_and(|id| id.second().as_str() == "minecraft:potion");
+                .is_some_and(|id| id.second().as_lossy_str() == "minecraft:potion");
             if !is_potion {
                 return input;
             }

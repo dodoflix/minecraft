@@ -769,7 +769,7 @@ fn convert_with_scope(schema: &Schema, json: &Value) -> Result<Tag, String> {
 }
 
 fn dyn_to_json(d: &Dyn) -> Result<Value, String> {
-    serde_json::from_str(&d.to_json_string()).map_err(|e| e.to_string())
+    serde_json::from_str(d.to_json_string().as_lossy_str()).map_err(|e| e.to_string())
 }
 
 thread_local! {
@@ -882,14 +882,14 @@ pub(crate) fn parse_full_state(v: &Value) -> Result<BlockState, String> {
 /// `BlockState.CODEC` / `FULL_CODEC` encoding of `state` (`full`: never the bare-id shortcut).
 pub(crate) fn block_state_tag(state: BlockState, bare_ok: bool) -> Tag {
     if bare_ok && state == state.block().default_state() {
-        return Tag::String(state.block().name().to_owned());
+        return Tag::String(state.block().name().to_owned().into());
     }
     let mut compound = CompoundTag::new();
-    compound.put("id", Tag::String(state.block().name().to_owned()));
+    compound.put("id", Tag::String(state.block().name().to_owned().into()));
     if state.block().properties().len() != 0 {
         let mut props = CompoundTag::new();
         for (def, i) in state.values_in_codec_order() {
-            props.put(def.name, Tag::String(def.values[i].to_owned()));
+            props.put(def.name, Tag::String(def.values[i].to_owned().into()));
         }
         compound.put("properties", Tag::Compound(props));
     }
@@ -924,7 +924,7 @@ pub(crate) fn block_predicate_schema() -> Schema {
         let tag_key = Schema::custom(|v, _ctx| {
             let s = v.as_str().ok_or_else(|| format!("Not a string: {v}"))?;
             let id = Identifier::read(s)?;
-            Ok(Tag::String(id.to_string()))
+            Ok(Tag::String(id.to_string().into()))
         });
         let offset = || offset_field();
         Some(match name {

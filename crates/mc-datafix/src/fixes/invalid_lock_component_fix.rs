@@ -28,7 +28,7 @@ pub fn fix_lock(input: Dynamic) -> Option<Dynamic> {
 fn is_broken_lock(input: &Dynamic) -> bool {
     is_map_with_one_field(input, "components", |components| {
         is_map_with_one_field(components, "minecraft:custom_name", |custom_name| {
-            custom_name.as_string().result().as_deref() == Some("\"\"")
+            custom_name.as_string_lossy().result().as_deref() == Some("\"\"")
         })
     })
 }

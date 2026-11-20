@@ -13,7 +13,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
         |block_id| block_id == "minecraft:jigsaw",
         |_block_id, properties| {
             let facing = properties.get("facing").as_string_or("north");
-            let orientation = match facing.as_str() {
+            let orientation = match facing.as_lossy_str() {
                 "down" => "down_south",
                 "up" => "up_north",
                 "north" => "north_up",

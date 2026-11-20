@@ -3,6 +3,7 @@
 use super::javanum;
 use super::packrat::*;
 use crate::{CompoundTag, ListTag, Tag};
+use mc_core::java_string::JavaString;
 use std::sync::LazyLock;
 
 macro_rules! atoms {
@@ -88,8 +89,8 @@ fn ascii(units: &[u16]) -> String {
     units.iter().map(|&u| u as u8 as char).collect()
 }
 
-fn to_string(units: &[u16]) -> String {
-    String::from_utf16_lossy(units)
+fn to_string(units: &[u16]) -> JavaString {
+    JavaString::from_utf16_units(units)
 }
 
 fn needs_underscore_removal(s: &str) -> bool {
@@ -490,7 +491,7 @@ fn a_unquoted_string_or_builtin(ps: &mut Ps<'_>) -> Option<Val> {
         } else if name.eq_ignore_ascii_case("false") {
             Some(Val::Tag(Tag::Byte(0)))
         } else {
-            Some(Val::Tag(Tag::String(name)))
+            Some(Val::Tag(Tag::String(name.into())))
         }
     } else {
         // `SnbtOperations.BUILTIN_IDS`

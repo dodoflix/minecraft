@@ -187,12 +187,12 @@ pub fn new(output_schema: &Schema) -> DataFix {
                 let context = chunk.get_remainder().get("__context");
                 let dimension = context
                     .get("dimension")
-                    .as_string()
+                    .as_string_lossy()
                     .result()
                     .unwrap_or_default();
                 let generator = context
                     .get("generator")
-                    .as_string()
+                    .as_string_lossy()
                     .result()
                     .unwrap_or_default();
                 chunk.update_typed_as(&level_finder, &level_type, |level| {
@@ -242,7 +242,7 @@ fn fix_level(
                 .and_then(|palette| {
                     for block_state in palette.as_stream() {
                         blocks_in_chunk
-                            .insert(block_state.get("Name").as_string_or("minecraft:air"));
+                            .insert(block_state.get("Name").as_string_or_lossy("minecraft:air"));
                     }
                     section.get("BlockStates").result().map(|block_states| {
                         make_optimized_paletted_container(&palette, &block_states)
@@ -302,7 +302,7 @@ fn predict_chunk_status_before_surface(
 ) -> Dynamic {
     chunk_tag.update("Status", |status_dynamic| {
         let status = status_dynamic.as_string_or("empty");
-        if STATUS_IS_OR_AFTER_SURFACE.contains(&status.as_str()) {
+        if STATUS_IS_OR_AFTER_SURFACE.contains(&status.as_lossy_str()) {
             status_dynamic
         } else {
             blocks_in_chunk.remove("minecraft:air");
@@ -414,7 +414,8 @@ fn update_chunk_tag(
         "blending_data",
         chunk_tag.create_map([(
             chunk_tag.create_string("old_noise"),
-            chunk_tag.create_boolean(STATUS_IS_OR_AFTER_NOISE.contains(&last_status.as_str())),
+            chunk_tag
+                .create_boolean(STATUS_IS_OR_AFTER_NOISE.contains(&last_status.as_lossy_str())),
         )]),
     );
     // `SharedConstants.DEBUG_DISABLE_BELOW_ZERO_RETROGENERATION` is a debug flag that is off
@@ -428,7 +429,7 @@ fn update_chunk_tag(
         for z in 0..16 {
             for x in 0..16 {
                 let block_state = poor_mans_paletted_container.get(x, 0, z);
-                let name = block_state.map(|b| b.get("Name").as_string_or(""));
+                let name = block_state.map(|b| b.get("Name").as_string_or_lossy(""));
                 let is_bedrock = name.as_deref() == Some("minecraft:bedrock");
                 let is_air = name.as_deref() == Some("minecraft:air");
                 if is_air {
@@ -472,7 +473,11 @@ fn shift_upgrade_data(upgrade_data: Dynamic) -> Dynamic {
         let mut shifted_indices: Vec<(Dynamic, Dynamic)> = Vec::new();
         if let Some(entries) = indices.get_map_values().result() {
             for (index, data) in entries {
-                let Some(i) = index.as_string().result().and_then(|s| parse_int(&s)) else {
+                let Some(i) = index
+                    .as_string()
+                    .result()
+                    .and_then(|s| parse_int(s.as_lossy_str()))
+                else {
                     continue;
                 };
                 let key = index.create_string(i.wrapping_add(4).to_string());

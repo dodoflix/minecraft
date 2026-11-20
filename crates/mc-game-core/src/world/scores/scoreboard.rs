@@ -149,7 +149,7 @@ impl PlayerTeam {
             color: None,
             collision_rule: CollisionRule::Always,
             display_name_style: Style::EMPTY
-                .with_insertion(Some(name.to_string()))
+                .with_insertion(Some(name.to_string().into()))
                 .with_hover_event(Some(HoverEvent::show_text(Component::literal(name)))),
         }
     }

@@ -19,7 +19,10 @@ pub fn nbt_path_codec() -> Codec<Arc<NbtPath>> {
         |string| match NbtPath::of(&string) {
             Ok(p) => DataResult::success(Arc::new(p)),
             Err(e) => {
-                let m = format!("Failed to parse path {string}: {}", e.get_message());
+                let m = format!(
+                    "Failed to parse path {string}: {}",
+                    e.get_message().as_lossy_str()
+                );
                 DataResult::error(move || m.clone())
             }
         },

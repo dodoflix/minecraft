@@ -38,7 +38,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
             move |input| {
                 let entity_id = input
                     .get_optional(&entity_id_f)
-                    .map(|v| ensure_namespaced(v.first().as_str()))
+                    .map(|v| ensure_namespaced(v.first().as_lossy_str()))
                     .unwrap_or_default();
                 if ENTITIES_WITH_SADDLE_ITEM.contains(&entity_id.as_str()) {
                     let fixed_input = cast(&patched_input_type, input);

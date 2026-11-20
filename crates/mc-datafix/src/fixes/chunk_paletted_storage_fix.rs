@@ -520,7 +520,7 @@ impl UpgradeChunk {
                 if let Some(entity) = self.block_entities.remove(pos) {
                     let key = format!(
                         "{}{}",
-                        entity.get("Item").as_string_or(""),
+                        entity.get("Item").as_string_or("").as_lossy_str(),
                         entity.get("Data").as_int_or(0)
                     );
                     let state = c

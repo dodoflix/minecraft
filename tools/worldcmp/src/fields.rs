@@ -105,9 +105,7 @@ fn strip_compound(c: &mut CompoundTag, path: &[String]) {
         return;
     };
     match (first.as_str(), rest.is_empty()) {
-        ("*", true) => c.keys().cloned().collect::<Vec<_>>().iter().for_each(|k| {
-            c.remove(k);
-        }),
+        ("*", true) => *c = CompoundTag::new(),
         (name, true) => {
             c.remove(name);
         }

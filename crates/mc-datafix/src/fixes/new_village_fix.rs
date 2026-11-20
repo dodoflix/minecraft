@@ -30,11 +30,11 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
                                     Value::List(
                                         list.into_list()
                                             .into_iter()
-                                            .filter(|pair| pair.first().as_str() != "Village")
+                                            .filter(|pair| pair.first().as_lossy_str() != "Village")
                                             .map(|pair| {
                                                 pair.map_first(|name| {
-                                                    if name.as_str() == "New_Village" {
-                                                        Value::Str("Village".to_string())
+                                                    if name.as_lossy_str() == "New_Village" {
+                                                        Value::str("Village")
                                                     } else {
                                                         name
                                                     }
@@ -61,7 +61,9 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
             df.fix_type_everywhere_typed("NewVillageStartFix", &structure_type, |input| {
                 input.update_remainder(|tag| {
                     tag.update("id", |id| {
-                        if ensure_namespaced(&id.as_string_or("")) == "minecraft:new_village" {
+                        if ensure_namespaced(id.as_string_or("").as_lossy_str())
+                            == "minecraft:new_village"
+                        {
                             id.create_string("minecraft:village")
                         } else {
                             id

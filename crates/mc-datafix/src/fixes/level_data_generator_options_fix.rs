@@ -46,17 +46,22 @@ fn fix_tag(tag: Dynamic) -> Dynamic {
     if tag
         .get("generatorName")
         .as_string_or("")
+        .as_lossy_str()
         .eq_ignore_ascii_case("flat")
     {
         let flat_option_string = generator_options.unwrap_or_default();
-        tag.set("generatorOptions", convert(&flat_option_string, &tag))
+        tag.set(
+            "generatorOptions",
+            convert(flat_option_string.as_lossy_str(), &tag),
+        )
     } else if tag
         .get("generatorName")
         .as_string_or("")
+        .as_lossy_str()
         .eq_ignore_ascii_case("buffet")
         && let Some(generator_options) = generator_options
     {
-        let legacy_options = gson::parse_lenient_json_parser(&generator_options)
+        let legacy_options = gson::parse_lenient_json_parser(generator_options.as_lossy_str())
             .unwrap_or_else(|e| panic!("com.google.gson.JsonSyntaxException: {e}"));
         let json = Dynamic::new(JSON, json_to_dyn(&legacy_options));
         tag.set("generatorOptions", json.convert(&tag.ops()))
@@ -75,7 +80,7 @@ fn json_to_dyn(json: &JsonElement) -> Dyn {
         JsonElement::Array(a) => Dyn::List(a.iter().map(json_to_dyn).collect()),
         JsonElement::Object(o) => Dyn::Map(
             o.iter()
-                .map(|(k, v)| (Dyn::Str(k.to_string()), json_to_dyn(v)))
+                .map(|(k, v)| (Dyn::Str(k.clone()), json_to_dyn(v)))
                 .collect(),
         ),
     }

@@ -1,5 +1,6 @@
 //! `net.minecraft.network.chat.FilterMask` behavior on top of the wire enum `mc_protocol::packets::play::FilterMask`.
 
+use mc_core::java_string::JavaString;
 use mc_protocol::codec::BitSet;
 use mc_protocol::packets::play::FilterMask;
 use mc_text::{ChatFormatting, Component, HoverEvent, Style};
@@ -9,7 +10,7 @@ pub trait FilterMaskExt {
     fn partial() -> FilterMask;
     fn set_filtered(&mut self, index: usize);
     /// `apply(text)`; `None` = fully filtered. Works on UTF-16 units like `String.toCharArray()`.
-    fn apply(&self, text: &str) -> Option<String>;
+    fn apply(&self, text: &str) -> Option<JavaString>;
     fn apply_with_formatting(&self, text: &str) -> Option<Component>;
     fn is_empty(&self) -> bool;
     fn is_fully_filtered(&self) -> bool;
@@ -36,9 +37,9 @@ impl FilterMaskExt for FilterMask {
         }
     }
 
-    fn apply(&self, text: &str) -> Option<String> {
+    fn apply(&self, text: &str) -> Option<JavaString> {
         match self {
-            FilterMask::PassThrough => Some(text.to_owned()),
+            FilterMask::PassThrough => Some(text.into()),
             FilterMask::FullyFiltered => None,
             FilterMask::PartiallyFiltered(mask) => {
                 let mut units: Vec<u16> = text.encode_utf16().collect();
@@ -47,7 +48,7 @@ impl FilterMaskExt for FilterMask {
                         *unit = u16::from(b'#');
                     }
                 }
-                Some(String::from_utf16_lossy(&units))
+                Some(JavaString::from_utf16_units(&units))
             }
         }
     }
@@ -80,8 +81,9 @@ impl FilterMaskExt for FilterMask {
                     } else {
                         // Java `substring` would throw past the end; the mask never exceeds the text in practice
                         let end = next.min(units.len());
-                        result = result
-                            .append_str(&String::from_utf16_lossy(&units[previous.min(end)..end]));
+                        result = result.append(Component::literal(JavaString::from_utf16_units(
+                            &units[previous.min(end)..end],
+                        )));
                     }
                     filtered = !filtered;
                     previous = next;

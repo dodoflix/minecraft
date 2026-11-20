@@ -162,7 +162,7 @@ fn stringify(tag: &Tag) -> String {
         Tag::Byte(v) => i32::from(*v).to_string(),
         Tag::Short(v) => i32::from(*v).to_string(),
         Tag::Long(v) => v.to_string(),
-        Tag::String(s) => s.clone(),
+        Tag::String(s) => s.as_lossy_str().to_owned(),
         other => other.to_string(),
     }
 }

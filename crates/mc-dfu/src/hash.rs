@@ -1,6 +1,7 @@
 //! `net.minecraft.util.HashOps` (CRC32C): the hash of a value tree built with the hash ops.
 
 use crate::dynv::{Dyn, JNum};
+use mc_core::java_string::JavaString;
 
 const POLY: u32 = 0x82F6_3B78;
 
@@ -67,7 +68,7 @@ pub(crate) fn hash_number(n: &JNum) -> u32 {
     }
 }
 
-pub(crate) fn hash_string(s: &str) -> u32 {
+pub(crate) fn hash_string(s: &JavaString) -> u32 {
     let mut h = Hasher::default();
     h.byte(12);
     let units: Vec<u16> = s.encode_utf16().collect();

@@ -30,7 +30,7 @@ pub fn new(
                         .get("Name")
                         .as_string()
                         .result()
-                        .map(|n| ensure_namespaced(&n));
+                        .map(|n| ensure_namespaced(n.as_lossy_str()));
                     match block_id {
                         Some(id) if should_fix(&id) => {
                             tag.update("Properties", |properties| fix_properties(&id, properties))

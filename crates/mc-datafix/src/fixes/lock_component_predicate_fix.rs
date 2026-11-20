@@ -32,10 +32,10 @@ pub fn new(output_schema: &Schema) -> DataFix {
 /// `LockComponentPredicateFix.fixLock(input)` (`None` = Java `null`).
 pub fn fix_lock(input: Dynamic) -> Option<Dynamic> {
     let name = input.as_string().result()?;
-    if name.is_empty() {
+    if name.as_lossy_str().is_empty() {
         return None;
     }
-    let name_component = input.create_string(format!("\"{}\"", escape(&name)));
+    let name_component = input.create_string(format!("\"{}\"", escape(name.as_lossy_str())));
     let components = input
         .empty_map()
         .set("minecraft:custom_name", name_component);

@@ -14,6 +14,7 @@ use crate::io::{
 use crate::list::is_wrapper;
 use crate::tag::*;
 use crate::{CompoundTag, ListTag, compress};
+use mc_core::java_string::JavaString;
 use std::collections::HashMap;
 
 /// `StreamTagVisitor.EntryResult`.
@@ -36,7 +37,7 @@ pub enum ValueResult {
 /// `StreamTagVisitor`. Tag types are passed as ids (see the module docs).
 pub trait StreamTagVisitor {
     fn visit_end(&mut self) -> ValueResult;
-    fn visit_string(&mut self, value: &str) -> ValueResult;
+    fn visit_string(&mut self, value: &JavaString) -> ValueResult;
     fn visit_byte(&mut self, value: i8) -> ValueResult;
     fn visit_short(&mut self, value: i16) -> ValueResult;
     fn visit_int(&mut self, value: i32) -> ValueResult;
@@ -50,7 +51,7 @@ pub trait StreamTagVisitor {
     /// `visitEntry(type)`: a compound entry of this type is about to be read (name not yet known).
     fn visit_entry(&mut self, type_id: u8) -> EntryResult;
     /// `visitEntry(type, id)`: same entry, once its name is known.
-    fn visit_entry_named(&mut self, type_id: u8, id: &str) -> EntryResult;
+    fn visit_entry_named(&mut self, type_id: u8, id: &JavaString) -> EntryResult;
     fn visit_element(&mut self, type_id: u8, index: i32) -> EntryResult;
     fn visit_container_end(&mut self) -> ValueResult;
     fn visit_root_entry(&mut self, type_id: u8) -> ValueResult;
@@ -87,7 +88,7 @@ fn read_list_count(input: &mut &[u8]) -> Result<i32> {
 }
 
 /// `readString` of `CompoundTag.TYPE.parseCompound` (key accounting).
-fn read_key(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<String> {
+fn read_key(input: &mut &[u8], acc: &mut NbtAccounter) -> Result<JavaString> {
     let key = read_utf(input)?;
     acc.account_bytes(28)?;
     acc.account_bytes_n(2, key.encode_utf16().count() as i64)?;
@@ -421,7 +422,7 @@ pub fn parse_compressed(
 
 /// Shared body of `CompoundTag.accept(StreamTagVisitor)` over `entries` in iteration order.
 fn accept_entries<'a>(
-    entries: impl Iterator<Item = (&'a str, &'a Tag)>,
+    entries: impl Iterator<Item = (&'a JavaString, &'a Tag)>,
     visitor: &mut dyn StreamTagVisitor,
 ) -> ValueResult {
     for (key, value) in entries {
@@ -465,7 +466,7 @@ fn accept_list(list: &ListTag, visitor: &mut dyn StreamTagVisitor) -> ValueResul
             EntryResult::Enter => {}
         }
         let result = if wrapped {
-            accept_entries(std::iter::once(("", element)), visitor)
+            accept_entries(std::iter::once((&JavaString::new(), element)), visitor)
         } else {
             element.accept_stream(visitor)
         };
@@ -492,12 +493,7 @@ impl Tag {
             Tag::ByteArray(v) => visitor.visit_byte_array(v),
             Tag::String(v) => visitor.visit_string(v),
             Tag::List(l) => accept_list(l, visitor),
-            Tag::Compound(c) => accept_entries(
-                c.iter_java_order()
-                    .into_iter()
-                    .map(|(k, v)| (k.as_str(), v)),
-                visitor,
-            ),
+            Tag::Compound(c) => accept_entries(c.iter_java_order().into_iter(), visitor),
             Tag::IntArray(v) => visitor.visit_int_array(v),
             Tag::LongArray(v) => visitor.visit_long_array(v),
         }
@@ -521,7 +517,7 @@ impl StreamTagVisitor for SkipAll {
     fn visit_end(&mut self) -> ValueResult {
         ValueResult::Continue
     }
-    fn visit_string(&mut self, _: &str) -> ValueResult {
+    fn visit_string(&mut self, _: &JavaString) -> ValueResult {
         ValueResult::Continue
     }
     fn visit_byte(&mut self, _: i8) -> ValueResult {
@@ -560,7 +556,7 @@ impl StreamTagVisitor for SkipAll {
     fn visit_entry(&mut self, _: u8) -> EntryResult {
         EntryResult::Skip
     }
-    fn visit_entry_named(&mut self, _: u8, _: &str) -> EntryResult {
+    fn visit_entry_named(&mut self, _: u8, _: &JavaString) -> EntryResult {
         EntryResult::Skip
     }
     fn visit_container_end(&mut self) -> ValueResult {
@@ -577,16 +573,15 @@ enum Builder {
     Root(Option<Tag>),
     Compound {
         compound: CompoundTag,
-        last_id: String,
+        last_id: JavaString,
     },
     List(ListTag),
 }
 
 impl Builder {
-    fn accept_key(&mut self, id: &str) {
+    fn accept_key(&mut self, id: &JavaString) {
         if let Builder::Compound { last_id, .. } = self {
-            last_id.clear();
-            last_id.push_str(id);
+            last_id.clone_from(id);
         }
     }
 
@@ -594,7 +589,7 @@ impl Builder {
         match self {
             Builder::Root(result) => *result = Some(tag),
             Builder::Compound { compound, last_id } => {
-                compound.put(last_id.as_str(), tag);
+                compound.put(last_id.clone(), tag);
             }
             Builder::List(list) => list.add_and_unwrap(tag),
         }
@@ -661,7 +656,7 @@ impl CollectToTag {
             TAG_LIST => self.stack.push(Builder::List(ListTag::new())),
             TAG_COMPOUND => self.stack.push(Builder::Compound {
                 compound: CompoundTag::new(),
-                last_id: String::new(),
+                last_id: JavaString::new(),
             }),
             _ => {}
         }
@@ -675,7 +670,7 @@ macro_rules! delegate_values {
         fn visit_end(&mut self) -> ValueResult {
             self.$inner.visit_end()
         }
-        fn visit_string(&mut self, value: &str) -> ValueResult {
+        fn visit_string(&mut self, value: &JavaString) -> ValueResult {
             self.$inner.visit_string(value)
         }
         fn visit_byte(&mut self, value: i8) -> ValueResult {
@@ -719,7 +714,7 @@ impl StreamTagVisitor for CollectToTag {
         self.append_entry(Tag::End);
         ValueResult::Continue
     }
-    fn visit_string(&mut self, value: &str) -> ValueResult {
+    fn visit_string(&mut self, value: &JavaString) -> ValueResult {
         self.append_entry(Tag::String(value.to_owned()));
         ValueResult::Continue
     }
@@ -769,7 +764,7 @@ impl StreamTagVisitor for CollectToTag {
     fn visit_entry(&mut self, _: u8) -> EntryResult {
         EntryResult::Enter
     }
-    fn visit_entry_named(&mut self, type_id: u8, id: &str) -> EntryResult {
+    fn visit_entry_named(&mut self, type_id: u8, id: &JavaString) -> EntryResult {
         self.stack
             .last_mut()
             .expect("CollectToTag: no open container")
@@ -868,8 +863,14 @@ impl FieldTree {
         }
     }
 
-    pub fn is_selected(&self, type_id: u8, id: &str) -> bool {
-        self.selected_fields.get(id) == Some(&type_id)
+    pub fn is_selected(&self, type_id: u8, id: &JavaString) -> bool {
+        id.exact_str()
+            .is_some_and(|id| self.selected_fields.get(id) == Some(&type_id))
+    }
+
+    fn is_recursed(&self, id: &JavaString) -> bool {
+        id.exact_str()
+            .is_some_and(|id| self.fields_to_recurse.contains_key(id))
     }
 }
 
@@ -994,19 +995,19 @@ impl StreamTagVisitor for CollectFields {
         }
     }
 
-    fn visit_entry_named(&mut self, type_id: u8, id: &str) -> EntryResult {
+    fn visit_entry_named(&mut self, type_id: u8, id: &JavaString) -> EntryResult {
         let depth = self.inner.depth();
         let frame = self.stack.element();
         if depth > frame.depth {
             return self.inner.visit_entry_named(type_id, id);
         }
         if frame.is_selected(type_id, id) {
-            frame.selected_fields.remove(id);
+            frame.selected_fields.remove(id.as_lossy_str());
             self.fields_to_get_count -= 1;
             return self.inner.visit_entry_named(type_id, id);
         }
-        if type_id == TAG_COMPOUND && frame.fields_to_recurse.contains_key(id) {
-            self.stack.push(id);
+        if type_id == TAG_COMPOUND && frame.is_recursed(id) {
+            self.stack.push(id.as_lossy_str());
             return self.inner.visit_entry_named(type_id, id);
         }
         EntryResult::Skip
@@ -1058,13 +1059,13 @@ impl StreamTagVisitor for SkipFields {
         self.inner.visit_entry(type_id)
     }
 
-    fn visit_entry_named(&mut self, type_id: u8, id: &str) -> EntryResult {
+    fn visit_entry_named(&mut self, type_id: u8, id: &JavaString) -> EntryResult {
         let frame = self.stack.element();
         if frame.is_selected(type_id, id) {
             return EntryResult::Skip;
         }
-        if type_id == TAG_COMPOUND && frame.fields_to_recurse.contains_key(id) {
-            self.stack.push(id);
+        if type_id == TAG_COMPOUND && frame.is_recursed(id) {
+            self.stack.push(id.as_lossy_str());
         }
         self.inner.visit_entry_named(type_id, id)
     }

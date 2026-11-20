@@ -25,7 +25,13 @@ fn named(tag: &mut Tag, names: &BTreeMap<Uuid, String>) {
         Tag::IntArray(ints) if ints.len() == 4 => {
             let pair = |a: i32, b: i32| (u64::from(a as u32) << 32) | u64::from(b as u32);
             let uuid = Uuid::from_u64_pair(pair(ints[0], ints[1]), pair(ints[2], ints[3]));
-            *tag = Tag::String(names.get(&uuid).cloned().unwrap_or_else(|| "?".into()));
+            *tag = Tag::String(
+                names
+                    .get(&uuid)
+                    .cloned()
+                    .unwrap_or_else(|| "?".into())
+                    .into(),
+            );
         }
         Tag::Compound(compound) => compound.values_mut().for_each(|v| named(v, names)),
         Tag::List(list) => list.iter_mut().for_each(|v| named(v, names)),

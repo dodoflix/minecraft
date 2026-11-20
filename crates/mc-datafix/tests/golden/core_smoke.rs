@@ -123,7 +123,7 @@ impl SchemaDef for Root {
 }
 
 fn s(v: &str) -> Dyn {
-    Dyn::Str(v.to_string())
+    Dyn::str(v)
 }
 
 fn item(id: &str) -> Dyn {

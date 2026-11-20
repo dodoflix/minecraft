@@ -36,7 +36,7 @@ pub struct PendingAnnouncement {
 /// An entry of the level's queue of rewards that wait for the awarded player to be back in the level.
 pub enum PendingReward {
     Function(PendingFunction),
-    Announcement(PendingAnnouncement),
+    Announcement(Box<PendingAnnouncement>),
 }
 
 /// The tick environment of the running tick with its lifetime erased (valid only inside `with_command_env`).
@@ -83,7 +83,7 @@ impl ServerLevel {
     pub fn queue_announcement(&mut self, announcement: PendingAnnouncement) {
         self.tick_state
             .pending_functions
-            .push(PendingReward::Announcement(announcement));
+            .push(PendingReward::Announcement(Box::new(announcement)));
     }
 
     pub fn has_pending_functions(&self) -> bool {

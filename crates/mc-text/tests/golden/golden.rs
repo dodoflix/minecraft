@@ -5,6 +5,7 @@
 
 use mc_core::ident::Identifier;
 use mc_nbt::{NbtAccounter, Tag, nbt_io};
+use mc_text::json::{element_from_value, value_from_element};
 use mc_text::{
     ChatFormatting, Component, Style, TextColor, TranslatableArg, Validators, legacy,
     set_validators,
@@ -47,6 +48,11 @@ fn install_validators() {
             ..Validators::default()
         });
     });
+}
+
+/// The JSON text the way Gson reads it (a number keeps its source text).
+fn parse_json(text: &str) -> mc_core::gson::JsonElement {
+    mc_core::gson::parse_lenient_json_parser(text).expect("fixture json")
 }
 
 fn tag_from_hex(hex: &str) -> Tag {
@@ -92,7 +98,7 @@ fn component_codec_matches_vanilla() {
         let input = rec["input"].as_str().unwrap();
         let expect_ok = rec["ok"].as_bool().unwrap();
         let decoded = if kind == "J" {
-            Component::from_json(&serde_json::from_str::<Value>(input).unwrap())
+            Component::from_json(&parse_json(input))
         } else {
             Component::from_nbt(&tag_from_hex(input))
         };
@@ -125,7 +131,7 @@ fn component_codec_matches_vanilla() {
         match rec.get("json") {
             Some(expected) => {
                 let expected: Value = serde_json::from_str(expected.as_str().unwrap()).unwrap();
-                match c.to_json() {
+                match c.to_json().map(|j| value_from_element(&j)) {
                     Ok(got) if got == expected && same_key_order(&got, &expected) => {}
                     other => failures.push(format!(
                         "{src}\n   json expected {expected}\n   got      {other:?}"
@@ -163,11 +169,7 @@ fn component_codec_matches_vanilla() {
         check_visitors(&c, &rec, src, &mut failures);
         for (i, max) in [5usize, 20, 100, 1000].into_iter().enumerate() {
             let got = if kind == "J" {
-                Component::from_json_flat_restricted(
-                    &serde_json::from_str::<Value>(input).unwrap(),
-                    max,
-                )
-                .is_ok()
+                Component::from_json_flat_restricted(&parse_json(input), max).is_ok()
             } else {
                 Component::from_nbt_flat_restricted(&tag_from_hex(input), max).is_ok()
             };
@@ -208,7 +210,7 @@ fn translatable_formatting_matches_vanilla() {
         let key = rec["k"].as_str().unwrap();
         for (i, n) in [0usize, 2, 6].into_iter().enumerate() {
             let args = (1..=n)
-                .map(|a| TranslatableArg::String(format!("<a{a}>")))
+                .map(|a| TranslatableArg::String(format!("<a{a}>").into()))
                 .collect();
             let got = Component::translatable(key, args).get_string();
             let want = rec["o"][i].as_str().unwrap();
@@ -240,7 +242,10 @@ fn check_visitors(c: &Component, rec: &Value, src: &str, failures: &mut Vec<Stri
         }
     }
     let flat = c.to_flat_list();
-    let got_flat: Result<Vec<Value>, _> = flat.iter().map(Component::to_json).collect();
+    let got_flat: Result<Vec<Value>, _> = flat
+        .iter()
+        .map(|c| c.to_json().map(|j| value_from_element(&j)))
+        .collect();
     match (&rec["flat"], got_flat) {
         (Value::String(_), Err(_)) => {}
         (Value::Array(want), Ok(got)) if *want == got => {}
@@ -265,7 +270,7 @@ fn check_visitors(c: &Component, rec: &Value, src: &str, failures: &mut Vec<Stri
 }
 
 fn style_json(s: &Style) -> Value {
-    s.to_json().expect("style encodes")
+    value_from_element(&s.to_json().expect("style encodes"))
 }
 
 fn assert_style(what: &str, case: &Value, got: &Style, want: &Value, failures: &mut Vec<String>) {
@@ -327,8 +332,8 @@ fn style_color_and_legacy_helpers_match_vanilla() {
             }
             "style" => {
                 styles += 1;
-                let a = Style::from_json(&rec["a"]).unwrap();
-                let b = Style::from_json(&rec["b"]).unwrap();
+                let a = Style::from_json(&element_from_value(&rec["a"])).unwrap();
+                let b = Style::from_json(&element_from_value(&rec["b"])).unwrap();
                 assert_style(
                     "apply_to",
                     &rec,
@@ -451,10 +456,12 @@ fn nbt_text_component_visitor_matches_vanilla() {
         let mut i = 0;
         for indent in ["", "  "] {
             for styling in [Styling::Plain, Styling::Rich] {
-                let got = TextComponentTagVisitor::with_options(indent, styling, true)
-                    .visit(&tag)
-                    .to_json()
-                    .unwrap();
+                let got = value_from_element(
+                    &TextComponentTagVisitor::with_options(indent, styling, true)
+                        .visit(&tag)
+                        .to_json()
+                        .unwrap(),
+                );
                 checked += 1;
                 if got != rec["out"][i] || !same_key_order(&got, &rec["out"][i]) {
                     failures.push(format!("{} (indent {indent:?}, {styling:?})", rec["src"]));

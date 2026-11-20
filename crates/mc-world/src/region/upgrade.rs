@@ -111,7 +111,7 @@ pub fn collect_scanned_fields(chunk: &CompoundTag) -> CompoundTag {
     }
     let mut out = CompoundTag::new();
     for (key, value) in chunk.iter() {
-        match (key.as_str(), value) {
+        match (key.as_lossy_str(), value) {
             ("DataVersion", Tag::Int(_)) => {
                 out.put(key.clone(), value.clone());
             }

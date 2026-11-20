@@ -193,7 +193,7 @@ fn world_dimensions_lifecycle() {
     if let mc_nbt::Tag::Compound(c) = &mut overworld_stem {
         c.put(
             "type",
-            mc_nbt::Tag::String("minecraft:the_nether".to_owned()),
+            mc_nbt::Tag::String("minecraft:the_nether".to_owned().into()),
         );
     }
     custom.put("minecraft:overworld", overworld_stem);

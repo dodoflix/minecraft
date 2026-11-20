@@ -113,9 +113,9 @@ impl BedRule {
 
     /// `errorMessage()` as a component.
     pub fn error_message(&self) -> Option<mc_text::Component> {
-        self.error_message
-            .as_ref()
-            .and_then(|json| mc_text::Component::from_json(json).ok())
+        self.error_message.as_ref().and_then(|json| {
+            mc_text::Component::from_json(&mc_text::json::element_from_value(json)).ok()
+        })
     }
 
     fn from_json(json: &Value) -> Option<BedRule> {

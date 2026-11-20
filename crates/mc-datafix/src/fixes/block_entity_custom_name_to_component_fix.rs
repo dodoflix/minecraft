@@ -42,7 +42,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
                 &new_type,
                 move |input| {
                     let id = input.get_optional(&id_finder);
-                    if id.is_some_and(|id| !NAMEABLE_BLOCK_ENTITIES.contains(&id.as_str())) {
+                    if id.is_some_and(|id| !NAMEABLE_BLOCK_ENTITIES.contains(&id.as_lossy_str())) {
                         cast(&output_type, input)
                     } else {
                         write_and_read_typed_or_throw(
@@ -60,9 +60,9 @@ pub fn new(output_schema: &Schema) -> DataFix {
 /// `fixTagCustomName(tag)`: removes an empty `CustomName`, turns any other into a plain text component.
 pub fn fix_tag_custom_name(tag: Dynamic) -> Dynamic {
     let name = tag.get("CustomName").as_string_or("");
-    if name.is_empty() {
+    if name.as_lossy_str().is_empty() {
         tag.remove("CustomName")
     } else {
-        tag.set("CustomName", create_plain_text_component(tag.ops(), &name))
+        tag.set("CustomName", create_plain_text_component(tag.ops(), name))
     }
 }

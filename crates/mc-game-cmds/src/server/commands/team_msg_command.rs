@@ -64,7 +64,9 @@ fn send_message(
         .with_hover_event(Some(HoverEvent::show_text(translatable!(
             "chat.type.team.hover"
         ))))
-        .with_click_event(Some(ClickEvent::SuggestCommand("/teammsg ".to_owned())));
+        .with_click_event(Some(ClickEvent::SuggestCommand(
+            "/teammsg ".to_owned().into(),
+        )));
     let team_name = source
         .with_server(|s| {
             s.scoreboard

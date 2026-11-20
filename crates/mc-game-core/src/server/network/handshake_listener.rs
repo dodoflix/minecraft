@@ -71,8 +71,10 @@ fn begin_login(
         } else {
             "multiplayer.disconnect.incompatible"
         };
-        let reason =
-            Component::translatable(key, vec![TranslatableArg::String(VERSION_NAME.to_owned())]);
+        let reason = Component::translatable(
+            key,
+            vec![TranslatableArg::String(VERSION_NAME.to_owned().into())],
+        );
         ctx.sender.send(&ClientboundLoginDisconnectPacket {
             reason: JsonComponent(reason.clone()),
         });

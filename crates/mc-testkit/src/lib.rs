@@ -28,8 +28,10 @@ use tempfile::TempDir;
 
 mod fixture;
 mod permit;
+mod units;
 mod worldref;
 pub use fixture::{gunzip, read_gz};
+pub use units::{hex, rows, unesc_units, unhex};
 pub use worldref::worldref;
 
 /// Time for `Done (` and the first answered status ping, cold JVM on a loaded machine included.

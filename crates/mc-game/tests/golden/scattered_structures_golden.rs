@@ -159,13 +159,13 @@ fn normalize_entity(line: &str, template_entities_only_basics: bool) -> String {
     let mut tag =
         mc_nbt::snbt::parse_compound(snbt).unwrap_or_else(|e| panic!("entity snbt {snbt}: {e:?}"));
     if template_entities_only_basics {
-        let others: Vec<String> = tag
+        let others: Vec<mc_core::java_string::JavaString> = tag
             .keys()
-            .filter(|k| !TEMPLATE_ENTITY_KEYS.contains(&k.as_str()))
+            .filter(|k| !TEMPLATE_ENTITY_KEYS.contains(&k.as_lossy_str()))
             .cloned()
             .collect();
         for key in others {
-            tag.remove(&key);
+            tag.remove(key.as_lossy_str());
         }
     }
     strip_volatile(&mut tag);

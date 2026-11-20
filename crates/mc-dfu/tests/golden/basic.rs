@@ -34,7 +34,12 @@ fn record_roundtrip_nbt_and_json() {
     assert_eq!(parse_nbt(&foo(), &tag).into_result().unwrap(), f);
     let json = encode_json(&foo(), &f).into_result().unwrap();
     assert_eq!(json, r#"{"a":3,"b":"x","c":[1,2]}"#);
-    assert_eq!(parse_json(&foo(), &json).into_result().unwrap(), f);
+    assert_eq!(
+        parse_json(&foo(), json.as_lossy_str())
+            .into_result()
+            .unwrap(),
+        f
+    );
     // default omitted
     let g = Foo {
         a: 1,

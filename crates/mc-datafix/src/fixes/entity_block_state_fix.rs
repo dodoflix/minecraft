@@ -39,7 +39,7 @@ fn block_state(block: i32, data: i32) -> Value {
 fn block_of(named: Value) -> i32 {
     match named.into_pair().1 {
         Value::Left(id) => id.as_int(),
-        Value::Right(name) => block_id(name.as_str()),
+        Value::Right(name) => block_id(name.as_lossy_str()),
         other => panic!("expected an Either, got {other:?}"),
     }
 }

@@ -396,7 +396,7 @@ impl Commands {
                         .with_format(ChatFormatting::Gray)
                         .with_style_fn(|s| {
                             s.with_click_event(Some(ClickEvent::SuggestCommand(
-                                command_text.clone(),
+                                command_text.clone().into(),
                             )))
                         });
                     if cursor > 10 {

@@ -295,7 +295,7 @@ fn every_schema_method_is_implemented() {
             .unwrap()
             .as_string()
             .unwrap();
-        let path = name.strip_prefix("minecraft:").unwrap();
+        let path = name.as_lossy_str().strip_prefix("minecraft:").unwrap();
         if incoming.contains(&path) {
             implemented += 1;
         } else {

@@ -77,14 +77,14 @@ fn fix_children(structure: Dynamic) -> Dynamic {
 /// `fixTag(structure, child)`.
 fn fix_tag(structure: &Dynamic, mut child: Dynamic) -> Dynamic {
     let id = structure.get("id").as_string_or("");
-    if let Some((piece_id, templates)) = RENAMES.get(id.as_str())
+    if let Some((piece_id, templates)) = RENAMES.get(id.as_lossy_str())
         && *piece_id == child.get("id").as_string_or("")
     {
         let template = child.get("Template").as_string_or("");
         let renamed = templates
-            .get(template.as_str())
+            .get(template.as_lossy_str())
             .copied()
-            .unwrap_or(template.as_str());
+            .unwrap_or(template.as_lossy_str());
         child = child.set("Template", child.create_string(renamed));
     }
     child

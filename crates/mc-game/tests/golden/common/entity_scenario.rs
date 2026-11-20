@@ -271,11 +271,17 @@ pub fn item_full(s: &ItemStack) -> String {
 pub fn canon(tag: &Tag) -> String {
     match tag {
         Tag::Compound(c) => {
-            let mut keys: Vec<&String> = c.keys().collect();
-            keys.sort();
+            let mut keys: Vec<&mc_core::java_string::JavaString> = c.keys().collect();
+            keys.sort_by(|a, b| a.java_cmp(b));
             let parts: Vec<String> = keys
                 .iter()
-                .map(|k| format!("{k}:{}", canon(c.get(k).expect("key exists"))))
+                .map(|k| {
+                    format!(
+                        "{}:{}",
+                        k.as_lossy_str(),
+                        canon(c.get_java(k).expect("key exists"))
+                    )
+                })
                 .collect();
             format!("{{{}}}", parts.join(","))
         }

@@ -41,7 +41,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
                 move |input| {
                     let id = input
                         .get_optional(&id_finder)
-                        .map(|id| id.second().as_str().to_string());
+                        .map(|id| id.second().as_lossy_str().to_string());
                     match id.as_deref() {
                         Some("minecraft:white_banner") => {
                             input.update_typed(&components_finder, fix_banner)
@@ -72,7 +72,7 @@ fn fix_custom_name(typed: Typed, expected_translation_key: impl Fn(&str) -> bool
             .as_string()
             .result()
             .and_then(|name| extract_translation_string(&name))
-            .filter(|key| expected_translation_key(key))
+            .filter(|key| expected_translation_key(key.as_lossy_str()))
             .is_some();
         if has_correct_translation_key {
             value.rename_field("minecraft:custom_name", "minecraft:item_name")

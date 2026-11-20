@@ -30,7 +30,8 @@ pub fn new(
 fn fix_value(tag: Dynamic, wanted_id: &str, value_fixer: &impl Fn(f64) -> f64) -> Dynamic {
     tag.update("attributes", |attributes| {
         tag.create_list(attributes.as_stream().into_iter().map(|attribute| {
-            let attribute_id = ensure_namespaced(&attribute.get("id").as_string_or(""));
+            let attribute_id =
+                ensure_namespaced(attribute.get("id").as_string_or("").as_lossy_str());
             if attribute_id != wanted_id {
                 attribute
             } else {

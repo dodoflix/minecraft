@@ -41,7 +41,10 @@ fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, Str
     let network = super::network::network_schema(keys::PAINTING_VARIANT)
         .ok_or("missing painting variant schema")?
         .convert(json, ctx)?;
-    let text = |key: &str| json.get(key).and_then(|v| Component::from_json(v).ok());
+    let text = |key: &str| {
+        json.get(key)
+            .and_then(|v| Component::from_json(&mc_text::json::element_from_value(v)).ok())
+    };
     let value = PaintingVariant {
         width: get_i32(json, "width").unwrap_or(1),
         height: get_i32(json, "height").unwrap_or(1),

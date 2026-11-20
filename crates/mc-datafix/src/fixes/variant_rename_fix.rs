@@ -31,7 +31,7 @@ pub fn new(
                         let renamed = renames
                             .iter()
                             .find(|(old, _)| *old == v)
-                            .map_or(v.as_str(), |(_, new)| new.as_str());
+                            .map_or(v.as_lossy_str(), |(_, new)| new.as_str());
                         variant.create_string(renamed)
                     }
                     None => variant,

@@ -50,7 +50,7 @@ fn update_children(input: Dynamic) -> Dynamic {
 
 fn fix_child(child: Dynamic) -> Dynamic {
     let id = child.get("id").as_string_or("");
-    if !PIECE_TYPE.contains(&id.as_str()) {
+    if !PIECE_TYPE.contains(&id.as_lossy_str()) {
         return child;
     }
     let pool_element = child.get("pool_element");
@@ -96,17 +96,17 @@ fn get(input: &Dynamic, path: &[&str]) -> OptionalDynamic {
 /// `fixFeature(value)`.
 pub fn fix_feature(value: Dynamic) -> Dynamic {
     let replacement = get_replacement(
-        &get(&value, &["type"]).as_string_or(""),
-        &get(&value, &["name"]).as_string_or(""),
-        &get(&value, &["config", "state_provider", "type"]).as_string_or(""),
-        &get(&value, &["config", "state_provider", "state", "Name"]).as_string_or(""),
+        &get(&value, &["type"]).as_string_or_lossy(""),
+        &get(&value, &["name"]).as_string_or_lossy(""),
+        &get(&value, &["config", "state_provider", "type"]).as_string_or_lossy(""),
+        &get(&value, &["config", "state_provider", "state", "Name"]).as_string_or_lossy(""),
         &get(
             &value,
             &["config", "state_provider", "entries", "[0]", "data", "Name"],
         )
-        .as_string_or(""),
-        &get(&value, &["config", "foliage_placer", "type"]).as_string_or(""),
-        &get(&value, &["config", "leaves_provider", "state", "Name"]).as_string_or(""),
+        .as_string_or_lossy(""),
+        &get(&value, &["config", "foliage_placer", "type"]).as_string_or_lossy(""),
+        &get(&value, &["config", "leaves_provider", "state", "Name"]).as_string_or_lossy(""),
     );
     match replacement {
         Some(r) => value.create_string(r),

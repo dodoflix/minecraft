@@ -28,8 +28,9 @@ pub fn new(output_schema: &Schema) -> DataFix {
                     DSL::type_finder(&input_schema.get_type(&References::TEXT_COMPONENT));
                 entity = entity.update_typed(&line_f, |line| {
                     line.update(&text_component_f, |text_component| {
-                        text_component
-                            .map_second(|json| Value::Str(rewrite_from_lenient(json.as_str())))
+                        text_component.map_second(|json| {
+                            Value::Str(rewrite_from_lenient(json.as_java_string()))
+                        })
                     })
                 });
             }

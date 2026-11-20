@@ -31,7 +31,7 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
         df.fix_type_everywhere_typed("ItemSpawnEggFix", &item_stack_type, move |input| {
             let is_spawn_egg = input
                 .get_optional(&id_finder)
-                .is_some_and(|id| id.second().as_str() == "minecraft:spawn_egg");
+                .is_some_and(|id| id.second().as_lossy_str() == "minecraft:spawn_egg");
             if !is_spawn_egg {
                 return input;
             }
@@ -44,7 +44,7 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
                 .and_then(|value| value.get_optional(&entity_id_finder));
             let mut output = input.clone();
             if let Some(entity_name) = ID_TO_ENTITY[(damage & 255) as usize].as_deref()
-                && old_id.is_none_or(|old| old.as_str() != entity_name)
+                && old_id.is_none_or(|old| old.as_lossy_str() != entity_name)
             {
                 let tag = input.get_or_create_typed(&tag_finder);
                 let entity_tag = tag

@@ -31,7 +31,7 @@ impl LegacyKey {
             Some(p) => {
                 let mut v = Vec::new();
                 for (k, value) in p.as_compound()?.iter() {
-                    v.push((k.clone(), value.as_string()?.to_string()));
+                    v.push((k.as_lossy_str().to_owned(), value.as_string()?.to_string()));
                 }
                 v.sort();
                 Some(v)

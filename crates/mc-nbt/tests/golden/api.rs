@@ -26,19 +26,19 @@ fn compound_keeps_insertion_order_but_writes_in_java_order() {
         c.put_int(k, 1);
     }
     assert_eq!(
-        c.keys().map(String::as_str).collect::<Vec<_>>(),
+        c.keys().map(|k| k.as_lossy_str()).collect::<Vec<_>>(),
         ["zeta", "alpha", "mid"]
     );
     c.remove("alpha");
     assert_eq!(
-        c.keys().map(String::as_str).collect::<Vec<_>>(),
+        c.keys().map(|k| k.as_lossy_str()).collect::<Vec<_>>(),
         ["zeta", "mid"]
     );
     // In a 16-slot Java HashMap "zeta" lands in bucket 0 and "mid" in bucket 9.
     let java: Vec<&str> = c
         .iter_java_order()
         .into_iter()
-        .map(|(k, _)| k.as_str())
+        .map(|(k, _)| k.as_lossy_str())
         .collect();
     assert_eq!(java, ["zeta", "mid"]);
 }

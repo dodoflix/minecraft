@@ -22,7 +22,7 @@ pub fn new(schema: &Schema) -> DataFix {
                 let item_tag_finder = input.get_type().find_field("tag");
                 let is_player_head = input
                     .get_optional(&id_f)
-                    .is_some_and(|id| id.second().as_str() == "minecraft:player_head");
+                    .is_some_and(|id| id.second().as_lossy_str() == "minecraft:player_head");
                 input.update_typed(&item_tag_finder, |typed_tag| {
                     typed_tag.update_remainder(|tag| {
                         let tag = update_attribute_modifiers(&tag);

@@ -17,7 +17,9 @@ mod varint;
 pub use bits::{BitSet, BitSetBytes, EnumSet, EnumValues, FixedBitSet};
 pub use misc::*;
 pub use nbt::{NbtLimit, decode_tag, decode_tag_with, encode_tag};
-pub use prim::{LongArray, MAX_STRING_LENGTH, read_utf, utf16_len, write_count, write_utf};
+pub use prim::{
+    LongArray, MAX_STRING_LENGTH, read_utf, utf16_len, write_count, write_java_utf, write_utf,
+};
 pub use registry::{read_registry_id, read_registry_value};
 pub use text::{JsonComponent, context_free};
 pub use types::*;

@@ -5237,7 +5237,7 @@ pub fn save_without_id<E: Entity + ?Sized>(
     if !b.tags.is_empty() {
         let mut tags = ListTag::new();
         for t in b.tags.iter_java_order() {
-            tags.push(Tag::String(t.to_string()));
+            tags.push(Tag::String(t.to_string().into()));
         }
         out.put("Tags", tags);
     }
@@ -5313,7 +5313,7 @@ pub fn read_owner_with_old_conversion(
     let Some(Tag::String(name)) = tag else {
         return None;
     };
-    level?.convert_old_owner(name)
+    level?.convert_old_owner(name.as_lossy_str())
 }
 
 /// `Entity.load`.

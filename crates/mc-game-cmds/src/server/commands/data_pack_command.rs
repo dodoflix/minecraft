@@ -248,10 +248,11 @@ fn create_pack(
         return Err(ERROR_PACK_ALREADY_EXISTS.create(id.to_owned()));
     }
     // `PackMetadataSection.SERVER_TYPE` encode: `min_format`/`max_format` are compact (`121` for `121.0` and `121.*`).
-    let description_json = description
-        .to_json()
-        .map_err(|e| ERROR_PACK_METADATA_ENCODE_FAILURE.create(id.to_owned(), e.0))?;
+    let description_json = description.to_json().map_err(|e| {
+        ERROR_PACK_METADATA_ENCODE_FAILURE.create(id.to_owned(), e.0.into_string_lossy())
+    })?;
     let format = DATA_PACK_FORMAT.major;
+    let description_json = mc_text::json::value_from_element(&description_json);
     let mcmeta = serde_json::json!({"pack": {"description": description_json, "min_format": format, "max_format": format}});
     let written = (|| -> std::io::Result<()> {
         std::fs::create_dir(&pack_dir)?;

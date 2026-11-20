@@ -15,7 +15,7 @@ impl ElementCodec<BiomeId> for TestBiomeCodec {
             .ok_or_else(|| "bad".into())
     }
     fn encode(&self, v: BiomeId) -> Result<Tag, String> {
-        Ok(Tag::String(format!("b{}", v.0)))
+        Ok(Tag::String(format!("b{}", v.0).into()))
     }
 }
 
@@ -191,7 +191,7 @@ fn block_state_properties_are_written_in_vanilla_key_order() {
         .get_compound("properties")
         .expect("properties")
         .keys()
-        .map(String::as_str)
+        .map(|k| k.as_lossy_str())
         .collect();
     assert_eq!(keys, ["waterlogged", "half", "shape", "facing"]);
 }

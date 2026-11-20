@@ -7,6 +7,7 @@ use crate::fixes::references::References;
 use crate::legacy_component_data_fix_utils::create_plain_text_component;
 use crate::schema::Schema;
 use crate::util::{read_typed_or_throw, write_and_read_typed_or_throw};
+use mc_core::java_string::JavaString;
 use mc_dfu::{Dynamic, Ops};
 
 /// `new EntityCustomNameToComponentFix(outputSchema)`.
@@ -29,15 +30,15 @@ pub fn new(output_schema: &Schema) -> DataFix {
                     let Some(custom_name) = entity.get_optional(&custom_name_f) else {
                         return cast(&new_entity_type, entity);
                     };
-                    let custom_name = custom_name.as_str();
-                    if custom_name.is_empty() {
+                    let custom_name = custom_name.into_string();
+                    if custom_name.as_lossy_str().is_empty() {
                         write_and_read_typed_or_throw(&entity, &new_entity_type, |dynamic| {
                             dynamic.remove("CustomName")
                         })
                     } else {
                         let id = entity
                             .get_optional(&id_f)
-                            .map(|id| id.as_str().to_string())
+                            .map(|id| id.as_lossy_str().to_string())
                             .unwrap_or_default();
                         let component = fix_custom_name(*entity.get_ops(), custom_name, &id);
                         entity.set_typed(
@@ -51,7 +52,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
     )
 }
 
-fn fix_custom_name(ops: Ops, custom_name: &str, id: &str) -> Dynamic {
+fn fix_custom_name(ops: Ops, custom_name: JavaString, id: &str) -> Dynamic {
     if id == "minecraft:commandblock_minecart" {
         Dynamic::new(ops, ops.create_string(custom_name))
     } else {

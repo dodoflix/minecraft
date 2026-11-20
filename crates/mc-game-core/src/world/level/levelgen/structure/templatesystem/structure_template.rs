@@ -272,12 +272,14 @@ pub fn read_block_state(tag: &CompoundTag) -> BlockState {
     if let Some(properties) = tag.get_compound("properties") {
         for (key, value) in properties.iter() {
             if let Tag::String(value) = value
-                && let Some(updated) = result.with_property_str(key, value)
+                && let Some(updated) =
+                    result.with_property_str(key.as_lossy_str(), value.as_lossy_str())
             {
                 result = updated;
-            } else if result.get_property_str(key).is_some() {
+            } else if result.get_property_str(key.as_lossy_str()).is_some() {
                 log::warn!(
-                    "Unable to read property: {key} with value: {value:?} for blockstate: {tag:?}"
+                    "Unable to read property: {0} with value: {value:?} for blockstate: {tag:?}",
+                    key.as_lossy_str()
                 );
             }
         }

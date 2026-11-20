@@ -267,7 +267,9 @@ fn show_locate_result(
     ))
     .with_style_fn(|s| {
         s.with_color_formatting(Some(ChatFormatting::Green))
-            .with_click_event(Some(ClickEvent::SuggestCommand(teleport_command.clone())))
+            .with_click_event(Some(ClickEvent::SuggestCommand(
+                teleport_command.clone().into(),
+            )))
             .with_hover_event(Some(HoverEvent::ShowText(Box::new(translatable!(
                 "chat.coordinates.tooltip"
             )))))

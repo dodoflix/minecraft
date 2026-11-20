@@ -20,7 +20,9 @@ pub fn new(output_schema: &Schema) -> DataFix {
             &df.input_schema().get_type(&References::OPTIONS),
             |input| {
                 input.update_remainder(|tag| match tag.get("ao").as_string().result() {
-                    Some(value) => tag.set("ao", tag.create_string(update_value(&value))),
+                    Some(value) => {
+                        tag.set("ao", tag.create_string(update_value(value.as_lossy_str())))
+                    }
                     None => tag,
                 })
             },

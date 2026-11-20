@@ -34,16 +34,16 @@ fn decorate(
         name: Some(Box::new(name.clone())),
     });
     if is_player {
-        let tell = ClickEvent::SuggestCommand(format!("/tell {scoreboard_name} "));
+        let tell = ClickEvent::SuggestCommand(format!("/tell {scoreboard_name} ").into());
         formatted.with_style_fn(|s| {
             s.with_click_event(Some(tell.clone()))
                 .with_hover_event(Some(hover.clone()))
-                .with_insertion(Some(scoreboard_name.to_owned()))
+                .with_insertion(Some(scoreboard_name.to_owned().into()))
         })
     } else {
         formatted.with_style_fn(|s| {
             s.with_hover_event(Some(hover.clone()))
-                .with_insertion(Some(uuid.to_string()))
+                .with_insertion(Some(uuid.to_string().into()))
         })
     }
 }

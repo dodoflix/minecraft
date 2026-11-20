@@ -22,6 +22,7 @@ pub use hash::{crc32c, hash_dyn};
 pub use ops::{HASH, JSON, ListBuilder, MapLike, NBT, Ops, OpsKind, RecordBuilder};
 pub use result::{DataResult, Msg};
 
+use mc_core::java_string::JavaString;
 use mc_nbt::Tag;
 
 /// Parse a value from an NBT tag with `codec`.
@@ -45,7 +46,7 @@ pub fn parse_json<A: 'static>(codec: &Codec<A>, text: &str) -> DataResult<A> {
 }
 
 /// Encode a value to JSON text (Gson compact form) with `codec`.
-pub fn encode_json<A: 'static>(codec: &Codec<A>, value: &A) -> DataResult<String> {
+pub fn encode_json<A: 'static>(codec: &Codec<A>, value: &A) -> DataResult<JavaString> {
     codec.encode_start(&JSON, value).map(|d| d.to_json_string())
 }
 

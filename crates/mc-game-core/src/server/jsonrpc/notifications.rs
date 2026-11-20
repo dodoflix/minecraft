@@ -119,7 +119,7 @@ impl NotificationService for JsonRpcNotificationService {
     fn world_upgrade_failed(&self, reason: &str) {
         self.broadcast(
             "minecraft:notification/world/upgrade_failed",
-            Some(JsonElement::String(reason.to_owned())),
+            Some(JsonElement::String(reason.to_owned().into())),
             true,
         );
     }
@@ -173,7 +173,7 @@ impl NotificationService for JsonRpcNotificationService {
     fn ip_unbanned(&self, ip: &str) {
         self.broadcast(
             "minecraft:notification/ip_bans/removed",
-            Some(JsonElement::String(ip.to_owned())),
+            Some(JsonElement::String(ip.to_owned().into())),
             false,
         );
     }

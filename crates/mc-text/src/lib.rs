@@ -11,6 +11,7 @@ pub mod codec;
 pub mod component;
 pub mod events;
 mod java_util;
+pub mod json;
 pub mod language;
 pub mod legacy;
 pub mod nbt_text;
@@ -39,9 +40,9 @@ pub use style::{FontDescription, Style};
 pub use text_color::TextColor;
 pub use value::Num;
 
+use mc_core::gson::JsonElement;
 use mc_core::ident::Identifier;
 use mc_nbt::Tag;
-use serde_json::Value;
 
 /// `minecraft:<path>` for constant, known-valid paths.
 pub(crate) fn mc_id(path: &str) -> Identifier {
@@ -50,20 +51,20 @@ pub(crate) fn mc_id(path: &str) -> Identifier {
 
 impl Component {
     /// `ComponentSerialization.CODEC.parse(JsonOps.INSTANCE, json)`.
-    pub fn from_json(json: &Value) -> Result<Component, CodecError> {
+    pub fn from_json(json: &JsonElement) -> Result<Component, CodecError> {
         codec::decode_component(json)
     }
 
     /// `ComponentSerialization.CODEC.parse(JsonOps.INSTANCE, json).resultOrPartial(..)`: on failure the error carries
     /// the partial component, when vanilla's codec produces one.
-    pub fn from_json_partial(json: &Value) -> codec::P<Component> {
+    pub fn from_json_partial(json: &JsonElement) -> codec::P<Component> {
         codec::decode_component_partial(json)
     }
 
     /// `ComponentSerialization.CODEC.encodeStart(JsonOps.INSTANCE, self)`. Fails like vanilla for
     /// components that cannot be serialised (e.g. `open_file` click events, sprite fonts).
-    pub fn to_json(&self) -> Result<Value, CodecError> {
-        codec::encode_component::<Value>(self)
+    pub fn to_json(&self) -> Result<JsonElement, CodecError> {
+        codec::encode_component::<JsonElement>(self)
     }
 
     /// `ComponentSerialization.CODEC.parse(NbtOps.INSTANCE, tag)` (the network format).
@@ -89,13 +90,14 @@ impl Component {
 
     /// Parses JSON text (as `/tellraw` etc. would) and decodes it.
     pub fn from_json_str(json: &str) -> Result<Component, CodecError> {
-        let value: Value = serde_json::from_str(json).map_err(|e| CodecError(e.to_string()))?;
+        let value =
+            mc_core::gson::parse_lenient_json_parser(json).map_err(|e| CodecError::new(e.0))?;
         Component::from_json(&value)
     }
 
     /// Compact JSON text of [`Component::to_json`].
     pub fn to_json_string(&self) -> Result<String, CodecError> {
-        Ok(self.to_json()?.to_string())
+        Ok(self.to_json()?.to_compact_string())
     }
 
     /// `ComponentSerialization.flatRestrictedCodec(max_flat_size).parse(NbtOps, tag)`: decoding fails
@@ -109,7 +111,7 @@ impl Component {
             .to_json()
             .is_ok_and(|json| util::encodes_longer_than(&json, max_flat_size))
         {
-            return Err(CodecError(format!(
+            return Err(CodecError::new(format!(
                 "Component was too large: greater than max size {max_flat_size}"
             )));
         }
@@ -118,7 +120,7 @@ impl Component {
 
     /// Same as [`Component::from_nbt_flat_restricted`] for JSON input.
     pub fn from_json_flat_restricted(
-        json: &Value,
+        json: &JsonElement,
         max_flat_size: usize,
     ) -> Result<Component, CodecError> {
         let component = Component::from_json(json)?;
@@ -126,7 +128,7 @@ impl Component {
             .to_json()
             .is_ok_and(|encoded| util::encodes_longer_than(&encoded, max_flat_size))
         {
-            return Err(CodecError(format!(
+            return Err(CodecError::new(format!(
                 "Component was too large: greater than max size {max_flat_size}"
             )));
         }
@@ -136,13 +138,13 @@ impl Component {
 
 impl ClickEvent {
     /// `ClickEvent.CODEC.parse(JsonOps.INSTANCE, json)` (the `action` field selects the event type).
-    pub fn from_json(json: &Value) -> Result<ClickEvent, CodecError> {
+    pub fn from_json(json: &JsonElement) -> Result<ClickEvent, CodecError> {
         codec::decode_click_event(json)
     }
 
     /// `ClickEvent.CODEC.encodeStart(JsonOps.INSTANCE, self)`.
-    pub fn to_json(&self) -> Result<Value, CodecError> {
-        codec::encode_click_event::<Value>(self)
+    pub fn to_json(&self) -> Result<JsonElement, CodecError> {
+        codec::encode_click_event::<JsonElement>(self)
     }
 
     /// `ClickEvent.CODEC.parse(NbtOps.INSTANCE, tag)`.
@@ -158,13 +160,13 @@ impl ClickEvent {
 
 impl Style {
     /// `Style.Serializer.CODEC.parse(JsonOps.INSTANCE, json)`.
-    pub fn from_json(json: &Value) -> Result<Style, CodecError> {
+    pub fn from_json(json: &JsonElement) -> Result<Style, CodecError> {
         codec::decode_style_value(json)
     }
 
     /// `Style.Serializer.CODEC.encodeStart(JsonOps.INSTANCE, self)`.
-    pub fn to_json(&self) -> Result<Value, CodecError> {
-        codec::encode_style_value::<Value>(self)
+    pub fn to_json(&self) -> Result<JsonElement, CodecError> {
+        codec::encode_style_value::<JsonElement>(self)
     }
 
     /// `Style.Serializer.CODEC.parse(NbtOps.INSTANCE, tag)`.

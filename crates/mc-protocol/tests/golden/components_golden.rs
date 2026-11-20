@@ -48,7 +48,7 @@ fn wire(f: impl FnOnce(&mut Vec<u8>) -> mc_protocol::codec::EncodeResult<()>) ->
 
 fn enc_json<A: 'static>(c: &mc_dfu::Codec<A>, v: &A) -> String {
     match c.encode_start(&JSON, v) {
-        DataResult::Success(d) => d.to_json_string(),
+        DataResult::Success(d) => d.to_json_string().into_string_lossy(),
         _ => "ENCERR".into(),
     }
 }

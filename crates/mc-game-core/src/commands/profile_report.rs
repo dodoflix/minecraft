@@ -124,26 +124,29 @@ pub fn report_resolved_profile(
             let entries = vec![
                 click(
                     "commands.fetchprofile.copy_component",
-                    ClickEvent::CopyToClipboard(encoded_profile.clone()),
+                    ClickEvent::CopyToClipboard(encoded_profile.clone().into()),
                 ),
                 click(
                     "commands.fetchprofile.give_item",
-                    ClickEvent::RunCommand(format!(
-                        "give @s minecraft:player_head[profile={encoded_profile}]"
-                    )),
+                    ClickEvent::RunCommand(
+                        format!("give @s minecraft:player_head[profile={encoded_profile}]").into(),
+                    ),
                 ),
                 click(
                     "commands.fetchprofile.summon_mannequin",
-                    ClickEvent::RunCommand(format!(
-                        "summon minecraft:mannequin ~ ~ ~ {{profile:{encoded_profile}}}"
-                    )),
+                    ClickEvent::RunCommand(
+                        format!("summon minecraft:mannequin ~ ~ ~ {{profile:{encoded_profile}}}")
+                            .into(),
+                    ),
                 ),
                 translatable!(
                     "commands.fetchprofile.copy_text",
                     head.clone().with_format(ChatFormatting::White)
                 )
                 .with_style_fn(|s| {
-                    s.with_click_event(Some(ClickEvent::CopyToClipboard(encoded_component.clone())))
+                    s.with_click_event(Some(ClickEvent::CopyToClipboard(
+                        encoded_component.clone().into(),
+                    )))
                 }),
             ];
             let clickable = format_list(entries, &space(), |c| {

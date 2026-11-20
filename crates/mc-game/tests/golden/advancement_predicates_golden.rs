@@ -601,6 +601,7 @@ impl World {
                     mc_dfu::encode_json(codec, &p)
                         .into_result()
                         .expect("encodes")
+                        .as_lossy_str()
                 ));
             }
         }

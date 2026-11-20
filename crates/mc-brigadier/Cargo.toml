@@ -8,5 +8,11 @@ repository.workspace = true
 rust-version.workspace = true
 publish.workspace = true
 
+[dependencies]
+mc-core = { path = "../mc-core" }
+
+[dev-dependencies]
+mc-testkit = { path = "../mc-testkit" }
+
 [lints]
 workspace = true

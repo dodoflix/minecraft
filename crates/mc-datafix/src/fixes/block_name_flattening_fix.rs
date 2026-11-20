@@ -36,7 +36,7 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
                                 Value::str(block_state_data::upgrade_block_id(id.as_int()))
                             }
                             Value::Right(name) => Value::str(block_state_data::upgrade_block(
-                                &ensure_namespaced(name.as_str()),
+                                &ensure_namespaced(name.as_lossy_str()),
                             )),
                             other => panic!("expected an Either, got {other:?}"),
                         })

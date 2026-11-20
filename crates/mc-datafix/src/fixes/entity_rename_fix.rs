@@ -36,9 +36,9 @@ pub fn new(
         let (old_type2, new_type2, fix) = (old_type.clone(), new_type.clone(), fix.clone());
         df.fix_type_everywhere_new(&name, old_type.ty(), new_type.ty(), move |ops, input| {
             let (old_name, old_value) = input.into_named();
-            let cached = patched_input_types.lock().unwrap().get(&old_name).cloned();
+            let cached = patched_input_types.lock().unwrap().get(old_name.as_lossy_str()).cloned();
             let old_entity_type = cached.unwrap_or_else(|| {
-                let ty = old_type2.get(&old_name).unwrap_or_else(|| {
+                let ty = old_type2.get(old_name.as_lossy_str()).unwrap_or_else(|| {
                     panic!(
                         "java.lang.NullPointerException: Cannot invoke \"com.mojang.datafixers.types.Type.all(com.mojang.datafixers.TypeRewriteRule, boolean, boolean)\" because \"type\" is null"
                     )
@@ -47,10 +47,10 @@ pub fn new(
                 patched_input_types
                     .lock()
                     .unwrap()
-                    .insert(old_name.clone(), patched.clone());
+                    .insert(old_name.as_lossy_str().to_owned(), patched.clone());
                 patched
             });
-            let (new_name, new_entity) = fix(&old_name, Typed::new(old_entity_type, *ops, old_value));
+            let (new_name, new_entity) = fix(old_name.as_lossy_str(), Typed::new(old_entity_type, *ops, old_value));
             let expected_type = new_type2
                 .get(&new_name)
                 .unwrap_or_else(|| panic!("{}", null_pointer("expectedType")));

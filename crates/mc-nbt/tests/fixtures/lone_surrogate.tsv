@@ -1,5 +1,5 @@
 nbt_string_write		080000		""	""	0	false
-nbt_key_write		0a000001000001010001610200	a	{"":1b,a:2b}
+nbt_key_write		0a000001000001010001610200	,a	{"":1b,a:2b}
 nbt_list_write		09080000000200000000	["",""]
 nbt_string_write	a	08000161	a	"a"	"a"	97	false
 nbt_key_write	a	0a0000010001610200	a	{a:2b}

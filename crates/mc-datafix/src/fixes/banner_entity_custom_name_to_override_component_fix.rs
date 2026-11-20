@@ -30,7 +30,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
                 &block_entity_type,
                 move |input| {
                     let block_entity_id = input.get(&id_finder);
-                    if block_entity_id.first().as_str() == "minecraft:banner" {
+                    if block_entity_id.first().as_lossy_str() == "minecraft:banner" {
                         fix(input, &text_component_finder, &custom_name_finder)
                     } else {
                         input
@@ -50,10 +50,10 @@ fn fix(
         .get_optional_typed(custom_name_finder)
         .and_then(|name| {
             name.get_optional(text_component_finder)
-                .map(|component| component.second().as_str().to_string())
+                .map(|component| component.second().as_java_string().clone())
         });
     let is_ominous_banner = custom_name
-        .as_deref()
+        .as_ref()
         .and_then(extract_translation_string)
         .is_some_and(|key| key == "block.minecraft.ominous_banner");
     if !is_ominous_banner {

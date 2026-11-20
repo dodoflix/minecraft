@@ -81,7 +81,9 @@ impl PackLocationInfo {
             } else {
                 ChatFormatting::Red
             }))
-            .with_insertion(Some(mc_brigadier::arguments::escape_if_required(&self.id)))
+            .with_insertion(Some(
+                mc_brigadier::arguments::escape_if_required(&self.id).into(),
+            ))
             .with_hover_event(Some(HoverEvent::show_text(hover)))
         })
     }

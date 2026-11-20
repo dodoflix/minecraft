@@ -404,7 +404,7 @@ impl PackMetadataSection {
         let d = o
             .get("description")
             .ok_or_else(|| format!("No key description in MapLike[{}]", compact(whole)))?;
-        Component::from_json(d).map_err(|e| e.to_string())
+        Component::from_json(&mc_text::json::element_from_value(d)).map_err(|e| e.to_string())
     }
 
     /// `PackMetadataSection.forPackType(type)` codec.

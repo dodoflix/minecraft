@@ -1,4 +1,4 @@
-//! The two `DynamicOps` the component codecs run over: `JsonOps` (`serde_json::Value`) and `NbtOps`
+//! The two `DynamicOps` the component codecs run over: `JsonOps` (`mc_core::gson::JsonElement`) and `NbtOps`
 //! (`mc_nbt::Tag`), reduced to what `ComponentSerialization` needs. Quirks that matter for
 //! behaviour parity (verified against the vanilla oracle):
 //!
@@ -9,8 +9,10 @@
 
 use crate::component::TranslatableArg;
 use crate::value::{Num, big_decimal_low_bits};
+use mc_core::gson::{JsonElement, JsonObject};
+use mc_core::java_string::JavaString;
 use mc_nbt::{CompoundTag, ListTag, Tag};
-use serde_json::{Map, Number, Value};
+use serde_json::Number;
 use std::borrow::Cow;
 
 /// A map as seen through `DynamicOps.getMap` (keys are always strings here); `owner` is the value it was read from
@@ -55,7 +57,7 @@ pub enum Prim {
 }
 
 pub trait Ops: Clone + Sized {
-    fn get_string(&self) -> Option<String>;
+    fn get_string(&self) -> Option<JavaString>;
     fn get_bool(&self) -> Option<bool>;
     /// `Codec.INT` (`getNumberValue().intValue()`).
     fn get_int(&self) -> Option<i32>;
@@ -67,11 +69,11 @@ pub trait Ops: Clone + Sized {
     /// `ExtraCodecs.JAVA` + `filterAllowedArguments`: a Number/Boolean/String value.
     fn get_primitive_arg(&self) -> Option<TranslatableArg>;
     /// The value as vanilla prints it into `DataResult` messages (`JsonElement.toString` / the SNBT of `Tag.toString`).
-    fn render(&self) -> String;
+    fn render(&self) -> JavaString;
     /// The `DataResult.error` message of the getter for `what` failing on this value.
     fn not_a(&self, what: Prim) -> crate::codec::CodecError;
 
-    fn create_string(s: &str) -> Self;
+    fn create_string(s: impl Into<JavaString>) -> Self;
     fn create_bool(b: bool) -> Self;
     fn create_int(v: i32) -> Self;
     /// `createIntList` (`Codec.INT_STREAM`).
@@ -96,7 +98,15 @@ pub trait Ops: Clone + Sized {
 // JsonOps
 // ------------------------------------------------------------------------------------------
 
-fn json_int(n: &Number) -> i32 {
+/// The number a Gson `LazilyParsedNumber` of this text stands for.
+fn json_number(text: &str) -> Option<Number> {
+    text.parse::<Number>().ok()
+}
+
+fn json_int(text: &str) -> i32 {
+    let Some(n) = json_number(text) else {
+        return mc_core::gson::lazily_parsed_int_value(text).unwrap_or(0);
+    };
     match (n.as_i64(), n.as_u64()) {
         (Some(l), _) => l as i32,
         (None, Some(u)) => u as i32,
@@ -104,17 +114,17 @@ fn json_int(n: &Number) -> i32 {
     }
 }
 
-impl Ops for Value {
+impl Ops for JsonElement {
     fn normalize_payload(&self, kind: crate::codec::PayloadKind) -> Result<Tag, String> {
         (crate::codec::payload_hooks().from_json)(kind, self)
     }
 
     fn payload_from_tag(kind: crate::codec::PayloadKind, tag: &Tag) -> crate::codec::R<Self> {
-        (crate::codec::payload_hooks().to_json)(kind, tag).map_err(crate::codec::CodecError)
+        (crate::codec::payload_hooks().to_json)(kind, tag).map_err(crate::codec::CodecError::new)
     }
 
-    fn render(&self) -> String {
-        self.to_string()
+    fn render(&self) -> JavaString {
+        self.to_java_string()
     }
 
     fn not_a(&self, what: Prim) -> crate::codec::CodecError {
@@ -125,103 +135,120 @@ impl Ops for Value {
             Prim::List | Prim::Stream => "Not a json array",
             Prim::Map => "Not a JSON object",
         };
-        crate::codec::CodecError(format!("{text}: {self}"))
+        let mut m = JavaString::from(format!("{text}: "));
+        m.push_java(&self.to_java_string());
+        crate::codec::CodecError(m)
     }
 
-    fn get_string(&self) -> Option<String> {
-        self.as_str().map(str::to_owned)
-    }
-
-    fn get_bool(&self) -> Option<bool> {
-        self.as_bool()
-    }
-
-    fn get_int(&self) -> Option<i32> {
-        self.as_number().map(json_int)
-    }
-
-    fn get_float(&self) -> Option<f32> {
-        self.as_number().map(|n| match (n.as_i64(), n.as_u64()) {
-            (Some(l), _) => l as f32,
-            (None, Some(u)) => u as f32,
-            _ => n.as_f64().unwrap_or(0.0) as f32,
-        })
-    }
-
-    fn get_list(&self) -> Option<Vec<Cow<'_, Self>>> {
-        self.as_array()
-            .map(|a| a.iter().map(Cow::Borrowed).collect())
-    }
-
-    fn get_map(&self) -> Option<MapView<'_, Self>> {
-        // JsonOps' MapLike hides JsonNull values.
-        self.as_object().map(|o| {
-            MapView::new(
-                self,
-                o.iter()
-                    .filter(|(_, v)| !v.is_null())
-                    .map(|(k, v)| (k.as_str(), v))
-                    .collect(),
-            )
-        })
-    }
-
-    fn get_primitive_arg(&self) -> Option<TranslatableArg> {
+    fn get_string(&self) -> Option<JavaString> {
         match self {
-            Value::String(s) => Some(TranslatableArg::String(s.clone())),
-            Value::Bool(b) => Some(TranslatableArg::Bool(*b)),
-            Value::Number(n) => Some(TranslatableArg::Number(Num::from_json(n))),
+            JsonElement::String(s) => Some(s.clone()),
             _ => None,
         }
     }
 
-    fn create_string(s: &str) -> Self {
-        Value::String(s.to_owned())
+    fn get_bool(&self) -> Option<bool> {
+        match self {
+            JsonElement::Bool(b) => Some(*b),
+            _ => None,
+        }
+    }
+
+    fn get_int(&self) -> Option<i32> {
+        match self {
+            JsonElement::Number(t) => Some(json_int(t)),
+            _ => None,
+        }
+    }
+
+    fn get_float(&self) -> Option<f32> {
+        let JsonElement::Number(t) = self else {
+            return None;
+        };
+        Some(match json_number(t) {
+            Some(n) => match (n.as_i64(), n.as_u64()) {
+                (Some(l), _) => l as f32,
+                (None, Some(u)) => u as f32,
+                _ => n.as_f64().unwrap_or(0.0) as f32,
+            },
+            None => t.parse::<f32>().unwrap_or(0.0),
+        })
+    }
+
+    fn get_list(&self) -> Option<Vec<Cow<'_, Self>>> {
+        match self {
+            JsonElement::Array(a) => Some(a.iter().map(Cow::Borrowed).collect()),
+            _ => None,
+        }
+    }
+
+    fn get_map(&self) -> Option<MapView<'_, Self>> {
+        // JsonOps' MapLike hides JsonNull values; the field names looked up are ASCII, so the text of a key is enough.
+        let JsonElement::Object(o) = self else {
+            return None;
+        };
+        Some(MapView::new(
+            self,
+            o.iter()
+                .filter(|(_, v)| **v != JsonElement::Null)
+                .map(|(k, v)| (k.as_lossy_str(), v))
+                .collect(),
+        ))
+    }
+
+    fn get_primitive_arg(&self) -> Option<TranslatableArg> {
+        match self {
+            JsonElement::String(s) => Some(TranslatableArg::String(s.clone())),
+            JsonElement::Bool(b) => Some(TranslatableArg::Bool(*b)),
+            JsonElement::Number(t) => Some(TranslatableArg::Number(Num::from_json_text(t))),
+            _ => None,
+        }
+    }
+
+    fn create_string(s: impl Into<JavaString>) -> Self {
+        JsonElement::String(s.into())
     }
     fn create_bool(b: bool) -> Self {
-        Value::Bool(b)
+        JsonElement::Bool(b)
     }
     fn create_int(v: i32) -> Self {
-        Value::from(v)
+        JsonElement::Number(v.to_string())
     }
     fn create_int_list(v: &[i32]) -> Self {
-        Value::Array(v.iter().map(|i| Value::from(*i)).collect())
+        JsonElement::Array(v.iter().map(|i| Self::create_int(*i)).collect())
     }
     fn create_list(items: Vec<Self>) -> Self {
-        Value::Array(items)
+        JsonElement::Array(items)
     }
     fn create_map(entries: Vec<(String, Self)>) -> Self {
-        Value::Object(entries.into_iter().collect::<Map<_, _>>())
+        let mut o = JsonObject::new();
+        for (k, v) in entries {
+            o.add(k, v);
+        }
+        JsonElement::Object(o)
     }
 
     fn create_primitive_arg(arg: &TranslatableArg) -> Option<Self> {
         match arg {
-            TranslatableArg::String(s) => Some(Value::String(s.clone())),
-            TranslatableArg::Bool(b) => Some(Value::Bool(*b)),
-            TranslatableArg::Number(n) => n.to_json_number().map(Value::Number),
+            TranslatableArg::String(s) => Some(JsonElement::String(s.clone())),
+            TranslatableArg::Bool(b) => Some(JsonElement::Bool(*b)),
+            TranslatableArg::Number(n) => n.to_json_text().map(JsonElement::Number),
             TranslatableArg::Component(_) => None,
         }
     }
 
     fn to_tag(&self) -> Tag {
         match self {
-            Value::Null => Tag::End,
-            Value::Bool(b) => Tag::Byte(*b as i8),
-            Value::Number(n) => match Num::from_json(n) {
-                Num::Byte(v) => Tag::Byte(v),
-                Num::Short(v) => Tag::Short(v),
-                Num::Int(v) => Tag::Int(v),
-                Num::Long(v) => Tag::Long(v),
-                Num::Float(v) => Tag::Float(v),
-                Num::Double(v) => Tag::Double(v),
-            },
-            Value::String(s) => Tag::String(s.clone()),
-            Value::Array(a) => Tag::List(ListTag::from(
-                a.iter().map(Value::to_tag).collect::<Vec<_>>(),
+            JsonElement::Null => Tag::End,
+            JsonElement::Bool(b) => Tag::Byte(*b as i8),
+            JsonElement::Number(t) => num_tag(&Num::from_json_text(t)),
+            JsonElement::String(s) => Tag::String(s.clone()),
+            JsonElement::Array(a) => Tag::List(ListTag::from(
+                a.iter().map(JsonElement::to_tag).collect::<Vec<_>>(),
             )),
-            Value::Object(o) => {
+            JsonElement::Object(o) => {
                 let mut c = CompoundTag::new();
-                for (k, v) in o {
+                for (k, v) in o.iter() {
                     c.put(k.clone(), v.to_tag());
                 }
                 Tag::Compound(c)
@@ -230,27 +257,30 @@ impl Ops for Value {
     }
 
     fn from_tag(tag: &Tag) -> Self {
-        let num = |n: Num| n.to_json_number().map_or(Value::Null, Value::Number);
+        let num = |n: Num| {
+            n.to_json_text()
+                .map_or(JsonElement::Null, JsonElement::Number)
+        };
         match tag {
-            Tag::End => Value::Null,
+            Tag::End => JsonElement::Null,
             Tag::Byte(v) => num(Num::Byte(*v)),
             Tag::Short(v) => num(Num::Short(*v)),
             Tag::Int(v) => num(Num::Int(*v)),
             Tag::Long(v) => num(Num::Long(*v)),
             Tag::Float(v) => num(Num::Float(*v)),
             Tag::Double(v) => num(Num::Double(*v)),
-            Tag::ByteArray(a) => Value::Array(a.iter().map(|v| num(Num::Byte(*v))).collect()),
-            Tag::IntArray(a) => Value::Array(a.iter().map(|v| num(Num::Int(*v))).collect()),
-            Tag::LongArray(a) => Value::Array(a.iter().map(|v| num(Num::Long(*v))).collect()),
-            Tag::String(s) => Value::String(s.clone()),
-            Tag::List(l) => Value::Array(l.iter().map(Value::from_tag).collect()),
+            Tag::ByteArray(a) => JsonElement::Array(a.iter().map(|v| num(Num::Byte(*v))).collect()),
+            Tag::IntArray(a) => JsonElement::Array(a.iter().map(|v| num(Num::Int(*v))).collect()),
+            Tag::LongArray(a) => JsonElement::Array(a.iter().map(|v| num(Num::Long(*v))).collect()),
+            Tag::String(s) => JsonElement::String(s.clone()),
+            Tag::List(l) => JsonElement::Array(l.iter().map(JsonElement::from_tag).collect()),
             // CompoundTag is a HashMap in vanilla: JsonOps.convertMap emits keys in Java hash order.
-            Tag::Compound(c) => Value::Object(
+            Tag::Compound(c) => JsonElement::Object(JsonObject::from_distinct_members(
                 c.iter_java_order()
                     .into_iter()
-                    .map(|(k, v)| (k.clone(), Value::from_tag(v)))
+                    .map(|(k, v)| (k.clone(), JsonElement::from_tag(v)))
                     .collect(),
-            ),
+            )),
         }
     }
 }
@@ -290,27 +320,30 @@ impl Ops for Tag {
     fn payload_from_tag(kind: crate::codec::PayloadKind, tag: &Tag) -> crate::codec::R<Self> {
         if crate::codec::is_context_free() {
             return (crate::codec::payload_hooks().expand)(kind, tag)
-                .map_err(crate::codec::CodecError);
+                .map_err(crate::codec::CodecError::new);
         }
         Ok(tag.clone())
     }
 
-    fn render(&self) -> String {
-        self.to_string()
+    fn render(&self) -> JavaString {
+        mc_nbt::snbt::print_compact(self)
     }
 
     fn not_a(&self, what: Prim) -> crate::codec::CodecError {
-        crate::codec::CodecError(match what {
-            Prim::String => "Not a string".to_owned(),
-            Prim::Number | Prim::Boolean => "Not a number".to_owned(),
-            Prim::List => format!("Not a list: {self}"),
-            Prim::Stream => "Not a list".to_owned(),
-            Prim::Map => format!("Not a map: {self}"),
-        })
+        let prefix = match what {
+            Prim::String => return crate::codec::CodecError::new("Not a string"),
+            Prim::Number | Prim::Boolean => return crate::codec::CodecError::new("Not a number"),
+            Prim::List => "Not a list: ",
+            Prim::Stream => return crate::codec::CodecError::new("Not a list"),
+            Prim::Map => "Not a map: ",
+        };
+        let mut m = JavaString::from(prefix);
+        m.push_java(&mc_nbt::snbt::print_compact(self));
+        crate::codec::CodecError(m)
     }
 
-    fn get_string(&self) -> Option<String> {
-        self.as_string().map(str::to_owned)
+    fn get_string(&self) -> Option<JavaString> {
+        self.as_java_string().cloned()
     }
 
     fn get_bool(&self) -> Option<bool> {
@@ -345,7 +378,7 @@ impl Ops for Tag {
 
     fn get_map(&self) -> Option<MapView<'_, Self>> {
         self.as_compound()
-            .map(|c| MapView::new(self, c.iter().map(|(k, v)| (k.as_str(), v)).collect()))
+            .map(|c| MapView::new(self, c.iter().map(|(k, v)| (k.as_lossy_str(), v)).collect()))
     }
 
     fn get_primitive_arg(&self) -> Option<TranslatableArg> {
@@ -355,8 +388,8 @@ impl Ops for Tag {
         }
     }
 
-    fn create_string(s: &str) -> Self {
-        Tag::String(s.to_owned())
+    fn create_string(s: impl Into<JavaString>) -> Self {
+        Tag::String(s.into())
     }
     fn create_bool(b: bool) -> Self {
         Tag::Byte(b as i8)

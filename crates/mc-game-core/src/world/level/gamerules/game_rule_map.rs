@@ -130,7 +130,7 @@ impl GameRuleMap {
         let mut map = GameRuleMap::of_empty();
         let mut errors = Vec::new();
         for (key, value) in m.iter() {
-            let result = Identifier::read(key)
+            let result = Identifier::read(key.as_lossy_str())
                 .and_then(|id| {
                     AnyGameRule::by_identifier(&id)
                         .ok_or_else(|| format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:game_rule]: {id}"))

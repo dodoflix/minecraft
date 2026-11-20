@@ -141,7 +141,7 @@ fn extract_and_store_legacy_structure_data(
             match level_data
                 .get("generatorName")
                 .as_string_or("buffet")
-                .as_str()
+                .as_lossy_str()
             {
                 "flat" => "minecraft:flat",
                 "debug_all_block_states" => "minecraft:debug",
@@ -184,7 +184,7 @@ fn extract_legacy_structure_data(
                 .get("id")
                 .as_string()
                 .result()
-                .and_then(|id| legacy_to_current(&id))
+                .and_then(|id| legacy_to_current(id.as_lossy_str()))
         {
             value = value.set("id", value.create_string(id));
         }
@@ -192,7 +192,7 @@ fn extract_legacy_structure_data(
             extracted
                 .entry(pos)
                 .or_insert_with(LegacyStructureData::new)
-                .add_start(id.clone(), value);
+                .add_start(id.as_lossy_str().to_owned(), value);
             let (x, z) = (ChunkPos::get_x(pos), ChunkPos::get_z(pos));
             // int arithmetic of Java: wraps (and then loops zero times) at the ends of the range
             let range =
@@ -202,7 +202,7 @@ fn extract_legacy_structure_data(
                     extracted
                         .entry(ChunkPos::pack_xz(neighbor_x, neighbor_z))
                         .or_insert_with(LegacyStructureData::new)
-                        .add_index(&id, pos);
+                        .add_index(id.as_lossy_str(), pos);
                 }
             }
         }

@@ -136,7 +136,7 @@ fn flat_settings(
         .and_then(|b| biome::holder_schema().convert(b, ctx).ok());
     out.put(
         "biome",
-        biome.unwrap_or_else(|| Tag::String("minecraft:plains".to_owned())),
+        biome.unwrap_or_else(|| Tag::String("minecraft:plains".to_owned().into())),
     );
     Ok(Tag::Compound(out))
 }
@@ -197,7 +197,7 @@ pub fn flat_generator_tag(
 ) -> Result<Tag, String> {
     let mut generator = CompoundTag::new();
     generator.put("settings", flat_settings(settings, ctx, validate_height)?);
-    generator.put("type", Tag::String("minecraft:flat".to_owned()));
+    generator.put("type", Tag::String("minecraft:flat".to_owned().into()));
     Ok(Tag::Compound(generator))
 }
 

@@ -51,7 +51,9 @@ pub fn new(output_schema: &Schema) -> DataFix {
                                 let renamed = key
                                     .as_string()
                                     .result()
-                                    .and_then(|k| rename(&k).map(|to| key.create_string(to)))
+                                    .and_then(|k| {
+                                        rename(k.as_lossy_str()).map(|to| key.create_string(to))
+                                    })
                                     .unwrap_or(key);
                                 (renamed, value)
                             })

@@ -1,6 +1,7 @@
 //! `net.minecraft.nbt.Tag` and the numeric-tag value semantics.
 
 use crate::{CompoundTag, ListTag};
+use mc_core::java_string::JavaString;
 use std::fmt;
 
 pub const TAG_END: u8 = 0;
@@ -31,7 +32,7 @@ pub enum Tag {
     Float(f32),
     Double(f64),
     ByteArray(Vec<i8>),
-    String(String),
+    String(JavaString),
     List(ListTag),
     Compound(CompoundTag),
     IntArray(Vec<i32>),
@@ -271,7 +272,7 @@ impl Tag {
             Tag::Int(_) | Tag::Float(_) => 12,
             Tag::Long(_) | Tag::Double(_) => 16,
             Tag::ByteArray(v) => 24 + v.len() as i32,
-            Tag::String(s) => 36 + 2 * s.encode_utf16().count() as i32,
+            Tag::String(s) => 36 + 2 * s.utf16_len() as i32,
             Tag::List(l) => l.size_in_bytes(),
             Tag::Compound(c) => c.size_in_bytes(),
             Tag::IntArray(v) => 24 + 4 * v.len() as i32,
@@ -323,7 +324,15 @@ impl Tag {
         self.as_number().map(Number::boolean_value)
     }
 
+    /// The text of a string tag, each lone surrogate shown as U+FFFD.
     pub fn as_string(&self) -> Option<&str> {
+        match self {
+            Tag::String(s) => Some(s.as_lossy_str()),
+            _ => None,
+        }
+    }
+    /// The exact string of a string tag, lone surrogates included.
+    pub fn as_java_string(&self) -> Option<&JavaString> {
         match self {
             Tag::String(s) => Some(s),
             _ => None,
@@ -391,7 +400,7 @@ impl Tag {
 /// Compact SNBT (`Tag.toString()` / `StringTagVisitor`).
 impl fmt::Display for Tag {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.write_str(&crate::snbt::print_compact(self))
+        f.write_str(crate::snbt::print_compact(self).as_lossy_str())
     }
 }
 
@@ -402,7 +411,7 @@ macro_rules! tag_from {
         }
     )*};
 }
-tag_from!(i8 => Byte, i16 => Short, i32 => Int, i64 => Long, String => String, &str => String,
+tag_from!(i8 => Byte, i16 => Short, i32 => Int, i64 => Long, String => String, &str => String, JavaString => String,
     ListTag => List, CompoundTag => Compound);
 
 impl From<f32> for Tag {

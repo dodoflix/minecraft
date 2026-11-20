@@ -12,18 +12,35 @@ use crate::java_util::{validate_chat_string, validate_untrusted_uri};
 use crate::ops::{MapView, Ops, Prim, map_get};
 use crate::style::{FontDescription, Style};
 use crate::text_color::TextColor;
+use mc_core::gson::JsonElement;
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_nbt::Tag;
 use std::fmt;
 use std::sync::RwLock;
 
 /// A `DataResult.error` message.
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub struct CodecError(pub String);
+pub struct CodecError(pub JavaString);
 
+impl CodecError {
+    pub fn new(message: impl Into<JavaString>) -> Self {
+        CodecError(message.into())
+    }
+
+    /// `"{first}; {second}"` (`DataResult` joins the messages of the parts of a record).
+    fn joined(first: &JavaString, second: &JavaString) -> Self {
+        let mut m = first.clone();
+        m.push_str("; ");
+        m.push_java(second);
+        CodecError(m)
+    }
+}
+
+/// The message with each lone surrogate shown as U+FFFD; use the field for the exact message.
 impl fmt::Display for CodecError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.write_str(&self.0)
+        f.write_str(self.0.as_lossy_str())
     }
 }
 
@@ -31,7 +48,7 @@ impl std::error::Error for CodecError {}
 
 impl From<String> for CodecError {
     fn from(s: String) -> Self {
-        CodecError(s)
+        CodecError::new(s)
     }
 }
 
@@ -94,7 +111,7 @@ impl<T> IntoP for P<T> {
 /// builder nests them), and the result keeps a partial value only when every field has a value or a partial value.
 #[derive(Default)]
 struct Record {
-    error: Option<String>,
+    error: Option<JavaString>,
     lost: bool,
 }
 
@@ -104,7 +121,7 @@ impl Record {
             Ok(v) => Some(v),
             Err(p) => {
                 self.error = Some(match self.error.take() {
-                    Some(e) => format!("{}; {e}", p.error.0),
+                    Some(e) => CodecError::joined(&p.error.0, &e).0,
                     None => p.error.0,
                 });
                 self.lost |= p.value.is_none();
@@ -118,7 +135,7 @@ impl Record {
         match self.error {
             None => Ok(make().expect("every field of a successful record has a value")),
             Some(error) => Err(Box::new(Partial {
-                error: CodecError(error),
+                error: CodecError::new(error),
                 value: if self.lost { None } else { make() },
             })),
         }
@@ -130,13 +147,13 @@ impl Record {
 fn decode_list_partial<O: Ops, E>(v: &O, f: impl Fn(&O) -> P<E>) -> P<Vec<E>> {
     let items = v.get_list().ok_or_else(|| v.not_a(Prim::List))?;
     let mut elements = Vec::with_capacity(items.len());
-    let mut error: Option<String> = None;
+    let mut error: Option<JavaString> = None;
     for item in &items {
         let value = match f(item.as_ref()) {
             Ok(e) => Some(e),
             Err(p) => {
                 error = Some(match error.take() {
-                    Some(e) => format!("{}; {e}", p.error.0),
+                    Some(e) => CodecError::joined(&p.error.0, &e).0,
                     None => p.error.0,
                 });
                 p.value
@@ -147,14 +164,14 @@ fn decode_list_partial<O: Ops, E>(v: &O, f: impl Fn(&O) -> P<E>) -> P<Vec<E>> {
     match error {
         None => Ok(elements),
         Some(error) => Err(Box::new(Partial {
-            error: CodecError(error),
+            error: CodecError::new(error),
             value: Some(elements),
         })),
     }
 }
 
-pub(crate) fn err<T>(msg: impl Into<String>) -> R<T> {
-    Err(CodecError(msg.into()))
+pub(crate) fn err<T>(msg: impl Into<JavaString>) -> R<T> {
+    Err(CodecError::new(msg.into()))
 }
 
 /// Registry/command-dependent validation the codecs perform in vanilla but which needs data owned
@@ -220,9 +237,9 @@ pub enum PayloadKind {
 /// `mc_protocol::components::install_text_hooks`.
 #[derive(Clone, Copy)]
 pub struct PayloadHooks {
-    pub from_json: fn(PayloadKind, &serde_json::Value) -> Result<Tag, String>,
+    pub from_json: fn(PayloadKind, &JsonElement) -> Result<Tag, String>,
     pub from_nbt: fn(PayloadKind, &Tag) -> Result<Tag, String>,
-    pub to_json: fn(PayloadKind, &Tag) -> Result<serde_json::Value, String>,
+    pub to_json: fn(PayloadKind, &Tag) -> Result<JsonElement, String>,
     /// The stored NBT as written by a *context-free* NbtOps (no registry access: a registry reference is encoded as the
     /// referenced element itself, see [`with_context_free`]).
     pub expand: fn(PayloadKind, &Tag) -> Result<Tag, String>,
@@ -231,9 +248,9 @@ pub struct PayloadHooks {
 impl Default for PayloadHooks {
     fn default() -> Self {
         PayloadHooks {
-            from_json: |_, v| Ok(<serde_json::Value as Ops>::to_tag(v)),
+            from_json: |_, v| Ok(<JsonElement as Ops>::to_tag(v)),
             from_nbt: |_, t| Ok(t.clone()),
-            to_json: |_, t| Ok(<serde_json::Value as Ops>::from_tag(t)),
+            to_json: |_, t| Ok(<JsonElement as Ops>::from_tag(t)),
             expand: |_, t| Ok(t.clone()),
         }
     }
@@ -278,8 +295,12 @@ pub(crate) fn payload_hooks() -> PayloadHooks {
 // ------------------------------------------------------------------------------------------
 
 pub(crate) fn req<'a, O: Ops>(map: &MapView<'a, O>, key: &str) -> R<&'a O> {
-    map_get(map, key)
-        .ok_or_else(|| CodecError(format!("No key {key} in MapLike[{}]", map.owner().render())))
+    map_get(map, key).ok_or_else(|| {
+        let mut m = JavaString::from(format!("No key {key} in MapLike["));
+        m.push_java(&map.owner().render());
+        m.push(']');
+        CodecError(m)
+    })
 }
 
 /// `optionalFieldOf`: absent -> `None`; present but invalid -> error.
@@ -322,7 +343,11 @@ fn lenient<'a, O: Ops, T>(
     map_get(map, key).and_then(|v| f(v).ok())
 }
 
+/// A string value; each lone surrogate shows as U+FFFD (see [`java_string`] for the exact string).
 pub(crate) fn string<O: Ops>(v: &O) -> R<String> {
+    java_string(v).map(JavaString::into_string_lossy)
+}
+pub(crate) fn java_string<O: Ops>(v: &O) -> R<JavaString> {
     v.get_string().ok_or_else(|| v.not_a(Prim::String))
 }
 fn boolean<O: Ops>(v: &O) -> R<bool> {
@@ -332,7 +357,36 @@ fn int<O: Ops>(v: &O) -> R<i32> {
     v.get_int().ok_or_else(|| v.not_a(Prim::Number))
 }
 pub(crate) fn identifier<O: Ops>(v: &O) -> R<Identifier> {
-    Identifier::read(&string(v)?).map_err(CodecError)
+    read_identifier(&java_string(v)?)
+}
+
+/// `Identifier.read(String)`. A lone surrogate is never valid in an identifier; the message shows it raw in the input
+/// and as its own `\uXXXX` escape in the exception text.
+fn read_identifier(input: &JavaString) -> R<Identifier> {
+    let text = input.as_lossy_str();
+    let Err(e) = Identifier::parse(text) else {
+        return Identifier::read(text).map_err(CodecError::new);
+    };
+    // the units shown as U+FFFD in the text, in order
+    let mut shown = char::decode_utf16(input.encode_utf16())
+        .filter_map(|r| match r {
+            Ok('\u{fffd}') => Some(0xFFFD),
+            Ok(_) => None,
+            Err(e) => Some(e.unpaired_surrogate()),
+        })
+        .collect::<Vec<u16>>()
+        .into_iter();
+    let mut detail = String::new();
+    for (i, piece) in e.0.split("\\uFFFD").enumerate() {
+        if i > 0 {
+            detail.push_str(&format!("\\u{:04X}", shown.next().unwrap_or(0xFFFD)));
+        }
+        detail.push_str(piece);
+    }
+    let mut m = JavaString::from("Not a valid resource location: ");
+    m.push_java(input);
+    m.push_str(&format!(" {detail}"));
+    Err(CodecError(m))
 }
 pub(crate) fn map_of<O: Ops>(v: &O) -> R<MapView<'_, O>> {
     v.get_map().ok_or_else(|| v.not_a(Prim::Map))
@@ -379,18 +433,20 @@ pub fn decode_component_partial<O: Ops>(v: &O) -> P<Component> {
 
 /// `Codec.either` decode when neither side parsed and neither has a partial result.
 fn either_error(first: &CodecError, second: &CodecError) -> CodecError {
-    CodecError(format!(
-        "Failed to parse either. First: {first}; Second: {second}"
-    ))
+    let mut m = JavaString::from("Failed to parse either. First: ");
+    m.push_java(&first.0);
+    m.push_str("; Second: ");
+    m.push_java(&second.0);
+    CodecError(m)
 }
 
 /// `ExtraCodecs.nonEmptyList(topSerializer.listOf())`.
 fn decode_component_list<O: Ops>(v: &O) -> P<Vec<Component>> {
     match decode_list_partial(v, decode_component_partial) {
-        Ok(list) if list.is_empty() => Err(CodecError("List must have contents".into()).into()),
+        Ok(list) if list.is_empty() => Err(CodecError::new("List must have contents").into()),
         // `validate` runs on the partial value too and appends its own message
         Err(p) if p.value.as_ref().is_some_and(Vec::is_empty) => {
-            Err(CodecError(format!("{}; List must have contents", p.error)).into())
+            Err(CodecError::joined(&p.error.0, &"List must have contents".into()).into())
         }
         r => r,
     }
@@ -425,7 +481,7 @@ fn decode_full<O: Ops>(v: &O) -> P<Component> {
 
 /// `ComponentSerialization.CODEC.encodeStart`.
 pub fn encode_component<O: Ops>(c: &Component) -> R<O> {
-    if let Some(text) = c.try_collapse_to_string() {
+    if let Some(text) = c.try_collapse_to_java_string() {
         return Ok(O::create_string(text));
     }
     let mut fields = Vec::new();
@@ -464,14 +520,14 @@ const CONTENT_TYPES: [&str; 7] = [
 
 fn decode_contents_of_type<O: Ops>(ty: &str, map: &MapView<'_, O>) -> P<ComponentContents> {
     Ok(match ty {
-        "text" => ComponentContents::Literal(string(req(map, "text")?)?),
+        "text" => ComponentContents::Literal(java_string(req(map, "text")?)?),
         "translatable" => return decode_translatable(map),
-        "keybind" => ComponentContents::Keybind(string(req(map, "keybind")?)?),
+        "keybind" => ComponentContents::Keybind(java_string(req(map, "keybind")?)?),
         "score" => return decode_score(map),
         "selector" => return decode_selector(map),
         "nbt" => return decode_nbt(map),
         "object" => return decode_object(map),
-        _ => return Err(CodecError(format!("Unknown element id: {ty}")).into()),
+        _ => return Err(CodecError::new(format!("Unknown element id: {ty}")).into()),
     })
 }
 
@@ -484,13 +540,13 @@ fn decode_contents<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
     CONTENT_TYPES
         .into_iter()
         .find_map(|ty| decode_contents_of_type(ty, map).ok())
-        .ok_or_else(|| CodecError("No matching codec found".into()).into())
+        .ok_or_else(|| CodecError::new("No matching codec found").into())
 }
 
 fn decode_translatable<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
     let mut record = Record::default();
     let key = record.take(req(map, "translate").and_then(string));
-    let fallback = lenient(map, "fallback", string);
+    let fallback = lenient(map, "fallback", java_string);
     let args = record
         .take(opt_p(map, "with", |w| decode_list_partial(w, decode_arg)))
         .flatten()
@@ -510,15 +566,15 @@ fn decode_arg<O: Ops>(v: &O) -> P<TranslatableArg> {
         return Ok(p);
     }
     map_p(decode_component_partial(v), |c| {
-        match c.try_collapse_to_string() {
-            Some(s) => TranslatableArg::String(s.to_owned()),
+        match c.try_collapse_to_java_string() {
+            Some(s) => TranslatableArg::String(s.clone()),
             None => TranslatableArg::Component(c),
         }
     })
 }
 
 fn decode_selector_string(s: String) -> R<String> {
-    (validators().entity_selector)(&s).map_err(CodecError)?;
+    (validators().entity_selector)(&s).map_err(CodecError::new)?;
     Ok(s)
 }
 
@@ -565,7 +621,7 @@ fn decode_data_source_of_type<O: Ops>(ty: &str, map: &MapView<'_, O>) -> R<DataS
         )?)?)?)),
         "block" => {
             let s = string(req(map, "block")?)?;
-            (validators().block_coordinates)(&s).map_err(CodecError)?;
+            (validators().block_coordinates)(&s).map_err(CodecError::new)?;
             Ok(DataSource::Block(s))
         }
         "storage" => Ok(DataSource::Storage(identifier(req(map, "storage")?)?)),
@@ -589,7 +645,7 @@ fn decode_nbt<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
     let mut record = Record::default();
     let nbt_path = record.take(req(map, "nbt").and_then(|v| {
         let path = string(v)?;
-        (validators().nbt_path)(&path).map_err(CodecError)?;
+        (validators().nbt_path)(&path).map_err(CodecError::new)?;
         Ok(path)
     }));
     let interpreting = lenient(map, "interpret", boolean).unwrap_or(false);
@@ -606,7 +662,7 @@ fn decode_nbt<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
         }))
     })?;
     if interpreting && plain {
-        return Err(CodecError("'interpret' and 'plain' flags can't be both on".into()).into());
+        return Err(CodecError::new("'interpret' and 'plain' flags can't be both on").into());
     }
     Ok(contents)
 }
@@ -640,7 +696,7 @@ fn decode_object_info_of_type<O: Ops>(ty: &str, map: &MapView<'_, O>) -> P<Objec
                 })
             })
         }
-        _ => Err(CodecError(format!("Unknown element id: {ty}")).into()),
+        _ => Err(CodecError::new(format!("Unknown element id: {ty}")).into()),
     }
 }
 
@@ -653,7 +709,7 @@ fn decode_object<O: Ops>(map: &MapView<'_, O>) -> P<ComponentContents> {
         None => ["atlas", "player"]
             .into_iter()
             .find_map(|ty| decode_object_info_of_type(ty, map).ok())
-            .ok_or_else(|| CodecError("No matching codec found".into()).into()),
+            .ok_or_else(|| CodecError::new("No matching codec found").into()),
     };
     let contents = record.take(info);
     let fallback = record
@@ -718,16 +774,16 @@ fn encode_contents<O: Ops>(c: &ComponentContents, f: &mut Fields<O>) -> R<()> {
             match &n.data_source {
                 DataSource::Entity(s) => push(f, "entity", O::create_string(s)),
                 DataSource::Block(s) => push(f, "block", O::create_string(s)),
-                DataSource::Storage(id) => push(f, "storage", O::create_string(&id.to_string())),
+                DataSource::Storage(id) => push(f, "storage", O::create_string(id.to_string())),
             }
         }
         ComponentContents::Object(o) => {
             match &o.contents {
                 ObjectInfo::AtlasSprite { atlas, sprite } => {
                     if *atlas != ObjectInfo::default_atlas() {
-                        push(f, "atlas", O::create_string(&atlas.to_string()));
+                        push(f, "atlas", O::create_string(atlas.to_string()));
                     }
-                    push(f, "sprite", O::create_string(&sprite.to_string()));
+                    push(f, "sprite", O::create_string(sprite.to_string()));
                 }
                 ObjectInfo::PlayerSprite { player, hat } => {
                     push(f, "player", crate::profile::encode_profile::<O>(player));
@@ -748,7 +804,7 @@ fn encode_arg<O: Ops>(arg: &TranslatableArg) -> R<O> {
     match arg {
         TranslatableArg::Component(c) => encode_component::<O>(c),
         other => O::create_primitive_arg(other)
-            .ok_or_else(|| CodecError("Unencodable translation argument".into())),
+            .ok_or_else(|| CodecError::new("Unencodable translation argument")),
     }
 }
 
@@ -789,7 +845,7 @@ pub(crate) fn decode_style<O: Ops>(map: &MapView<'_, O>) -> P<Style> {
     let mut record = Record::default();
     let color = record
         .take(opt_p(map, "color", |v| {
-            TextColor::parse_color(&string(v)?).map_err(CodecError)
+            TextColor::parse_color(&string(v)?).map_err(CodecError::new)
         }))
         .flatten();
     let shadow_color = record
@@ -806,7 +862,7 @@ pub(crate) fn decode_style<O: Ops>(map: &MapView<'_, O>) -> P<Style> {
     let hover_event = record
         .take(opt_p(map, "hover_event", |v| decode_hover_event(v)))
         .flatten();
-    let insertion = record.take(opt_p(map, "insertion", string)).flatten();
+    let insertion = record.take(opt_p(map, "insertion", java_string)).flatten();
     let font = record
         .take(opt_p(map, "font", |v| {
             identifier(v).map(FontDescription::Resource)
@@ -843,7 +899,7 @@ pub fn encode_style_value<O: Ops>(s: &Style) -> R<O> {
 
 pub(crate) fn encode_style_fields<O: Ops>(s: &Style, f: &mut Fields<O>) -> R<()> {
     if let Some(c) = s.color() {
-        push(f, "color", O::create_string(&c.serialize()));
+        push(f, "color", O::create_string(c.serialize()));
     }
     if let Some(c) = s.shadow_color() {
         push(f, "shadow_color", O::create_int(c));
@@ -870,7 +926,7 @@ pub(crate) fn encode_style_fields<O: Ops>(s: &Style, f: &mut Fields<O>) -> R<()>
     }
     if let Some(font) = s.font_opt() {
         match font {
-            FontDescription::Resource(id) => push(f, "font", O::create_string(&id.to_string())),
+            FontDescription::Resource(id) => push(f, "font", O::create_string(id.to_string())),
             other => return err(format!("Unsupported font description type: {other:?}")),
         }
     }
@@ -891,7 +947,7 @@ pub(crate) fn decode_click_event<O: Ops>(v: &O) -> R<ClickEvent> {
     let action = ClickAction::ALL
         .into_iter()
         .find(|a| a.serialized_name() == name)
-        .ok_or_else(|| CodecError(format!("Unknown element name:{name}")))?;
+        .ok_or_else(|| CodecError::new(format!("Unknown element name:{name}")))?;
     if !action.is_allowed_from_server() {
         return err(format!(
             "Click event type not allowed: {}",
@@ -901,7 +957,7 @@ pub(crate) fn decode_click_event<O: Ops>(v: &O) -> R<ClickEvent> {
     Ok(match action {
         ClickAction::OpenUrl => {
             let url = string(req(&map, "url")?)?;
-            validate_untrusted_uri(&url).map_err(CodecError)?;
+            validate_untrusted_uri(&url).map_err(CodecError::new)?;
             ClickEvent::OpenUrl(url)
         }
         ClickAction::OpenFile => unreachable!("rejected above"),
@@ -915,7 +971,7 @@ pub(crate) fn decode_click_event<O: Ops>(v: &O) -> R<ClickEvent> {
         ClickAction::ShowDialog => ClickEvent::ShowDialog(
             req(&map, "dialog")?
                 .normalize_payload(PayloadKind::Dialog)
-                .map_err(CodecError)?,
+                .map_err(CodecError::new)?,
         ),
         ClickAction::ChangePage => {
             let page = int(req(&map, "page")?)?;
@@ -924,7 +980,9 @@ pub(crate) fn decode_click_event<O: Ops>(v: &O) -> R<ClickEvent> {
             }
             ClickEvent::ChangePage(page)
         }
-        ClickAction::CopyToClipboard => ClickEvent::CopyToClipboard(string(req(&map, "value")?)?),
+        ClickAction::CopyToClipboard => {
+            ClickEvent::CopyToClipboard(java_string(req(&map, "value")?)?)
+        }
         ClickAction::Custom => {
             let id = identifier(req(&map, "id")?)?;
             let payload = opt(&map, "payload", |p| Ok::<_, CodecError>(p.to_tag()))?;
@@ -933,9 +991,9 @@ pub(crate) fn decode_click_event<O: Ops>(v: &O) -> R<ClickEvent> {
     })
 }
 
-fn decode_chat_string<O: Ops>(v: &O) -> R<String> {
-    let s = string(v)?;
-    validate_chat_string(&s).map_err(CodecError)?;
+fn decode_chat_string<O: Ops>(v: &O) -> R<JavaString> {
+    let s = java_string(v)?;
+    validate_chat_string(&s).map_err(CodecError::new)?;
     Ok(s)
 }
 
@@ -945,7 +1003,7 @@ pub(crate) fn encode_click_event<O: Ops>(c: &ClickEvent) -> R<O> {
         ClickEvent::OpenUrl(u) => push(&mut f, "url", O::create_string(u)),
         ClickEvent::OpenFile(_) => return err("Click event type not allowed: OPEN_FILE"),
         ClickEvent::RunCommand(s) | ClickEvent::SuggestCommand(s) => {
-            validate_chat_string(s).map_err(CodecError)?;
+            validate_chat_string(s).map_err(CodecError::new)?;
             push(&mut f, "command", O::create_string(s));
         }
         ClickEvent::ShowDialog(d) => push(
@@ -961,7 +1019,7 @@ pub(crate) fn encode_click_event<O: Ops>(c: &ClickEvent) -> R<O> {
         }
         ClickEvent::CopyToClipboard(s) => push(&mut f, "value", O::create_string(s)),
         ClickEvent::Custom { id, payload } => {
-            push(&mut f, "id", O::create_string(&id.to_string()));
+            push(&mut f, "id", O::create_string(id.to_string()));
             if let Some(p) = payload {
                 push(&mut f, "payload", O::from_tag(p));
             }
@@ -985,7 +1043,7 @@ fn decode_uuid<O: Ops>(v: &O) -> R<u128> {
         .and_then(|s| {
             mc_core::uuid_util::uuid_from_string(&s)
                 .map(|u| u.as_u128())
-                .map_err(|e| CodecError(format!("Invalid UUID {s}: {e}")))
+                .map_err(|e| CodecError::new(format!("Invalid UUID {s}: {e}")))
         })
         .map_err(|second| either_error(&first, &second))
 }
@@ -1022,7 +1080,7 @@ fn decode_hover_event<O: Ops>(v: &O) -> P<HoverEvent> {
                         return Err(c.not_a(Prim::Map));
                     }
                     c.normalize_payload(PayloadKind::ItemComponents)
-                        .map_err(CodecError)
+                        .map_err(CodecError::new)
                 }))
                 .flatten()
                 .filter(|t| !matches!(t, Tag::Compound(c) if c.is_empty()));
@@ -1058,7 +1116,7 @@ fn decode_hover_event<O: Ops>(v: &O) -> P<HoverEvent> {
                 }))
             })
         }
-        _ => Err(CodecError(format!("Unknown element name:{name}")).into()),
+        _ => Err(CodecError::new(format!("Unknown element name:{name}")).into()),
     }
 }
 
@@ -1067,7 +1125,7 @@ fn encode_hover_event<O: Ops>(h: &HoverEvent) -> R<O> {
     match h {
         HoverEvent::ShowText(c) => push(&mut f, "value", encode_component::<O>(c)?),
         HoverEvent::ShowItem(i) => {
-            push(&mut f, "id", O::create_string(&i.id.to_string()));
+            push(&mut f, "id", O::create_string(i.id.to_string()));
             if i.count != 1 {
                 if !(1..=99).contains(&i.count) {
                     return err(format!("Value must be within range [1;99]: {}", i.count));
@@ -1083,7 +1141,7 @@ fn encode_hover_event<O: Ops>(h: &HoverEvent) -> R<O> {
             }
         }
         HoverEvent::ShowEntity(e) => {
-            push(&mut f, "id", O::create_string(&e.entity_type.to_string()));
+            push(&mut f, "id", O::create_string(e.entity_type.to_string()));
             push(
                 &mut f,
                 "uuid",

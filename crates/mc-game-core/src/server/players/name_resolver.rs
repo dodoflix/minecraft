@@ -214,14 +214,14 @@ fn read_game_profile(json: &JsonElement) -> Option<GameProfileInfo> {
     let object = json.as_object()?;
     let name_and_id = NameAndId::from_json(object).ok()??;
     let date_string = object.get("expiresOn")?.as_string().ok()?;
-    match parse_date(&date_string) {
+    match parse_date(date_string.as_lossy_str()) {
         Some(expiration_date) => Some(GameProfileInfo {
             name_and_id,
             expiration_date,
             last_access: AtomicU64::new(0),
         }),
         None => {
-            log::warn!("Failed to parse date {date_string}");
+            log::warn!("Failed to parse date {0}", date_string.as_lossy_str());
             None
         }
     }

@@ -46,6 +46,14 @@ impl Num {
         }
     }
 
+    /// [`Num::from_json`] of the number text of a Gson `JsonPrimitive`.
+    pub fn from_json_text(text: &str) -> Num {
+        match text.parse::<Number>() {
+            Ok(n) => Num::from_json(&n),
+            Err(_) => Num::Double(text.parse::<f64>().unwrap_or(0.0)),
+        }
+    }
+
     /// `Number.intValue()`.
     pub fn int_value(&self) -> i32 {
         match self {
@@ -70,17 +78,13 @@ impl Num {
         }
     }
 
-    /// The JSON number for this value (`JsonPrimitive(Number)`); `None` for NaN/infinity.
-    pub fn to_json_number(&self) -> Option<Number> {
-        Some(match self {
-            Num::Byte(v) => Number::from(*v),
-            Num::Short(v) => Number::from(*v),
-            Num::Int(v) => Number::from(*v),
-            Num::Long(v) => Number::from(*v),
-            // Gson prints `Float.toString`; parse that so `0.1f` becomes 0.1 and not 0.10000000149011612.
-            Num::Float(v) => Number::from_f64(java_float_to_string(*v).parse::<f64>().ok()?)?,
-            Num::Double(v) => Number::from_f64(*v)?,
-        })
+    /// The text Gson writes for this number (`Number.toString()`); `None` for NaN and infinity, which it rejects.
+    pub fn to_json_text(&self) -> Option<String> {
+        match self {
+            Num::Float(v) if !v.is_finite() => None,
+            Num::Double(v) if !v.is_finite() => None,
+            n => Some(n.to_string()),
+        }
     }
 }
 

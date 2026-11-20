@@ -51,7 +51,7 @@ fn snbt_matches_vanilla() {
                 if snbt::print_compact(tag) != compact {
                     problems.push(format!(
                         "compact: got {} want {}",
-                        snbt::print_compact(tag),
+                        snbt::print_compact(tag).as_lossy_str(),
                         compact
                     ));
                 }

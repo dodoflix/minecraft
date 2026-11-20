@@ -23,7 +23,7 @@ pub fn new(
         move |id| id == block_id,
         move |_, properties| {
             properties.rename_and_fix_field(&old_property_name, &new_property_name, |dynamic| {
-                let value = value_fixer(dynamic.as_string_or(""));
+                let value = value_fixer(dynamic.as_string_or_lossy(""));
                 dynamic.create_string(value)
             })
         },

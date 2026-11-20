@@ -24,7 +24,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
 }
 
 fn is_empty_stack(item: &Dynamic) -> bool {
-    let id = ensure_namespaced(&item.get("id").as_string_or("minecraft:air"));
+    let id = ensure_namespaced(item.get("id").as_string_or("minecraft:air").as_lossy_str());
     let count = item.get("count").as_int_or(0);
     id == "minecraft:air" || count == 0
 }

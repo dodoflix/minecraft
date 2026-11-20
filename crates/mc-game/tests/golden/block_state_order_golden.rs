@@ -24,7 +24,7 @@ fn keys(tag: &Tag) -> String {
     properties
         .iter_java_order()
         .into_iter()
-        .map(|(key, _)| key.as_str())
+        .map(|(key, _)| key.as_lossy_str())
         .collect::<Vec<_>>()
         .join(",")
 }

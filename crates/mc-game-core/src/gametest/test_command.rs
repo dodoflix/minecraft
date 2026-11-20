@@ -717,7 +717,7 @@ fn locate(source: &CommandSourceStack, finder: TestFinder) -> Result<i32, Comman
             )
             .with_style_fn(|s| {
                 s.with_color_formatting(Some(ChatFormatting::Green))
-                    .with_click_event(Some(ClickEvent::SuggestCommand(tp_command.clone())))
+                    .with_click_event(Some(ClickEvent::SuggestCommand(tp_command.clone().into())))
                     .with_hover_event(Some(HoverEvent::show_text(translatable!(
                         "chat.coordinates.tooltip"
                     ))))
@@ -941,9 +941,10 @@ fn show_pos(source: &CommandSourceStack, var_name: &str) -> Result<i32, CommandS
                 .with_hover_event(Some(HoverEvent::show_text(translatable!(
                     "commands.test.coordinates.copy"
                 ))))
-                .with_click_event(Some(ClickEvent::CopyToClipboard(format!(
-                    "final BlockPos {var_name} = new BlockPos({target_pos_description});"
-                ))))
+                .with_click_event(Some(ClickEvent::CopyToClipboard(
+                    format!("final BlockPos {var_name} = new BlockPos({target_pos_description});")
+                        .into(),
+                )))
         });
         send_success(
             server,
@@ -1109,7 +1110,7 @@ fn output_test_coordinates(
         ))
         .with_style_fn(|s| {
             s.with_color_formatting(Some(ChatFormatting::Yellow))
-                .with_click_event(Some(ClickEvent::SuggestCommand(suggestion.clone())))
+                .with_click_event(Some(ClickEvent::SuggestCommand(suggestion.clone().into())))
                 .with_hover_event(Some(HoverEvent::show_text(translatable!(
                     "chat.coordinates.tooltip"
                 ))))
@@ -1150,7 +1151,7 @@ fn output_player_coordinates(
     ))
     .with_style_fn(|s| {
         s.with_color_formatting(Some(ChatFormatting::Gold))
-            .with_click_event(Some(ClickEvent::SuggestCommand(suggestion.clone())))
+            .with_click_event(Some(ClickEvent::SuggestCommand(suggestion.clone().into())))
             .with_hover_event(Some(HoverEvent::show_text(translatable!(
                 "chat.coordinates.tooltip"
             ))))

@@ -3,6 +3,7 @@ use super::{
     Decode, DecodeBounded, DecodeError, DecodeResult, Encode, EncodeBounded, EncodeError,
     EncodeResult, read_count, read_varint, take, take_array, write_varint,
 };
+use mc_core::java_string::JavaString;
 
 macro_rules! be_num {
     ($($t:ty),*) => {$(
@@ -124,27 +125,86 @@ pub const MAX_STRING_LENGTH: usize = 32767;
 
 /// Length in UTF-16 code units (Java `String.length()`).
 pub fn utf16_len(s: &str) -> usize {
-    s.encode_utf16().count()
+    if s.is_ascii() {
+        s.len()
+    } else {
+        s.encode_utf16().count()
+    }
 }
 
 /// `Utf8String.write`: `max_length` in UTF-16 code units; the encoded size is bounded by `3 * max_length` bytes
 /// (`ByteBufUtil.utf8MaxBytes`). Nothing is written on error.
 pub fn write_utf(out: &mut Vec<u8>, s: &str, max_length: usize) -> EncodeResult<()> {
-    let chars = utf16_len(s);
+    write_utf_units(out, utf16_len(s), s.as_bytes(), max_length)
+}
+
+/// [`write_utf`] of a Java string. A string with a lone surrogate is encoded like Netty's `ByteBufUtil.writeUtf8`: a lone
+/// surrogate is `?`, and a high surrogate swallows the next unit (`??` before another high surrogate, `?` and the low
+/// byte of the unit before any other non-low-surrogate unit).
+pub fn write_java_utf(out: &mut Vec<u8>, s: &JavaString, max_length: usize) -> EncodeResult<()> {
+    if let Some(text) = s.exact_str() {
+        return write_utf(out, text, max_length);
+    }
+    let units: Vec<u16> = s.encode_utf16().collect();
+    let mut bytes = Vec::with_capacity(units.len() * 3);
+    let mut i = 0;
+    while i < units.len() {
+        let c = units[i];
+        i += 1;
+        match c {
+            0xD800..=0xDBFF => {
+                let Some(&c2) = units.get(i) else {
+                    bytes.push(b'?');
+                    break;
+                };
+                i += 1;
+                if (0xDC00..=0xDFFF).contains(&c2) {
+                    let cp = 0x10000 + (u32::from(c - 0xD800) << 10) + u32::from(c2 - 0xDC00);
+                    let mut buf = [0; 4];
+                    let ch = char::from_u32(cp).expect("a valid surrogate pair");
+                    bytes.extend_from_slice(ch.encode_utf8(&mut buf).as_bytes());
+                } else {
+                    bytes.push(b'?');
+                    bytes.push(if (0xD800..=0xDBFF).contains(&c2) {
+                        b'?'
+                    } else {
+                        c2 as u8
+                    });
+                }
+            }
+            0xDC00..=0xDFFF => bytes.push(b'?'),
+            _ => {
+                // `c` is a scalar value here
+                let mut buf = [0; 4];
+                let ch = char::from_u32(u32::from(c)).expect("not a surrogate");
+                bytes.extend_from_slice(ch.encode_utf8(&mut buf).as_bytes());
+            }
+        }
+    }
+    write_utf_units(out, units.len(), &bytes, max_length)
+}
+
+#[inline]
+fn write_utf_units(
+    out: &mut Vec<u8>,
+    chars: usize,
+    bytes: &[u8],
+    max_length: usize,
+) -> EncodeResult<()> {
     if chars > max_length {
         return Err(EncodeError(format!(
             "String too big (was {chars} characters, max {max_length})"
         )));
     }
     let max_encoded = max_length as i64 * 3;
-    if s.len() as i64 > max_encoded {
+    if bytes.len() as i64 > max_encoded {
         return Err(EncodeError(format!(
             "String too big (was {} bytes encoded, max {max_encoded})",
-            s.len()
+            bytes.len()
         )));
     }
-    write_varint(out, s.len() as i32);
-    out.extend_from_slice(s.as_bytes());
+    write_varint(out, bytes.len() as i32);
+    out.extend_from_slice(bytes);
     Ok(())
 }
 
@@ -192,6 +252,26 @@ pub fn read_utf(input: &mut &[u8], max_length: usize) -> DecodeResult<String> {
 impl Encode for str {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_utf(out, self, MAX_STRING_LENGTH)
+    }
+}
+impl Encode for JavaString {
+    fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
+        write_java_utf(out, self, MAX_STRING_LENGTH)
+    }
+}
+impl EncodeBounded for JavaString {
+    fn encode_bounded(&self, out: &mut Vec<u8>, max: usize) -> EncodeResult<()> {
+        write_java_utf(out, self, max)
+    }
+}
+impl Decode for JavaString {
+    fn decode(input: &mut &[u8]) -> DecodeResult<Self> {
+        read_utf(input, MAX_STRING_LENGTH).map(JavaString::from)
+    }
+}
+impl DecodeBounded for JavaString {
+    fn decode_bounded(input: &mut &[u8], max: usize) -> DecodeResult<Self> {
+        read_utf(input, max).map(JavaString::from)
     }
 }
 impl Encode for String {

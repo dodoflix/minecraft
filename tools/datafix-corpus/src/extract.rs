@@ -101,7 +101,7 @@ pub fn json_to_tag(value: &Value) -> Result<Tag, String> {
                 }
             }
         }
-        Value::String(s) => Tag::String(s.clone()),
+        Value::String(s) => Tag::String(s.clone().into()),
         Value::Array(a) => {
             let mut list = mc_nbt::ListTag::new();
             for v in a {

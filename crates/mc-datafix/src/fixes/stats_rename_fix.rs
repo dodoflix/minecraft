@@ -28,10 +28,9 @@ pub fn new(output_schema: &Schema, name: &str, renames: &[(&str, &str)]) -> Data
 
 fn rename(renames: &HashMap<String, String>, value: Value) -> Value {
     Value::Str(
-        renames
-            .get(value.as_str())
-            .cloned()
-            .unwrap_or_else(|| value.into_string()),
+        value
+            .as_java_string()
+            .map_text(|t| renames.get(t).cloned().unwrap_or_else(|| t.to_owned())),
     )
 }
 

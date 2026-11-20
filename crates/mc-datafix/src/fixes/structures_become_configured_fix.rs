@@ -184,7 +184,7 @@ fn update_starts(starts: Dynamic, chunk: &Dynamic) -> Dynamic {
             match find_updated_structure_type(&key, chunk) {
                 None => log::warn!(
                     "Encountered unknown structure in datafixer: {}",
-                    key.as_string_or("<missing key>")
+                    key.as_string_or("<missing key>").as_lossy_str()
                 ),
                 Some(new_key) => {
                     new_map.compute_if_absent(new_key, |new_key| start.set("id", new_key.clone()));
@@ -203,7 +203,7 @@ fn update_references(references: Dynamic, chunk: &Dynamic) -> Dynamic {
             match find_updated_structure_type(&key, chunk) {
                 None => log::warn!(
                     "Encountered unknown structure in datafixer: {}",
-                    key.as_string_or("<missing key>")
+                    key.as_string_or("<missing key>").as_lossy_str()
                 ),
                 Some(new_key) => new_map.compute(new_key, |_, old_ref_list| match old_ref_list {
                     None => ref_list.clone(),
@@ -221,7 +221,10 @@ fn update_references(references: Dynamic, chunk: &Dynamic) -> Dynamic {
 }
 
 fn find_updated_structure_type(dynamic_key: &Dynamic, chunk: &Dynamic) -> Option<Dynamic> {
-    let key = dynamic_key.as_string_or("UNKNOWN").to_lowercase();
+    let key = dynamic_key
+        .as_string_or("UNKNOWN")
+        .as_lossy_str()
+        .to_lowercase();
     let conversion = conversion(&key)?;
     let mut resulting_id = conversion.fallback;
     if !conversion.biome_mapping.is_empty()
@@ -237,7 +240,7 @@ fn guess_configuration(chunk: &Dynamic, conversion: &Conversion) -> Option<&'sta
     let mut matches: Vec<(&'static str, i32)> = Vec::new();
     for section in chunk.get("sections").as_list(|d| d) {
         for biome in section.get("biomes").get("palette").as_list(|d| d) {
-            if let Some(mapping) = conversion.mapping(&biome.as_string_or("")) {
+            if let Some(mapping) = conversion.mapping(biome.as_string_or("").as_lossy_str()) {
                 match matches.iter_mut().find(|(m, _)| *m == mapping) {
                     Some((_, count)) => *count = count.wrapping_add(1),
                     None => matches.push((mapping, 1)),

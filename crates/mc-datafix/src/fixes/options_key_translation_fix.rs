@@ -23,12 +23,14 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
 }
 
 fn fix_entry((key, value): (Dynamic, Dynamic)) -> (Dynamic, Dynamic) {
-    if key.as_string_or("").starts_with("key_") {
+    if key.as_string_or("").as_lossy_str().starts_with("key_") {
         let old_value = value.as_string_or("");
-        if !old_value.starts_with("key.mouse") && !old_value.starts_with("scancode.") {
+        if !old_value.as_lossy_str().starts_with("key.mouse")
+            && !old_value.as_lossy_str().starts_with("scancode.")
+        {
             let new_value = value.create_string(format!(
                 "key.keyboard.{}",
-                substring_from_key_prefix(&old_value)
+                substring_from_key_prefix(old_value.as_lossy_str())
             ));
             return (key, new_value);
         }

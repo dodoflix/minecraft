@@ -205,7 +205,7 @@ fn list_waypoints(source: &CommandSourceStack) -> Result<i32, CommandSyntaxExcep
                     s.with_hover_event(Some(HoverEvent::ShowText(Box::new(Component::literal(
                         scoreboard_name,
                     )))))
-                    .with_click_event(Some(ClickEvent::SuggestCommand(tp)))
+                    .with_click_event(Some(ClickEvent::SuggestCommand(tp.into())))
                     .with_hover_event(Some(HoverEvent::ShowText(Box::new(translatable!(
                         "chat.coordinates.tooltip"
                     )))))

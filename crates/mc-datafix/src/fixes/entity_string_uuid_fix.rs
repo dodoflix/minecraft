@@ -17,17 +17,18 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
                     let Some(uuid_string) = uuid_string else {
                         return tag;
                     };
-                    let uuid = uuid_from_string(&uuid_string).unwrap_or_else(|message| {
-                        // `UUID.fromString` throws `IllegalArgumentException`; its hex parse a `NumberFormatException`
-                        let class = if message.starts_with("Invalid UUID string: ")
-                            || message == "UUID string too large"
-                        {
-                            "IllegalArgumentException"
-                        } else {
-                            "NumberFormatException"
-                        };
-                        panic!("java.lang.{class}: {message}")
-                    });
+                    let uuid =
+                        uuid_from_string(uuid_string.as_lossy_str()).unwrap_or_else(|message| {
+                            // `UUID.fromString` throws `IllegalArgumentException`; its hex parse a `NumberFormatException`
+                            let class = if message.starts_with("Invalid UUID string: ")
+                                || message == "UUID string too large"
+                            {
+                                "IllegalArgumentException"
+                            } else {
+                                "NumberFormatException"
+                            };
+                            panic!("java.lang.{class}: {message}")
+                        });
                     tag.remove("UUID")
                         .set("UUIDMost", tag.create_long(most_significant_bits(&uuid)))
                         .set("UUIDLeast", tag.create_long(least_significant_bits(&uuid)))

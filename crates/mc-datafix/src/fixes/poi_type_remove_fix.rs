@@ -18,7 +18,7 @@ pub fn new(
                     .get("type")
                     .as_string()
                     .result()
-                    .is_some_and(|ty| !types_to_remove(&ty))
+                    .is_some_and(|ty| !types_to_remove(ty.as_lossy_str()))
             })
             .collect()
     })

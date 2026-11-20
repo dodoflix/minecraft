@@ -23,7 +23,7 @@ fn result(bytes: &[u8], mut acc: NbtAccounter) -> String {
             NbtError::Eof => "EOF".into(),
             NbtError::InvalidTagId(id) => format!("IOException:Invalid tag id: {id}"),
             NbtError::Io(m) => format!("IOException:{m}"),
-            NbtError::MalformedUtf(m) => format!("UTFDataFormatException:{m}"),
+            NbtError::MalformedUtf(m) => format!("UTFDataFormatException:{}", m.as_lossy_str()),
             other => panic!("not an io error: {other:?}"),
         }
     }

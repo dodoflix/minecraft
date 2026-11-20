@@ -23,7 +23,10 @@ pub(crate) fn dump(d: &Dyn) -> String {
         Dyn::Long(v) => format!("{v}L"),
         Dyn::Float(v) => format!("{}f", java_float_to_string(*v)),
         Dyn::Double(v) => format!("{}d", java_double_to_string(*v)),
-        Dyn::Str(s) => format!("\"{}\"", s.replace('\\', "\\\\").replace('"', "\\\"")),
+        Dyn::Str(s) => format!(
+            "\"{}\"",
+            s.as_lossy_str().replace('\\', "\\\\").replace('"', "\\\"")
+        ),
         Dyn::List(l) => format!("[{}]", join(&mut l.iter().map(dump))),
         Dyn::Map(m) => format!(
             "{{{}}}",
@@ -210,7 +213,7 @@ fn extra_op(op: &str, input: &str) -> String {
             dump_dynamic(&extra::fix_string_field(&dyn_(p[0]), p[1], fix))
         }
         "plain_translation_key" => extra::get_plain_translation_key(&dyn_(input))
-            .map_or("none".into(), |v| format!("some:{v}")),
+            .map_or("none".into(), |v| format!("some:{}", v.as_lossy_str())),
         "read_and_set" => {
             let p = tail(2);
             let ty = DSL::and_type(

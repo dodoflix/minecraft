@@ -101,7 +101,7 @@ impl FeatureFlagSet {
     pub fn encode(self) -> Tag {
         let mut list = ListTag::new();
         for id in self.names() {
-            list.push(Tag::String(id.to_string()));
+            list.push(Tag::String(id.to_string().into()));
         }
         Tag::List(list)
     }

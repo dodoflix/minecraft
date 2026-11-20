@@ -10,15 +10,19 @@ use mc_protocol::codec::GameProfile;
 fn diff(a: &CompoundTag, b: &CompoundTag) -> String {
     let mut out = Vec::new();
     for (k, v) in a.iter() {
-        match b.get(k) {
-            None => out.push(format!("missing {k}: {v:?}")),
-            Some(w) if w != v => out.push(format!("{k}: {v:?} != {w:?}")),
+        match b.get(k.as_lossy_str()) {
+            None => out.push(format!("missing {0}: {v:?}", k.as_lossy_str())),
+            Some(w) if w != v => out.push(format!("{0}: {v:?} != {w:?}", k.as_lossy_str())),
             _ => {}
         }
     }
     for k in b.keys() {
-        if a.get(k).is_none() {
-            out.push(format!("extra {k}: {:?}", b.get(k)));
+        if a.get(k.as_lossy_str()).is_none() {
+            out.push(format!(
+                "extra {1}: {:?}",
+                b.get(k.as_lossy_str()),
+                k.as_lossy_str()
+            ));
         }
     }
     out.join("\n")

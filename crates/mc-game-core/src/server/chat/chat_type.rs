@@ -143,7 +143,8 @@ fn decoration_from_json(value: &Value) -> Result<ChatTypeDecoration, String> {
         })
         .collect::<Result<Vec<_>, _>>()?;
     let style = match object.get("style") {
-        Some(style) => Style::from_json(style).map_err(|e| e.to_string())?,
+        Some(style) => Style::from_json(&mc_text::json::element_from_value(style))
+            .map_err(|e| e.to_string())?,
         None => Style::EMPTY,
     };
     Ok(ChatTypeDecoration {

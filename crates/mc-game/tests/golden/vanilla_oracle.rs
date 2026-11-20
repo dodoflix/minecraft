@@ -326,17 +326,21 @@ fn first_diff(a: Option<&Tag>, b: Option<&Tag>, path: &str) -> String {
     match (a, b) {
         (Some(Tag::Compound(x)), Some(Tag::Compound(y))) => {
             for (k, v) in x.iter() {
-                match y.get(k) {
-                    None => return format!("{path}/{k} (only ours)"),
+                match y.get(k.as_lossy_str()) {
+                    None => return format!("{path}/{0} (only ours)", k.as_lossy_str()),
                     Some(w) if w != v => {
-                        return first_diff(Some(v), Some(w), &format!("{path}/{k}"));
+                        return first_diff(
+                            Some(v),
+                            Some(w),
+                            &format!("{path}/{0}", k.as_lossy_str()),
+                        );
                     }
                     _ => {}
                 }
             }
             for (k, _) in y.iter() {
-                if x.get(k).is_none() {
-                    return format!("{path}/{k} (only vanilla)");
+                if x.get(k.as_lossy_str()).is_none() {
+                    return format!("{path}/{0} (only vanilla)", k.as_lossy_str());
                 }
             }
             path.to_owned()
@@ -389,16 +393,22 @@ fn stored_dimensions_match_vanilla() {
     assert_eq!(
         ours.iter_java_order()
             .into_iter()
-            .map(|(k, _)| k.as_str())
+            .map(|(k, _)| k.as_lossy_str())
             .collect::<Vec<_>>(),
-        vanilla.iter().map(|(k, _)| k.as_str()).collect::<Vec<_>>(),
+        vanilla
+            .iter()
+            .map(|(k, _)| k.as_lossy_str())
+            .collect::<Vec<_>>(),
         "dimensions in the order of the stored compound"
     );
     for (id, stem) in vanilla.iter() {
-        let ours = ours.get(id).expect("every dimension is stored");
+        let ours = ours
+            .get(id.as_lossy_str())
+            .expect("every dimension is stored");
         assert!(
             ours == stem && same_key_order(ours, stem),
-            "dimension {id} differs at {}",
+            "dimension {} differs at {}",
+            id.as_lossy_str(),
             if ours == stem {
                 "the key order".to_owned()
             } else {

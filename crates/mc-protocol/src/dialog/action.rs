@@ -1,7 +1,7 @@
 //! `net.minecraft.server.dialog.action`: what a dialog button does (`Action`, `StaticAction`, `CommandTemplate`, `CustomAll`).
 
 use super::template::ParsedTemplate;
-use crate::components::common::{compound_tag_codec, dyn_to_serde, serde_to_dyn};
+use crate::components::common::compound_tag_codec;
 use crate::components::holder::registry_by_name_codec;
 use mc_core::ident::Identifier;
 use mc_data::DialogActionType;
@@ -47,7 +47,7 @@ fn static_click_action(t: DialogActionType) -> Option<ClickAction> {
 /// The map as the click event codec prints it in an error (`JsonOps` / `NbtOps` text).
 fn render(kind: OpsKind, map: &Dyn) -> Option<String> {
     match kind {
-        OpsKind::Json => Some(dyn_to_serde(map).to_string()),
+        OpsKind::Json => Some(map.to_json_string().into_string_lossy()),
         OpsKind::Nbt => map.to_tag().ok().map(|t| t.to_string()),
         OpsKind::Hash => None,
     }
@@ -81,7 +81,7 @@ impl Action {
                 let encoded: Result<Dyn, String> = match ops.kind() {
                     OpsKind::Json => event
                         .to_json()
-                        .map(|v| serde_to_dyn(&v))
+                        .map(|v| Dyn::from_json_element(&v))
                         .map_err(|e| e.to_string()),
                     OpsKind::Nbt => event
                         .to_nbt()
@@ -115,7 +115,7 @@ impl Action {
                 let map = Dyn::Map(entries);
                 let decoded = match ops.kind() {
                     OpsKind::Json => {
-                        ClickEvent::from_json(&dyn_to_serde(&map)).map_err(|e| e.to_string())
+                        ClickEvent::from_json(&map.to_json_element()).map_err(|e| e.to_string())
                     }
                     OpsKind::Nbt => map
                         .to_tag()

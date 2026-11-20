@@ -103,7 +103,8 @@ impl ServerStatsCounter {
         let data = Dynamic::new(JSON, Dyn::from_json_str(&element.to_string())?);
         let version = data.get("DataVersion").as_int_or(1343);
         let fixed = DataFixTypes::STATS.update_to_current_version(data_fixer(), data, version);
-        serde_json::from_str(&fixed.value().to_json_string()).map_err(|e| e.to_string())
+        serde_json::from_str(fixed.value().to_json_string().as_lossy_str())
+            .map_err(|e| e.to_string())
     }
 
     /// `parse(fixerUpper, element)`: the upgrade, then `STATS_CODEC.parse(data.get("stats").orElseEmptyMap())`

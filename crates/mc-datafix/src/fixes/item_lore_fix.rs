@@ -25,7 +25,9 @@ pub fn new(output_schema: &Schema) -> DataFix {
                         display.update_typed(&lore_finder, |lore| {
                             lore.update(&text_component_finder, |text_component| {
                                 text_component.map_second(|json| {
-                                    Value::Str(create_text_component_json(json.as_str()))
+                                    Value::Str(create_text_component_json(
+                                        json.as_java_string().clone(),
+                                    ))
                                 })
                             })
                         })

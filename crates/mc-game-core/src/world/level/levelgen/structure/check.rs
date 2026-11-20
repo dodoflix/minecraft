@@ -233,7 +233,7 @@ impl StructureCheck {
     fn load_structures(env: &GenEnv, starts: &CompoundTag) -> HashMap<Identifier, i32> {
         let mut known = HashMap::new();
         for (key, tag) in starts.iter() {
-            let Some(id) = Identifier::try_parse(key) else {
+            let Some(id) = Identifier::try_parse(key.as_lossy_str()) else {
                 continue;
             };
             if env.structures.get(&id).is_none() {

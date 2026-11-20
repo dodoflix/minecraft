@@ -19,7 +19,7 @@ pub fn compare_nbt(
         (Tag::Compound(e), Tag::Compound(a)) => {
             a.len() >= e.len()
                 && e.iter()
-                    .all(|(k, v)| compare_nbt(Some(v), a.get(k), partial_list_matches))
+                    .all(|(k, v)| compare_nbt(Some(v), a.get_java(k), partial_list_matches))
         }
         (Tag::List(e), Tag::List(a)) if partial_list_matches => {
             if e.is_empty() {

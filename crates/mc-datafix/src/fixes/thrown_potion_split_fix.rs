@@ -24,7 +24,7 @@ impl ItemIdFinder {
         entity
             .get_optional_typed(&self.item_finder)
             .and_then(|item| item.get_optional(&self.item_id_finder))
-            .map(|id| ensure_namespaced(id.second().as_str()))
+            .map(|id| ensure_namespaced(id.second().as_lossy_str()))
             .unwrap_or_default()
     }
 }

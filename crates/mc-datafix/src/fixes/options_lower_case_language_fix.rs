@@ -18,7 +18,10 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
                     input.update_remainder(|tag| {
                         let lang = tag.get("lang").as_string().result();
                         match lang {
-                            Some(lang) => tag.set("lang", tag.create_string(lang.to_lowercase())),
+                            Some(lang) => tag.set(
+                                "lang",
+                                tag.create_string(lang.as_lossy_str().to_lowercase()),
+                            ),
                             None => tag,
                         }
                     })

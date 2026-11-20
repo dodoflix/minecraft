@@ -57,16 +57,16 @@ pub fn new(output_schema: &Schema) -> DataFix {
         df.fix_type_everywhere_typed_new("BoatSplitFix", &old_type, &new_type, move |input| {
             let id = input.get_optional(&id_f).map(Value::into_string);
             match id {
-                Some(id) if is_any_boat(&id) => {
+                Some(id) if is_any_boat(id.as_lossy_str()) => {
                     let tag = input.get_remainder();
                     let maybe_boat_id = tag.get("Type").as_string().result();
-                    let new_id = if is_chest_boat(&id) {
+                    let new_id = if is_chest_boat(id.as_lossy_str()) {
                         maybe_boat_id
-                            .map(|v| map_variant_to_chest_boat(&v))
+                            .map(|v| map_variant_to_chest_boat(v.as_lossy_str()))
                             .unwrap_or("minecraft:oak_chest_boat")
                     } else {
                         maybe_boat_id
-                            .map(|v| map_variant_to_normal_boat(&v))
+                            .map(|v| map_variant_to_normal_boat(v.as_lossy_str()))
                             .unwrap_or("minecraft:oak_boat")
                     };
                     cast(&new_type2, input)

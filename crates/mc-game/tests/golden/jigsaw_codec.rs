@@ -31,18 +31,18 @@ fn vanilla_source() -> Arc<dyn WorldgenDataSource> {
 pub fn canon(tag: &Tag) -> String {
     match tag {
         Tag::Compound(c) => {
-            let mut keys: Vec<&String> = c.keys().collect();
-            keys.sort();
+            let mut keys: Vec<&mc_core::java_string::JavaString> = c.keys().collect();
+            keys.sort_by(|a, b| a.java_cmp(b));
             format!(
                 "{{{}}}",
                 keys.iter()
-                    .map(|k| format!("{k}:{}", canon(c.get(k).unwrap())))
+                    .map(|k| format!("{}:{}", k.as_lossy_str(), canon(c.get_java(k).unwrap())))
                     .collect::<Vec<_>>()
                     .join(",")
             )
         }
         Tag::List(l) => format!("[{}]", l.iter().map(canon).collect::<Vec<_>>().join(",")),
-        Tag::String(s) => format!("\"{s}\""),
+        Tag::String(s) => format!("\"{0}\"", s.as_lossy_str()),
         Tag::Byte(v) => format!("{v}b"),
         Tag::Short(v) => format!("{v}s"),
         Tag::Int(v) => format!("{v}i"),

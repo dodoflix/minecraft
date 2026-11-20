@@ -114,7 +114,7 @@ fn fix_statuses(chunk: Typed) -> (Typed, String, Option<String>) {
 }
 
 fn unwrap_status(status: &OptionalDynamic) -> String {
-    ensure_namespaced(&status.as_string_or("minecraft:empty"))
+    ensure_namespaced(status.as_string_or("minecraft:empty").as_lossy_str())
 }
 
 fn fix_status(status: &str) -> &str {

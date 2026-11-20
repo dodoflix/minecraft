@@ -2,6 +2,7 @@
 //! `JsonElement` tree, a reader (strict, or Gson's default "legacy lenient" `fromJson(Reader)` mode) and the
 //! `JsonWriter` output formats (compact / pretty-printed with 2-space indent, optional HTML-safe escaping).
 
+use crate::java_string::JavaString;
 use std::fmt::Write as _;
 
 #[derive(Debug, Clone, PartialEq)]
@@ -27,7 +28,7 @@ pub enum JsonElement {
     Null,
     Bool(bool),
     Number(String),
-    String(String),
+    String(JavaString),
     Array(Vec<JsonElement>),
     Object(JsonObject),
 }
@@ -35,7 +36,7 @@ pub enum JsonElement {
 /// `JsonObject`: members in insertion order (`LinkedTreeMap`); re-adding a key keeps its position.
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct JsonObject {
-    members: Vec<(String, JsonElement)>,
+    members: Vec<(JavaString, JsonElement)>,
 }
 
 impl JsonObject {
@@ -43,17 +44,23 @@ impl JsonObject {
         JsonObject::default()
     }
 
-    pub fn add(&mut self, key: &str, value: JsonElement) {
-        match self.members.iter_mut().find(|(k, _)| k == key) {
+    pub fn add(&mut self, key: impl Into<JavaString>, value: JsonElement) {
+        let key = key.into();
+        match self.members.iter_mut().find(|(k, _)| *k == key) {
             Some((_, v)) => *v = value,
-            None => self.members.push((key.to_owned(), value)),
+            None => self.members.push((key, value)),
         }
+    }
+
+    /// An object of these members; the keys must be distinct (no `add` lookup per member).
+    pub fn from_distinct_members(members: Vec<(JavaString, JsonElement)>) -> JsonObject {
+        JsonObject { members }
     }
 
     pub fn add_property_str(&mut self, key: &str, value: Option<&str>) {
         self.add(
             key,
-            value.map_or(JsonElement::Null, |v| JsonElement::String(v.to_owned())),
+            value.map_or(JsonElement::Null, |v| JsonElement::String(v.into())),
         );
     }
 
@@ -70,11 +77,14 @@ impl JsonObject {
     }
 
     pub fn get(&self, key: &str) -> Option<&JsonElement> {
-        self.members.iter().find(|(k, _)| k == key).map(|(_, v)| v)
+        self.members
+            .iter()
+            .find(|(k, _)| *k == *key)
+            .map(|(_, v)| v)
     }
 
-    pub fn iter(&self) -> impl Iterator<Item = (&str, &JsonElement)> {
-        self.members.iter().map(|(k, v)| (k.as_str(), v))
+    pub fn iter(&self) -> impl Iterator<Item = (&JavaString, &JsonElement)> {
+        self.members.iter().map(|(k, v)| (k, v))
     }
 
     pub fn len(&self) -> usize {
@@ -88,10 +98,11 @@ impl JsonObject {
 
 impl JsonElement {
     /// `getAsString` (primitives only; `Err` is the exception vanilla would throw).
-    pub fn as_string(&self) -> Result<String, JsonError> {
+    pub fn as_string(&self) -> Result<JavaString, JsonError> {
         match self {
-            JsonElement::String(s) | JsonElement::Number(s) => Ok(s.clone()),
-            JsonElement::Bool(b) => Ok(b.to_string()),
+            JsonElement::String(s) => Ok(s.clone()),
+            JsonElement::Number(s) => Ok(s.as_str().into()),
+            JsonElement::Bool(b) => Ok(b.to_string().into()),
             JsonElement::Array(a) if a.len() == 1 => a[0].as_string(),
             _ => Err(JsonError::new("Not a JSON primitive")),
         }
@@ -101,17 +112,8 @@ impl JsonElement {
     /// string primitives).
     pub fn as_int(&self) -> Result<i32, JsonError> {
         match self {
-            JsonElement::Number(text) | JsonElement::String(text) => {
-                if let Ok(v) = text.parse::<i32>() {
-                    return Ok(v);
-                }
-                if let Ok(v) = text.parse::<i64>() {
-                    return Ok(v as i32);
-                }
-                text.parse::<f64>()
-                    .map(|v| v as i32)
-                    .map_err(|_| JsonError::new(format!("For input string: \"{text}\"")))
-            }
+            JsonElement::Number(text) => parse_int(text),
+            JsonElement::String(text) => parse_int(text.as_lossy_str()),
             JsonElement::Array(a) if a.len() == 1 => a[0].as_int(),
             _ => Err(JsonError::new("Not a JSON primitive")),
         }
@@ -121,7 +123,8 @@ impl JsonElement {
     pub fn as_bool(&self) -> Result<bool, JsonError> {
         match self {
             JsonElement::Bool(b) => Ok(*b),
-            JsonElement::Number(s) | JsonElement::String(s) => Ok(s.eq_ignore_ascii_case("true")),
+            JsonElement::Number(s) => Ok(s.eq_ignore_ascii_case("true")),
+            JsonElement::String(s) => Ok(s.as_lossy_str().eq_ignore_ascii_case("true")),
             JsonElement::Array(a) if a.len() == 1 => a[0].as_bool(),
             _ => Err(JsonError::new("Not a JSON primitive")),
         }
@@ -135,8 +138,8 @@ impl JsonElement {
     }
 
     /// `JsonElement.toString()`: compact, no HTML escaping, nulls kept.
-    pub fn to_compact_string(&self) -> String {
-        let mut out = String::new();
+    pub fn to_java_string(&self) -> JavaString {
+        let mut out = JavaString::new();
         write_element(
             &mut out,
             self,
@@ -151,9 +154,14 @@ impl JsonElement {
         out
     }
 
+    /// [`to_java_string`](Self::to_java_string) as written to a file or socket (a lone surrogate becomes `?`).
+    pub fn to_compact_string(&self) -> String {
+        self.to_java_string().to_utf8_string().into_owned()
+    }
+
     /// `new GsonBuilder().create().toJson(element)`: compact with HTML-safe escaping, nulls skipped.
     pub fn to_gson_string(&self) -> String {
-        let mut out = String::new();
+        let mut out = JavaString::new();
         write_element(
             &mut out,
             self,
@@ -165,13 +173,13 @@ impl JsonElement {
             },
             0,
         );
-        out
+        out.to_utf8_string().into_owned()
     }
 
     /// `new GsonBuilder().disableHtmlEscaping().create().toJson(element)`: compact, `\u2028`/`\u2029` escaped, nulls
     /// skipped in objects (`ByteBufCodecs.lenientJson`).
     pub fn to_gson_string_unescaped(&self) -> String {
-        let mut out = String::new();
+        let mut out = JavaString::new();
         write_element(
             &mut out,
             self,
@@ -183,12 +191,12 @@ impl JsonElement {
             },
             0,
         );
-        out
+        out.to_utf8_string().into_owned()
     }
 
     /// `GsonBuilder().setPrettyPrinting().create().toJson(element)`.
     pub fn to_pretty_string(&self) -> String {
-        let mut out = String::new();
+        let mut out = JavaString::new();
         write_element(
             &mut out,
             self,
@@ -200,12 +208,12 @@ impl JsonElement {
             },
             0,
         );
-        out
+        out.to_utf8_string().into_owned()
     }
 
     /// `GsonHelper.toStableString`: compact, nulls kept, object members sorted by key (`String.compareTo`).
-    pub fn to_stable_string(&self) -> String {
-        let mut out = String::new();
+    pub fn to_stable_string(&self) -> JavaString {
+        let mut out = JavaString::new();
         write_element(
             &mut out,
             self,
@@ -221,6 +229,18 @@ impl JsonElement {
     }
 }
 
+fn parse_int(text: &str) -> Result<i32, JsonError> {
+    if let Ok(v) = text.parse::<i32>() {
+        return Ok(v);
+    }
+    if let Ok(v) = text.parse::<i64>() {
+        return Ok(v as i32);
+    }
+    text.parse::<f64>()
+        .map(|v| v as i32)
+        .map_err(|_| JsonError::new(format!("For input string: \"{text}\"")))
+}
+
 struct Format {
     indent: bool,
     html_safe: bool,
@@ -228,8 +248,8 @@ struct Format {
     sort_keys: bool,
 }
 
-fn write_element(out: &mut String, element: &JsonElement, f: &Format, depth: usize) {
-    let newline = |out: &mut String, depth: usize| {
+fn write_element(out: &mut JavaString, element: &JsonElement, f: &Format, depth: usize) {
+    let newline = |out: &mut JavaString, depth: usize| {
         if f.indent {
             out.push('\n');
             for _ in 0..depth {
@@ -265,7 +285,7 @@ fn write_element(out: &mut String, element: &JsonElement, f: &Format, depth: usi
                 .collect();
             if f.sort_keys {
                 // `String.compareTo` orders by UTF-16 code unit, which differs from `str` order above the BMP
-                members.sort_by(|a, b| a.0.encode_utf16().cmp(b.0.encode_utf16()));
+                members.sort_by(|a, b| a.0.java_cmp(b.0));
             }
             if members.is_empty() {
                 out.push_str("{}");
@@ -291,9 +311,16 @@ fn write_element(out: &mut String, element: &JsonElement, f: &Format, depth: usi
 }
 
 /// `JsonWriter.string`.
-pub fn write_string(out: &mut String, s: &str, html_safe: bool) {
+pub fn write_string(out: &mut JavaString, s: &JavaString, html_safe: bool) {
     out.push('"');
-    for c in s.chars() {
+    for c in char::decode_utf16(s.encode_utf16()) {
+        let c = match c {
+            Ok(c) => c,
+            Err(e) => {
+                out.push_utf16_unit(e.unpaired_surrogate());
+                continue;
+            }
+        };
         match c {
             '"' => out.push_str("\\\""),
             '\\' => out.push_str("\\\\"),
@@ -314,6 +341,30 @@ pub fn write_string(out: &mut String, s: &str, html_safe: bool) {
     out.push('"');
 }
 
+/// A text the readers accept: Rust text, or a Java string that may hold lone surrogates.
+pub trait JsonText {
+    /// The UTF-16 units Gson reads.
+    fn to_units(&self) -> Vec<u16>;
+}
+
+impl JsonText for str {
+    fn to_units(&self) -> Vec<u16> {
+        self.encode_utf16().collect()
+    }
+}
+
+impl JsonText for String {
+    fn to_units(&self) -> Vec<u16> {
+        self.encode_utf16().collect()
+    }
+}
+
+impl JsonText for JavaString {
+    fn to_units(&self) -> Vec<u16> {
+        self.encode_utf16().collect()
+    }
+}
+
 /// Gson's `Strictness`.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Strictness {
@@ -326,12 +377,15 @@ pub enum Strictness {
 /// "fully consumed" check runs LEGACY_STRICT. `Ok(None)` is an empty document.
 /// With `lenient == false` it is `GsonHelper.fromNullableJson` instead: STRICT, one value read, trailing data ignored,
 /// an empty document is an `EOFException`.
-pub fn parse(text: &str, lenient: bool) -> Result<Option<JsonElement>, JsonError> {
+pub fn parse<T: JsonText + ?Sized>(
+    text: &T,
+    lenient: bool,
+) -> Result<Option<JsonElement>, JsonError> {
     if !lenient {
-        let mut r = Reader::new(text, Strictness::Strict);
+        let mut r = Reader::new(text.to_units(), Strictness::Strict);
         return r.read_element().map(Some).map_err(ReadErr::into_error);
     }
-    let mut r = Reader::new(text, Strictness::LegacyStrict);
+    let mut r = Reader::new(text.to_units(), Strictness::LegacyStrict);
     r.strictness = Strictness::Lenient;
     let element = match r.peek() {
         Err(e) if e.eof => return Ok(None),
@@ -349,8 +403,8 @@ pub fn parse(text: &str, lenient: bool) -> Result<Option<JsonElement>, JsonError
 /// `JsonParser.parseString` (`LenientJsonParser.parse`): LENIENT read of one value (an empty document is `JsonNull`),
 /// trailing data is rejected in LEGACY_STRICT mode unless the value is `null`. `Err` carries
 /// `JsonSyntaxException.getMessage()`.
-pub fn parse_lenient_json_parser(text: &str) -> Result<JsonElement, JsonError> {
-    let mut r = Reader::new(text, Strictness::LegacyStrict);
+pub fn parse_lenient_json_parser<T: JsonText + ?Sized>(text: &T) -> Result<JsonElement, JsonError> {
+    let mut r = Reader::new(text.to_units(), Strictness::LegacyStrict);
     r.strictness = Strictness::Lenient;
     let element = match r.peek() {
         Err(e) if e.eof => JsonElement::Null,
@@ -370,8 +424,8 @@ pub fn parse_lenient_json_parser(text: &str) -> Result<JsonElement, JsonError> {
 
 /// `StrictJsonParser.parse(String)`: STRICT read of one value (an empty document is `JsonNull`), trailing data is
 /// rejected unless the value is `null`. `Err` carries the exception message.
-pub fn parse_strict_json_parser(text: &str) -> Result<JsonElement, JsonError> {
-    let mut r = Reader::new(text, Strictness::Strict);
+pub fn parse_strict_json_parser<T: JsonText + ?Sized>(text: &T) -> Result<JsonElement, JsonError> {
+    let mut r = Reader::new(text.to_units(), Strictness::Strict);
     let element = match r.peek() {
         Err(e) if e.eof => JsonElement::Null,
         Err(e) => return Err(e.into_error()),
@@ -388,7 +442,7 @@ pub fn parse_strict_json_parser(text: &str) -> Result<JsonElement, JsonError> {
 }
 
 /// `GsonHelper.parse(String)`: strict, must be a JSON object.
-pub fn parse_object_strict(text: &str) -> Result<JsonObject, JsonError> {
+pub fn parse_object_strict<T: JsonText + ?Sized>(text: &T) -> Result<JsonObject, JsonError> {
     match parse(text, false)? {
         None => Err(JsonError::new("JSON data was null or empty")),
         Some(JsonElement::Object(o)) => Ok(o),
@@ -590,8 +644,7 @@ fn c16(c: char) -> u16 {
 }
 
 impl Reader {
-    fn new(text: &str, strictness: Strictness) -> Reader {
-        let buf: Vec<u16> = text.encode_utf16().collect();
+    fn new(buf: Vec<u16>, strictness: Strictness) -> Reader {
         // the first fill skips a byte order mark
         let bom = usize::from(buf.first() == Some(&0xFEFF));
         Reader {
@@ -1028,7 +1081,7 @@ impl Reader {
         }
     }
 
-    fn next_name(&mut self) -> RResult<String> {
+    fn next_name(&mut self) -> RResult<JavaString> {
         let p = if self.peeked == PEEKED_NONE {
             self.do_peek()?
         } else {
@@ -1050,7 +1103,7 @@ impl Reader {
         };
         self.peeked = PEEKED_NONE;
         let t = self.top();
-        self.path_names[t] = Some(result.clone());
+        self.path_names[t] = Some(result.as_lossy_str().to_owned());
         Ok(result)
     }
 
@@ -1059,7 +1112,7 @@ impl Reader {
         self.path_indices[t] += 1;
     }
 
-    fn next_string(&mut self) -> RResult<String> {
+    fn next_string(&mut self) -> RResult<JavaString> {
         let p = if self.peeked == PEEKED_NONE {
             self.do_peek()?
         } else {
@@ -1069,9 +1122,9 @@ impl Reader {
             PEEKED_UNQUOTED => self.next_unquoted_value()?,
             PEEKED_SINGLE_QUOTED => self.next_quoted_value(c16('\''))?,
             PEEKED_DOUBLE_QUOTED => self.next_quoted_value(c16('"'))?,
-            PEEKED_LONG => self.peeked_long.to_string(),
+            PEEKED_LONG => self.peeked_long.to_string().into(),
             PEEKED_NUMBER => {
-                let s = String::from_utf16_lossy(
+                let s = JavaString::from_utf16_units(
                     &self.buf[self.pos..self.pos + self.peeked_number_length],
                 );
                 self.pos += self.peeked_number_length;
@@ -1120,7 +1173,7 @@ impl Reader {
         Ok(())
     }
 
-    fn next_quoted_value(&mut self, quote: u16) -> RResult<String> {
+    fn next_quoted_value(&mut self, quote: u16) -> RResult<JavaString> {
         let mut out: Vec<u16> = Vec::new();
         let l = self.limit();
         let mut p = self.pos;
@@ -1136,7 +1189,7 @@ impl Reader {
             if c == quote {
                 self.pos = p;
                 out.extend_from_slice(&self.buf[start..p - 1]);
-                return Ok(String::from_utf16_lossy(&out));
+                return Ok(JavaString::from_utf16_units(&out));
             }
             if c == 92 {
                 self.pos = p;
@@ -1154,7 +1207,7 @@ impl Reader {
         Err(self.syntax_error("Unterminated string"))
     }
 
-    fn next_unquoted_value(&mut self) -> RResult<String> {
+    fn next_unquoted_value(&mut self) -> RResult<JavaString> {
         let mut i = 0;
         while self.pos + i < self.limit() {
             match self.buf[self.pos + i] {
@@ -1166,7 +1219,7 @@ impl Reader {
                 _ => i += 1,
             }
         }
-        let s = String::from_utf16_lossy(&self.buf[self.pos..self.pos + i]);
+        let s = JavaString::from_utf16_units(&self.buf[self.pos..self.pos + i]);
         self.pos += i;
         Ok(s)
     }
@@ -1342,7 +1395,9 @@ impl Reader {
     fn read_terminal(&mut self, peeked: Token) -> RResult<JsonElement> {
         match peeked {
             Token::String => self.next_string().map(JsonElement::String),
-            Token::Number => self.next_string().map(JsonElement::Number),
+            Token::Number => self
+                .next_string()
+                .map(|s| JsonElement::Number(s.into_string_lossy())),
             Token::Boolean => self.next_boolean().map(JsonElement::Bool),
             Token::Null => {
                 self.next_null()?;
@@ -1362,8 +1417,8 @@ impl Reader {
             return self.read_terminal(peeked);
         };
         // containers being filled, with the member name each one is attached under once complete
-        let mut stack: Vec<(JsonElement, Option<String>)> = Vec::new();
-        let mut current = (first, None::<String>);
+        let mut stack: Vec<(JsonElement, Option<JavaString>)> = Vec::new();
+        let mut current = (first, None::<JavaString>);
         loop {
             while !self.has_next()? {
                 if matches!(current.0, JsonElement::Array(_)) {
@@ -1398,10 +1453,10 @@ impl Reader {
     }
 }
 
-fn attach(container: &mut JsonElement, name: Option<String>, value: JsonElement) {
+fn attach(container: &mut JsonElement, name: Option<JavaString>, value: JsonElement) {
     match (container, name) {
         (JsonElement::Array(items), _) => items.push(value),
-        (JsonElement::Object(o), Some(name)) => o.add(&name, value),
+        (JsonElement::Object(o), Some(name)) => o.add(name, value),
         (JsonElement::Object(_), None) => unreachable!("object members are always named"),
         _ => unreachable!("only containers are attached to"),
     }
@@ -1441,8 +1496,8 @@ mod tests {
             v.to_compact_string(),
             "{\"a\":[1,2.50,true,null,\"xé\\n\"],\"b\":{}}"
         );
-        let mut s = String::new();
-        write_string(&mut s, "<&='>\u{1}\u{2028}", true);
+        let mut s = JavaString::new();
+        write_string(&mut s, &"<&='>\u{1}\u{2028}".into(), true);
         assert_eq!(s, "\"\\u003c\\u0026\\u003d\\u0027\\u003e\\u0001\\u2028\"");
     }
 

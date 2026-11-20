@@ -234,7 +234,7 @@ fn fix_modifiers(modifiers: Vec<Dynamic>) -> Vec<Dynamic> {
                 .find(|(key, _)| *key == bits)
                 .map(|(_, id)| *id)
         });
-        let id_from_name = name_map(&name);
+        let id_from_name = name_map(name.as_lossy_str());
         if let Some(id_from_uuid) = id_from_uuid {
             let modifier = modifier.set("id", modifier.create_string(id_from_uuid));
             put(

@@ -275,9 +275,9 @@ fn filter_mask_matches_vanilla() {
         let applied = mask.apply(text);
         assert_eq!(applied.is_none(), case["applied_null"].as_bool().unwrap());
         if let Some(applied) = applied {
-            // a mask cutting a surrogate pair leaves a lone surrogate in Java (printed as '?'); Rust strings hold U+FFFD
+            // a mask cutting a surrogate pair leaves a lone surrogate, which the recording prints as '?'
             assert_eq!(
-                applied.replace('\u{fffd}', "?"),
+                applied.to_utf8_string(),
                 case["applied"].as_str().unwrap(),
                 "{case}"
             );
@@ -285,7 +285,7 @@ fn filter_mask_matches_vanilla() {
         match mask.apply_with_formatting(text) {
             None => assert!(case["formatted"].is_null(), "{case}"),
             Some(c) => {
-                let json = c.to_json().unwrap().to_string().replace('\u{fffd}', "?");
+                let json = c.to_json().unwrap().to_compact_string();
                 assert_eq!(
                     serde_json::from_str::<Value>(&json).unwrap(),
                     case["formatted"],
@@ -319,7 +319,10 @@ fn chat_type_decoration_matches_vanilla() {
             target_name: Some(Component::literal("Alex")),
         };
         let decorated = bound.decorate(&Component::literal("hi there"));
-        assert_eq!(decorated.to_json().unwrap(), case["chat"]);
+        assert_eq!(
+            mc_text::json::value_from_element(&decorated.to_json().unwrap()),
+            case["chat"]
+        );
         assert_eq!(decorated.get_string(), case["string"].as_str().unwrap());
     }
 }

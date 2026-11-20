@@ -11,6 +11,7 @@ use crate::schema::Schema;
 use crate::schemas::v1451_6::pack_namespaced_with_dot;
 use crate::util::read_typed_or_throw;
 use mc_core::java_collections::{HASH_MAP_DEFAULT_CAPACITY, hash_map_ordered};
+use mc_core::java_string::JavaString;
 use mc_dfu::Dynamic;
 use std::sync::LazyLock;
 
@@ -100,7 +101,7 @@ fn make_stat_fixer(df: &DataFix) -> TypeRewriteRule {
             for (entry_key, entry_value) in map {
                 if entry_value.as_number().result().is_some() {
                     let key = entry_key.as_string_or("");
-                    if let Some(stat_type) = unpack_legacy_key(&key) {
+                    if let Some(stat_type) = unpack_legacy_key(key.as_lossy_str()) {
                         let new_type_key = tag.create_string(stat_type.ty);
                         let index = match stats.iter().position(|(k, _)| *k == new_type_key) {
                             Some(index) => index,
@@ -135,17 +136,20 @@ fn make_objective_fixer(df: &DataFix) -> TypeRewriteRule {
             let tag = input.get(&remainder_finder()).into_dynamic();
             let updated_tag = tag.update("CriteriaName", |name| match name.as_string().result() {
                 Some(key) => {
-                    let new_key = if TABLES.special_objective_criteria.contains(key.as_str()) {
+                    let new_key = if TABLES
+                        .special_objective_criteria
+                        .contains(key.as_lossy_str())
+                    {
                         key
                     } else {
-                        match unpack_legacy_key(&key) {
+                        JavaString::from(match unpack_legacy_key(key.as_lossy_str()) {
                             None => "dummy".to_string(),
                             Some(stat_type) => format!(
                                 "{}:{}",
                                 pack_namespaced_with_dot(&stat_type.ty),
                                 pack_namespaced_with_dot(&stat_type.type_key)
                             ),
-                        }
+                        })
                     };
                     name.create_string(new_key)
                 }

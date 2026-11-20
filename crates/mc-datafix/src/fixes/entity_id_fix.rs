@@ -27,7 +27,9 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
             df.fix_type_everywhere_new("EntityIdFix", old_type.ty(), new_type.ty(), |_, input| {
                 input.map_first(|id| {
                     let id = id.into_string();
-                    Value::Str(ID_MAP.get(&id).cloned().unwrap_or(id))
+                    Value::Str(
+                        id.map_text(|t| ID_MAP.get(t).cloned().unwrap_or_else(|| t.to_owned())),
+                    )
                 })
             }),
         )

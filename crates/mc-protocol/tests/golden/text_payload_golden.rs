@@ -50,7 +50,9 @@ fn hover_item_components_match_vanilla() {
         let src = rec["src"].as_str().unwrap();
         let input = rec["input"].as_str().unwrap();
         let decoded = if rec["kind"] == "J" {
-            Component::from_json(&serde_json::from_str::<Value>(input).unwrap())
+            Component::from_json(&mc_text::json::element_from_value(
+                &serde_json::from_str::<Value>(input).unwrap(),
+            ))
         } else {
             Component::from_nbt(&tag_from_hex(input))
         };
@@ -83,7 +85,7 @@ fn hover_item_components_match_vanilla() {
         ok_cases += 1;
         if let Some(expected) = rec.get("json") {
             let expected: Value = serde_json::from_str(expected.as_str().unwrap()).unwrap();
-            match c.to_json() {
+            match c.to_json().map(|e| mc_text::json::value_from_element(&e)) {
                 Ok(got) if got == expected && same_key_order(&got, &expected) => {}
                 other => failures.push(format!(
                     "{src}\n   json expected {expected}\n   got      {other:?}"

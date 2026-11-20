@@ -2,6 +2,7 @@
 
 use crate::dynv::{Dyn, JNum};
 use crate::result::DataResult;
+use mc_core::java_string::JavaString;
 use mc_core::math::java::{java_double_to_string, java_float_to_string};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -45,7 +46,20 @@ impl<'a> MapLike<'a> {
         let v = self
             .entries
             .iter()
-            .find(|(k, _)| k.as_str() == Some(key))
+            .find(|(k, _)| k.is_str(key))
+            .map(|(_, v)| v)?;
+        if self.kind == OpsKind::Json && v.is_empty_value() {
+            None
+        } else {
+            Some(v)
+        }
+    }
+    /// `MapLike.get(String)` for a key that may hold lone surrogates.
+    pub fn get_java(&self, key: &JavaString) -> Option<&'a Dyn> {
+        let v = self
+            .entries
+            .iter()
+            .find(|(k, _)| k.as_java_string() == Some(key))
             .map(|(_, v)| v)?;
         if self.kind == OpsKind::Json && v.is_empty_value() {
             None
@@ -141,7 +155,7 @@ impl Ops {
             Dyn::Bool(v)
         }
     }
-    pub fn create_string(&self, s: impl Into<String>) -> Dyn {
+    pub fn create_string(&self, s: impl Into<JavaString>) -> Dyn {
         Dyn::Str(s.into())
     }
     pub fn create_list(&self, items: Vec<Dyn>) -> Dyn {
@@ -229,7 +243,7 @@ impl Ops {
             OpsKind::Hash => unsupported(),
         }
     }
-    pub fn get_string_value(&self, input: &Dyn) -> DataResult<String> {
+    pub fn get_string_value(&self, input: &Dyn) -> DataResult<JavaString> {
         if self.is_hash() {
             return unsupported();
         }
@@ -547,12 +561,9 @@ impl Ops {
         match (self.kind, input) {
             (OpsKind::Hash, _) => input.clone(),
             (OpsKind::Nbt, Dyn::Map(m)) => Dyn::Map(crate::nbt_order::copy_remove(m, key)),
-            (_, Dyn::Map(m)) => Dyn::Map(
-                m.iter()
-                    .filter(|(k, _)| k.as_str() != Some(key))
-                    .cloned()
-                    .collect(),
-            ),
+            (_, Dyn::Map(m)) => {
+                Dyn::Map(m.iter().filter(|(k, _)| !k.is_str(key)).cloned().collect())
+            }
             _ => input.clone(),
         }
     }
@@ -563,7 +574,7 @@ impl Ops {
             let Dyn::Str(k) = key else {
                 panic!("Cannot get map entry with non-string key: {key}")
             };
-            match map.get(k) {
+            match map.get_java(k) {
                 Some(v) => DataResult::success(v.clone()),
                 None => {
                     let (k, i) = (self.show(key), self.show(input));
@@ -575,12 +586,12 @@ impl Ops {
 
     /// `DynamicOps.get(input, key)`.
     pub fn get(&self, input: &Dyn, key: &str) -> DataResult<Dyn> {
-        self.get_generic(input, &Dyn::Str(key.to_string()))
+        self.get_generic(input, &Dyn::str(key))
     }
 
     /// `DynamicOps.set(input, key, value)`: `mergeToMap(..).result().orElse(input)`.
     pub fn set(&self, input: &Dyn, key: &str, value: Dyn) -> Dyn {
-        self.merge_to_map_one(input, Dyn::Str(key.to_string()), value)
+        self.merge_to_map_one(input, Dyn::str(key), value)
             .result()
             .unwrap_or_else(|| input.clone())
     }
@@ -608,7 +619,7 @@ impl Ops {
         {
             return tag.to_string();
         }
-        value.to_json_string()
+        value.to_json_string().into_string_lossy()
     }
 
     /// `Dynamic.convert`: re-express `input` (built by `self`) in `out`'s ops.
@@ -843,7 +854,7 @@ impl RecordBuilder {
 
     /// `add(String key, T value)`.
     pub fn add(&mut self, key: &str, value: Dyn) -> &mut Self {
-        self.add_key(Dyn::Str(key.to_string()), value)
+        self.add_key(Dyn::str(key), value)
     }
 
     /// `add(T key, T value)`: NBT/JSON builders require a string key (error otherwise).
@@ -869,9 +880,14 @@ impl RecordBuilder {
 
     /// `add(String key, DataResult<T> value)` (`apply2stable`).
     pub fn add_result(&mut self, key: &str, value: DataResult<Dyn>) -> &mut Self {
+        self.add_java_result(JavaString::from(key), value)
+    }
+
+    /// `add(String key, DataResult<T> value)` for a key that may hold lone surrogates.
+    pub fn add_java_result(&mut self, key: JavaString, value: DataResult<Dyn>) -> &mut Self {
         let universal = self.ops.is_hash();
         let prev = self.take_entries();
-        let key = Dyn::Str(key.to_string());
+        let key = Dyn::Str(key);
         self.entries = prev.apply2(value, move |mut b, v| {
             Self::append(&mut b, universal, key, v);
             b
@@ -891,7 +907,7 @@ impl RecordBuilder {
             return self;
         }
         match self.ops.get_string_value(&key) {
-            DataResult::Success(k) => self.add_result(&k, value),
+            DataResult::Success(k) => self.add_java_result(k, value),
             e => {
                 let prev = self.take_entries();
                 self.entries = prev.flat_map(|_| e.cast_error());

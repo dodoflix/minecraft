@@ -2380,7 +2380,9 @@ impl Scenario {
                         Outbound::Payload(p) | Outbound::Write(p) => p.to_vec(),
                         // the listener's `disconnect(reason)`: `send(ClientboundDisconnectPacket)`, then the connection closes
                         Outbound::Disconnect(reason) => mc_protocol::packet::encode_packet(
-                            &mc_protocol::packets::play::ClientboundDisconnectPacket { reason },
+                            &mc_protocol::packets::play::ClientboundDisconnectPacket {
+                                reason: *reason,
+                            },
                         )
                         .expect("disconnect reason encodes"),
                         _ => continue,

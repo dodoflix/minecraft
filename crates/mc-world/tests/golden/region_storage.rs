@@ -167,7 +167,7 @@ fn entity_storage_layout_and_empty_chunks() {
         .read(&p)
         .unwrap()
         .unwrap();
-    let mut keys: Vec<&str> = raw.keys().map(String::as_str).collect();
+    let mut keys: Vec<&str> = raw.keys().map(|k| k.as_lossy_str()).collect();
     keys.sort();
     assert_eq!(keys, ["DataVersion", "Entities", "Position"]);
     assert_eq!(raw.get_int("DataVersion"), Some(5023));

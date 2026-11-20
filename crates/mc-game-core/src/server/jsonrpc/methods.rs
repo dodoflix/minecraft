@@ -625,9 +625,11 @@ fn encode_setting(v: &SettingValue) -> JsonElement {
     match v {
         SettingValue::Bool(b) => bool_e(*b),
         SettingValue::Int(i) => int_e(*i as i64),
-        SettingValue::Str(s) => JsonElement::String(s.clone()),
-        SettingValue::Difficulty(d) => JsonElement::String(d.get_serialized_name().to_owned()),
-        SettingValue::GameType(g) => JsonElement::String(g.get_name().to_owned()),
+        SettingValue::Str(s) => JsonElement::String(s.clone().into()),
+        SettingValue::Difficulty(d) => {
+            JsonElement::String(d.get_serialized_name().to_owned().into())
+        }
+        SettingValue::GameType(g) => JsonElement::String(g.get_name().to_owned().into()),
         SettingValue::PermissionLevel(l) => int_e(l.id() as i64),
     }
 }
@@ -937,7 +939,12 @@ fn live_order(element: &JsonElement, key: &str) -> JsonElement {
             let is_map = matches!(key, "properties" | "schemas");
             let mut members: Vec<(&str, JsonElement)> = object
                 .iter()
-                .map(|(k, v)| (k, live_order(v, if is_map { "" } else { k })))
+                .map(|(k, v)| {
+                    (
+                        k.as_lossy_str(),
+                        live_order(v, if is_map { "" } else { k.as_lossy_str() }),
+                    )
+                })
                 .collect();
             let fields: &[&str] = match key {
                 "methods" => &["name", "description", "params", "result"],
@@ -979,8 +986,11 @@ fn schema_param_names() -> HashMap<String, String> {
             .and_then(|p| p.get("name"))
         {
             names.insert(
-                name.strip_prefix("minecraft:").unwrap_or(name).to_owned(),
-                pname.clone(),
+                name.as_lossy_str()
+                    .strip_prefix("minecraft:")
+                    .unwrap_or(name.as_lossy_str())
+                    .to_owned(),
+                pname.as_lossy_str().to_owned(),
             );
         }
     }
@@ -1214,7 +1224,8 @@ impl Dispatcher {
         let id = object.get("id");
         let method = match object.get("method") {
             None => None,
-            Some(JsonElement::String(s)) | Some(JsonElement::Number(s)) => Some(s.clone()),
+            Some(JsonElement::String(s)) => Some(s.as_lossy_str().to_owned()),
+            Some(JsonElement::Number(s)) => Some(s.clone()),
             Some(JsonElement::Bool(b)) => Some(b.to_string()),
             Some(other) => {
                 log::error!(

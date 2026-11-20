@@ -1,13 +1,15 @@
 //! Small re-implementations of the Java library behaviour the codecs depend on:
 //! `java.net.URI` syntax validation, chat character filtering.
 
+use mc_core::java_string::JavaString;
+
 /// `StringUtil.isAllowedChatCharacter` for one UTF-16 code unit.
 pub fn is_allowed_chat_character(c: u16) -> bool {
     c != 167 && c >= 32 && c != 127
 }
 
 /// `ExtraCodecs.CHAT_STRING`.
-pub fn validate_chat_string(s: &str) -> Result<(), String> {
+pub fn validate_chat_string(s: &JavaString) -> Result<(), String> {
     for unit in s.encode_utf16() {
         if !is_allowed_chat_character(unit) {
             return Err(format!(

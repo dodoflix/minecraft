@@ -34,8 +34,8 @@ pub fn new(
         let entities = df.fix_type_everywhere_new(&name, old_type.ty(), new_type.ty(), move |_, input| {
             input.map_first(|old_name| {
                 let old_name = old_name.into_string();
-                let new_name = rename2(&old_name);
-                let old_entity_type = old_type2.get(&old_name);
+                let new_name = rename2(old_name.as_lossy_str());
+                let old_entity_type = old_type2.get(old_name.as_lossy_str());
                 let new_entity_type = new_type2
                     .get(&new_name)
                     .unwrap_or_else(|| panic!("{}", null_pointer("newEntityType")));
@@ -45,14 +45,16 @@ pub fn new(
                         old_entity_type.map_or("null".to_string(), |t| t.to_string())
                     );
                 }
-                Value::Str(new_name)
+                Value::Str(old_name.map_text(|_| new_name))
             })
         });
         let rename = rename.clone();
         let names = df.fix_type_everywhere(
             &format!("{name} for entity name"),
             &entity_name_type,
-            move |_, input| input.map_second(|n| Value::Str(rename(n.as_str()))),
+            move |_, input| {
+                input.map_second(|n| Value::Str(n.as_java_string().map_text(|t| rename(t))))
+            },
         );
         TypeRewriteRule::seq(entities, names)
     })

@@ -81,7 +81,7 @@ pub(crate) fn fixed_int_stream(tag: &Tag, size: usize) -> Result<Vec<i32>, Strin
 pub(crate) fn string_list_tag<'a>(values: impl IntoIterator<Item = &'a String>) -> ListTag {
     let mut list = ListTag::new();
     for v in values {
-        list.push(Tag::String(v.clone()));
+        list.push(Tag::String(v.clone().into()));
     }
     list
 }

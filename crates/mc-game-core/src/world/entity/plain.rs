@@ -80,7 +80,7 @@ impl Entity for PlainEntity {
     fn read_additional_save_data(&mut self, _level: Option<&ServerLevel>, input: &CompoundTag) {
         self.extra = CompoundTag::new();
         for (k, v) in input.iter() {
-            if !base_keys().contains(&k.as_str()) {
+            if !base_keys().contains(&k.as_lossy_str()) {
                 self.extra.put(k.clone(), v.clone());
             }
         }

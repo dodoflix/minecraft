@@ -568,7 +568,7 @@ mod tests {
                 .unwrap_or_else(|f| panic!("{f:?}")),
             {
                 let mut c = mc_nbt::CompoundTag::new();
-                c.put("type", Tag::String("minecraft:floor".to_owned()));
+                c.put("type", Tag::String("minecraft:floor".into()));
                 c.put("input", Tag::Float(0.5));
                 Tag::Compound(c)
             }

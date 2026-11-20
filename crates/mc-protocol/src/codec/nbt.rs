@@ -34,7 +34,9 @@ pub fn encode_tag(tag: &Tag, out: &mut Vec<u8>) -> EncodeResult<()> {
     mc_nbt::write_network(tag, out).map_err(|e| {
         // `new EncoderException(IOException)`: message = `cause.toString()`.
         EncodeError(match e {
-            mc_nbt::NbtError::MalformedUtf(m) => format!("java.io.UTFDataFormatException: {m}"),
+            mc_nbt::NbtError::MalformedUtf(m) => {
+                format!("java.io.UTFDataFormatException: {}", m.as_lossy_str())
+            }
             other => other.to_string(),
         })
     })

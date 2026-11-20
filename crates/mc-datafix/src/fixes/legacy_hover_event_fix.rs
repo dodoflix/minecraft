@@ -82,7 +82,7 @@ fn fix_hover_and_remainder(
     let hover_action = hover_and_remainder
         .first()
         .as_option()
-        .map(|hover| hover.first().as_str().to_string())
+        .map(|hover| hover.first().as_lossy_str().to_string())
         .unwrap_or_default();
     let new_hover_event = fix_hover_event(ops, hover_event_type, &hover_action, hover_event);
     hover_and_remainder.map_first(|_| Value::left(new_hover_event))
@@ -117,7 +117,7 @@ fn create_placeholder_hover(
         empty.create_string("text"),
         empty.create_string(format!(
             "Legacy hoverEvent: {}",
-            old_json.to_stable_string()
+            old_json.to_stable_string().as_lossy_str()
         )),
     )]);
     let placeholder_hover_event = empty.create_map([

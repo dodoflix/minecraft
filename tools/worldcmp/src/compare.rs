@@ -6,6 +6,7 @@
 
 use std::collections::{BTreeMap, BTreeSet};
 
+use mc_core::java_string::JavaString;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 
 pub const STATUSES: [&str; 12] = [
@@ -172,7 +173,8 @@ fn canon_into(tag: &Tag, s: &mut String) {
         }
         Tag::Compound(c) => {
             s.push('{');
-            let sorted: BTreeMap<&String, &Tag> = c.iter().collect();
+            let sorted: BTreeMap<&str, &Tag> =
+                c.iter().map(|(k, v)| (k.as_lossy_str(), v)).collect();
             for (i, (k, v)) in sorted.into_iter().enumerate() {
                 if i > 0 {
                     s.push(',');
@@ -189,14 +191,18 @@ fn canon_into(tag: &Tag, s: &mut String) {
 pub fn diff_tag(path: &str, a: &Tag, b: &Tag, out: &mut Vec<String>) {
     match (a, b) {
         (Tag::Compound(x), Tag::Compound(y)) => {
-            let keys: BTreeSet<&String> = x.keys().chain(y.keys()).collect();
-            for k in keys {
+            let keys: BTreeMap<&str, &JavaString> = x
+                .keys()
+                .chain(y.keys())
+                .map(|k| (k.as_lossy_str(), k))
+                .collect();
+            for (k, key) in keys {
                 let p = if path.is_empty() {
                     k.to_string()
                 } else {
                     format!("{path}.{k}")
                 };
-                match (x.get(k), y.get(k)) {
+                match (x.get_java(key), y.get_java(key)) {
                     (Some(l), Some(r)) => diff_tag(&p, l, r, out),
                     (Some(l), None) => out.push(short(format!("{p}: only in A = {}", canon(l)))),
                     (None, Some(r)) => out.push(short(format!("{p}: only in B = {}", canon(r)))),
@@ -264,11 +270,11 @@ fn state_string(tag: &Tag) -> String {
     let name = c.get_string_or("id", "?");
     match c.get_compound("properties") {
         Some(p) if !p.is_empty() => {
-            let props: BTreeMap<&String, String> = p
+            let props: BTreeMap<&str, String> = p
                 .iter()
                 .map(|(k, v)| {
                     (
-                        k,
+                        k.as_lossy_str(),
                         v.as_string().map(str::to_owned).unwrap_or_else(|| canon(v)),
                     )
                 })
@@ -442,7 +448,11 @@ fn compare_heightmaps(a: &CompoundTag, b: &CompoundTag, d: &mut ChunkDiff) {
         a.get_compound_or_empty("Heightmaps"),
         b.get_compound_or_empty("Heightmaps"),
     );
-    let names: BTreeSet<&String> = ha.keys().chain(hb.keys()).collect();
+    let names: BTreeSet<&str> = ha
+        .keys()
+        .chain(hb.keys())
+        .map(|k| k.as_lossy_str())
+        .collect();
     for n in names {
         match (ha.get_long_array(n), hb.get_long_array(n)) {
             (Some(x), Some(y)) if x == y => {}
@@ -602,27 +612,31 @@ fn compare_structures(a: &CompoundTag, b: &CompoundTag, d: &mut ChunkDiff) {
         sa.get_compound_or_empty("starts"),
         sb.get_compound_or_empty("starts"),
     );
-    let ids: BTreeSet<&String> = xa.keys().chain(xb.keys()).collect();
+    let ids: BTreeSet<&str> = xa
+        .keys()
+        .chain(xb.keys())
+        .map(|k| k.as_lossy_str())
+        .collect();
     for id in ids {
         match (xa.get(id), xb.get(id)) {
             (Some(x), Some(y)) => {
                 let mut out = Vec::new();
                 diff_tag(id, x, y, &mut out);
                 if !out.is_empty() {
-                    d.starts.entry(id.clone()).or_default().differs += 1;
+                    d.starts.entry(id.to_owned()).or_default().differs += 1;
                 }
                 for m in out {
                     d.note(Category::StructureStarts, || m);
                 }
             }
             (Some(_), None) => {
-                d.starts.entry(id.clone()).or_default().only_a += 1;
+                d.starts.entry(id.to_owned()).or_default().only_a += 1;
                 d.note(Category::StructureStarts, || {
                     format!("{id}: start only in A")
                 });
             }
             (None, Some(_)) => {
-                d.starts.entry(id.clone()).or_default().only_b += 1;
+                d.starts.entry(id.to_owned()).or_default().only_b += 1;
                 d.note(Category::StructureStarts, || {
                     format!("{id}: start only in B")
                 });
@@ -634,7 +648,11 @@ fn compare_structures(a: &CompoundTag, b: &CompoundTag, d: &mut ChunkDiff) {
         sa.get_compound_or_empty("References"),
         sb.get_compound_or_empty("References"),
     );
-    let ids: BTreeSet<&String> = ra.keys().chain(rb.keys()).collect();
+    let ids: BTreeSet<&str> = ra
+        .keys()
+        .chain(rb.keys())
+        .map(|k| k.as_lossy_str())
+        .collect();
     for id in ids {
         let set = |c: &CompoundTag| {
             c.get_long_array(id)
@@ -720,14 +738,15 @@ pub fn compare_chunk(a: &CompoundTag, b: &CompoundTag, max_listed: usize) -> Chu
     for m in out {
         d.note(Category::PostProcessing, || m);
     }
-    let keys: BTreeSet<&String> = a
+    let keys: BTreeMap<&str, &JavaString> = a
         .keys()
         .chain(b.keys())
-        .filter(|k| !HANDLED.contains(&k.as_str()))
+        .map(|k| (k.as_lossy_str(), k))
+        .filter(|(k, _)| !HANDLED.contains(k))
         .collect();
-    for k in keys {
+    for (k, key) in keys {
         let mut out = Vec::new();
-        match (a.get(k), b.get(k)) {
+        match (a.get_java(key), b.get_java(key)) {
             (Some(x), Some(y)) => diff_tag(k, x, y, &mut out),
             (Some(x), None) => out.push(short(format!("{k}: only in A = {}", canon(x)))),
             (None, Some(y)) => out.push(short(format!("{k}: only in B = {}", canon(y)))),

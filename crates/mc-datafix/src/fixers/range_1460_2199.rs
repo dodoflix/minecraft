@@ -72,7 +72,7 @@ fn command_block_minecart_custom_name_fix(schema: &Schema) -> DataFix {
             move |input| {
                 let id = input
                     .get_optional(&id_f)
-                    .map(|id| id.as_str().to_string())
+                    .map(|id| id.as_lossy_str().to_string())
                     .unwrap_or_default();
                 if id != "minecraft:commandblock_minecart" {
                     return input;
@@ -80,7 +80,7 @@ fn command_block_minecart_custom_name_fix(schema: &Schema) -> DataFix {
                 input.update_typed(&custom_name_f, |custom_name| {
                     custom_name.update(&component_f, |pair| {
                         pair.map_second(|text| {
-                            Value::Str(create_text_component_json(text.as_str()))
+                            Value::Str(create_text_component_json(text.as_java_string().clone()))
                         })
                     })
                 })

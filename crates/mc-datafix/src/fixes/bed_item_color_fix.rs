@@ -19,7 +19,7 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
             move |input| {
                 let is_bed = input
                     .get_optional(&id_f)
-                    .is_some_and(|id| id.second().as_str() == "minecraft:bed");
+                    .is_some_and(|id| id.second().as_lossy_str() == "minecraft:bed");
                 if is_bed {
                     let tag = input.get(&remainder_finder()).into_dynamic();
                     if tag.get("Damage").as_int_or(0) == 0 {

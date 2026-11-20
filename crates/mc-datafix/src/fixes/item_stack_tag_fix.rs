@@ -46,7 +46,7 @@ pub fn create_fixer(
     );
     let tag_f = item_stack_type.find_field("tag");
     move |input| match input.get_optional(&id_f) {
-        Some(id) if id_filter(id.second().as_str()) => input.update_typed(&tag_f, &fixer),
+        Some(id) if id_filter(id.second().as_lossy_str()) => input.update_typed(&tag_f, &fixer),
         _ => input,
     }
 }

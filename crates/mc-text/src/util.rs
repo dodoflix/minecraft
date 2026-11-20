@@ -4,35 +4,32 @@ use crate::chat_formatting::ChatFormatting;
 use crate::component::{Component, TranslatableArg};
 use crate::events::{ClickEvent, HoverEvent};
 use crate::style::Style;
-use serde_json::Value;
+use mc_core::gson::JsonElement;
+use mc_core::java_string::JavaString;
 
 /// `GsonHelper.encodesLongerThan`: is the compact text a Gson `JsonWriter` (no HTML escaping) would
 /// write for `json` longer than `max` UTF-16 code units?
-pub fn encodes_longer_than(json: &Value, max: usize) -> bool {
+pub fn encodes_longer_than(json: &JsonElement, max: usize) -> bool {
     gson_text_len(json) > max
 }
 
-/// Length in UTF-16 code units of Gson's compact output (numbers print like `Double.toString`).
-fn gson_text_len(v: &Value) -> usize {
+/// Length in UTF-16 code units of Gson's compact output.
+fn gson_text_len(v: &JsonElement) -> usize {
     match v {
-        Value::Null => 4,
-        Value::Bool(b) => {
+        JsonElement::Null => 4,
+        JsonElement::Bool(b) => {
             if *b {
                 4
             } else {
                 5
             }
         }
-        Value::Number(n) => match (n.as_i64(), n.as_u64()) {
-            (Some(i), _) => i.to_string().len(),
-            (None, Some(u)) => u.to_string().len(),
-            _ => crate::value::java_double_to_string(n.as_f64().unwrap_or(0.0)).len(),
-        },
-        Value::String(s) => gson_string_len(s),
-        Value::Array(a) => {
+        JsonElement::Number(n) => n.len(),
+        JsonElement::String(s) => gson_string_len(s),
+        JsonElement::Array(a) => {
             2 + a.len().saturating_sub(1) + a.iter().map(gson_text_len).sum::<usize>()
         }
-        Value::Object(o) => {
+        JsonElement::Object(o) => {
             2 + o.len().saturating_sub(1)
                 + o.iter()
                     .map(|(k, v)| gson_string_len(k) + 1 + gson_text_len(v))
@@ -41,8 +38,10 @@ fn gson_text_len(v: &Value) -> usize {
     }
 }
 
-fn gson_string_len(s: &str) -> usize {
+fn gson_string_len(s: &JavaString) -> usize {
+    // a lone surrogate is one unit, like the character that shows it
     2 + s
+        .as_lossy_str()
         .chars()
         .map(|c| match c {
             '"' | '\\' | '\u{8}' | '\u{c}' | '\n' | '\r' | '\t' => 2,
@@ -127,12 +126,12 @@ pub fn wrap_in_square_brackets(inner: Component) -> Component {
 pub fn copy_on_click_text(text: &str) -> Component {
     wrap_in_square_brackets(Component::literal(text).with_style_fn(|s| {
         s.with_color_formatting(Some(ChatFormatting::Green))
-            .with_click_event(Some(ClickEvent::CopyToClipboard(text.to_owned())))
+            .with_click_event(Some(ClickEvent::CopyToClipboard(text.into())))
             .with_hover_event(Some(HoverEvent::show_text(Component::translatable(
                 "chat.copy.click",
                 vec![],
             ))))
-            .with_insertion(Some(text.to_owned()))
+            .with_insertion(Some(text.into()))
     }))
 }
 

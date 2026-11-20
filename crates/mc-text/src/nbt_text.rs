@@ -4,6 +4,7 @@
 use crate::chat_formatting::ChatFormatting;
 use crate::component::Component;
 use crate::style::Style;
+use mc_core::java_string::JavaString;
 use mc_nbt::{Tag, snbt};
 
 const MAX_DEPTH: usize = 64;
@@ -140,7 +141,7 @@ impl TextComponentTagVisitor {
         self.result
     }
 
-    fn append_str(&mut self, s: &str, style: &Style) {
+    fn append_str(&mut self, s: impl Into<JavaString>, style: &Style) {
         self.result
             .push_sibling(Component::literal(s).with_style(style));
     }
@@ -179,10 +180,10 @@ impl TextComponentTagVisitor {
             ),
             Tag::String(s) => {
                 let quoted = snbt::quote_and_escape(s);
-                let quote = Component::literal(&quoted[..1]);
+                let quote = Component::literal(quoted.substring(0, 1));
                 let style = self.styling.string_style();
                 self.append(quote.clone());
-                self.append_str(&quoted[1..quoted.len() - 1], &style);
+                self.append_str(quoted.substring(1, quoted.utf16_len() - 1), &style);
                 self.append(quote);
             }
             Tag::ByteArray(a) => self.visit_array(
@@ -296,10 +297,10 @@ impl TextComponentTagVisitor {
             self.token(Token::StructClose);
         } else {
             self.token(Token::StructOpen);
-            let mut entries: Vec<(&String, &Tag)> = tag.iter_java_order();
+            let mut entries: Vec<(&JavaString, &Tag)> = tag.iter_java_order();
             if self.sort_keys {
                 // Java `String.compareTo`: UTF-16 code unit order.
-                entries.sort_by(|a, b| a.0.encode_utf16().cmp(b.0.encode_utf16()));
+                entries.sort_by(|a, b| a.0.java_cmp(b.0));
             }
             if !self.indentation.is_empty() {
                 self.append(Component::literal("\n"));
@@ -345,19 +346,21 @@ impl TextComponentTagVisitor {
         self.depth -= 1;
     }
 
-    fn handle_escape_pretty(&self, input: &str) -> Component {
+    fn handle_escape_pretty(&self, input: &JavaString) -> Component {
         let key_style = self.styling.key_style();
-        let simple = !input.is_empty()
+        let simple = !input.as_lossy_str().is_empty()
             && input
+                .as_lossy_str()
                 .chars()
                 .all(|c| c.is_ascii_alphanumeric() || matches!(c, '.' | '_' | '+' | '-'));
         if simple {
-            Component::literal(input).with_style(&key_style)
+            Component::literal(input.clone()).with_style(&key_style)
         } else {
             let quoted = snbt::quote_and_escape(input);
-            let quote = &quoted[..1];
-            let inner = Component::literal(&quoted[1..quoted.len() - 1]).with_style(&key_style);
-            Component::literal(quote)
+            let quote = quoted.substring(0, 1);
+            let inner = Component::literal(quoted.substring(1, quoted.utf16_len() - 1))
+                .with_style(&key_style);
+            Component::literal(quote.clone())
                 .append(inner)
                 .append(Component::literal(quote))
         }

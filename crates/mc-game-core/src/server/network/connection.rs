@@ -91,7 +91,7 @@ pub enum Outbound {
     SetState(ConnectionState),
     /// The disconnect packet of the current outbound protocol (`ClientboundLoginDisconnect` / `ClientboundDisconnect`;
     /// none for handshake/status), then flush and close the connection.
-    Disconnect(Component),
+    Disconnect(Box<Component>),
     /// Flush, then close the connection.
     Close,
     /// Bytes written to the socket as they are (no framing/compression/encryption): the legacy server-list reply.
@@ -404,7 +404,7 @@ impl ConnectionSender {
         let reason = details.reason.clone();
         self.handle.set_disconnection_details(details);
         self.handle.set_read_only();
-        let _ = self.tx.send(Outbound::Disconnect(reason));
+        let _ = self.tx.send(Outbound::Disconnect(Box::new(reason)));
     }
 
     /// `Connection.disconnect(reason)`: flush what is queued, close without a disconnect packet.
@@ -665,7 +665,7 @@ pub fn internal_exception_text(error: &NetError) -> String {
 pub fn generic_reason(text: String) -> Component {
     Component::translatable(
         "disconnect.genericReason",
-        vec![mc_text::TranslatableArg::String(text)],
+        vec![mc_text::TranslatableArg::String(text.into())],
     )
 }
 

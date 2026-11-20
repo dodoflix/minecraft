@@ -109,12 +109,12 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
                                 if chest_locations.contains(&leaves_fix::get_index(x, y, z)) {
                                     tile_entity.update(&choice_finder, |string_pair| {
                                         string_pair.map_first(|s| {
-                                            if s.as_str() != "minecraft:chest" {
+                                            if s.as_lossy_str() != "minecraft:chest" {
                                                 log::warn!(
                                                     "Block Entity was expected to be a chest"
                                                 );
                                             }
-                                            Value::Str("minecraft:trapped_chest".to_string())
+                                            Value::str("minecraft:trapped_chest")
                                         })
                                     })
                                 } else {

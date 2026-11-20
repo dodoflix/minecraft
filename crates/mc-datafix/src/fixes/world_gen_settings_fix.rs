@@ -6,6 +6,7 @@ use crate::datafix::DataFix;
 use crate::fixes::references::References;
 use crate::schema::Schema;
 use mc_core::java_collections::{HASH_MAP_DEFAULT_CAPACITY, hash_map_ordered};
+use mc_core::java_string::JavaString;
 use mc_core::math::java::{java_string_hash, parse_int};
 use mc_dfu::{Dyn, Dynamic, OptionalDynamic};
 
@@ -145,8 +146,8 @@ fn fix(input: Dynamic) -> Dynamic {
         .get("generatorName")
         .as_string()
         .result()
-        .map(|n| n.to_lowercase());
-    let legacy_custom_options: Option<String> = input
+        .map(|n| n.as_lossy_str().to_lowercase());
+    let legacy_custom_options: Option<JavaString> = input
         .get("legacy_custom_options")
         .as_string()
         .result()
@@ -218,7 +219,10 @@ fn fix(input: Dynamic) -> Dynamic {
         Some("buffet") => {
             let settings = input.get("generatorOptions");
             let chunk_generator_object = settings.get("chunk_generator");
-            let ty = chunk_generator_object.get("type").as_string().result();
+            let ty = chunk_generator_object
+                .get("type")
+                .as_string_lossy()
+                .result();
             let noise_generator_settings = match ty.as_deref() {
                 Some("minecraft:caves") => {
                     caves = true;
@@ -235,7 +239,11 @@ fn fix(input: Dynamic) -> Dynamic {
                     input.create_string("minecraft:fixed"),
                 )])
             });
-            let fixed_source = if biome_source.get("type").as_string().result().as_deref()
+            let fixed_source = if biome_source
+                .get("type")
+                .as_string_lossy()
+                .result()
+                .as_deref()
                 == Some("minecraft:fixed")
             {
                 let biome = biome_source
@@ -245,7 +253,7 @@ fn fix(input: Dynamic) -> Dynamic {
                     .into_iter()
                     .next()
                     .and_then(|b| b.as_string().result())
-                    .unwrap_or_else(|| "minecraft:ocean".to_string());
+                    .unwrap_or_else(|| "minecraft:ocean".into());
                 biome_source
                     .remove("options")
                     .set("biome", input.create_string(biome))
@@ -421,20 +429,30 @@ fn fix_flat_structures(settings: &OptionalDynamic) -> Vec<(Dynamic, Dynamic)> {
                 let value = option_value.as_string_or("");
                 if structure_name == "stronghold" {
                     has_stronghold = true;
-                    match option_name.as_str() {
+                    match option_name.as_lossy_str() {
                         "distance" => {
-                            stronghold_distance = get_int_min(&value, stronghold_distance, 1)
+                            stronghold_distance =
+                                get_int_min(value.as_lossy_str(), stronghold_distance, 1)
                         }
-                        "spread" => stronghold_spread = get_int_min(&value, stronghold_spread, 1),
-                        "count" => stronghold_count = get_int_min(&value, stronghold_count, 1),
+                        "spread" => {
+                            stronghold_spread =
+                                get_int_min(value.as_lossy_str(), stronghold_spread, 1)
+                        }
+                        "count" => {
+                            stronghold_count =
+                                get_int_min(value.as_lossy_str(), stronghold_count, 1)
+                        }
                         _ => {}
                     }
                 } else {
-                    match option_name.as_str() {
-                        "distance" => match structure_name.as_str() {
-                            "village" => {
-                                set_spacing(&mut structure_config, "minecraft:village", &value, 9)
-                            }
+                    match option_name.as_lossy_str() {
+                        "distance" => match structure_name.as_lossy_str() {
+                            "village" => set_spacing(
+                                &mut structure_config,
+                                "minecraft:village",
+                                value.as_lossy_str(),
+                                9,
+                            ),
                             "biome_1" => {
                                 for structure in [
                                     "minecraft:desert_pyramid",
@@ -443,21 +461,32 @@ fn fix_flat_structures(settings: &OptionalDynamic) -> Vec<(Dynamic, Dynamic)> {
                                     "minecraft:swamp_hut",
                                     "minecraft:pillager_outpost",
                                 ] {
-                                    set_spacing(&mut structure_config, structure, &value, 9);
+                                    set_spacing(
+                                        &mut structure_config,
+                                        structure,
+                                        value.as_lossy_str(),
+                                        9,
+                                    );
                                 }
                             }
-                            "endcity" => {
-                                set_spacing(&mut structure_config, "minecraft:endcity", &value, 1)
-                            }
-                            "mansion" => {
-                                set_spacing(&mut structure_config, "minecraft:mansion", &value, 1)
-                            }
+                            "endcity" => set_spacing(
+                                &mut structure_config,
+                                "minecraft:endcity",
+                                value.as_lossy_str(),
+                                1,
+                            ),
+                            "mansion" => set_spacing(
+                                &mut structure_config,
+                                "minecraft:mansion",
+                                value.as_lossy_str(),
+                                1,
+                            ),
                             _ => {}
                         },
                         "separation" if structure_name == "oceanmonument" => {
                             let config = config_or_default(&structure_config, "minecraft:monument");
                             // the separation is read into the spacing, as in the original
-                            let spacing = get_int_min(&value, config.separation, 1);
+                            let spacing = get_int_min(value.as_lossy_str(), config.separation, 1);
                             put_config(
                                 &mut structure_config,
                                 "minecraft:monument",
@@ -469,7 +498,12 @@ fn fix_flat_structures(settings: &OptionalDynamic) -> Vec<(Dynamic, Dynamic)> {
                             );
                         }
                         "spacing" if structure_name == "oceanmonument" => {
-                            set_spacing(&mut structure_config, "minecraft:monument", &value, 1);
+                            set_spacing(
+                                &mut structure_config,
+                                "minecraft:monument",
+                                value.as_lossy_str(),
+                                1,
+                            );
                         }
                         _ => {}
                     }

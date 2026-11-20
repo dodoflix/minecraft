@@ -231,7 +231,7 @@ impl PrimKind {
             PrimKind::Str => ops.get_string_value(input).map(Value::Str),
             PrimKind::NamespacedStr => ops
                 .get_string_value(input)
-                .map(|s| Value::Str(ensure_namespaced(&s))),
+                .map(|s| Value::Str(s.map_text(ensure_namespaced))),
         }
     }
 
@@ -922,7 +922,7 @@ impl Type {
                         }
                     },
                 };
-                let name = key.as_str().to_string();
+                let name = key.as_lossy_str().to_string();
                 match tc.get(&name) {
                     None => DataResult::error(move || format!("Unsupported key: {name}")),
                     Some(ty) => ty
@@ -972,10 +972,10 @@ impl Type {
             }
             Tag(name, element) => match element.encode(ops, value, Dyn::Empty) {
                 DataResult::Success(d) => {
-                    put_entries(ops, prefix, vec![(Dyn::Str(name.clone()), d)])
+                    put_entries(ops, prefix, vec![(Dyn::str(name.as_str()), d)])
                 }
                 DataResult::Error { message, partial } => match partial {
-                    Some(d) => match put_entries(ops, prefix, vec![(Dyn::Str(name.clone()), d)]) {
+                    Some(d) => match put_entries(ops, prefix, vec![(Dyn::str(name.as_str()), d)]) {
                         DataResult::Success(r) => DataResult::error_msg(message, Some(r)),
                         DataResult::Error {
                             message: m2,
@@ -990,8 +990,8 @@ impl Type {
             },
             Named(name, element) => {
                 let (n, v) = value.as_pair();
-                if n.as_str() != name {
-                    let (expected, got) = (name.clone(), n.as_str().to_string());
+                if n.as_lossy_str() != name {
+                    let (expected, got) = (name.clone(), n.as_lossy_str().to_string());
                     DataResult::error_partial(
                         move || {
                             format!(
@@ -1010,7 +1010,7 @@ impl Type {
                 .map(|v| post.apply(ops, v)),
             TaggedChoice(tc) => {
                 let (key, v) = value.as_pair();
-                let key_name = key.as_str();
+                let key_name = key.as_lossy_str();
                 let Some(ty) = tc.get(key_name) else {
                     let k = key_name.to_string();
                     return DataResult::error(move || format!("Unsupported key: {k}"));

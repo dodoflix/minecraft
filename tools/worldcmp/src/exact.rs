@@ -5,6 +5,7 @@
 
 use std::collections::BTreeSet;
 
+use mc_core::java_string::JavaString;
 use mc_core::pos::ChunkPos;
 use mc_nbt::{CompoundTag, Tag};
 use serde_json::Value;
@@ -18,8 +19,8 @@ fn at(path: &str) -> &str {
     if path.is_empty() { "<root>" } else { path }
 }
 
-fn key_list<'a>(keys: impl Iterator<Item = &'a String>) -> String {
-    let v: Vec<&str> = keys.take(9).map(String::as_str).collect();
+fn key_list<'a>(keys: impl Iterator<Item = &'a str>) -> String {
+    let v: Vec<&str> = keys.take(9).collect();
     format!(
         "[{}{}]",
         v[..v.len().min(8)].join(","),
@@ -60,33 +61,33 @@ pub fn count(d: &ChunkDiff) -> u64 {
 }
 
 fn walk_compound(path: &mut String, x: &CompoundTag, y: &CompoundTag, d: &mut ChunkDiff) {
-    for k in x.keys().filter(|k| !y.contains(k)) {
+    for k in x.keys().filter(|k| y.get_java(k).is_none()) {
         d.note(OTHER, || format!("{}: key {k:?} only in A", at(path)));
     }
-    for k in y.keys().filter(|k| !x.contains(k)) {
+    for k in y.keys().filter(|k| x.get_java(k).is_none()) {
         d.note(OTHER, || format!("{}: key {k:?} only in B", at(path)));
     }
-    let (ka, kb): (Vec<&String>, Vec<&String>) = (
-        x.keys().filter(|k| y.contains(k)).collect(),
-        y.keys().filter(|k| x.contains(k)).collect(),
+    let (ka, kb): (Vec<&JavaString>, Vec<&JavaString>) = (
+        x.keys().filter(|k| y.get_java(k).is_some()).collect(),
+        y.keys().filter(|k| x.get_java(k).is_some()).collect(),
     );
     if ka != kb {
         d.note(OTHER, || {
             format!(
                 "{}: key order differs: A {} B {}",
                 at(path),
-                key_list(ka.iter().copied()),
-                key_list(kb.iter().copied())
+                key_list(ka.iter().map(|k| k.as_lossy_str())),
+                key_list(kb.iter().map(|k| k.as_lossy_str()))
             )
         });
     }
     for (k, va) in x {
-        if let Some(vb) = y.get(k) {
+        if let Some(vb) = y.get_java(k) {
             let len = path.len();
             if !path.is_empty() {
                 path.push('.');
             }
-            path.push_str(k);
+            path.push_str(k.as_lossy_str());
             walk(path, va, vb, d);
             path.truncate(len);
         }

@@ -219,7 +219,7 @@ impl LeavesSection {
             for (i, entry) in palette.iter_mut().enumerate() {
                 let palette_tag = entry.clone();
                 let block_name = palette_tag.get("Name").as_string_or("");
-                if LEAVES.contains_key(block_name.as_str()) {
+                if LEAVES.contains_key(block_name.as_lossy_str()) {
                     let persistent = palette_tag
                         .get("Properties")
                         .get("decayable")
@@ -227,12 +227,17 @@ impl LeavesSection {
                         == "false";
                     leave_ids.insert(i as i32);
                     state_to_id_map.insert(
-                        get_state_id(&block_name, persistent, DECAY_DISTANCE),
+                        get_state_id(block_name.as_lossy_str(), persistent, DECAY_DISTANCE),
                         i as i32,
                     );
-                    *entry = make_leaf_tag(&palette_tag, &block_name, persistent, DECAY_DISTANCE);
+                    *entry = make_leaf_tag(
+                        &palette_tag,
+                        block_name.as_lossy_str(),
+                        persistent,
+                        DECAY_DISTANCE,
+                    );
                 }
-                if LOGS.contains(block_name.as_str()) {
+                if LOGS.contains(block_name.as_lossy_str()) {
                     log_ids.insert(i as i32);
                 }
             }
@@ -263,8 +268,11 @@ impl LeavesSection {
             .get("Properties")
             .get("distance")
             .as_string_or("");
-        parse_int(&distance).unwrap_or_else(|| {
-            panic!("java.lang.NumberFormatException: For input string: \"{distance}\"")
+        parse_int(distance.as_lossy_str()).unwrap_or_else(|| {
+            panic!(
+                "java.lang.NumberFormatException: For input string: \"{}\"",
+                distance.as_lossy_str()
+            )
         })
     }
 
@@ -277,14 +285,17 @@ impl LeavesSection {
             .get("persistent")
             .as_string_or("")
             == "true";
-        let state_id = get_state_id(&block_name, persistent, distance);
+        let state_id = get_state_id(block_name.as_lossy_str(), persistent, distance);
         if !self.state_to_id_map.contains_key(&state_id) {
             let id = self.base.palette.len() as i32;
             self.leave_ids.insert(id);
             self.state_to_id_map.insert(state_id, id);
-            self.base
-                .palette
-                .push(make_leaf_tag(&base_tag, &block_name, persistent, distance));
+            self.base.palette.push(make_leaf_tag(
+                &base_tag,
+                block_name.as_lossy_str(),
+                persistent,
+                distance,
+            ));
         }
         let id = self.state_to_id_map[&state_id];
         let storage = self

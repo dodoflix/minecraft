@@ -258,7 +258,7 @@ fn flatten(path: &str, tag: &Tag, out: &mut Vec<String>) {
     match tag {
         Tag::Compound(c) => {
             for (k, v) in c.iter() {
-                flatten(&format!("{path}.{k}"), v, out);
+                flatten(&format!("{path}.{0}", k.as_lossy_str()), v, out);
             }
         }
         Tag::List(l) => {
@@ -342,7 +342,7 @@ async fn bonus_chest(s: &Server) -> Vec<String> {
         if k == "x" || k == "y" || k == "z" || k == "LootTableSeed" {
             continue;
         }
-        r.out.push(format!("  {k} = {v:?}"));
+        r.out.push(format!("  {0} = {v:?}", k.as_lossy_str()));
     }
 
     let client = r.join("Bot").await;

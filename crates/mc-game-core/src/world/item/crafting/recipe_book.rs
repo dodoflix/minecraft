@@ -230,7 +230,7 @@ impl ServerRecipeBook {
         let list = |ids: &IndexSet<Identifier>| {
             let mut l = ListTag::new();
             ids.iter()
-                .for_each(|id| l.push(Tag::String(id.to_string())));
+                .for_each(|id| l.push(Tag::String(id.to_string().into())));
             Tag::List(l)
         };
         tag.put("recipes", list(&self.known));

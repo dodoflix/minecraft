@@ -18,7 +18,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
 
 fn update_redstone_connections(state: Dynamic) -> Dynamic {
     let is_redstone =
-        state.get("Name").as_string().result().as_deref() == Some("minecraft:redstone_wire");
+        state.get("Name").as_string_lossy().result().as_deref() == Some("minecraft:redstone_wire");
     if !is_redstone {
         return state;
     }
@@ -27,12 +27,12 @@ fn update_redstone_connections(state: Dynamic) -> Dynamic {
         let west = props.get("west").as_string_or("none");
         let north = props.get("north").as_string_or("none");
         let south = props.get("south").as_string_or("none");
-        let eastwest = is_connected(&east) || is_connected(&west);
-        let northsouth = is_connected(&north) || is_connected(&south);
-        let new_east = side_unless_connected(&east, northsouth);
-        let new_west = side_unless_connected(&west, northsouth);
-        let new_north = side_unless_connected(&north, eastwest);
-        let new_south = side_unless_connected(&south, eastwest);
+        let eastwest = is_connected(east.as_lossy_str()) || is_connected(west.as_lossy_str());
+        let northsouth = is_connected(north.as_lossy_str()) || is_connected(south.as_lossy_str());
+        let new_east = side_unless_connected(east.as_lossy_str(), northsouth);
+        let new_west = side_unless_connected(west.as_lossy_str(), northsouth);
+        let new_north = side_unless_connected(north.as_lossy_str(), eastwest);
+        let new_south = side_unless_connected(south.as_lossy_str(), eastwest);
         props
             .update("east", |value| value.create_string(new_east))
             .update("west", |value| value.create_string(new_west))

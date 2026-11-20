@@ -51,8 +51,8 @@ fn properties_codec(block: Block) -> Codec<BlockState> {
                 let mut state = block.default_state();
                 for p in block.properties() {
                     let parsed = m.get(p.name).and_then(|v| ops.get_string_value(v).result());
-                    if let Some(next) =
-                        parsed.and_then(|value| state.with_property_str(p.name, &value))
+                    if let Some(next) = parsed
+                        .and_then(|value| state.with_property_str(p.name, value.as_lossy_str()))
                     {
                         state = next;
                     }

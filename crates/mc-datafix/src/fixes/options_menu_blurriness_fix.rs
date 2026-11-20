@@ -14,7 +14,8 @@ pub fn new(output_schema: &Schema) -> DataFix {
             |input| {
                 input.update_remainder(|tag| {
                     tag.update("menuBackgroundBlurriness", |value| {
-                        let int_value = convert_to_int_range(&value.as_string_or("0.5"));
+                        let int_value =
+                            convert_to_int_range(value.as_string_or("0.5").as_lossy_str());
                         value.create_string(int_value.to_string())
                     })
                 })

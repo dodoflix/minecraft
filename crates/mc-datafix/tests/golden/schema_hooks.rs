@@ -6,7 +6,7 @@ use mc_datafix::{References, data_fixer};
 use mc_dfu::{Dyn, Dynamic, NBT};
 
 fn s(v: &str) -> Dyn {
-    Dyn::Str(v.to_string())
+    Dyn::str(v)
 }
 
 /// Reads `input` as `ty` of schema `key` and writes it back.

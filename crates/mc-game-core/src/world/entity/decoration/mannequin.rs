@@ -113,7 +113,7 @@ impl Mannequin {
         let mut list = ListTag::new();
         for (bit, name) in MODEL_PARTS.iter().enumerate() {
             if mask & (1 << bit) == 0 {
-                list.push(Tag::String(name.to_string()));
+                list.push(Tag::String(name.to_string().into()));
             }
         }
         Tag::List(list)

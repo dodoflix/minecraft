@@ -2,9 +2,9 @@
 //! (`mc_text::set_payload_hooks`): the payload is decoded with the typed codec of its input ops and re-encoded as NBT, so
 //! `{"minecraft:damage":3}` from JSON becomes an int tag, invalid components are rejected, unknown ones rejected, ...
 
-use super::common::{dyn_to_serde, serde_to_dyn};
 use super::map::DataComponentPatch;
 use crate::dialog::Dialog;
+use mc_core::gson::JsonElement;
 use mc_dfu::{Dyn, JSON, NBT};
 use mc_nbt::{CompoundTag, Tag};
 use mc_text::{PayloadHooks, PayloadKind};
@@ -37,8 +37,8 @@ fn encode_patch(patch: &DataComponentPatch) -> Result<Tag, String> {
     Ok(Tag::Compound(ordered))
 }
 
-fn from_json(kind: PayloadKind, v: &serde_json::Value) -> Result<Tag, String> {
-    let d = serde_to_dyn(v);
+fn from_json(kind: PayloadKind, v: &JsonElement) -> Result<Tag, String> {
+    let d = Dyn::from_json_element(v);
     match kind {
         PayloadKind::ItemComponents => {
             let patch = DataComponentPatch::codec().parse(&JSON, &d).into_result()?;
@@ -58,7 +58,7 @@ fn from_nbt(kind: PayloadKind, t: &Tag) -> Result<Tag, String> {
     }
 }
 
-fn to_json(kind: PayloadKind, t: &Tag) -> Result<serde_json::Value, String> {
+fn to_json(kind: PayloadKind, t: &Tag) -> Result<JsonElement, String> {
     match kind {
         PayloadKind::ItemComponents => {
             // The stored compound keeps the typed patch's insertion order (vanilla's `Reference2ObjectArrayMap`), which is
@@ -77,21 +77,20 @@ fn to_json(kind: PayloadKind, t: &Tag) -> Result<serde_json::Value, String> {
             let d: Dyn = DataComponentPatch::codec()
                 .encode_start(&JSON, &patch)
                 .into_result()?;
-            Ok(dyn_to_serde(&d))
+            Ok(d.to_json_element())
         }
         // a registry reference was validated when it was parsed
         PayloadKind::Dialog if matches!(t, Tag::String(_)) => {
-            Ok(dyn_to_serde(&NBT.convert_to(&JSON, &Dyn::from(t))))
+            Ok(NBT.convert_to(&JSON, &Dyn::from(t)).to_json_element())
         }
         PayloadKind::Dialog => {
             let dialog = Dialog::direct_codec()
                 .parse(&NBT, &Dyn::from(t))
                 .into_result()?;
-            Ok(dyn_to_serde(
-                &Dialog::direct_codec()
-                    .encode_start(&JSON, &dialog)
-                    .into_result()?,
-            ))
+            Ok(Dialog::direct_codec()
+                .encode_start(&JSON, &dialog)
+                .into_result()?
+                .to_json_element())
         }
     }
 }

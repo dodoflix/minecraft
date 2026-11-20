@@ -355,7 +355,7 @@ fn normalization() -> Schema {
     Schema::either(
         Schema::Bool,
         Schema::custom(|v, _| match v {
-            Value::String(s) if s == "legacy" => Ok(Tag::String(s.clone())),
+            Value::String(s) if s == "legacy" => Ok(Tag::String(s.clone().into())),
             Value::String(s) => Err(format!("Invalid normalization type: {s}")),
             _ => Err(format!("Not a string: {v}")),
         }),

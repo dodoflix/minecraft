@@ -78,7 +78,7 @@ fn fix_layer(dynamic: Dynamic) -> Dynamic {
                 let mapped = PATTERN_ID_MAP
                     .iter()
                     .find(|(short, _)| *short == id)
-                    .map_or(id.as_str(), |(_, long)| long);
+                    .map_or(id.as_lossy_str(), |(_, long)| long);
                 pattern.create_string(mapped)
             }
             None => pattern,

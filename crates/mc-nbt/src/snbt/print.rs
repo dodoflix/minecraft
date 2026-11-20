@@ -2,7 +2,7 @@
 //! `StringTag.quoteAndEscape`.
 
 use crate::Tag;
-use std::cmp::Ordering;
+use mc_core::java_string::JavaString;
 
 // ---------------------------------------------------------------- Java number text
 
@@ -128,54 +128,60 @@ fn escape_control_characters(c: char) -> Option<String> {
 }
 
 /// `StringTag.quoteAndEscape`.
-pub fn quote_and_escape(input: &str) -> String {
-    let mut result = String::with_capacity(input.len() + 2);
+pub fn quote_and_escape(input: &JavaString) -> JavaString {
+    let mut result = JavaString::new();
     quote_and_escape_into(input, &mut result);
     result
 }
 
-fn quote_and_escape_into(input: &str, out: &mut String) {
-    let start = out.len();
-    out.push(' ');
+fn quote_and_escape_into(input: &JavaString, out: &mut JavaString) {
+    let mut body = JavaString::new();
     let mut quote = '\0';
-    for c in input.chars() {
+    for c in char::decode_utf16(input.encode_utf16()) {
+        let Ok(c) = c else {
+            // a lone surrogate is written as is
+            body.push_utf16_unit(c.unwrap_err().unpaired_surrogate());
+            continue;
+        };
         if c == '\\' {
-            out.push_str("\\\\");
+            body.push_str("\\\\");
         } else if c != '"' && c != '\'' {
             match escape_control_characters(c) {
                 Some(e) => {
-                    out.push('\\');
-                    out.push_str(&e);
+                    body.push('\\');
+                    body.push_str(&e);
                 }
-                None => out.push(c),
+                None => body.push(c),
             }
         } else {
             if quote == '\0' {
                 quote = if c == '"' { '\'' } else { '"' };
             }
             if quote == c {
-                out.push('\\');
+                body.push('\\');
             }
-            out.push(c);
+            body.push(c);
         }
     }
     if quote == '\0' {
         quote = '"';
     }
-    out.replace_range(start..start + 1, &quote.to_string());
+    out.push(quote);
+    out.push_java(&body);
     out.push(quote);
 }
 
 /// `StringTag.escapeWithoutQuotes`.
-pub fn escape_without_quotes(input: &str) -> String {
-    let mut out = String::new();
-    for c in input.chars() {
+pub fn escape_without_quotes(input: &JavaString) -> JavaString {
+    let mut out = JavaString::new();
+    for c in char::decode_utf16(input.encode_utf16()) {
         match c {
-            '"' | '\'' | '\\' => {
+            Err(e) => out.push_utf16_unit(e.unpaired_surrogate()),
+            Ok(c @ ('"' | '\'' | '\\')) => {
                 out.push('\\');
                 out.push(c);
             }
-            c => match escape_control_characters(c) {
+            Ok(c) => match escape_control_characters(c) {
                 Some(e) => {
                     out.push('\\');
                     out.push_str(&e);
@@ -185,11 +191,6 @@ pub fn escape_without_quotes(input: &str) -> String {
         }
     }
     out
-}
-
-/// `String.compareTo` (UTF-16 code unit order).
-fn java_cmp(a: &str, b: &str) -> Ordering {
-    a.encode_utf16().cmp(b.encode_utf16())
 }
 
 // ------------------------------------------------------------------- compact
@@ -209,13 +210,13 @@ fn is_unquoted_key(key: &str) -> bool {
 }
 
 /// `StringTagVisitor` output (`Tag.toString()`).
-pub fn print_compact(tag: &Tag) -> String {
-    let mut out = String::new();
+pub fn print_compact(tag: &Tag) -> JavaString {
+    let mut out = JavaString::new();
     compact(tag, &mut out);
     out
 }
 
-fn compact(tag: &Tag, out: &mut String) {
+fn compact(tag: &Tag, out: &mut JavaString) {
     use std::fmt::Write;
     match tag {
         Tag::End => out.push_str("END"),
@@ -282,14 +283,14 @@ fn compact(tag: &Tag, out: &mut String) {
         }
         Tag::Compound(c) => {
             out.push('{');
-            let mut entries: Vec<(&String, &Tag)> = c.iter().collect();
-            entries.sort_by(|a, b| java_cmp(a.0, b.0));
+            let mut entries: Vec<(&JavaString, &Tag)> = c.iter().collect();
+            entries.sort_by(|a, b| a.0.java_cmp(b.0));
             for (i, (k, v)) in entries.into_iter().enumerate() {
                 if i != 0 {
                     out.push(',');
                 }
-                if is_unquoted_key(k) {
-                    out.push_str(k);
+                if is_unquoted_key(k.as_lossy_str()) {
+                    out.push_str(k.as_lossy_str());
                 } else {
                     quote_and_escape_into(k, out);
                 }
@@ -333,7 +334,7 @@ fn is_simple_value(s: &str) -> bool {
 }
 
 /// `SnbtPrinterTagVisitor` with the default four-space indentation.
-pub fn print_pretty(tag: &Tag) -> String {
+pub fn print_pretty(tag: &Tag) -> JavaString {
     print_pretty_with(tag, "    ", 0, &mut Vec::new())
 }
 
@@ -343,24 +344,24 @@ pub fn print_pretty_with(
     indentation: &str,
     depth: usize,
     path: &mut Vec<String>,
-) -> String {
+) -> JavaString {
     match tag {
-        Tag::End => String::new(),
+        Tag::End => JavaString::new(),
         Tag::String(s) => quote_and_escape(s),
-        Tag::Byte(v) => format!("{v}b"),
-        Tag::Short(v) => format!("{v}s"),
-        Tag::Int(v) => v.to_string(),
-        Tag::Long(v) => format!("{v}L"),
-        Tag::Float(v) => format!("{}f", float_to_string(*v)),
-        Tag::Double(v) => format!("{}d", double_to_string(*v)),
-        Tag::ByteArray(v) => array("B", v.iter().map(|b| format!("{b}B"))),
-        Tag::IntArray(v) => array("I", v.iter().map(|b| b.to_string())),
-        Tag::LongArray(v) => array("L", v.iter().map(|b| format!("{b}L"))),
+        Tag::Byte(v) => format!("{v}b").into(),
+        Tag::Short(v) => format!("{v}s").into(),
+        Tag::Int(v) => v.to_string().into(),
+        Tag::Long(v) => format!("{v}L").into(),
+        Tag::Float(v) => format!("{}f", float_to_string(*v)).into(),
+        Tag::Double(v) => format!("{}d", double_to_string(*v)).into(),
+        Tag::ByteArray(v) => array("B", v.iter().map(|b| format!("{b}B"))).into(),
+        Tag::IntArray(v) => array("I", v.iter().map(|b| b.to_string())).into(),
+        Tag::LongArray(v) => array("L", v.iter().map(|b| format!("{b}L"))).into(),
         Tag::List(l) => {
             if l.is_empty() {
                 return "[]".into();
             }
-            let mut out = String::from("[");
+            let mut out = JavaString::from("[");
             path.push("[]".into());
             let indentation = if NO_INDENTATION.contains(&path.join(".").as_str()) {
                 ""
@@ -372,7 +373,7 @@ pub fn print_pretty_with(
             }
             for (i, e) in l.iter().enumerate() {
                 out.push_str(&indentation.repeat(depth + 1));
-                out.push_str(&print_pretty_with(e, indentation, depth + 1, path));
+                out.push_java(&print_pretty_with(e, indentation, depth + 1, path));
                 if i != l.len() - 1 {
                     out.push(',');
                     out.push_str(if indentation.is_empty() { " " } else { "\n" });
@@ -390,7 +391,7 @@ pub fn print_pretty_with(
             if c.is_empty() {
                 return "{}".into();
             }
-            let mut out = String::from("{");
+            let mut out = JavaString::from("{");
             path.push("{}".into());
             let path_string = path.join(".");
             let indentation = if NO_INDENTATION.contains(&path_string.as_str()) {
@@ -401,33 +402,33 @@ pub fn print_pretty_with(
             if !indentation.is_empty() {
                 out.push('\n');
             }
-            let mut keys: Vec<&str> = c.keys().map(String::as_str).collect();
-            let mut ordered: Vec<&str> = Vec::with_capacity(keys.len());
+            let mut keys: Vec<&JavaString> = c.keys().collect();
+            let mut ordered: Vec<&JavaString> = Vec::with_capacity(keys.len());
             if let Some((_, order)) = KEY_ORDER.iter().find(|(p, _)| *p == path_string) {
                 for k in *order {
-                    if let Some(pos) = keys.iter().position(|x| x == k) {
+                    if let Some(pos) = keys.iter().position(|x| **x == **k) {
                         ordered.push(keys.swap_remove(pos));
                     }
                 }
-                keys.sort_by(|a, b| java_cmp(a, b));
+                keys.sort_by(|a, b| a.java_cmp(b));
                 ordered.extend(keys);
             } else {
-                keys.sort_by(|a, b| java_cmp(a, b));
+                keys.sort_by(|a, b| a.java_cmp(b));
                 ordered = keys;
             }
             let n = ordered.len();
             for (i, key) in ordered.into_iter().enumerate() {
-                let value = c.get(key).expect("key present");
-                path.push(key.to_string());
+                let value = c.get_java(key).expect("key present");
+                path.push(key.as_lossy_str().to_owned());
                 out.push_str(&indentation.repeat(depth + 1));
-                out.push_str(&if is_simple_value(key) {
-                    key.to_string()
+                if is_simple_value(key.as_lossy_str()) {
+                    out.push_str(key.as_lossy_str());
                 } else {
-                    quote_and_escape(key)
-                });
+                    out.push_java(&quote_and_escape(key));
+                }
                 out.push(':');
                 out.push(' ');
-                out.push_str(&print_pretty_with(value, indentation, depth + 1, path));
+                out.push_java(&print_pretty_with(value, indentation, depth + 1, path));
                 path.pop();
                 if i + 1 != n {
                     out.push(',');

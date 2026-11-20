@@ -60,7 +60,7 @@ impl DropChances {
         let compound = tag.as_compound()?;
         let mut chances = Self::DEFAULT;
         for (key, value) in compound.iter() {
-            let slot = EquipmentSlot::by_name(key)?;
+            let slot = EquipmentSlot::by_name(key.as_lossy_str())?;
             let chance = value.as_number()?.float_value();
             if chance < 0.0 || chance.is_nan() {
                 return None;

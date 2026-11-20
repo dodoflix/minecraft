@@ -163,7 +163,7 @@ fn make_tick_list(
 
 fn get_block(block_state: Option<&Dynamic>) -> String {
     match block_state {
-        Some(b) => b.get("Name").as_string_or("minecraft:air"),
+        Some(b) => b.get("Name").as_string_or_lossy("minecraft:air"),
         None => "minecraft:air".to_string(),
     }
 }
@@ -186,7 +186,7 @@ fn get_liquid(block_state: Option<&Dynamic>) -> String {
         } else {
             "minecraft:flowing_lava"
         }
-    } else if !ALWAYS_WATERLOGGED.contains(&block.as_str())
+    } else if !ALWAYS_WATERLOGGED.contains(&block.as_lossy_str())
         && !block_state
             .get("Properties")
             .get("waterlogged")

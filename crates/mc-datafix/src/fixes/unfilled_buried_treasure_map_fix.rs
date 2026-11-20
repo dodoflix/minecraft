@@ -22,7 +22,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
             move |item_stack| {
                 let is_map = item_stack
                     .get_optional(&id_finder)
-                    .is_some_and(|id| id.second().as_str() == "minecraft:map");
+                    .is_some_and(|id| id.second().as_lossy_str() == "minecraft:map");
                 if is_map {
                     item_stack.update_typed(&components_finder, |typed| {
                         let ty = typed.get_type().clone();

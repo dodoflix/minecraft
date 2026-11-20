@@ -20,7 +20,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
             move |ops, input| {
                 read_typed_or_throw(
                     &new_type,
-                    &unflatten_json(ops, input.second().as_str()),
+                    &unflatten_json(ops, input.second().as_lossy_str()),
                     true,
                 )
                 .value

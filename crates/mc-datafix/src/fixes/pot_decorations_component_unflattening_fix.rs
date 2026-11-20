@@ -33,7 +33,7 @@ pub fn unpack_list(original: &Dynamic) -> Dynamic {
     };
     let ids: Vec<Option<String>> = decoration_ids
         .iter()
-        .map(|s| s.as_string().result())
+        .map(|s| s.as_string_lossy().result())
         .collect();
     let mut result = Vec::with_capacity(4);
     for (i, side) in ["back", "left", "right", "front"].into_iter().enumerate() {

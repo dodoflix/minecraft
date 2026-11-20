@@ -127,7 +127,7 @@ fn parse_with_codec<T>(
     let tag = parse_tag_as_argument(reader)?;
     decode(&tag).map_err(|e| {
         reader.set_cursor(cursor);
-        exception.create_with_context(reader, e.0)
+        exception.create_with_context(reader, e.0.into_string_lossy())
     })
 }
 

@@ -33,7 +33,7 @@ fn fix_tag(tag: Dynamic, flags_to_remove: &HashSet<String>) -> Dynamic {
                     match feature.as_string().result() {
                         None => kept.push(feature),
                         Some(id) => {
-                            if flags_to_remove.contains(&id) {
+                            if flags_to_remove.contains(id.as_lossy_str()) {
                                 inactive_features.push(source.create_string(id));
                             } else {
                                 kept.push(feature);

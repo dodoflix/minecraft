@@ -12,7 +12,7 @@ pub fn new(output_schema: &Schema) -> DataFix {
             typed.update_remainder(|tag| {
                 if tag.get("RenderType").as_string().result().is_none() {
                     let criteria_name = tag.get("CriteriaName").as_string_or("");
-                    let default_render_type = get_render_type(&criteria_name);
+                    let default_render_type = get_render_type(criteria_name.as_lossy_str());
                     tag.set("RenderType", tag.create_string(default_render_type))
                 } else {
                     tag

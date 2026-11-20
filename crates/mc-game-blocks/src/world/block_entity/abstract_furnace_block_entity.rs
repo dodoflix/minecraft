@@ -546,7 +546,7 @@ impl BlockEntity for AbstractFurnaceBlockEntity {
         self.recipes_used.clear();
         if let Some(used) = tag.get_compound("RecipesUsed") {
             for (key, value) in used.iter() {
-                if let (Ok(id), Some(n)) = (Identifier::parse(key), value.as_int()) {
+                if let (Ok(id), Some(n)) = (Identifier::parse(key.as_lossy_str()), value.as_int()) {
                     self.recipes_used.push((id, n));
                 }
             }

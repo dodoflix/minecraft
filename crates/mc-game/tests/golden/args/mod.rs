@@ -1124,12 +1124,12 @@ case!(
     component_matches_vanilla,
     "component",
     |_ctx| Arc::new(a::ComponentArgument::text_component()),
-    |v, _src| args_common::canon_json(
+    |v, _src| args_common::canon_json(&mc_text::json::value_from_element(
         &v.downcast_ref::<mc_text::Component>()
             .expect("component")
             .to_json()
             .expect("json")
-    )
+    ))
 );
 
 case!(
@@ -1201,12 +1201,12 @@ case!(
     style_matches_vanilla,
     "style",
     |_ctx| Arc::new(a::StyleArgument::style()),
-    |v, _src| args_common::canon_json(
+    |v, _src| args_common::canon_json(&mc_text::json::value_from_element(
         &v.downcast_ref::<mc_text::Style>()
             .expect("style")
             .to_json()
             .expect("json")
-    )
+    ))
 );
 
 case!(

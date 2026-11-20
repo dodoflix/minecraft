@@ -241,11 +241,16 @@ pub fn new(output_schema: &Schema) -> DataFix {
 }
 
 fn fix_game_rules(game_rules: Dynamic) -> Dynamic {
-    let do_fire_tick = parse_boolean(&game_rules.get("doFireTick").as_string_or("true"));
+    let do_fire_tick = parse_boolean(
+        game_rules
+            .get("doFireTick")
+            .as_string_or("true")
+            .as_lossy_str(),
+    );
     let allow_fire_ticks_away_from_player = parse_boolean(
         &game_rules
             .get("allowFireTicksAwayFromPlayer")
-            .as_string_or("false"),
+            .as_string_or_lossy("false"),
     );
     let fire_spread_radius = if !do_fire_tick {
         0
@@ -284,16 +289,16 @@ fn parse_boolean(s: &str) -> bool {
 
 fn convert_integer(old_value: Dynamic, min: i32, max: i32) -> Dynamic {
     let string_value = old_value.as_string_or("");
-    match parse_int(&string_value) {
+    match parse_int(string_value.as_lossy_str()) {
         Some(parsed_value) => old_value.create_int(parsed_value.max(min).min(max)),
         None => old_value,
     }
 }
 
 fn convert_boolean(old_value: &Dynamic) -> Dynamic {
-    old_value.create_boolean(parse_boolean(&old_value.as_string_or("")))
+    old_value.create_boolean(parse_boolean(old_value.as_string_or("").as_lossy_str()))
 }
 
 fn convert_boolean_inverted(old_value: &Dynamic) -> Dynamic {
-    old_value.create_boolean(!parse_boolean(&old_value.as_string_or("")))
+    old_value.create_boolean(!parse_boolean(old_value.as_string_or("").as_lossy_str()))
 }

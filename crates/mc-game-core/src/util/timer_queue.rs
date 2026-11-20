@@ -63,7 +63,7 @@ impl<C> TimerCallbacks<C> {
             return Err(format!("Unknown element id: {id}"));
         }
         let mut m = callback.encode();
-        m.put("type", Tag::String(id.to_string()));
+        m.put("type", Tag::String(id.to_string().into()));
         Ok(Tag::Compound(m))
     }
 }
@@ -100,7 +100,7 @@ impl<C: FunctionHost> TimerCallback<C> for FunctionCallback {
         Identifier::parse("minecraft:function").expect("static id")
     }
     fn encode(&self) -> CompoundTag {
-        CompoundTag::new().with("id", Tag::String(self.function_id.to_string()))
+        CompoundTag::new().with("id", Tag::String(self.function_id.to_string().into()))
     }
 }
 
@@ -112,7 +112,7 @@ impl<C: FunctionHost> TimerCallback<C> for FunctionTagCallback {
         Identifier::parse("minecraft:function_tag").expect("static id")
     }
     fn encode(&self) -> CompoundTag {
-        CompoundTag::new().with("id", Tag::String(self.tag_id.to_string()))
+        CompoundTag::new().with("id", Tag::String(self.tag_id.to_string().into()))
     }
 }
 

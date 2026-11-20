@@ -43,7 +43,9 @@ fn status_result(input: &str) -> String {
     match ClientboundStatusResponsePacket::decode(&mut slice) {
         Ok(p) => {
             let mut out = Vec::new();
-            p.encode(&mut out).unwrap();
+            if let Err(e) = p.encode(&mut out) {
+                return format!("err:{e}");
+            }
             let mut s = &out[..];
             format!(
                 "ok:{}",
@@ -62,9 +64,9 @@ fn same_status(ours: &str, golden: &str) -> bool {
     }
 }
 
-/// Inputs vanilla handles through `BigDecimal` where `serde_json::Number` (the carrier of `mc_text`'s JSON codec)
-/// cannot hold the value: a number literal beyond the `f64` range inside the description, which vanilla turns into
-/// `Infinity`.
+/// Inputs vanilla handles through `BigDecimal` where the number codec of `mc_text` differs: a number literal beyond the
+/// `f64` range inside the description, which vanilla turns into `Infinity` and writes back; the encoder here refuses a
+/// non-finite number.
 const KNOWN_GAPS: &[&str] = &["{\"description\":{\"translate\":\"x\",\"with\":[1e400]}}"];
 
 #[test]

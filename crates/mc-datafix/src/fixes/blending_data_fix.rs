@@ -27,17 +27,21 @@ pub fn new(output_schema: &Schema) -> DataFix {
 fn update_chunk_tag(chunk_tag: Dynamic) -> Dynamic {
     let context = chunk_tag.get("__context");
     let mut chunk_tag = chunk_tag.remove("blending_data");
-    let is_overworld =
-        context.get("dimension").as_string().result().as_deref() == Some("minecraft:overworld");
+    let is_overworld = context
+        .get("dimension")
+        .as_string_lossy()
+        .result()
+        .as_deref()
+        == Some("minecraft:overworld");
     if let (true, Some(status)) = (is_overworld, chunk_tag.get("Status").result()) {
-        let status = ensure_namespaced(&status.as_string_or("empty"));
+        let status = ensure_namespaced(status.as_string_or("empty").as_lossy_str());
         if !STATUSES_TO_SKIP_BLENDING.contains(&status.as_str()) {
             chunk_tag = update_blending_data(&chunk_tag, 384, -64);
         } else if let Some(below_zero_retrogen) = chunk_tag.get("below_zero_retrogen").result() {
             let target_status = ensure_namespaced(
                 &below_zero_retrogen
                     .get("target_status")
-                    .as_string_or("empty"),
+                    .as_string_or_lossy("empty"),
             );
             if !STATUSES_TO_SKIP_BLENDING.contains(&target_status.as_str()) {
                 chunk_tag = update_blending_data(&chunk_tag, 256, 0);

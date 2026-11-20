@@ -1,5 +1,6 @@
 //! Hand-built component trees: the programmatic API must serialise to what vanilla emits.
 
+use mc_text::json::{element_from_value, value_from_element};
 use mc_text::util::{copy_on_click_text, format_list};
 use mc_text::{
     ChatFormatting, ClickEvent, Component, HoverEvent, Style, TextColor, TranslatableArg,
@@ -13,14 +14,20 @@ fn builder_api_serialises_like_vanilla() {
         .append(Component::literal("b").with_format(ChatFormatting::Bold))
         .append_str("");
     assert_eq!(
-        c.to_json().unwrap(),
+        value_from_element(&c.to_json().unwrap()),
         json!({"text": "a", "extra": [{"text": "b", "bold": true}], "color": "red"})
     );
     assert_eq!(c.get_string(), "ab");
 
     // plain unstyled literals collapse to a bare string
-    assert_eq!(Component::literal("x").to_json().unwrap(), json!("x"));
-    assert_eq!(Component::empty().to_json().unwrap(), json!(""));
+    assert_eq!(
+        value_from_element(&Component::literal("x").to_json().unwrap()),
+        json!("x")
+    );
+    assert_eq!(
+        value_from_element(&Component::empty().to_json().unwrap()),
+        json!("")
+    );
 
     let t = Component::translatable(
         "commands.give.success.single",
@@ -28,7 +35,7 @@ fn builder_api_serialises_like_vanilla() {
     );
     assert_eq!(t.get_string(), "Gave 5 Item to Steve");
     assert_eq!(
-        t.to_json().unwrap(),
+        value_from_element(&t.to_json().unwrap()),
         json!({"translate": "commands.give.success.single", "with": [5, "Item", "Steve"]})
     );
     assert_eq!(
@@ -44,7 +51,7 @@ fn builder_api_serialises_like_vanilla() {
 fn copy_on_click_text_matches_vanilla_shape() {
     let c = copy_on_click_text("1 2 3");
     assert_eq!(
-        c.to_json().unwrap(),
+        value_from_element(&c.to_json().unwrap()),
         json!({
             "translate": "chat.square_brackets",
             "with": [{
@@ -66,10 +73,13 @@ fn style_semantics() {
     // equality of colours ignores the name: #FF5555 == red, but they serialise differently
     assert_eq!(TextColor::from_rgb(0xFF5555), TextColor::RED);
     assert_eq!(
-        Style::EMPTY.with_color_rgb(0xFF5555).to_json().unwrap(),
+        value_from_element(&Style::EMPTY.with_color_rgb(0xFF5555).to_json().unwrap()),
         json!({"color": "#FF5555"})
     );
-    assert_eq!(red.to_json().unwrap(), json!({"color": "red"}));
+    assert_eq!(
+        value_from_element(&red.to_json().unwrap()),
+        json!({"color": "red"})
+    );
     // `self` wins in apply_to
     let blue_bold = Style::EMPTY
         .with_color_formatting(Some(ChatFormatting::Blue))
@@ -126,23 +136,25 @@ fn component_is_reasonably_small() {
 /// without any partial value (a required field, a non-component) stays an error.
 #[test]
 fn malformed_fields_decode_to_partial_components() {
-    let partial = |v: serde_json::Value| Component::from_json_partial(&v).expect_err("malformed");
+    let partial = |v: serde_json::Value| {
+        Component::from_json_partial(&element_from_value(&v)).expect_err("malformed")
+    };
 
     let p = partial(json!({"text": "x", "color": "nope", "bold": true}));
     assert_eq!(
-        p.value.unwrap().to_json().unwrap(),
+        value_from_element(&p.value.unwrap().to_json().unwrap()),
         json!({"text": "x", "bold": true})
     );
 
     let p = partial(json!([{"text": "a", "color": "nope"}, "b", 5]));
     assert_eq!(
-        p.value.unwrap().to_json().unwrap(),
+        value_from_element(&p.value.unwrap().to_json().unwrap()),
         json!({"text": "a", "extra": ["b"]})
     );
 
     let p = partial(json!({"text": "a", "extra": [{"text": "b", "italic": 1}]}));
     assert_eq!(
-        p.value.unwrap().to_json().unwrap(),
+        value_from_element(&p.value.unwrap().to_json().unwrap()),
         json!({"text": "a", "extra": ["b"]})
     );
 
@@ -150,7 +162,7 @@ fn malformed_fields_decode_to_partial_components() {
         json!({"text": "a", "hover_event": {"action": "show_text", "value": {"text": "h", "color": "nope"}}}),
     );
     assert_eq!(
-        p.value.unwrap().to_json().unwrap(),
+        value_from_element(&p.value.unwrap().to_json().unwrap()),
         json!({"text": "a", "hover_event": {"action": "show_text", "value": "h"}})
     );
 

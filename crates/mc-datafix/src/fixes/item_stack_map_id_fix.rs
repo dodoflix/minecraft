@@ -17,7 +17,7 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
         df.fix_type_everywhere_typed("ItemInstanceMapIdFix", &item_stack_type, move |input| {
             let is_filled_map = input
                 .get_optional(&id_f)
-                .is_some_and(|id| id.second().as_str() == "minecraft:filled_map");
+                .is_some_and(|id| id.second().as_lossy_str() == "minecraft:filled_map");
             if !is_filled_map {
                 return input;
             }
