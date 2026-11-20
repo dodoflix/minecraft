@@ -4,6 +4,7 @@
 //! behaviours (structure starts/references, feature decoration, mob spawning) are [`WorldGenHooks`], implemented by the
 //! structures/features slices (`levelgen::hooks::VanillaWorldGenHooks`), one per level (`ServerLevelParams::hooks`).
 
+use super::chunk_io::DeferredChunkScan;
 use crate::world::entity::ai::village::poi::PoiTypeHolder;
 use crate::world::level::DimensionKey;
 use mc_core::ident::Identifier;
@@ -11,6 +12,7 @@ use mc_core::pos::{BlockPos, ChunkPos};
 use mc_nbt::CompoundTag;
 use mc_world::chunk::{LevelHeight, LightEngineHook, ProtoChunk, StructureData};
 use mc_world::palette::PalettedContainerFactory;
+use mc_worldgen::blending::Blender;
 use std::collections::HashMap;
 use std::sync::Arc;
 
@@ -41,6 +43,15 @@ impl GenChunk {
     pub fn is_writable(&self) -> bool {
         matches!(self, GenChunk::Loaned(_))
     }
+}
+
+/// A chunk with blending data that the game thread owns, as `Blender.of` sees it.
+pub struct OldChunk {
+    /// The whole chunk, or (`calculated_before`: `calculateData` only reads the chunk while it has not run) just its blending
+    /// data and statuses.
+    pub chunk: Box<ProtoChunk>,
+    /// `BlendingData.hasCalculatedData` when the snapshot was taken: the batch has nothing to write back.
+    pub calculated_before: bool,
 }
 
 /// A light engine call a worldgen write made (`ProtoChunk.setBlockState` into a chunk that already initialised its light).
@@ -90,6 +101,13 @@ pub struct WorldGenRegion {
     /// Structure start tags rewritten for chunks this region does not own (see [`Self::update_structure_start`]); the
     /// game thread applies them to the real chunks when the batch is done.
     pub start_updates: Vec<(ChunkPos, String, CompoundTag)>,
+    /// `ChunkMap.isOldChunkAround` (the level's IO worker).
+    pub old_chunk_scan: DeferredChunkScan,
+    /// Snapshots of the chunks with blending data in reach that the region does not lend (`Blender.of` reads their heights,
+    /// biomes and blocks and stores what `BlendingData.calculateData` computes in them): not part of the region's chunks.
+    pub old_chunks: HashMap<i64, OldChunk>,
+    /// `Blender.of(region)` of the running biome or terrain step.
+    pub blender: Blender,
 }
 
 impl WorldGenRegion {
@@ -111,7 +129,15 @@ impl WorldGenRegion {
             poi_changes: Vec::new(),
             light_events: Vec::new(),
             start_updates: Vec::new(),
+            old_chunk_scan: DeferredChunkScan::default(),
+            old_chunks: HashMap::new(),
+            blender: Blender::empty(),
         }
+    }
+
+    /// `isOldChunkAround(pos, range)`.
+    pub fn is_old_chunk_around(&self, pos: ChunkPos, range: i32) -> bool {
+        self.old_chunk_scan.is_old_chunk_around(pos, range)
     }
 
     /// `getCenter()`.
@@ -333,4 +359,6 @@ pub struct WorldGenContext {
     pub seed: i64,
     /// The live level values chunk generation reads (difficulty, `spawnMobs`, clocks, registries).
     pub live: Arc<super::gen_live_state::GenLiveState>,
+    /// The level's IO worker as seen by `WorldGenRegion.isOldChunkAround` (attached by the chunk map).
+    pub old_chunk_scan: DeferredChunkScan,
 }

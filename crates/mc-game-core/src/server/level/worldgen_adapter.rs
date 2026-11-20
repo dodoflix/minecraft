@@ -11,7 +11,6 @@ use mc_core::pos::{ChunkPos, SectionPos};
 use mc_world::chunk::ProtoChunk;
 use mc_world::palette::BiomeId;
 use mc_worldgen::biome::{BiomeManager, BiomeResolver};
-use mc_worldgen::blending::Blender;
 use mc_worldgen::generator::{BuildTerrainContext, ChunkGenerator};
 use mc_worldgen::random_state::RandomState;
 use std::sync::{Arc, OnceLock};
@@ -94,10 +93,9 @@ impl ChunkGeneratorBackend for NoiseWorldGenerator {
             .get_base_height(x, z, ty, height, &self.random_state)
     }
 
-    fn create_biomes(&self, chunk: &mut ProtoChunk, _region: &WorldGenRegion) {
-        // `Blender.of(region)` is empty unless old-version blending data is around (not supported).
+    fn create_biomes(&self, chunk: &mut ProtoChunk, region: &WorldGenRegion) {
         self.generator
-            .create_biomes(&self.random_state, &Blender::empty(), chunk);
+            .create_biomes(&self.random_state, &region.blender, chunk);
     }
 
     fn build_terrain(&self, chunk: &mut ProtoChunk, region: &WorldGenRegion) {
@@ -144,7 +142,7 @@ impl ChunkGeneratorBackend for NoiseWorldGenerator {
             .unwrap_or_default();
         let ctx = BuildTerrainContext {
             random_state: &self.random_state,
-            blender: &Blender::empty(),
+            blender: &region.blender,
             structure_starts: &structure_starts,
             biome_manager: &biome_manager,
             possible_biomes: Some(&possible),

@@ -411,6 +411,7 @@ impl ChunkMap {
             server_view_distance: 0,
             entity_broadcast_range_percentage: 100,
         };
+        map.gen_context.old_chunk_scan.attach(map.scan_access());
         map.set_server_view_distance(view_distance);
         map
     }

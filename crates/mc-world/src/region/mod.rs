@@ -2,6 +2,7 @@
 
 pub mod entity_storage;
 pub mod lz4;
+pub mod old_chunks;
 pub mod region_bitmap;
 pub mod region_file;
 pub mod region_file_storage;

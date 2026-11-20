@@ -4,11 +4,13 @@
 //! There is no background thread: vanilla's one-chunk-per-idle-tick draining is replaced by an
 //! explicit [`store_pending_chunk`](SimpleRegionStorage::store_pending_chunk).
 
+use super::old_chunks::{OldChunkBits, OldChunkRegions, is_old_chunk};
 use super::region_file_storage::RegionFileStorage;
 use super::region_storage_info::RegionStorageInfo;
 use indexmap::IndexMap;
 use mc_core::pos::chunk_pos::ChunkPos;
-use mc_nbt::CompoundTag;
+use mc_nbt::stream::{CollectFields, FieldSelector, StreamTagVisitor};
+use mc_nbt::{CompoundTag, TAG_COMPOUND, TAG_INT, Tag};
 use std::io;
 use std::path::PathBuf;
 
@@ -20,6 +22,8 @@ pub struct SimpleRegionStorage {
     /// `IOWorker.pendingWrites`; `None` = clear the chunk (`IOWorker.STORE_EMPTY`).
     pending_writes: IndexMap<i64, Option<CompoundTag>>,
     on_store_failure: Option<StoreFailureHandler>,
+    /// `IOWorker.regionCacheForBlender`.
+    old_regions: OldChunkRegions,
 }
 
 impl SimpleRegionStorage {
@@ -28,6 +32,7 @@ impl SimpleRegionStorage {
             storage: RegionFileStorage::new(info, folder, sync_writes),
             pending_writes: IndexMap::new(),
             on_store_failure: None,
+            old_regions: OldChunkRegions::default(),
         }
     }
 
@@ -67,6 +72,26 @@ impl SimpleRegionStorage {
         Ok(true)
     }
 
+    /// `scanChunk(pos, visitor)`: the stored chunk streamed through `visitor`, a queued write first (nothing for one that
+    /// removes the chunk).
+    pub fn scan_chunk_with(
+        &mut self,
+        pos: &ChunkPos,
+        visitor: &mut dyn StreamTagVisitor,
+    ) -> io::Result<()> {
+        match self.pending_writes.get(&pos.pack()) {
+            Some(Some(tag)) => {
+                Tag::Compound(tag.clone()).accept_as_root(visitor);
+                Ok(())
+            }
+            Some(None) => Ok(()),
+            None => self
+                .storage
+                .scan_chunk(pos, visitor)
+                .inspect_err(|e| log::warn!("Failed to bulk scan chunk {}: {}", pos, e)),
+        }
+    }
+
     /// `scanChunk(pos, visitor)`: the chunk's stored tag without creating a region file, a queued write first (`None`
     /// where it removes the chunk).
     pub fn scan_chunk(&mut self, pos: &ChunkPos) -> io::Result<Option<CompoundTag>> {
@@ -76,6 +101,48 @@ impl SimpleRegionStorage {
         self.storage
             .read(pos)
             .inspect_err(|e| log::warn!("Failed to bulk scan chunk {}: {}", pos, e))
+    }
+
+    /// `isOldChunkAround(pos, range)`: whether a chunk within `range` chunks of `pos` was stored before `DataVersion` 4997
+    /// or with `blending_data`. A region is scanned once and its answer stays until 1 024 other regions were asked for
+    /// (chunks saved meanwhile do not change it).
+    pub fn is_old_chunk_around(&mut self, pos: ChunkPos, range: i32) -> bool {
+        let regions = self.old_regions.clone();
+        regions.is_old_chunk_around(pos, range, |region_x, region_z| {
+            self.scan_old_region(region_x, region_z)
+        })
+    }
+
+    /// The cache `isOldChunkAround` answers from, for a caller that asks without going through the storage (the scan of an
+    /// uncached region is [`Self::scan_old_region`]).
+    pub fn old_chunk_regions(&self) -> OldChunkRegions {
+        self.old_regions.clone()
+    }
+
+    /// `IOWorker.createOldDataForRegion`: the bits of one region file.
+    pub fn scan_old_region(&mut self, region_x: i32, region_z: i32) -> OldChunkBits {
+        let mut bits = OldChunkBits::default();
+        let min = ChunkPos::min_from_region(region_x, region_z);
+        for local_z in 0..ChunkPos::REGION_SIZE {
+            for local_x in 0..ChunkPos::REGION_SIZE {
+                let pos = ChunkPos::new(min.x + local_x, min.z + local_z);
+                let mut collect = CollectFields::new(&[
+                    FieldSelector::new(TAG_INT, "DataVersion"),
+                    FieldSelector::new(TAG_COMPOUND, "blending_data"),
+                ]);
+                match self.scan_chunk_with(&pos, &mut collect) {
+                    Ok(()) => {
+                        if let Some(Tag::Compound(tag)) = collect.get_result()
+                            && is_old_chunk(tag)
+                        {
+                            bits.set(local_x, local_z);
+                        }
+                    }
+                    Err(e) => log::warn!("Failed to scan chunk {}: {}", pos, e),
+                }
+            }
+        }
+        bits
     }
 
     /// `synchronize(flush)`: persists every queued chunk (continuing past failures, returning the

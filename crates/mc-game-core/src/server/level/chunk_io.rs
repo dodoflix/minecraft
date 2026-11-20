@@ -9,6 +9,7 @@ use crate::crash_report::CrashReport;
 use crate::world::level::levelgen::structure::check::ChunkScanAccess;
 use mc_core::pos::ChunkPos;
 use mc_nbt::CompoundTag;
+use mc_world::region::old_chunks::{OldChunkBits, OldChunkRegions};
 use mc_world::region::{RegionStorageInfo, SimpleRegionStorage};
 use mc_world::serial::{ChunkReadException, SerializableChunkData};
 use std::io;
@@ -73,6 +74,11 @@ enum IoRequest {
         key: i64,
         reply: Sender<io::Result<Option<CompoundTag>>>,
     },
+    OldRegion {
+        region_x: i32,
+        region_z: i32,
+        reply: Sender<OldChunkBits>,
+    },
     Write {
         pos: ChunkPos,
         tag: Option<CompoundTag>,
@@ -91,6 +97,8 @@ enum IoRequest {
 pub struct RegionIo {
     tx: Sender<IoRequest>,
     thread: Option<JoinHandle<()>>,
+    /// `IOWorker.regionCacheForBlender`.
+    old_regions: OldChunkRegions,
 }
 
 impl RegionIo {
@@ -102,10 +110,11 @@ impl RegionIo {
         reporter: Arc<ChunkIoReporter>,
     ) -> Self {
         let (tx, rx) = channel::<IoRequest>();
+        let mut storage = SimpleRegionStorage::new(info.clone(), folder, sync_writes);
+        let old_regions = storage.old_chunk_regions();
         let thread = std::thread::Builder::new()
             .name(format!("IO-Worker-{}", info.dimension))
             .spawn(move || {
-                let mut storage = SimpleRegionStorage::new(info.clone(), folder, sync_writes);
                 // `IOWorker.runStore` completes the write exceptionally; `ChunkMap.save` reports that as a save failure
                 storage.set_store_failure_handler(Box::new(move |pos, error| {
                     reporter.report_chunk_save_failure(&error.to_string(), &info, pos)
@@ -116,6 +125,7 @@ impl RegionIo {
         Self {
             tx,
             thread: Some(thread),
+            old_regions,
         }
     }
 
@@ -139,6 +149,7 @@ impl RegionIo {
     pub fn scan_access(&self, encoding_chunks: Arc<AtomicI32>) -> RegionIoScan {
         RegionIoScan {
             tx: self.tx.clone(),
+            old_regions: self.old_regions.clone(),
             encoding_chunks,
         }
     }
@@ -188,16 +199,39 @@ impl RegionIo {
 #[derive(Clone)]
 pub struct RegionIoScan {
     tx: Sender<IoRequest>,
+    old_regions: OldChunkRegions,
     /// Saves still being encoded on the pool: vanilla queues a save's write at once, here it reaches the IO thread when
     /// the encoding is done.
     encoding_chunks: Arc<AtomicI32>,
 }
 
-impl ChunkScanAccess for RegionIoScan {
-    fn scan_chunk(&self, pos: ChunkPos) -> io::Result<Option<CompoundTag>> {
+impl RegionIoScan {
+    /// `IOWorker.isOldChunkAround(pos, range)`: answered from the cache of scanned regions; a region that is not in it is
+    /// scanned by the IO thread first.
+    pub fn is_old_chunk_around(&self, pos: ChunkPos, range: i32) -> bool {
+        self.old_regions
+            .is_old_chunk_around(pos, range, |region_x, region_z| {
+                self.wait_for_encodes();
+                let (reply, rx) = channel();
+                let _ = self.tx.send(IoRequest::OldRegion {
+                    region_x,
+                    region_z,
+                    reply,
+                });
+                rx.recv().unwrap_or_default()
+            })
+    }
+
+    fn wait_for_encodes(&self) {
         while self.encoding_chunks.load(Ordering::Acquire) > 0 {
             std::thread::sleep(Duration::from_millis(1));
         }
+    }
+}
+
+impl ChunkScanAccess for RegionIoScan {
+    fn scan_chunk(&self, pos: ChunkPos) -> io::Result<Option<CompoundTag>> {
+        self.wait_for_encodes();
         let (reply, rx) = channel();
         let _ = self.tx.send(IoRequest::Scan {
             key: pos.pack(),
@@ -217,6 +251,15 @@ impl DeferredChunkScan {
     /// Connects the scan to the IO worker of the level's chunk map.
     pub fn attach(&self, scan: RegionIoScan) {
         let _ = self.0.set(scan);
+    }
+}
+
+impl DeferredChunkScan {
+    /// `IOWorker.isOldChunkAround`; a level without an IO worker has no old chunks.
+    pub fn is_old_chunk_around(&self, pos: ChunkPos, range: i32) -> bool {
+        self.0
+            .get()
+            .is_some_and(|scan| scan.is_old_chunk_around(pos, range))
     }
 }
 
@@ -274,6 +317,13 @@ fn io_loop(mut storage: SimpleRegionStorage, rx: Receiver<IoRequest>, results: R
             }
             Ok(IoRequest::Scan { key, reply }) => {
                 let _ = reply.send(storage.scan_chunk(&ChunkPos::unpack(key)));
+            }
+            Ok(IoRequest::OldRegion {
+                region_x,
+                region_z,
+                reply,
+            }) => {
+                let _ = reply.send(storage.scan_old_region(region_x, region_z));
             }
             Ok(IoRequest::Write {
                 pos,

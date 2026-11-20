@@ -5,15 +5,16 @@
 //! Steps that run on the game thread instead (`passThrough`, `loadStructureStarts`, `initializeLight`, `light`, `full`)
 //! are handled by the chunk map.
 
-use super::world_gen::{GenChunk, LightEvent, WorldGenContext, WorldGenRegion};
+use super::world_gen::{GenChunk, LightEvent, OldChunk, WorldGenContext, WorldGenRegion};
 use crate::crash_report::CrashReport;
 use crate::world::entity::ai::village::poi::PoiTypeHolder;
 use crate::world::level::chunk::status::{ChunkStatusTask, ChunkStep};
 use mc_core::pos::ChunkPos;
+use mc_world::blending_data::BlendingData;
 use mc_world::chunk::{ProtoChunk, StructureData};
 use mc_world::heightmap::HeightmapType;
 use mc_world::status::ChunkStatus;
-use mc_worldgen::blending::{self, BlendingChunk, BlendingRegion};
+use mc_worldgen::blending::{self, Blender, BlendingChunk, BlendingRegion, ChunkView};
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::panic::{self, AssertUnwindSafe};
@@ -29,6 +30,9 @@ pub struct GenBatch {
     pub jobs: Vec<GenJob>,
     pub chunks: HashMap<i64, GenChunk>,
     pub structure_views: HashMap<i64, Arc<StructureData>>,
+    /// Snapshots of the chunks with blending data around the jobs that are not lent (see
+    /// [`WorldGenRegion::old_chunks`]).
+    pub old_chunks: HashMap<i64, OldChunk>,
 }
 
 pub struct BatchResult {
@@ -47,6 +51,9 @@ pub struct BatchResult {
     pub light_events: Vec<LightEvent>,
     /// Structure start rewrites for chunks the batch did not lend (`WorldGenRegion::update_structure_start`).
     pub start_updates: Vec<(ChunkPos, String, mc_nbt::CompoundTag)>,
+    /// The blending data `BlendingData.calculateData` filled in chunks the batch only saw as snapshots (the game thread
+    /// puts it into the chunks).
+    pub blending_updates: Vec<(ChunkPos, BlendingData)>,
 }
 
 /// Run the jobs of a batch one after another (the worldgen executor is serial). A panic in a step is vanilla's
@@ -58,6 +65,7 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
         jobs,
         mut chunks,
         structure_views,
+        mut old_chunks,
     } = batch;
     let mut completed = Vec::with_capacity(jobs.len());
     let mut poi_changes = Vec::new();
@@ -73,6 +81,8 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
             structure_views.clone(),
             ctx.level_height,
         );
+        region.old_chunk_scan = ctx.old_chunk_scan.clone();
+        region.old_chunks = std::mem::take(&mut old_chunks);
         if let Err(payload) =
             panic::catch_unwind(AssertUnwindSafe(|| run_step(ctx, step, &mut region)))
         {
@@ -93,16 +103,28 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
         poi_changes.append(&mut region.poi_changes);
         light_events.append(&mut region.light_events);
         start_updates.append(&mut region.start_updates);
+        old_chunks = std::mem::take(&mut region.old_chunks);
         chunks = region.into_chunks();
         completed.push((job.pos.pack(), step.target_status));
     }
+    let mut blending_updates = Vec::new();
     let chunks = chunks
         .into_iter()
         .filter_map(|(key, c)| match c {
             GenChunk::Loaned(chunk) => Some((key, chunk)),
-            GenChunk::Snapshot(_) | GenChunk::Shared(_) => None,
+            GenChunk::Snapshot(chunk) => {
+                blending_updates.extend(calculated_blending_data(&chunk));
+                None
+            }
+            GenChunk::Shared(_) => None,
         })
         .collect();
+    blending_updates.extend(
+        old_chunks
+            .values()
+            .filter(|old| !old.calculated_before)
+            .filter_map(|old| calculated_blending_data(&old.chunk)),
+    );
     Ok(BatchResult {
         id,
         chunks,
@@ -110,7 +132,23 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
         poi_changes,
         light_events,
         start_updates,
+        blending_updates,
     })
+}
+
+/// The blending data a snapshot computed (`getOrUpdateBlendingData` mutates the chunk's own object in vanilla).
+fn calculated_blending_data(chunk: &ProtoChunk) -> Option<(ChunkPos, BlendingData)> {
+    chunk
+        .access
+        .blending_data
+        .as_ref()
+        .filter(|data| data.has_calculated_data)
+        .map(|data| (chunk.pos(), data.clone()))
+}
+
+/// `Blender.of(region)` with the center chunk still in the region.
+fn blender_of(region: &mut WorldGenRegion) -> Blender {
+    Blender::of(Some(&RegionBlending(RefCell::new(region))))
 }
 
 /// `ChunkStep.apply` for a chunk that is still before the target status.
@@ -128,11 +166,13 @@ fn run_step(ctx: &WorldGenContext, step: &ChunkStep, region: &mut WorldGenRegion
         }
         ChunkStatusTask::GenerateStructureReferences => ctx.hooks.create_references(ctx, region),
         ChunkStatusTask::GenerateBiomes => {
+            region.blender = blender_of(region);
             let mut chunk = region.take_chunk(center).expect("center chunk is lent");
             ctx.generator.create_biomes(chunk.proto_mut(), region);
             region.put_chunk(center, chunk);
         }
         ChunkStatusTask::BuildTerrain => {
+            region.blender = blender_of(region);
             let mut chunk = region.take_chunk(center).expect("center chunk is lent");
             ctx.generator.build_terrain(chunk.proto_mut(), region);
             if let Some(retrogen) = chunk.proto().get_below_zero_retrogen().cloned() {
@@ -180,18 +220,64 @@ impl BlendingRegion for RegionBlending<'_> {
         self.0.borrow().center
     }
 
-    fn is_old_chunk_around(&self, _pos: ChunkPos, _range: i32) -> bool {
-        unreachable!(
-            "only Blender.of asks for old chunks (it is not wired: Blender::empty() everywhere)"
-        )
+    fn is_old_chunk_around(&self, pos: ChunkPos, range: i32) -> bool {
+        self.0.borrow().is_old_chunk_around(pos, range)
     }
 
     fn with_chunk(&self, chunk_x: i32, chunk_z: i32, f: &mut dyn FnMut(&mut dyn BlendingChunk)) {
         let mut region = self.0.borrow_mut();
-        let chunk = region.gen_chunk_mut(chunk_x, chunk_z).unwrap_or_else(|| {
-            panic!("Requested chunk unavailable during world generation: {chunk_x},{chunk_z}")
-        });
-        f(chunk);
+        // a snapshot of an old chunk beats the biome-only view of the same chunk
+        if let Some(old) = region
+            .old_chunks
+            .get_mut(&ChunkPos::pack_xz(chunk_x, chunk_z))
+        {
+            f(&mut *old.chunk);
+        } else if let Some(chunk) = region.gen_chunk_mut(chunk_x, chunk_z) {
+            f(chunk);
+        } else {
+            // not lent and not old: all `Blender` asks of such a chunk is `getBlendingData() == null`
+            f(&mut NotOldChunk);
+        }
+    }
+}
+
+/// A chunk of the region the batch did not receive: it has no blending data.
+struct NotOldChunk;
+
+impl ChunkView for NotOldChunk {
+    fn get_block_state(&self, _: mc_core::pos::BlockPos) -> mc_data::block::BlockState {
+        unreachable!("a chunk without blending data is not read")
+    }
+    fn get_fluid_state(&self, _: mc_core::pos::BlockPos) -> mc_data::fluid::FluidState {
+        unreachable!("a chunk without blending data is not read")
+    }
+    fn has_primed_heightmap(&self, _: HeightmapType) -> bool {
+        unreachable!("a chunk without blending data is not read")
+    }
+    fn get_height(&self, _: HeightmapType, _: i32, _: i32) -> i32 {
+        unreachable!("a chunk without blending data is not read")
+    }
+    fn get_noise_biome(&self, _: i32, _: i32, _: i32) -> mc_world::palette::BiomeId {
+        unreachable!("a chunk without blending data is not read")
+    }
+}
+
+impl BlendingChunk for NotOldChunk {
+    fn is_old_noise_generation(&self) -> bool {
+        false
+    }
+    fn get_highest_generated_status(&self) -> ChunkStatus {
+        unreachable!("a chunk without blending data is not read")
+    }
+    fn blending_data(&self) -> Option<&BlendingData> {
+        None
+    }
+    fn update_blending_data(&mut self, _: &mut dyn FnMut(&mut BlendingData, &dyn ChunkView)) {}
+    fn get_height_primed(&mut self, _: HeightmapType, _: i32, _: i32) -> i32 {
+        unreachable!("a chunk without blending data is not read")
+    }
+    fn mark_pos_for_post_processing(&mut self, _: mc_core::pos::BlockPos) {
+        unreachable!("only chunks of the generated area get border ticks")
     }
 }
 

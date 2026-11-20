@@ -5,6 +5,7 @@ use super::region_file::RegionFile;
 use super::region_storage_info::RegionStorageInfo;
 use indexmap::IndexMap;
 use mc_core::pos::chunk_pos::ChunkPos;
+use mc_nbt::stream::StreamTagVisitor;
 use mc_nbt::{CompoundTag, NbtAccounter, NbtError};
 use std::fs;
 use std::io::{self, Read};
@@ -103,6 +104,30 @@ impl RegionFileStorage {
             Ok(tag) => Ok(Some(tag)),
             Err(e) => Err(read_error.unwrap_or_else(|| nbt_io_error(e))),
         }
+    }
+
+    /// `scanChunk(pos, visitor)`: streams the stored chunk through `visitor`; nothing happens (no region file is created)
+    /// when the chunk is not stored.
+    pub fn scan_chunk(
+        &mut self,
+        pos: &ChunkPos,
+        visitor: &mut dyn StreamTagVisitor,
+    ) -> io::Result<()> {
+        let Some(region) = self.get_region_file(pos, false)? else {
+            return Ok(());
+        };
+        let Some(mut stream) = region.get_chunk_data_input_stream(pos)? else {
+            return Ok(());
+        };
+        // as in `read`: what follows a complete tag is never looked at
+        let mut data = Vec::new();
+        let read_error = stream.read_to_end(&mut data).err();
+        mc_nbt::stream::parse(
+            &mut data.as_slice(),
+            visitor,
+            &mut NbtAccounter::unlimited_heap(),
+        )
+        .map_err(|e| read_error.unwrap_or_else(|| nbt_io_error(e)))
     }
 
     /// `write(pos, value)`: `None` clears the chunk.

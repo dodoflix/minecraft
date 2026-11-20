@@ -184,6 +184,7 @@ impl ServerLevel {
             generate_structures: params.generate_structures,
             seed: params.seed,
             live: spawning.gen_live.clone(),
+            old_chunk_scan: Default::default(),
         });
         let chunk_params = ChunkMapParams {
             dimension: params.dimension.clone(),

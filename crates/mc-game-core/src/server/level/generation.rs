@@ -8,7 +8,7 @@ use super::chunk_map::{ChunkMap, ChunkMapEvent, MainTask};
 use super::chunk_status_tasks::{
     BatchResult, GenBatch, GenJob, runs_on_background_executor, runs_on_worldgen_thread,
 };
-use super::world_gen::{GenChunk, LightEvent};
+use super::world_gen::{GenChunk, LightEvent, OldChunk};
 use crate::world::level::chunk::status::{
     ChunkStatusTask, ChunkStep, GENERATION_PYRAMID, LOADING_PYRAMID,
 };
@@ -575,6 +575,12 @@ impl ChunkMap {
                 }
             }
         }
+        let mut old_chunks = HashMap::new();
+        for job in &jobs {
+            if is_blending_step(job.step.task) {
+                self.snapshot_old_chunks(job.pos, &chunks, &mut old_chunks);
+            }
+        }
         let batch_id = self.next_batch_id;
         self.next_batch_id += 1;
         self.in_flight_batch = Some(batch_id);
@@ -586,6 +592,7 @@ impl ChunkMap {
                 jobs,
                 chunks,
                 structure_views,
+                old_chunks,
             },
         )
     }
@@ -619,6 +626,10 @@ impl ChunkMap {
                 }
             }
         }
+        let mut old_chunks = HashMap::new();
+        if is_blending_step(job.step.task) {
+            self.snapshot_old_chunks(job.pos, &chunks, &mut old_chunks);
+        }
         let batch_id = self.next_batch_id;
         self.next_batch_id += 1;
         self.background_batches.insert(batch_id);
@@ -629,6 +640,7 @@ impl ChunkMap {
                 jobs: vec![job],
                 chunks,
                 structure_views,
+                old_chunks,
             },
         );
     }
@@ -639,6 +651,7 @@ impl ChunkMap {
         match std::mem::take(&mut holder.slot) {
             ChunkSlot::Proto(p) => {
                 holder.lent_structures = Some(Arc::new(p.access.structures.clone()));
+                holder.lent_old = old_view(&p, self.level_height, &self.factory).map(Arc::new);
                 if holder.biome_view.is_none()
                     && p.get_persisted_status().is_or_after(ChunkStatus::Biomes)
                 {
@@ -652,21 +665,76 @@ impl ChunkMap {
                 Some(GenChunk::Loaned(p))
             }
             ChunkSlot::Level(l) => {
-                let mut snapshot = ProtoChunk::new(
-                    l.pos(),
-                    mc_world::upgrade_data::UpgradeData::empty(),
-                    self.level_height,
-                    &self.factory,
-                    None,
-                );
-                snapshot.access = l.data.access.clone();
-                snapshot.set_persisted_status(ChunkStatus::Full);
+                let snapshot = level_chunk_snapshot(&l, self.level_height, &self.factory);
                 holder.slot = ChunkSlot::Level(l);
                 Some(GenChunk::Snapshot(Box::new(snapshot)))
             }
             other => {
                 holder.slot = other;
                 None
+            }
+        }
+    }
+
+    /// The chunks with blending data within `Blender`'s reach of `center` that `lent` does not hold in full, as the data
+    /// `Blender.of(region)` reads from them (a chunk that is lent to another job is read as it was when it was lent).
+    fn snapshot_old_chunks(
+        &self,
+        center: ChunkPos,
+        lent: &HashMap<i64, GenChunk>,
+        out: &mut HashMap<i64, OldChunk>,
+    ) {
+        for x in center.x - BLENDING_REACH..=center.x + BLENDING_REACH {
+            for z in center.z - BLENDING_REACH..=center.z + BLENDING_REACH {
+                let key = ChunkPos::pack_xz(x, z);
+                // a biome-only view of the neighbour has no blending data: it is replaced here
+                if matches!(
+                    lent.get(&key),
+                    Some(GenChunk::Loaned(_) | GenChunk::Snapshot(_))
+                ) || out.contains_key(&key)
+                {
+                    continue;
+                }
+                let Some(holder) = self.holders.holder(key) else {
+                    continue;
+                };
+                let chunk = match &holder.slot {
+                    ChunkSlot::Level(l) => {
+                        let access = &l.data.access;
+                        if access.blending_data.is_none() {
+                            continue;
+                        }
+                        old_snapshot(
+                            access,
+                            ChunkStatus::Full,
+                            None,
+                            || level_chunk_snapshot(l, self.level_height, &self.factory),
+                            self.level_height,
+                            &self.factory,
+                        )
+                    }
+                    ChunkSlot::Proto(p) => match old_view(p, self.level_height, &self.factory) {
+                        Some(view) => view,
+                        None => continue,
+                    },
+                    ChunkSlot::Loaned => match &holder.lent_old {
+                        Some(view) => (**view).clone(),
+                        None => continue,
+                    },
+                    _ => continue,
+                };
+                let calculated_before = chunk
+                    .access
+                    .blending_data
+                    .as_ref()
+                    .is_some_and(|data| data.has_calculated_data);
+                out.insert(
+                    key,
+                    OldChunk {
+                        chunk: Box::new(chunk),
+                        calculated_before,
+                    },
+                );
             }
         }
     }
@@ -738,6 +806,7 @@ impl ChunkMap {
             if let Some(holder) = self.holders.holder_mut(key) {
                 holder.set_persisted_status_cache(Some(chunk.get_persisted_status()));
                 holder.lent_structures = None;
+                holder.lent_old = None;
                 // start rewrites that arrived while the chunk was lent
                 for (structure, tag) in std::mem::take(&mut holder.pending_start_updates) {
                     if let Some(start) = chunk.access.structures.starts.get_mut(&structure) {
@@ -784,11 +853,96 @@ impl ChunkMap {
                 }
             }
         }
+        // `BlendingData.calculateData` ran on the chunk's own data object in vanilla
+        for (pos, data) in result.blending_updates {
+            if let Some(holder) = self.holders.holder_mut(pos.pack()) {
+                match &mut holder.slot {
+                    ChunkSlot::Proto(p) => p.access.blending_data = Some(data),
+                    ChunkSlot::Level(l) => l.data.access.blending_data = Some(data),
+                    _ => {}
+                }
+            }
+        }
         for (key, status) in result.completed {
             self.complete_step(key, status);
         }
         self.process_ready();
     }
+}
+
+/// The steps that call `Blender.of(region)`.
+fn is_blending_step(task: ChunkStatusTask) -> bool {
+    matches!(
+        task,
+        ChunkStatusTask::GenerateBiomes | ChunkStatusTask::BuildTerrain
+    )
+}
+
+/// `Blender.of` reads chunks up to `HEIGHT_BLENDING_RANGE_CHUNKS` (7) away and the neighbours of those.
+const BLENDING_REACH: i32 = 8;
+
+/// What `Blender.of` reads of a chunk with blending data: the chunk itself while `BlendingData.calculateData` has not run
+/// (it reads blocks, heights and biomes), otherwise only the blending data and the statuses.
+fn old_snapshot(
+    access: &ChunkAccess,
+    status: ChunkStatus,
+    retrogen: Option<&mc_world::below_zero_retrogen::BelowZeroRetrogen>,
+    full: impl FnOnce() -> ProtoChunk,
+    level_height: LevelHeight,
+    factory: &PalettedContainerFactory,
+) -> ProtoChunk {
+    let data = access
+        .blending_data
+        .as_ref()
+        .expect("only chunks with blending data are snapshotted");
+    if !data.has_calculated_data {
+        return full();
+    }
+    let mut light = ProtoChunk::new(
+        access.pos,
+        UpgradeData::empty(),
+        level_height,
+        factory,
+        Some(data.clone()),
+    );
+    light.set_persisted_status(status);
+    light.set_below_zero_retrogen(retrogen.cloned());
+    light
+}
+
+/// [`old_snapshot`] of a proto chunk; `None` without blending data.
+pub(super) fn old_view(
+    p: &ProtoChunk,
+    level_height: LevelHeight,
+    factory: &PalettedContainerFactory,
+) -> Option<ProtoChunk> {
+    p.access.blending_data.as_ref()?;
+    Some(old_snapshot(
+        &p.access,
+        p.get_persisted_status(),
+        p.get_below_zero_retrogen(),
+        || p.clone(),
+        level_height,
+        factory,
+    ))
+}
+
+/// A full chunk as the read-only proto chunk of a region (vanilla's `ImposterProtoChunk`).
+fn level_chunk_snapshot(
+    l: &crate::world::level::chunk::level_chunk::LevelChunk,
+    level_height: LevelHeight,
+    factory: &PalettedContainerFactory,
+) -> ProtoChunk {
+    let mut snapshot = ProtoChunk::new(
+        l.pos(),
+        mc_world::upgrade_data::UpgradeData::empty(),
+        level_height,
+        factory,
+        None,
+    );
+    snapshot.access = l.data.access.clone();
+    snapshot.set_persisted_status(ChunkStatus::Full);
+    snapshot
 }
 
 /// `collectPossibleBiomes(region, 1)` and the biome manager of `buildTerrain` read the biomes this many chunks away.

@@ -97,6 +97,8 @@ pub struct ChunkHolder {
     /// The structure data of the proto chunk while it is lent to a generation job: other jobs keep reading the starts of
     /// the chunks around them (vanilla's shared `ChunkAccess`).
     pub(crate) lent_structures: Option<Arc<StructureData>>,
+    /// What `Blender.of` reads of the proto chunk with blending data while it is lent (see `generation::old_view`).
+    pub(crate) lent_old: Option<Arc<ProtoChunk>>,
     /// The biomes of the proto chunk (a proto chunk with biome sections only), kept from the moment its biomes exist: the
     /// terrain of the chunks around it reads them while the chunk itself may be lent to another job.
     pub(crate) biome_view: Option<Arc<ProtoChunk>>,
@@ -162,6 +164,7 @@ impl ChunkHolder {
             persisted_status: None,
             slot: ChunkSlot::None,
             lent_structures: None,
+            lent_old: None,
             biome_view: None,
             pending_start_updates: Vec::new(),
             full_chunk_future: PromotionFuture::Unloaded,

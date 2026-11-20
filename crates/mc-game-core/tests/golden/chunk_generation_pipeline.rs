@@ -26,10 +26,21 @@ use std::time::Duration;
 #[derive(Clone, Debug, PartialEq, Eq)]
 enum Stage {
     Starts,
-    References { read: i32, write: i32 },
+    References {
+        read: i32,
+        write: i32,
+    },
     Biomes,
     Terrain,
-    Features { read: i32, write: i32 },
+    /// `Blender.of(region)` of the biome (`terrain` false) or terrain step: whether it is `Blender.EMPTY`.
+    Blender {
+        terrain: bool,
+        empty: bool,
+    },
+    Features {
+        read: i32,
+        write: i32,
+    },
     Spawn,
 }
 
@@ -71,11 +82,18 @@ impl ChunkGeneratorBackend for Generator {
     fn type_name_for_data_fixer(&self) -> Option<Identifier> {
         Identifier::parse("minecraft:noise").ok()
     }
-    fn create_biomes(&self, chunk: &mut ProtoChunk, _region: &WorldGenRegion) {
-        self.log
-            .lock()
-            .unwrap()
-            .push((Stage::Biomes, chunk.pos(), std::thread::current().id()));
+    fn create_biomes(&self, chunk: &mut ProtoChunk, region: &WorldGenRegion) {
+        let mut log = self.log.lock().unwrap();
+        log.push((Stage::Biomes, chunk.pos(), std::thread::current().id()));
+        log.push((
+            Stage::Blender {
+                terrain: false,
+                empty: region.blender.is_empty(),
+            },
+            chunk.pos(),
+            std::thread::current().id(),
+        ));
+        drop(log);
         if self.legacy {
             let mut retrogen = mc_nbt::CompoundTag::new();
             retrogen.put_string("target_status", "minecraft:features");
@@ -92,12 +110,19 @@ impl ChunkGeneratorBackend for Generator {
             chunk.access.blending_data = BlendingData::unpack(Some(&packed));
         }
     }
-    fn build_terrain(&self, chunk: &mut ProtoChunk, _region: &WorldGenRegion) {
+    fn build_terrain(&self, chunk: &mut ProtoChunk, region: &WorldGenRegion) {
         let _running = self.overlap.as_ref().map(|overlap| overlap.enter());
-        self.log
-            .lock()
-            .unwrap()
-            .push((Stage::Terrain, chunk.pos(), std::thread::current().id()));
+        let mut log = self.log.lock().unwrap();
+        log.push((Stage::Terrain, chunk.pos(), std::thread::current().id()));
+        log.push((
+            Stage::Blender {
+                terrain: true,
+                empty: region.blender.is_empty(),
+            },
+            chunk.pos(),
+            std::thread::current().id(),
+        ));
+        drop(log);
         if self.legacy {
             for y in 0..=4 {
                 chunk.set_block_state(BlockPos::new(0, y, 0), Block::BEDROCK.default_state(), None);
@@ -416,6 +441,63 @@ fn old_chunks_get_retrogen_bedrock_and_border_ticks() {
         chunk.access.post_processing[1..]
             .iter()
             .all(Option::is_none)
+    );
+    level.close();
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+/// `Blender.of(region)` asks the level's IO worker whether a chunk within 7 chunks was stored before `DataVersion` 4997 or
+/// with `blending_data`: the steps of a new chunk next to chunks of an earlier run blend, those in a fresh world do not.
+#[test]
+fn biome_and_terrain_steps_blend_next_to_stored_old_chunks() {
+    let dir = std::env::temp_dir().join(format!("mc-pipeline-blend-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&dir);
+    let blender_is_empty = |log: &Log, pos: ChunkPos, terrain: bool| {
+        log.lock()
+            .unwrap()
+            .iter()
+            .find_map(|(stage, at, _)| match stage {
+                Stage::Blender { terrain: t, empty } if *at == pos && *t == terrain => Some(*empty),
+                _ => None,
+            })
+            .unwrap_or_else(|| panic!("no step for {pos}"))
+    };
+    // the biome step is 7 chunks from the old chunk, the terrain step next to it
+    let (far, near) = (ChunkPos::new(7, 0), ChunkPos::new(1, 0));
+    let generate = |log: &Log, legacy: bool| {
+        let mut level = open(&dir, log, None, legacy);
+        if legacy {
+            level.chunk_blocking_mut(0, 0);
+        } else {
+            for pos in [far, near] {
+                level
+                    .proto_chunk_blocking(pos.x, pos.z, ChunkStatus::Terrain, true)
+                    .expect("terrain");
+            }
+        }
+        level
+    };
+    // fresh world: nothing is old
+    let log: Log = Arc::default();
+    generate(&log, false).close();
+    assert!(blender_is_empty(&log, far, false));
+    assert!(blender_is_empty(&log, near, true));
+    let _ = std::fs::remove_dir_all(&dir);
+    // a first run stores the full chunk at the origin with blending data
+    generate(&Arc::default(), true).close();
+    let log: Log = Arc::default();
+    let mut level = generate(&log, false);
+    assert!(!blender_is_empty(&log, far, false));
+    assert!(!blender_is_empty(&log, near, true));
+    // `BlendingData.calculateData` ran on the old chunk the steps only read
+    let old = level.chunk_blocking_mut(0, 0);
+    assert!(
+        old.data
+            .access
+            .blending_data
+            .as_ref()
+            .unwrap()
+            .has_calculated_data
     );
     level.close();
     let _ = std::fs::remove_dir_all(&dir);
