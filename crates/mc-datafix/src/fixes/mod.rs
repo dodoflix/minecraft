@@ -68,6 +68,26 @@ pub mod written_book_pages_strict_json_fix;
 // end: versions 99..1343
 
 // begin: versions 1344..1459
+pub mod block_entity_banner_color_fix;
+pub mod block_entity_block_state_fix;
+pub mod block_entity_custom_name_to_component_fix;
+pub mod block_entity_jukebox_fix;
+pub mod block_name_flattening_fix;
+pub mod block_state_structure_template_fix;
+pub mod chunk_paletted_storage_fix;
+pub mod entity_block_state_fix;
+pub mod entity_custom_name_to_component_fix;
+pub mod entity_item_frame_direction_fix;
+pub mod entity_wolf_color_fix;
+pub mod item_custom_name_to_component_fix;
+pub mod item_stack_map_id_fix;
+pub mod item_stack_the_flattening_fix;
+pub mod level_flat_generator_info_fix;
+pub mod options_key_lwjgl3_fix;
+pub mod options_key_translation_fix;
+pub mod remove_block_entity_tag_fix;
+pub mod stats_counter_fix;
+pub mod villager_trade_fix;
 // end: versions 1344..1459
 
 // begin: versions 1460..2199
