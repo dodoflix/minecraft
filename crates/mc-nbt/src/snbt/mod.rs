@@ -76,7 +76,7 @@ impl fmt::Display for SnbtError {
             "{} at position {}: {}",
             self.message,
             self.cursor,
-            self.context.as_lossy_str()
+            self.context.to_utf8_string()
         )
     }
 }
@@ -245,13 +245,16 @@ pub fn suggest(input: &str, start: usize) -> Option<(usize, Vec<String>)> {
 
 /// `TagParser.parseFully` with `NbtOps`: any SNBT value, whole input.
 pub fn parse(input: &str) -> Result<Tag, SnbtError> {
-    let units: Vec<u16> = input.encode_utf16().collect();
-    parse_fully_units(&units).map(|(t, _)| t)
+    parse_whole(input.encode_utf16())
 }
 
 /// [`parse`] of a Java string, which may hold lone surrogates.
 pub fn parse_java(input: &JavaString) -> Result<Tag, SnbtError> {
-    let units: Vec<u16> = input.encode_utf16().collect();
+    parse_whole(input.encode_utf16())
+}
+
+fn parse_whole(units: impl Iterator<Item = u16>) -> Result<Tag, SnbtError> {
+    let units: Vec<u16> = units.collect();
     parse_fully_units(&units).map(|(t, _)| t)
 }
 

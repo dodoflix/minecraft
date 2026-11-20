@@ -20,7 +20,7 @@ impl Msg {
     /// The message as UTF-8 text, each lone surrogate shown as `?` like `String.getBytes(UTF_8)` does for a logged or
     /// thrown message (`get_java` keeps it).
     pub fn get(&self) -> String {
-        self.get_java().to_utf8_string().into_owned()
+        self.get_java().into_utf8_string()
     }
     pub fn get_java(&self) -> JavaString {
         (self.0)()
@@ -239,11 +239,14 @@ impl<A> DataResult<A> {
         }
     }
 
-    pub fn map_error(self, f: impl Fn(String) -> String + Send + Sync + 'static) -> DataResult<A> {
+    pub fn map_error(
+        self,
+        f: impl Fn(JavaString) -> JavaString + Send + Sync + 'static,
+    ) -> DataResult<A> {
         match self {
             Success(a) => Success(a),
             Error { message, partial } => Error {
-                message: Msg::new(move || f(message.get())),
+                message: Msg::new(move || f(message.get_java())),
                 partial,
             },
         }

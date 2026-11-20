@@ -121,7 +121,7 @@ impl CommandSyntaxException {
 
 impl fmt::Display for CommandSyntaxException {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.write_str(self.get_message().as_lossy_str())
+        f.write_str(&self.get_message().to_utf8_string())
     }
 }
 

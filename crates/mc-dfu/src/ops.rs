@@ -914,7 +914,10 @@ impl RecordBuilder {
     }
 
     /// `mapError`.
-    pub fn map_error(&mut self, f: impl Fn(String) -> String + Send + Sync + 'static) -> &mut Self {
+    pub fn map_error(
+        &mut self,
+        f: impl Fn(JavaString) -> JavaString + Send + Sync + 'static,
+    ) -> &mut Self {
         let prev = self.take_entries();
         self.entries = prev.map_error(f);
         self

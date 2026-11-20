@@ -89,6 +89,9 @@ impl JavaString {
     /// surrogate where Java does, and a string that no rule matches passes through untouched. See
     /// [`with_stand_ins`](Self::with_stand_ins) for what `f` may rely on.
     pub fn map_lossless(&self, f: impl FnOnce(&str) -> String) -> JavaString {
+        if self.units.is_none() {
+            return JavaString::from(f(&self.text));
+        }
         self.with_stand_ins(|text, back| back(&f(text)))
     }
 
@@ -239,11 +242,15 @@ impl JavaString {
     pub fn to_utf8_string(&self) -> Cow<'_, str> {
         match &self.units {
             None => Cow::Borrowed(&self.text),
-            Some(u) => Cow::Owned(
-                char::decode_utf16(u.0.iter().copied())
-                    .map(|r| r.unwrap_or('?'))
-                    .collect(),
-            ),
+            Some(u) => Cow::Owned(lone_units_as_question_marks(&u.0)),
+        }
+    }
+
+    /// [`to_utf8_string`](Self::to_utf8_string) that moves the text out of a string without lone surrogates.
+    pub fn into_utf8_string(self) -> String {
+        match &self.units {
+            None => self.text,
+            Some(u) => lone_units_as_question_marks(&u.0),
         }
     }
 
@@ -254,6 +261,12 @@ impl JavaString {
             Cow::Owned(s) => Cow::Owned(s.into_bytes()),
         }
     }
+}
+
+fn lone_units_as_question_marks(units: &[u16]) -> String {
+    char::decode_utf16(units.iter().copied())
+        .map(|r| r.unwrap_or('?'))
+        .collect()
 }
 
 impl fmt::Write for JavaString {
