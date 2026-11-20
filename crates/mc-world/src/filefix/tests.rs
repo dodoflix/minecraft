@@ -895,7 +895,7 @@ fn moves_that_cannot_be_reverted_are_reported_and_the_journal_stays() {
     let setup = setup();
     let new_world = setup.world.join("filefix/new_world");
     let sabotage = Arc::new(move |at: Checkpoint| {
-        // The file moved first is gone from where it was moved to: it cannot be moved back.
+        // A file already moved is gone from where it was moved to: it cannot be moved back.
         if at == Checkpoint::MoveFile(2) {
             fs::remove_file(new_world.join("players/data/p.dat")).unwrap();
         }
@@ -1358,7 +1358,10 @@ fn a_failure_before_the_moves_of_a_continued_upgrade_keeps_what_was_moved() {
     let setup = setup();
     kill_at(&setup.saves, false, "MoveFile:2");
     let moved = setup.world.join("filefix/new_world/players/data/p.dat");
-    assert!(moved.is_file(), "the file moved first is in the new world");
+    assert!(
+        moved.is_file(),
+        "a file moved before the failure is in the new world"
+    );
 
     struct NoCapabilities;
     impl FixHooks for NoCapabilities {

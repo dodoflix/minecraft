@@ -310,7 +310,7 @@ fn single_pipe_line_in_the_old_ip_ban_list() {
     );
 }
 
-/// A line of `|` and blanks is not empty after `trim`, so it is a name for the op and white lists.
+/// The op and white lists are not trimmed or split: a line of `|` is a name there.
 #[test]
 #[ignore = "oracle: spawns vanilla server"]
 fn pipe_lines_are_names_in_the_op_and_white_lists() {
