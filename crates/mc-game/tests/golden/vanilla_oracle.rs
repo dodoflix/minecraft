@@ -95,6 +95,15 @@ fn compare_scenario(name: &str, setup: impl FnOnce(&Path)) -> Vec<String> {
         keys::DAMAGE_TYPE,
         keys::CHAT_TYPE,
         keys::ENCHANTMENT,
+        keys::BLOCK_TRANSFORMER,
+        keys::BLOCK_STATE_PROVIDER,
+    ];
+    // registries whose compounds are also compared in the order the server writes their keys (the hash order of the
+    // compound, which depends on the order the codec inserted the keys in)
+    let ordered = [
+        keys::ENCHANTMENT,
+        keys::BLOCK_TRANSFORMER,
+        keys::BLOCK_STATE_PROVIDER,
     ];
     let mut approx: Vec<String> = Vec::new();
     for ((key, entries), (vkey, ventries)) in packed.iter().zip(&vanilla_registries) {
@@ -105,13 +114,19 @@ fn compare_scenario(name: &str, setup: impl FnOnce(&Path)) -> Vec<String> {
             "{key}: entry names/ids"
         );
         for (e, (id, vdata)) in entries.iter().zip(ventries) {
-            if e.data == *vdata {
+            let same_order = !ordered.contains(&key.as_str())
+                || matches!((&e.data, vdata), (Some(a), Some(b)) if same_key_order(a, b));
+            if e.data == *vdata && same_order {
                 continue;
             }
             if typed.contains(&key.as_str()) {
                 panic!(
                     "{key} {id}: network NBT differs at {}\nours:    {:?}\nvanilla: {vdata:?}",
-                    first_diff(e.data.as_ref(), vdata.as_ref(), ""),
+                    if e.data == *vdata {
+                        "the key order".to_owned()
+                    } else {
+                        first_diff(e.data.as_ref(), vdata.as_ref(), "")
+                    },
                     e.data
                 );
             }
@@ -255,7 +270,7 @@ fn broken_pack_fails_like_vanilla() {
             }
         }
     }
-    assert_eq!(expected.len(), 3);
+    assert_eq!(expected.len(), 11);
     let ours: Vec<(String, String, Vec<String>)> = failure
         .errors
         .iter()
@@ -278,12 +293,31 @@ fn broken_pack_fails_like_vanilla() {
                     && v.2[0].starts_with("com.google.gson.JsonSyntaxException: ")
             );
         } else {
-            assert_eq!(o.2[0], v.2[0], "{}", o.1);
+            // the entry of `minecraft:root` (an unbound reference) has no cause
+            assert_eq!(o.2.first(), v.2.first(), "{}", o.1);
         }
     }
     // the first lines of the full report are the same shape as vanilla's
     let details = failure.full_details();
-    assert!(details.starts_with("> Errors in registry minecraft:chat_type:\n>> Errors in element test:missing_field:\njava.lang.IllegalStateException: Failed to parse test:missing_field from pack file/broken\nCaused by: "));
+    assert!(details.starts_with("> Errors in registry minecraft:block_transformer:\n>> Errors in element test:bad_face:\njava.lang.IllegalStateException: Failed to parse test:bad_face from pack file/broken\nCaused by: "));
+}
+
+/// Whether `ours` writes every compound's keys in the order they arrived in from vanilla (`vanilla` was read from the
+/// wire, so its entries are in the order the server wrote them).
+fn same_key_order(ours: &Tag, vanilla: &Tag) -> bool {
+    match (ours, vanilla) {
+        (Tag::Compound(a), Tag::Compound(b)) => {
+            let a = a.iter_java_order();
+            a.len() == b.len()
+                && a.into_iter()
+                    .zip(b.iter())
+                    .all(|((ka, va), (kb, vb))| ka == kb && same_key_order(va, vb))
+        }
+        (Tag::List(a), Tag::List(b)) => {
+            a.len() == b.len() && a.iter().zip(b.iter()).all(|(x, y)| same_key_order(x, y))
+        }
+        (a, b) => a == b,
+    }
 }
 
 /// Path of the first difference between two NBT trees (debugging aid for the typed registries).

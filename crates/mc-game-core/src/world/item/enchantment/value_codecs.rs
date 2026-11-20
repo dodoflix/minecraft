@@ -848,19 +848,39 @@ fn offset_field() -> crate::registry::codec::Field {
     )
 }
 
-fn block_state_schema() -> Schema {
+pub(crate) fn block_state_schema() -> Schema {
     Schema::custom(|v, _| {
         let state = parse_block_state_json(v)?;
         Ok(block_state_tag(state, true))
     })
 }
 
-fn parse_block_state_json(v: &Value) -> Result<BlockState, String> {
+/// `BlockState.CODEC`: `Codec.either(BLOCK.byNameCodec(), FULL_CODEC)`, a bare id or a full state.
+pub(crate) fn parse_block_state_json(v: &Value) -> Result<BlockState, String> {
+    use crate::world::level::levelgen::codec::parse_block;
+    match v {
+        Value::String(_) => parse_block(v).map(|b| b.default_state()).map_err(|e| {
+            format!("Failed to parse either. First: {e}; Second: Not a JSON object: {v}")
+        }),
+        _ => parse_full_state(v)
+            .map_err(|e| format!("Failed to parse either. First: Not a string: {v}; Second: {e}")),
+    }
+}
+
+/// `BlockState.FULL_CODEC`: an object with the block `id` and the `properties` (read leniently).
+pub(crate) fn parse_full_state(v: &Value) -> Result<BlockState, String> {
+    let o = v
+        .as_object()
+        .ok_or_else(|| format!("Not a JSON object: {v}"))?;
+    let id = o
+        .get("id")
+        .ok_or_else(|| format!("No key id in MapLike[{v}]"))?;
+    crate::world::level::levelgen::codec::parse_block(id).map_err(|e| e.to_string())?;
     crate::world::level::levelgen::codec::parse_block_state(v).map_err(|e| e.to_string())
 }
 
 /// `BlockState.CODEC` / `FULL_CODEC` encoding of `state` (`full`: never the bare-id shortcut).
-fn block_state_tag(state: BlockState, bare_ok: bool) -> Tag {
+pub(crate) fn block_state_tag(state: BlockState, bare_ok: bool) -> Tag {
     if bare_ok && state == state.block().default_state() {
         return Tag::String(state.block().name().to_owned());
     }
@@ -894,7 +914,7 @@ fn vertical_anchor_schema() -> Schema {
     })
 }
 
-fn block_predicate_schema() -> Schema {
+pub(crate) fn block_predicate_schema() -> Schema {
     use crate::registry::codec::req;
     fn resolve(name: &str) -> Option<Schema> {
         let block_set = |registry: &'static str| Schema::HolderSet {
@@ -1018,16 +1038,7 @@ pub struct BlockStateProviderRef {
 }
 
 fn block_state_provider_schema() -> Schema {
-    // `Codec.xor(BlockState.FULL_CODEC, TYPED_CODEC)`: an object with `id` is a state, with `type` a typed provider.
-    Schema::custom(|v, _ctx| {
-        let o = v.as_object().ok_or_else(|| format!("Not a map: {v}"))?;
-        if o.contains_key("id") {
-            parse_block_state_json(v).map(|s| block_state_tag(s, false))
-        } else {
-            // typed providers other than `simple` keep the JSON-to-NBT narrowing (see Known gaps)
-            Ok(crate::registry::codec::json_to_nbt(v))
-        }
-    })
+    crate::registry::typed::state_provider::direct_schema()
 }
 
 /// `BlockStateProvider.CODEC` (`RegistryCodecs.holder(BLOCK_STATE_PROVIDER, DIRECT_CODEC)`).

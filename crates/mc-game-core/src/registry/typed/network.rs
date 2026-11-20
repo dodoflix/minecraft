@@ -7,7 +7,7 @@ use serde_json::Value;
 use crate::registry::codec::{Field, Schema, default, opt, req};
 use crate::registry::keys;
 
-fn sound_event() -> Schema {
+pub(super) fn sound_event() -> Schema {
     Schema::custom(|v, ctx| match v {
         Value::String(_) => Schema::StaticRegistry(keys::SOUND_EVENT).convert(v, ctx),
         _ => Schema::Record(vec![
@@ -19,7 +19,7 @@ fn sound_event() -> Schema {
 }
 
 /// `ExtraCodecs.POSITIVE_FLOAT`
-fn positive_float() -> Schema {
+pub(super) fn positive_float() -> Schema {
     Schema::custom(|v, ctx| {
         let t = Schema::Float.convert(v, ctx)?;
         match t {
@@ -55,6 +55,8 @@ fn animal_variant(baby: bool) -> Vec<Field> {
 /// The `NETWORK_CODEC` (or `DIRECT_CODEC` when identical) of `registry`, if modelled.
 pub fn network_schema(registry: &str) -> Option<Schema> {
     Some(match registry {
+        keys::BLOCK_STATE_PROVIDER => super::state_provider::direct_schema(),
+        keys::BLOCK_TRANSFORMER => super::state_provider::block_transformer_schema(),
         keys::PIG_VARIANT | keys::COW_VARIANT | keys::CHICKEN_VARIANT => {
             Schema::Record(animal_variant(true))
         }

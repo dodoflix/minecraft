@@ -26,7 +26,8 @@ import net.minecraft.world.level.levelgen.presets.WorldPreset;
  * sources, malformed variants of each) or ERR.
  * Usage: MC_EXTRA_CP=tools/extractor/build scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/world_dimensions_stems.txt crates/mc-game/tests/oracle/WorldDimensionsOracle.java crates/mc-game/tests/fixtures/world_dimensions_stems.txt
  * Output: crates/mc-game/tests/fixtures/world_dimensions_stems.txt (tests/golden/world_dimensions_golden.rs replays every `STEM` line)
- * Cases named `noenc:` are compared for acceptance only (see the test).
+ * Cases named `noenc:` are compared for acceptance only (see the test); `noenc:blocks_` cases also write
+ * `WIRE <case> <field> <hex>` lines, the binary NBT of the `default_block` / `default_fluid` of the encoded stem.
  */
 public class WorldDimensionsOracle {
    static RegistryAccess.Frozen access;
@@ -71,12 +72,25 @@ public class WorldDimensionsOracle {
          + (biomeField == null ? "" : ",\"biome\":" + biomeField) + extra + "}";
    }
 
+   static String wire(Tag tag) throws java.io.IOException {
+      java.io.ByteArrayOutputStream bytes = new java.io.ByteArrayOutputStream();
+      net.minecraft.nbt.NbtIo.writeAnyTag(tag, new java.io.DataOutputStream(bytes));
+      return java.util.HexFormat.of().formatHex(bytes.toByteArray());
+   }
+
    static void stemCase(PrintWriter out, String name, JsonElement json) {
       out.println("STEM " + name + " " + json);
       try {
          LevelStem stem = LevelStem.CODEC.parse(jsonOps, json).getOrThrow();
          Tag tag = LevelStem.CODEC.encodeStart(nbtOps, stem).getOrThrow();
          out.println("ENC " + name + " OK " + tag);
+         if (name.startsWith("noenc:blocks_")) {
+            // the binary form lists the keys in the order the server writes them, which the textual form does not
+            net.minecraft.nbt.CompoundTag settings = ((net.minecraft.nbt.CompoundTag) tag).getCompound("generator").orElseThrow().getCompound("settings").orElseThrow();
+            for (String key : new String[]{"default_block", "default_fluid"}) {
+               out.println("WIRE " + name + " " + key + " " + wire(settings.get(key)));
+            }
+         }
       } catch (Throwable t) {
          out.println("ENC " + name + " ERR");
       }
@@ -265,6 +279,34 @@ public class WorldDimensionsOracle {
          inlineSettings.add("settings", net.minecraft.world.level.levelgen.NoiseGeneratorSettings.DIRECT_CODEC.encodeStart(jsonOps,
             access.lookupOrThrow(Registries.NOISE_SETTINGS).getValue(Identifier.withDefaultNamespace("nether"))).result().orElseThrow());
          stemCase(out, "noenc:noise_inline_settings", stem(overworldType, inlineSettings));
+         // `default_block` / `default_fluid` of inline noise settings go through BlockState.CODEC: properties are written in codec
+         // order, unknown or malformed ones are ignored; only these two compounds are compared (WIRE lines)
+         String stairs = "{\"id\":\"minecraft:oak_stairs\",\"properties\":{\"half\":\"top\",\"waterlogged\":\"true\",\"shape\":\"outer_left\",\"facing\":\"east\"}}";
+         String door = "{\"id\":\"minecraft:oak_door\",\"properties\":{\"facing\":\"west\",\"half\":\"upper\",\"hinge\":\"right\",\"open\":\"true\",\"powered\":\"true\"}}";
+         String wire = "{\"id\":\"minecraft:redstone_wire\",\"properties\":{\"east\":\"side\",\"north\":\"up\",\"power\":\"7\",\"south\":\"side\",\"west\":\"none\"}}";
+         String[][] blockCases = {
+            {"stairs_water", stairs, "{\"id\":\"minecraft:water\",\"properties\":{\"level\":\"3\"}}"},
+            {"door_lava", door, "\"minecraft:lava\""},
+            {"wire_stairs", wire, stairs},
+            {"bare", "\"minecraft:stone\"", "\"minecraft:water\""},
+            {"default_state_object", "{\"id\":\"minecraft:oak_stairs\"}", "{\"id\":\"minecraft:water\",\"properties\":{\"level\":\"0\"}}"},
+            {"lenient_names", "{\"id\":\"minecraft:oak_stairs\",\"properties\":{\"facing\":\"nope\",\"nonexistent\":\"x\",\"half\":\"top\"}}", "\"minecraft:water\""},
+            {"lenient_types", "{\"id\":\"minecraft:oak_stairs\",\"properties\":{\"half\":5,\"waterlogged\":true,\"shape\":\"outer_left\"}}", "\"minecraft:water\""},
+            {"lenient_number", "{\"id\":\"minecraft:redstone_wire\",\"properties\":{\"power\":7,\"north\":\"up\",\"east\":\"bogus\"}}", "\"minecraft:water\""},
+            {"lenient_object", "{\"id\":\"minecraft:oak_stairs\",\"properties\":\"nope\"}", "\"minecraft:water\""},
+            {"unknown_block", "{\"id\":\"minecraft:nope\"}", "\"minecraft:water\""},
+            {"missing_id", "{\"properties\":{}}", "\"minecraft:water\""},
+            {"not_a_state", "5", "\"minecraft:water\""},
+            {"fluid_unknown_block", "\"minecraft:stone\"", "\"minecraft:nope\""},
+         };
+         for (String[] c : blockCases) {
+            JsonObject settings = inlineSettings.getAsJsonObject("settings").deepCopy();
+            settings.add("default_block", JsonParser.parseString(c[1]));
+            settings.add("default_fluid", JsonParser.parseString(c[2]));
+            JsonObject gen = noise.deepCopy();
+            gen.add("settings", settings);
+            stemCase(out, "noenc:blocks_" + c[0], stem(overworldType, gen));
+         }
          JsonObject badSettings = noise.deepCopy();
          badSettings.addProperty("settings", "minecraft:nope");
          stemCase(out, "noise_unknown_settings", stem(overworldType, badSettings));

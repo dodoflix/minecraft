@@ -48,7 +48,15 @@ fn level_stems_match_vanilla() {
     let decoder = DimensionDecoder::new(access).unwrap();
     let text = fixture();
     let mut lines = text.lines();
-    let (mut accepted, mut rejected) = (0, 0);
+    let (mut accepted, mut rejected, mut wire_checked) = (0, 0, 0);
+    // `WIRE <case> <field> <hex>`: the binary form of a compound of the encoded stem
+    let wires: std::collections::HashMap<(&str, &str), &str> = text
+        .lines()
+        .filter_map(|l| {
+            let mut f = l.strip_prefix("WIRE ")?.split(' ');
+            Some(((f.next()?, f.next()?), f.next()?))
+        })
+        .collect();
     let mut failures = Vec::new();
     while let Some(line) = lines.next() {
         let Some(rest) = line.strip_prefix("STEM ") else {
@@ -74,6 +82,27 @@ fn level_stems_match_vanilla() {
                         first_difference(&tag.to_string(), &want_tag.to_string())
                     ));
                 }
+                // the binary form of `default_block` / `default_fluid`: the keys in the order the server writes them
+                for field in ["default_block", "default_fluid"] {
+                    let Some(expected) = wires.get(&(name, field)) else {
+                        continue;
+                    };
+                    let settings = tag
+                        .as_compound()
+                        .and_then(|c| c.get_compound("generator"))
+                        .and_then(|g| g.get_compound("settings"));
+                    let bytes = settings.and_then(|s| s.get(field)).map(|t| {
+                        let mut bytes = Vec::new();
+                        mc_nbt::write_network(t, &mut bytes).expect("writes");
+                        bytes.iter().map(|b| format!("{b:02x}")).collect::<String>()
+                    });
+                    if bytes.as_deref() != Some(*expected) {
+                        failures.push(format!(
+                            "{name} {field}: ours {bytes:?}, vanilla {expected}"
+                        ));
+                    }
+                    wire_checked += 1;
+                }
                 accepted += 1;
             }
             (None, Err(_)) => rejected += 1,
@@ -87,7 +116,7 @@ fn level_stems_match_vanilla() {
         failures.len(),
         failures.join("\n")
     );
-    assert_eq!((accepted, rejected), (97, 63));
+    assert_eq!((accepted, rejected, wire_checked), (106, 67, 18));
 }
 
 #[test]

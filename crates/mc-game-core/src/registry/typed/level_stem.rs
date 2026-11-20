@@ -13,6 +13,7 @@ use super::dimension_type::{DimensionType, Y_SIZE};
 use crate::registry::codec::{RegistryDecodeContext, Schema, default, req};
 use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
 use crate::registry::keys;
+use crate::world::item::enchantment::value_codecs::block_state_schema;
 
 /// `Climate.ParameterPoint.CODEC` `parse` + `encodeStart`: values are quantized (`(long)(v * 10000)`) and encode back as
 /// floats; an interval with equal bounds encodes as its single number.
@@ -141,6 +142,22 @@ fn flat_settings(
     Ok(Tag::Compound(out))
 }
 
+/// An inline `NoiseGeneratorSettings.DIRECT_CODEC`: `default_block` and `default_fluid` are encoded through
+/// `BlockState.CODEC`.
+// shortcut: the other fields keep the JSON-to-NBT narrowing of numbers and the file's key order, model them when a
+// custom dimension needs their exact encoding
+fn inline_noise_settings(v: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, String> {
+    let mut tag = super::super::codec::json_to_nbt(v);
+    if let Tag::Compound(settings) = &mut tag {
+        for key in ["default_block", "default_fluid"] {
+            if let Some(state) = v.get(key) {
+                settings.put(key, block_state_schema().convert(state, ctx)?);
+            }
+        }
+    }
+    Ok(tag)
+}
+
 fn generator_types(ty: &str) -> Option<Schema> {
     use Schema as S;
     Some(match ty {
@@ -149,7 +166,7 @@ fn generator_types(ty: &str) -> Option<Schema> {
                 "settings",
                 S::custom(|v, ctx| match v {
                     Value::String(_) => S::Holder(keys::NOISE_SETTINGS).convert(v, ctx),
-                    _ => Ok(super::super::codec::json_to_nbt(v)),
+                    _ => inline_noise_settings(v, ctx),
                 }),
             ),
             req(
