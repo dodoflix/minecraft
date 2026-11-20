@@ -510,19 +510,24 @@ impl MinecraftServer {
         let total: i32 = counters.iter().map(|(_, c)| c.total_chunks()).sum();
         self.level_load_listener
             .start(Stage::LoadInitialChunks, total);
+        // `do { update(ready); waitUntilNextTick(); } while (pendingChunks() > 0)`: the check follows the wait
         loop {
             let mut ready = 0;
-            let mut pending = 0;
             for (dimension, counter) in &mut counters {
                 if let Some(level) = self.level(dimension) {
                     ready += counter.ready_chunks(level);
-                    pending += counter.pending_chunks(level);
                 }
             }
             self.level_load_listener
                 .update(Stage::LoadInitialChunks, ready, total);
             self.set_next_tick_time(get_nanos() + PREPARE_LEVELS_DEFAULT_DELAY_NANOS);
             self.wait_until_next_tick();
+            let mut pending = 0;
+            for (dimension, counter) in &mut counters {
+                if let Some(level) = self.level(dimension) {
+                    pending += counter.pending_chunks(level);
+                }
+            }
             if pending == 0 {
                 break;
             }
