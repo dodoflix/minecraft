@@ -20,6 +20,7 @@ use indexmap::{IndexMap, IndexSet};
 use mc_core::java_collections::{
     FastOpenHashMap, JavaHashMap, block_pos_hash, hash_set_union_order,
 };
+use mc_core::long_open_hash_set::LongOpenHashSet;
 use mc_core::math::mth;
 use mc_core::pos::{BlockPos, ChunkPos, SectionPos, quart_pos};
 use mc_data::block::{Block, BlockState};
@@ -143,7 +144,7 @@ pub fn unpack_offset_coordinates(packed: i16, section_y: i32, chunk_pos: ChunkPo
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct StructureData {
     pub starts: IndexMap<String, CompoundTag>,
-    pub references: IndexMap<String, IndexSet<i64>>,
+    pub references: IndexMap<String, LongOpenHashSet>,
 }
 
 /// Read-only view of the sections for heightmap computation (`HeightmapChunk`).
@@ -418,7 +419,7 @@ impl ChunkAccess {
     }
 
     /// `setAllReferences`.
-    pub fn set_all_references(&mut self, references: IndexMap<String, IndexSet<i64>>) {
+    pub fn set_all_references(&mut self, references: IndexMap<String, LongOpenHashSet>) {
         self.structures.references = references;
         self.mark_unsaved();
     }
@@ -433,7 +434,7 @@ impl ChunkAccess {
             .references
             .entry(structure)
             .or_default()
-            .insert(reference);
+            .add(reference);
         self.mark_unsaved();
     }
 

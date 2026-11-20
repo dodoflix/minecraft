@@ -11,8 +11,8 @@ use super::structure_start::StartHandle;
 use crate::world::level::levelgen::env::GenEnv;
 use crate::world::level::levelgen::holder::Holder;
 use crate::world::level::levelgen::world_gen_level::WorldGenLevel;
-use indexmap::IndexSet;
 use mc_core::ident::Identifier;
+use mc_core::long_open_hash_set::LongOpenHashSet;
 use mc_core::pos::{BlockPos, ChunkPos, SectionPos};
 use mc_world::chunk::StructureData;
 
@@ -115,10 +115,10 @@ impl<'a> StructureManager<'a> {
         &self,
         source: &dyn StructureDataSource,
         structure: &Holder<dyn Structure>,
-        references_for_structure: &IndexSet<i64>,
+        references_for_structure: &LongOpenHashSet,
         consumer: &mut dyn FnMut(StartHandle),
     ) {
-        for &key in references_for_structure {
+        for key in references_for_structure.iter() {
             let chunk_pos = ChunkPos::unpack(key);
             let Some(data) = source.structure_data(chunk_pos) else {
                 continue;
@@ -217,7 +217,7 @@ impl<'a> StructureManager<'a> {
         &self,
         source: &'s dyn StructureDataSource,
         pos: BlockPos,
-    ) -> Option<&'s indexmap::IndexMap<String, IndexSet<i64>>> {
+    ) -> Option<&'s indexmap::IndexMap<String, LongOpenHashSet>> {
         let section_x = SectionPos::block_to_section_coord_i32(pos.x());
         let section_z = SectionPos::block_to_section_coord_i32(pos.z());
         source

@@ -18,7 +18,8 @@ use crate::section::LevelChunkSection;
 use crate::status::{ChunkStatus, ChunkType};
 use crate::ticks::{LevelChunkTicks, PackedTicks, ProtoChunkTicks, SavedTick};
 use crate::upgrade_data::UpgradeData;
-use indexmap::{IndexMap, IndexSet};
+use indexmap::IndexMap;
+use mc_core::long_open_hash_set::LongOpenHashSet;
 use mc_core::pos::ChunkPos;
 use mc_data::block::Block;
 use mc_data::fluid::Fluid;
@@ -635,7 +636,7 @@ pub fn pack_structure_data(data: &StructureData) -> CompoundTag {
     let mut references = CompoundTag::new();
     for (key, set) in &data.references {
         if !set.is_empty() {
-            references.put_long_array(key.clone(), set.iter().copied().collect());
+            references.put_long_array(key.clone(), set.to_long_array());
         }
     }
     let mut out = CompoundTag::new();
@@ -671,7 +672,7 @@ pub fn unpack_structure_references(
     tag: &CompoundTag,
     pos: ChunkPos,
     is_known: &dyn Fn(&str) -> bool,
-) -> IndexMap<String, IndexSet<i64>> {
+) -> IndexMap<String, LongOpenHashSet> {
     let mut out = IndexMap::new();
     for (key, entry) in tag.get_compound_or_empty("References") {
         if !is_known(key.as_lossy_str()) {
@@ -684,7 +685,7 @@ pub fn unpack_structure_references(
         let Some(longs) = entry.as_long_array() else {
             continue;
         };
-        let set = longs
+        let kept: Vec<i64> = longs
             .iter()
             .copied()
             .filter(|&packed| {
@@ -700,7 +701,10 @@ pub fn unpack_structure_references(
                 }
             })
             .collect();
-        out.insert(key.as_lossy_str().to_owned(), set);
+        out.insert(
+            key.as_lossy_str().to_owned(),
+            LongOpenHashSet::from_array(&kept),
+        );
     }
     out
 }

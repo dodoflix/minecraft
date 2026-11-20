@@ -364,6 +364,17 @@ fn all_flags() {
     );
 }
 
+/// A 1.18.2 world: the upgrade renames the structure keys of the starts and references and rebuilds the reference sets.
+#[test]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
+fn all_flags_1_18_2() {
+    both(
+        "all-1.18.2",
+        "1.18.2-normal",
+        &["--forceUpgrade", "--eraseCache", "--recreateRegionFiles"],
+    );
+}
+
 /// What differs between two runs of vanilla itself in the chunks the server loads and saves (three runs of the flat world
 /// differ in both): the chunks' `LastUpdate` (the game time of the last save: the number of ticks that ran before
 /// the stop) and the order of the `attributes` of the saved entities (a hash map keyed by the identity hash of the attribute

@@ -174,7 +174,7 @@ fn full_proto_to_level_chunk_keeps_data() {
     );
     assert_eq!(chunk.access.inhabited_time(), 77);
     assert!(chunk.access.is_light_correct() && chunk.access.is_unsaved());
-    assert!(chunk.access.structures.references["minecraft:village_plains"].contains(&5));
+    assert!(chunk.access.structures.references["minecraft:village_plains"].contains(5));
     let mut chunk = chunk;
     assert_eq!(
         chunk
