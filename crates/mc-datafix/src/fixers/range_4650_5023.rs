@@ -1,35 +1,108 @@
-//! `DataFixers.addFixers`, versions 4650..5023: the schemas and the fixes of versions 4996 and up (the fixes of
-//! 4650..4892 are not registered yet).
+//! `DataFixers.addFixers`, versions 4650..5023.
 
 use crate::data_fixers::create_renamer;
 use crate::fixer::DataFixerBuilder;
 use crate::fixes::references::References;
 use crate::fixes::{
-    add_new_choices, blending_data_fix, blending_data_no_value_height_fix,
-    block_state_field_names_fix, debug_profile_rename_entry_fix, explorer_map_item_fix,
-    item_rename_fix, map_color_component_removal_fix, merge_terrain_chunk_status_fix,
+    add_new_choices, advancements_rename_fix, blending_data_fix, blending_data_no_value_height_fix,
+    block_state_field_names_fix, day_time_to_clock_fix, debug_profile_looking_at_split_fix,
+    debug_profile_overlay_reference_fix, debug_profile_rename_entry_fix, explorer_map_item_fix,
+    game_rule_registry_fix, item_rename_fix, level_dat_difficulty_fix,
+    level_dat_to_saved_data_preparation_fix, map_color_component_removal_fix,
+    merge_terrain_chunk_status_fix, namespaced_type_rename_fix,
+    options_force_default_graphics_api_fix, options_graphics_mode_split_fix,
+    options_music_toast_fix, options_set_graphics_preset_to_custom_fix,
     pot_decorations_block_entity_unflattening_fix, pot_decorations_component_unflattening_fix,
-    remove_block_transformer_component_fix, signs_op_flag_fix, swing_animation_component_split_fix,
-    unfilled_buried_treasure_map_fix,
+    remove_block_entity_tag_fix, remove_block_transformer_component_fix,
+    rename_nameplate_to_name_tag_fix, signs_op_flag_fix, stonecutter_recipe_rename_fix,
+    swing_animation_component_split_fix, unfilled_buried_treasure_map_fix,
+    villager_set_villager_data_finalized, world_border_warning_time_fix,
+    zombie_villager_set_villager_data_finalized,
 };
 use crate::schema::Schema;
 use crate::schemas::{v4656, v4771, v4881, v4885, v4996, v4996_1, v4997, v5000};
 
 pub fn add(b: &mut DataFixerBuilder) {
-    b.add_schema(4650, Schema::same_namespaced);
-    b.add_schema(4651, Schema::same_namespaced);
-    b.add_schema(4656, v4656::new);
-    b.add_schema(4657, Schema::same_namespaced);
-    b.add_schema(4658, Schema::same_namespaced);
-    b.add_schema(4661, Schema::same_namespaced);
-    b.add_schema(4763, Schema::same_namespaced);
-    b.add_schema(4766, Schema::same_namespaced);
-    b.add_schema(4769, Schema::same_namespaced);
-    b.add_schema(4771, v4771::new);
-    b.add_schema(4881, v4881::new);
-    b.add_schema(4885, v4885::new);
-    b.add_schema(4888, Schema::same_namespaced);
-    b.add_schema(4892, Schema::same_namespaced);
+    let v4650 = b.add_schema(4650, Schema::same_namespaced);
+    b.add_fixer(debug_profile_overlay_reference_fix::new(&v4650));
+    let v4651 = b.add_schema(4651, Schema::same_namespaced);
+    b.add_fixer(options_graphics_mode_split_fix::new(
+        &v4651,
+        "cutoutLeaves",
+        "false",
+        "true",
+        "true",
+    ));
+    b.add_fixer(options_graphics_mode_split_fix::new(
+        &v4651,
+        "weatherRadius",
+        "5",
+        "10",
+        "10",
+    ));
+    b.add_fixer(options_graphics_mode_split_fix::new(
+        &v4651, "vignette", "false", "true", "true",
+    ));
+    b.add_fixer(options_graphics_mode_split_fix::new(
+        &v4651,
+        "improvedTransparency",
+        "false",
+        "false",
+        "true",
+    ));
+    b.add_fixer(options_set_graphics_preset_to_custom_fix::new(&v4651));
+    let v4656 = b.add_schema(4656, v4656::new);
+    b.add_fixer(add_new_choices::new(
+        &v4656,
+        "Added Parched and Camel Husk",
+        &References::ENTITY,
+    ));
+    let v4657 = b.add_schema(4657, Schema::same_namespaced);
+    b.add_fixer(world_border_warning_time_fix::new(&v4657));
+    let v4658 = b.add_schema(4658, Schema::same_namespaced);
+    b.add_fixer(game_rule_registry_fix::new(&v4658));
+    let v4661 = b.add_schema(4661, Schema::same_namespaced);
+    b.add_fixer(options_music_toast_fix::new(&v4661, false));
+    let v4763 = b.add_schema(4763, Schema::same_namespaced);
+    b.add_fixer(debug_profile_looking_at_split_fix::new(&v4763));
+    b.add_fixer(villager_set_villager_data_finalized::new(&v4763));
+    b.add_fixer(zombie_villager_set_villager_data_finalized::new(&v4763));
+    let v4766 = b.add_schema(4766, Schema::same_namespaced);
+    b.add_fixer(day_time_to_clock_fix::new(&v4766));
+    let v4769 = b.add_schema(4769, Schema::same_namespaced);
+    b.add_fixer(namespaced_type_rename_fix::new(
+        &v4769,
+        "Rename stonecutter recipes",
+        &References::RECIPE,
+        create_renamer(&stonecutter_recipe_rename_fix::RECIPE_RENAMES),
+    ));
+    b.add_fixer(advancements_rename_fix::new(
+        "AdvancementsRenameFix",
+        &v4769,
+        false,
+        "Rename stonecutter recipe advancements",
+        create_renamer(&stonecutter_recipe_rename_fix::ADVANCEMENT_RENAMES),
+    ));
+    let v4771 = b.add_schema(4771, v4771::new);
+    b.add_fixer(level_dat_difficulty_fix::new(&v4771));
+    b.add_fixer(level_dat_to_saved_data_preparation_fix::new(&v4771));
+    let v4881 = b.add_schema(4881, v4881::new);
+    b.add_fixer(add_new_choices::new(
+        &v4881,
+        "Added Sulfur Cube",
+        &References::ENTITY,
+    ));
+    b.add_fixer(add_new_choices::new(
+        &v4881,
+        "Added Potent Sulfur",
+        &References::BLOCK_ENTITY,
+    ));
+    let v4885 = b.add_schema(4885, v4885::new);
+    b.add_fixer(remove_block_entity_tag_fix::new(&v4885, &["minecraft:bed"]));
+    let v4888 = b.add_schema(4888, Schema::same_namespaced);
+    b.add_fixer(rename_nameplate_to_name_tag_fix::new(&v4888));
+    let v4892 = b.add_schema(4892, Schema::same_namespaced);
+    b.add_fixer(options_force_default_graphics_api_fix::new(&v4892));
     let v4996 = b.add_schema(4996, v4996::new);
     b.add_fixer(pot_decorations_component_unflattening_fix::new(&v4996));
     let v4996_1 = b.add_schema_sub(4996, 1, v4996_1::new);

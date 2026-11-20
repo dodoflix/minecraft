@@ -1,0 +1,97 @@
+//! `StonecutterRecipeRenameFix`: the recipe and advancement ids renamed with the stonecutter recipe cleanup.
+
+/// `StonecutterRecipeRenameFix.RECIPE_RENAMES` (used through `createRenamer`, a lookup only).
+pub const RECIPE_RENAMES: [(&str, &str); 11] = [
+    (
+        "minecraft:chiseled_stone_bricks_stone_from_stonecutting",
+        "minecraft:chiseled_stone_bricks_from_stone_stonecutting",
+    ),
+    (
+        "minecraft:end_stone_brick_slab_from_end_stone_brick_stonecutting",
+        "minecraft:end_stone_brick_slab_from_end_stone_bricks_stonecutting",
+    ),
+    (
+        "minecraft:end_stone_brick_stairs_from_end_stone_brick_stonecutting",
+        "minecraft:end_stone_brick_stairs_from_end_stone_bricks_stonecutting",
+    ),
+    (
+        "minecraft:end_stone_brick_wall_from_end_stone_brick_stonecutting",
+        "minecraft:end_stone_brick_wall_from_end_stone_bricks_stonecutting",
+    ),
+    (
+        "minecraft:mossy_stone_brick_slab_from_mossy_stone_brick_stonecutting",
+        "minecraft:mossy_stone_brick_slab_from_mossy_stone_bricks_stonecutting",
+    ),
+    (
+        "minecraft:mossy_stone_brick_stairs_from_mossy_stone_brick_stonecutting",
+        "minecraft:mossy_stone_brick_stairs_from_mossy_stone_bricks_stonecutting",
+    ),
+    (
+        "minecraft:mossy_stone_brick_wall_from_mossy_stone_brick_stonecutting",
+        "minecraft:mossy_stone_brick_wall_from_mossy_stone_bricks_stonecutting",
+    ),
+    (
+        "minecraft:prismarine_brick_slab_from_prismarine_stonecutting",
+        "minecraft:prismarine_brick_slab_from_prismarine_bricks_stonecutting",
+    ),
+    (
+        "minecraft:prismarine_brick_stairs_from_prismarine_stonecutting",
+        "minecraft:prismarine_brick_stairs_from_prismarine_bricks_stonecutting",
+    ),
+    (
+        "minecraft:quartz_slab_from_stonecutting",
+        "minecraft:quartz_slab_from_quartz_block_stonecutting",
+    ),
+    (
+        "minecraft:stone_brick_walls_from_stone_stonecutting",
+        "minecraft:stone_brick_wall_from_stone_stonecutting",
+    ),
+];
+
+/// `StonecutterRecipeRenameFix.ADVANCEMENT_RENAMES` (used through `createRenamer`, a lookup only).
+pub const ADVANCEMENT_RENAMES: [(&str, &str); 11] = [
+    (
+        "minecraft:recipes/building_blocks/chiseled_stone_bricks_stone_from_stonecutting",
+        "minecraft:recipes/building_blocks/chiseled_stone_bricks_from_stone_stonecutting",
+    ),
+    (
+        "minecraft:recipes/building_blocks/end_stone_brick_slab_from_end_stone_brick_stonecutting",
+        "minecraft:recipes/building_blocks/end_stone_brick_slab_from_end_stone_bricks_stonecutting",
+    ),
+    (
+        "minecraft:recipes/building_blocks/end_stone_brick_stairs_from_end_stone_brick_stonecutting",
+        "minecraft:recipes/building_blocks/end_stone_brick_stairs_from_end_stone_bricks_stonecutting",
+    ),
+    (
+        "minecraft:recipes/decorations/end_stone_brick_wall_from_end_stone_brick_stonecutting",
+        "minecraft:recipes/decorations/end_stone_brick_wall_from_end_stone_bricks_stonecutting",
+    ),
+    (
+        "minecraft:recipes/building_blocks/mossy_stone_brick_slab_from_mossy_stone_brick_stonecutting",
+        "minecraft:recipes/building_blocks/mossy_stone_brick_slab_from_mossy_stone_bricks_stonecutting",
+    ),
+    (
+        "minecraft:recipes/building_blocks/mossy_stone_brick_stairs_from_mossy_stone_brick_stonecutting",
+        "minecraft:recipes/building_blocks/mossy_stone_brick_stairs_from_mossy_stone_bricks_stonecutting",
+    ),
+    (
+        "minecraft:recipes/building_blocks/mossy_stone_brick_wall_from_mossy_stone_brick_stonecutting",
+        "minecraft:recipes/decorations/mossy_stone_brick_wall_from_mossy_stone_bricks_stonecutting",
+    ),
+    (
+        "minecraft:recipes/building_blocks/prismarine_brick_slab_from_prismarine_stonecutting",
+        "minecraft:recipes/building_blocks/prismarine_brick_slab_from_prismarine_bricks_stonecutting",
+    ),
+    (
+        "minecraft:recipes/building_blocks/prismarine_brick_stairs_from_prismarine_stonecutting",
+        "minecraft:recipes/building_blocks/prismarine_brick_stairs_from_prismarine_bricks_stonecutting",
+    ),
+    (
+        "minecraft:recipes/building_blocks/quartz_slab_from_stonecutting",
+        "minecraft:recipes/building_blocks/quartz_slab_from_quartz_block_stonecutting",
+    ),
+    (
+        "minecraft:recipes/decorations/stone_brick_walls_from_stone_stonecutting",
+        "minecraft:recipes/decorations/stone_brick_wall_from_stone_stonecutting",
+    ),
+];

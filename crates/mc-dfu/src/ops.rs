@@ -677,7 +677,13 @@ impl Ops {
             Dyn::Long(v) => v.to_string(),
             Dyn::Float(v) => java_float_to_string(*v),
             Dyn::Double(v) => java_double_to_string(*v),
-            Dyn::JsonNum(t) => t.clone(),
+            Dyn::JsonNum(t) => {
+                // `getAsBigDecimal` of a `LazilyParsedNumber` enforces Gson's `NumberLimits`
+                if let Err(e) = mc_core::gson::lazily_parsed_int_value(t) {
+                    panic!("java.lang.NumberFormatException: {e}");
+                }
+                t.clone()
+            }
             other => panic!("not a number: {other}"),
         };
         if let Some(l) = decimal_long_exact(&text) {

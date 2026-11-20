@@ -201,6 +201,59 @@ pub mod trial_spawner_config_fix;
 // end: versions 3300..3999
 
 // begin: versions 4000..4898
+pub mod area_effect_cloud_duration_scale_fix;
+pub mod attribute_id_prefix_fix;
+pub mod block_entity_furnace_burn_time_fix;
+pub mod boat_split_fix;
+pub mod chunk_ticket_unpack_pos_fix;
+pub mod container_block_entity_lock_predicate_fix;
+pub mod copper_golem_weather_state_fix;
+pub mod custom_model_data_expand_fix;
+pub mod day_time_to_clock_fix;
+pub mod debug_profile_looking_at_split_fix;
+pub mod debug_profile_overlay_reference_fix;
+pub mod drop_chances_format_fix;
+pub mod entity_attribute_base_value_fix;
+pub mod entity_fall_distance_float_to_double_fix;
+pub mod entity_salmon_size_fix;
+pub mod entity_spawner_item_variant_component_fix;
+pub mod equipment_format_fix;
+pub mod equippable_asset_rename_fix;
+pub mod fire_resistant_to_damage_resistant_component_fix;
+pub mod food_to_consumable_fix;
+pub mod forced_chunk_to_ticket_fix;
+pub mod game_rule_registry_fix;
+pub mod inline_block_pos_format_fix;
+pub mod invalid_block_entity_lock_fix;
+pub mod invalid_lock_component_fix;
+pub mod legacy_block_property_rename_and_fix;
+pub mod legacy_hover_event_fix;
+pub mod legacy_world_border_fix;
+pub mod level_dat_difficulty_fix;
+pub mod level_dat_to_saved_data_preparation_fix;
+pub mod lock_component_predicate_fix;
+pub mod ominous_banner_rarity_fix;
+pub mod options_force_default_graphics_api_fix;
+pub mod options_graphics_mode_split_fix;
+pub mod options_music_toast_fix;
+pub mod options_set_graphics_preset_to_custom_fix;
+pub mod player_equipment_fix;
+pub mod player_respawn_data_fix;
+pub mod raid_renames_data_fix;
+pub mod rename_nameplate_to_name_tag_fix;
+pub mod saddle_equipment_slot_fix;
+pub mod stonecutter_recipe_rename_fix;
+pub mod text_component_hover_and_click_event_fix;
+pub mod text_component_stringified_flags_fix;
+pub mod thrown_potion_split_fix;
+pub mod tooltip_display_component_fix;
+pub mod trial_spawner_config_in_registry_fix;
+pub mod trident_animation_fix;
+pub mod unflatten_text_component_fix;
+pub mod villager_set_villager_data_finalized;
+pub mod world_border_warning_time_fix;
+pub mod world_spawn_data_fix;
+pub mod zombie_villager_set_villager_data_finalized;
 // end: versions 4000..4898
 
 // begin: versions 4899..5023

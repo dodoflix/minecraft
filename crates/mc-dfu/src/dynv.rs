@@ -106,7 +106,8 @@ impl JNum {
             JNum::Long(v) => *v as i32,
             JNum::Float(v) => *v as i32,
             JNum::Double(v) => *v as i32,
-            JNum::Lazy(t) => lazy_trunc(t).unwrap_or(0) as i32,
+            JNum::Lazy(t) => mc_core::gson::lazily_parsed_int_value(t)
+                .unwrap_or_else(|e| panic!("java.lang.NumberFormatException: {e}")),
         }
     }
     /// `Number.longValue()`.
