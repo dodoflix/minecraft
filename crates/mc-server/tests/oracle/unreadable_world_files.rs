@@ -1,7 +1,9 @@
 //! An old world whose files or folders the server may not read, list or write: the real 26.3 server and `mc-server`
 //! each upgrade a copy of it, and the warnings and errors of the two logs (with the first line of the exception behind
 //! each) are compared in order. The file fixer reads, lists, copies and moves the real files, and the exception of a
-//! failed operation names the path. Run with
+//! failed operation names the path. `mc-world` stops at the first chunk of a folder it cannot read and logs one
+//! `Failed to read chunk` line, where vanilla's asynchronous reads log a varying number of them, in the hash order of its
+//! structure data: the comparison shows the failing reads once, without their position. Run with
 //! `cargo test -p mc-server --test oracle unreadable_ -- --ignored --nocapture`.
 
 use std::fs;
@@ -96,7 +98,7 @@ fn collapse_chunk_reads(log: Vec<String>) -> Vec<String> {
             out.push(line);
         }
     }
-    out.dedup();
+    out.dedup_by(|a, b| a == b && a.starts_with("WARN Failed to read chunk <pos>"));
     out
 }
 

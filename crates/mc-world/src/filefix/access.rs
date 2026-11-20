@@ -287,7 +287,7 @@ impl ChunkNbt {
                     .filter(|n| n.starts_with("c.") && n.ends_with(".mcc"))
                 {
                     copy_file(
-                        &tree.file_for_read(&self.folder.join(name))?,
+                        tree.file_for_read(&self.folder.join(name))?,
                         &self.stage.join(name),
                     )?;
                 }
@@ -299,7 +299,7 @@ impl ChunkNbt {
         }
         let virtual_path = self.folder.join(&name);
         if tree.is_file(&virtual_path) {
-            copy_file(&tree.file_for_read(&virtual_path)?, &self.stage.join(&name))?;
+            copy_file(tree.file_for_read(&virtual_path)?, &self.stage.join(&name))?;
             self.staged_regions.insert(name);
         }
         Ok(())
@@ -314,7 +314,7 @@ impl ChunkNbt {
         data_fix_context: Option<&CompoundTag>,
         fixer: impl FnOnce(CompoundTag) -> CompoundTag,
     ) -> io::Result<()> {
-        // the region file is opened (copied) by the read, whose failure the region worker logs
+        // the region file is opened (copied) by the read, whose failure the `IOWorker` logs
         let stored = self
             .stage(tree, pos)
             .and_then(|()| self.storage.read(pos))

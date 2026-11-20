@@ -9,6 +9,9 @@ use mc_core::java_exception::{
     DIRECTORY_NOT_EMPTY_EXCEPTION, FILE_ALREADY_EXISTS_EXCEPTION, JavaException,
 };
 
+/// `java.nio.file.NotDirectoryException`.
+const NOT_DIRECTORY_EXCEPTION: &str = "java.nio.file.NotDirectoryException";
+
 use crate::level_storage::read_all_bytes;
 
 fn failed(e: io::Error, path: &Path) -> io::Error {
@@ -30,7 +33,14 @@ pub(super) fn create_file(path: &Path) -> io::Result<()> {
 /// `Files.newDirectoryStream(dir)`: the entries of `dir`.
 pub(super) fn list(dir: &Path) -> io::Result<Vec<fs::DirEntry>> {
     fs::read_dir(dir)
-        .map_err(|e| failed(e, dir))?
+        .map_err(|e| {
+            if e.raw_os_error() == Some(20) {
+                JavaException::new(NOT_DIRECTORY_EXCEPTION, dir.display().to_string())
+                    .into_io(e.kind())
+            } else {
+                failed(e, dir)
+            }
+        })?
         .map(|entry| entry.map_err(|e| JavaException::read_failure(&e).into_io(e.kind())))
         .collect()
 }
@@ -98,9 +108,23 @@ pub(super) fn copy_file(source: &Path, target: &Path) -> io::Result<()> {
         std::os::unix::fs::PermissionsExt::mode(&metadata.permissions()),
     );
     let mut output = options.open(target).map_err(|e| failed(e, target))?;
-    io::copy(&mut input, &mut output)
-        .map(drop)
-        .map_err(|e| JavaException::from_file_pair_error(e, source, Some(target)))
+    // the mode is set exactly (the umask applies to the creation) and the times are copied, `COPY_ATTRIBUTES`
+    let result = io::copy(&mut input, &mut output)
+        .and_then(|_| output.set_permissions(metadata.permissions()))
+        .and_then(|()| {
+            let mut times = fs::FileTimes::new();
+            if let Ok(accessed) = metadata.accessed() {
+                times = times.set_accessed(accessed);
+            }
+            if let Ok(modified) = metadata.modified() {
+                times = times.set_modified(modified);
+            }
+            output.set_times(times)
+        });
+    result.map_err(|e| {
+        let _ = fs::remove_file(target);
+        JavaException::from_file_pair_error(e, source, Some(target))
+    })
 }
 
 #[cfg(test)]
@@ -141,19 +165,18 @@ mod tests {
             text(copy_file(&missing, &file)),
             format!("java.nio.file.NoSuchFileException: {}", missing.display())
         );
+        let other = dir.path().join("other");
+        fs::write(&other, b"z").unwrap();
         assert_eq!(
-            text(copy_file(&file, &file)),
+            text(copy_file(&file, &other)),
             format!(
                 "java.nio.file.FileAlreadyExistsException: {}",
-                file.display()
+                other.display()
             )
         );
         assert_eq!(
             text(list(&file)),
-            format!(
-                "java.nio.file.FileSystemException: {}: Not a directory",
-                file.display()
-            )
+            format!("java.nio.file.NotDirectoryException: {}", file.display())
         );
         delete_tree(&full).unwrap();
         assert!(!full.exists());
