@@ -9,6 +9,8 @@
 //                                  (`-` as hash: the type is gone)
 //   grammar-sample                 the descriptions of a small schema built with the real DSL (GrammarSample.java)
 //   fix TYPE FROM TO FILE [OUT]    one record (below) for the NBT file FILE; OUT receives the result bytes
+//                                  (TYPE `upgrade:DATAFIXTYPE[@DIMENSION[@GENERATOR]]`: SimpleRegionStorage.upgradeChunkTag with
+//                                  default version FROM and target TO, the ChunkMap data fix context when a dimension is given)
 //   batch IN OUT                   records for every line of IN (`-` = stdin), written to OUT (`-` = stdout)
 //   gen OPTIONS                    batch lines of schema-driven samples (SampleGen.java: --type --from --to --seed --n --invalid --mutate --matrix --shard --report)
 //   tables DIR                     the lookup tables of the fix classes as DIR/<class>.tsv (TableDump.java)
@@ -40,16 +42,22 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.*;
 import net.minecraft.SharedConstants;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtAccounter;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.Bootstrap;
+import net.minecraft.server.level.ChunkMap;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.util.datafix.DataFixers;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.util.filefix.FileFix;
 import net.minecraft.util.filefix.FileFixerUpper;
+import net.minecraft.world.level.chunk.storage.RegionStorageInfo;
+import net.minecraft.world.level.chunk.storage.SimpleRegionStorage;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LogEvent;
@@ -219,6 +227,8 @@ public class DataFixerOracle {
       CompoundTag out;
       if (type.startsWith("ref:")) {
         out = (CompoundTag) fixer.update(reference(type.substring(4)), new Dynamic<>(NbtOps.INSTANCE, in), from, to).getValue();
+      } else if (type.startsWith("upgrade:")) {
+        out = upgradeChunkTag(fixer, type.substring(8), from, to, in);
       } else {
         out = DataFixTypes.valueOf(type).update(fixer, in, from, to);
       }
@@ -242,6 +252,29 @@ public class DataFixerOracle {
       return new Outcome("ok", bytes, "-", "-", List.copyOf(errors), escape(out.toString()));
     } catch (Throwable t) {
       return new Outcome("threw", null, t.getClass().getName(), sha256(String.valueOf(t.getMessage()).getBytes(StandardCharsets.UTF_8)), List.copyOf(errors), "-");
+    }
+  }
+
+  /**
+   * `SimpleRegionStorage.upgradeChunkTag(tag, defaultVersion = FROM, context, targetVersion = TO)`; SPEC is
+   * `DATAFIXTYPE[@DIMENSION[@GENERATOR]]`: with a dimension the data fix context tag of `ChunkMap` is injected (an empty
+   * generator leaves it out).
+   */
+  static CompoundTag upgradeChunkTag(DataFixer fixer, String spec, int from, int to, CompoundTag in) throws IOException {
+    String[] p = spec.split("@", -1);
+    ResourceKey<net.minecraft.world.level.Level> dimension = ResourceKey.create(Registries.DIMENSION, Identifier.parse(p.length > 1 ? p[1] : "minecraft:overworld"));
+    CompoundTag context = null;
+    if (p.length > 1) {
+      Optional<Identifier> generator = p.length > 2 && !p[2].isEmpty() ? Optional.of(Identifier.parse(p[2])) : Optional.empty();
+      context = ChunkMap.getChunkDataFixContextTag(dimension, generator);
+    }
+    Path folder = Files.createTempDirectory(Path.of(System.getProperty("java.io.tmpdir")), "upgrade-oracle");
+    SimpleRegionStorage storage = new SimpleRegionStorage(new RegionStorageInfo("oracle", dimension, "chunk"), folder, fixer, false, DataFixTypes.valueOf(p[0]));
+    try {
+      return storage.upgradeChunkTag(in, from, context, to);
+    } finally {
+      storage.close();
+      Files.deleteIfExists(folder);
     }
   }
 
