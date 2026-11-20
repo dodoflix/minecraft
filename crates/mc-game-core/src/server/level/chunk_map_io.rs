@@ -34,7 +34,8 @@ impl ChunkMap {
     /// `scheduleChunkLoad(pos)`: the read goes to the IO thread; the result continues in [`Self::handle_worker_message`].
     pub(crate) fn start_chunk_load(&mut self, key: i64) {
         self.loading.add(key);
-        self.io.read(ChunkPos::unpack(key));
+        let seq = self.next_result_seq();
+        self.io.read(ChunkPos::unpack(key), seq);
     }
 
     pub(crate) fn handle_worker_message(&mut self, msg: WorkerMessage) {
@@ -46,16 +47,17 @@ impl ChunkMap {
                     let factory = self.factory.clone();
                     let context = self.data_fix_context_tag();
                     // `readChunk`: the data fix runs between the read and the parse
-                    self.pool.submit(move || {
+                    let seq = self.next_result_seq();
+                    self.pool.submit_sequenced(seq, move || {
                         let tag = match upgrade_level_chunk_tag(tag, &context) {
                             Ok(tag) => tag,
                             Err(e) => {
                                 let result = Box::new(Err(ChunkReadException(e.to_string())));
-                                return Some(WorkerMessage::ChunkParsed { key, result });
+                                return WorkerMessage::ChunkParsed { key, result };
                             }
                         };
                         let result = Box::new(SerializableChunkData::parse(height, &factory, &tag));
-                        Some(WorkerMessage::ChunkParsed { key, result })
+                        WorkerMessage::ChunkParsed { key, result }
                     });
                 }
                 Err(e) => self.handle_chunk_load_failure(key, &e.to_string()),
@@ -210,10 +212,15 @@ impl ChunkMap {
         Some(std::mem::replace(&mut holder.slot, ChunkSlot::Loaned))
     }
 
-    /// The `FULL` step could not run because the chunk is lent out: queue it again behind the current work.
+    /// The `FULL` step could not run because the chunk is lent out: queue it again once the next worker result (the one
+    /// that returns the chunk) was applied.
     pub fn requeue_full_step(&mut self, pos: ChunkPos) {
-        self.main_tasks
-            .push_back(super::chunk_map::MainTask::FullStep(pos.pack()));
+        if self.worldgen.is_inline() {
+            self.main_tasks
+                .push_back(super::chunk_map::MainTask::FullStep(pos.pack()));
+        } else {
+            self.deferred_full_steps.push(pos.pack());
+        }
     }
 
     /// Answer to [`ChunkMapEvent::FullStep`]: the live chunk is built and registered.
@@ -506,7 +513,6 @@ impl ChunkMap {
                 }
             }
             encoding.fetch_sub(1, Ordering::AcqRel);
-            None
         });
         self.chunk_type_cache.insert(
             pos.pack(),

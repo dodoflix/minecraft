@@ -585,6 +585,12 @@ impl ChunkMap {
         self.next_batch_id += 1;
         self.in_flight_batch = Some(batch_id);
         self.worldgen_busy = true;
+        // an inline batch comes back as the return value, not as a worker message
+        let seq = if self.worldgen.is_inline() {
+            0
+        } else {
+            self.next_result_seq()
+        };
         self.worldgen.submit(
             self.gen_context.clone(),
             GenBatch {
@@ -594,6 +600,7 @@ impl ChunkMap {
                 structure_views,
                 old_chunks,
             },
+            seq,
         )
     }
 
@@ -633,6 +640,7 @@ impl ChunkMap {
         let batch_id = self.next_batch_id;
         self.next_batch_id += 1;
         self.background_batches.insert(batch_id);
+        let seq = self.next_result_seq();
         self.worldgen.submit_background(
             self.gen_context.clone(),
             GenBatch {
@@ -642,6 +650,7 @@ impl ChunkMap {
                 structure_views,
                 old_chunks,
             },
+            seq,
         );
     }
 

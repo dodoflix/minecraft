@@ -1,6 +1,9 @@
 //! Worker threads of the chunk map: the region file IO thread (vanilla's `IOWorker`), a small pool for chunk NBT
 //! parsing/encoding, and the worldgen thread (vanilla's serial `worldgen` `ConsecutiveExecutor`). Results come back
 //! to the game thread through one channel of [`WorkerMessage`]s which the chunk map polls (`ServerChunkCache.pollTask`).
+//! Every message carries the sequence number the game thread gave its job when it submitted it; the chunk map applies
+//! them in that order, so what a worker thread's speed decides is only how long a result waits, never what the game
+//! thread does next.
 
 use super::chunk_io_reporter::ChunkIoReporter;
 use super::chunk_status_tasks::{BatchResult, GenBatch, run_batch};
@@ -40,13 +43,13 @@ pub enum WorkerMessage {
 /// finishes sleeping toward the next tick, which turns every worldgen step into a tick of latency.
 #[derive(Clone)]
 pub struct ResultSender {
-    tx: Sender<WorkerMessage>,
+    tx: Sender<(u64, WorkerMessage)>,
     game_thread: std::thread::Thread,
 }
 
 impl ResultSender {
     /// A channel whose results wake the calling thread (the game thread, which builds the chunk map).
-    pub fn channel() -> (Self, Receiver<WorkerMessage>) {
+    pub fn channel() -> (Self, Receiver<(u64, WorkerMessage)>) {
         let (tx, rx) = channel();
         let game_thread = std::thread::current();
         (Self { tx, game_thread }, rx)
@@ -54,9 +57,10 @@ impl ResultSender {
 
     pub fn send(
         &self,
+        seq: u64,
         message: WorkerMessage,
-    ) -> Result<(), std::sync::mpsc::SendError<WorkerMessage>> {
-        let sent = self.tx.send(message);
+    ) -> Result<(), std::sync::mpsc::SendError<(u64, WorkerMessage)>> {
+        let sent = self.tx.send((seq, message));
         self.game_thread.unpark();
         sent
     }
@@ -65,6 +69,7 @@ impl ResultSender {
 enum IoRequest {
     Read {
         key: i64,
+        seq: u64,
     },
     ReadBlocking {
         key: i64,
@@ -129,9 +134,12 @@ impl RegionIo {
         }
     }
 
-    /// `read(pos)`: the result arrives as [`WorkerMessage::ChunkRead`].
-    pub fn read(&self, pos: ChunkPos) {
-        let _ = self.tx.send(IoRequest::Read { key: pos.pack() });
+    /// `read(pos)`: the result arrives as [`WorkerMessage::ChunkRead`] with sequence number `seq`.
+    pub fn read(&self, pos: ChunkPos, seq: u64) {
+        let _ = self.tx.send(IoRequest::Read {
+            key: pos.pack(),
+            seq,
+        });
     }
 
     /// `readChunk(pos).join()`.
@@ -303,10 +311,10 @@ fn io_loop(mut storage: SimpleRegionStorage, rx: Receiver<IoRequest>, results: R
     }
     loop {
         match rx.recv_timeout(Duration::from_millis(5)) {
-            Ok(IoRequest::Read { key }) => {
+            Ok(IoRequest::Read { key, seq }) => {
                 let result = storage.read(&ChunkPos::unpack(key));
                 if results
-                    .send(WorkerMessage::ChunkRead { key, result })
+                    .send(seq, WorkerMessage::ChunkRead { key, result })
                     .is_err()
                 {
                     return;
@@ -361,7 +369,7 @@ fn io_loop(mut storage: SimpleRegionStorage, rx: Receiver<IoRequest>, results: R
 }
 
 /// Job queue shared by the parse/encode threads.
-type PoolJob = Box<dyn FnOnce() -> Option<WorkerMessage> + Send>;
+type PoolJob = Box<dyn FnOnce(&ResultSender) + Send>;
 
 pub struct WorkerPool {
     tx: Option<Sender<PoolJob>>,
@@ -382,13 +390,7 @@ impl WorkerPool {
                         loop {
                             let job = rx.lock().unwrap_or_else(|e| e.into_inner()).recv();
                             match job {
-                                Ok(job) => {
-                                    if let Some(msg) = job()
-                                        && results.send(msg).is_err()
-                                    {
-                                        return;
-                                    }
-                                }
+                                Ok(job) => job(&results),
                                 Err(_) => return,
                             }
                         }
@@ -402,9 +404,19 @@ impl WorkerPool {
         }
     }
 
-    pub fn submit(&self, job: impl FnOnce() -> Option<WorkerMessage> + Send + 'static) {
+    /// A job nobody waits for (chunk encoding).
+    pub fn submit(&self, job: impl FnOnce() + Send + 'static) {
         if let Some(tx) = &self.tx {
-            let _ = tx.send(Box::new(job));
+            let _ = tx.send(Box::new(move |_| job()));
+        }
+    }
+
+    /// A job whose message is applied by the game thread as number `seq` of the submitted jobs.
+    pub fn submit_sequenced(&self, seq: u64, job: impl FnOnce() -> WorkerMessage + Send + 'static) {
+        if let Some(tx) = &self.tx {
+            let _ = tx.send(Box::new(move |results| {
+                let _ = results.send(seq, job());
+            }));
         }
     }
 
@@ -456,7 +468,7 @@ fn batch_message(result: Result<BatchResult, CrashReport>) -> WorkerMessage {
 /// The worldgen executor: the serial `worldgen` thread (`ConsecutiveExecutor("worldgen")`) runs one [`GenBatch`] at a
 /// time; the steps vanilla runs on `Util.backgroundExecutor()` (biomes, terrain) go to the shared pool.
 pub struct WorldgenThread {
-    tx: Option<Sender<(Arc<WorldGenContext>, GenBatch)>>,
+    tx: Option<Sender<(u64, Arc<WorldGenContext>, GenBatch)>>,
     thread: Option<JoinHandle<()>>,
     results: ResultSender,
     /// Oracle mode: the batch runs on the submitting thread (the vanilla oracle's direct executors), so the unique
@@ -474,14 +486,14 @@ impl WorldgenThread {
                 inline: true,
             };
         }
-        let (tx, rx) = channel::<(Arc<WorldGenContext>, GenBatch)>();
+        let (tx, rx) = channel::<(u64, Arc<WorldGenContext>, GenBatch)>();
         let thread_results = results.clone();
         let thread = std::thread::Builder::new()
             .name("Worldgen".into())
             .spawn(move || {
-                while let Ok((ctx, batch)) = rx.recv() {
+                while let Ok((seq, ctx, batch)) = rx.recv() {
                     if thread_results
-                        .send(batch_message(run_batch(&ctx, batch)))
+                        .send(seq, batch_message(run_batch(&ctx, batch)))
                         .is_err()
                     {
                         return;
@@ -506,25 +518,31 @@ impl WorldgenThread {
         self.inline
     }
 
-    /// Queues the batch for the worldgen thread; inline (oracle mode) it runs now and its result is returned for the caller
-    /// to apply at once, as vanilla's direct executors complete every future of a step inside the call that scheduled it.
+    /// Queues the batch for the worldgen thread (its result is number `seq` of the submitted jobs); inline (oracle mode) it
+    /// runs now and its result is returned for the caller to apply at once, as vanilla's direct executors complete every
+    /// future of a step inside the call that scheduled it. An inline batch takes no sequence number.
     #[must_use]
-    pub fn submit(&self, ctx: Arc<WorldGenContext>, batch: GenBatch) -> Option<WorkerMessage> {
+    pub fn submit(
+        &self,
+        ctx: Arc<WorldGenContext>,
+        batch: GenBatch,
+        seq: u64,
+    ) -> Option<WorkerMessage> {
         if self.inline {
             return Some(batch_message(run_batch(&ctx, batch)));
         }
         if let Some(tx) = &self.tx {
-            let _ = tx.send((ctx, batch));
+            let _ = tx.send((seq, ctx, batch));
         }
         None
     }
 
     /// `CompletableFuture.supplyAsync(..., Util.backgroundExecutor())`: the batch runs on the shared pool, concurrently
     /// with the worldgen thread and with other background batches.
-    pub fn submit_background(&self, ctx: Arc<WorldGenContext>, batch: GenBatch) {
+    pub fn submit_background(&self, ctx: Arc<WorldGenContext>, batch: GenBatch, seq: u64) {
         let results = self.results.clone();
         let job = Box::new(move || {
-            let _ = results.send(batch_message(run_batch(&ctx, batch)));
+            let _ = results.send(seq, batch_message(run_batch(&ctx, batch)));
         });
         let _ = BACKGROUND.tx.send(job);
     }
@@ -549,10 +567,13 @@ mod tests {
         let (results, rx) = ResultSender::channel();
         let sender = std::thread::spawn(move || {
             std::thread::sleep(Duration::from_millis(50));
-            let _ = results.send(WorkerMessage::ChunkRead {
-                key: ChunkPos::new(0, 0).pack(),
-                result: Ok(None),
-            });
+            let _ = results.send(
+                0,
+                WorkerMessage::ChunkRead {
+                    key: ChunkPos::new(0, 0).pack(),
+                    result: Ok(None),
+                },
+            );
         });
         let start = Instant::now();
         while rx.try_recv().is_err() {

@@ -33,7 +33,7 @@ use mc_world::chunk::LevelHeight;
 use mc_world::palette::PalettedContainerFactory;
 use mc_world::region::RegionStorageInfo;
 use mc_world::status::ChunkStatus;
-use std::collections::{HashMap, VecDeque};
+use std::collections::{BTreeMap, HashMap, VecDeque};
 use std::path::PathBuf;
 use std::sync::Arc;
 use std::sync::atomic::AtomicI32;
@@ -253,7 +253,15 @@ pub struct ChunkMap {
     pub(crate) reporter: Arc<super::chunk_io_reporter::ChunkIoReporter>,
     pub(crate) pool: WorkerPool,
     pub(crate) worldgen: WorldgenThread,
-    pub(crate) results: Receiver<WorkerMessage>,
+    pub(crate) results: Receiver<(u64, WorkerMessage)>,
+    /// The sequence number the next job handed to a worker thread gets (see [`ChunkMap::next_result_seq`]).
+    pub(crate) next_seq: u64,
+    /// The sequence number of the next worker result to apply.
+    pub(crate) apply_seq: u64,
+    /// Results that arrived before an earlier job's.
+    pub(crate) held_results: BTreeMap<u64, WorkerMessage>,
+    /// `FULL` steps of chunks that were lent out, retried behind the next worker result.
+    pub(crate) deferred_full_steps: Vec<i64>,
     pub(crate) worldgen_busy: bool,
     /// `BlockableEventLoop.delayedCrash`: the report of a stop thrown while a worker message was handled, thrown again by
     /// every poll (a handler that swallows the first throw cannot leave the server running without the chunk).
@@ -381,6 +389,10 @@ impl ChunkMap {
             pool,
             worldgen,
             results,
+            next_seq: 0,
+            apply_seq: 0,
+            held_results: BTreeMap::new(),
+            deferred_full_steps: Vec::new(),
             worldgen_busy: false,
             delayed_crash: None,
             chunk_ready_to_send: Vec::new(),
@@ -490,6 +502,7 @@ impl ChunkMap {
             || !self.pending_generation_tasks.is_empty()
             || self.poi_manager.has_work()
             || !self.main_tasks.is_empty()
+            || !self.deferred_full_steps.is_empty()
             || self.distance_manager_has_tickets()
     }
 
@@ -813,10 +826,37 @@ impl ChunkMap {
 
     // ------------------------------------------------------------------ main loop
 
-    /// Drain worker results into the main task queue (they are `mainThreadExecutor` tasks in vanilla).
+    /// The sequence number of a job that is about to go to a worker thread, whose message must come back.
+    pub(crate) fn next_result_seq(&mut self) -> u64 {
+        let seq = self.next_seq;
+        self.next_seq += 1;
+        seq
+    }
+
+    /// Worker results are `mainThreadExecutor` tasks in vanilla, queued in the order the threads happen to finish. Here the
+    /// next one is queued, in the order its job was submitted, once the tasks before it have run: which chunk steps follow
+    /// each other (feature decoration of neighbours is order dependent) then does not depend on how fast a thread was.
+    ///
+    /// Oracle mode (inline worldgen) keeps vanilla's arrival order: its recordings are made with direct executors, and the
+    /// draws of the unique seeds depend on the order the main thread runs its tasks in.
     fn drain_worker_results(&mut self) {
-        while let Ok(msg) = self.results.try_recv() {
+        while let Ok((seq, msg)) = self.results.try_recv() {
+            if self.worldgen.is_inline() {
+                self.main_tasks.push_back(MainTask::Worker(Box::new(msg)));
+            } else {
+                self.held_results.insert(seq, msg);
+            }
+        }
+        if self.main_tasks.is_empty()
+            && let Some(msg) = self.held_results.remove(&self.apply_seq)
+        {
+            self.apply_seq += 1;
             self.main_tasks.push_back(MainTask::Worker(Box::new(msg)));
+            self.main_tasks.extend(
+                std::mem::take(&mut self.deferred_full_steps)
+                    .into_iter()
+                    .map(MainTask::FullStep),
+            );
         }
     }
 

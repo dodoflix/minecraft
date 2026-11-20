@@ -76,6 +76,21 @@ struct Generator {
     log: Log,
     legacy: bool,
     overlap: Option<Arc<Overlap>>,
+    /// Nonzero: the biome and terrain steps of a chunk take a time that depends on this value and the chunk.
+    jitter: u64,
+}
+
+impl Generator {
+    /// A slow or fast worker thread: up to 2.5 ms per step, a different one per chunk and `jitter`.
+    fn work(&self, pos: ChunkPos) {
+        if self.jitter == 0 {
+            return;
+        }
+        let mut z = self.jitter ^ (u64::from(pos.x as u32) << 32 | u64::from(pos.z as u32));
+        z = (z ^ (z >> 30)).wrapping_mul(0xbf58_476d_1ce4_e5b9);
+        z = (z ^ (z >> 27)).wrapping_mul(0x94d0_49bb_1331_11eb);
+        std::thread::sleep(Duration::from_micros((z ^ (z >> 31)) % 2500));
+    }
 }
 
 impl ChunkGeneratorBackend for Generator {
@@ -83,6 +98,7 @@ impl ChunkGeneratorBackend for Generator {
         Identifier::parse("minecraft:noise").ok()
     }
     fn create_biomes(&self, chunk: &mut ProtoChunk, region: &WorldGenRegion) {
+        self.work(chunk.pos());
         let mut log = self.log.lock().unwrap();
         log.push((Stage::Biomes, chunk.pos(), std::thread::current().id()));
         log.push((
@@ -112,6 +128,7 @@ impl ChunkGeneratorBackend for Generator {
     }
     fn build_terrain(&self, chunk: &mut ProtoChunk, region: &WorldGenRegion) {
         let _running = self.overlap.as_ref().map(|overlap| overlap.enter());
+        self.work(chunk.pos());
         let mut log = self.log.lock().unwrap();
         log.push((Stage::Terrain, chunk.pos(), std::thread::current().id()));
         log.push((
@@ -202,7 +219,7 @@ fn open(
     fail_features_at: Option<ChunkPos>,
     legacy: bool,
 ) -> ServerLevel {
-    open_with(dir, log, fail_features_at, legacy, None, None)
+    open_with(dir, log, fail_features_at, legacy, None, None, 0)
 }
 
 fn open_with(
@@ -212,6 +229,7 @@ fn open_with(
     legacy: bool,
     overlap: Option<Arc<Overlap>>,
     section_write: Option<(ChunkPos, BlockPos, BlockState)>,
+    jitter: u64,
 ) -> ServerLevel {
     let (shared, _rx) = ServerShared::new();
     ServerLevel::new(ServerLevelParams {
@@ -235,6 +253,7 @@ fn open_with(
             log: log.clone(),
             legacy,
             overlap,
+            jitter,
         }),
         generate_structures: true,
         hooks: Arc::new(Hooks {
@@ -275,7 +294,7 @@ fn terrain_of_different_chunks_runs_at_the_same_time() {
     let _ = std::fs::remove_dir_all(&dir);
     let log: Log = Arc::default();
     let overlap = Arc::new(Overlap::default());
-    let mut level = open_with(&dir, &log, None, false, Some(overlap.clone()), None);
+    let mut level = open_with(&dir, &log, None, false, Some(overlap.clone()), None, 0);
     assert!(
         level
             .proto_chunk_blocking(0, 0, ChunkStatus::Spawn, true)
@@ -287,6 +306,53 @@ fn terrain_of_different_chunks_runs_at_the_same_time() {
         overlap.max.load(Ordering::SeqCst) >= 2,
         "terrain steps never overlapped"
     );
+}
+
+/// How fast the threads of the biome and terrain steps are decides when their results arrive, not which step the chunk
+/// map starts next: the serial steps (feature decoration of neighbours is order dependent) run in the same order however
+/// the background steps are timed.
+#[test]
+fn the_serial_steps_run_in_the_same_order_whatever_the_speed_of_the_workers() {
+    let serial_order = |jitter: u64| {
+        let dir = std::env::temp_dir().join(format!(
+            "mc-pipeline-jitter-{}-{jitter}",
+            std::process::id()
+        ));
+        let _ = std::fs::remove_dir_all(&dir);
+        let log: Log = Arc::default();
+        let mut level = open_with(&dir, &log, None, false, None, None, jitter);
+        for (x, z) in [(0, 0), (1, 0), (2, 1)] {
+            assert!(
+                level
+                    .proto_chunk_blocking(x, z, ChunkStatus::Spawn, true)
+                    .is_some()
+            );
+        }
+        level.block_on_chunks(|chunks| {
+            let map = &chunks.chunk_map;
+            map.pending_task_count() == 0
+                && !map.worldgen_busy()
+                && map.loading_count() == 0
+                && map.main_tasks.is_empty()
+        });
+        level.close();
+        let _ = std::fs::remove_dir_all(&dir);
+        let log = log.lock().unwrap();
+        log.iter()
+            .filter(|(stage, _, _)| {
+                !matches!(
+                    stage,
+                    Stage::Biomes | Stage::Terrain | Stage::Blender { .. }
+                )
+            })
+            .map(|(stage, pos, _)| (stage.clone(), *pos))
+            .collect::<Vec<_>>()
+    };
+    let reference = serial_order(0);
+    assert!(!reference.is_empty());
+    for jitter in 1..=4 {
+        assert_eq!(serial_order(jitter), reference, "jitter {jitter}");
+    }
 }
 
 #[test]
@@ -476,6 +542,7 @@ fn ore_writes_into_a_full_neighbour_land_in_the_real_chunk() {
         false,
         None,
         Some((ChunkPos::new(1, 0), pos, ore)),
+        0,
     );
     assert!(
         level
