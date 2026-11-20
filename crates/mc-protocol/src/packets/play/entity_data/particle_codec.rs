@@ -41,10 +41,8 @@ fn properties_codec(block: Block) -> Codec<BlockState> {
     Codec::from_fns(
         move |ops, state: &BlockState, prefix| {
             let mut b = ops.map_builder();
-            for p in block.properties() {
-                if let Some(value) = state.get_property_str(p.name) {
-                    b.add(p.name, ops.create_string(value));
-                }
+            for (p, i) in state.values_in_codec_order() {
+                b.add(p.name, ops.create_string(p.values[i]));
             }
             b.build(&prefix)
         },

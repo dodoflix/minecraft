@@ -343,6 +343,15 @@ impl BlockState {
         })
     }
 
+    /// `values()` in the order `BlockState.CODEC` writes the keys of its `properties` map: `StateDefinition.createCodec` nests
+    /// one `Codec.mapPair` per property in name order and a pair encodes its second half first, so the keys go in descending
+    /// name order (which decides the order of colliding keys in the compound).
+    pub fn values_in_codec_order(self) -> Vec<(&'static PropertyDef, usize)> {
+        let mut values: Vec<_> = self.values().collect();
+        values.sort_by(|a, b| b.0.name.cmp(a.0.name));
+        values
+    }
+
     /// Serialized value of a property by serialized name.
     pub fn get_property_str(self, name: &str) -> Option<&'static str> {
         self.values()

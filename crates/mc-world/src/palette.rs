@@ -983,12 +983,9 @@ impl ElementCodec<BlockState> for BlockStateCodec {
         if state == block.default_state() {
             return Ok(Tag::String(block.name().to_owned()));
         }
-        // `StateDefinition.createCodec` nests one `Codec.mapPair` per property in name order, and a pair encodes its second
-        // half first: the keys go into the compound in descending name order, which decides the order of colliding keys
-        let mut values: Vec<_> = state.values().collect();
-        values.sort_by(|a, b| b.0.name.cmp(a.0.name));
+        // the keys go into the compound in the order `BlockState.CODEC` writes them, which decides the order of colliding keys
         let mut props = CompoundTag::new();
-        for (def, i) in values {
+        for (def, i) in state.values_in_codec_order() {
             props.put_string(def.name, def.values[i]);
         }
         let mut out = CompoundTag::new();

@@ -322,7 +322,8 @@ pub fn block_state_full_codec() -> Codec<BlockState> {
                         },
                         |s: &BlockState| {
                             Some(
-                                s.values()
+                                s.values_in_codec_order()
+                                    .into_iter()
                                     .map(|(def, i)| (def.name.to_owned(), def.values[i].to_owned()))
                                     .collect(),
                             )
@@ -867,7 +868,7 @@ fn block_state_tag(state: BlockState, bare_ok: bool) -> Tag {
     compound.put("id", Tag::String(state.block().name().to_owned()));
     if state.block().properties().len() != 0 {
         let mut props = CompoundTag::new();
-        for (def, i) in state.values() {
+        for (def, i) in state.values_in_codec_order() {
             props.put(def.name, Tag::String(def.values[i].to_owned()));
         }
         compound.put("properties", Tag::Compound(props));

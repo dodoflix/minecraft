@@ -32,6 +32,7 @@ mod block_class_binding;
 mod block_placement_golden;
 mod block_registration_guards;
 mod block_scenario_golden;
+mod block_state_order_golden;
 mod blocks_be_hooks_golden;
 mod blocks_beehive_golden;
 mod blocks_container_hooks_golden;
