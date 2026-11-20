@@ -13,7 +13,6 @@ use std::path::{Path, PathBuf};
 
 use mc_core::gson::{JsonElement, JsonObject};
 use mc_core::java_exception::JavaException;
-use mc_core::java_string::JavaString;
 use mc_datafix::{
     CURRENT_VERSION, DataFixTypes, DataFixer, FileFixRegistration, FileFixerRegistry, References,
     world_version_to_file_fixer_version,
@@ -171,28 +170,32 @@ pub(crate) fn add_versions_to_level_data(mut fixed: CompoundTag, to_version: i32
     fixed
 }
 
+/// A codec failure thrown by `DataResult.getOrThrow()`.
+fn illegal_state(message: impl std::fmt::Display) -> FileFixError {
+    FileFixError::Unchecked(format!("java.lang.IllegalStateException: {message}"))
+}
+
 /// `UpgradeInProgress.codec`'s path codec: `base` plus a relative path that stays inside it.
 fn guarded_path(base: &Path, text: &str) -> Result<PathBuf, FileFixError> {
     use std::path::Component;
     let path = Path::new(text);
-    let invalid = |message: String| FileFixError::Unchecked(message);
     if path.is_absolute() {
-        return Err(invalid(format!("Illegal absolute path: {text}")));
+        return Err(illegal_state(format!("Illegal absolute path: {text}")));
     }
     let mut normal = false;
     for component in path.components() {
         match component {
             Component::Normal(_) => normal = true,
             Component::CurDir | Component::ParentDir => {
-                return Err(invalid(format!("Illegal path traversal: {text}")));
+                return Err(illegal_state(format!("Illegal path traversal: {text}")));
             }
             Component::RootDir | Component::Prefix(_) => {
-                return Err(invalid(format!("Illegal absolute path: {text}")));
+                return Err(illegal_state(format!("Illegal absolute path: {text}")));
             }
         }
     }
     if !normal {
-        return Err(invalid(format!("Path is empty: {text}")));
+        return Err(illegal_state(format!("Path is empty: {text}")));
     }
     Ok(base.join(path))
 }
@@ -277,25 +280,52 @@ pub(super) fn read_moves(
     file_path: &Path,
 ) -> Result<Journal, FileFixError> {
     // A journal that cannot be parsed is a `RuntimeException` of Gson or the codec, not an `IOException`.
-    let invalid = |message: String| FileFixError::Unchecked(message);
-    let text = read_string(file_path)?;
-    // `Gson.fromJson` reads an empty document as `null`, which the codec then refuses
-    if text.trim_matches([' ', '\t', '\n', '\r']).is_empty() {
-        return Err(invalid(
-            "java.lang.IllegalStateException: Not a JSON object: null".to_owned(),
-        ));
-    }
-    let json = mc_core::gson::parse_object_strict(&text).map_err(|e| invalid(e.to_string()))?;
-    let Some(JsonElement::Array(entries)) = json.get("moves") else {
-        return Err(invalid("No key moves in MapLike".to_owned()));
+    let syntax = |e: mc_core::gson::JsonError| {
+        FileFixError::Unchecked(format!("com.google.gson.JsonSyntaxException: {e}"))
+    };
+    // `Gson.fromJson(text, JsonObject.class)`: an empty document is `null`, which the codec refuses
+    let json = match mc_core::gson::parse(&read_string(file_path)?, true).map_err(syntax)? {
+        None => return Err(illegal_state("Not a JSON object: null")),
+        Some(element) => mc_core::gson::expect_object(element).map_err(syntax)?,
+    };
+    let map_like = |map: &JsonObject| {
+        format!(
+            "MapLike[{}]",
+            JsonElement::Object(map.clone()).to_compact_string()
+        )
+    };
+    let entries = match json.get("moves") {
+        Some(JsonElement::Array(entries)) => entries,
+        Some(other) => {
+            return Err(illegal_state(format!(
+                "Not a json array: {}",
+                other.to_compact_string()
+            )));
+        }
+        None => {
+            return Err(illegal_state(format!(
+                "No key moves in {}",
+                map_like(&json)
+            )));
+        }
+    };
+    let text_of = |value: &JsonElement| match value {
+        JsonElement::String(text) => Ok(text.clone().into_string_lossy()),
+        other => Err(illegal_state(format!(
+            "Not a string: {}",
+            other.to_compact_string()
+        ))),
     };
     let field = |entry: &JsonElement, name: &str| -> Result<String, FileFixError> {
-        match entry.as_object().and_then(|o| o.get(name)) {
-            Some(value) => value
-                .as_string()
-                .map(JavaString::into_string_lossy)
-                .map_err(|e| invalid(e.to_string())),
-            None => Err(invalid(format!("No key {name} in MapLike"))),
+        let JsonElement::Object(map) = entry else {
+            return Err(illegal_state(format!(
+                "Not a JSON object: {}",
+                entry.to_compact_string()
+            )));
+        };
+        match map.get(name) {
+            Some(value) => text_of(value),
+            None => Err(illegal_state(format!("No key {name} in {}", map_like(map)))),
         }
     };
     let moves = entries
@@ -309,14 +339,11 @@ pub(super) fn read_moves(
         .collect::<Result<Vec<_>, FileFixError>>()?;
     let upgraded_folder = match json.get("upgraded_folder") {
         Some(name) => {
-            let name = name
-                .as_string()
-                .map(JavaString::into_string_lossy)
-                .map_err(|e| invalid(e.to_string()))?;
+            let name = text_of(name)?;
             if Path::new(&name).components().count() != 1
                 || guarded_path(Path::new(""), &name).is_err()
             {
-                return Err(invalid(format!("Illegal folder name: {name}")));
+                return Err(illegal_state(format!("Illegal folder name: {name}")));
             }
             Some(name)
         }

@@ -468,18 +468,21 @@ pub fn parse_strict_json_parser_then_fail<T: JsonText + ?Sized>(
 pub fn parse_object_strict<T: JsonText + ?Sized>(text: &T) -> Result<JsonObject, JsonError> {
     match parse(text, false)? {
         None => Err(JsonError::new("JSON data was null or empty")),
-        Some(JsonElement::Object(o)) => Ok(o),
-        Some(other) => {
-            let kind = match other {
-                JsonElement::Array(_) => "JsonArray",
-                JsonElement::Null => "JsonNull",
-                _ => "JsonPrimitive",
-            };
-            Err(JsonError::new(format!(
-                "Expected a com.google.gson.JsonObject but was com.google.gson.{kind}; at path $"
-            )))
-        }
+        Some(element) => expect_object(element),
     }
+}
+
+/// Gson's type adapter for `JsonObject`: another kind of element is a `JsonSyntaxException`.
+pub fn expect_object(element: JsonElement) -> Result<JsonObject, JsonError> {
+    let kind = match element {
+        JsonElement::Object(o) => return Ok(o),
+        JsonElement::Array(_) => "JsonArray",
+        JsonElement::Null => "JsonNull",
+        _ => "JsonPrimitive",
+    };
+    Err(JsonError::new(format!(
+        "Expected a com.google.gson.JsonObject but was com.google.gson.{kind}; at path $"
+    )))
 }
 
 /// `BigDecimal(text).longValueExact()`: the integer value when `text` is an exact long.

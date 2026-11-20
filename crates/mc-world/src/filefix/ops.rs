@@ -194,7 +194,7 @@ pub fn only_file<T>(mut files: Vec<T>) -> Result<T, FileFixError> {
         Ok(files.remove(0))
     } else {
         Err(FileFixError::Unchecked(format!(
-            "Trying to get only file, but there are {} files",
+            "java.lang.IllegalStateException: Trying to get only file, but there are {} files",
             files.len()
         )))
     }

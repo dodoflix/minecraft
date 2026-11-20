@@ -53,7 +53,7 @@ fn journal(world: &Path, bytes: &[u8], mode: u32) {
 /// A case: what is wrong with the files of the copy of the old world.
 type Damage = fn(&Path);
 
-const CASES: [(&str, Damage); 11] = [
+const CASES: [(&str, Damage); 23] = [
     ("saved_data_unreadable", |w| {
         chmod(w, "data/Mineshaft.dat", 0o200)
     }),
@@ -75,6 +75,30 @@ const CASES: [(&str, Damage); 11] = [
         journal(w, &[b'{', 0xff, b'}'], 0o644)
     }),
     ("journal_empty", |w| journal(w, b"", 0o644)),
+    ("journal_blank", |w| journal(w, b" \r\n\t", 0o644)),
+    ("journal_bom_only", |w| journal(w, b"\xef\xbb\xbf", 0o644)),
+    ("journal_comment_only", |w| journal(w, b"/* none */", 0o644)),
+    ("journal_not_an_object", |w| journal(w, b"[]", 0o644)),
+    ("journal_trailing_data", |w| {
+        journal(w, br#"{"moves":[]} x"#, 0o644)
+    }),
+    ("journal_cut", |w| journal(w, br#"{"moves":"#, 0o644)),
+    ("journal_without_moves", |w| journal(w, b"{}", 0o644)),
+    ("journal_move_without_target", |w| {
+        journal(w, br#"{"moves":[{"from":"a"}]}"#, 0o644)
+    }),
+    ("journal_moves_not_a_list", |w| {
+        journal(w, br#"{"moves":{}}"#, 0o644)
+    }),
+    ("journal_move_not_an_object", |w| {
+        journal(w, br#"{"moves":[5]}"#, 0o644)
+    }),
+    ("journal_move_from_number", |w| {
+        journal(w, br#"{"moves":[{"from":5,"to":"b"}]}"#, 0o644)
+    }),
+    ("journal_move_outside", |w| {
+        journal(w, br#"{"moves":[{"from":"../a","to":"b"}]}"#, 0o644)
+    }),
 ];
 
 /// The chunk reads that fail alike, shown once with their position left out: which chunk of the folder fails first

@@ -1219,6 +1219,7 @@ fn the_journal_is_pretty_printed_json_and_reads_back() {
     assert_eq!(journal.upgraded_folder.as_deref(), Some("world upgraded"));
     assert!(!tmp.path().join("upgrade_in_progress.json.tmp").exists());
 
+    let illegal = "java.lang.IllegalStateException: ";
     for (json, message) in [
         (
             r#"{"moves":[{"from":"../x","to":"y"}]}"#,
@@ -1229,17 +1230,47 @@ fn the_journal_is_pretty_printed_json_and_reads_back() {
             "Illegal absolute path: /y",
         ),
         (r#"{"moves":[{"from":"","to":"y"}]}"#, "Path is empty: "),
-        (r#"{"moves":[{"from":"x"}]}"#, "No key to in MapLike"),
-        (r#"{}"#, "No key moves in MapLike"),
+        (
+            r#"{"moves":[{"from":"x"}]}"#,
+            r#"No key to in MapLike[{"from":"x"}]"#,
+        ),
+        (r#"{}"#, "No key moves in MapLike[{}]"),
+        (r#"{"moves":[5]}"#, "Not a JSON object: 5"),
+        (r#"{"moves":{}}"#, "Not a json array: {}"),
+        (r#"{"moves":[{"from":5,"to":"y"}]}"#, "Not a string: 5"),
+        // Gson reads an empty document, and one of only a BOM, blanks or comments, as `null`
+        ("", "Not a JSON object: null"),
+        (" \r\n\t", "Not a JSON object: null"),
+        ("\u{feff}", "Not a JSON object: null"),
+        ("/* none */", "Not a JSON object: null"),
     ] {
         fs::write(&file, json).unwrap();
         let e = read_moves(&from, &to, &file).unwrap_err();
-        assert_eq!(e.to_string(), message, "{json}");
+        assert_eq!(e.to_string(), format!("{illegal}{message}"), "{json}");
+    }
+    let syntax = "com.google.gson.JsonSyntaxException: ";
+    for (json, message) in [
+        (
+            "[]",
+            "Expected a com.google.gson.JsonObject but was com.google.gson.JsonArray; at path $",
+        ),
+        (
+            r#"{"moves":[]} x"#,
+            "com.google.gson.stream.MalformedJsonException: Use JsonReader.setStrictness(Strictness.LENIENT) to accept malformed JSON at line 1 column 15 path $",
+        ),
+        (
+            r#"{"moves":"#,
+            "java.io.EOFException: End of input at line 1 column 10 path $.moves",
+        ),
+    ] {
+        fs::write(&file, json).unwrap();
+        let e = read_moves(&from, &to, &file).unwrap_err().to_string();
+        assert!(e.starts_with(&format!("{syntax}{message}")), "{json}: {e}");
     }
     fs::write(&file, r#"{"moves":[],"upgraded_folder":"../x"}"#).unwrap();
     assert_eq!(
         read_moves(&from, &to, &file).unwrap_err().to_string(),
-        "Illegal folder name: ../x"
+        format!("{illegal}Illegal folder name: ../x")
     );
     fs::write(&file, r#"{"moves":[]}"#).unwrap();
     assert!(
@@ -1249,11 +1280,6 @@ fn the_journal_is_pretty_printed_json_and_reads_back() {
             .is_none(),
         "a journal of vanilla"
     );
-    fs::write(&file, r#"{"moves": [{"fro"#).unwrap();
-    assert!(matches!(
-        read_moves(&from, &to, &file).unwrap_err(),
-        FileFixError::Unchecked(_)
-    ));
 }
 
 /// An `IOException` of a read is wrapped in the `AbortedFileFixException`, the unchecked `ReportedNbtException` of a
