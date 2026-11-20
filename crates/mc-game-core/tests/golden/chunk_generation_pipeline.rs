@@ -6,7 +6,7 @@
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_core::pos::ChunkPos;
-use mc_data::block::Block;
+use mc_data::block::{Block, BlockState};
 use mc_game::crash_report::ReportedException;
 use mc_game::server::level::world_gen::{
     ChunkGeneratorBackend, WorldGenContext, WorldGenHooks, WorldGenRegion,
@@ -148,6 +148,8 @@ struct Hooks {
     log: Log,
     /// Panic in `applyBiomeDecoration` of this chunk.
     fail_features_at: Option<ChunkPos>,
+    /// A raw section write (an ore vein) of `applyBiomeDecoration` of the chunk.
+    section_write: Option<(ChunkPos, BlockPos, BlockState)>,
 }
 
 impl Hooks {
@@ -183,6 +185,11 @@ impl WorldGenHooks for Hooks {
         if self.fail_features_at == Some(region.center) {
             panic!("boom");
         }
+        if let Some((center, pos, state)) = self.section_write
+            && center == region.center
+        {
+            region.section_writes.push((pos, state));
+        }
     }
     fn spawn_original_mobs(&self, _ctx: &WorldGenContext, region: &mut WorldGenRegion) {
         self.record(Stage::Spawn, region.center);
@@ -195,7 +202,7 @@ fn open(
     fail_features_at: Option<ChunkPos>,
     legacy: bool,
 ) -> ServerLevel {
-    open_with(dir, log, fail_features_at, legacy, None)
+    open_with(dir, log, fail_features_at, legacy, None, None)
 }
 
 fn open_with(
@@ -204,6 +211,7 @@ fn open_with(
     fail_features_at: Option<ChunkPos>,
     legacy: bool,
     overlap: Option<Arc<Overlap>>,
+    section_write: Option<(ChunkPos, BlockPos, BlockState)>,
 ) -> ServerLevel {
     let (shared, _rx) = ServerShared::new();
     ServerLevel::new(ServerLevelParams {
@@ -232,6 +240,7 @@ fn open_with(
         hooks: Arc::new(Hooks {
             log: log.clone(),
             fail_features_at,
+            section_write,
         }),
         seed: 0,
         is_known_structure: Arc::new(|_| false),
@@ -266,7 +275,7 @@ fn terrain_of_different_chunks_runs_at_the_same_time() {
     let _ = std::fs::remove_dir_all(&dir);
     let log: Log = Arc::default();
     let overlap = Arc::new(Overlap::default());
-    let mut level = open_with(&dir, &log, None, false, Some(overlap.clone()));
+    let mut level = open_with(&dir, &log, None, false, Some(overlap.clone()), None);
     assert!(
         level
             .proto_chunk_blocking(0, 0, ChunkStatus::Spawn, true)
@@ -442,6 +451,39 @@ fn old_chunks_get_retrogen_bedrock_and_border_ticks() {
             .iter()
             .all(Option::is_none)
     );
+    level.close();
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+/// `OreFeature` reaches the sections of a full chunk next to the chunk being decorated through
+/// `ImposterProtoChunk.getSection` (which ignores `allowWrites`): the vein lands in the real chunk of the level, not only in
+/// the snapshot the step read.
+#[test]
+fn ore_writes_into_a_full_neighbour_land_in_the_real_chunk() {
+    let dir = std::env::temp_dir().join(format!("mc-pipeline-ore-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&dir);
+    // a first run stores the full chunk at the origin
+    let mut level = open(&dir, &Arc::default(), None, false);
+    level.chunk_blocking_mut(0, 0);
+    level.close();
+    // the features of the chunk next to it write a vein into it
+    let pos = BlockPos::new(5, 90, 5);
+    let ore = Block::DIAMOND_ORE.default_state();
+    let mut level = open_with(
+        &dir,
+        &Arc::default(),
+        None,
+        false,
+        None,
+        Some((ChunkPos::new(1, 0), pos, ore)),
+    );
+    assert!(
+        level
+            .proto_chunk_blocking(1, 0, ChunkStatus::Features, true)
+            .is_some()
+    );
+    let chunk = level.chunk_blocking_mut(0, 0);
+    assert_eq!(chunk.data.get_block_state(pos), ore);
     level.close();
     let _ = std::fs::remove_dir_all(&dir);
 }
