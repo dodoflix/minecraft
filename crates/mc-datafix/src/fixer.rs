@@ -267,6 +267,15 @@ impl DataFixer {
         if version >= new_version {
             return input;
         }
+        crate::ty::begin_update();
+        // the nodes the update evaluates are accounted to its range even when a fix panics
+        struct Weigh(usize);
+        impl Drop for Weigh {
+            fn drop(&mut self) {
+                crate::ty::note_applied(crate::rewrite::evaluated_nodes() - self.0);
+            }
+        }
+        let _weigh = Weigh(crate::rewrite::evaluated_nodes());
         let data_type = self.get_type(ty, version);
         let new_type = self.get_type(ty, new_version);
         let rule = self.get_rule(version, new_version);

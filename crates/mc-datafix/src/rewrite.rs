@@ -126,6 +126,16 @@ impl FoldShared {
     }
 }
 
+thread_local! {
+    /// The function nodes this thread has evaluated (`PointFree::eval`), which the rewrite cache uses to weigh the views
+    /// it holds: a view is evaluated on the thread that applies it.
+    static EVALUATED: std::cell::Cell<usize> = const { std::cell::Cell::new(0) };
+}
+
+pub(crate) fn evaluated_nodes() -> usize {
+    EVALUATED.get()
+}
+
 pub(crate) enum PfKind {
     /// `Functions.id`.
     Id,
@@ -231,47 +241,50 @@ impl PointFree {
     pub fn eval(&self) -> ViewFn {
         self.0
             .eval
-            .get_or_init(|| match &self.0.kind {
-                PfKind::Id | PfKind::In => Arc::new(|_: &Ops, v: Value| v),
-                PfKind::Fun { f, .. } => f.clone(),
-                PfKind::Comp(fs) => {
-                    let evals: Vec<ViewFn> = fs.iter().map(PointFree::eval).collect();
-                    Arc::new(move |ops: &Ops, mut v: Value| {
-                        for f in evals.iter().rev() {
-                            v = f(ops, v);
-                        }
-                        v
-                    })
-                }
-                PfKind::App { optic, f } => {
-                    let optic = optic.clone();
-                    let inner = f.eval();
-                    Arc::new(move |ops: &Ops, v: Value| optic.update(v, &mut |x| inner(ops, x)))
-                }
-                PfKind::Fold { shared, index } => {
-                    // weak: the evaluated functions of a fold are cached in the fold itself, and a strong reference
-                    // from them would keep every evaluated fold alive for the process
-                    let (shared, index) = (Arc::downgrade(shared), *index);
-                    Arc::new(move |ops: &Ops, v: Value| {
-                        let shared = shared.upgrade().expect("fold dropped while evaluating");
-                        shared.func(index)(ops, v)
-                    })
-                }
-                PfKind::TaggedChoice { results } => {
-                    let evals: Vec<(String, ViewFn)> = results
-                        .iter()
-                        .map(|(k, r)| (k.clone(), r.view.0.eval()))
-                        .collect();
-                    Arc::new(move |ops: &Ops, v: Value| {
-                        let (k, x) = v.into_pair();
-                        match evals
+            .get_or_init(|| {
+                EVALUATED.set(EVALUATED.get() + 1);
+                match &self.0.kind {
+                    PfKind::Id | PfKind::In => Arc::new(|_: &Ops, v: Value| v),
+                    PfKind::Fun { f, .. } => f.clone(),
+                    PfKind::Comp(fs) => {
+                        let evals: Vec<ViewFn> = fs.iter().map(PointFree::eval).collect();
+                        Arc::new(move |ops: &Ops, mut v: Value| {
+                            for f in evals.iter().rev() {
+                                v = f(ops, v);
+                            }
+                            v
+                        })
+                    }
+                    PfKind::App { optic, f } => {
+                        let optic = optic.clone();
+                        let inner = f.eval();
+                        Arc::new(move |ops: &Ops, v: Value| optic.update(v, &mut |x| inner(ops, x)))
+                    }
+                    PfKind::Fold { shared, index } => {
+                        // weak: the evaluated functions of a fold are cached in the fold itself, and a strong reference
+                        // from them would keep every evaluated fold alive for the process
+                        let (shared, index) = (Arc::downgrade(shared), *index);
+                        Arc::new(move |ops: &Ops, v: Value| {
+                            let shared = shared.upgrade().expect("fold dropped while evaluating");
+                            shared.func(index)(ops, v)
+                        })
+                    }
+                    PfKind::TaggedChoice { results } => {
+                        let evals: Vec<(String, ViewFn)> = results
                             .iter()
-                            .find(|(name, _)| matches!(&k, Value::Str(s) if s == name))
-                        {
-                            Some((_, f)) => Value::pair(k, f(ops, x)),
-                            None => Value::pair(k, x),
-                        }
-                    })
+                            .map(|(k, r)| (k.clone(), r.view.0.eval()))
+                            .collect();
+                        Arc::new(move |ops: &Ops, v: Value| {
+                            let (k, x) = v.into_pair();
+                            match evals
+                                .iter()
+                                .find(|(name, _)| matches!(&k, Value::Str(s) if s == name))
+                            {
+                                Some((_, f)) => Value::pair(k, f(ops, x)),
+                                None => Value::pair(k, x),
+                            }
+                        })
+                    }
                 }
             })
             .clone()

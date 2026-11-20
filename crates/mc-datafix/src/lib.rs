@@ -15,7 +15,9 @@
 //! optimiser (`DataFixerUpper.OPTIMIZATION_RULE`), which changes the order fixes apply in. Everything is `Send + Sync`.
 //!
 //! Deviations (all unobservable in vanilla): `findType(.., recurse = true)` through a recursive family (used by no
-//! vanilla fix), `TypeTemplate.findFieldOrType/applyO/toSimpleType`, `Type.updateMu`, `DataFixerBuilder.Result.optimize`.
+//! vanilla fix), `TypeTemplate.findFieldOrType/applyO/toSimpleType`, `Type.updateMu`,
+//! `DataFixerBuilder.Result.optimize`. The rewrite cache is bounded where vanilla's never shrinks: the views of version
+//! ranges used longest ago are dropped and rebuilt on demand (`ty::begin_update`).
 //!
 //! # How to port Java DFU code
 //! Names keep the Java names in snake_case; a Java `Typed<?>` is [`typed::Typed`], `OpticFinder<T>` is

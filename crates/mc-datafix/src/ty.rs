@@ -12,6 +12,7 @@ use crate::value::Value;
 use mc_dfu::{DataResult, Dyn, Dynamic, Msg, Ops};
 use std::collections::HashMap;
 use std::hash::{Hash, Hasher};
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, LazyLock, Mutex, OnceLock};
 
 // ---- errors / matchers --------------------------------------------------------------------------------------------
@@ -1074,7 +1075,7 @@ impl Type {
         opt: OptimizationRule,
         input: &Dyn,
     ) -> DataResult<Dyn> {
-        let Some(result) = self.rewrite(rule, opt) else {
+        let Some(result) = self.rewrite_cached(rule, opt, true) else {
             let input = input.clone();
             return DataResult::error_partial(
                 move || "Could not build a rewrite rule".to_string(),
@@ -1104,14 +1105,52 @@ impl Type {
 
     /// `type.rewrite(rule, fRule)` with the global `REWRITE_CACHE`: the rule's view, run through the optimiser.
     pub fn rewrite(&self, rule: &TypeRewriteRule, opt: OptimizationRule) -> Option<RewriteResult> {
+        self.rewrite_cached(rule, opt, false)
+    }
+
+    /// [`Type::rewrite`]; `top` marks the view of a version range (asked for by `read_and_write`), the only kind of
+    /// entry the cache evicts.
+    fn rewrite_cached(
+        &self,
+        rule: &TypeRewriteRule,
+        opt: OptimizationRule,
+        top: bool,
+    ) -> Option<RewriteResult> {
         let key = (self.clone(), rule.clone(), opt);
-        if let Some(r) = REWRITE_CACHE.lock().unwrap().get(&key) {
-            return r.clone();
+        if let Some(e) = REWRITE_CACHE.lock().unwrap().map.get_mut(&key) {
+            e.used = EPOCH.load(Ordering::Relaxed);
+            let result = e.result.clone();
+            if top && e.top {
+                note_top(&key);
+            }
+            return result;
         }
         let result = rule
             .rewrite(self)
             .map(|r| RewriteResult::create(r.view.optimize(opt), r.rec_data));
-        REWRITE_CACHE.lock().unwrap().insert(key, result.clone());
+        if top {
+            note_top(&key);
+        }
+        let weight = if top { TOP_BASE_WEIGHT } else { 0 };
+        let entry = CacheEntry {
+            result: result.clone(),
+            top,
+            used: EPOCH.load(Ordering::Relaxed),
+            weight,
+        };
+        let replaced = {
+            let mut cache = REWRITE_CACHE.lock().unwrap();
+            cache.top_weight += weight;
+            // two threads that missed the same key both built it: the first entry (and its weight) is replaced
+            let replaced = cache.map.insert(key.clone(), entry);
+            match &replaced {
+                Some(old) => cache.top_weight -= old.weight,
+                None if top => cache.tops.push(key),
+                None => {}
+            }
+            replaced
+        };
+        drop(replaced);
         result
     }
 
@@ -1704,13 +1743,105 @@ impl std::fmt::Debug for Type {
 }
 
 type RewriteKey = (Type, TypeRewriteRule, OptimizationRule);
-static REWRITE_CACHE: LazyLock<Mutex<HashMap<RewriteKey, Option<RewriteResult>>>> =
-    LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One cached rewrite. The entries that were not asked for by another rewrite (`top`: the view of a version range,
+/// which owns the function trees evaluated for it) are the ones that cost memory and are evicted, oldest use first.
+struct CacheEntry {
+    result: Option<RewriteResult>,
+    top: bool,
+    /// The [`EPOCH`] of the last use.
+    used: u64,
+    /// An estimate of what evicting it frees: [`TOP_BASE_WEIGHT`] plus the function nodes evaluated for it
+    /// ([`note_applied`]).
+    weight: usize,
+}
+
+#[derive(Default)]
+struct RewriteCache {
+    map: HashMap<RewriteKey, CacheEntry>,
+    /// The keys of the `top` entries.
+    tops: Vec<RewriteKey>,
+    /// The sum of the weights of the `top` entries.
+    top_weight: usize,
+}
+
+static REWRITE_CACHE: LazyLock<Mutex<RewriteCache>> = LazyLock::new(Mutex::default);
+
+/// Counts the updates; an entry is stamped with the count when it is used.
+static EPOCH: AtomicU64 = AtomicU64::new(0);
+
+thread_local! {
+    /// The `top` entry this thread asked for last: the one the function nodes evaluated next are accounted to.
+    static LAST_TOP: std::cell::RefCell<Option<RewriteKey>> = const { std::cell::RefCell::new(None) };
+}
+
+fn note_top(key: &RewriteKey) {
+    LAST_TOP.with(|t| *t.borrow_mut() = Some(key.clone()));
+}
+
+/// What the views of version ranges may weigh together, in function nodes of about 64 bytes (some 128 MB; the corpus
+/// replays stay under 0.8 GB). A server that moves over more ranges than fit evicts the ranges it used longest ago;
+/// they are rebuilt on demand.
+const REWRITE_CACHE_BUDGET: usize = 2_000_000;
+
+/// What the view of a range weighs before any node of it is evaluated (its algebras and optics), in the same unit.
+const TOP_BASE_WEIGHT: usize = 10_000;
+
+/// Called before every update: starts a new epoch and, when the views of the ranges seen so far hold more than
+/// [`REWRITE_CACHE_BUDGET`] nodes, drops the least recently used ones (never those of the previous epoch:
+/// the range being updated is among them). A rewrite recomputed after an eviction equals the evicted one.
+pub(crate) fn begin_update() {
+    evict_to(REWRITE_CACHE_BUDGET);
+}
+
+fn evict_to(budget: usize) {
+    let epoch = EPOCH.fetch_add(1, Ordering::Relaxed) + 1;
+    // freed after the lock is released: dropping a view frees its whole function tree
+    let mut evicted = Vec::new();
+    {
+        let mut cache = REWRITE_CACHE.lock().unwrap();
+        if cache.top_weight <= budget {
+            return;
+        }
+        let mut old: Vec<(u64, RewriteKey)> = cache
+            .tops
+            .iter()
+            .filter_map(|k| cache.map.get(k).map(|e| (e.used, k.clone())))
+            .filter(|(used, _)| used + 1 < epoch)
+            .collect();
+        old.sort_by_key(|(used, _)| *used);
+        for (_, key) in old {
+            if cache.top_weight <= budget {
+                break;
+            }
+            if let Some(e) = cache.map.remove(&key) {
+                cache.top_weight -= e.weight;
+                evicted.push(e);
+            }
+        }
+        let RewriteCache { map, tops, .. } = &mut *cache;
+        tops.retain(|k| map.contains_key(k));
+    }
+    drop(evicted);
+}
+
+/// Called after every update with the number of function nodes it evaluated: they belong to the view of the range
+/// this thread asked for last.
+pub(crate) fn note_applied(nodes: usize) {
+    let Some(key) = LAST_TOP.with(|t| t.borrow().clone()) else {
+        return;
+    };
+    let mut cache = REWRITE_CACHE.lock().unwrap();
+    if let Some(e) = cache.map.get_mut(&key) {
+        e.weight += nodes;
+        cache.top_weight += nodes;
+    }
+}
 
 /// Drops every cached rewrite result (vanilla's `REWRITE_CACHE` never shrinks): the view of a version range holds the
 /// evaluated function trees of the whole type, so a caller that moves over many ranges frees them with this.
 pub(crate) fn clear_rewrite_cache() {
-    *REWRITE_CACHE.lock().unwrap() = HashMap::new();
+    *REWRITE_CACHE.lock().unwrap() = RewriteCache::default();
 }
 
 // ---- free helpers shared by the per-kind rewrite code ------------------------------------------------------------
@@ -1938,5 +2069,38 @@ impl TaggedChoiceType {
 impl std::fmt::Display for TaggedChoiceType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         std::fmt::Display::fmt(&self.0, f)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn the_least_recently_used_range_is_evicted_over_the_budget_but_not_the_previous_epoch() {
+        let ty = Type::tag("evicted-range", &Type::int());
+        let rule = TypeRewriteRule::nop();
+        let cached = || {
+            REWRITE_CACHE.lock().unwrap().map.contains_key(&(
+                ty.clone(),
+                rule.clone(),
+                OptimizationRule::Standard,
+            ))
+        };
+        ty.rewrite_cached(&rule, OptimizationRule::Standard, true);
+        note_applied(1_000);
+        assert!(cached());
+        evict_to(0);
+        assert!(
+            cached(),
+            "used in the previous epoch: the range being updated"
+        );
+        evict_to(0);
+        assert!(!cached());
+        assert!(
+            ty.rewrite_cached(&rule, OptimizationRule::Standard, true)
+                .is_some()
+        );
+        assert!(cached(), "rebuilt on demand");
     }
 }

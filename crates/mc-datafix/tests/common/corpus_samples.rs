@@ -122,8 +122,8 @@ pub fn replay(fixture: &str) -> Report {
     let not_registered = parse(NOT_REGISTERED);
     let fixer = data_fixer();
     let mut report = Report::default();
-    // the samples stay encoded and the updates run grouped by version range: the fixer keeps the rule of a range it
-    // has seen, so the cache is dropped when the next range starts
+    // the samples stay encoded and the updates run grouped by version range, so the fixer's bounded rewrite cache
+    // (the one a server runs with) evicts the ranges that are done
     let mut samples: HashMap<&str, (&str, i32, &str)> = HashMap::new();
     let mut answers: Vec<(i32, i32, &str, Vec<&str>)> = Vec::new();
     for line in fixture.lines().filter(|l| !l.starts_with('#')) {
@@ -140,15 +140,10 @@ pub fn replay(fixture: &str) -> Report {
         }
     }
     answers.sort_by(|a, b| (a.0, a.1, a.2).cmp(&(b.0, b.1, b.2)));
-    let mut range = None;
     for (from, to, id, answer) in answers {
         if !missing_fixes_between(&recorded, &not_registered, from, to).is_empty() {
             report.skipped += 1;
             continue;
-        }
-        if range != Some((from, to)) {
-            fixer.clear_rule_cache();
-            range = Some((from, to));
         }
         let (ty, _, b64) = samples[id];
         let bytes = base64::Engine::decode(&base64::engine::general_purpose::STANDARD, b64)
