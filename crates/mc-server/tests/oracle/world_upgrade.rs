@@ -18,6 +18,7 @@ use std::path::{Path, PathBuf};
 use crate::common::world_diff::{list_files, read_region};
 use mc_core::ident::Identifier;
 use mc_core::pos::chunk_pos::ChunkPos;
+use mc_nbt::CompoundTag;
 use mc_testkit::Server;
 use mc_world::level_storage::WORLD_VERSION;
 use mc_world::region::{RegionFile, RegionFileStorage, RegionStorageInfo};
@@ -319,6 +320,7 @@ fn compare(case: &str, flags: &[&str], vanilla: &Outcome, ours: &Outcome, loaded
     if loaded {
         drop_light_only_sections(&vanilla.dir);
         drop_light_only_sections(&ours.dir);
+        settle_tick_races(&vanilla.dir, &ours.dir);
     }
     let report = compare_trees(&vanilla.dir, &ours.dir, &options);
     assert!(
@@ -368,11 +370,10 @@ fn all_flags() {
 /// holders).
 const LOADED_IGNORES: &[&str] = &["**.mca#LastUpdate", "**.mca#Entities.*.attributes"];
 
-/// A loaded chunk keeps a section that holds only light when the light engine had data for it at the save, and that
-/// depends on whether its updates ran before the stop: the same run of vanilla has it in one chunk and the next run in
-/// another. Every chunk of the `region` files of both worlds is written again without them. (That also writes the keys
-/// of colliding hash buckets in the order they were read in, the same on both sides.)
-fn drop_light_only_sections(world: &Path) {
+/// Every chunk of the `region` files of `world` is written again after `edit` changed it (`edit` gets the file's path
+/// relative to the world and the chunk position). That also writes the keys of colliding hash buckets in the order they
+/// were read in, the same on both sides.
+fn rewrite_chunks(world: &Path, mut edit: impl FnMut(&str, i32, i32, &mut CompoundTag)) {
     for rel in list_files(world).iter().filter(|f| f.ends_with(".mca")) {
         let path = world.join(rel);
         let folder = path.parent().expect("folder");
@@ -389,29 +390,83 @@ fn drop_light_only_sections(world: &Path) {
             false,
         );
         for ((x, z), mut chunk) in read_region(&path) {
-            if let Some(sections) = chunk.get_list_mut("sections") {
-                let light_only: Vec<usize> = (0..sections.len())
-                    .filter(|&i| {
-                        sections
-                            .get_compound(i)
-                            .is_some_and(|s| !s.contains("block_states"))
-                    })
-                    .collect();
-                for i in light_only.into_iter().rev() {
-                    sections.remove(i);
-                }
-            }
+            edit(rel, x, z, &mut chunk);
             storage
                 .write(&ChunkPos::new(x, z), Some(&chunk))
-                .expect("write the chunk without its light-only sections");
+                .expect("write the rewritten chunk");
         }
         storage.close().expect("close the storage");
     }
 }
 
+/// A loaded chunk keeps a section that holds only light when the light engine had data for it at the save, and that
+/// depends on whether its updates ran before the stop: the same run of vanilla has it in one chunk and the next run in
+/// another. Every chunk of the `region` files of both worlds is written again without them.
+fn drop_light_only_sections(world: &Path) {
+    rewrite_chunks(world, |_, _, _, chunk| {
+        if let Some(sections) = chunk.get_list_mut("sections") {
+            let light_only: Vec<usize> = (0..sections.len())
+                .filter(|&i| {
+                    sections
+                        .get_compound(i)
+                        .is_some_and(|s| !s.contains("block_states"))
+                })
+                .collect();
+            for i in light_only.into_iter().rev() {
+                sections.remove(i);
+            }
+        }
+    });
+}
+
+/// A chunk the server saves at the stop carries the game time of the stop, and two runs of one server stop one tick
+/// apart now and then (`LastUpdate` 1152 against 1153, seen between runs of the real server and between runs of
+/// `mc-server` on the 26.2 normal world, in the overworld chunks [-4,-2], [-3,-2], [-2,-2] and [3,4]). In such a chunk
+/// the fluid ticks queued at that game time have fired in one run and not in the other: `fluid_ticks`, the blocks the
+/// fluids placed (`block_states`) and the block light they give (`BlockLight`) differ. Those three are removed from
+/// both copies of a chunk whose `LastUpdate` differs; every other field of it, and every chunk saved at the same
+/// game time, stays compared.
+fn settle_tick_races(vanilla: &Path, ours: &Path) {
+    let mut racing = std::collections::BTreeSet::new();
+    for rel in list_files(vanilla).iter().filter(|f| f.ends_with(".mca")) {
+        if !ours.join(rel).is_file() {
+            continue;
+        }
+        let (a, b) = (
+            read_region(&vanilla.join(rel)),
+            read_region(&ours.join(rel)),
+        );
+        racing.extend(
+            a.iter()
+                .filter(|(pos, chunk)| {
+                    b.get(pos)
+                        .is_some_and(|o| o.get_long("LastUpdate") != chunk.get_long("LastUpdate"))
+                })
+                .map(|(&(x, z), _)| (rel.clone(), x, z)),
+        );
+    }
+    for world in [vanilla, ours] {
+        rewrite_chunks(world, |rel, x, z, chunk| {
+            if !racing.contains(&(rel.to_owned(), x, z)) {
+                return;
+            }
+            chunk.remove("fluid_ticks");
+            for section in chunk
+                .get_list_mut("sections")
+                .into_iter()
+                .flat_map(|s| s.iter_mut())
+                .filter_map(|s| s.as_compound_mut())
+            {
+                section.remove("block_states");
+                section.remove("BlockLight");
+            }
+        });
+    }
+}
+
 /// Both servers upgrade the world with its spawn and forced chunks as stored, so they load, tick a little and save the
 /// chunks around (0, 0) when they stop. What is left out of the comparison differs between two runs of vanilla itself
-/// ([`LOADED_IGNORES`], [`drop_light_only_sections`]).
+/// ([`LOADED_IGNORES`], [`drop_light_only_sections`], [`settle_tick_races`]).
 fn loaded(case: &str, id: &str) {
     let flags = ["--forceUpgrade"];
     let vanilla = upgrade(
