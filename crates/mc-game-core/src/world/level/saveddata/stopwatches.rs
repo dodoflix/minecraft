@@ -145,6 +145,7 @@ impl Stopwatches {
             Stopwatches::default,
             Stopwatches::decode,
             Stopwatches::encode,
+            mc_datafix::DataFixTypes::SAVED_DATA_STOPWATCHES,
         )
     }
 }

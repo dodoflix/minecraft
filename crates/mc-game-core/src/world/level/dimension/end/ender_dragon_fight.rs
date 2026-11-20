@@ -69,6 +69,7 @@ static TYPE: LazyLock<SavedDataType<EnderDragonFight>> = LazyLock::new(|| {
         EnderDragonFight::create_default,
         EnderDragonFight::decode,
         EnderDragonFight::encode,
+        mc_datafix::DataFixTypes::SAVED_DATA_ENDER_DRAGON_FIGHT,
     )
 });
 

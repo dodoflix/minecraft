@@ -103,6 +103,7 @@ impl WeatherData {
             WeatherData::default,
             WeatherData::decode,
             WeatherData::encode,
+            mc_datafix::DataFixTypes::SAVED_DATA_WEATHER,
         )
     }
 }

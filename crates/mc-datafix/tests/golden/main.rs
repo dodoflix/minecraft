@@ -27,6 +27,7 @@ mod legacy_fixes;
 mod library;
 mod rule_cost;
 mod samples_json_files;
+mod samples_saved_data;
 mod samples_step_2200_2699;
 mod samples_step_2700_3299;
 mod samples_step_3300_3999;

@@ -50,6 +50,7 @@ static RAIDS_TYPE: LazyLock<SavedDataType<Raids>> = LazyLock::new(|| {
         Raids::default,
         Raids::decode,
         Raids::encode,
+        mc_datafix::DataFixTypes::SAVED_DATA_RAIDS,
     )
 });
 

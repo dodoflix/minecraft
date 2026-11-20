@@ -170,6 +170,7 @@ impl GameRuleMap {
             GameRuleMap::of_empty,
             GameRuleMap::decode,
             |m| Ok(m.encode()),
+            mc_datafix::DataFixTypes::SAVED_DATA_GAME_RULES,
         )
     }
 }

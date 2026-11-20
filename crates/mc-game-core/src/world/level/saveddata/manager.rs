@@ -1,12 +1,13 @@
 //! `SavedData`, `SavedDataType` and `SavedDataStorage` (typed, cached, dirty-tracked).
 
 use std::any::Any;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::io;
 use std::path::PathBuf;
 use std::sync::Arc;
 
 use mc_core::ident::Identifier;
+use mc_datafix::{DataFixTypes, UnsupportedVersion};
 use mc_nbt::{CompoundTag, Tag};
 use mc_world::level_storage::{SavedDataStorage, create_directories_safe, write_compressed};
 
@@ -42,8 +43,8 @@ macro_rules! impl_saved_data {
 type SavedDataDecodeFn<T> = dyn Fn(&Tag) -> DecodeResult<T> + Send + Sync;
 type SavedDataEncodeFn<T> = dyn Fn(&T) -> DataResult<Tag> + Send + Sync;
 
-/// `SavedDataType<T>`: file id (`data/<namespace>/<path>.dat`), constructor and the NBT codec of the `data` tag.
-/// Datafix types are not modelled (no DFU port): files are read as-is.
+/// `SavedDataType<T>`: file id (`data/<namespace>/<path>.dat`), constructor, the NBT codec of the `data` tag and the
+/// `DataFixTypes` the stored file is updated with at load.
 ///
 /// The functions are closures so that types whose codec needs context (enabled features, registries) can capture it.
 pub struct SavedDataType<T: SavedData> {
@@ -51,6 +52,7 @@ pub struct SavedDataType<T: SavedData> {
     pub constructor: Arc<dyn Fn() -> T + Send + Sync>,
     pub decode: Arc<SavedDataDecodeFn<T>>,
     pub encode: Arc<SavedDataEncodeFn<T>>,
+    pub data_fix_type: DataFixTypes,
 }
 
 impl<T: SavedData> SavedDataType<T> {
@@ -59,12 +61,14 @@ impl<T: SavedData> SavedDataType<T> {
         constructor: impl Fn() -> T + Send + Sync + 'static,
         decode: impl Fn(&Tag) -> DecodeResult<T> + Send + Sync + 'static,
         encode: impl Fn(&T) -> DataResult<Tag> + Send + Sync + 'static,
+        data_fix_type: DataFixTypes,
     ) -> Self {
         SavedDataType {
             id,
             constructor: Arc::new(constructor),
             decode: Arc::new(decode),
             encode: Arc::new(encode),
+            data_fix_type,
         }
     }
 }
@@ -76,6 +80,7 @@ impl<T: SavedData> Clone for SavedDataType<T> {
             constructor: self.constructor.clone(),
             decode: self.decode.clone(),
             encode: self.encode.clone(),
+            data_fix_type: self.data_fix_type,
         }
     }
 }
@@ -131,6 +136,9 @@ impl PendingSave {
 pub struct SavedDataManager {
     storage: SavedDataStorage,
     cache: HashMap<Identifier, Entry>,
+    /// Files the fixer refused for being older than the registered fix chain: kept as they are (never overwritten by
+    /// the default instance that replaces them), so a server that can upgrade them later still finds them.
+    refused: HashSet<Identifier>,
     closed: bool,
 }
 
@@ -139,12 +147,18 @@ impl SavedDataManager {
         SavedDataManager {
             storage,
             cache: HashMap::new(),
+            refused: HashSet::new(),
             closed: false,
         }
     }
 
     pub fn storage(&self) -> &SavedDataStorage {
         &self.storage
+    }
+
+    /// Whether the file of `ty` was refused by the fixer (older than the registered fix chain) and is kept as it is.
+    pub fn is_refused<T: SavedData>(&self, ty: &SavedDataType<T>) -> bool {
+        self.refused.contains(&ty.id)
     }
 
     /// `computeIfAbsent`.
@@ -187,8 +201,17 @@ impl SavedDataManager {
     }
 
     /// `readSavedData`.
-    fn read_saved_data<T: SavedData>(&self, ty: &SavedDataType<T>) -> Option<T> {
-        let tag = self.storage.get(&ty.id)?;
+    fn read_saved_data<T: SavedData>(&mut self, ty: &SavedDataType<T>) -> Option<T> {
+        let tag = match self.storage.read_data(&ty.id, ty.data_fix_type) {
+            Ok(tag) => tag?,
+            Err(e) => {
+                log::error!("Error loading saved data: {ty}: {e}");
+                if e.get_ref().is_some_and(|e| e.is::<UnsupportedVersion>()) {
+                    self.refused.insert(ty.id.clone());
+                }
+                return None;
+            }
+        };
         match (ty.decode)(&tag) {
             Ok(data) => Some(data),
             // `resultOrPartial(logger)`: log, keep the partial value if there is one.
@@ -199,8 +222,12 @@ impl SavedDataManager {
         }
     }
 
-    /// `set`: stores `data` and marks it dirty. Returns the stored instance.
+    /// `set`: stores `data` and marks it dirty. Returns the stored instance. A file the fixer would refuse is kept
+    /// untouched even when it is replaced before it was ever read.
     pub fn set<T: SavedData>(&mut self, ty: &SavedDataType<T>, mut data: T) -> &mut T {
+        if !self.cache.contains_key(&ty.id) && self.storage.is_older_than_fix_chain(&ty.id) {
+            self.refused.insert(ty.id.clone());
+        }
         data.set_dirty();
         self.cache.insert(
             ty.id.clone(),
@@ -224,6 +251,9 @@ impl SavedDataManager {
             let Some(data) = entry.data.as_mut().filter(|d| d.is_dirty()) else {
                 continue;
             };
+            if self.refused.contains(id) {
+                continue;
+            }
             let tag = match (entry.encode)(&**data) {
                 Ok(tag) => tag,
                 Err(e) => {

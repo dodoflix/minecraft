@@ -483,6 +483,7 @@ pub fn saved_data_type() -> crate::world::level::saveddata::SavedDataType<Ticket
         TicketStorage::new,
         |tag| TicketStorage::from_tag(tag).map_err(Partial::from),
         |storage| Ok(storage.to_tag()),
+        mc_datafix::DataFixTypes::SAVED_DATA_FORCED_CHUNKS,
     )
 }
 

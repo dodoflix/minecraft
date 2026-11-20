@@ -76,6 +76,7 @@ impl WanderingTraderData {
             WanderingTraderData::default,
             WanderingTraderData::decode,
             WanderingTraderData::encode,
+            mc_datafix::DataFixTypes::SAVED_DATA_WANDERING_TRADER,
         )
     }
 }

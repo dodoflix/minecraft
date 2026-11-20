@@ -201,6 +201,7 @@ impl MapIndex {
             MapIndex::default,
             MapIndex::decode,
             MapIndex::encode,
+            mc_datafix::DataFixTypes::SAVED_DATA_MAP_INDEX,
         )
     }
 }

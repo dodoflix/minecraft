@@ -285,6 +285,7 @@ impl<C: FunctionHost + 'static> TimerQueue<C> {
             TimerQueue::new,
             |tag| TimerQueue::decode(tag, &TimerCallbacks::server_callbacks()),
             |q| q.pack(&TimerCallbacks::server_callbacks()),
+            mc_datafix::DataFixTypes::SAVED_DATA_SCHEDULED_EVENTS,
         )
     }
 }

@@ -1,18 +1,20 @@
-//! `SavedDataStorage` on-disk format, kept raw: `<folder>/<namespace>/<path>.dat` is a gzip (or, on read,
-//! plain) NBT file `{ data: <tag>, DataVersion: int }`. No datafixing, no typed `SavedData` cache — callers
-//! own the typed codecs (`SavedDataType`) and hand over / receive the raw `data` tag.
+//! `SavedDataStorage` on-disk format: `<folder>/<namespace>/<path>.dat` is a gzip (or, on read, plain) NBT file
+//! `{ data: <tag>, DataVersion: int }`. The typed read path ([`SavedDataStorage::read_data`]) runs the file through
+//! the data fixer of its type like vanilla; the raw readers return the file as stored. No typed `SavedData` cache:
+//! callers own the typed codecs (`SavedDataType`) and hand over / receive the `data` tag.
 
 use std::fs;
 use std::io::{self, Read};
 use std::path::{Component, Path, PathBuf};
 
 use mc_core::ident::Identifier;
+use mc_datafix::DataFixTypes;
 use mc_nbt::{CompoundTag, NbtAccounter, Tag};
 
 use super::file_util::{
     create_directories_safe, nbt_error_to_io, read_compressed, write_compressed,
 };
-use super::version::add_current_data_version;
+use super::version::{add_current_data_version, get_data_version_or};
 
 /// `Path.normalize()` (lexical).
 fn normalize(path: &Path) -> PathBuf {
@@ -86,8 +88,8 @@ impl SavedDataStorage {
         Ok(path)
     }
 
-    /// `readTagFromDisk` minus the datafixer: gzip (magic `1f 8b`) or plain NBT. The caller reads the file's
-    /// `DataVersion` with `get_data_version_or(tag, 1343)`.
+    /// The file as stored: gzip (magic `1f 8b`) or plain NBT, no datafixer. [`SavedDataStorage::read_fixed_tag_from_disk`]
+    /// is `readTagFromDisk`.
     pub fn read_tag_from_disk(data_file: &Path) -> io::Result<CompoundTag> {
         let mut header = [0u8; 2];
         let read = fs::File::open(data_file)?.read(&mut header)?;
@@ -109,8 +111,42 @@ impl SavedDataStorage {
         SavedDataStorage::read_tag_from_disk(&file).map(Some)
     }
 
-    /// `readSavedData` up to the codec: the `data` tag of `id`, `None` when absent. Read failures are logged
-    /// and reported as absent like vanilla.
+    /// `readTagFromDisk(dataFile, type, currentVersion)`: the stored file through the data fixer of `ty` from its
+    /// `DataVersion` (1343 when absent). A version below the registered part of the fix chain is an error.
+    pub fn read_fixed_tag_from_disk(data_file: &Path, ty: DataFixTypes) -> io::Result<CompoundTag> {
+        let tag = SavedDataStorage::read_tag_from_disk(data_file)?;
+        let version = get_data_version_or(&tag, 1343);
+        mc_datafix::update_to_current(ty, &tag, version).map_err(io::Error::other)
+    }
+
+    /// Whether the file of `id` exists but is older than the registered part of the fix chain, so that
+    /// [`SavedDataStorage::read_data`] refuses it.
+    pub fn is_older_than_fix_chain(&self, id: &Identifier) -> bool {
+        let Ok(file) = self.get_data_file(id) else {
+            return false;
+        };
+        file.exists()
+            && SavedDataStorage::read_tag_from_disk(&file).is_ok_and(|tag| {
+                mc_datafix::data_fixer()
+                    .check_supported(get_data_version_or(&tag, 1343))
+                    .is_err()
+            })
+    }
+
+    /// `readSavedData` up to the codec: the fixed `data` tag of `id`, `None` when the file does not exist or has no
+    /// `data` entry. Read failures are returned for the caller to log.
+    pub fn read_data(&self, id: &Identifier, ty: DataFixTypes) -> io::Result<Option<Tag>> {
+        let file = self.get_data_file(id)?;
+        if !file.exists() {
+            return Ok(None);
+        }
+        Ok(SavedDataStorage::read_fixed_tag_from_disk(&file, ty)?
+            .get("data")
+            .cloned())
+    }
+
+    /// The `data` tag of `id` as stored (no datafixer), `None` when absent. Read failures are logged and reported as
+    /// absent.
     pub fn get(&self, id: &Identifier) -> Option<Tag> {
         match self.read_file(id) {
             Ok(Some(tag)) => tag.get("data").cloned(),
@@ -176,5 +212,63 @@ mod tests {
         assert_eq!(storage.get(&id), Some(Tag::Int(7)));
         let evil = Identifier::parse("minecraft:a/../../../b").unwrap();
         assert!(storage.get_data_file(&evil).is_err());
+    }
+
+    fn write_plain(dir: &Path, name: &str, data: Option<Tag>, version: Option<i32>) {
+        let mut tag = CompoundTag::new();
+        if let Some(data) = data {
+            tag.put("data", data);
+        }
+        if let Some(version) = version {
+            tag.put_int("DataVersion", version);
+        }
+        std::fs::create_dir_all(dir.join("minecraft")).unwrap();
+        std::fs::write(
+            dir.join(format!("minecraft/{name}.dat")),
+            mc_nbt::nbt_io::to_bytes(&tag),
+        )
+        .unwrap();
+    }
+
+    #[test]
+    fn older_file_in_a_current_world_goes_through_the_fixer() {
+        let dir = tempfile::tempdir().unwrap();
+        let storage = SavedDataStorage::new(dir.path());
+        let data = Tag::Compound(CompoundTag::new().with("raining", Tag::Byte(1)));
+        write_plain(dir.path(), "weather", Some(data.clone()), Some(4899));
+        let id = Identifier::parse("minecraft:weather").unwrap();
+        let fixed = storage.read_data(&id, DataFixTypes::SAVED_DATA_WEATHER);
+        assert_eq!(fixed.unwrap(), Some(data));
+        let missing = Identifier::parse("minecraft:absent").unwrap();
+        let fixed = storage.read_data(&missing, DataFixTypes::SAVED_DATA_WEATHER);
+        assert_eq!(fixed.unwrap(), None);
+        write_plain(dir.path(), "no_data", None, Some(4899));
+        let id = Identifier::parse("minecraft:no_data").unwrap();
+        let fixed = storage.read_data(&id, DataFixTypes::SAVED_DATA_WEATHER);
+        assert_eq!(fixed.unwrap(), None);
+    }
+
+    #[test]
+    fn file_below_the_registered_chain_is_an_error() {
+        let oldest = mc_datafix::data_fixer().oldest_supported_version();
+        if oldest == i32::MIN {
+            return; // the whole chain is registered: there is no version below it
+        }
+        let dir = tempfile::tempdir().unwrap();
+        let storage = SavedDataStorage::new(dir.path());
+        let data = Tag::Compound(CompoundTag::new().with("raining", Tag::Byte(1)));
+        write_plain(dir.path(), "old", Some(data.clone()), Some(oldest - 1));
+        // no DataVersion: read as 1343
+        write_plain(dir.path(), "unversioned", Some(data), None);
+        for (name, version) in [("old", oldest - 1), ("unversioned", 1343)] {
+            let id = Identifier::parse(&format!("minecraft:{name}")).unwrap();
+            let read = storage.read_data(&id, DataFixTypes::SAVED_DATA_WEATHER);
+            if version < oldest {
+                let err = read.unwrap_err();
+                assert!(err.to_string().contains("older than"), "{name}: {err}");
+            } else {
+                assert!(read.is_ok(), "{name}");
+            }
+        }
     }
 }

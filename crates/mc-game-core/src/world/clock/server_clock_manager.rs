@@ -357,6 +357,7 @@ impl ServerClockManager {
             ServerClockManager::default,
             decode,
             encode,
+            mc_datafix::DataFixTypes::SAVED_DATA_WORLD_CLOCKS,
         )
     }
 }

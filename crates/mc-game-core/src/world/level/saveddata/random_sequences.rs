@@ -266,6 +266,7 @@ impl RandomSequences {
             RandomSequences::default,
             RandomSequences::decode,
             RandomSequences::encode,
+            mc_datafix::DataFixTypes::SAVED_DATA_RANDOM_SEQUENCES,
         )
     }
 }

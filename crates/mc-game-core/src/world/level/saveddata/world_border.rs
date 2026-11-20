@@ -691,6 +691,7 @@ impl WorldBorder {
             WorldBorder::default,
             |tag| -> DecodeResult<WorldBorder> { Ok(WorldBorder::new(Settings::decode(tag)?)) },
             |border| Ok(border.current_settings().encode()),
+            mc_datafix::DataFixTypes::SAVED_DATA_WORLD_BORDER,
         )
     }
 }

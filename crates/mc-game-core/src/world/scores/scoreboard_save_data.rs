@@ -357,6 +357,7 @@ impl ScoreboardSaveData {
             ScoreboardSaveData::default,
             |tag| mc_game_map(ScoreboardSaveDataPacked::decode(tag)),
             |d| d.data.encode(),
+            mc_datafix::DataFixTypes::SAVED_DATA_SCOREBOARD,
         )
     }
 }

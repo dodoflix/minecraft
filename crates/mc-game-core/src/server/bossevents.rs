@@ -732,6 +732,7 @@ impl CustomBossEvents {
             CustomBossEvents::default,
             CustomBossEvents::decode,
             CustomBossEvents::encode,
+            mc_datafix::DataFixTypes::SAVED_DATA_CUSTOM_BOSS_EVENTS,
         )
     }
 }

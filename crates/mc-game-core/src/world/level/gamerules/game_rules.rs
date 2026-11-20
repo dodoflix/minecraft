@@ -232,6 +232,7 @@ impl GameRules {
             move || GameRules::from_map(enabled_features, GameRuleMap::of_empty()),
             move |tag| GameRules::decode(enabled_features, tag),
             |rules| Ok(rules.encode()),
+            mc_datafix::DataFixTypes::SAVED_DATA_GAME_RULES,
         )
     }
 }

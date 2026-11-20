@@ -80,6 +80,7 @@ impl Container {
             Container::default,
             Container::decode,
             Container::encode,
+            mc_datafix::DataFixTypes::SAVED_DATA_COMMAND_STORAGE,
         ))
     }
 }
@@ -112,9 +113,15 @@ impl ViewState {
         self.namespaces
             .entry(namespace.to_owned())
             .or_insert_with(|| {
-                let file = Container::type_(namespace)
-                    .ok()
-                    .and_then(|ty| disk.as_ref()?.get(&ty.id));
+                let file = Container::type_(namespace).ok().and_then(|ty| {
+                    match disk.as_ref()?.read_data(&ty.id, ty.data_fix_type) {
+                        Ok(tag) => tag,
+                        Err(e) => {
+                            log::error!("Error loading saved data: {ty}: {e}");
+                            None
+                        }
+                    }
+                });
                 if file.is_some() {
                     read_from_disk.push(namespace.to_owned());
                 }

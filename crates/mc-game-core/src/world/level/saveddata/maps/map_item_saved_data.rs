@@ -820,6 +820,7 @@ impl MapItemSavedData {
             || panic!("Should never create an empty map saved data"),
             MapItemSavedData::decode,
             MapItemSavedData::encode,
+            mc_datafix::DataFixTypes::SAVED_DATA_MAP_DATA,
         )
     }
 }
