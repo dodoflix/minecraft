@@ -1035,11 +1035,27 @@ pub(crate) fn block_predicate_schema() -> Schema {
                 req("min_inclusive", vertical_anchor_schema()),
                 req("max_inclusive", vertical_anchor_schema()),
             ]),
-            "minecraft:volume_match" => Schema::Record(vec![
-                req("min", vec3i_schema(Some(16))),
-                req("max", vec3i_schema(Some(16))),
-                req("match", Schema::dispatch("block_predicate_type", resolve)),
-            ]),
+            // `VolumeMatchPredicate.CODEC`: `UNVALIDATED_CODEC.validate(min <= max on every axis)`
+            "minecraft:volume_match" => {
+                let record = Schema::Record(vec![
+                    req("min", vec3i_schema(Some(16))),
+                    req("max", vec3i_schema(Some(16))),
+                    req("match", Schema::dispatch("block_predicate_type", resolve)),
+                ]);
+                Schema::custom_partial(move |v, ctx| {
+                    validate(record.decode(v, ctx), |tag| {
+                        let corner = |key| match tag.as_compound().and_then(|c| c.get(key)) {
+                            Some(Tag::IntArray(p)) => p.clone(),
+                            _ => Vec::new(),
+                        };
+                        let (min, max) = (corner("min"), corner("max"));
+                        match min.iter().zip(&max).any(|(min, max)| min > max) {
+                            true => Err("min bound cannot be larger than max bound".to_owned()),
+                            false => Ok(()),
+                        }
+                    })
+                })
+            }
             _ => return None,
         })
     }

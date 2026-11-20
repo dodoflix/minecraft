@@ -11,7 +11,7 @@ use mc_nbt::{CompoundTag, Tag};
 use serde_json::Value;
 
 use crate::registry::codec::lenient;
-use crate::registry::codec::{RegistryDecodeContext, Schema, default, default_always, opt, req};
+use crate::registry::codec::{Lookup, RegistryDecodeContext, Schema, default, opt, req};
 
 /// `AttributeTypes` (the value type of an attribute).
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -340,7 +340,17 @@ impl EnvironmentAttributeMap {
             let def = attribute(&id).ok_or_else(|| {
                 format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:environment_attribute]: ResourceKey[minecraft:environment_attribute / {id}]")
             })?;
-            let (modifier, argument, encoded) = parse_entry(def, value, ctx)?;
+            let (modifier, mut argument, encoded) = parse_entry(def, value, ctx)?;
+            if def.kind == K::MobSpawnSettings {
+                // the spawn lists keep what decoded (`promotePartial` drops the failed entries)
+                let decoded = match &encoded {
+                    Tag::Compound(c) if modifier != "override" => {
+                        c.get("argument").unwrap_or(&encoded)
+                    }
+                    _ => &encoded,
+                };
+                argument = crate::server::world_dimensions::nbt_to_json(decoded);
+            }
             if !def.positional {
                 not_positional.push(format!("minecraft:{}", def.name));
             }
@@ -529,24 +539,68 @@ fn music() -> Schema {
     ])
 }
 
+/// `Codec.promotePartial(Util.prefix(prefix, LOGGER::error))`: a failure that still has a partial result is logged and
+/// the partial result is the value.
+fn promote_partial(prefix: &'static str, schema: Schema) -> Schema {
+    Schema::custom_partial(move |v, ctx| {
+        let failure = match schema.decode(v, ctx) {
+            Err(failure) => failure,
+            ok => return ok,
+        };
+        if failure.is_thrown() {
+            return Err(failure);
+        }
+        if !ctx.is_quiet() {
+            log::error!("{prefix}{}", failure.message);
+        }
+        match failure.partial.clone() {
+            Some(partial) => Ok(partial),
+            None => Err(failure),
+        }
+    })
+}
+
+/// `ExtraCodecs.NON_NEGATIVE_INT`.
+fn non_negative_int() -> Schema {
+    Schema::custom(|v, ctx| match Schema::Int.convert(v, ctx)? {
+        Tag::Int(n) if n < 0 => Err(format!("Value must be non-negative: {n}")),
+        other => Ok(other),
+    })
+}
+
+/// `BuiltInRegistries.ENTITY_TYPE.byNameCodec()`: the registry's key and the plain id in the message.
+fn entity_type_by_name() -> Schema {
+    Schema::custom(|v, ctx| {
+        let registry = crate::registry::keys::ENTITY_TYPE;
+        let name = v.as_str().ok_or_else(|| format!("Not a string: {v}"))?;
+        let id = Identifier::read(name)?;
+        match ctx.lookup.contains(registry, &id) {
+            Lookup::Yes | Lookup::Pending => Ok(Tag::String(id.to_string().into())),
+            _ => Err(format!(
+                "Unknown registry key in ResourceKey[minecraft:root / {registry}]: {id}"
+            )),
+        }
+    })
+}
+
 fn mob_spawn_settings() -> Schema {
     let spawner = Schema::Record(vec![
-        req(
-            "type",
-            Schema::StaticRegistry(crate::registry::keys::ENTITY_TYPE),
-        ),
+        req("type", entity_type_by_name()),
         req("count", super::int_provider::schema(i32::MIN, i32::MAX)),
-        default_always("weight", Schema::IntRange(1, i32::MAX), Value::from(1)),
+        req("weight", non_negative_int()),
     ]);
     Schema::Record(vec![
         req(
             "spawns_by_category",
-            Schema::map_of(Schema::Enum(MOB_CATEGORIES), Schema::list_of(spawner)),
+            Schema::map_of(
+                Schema::Enum(MOB_CATEGORIES),
+                promote_partial("Spawn data: ", Schema::list_of(spawner)),
+            ),
         ),
         req(
             "spawn_costs",
             Schema::map_of(
-                Schema::StaticRegistry(crate::registry::keys::ENTITY_TYPE),
+                entity_type_by_name(),
                 Schema::Record(vec![
                     req("energy_budget", Schema::Double),
                     req("charge", Schema::Double),

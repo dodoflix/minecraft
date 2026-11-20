@@ -283,7 +283,7 @@ fn is_constructor_error(e: &str) -> bool {
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
     let (dim, _) = decode_checked(json, ctx, false)?;
     // `SYNCHRONIZED_REGISTRIES` sends `DimensionType.NETWORK_CODEC`
-    let (_, network) = decode_checked(json, ctx, true)?;
+    let (_, network) = ctx.quietly(|| decode_checked(json, ctx, true))?;
     Ok(DecodedEntry::with_network(dim, network))
 }
 

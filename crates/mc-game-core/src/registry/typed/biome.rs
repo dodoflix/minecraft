@@ -193,7 +193,10 @@ impl Biome {
     pub fn from_json(json: &Value, ctx: &RegistryDecodeContext) -> Result<Biome, String> {
         convert(json, ctx, true)?;
         let attributes = match json.get("attributes") {
-            Some(a) => EnvironmentAttributeMap::parse(a, ctx, true, false)?.0,
+            Some(a) => {
+                ctx.quietly(|| EnvironmentAttributeMap::parse(a, ctx, true, false))?
+                    .0
+            }
             None => EnvironmentAttributeMap::default(),
         };
         let effects = json.get("effects").unwrap_or(&Value::Null);
@@ -241,7 +244,7 @@ impl Biome {
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
     let biome = Biome::from_json(json, ctx)?;
     // `SYNCHRONIZED_REGISTRIES` sends `Biome.NETWORK_CODEC` (no carvers/features, only syncable attributes)
-    let network = convert(json, ctx, false)?;
+    let network = ctx.quietly(|| convert(json, ctx, false))?;
     Ok(DecodedEntry::with_network(biome, network))
 }
 

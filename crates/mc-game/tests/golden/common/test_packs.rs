@@ -53,6 +53,24 @@ pub fn write_custom_packs(world: &Path) {
         dp.join("good/data/test/worldgen/biome/custom.json"),
         &biome.to_string(),
     );
+    // spawner lists with failing entries: the list keeps the entries that decoded (`promotePartial`) and the load goes on
+    let mut partial_spawns = biome.clone();
+    let spawns = &mut partial_spawns["attributes"]["minecraft:gameplay/natural_mob_spawns"]["argument"]
+        ["spawns_by_category"];
+    spawns["creature"] = serde_json::json!([
+        {"type": "minecraft:sheep", "count": 4, "weight": 12},
+        {"type": "minecraft:nope", "count": 4, "weight": 10},
+        {"type": "minecraft:pig", "count": 4, "weight": 0},
+        {"type": "minecraft:cow", "count": "x", "weight": 1},
+        {"type": "minecraft:chicken", "count": 2}
+    ]);
+    spawns["monster"] =
+        serde_json::json!([{"type": "minecraft:zombie", "count": 4, "weight": 5}, 7]);
+    spawns["ambient"] = serde_json::json!([{"count": 4}]);
+    write(
+        dp.join("good/data/test/worldgen/biome/partial_spawns.json"),
+        &partial_spawns.to_string(),
+    );
     write(
         dp.join("good/data/test/damage_type/custom.json"),
         r#"{"message_id": "custom", "scaling": "always", "exhaustion": 0.25, "effects": "freezing", "death_message_type": "fall_variants"}"#,
@@ -601,6 +619,18 @@ fn write_broken_provider_data(root: &Path) {
             "predicate_volume_match_bad",
             predicate(
                 json!({"type": "minecraft:volume_match", "min": [1, 2], "max": [100, 0, 0], "match": {"type": "minecraft:nope"}}),
+            ),
+        ),
+        (
+            "predicate_volume_match_inverted",
+            predicate(
+                json!({"type": "minecraft:volume_match", "min": [2, 0, 0], "max": [0, 0, 0], "match": {"type": "minecraft:solid"}}),
+            ),
+        ),
+        (
+            "predicate_volume_match_inverted_bad_match",
+            predicate(
+                json!({"type": "minecraft:volume_match", "min": [0, 3, 0], "max": [0, 1, 0], "match": {"type": "minecraft:nope"}}),
             ),
         ),
         (

@@ -39,6 +39,8 @@ pub struct RegistryDecodeContext<'a> {
     pub entry: Option<Identifier>,
     /// The JSON was converted from NBT: a number is a valid boolean (`NbtOps.getBooleanValue`).
     pub numeric_booleans: bool,
+    /// A decode of an entry that was already decoded (for its network form) does not report promoted partial results again.
+    quiet: std::cell::Cell<bool>,
     pub(crate) unbound_values: RefCell<Vec<(String, Identifier)>>,
     pub(crate) unbound_tags: RefCell<Vec<(String, Identifier)>>,
 }
@@ -50,9 +52,23 @@ impl<'a> RegistryDecodeContext<'a> {
             worldgen: None,
             entry: None,
             numeric_booleans: false,
+            quiet: std::cell::Cell::new(false),
             unbound_values: RefCell::new(Vec::new()),
             unbound_tags: RefCell::new(Vec::new()),
         }
+    }
+
+    /// Runs `f` without reporting promoted partial results (the entry was reported by its first decode).
+    pub fn quietly<R>(&self, f: impl FnOnce() -> R) -> R {
+        let before = self.quiet.replace(true);
+        let result = f();
+        self.quiet.set(before);
+        result
+    }
+
+    /// Whether a promoted partial result is reported now.
+    pub(crate) fn is_quiet(&self) -> bool {
+        self.quiet.get()
     }
 
     /// `RegistryFileCodec` reference check: `Ok` if `id` exists in (or will be registered to) `registry`.
@@ -197,7 +213,7 @@ pub fn split_thrown(error: &str) -> Option<(&'static str, &str)> {
 }
 
 impl Failure {
-    fn is_thrown(&self) -> bool {
+    pub(crate) fn is_thrown(&self) -> bool {
         self.message.starts_with(THROWN)
     }
 }

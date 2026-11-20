@@ -6,7 +6,7 @@ use mc_core::random::RandomSource;
 use mc_nbt::Tag;
 use serde_json::{Map, Value};
 
-use crate::registry::codec::{RegistryDecodeContext, Schema};
+use crate::registry::codec::{Failure, RegistryDecodeContext, Schema};
 
 /// An `IntProvider` read from data.
 #[derive(Clone, Debug, PartialEq)]
@@ -177,17 +177,30 @@ fn provider_types(ty: &str) -> Option<Schema> {
 
 /// `IntProviders.codec(minValue, maxValue)`: a constant (bare number) or a typed provider whose bounds lie in the range.
 pub fn schema(min_value: i32, max_value: i32) -> Schema {
-    Schema::custom(move |v, ctx: &RegistryDecodeContext| {
+    Schema::custom_partial(move |v, ctx: &RegistryDecodeContext| {
         let tag = if v.is_number() {
             Schema::Int.convert(v, ctx)?
         } else {
-            let body = match v {
+            // `Codec.either(Codec.INT, dispatch)`: a failure with a partial result is reported alone
+            let second = match v {
                 Value::Object(_) => Schema::Dispatch {
                     key: "type",
                     resolve: provider_types,
                 }
-                .convert(v, ctx)?,
-                _ => return Err(format!("Not a number: {v}")),
+                .decode(v, ctx),
+                _ => Err(Failure::from(format!("Not a JSON object: {v}"))),
+            };
+            let body = match second {
+                Ok(body) => body,
+                Err(failure) if failure.partial.is_some() || failure.is_thrown() => {
+                    return Err(failure);
+                }
+                Err(failure) => {
+                    return Err(Failure::from(format!(
+                        "Failed to parse either. First: Not a number: {v}; Second: {}",
+                        failure.message
+                    )));
+                }
             };
             // a `constant` object re-encodes as the bare number
             match (&body, v.get("type").and_then(Value::as_str)) {
@@ -199,21 +212,21 @@ pub fn schema(min_value: i32, max_value: i32) -> Schema {
                 _ => body,
             }
         };
-        let provider =
-            IntProvider::from_json(v).ok_or_else(|| "Unsupported value provider".to_owned())?;
+        let provider = IntProvider::from_json(v)
+            .ok_or_else(|| Failure::from("Unsupported value provider".to_owned()))?;
         if provider.min_inclusive() < min_value {
-            return Err(format!(
+            return Err(Failure::from(format!(
                 "Value provider too low: {min_value} [{}-{}]",
                 provider.min_inclusive(),
                 provider.max_inclusive()
-            ));
+            )));
         }
         if provider.max_inclusive() > max_value {
-            return Err(format!(
+            return Err(Failure::from(format!(
                 "Value provider too high: {max_value} [{}-{}]",
                 provider.min_inclusive(),
                 provider.max_inclusive()
-            ));
+            )));
         }
         Ok(tag)
     })
@@ -271,7 +284,7 @@ mod tests {
                 json!({"type": "uniform", "min_inclusive": 5, "max_inclusive": 3})
             )
             .unwrap_err()
-            .starts_with("Max must be at least min")
+            .contains("Second: Max must be at least min")
         );
     }
 }

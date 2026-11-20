@@ -252,18 +252,20 @@ impl<A> DataResult<A> {
         }
     }
 
-    /// `promotePartial`: an error with a partial result becomes a success (the callback receives the message).
+    /// `promotePartial`: the callback receives the message of an error; one with a partial result becomes a success.
     pub fn promote_partial(self, on_error: impl FnOnce(&str)) -> DataResult<A> {
         match self {
             Success(a) => Success(a),
-            Error {
-                message,
-                partial: Some(p),
-            } => {
+            Error { message, partial } => {
                 on_error(&message.get());
-                Success(p)
+                match partial {
+                    Some(p) => Success(p),
+                    None => Error {
+                        message,
+                        partial: None,
+                    },
+                }
             }
-            e => e,
         }
     }
 

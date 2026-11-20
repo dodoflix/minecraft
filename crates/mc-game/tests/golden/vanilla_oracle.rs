@@ -218,7 +218,9 @@ fn custom_packs_world_matches_vanilla() {
                 .replace("././", "./")
         })
         .collect();
-    let wanted = |m: &String| m.contains("pack") || m.contains("Registry loading");
+    let wanted = |m: &String| {
+        m.contains("pack") || m.contains("Registry loading") || m.contains("Spawn data: ")
+    };
     let mut vanilla: Vec<String> = vanilla_messages(&read_log("custom"))
         .into_iter()
         .filter(wanted)
@@ -347,7 +349,7 @@ fn broken_pack_fails_like_vanilla() {
         "broken",
         common::test_packs::write_broken_packs,
         "broken",
-        103,
+        105,
     );
 }
 
