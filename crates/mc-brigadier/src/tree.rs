@@ -131,7 +131,7 @@ impl<S: 'static> CommandNode<S> {
         forks: bool,
     ) -> Arc<Self> {
         let literal = literal.into();
-        let literal_lower_case = literal.to_lowercase();
+        let literal_lower_case = mc_core::java_case::to_lower_case_root(&literal);
         Self::make(
             NodeKind::Literal {
                 literal,

@@ -139,7 +139,7 @@ fn convert(flat_option_string: &str, back: &dyn Fn(&str) -> JavaString, tag: &Dy
                     .to_string();
             }
             if let Some(structures) = parts.next() {
-                for structure in split(&structures.to_lowercase(), ',') {
+                for structure in split(&mc_core::java_case::to_lower_case_root(structures), ',') {
                     let separated = split2(structure, '(');
                     if !separated[0].is_empty() {
                         put(&mut structures_options, separated[0], Vec::new());
@@ -209,7 +209,10 @@ fn convert(flat_option_string: &str, back: &dyn Fn(&str) -> JavaString, tag: &Dy
                         .map(|(k, v)| (tag.create_string(back(&k)), tag.create_string(back(&v))))
                         .collect(),
                 ));
-                (tag.create_string(back(&name.to_lowercase())), options)
+                (
+                    tag.create_string(back(&mc_core::java_case::to_lower_case_root(&name))),
+                    options,
+                )
             })
             .collect(),
     ));

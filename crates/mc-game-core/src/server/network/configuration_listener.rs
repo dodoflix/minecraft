@@ -171,7 +171,7 @@ impl ServerConfigurationPacketListenerImpl {
             let language = self.language.clone();
             self.configuration_tasks.push_back(Box::new(
                 ServerCodeOfConductConfigurationTask::new(move || {
-                    let language = language.lock().to_lowercase();
+                    let language = mc_core::java_case::to_lower_case_root(&language.lock());
                     codes
                         .get(&language)
                         .or_else(|| codes.get("en_us"))

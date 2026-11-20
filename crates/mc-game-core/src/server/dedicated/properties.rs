@@ -297,7 +297,7 @@ impl DedicatedServerProperties {
         )?;
         let level_type = s.get_with(
             "level-type",
-            |v| Ok(Some(v.to_lowercase())),
+            |v| Ok(Some(mc_core::java_case::to_lower_case_root(v))),
             String::clone,
             "minecraft:normal".to_owned(),
         )?;

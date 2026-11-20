@@ -189,7 +189,7 @@ fn suggest_test_instance_ids(
             .collect()
     });
     let mut builder = builder;
-    let remaining = builder.get_remaining().to_lowercase();
+    let remaining = mc_core::java_case::to_lower_case_root(builder.get_remaining());
     let mut matched = Vec::new();
     filter_resources(test_ids, &remaining, |id| id.clone(), |id| matched.push(id));
     for id in matched {

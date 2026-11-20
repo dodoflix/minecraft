@@ -349,7 +349,7 @@ impl<'a> BlockStateParser<'a> {
                 self.apply(&Suggest::VaguePropertyName, builder)
             }
             Suggest::PropertyName => {
-                let prefix = builder.get_remaining().to_lowercase();
+                let prefix = mc_core::java_case::to_lower_case_root(builder.get_remaining());
                 let block = self.state.expect("block read").block();
                 for property in block.properties() {
                     if !self.properties.iter().any(|(p, _)| p.name == property.name)
@@ -361,7 +361,7 @@ impl<'a> BlockStateParser<'a> {
                 builder.build()
             }
             Suggest::VaguePropertyName => {
-                let prefix = builder.get_remaining().to_lowercase();
+                let prefix = mc_core::java_case::to_lower_case_root(builder.get_remaining());
                 for block in self.tag_blocks() {
                     for property in block.properties() {
                         if !self.vague_properties.contains_key(property.name)

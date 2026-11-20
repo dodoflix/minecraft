@@ -34,7 +34,9 @@ fn map_motive(motive: &str) -> &str {
 pub fn fix_tag(input: Dynamic) -> Dynamic {
     match input.get("Motive").as_string().result() {
         Some(motive) => {
-            let fixed = motive.map_lossless(|t| ensure_namespaced(map_motive(&t.to_lowercase())));
+            let fixed = motive.map_lossless(|t| {
+                ensure_namespaced(map_motive(&mc_core::java_case::to_lower_case_root(t)))
+            });
             input.set("Motive", input.create_string(fixed))
         }
         None => input,

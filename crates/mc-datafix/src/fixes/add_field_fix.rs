@@ -17,7 +17,7 @@ pub fn new(
 ) -> DataFix {
     let name = format!(
         "Adding field `{field_name}` to type `{}`",
-        ty.type_name().to_lowercase()
+        mc_core::java_case::to_lower_case_root(ty.type_name())
     );
     let ty = *ty;
     let field_name = field_name.to_string();

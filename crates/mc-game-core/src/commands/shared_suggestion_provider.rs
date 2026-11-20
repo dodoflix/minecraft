@@ -128,7 +128,7 @@ pub fn suggest_resource_prefixed_into(
     builder: &mut SuggestionsBuilder,
     prefix: &str,
 ) {
-    let contents = builder.get_remaining().to_lowercase();
+    let contents = mc_core::java_case::to_lower_case_root(builder.get_remaining());
     filter_resources_prefixed(
         values,
         &contents,
@@ -145,7 +145,7 @@ pub fn suggest_resource_into(
     values: impl IntoIterator<Item = Identifier>,
     builder: &mut SuggestionsBuilder,
 ) {
-    let contents = builder.get_remaining().to_lowercase();
+    let contents = mc_core::java_case::to_lower_case_root(builder.get_remaining());
     filter_resources(
         values,
         &contents,
@@ -162,7 +162,7 @@ pub fn suggest_resource_prefixed(
     mut builder: SuggestionsBuilder,
     prefix: &str,
 ) -> Suggestions {
-    let contents = builder.get_remaining().to_lowercase();
+    let contents = mc_core::java_case::to_lower_case_root(builder.get_remaining());
     filter_resources_prefixed(
         values,
         &contents,
@@ -180,7 +180,7 @@ pub fn suggest_resource(
     values: impl IntoIterator<Item = Identifier>,
     mut builder: SuggestionsBuilder,
 ) -> Suggestions {
-    let contents = builder.get_remaining().to_lowercase();
+    let contents = mc_core::java_case::to_lower_case_root(builder.get_remaining());
     filter_resources(
         values,
         &contents,
@@ -199,7 +199,7 @@ pub fn suggest_resource_with_tooltip<T>(
     id: impl Fn(&T) -> Identifier,
     tooltip: impl Fn(&T) -> Option<MessageRef>,
 ) -> Suggestions {
-    let contents = builder.get_remaining().to_lowercase();
+    let contents = mc_core::java_case::to_lower_case_root(builder.get_remaining());
     let mut matched = Vec::new();
     filter_resources(values, &contents, &id, |v| matched.push(v));
     for v in matched {
@@ -213,9 +213,12 @@ pub fn suggest<S: AsRef<str>>(
     values: impl IntoIterator<Item = S>,
     mut builder: SuggestionsBuilder,
 ) -> Suggestions {
-    let lower_prefix = builder.get_remaining().to_lowercase();
+    let lower_prefix = mc_core::java_case::to_lower_case_root(builder.get_remaining());
     for name in values {
-        if matches_sub_str(&lower_prefix, &name.as_ref().to_lowercase()) {
+        if matches_sub_str(
+            &lower_prefix,
+            &mc_core::java_case::to_lower_case_root(name.as_ref()),
+        ) {
             builder.suggest(name.as_ref());
         }
     }
@@ -229,10 +232,13 @@ pub fn suggest_with_tooltip<T>(
     to_string: impl Fn(&T) -> String,
     tooltip: impl Fn(&T) -> Option<MessageRef>,
 ) -> Suggestions {
-    let lower_prefix = builder.get_remaining().to_lowercase();
+    let lower_prefix = mc_core::java_case::to_lower_case_root(builder.get_remaining());
     for value in values {
         let name = to_string(&value);
-        if matches_sub_str(&lower_prefix, &name.to_lowercase()) {
+        if matches_sub_str(
+            &lower_prefix,
+            &mc_core::java_case::to_lower_case_root(&name),
+        ) {
             builder.suggest_with_tooltip(name, tooltip(&value));
         }
     }

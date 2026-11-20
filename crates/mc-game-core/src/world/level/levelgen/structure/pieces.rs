@@ -48,7 +48,7 @@ impl PiecesContainer {
         for child in children.iter() {
             let empty = CompoundTag::new();
             let piece_tag = child.as_compound().unwrap_or(&empty);
-            let old_id = piece_tag.get_string_or("id", "").to_lowercase();
+            let old_id = mc_core::java_case::to_lower_case_root(piece_tag.get_string_or("id", ""));
             let (namespace, path) = match old_id.split_once(':') {
                 Some((n, p)) => (n.to_owned(), p.to_owned()),
                 None => ("minecraft".to_owned(), old_id.clone()),

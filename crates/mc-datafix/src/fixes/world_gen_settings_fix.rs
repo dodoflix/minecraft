@@ -146,7 +146,7 @@ fn fix(input: Dynamic) -> Dynamic {
         .get("generatorName")
         .as_string()
         .result()
-        .map(|n| n.as_lossy_str().to_lowercase());
+        .map(|n| mc_core::java_case::to_lower_case_root(n.as_lossy_str()));
     let legacy_custom_options: Option<JavaString> = input
         .get("legacy_custom_options")
         .as_string()

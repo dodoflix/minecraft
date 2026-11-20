@@ -474,7 +474,7 @@ string_representable_argument!(
     HeightmapTypeArgument,
     HeightmapType,
     || HeightmapType::ALL.into_iter().filter(|t| t.keep_after_worldgen()).collect::<Vec<_>>(),
-    |t: &HeightmapType| t.serialization_key().to_lowercase()
+    |t: &HeightmapType| mc_core::java_case::to_lower_case_root(t.serialization_key())
 );
 string_representable_argument!(
     TemplateMirrorArgument,

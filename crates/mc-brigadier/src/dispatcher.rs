@@ -375,7 +375,7 @@ impl<S: Clone + 'static> CommandDispatcher<S> {
         let start = node_before_cursor.start_pos.min(cursor);
         let full_input = parse.reader.get_string();
         let truncated_input = substring(full_input, 0, cursor.min(len16(full_input)));
-        let truncated_lower = truncated_input.to_lowercase();
+        let truncated_lower = mc_core::java_case::to_lower_case_root(&truncated_input);
         let built = node_before_cursor.context.build(&truncated_input);
 
         let suggestions = parent

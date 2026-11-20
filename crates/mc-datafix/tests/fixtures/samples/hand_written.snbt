@@ -42,3 +42,16 @@ decorated-pot-sherds	ref:block_entity	3447	3448	{id:"minecraft:decorated_pot",sh
 area-effect-cloud-particle	ref:entity	4419	4420	{id:"minecraft:area_effect_cloud",Particle:{type:"minecraft:flame"}}
 data-components-namespaced-pot-decorations	ref:block_entity	3817	3818	{id:"minecraft:decorated_pot",components:{"minecraft:pot_decorations":["brick"]}}
 arrow-stored-weapon-plain-id	ref:entity	3937	3938	{id:"minecraft:arrow",weapon:"minecraft:bow"}
+
+# String.toLowerCase(Locale.ROOT) of a capital sigma: final sigma depends on the word boundaries around it
+sigma-painting-final	ref:entity	1459	1460	{id:"minecraft:painting",Motive:"ΑΣ"}
+sigma-painting-word-start	ref:entity	1459	1460	{id:"minecraft:painting",Motive:"ΣΑ"}
+sigma-painting-hyphen	ref:entity	1459	1460	{id:"minecraft:painting",Motive:"Α-Σ"}
+sigma-painting-digit	ref:entity	1459	1460	{id:"minecraft:painting",Motive:"Α1Σ"}
+sigma-painting-space	ref:entity	1459	1460	{id:"minecraft:painting",Motive:"Α Σ"}
+sigma-painting-then-cased	ref:entity	1459	1460	{id:"minecraft:painting",Motive:"ΑΣ.Β"}
+sigma-painting-pair	ref:entity	1459	1460	{id:"minecraft:painting",Motive:"á𝐀Σ"}
+sigma-painting-two	ref:entity	1459	1460	{id:"minecraft:painting",Motive:"ΟΔΟΣΣΑΣ"}
+sigma-options-final	ref:options	815	816	{lang:"ΑΣ"}
+sigma-options-hyphen	ref:options	815	816	{lang:"Α-Σ_ΑΣ"}
+sigma-flat-structures	ref:level	1505	1506	{generatorName:"flat",generatorOptions:"1*minecraft:stone;1;ΑΣ,Α-Σ(Α1Σ=ΑΣ),Σ"}

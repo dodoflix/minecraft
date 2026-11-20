@@ -270,8 +270,9 @@ fn fix_modifiers(modifiers: Vec<Dynamic>) -> Vec<Dynamic> {
             let id = format!(
                 "minecraft:{}",
                 match uuid {
-                    Some((most, least)) =>
-                        uuid_from_msb_lsb(most, least).to_string().to_lowercase(),
+                    Some((most, least)) => mc_core::java_case::to_lower_case_root(
+                        &uuid_from_msb_lsb(most, least).to_string()
+                    ),
                     None => "unknown".to_string(),
                 }
             );

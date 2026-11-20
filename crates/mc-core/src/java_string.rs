@@ -166,6 +166,17 @@ impl JavaString {
         }
     }
 
+    /// `String.toLowerCase(Locale.ROOT)` ([`crate::java_case`]); lone surrogates stay as they are.
+    pub fn to_lower_case_root(&self) -> JavaString {
+        match self.exact_str() {
+            Some(text) => crate::java_case::to_lower_case_root(text).into(),
+            None => {
+                let units: Vec<u16> = self.encode_utf16().collect();
+                JavaString::from_utf16_units(&crate::java_case::to_lower_case_root_units(&units))
+            }
+        }
+    }
+
     /// `String.substring(start, end)` by unit index. Panics when out of range, like Java throws.
     pub fn substring(&self, start: usize, end: usize) -> JavaString {
         match &self.units {

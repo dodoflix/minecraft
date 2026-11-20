@@ -449,9 +449,12 @@ pub fn parse_for_suggestions<X: Context>(ctx: &X, builder: SuggestionsBuilder) -
         match suggest {
             Suggest::Nothing => {}
             Suggest::Char(c) => {
-                let lower_prefix = offset.get_remaining().to_lowercase();
+                let lower_prefix = mc_core::java_case::to_lower_case_root(offset.get_remaining());
                 let name = c.to_string();
-                if matches_sub_str(&lower_prefix, &name.to_lowercase()) {
+                if matches_sub_str(
+                    &lower_prefix,
+                    &mc_core::java_case::to_lower_case_root(&name),
+                ) {
                     offset.suggest(name);
                 }
             }

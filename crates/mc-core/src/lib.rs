@@ -6,6 +6,8 @@ pub mod direction;
 pub mod display;
 pub mod gson;
 pub mod ident;
+pub mod java_case;
+mod java_cased_letters;
 pub mod java_collections;
 pub mod java_exception;
 pub mod java_string;

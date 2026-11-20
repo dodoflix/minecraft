@@ -155,7 +155,7 @@ impl ItemParser {
     }
 
     fn suggest_component(&self, mut builder: SuggestionsBuilder, suffix: &str) -> Suggestions {
-        let contents = builder.get_remaining().to_lowercase();
+        let contents = mc_core::java_case::to_lower_case_root(builder.get_remaining());
         let all: Vec<Identifier> = DataComponentType::iter()
             .filter(|t| try_def(*t).is_some_and(|d| !d.is_transient()))
             .map(|t| t.identifier())

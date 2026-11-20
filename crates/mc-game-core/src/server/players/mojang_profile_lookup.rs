@@ -144,7 +144,7 @@ impl ProfileLookup for MojangProfileLookup {
     fn find_profile_by_name(&self, name: &str) -> Option<NameAndId> {
         let url = self
             .endpoint("profiles", "getByName")?
-            .replace("{name}", &name.to_lowercase());
+            .replace("{name}", &mc_core::java_case::to_lower_case_root(name));
         match Self::get_json(&url) {
             Ok(Some(body)) => Some(NameAndId::new(
                 Uuid::parse_str(body.get("id")?.as_str()?).ok()?,
@@ -166,20 +166,23 @@ impl ProfileLookup for MojangProfileLookup {
         }
         let criteria: Vec<&str> = set.keys().collect();
         for request in criteria.chunks(ENTRIES_PER_PAGE) {
-            let normalized: Vec<String> = request.iter().map(|n| n.to_lowercase()).collect();
+            let normalized: Vec<String> = request
+                .iter()
+                .map(|n| mc_core::java_case::to_lower_case_root(n))
+                .collect();
             let mut fail_count = 0;
             loop {
                 match self.post_names(&normalized) {
                     Ok(results) => {
                         let mut received = HashSet::new();
                         for (id, name) in &results {
-                            received.insert(name.to_lowercase());
+                            received.insert(mc_core::java_case::to_lower_case_root(name));
                             if callback(name, Ok(*id)).is_break() {
                                 return;
                             }
                         }
                         for name in request {
-                            if !received.contains(&name.to_lowercase())
+                            if !received.contains(&mc_core::java_case::to_lower_case_root(name))
                                 && callback(name, Err(ProfileLookupError::NotFound)).is_break()
                             {
                                 return;

@@ -221,10 +221,8 @@ fn update_references(references: Dynamic, chunk: &Dynamic) -> Dynamic {
 }
 
 fn find_updated_structure_type(dynamic_key: &Dynamic, chunk: &Dynamic) -> Option<Dynamic> {
-    let key = dynamic_key
-        .as_string_or("UNKNOWN")
-        .as_lossy_str()
-        .to_lowercase();
+    let key =
+        mc_core::java_case::to_lower_case_root(dynamic_key.as_string_or("UNKNOWN").as_lossy_str());
     let conversion = conversion(&key)?;
     let mut resulting_id = conversion.fallback;
     if !conversion.biome_mapping.is_empty()

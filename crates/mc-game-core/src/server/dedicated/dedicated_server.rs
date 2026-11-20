@@ -140,7 +140,10 @@ fn read_code_of_conducts() -> io::Result<HashMap<String, String>> {
             .lines()
             .collect::<Vec<_>>()
             .join("\n");
-        texts.insert(stem.to_lowercase(), strip_color(&text));
+        texts.insert(
+            mc_core::java_case::to_lower_case_root(stem),
+            strip_color(&text),
+        );
     }
     Ok(texts)
 }

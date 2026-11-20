@@ -3,6 +3,7 @@
 mod bits;
 mod geometry_dir;
 mod ident_uuid;
+mod java_case;
 mod java_collections;
 mod java_format;
 mod math;

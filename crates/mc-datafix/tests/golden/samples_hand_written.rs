@@ -9,6 +9,6 @@ use crate::step_samples::assert_replays;
 fn hand_written_samples_equal_vanilla() {
     assert_replays(
         &mc_testkit::include_gz!("../fixtures/samples/hand_written.tsv.gz"),
-        43,
+        54,
     );
 }

@@ -20,7 +20,9 @@ pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
                         match lang {
                             Some(lang) => tag.set(
                                 "lang",
-                                tag.create_string(lang.map_lossless(str::to_lowercase)),
+                                tag.create_string(
+                                    lang.map_lossless(mc_core::java_case::to_lower_case_root),
+                                ),
                             ),
                             None => tag,
                         }

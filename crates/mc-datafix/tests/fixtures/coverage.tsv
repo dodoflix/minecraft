@@ -1,5 +1,5 @@
-# INDEX VERSION SUBVERSION CLASS CHANGED_BY_REAL CHANGED_BY_SYNTH (samples the fix changed; runs: 1370 real, 48495 synthetic)
-# of 48345 runs recorded in STEP fixtures, 12 answer differently from vanilla's own chain in content and 72 in key order only
+# INDEX VERSION SUBVERSION CLASS CHANGED_BY_REAL CHANGED_BY_SYNTH (samples the fix changed; runs: 1370 real, 48506 synthetic)
+# of 48356 runs recorded in STEP fixtures, 12 answer differently from vanilla's own chain in content and 46 in key order only
 # fixture	corpus_advancements.tsv.gz	3a5248705c9b6793d3d908c9111d1f83887141a3431e40289f647634b782716d	75
 # fixture	corpus_chunk.tsv.gz	d3534108aac37a69e04a2abb7faece368398e833dba04df12224612385661e1a	300
 # fixture	corpus_debug_profile.tsv.gz	c82c8a671965ae393494545214f0789fc2479125c78acdc50433bf23ee5cd34d	75
@@ -31,7 +31,7 @@
 # fixture	corpus_stats.tsv.gz	48f9dcb0d69f914b85e2aae5eeaab6046cc0b74fb7e917e6e69e4d21d5383939	75
 # fixture	corpus_structure.tsv.gz	b68e50444beec2f26a18eae66b04549b7048e9ca644ff053f8f12f710cf51688	75
 # fixture	corpus_world_gen_settings.tsv.gz	9a1c40505d2644cf3757a8b4f17f18c354214747de1adc8223c166a175ba899e	22
-# fixture	hand_written.tsv.gz	c4a86608a40da1d3f76e7e63a8e6c4332a99ed5a6a4770dd29d89f2762f1d712	43
+# fixture	hand_written.tsv.gz	3ff035eb13c44533f49111613eac951e585a86917b4d64245582c7a5541cbe87	54
 # fixture	json_files.tsv.gz	30c94abea65b536d543d2e16d6474be25994871087ba6e70764b2a059db32e6c	12
 # fixture	lone_surrogate_hand_written.tsv.gz	13c125d3784c6cab9693429a34df7a93e42c34d0dde4d7b9f14af9967c86c3b0	40
 # fixture	region_upgrade.tsv.gz	e7add3faec47e28d9998433615d83be3bdaac5b7c21d205c16d47e93474e5cb2	129
@@ -81,7 +81,7 @@
 30	808	1	EntityShulkerColorFix	3	11
 31	813	0	ItemShulkerBoxColorFix	0	10
 32	813	0	BlockEntityShulkerBoxColorFix	0	9
-33	816	0	OptionsLowerCaseLanguageFix	0	7
+33	816	0	OptionsLowerCaseLanguageFix	0	9
 34	820	0	ItemRenameFix$1	0	2
 35	1022	0	WriteAndReadFix	0	2
 36	1125	0	ChunkBedBlockEntityInjecterFix	0	5
@@ -108,7 +108,7 @@
 57	1458	0	EntityCustomNameToComponentFix	15	145
 58	1458	0	ItemCustomNameToComponentFix	9	153
 59	1458	0	BlockEntityCustomNameToComponentFix	9	22
-60	1460	0	EntityPaintingMotiveFix	4	21
+60	1460	0	EntityPaintingMotiveFix	4	29
 61	1466	0	AddNewChoices	0	0
 62	1466	0	ChunkToProtochunkFix	108	94
 63	1470	0	AddNewChoices	0	0
@@ -141,7 +141,7 @@
 90	1500	0	BlockEntityKeepPacked	0	9
 91	1501	0	AdvancementsFix	0	1
 92	1502	0	NamespacedTypeRenameFix	0	1
-93	1506	0	LevelDataGeneratorOptionsFix	6	62
+93	1506	0	LevelDataGeneratorOptionsFix	6	63
 94	1510	0	LegacyBlockRenameFix$1	20	2
 95	1510	0	ItemRenameFix$1	0	2
 96	1510	0	NamespacedTypeRenameFix	0	1

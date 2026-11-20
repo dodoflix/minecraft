@@ -332,7 +332,7 @@ pub struct SuggestionsBuilder {
 impl SuggestionsBuilder {
     pub fn new(input: impl Into<String>, start: usize) -> Self {
         let input = input.into();
-        let lower = input.to_lowercase();
+        let lower = mc_core::java_case::to_lower_case_root(&input);
         Self::with_lower_case(input, lower, start)
     }
 

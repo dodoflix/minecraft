@@ -112,10 +112,9 @@ pub struct CachedUserNameToIdResolver {
     operation_count: AtomicU64,
 }
 
-/// Java `String.toLowerCase(Locale.ROOT)` over the BMP/SMP: Rust's full Unicode lowercase differs only for a
-/// handful of special cases (final sigma, dotted I), which cannot appear in valid player names.
+/// Java `String.toLowerCase(Locale.ROOT)`.
 fn lower(s: &str) -> String {
-    s.to_lowercase()
+    mc_core::java_case::to_lower_case_root(s)
 }
 
 impl CachedUserNameToIdResolver {

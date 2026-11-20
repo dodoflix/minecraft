@@ -268,10 +268,11 @@ impl EntitySelectorOptions {
 
 /// `suggestNames(parser, builder)`.
 pub fn suggest_names(parser: &EntitySelectorParser<'_>, builder: &mut SuggestionsBuilder) {
-    let lower_prefix = builder.get_remaining().to_lowercase();
+    let lower_prefix = mc_core::java_case::to_lower_case_root(builder.get_remaining());
     for option in OPTIONS {
         let usable = (option.can_use)(parser);
-        if usable && option.name.to_lowercase().starts_with(&lower_prefix) {
+        if usable && mc_core::java_case::to_lower_case_root(option.name).starts_with(&lower_prefix)
+        {
             builder.suggest_with_tooltip(
                 format!("{}=", option.name),
                 Some(message(Component::translatable(
@@ -368,7 +369,7 @@ fn sort(parser: &mut EntitySelectorParser<'_>) -> Result<(), CommandSyntaxExcept
 fn gamemode(parser: &mut EntitySelectorParser<'_>) -> Result<(), CommandSyntaxException> {
     let state = parser.gamemode_option().clone();
     parser.set_suggestions(Suggest::Custom(Arc::new(move |mut b| {
-        let mut prefix = b.get_remaining().to_lowercase();
+        let mut prefix = mc_core::java_case::to_lower_case_root(b.get_remaining());
         let mut add_normal = state.can_parse_positive_element();
         let mut add_inverted = state.can_parse_negative_element();
         if let Some(first) = prefix.chars().next() {
@@ -385,7 +386,7 @@ fn gamemode(parser: &mut EntitySelectorParser<'_>) -> Result<(), CommandSyntaxEx
             GameType::Adventure,
             GameType::Spectator,
         ] {
-            if t.get_name().to_lowercase().starts_with(&prefix) {
+            if mc_core::java_case::to_lower_case_root(t.get_name()).starts_with(&prefix) {
                 if add_inverted {
                     b.suggest(format!("!{}", t.get_name()));
                 }

@@ -127,7 +127,7 @@ fn read_old_list_format(
         let line = line.trim();
         if !line.starts_with('#') && !line.is_empty() {
             let parts = split_pipe(line);
-            user_map.insert(parts[0].to_lowercase(), parts);
+            user_map.insert(mc_core::java_case::to_lower_case_root(&parts[0]), parts);
         }
     }
     Ok(lines)
@@ -195,7 +195,7 @@ pub fn convert_user_banlist(ctx: &ConversionContext) -> bool {
         };
         let profile = NameAndId::new(id, name);
         ctx.name_to_id_cache.add(profile.clone());
-        let Some(def) = user_map.get(&profile.name.to_lowercase()) else {
+        let Some(def) = user_map.get(&mc_core::java_case::to_lower_case_root(&profile.name)) else {
             log::warn!("Could not convert user banlist entry for {}", profile.name);
             return Err(ConversionError(
                 "Profile not in the conversionlist".to_owned(),
@@ -391,7 +391,7 @@ pub fn convert_players(ctx: &ConversionContext, world_dir: &Path) -> bool {
     let mut names = Vec::new();
     for entry in read.flatten() {
         let file_name = entry.file_name().to_string_lossy().into_owned();
-        if file_name.to_lowercase().ends_with(".dat") {
+        if mc_core::java_case::to_lower_case_root(&file_name).ends_with(".dat") {
             let player = &file_name[..file_name.len() - 4];
             if !player.is_empty() {
                 names.push(player.to_owned());
