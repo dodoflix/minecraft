@@ -100,7 +100,7 @@ fn test_functions_are_the_vanilla_ones() {
 
 #[test]
 fn the_test_command_has_no_export_literals() {
-    assert!(!mc_game::gametest::IS_RUNNING_IN_IDE);
+    const { assert!(!mc_game::gametest::IS_RUNNING_IN_IDE) };
     let commands = vanilla_commands();
     let root = commands.get_dispatcher().get_root();
     let test = root
