@@ -113,8 +113,11 @@ const GENERATED_CHUNK_RACES: &[&str] = &[
 /// servers generate them when they load a chunk (the lush and deep caves of the current version), and two runs of the
 /// real server on the same world disagree on them in about half of the 17 x 17 chunks around the spawn: the blocks of the
 /// sections below 0 (placement order of overlapping cave features), their light, the scheduled ticks and block entities
-/// below 0, and the post processing marks. Seen between runs of the real server on the 1.14.4, 1.16.5 and 1.17.1
-/// normal worlds (thousands of block differences per run pair, all of them at y < 0 but five at y 13 to 16).
+/// below 0, and the post processing marks. Evidence, two runs of the real server on the same copy of the world: on the
+/// 1.14.4 normal world 103 of the 169 full chunks of the window differ, with 11619 block differences of which all but
+/// five (diorite/granite/andesite at y 13 to 16 of chunk [-6, 6]) lie at y < 0; four further runs of that world and of the
+/// 1.16.5 and 1.17.1 normal worlds show the same (50 or more differing chunks per pair, none of them in two runs of
+/// `mc-server`).
 /// The part of these chunks at y >= 0 stays compared, except `PostProcessing` (one list per section, left out whole), and a
 /// file the specs touch is not compared by its decompressed bytes. Only for `World::below_zero` worlds, in the overworld.
 const BELOW_ZERO_RACES: &[&str] = &[
