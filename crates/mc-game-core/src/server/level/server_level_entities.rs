@@ -868,9 +868,13 @@ impl ServerLevel {
         }
     }
 
-    /// `processPendingLoads()`: instantiate the entities of chunks whose entity data arrived and add them.
-    pub fn process_pending_entity_loads(&mut self) {
-        for chunk in self.entity_manager.take_loaded_chunks() {
+    /// The `entity-deserializer` task of `EntityStorage.loadEntities`: instantiates the entities of the chunks whose read
+    /// finished, at the game time of the moment it runs (vanilla queues it on the server's task queue, so the next task
+    /// pump runs it, before the tick that follows). Whether anything was deserialized.
+    pub fn run_entity_deserializer(&mut self) -> bool {
+        let read = self.entity_manager.take_read_chunks();
+        let ran = !read.is_empty();
+        for chunk in read {
             // `EntityStorage.loadEntities`: the entities load under a collector of the chunk
             let entities = problem_reporter::with_scoped_collector(
                 "net.minecraft.world.level.chunk.storage.EntityStorage",
@@ -886,6 +890,17 @@ impl ServerLevel {
                     entities
                 },
             );
+            self.entity_manager
+                .push_deserialized(chunk.get_pos(), entities);
+        }
+        ran
+    }
+
+    /// `processPendingLoads()`: add the entities of the chunks the deserializer finished. A chunk read since the last
+    /// task pump (a read is synchronous here) is deserialized first, as `EntityStorage.flush` runs the queue to its end.
+    pub fn process_pending_entity_loads(&mut self) {
+        self.run_entity_deserializer();
+        for (pos, entities) in self.entity_manager.take_loaded_chunks() {
             let loaded_ids: Vec<EntityId> = entities
                 .iter()
                 .filter(|e| e.raider().is_some())
@@ -896,8 +911,7 @@ impl ServerLevel {
             for id in loaded_ids {
                 self.with_entity(id, |level, e| e.after_loaded_to_level(level));
             }
-            self.entity_manager
-                .mark_chunk_entities_loaded(chunk.get_pos());
+            self.entity_manager.mark_chunk_entities_loaded(pos);
         }
         self.process_entity_events();
     }

@@ -719,6 +719,12 @@ impl MinecraftServer {
         }
         if self.tick_rate_manager.is_sprinting() || self.should_run_all_tasks() || self.have_time()
         {
+            // the `entity-deserializer` tasks `EntityStorage` queued on the server
+            for level in self.all_levels_mut() {
+                if level.run_entity_deserializer() {
+                    return true;
+                }
+            }
             for level in self.all_levels_mut() {
                 if level.poll_chunk_task() {
                     return true;

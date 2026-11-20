@@ -73,8 +73,11 @@ pub struct PersistentEntitySectionManager {
     chunk_visibility: HashMap<i64, Visibility>,
     chunk_load_statuses: HashMap<i64, ChunkLoadStatus>,
     chunks_to_unload: IndexSet<i64>,
-    /// `loadingInbox`: raw entity NBT of loaded chunks, instantiated by the level (`process_pending_loads`).
-    loading_inbox: VecDeque<ChunkEntities>,
+    /// The raw entity NBT of chunks whose storage read finished, waiting for the `entity-deserializer` task that
+    /// instantiates them (`EntityStorage.entityDeserializerQueue`, run by the level).
+    read_inbox: VecDeque<ChunkEntities>,
+    /// `loadingInbox`: the instantiated entities of chunks, added by `process_pending_loads`.
+    loading_inbox: VecDeque<(ChunkPos, Vec<Box<dyn Entity>>)>,
     permanent_storage: Option<EntityStorage>,
     /// The server's chunk IO error reporter (`EntityStorage.level.getServer()`): unset for a manager without a server.
     chunk_io_reporter:
@@ -101,6 +104,7 @@ impl PersistentEntitySectionManager {
             chunk_visibility: HashMap::new(),
             chunk_load_statuses: HashMap::new(),
             chunks_to_unload: IndexSet::new(),
+            read_inbox: VecDeque::new(),
             loading_inbox: VecDeque::new(),
             permanent_storage,
             chunk_io_reporter: None,
@@ -346,7 +350,7 @@ impl PersistentEntitySectionManager {
             .insert(chunk_key, ChunkLoadStatus::Pending);
         let pos = ChunkPos::unpack(chunk_key);
         let Some(storage) = self.permanent_storage.as_mut() else {
-            self.loading_inbox
+            self.read_inbox
                 .push_back(ChunkEntities::new(pos, Vec::new()));
             return;
         };
@@ -373,7 +377,7 @@ impl PersistentEntitySectionManager {
             }
         }
         match result {
-            Ok(loaded) => self.loading_inbox.push_back(loaded.chunk),
+            Ok(loaded) => self.read_inbox.push_back(loaded.chunk),
             Err(e) => {
                 // only a failed read is reported (`reportLoadFailureIfPresent` is attached to the read, not to the data fix)
                 if let EntityLoadError::Io(_) = &e {
@@ -388,10 +392,20 @@ impl PersistentEntitySectionManager {
         }
     }
 
-    /// Raw entity NBT of chunks whose storage read finished (`processPendingLoads` first half). The level
-    /// instantiates the entities, adds them with [`Self::add_legacy_chunk_entities`] and then calls
-    /// [`Self::mark_chunk_entities_loaded`].
-    pub fn take_loaded_chunks(&mut self) -> Vec<ChunkEntities> {
+    /// Raw entity NBT of chunks whose storage read finished and that no deserializer task took yet. The level
+    /// instantiates the entities and hands them back with [`Self::push_deserialized`].
+    pub fn take_read_chunks(&mut self) -> Vec<ChunkEntities> {
+        self.read_inbox.drain(..).collect()
+    }
+
+    /// The deserializer task's result for the chunk at `pos` (`thenAccept(loadingInbox::add)`).
+    pub fn push_deserialized(&mut self, pos: ChunkPos, entities: Vec<Box<dyn Entity>>) {
+        self.loading_inbox.push_back((pos, entities));
+    }
+
+    /// `processPendingLoads` first half: the instantiated entities of the chunks the deserializer finished. The level
+    /// adds them with [`Self::add_legacy_chunk_entities`] and then calls [`Self::mark_chunk_entities_loaded`].
+    pub fn take_loaded_chunks(&mut self) -> Vec<(ChunkPos, Vec<Box<dyn Entity>>)> {
         self.loading_inbox.drain(..).collect()
     }
 
@@ -1137,7 +1151,7 @@ impl PersistentEntitySectionManager {
             self.section_storage.count(),
             self.chunk_load_statuses.len(),
             self.chunk_visibility.len(),
-            self.loading_inbox.len(),
+            self.read_inbox.len() + self.loading_inbox.len(),
             self.chunks_to_unload.len()
         )
     }

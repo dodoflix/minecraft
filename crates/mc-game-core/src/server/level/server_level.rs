@@ -848,7 +848,9 @@ impl ServerLevel {
     }
 
     /// `PersistentEntitySectionManager.saveAll()`: the manager's loop with the level instantiating the entities of
-    /// chunks whose entity data arrived in between.
+    /// chunks whose entity data arrived in between. `EntityStorage.flush` runs the deserializer queue to its end, so a
+    /// chunk read before the save is deserialized now (at this game time) even when the loop has nothing to save and
+    /// never adds it.
     fn save_all_entities(&mut self) {
         let mut chunks_to_save = self.entity_manager.chunks_to_save_all();
         while !chunks_to_save.is_empty() {
@@ -857,6 +859,7 @@ impl ServerLevel {
             self.entity_manager.save_all_round(&mut chunks_to_save);
         }
         self.entity_manager.flush_storage(true);
+        self.run_entity_deserializer();
         self.process_entity_events();
     }
 
