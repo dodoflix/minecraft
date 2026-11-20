@@ -22,8 +22,6 @@
 //!   copy of the previous `level.dat`).
 //! * `game_rules.dat` as a set of entries: the real server writes the rules in the order of an identity-hashed map, so even
 //!   two runs of it disagree on the key order of the file ([`game_rules_difference`]).
-//! * The tickets of `chunk_tickets.dat` as a set: both servers write them in the order of a hash table that they fill
-//!   differently, and the key order of a ticket with a timeout differs ([`ticket_findings`]).
 //! * The log: warnings, errors and the lines of [`INTEREST`] in order, the time and the thread removed, stack traces
 //!   dropped, the failed request for the services' public keys and the discovery thread's warning left out ([`log_records`]).
 
@@ -76,8 +74,6 @@ pub(crate) const CLOCKS: &[&str] = &[
     "*/data/minecraft/weather.dat#data.thunder_time",
     "*/data/minecraft/world_clocks.dat#data.*.total_ticks",
     "*/dimensions/*/*/data/minecraft/raids.dat#data.tick",
-    // compared as a set by `ticket_findings`
-    "*/dimensions/*/*/data/minecraft/chunk_tickets.dat#data.tickets",
 ];
 
 /// The light layers of a chunk below status full: what the asynchronous light engine had propagated into it when the
@@ -469,49 +465,6 @@ pub(crate) fn game_rules_difference(vanilla: &Path, ours: &Path) -> Option<Strin
     })
 }
 
-/// The tickets of every dimension's `chunk_tickets.dat` as sorted lists of `(chunk_pos, type, level, ticks_left)`: both
-/// servers hold the tickets in a fastutil table; the order they write them in and the key order of a ticket differ.
-pub(crate) fn ticket_findings(vanilla: &Path, ours: &Path) -> Vec<String> {
-    let tickets = |world: &Path, rel: &str| -> Vec<String> {
-        let file = world.join(rel);
-        if !file.is_file() {
-            return Vec::new();
-        }
-        let tag = read_dat(&file);
-        let mut list: Vec<String> = tag
-            .get_compound_or_empty("data")
-            .get_list("tickets")
-            .map(|l| {
-                l.iter()
-                    .filter_map(|t| t.as_compound())
-                    .map(|t| {
-                        let pos = t.get_int_array("chunk_pos").unwrap_or_default();
-                        format!(
-                            "{pos:?} {} level {} ticks_left {:?}",
-                            t.get_string_or("type", "?"),
-                            t.get_int_or("level", -1),
-                            t.get_long("ticks_left")
-                        )
-                    })
-                    .collect()
-            })
-            .unwrap_or_default();
-        list.sort();
-        list
-    };
-    let mut out = Vec::new();
-    for dim in ["overworld", "the_nether", "the_end"] {
-        let rel = format!("dimensions/minecraft/{dim}/data/minecraft/chunk_tickets.dat");
-        let (v, o) = (tickets(vanilla, &rel), tickets(ours, &rel));
-        if v != o {
-            out.push(format!(
-                "{rel}: tickets differ\n  vanilla: {v:?}\n  ours:    {o:?}"
-            ));
-        }
-    }
-    out
-}
-
 /// The chunks inside `rect` whose status is below full in either world (the semantic mode skips them).
 fn chunks_below_full(
     vanilla: &Path,
@@ -620,7 +573,6 @@ pub(crate) fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
             &exact(inner, &chunk_storages),
         ));
     }
-    findings.extend(ticket_findings(&v, &o));
     if reports.iter().any(|r| !r.is_clean()) {
         let dirty: Vec<_> = reports.into_iter().filter(|r| !r.is_clean()).collect();
         findings.push(render_text("vanilla", "ours", &dirty, 20));

@@ -40,6 +40,7 @@ fn max_fill(n: usize) -> usize {
 const DEFAULT_INITIAL_SIZE: usize = 16;
 
 /// `Long2ObjectOpenHashMap<V>` (also used for `Long2ByteOpenHashMap` with `V = u8`).
+#[derive(Clone)]
 pub struct LongOpenHashMap<V> {
     key: Vec<i64>,
     value: Vec<Option<V>>,

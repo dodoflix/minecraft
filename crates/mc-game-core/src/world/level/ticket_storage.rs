@@ -70,7 +70,7 @@ impl TicketStorage {
 
     // ---------------------------------------------------------------- codec
 
-    /// `TicketStorage.CODEC` encode: `{tickets: [{chunk_pos: [I;x,z], type, level, ticks_left?}, ...]}` (persisted
+    /// `TicketStorage.CODEC` encode: `{tickets: [{type, level, ticks_left?, chunk_pos: [I;x,z]}, ...]}` (persisted
     /// types only; active tickets first, then deactivated, each in map order).
     pub fn to_tag(&self) -> Tag {
         let mut list = ListTag::new();
@@ -78,8 +78,10 @@ impl TicketStorage {
             if ticket.get_type().persist() {
                 let mut entry = CompoundTag::new();
                 let chunk = ChunkPos::unpack(pos);
-                entry.put_int_array("chunk_pos", vec![chunk.x, chunk.z]);
+                // `Codec.mapPair` encodes the ticket before the position: `ticks_left` and `chunk_pos` share a hash
+                // bucket, so the insertion order is the key order of the written tag.
                 ticket.write_fields(&mut entry);
+                entry.put_int_array("chunk_pos", vec![chunk.x, chunk.z]);
                 list.push(Tag::Compound(entry));
             }
         };
@@ -488,8 +490,53 @@ pub fn saved_data_type() -> crate::world::level::saveddata::SavedDataType<Ticket
 }
 
 impl TicketStorage {
-    /// A copy for the saved data storage (all tickets as deactivated ones, which is also how they are written).
+    /// The copy the saved data storage writes: the same tables, so the tickets are written in the order the live
+    /// storage holds them (vanilla writes the live instance).
     pub fn snapshot_for_saving(&self) -> TicketStorage {
-        TicketStorage::from_tag(&self.to_tag()).expect("own encoding decodes")
+        TicketStorage {
+            tickets: self.tickets.clone(),
+            deactivated_tickets: self.deactivated_tickets.clone(),
+            chunks_with_forced_tickets: LongOpenHashSet::new(),
+            loading_updates: Vec::new(),
+            simulation_updates: Vec::new(),
+            dirty: false,
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// The saved copy lists the tickets in the order of the live storage's tables, as vanilla writes the live instance.
+    #[test]
+    fn snapshot_keeps_the_table_order() {
+        let mut live = TicketStorage::new();
+        for x in -4..=4 {
+            for z in -4..=4 {
+                live.add_ticket(
+                    Ticket::new(TicketType::FORCED, chunk_level::ENTITY_TICKING_LEVEL),
+                    ChunkPos::new(x, z),
+                );
+            }
+        }
+        live.deactivate_tickets_on_closing();
+        assert_eq!(live.snapshot_for_saving().to_tag(), live.to_tag());
+    }
+
+    /// `ticks_left` and `chunk_pos` share a `HashMap` bucket: vanilla's encoder puts the ticket's fields first.
+    #[test]
+    fn ticket_keys_are_written_in_vanilla_order() {
+        let mut live = TicketStorage::new();
+        live.add_ticket(Ticket::new(TicketType::PORTAL, 31), ChunkPos::new(1, 2));
+        let tag = live.to_tag();
+        let tickets = tag.as_compound().unwrap().get_list("tickets").unwrap();
+        let entry = tickets.get_compound(0).unwrap();
+        let keys: Vec<_> = entry
+            .iter_java_order()
+            .into_iter()
+            .map(|(k, _)| k.as_lossy_str().to_owned())
+            .collect();
+        assert_eq!(keys, ["ticks_left", "chunk_pos", "level", "type"]);
     }
 }

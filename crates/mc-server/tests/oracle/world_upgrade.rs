@@ -16,7 +16,6 @@ use std::io::Read;
 use std::path::{Path, PathBuf};
 
 use crate::common::world_diff::{list_files, read_region};
-use crate::world_start::ticket_findings;
 use mc_core::ident::Identifier;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_testkit::Server;
@@ -364,15 +363,10 @@ fn all_flags() {
 }
 
 /// What differs between two runs of vanilla itself in the chunks the server loads and saves (three runs of the flat world
-/// differ in each of these): the chunks' `LastUpdate` (the game time of the last save: the number of ticks that ran before
-/// the stop), the order of the `attributes` of the saved entities (a hash map keyed by the identity hash of the attribute
-/// holders) and the order of the tickets in `chunk_tickets.dat`, which follows the tickets the loading added and removed
-/// on the way (the tickets are compared as a set, [`ticket_findings`]).
-const LOADED_IGNORES: &[&str] = &[
-    "**.mca#LastUpdate",
-    "**.mca#Entities.*.attributes",
-    "dimensions/*/*/data/minecraft/chunk_tickets.dat#data.tickets",
-];
+/// differ in both): the chunks' `LastUpdate` (the game time of the last save: the number of ticks that ran before
+/// the stop) and the order of the `attributes` of the saved entities (a hash map keyed by the identity hash of the attribute
+/// holders).
+const LOADED_IGNORES: &[&str] = &["**.mca#LastUpdate", "**.mca#Entities.*.attributes"];
 
 /// A loaded chunk keeps a section that holds only light when the light engine had data for it at the save, and that
 /// depends on whether its updates ran before the stop: the same run of vanilla has it in one chunk and the next run in
@@ -430,8 +424,6 @@ fn loaded(case: &str, id: &str) {
     );
     let ours = upgrade(true, id, &flags, &scratch(case).join("ours"), None, false);
     keep(case, &vanilla, &ours);
-    let tickets = ticket_findings(&vanilla.dir, &ours.dir);
-    assert!(tickets.is_empty(), "{case}: {}", tickets.join("\n"));
     compare(case, &flags, &vanilla, &ours, true);
 }
 
