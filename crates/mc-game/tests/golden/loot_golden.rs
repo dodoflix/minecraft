@@ -18,6 +18,8 @@ use mc_game::server::level::ServerLevel;
 use mc_game::world::block_entity::new_block_entity;
 use mc_game::world::entity::{Entity, ServerPlayer};
 use mc_game::world::item::ItemStack;
+use mc_game::world::level::saveddata::encode_codec;
+use mc_game::world::level::saveddata::random_sequences::RandomSequence;
 use mc_game::world::level::storage::loot::LootContextParamSets;
 use mc_game::world::level::storage::loot::LootParams;
 use mc_game::world::level::storage::loot::loading::get_loot_table;
@@ -68,7 +70,7 @@ fn sequence_state(level: &ServerLevel, key: &Identifier) -> Tag {
         .lock()
         .for_all_sequences(|id, sequence| {
             if id == key {
-                state = Some(sequence.encode());
+                state = Some(encode_codec(&RandomSequence::codec(), sequence).unwrap());
             }
         });
     state.expect("the roll created its sequence")

@@ -64,7 +64,7 @@ fn server_wide_saved_data_round_trips() {
     round_trip(&dir, &WeatherData::type_());
     let clocks =
         ["minecraft:overworld", "minecraft:the_end"].map(|c| Identifier::parse(c).unwrap());
-    round_trip_with(&dir, &ServerClockManager::type_(), |m| {
+    round_trip_with(&dir, &ServerClockManager::type_(&clocks), |m| {
         m.init(&clocks, vec![])
     });
     round_trip(&dir, &RandomSequences::type_());

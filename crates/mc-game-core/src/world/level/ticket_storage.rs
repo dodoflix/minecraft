@@ -9,7 +9,8 @@ use crate::server::level::chunk_level;
 use crate::server::level::fastutil::{LongOpenHashMap, LongOpenHashSet};
 use crate::server::level::{FullChunkStatus, Ticket, TicketType};
 use mc_core::pos::ChunkPos;
-use mc_nbt::{CompoundTag, ListTag, Tag};
+use mc_dfu::extra::fixed_size_ints;
+use mc_dfu::{Codec, INT_STREAM};
 
 /// `TicketStorage.ChunkUpdated.update(node, newLevelFrom, onlyDecreased)`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -70,72 +71,58 @@ impl TicketStorage {
 
     // ---------------------------------------------------------------- codec
 
-    /// `TicketStorage.CODEC` encode: `{tickets: [{type, level, ticks_left?, chunk_pos: [I;x,z]}, ...]}` (persisted
-    /// types only; active tickets first, then deactivated, each in map order).
-    pub fn to_tag(&self) -> Tag {
-        let mut list = ListTag::new();
-        let mut push = |pos: i64, ticket: &Ticket| {
-            if ticket.get_type().persist() {
-                let mut entry = CompoundTag::new();
-                let chunk = ChunkPos::unpack(pos);
-                // `Codec.mapPair` encodes the ticket before the position: `ticks_left` and `chunk_pos` share a hash
-                // bucket, so the insertion order is the key order of the written tag.
-                ticket.write_fields(&mut entry);
-                entry.put_int_array("chunk_pos", vec![chunk.x, chunk.z]);
-                list.push(Tag::Compound(entry));
-            }
-        };
+    /// `packTickets`: the persisted tickets, active ones first, then the deactivated ones, each in map order.
+    fn pack_tickets(&self) -> Vec<(ChunkPos, Ticket)> {
+        let mut packed = Vec::new();
         for map in [&self.tickets, &self.deactivated_tickets] {
             for (pos, tickets) in map.iter() {
                 for ticket in tickets {
-                    push(pos, ticket);
+                    if ticket.get_type().persist() {
+                        packed.push((ChunkPos::unpack(pos), ticket.clone()));
+                    }
                 }
             }
         }
-        let mut root = CompoundTag::new();
-        // `optionalFieldOf("tickets", List.of())`: the default is omitted.
-        if !list.is_empty() {
-            root.put("tickets", list);
-        }
-        Tag::Compound(root)
+        packed
     }
 
-    /// `TicketStorage.CODEC` decode (`fromPacked`: everything loads as *deactivated* tickets). Malformed entries make
-    /// the codec fail; the error text is returned for the saved-data layer to log (vanilla drops the whole value).
-    pub fn from_tag(tag: &Tag) -> Result<TicketStorage, String> {
-        let root = tag
-            .as_compound()
-            .ok_or_else(|| format!("Not a map: {tag}"))?;
+    /// `fromPacked`: everything loads as *deactivated* tickets.
+    fn from_packed(packed: Vec<(ChunkPos, Ticket)>) -> TicketStorage {
         let mut deactivated: LongOpenHashMap<Vec<Ticket>> = LongOpenHashMap::new();
-        if let Some(list) = root.get("tickets") {
-            let Tag::List(list) = list else {
-                return Err(format!("Not a list: {list}"));
-            };
-            for entry in list.iter() {
-                let entry = entry
-                    .as_compound()
-                    .ok_or_else(|| format!("Not a map: {entry}"))?;
-                let pos = match entry.get("chunk_pos") {
-                    Some(Tag::IntArray(ints)) if ints.len() == 2 => ChunkPos::new(ints[0], ints[1]),
-                    Some(Tag::IntArray(ints)) => {
-                        return Err(format!(
-                            "Input is not a list of 2 elements: {} elements",
-                            ints.len()
-                        ));
-                    }
-                    Some(_) => return Err("Not an int array".to_string()),
-                    None => return Err("No key chunk_pos in MapLike[...]".to_string()),
-                };
-                let ticket = Ticket::read_fields(entry)?;
-                deactivated
-                    .get_or_insert_with(pos.pack(), || Vec::with_capacity(4))
-                    .push(ticket);
-            }
+        for (pos, ticket) in packed {
+            deactivated
+                .get_or_insert_with(pos.pack(), || Vec::with_capacity(4))
+                .push(ticket);
         }
-        Ok(Self::with_tickets(
-            LongOpenHashMap::with_expected(4),
-            deactivated,
-        ))
+        Self::with_tickets(LongOpenHashMap::with_expected(4), deactivated)
+    }
+
+    /// `TicketStorage.CODEC`: `{tickets: [{chunk_pos: [I;x,z], type, level, ticks_left?}, ...]}`.
+    pub fn codec() -> Codec<TicketStorage> {
+        let chunk_pos = INT_STREAM.comap_flat_map(
+            |ints| fixed_size_ints(ints, 2).map(|v| ChunkPos::new(v[0], v[1])),
+            |pos: &ChunkPos| vec![pos.x, pos.z],
+        );
+        let entry = chunk_pos
+            .field_of("chunk_pos")
+            .map_pair(&Ticket::codec())
+            .codec();
+        mc_dfu::record!(Packed {
+            // `optionalFieldOf("tickets", List.of())`: the default is omitted
+            tickets: entry.list_of().optional_field_of("tickets").xmap(
+                |tickets| tickets.unwrap_or_default(),
+                |tickets: &Vec<(ChunkPos, Ticket)>| {
+                    (!tickets.is_empty()).then(|| tickets.clone())
+                },
+            ),
+        })
+        .codec()
+        .xmap(
+            |p| TicketStorage::from_packed(p.tickets),
+            |storage: &TicketStorage| Packed {
+                tickets: storage.pack_tickets(),
+            },
+        )
     }
 
     // ---------------------------------------------------------------- queries
@@ -473,18 +460,17 @@ fn is_ticket_same_type_and_level(ticket: &Ticket, t: &Ticket) -> bool {
 
 crate::impl_saved_data!(TicketStorage);
 
+/// The serialized shape of [`TicketStorage`].
+struct Packed {
+    tickets: Vec<(ChunkPos, Ticket)>,
+}
+
 /// `TicketStorage.TYPE` (`chunk_tickets`).
-#[expect(
-    clippy::result_large_err,
-    reason = "`Partial<T>` carries the partial value of `DataResult.error(msg, partial)` inline, shared by every saved-data decoder"
-)]
 pub fn saved_data_type() -> crate::world::level::saveddata::SavedDataType<TicketStorage> {
-    use crate::util::codec::Partial;
-    crate::world::level::saveddata::SavedDataType::new(
+    crate::world::level::saveddata::SavedDataType::from_codec(
         mc_core::ident::Identifier::parse("minecraft:chunk_tickets").expect("valid id"),
         TicketStorage::new,
-        |tag| TicketStorage::from_tag(tag).map_err(Partial::from),
-        |storage| Ok(storage.to_tag()),
+        TicketStorage::codec(),
         mc_datafix::DataFixTypes::SAVED_DATA_FORCED_CHUNKS,
     )
 }
@@ -507,6 +493,12 @@ impl TicketStorage {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::world::level::saveddata::encode_codec;
+    use mc_nbt::Tag;
+
+    fn to_tag(storage: &TicketStorage) -> Tag {
+        encode_codec(&TicketStorage::codec(), storage).expect("encodes")
+    }
 
     /// The saved copy lists the tickets in the order of the live storage's tables, as vanilla writes the live instance.
     #[test]
@@ -521,7 +513,7 @@ mod tests {
             }
         }
         live.deactivate_tickets_on_closing();
-        assert_eq!(live.snapshot_for_saving().to_tag(), live.to_tag());
+        assert_eq!(to_tag(&live.snapshot_for_saving()), to_tag(&live));
     }
 
     /// `ticks_left` and `chunk_pos` share a `HashMap` bucket: vanilla's encoder puts the ticket's fields first.
@@ -529,7 +521,7 @@ mod tests {
     fn ticket_keys_are_written_in_vanilla_order() {
         let mut live = TicketStorage::new();
         live.add_ticket(Ticket::new(TicketType::PORTAL, 31), ChunkPos::new(1, 2));
-        let tag = live.to_tag();
+        let tag = to_tag(&live);
         let tickets = tag.as_compound().unwrap().get_list("tickets").unwrap();
         let entry = tickets.get_compound(0).unwrap();
         let keys: Vec<_> = entry

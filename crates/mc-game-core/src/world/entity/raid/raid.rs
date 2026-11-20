@@ -13,7 +13,6 @@ use crate::server::level::ServerLevel;
 use crate::server::level::server_boss_event::ServerBossEvent;
 use crate::server::network::ConnectionSender;
 use crate::stats::stats::Stats;
-use crate::util::codec::{self, DataResult, DecodeResult};
 use crate::util::java_hash_order::JavaHashCapacity;
 use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::equipment::EquipmentSlot;
@@ -28,14 +27,14 @@ use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::{self, LegacyRandomSource, RandomSource};
-use mc_core::uuid_util::{java_hash_code, uuid_from_int_array, uuid_to_int_array};
+use mc_core::uuid_util::java_hash_code;
 use mc_data::block::Block;
 use mc_data::enums::EntitySpawnReason;
 use mc_data::{DataComponentType, EntityType, Item, SoundEvent};
-use mc_nbt::{CompoundTag, ListTag, Tag};
+use mc_dfu::{BOOL, Codec, FLOAT, INT, LONG, MapCodec, string_enum_codec};
 use mc_protocol::components::{
     BANNER_PATTERNS, BannerPatternLayer, BannerPatternLayers, DataComponentPatch, DyeColor, Holder,
-    ITEM_NAME, RARITY, Rarity, TOOLTIP_DISPLAY, TooltipDisplay,
+    ITEM_NAME, RARITY, Rarity, TOOLTIP_DISPLAY, TooltipDisplay, block_pos_codec, uuid_codec,
 };
 use mc_protocol::packets::play::{ClientboundSoundPacket, SoundEventHolder, SoundSource};
 use mc_text::Component;
@@ -79,24 +78,16 @@ pub enum RaidStatus {
 }
 
 impl RaidStatus {
-    pub fn get_serialized_name(self) -> &'static str {
-        match self {
-            RaidStatus::Ongoing => "ongoing",
-            RaidStatus::Victory => "victory",
-            RaidStatus::Loss => "loss",
-            RaidStatus::Stopped => "stopped",
-        }
-    }
+    const NAMES: &'static [(RaidStatus, &'static str)] = &[
+        (RaidStatus::Ongoing, "ongoing"),
+        (RaidStatus::Victory, "victory"),
+        (RaidStatus::Loss, "loss"),
+        (RaidStatus::Stopped, "stopped"),
+    ];
 
-    fn by_name(name: &str) -> Option<RaidStatus> {
-        [
-            RaidStatus::Ongoing,
-            RaidStatus::Victory,
-            RaidStatus::Loss,
-            RaidStatus::Stopped,
-        ]
-        .into_iter()
-        .find(|s| s.get_serialized_name() == name)
+    /// `RaidStatus.CODEC` (`StringRepresentable.fromEnum`).
+    pub fn codec() -> Codec<RaidStatus> {
+        string_enum_codec(Self::NAMES)
     }
 }
 
@@ -1254,59 +1245,58 @@ impl Raid {
 
     // ---- saved data (`Raid.MAP_CODEC`) -------------------------------------------------------------------------
 
-    /// `Raid.MAP_CODEC` decode (the fields of the raid are the record's, flat in `map`).
-    #[expect(
-        clippy::result_large_err,
-        reason = "`DecodeResult` returns the partially decoded value as the error, like DFU's partial result"
-    )]
-    pub fn decode(map: &CompoundTag) -> DecodeResult<Raid> {
-        let started = codec::boolean(codec::field(map, "started")?)?;
-        let active = codec::boolean(codec::field(map, "active")?)?;
-        let ticks_active = codec::long(codec::field(map, "ticks_active")?)?;
-        let raid_omen_level = codec::int(codec::field(map, "raid_omen_level")?)?;
-        let groups_spawned = codec::int(codec::field(map, "groups_spawned")?)?;
-        let raid_cooldown_ticks = codec::int(codec::field(map, "cooldown_ticks")?)?;
-        let post_raid_ticks = codec::int(codec::field(map, "post_raid_ticks")?)?;
-        let total_health = codec::float(codec::field(map, "total_health")?)?;
-        let num_groups = codec::int(codec::field(map, "group_count")?)?;
-        let status_name = codec::string(codec::field(map, "status")?)?;
-        let status = RaidStatus::by_name(status_name)
-            .ok_or_else(|| format!("Unknown element name:{status_name}"))?;
-        let center = decode_block_pos(codec::field(map, "center")?)?;
-        // `UUIDUtil.CODEC_SET`: a list element that is no UUID is dropped and makes the raid a partial result
-        let mut heroes: Vec<Uuid> = Vec::new();
-        let mut hero_error = None;
-        for tag in codec::list(codec::field(map, "heroes_of_the_village")?)? {
-            match decode_uuid(&tag) {
-                Ok(uuid) => heroes.push(uuid),
-                Err(e) => {
-                    hero_error.get_or_insert(e);
+    /// `Raid.MAP_CODEC` (the fields of the raid are the record's, flat in the map).
+    pub fn map_codec() -> MapCodec<Raid> {
+        mc_dfu::record!(PackedRaid {
+            started: BOOL.field_of("started"),
+            active: BOOL.field_of("active"),
+            ticks_active: LONG.field_of("ticks_active"),
+            raid_omen_level: INT.field_of("raid_omen_level"),
+            groups_spawned: INT.field_of("groups_spawned"),
+            raid_cooldown_ticks: INT.field_of("cooldown_ticks"),
+            post_raid_ticks: INT.field_of("post_raid_ticks"),
+            total_health: FLOAT.field_of("total_health"),
+            num_groups: INT.field_of("group_count"),
+            status: RaidStatus::codec().field_of("status"),
+            center: block_pos_codec().field_of("center"),
+            // `UUIDUtil.CODEC_SET`: a list element that is no UUID is dropped and makes the raid a partial result
+            heroes: uuid_codec().list_of().field_of("heroes_of_the_village"),
+        })
+        .xmap(
+            |packed| {
+                let mut random = random::create_new();
+                let event_id = mth::create_insecure_uuid(&mut random);
+                let mut raid = Raid::blank(packed.center, event_id, random);
+                raid.started = packed.started;
+                raid.active = packed.active;
+                raid.ticks_active = packed.ticks_active;
+                raid.raid_omen_level = packed.raid_omen_level;
+                raid.groups_spawned = packed.groups_spawned;
+                raid.raid_cooldown_ticks = packed.raid_cooldown_ticks;
+                raid.post_raid_ticks = packed.post_raid_ticks;
+                raid.total_health = packed.total_health;
+                raid.num_groups = packed.num_groups;
+                raid.status = packed.status;
+                for hero in packed.heroes {
+                    raid.add_hero_of_the_village_uuid(hero);
                 }
-            }
-        }
-        let mut random = random::create_new();
-        let event_id = mth::create_insecure_uuid(&mut random);
-        let mut raid = Raid::blank(center, event_id, random);
-        raid.started = started;
-        raid.active = active;
-        raid.ticks_active = ticks_active;
-        raid.raid_omen_level = raid_omen_level;
-        raid.groups_spawned = groups_spawned;
-        raid.raid_cooldown_ticks = raid_cooldown_ticks;
-        raid.post_raid_ticks = post_raid_ticks;
-        raid.total_health = total_health;
-        raid.num_groups = num_groups;
-        raid.status = status;
-        for h in heroes {
-            raid.add_hero_of_the_village_uuid(h);
-        }
-        match hero_error {
-            None => Ok(raid),
-            Some(error) => Err(codec::Partial {
-                value: Some(raid),
-                error,
-            }),
-        }
+                raid
+            },
+            |raid: &Raid| PackedRaid {
+                started: raid.started,
+                active: raid.active,
+                ticks_active: raid.ticks_active,
+                raid_omen_level: raid.raid_omen_level,
+                groups_spawned: raid.groups_spawned,
+                raid_cooldown_ticks: raid.raid_cooldown_ticks,
+                post_raid_ticks: raid.post_raid_ticks,
+                total_health: raid.total_health,
+                num_groups: raid.num_groups,
+                status: raid.status,
+                center: raid.center,
+                heroes: raid.ordered_heroes(),
+            },
+        )
     }
 
     fn add_hero_of_the_village_uuid(&mut self, uuid: Uuid) {
@@ -1316,29 +1306,22 @@ impl Raid {
                 .grow_to_fit(self.heroes_of_the_village.len());
         }
     }
+}
 
-    /// `Raid.MAP_CODEC` encode into `out`.
-    pub fn encode_into(&self, out: &mut CompoundTag) {
-        out.put_boolean("started", self.started);
-        out.put_boolean("active", self.active);
-        out.put_long("ticks_active", self.ticks_active);
-        out.put_int("raid_omen_level", self.raid_omen_level);
-        out.put_int("groups_spawned", self.groups_spawned);
-        out.put_int("cooldown_ticks", self.raid_cooldown_ticks);
-        out.put_int("post_raid_ticks", self.post_raid_ticks);
-        out.put_float("total_health", self.total_health);
-        out.put_int("group_count", self.num_groups);
-        out.put_string("status", self.status.get_serialized_name());
-        out.put_int_array(
-            "center",
-            vec![self.center.x(), self.center.y(), self.center.z()],
-        );
-        let mut heroes = ListTag::new();
-        for h in self.ordered_heroes() {
-            heroes.push(Tag::IntArray(uuid_to_int_array(&h).to_vec()));
-        }
-        out.put("heroes_of_the_village", heroes);
-    }
+/// The serialized shape of [`Raid`].
+pub(super) struct PackedRaid {
+    started: bool,
+    active: bool,
+    ticks_active: i64,
+    raid_omen_level: i32,
+    groups_spawned: i32,
+    raid_cooldown_ticks: i32,
+    post_raid_ticks: i32,
+    total_health: f32,
+    num_groups: i32,
+    status: RaidStatus,
+    center: BlockPos,
+    heroes: Vec<Uuid>,
 }
 
 /// A raider as `removeFromRaid` needs it: its entity id, `getWave()` and `getHealth()`.
@@ -1351,22 +1334,6 @@ pub struct RaiderToken {
 
 fn movement_has_chunks_at(level: &ServerLevel, x0: i32, z0: i32, x1: i32, z1: i32) -> bool {
     crate::world::entity::movement::MovementLevel::has_chunks_at(level, x0, z0, x1, z1)
-}
-
-/// `BlockPos.CODEC` (an int array of 3).
-pub(super) fn decode_block_pos(tag: &Tag) -> DataResult<BlockPos> {
-    match tag {
-        Tag::IntArray(v) if v.len() == 3 => Ok(BlockPos::new(v[0], v[1], v[2])),
-        _ => Err("Failed to decode BlockPos".to_string()),
-    }
-}
-
-/// `UUIDUtil.CODEC` (an int array of 4).
-fn decode_uuid(tag: &Tag) -> DataResult<Uuid> {
-    match tag {
-        Tag::IntArray(v) if v.len() == 4 => Ok(uuid_from_int_array([v[0], v[1], v[2], v[3]])),
-        _ => Err("Expected an int array of 4".to_string()),
-    }
 }
 
 #[cfg(test)]

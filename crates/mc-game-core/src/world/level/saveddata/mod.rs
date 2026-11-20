@@ -9,4 +9,6 @@ pub mod wandering_trader_data;
 pub mod weather_data;
 pub mod world_border;
 
-pub use manager::{PendingSave, SavedData, SavedDataManager, SavedDataType};
+pub use manager::{
+    PendingSave, SavedData, SavedDataManager, SavedDataType, decode_codec, encode_codec,
+};

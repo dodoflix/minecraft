@@ -68,7 +68,7 @@ fn every_saved_data_type_has_the_fix_type_of_vanilla() {
     let mut ours = vec![
         pair(CustomBossEvents::type_()),
         pair(TimerQueue::<Ctx>::type_()),
-        pair(ServerClockManager::type_()),
+        pair(ServerClockManager::type_(&[])),
         pair(raids_type().clone()),
         pair(ender_dragon_fight_type().clone()),
         pair(GameRuleMap::type_()),

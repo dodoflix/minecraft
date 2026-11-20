@@ -4,7 +4,6 @@ use super::map_decoration::{MapDecoration, MapDecorationType, by_name, track_cou
 use super::map_markers::{MapBanner, MapFrame};
 use crate::impl_saved_data;
 use crate::server::players::java_hash_map::JavaHashMap;
-use crate::util::codec::{self, DataResult, DecodeResult};
 use crate::world::entity::EntityId;
 use crate::world::item::ItemStack;
 use crate::world::level::saveddata::{SavedData, SavedDataType};
@@ -12,7 +11,8 @@ use crate::world::level::{BlockGetter, DimensionKey};
 use indexmap::IndexMap;
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
-use mc_nbt::{CompoundTag, ListTag, Tag};
+use mc_dfu::extra::IDENTIFIER;
+use mc_dfu::{BOOL, BYTE, BYTE_BUFFER, Codec, INT};
 use mc_protocol::components::{MapDecorations, MapId};
 use mc_protocol::packets::play::{ClientboundMapItemDataPacket, MapItemSavedDataMapPatch};
 use mc_text::Component;
@@ -700,57 +700,63 @@ impl MapItemSavedData {
         self.unlimited_tracking
     }
 
-    /// `MapItemSavedData.CODEC` decode.
-    #[expect(
-        clippy::result_large_err,
-        reason = "`Partial<T>` carries the partial value of `DataResult.error(msg, partial)` inline, shared by every saved-data decoder"
-    )]
-    pub fn decode(tag: &Tag) -> DecodeResult<MapItemSavedData> {
-        let m = codec::compound(tag)?;
-        let dimension = codec::identifier(codec::field(m, "dimension")?)?;
-        let center_x = codec::int(codec::field(m, "xCenter")?)?;
-        let center_z = codec::int(codec::field(m, "zCenter")?)?;
-        let scale = codec::optional(m, "scale", |t| codec::int(t).map(|v| v as i8))?.unwrap_or(0);
-        let colors: Vec<u8> = match codec::field(m, "colors")? {
-            Tag::ByteArray(v) => v.iter().map(|&b| b as u8).collect(),
-            other => codec::list(other)?
-                .iter()
-                .map(|t| codec::int(t).map(|v| v as u8))
-                .collect::<DataResult<_>>()?,
-        };
-        let tracking_position =
-            codec::optional(m, "trackingPosition", codec::boolean)?.unwrap_or(true);
-        let unlimited_tracking =
-            codec::optional(m, "unlimitedTracking", codec::boolean)?.unwrap_or(false);
-        let locked = codec::optional(m, "locked", codec::boolean)?.unwrap_or(false);
-        let banners = match m.get("banners") {
-            Some(t) => codec::list(t)?
-                .iter()
-                .map(MapBanner::decode)
-                .collect::<DataResult<Vec<_>>>()?,
-            None => Vec::new(),
-        };
-        let frames = match m.get("frames") {
-            Some(t) => codec::list(t)?
-                .iter()
-                .map(MapFrame::decode)
-                .collect::<DataResult<Vec<_>>>()?,
-            None => Vec::new(),
-        };
+    /// `MapItemSavedData.CODEC`.
+    pub fn codec() -> Codec<MapItemSavedData> {
+        static CODEC: std::sync::LazyLock<Codec<MapItemSavedData>> =
+            std::sync::LazyLock::new(MapItemSavedData::build_codec);
+        CODEC.clone()
+    }
 
+    fn build_codec() -> Codec<MapItemSavedData> {
+        mc_dfu::record!(Packed {
+            dimension: IDENTIFIER.field_of("dimension"),
+            x_center: INT.field_of("xCenter"),
+            z_center: INT.field_of("zCenter"),
+            scale: BYTE.optional_field_of_default("scale", 0),
+            colors: BYTE_BUFFER.field_of("colors"),
+            tracking_position: BOOL.optional_field_of_default("trackingPosition", true),
+            unlimited_tracking: BOOL.optional_field_of_default("unlimitedTracking", false),
+            locked: BOOL.optional_field_of_default("locked", false),
+            banners: MapBanner::codec()
+                .list_of()
+                .optional_field_of_default("banners", Vec::new()),
+            frames: MapFrame::codec()
+                .list_of()
+                .optional_field_of_default("frames", Vec::new()),
+        })
+        .codec()
+        .xmap(MapItemSavedData::from_packed, |m: &MapItemSavedData| {
+            Packed {
+                dimension: m.dimension.clone(),
+                x_center: m.center_x,
+                z_center: m.center_z,
+                scale: m.scale,
+                colors: m.colors.iter().map(|&b| b as i8).collect(),
+                tracking_position: m.tracking_position,
+                unlimited_tracking: m.unlimited_tracking,
+                locked: m.locked,
+                banners: m.banner_markers.values().cloned().collect(),
+                frames: m.frame_markers.values().cloned().collect(),
+            }
+        })
+    }
+
+    /// The constructor `MapItemSavedData.CODEC` applies: the scale is clamped, a colors array of another size is ignored,
+    /// banners and frames become markers and decorations.
+    fn from_packed(packed: Packed) -> MapItemSavedData {
         let mut data = Self::raw(
-            center_x,
-            center_z,
-            i32::from(scale).clamp(0, 4) as i8,
-            tracking_position,
-            unlimited_tracking,
-            locked,
-            dimension,
+            packed.x_center,
+            packed.z_center,
+            i32::from(packed.scale).clamp(0, 4) as i8,
+            packed.tracking_position,
+            packed.unlimited_tracking,
+            packed.locked,
+            packed.dimension,
         );
-        if colors.len() == MAP_SIZE * MAP_SIZE {
-            data.colors = colors;
+        if packed.colors.len() == MAP_SIZE * MAP_SIZE {
+            data.colors = packed.colors.iter().map(|&b| b as u8).collect();
         }
-        for banner in banners {
+        for banner in packed.banners {
             data.banner_markers.insert(banner.get_id(), banner.clone());
             data.add_decoration(
                 banner.get_decoration(),
@@ -762,7 +768,7 @@ impl MapItemSavedData {
                 banner.name.clone(),
             );
         }
-        for frame in frames {
+        for frame in packed.frames {
             data.frame_markers.insert(frame.get_id(), frame.clone());
             data.add_decoration(
                 by_name("frame"),
@@ -774,53 +780,30 @@ impl MapItemSavedData {
                 None,
             );
         }
-        Ok(data)
-    }
-
-    /// `MapItemSavedData.CODEC` encode.
-    pub fn encode(&self) -> DataResult<Tag> {
-        let mut m = CompoundTag::new();
-        m.put_string("dimension", self.dimension.to_string());
-        m.put_int("xCenter", self.center_x);
-        m.put_int("zCenter", self.center_z);
-        if self.scale != 0 {
-            m.put_byte("scale", self.scale);
-        }
-        m.put_byte_array("colors", self.colors.iter().map(|&b| b as i8).collect());
-        if !self.tracking_position {
-            m.put_boolean("trackingPosition", false);
-        }
-        if self.unlimited_tracking {
-            m.put_boolean("unlimitedTracking", true);
-        }
-        if self.locked {
-            m.put_boolean("locked", true);
-        }
-        if !self.banner_markers.is_empty() {
-            let mut list = ListTag::new();
-            for banner in self.banner_markers.values() {
-                list.push(banner.encode()?);
-            }
-            m.put("banners", Tag::List(list));
-        }
-        if !self.frame_markers.is_empty() {
-            let mut list = ListTag::new();
-            for frame in self.frame_markers.values() {
-                list.push(frame.encode());
-            }
-            m.put("frames", Tag::List(list));
-        }
-        Ok(Tag::Compound(m))
+        data
     }
 
     /// `MapItemSavedData.type(id)`.
     pub fn type_(id: MapId) -> SavedDataType<MapItemSavedData> {
-        SavedDataType::new(
+        SavedDataType::from_codec(
             Identifier::parse(&format!("minecraft:maps/{}", id.0)).expect("valid id"),
             || panic!("Should never create an empty map saved data"),
-            MapItemSavedData::decode,
-            MapItemSavedData::encode,
+            MapItemSavedData::codec(),
             mc_datafix::DataFixTypes::SAVED_DATA_MAP_DATA,
         )
     }
+}
+
+/// The serialized shape of [`MapItemSavedData`].
+struct Packed {
+    dimension: Identifier,
+    x_center: i32,
+    z_center: i32,
+    scale: i8,
+    colors: Vec<i8>,
+    tracking_position: bool,
+    unlimited_tracking: bool,
+    locked: bool,
+    banners: Vec<MapBanner>,
+    frames: Vec<MapFrame>,
 }

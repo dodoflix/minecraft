@@ -11,7 +11,7 @@ use mc_datafix::DataFixTypes;
 use mc_nbt::{CompoundTag, Tag};
 use mc_world::level_storage::{SavedDataStorage, create_directories_safe, write_compressed};
 
-use crate::util::codec::{DataResult, DecodeResult};
+use crate::util::codec::{DataResult, DecodeResult, Partial};
 
 /// `SavedData`: an object with a dirty flag that the storage persists. Implementors keep the flag themselves
 /// (vanilla's base class field) because their mutators call `setDirty()`; use `impl_saved_data!` for the plumbing.
@@ -70,6 +70,42 @@ impl<T: SavedData> SavedDataType<T> {
             encode: Arc::new(encode),
             data_fix_type,
         }
+    }
+}
+
+/// `codec.parse(NbtOps, tag)` as the reader sees it: the value, or the message with the partial value
+/// (`resultOrPartial`).
+pub fn decode_codec<T: 'static>(codec: &mc_dfu::Codec<T>, tag: &Tag) -> DecodeResult<T> {
+    match mc_dfu::parse_nbt(codec, tag) {
+        mc_dfu::DataResult::Success(value) => Ok(value),
+        mc_dfu::DataResult::Error { message, partial } => Err(Partial {
+            value: partial,
+            error: message.get(),
+        }),
+    }
+}
+
+/// `codec.encodeStart(NbtOps, value)`.
+pub fn encode_codec<T: 'static>(codec: &mc_dfu::Codec<T>, value: &T) -> DataResult<Tag> {
+    mc_dfu::encode_nbt(codec, value).into_result()
+}
+
+impl<T: SavedData> SavedDataType<T> {
+    /// A type whose `data` tag is read and written by one codec (`new SavedDataType<>(id, constructor, codec, fixType)`).
+    pub fn from_codec(
+        id: Identifier,
+        constructor: impl Fn() -> T + Send + Sync + 'static,
+        codec: mc_dfu::Codec<T>,
+        data_fix_type: DataFixTypes,
+    ) -> Self {
+        let decoder = codec.clone();
+        SavedDataType::new(
+            id,
+            constructor,
+            move |tag| decode_codec(&decoder, tag),
+            move |value| encode_codec(&codec, value),
+            data_fix_type,
+        )
     }
 }
 

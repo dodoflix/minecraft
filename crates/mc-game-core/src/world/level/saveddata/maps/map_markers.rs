@@ -2,36 +2,16 @@
 
 use super::map_decoration::{MapDecorationType, banner_decoration};
 use crate::impl_saved_data;
-use crate::util::codec::{self, DataResult, DecodeResult};
 use crate::world::block_entity::BlockEntity;
 use crate::world::level::BlockGetter;
 use crate::world::level::saveddata::{SavedData, SavedDataType};
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
 use mc_data::BlockEntityType;
-use mc_nbt::{CompoundTag, Tag};
-use mc_protocol::components::DyeColor;
+use mc_dfu::{Codec, INT};
+use mc_nbt::CompoundTag;
+use mc_protocol::components::{DyeColor, block_pos_codec, component_codec};
 use mc_text::Component;
-
-/// `BlockPos.CODEC` (an int array of three) as a tag.
-pub fn block_pos_to_tag(pos: BlockPos) -> Tag {
-    Tag::IntArray(vec![pos.x(), pos.y(), pos.z()])
-}
-
-/// `BlockPos.CODEC`.
-pub fn block_pos_from_tag(tag: &Tag) -> DataResult<BlockPos> {
-    let ints = codec::list(tag)?
-        .iter()
-        .map(codec::int)
-        .collect::<DataResult<Vec<_>>>()?;
-    match ints[..] {
-        [x, y, z] => Ok(BlockPos::new(x, y, z)),
-        _ => Err(format!(
-            "Input is not a list of 3 ints: {} elements",
-            ints.len()
-        )),
-    }
-}
 
 /// `MapBanner`.
 #[derive(Clone, Debug, PartialEq)]
@@ -71,29 +51,14 @@ impl MapBanner {
         format!("banner-{},{},{}", self.pos.x(), self.pos.y(), self.pos.z())
     }
 
-    pub fn decode(tag: &Tag) -> DataResult<MapBanner> {
-        let m = codec::compound(tag)?;
-        let pos = block_pos_from_tag(codec::field(m, "pos")?)?;
-        // `lenientOptionalFieldOf`: an unreadable value counts as absent.
-        let color = m
-            .get("color")
-            .and_then(|t| t.as_string())
-            .and_then(DyeColor::from_name)
-            .unwrap_or(DyeColor::White);
-        let name = m.get("name").and_then(|t| Component::from_nbt(t).ok());
-        Ok(MapBanner { pos, color, name })
-    }
-
-    pub fn encode(&self) -> DataResult<Tag> {
-        let mut m = CompoundTag::new();
-        m.put("pos", block_pos_to_tag(self.pos));
-        if self.color != DyeColor::White {
-            m.put_string("color", self.color.name());
-        }
-        if let Some(name) = &self.name {
-            m.put("name", name.to_nbt().map_err(|e| format!("{e:?}"))?);
-        }
-        Ok(Tag::Compound(m))
+    /// `MapBanner.CODEC`.
+    pub fn codec() -> Codec<MapBanner> {
+        mc_dfu::record!(MapBanner {
+            pos: block_pos_codec().field_of("pos"),
+            color: DyeColor::codec().lenient_optional_field_of_default("color", DyeColor::White),
+            name: component_codec().lenient_optional_field_of("name"),
+        })
+        .codec()
     }
 }
 
@@ -123,21 +88,14 @@ impl MapFrame {
         format!("frame-{},{},{}", pos.x(), pos.y(), pos.z())
     }
 
-    pub fn decode(tag: &Tag) -> DataResult<MapFrame> {
-        let m = codec::compound(tag)?;
-        Ok(MapFrame {
-            pos: block_pos_from_tag(codec::field(m, "pos")?)?,
-            rotation: codec::int(codec::field(m, "rotation")?)?,
-            entity_id: codec::int(codec::field(m, "entity_id")?)?,
+    /// `MapFrame.CODEC`.
+    pub fn codec() -> Codec<MapFrame> {
+        mc_dfu::record!(MapFrame {
+            pos: block_pos_codec().field_of("pos"),
+            rotation: INT.field_of("rotation"),
+            entity_id: INT.field_of("entity_id"),
         })
-    }
-
-    pub fn encode(&self) -> Tag {
-        let mut m = CompoundTag::new();
-        m.put("pos", block_pos_to_tag(self.pos));
-        m.put_int("rotation", self.rotation);
-        m.put_int("entity_id", self.entity_id);
-        Tag::Compound(m)
+        .codec()
     }
 }
 
@@ -168,40 +126,39 @@ impl MapIndex {
         id
     }
 
-    pub fn decode(tag: &Tag) -> DecodeResult<MapIndex> {
-        let m = codec::compound(tag)?;
-        let mut errors = Vec::new();
-        let index = MapIndex {
-            dirty: false,
-            last_map_id: codec::optional_or_default(m, "map", &mut errors, codec::int)
-                .unwrap_or(-1),
-        };
-        if errors.is_empty() {
-            Ok(index)
-        } else {
-            Err(codec::Partial {
-                value: Some(index),
-                error: errors.join("; "),
-            })
-        }
+    /// `MapIndex.CODEC`.
+    pub fn codec() -> Codec<MapIndex> {
+        static CODEC: std::sync::LazyLock<Codec<MapIndex>> =
+            std::sync::LazyLock::new(MapIndex::build_codec);
+        CODEC.clone()
     }
 
-    pub fn encode(&self) -> DataResult<Tag> {
-        let mut m = CompoundTag::new();
-        if self.last_map_id != -1 {
-            m.put_int("map", self.last_map_id);
-        }
-        Ok(Tag::Compound(m))
+    fn build_codec() -> Codec<MapIndex> {
+        mc_dfu::record!(Packed {
+            map: INT.optional_field_of_default("map", -1),
+        })
+        .codec()
+        .xmap(
+            |p| MapIndex {
+                dirty: false,
+                last_map_id: p.map,
+            },
+            |i: &MapIndex| Packed { map: i.last_map_id },
+        )
     }
 
     /// `MapIndex.TYPE`.
     pub fn type_() -> SavedDataType<MapIndex> {
-        SavedDataType::new(
+        SavedDataType::from_codec(
             Identifier::parse("minecraft:maps/last_id").expect("static id"),
             MapIndex::default,
-            MapIndex::decode,
-            MapIndex::encode,
+            MapIndex::codec(),
             mc_datafix::DataFixTypes::SAVED_DATA_MAP_INDEX,
         )
     }
+}
+
+/// The serialized shape of [`MapIndex`].
+struct Packed {
+    map: i32,
 }

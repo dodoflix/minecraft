@@ -1,11 +1,14 @@
 //! `WanderingTraderData` (`data/minecraft/wandering_trader.dat`).
 
-use mc_core::ident::Identifier;
-use mc_nbt::{CompoundTag, Tag};
+use std::sync::LazyLock;
 
-use super::{SavedData, SavedDataType};
+use mc_core::ident::Identifier;
+use mc_dfu::INT;
+use mc_nbt::Tag;
+
+use super::{SavedData, SavedDataType, decode_codec};
 use crate::impl_saved_data;
-use crate::util::codec::{self, DataResult, DecodeResult};
+use crate::util::codec::DecodeResult;
 
 #[derive(Debug, Clone)]
 pub struct WanderingTraderData {
@@ -50,35 +53,43 @@ impl WanderingTraderData {
         }
     }
 
-    pub fn decode(tag: &Tag) -> DecodeResult<WanderingTraderData> {
-        let m = codec::compound(tag)?;
-        Ok(WanderingTraderData::new(
-            codec::optional(m, "spawn_delay", codec::int)?.unwrap_or(24000),
-            codec::optional(m, "spawn_chance", codec::int)?.unwrap_or(25),
-        ))
+    /// `WanderingTraderData.CODEC`.
+    pub fn codec() -> mc_dfu::Codec<WanderingTraderData> {
+        static CODEC: LazyLock<mc_dfu::Codec<WanderingTraderData>> = LazyLock::new(|| {
+            mc_dfu::record!(Packed {
+                spawn_delay: INT.optional_field_of_default("spawn_delay", 24000),
+                spawn_chance: INT.optional_field_of_default("spawn_chance", 25),
+            })
+            .codec()
+            .xmap(
+                |p| WanderingTraderData::new(p.spawn_delay, p.spawn_chance),
+                |d: &WanderingTraderData| Packed {
+                    spawn_delay: d.spawn_delay,
+                    spawn_chance: d.spawn_chance,
+                },
+            )
+        });
+        CODEC.clone()
     }
 
-    pub fn encode(&self) -> DataResult<Tag> {
-        let mut m = CompoundTag::new();
-        // `optionalFieldOf(name, default)` omits a value equal to its default.
-        if self.spawn_delay != 24000 {
-            m.put_int("spawn_delay", self.spawn_delay);
-        }
-        if self.spawn_chance != 25 {
-            m.put_int("spawn_chance", self.spawn_chance);
-        }
-        Ok(Tag::Compound(m))
+    pub fn decode(tag: &Tag) -> DecodeResult<WanderingTraderData> {
+        decode_codec(&WanderingTraderData::codec(), tag)
     }
 
     pub fn type_() -> SavedDataType<WanderingTraderData> {
-        SavedDataType::new(
+        SavedDataType::from_codec(
             Identifier::parse("minecraft:wandering_trader").expect("static id"),
             WanderingTraderData::default,
-            WanderingTraderData::decode,
-            WanderingTraderData::encode,
+            WanderingTraderData::codec(),
             mc_datafix::DataFixTypes::SAVED_DATA_WANDERING_TRADER,
         )
     }
+}
+
+/// The serialized shape of [`WanderingTraderData`].
+struct Packed {
+    spawn_delay: i32,
+    spawn_chance: i32,
 }
 
 #[cfg(test)]

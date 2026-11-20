@@ -950,8 +950,22 @@ impl<A: 'static> MapCodec<A> {
         )
     }
 
-    /// `Codec.mapPair(this, other)`.
+    /// Two map codecs side by side that write `self`'s fields first (the order of a record group).
     pub fn pair<B: 'static>(&self, second: &MapCodec<B>) -> MapCodec<(A, B)> {
+        self.pair_in_order(second, false)
+    }
+
+    /// `Codec.mapPair(this, other)`: `PairMapCodec.encode` writes `first.encode(a, second.encode(b, prefix))`, so the
+    /// second codec's fields go in first.
+    pub fn map_pair<B: 'static>(&self, second: &MapCodec<B>) -> MapCodec<(A, B)> {
+        self.pair_in_order(second, true)
+    }
+
+    fn pair_in_order<B: 'static>(
+        &self,
+        second: &MapCodec<B>,
+        second_first: bool,
+    ) -> MapCodec<(A, B)> {
         let (f1, s1, f2, s2, k1, k2) = (
             self.clone(),
             second.clone(),
@@ -962,8 +976,13 @@ impl<A: 'static> MapCodec<A> {
         );
         MapCodec::from_fns(
             move |ops, (a, b): &(A, B), builder| {
-                f1.encode(ops, a, builder);
-                s1.encode(ops, b, builder);
+                if second_first {
+                    s1.encode(ops, b, builder);
+                    f1.encode(ops, a, builder);
+                } else {
+                    f1.encode(ops, a, builder);
+                    s1.encode(ops, b, builder);
+                }
             },
             move |ops, m| {
                 f2.decode(ops, m)

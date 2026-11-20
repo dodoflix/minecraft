@@ -9,8 +9,10 @@ use indexmap::IndexMap;
 use mc_core::ident::Identifier;
 use mc_core::math::mth::{clamp_f32, create_insecure_uuid};
 use mc_core::random::RandomSource;
-use mc_core::uuid_util::{uuid_from_int_array, uuid_to_int_array};
-use mc_nbt::{CompoundTag, ListTag, Tag};
+use mc_dfu::extra::IDENTIFIER;
+use mc_dfu::{BOOL, Codec, INT, string_resolver};
+use mc_nbt::Tag;
+use mc_protocol::components::{component_codec, uuid_codec};
 use mc_protocol::packets::play as wire;
 use mc_text::util::wrap_in_square_brackets;
 use mc_text::{ChatFormatting, Component, HoverEvent};
@@ -18,9 +20,9 @@ use uuid::Uuid;
 
 use crate::server::players::player_handle::PlayerHandle;
 
-use crate::util::codec::{self, DataResult, DecodeResult};
+use crate::util::codec::{DataResult, DecodeResult};
 use crate::util::java_hash_order::JavaHashCapacity;
-use crate::world::level::saveddata::{SavedData, SavedDataType};
+use crate::world::level::saveddata::{SavedData, SavedDataType, decode_codec, encode_codec};
 
 /// `BossEvent.BossBarColor`.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -64,6 +66,14 @@ impl BossBarColor {
     pub fn by_name(name: &str) -> Option<BossBarColor> {
         Self::ALL.into_iter().find(|c| c.get_name() == name)
     }
+
+    /// `BossBarColor.CODEC` (`StringRepresentable.fromEnum`).
+    pub fn codec() -> Codec<BossBarColor> {
+        string_resolver(
+            |c: &BossBarColor| Some(c.get_name().to_string()),
+            BossBarColor::by_name,
+        )
+    }
 }
 
 /// `BossEvent.BossBarOverlay`.
@@ -98,11 +108,14 @@ impl BossBarOverlay {
     pub fn by_name(name: &str) -> Option<BossBarOverlay> {
         Self::ALL.into_iter().find(|c| c.get_name() == name)
     }
-}
 
-fn enum_by_name<T>(tag: &Tag, f: fn(&str) -> Option<T>) -> DataResult<T> {
-    let s = codec::string(tag)?;
-    f(s).ok_or_else(|| format!("Unknown element name:{s}"))
+    /// `BossBarOverlay.CODEC` (`StringRepresentable.fromEnum`).
+    pub fn codec() -> Codec<BossBarOverlay> {
+        string_resolver(
+            |c: &BossBarOverlay| Some(c.get_name().to_string()),
+            BossBarOverlay::by_name,
+        )
+    }
 }
 
 /// `CustomBossEvent.Packed`.
@@ -122,99 +135,26 @@ pub struct PackedBossEvent {
 
 impl PackedBossEvent {
     /// `Packed.CODEC`: a bad optional field takes its default and makes the result partial; a bad `Name` has no partial.
-    #[expect(
-        clippy::result_large_err,
-        reason = "`DecodeResult` returns the partially decoded value as the error, like DFU's partial result"
-    )]
-    fn decode(tag: &Tag) -> DecodeResult<PackedBossEvent> {
-        let m = codec::compound(tag)?;
-        let name = Component::from_nbt(codec::field(m, "Name")?).map_err(|e| e.to_string())?;
-        let mut errors = Vec::new();
-        let e = &mut errors;
-        let mut packed = PackedBossEvent {
-            name,
-            visible: codec::optional_or_default(m, "Visible", e, codec::boolean).unwrap_or(false),
-            value: codec::optional_or_default(m, "Value", e, codec::int).unwrap_or(0),
-            max: codec::optional_or_default(m, "Max", e, codec::int).unwrap_or(100),
-            color: codec::optional_or_default(m, "Color", e, |t| {
-                enum_by_name(t, BossBarColor::by_name)
-            })
-            .unwrap_or(BossBarColor::White),
-            overlay: codec::optional_or_default(m, "Overlay", e, |t| {
-                enum_by_name(t, BossBarOverlay::by_name)
-            })
-            .unwrap_or(BossBarOverlay::Progress),
-            darken_screen: codec::optional_or_default(m, "DarkenScreen", e, codec::boolean)
-                .unwrap_or(false),
-            play_boss_music: codec::optional_or_default(m, "PlayBossMusic", e, codec::boolean)
-                .unwrap_or(false),
-            create_world_fog: codec::optional_or_default(m, "CreateWorldFog", e, codec::boolean)
-                .unwrap_or(false),
-            players: Default::default(),
-        };
-        // `UUIDUtil.CODEC_SET`: a list element that is no UUID is dropped (partial list)
-        if let Some(t) = m.get("Players") {
-            match codec::list(t) {
-                Ok(items) => {
-                    for item in &items {
-                        match item {
-                            Tag::IntArray(a) if a.len() == 4 => {
-                                packed
-                                    .players
-                                    .insert(uuid_from_int_array([a[0], a[1], a[2], a[3]]));
-                            }
-                            _ => errors.push("Expected an int array of length 4".to_string()),
-                        }
-                    }
-                }
-                Err(error) => errors.push(error),
-            }
-        }
-        if errors.is_empty() {
-            Ok(packed)
-        } else {
-            Err(codec::Partial {
-                value: Some(packed),
-                error: errors.join("; "),
-            })
-        }
-    }
-
-    fn encode(&self) -> DataResult<Tag> {
-        let mut m = CompoundTag::new();
-        m.put("Name", self.name.to_nbt().map_err(|e| e.to_string())?);
-        if self.visible {
-            m.put_boolean("Visible", true);
-        }
-        if self.value != 0 {
-            m.put_int("Value", self.value);
-        }
-        if self.max != 100 {
-            m.put_int("Max", self.max);
-        }
-        if self.color != BossBarColor::White {
-            m.put_string("Color", self.color.get_name());
-        }
-        if self.overlay != BossBarOverlay::Progress {
-            m.put_string("Overlay", self.overlay.get_name());
-        }
-        if self.darken_screen {
-            m.put_boolean("DarkenScreen", true);
-        }
-        if self.play_boss_music {
-            m.put_boolean("PlayBossMusic", true);
-        }
-        if self.create_world_fog {
-            m.put_boolean("CreateWorldFog", true);
-        }
-        if !self.players.is_empty() {
-            let mut list = ListTag::new();
-            for p in &self.players {
-                list.push(Tag::IntArray(uuid_to_int_array(p).to_vec()));
-            }
-            m.put("Players", list);
-        }
-        Ok(Tag::Compound(m))
+    fn codec() -> Codec<PackedBossEvent> {
+        // `UUIDUtil.CODEC_SET`
+        let players = uuid_codec().list_of().xmap(
+            |list| list.into_iter().collect::<BTreeSet<Uuid>>(),
+            |set: &BTreeSet<Uuid>| set.iter().copied().collect::<Vec<_>>(),
+        );
+        mc_dfu::record!(PackedBossEvent {
+            name: component_codec().field_of("Name"),
+            visible: BOOL.optional_field_of_default("Visible", false),
+            value: INT.optional_field_of_default("Value", 0),
+            max: INT.optional_field_of_default("Max", 100),
+            color: BossBarColor::codec().optional_field_of_default("Color", BossBarColor::White),
+            overlay: BossBarOverlay::codec()
+                .optional_field_of_default("Overlay", BossBarOverlay::Progress),
+            darken_screen: BOOL.optional_field_of_default("DarkenScreen", false),
+            play_boss_music: BOOL.optional_field_of_default("PlayBossMusic", false),
+            create_world_fog: BOOL.optional_field_of_default("CreateWorldFog", false),
+            players: players.optional_field_of_default("Players", BTreeSet::new()),
+        })
+        .codec()
     }
 }
 
@@ -688,6 +628,11 @@ impl CustomBossEvents {
             .collect()
     }
 
+    /// `CustomBossEvents.CODEC`'s map: the packed events by id.
+    fn packed_codec() -> Codec<Vec<(Identifier, PackedBossEvent)>> {
+        IDENTIFIER.unbounded_map(&PackedBossEvent::codec())
+    }
+
     fn decode(tag: &Tag) -> DecodeResult<CustomBossEvents> {
         CustomBossEvents::decode_with(tag, &mut |_| Uuid::new_v4())
     }
@@ -697,9 +642,8 @@ impl CustomBossEvents {
         tag: &Tag,
         bar_uuid: &mut dyn FnMut(&Identifier) -> Uuid,
     ) -> DecodeResult<CustomBossEvents> {
-        let entries =
-            codec::unbounded_map_hash_order(tag, Identifier::read, PackedBossEvent::decode);
-        codec::map_decoded(entries, |entries| {
+        let entries = decode_codec(&CustomBossEvents::packed_codec(), tag);
+        crate::util::codec::map_decoded(entries, |entries| {
             let events: IndexMap<Identifier, CustomBossEvent> = entries
                 .into_iter()
                 .map(|(id, packed)| {
@@ -718,11 +662,12 @@ impl CustomBossEvents {
     }
 
     fn encode(&self) -> DataResult<Tag> {
-        let mut m = CompoundTag::new();
-        for (id, e) in &self.events {
-            m.put(id.to_string(), e.pack().encode()?);
-        }
-        Ok(Tag::Compound(m))
+        let packed: Vec<(Identifier, PackedBossEvent)> = self
+            .events
+            .iter()
+            .map(|(id, e)| (id.clone(), e.pack()))
+            .collect();
+        encode_codec(&CustomBossEvents::packed_codec(), &packed)
     }
 
     /// `CustomBossEvents.TYPE`.

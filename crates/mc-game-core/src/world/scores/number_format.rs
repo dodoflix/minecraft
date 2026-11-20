@@ -1,10 +1,12 @@
 //! `net.minecraft.network.chat.numbers`: `NumberFormat` (`BlankFormat`, `FixedFormat`, `StyledFormat`) and its
 //! registry-dispatched NBT codec (`{type: "minecraft:fixed", ...}`).
 
-use mc_nbt::{CompoundTag, Tag};
+use mc_core::ident::Identifier;
+use mc_dfu::extra::IDENTIFIER;
+use mc_dfu::{Codec, DataResult, Dyn, MapCodec, NBT};
+use mc_nbt::Tag;
+use mc_protocol::components::component_codec;
 use mc_text::{ChatFormatting, Component, Style};
-
-use crate::util::codec::{self, DataResult};
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum NumberFormat {
@@ -49,42 +51,75 @@ impl NumberFormat {
         }
     }
 
-    /// `NumberFormatTypes.CODEC` decode.
-    pub fn decode(tag: &Tag) -> DataResult<NumberFormat> {
-        let m = codec::compound(tag)?;
-        let ty = codec::identifier(codec::field(m, "type")?)?;
-        match ty.to_string().as_str() {
-            "minecraft:blank" => Ok(NumberFormat::Blank),
-            "minecraft:fixed" => {
-                let value = codec::field(m, "value")?;
-                Component::from_nbt(value)
-                    .map(NumberFormat::Fixed)
-                    .map_err(|e| e.to_string())
-            }
-            "minecraft:styled" => Style::from_nbt(tag)
-                .map(NumberFormat::Styled)
-                .map_err(|e| e.to_string()),
-            _ => Err(format!(
-                "Unknown registry key in ResourceKey[minecraft:root / minecraft:number_format_type]: {ty}"
-            )),
-        }
-    }
-
-    /// `NumberFormatTypes.CODEC` encode.
-    pub fn encode(&self) -> DataResult<Tag> {
-        let mut m = match self {
-            NumberFormat::Blank => CompoundTag::new(),
-            NumberFormat::Fixed(c) => {
-                CompoundTag::new().with("value", c.to_nbt().map_err(|e| e.to_string())?)
-            }
-            NumberFormat::Styled(style) => match style.to_nbt().map_err(|e| e.to_string())? {
-                Tag::Compound(c) => c,
-                other => return Err(format!("Not a map: {other}")),
+    /// `NumberFormatTypes.CODEC`: the registered type under `type`, the fields of the format beside it.
+    pub fn codec() -> Codec<NumberFormat> {
+        let kind = IDENTIFIER.flat_xmap(
+            |id| match id.to_string().as_str() {
+                "minecraft:blank" | "minecraft:fixed" | "minecraft:styled" => DataResult::success(id),
+                _ => DataResult::error(move || {
+                    format!(
+                        "Unknown registry key in ResourceKey[minecraft:root / minecraft:number_format_type]: {id}"
+                    )
+                }),
             },
-        };
-        m.put("type", Tag::String(self.type_id().to_string().into()));
-        Ok(Tag::Compound(m))
+            |id: &Identifier| DataResult::success(id.clone()),
+        );
+        kind.dispatch_map(
+            "type",
+            |format: &NumberFormat| Identifier::parse(format.type_id()).expect("static id"),
+            |kind| match kind.path() {
+                "blank" => MapCodec::unit(NumberFormat::Blank),
+                "fixed" => component_codec().field_of("value").xmap(
+                    NumberFormat::Fixed,
+                    |format: &NumberFormat| match format {
+                        NumberFormat::Fixed(value) => value.clone(),
+                        _ => Component::empty(),
+                    },
+                ),
+                _ => styled_codec(),
+            },
+        )
+        .codec()
     }
+}
+
+/// `StyledFormat.MAP_CODEC`: the style fields of the surrounding map.
+fn styled_codec() -> MapCodec<NumberFormat> {
+    MapCodec::from_fns(
+        |_, format: &NumberFormat, builder| {
+            if let NumberFormat::Styled(style) = format {
+                match style.to_nbt() {
+                    Ok(Tag::Compound(fields)) => {
+                        for (key, value) in fields.iter() {
+                            builder.add(key.as_lossy_str(), Dyn::from(value));
+                        }
+                    }
+                    Ok(_) => {}
+                    Err(e) => {
+                        let message = e.to_string();
+                        builder.add_result("style", DataResult::error(move || message.clone()));
+                    }
+                }
+            }
+        },
+        |ops, input| {
+            let map = ops.create_map(input.entries().to_vec());
+            match ops.convert_to(&NBT, &map).to_tag() {
+                Ok(tag) => match Style::from_nbt(&tag) {
+                    Ok(style) => DataResult::success(NumberFormat::Styled(style)),
+                    Err(e) => {
+                        let message = e.to_string();
+                        DataResult::error(move || message.clone())
+                    }
+                },
+                Err(e) => {
+                    let message = e.to_string();
+                    DataResult::error(move || message.clone())
+                }
+            }
+        },
+        Vec::new,
+    )
 }
 
 #[cfg(test)]
@@ -109,8 +144,17 @@ mod tests {
             ),
         ] {
             let tag = mc_nbt::snbt::parse(snbt).unwrap();
-            assert_eq!(NumberFormat::decode(&tag).unwrap(), f, "{snbt}");
-            assert_eq!(f.encode().unwrap(), tag, "{snbt}");
+            let codec = NumberFormat::codec();
+            assert_eq!(
+                mc_dfu::parse_nbt(&codec, &tag).into_result().unwrap(),
+                f,
+                "{snbt}"
+            );
+            assert_eq!(
+                mc_dfu::encode_nbt(&codec, &f).into_result().unwrap(),
+                tag,
+                "{snbt}"
+            );
         }
         assert_eq!(NumberFormat::Blank.format(5).get_string(), "");
         assert_eq!(
@@ -124,8 +168,11 @@ mod tests {
             "-7"
         );
         assert!(
-            NumberFormat::decode(&mc_nbt::snbt::parse("{type:\"minecraft:nope\"}").unwrap())
-                .is_err()
+            mc_dfu::parse_nbt(
+                &NumberFormat::codec(),
+                &mc_nbt::snbt::parse("{type:\"minecraft:nope\"}").unwrap()
+            )
+            .is_error()
         );
     }
 }

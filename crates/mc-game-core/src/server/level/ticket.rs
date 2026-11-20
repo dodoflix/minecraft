@@ -1,6 +1,7 @@
 //! `Ticket` + `TicketType`.
 use mc_core::ident::Identifier;
-use mc_nbt::CompoundTag;
+use mc_dfu::extra::{IDENTIFIER, NON_NEGATIVE_INT};
+use mc_dfu::{DataResult, LONG, MapCodec};
 
 /// `TicketType(timeout, flags)`; the registered instances are the associated constants (`TicketType.PLAYER_SPAWN`, ...).
 #[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
@@ -147,49 +148,26 @@ impl Ticket {
     }
 
     /// `Ticket.CODEC` (the `type`/`level`/`ticks_left` fields of a persisted ticket entry).
-    pub fn write_fields(&self, tag: &mut CompoundTag) {
-        tag.put_string("type", format!("minecraft:{}", self.ty.name));
-        tag.put_int("level", self.ticket_level);
-        // `optionalFieldOf("ticks_left", 0L)`: the default is omitted.
-        if self.ticks_left != 0 {
-            tag.put_long("ticks_left", self.ticks_left);
-        }
-    }
-
-    /// Decode the ticket fields; `Err` carries the codec error text.
-    pub fn read_fields(tag: &CompoundTag) -> Result<Ticket, String> {
-        let ty_name = tag
-            .get_string("type")
-            .ok_or_else(|| "No key type in MapLike[...]".to_string())?;
-        let ty = Identifier::try_parse(ty_name)
-            .and_then(|id| TicketType::by_name(&id))
-            .ok_or_else(|| {
-                format!("Unknown registry key in ResourceKey[minecraft:ticket_type]: {ty_name}")
-            })?;
-        let level = match tag.get("level") {
-            Some(t) => match t.as_number() {
-                Some(n) => {
-                    let l = n.boxed_int_value();
-                    if l < 0 {
-                        return Err(format!("Value must be non-negative: {l}"));
-                    }
-                    l
-                }
-                None => return Err("Not a number".to_string()),
+    pub fn codec() -> MapCodec<Ticket> {
+        let ticket_type = IDENTIFIER.flat_xmap(
+            |id| match TicketType::by_name(&id) {
+                Some(ty) => DataResult::success(ty),
+                None => DataResult::error(move || {
+                    format!(
+                        "Unknown registry key in ResourceKey[minecraft:root / minecraft:ticket_type]: {id}"
+                    )
+                }),
             },
-            None => return Err("No key level in MapLike[...]".to_string()),
-        };
-        let ticks_left = match tag.get("ticks_left") {
-            Some(t) => t
-                .as_number()
-                .ok_or_else(|| "Not a number".to_string())?
-                .boxed_long_value(),
-            None => 0,
-        };
-        Ok(Ticket {
-            ty,
-            ticket_level: level,
-            ticks_left,
+            |ty: &TicketType| {
+                DataResult::success(
+                    Identifier::parse(&format!("minecraft:{}", ty.name)).expect("valid id"),
+                )
+            },
+        );
+        mc_dfu::record!(Ticket {
+            ty: ticket_type.field_of("type"),
+            ticket_level: NON_NEGATIVE_INT.field_of("level"),
+            ticks_left: LONG.optional_field_of_default("ticks_left", 0),
         })
     }
 }

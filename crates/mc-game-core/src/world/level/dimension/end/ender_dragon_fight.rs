@@ -6,7 +6,6 @@ use crate::impl_saved_data;
 use crate::server::bossevents::{BossBarColor, BossBarOverlay};
 use crate::server::level::server_boss_event::ServerBossEvent;
 use crate::server::level::{FullChunkStatus, ServerLevel, TicketType};
-use crate::util::codec::{self, DataResult, DecodeResult};
 use crate::world::damagesource::DamageSource;
 use crate::world::entity::boss::end_crystal::EndCrystal;
 use crate::world::entity::boss::ender_dragon::{EnderDragon, EnderDragonPhase};
@@ -23,11 +22,12 @@ use mc_core::math::mth;
 use mc_core::phys::AABB;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_core::random::{RandomSource, create_thread_local_instance};
-use mc_core::uuid_util::{uuid_from_int_array, uuid_to_int_array};
 use mc_data::block::Block;
 use mc_data::enums::EntitySpawnReason;
 use mc_data::{BlockEntityType, EntityType};
-use mc_nbt::{CompoundTag, ListTag, Tag};
+use mc_dfu::extra::optional_always_present_field_of;
+use mc_dfu::{BOOL, Codec, INT, string_resolver};
+use mc_protocol::components::{block_pos_codec, uuid_codec};
 use mc_text::Component;
 use mc_world::heightmap::HeightmapType;
 use std::sync::LazyLock;
@@ -64,11 +64,10 @@ static EXIT_PORTAL_PATTERN: LazyLock<BlockPattern> = LazyLock::new(|| {
 });
 
 static TYPE: LazyLock<SavedDataType<EnderDragonFight>> = LazyLock::new(|| {
-    SavedDataType::new(
+    SavedDataType::from_codec(
         Identifier::parse("minecraft:ender_dragon_fight").expect("static id"),
         EnderDragonFight::create_default,
-        EnderDragonFight::decode,
-        EnderDragonFight::encode,
+        EnderDragonFight::codec(),
         mc_datafix::DataFixTypes::SAVED_DATA_ENDER_DRAGON_FIGHT,
     )
 });
@@ -152,81 +151,59 @@ impl EnderDragonFight {
         }
     }
 
-    /// `CODEC` decode.
-    #[expect(
-        clippy::result_large_err,
-        reason = "the saved data decoder signature is DecodeResult<T>, whose partial value is the fight itself"
-    )]
-    pub fn decode(tag: &Tag) -> DecodeResult<EnderDragonFight> {
-        let m = codec::compound(tag)?;
-        let respawn_stage = codec::optional(m, "respawn_stage", |t| {
-            let name = codec::string(t)?;
-            DragonRespawnStage::by_name(name).ok_or_else(|| format!("Unknown element name:{name}"))
-        })?;
-        let respawn_crystals = codec::optional(m, "respawn_crystals", |t| {
-            codec::list(t)?.iter().map(uuid_of).collect()
-        })?
-        .unwrap_or_default();
-        // `lenientOptionalFieldOf`: a present but invalid value reads as absent
-        let dragon_uuid = m.get("dragon_uuid").and_then(|t| uuid_of(t).ok());
-        let exit_portal_location = m
-            .get("exit_portal_location")
-            .and_then(|t| block_pos_of(t).ok());
-        let gateways = m
-            .get("gateways")
-            .and_then(|t| codec::list(t).ok())
-            .and_then(|l| {
-                l.iter()
-                    .map(codec::int)
-                    .collect::<DataResult<Vec<i32>>>()
-                    .ok()
-            })
-            .unwrap_or_default();
-        Ok(EnderDragonFight::new(
-            codec::optional(m, "needs_state_scanning", codec::boolean)?.unwrap_or(true),
-            codec::optional(m, "dragon_killed", codec::boolean)?.unwrap_or(false),
-            codec::optional(m, "previously_killed", codec::boolean)?.unwrap_or(false),
-            respawn_stage,
-            codec::optional(m, "respawn_time", codec::int)?.unwrap_or(0),
-            dragon_uuid,
-            exit_portal_location,
-            gateways,
-            respawn_crystals,
-        ))
-    }
-
-    /// `CODEC` encode.
-    pub fn encode(&self) -> DataResult<Tag> {
-        let mut m = CompoundTag::new();
-        m.put_boolean("needs_state_scanning", self.needs_state_scanning);
-        m.put_boolean("dragon_killed", self.dragon_killed);
-        m.put_boolean("previously_killed", self.has_previously_killed_dragon);
-        if let Some(stage) = self.respawn_stage {
-            m.put_string("respawn_stage", stage.get_serialized_name());
-        }
-        m.put_int("respawn_time", self.respawn_time);
-        if let Some(uuid) = self.dragon_uuid {
-            m.put_int_array("dragon_uuid", uuid_to_int_array(&uuid).to_vec());
-        }
-        if let Some(pos) = self.exit_portal_location {
-            m.put_int_array("exit_portal_location", vec![pos.x(), pos.y(), pos.z()]);
-        }
-        // `optionalFieldOf(name, default)` omits a value equal to its default (an empty list)
-        if !self.gateways.is_empty() {
-            let mut list = ListTag::new();
-            for &gateway in &self.gateways {
-                list.push(gateway);
-            }
-            m.put("gateways", list);
-        }
-        if !self.respawn_crystals.is_empty() {
-            let mut list = ListTag::new();
-            for uuid in &self.respawn_crystals {
-                list.push(Tag::IntArray(uuid_to_int_array(uuid).to_vec()));
-            }
-            m.put("respawn_crystals", list);
-        }
-        Ok(Tag::Compound(m))
+    /// `CODEC`.
+    pub fn codec() -> Codec<EnderDragonFight> {
+        let respawn_stage = string_resolver(
+            |stage: &DragonRespawnStage| Some(stage.get_serialized_name().to_string()),
+            DragonRespawnStage::by_name,
+        );
+        mc_dfu::record!(PackedFight {
+            needs_state_scanning: optional_always_present_field_of(
+                &BOOL,
+                "needs_state_scanning",
+                true
+            ),
+            dragon_killed: optional_always_present_field_of(&BOOL, "dragon_killed", false),
+            previously_killed: optional_always_present_field_of(&BOOL, "previously_killed", false),
+            respawn_stage: respawn_stage.optional_field_of("respawn_stage"),
+            respawn_time: optional_always_present_field_of(&INT, "respawn_time", 0),
+            dragon_uuid: uuid_codec().lenient_optional_field_of("dragon_uuid"),
+            exit_portal_location: block_pos_codec()
+                .lenient_optional_field_of("exit_portal_location"),
+            gateways: INT
+                .list_of()
+                .lenient_optional_field_of_default("gateways", Vec::new()),
+            respawn_crystals: uuid_codec()
+                .list_of()
+                .optional_field_of_default("respawn_crystals", Vec::new()),
+        })
+        .codec()
+        .xmap(
+            |p| {
+                EnderDragonFight::new(
+                    p.needs_state_scanning,
+                    p.dragon_killed,
+                    p.previously_killed,
+                    p.respawn_stage,
+                    p.respawn_time,
+                    p.dragon_uuid,
+                    p.exit_portal_location,
+                    p.gateways,
+                    p.respawn_crystals,
+                )
+            },
+            |f: &EnderDragonFight| PackedFight {
+                needs_state_scanning: f.needs_state_scanning,
+                dragon_killed: f.dragon_killed,
+                previously_killed: f.has_previously_killed_dragon,
+                respawn_stage: f.respawn_stage,
+                respawn_time: f.respawn_time,
+                dragon_uuid: f.dragon_uuid,
+                exit_portal_location: f.exit_portal_location,
+                gateways: f.gateways.clone(),
+                respawn_crystals: f.respawn_crystals.clone(),
+            },
+        )
     }
 
     /// `getPodiumLocation(offset)`: `END_PODIUM_LOCATION` is the zero position, so the podium is at the offset.
@@ -336,31 +313,17 @@ impl EnderDragonFight {
     }
 }
 
-/// `UUIDUtil.CODEC`: four ints (an int array or a list of ints), or the textual form.
-fn uuid_of(tag: &Tag) -> DataResult<Uuid> {
-    if let Some(text) = tag.as_string() {
-        return Uuid::parse_str(text).map_err(|e| format!("Invalid UUID {text}: {e}"));
-    }
-    match codec::list(tag)?
-        .iter()
-        .map(codec::int)
-        .collect::<DataResult<Vec<_>>>()?[..]
-    {
-        [a, b, c, d] => Ok(uuid_from_int_array([a, b, c, d])),
-        _ => Err("Expected an int stream of length 4".to_string()),
-    }
-}
-
-/// `BlockPos.CODEC`: three ints.
-fn block_pos_of(tag: &Tag) -> DataResult<BlockPos> {
-    match codec::list(tag)?
-        .iter()
-        .map(codec::int)
-        .collect::<DataResult<Vec<_>>>()?[..]
-    {
-        [x, y, z] => Ok(BlockPos::new(x, y, z)),
-        _ => Err("Expected an int stream of length 3".to_string()),
-    }
+/// The serialized shape of [`EnderDragonFight`].
+struct PackedFight {
+    needs_state_scanning: bool,
+    dragon_killed: bool,
+    previously_killed: bool,
+    respawn_stage: Option<DragonRespawnStage>,
+    respawn_time: i32,
+    dragon_uuid: Option<Uuid>,
+    exit_portal_location: Option<BlockPos>,
+    gateways: Vec<i32>,
+    respawn_crystals: Vec<Uuid>,
 }
 
 impl ServerLevel {
@@ -976,7 +939,20 @@ pub fn reset_spike_crystals(level: &mut ServerLevel) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use mc_nbt::NbtAccounter;
+    use crate::world::level::saveddata::{decode_codec, encode_codec};
+    use mc_nbt::{NbtAccounter, Tag};
+
+    #[expect(
+        clippy::result_large_err,
+        reason = "DecodeResult<T> carries the partial value by value (DataResult.error(msg, partial))"
+    )]
+    fn decode(tag: &Tag) -> crate::util::codec::DecodeResult<EnderDragonFight> {
+        decode_codec(&EnderDragonFight::codec(), tag)
+    }
+
+    fn encode(fight: &EnderDragonFight) -> Result<Tag, String> {
+        encode_codec(&EnderDragonFight::codec(), fight)
+    }
 
     /// The file a fresh vanilla server wrote for its End.
     fn vanilla_file() -> Tag {
@@ -989,12 +965,10 @@ mod tests {
     #[test]
     fn the_vanilla_file_decodes_and_encodes_to_itself() {
         let tag = vanilla_file();
-        let fight = EnderDragonFight::decode(&tag)
-            .map_err(|p| p.error)
-            .expect("the file decodes");
+        let fight = decode(&tag).map_err(|p| p.error).expect("the file decodes");
         assert!(fight.needs_state_scanning());
         assert_eq!(fight.gateways().len(), 20);
-        assert_eq!(fight.encode().expect("encodes"), tag);
+        assert_eq!(encode(&fight).expect("encodes"), tag);
     }
 
     #[test]
@@ -1011,10 +985,8 @@ mod tests {
             vec![5, 1, 9],
             vec![uuid],
         );
-        let tag = fight.encode().expect("encodes");
-        let back = EnderDragonFight::decode(&tag)
-            .map_err(|p| p.error)
-            .expect("decodes");
+        let tag = encode(&fight).expect("encodes");
+        let back = decode(&tag).map_err(|p| p.error).expect("decodes");
         assert!(!back.needs_state_scanning() && back.is_dragon_killed());
         assert!(back.has_previously_killed_dragon());
         assert_eq!(
@@ -1026,14 +998,12 @@ mod tests {
         assert_eq!(back.exit_portal_location(), Some(BlockPos::new(1, 2, 3)));
         assert_eq!(back.gateways(), [5, 1, 9]);
         assert_eq!(back.respawn_crystal_count(), 1);
-        assert_eq!(back.encode().expect("encodes"), tag);
+        assert_eq!(encode(&back).expect("encodes"), tag);
     }
 
     #[test]
     fn the_default_fight_writes_only_its_flags() {
-        let tag = EnderDragonFight::create_default()
-            .encode()
-            .expect("encodes");
+        let tag = encode(&EnderDragonFight::create_default()).expect("encodes");
         let tag = tag.as_compound().expect("compound");
         assert_eq!(tag.len(), 4);
         assert!(tag.get_boolean_or("needs_state_scanning", false));

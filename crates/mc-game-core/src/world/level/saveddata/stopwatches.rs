@@ -3,10 +3,10 @@
 use std::collections::{BTreeMap, HashMap};
 
 use mc_core::ident::Identifier;
-use mc_nbt::{CompoundTag, Tag};
+use mc_dfu::extra::IDENTIFIER;
+use mc_dfu::{Codec, LONG};
 
 use super::{SavedData, SavedDataType};
-use crate::util::codec::{self, DataResult, DecodeResult, map_decoded};
 use crate::util::util::get_millis;
 
 /// `net.minecraft.world.Stopwatch`.
@@ -119,35 +119,33 @@ impl Stopwatches {
             .collect()
     }
 
-    fn decode(tag: &Tag) -> DecodeResult<Stopwatches> {
-        let m = codec::compound(tag)?;
-        let map = codec::unbounded_map(
-            codec::field(m, "stopwatches")?,
-            Identifier::read,
-            codec::long,
-        );
-        map_decoded(map, |map| {
-            Stopwatches::unpack(map, Stopwatches::current_time())
+    /// `Stopwatches.CODEC`: `Codec.unboundedMap(Identifier.CODEC, Codec.LONG).fieldOf("stopwatches")`.
+    pub fn codec() -> Codec<Stopwatches> {
+        mc_dfu::record!(Packed {
+            stopwatches: IDENTIFIER.unbounded_map(&LONG).field_of("stopwatches"),
         })
-    }
-
-    fn encode(&self) -> DataResult<Tag> {
-        let mut inner = CompoundTag::new();
-        for (id, elapsed) in self.pack(Stopwatches::current_time()) {
-            inner.put(id.to_string(), Tag::Long(elapsed));
-        }
-        Ok(Tag::Compound(CompoundTag::new().with("stopwatches", inner)))
+        .codec()
+        .xmap(
+            |p| Stopwatches::unpack(p.stopwatches, Stopwatches::current_time()),
+            |s: &Stopwatches| Packed {
+                stopwatches: s.pack(Stopwatches::current_time()).into_iter().collect(),
+            },
+        )
     }
 
     pub fn type_() -> SavedDataType<Stopwatches> {
-        SavedDataType::new(
+        SavedDataType::from_codec(
             Identifier::parse("minecraft:stopwatches").expect("static id"),
             Stopwatches::default,
-            Stopwatches::decode,
-            Stopwatches::encode,
+            Stopwatches::codec(),
             mc_datafix::DataFixTypes::SAVED_DATA_STOPWATCHES,
         )
     }
+}
+
+/// The serialized shape of [`Stopwatches`].
+struct Packed {
+    stopwatches: Vec<(Identifier, i64)>,
 }
 
 #[cfg(test)]
@@ -189,7 +187,7 @@ mod tests {
         let sw = (ty.decode)(&mc_nbt::snbt::parse("{stopwatches:{\"a:b\":1500L}}").unwrap())
             .map_err(|e| e.error)
             .unwrap();
-        let Tag::Compound(c) = (ty.encode)(&sw).unwrap() else {
+        let mc_nbt::Tag::Compound(c) = (ty.encode)(&sw).unwrap() else {
             panic!()
         };
         let elapsed = c

@@ -3,11 +3,10 @@
 use indexmap::IndexMap;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
-use mc_nbt::Tag;
+use std::sync::Arc;
 
 use super::{ClockNetworkState, ClockState, ClockTimeMarker, PackedClockStates};
 use crate::impl_saved_data;
-use crate::util::codec::{DataResult, DecodeResult, map_decoded};
 use crate::util::java_hash_order::{JavaHashCapacity, registry_key_hash};
 use crate::world::level::saveddata::{SavedData, SavedDataType};
 
@@ -340,23 +339,16 @@ impl ServerClockManager {
             .map(|(id, _)| id)
     }
 
-    /// `TYPE` (`data/minecraft/world_clocks.dat`).
-    pub fn type_() -> SavedDataType<ServerClockManager> {
-        #[expect(
-            clippy::result_large_err,
-            reason = "DecodeResult<T> carries the partial value by value (DataResult.error(msg, partial)); the SavedDataType decode fn pointer fixes the signature"
-        )]
-        fn decode(tag: &Tag) -> DecodeResult<ServerClockManager> {
-            map_decoded(PackedClockStates::decode(tag), ServerClockManager::new)
-        }
-        fn encode(manager: &ServerClockManager) -> DataResult<Tag> {
-            Ok(manager.pack_state().encode())
-        }
-        SavedDataType::new(
+    /// `TYPE` (`data/minecraft/world_clocks.dat`); `known_clocks` are the entries of the `world_clock` registry.
+    pub fn type_(known_clocks: &[Identifier]) -> SavedDataType<ServerClockManager> {
+        let codec = PackedClockStates::codec(Arc::new(known_clocks.iter().cloned().collect()))
+            .xmap(ServerClockManager::new, |manager: &ServerClockManager| {
+                manager.pack_state()
+            });
+        SavedDataType::from_codec(
             Identifier::parse("minecraft:world_clocks").expect("static id"),
             ServerClockManager::default,
-            decode,
-            encode,
+            codec,
             mc_datafix::DataFixTypes::SAVED_DATA_WORLD_CLOCKS,
         )
     }
@@ -479,7 +471,7 @@ mod tests {
 
     #[test]
     fn saved_state_round_trip_and_init() {
-        let ty = ServerClockManager::type_();
+        let ty = ServerClockManager::type_(&[id("minecraft:overworld"), id("minecraft:the_end")]);
         let tag = mc_nbt::snbt::parse("{\"minecraft:overworld\":{total_ticks:1199L,rate:2.0f,paused:1b,partial_tick:0.5f},\"minecraft:the_end\":{total_ticks:5L}}").unwrap();
         let mut m = (ty.decode)(&tag).unwrap();
         m.init(

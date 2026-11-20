@@ -7,6 +7,7 @@ use mc_game::server::level::{ChunkTrackingView, FullChunkStatus};
 use mc_game::world::level::chunk::status::{
     GENERATION_PYRAMID, LOADING_PYRAMID, max_chunk_coordinate_value,
 };
+use mc_game::world::level::saveddata::{decode_codec, encode_codec};
 use mc_game::world::level::ticket_storage::TicketStorage;
 use mc_nbt::snbt;
 use mc_world::status::ChunkStatus;
@@ -135,15 +136,21 @@ fn ticket_storage_codec_matches_vanilla() {
     let mut dec = 0;
     for line in GOLDEN.lines() {
         if let Some(expected) = line.strip_prefix("ENC ") {
-            assert_eq!(ts.to_tag(), snbt::parse(expected).unwrap(), "encode");
+            assert_eq!(
+                encode_codec(&TicketStorage::codec(), &ts).unwrap(),
+                snbt::parse(expected).unwrap(),
+                "encode"
+            );
         } else if let Some(rest) = line.strip_prefix("DEC ") {
-            let parsed = TicketStorage::from_tag(&mc_nbt::Tag::Compound(
-                snbt::parse_compound(inputs[dec]).unwrap(),
-            ));
+            let parsed = decode_codec(
+                &TicketStorage::codec(),
+                &mc_nbt::Tag::Compound(snbt::parse_compound(inputs[dec]).unwrap()),
+            );
             if let Some(expected) = rest.strip_prefix("ok ") {
-                let storage = parsed.unwrap_or_else(|e| panic!("input {dec} should decode: {e}"));
+                let storage =
+                    parsed.unwrap_or_else(|e| panic!("input {dec} should decode: {}", e.error));
                 assert_eq!(
-                    storage.to_tag(),
+                    encode_codec(&TicketStorage::codec(), &storage).unwrap(),
                     snbt::parse(expected).unwrap(),
                     "decode+encode of input {dec}"
                 );

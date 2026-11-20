@@ -10,10 +10,9 @@ use mc_core::math::mth::{abs_max_f64, clamp_f64, lerp_f64};
 use mc_core::phys::shapes::{BooleanOp, Shapes, VoxelShape};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::{BlockPos, ChunkPos};
-use mc_nbt::{CompoundTag, Tag};
+use mc_dfu::{Codec, DOUBLE, INT, LONG, double_range};
 
 use super::{SavedData, SavedDataType};
-use crate::util::codec::{self, DecodeResult};
 
 /// `WorldBorder.MAX_SIZE` (`5.999997E7F` widened).
 pub const MAX_SIZE: f64 = 5.999997E7_f32 as f64;
@@ -87,44 +86,21 @@ impl Settings {
         lerp_target: 0.0,
     };
 
-    /// `Settings.CODEC` decode (`center_*` are `doubleRange(-2.9999984E7, 2.9999984E7)`; every field is required).
-    pub fn decode(tag: &Tag) -> codec::DataResult<Settings> {
-        let m = codec::compound(tag)?;
-        let center = |name: &str| -> codec::DataResult<f64> {
-            let v = codec::double(codec::field(m, name)?)?;
-            if (-MAX_CENTER_COORDINATE..=MAX_CENTER_COORDINATE).contains(&v) {
-                Ok(v)
-            } else {
-                Err(format!(
-                    "Value {v} outside of range [-2.9999984E7:2.9999984E7]"
-                ))
-            }
-        };
-        Ok(Settings {
-            center_x: center("center_x")?,
-            center_z: center("center_z")?,
-            damage_per_block: codec::double(codec::field(m, "damage_per_block")?)?,
-            safe_zone: codec::double(codec::field(m, "safe_zone")?)?,
-            warning_blocks: codec::int(codec::field(m, "warning_blocks")?)?,
-            warning_time: codec::int(codec::field(m, "warning_time")?)?,
-            size: codec::double(codec::field(m, "size")?)?,
-            lerp_time: codec::long(codec::field(m, "lerp_time")?)?,
-            lerp_target: codec::double(codec::field(m, "lerp_target")?)?,
+    /// `Settings.CODEC` (`center_*` are `doubleRange(-2.9999984E7, 2.9999984E7)`; every field is required).
+    pub fn codec() -> Codec<Settings> {
+        let center = double_range(-MAX_CENTER_COORDINATE, MAX_CENTER_COORDINATE);
+        mc_dfu::record!(Settings {
+            center_x: center.field_of("center_x"),
+            center_z: center.field_of("center_z"),
+            damage_per_block: DOUBLE.field_of("damage_per_block"),
+            safe_zone: DOUBLE.field_of("safe_zone"),
+            warning_blocks: INT.field_of("warning_blocks"),
+            warning_time: INT.field_of("warning_time"),
+            size: DOUBLE.field_of("size"),
+            lerp_time: LONG.field_of("lerp_time"),
+            lerp_target: DOUBLE.field_of("lerp_target"),
         })
-    }
-
-    pub fn encode(&self) -> Tag {
-        let mut m = CompoundTag::new();
-        m.put("center_x", Tag::double(self.center_x));
-        m.put("center_z", Tag::double(self.center_z));
-        m.put("damage_per_block", Tag::double(self.damage_per_block));
-        m.put("safe_zone", Tag::double(self.safe_zone));
-        m.put_int("warning_blocks", self.warning_blocks);
-        m.put_int("warning_time", self.warning_time);
-        m.put("size", Tag::double(self.size));
-        m.put_long("lerp_time", self.lerp_time);
-        m.put("lerp_target", Tag::double(self.lerp_target));
-        Tag::Compound(m)
+        .codec()
     }
 }
 
@@ -680,17 +656,25 @@ impl WorldBorder {
         }
     }
 
+    /// `WorldBorder.CODEC`.
+    pub fn codec() -> Codec<WorldBorder> {
+        static CODEC: std::sync::LazyLock<Codec<WorldBorder>> =
+            std::sync::LazyLock::new(WorldBorder::build_codec);
+        CODEC.clone()
+    }
+
+    fn build_codec() -> Codec<WorldBorder> {
+        Settings::codec().xmap(WorldBorder::new, |border: &WorldBorder| {
+            border.current_settings()
+        })
+    }
+
     /// `WorldBorder.TYPE` (`minecraft:world_border`).
-    #[expect(
-        clippy::result_large_err,
-        reason = "DecodeResult<T> carries the partial value by value (DataResult.error(msg, partial)); the SavedDataType decode fn pointer fixes the signature"
-    )]
     pub fn type_() -> SavedDataType<WorldBorder> {
-        SavedDataType::new(
+        SavedDataType::from_codec(
             Identifier::parse("minecraft:world_border").expect("static id"),
             WorldBorder::default,
-            |tag| -> DecodeResult<WorldBorder> { Ok(WorldBorder::new(Settings::decode(tag)?)) },
-            |border| Ok(border.current_settings().encode()),
+            WorldBorder::codec(),
             mc_datafix::DataFixTypes::SAVED_DATA_WORLD_BORDER,
         )
     }
@@ -718,6 +702,6 @@ mod tests {
             "{center_x:3.0E7d,center_z:0.0d,damage_per_block:0.2d,lerp_target:0.0d,lerp_time:0L,safe_zone:5.0d,size:100.0d,warning_blocks:5,warning_time:300}",
         )
         .unwrap();
-        assert!(Settings::decode(&bad).is_err());
+        assert!(mc_dfu::parse_nbt(&Settings::codec(), &bad).is_error());
     }
 }

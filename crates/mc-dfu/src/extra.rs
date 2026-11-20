@@ -473,3 +473,30 @@ pub fn java_hash_map_order<V>(entries: Vec<(String, V)>) -> Vec<(String, V)> {
         mc_core::java_collections::HASH_MAP_DEFAULT_CAPACITY,
     )
 }
+
+/// `Util.fixedSize(IntStream, size)`: exactly `size` ints; a longer stream is an error carrying the first `size`.
+pub fn fixed_size_ints(mut ints: Vec<i32>, size: usize) -> DataResult<Vec<i32>> {
+    if ints.len() == size {
+        DataResult::success(ints)
+    } else if ints.len() > size {
+        ints.truncate(size);
+        DataResult::error_partial(move || format!("Input is not a list of {size} ints"), ints)
+    } else {
+        DataResult::error(move || format!("Input is not a list of {size} ints"))
+    }
+}
+
+/// `Util.fixedSize(LongStream, size)`: exactly `size` longs; a longer stream is an error carrying the first `size`.
+pub fn fixed_size_longs(mut longs: Vec<i64>, size: usize) -> DataResult<Vec<i64>> {
+    if longs.len() == size {
+        DataResult::success(longs)
+    } else if longs.len() > size {
+        longs.truncate(size);
+        DataResult::error_partial(
+            move || format!("Input is not a list of {size} longs"),
+            longs,
+        )
+    } else {
+        DataResult::error(move || format!("Input is not a list of {size} longs"))
+    }
+}

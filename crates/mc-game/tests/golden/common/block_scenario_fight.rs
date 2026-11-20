@@ -6,6 +6,7 @@ use mc_core::pos::BlockPos;
 use mc_game::server::level::ServerLevel;
 use mc_game::world::level::BlockGetter;
 use mc_game::world::level::dimension::end::{self, EnderDragonFight};
+use mc_game::world::level::saveddata::encode_codec;
 use mc_world::level_storage::SavedDataStorage;
 
 /// `end fight`: the End level carries the fight (`ServerLevel`'s constructor creates it for a dimension type with `has_ender_dragon_fight`);
@@ -189,7 +190,8 @@ impl Scenario {
 
     /// `FIGHTFILE HEX`: the bytes of the `ender_dragon_fight.dat` the level would save (uncompressed NBT).
     fn fight_file(&mut self) -> String {
-        let data = fight(self.level()).encode().expect("the fight encodes");
+        let data = encode_codec(&EnderDragonFight::codec(), fight(self.level()))
+            .expect("the fight encodes");
         let bytes = mc_nbt::nbt_io::to_bytes(&SavedDataStorage::encode_file(data));
         format!(
             "FIGHTFILE {}",

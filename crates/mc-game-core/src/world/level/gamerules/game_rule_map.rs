@@ -2,12 +2,14 @@
 
 use mc_core::ident::Identifier;
 use mc_data::misc::GAME_RULE_DATA;
-use mc_nbt::{CompoundTag, Tag};
+use mc_dfu::extra::{IDENTIFIER, dispatched_map};
+use mc_dfu::{Codec, DataResult};
+use mc_nbt::Tag;
 
 use super::{AnyGameRule, GameRule, GameRuleValue, GameRuleValueType};
 use crate::impl_saved_data;
-use crate::util::codec::{self, DecodeResult, Partial};
-use crate::world::level::saveddata::{SavedData, SavedDataType};
+use crate::util::codec::DecodeResult;
+use crate::world::level::saveddata::{SavedData, SavedDataType, decode_codec};
 
 /// `GameRuleMap`: rule -> value for a subset of the registry. Iteration is registry order (vanilla's
 /// `Reference2ObjectOpenHashMap` order is identity-hash dependent and unobservable).
@@ -119,57 +121,53 @@ impl GameRuleMap {
         }
     }
 
-    /// `CODEC` decode (`Codec.dispatchedMap(GAME_RULE.byNameCodec(), GameRule::valueCodec)`): entries with an unknown
-    /// rule, a wrong type or an out-of-range value are dropped and reported as a partial result.
-    #[expect(
-        clippy::result_large_err,
-        reason = "DecodeResult<T> carries the partial value by value (DataResult.error(msg, partial)); the SavedDataType decode fn pointer fixes the signature"
-    )]
-    pub fn decode(tag: &Tag) -> DecodeResult<GameRuleMap> {
-        let m = codec::compound(tag)?;
-        let mut map = GameRuleMap::of_empty();
-        let mut errors = Vec::new();
-        for (key, value) in m.iter() {
-            let result = Identifier::read(key.as_lossy_str())
-                .and_then(|id| {
-                    AnyGameRule::by_identifier(&id)
-                        .ok_or_else(|| format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:game_rule]: {id}"))
-                })
-                .and_then(|rule| Ok((rule, rule.decode_value(value)?)));
-            match result {
-                Ok((rule, v)) => map.values[rule.registry_id()] = Some(v),
-                Err(e) => errors.push(format!("{e} missed input: {{{key:?}:{value}}}")),
-            }
-        }
-        if errors.is_empty() {
-            Ok(map)
-        } else {
-            Err(Partial {
-                value: Some(map),
-                error: errors.join("; "),
-            })
-        }
+    /// `CODEC` (`Codec.dispatchedMap(GAME_RULE.byNameCodec(), GameRule::valueCodec).xmap(ofTrusted, map)`): entries with
+    /// an unknown rule, a wrong type or an out-of-range value are dropped and reported as a partial result.
+    pub fn codec() -> Codec<GameRuleMap> {
+        let rule = IDENTIFIER.flat_xmap(
+            |id| match AnyGameRule::by_identifier(&id) {
+                Some(rule) => DataResult::success(rule),
+                None => DataResult::error(move || {
+                    format!(
+                        "Unknown registry key in ResourceKey[minecraft:root / minecraft:game_rule]: {id}"
+                    )
+                }),
+            },
+            |rule: &AnyGameRule| DataResult::success(rule.get_identifier()),
+        );
+        dispatched_map(&rule, |rule: &AnyGameRule| {
+            DataResult::success(rule.value_codec())
+        })
+        .xmap(
+            |entries| {
+                let mut map = GameRuleMap::of_empty();
+                for (rule, value) in entries {
+                    map.values[rule.registry_id()] = Some(value);
+                }
+                map
+            },
+            |map: &GameRuleMap| {
+                map.key_set()
+                    .map(|rule| (rule, map.get_value(rule).expect("key")))
+                    .collect()
+            },
+        )
     }
 
-    /// `CODEC` encode.
-    pub fn encode(&self) -> Tag {
-        let mut m = CompoundTag::new();
-        for rule in self.key_set() {
-            m.put(
-                rule.get_identifier().to_string(),
-                rule.encode_value(self.get_value(rule).expect("key")),
-            );
-        }
-        Tag::Compound(m)
+    #[expect(
+        clippy::result_large_err,
+        reason = "DecodeResult<T> carries the partial value by value (DataResult.error(msg, partial))"
+    )]
+    pub fn decode(tag: &Tag) -> DecodeResult<GameRuleMap> {
+        decode_codec(&GameRuleMap::codec(), tag)
     }
 
     /// `GameRuleMap.TYPE`.
     pub fn type_() -> SavedDataType<GameRuleMap> {
-        SavedDataType::new(
+        SavedDataType::from_codec(
             Identifier::parse("minecraft:game_rules").expect("static id"),
             GameRuleMap::of_empty,
-            GameRuleMap::decode,
-            |m| Ok(m.encode()),
+            GameRuleMap::codec(),
             mc_datafix::DataFixTypes::SAVED_DATA_GAME_RULES,
         )
     }

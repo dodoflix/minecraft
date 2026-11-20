@@ -21,6 +21,7 @@ use mc_game::world::level::saveddata::wandering_trader_data::WanderingTraderData
 use mc_game::world::level::saveddata::weather_data::WeatherData;
 use mc_game::world::level::saveddata::world_border::WorldBorder;
 use mc_game::world::level::saveddata::{SavedData, SavedDataType};
+use mc_game::world::level::saveddata::{decode_codec, encode_codec};
 use mc_game::world::level::ticket_storage;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use mc_world::level_storage::SavedDataStorage;
@@ -45,7 +46,11 @@ fn id(s: &str) -> Identifier {
 fn weather_and_wandering_trader() {
     let g = golden();
     assert_eq!(
-        WeatherData::new(1, 2, 3, true, false).encode().unwrap(),
+        encode_codec(
+            &WeatherData::codec(),
+            &WeatherData::new(1, 2, 3, true, false)
+        )
+        .unwrap(),
         snbt(&g, "weather")
     );
     assert_eq!(
@@ -56,15 +61,27 @@ fn weather_and_wandering_trader() {
         2
     );
     assert_eq!(
-        WanderingTraderData::default().encode().unwrap(),
+        encode_codec(
+            &WanderingTraderData::codec(),
+            &WanderingTraderData::default()
+        )
+        .unwrap(),
         snbt(&g, "wandering_default")
     );
     assert_eq!(
-        WanderingTraderData::new(1, 25).encode().unwrap(),
+        encode_codec(
+            &WanderingTraderData::codec(),
+            &WanderingTraderData::new(1, 25)
+        )
+        .unwrap(),
         snbt(&g, "wandering_delay")
     );
     assert_eq!(
-        WanderingTraderData::new(24000, 3).encode().unwrap(),
+        encode_codec(
+            &WanderingTraderData::codec(),
+            &WanderingTraderData::new(24000, 3)
+        )
+        .unwrap(),
         snbt(&g, "wandering_chance")
     );
     let back = WanderingTraderData::decode(&snbt(&g, "wandering_chance"))
@@ -143,7 +160,8 @@ fn random_sequences_partial_decode() {
 #[test]
 fn clock_state_codec() {
     let g = golden();
-    let enc = |c: ClockState| c.encode();
+    let enc = |c: ClockState| encode_codec(&ClockState::codec(), &c).unwrap();
+    let dec = |t: &mc_nbt::Tag| decode_codec(&ClockState::codec(), t);
     assert_eq!(
         enc(ClockState {
             total_ticks: 7,
@@ -171,16 +189,11 @@ fn clock_state_codec() {
         }),
         snbt(&g, "clock_neg_zero_partial")
     );
-    assert!(
-        ClockState::decode(&mc_nbt::snbt::parse("{total_ticks:1L,rate:0.0f}").unwrap()).is_err()
-    );
-    assert!(
-        ClockState::decode(&mc_nbt::snbt::parse("{total_ticks:1L,rate:-1.0f}").unwrap()).is_err()
-    );
-    let lenient = ClockState::decode(
-        &mc_nbt::snbt::parse("{total_ticks:3,paused:2b,partial_tick:1}").unwrap(),
-    )
-    .unwrap();
+    assert!(dec(&mc_nbt::snbt::parse("{total_ticks:1L,rate:0.0f}").unwrap()).is_err());
+    assert!(dec(&mc_nbt::snbt::parse("{total_ticks:1L,rate:-1.0f}").unwrap()).is_err());
+    let lenient = dec(&mc_nbt::snbt::parse("{total_ticks:3,paused:2b,partial_tick:1}").unwrap())
+        .map_err(|e| e.error)
+        .unwrap();
     assert_eq!(
         lenient,
         ClockState {

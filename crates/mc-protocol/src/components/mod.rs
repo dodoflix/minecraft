@@ -16,8 +16,8 @@ pub mod text_hooks;
 pub mod values;
 
 pub use common::{
-    DyeColor, Rarity, RegistrySet, SoundEvent, component_codec, custom_data_compound_tag_codec,
-    uuid_codec,
+    DyeColor, Rarity, RegistrySet, SoundEvent, component_codec, compound_tag_codec,
+    custom_data_compound_tag_codec, uuid_codec,
 };
 pub use component::{ComponentDef, ComponentKey, ComponentValue, Value};
 pub use hashed::{HashedPatchMap, HashedStack};

@@ -6,11 +6,11 @@ use mc_brigadier::arguments::{ArgumentType, BoolArgumentType, integer_range};
 use mc_brigadier::string_reader::{ImmutableStringReader, StringReader};
 use mc_core::ident::Identifier;
 use mc_data::misc::GAME_RULE_DATA;
-use mc_nbt::Tag;
+use mc_dfu::{BOOL, Codec, int_range};
 use mc_text::Component;
 use mc_world::level_storage::FeatureFlagSet;
 
-use crate::util::codec::{self, DataResult, Partial};
+use crate::util::codec::Partial;
 use crate::util::util::make_description_id;
 
 pub use mc_data::misc::GameRuleValue;
@@ -302,27 +302,19 @@ impl AnyGameRule {
         }
     }
 
-    /// `valueCodec().decode` on `NbtOps` (`Codec.BOOL`, `Codec.intRange(min, max)`).
-    pub fn decode_value(self, tag: &Tag) -> DataResult<GameRuleValue> {
+    /// `valueCodec()`: `Codec.BOOL` or `Codec.intRange(min, max)`.
+    pub fn value_codec(self) -> Codec<GameRuleValue> {
         match self.game_rule_type() {
-            GameRuleType::Bool => codec::boolean(tag).map(GameRuleValue::Bool),
+            GameRuleType::Bool => BOOL.xmap(GameRuleValue::Bool, |value: &GameRuleValue| {
+                matches!(value, GameRuleValue::Bool(true))
+            }),
             GameRuleType::Int => {
-                let v = codec::int(tag)?;
                 let (min, max) = self.int_range();
-                if (min..=max).contains(&v) {
-                    Ok(GameRuleValue::Int(v))
-                } else {
-                    Err(format!("Value {v} outside of range [{min}:{max}]"))
-                }
+                int_range(min, max).xmap(GameRuleValue::Int, |value: &GameRuleValue| match value {
+                    GameRuleValue::Int(i) => *i,
+                    GameRuleValue::Bool(_) => unreachable!("an int rule holds an int"),
+                })
             }
-        }
-    }
-
-    /// `valueCodec().encode`.
-    pub fn encode_value(self, value: GameRuleValue) -> Tag {
-        match value {
-            GameRuleValue::Bool(b) => Tag::from_bool(b),
-            GameRuleValue::Int(i) => Tag::Int(i),
         }
     }
 

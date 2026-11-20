@@ -2,8 +2,8 @@
 
 use mc_core::phys::AABB;
 use mc_core::pos::{BlockPos, ChunkPos};
-use mc_game::world::level::saveddata::SavedData;
 use mc_game::world::level::saveddata::world_border::{BorderStatus, Settings, WorldBorder};
+use mc_game::world::level::saveddata::{SavedData, encode_codec};
 
 fn d(v: f64) -> String {
     format!("{:x}", v.to_bits())
@@ -137,7 +137,7 @@ fn replay_matches_vanilla() {
         let ours = line(&b);
         assert_eq!(ours.trim_end(), head.trim_end(), "after `{op}`");
         assert_eq!(
-            b.current_settings().encode(),
+            encode_codec(&Settings::codec(), &b.current_settings()).unwrap(),
             mc_nbt::snbt::parse(snbt).unwrap(),
             "codec after `{op}`"
         );

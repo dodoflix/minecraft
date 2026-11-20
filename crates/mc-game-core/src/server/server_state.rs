@@ -31,10 +31,11 @@ pub struct SavedDataTypes {
 }
 
 impl SavedDataTypes {
-    pub fn new() -> Self {
+    /// `world_clocks` are the entries of the `world_clock` registry.
+    pub fn new(world_clocks: &[Identifier]) -> Self {
         Self {
             weather: WeatherData::type_(),
-            clocks: ServerClockManager::type_(),
+            clocks: ServerClockManager::type_(world_clocks),
             scoreboard: crate::world::scores::ScoreboardSaveData::type_(),
             custom_boss_events: super::bossevents::CustomBossEvents::type_(),
             random_sequences:
@@ -44,12 +45,6 @@ impl SavedDataTypes {
             wandering_trader:
                 crate::world::level::saveddata::wandering_trader_data::WanderingTraderData::type_(),
         }
-    }
-}
-
-impl Default for SavedDataTypes {
-    fn default() -> Self {
-        Self::new()
     }
 }
 

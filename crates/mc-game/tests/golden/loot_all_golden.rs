@@ -23,6 +23,8 @@ use mc_game::world::entity::living_entity::death;
 use mc_game::world::entity::projectile::fishing_hook::FishingHook;
 use mc_game::world::entity::{Entity, EntityId};
 use mc_game::world::item::ItemStack;
+use mc_game::world::level::saveddata::encode_codec;
+use mc_game::world::level::saveddata::random_sequences::RandomSequence;
 use mc_game::world::level::storage::loot::LootContextParamSets;
 use mc_game::world::level::storage::loot::LootParams;
 use mc_game::world::level::storage::loot::block_drops;
@@ -110,7 +112,7 @@ fn sequence_state(level: &ServerLevel, key: &Identifier) -> Tag {
         .lock()
         .for_all_sequences(|id, sequence| {
             if id == key {
-                state = Some(sequence.encode());
+                state = Some(encode_codec(&RandomSequence::codec(), sequence).unwrap());
             }
         });
     state.expect("the roll created its sequence")

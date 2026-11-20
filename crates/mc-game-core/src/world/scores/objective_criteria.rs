@@ -171,6 +171,21 @@ impl ObjectiveCriteria {
         Self::custom_table().keys().cloned().collect()
     }
 
+    /// `ObjectiveCriteria.CODEC`: the name, "No scoreboard criteria with name: x" for an unknown one.
+    pub fn codec() -> mc_dfu::Codec<ObjectiveCriteria> {
+        mc_dfu::STRING.flat_xmap(
+            |name| match ObjectiveCriteria::by_name(&name) {
+                Some(criteria) => mc_dfu::DataResult::success(criteria),
+                None => mc_dfu::DataResult::error(move || {
+                    format!("No scoreboard criteria with name: {name}")
+                }),
+            },
+            |criteria: &ObjectiveCriteria| {
+                mc_dfu::DataResult::success(criteria.get_name().to_string())
+            },
+        )
+    }
+
     /// `byName`: custom criteria, else `<stat_type>:<value>` (`Stat`, named by `Stat.buildName`).
     pub fn by_name(name: &str) -> Option<ObjectiveCriteria> {
         if let Some(c) = Self::custom_table().get(name) {

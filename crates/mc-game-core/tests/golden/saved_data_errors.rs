@@ -81,7 +81,14 @@ fn ours(name: &str, data: &Tag) -> String {
         "custom_boss_events" => outcome(&CustomBossEvents::type_(), data, true),
         "random_sequences" => outcome(&RandomSequences::type_(), data, true),
         "stopwatches" => outcome(&Stopwatches::type_(), data, false),
-        "world_clocks" => outcome(&ServerClockManager::type_(), data, true),
+        "world_clocks" => outcome(
+            &ServerClockManager::type_(&[
+                Identifier::parse("minecraft:overworld").unwrap(),
+                Identifier::parse("minecraft:the_end").unwrap(),
+            ]),
+            data,
+            true,
+        ),
         "raids" => outcome(raids_type(), data, true),
         "chunk_tickets" => outcome(&ticket_storage::saved_data_type(), data, true),
         "world_border" => outcome(&WorldBorder::type_(), data, true),
@@ -113,26 +120,6 @@ fn split(result: &str) -> (String, String, Option<Tag>) {
     (kind, message, tag)
 }
 
-/// Types whose damaged files still report differently from vanilla. A type listed here must still differ (so the list
-/// shrinks as types are fixed); every other type must be equal in all recorded cases.
-const DIFFERING: &[&str] = &[
-    "chunk_tickets",
-    "command_storage",
-    "custom_boss_events",
-    "ender_dragon_fight",
-    "game_rules",
-    "map_data",
-    "raids",
-    "random_sequences",
-    "scheduled_events",
-    "scoreboard",
-    "stopwatches",
-    "wandering_trader",
-    "weather",
-    "world_border",
-    "world_clocks",
-];
-
 #[test]
 fn damaged_saved_data_reports_like_vanilla() {
     let golden =
@@ -157,22 +144,13 @@ fn damaged_saved_data_reports_like_vanilla() {
                 .push(format!("{input}\n  ours:    {ours}\n  vanilla: {vanilla}"));
         }
     }
-    let unexpected: Vec<String> = differing
+    let report: Vec<String> = differing
         .iter()
-        .filter(|(name, _)| !DIFFERING.contains(&name.as_str()))
         .flat_map(|(name, cases)| cases.iter().take(2).map(move |c| format!("{name}: {c}")))
         .collect();
     assert!(
-        unexpected.is_empty(),
+        report.is_empty(),
         "of {total} damaged files, these differ from vanilla:\n{}",
-        unexpected.join("\n")
-    );
-    let fixed: Vec<&&str> = DIFFERING
-        .iter()
-        .filter(|name| !differing.contains_key(**name))
-        .collect();
-    assert!(
-        fixed.is_empty(),
-        "equal to vanilla now, remove from DIFFERING: {fixed:?}"
+        report.join("\n")
     );
 }

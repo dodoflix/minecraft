@@ -5,11 +5,13 @@
 //! storage (or otherwise not alias it) while calling [`TimerQueue::tick`], exactly the discipline vanilla relies on.
 
 use std::collections::{BTreeMap, HashMap};
+use std::sync::Arc;
 
 use mc_core::ident::Identifier;
+use mc_dfu::extra::IDENTIFIER;
+use mc_dfu::{Codec, DataResult, Dyn, LONG, MapCodec, NBT, STRING};
 use mc_nbt::{CompoundTag, Tag};
 
-use crate::util::codec::{self, DataResult, DecodeResult};
 use crate::world::level::saveddata::{SavedData, SavedDataType};
 
 /// `TimerCallback<T>`: what runs when an event fires. `encode` writes the map-codec fields (without `type`).
@@ -20,51 +22,58 @@ pub trait TimerCallback<T>: Send {
     fn encode(&self) -> CompoundTag;
 }
 
-type CallbackDecoder<C> = fn(&CompoundTag) -> DataResult<Box<dyn TimerCallback<C>>>;
-
-/// `TimerCallbacks<C>`: id -> decoder registry (`LateBoundIdMapper`).
-pub struct TimerCallbacks<C> {
-    decoders: HashMap<Identifier, CallbackDecoder<C>>,
+/// `TimerCallbacks<C>`: id -> map codec registry (`LateBoundIdMapper`).
+pub struct TimerCallbacks<C: 'static> {
+    codecs: HashMap<Identifier, MapCodec<Box<dyn TimerCallback<C>>>>,
 }
 
-impl<C> Default for TimerCallbacks<C> {
+impl<C: 'static> Default for TimerCallbacks<C> {
     fn default() -> Self {
         TimerCallbacks {
-            decoders: HashMap::new(),
+            codecs: HashMap::new(),
         }
     }
 }
 
-impl<C> TimerCallbacks<C> {
+impl<C: 'static> TimerCallbacks<C> {
     pub fn new() -> Self {
         Self::default()
     }
 
-    pub fn register(mut self, id: Identifier, decoder: CallbackDecoder<C>) -> Self {
-        self.decoders.insert(id, decoder);
+    pub fn register(mut self, id: Identifier, codec: MapCodec<Box<dyn TimerCallback<C>>>) -> Self {
+        self.codecs.insert(id, codec);
         self
     }
 
-    /// `codec().decode`: `{type: <id>, ...fields}`.
-    pub fn decode(&self, tag: &Tag) -> DataResult<Box<dyn TimerCallback<C>>> {
-        let m = codec::compound(tag)?;
-        let id = codec::identifier(codec::field(m, "type")?)?;
-        let decoder = self
-            .decoders
-            .get(&id)
-            .ok_or_else(|| format!("Unknown element name: {id}"))?;
-        decoder(m)
-    }
-
-    /// `codec().encode`.
-    pub fn encode(&self, callback: &dyn TimerCallback<C>) -> DataResult<Tag> {
-        let id = callback.type_id();
-        if !self.decoders.contains_key(&id) {
-            return Err(format!("Unknown element id: {id}"));
-        }
-        let mut m = callback.encode();
-        m.put("type", Tag::String(id.to_string().into()));
-        Ok(Tag::Compound(m))
+    /// `codec()`: `idMapper.codec(Identifier.CODEC).dispatch(TimerCallback::codec, ...)`, the registered id under `type`.
+    #[expect(
+        clippy::borrowed_box,
+        reason = "the codec's value type is Box<dyn TimerCallback<C>>, so its closures take a reference to the box"
+    )]
+    pub fn codec(&self) -> Codec<Box<dyn TimerCallback<C>>> {
+        let codecs = Arc::new(self.codecs.clone());
+        let known = codecs.clone();
+        let id = IDENTIFIER.flat_xmap(
+            move |id| {
+                if known.contains_key(&id) {
+                    DataResult::success(id)
+                } else {
+                    DataResult::error(move || format!("Unknown element id: {id}"))
+                }
+            },
+            |id: &Identifier| DataResult::success(id.clone()),
+        );
+        id.partial_dispatch(
+            "type",
+            |callback: &Box<dyn TimerCallback<C>>| DataResult::success(callback.type_id()),
+            move |id| match codecs.get(id) {
+                Some(codec) => DataResult::success(codec.clone()),
+                None => {
+                    let id = id.clone();
+                    DataResult::error(move || format!("Unknown element id: {id}"))
+                }
+            },
+        )
     }
 }
 
@@ -86,10 +95,6 @@ pub struct FunctionCallback {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct FunctionTagCallback {
     pub tag_id: Identifier,
-}
-
-fn decode_id(map: &CompoundTag) -> DataResult<Identifier> {
-    codec::identifier(codec::field(map, "id")?)
 }
 
 impl<C: FunctionHost> TimerCallback<C> for FunctionCallback {
@@ -116,25 +121,40 @@ impl<C: FunctionHost> TimerCallback<C> for FunctionTagCallback {
     }
 }
 
+/// The `MapCodec` of a callback whose only field is `id`, an identifier built by `make` and written by
+/// [`TimerCallback::encode`].
+#[expect(
+    clippy::borrowed_box,
+    reason = "the codec's value type is Box<dyn TimerCallback<C>>, so its closures take a reference to the box"
+)]
+fn id_callback_codec<C: 'static>(
+    make: fn(Identifier) -> Box<dyn TimerCallback<C>>,
+) -> MapCodec<Box<dyn TimerCallback<C>>> {
+    let id = IDENTIFIER.field_of("id");
+    let (decoder, keys) = (id.clone(), id);
+    MapCodec::from_fns(
+        // the callbacks write NBT fields, which only `NbtOps` carries
+        |_, callback: &Box<dyn TimerCallback<C>>, builder| {
+            for (key, value) in callback.encode().iter() {
+                builder.add(key.as_lossy_str(), Dyn::from(value));
+            }
+        },
+        move |ops, input| decoder.decode(ops, input).map(make),
+        move || keys.keys(&NBT),
+    )
+}
+
 impl<C: FunctionHost + 'static> TimerCallbacks<C> {
     /// `TimerCallbacks.SERVER_CALLBACKS`.
     pub fn server_callbacks() -> Self {
         TimerCallbacks::new()
             .register(
                 Identifier::parse("minecraft:function").expect("static id"),
-                |m| {
-                    Ok(Box::new(FunctionCallback {
-                        function_id: decode_id(m)?,
-                    }))
-                },
+                id_callback_codec(|function_id| Box::new(FunctionCallback { function_id })),
             )
             .register(
                 Identifier::parse("minecraft:function_tag").expect("static id"),
-                |m| {
-                    Ok(Box::new(FunctionTagCallback {
-                        tag_id: decode_id(m)?,
-                    }))
-                },
+                id_callback_codec(|tag_id| Box::new(FunctionTagCallback { tag_id })),
             )
     }
 }
@@ -249,42 +269,68 @@ impl<T: 'static> TimerQueue<T> {
         self.events.keys().map(String::as_str)
     }
 
-    /// `pack`: `(trigger_time, id, callback)` in queue order.
-    fn pack(&self, callbacks: &TimerCallbacks<T>) -> DataResult<Tag> {
-        let mut events = mc_nbt::ListTag::new();
-        for ((time, _), event) in &self.queue {
-            let mut m = CompoundTag::new();
-            m.put_long("trigger_time", *time);
-            m.put_string("id", event.id.clone());
-            m.put("callback", callbacks.encode(&*event.callback)?);
-            events.push(Tag::Compound(m));
-        }
-        Ok(Tag::Compound(CompoundTag::new().with("events", events)))
+    /// `TimerQueue.codec(callbacks)`: `{events: [{trigger_time, id, callback}, ...]}` (the packed events in queue order).
+    pub fn codec(callbacks: &TimerCallbacks<T>) -> Codec<TimerQueue<T>> {
+        let callback = callbacks.codec();
+        let packed = mc_dfu::record!(PackedEvents<T> {
+            events: mc_dfu::record!(PackedEvent<T> {
+                trigger_time: LONG.field_of("trigger_time"),
+                id: STRING.field_of("id"),
+                callback: callback.field_of("callback"),
+            })
+            .codec()
+            .list_of()
+            .field_of("events"),
+        })
+        .codec();
+        // The packed events own their callbacks, which the queue cannot lend: the encoder writes the same shape directly.
+        Codec::from_fns(
+            move |ops, queue: &TimerQueue<T>, prefix| {
+                let mut events = ops.list_builder();
+                for event in queue.queue.iter() {
+                    let ((time, _), event) = event;
+                    let mut entry = ops.map_builder();
+                    entry.add_result("trigger_time", LONG.encode_start(ops, time));
+                    entry.add_result("id", STRING.encode_start(ops, &event.id));
+                    entry.add_result("callback", callback.encode_start(ops, &event.callback));
+                    events.add_result(entry.build(&ops.empty()));
+                }
+                let mut root = ops.map_builder();
+                root.add_result("events", events.build(&ops.empty()));
+                root.build(&prefix)
+            },
+            move |ops, input| {
+                packed.decode(ops, input).map(|(packed, rest)| {
+                    let mut queue = TimerQueue::new();
+                    for event in packed.events {
+                        queue.schedule(&event.id, event.trigger_time, event.callback);
+                    }
+                    (queue, rest)
+                })
+            },
+        )
     }
+}
 
-    /// `TimerQueue.codec(callbacks).decode`.
-    pub fn decode(tag: &Tag, callbacks: &TimerCallbacks<T>) -> DecodeResult<TimerQueue<T>> {
-        let m = codec::compound(tag)?;
-        let mut queue = TimerQueue::new();
-        for e in codec::list(codec::field(m, "events")?)? {
-            let em = codec::compound(&e)?;
-            let time = codec::long(codec::field(em, "trigger_time")?)?;
-            let id = codec::string(codec::field(em, "id")?)?.to_string();
-            let callback = callbacks.decode(codec::field(em, "callback")?)?;
-            queue.schedule(&id, time, callback);
-        }
-        Ok(queue)
-    }
+/// `TimerQueue.Packed`.
+struct PackedEvents<T> {
+    events: Vec<PackedEvent<T>>,
+}
+
+/// `TimerQueue.Event.Packed`.
+struct PackedEvent<T> {
+    trigger_time: i64,
+    id: String,
+    callback: Box<dyn TimerCallback<T>>,
 }
 
 impl<C: FunctionHost + 'static> TimerQueue<C> {
     /// `TimerQueue.TYPE` (`data/minecraft/scheduled_events.dat`).
     pub fn type_() -> SavedDataType<TimerQueue<C>> {
-        SavedDataType::new(
+        SavedDataType::from_codec(
             Identifier::parse("minecraft:scheduled_events").expect("static id"),
             TimerQueue::new,
-            |tag| TimerQueue::decode(tag, &TimerCallbacks::server_callbacks()),
-            |q| q.pack(&TimerCallbacks::server_callbacks()),
+            TimerQueue::codec(&TimerCallbacks::server_callbacks()),
             mc_datafix::DataFixTypes::SAVED_DATA_SCHEDULED_EVENTS,
         )
     }
@@ -293,6 +339,7 @@ impl<C: FunctionHost + 'static> TimerQueue<C> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::world::level::saveddata::{decode_codec, encode_codec};
 
     #[derive(Default)]
     struct Ctx {
@@ -388,21 +435,22 @@ mod tests {
             }),
         );
         let cb = TimerCallbacks::<Ctx>::server_callbacks();
-        let tag = q.pack(&cb).unwrap();
+        let codec = TimerQueue::codec(&cb);
+        let tag = encode_codec(&codec, &q).unwrap();
         let expected = mc_nbt::snbt::parse(
             "{events:[{trigger_time:3L,id:\"y\",callback:{type:\"minecraft:function_tag\",id:\"t:u\"}},{trigger_time:7L,id:\"x\",callback:{type:\"minecraft:function\",id:\"a:b\"}}]}",
         )
         .unwrap();
         assert_eq!(tag, expected);
-        let back = TimerQueue::decode(&tag, &cb).map_err(|e| e.error).unwrap();
-        assert_eq!(back.pack(&cb).unwrap(), tag);
+        let back = decode_codec(&codec, &tag).map_err(|e| e.error).unwrap();
+        assert_eq!(encode_codec(&codec, &back).unwrap(), tag);
         assert!(
-            TimerQueue::decode(
+            decode_codec(
+                &codec,
                 &mc_nbt::snbt::parse(
                     "{events:[{trigger_time:1L,id:\"x\",callback:{type:\"minecraft:nope\"}}]}"
                 )
                 .unwrap(),
-                &cb
             )
             .is_err()
         );

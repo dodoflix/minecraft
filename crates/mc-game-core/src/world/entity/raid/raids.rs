@@ -6,13 +6,14 @@ use super::raider;
 use crate::impl_saved_data;
 use crate::server::level::ServerLevel;
 use crate::server::level::fastutil::LongOpenHashMap;
-use crate::util::codec::{self, DataResult, DecodeResult, Partial};
+use crate::util::codec::{DataResult, DecodeResult};
 use crate::world::entity::{Entity as _, ServerPlayer};
-use crate::world::level::saveddata::{SavedData, SavedDataType};
+use crate::world::level::saveddata::{SavedData, SavedDataType, decode_codec, encode_codec};
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
-use mc_nbt::{CompoundTag, ListTag, Tag};
+use mc_dfu::{Codec, INT};
+use mc_nbt::Tag;
 use std::sync::LazyLock;
 
 /// A raid in the map. `raid` is `None` while it is checked out (it is being ticked or changed together with the level);
@@ -45,14 +46,26 @@ impl Default for Raids {
 }
 
 static RAIDS_TYPE: LazyLock<SavedDataType<Raids>> = LazyLock::new(|| {
-    SavedDataType::new(
+    SavedDataType::from_codec(
         Identifier::parse("minecraft:raids").expect("static id"),
         Raids::default,
-        Raids::decode,
-        Raids::encode,
+        Raids::codec(),
         mc_datafix::DataFixTypes::SAVED_DATA_RAIDS,
     )
 });
+
+/// `Raids.RaidWithId`.
+struct RaidWithId {
+    id: i32,
+    raid: Raid,
+}
+
+/// The serialized shape of [`Raids`] that is decoded.
+struct PackedRaids {
+    raids: Option<Vec<RaidWithId>>,
+    next_id: i32,
+    tick: i32,
+}
 
 /// `Raids.TYPE`.
 pub fn raids_type() -> &'static SavedDataType<Raids> {
@@ -170,88 +183,72 @@ impl Raids {
 
     // ---- saved data ----------------------------------------------------------------------------------------------
 
+    /// `Raids.CODEC`.
+    fn codec() -> Codec<Raids> {
+        // `RaidWithId.CODEC`
+        let entry = mc_dfu::record!(RaidWithId {
+            id: INT.field_of("id"),
+            raid: Raid::map_codec(),
+        })
+        .codec();
+        let packed = mc_dfu::record!(PackedRaids {
+            raids: entry.list_of().optional_field_of("raids"),
+            next_id: INT.field_of("next_id"),
+            tick: INT.field_of("tick"),
+        })
+        .codec();
+        // The raids own their state, which the map cannot lend: the encoder writes the same shape directly.
+        Codec::from_fns(
+            move |ops, raids: &Raids, prefix| {
+                // `optionalFieldOf("raids", List.of())` omits an empty list; `int2ObjectEntrySet().stream()`
+                let mut list = ops.list_builder();
+                let mut any = false;
+                for key in raids.raid_map.keys_in_stream_order() {
+                    let Some(raid) = raids.raid_map.get(key).and_then(|slot| slot.raid.as_ref())
+                    else {
+                        continue;
+                    };
+                    let mut entry = ops.map_builder();
+                    entry.add_result("id", INT.encode_start(ops, &(key as i32)));
+                    Raid::map_codec().encode(ops, raid, &mut entry);
+                    list.add_result(entry.build(&ops.empty()));
+                    any = true;
+                }
+                let mut root = ops.map_builder();
+                if any {
+                    root.add_result("raids", list.build(&ops.empty()));
+                }
+                root.add_result("next_id", INT.encode_start(ops, &raids.next_id));
+                root.add_result("tick", INT.encode_start(ops, &raids.tick));
+                root.build(&prefix)
+            },
+            move |ops, input| {
+                packed.decode(ops, input).map(|(packed, rest)| {
+                    let mut raids = Raids {
+                        dirty: false,
+                        raid_map: LongOpenHashMap::new_int(),
+                        next_id: packed.next_id,
+                        tick: packed.tick,
+                    };
+                    for entry in packed.raids.unwrap_or_default() {
+                        raids.put(entry.id, entry.raid);
+                    }
+                    (raids, rest)
+                })
+            },
+        )
+    }
+
     #[expect(
         clippy::result_large_err,
-        reason = "`DecodeResult` returns the partially decoded value as the error, like DFU's partial result"
+        reason = "DecodeResult<T> carries the partial value by value (DataResult.error(msg, partial))"
     )]
     fn decode(tag: &Tag) -> DecodeResult<Raids> {
-        let m = codec::compound(tag)?;
-        let mut raids = Raids {
-            dirty: false,
-            raid_map: LongOpenHashMap::new_int(),
-            next_id: 0,
-            tick: 0,
-        };
-        // the record applicative reports the failures of the last field first
-        let next_id = codec::field(m, "next_id").and_then(codec::int);
-        let tick = codec::field(m, "tick").and_then(codec::int);
-        match (next_id, tick) {
-            (Ok(next_id), Ok(tick)) => (raids.next_id, raids.tick) = (next_id, tick),
-            (next_id, tick) => {
-                let errors: Vec<String> =
-                    [tick.err(), next_id.err()].into_iter().flatten().collect();
-                return Err(errors.join("; ").into());
-            }
-        }
-        // `RaidWithId.CODEC.listOf()`: an entry that fails without a partial value is dropped, one with a partial value
-        // (a bad `heroes_of_the_village` element) is kept; the first error is the result's error
-        let mut error = None;
-        match codec::optional(m, "raids", codec::list) {
-            Ok(Some(list)) => {
-                for entry in list {
-                    let decoded = codec::compound(&entry).and_then(|e| {
-                        let id = codec::int(codec::field(e, "id")?)?;
-                        Ok((id, Raid::decode(e)))
-                    });
-                    match decoded {
-                        Ok((id, Ok(raid))) => raids.put(id, raid),
-                        Ok((id, Err(p))) => {
-                            error.get_or_insert(p.error);
-                            if let Some(raid) = p.value {
-                                raids.put(id, raid);
-                            }
-                        }
-                        Err(e) => {
-                            error.get_or_insert(e);
-                        }
-                    }
-                }
-            }
-            Ok(None) => {}
-            Err(e) => error = Some(e),
-        }
-        match error {
-            None => Ok(raids),
-            Some(error) => Err(Partial {
-                value: Some(raids),
-                error,
-            }),
-        }
+        decode_codec(&Raids::codec(), tag)
     }
 
     fn encode(&self) -> DataResult<Tag> {
-        let mut out = CompoundTag::new();
-        // `optionalFieldOf("raids", List.of())` omits an empty list
-        let mut list = ListTag::new();
-        // `int2ObjectEntrySet().stream()`
-        for key in self.raid_map.keys_in_stream_order() {
-            let Some(slot) = self.raid_map.get(key) else {
-                continue;
-            };
-            let Some(raid) = slot.raid.as_ref() else {
-                continue;
-            };
-            let mut entry = CompoundTag::new();
-            entry.put_int("id", key as i32);
-            raid.encode_into(&mut entry);
-            list.push(Tag::Compound(entry));
-        }
-        if !list.is_empty() {
-            out.put("raids", list);
-        }
-        out.put_int("next_id", self.next_id);
-        out.put_int("tick", self.tick);
-        Ok(Tag::Compound(out))
+        encode_codec(&Raids::codec(), self)
     }
 
     // ---- ticking --------------------------------------------------------------------------------------------------

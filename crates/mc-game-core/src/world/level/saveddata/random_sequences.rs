@@ -7,11 +7,11 @@ use mc_core::random::{
     PositionalRandomFactory, RandomSource, Xoroshiro128PlusPlus, XoroshiroRandomSource,
     seed_from_hash_of, upgrade_seed_to_128bit_unmixed,
 };
-use mc_nbt::{CompoundTag, Tag};
+use mc_dfu::extra::{IDENTIFIER, fixed_size_longs};
+use mc_dfu::{BOOL, Codec, INT, LONG_STREAM};
 
 use super::SavedDataType;
 use crate::impl_saved_data;
-use crate::util::codec::{self, DataResult, DecodeResult, map_decoded};
 
 /// `RandomSequence`: one Xoroshiro stream.
 #[derive(Clone, Debug)]
@@ -39,24 +39,33 @@ impl RandomSequence {
         &mut self.source
     }
 
-    /// `RandomSequence.CODEC`: `{source: [L; lo, hi]}` (a long stream).
-    fn decode(tag: &Tag) -> DataResult<RandomSequence> {
-        let m = codec::compound(tag)?;
-        let longs = codec::list(codec::field(m, "source")?)?;
-        if longs.len() != 2 {
-            return Err("Input is not a list of 2 elements".to_string());
-        }
-        let lo = codec::long(&longs[0])?;
-        let hi = codec::long(&longs[1])?;
-        Ok(RandomSequence {
-            source: XoroshiroRandomSource::from_generator(Xoroshiro128PlusPlus::new(lo, hi)),
+    /// `RandomSequence.CODEC`: `{source: [L; lo, hi]}` (a long stream of two).
+    pub fn codec() -> Codec<RandomSequence> {
+        let source = LONG_STREAM.comap_flat_map(
+            |longs| fixed_size_longs(longs, 2).map(|l| [l[0], l[1]]),
+            |longs: &[i64; 2]| longs.to_vec(),
+        );
+        mc_dfu::record!(PackedSequence {
+            source: source.field_of("source"),
         })
+        .codec()
+        .xmap(
+            |p| RandomSequence {
+                source: XoroshiroRandomSource::from_generator(Xoroshiro128PlusPlus::new(
+                    p.source[0],
+                    p.source[1],
+                )),
+            },
+            |s: &RandomSequence| PackedSequence {
+                source: s.source.generator().to_longs(),
+            },
+        )
     }
+}
 
-    pub fn encode(&self) -> Tag {
-        let [lo, hi] = self.source.generator().to_longs();
-        Tag::Compound(CompoundTag::new().with("source", Tag::LongArray(vec![lo, hi])))
-    }
+/// The serialized shape of [`RandomSequence`].
+struct PackedSequence {
+    source: [i64; 2],
 }
 
 #[derive(Debug, Clone)]
@@ -222,51 +231,52 @@ impl RandomSequences {
         self.include_sequence_id
     }
 
-    fn decode(tag: &Tag) -> DecodeResult<RandomSequences> {
-        let m = codec::compound(tag)?;
-        let salt = codec::int(codec::field(m, "salt")?)?;
-        let include_world_seed =
-            codec::optional(m, "include_world_seed", codec::boolean)?.unwrap_or(true);
-        let include_sequence_id =
-            codec::optional(m, "include_sequence_id", codec::boolean)?.unwrap_or(true);
-        let sequences = codec::unbounded_map(
-            codec::field(m, "sequences")?,
-            Identifier::read,
-            RandomSequence::decode,
-        );
-        map_decoded(sequences, |sequences| RandomSequences {
-            dirty: false,
-            salt,
-            include_world_seed,
-            include_sequence_id,
-            sequences: sequences.into_iter().collect(),
+    /// `RandomSequences.CODEC`.
+    pub fn codec() -> Codec<RandomSequences> {
+        mc_dfu::record!(Packed {
+            salt: INT.field_of("salt"),
+            include_world_seed: BOOL.optional_field_of_default("include_world_seed", true),
+            include_sequence_id: BOOL.optional_field_of_default("include_sequence_id", true),
+            sequences: IDENTIFIER
+                .unbounded_map(&RandomSequence::codec())
+                .field_of("sequences"),
         })
-    }
-
-    fn encode(&self) -> DataResult<Tag> {
-        let mut m = CompoundTag::new();
-        m.put_int("salt", self.salt);
-        if !self.include_world_seed {
-            m.put_boolean("include_world_seed", false);
-        }
-        if !self.include_sequence_id {
-            m.put_boolean("include_sequence_id", false);
-        }
-        let mut sequences = CompoundTag::new();
-        for (k, v) in &self.sequences {
-            sequences.put(k.to_string(), v.encode());
-        }
-        m.put("sequences", sequences);
-        Ok(Tag::Compound(m))
+        .codec()
+        .xmap(
+            |p| RandomSequences {
+                dirty: false,
+                salt: p.salt,
+                include_world_seed: p.include_world_seed,
+                include_sequence_id: p.include_sequence_id,
+                sequences: p.sequences.into_iter().collect(),
+            },
+            |s: &RandomSequences| Packed {
+                salt: s.salt,
+                include_world_seed: s.include_world_seed,
+                include_sequence_id: s.include_sequence_id,
+                sequences: s
+                    .sequences
+                    .iter()
+                    .map(|(k, v)| (k.clone(), v.clone()))
+                    .collect(),
+            },
+        )
     }
 
     pub fn type_() -> SavedDataType<RandomSequences> {
-        SavedDataType::new(
+        SavedDataType::from_codec(
             Identifier::parse("minecraft:random_sequences").expect("static id"),
             RandomSequences::default,
-            RandomSequences::decode,
-            RandomSequences::encode,
+            RandomSequences::codec(),
             mc_datafix::DataFixTypes::SAVED_DATA_RANDOM_SEQUENCES,
         )
     }
+}
+
+/// The serialized shape of [`RandomSequences`].
+struct Packed {
+    salt: i32,
+    include_world_seed: bool,
+    include_sequence_id: bool,
+    sequences: Vec<(Identifier, RandomSequence)>,
 }

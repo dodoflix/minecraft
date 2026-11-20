@@ -1,10 +1,10 @@
 //! `Score`, `Score.Packed`, `PlayerScoreEntry`, `ScoreHolder`.
 
-use mc_nbt::CompoundTag;
+use mc_dfu::{BOOL, INT, MapCodec};
+use mc_protocol::components::component_codec;
 use mc_text::{Component, HoverEvent};
 
 use super::number_format::NumberFormat;
-use crate::util::codec::{self, DataResult};
 
 /// `Score`.
 #[derive(Debug, Clone, PartialEq)]
@@ -47,33 +47,14 @@ impl Score {
             .format(self.value)
     }
 
-    /// `Score.Packed.MAP_CODEC` decode (fields live in the surrounding compound).
-    pub(crate) fn decode_fields(m: &CompoundTag) -> DataResult<Score> {
-        Ok(Score {
-            value: codec::optional(m, "Score", codec::int)?.unwrap_or(0),
-            locked: codec::optional(m, "Locked", codec::boolean)?.unwrap_or(false),
-            display: codec::optional(m, "display", |t| {
-                Component::from_nbt(t).map_err(|e| e.to_string())
-            })?,
-            number_format: codec::optional(m, "format", NumberFormat::decode)?,
+    /// `Score.Packed.MAP_CODEC` (the fields live in the surrounding map).
+    pub(crate) fn map_codec() -> MapCodec<Score> {
+        mc_dfu::record!(Score {
+            value: INT.optional_field_of_default("Score", 0),
+            locked: BOOL.optional_field_of_default("Locked", false),
+            display: component_codec().optional_field_of("display"),
+            number_format: NumberFormat::codec().optional_field_of("format"),
         })
-    }
-
-    /// `Score.Packed.MAP_CODEC` encode into `m` (defaults omitted).
-    pub(crate) fn encode_fields(&self, m: &mut CompoundTag) -> DataResult<()> {
-        if self.value != 0 {
-            m.put_int("Score", self.value);
-        }
-        if self.locked {
-            m.put_boolean("Locked", true);
-        }
-        if let Some(d) = &self.display {
-            m.put("display", d.to_nbt().map_err(|e| e.to_string())?);
-        }
-        if let Some(f) = &self.number_format {
-            m.put("format", f.encode()?);
-        }
-        Ok(())
     }
 }
 
@@ -155,26 +136,26 @@ pub fn for_name_only(name: &str) -> NameOnlyHolder {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::world::level::saveddata::{decode_codec, encode_codec};
+    use mc_nbt::{CompoundTag, Tag};
 
     #[test]
     fn packed_defaults_omitted() {
-        let mut m = CompoundTag::new();
-        Score {
+        let codec = Score::map_codec().codec();
+        let encode = |score: &Score| encode_codec(&codec, score).unwrap();
+        let unlocked = Score {
             value: 0,
             locked: false,
             display: None,
             number_format: None,
-        }
-        .encode_fields(&mut m)
-        .unwrap();
-        assert!(m.is_empty());
-        let mut m = CompoundTag::new();
-        Score::default().encode_fields(&mut m).unwrap();
+        };
+        assert_eq!(encode(&unlocked), Tag::Compound(CompoundTag::new()));
         assert_eq!(
-            mc_nbt::Tag::Compound(m.clone()),
+            encode(&Score::default()),
             mc_nbt::snbt::parse("{Locked:1b}").unwrap()
         );
-        assert_eq!(Score::decode_fields(&m).unwrap(), Score::default());
-        assert!(!Score::decode_fields(&CompoundTag::new()).unwrap().locked);
+        let decode = |tag: &Tag| decode_codec(&codec, tag).map_err(|e| e.error).unwrap();
+        assert_eq!(decode(&encode(&Score::default())), Score::default());
+        assert!(!decode(&Tag::Compound(CompoundTag::new())).locked);
     }
 }

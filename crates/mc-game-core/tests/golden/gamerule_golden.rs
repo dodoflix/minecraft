@@ -5,6 +5,7 @@ use std::collections::BTreeMap;
 use mc_game::world::level::gamerules::{
     AnyGameRule, GameRuleMap, GameRuleType, GameRuleValue, GameRules,
 };
+use mc_game::world::level::saveddata::encode_codec;
 use mc_world::level_storage::FeatureFlagSet;
 
 fn golden() -> Vec<Vec<String>> {
@@ -168,7 +169,7 @@ fn codec_encode_matches_vanilla() {
     let get = |k: &str| rows.iter().find(|r| r[0] == k).unwrap()[1].clone();
     let default = GameRuleMap::of(AnyGameRule::all());
     assert_eq!(
-        default.encode(),
+        encode_codec(&GameRuleMap::codec(), &default).unwrap(),
         mc_nbt::snbt::parse(&get("ENCODE_DEFAULT")).unwrap()
     );
     let mut alt = GameRuleMap::of_empty();
@@ -182,11 +183,16 @@ fn codec_encode_matches_vanilla() {
         );
     }
     assert_eq!(
-        alt.encode(),
+        encode_codec(&GameRuleMap::codec(), &alt).unwrap(),
         mc_nbt::snbt::parse(&get("ENCODE_ALT")).unwrap()
     );
     // and back
-    assert_eq!(GameRuleMap::decode(&alt.encode()).unwrap(), alt);
+    assert_eq!(
+        GameRuleMap::decode(&encode_codec(&GameRuleMap::codec(), &alt).unwrap())
+            .map_err(|e| e.error)
+            .unwrap(),
+        alt
+    );
 }
 
 #[test]

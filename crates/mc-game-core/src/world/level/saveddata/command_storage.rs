@@ -9,9 +9,12 @@ use mc_nbt::{CompoundTag, Tag};
 use mc_world::level_storage::SavedDataStorage;
 use parking_lot::Mutex;
 
-use super::{SavedDataManager, SavedDataType};
+use mc_dfu::{Codec, DataResult, STRING};
+use mc_protocol::components::compound_tag_codec;
+
+use super::{SavedDataManager, SavedDataType, decode_codec};
 use crate::impl_saved_data;
-use crate::util::codec::{self, DataResult, DecodeResult, map_decoded};
+use crate::util::codec::DecodeResult;
 
 /// `CommandStorage.Container`.
 #[derive(Debug, Default)]
@@ -44,45 +47,63 @@ impl Container {
             .filter_map(move |p| Identifier::new(&namespace, p).ok())
     }
 
-    fn decode(tag: &Tag) -> DecodeResult<Container> {
-        let m = codec::compound(tag)?;
-        let entries = codec::unbounded_map(
-            codec::field(m, "contents")?,
-            |k| {
-                if is_valid_path(k) {
-                    Ok(k.to_string())
-                } else {
-                    Err(format!(
-                        "Invalid string to use as a resource path element: {k}"
-                    ))
-                }
-            },
-            |v| codec::compound(v).cloned(),
-        );
-        map_decoded(entries, |entries| Container {
-            dirty: false,
-            storage: entries.into_iter().collect(),
-        })
+    /// `Container.CODEC`: `{contents: {<resource path>: <compound>}}`.
+    fn codec() -> Codec<Container> {
+        static CODEC: std::sync::LazyLock<Codec<Container>> =
+            std::sync::LazyLock::new(Container::build_codec);
+        CODEC.clone()
     }
 
-    fn encode(&self) -> DataResult<Tag> {
-        let mut contents = CompoundTag::new();
-        for (k, v) in &self.storage {
-            contents.put(k.clone(), v.clone());
-        }
-        Ok(Tag::Compound(CompoundTag::new().with("contents", contents)))
+    fn build_codec() -> Codec<Container> {
+        // `ExtraCodecs.RESOURCE_PATH_CODEC`
+        let path = STRING.validate(|path: String| {
+            if is_valid_path(&path) {
+                DataResult::success(path)
+            } else {
+                DataResult::error(move || {
+                    format!("Invalid string to use as a resource path element: {path}")
+                })
+            }
+        });
+        mc_dfu::record!(Packed {
+            contents: path
+                .unbounded_map(&compound_tag_codec())
+                .field_of("contents"),
+        })
+        .codec()
+        .xmap(
+            |p| Container {
+                dirty: false,
+                storage: p.contents.into_iter().collect(),
+            },
+            |c: &Container| Packed {
+                contents: c
+                    .storage
+                    .iter()
+                    .map(|(k, v)| (k.clone(), v.clone()))
+                    .collect(),
+            },
+        )
+    }
+
+    fn decode(tag: &Tag) -> DecodeResult<Container> {
+        decode_codec(&Container::codec(), tag)
     }
 
     /// `Container.type(namespace)`.
     pub fn type_(namespace: &str) -> Result<SavedDataType<Container>, String> {
-        Ok(SavedDataType::new(
+        Ok(SavedDataType::from_codec(
             Identifier::new(namespace, "command_storage").map_err(|e| e.to_string())?,
             Container::default,
-            Container::decode,
-            Container::encode,
+            Container::codec(),
             mc_datafix::DataFixTypes::SAVED_DATA_COMMAND_STORAGE,
         ))
     }
+}
+
+/// The serialized shape of [`Container`].
+struct Packed {
+    contents: Vec<(String, CompoundTag)>,
 }
 
 /// Read access to the contents for code that cannot borrow the server (the loot number and NBT providers of a running

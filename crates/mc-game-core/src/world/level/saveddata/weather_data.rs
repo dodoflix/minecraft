@@ -1,11 +1,14 @@
 //! `WeatherData` (`data/minecraft/weather.dat`).
 
-use mc_core::ident::Identifier;
-use mc_nbt::{CompoundTag, Tag};
+use std::sync::LazyLock;
 
-use super::{SavedData, SavedDataType};
+use mc_core::ident::Identifier;
+use mc_dfu::{BOOL, INT};
+use mc_nbt::Tag;
+
+use super::{SavedData, SavedDataType, decode_codec};
 use crate::impl_saved_data;
-use crate::util::codec::{self, DataResult, DecodeResult};
+use crate::util::codec::DecodeResult;
 
 #[derive(Debug, Clone, Default)]
 pub struct WeatherData {
@@ -73,37 +76,60 @@ impl WeatherData {
         self.set_dirty();
     }
 
-    /// `WeatherData.CODEC` decode.
-    pub fn decode(tag: &Tag) -> DecodeResult<WeatherData> {
-        let m = codec::compound(tag)?;
-        Ok(WeatherData::new(
-            codec::int(codec::field(m, "clear_weather_time")?)?,
-            codec::int(codec::field(m, "rain_time")?)?,
-            codec::int(codec::field(m, "thunder_time")?)?,
-            codec::boolean(codec::field(m, "raining")?)?,
-            codec::boolean(codec::field(m, "thundering")?)?,
-        ))
+    /// `WeatherData.CODEC`.
+    pub fn codec() -> mc_dfu::Codec<WeatherData> {
+        static CODEC: LazyLock<mc_dfu::Codec<WeatherData>> = LazyLock::new(|| {
+            mc_dfu::record!(Packed {
+                clear_weather_time: INT.field_of("clear_weather_time"),
+                rain_time: INT.field_of("rain_time"),
+                thunder_time: INT.field_of("thunder_time"),
+                raining: BOOL.field_of("raining"),
+                thundering: BOOL.field_of("thundering"),
+            })
+            .codec()
+            .xmap(
+                |p| {
+                    WeatherData::new(
+                        p.clear_weather_time,
+                        p.rain_time,
+                        p.thunder_time,
+                        p.raining,
+                        p.thundering,
+                    )
+                },
+                |w: &WeatherData| Packed {
+                    clear_weather_time: w.clear_weather_time,
+                    rain_time: w.rain_time,
+                    thunder_time: w.thunder_time,
+                    raining: w.raining,
+                    thundering: w.thundering,
+                },
+            )
+        });
+        CODEC.clone()
     }
 
-    /// `WeatherData.CODEC` encode.
-    pub fn encode(&self) -> DataResult<Tag> {
-        let mut m = CompoundTag::new();
-        m.put_int("clear_weather_time", self.clear_weather_time);
-        m.put_int("rain_time", self.rain_time);
-        m.put_int("thunder_time", self.thunder_time);
-        m.put_boolean("raining", self.raining);
-        m.put_boolean("thundering", self.thundering);
-        Ok(Tag::Compound(m))
+    /// `WeatherData.CODEC` decode.
+    pub fn decode(tag: &Tag) -> DecodeResult<WeatherData> {
+        decode_codec(&WeatherData::codec(), tag)
     }
 
     /// `WeatherData.TYPE`.
     pub fn type_() -> SavedDataType<WeatherData> {
-        SavedDataType::new(
+        SavedDataType::from_codec(
             Identifier::parse("minecraft:weather").expect("static id"),
             WeatherData::default,
-            WeatherData::decode,
-            WeatherData::encode,
+            WeatherData::codec(),
             mc_datafix::DataFixTypes::SAVED_DATA_WEATHER,
         )
     }
+}
+
+/// The serialized shape of [`WeatherData`].
+struct Packed {
+    clear_weather_time: i32,
+    rain_time: i32,
+    thunder_time: i32,
+    raining: bool,
+    thundering: bool,
 }

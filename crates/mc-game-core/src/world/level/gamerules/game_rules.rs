@@ -6,7 +6,8 @@ use mc_world::level_storage::FeatureFlagSet;
 use super::{
     AnyGameRule, GameRule, GameRuleMap, GameRuleTypeVisitor, GameRuleValue, GameRuleValueType,
 };
-use crate::util::codec::{DecodeResult, map_decoded};
+use crate::util::codec::{DataResult, DecodeResult, map_decoded};
+use crate::world::level::saveddata::encode_codec;
 use crate::world::level::saveddata::{SavedData, SavedDataType};
 
 /// The side effects vanilla runs in `MinecraftServer.onGameRuleChanged(rule, value)`; the server implements it.
@@ -216,8 +217,8 @@ impl GameRules {
     }
 
     /// `GameRules.codec(enabledFeatures)` encode.
-    pub fn encode(&self) -> Tag {
-        self.rules.encode()
+    pub fn encode(&self) -> DataResult<Tag> {
+        encode_codec(&GameRuleMap::codec(), &self.rules)
     }
 
     /// `GameRuleMap.TYPE` with the `GameRules` wrapper (`MinecraftServer`: `new GameRules(features,
@@ -231,7 +232,7 @@ impl GameRules {
             GameRuleMap::type_().id,
             move || GameRules::from_map(enabled_features, GameRuleMap::of_empty()),
             move |tag| GameRules::decode(enabled_features, tag),
-            |rules| Ok(rules.encode()),
+            |rules| rules.encode(),
             mc_datafix::DataFixTypes::SAVED_DATA_GAME_RULES,
         )
     }

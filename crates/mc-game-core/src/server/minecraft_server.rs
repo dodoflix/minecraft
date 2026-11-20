@@ -249,6 +249,11 @@ impl MinecraftServer {
             crate::world::item::map_item::map_scale_lookup,
         );
         let registries = init.registries;
+        let world_clocks: Vec<mc_core::ident::Identifier> = registries
+            .composite_access()
+            .registry(crate::registry::keys::WORLD_CLOCK)
+            .map(|r| r.names())
+            .unwrap_or_default();
         crate::server::players::server_join_host::set_send_commands(
             |server, player, permissions| {
                 crate::commands::send_commands(server, player, &permissions.into());
@@ -318,7 +323,7 @@ impl MinecraftServer {
                     data_folder,
                 ),
             game_rules_type,
-            saved_types: SavedDataTypes::new(),
+            saved_types: SavedDataTypes::new(&world_clocks),
             loot_random_sequences: Default::default(),
             metrics_recording: Default::default(),
             registries,
