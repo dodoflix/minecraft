@@ -406,62 +406,107 @@ pub fn parse_object_strict(text: &str) -> Result<JsonObject, JsonError> {
 }
 
 /// `LazilyParsedNumber.intValue()` of a JSON number text: `Integer.parseInt`, then `(int) Long.parseLong`, then
-/// `BigDecimal.intValue()` (truncate toward zero, low 32 bits). `Err` is the `NumberFormatException` message
-/// (`NumberLimits`: more than 10000 characters or a scale of 10000 or more).
+/// `BigDecimal.intValue()`, which is `(int) longValue()` in every case. `Err` is the `NumberFormatException` message.
 pub fn lazily_parsed_int_value(text: &str) -> Result<i32, String> {
-    if let Ok(v) = text.parse::<i32>() {
-        return Ok(v);
-    }
+    lazily_parsed_long_value(text).map(|v| v as i32)
+}
+
+/// `LazilyParsedNumber.longValue()`: `Long.parseLong`, then `NumberLimits.parseBigDecimal(text).longValue()` (truncate
+/// toward zero, low 64 bits). `Err` is the `NumberFormatException` message (`BigDecimal(String)` parse errors, then the
+/// `NumberLimits` ones: more than 10000 characters or a scale of 10000 or more). Digits are ASCII only (the JSON reader
+/// never produces others).
+pub fn lazily_parsed_long_value(text: &str) -> Result<i64, String> {
     if let Ok(v) = text.parse::<i64>() {
-        return Ok(v as i32);
+        return Ok(v);
     }
     if text.encode_utf16().count() > 10000 {
         let head: String = text.chars().take(30).collect();
         return Err(format!("Number string too large: {head}..."));
     }
-    let unsupported = || format!("Number has unsupported scale: {text}");
-    let (negative, rest) = match text.strip_prefix('-') {
-        Some(r) => (true, r),
+    let (negative, rest) = match text.strip_prefix(['-', '+']) {
+        Some(r) => (text.starts_with('-'), r),
         None => (false, text),
     };
-    let (mantissa, exp) = match rest.find(['e', 'E']) {
-        Some(i) => (
-            &rest[..i],
-            rest[i + 1..]
-                .trim_start_matches('+')
-                .parse::<i64>()
-                .map_err(|_| unsupported())?,
-        ),
-        None => (rest, 0),
-    };
-    let (int_digits, frac_digits) = mantissa.split_once('.').unwrap_or((mantissa, ""));
-    let scale = frac_digits.len() as i64 - exp;
-    if scale.abs() >= 10000 {
-        return Err(unsupported());
+    let mut digits: Vec<u8> = Vec::new();
+    let (mut dot, mut frac, mut exp) = (false, 0i64, 0i64);
+    for (i, c) in rest.char_indices() {
+        match c {
+            '0'..='9' => {
+                digits.push(c as u8 - b'0');
+                frac += i64::from(dot);
+            }
+            '.' if dot => {
+                return Err("Character array contains more than one decimal point.".to_owned());
+            }
+            '.' => dot = true,
+            'e' | 'E' => {
+                exp = big_decimal_exponent(&rest[i + 1..])?;
+                break;
+            }
+            // the long significand path of `BigDecimal` words this error differently
+            _ if rest.encode_utf16().count() > 18 => {
+                return Err(
+                    "Character array is missing \"e\" notation exponential mark.".to_owned(),
+                );
+            }
+            _ => {
+                return Err(format!(
+                    "Character {c} is neither a decimal digit number, decimal point, nor \"e\" notation exponential mark."
+                ));
+            }
+        }
     }
-    let mut digits: Vec<u8> = int_digits.bytes().chain(frac_digits.bytes()).collect();
+    if digits.is_empty() {
+        return Err(if text.is_empty() {
+            "null"
+        } else {
+            "No digits found."
+        }
+        .to_owned());
+    }
+    let scale = frac - exp;
+    if i32::try_from(scale).is_err() {
+        return Err("Exponent overflow.".to_owned());
+    }
+    if scale.abs() >= 10000 {
+        return Err(format!("Number has unsupported scale: {text}"));
+    }
     if scale > 0 {
         digits.truncate(digits.len().saturating_sub(scale as usize));
     }
-    let mut v = digits.iter().fold(0u32, |a, d| {
-        a.wrapping_mul(10).wrapping_add(u32::from(d - b'0'))
-    });
-    if scale < 0 {
-        let (mut base, mut e, mut p) = (10u32, (-scale) as u32, 1u32);
-        while e > 0 {
-            if e & 1 == 1 {
-                p = p.wrapping_mul(base);
-            }
-            base = base.wrapping_mul(base);
-            e >>= 1;
-        }
-        v = v.wrapping_mul(p);
+    let mut v = digits
+        .iter()
+        .fold(0u64, |a, d| a.wrapping_mul(10).wrapping_add(u64::from(*d)));
+    for _ in 0..scale.min(0).unsigned_abs() {
+        v = v.wrapping_mul(10);
     }
-    Ok(if negative {
-        v.wrapping_neg() as i32
-    } else {
-        v as i32
-    })
+    Ok(if negative { v.wrapping_neg() } else { v } as i64)
+}
+
+/// `BigDecimal.parseExp`: the text after the `e`, `Err` = the exception message (`null` when it is empty or only a sign).
+fn big_decimal_exponent(text: &str) -> Result<i64, String> {
+    let (negative, digits) = match text.strip_prefix(['-', '+']) {
+        Some(d) => (text.starts_with('-'), d),
+        None => (false, text),
+    };
+    if digits.is_empty() {
+        return Err("null".to_owned());
+    }
+    let mut digits = digits.as_bytes();
+    while digits.len() > 10 && digits[0] == b'0' {
+        digits = &digits[1..];
+    }
+    if digits.len() > 10 {
+        return Err("Too many nonzero exponent digits.".to_owned());
+    }
+    let mut exp = 0i64;
+    for d in digits {
+        if !d.is_ascii_digit() {
+            return Err("Not a digit.".to_owned());
+        }
+        exp = exp * 10 + i64::from(d - b'0');
+    }
+    Ok(if negative { -exp } else { exp })
 }
 
 /// `JsonToken`.

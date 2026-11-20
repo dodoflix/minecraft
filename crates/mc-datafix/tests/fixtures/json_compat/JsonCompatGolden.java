@@ -12,6 +12,7 @@ import net.minecraft.util.LenientJsonParser;
 import net.minecraft.util.StrictJsonParser;
 import net.minecraft.util.datafix.LegacyComponentDataFixUtils;
 import com.google.gson.JsonElement;
+import com.google.gson.internal.LazilyParsedNumber;
 
 /**
  * Golden generator for the Gson-compatible JSON stack the data fixes use (mc_core::gson, mc_datafix::legacy_component_data_fix_utils).
@@ -140,7 +141,31 @@ public class JsonCompatGolden {
          "{\"text\":\"a\"}{\"text\":\"b\"}", "{\"color\":\"red\",\"text\":\"x\",\"extra\":[{\"color\":\"blue\",\"text\":\"y\"}]}",
          "\\", "\\\\", "a\\b", "line1\nline2", "tab\tsep", "\u0000", "\u001f", "\ud83d\ude00", "caf\u00e9", "\u4e2d\u6587", "\u2028", "<script>", "'", "=", "&"}) in.add(s);
 
+      // JSON escapes of lone UTF-16 surrogates: the results keep them (the Rust side maps them to U+FFFD)
+      for (String s : new String[] {"\"\\ud800\"", "{\"text\":\"\\ud83d\"}", "\"\\ude00\\ud83d\"", "\"\\ud83d\\u0041\"", "{\"\\ud800\":1}"}) in.add(s);
+
       for (String s : in) all(s);
+
+      // LazilyParsedNumber.longValue / intValue of number texts, including BigDecimal exponent and scale limits
+      for (String s : new String[] {"1", "-1", "+5", "2147483648", "-2147483649", "9223372036854775807", "9223372036854775808", "-9223372036854775809",
+         "12345678901234567890", "18446744073709551616", "99999999999999999999.9e0", "1.5", "-1.5", "0.99", "-0.99", "1e1", "1E+3", "-1e3", "1e19", "123e5",
+         "1e-5", "1e9999", "1e-9999", "1e10000", "1e-10000", "1e00000000000000000000000000005", "1e00000000000", "1e+00000000000000000000009",
+         "1e2147483647", "1e-2147483647", "1e2147483648", "1e-2147483648", "1e2147483649", "1e-2147483649", "1.5e2147483647", "1.5e-2147483646",
+         "12.34e-2147483645", "12.34e-2147483646", "0.000e-2147483647", "0e2147483648", "0e-2147483648", "1e9999999999", "1e-9999999999",
+         "1e12345678901", "1e9223372036854775807", "1e-9223372036854775807", "1e-9223372036854775808", "1e9223372036854775808", "0e-9223372036854775808",
+         "0e99999999999", "-0e5", "1e", "1e+", "1e-", "", "-", "+", ".", "abc", "1.e3", "1.2.3", "1x", "x1e3", "1e 3", "1e5x", "123456789012345678x", "1234567890123456789x", "-123456789012345678x", "1".repeat(10001),
+         "1".repeat(10000), "1".repeat(9990) + "e5"}) {
+         for (String op : new String[] {"lazy_long", "lazy_int"}) {
+            String res;
+            try {
+               LazilyParsedNumber n = new LazilyParsedNumber(s);
+               res = op.equals("lazy_long") ? Long.toString(n.longValue()) : Integer.toString(n.intValue());
+            } catch (Throwable t) {
+               res = err(t);
+            }
+            line(op, s, res);
+         }
+      }
 
       // constants
       line("empty_component", "", LegacyComponentDataFixUtils.createEmptyComponent(NbtOps.INSTANCE).asString("?"));

@@ -78,24 +78,6 @@ pub enum JNum {
     Lazy(String),
 }
 
-/// `BigDecimal(text)` truncated toward zero to an integer (None when `text` is not a number); low 64 bits like
-/// `BigInteger.longValue` for huge values is approximated by saturation-free wrapping through i128 where exact.
-fn lazy_trunc(text: &str) -> Option<i128> {
-    if let Ok(v) = text.parse::<i128>() {
-        return Some(v);
-    }
-    let d: f64 = text.parse().ok()?;
-    if !d.is_finite() {
-        return None;
-    }
-    let t = d.trunc();
-    if t.abs() < 1.0e38 {
-        Some(t as i128)
-    } else {
-        Some(0)
-    }
-}
-
 impl JNum {
     /// `Number.intValue()`.
     pub fn int_value(&self) -> i32 {
@@ -119,7 +101,8 @@ impl JNum {
             JNum::Long(v) => *v,
             JNum::Float(v) => *v as i64,
             JNum::Double(v) => *v as i64,
-            JNum::Lazy(t) => lazy_trunc(t).unwrap_or(0) as i64,
+            JNum::Lazy(t) => mc_core::gson::lazily_parsed_long_value(t)
+                .unwrap_or_else(|e| panic!("java.lang.NumberFormatException: {e}")),
         }
     }
     /// `Number.byteValue()`: `(byte) intValue()` for floating point and lazy numbers (Java narrows via int).

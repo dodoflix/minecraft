@@ -7,8 +7,8 @@ use mc_dfu::{Dyn, Dynamic, NBT};
 
 const GOLDEN: &str = include_str!("../fixtures/json_compat.tsv");
 
-/// Inverse of the recorder's `esc`.
-fn unesc(s: &str) -> String {
+/// Inverse of the recorder's `esc`, as UTF-16 units.
+fn unesc_units(s: &str) -> Vec<u16> {
     let mut units: Vec<u16> = Vec::new();
     let mut chars = s.chars();
     while let Some(c) = chars.next() {
@@ -29,7 +29,17 @@ fn unesc(s: &str) -> String {
         };
         units.push(unit);
     }
-    String::from_utf16(&units).expect("the recording has no lone surrogates")
+    units
+}
+
+/// An input: the recorded inputs hold no lone surrogates (JSON escapes are spelled out in ASCII).
+fn unesc(s: &str) -> String {
+    String::from_utf16(&unesc_units(s)).expect("the recorded inputs have no lone surrogates")
+}
+
+/// A recorded result: a Rust `String` cannot hold the lone surrogates Java keeps, so they read back as U+FFFD.
+fn unesc_result(s: &str) -> String {
+    String::from_utf16_lossy(&unesc_units(s))
 }
 
 fn err(e: gson::JsonError) -> String {
@@ -58,6 +68,10 @@ fn run(op: &str, input: &str) -> String {
         "translatable_component" => {
             legacy::create_translatable_component(NBT, input).as_string_or("?")
         }
+        "lazy_long" => gson::lazily_parsed_long_value(input)
+            .map_or_else(|e| format!("ERR:{e}"), |v| v.to_string()),
+        "lazy_int" => gson::lazily_parsed_int_value(input)
+            .map_or_else(|e| format!("ERR:{e}"), |v| v.to_string()),
         other => panic!("unknown op {other}"),
     }
 }
@@ -75,7 +89,7 @@ fn json_stack_matches_gson() {
     let (mut bad, mut n) = (Vec::new(), 0);
     for line in GOLDEN.lines() {
         let f: Vec<&str> = line.split('\t').collect();
-        let (op, input, want) = (f[0], unesc(f[1]), without_class(unesc(f[2])));
+        let (op, input, want) = (f[0], unesc(f[1]), without_class(unesc_result(f[2])));
         let got = run(op, &input);
         if got != want {
             bad.push(format!(
@@ -84,7 +98,7 @@ fn json_stack_matches_gson() {
         }
         n += 1;
     }
-    assert!(n > 1700, "{n} cases");
+    assert!(n > 1900, "{n} cases");
     assert!(
         bad.is_empty(),
         "{} of {n} cases differ; first:\n{}",

@@ -257,6 +257,18 @@ fn uuid_from_string_matches_vanilla() {
         n += 1;
     }
     assert!(n > 30);
+    let table: std::collections::HashMap<u16, i64> = fields("digit", UUIDS)
+        .map(|f| {
+            (
+                u16::from_str_radix(f[0], 16).unwrap(),
+                f[1].parse().unwrap(),
+            )
+        })
+        .collect();
+    assert!(table.len() > 300);
+    for c in 0..=u16::MAX {
+        assert_eq!(java_digit16(c), table.get(&c).copied(), "digit {c:04x}");
+    }
     for f in fields("undashed", UUIDS) {
         let s = unesc(f[0]);
         assert_eq!(res(undashed_from_string(&s)), f[1], "strict {:?}", f[0]);

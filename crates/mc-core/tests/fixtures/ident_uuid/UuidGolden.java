@@ -45,7 +45,10 @@ public class UuidGolden {
          "123e4567-e89b-12d3-a456-4266141740001", "ffffffffffffffffff-2-3-4-5", "1-2-3-4-ffffffffffffffff", "7fffffffffffffff-2-3-4-5", "-8000000000000000-2-3-4-5", "1-2-3-4-0x5", "1-2-3-4-", "-1-2-3-4",
          "+-1-2-3-4", "1-2-3-4--", "1-2-3-+-5", "1-2-3--5-5", "ffffffff-ffff-ffff-ffff-ffffffffffff", "00000000-0000-0000-0000-000000000000", "ffffffffffffffff-ffff-ffff-ffff-ffffffffffff",
          "12345678-1234-1234-1234-1234567890ab", "12345678123412341234123456789 0ab", "12345678123412341234123456789012", "1-1-1-1-1", "1-1-1-1", "-----", "----", "\u00e9-2-3-4-5", "1-2-3-4-\ud83d\ude00",
-         " 1-2-3-4-5", "1-2-3-4-5 ", "0x1-2-3-4-5", "1-2-3-4-0000000000001"
+         " 1-2-3-4-5", "1-2-3-4-5 ", "0x1-2-3-4-5", "1-2-3-4-0000000000001",
+         "\uff11-\uff12-\uff13-\uff14-\uff15", "\u0661-\u0662-\u0663-\u0664-\u0665", "\uff21\uff22-2-3-4-5", "1-2-3-4-\uff46\uff26", "\u0967-\u096a-\u0e53-\u1c45-\ua9d9",
+         "+\uff11-2-3-4-5", "-\uff11-2-3-4-5", "\uff10\uff10\uff10\uff10\uff10\uff10\uff10\uff11-2-3-4-5", "1-2-3-4-\ud835\udfd9", "\u00b2-2-3-4-5", "\u2460-2-3-4-5", "1-2-3-4-\u0661x",
+         "\uff1a-2-3-4-5", "\uff07-2-3-4-5", "\uff47-2-3-4-5", "123e4567-e89b-12d3-a456-42661417400\uff10", "\uff11\uff12\uff13\uff14\uff15\uff16\uff17\uff18-\uff11\uff12\uff13\uff14-\uff11\uff12\uff13\uff14-\uff11\uff12\uff13\uff14-\uff11\uff12\uff13\uff14\uff15\uff16\uff17\uff18\uff19\uff10\uff21\uff22"
       };
       for (String s : strs) out.append("from\t").append(esc(s)).append('\t').append(res(() -> UUID.fromString(s))).append('\n');
       String[] und = {
@@ -55,6 +58,11 @@ public class UuidGolden {
       };
       for (String s : und) {
          out.append("undashed\t").append(esc(s)).append('\t').append(res(() -> UndashedUuid.fromString(s))).append('\t').append(res(() -> UndashedUuid.fromStringLenient(s))).append('\n');
+      }
+      // Character.digit(char, 16) of every BMP unit that is a digit: the table behind Long.parseLong.
+      for (int c = 0; c < 0x10000; c++) {
+         int d = Character.digit((char) c, 16);
+         if (d >= 0) out.append("digit\t").append(String.format(java.util.Locale.ROOT, "%04x", c)).append('\t').append(d).append('\n');
       }
       System.out.print(out);
    }

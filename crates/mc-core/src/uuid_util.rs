@@ -65,6 +65,30 @@ pub fn create_offline_player_uuid(player_name: &str) -> Uuid {
     name_uuid_from_bytes(format!("{UUID_PREFIX_OFFLINE_PLAYER}{player_name}").as_bytes())
 }
 
+/// First code unit of every Unicode decimal digit run (`Nd`) in the BMP: `Character.digit` accepts the ten units from each.
+const DIGIT_ZEROS: [u16; 37] = [
+    0x0030, 0x0660, 0x06f0, 0x07c0, 0x0966, 0x09e6, 0x0a66, 0x0ae6, 0x0b66, 0x0be6, 0x0c66, 0x0ce6,
+    0x0d66, 0x0de6, 0x0e50, 0x0ed0, 0x0f20, 0x1040, 0x1090, 0x17e0, 0x1810, 0x1946, 0x19d0, 0x1a80,
+    0x1a90, 0x1b50, 0x1bb0, 0x1c40, 0x1c50, 0xa620, 0xa8d0, 0xa900, 0xa9d0, 0xa9f0, 0xaa50, 0xabf0,
+    0xff10,
+];
+
+/// `Character.digit(char, 16)`: Unicode decimal digits, ASCII and fullwidth `A-F`/`a-f`.
+pub fn java_digit16(c: u16) -> Option<i64> {
+    let letter = |base: u16| {
+        c.checked_sub(base)
+            .filter(|d| *d < 6)
+            .map(|d| i64::from(d) + 10)
+    };
+    DIGIT_ZEROS
+        .iter()
+        .find_map(|&z| c.checked_sub(z).filter(|d| *d < 10).map(i64::from))
+        .or_else(|| letter(0x41))
+        .or_else(|| letter(0x61))
+        .or_else(|| letter(0xff21))
+        .or_else(|| letter(0xff41))
+}
+
 /// `Long.parseLong(CharSequence, begin, end, 16)`; error = the `NumberFormatException` message.
 fn parse_long_hex(s: &[u16], begin: usize, end: usize) -> Result<i64, String> {
     let seg = || String::from_utf16_lossy(&s[begin..end]);
@@ -92,10 +116,7 @@ fn parse_long_hex(s: &[u16], begin: usize, end: usize) -> Result<i64, String> {
     let multmin = limit / 16;
     let mut result = 0i64;
     while i < end {
-        let digit = char::from_u32(s[i].into())
-            .and_then(|c| c.to_digit(16))
-            .map(i64::from);
-        let Some(digit) = digit else {
+        let Some(digit) = java_digit16(s[i]) else {
             return Err(err_at(i));
         };
         if result < multmin {
