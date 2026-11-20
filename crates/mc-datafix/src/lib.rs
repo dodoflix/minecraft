@@ -60,6 +60,7 @@
 //! Observable-order rule (design contract): fix logic that iterates a Java `HashMap`/`HashSet` and builds ordered output
 //! must iterate in Java's order (`mc_core::java_collections`, `mc_dfu::extra::java_hash_map_order`).
 
+mod cons;
 pub mod data_fixers;
 pub mod datafix;
 pub mod datafix_types;

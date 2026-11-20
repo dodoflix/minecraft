@@ -339,8 +339,9 @@ pub fn extract_world(world: &Path, id: &str, flat: bool) -> Extracted {
     out
 }
 
-/// `level.dat`: the `Data` compound is the input of `LEVEL` and `LEVEL_SUMMARY`; its `Player` and `WorldGenSettings`
-/// are inputs of `PLAYER` and `WORLD_GEN_SETTINGS` at the version of the level.
+/// `level.dat`: the `Data` compound is the input of `LEVEL` and `LEVEL_SUMMARY`; its `Player` is an input of `PLAYER` at
+/// the player's own `DataVersion` (-1 when it has none), its `WorldGenSettings` an input of `WORLD_GEN_SETTINGS` at the
+/// version of the level.
 fn level_dat(world: &Path, id: &str, out: &mut Extracted) {
     let path = world.join("level.dat");
     let root = match read_gzip_or_plain(&path).and_then(|b| {

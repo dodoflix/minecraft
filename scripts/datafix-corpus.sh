@@ -99,6 +99,9 @@ cmd_select() {
 cmd_record() {
   local req ty out part parts=() kept=()
   [ -d "$WORK/requests" ] || die "no requests: run select first"
+  # a failed or interrupted run leaves no half-written fixture behind
+  trap 'rm -f "$FIXTURES"/corpus_*.tsv.gz.part' EXIT
+  rm -f "$FIXTURES"/corpus_*.tsv.gz.part
   rm -rf "$WORK/records"
   mkdir -p "$WORK/records"
   for req in "$WORK"/requests/*.req; do
@@ -117,6 +120,7 @@ cmd_record() {
     printf '%s\n' "${kept[@]}" | grep -qxF "$out" || rm -f "$out"
   done
   for part in "${parts[@]}"; do mv "$part" "${part%.part}"; done
+  trap - EXIT
 }
 
 [ $# -gt 0 ] || { usage >&2; exit 2; }

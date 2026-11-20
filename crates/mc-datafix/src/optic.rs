@@ -8,10 +8,11 @@
 //! which Java instance may evaluate an optic (a failing `upCast` throws `IllegalArgumentException`); [`Bound`] and
 //! [`Instance`] track it, so `Typed.get` through an `optional` or a tagged choice throws like in Java.
 
+use crate::cons::{WeakCons, hash_parts};
 use crate::ty::{TaggedChoiceType, Type};
 use crate::value::Value;
 use std::hash::{Hash, Hasher};
-use std::sync::Arc;
+use std::sync::{Arc, LazyLock};
 
 /// One primitive optic (`Optics.*` / `InjTagged` / the merged optics built by `Sum` and `TaggedChoice`).
 #[derive(Clone)]
@@ -243,10 +244,26 @@ impl Hash for TypedOptic {
 }
 
 impl TypedOptic {
+    /// One element; the optics of one kind over the same four types (instances) are one shared allocation.
     fn single(s: Type, t: Type, a: Type, b: Type, optic: Optic) -> TypedOptic {
-        TypedOptic {
-            elements: Arc::new(vec![Element { s, t, a, b, optic }]),
-        }
+        static CONS: LazyLock<WeakCons<Vec<Element>>> = LazyLock::new(WeakCons::new);
+        let make = |s, t, a, b, optic| Arc::new(vec![Element { s, t, a, b, optic }]);
+        let elements = if matches!(optic, Optic::Sum(..) | Optic::Choice(..)) {
+            make(s, t, a, b, optic)
+        } else {
+            let name = match &optic {
+                Optic::InjTagged(key) => Some(key.as_str()),
+                _ => None,
+            };
+            let addrs = [s.addr(), t.addr(), a.addr(), b.addr()];
+            let hash = hash_parts((optic.tag(), addrs, name));
+            let same = |v: &Vec<Element>| {
+                matches!(v.as_slice(), [e] if e.optic == optic
+                    && [e.s.addr(), e.t.addr(), e.a.addr(), e.b.addr()] == addrs)
+            };
+            CONS.get_or_make(hash, same, || make(s, t, a, b, optic.clone()))
+        };
+        TypedOptic { elements }
     }
 
     pub fn s_type(&self) -> &Type {

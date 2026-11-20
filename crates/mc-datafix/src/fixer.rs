@@ -228,10 +228,12 @@ pub struct DataFixer {
 }
 
 impl DataFixer {
-    /// Drops the rules built so far; `update` builds them again on demand. A caller that updates over many different
-    /// version ranges one after the other keeps its memory bounded this way.
+    /// Drops the rules built so far and the rewrites cached for them (a process-wide cache shared by every fixer);
+    /// `update` builds them again on demand. A caller that updates over many different version ranges one after the
+    /// other keeps its memory bounded this way.
     pub fn clear_rule_cache(&self) {
         self.rules.lock().unwrap().clear();
+        crate::ty::clear_rewrite_cache();
     }
 
     /// The oldest data version that [`DataFixer::update`] upgrades with every fix of the chain (`i32::MIN` once the

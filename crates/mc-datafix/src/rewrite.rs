@@ -68,7 +68,6 @@ pub(crate) struct FoldShared {
     new_family: Arc<RecursiveTypeFamily>,
     algebra: Algebra,
     this: Weak<FoldShared>,
-    hmapped: OnceLock<IntFn>,
     per_index: Mutex<HashMap<i32, ViewFn>>,
 }
 
@@ -84,7 +83,6 @@ impl FoldShared {
             new_family: new_family.clone(),
             algebra,
             this: this.clone(),
-            hmapped: OnceLock::new(),
             per_index: Mutex::new(HashMap::new()),
         });
         shared.as_int_fn()
@@ -115,10 +113,10 @@ impl FoldShared {
         if let Some(f) = self.per_index.lock().unwrap().get(&index) {
             return f.clone();
         }
-        let hmapped = self.hmapped.get_or_init(|| {
-            let this = self.this.upgrade().expect("fold dropped while evaluating");
-            self.family.template().hmap(&self.family, this.as_int_fn())
-        });
+        // the closure tree of the template is built for this call and dropped with it: what stays is the evaluated
+        // function of `index`
+        let this = self.this.upgrade().expect("fold dropped while evaluating");
+        let hmapped = self.family.template().hmap(&self.family, this.as_int_fn());
         let result = hmapped(index);
         let op = &self.algebra[index as usize];
         let composed = PointFree::comp(&op.view.0, &result.view.0);
@@ -251,8 +249,13 @@ impl PointFree {
                     Arc::new(move |ops: &Ops, v: Value| optic.update(v, &mut |x| inner(ops, x)))
                 }
                 PfKind::Fold { shared, index } => {
-                    let (shared, index) = (shared.clone(), *index);
-                    Arc::new(move |ops: &Ops, v: Value| shared.func(index)(ops, v))
+                    // weak: the evaluated functions of a fold are cached in the fold itself, and a strong reference
+                    // from them would keep every evaluated fold alive for the process
+                    let (shared, index) = (Arc::downgrade(shared), *index);
+                    Arc::new(move |ops: &Ops, v: Value| {
+                        let shared = shared.upgrade().expect("fold dropped while evaluating");
+                        shared.func(index)(ops, v)
+                    })
                 }
                 PfKind::TaggedChoice { results } => {
                     let evals: Vec<(String, ViewFn)> = results

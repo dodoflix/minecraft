@@ -2,6 +2,7 @@
 //! `equals(ignoreRecursionPoints, checkIndex)`, codec (read/write) semantics, finder search order and rewrite
 //! (`all`/`one`/`everywhere`) behaviour. Values of these types are dynamic [`Value`]s.
 
+use crate::cons::{WeakCons, hash_parts};
 use crate::family::RecursiveTypeFamily;
 use crate::optic::TypedOptic;
 use crate::rewrite::{OptimizationRule, RewriteResult, TypeRewriteRule, View, optic_view};
@@ -384,6 +385,15 @@ pub(crate) fn fast_order<V>(entries: Vec<(String, V)>) -> Vec<(String, V)> {
     mc_core::java_collections::fast_open_hash_order_string(entries.len(), entries)
 }
 
+/// Equal structural constructions (same children *instances*, names and indices) share one node. Only the types whose
+/// equality is purely structural are shared: primitives, hooks (functions compare by identity), recursion points and
+/// tagged choices keep their own instances.
+static CONS: LazyLock<WeakCons<TypeNode>> = LazyLock::new(WeakCons::new);
+
+fn cons(hash: u64, same: impl Fn(&TypeKind) -> bool, make: impl FnOnce() -> TypeKind) -> Type {
+    Type(CONS.get_or_make(hash, |node| same(&node.kind), || Type::new(make()).0))
+}
+
 impl Type {
     pub(crate) fn new(kind: TypeKind) -> Type {
         Type(Arc::new(TypeNode {
@@ -391,6 +401,10 @@ impl Type {
             template: OnceLock::new(),
             hash: OnceLock::new(),
         }))
+    }
+
+    pub(crate) fn addr(&self) -> usize {
+        Arc::as_ptr(&self.0) as usize
     }
 
     pub(crate) fn kind(&self) -> &TypeKind {
@@ -436,30 +450,68 @@ impl Type {
         EMPTY_PASSTHROUGH.clone()
     }
     pub fn product(first: &Type, second: &Type) -> Type {
-        Type::new(TypeKind::Product(first.clone(), second.clone()))
+        let key = [1, first.addr(), second.addr()];
+        cons(
+            hash_parts(key),
+            |k| matches!(k, TypeKind::Product(a, b) if a.addr() == key[1] && b.addr() == key[2]),
+            || TypeKind::Product(first.clone(), second.clone()),
+        )
     }
     pub fn sum(first: &Type, second: &Type) -> Type {
-        Type::new(TypeKind::Sum(first.clone(), second.clone()))
+        let key = [2, first.addr(), second.addr()];
+        cons(
+            hash_parts(key),
+            |k| matches!(k, TypeKind::Sum(a, b) if a.addr() == key[1] && b.addr() == key[2]),
+            || TypeKind::Sum(first.clone(), second.clone()),
+        )
     }
     pub fn list(element: &Type) -> Type {
-        Type::new(TypeKind::List(element.clone()))
+        let key = [3, element.addr()];
+        cons(
+            hash_parts(key),
+            |k| matches!(k, TypeKind::List(a) if a.addr() == key[1]),
+            || TypeKind::List(element.clone()),
+        )
     }
     pub fn compound_list(key: &Type, element: &Type) -> Type {
-        Type::new(TypeKind::CompoundList(key.clone(), element.clone()))
+        let k = [4, key.addr(), element.addr()];
+        cons(
+            hash_parts(k),
+            |t| matches!(t, TypeKind::CompoundList(a, b) if a.addr() == k[1] && b.addr() == k[2]),
+            || TypeKind::CompoundList(key.clone(), element.clone()),
+        )
     }
     pub fn tag(name: &str, element: &Type) -> Type {
-        Type::new(TypeKind::Tag(name.to_string(), element.clone()))
+        let key = [5, element.addr()];
+        cons(
+            hash_parts((key, name)),
+            |k| matches!(k, TypeKind::Tag(n, a) if n == name && a.addr() == key[1]),
+            || TypeKind::Tag(name.to_string(), element.clone()),
+        )
     }
     pub fn named(name: &str, element: &Type) -> Type {
-        Type::new(TypeKind::Named(name.to_string(), element.clone()))
+        let key = [6, element.addr()];
+        cons(
+            hash_parts((key, name)),
+            |k| matches!(k, TypeKind::Named(n, a) if n == name && a.addr() == key[1]),
+            || TypeKind::Named(name.to_string(), element.clone()),
+        )
     }
     pub fn check(name: &str, index: i32, expected_index: i32, delegate: &Type) -> Type {
-        Type::new(TypeKind::Check {
-            name: name.to_string(),
-            index,
-            expected_index,
-            delegate: delegate.clone(),
-        })
+        let key = [7, delegate.addr(), index as usize, expected_index as usize];
+        cons(
+            hash_parts((key, name)),
+            |k| {
+                matches!(k, TypeKind::Check { name: n, index: i, expected_index: e, delegate: d }
+                    if n == name && *i == index && *e == expected_index && d.addr() == key[1])
+            },
+            || TypeKind::Check {
+                name: name.to_string(),
+                index,
+                expected_index,
+                delegate: delegate.clone(),
+            },
+        )
     }
     pub fn hook(delegate: &Type, pre: &HookFunction, post: &HookFunction) -> Type {
         Type::new(TypeKind::Hook {
@@ -1654,6 +1706,12 @@ impl std::fmt::Debug for Type {
 type RewriteKey = (Type, TypeRewriteRule, OptimizationRule);
 static REWRITE_CACHE: LazyLock<Mutex<HashMap<RewriteKey, Option<RewriteResult>>>> =
     LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// Drops every cached rewrite result (vanilla's `REWRITE_CACHE` never shrinks): the view of a version range holds the
+/// evaluated function trees of the whole type, so a caller that moves over many ranges frees them with this.
+pub(crate) fn clear_rewrite_cache() {
+    *REWRITE_CACHE.lock().unwrap() = HashMap::new();
+}
 
 // ---- free helpers shared by the per-kind rewrite code ------------------------------------------------------------
 

@@ -73,7 +73,14 @@ fn chunk_rule_cost() {
     }
     let fixer = builder.build();
     let chunk = || Dynamic::new(NBT, Dyn::map_of([("Level", Dyn::map_of([]))]));
-    for (from, to) in [(4899, 5023), (99, 5023)] {
+    for (from, to) in [
+        (4899, 5023),
+        (99, 5023),
+        (1343, 5023),
+        (2230, 5023),
+        (3337, 5023),
+        (4325, 5023),
+    ] {
         let started = Instant::now();
         fixer.update(&References::CHUNK, chunk(), from, to);
         eprintln!(
