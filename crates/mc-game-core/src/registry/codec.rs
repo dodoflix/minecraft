@@ -58,6 +58,16 @@ impl<'a> RegistryDecodeContext<'a> {
         }
     }
 
+    /// `MapLike` failure on a value that is no map: `JsonOps` and `NbtOps` word it differently.
+    pub(crate) fn not_a_map(&self, v: &Value) -> String {
+        let kind = if self.numeric_booleans {
+            "map"
+        } else {
+            "JSON object"
+        };
+        format!("Not a {kind}: {}", compact(v))
+    }
+
     /// Runs `f` without reporting promoted partial results (the entry was reported by its first decode).
     pub fn quietly<R>(&self, f: impl FnOnce() -> R) -> R {
         let before = self.quiet.replace(true);
@@ -514,7 +524,7 @@ impl Schema {
     pub fn dispatch(registry: &'static str, resolve: fn(&str) -> Option<Schema>) -> Schema {
         Schema::custom_partial(move |v, ctx| {
             if !v.is_object() {
-                return Err(Failure::from(format!("Not a JSON object: {}", compact(v))));
+                return Err(Failure::from(ctx.not_a_map(v)));
             }
             let unknown = v
                 .get("type")
@@ -684,9 +694,7 @@ impl Schema {
             Schema::Map(key, value) => decode_map(key, value, v, ctx),
             // `KeyDispatchCodec.decode`: the failure of the selected codec keeps its partial result
             Schema::Dispatch { key, resolve } => {
-                let o = v
-                    .as_object()
-                    .ok_or_else(|| format!("Not a JSON object: {}", compact(v)))?;
+                let o = v.as_object().ok_or_else(|| ctx.not_a_map(v))?;
                 let type_value = o
                     .get(*key)
                     .filter(|t| !t.is_null())
@@ -808,7 +816,7 @@ fn decode_map(
 ) -> Result<Tag, Failure> {
     let o = v
         .as_object()
-        .ok_or_else(|| Failure::from(format!("Not a JSON object: {}", compact(v))))?;
+        .ok_or_else(|| Failure::from(ctx.not_a_map(v)))?;
     let mut out = CompoundTag::new();
     let mut errors: Vec<String> = Vec::new();
     let mut failed = serde_json::Map::new();
@@ -912,7 +920,7 @@ fn decode_record(
 ) -> Result<CompoundTag, Failure> {
     let o = v
         .as_object()
-        .ok_or_else(|| Failure::from(format!("Not a JSON object: {}", compact(v))))?;
+        .ok_or_else(|| Failure::from(ctx.not_a_map(v)))?;
     let mut out = CompoundTag::new();
     let mut errors: Vec<String> = Vec::new();
     let mut has_partial = true;

@@ -20,7 +20,8 @@ use std::time::{Duration, SystemTime};
 
 use mc_core::ident::Identifier;
 use mc_datafix::{DataFixTypes, update_to_current};
-use mc_nbt::{CompoundTag, NbtAccounter};
+use mc_dfu::Codec;
+use mc_nbt::{CompoundTag, NbtAccounter, Tag};
 
 use super::directory_lock::DirectoryLock;
 use super::feature_flags::FeatureFlagSet;
@@ -256,6 +257,7 @@ impl LevelStorageSource {
         world_access: &LevelStorageAccess,
         level_data_tag: &CompoundTag,
         data_configuration: WorldDataConfiguration,
+        stem: &Codec<Tag>,
     ) -> Result<LevelDataAndDimensions, String> {
         if requires_file_fixing(get_data_version(level_data_tag)) {
             return Err(
@@ -265,6 +267,7 @@ impl LevelStorageSource {
         }
         let world_gen_settings = match WorldGenSettings::read_existing_in_data_dir(
             &world_access.get_level_path(LevelResource::DATA),
+            stem,
         ) {
             Ok(settings) => Ok(settings),
             Err(ReadError::Error(message)) => Err(message),

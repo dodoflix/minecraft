@@ -11,6 +11,7 @@ use crate::registry::typed::dimension_type::DimensionType;
 use crate::registry::typed::level_stem;
 use crate::registry::{RegistrationInfo, Registry, RegistryAccess, RegistryEntry, keys};
 use mc_core::ident::Identifier;
+use mc_dfu::{Codec, DataResult, Dyn, Dynamic, NBT, PASSTHROUGH};
 use mc_nbt::{CompoundTag, Tag};
 use mc_world::level_storage::SpecialWorldProperty;
 use mc_worldgen::biome::BiomeRegistry;
@@ -120,6 +121,28 @@ impl<'a> DimensionDecoder<'a> {
             ))),
             tag,
         ))
+    }
+
+    /// `LevelStem.CODEC` over `NbtOps` as a codec of the canonical stem compound: what `WorldGenSettings.CODEC` keeps of
+    /// each stem of `world_gen_settings.dat`, with the codec's own messages when a stem fails.
+    pub fn stored_stem_codec(&self) -> Codec<Tag> {
+        let access = self.access.clone();
+        PASSTHROUGH.flat_xmap(
+            move |d| {
+                let tag = match d.convert_value(&NBT).to_tag() {
+                    Ok(tag) => tag,
+                    Err(e) => return DataResult::error(move || e.clone()),
+                };
+                let lookup = AccessLookup(&access);
+                let mut ctx = RegistryDecodeContext::new(&lookup);
+                ctx.numeric_booleans = true;
+                match level_stem::encode(&nbt_to_json(&tag), &ctx) {
+                    Ok(tag) => DataResult::success(tag),
+                    Err(message) => DataResult::error(move || message.clone()),
+                }
+            },
+            |tag: &Tag| DataResult::success(Dynamic::new(NBT, Dyn::from(tag))),
+        )
     }
 
     /// `LevelStem.CODEC` parse + `encodeStart(NbtOps)`: the typed stem and its canonical NBT.

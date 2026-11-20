@@ -107,7 +107,9 @@ fn saved_data_files_round_trip() {
 
 #[test]
 fn world_gen_settings_decode_encode() {
-    let settings = WorldGenSettings::read_existing(&fixture_world()).unwrap();
+    let settings =
+        WorldGenSettings::read_existing(&fixture_world(), &WorldGenSettings::raw_stem_codec())
+            .unwrap();
     assert_eq!(settings.options, WorldOptions::new(12345, true, false));
     assert_eq!(settings.dimensions.len(), 3);
     assert_eq!(
@@ -123,10 +125,16 @@ fn world_gen_settings_decode_encode() {
     let tmp = tempfile::tempdir().unwrap();
     settings.write(tmp.path()).unwrap();
     assert_eq!(
-        WorldGenSettings::read_existing(tmp.path()).unwrap(),
+        WorldGenSettings::read_existing(tmp.path(), &WorldGenSettings::raw_stem_codec()).unwrap(),
         settings
     );
-    assert!(WorldGenSettings::read_existing(&tmp.path().join("nope")).is_err());
+    assert!(
+        WorldGenSettings::read_existing(
+            &tmp.path().join("nope"),
+            &WorldGenSettings::raw_stem_codec()
+        )
+        .is_err()
+    );
 }
 
 #[test]
@@ -436,7 +444,13 @@ fn level_data_and_dimensions_reads_world_gen_settings() {
     let access = source.create_access("world").unwrap();
     let data = access.get_unfixed_data_tag(false).unwrap();
     let cfg = LevelStorageSource::read_data_config(&data);
-    let out = LevelStorageSource::get_level_data_and_dimensions(&access, &data, cfg).unwrap();
+    let out = LevelStorageSource::get_level_data_and_dimensions(
+        &access,
+        &data,
+        cfg,
+        &WorldGenSettings::raw_stem_codec(),
+    )
+    .unwrap();
     assert_eq!(out.world_gen_settings.unwrap().options.seed, 12345);
     assert_eq!(out.world_data.game_time, 1199);
 
@@ -446,7 +460,8 @@ fn level_data_and_dimensions_reads_world_gen_settings() {
         LevelStorageSource::get_level_data_and_dimensions(
             &access,
             &old,
-            WorldDataConfiguration::DEFAULT
+            WorldDataConfiguration::DEFAULT,
+            &WorldGenSettings::raw_stem_codec()
         )
         .is_err()
     );

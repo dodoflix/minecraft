@@ -307,7 +307,8 @@ fn vanilla_server_loads_our_level_dat() {
                 storage.save(&id, tag).unwrap();
             }
         }
-        let wgs = WorldGenSettings::read_existing(&world).unwrap();
+        let wgs =
+            WorldGenSettings::read_existing(&world, &WorldGenSettings::raw_stem_codec()).unwrap();
         wgs.write(&world).unwrap();
         access.close().unwrap();
     }

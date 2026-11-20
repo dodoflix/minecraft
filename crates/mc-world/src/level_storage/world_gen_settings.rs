@@ -1,11 +1,15 @@
 //! `WorldOptions` + `WorldGenSettings` (`data/minecraft/world_gen_settings.dat`): seed, structure / bonus
-//! chest flags and the raw `dimensions` map (its `LevelStem` values need the registries; they stay NBT).
+//! chest flags and the `dimensions` map (its `LevelStem` values stay NBT; the caller supplies the stem codec).
 
 use std::io;
 use std::path::Path;
+use std::sync::Arc;
+use std::sync::atomic::{AtomicBool, Ordering};
 
 use mc_core::ident::Identifier;
 use mc_core::java_exception::JavaException;
+use mc_dfu::extra::{IDENTIFIER, optional_always_present_field_of};
+use mc_dfu::{BOOL, Codec, DataResult, Dyn, Dynamic, LONG, NBT, PASSTHROUGH, STRING};
 use mc_nbt::{CompoundTag, NbtAccounter, Tag};
 
 use super::file_util::read_compressed;
@@ -62,6 +66,15 @@ fn java_parse_long(s: &str) -> Option<i64> {
     s.parse().ok()
 }
 
+/// The serialized shape of [`WorldGenSettings`]: `WorldOptions.CODEC` and `WorldDimensions.CODEC` side by side.
+struct Packed {
+    seed: i64,
+    generate_structures: bool,
+    bonus_chest: bool,
+    legacy_custom_options: Option<String>,
+    dimensions: Vec<(Identifier, Tag)>,
+}
+
 /// `WorldGenSettings` (the saved-data compound).
 #[derive(Clone, PartialEq, Debug)]
 pub struct WorldGenSettings {
@@ -71,45 +84,101 @@ pub struct WorldGenSettings {
 }
 
 impl WorldGenSettings {
-    /// `WorldGenSettings.CODEC` decode (`Err` mirrors a failed `DataResult`).
-    pub fn decode(tag: &Tag) -> Result<WorldGenSettings, String> {
-        let c = tag.as_compound().ok_or("Not a map")?;
-        let seed = c
-            .get("seed")
-            .ok_or("No key seed")?
-            .as_long()
-            .ok_or("Not a number")?;
-        let flag = |key: &str, default: bool| match c.get(key) {
-            None => Ok(default),
-            Some(t) => t
-                .as_number()
-                .map(|n| n.double_value() != 0.0)
-                .ok_or_else(|| format!("{key}: Not a number")),
-        };
-        let generate_structures = flag("generate_structures", true)?;
-        let generate_bonus_chest = flag("bonus_chest", false)?;
-        // lenientOptionalFieldOf: a non-string value is treated as absent
-        let legacy_custom_options = c
-            .get("legacy_custom_options")
-            .and_then(Tag::as_string)
-            .map(str::to_owned);
-        let dimensions = c
-            .get("dimensions")
-            .ok_or("No key dimensions")?
-            .as_compound()
-            .ok_or("Not a map")?;
-        for key in dimensions.keys() {
-            Identifier::read(key.as_lossy_str())?;
-        }
-        Ok(WorldGenSettings {
-            options: WorldOptions {
-                seed,
-                generate_structures,
-                generate_bonus_chest,
-                legacy_custom_options,
-            },
-            dimensions: dimensions.clone(),
+    /// `WorldGenSettings.CODEC` with `stem` as the `LevelStem` codec of the `dimensions` values. `overworld_missing`
+    /// is set when a decoded `dimensions` map (complete or partial) has no overworld stem: the `WorldDimensions`
+    /// constructor throws there, whatever else failed.
+    fn codec_with(
+        stem: &Codec<Tag>,
+        overworld_missing: Arc<AtomicBool>,
+    ) -> Codec<WorldGenSettings> {
+        mc_dfu::record!(Packed {
+            seed: LONG.field_of("seed"),
+            generate_structures: optional_always_present_field_of(
+                &BOOL,
+                "generate_structures",
+                true
+            ),
+            bonus_chest: optional_always_present_field_of(&BOOL, "bonus_chest", false),
+            legacy_custom_options: STRING.lenient_optional_field_of("legacy_custom_options"),
+            dimensions: IDENTIFIER.unbounded_map(stem).field_of("dimensions").xmap(
+                move |stems| {
+                    if !stems
+                        .iter()
+                        .any(|(id, _)| id.to_string() == "minecraft:overworld")
+                    {
+                        overworld_missing.store(true, Ordering::Relaxed);
+                    }
+                    stems
+                },
+                |stems: &Vec<(Identifier, Tag)>| stems.clone(),
+            ),
         })
+        .codec()
+        .xmap(
+            |p| {
+                let mut dimensions = CompoundTag::new();
+                for (id, stem) in p.dimensions {
+                    dimensions.put(id.to_string(), stem);
+                }
+                WorldGenSettings {
+                    options: WorldOptions {
+                        seed: p.seed,
+                        generate_structures: p.generate_structures,
+                        generate_bonus_chest: p.bonus_chest,
+                        legacy_custom_options: p.legacy_custom_options,
+                    },
+                    dimensions,
+                }
+            },
+            |settings: &WorldGenSettings| Packed {
+                seed: settings.options.seed,
+                generate_structures: settings.options.generate_structures,
+                bonus_chest: settings.options.generate_bonus_chest,
+                legacy_custom_options: settings.options.legacy_custom_options.clone(),
+                dimensions: settings
+                    .dimensions
+                    .iter()
+                    .filter_map(|(k, v)| {
+                        Identifier::read(k.as_lossy_str())
+                            .ok()
+                            .map(|id| (id, v.clone()))
+                    })
+                    .collect(),
+            },
+        )
+    }
+
+    /// `WorldGenSettings.CODEC`.
+    pub fn codec(stem: &Codec<Tag>) -> Codec<WorldGenSettings> {
+        WorldGenSettings::codec_with(stem, Arc::default())
+    }
+
+    /// The `LevelStem` codec for callers without registries: a stem stays the tag it is, unchecked.
+    pub fn raw_stem_codec() -> Codec<Tag> {
+        PASSTHROUGH.flat_xmap(
+            |d| match d.convert_value(&NBT).to_tag() {
+                Ok(tag) => DataResult::success(tag),
+                Err(e) => DataResult::error(move || e.clone()),
+            },
+            |tag: &Tag| DataResult::success(Dynamic::new(NBT, Dyn::from(tag))),
+        )
+    }
+
+    /// `WorldGenSettings.CODEC` decode with `stem` as the `LevelStem` codec. A `DataResult` error is
+    /// [`ReadError::Error`]; a decoded `dimensions` map without an overworld stem makes the `WorldDimensions`
+    /// constructor throw ([`ReadError::Thrown`]).
+    pub fn decode(tag: &Tag, stem: &Codec<Tag>) -> Result<WorldGenSettings, ReadError> {
+        let overworld_missing = Arc::new(AtomicBool::new(false));
+        let result = mc_dfu::parse_nbt(
+            &WorldGenSettings::codec_with(stem, overworld_missing.clone()),
+            tag,
+        );
+        if overworld_missing.load(Ordering::Relaxed) {
+            return Err(ReadError::Thrown(
+                "java.lang.IllegalStateException: Overworld settings missing".to_owned(),
+            ));
+        }
+        result.into_result().map_err(ReadError::Error)
     }
 
     /// `WorldDimensions.specialWorldProperty` for the stored overworld stem (`DebugLevelSource` / `FlatLevelSource`
@@ -145,12 +214,18 @@ impl WorldGenSettings {
 
     /// `LevelStorageSource.readExistingSavedData(access, registries, WorldGenSettings.TYPE)`: reads
     /// `<world>/data/minecraft/world_gen_settings.dat`.
-    pub fn read_existing(world_dir: &Path) -> Result<WorldGenSettings, ReadError> {
-        WorldGenSettings::read_existing_in_data_dir(&world_dir.join("data"))
+    pub fn read_existing(
+        world_dir: &Path,
+        stem: &Codec<Tag>,
+    ) -> Result<WorldGenSettings, ReadError> {
+        WorldGenSettings::read_existing_in_data_dir(&world_dir.join("data"), stem)
     }
 
     /// [`Self::read_existing`] with the `data` folder (`LevelResource.DATA`) given.
-    pub fn read_existing_in_data_dir(data_dir: &Path) -> Result<WorldGenSettings, ReadError> {
+    pub fn read_existing_in_data_dir(
+        data_dir: &Path,
+        stem: &Codec<Tag>,
+    ) -> Result<WorldGenSettings, ReadError> {
         let path = SavedDataStorage::new(data_dir)
             .get_data_file(&world_gen_settings_id())
             .map_err(|e| ReadError::Thrown(e.to_string()))?;
@@ -163,8 +238,10 @@ impl WorldGenSettings {
                 ReadError::Error(exception.message.unwrap_or_else(|| "null".to_owned()))
             }
         })?;
-        WorldGenSettings::decode(&Tag::Compound(file.get_compound_or_empty("data").clone()))
-            .map_err(ReadError::Error)
+        WorldGenSettings::decode(
+            &Tag::Compound(file.get_compound_or_empty("data").clone()),
+            stem,
+        )
     }
 
     /// `LevelStorageSource.writeWorldGenSettings`.
@@ -202,7 +279,12 @@ mod tests {
         let dir = tempfile::tempdir().unwrap();
         let file = dir.path().join("minecraft/world_gen_settings.dat");
         std::fs::create_dir_all(file.parent().unwrap()).unwrap();
-        let read = || WorldGenSettings::read_existing_in_data_dir(dir.path());
+        let read = || {
+            WorldGenSettings::read_existing_in_data_dir(
+                dir.path(),
+                &WorldGenSettings::raw_stem_codec(),
+            )
+        };
         assert_eq!(
             read().unwrap_err(),
             ReadError::Error(file.display().to_string())

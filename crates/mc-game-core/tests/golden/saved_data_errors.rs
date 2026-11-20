@@ -129,7 +129,7 @@ fn damaged_saved_data_reports_like_vanilla() {
     for line in golden.lines() {
         let (name, rest) = line.split_once('\t').unwrap();
         let (input, vanilla) = rest.split_once('\t').unwrap();
-        // its record lives in mc-world, outside the types of this crate
+        // its record lives in mc-world and its stems need the data pack registries: see `world_gen_settings_errors` in mc-game
         if name == "world_gen_settings" {
             continue;
         }
