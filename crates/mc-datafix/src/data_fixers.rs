@@ -2,7 +2,7 @@
 //! load paths use (`mc-world` and the game crates depend on this crate).
 
 use crate::datafix_types::DataFixTypes;
-use crate::fixer::{DataFixer, DataFixerBuilder, FileFixerRegistry, make_key};
+use crate::fixer::{DataFixer, DataFixerBuilder, FileFixerRegistry, UnsupportedVersion, make_key};
 use crate::fixes::references::References;
 use crate::ty::ensure_namespaced;
 use mc_nbt::CompoundTag;
@@ -49,9 +49,15 @@ pub fn latest_file_fixer_version() -> i32 {
 }
 
 /// `DataFixTypes.updateToCurrentVersion(DataFixers.getDataFixer(), tag, fromVersion)`: a failing update is logged by
-/// the fixer and leaves the input unchanged.
-pub fn update_to_current(ty: DataFixTypes, tag: &CompoundTag, from_version: i32) -> CompoundTag {
-    ty.update_tag_to_current_version(data_fixer(), tag, from_version)
+/// the fixer and leaves the input unchanged. `Err` for a version below the registered part of the chain, which the
+/// update would run incompletely.
+pub fn update_to_current(
+    ty: DataFixTypes,
+    tag: &CompoundTag,
+    from_version: i32,
+) -> Result<CompoundTag, UnsupportedVersion> {
+    data_fixer().check_supported(from_version)?;
+    Ok(ty.update_tag_to_current_version(data_fixer(), tag, from_version))
 }
 
 /// `FileFixerUpper.worldVersionToFileFixerVersion`.

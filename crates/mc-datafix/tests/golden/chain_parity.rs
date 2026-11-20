@@ -114,3 +114,16 @@ fn every_file_fix_version_is_a_registered_data_schema_or_a_known_missing_one() {
         );
     }
 }
+
+/// The oldest version the facade upgrades is derived from the registered schemas and fixes (vanilla gives every
+/// schema but the first a fix): it equals the version above the newest fix that is not registered yet.
+#[test]
+fn the_oldest_supported_version_follows_the_fixes_not_registered_yet() {
+    let newest_missing = parse(EXPECTED_MISSING)
+        .iter()
+        .filter(|r| r.kind == "data")
+        .map(|r| (r.version * 10 + r.sub + 9) / 10)
+        .max()
+        .unwrap_or(i32::MIN);
+    assert_eq!(data_fixer().oldest_supported_version(), newest_missing);
+}

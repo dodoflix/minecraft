@@ -242,6 +242,9 @@ impl DataFixTypes {
                         .unwrap_or(default_version),
                     DataResult::Error { .. } => default_version,
                 };
+                if let Err(e) = fixer.check_supported(from_version) {
+                    return DataResult::error(move || e.to_string());
+                }
                 let without_version = Dynamic::new(*ops, ops.remove(input, "DataVersion"));
                 let fixed = self.update_to_current_version(fixer, without_version, from_version);
                 dec.decode(ops, &fixed.value)
