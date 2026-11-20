@@ -28,6 +28,7 @@ mod library;
 mod rule_cost;
 mod samples_step_2200_2699;
 mod samples_step_2700_3299;
+mod samples_step_3300_3999;
 mod samples_step_99_1343;
 mod samples_tail;
 mod schema_hooks;

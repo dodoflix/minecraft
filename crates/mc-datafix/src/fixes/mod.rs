@@ -139,6 +139,45 @@ pub mod world_gen_settings_height_and_biome_fix;
 // end: versions 2700..3299
 
 // begin: versions 3300..3999
+pub mod area_effect_cloud_potion_fix;
+pub mod attribute_modifier_id_fix;
+pub mod banner_entity_custom_name_to_override_component_fix;
+pub mod banner_pattern_format_fix;
+pub mod beehive_field_rename_fix;
+pub mod block_entity_sign_double_sided_editable_text_fix;
+pub mod block_pos_format_and_renames_fix;
+pub mod chested_horses_inventory_zero_indexing_fix;
+pub mod chunk_delete_light_fix;
+pub mod decorated_pot_field_rename_fix;
+pub mod drop_invalid_sign_data_fix;
+pub mod effect_duration_fix;
+pub mod empty_item_in_hotbar_fix;
+pub mod empty_item_in_villager_trade_fix;
+pub mod entity_brushable_block_fields_rename_fix;
+pub mod feature_flag_remove_fix;
+pub mod fix_projectile_stored_item;
+pub mod fix_wolf_health;
+pub mod horse_body_armor_item_fix;
+pub mod item_stack_componentization_fix;
+pub mod item_stack_custom_name_to_override_component_fix;
+pub mod jukebox_ticks_since_song_started_fix;
+pub mod legacy_dragon_fight_fix;
+pub mod lodestone_compass_component_fix;
+pub mod map_banner_block_pos_format_fix;
+pub mod mob_effect_id_fix;
+pub mod options_accessibility_onboard_fix;
+pub mod options_menu_blurriness_fix;
+pub mod particle_unflattening_fix;
+pub mod player_head_block_profile_fix;
+pub mod primed_tnt_block_state_fixer;
+pub mod projectile_stored_weapon_fix;
+pub mod random_sequence_settings_fix;
+pub mod remap_chunk_status_fix;
+pub mod remove_empty_item_in_brushable_block_fix;
+pub mod rename_enchantments_fix;
+pub mod scoreboard_display_slot_fix;
+pub mod tipped_arrow_potion_to_item_fix;
+pub mod trial_spawner_config_fix;
 // end: versions 3300..3999
 
 // begin: versions 4000..4898

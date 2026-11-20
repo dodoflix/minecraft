@@ -1138,6 +1138,7 @@ version = "0.1.0"
 dependencies = [
  "base64",
  "log",
+ "mc-brigadier",
  "mc-core",
  "mc-data",
  "mc-dfu",
