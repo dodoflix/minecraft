@@ -100,11 +100,12 @@ pub trait StructurePoolElement: fmt::Display + Send + Sync {
     fn encode_fields(&self, tag: &mut CompoundTag);
 }
 
-/// `StructurePoolElement.CODEC.encode(element)` over `NbtOps`: `{element_type, ...fields}`.
+/// `StructurePoolElement.CODEC.encode(element)` over `NbtOps`: `{...fields, element_type}` (the dispatch codec adds the
+/// type key after the fields of the type's map codec).
 pub fn encode_element(element: &dyn StructurePoolElement) -> CompoundTag {
     let mut tag = CompoundTag::new();
-    tag.put_string("element_type", format!("minecraft:{}", element.get_type()));
     element.encode_fields(&mut tag);
+    tag.put_string("element_type", format!("minecraft:{}", element.get_type()));
     tag
 }
 

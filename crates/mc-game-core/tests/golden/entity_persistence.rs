@@ -12,6 +12,7 @@ use mc_nbt::CompoundTag;
 use mc_world::chunk::{LevelHeight, ProtoChunk};
 use mc_world::palette::{BiomeRegistry, PalettedContainerFactory};
 use mc_world::region::{EntityStorage, RegionStorageInfo, SimpleRegionStorage};
+use mc_world::status::ChunkStatus;
 use std::path::Path;
 use std::sync::Arc;
 use std::time::{Duration, Instant};
@@ -351,4 +352,69 @@ fn a_changed_chunk_is_written_without_a_save() {
         assert!(start.elapsed() < Duration::from_secs(30), "never written");
     }
     level.close();
+}
+
+/// Rewrites the stored chunk `pos` with `LastUpdate` `stamp`.
+fn stamp_stored_chunk(dir: &Path, pos: ChunkPos, stamp: i64) {
+    let mut region = SimpleRegionStorage::new(
+        RegionStorageInfo::new(
+            "entities",
+            Identifier::parse("minecraft:overworld").unwrap(),
+            "chunk",
+        ),
+        dir.join("region"),
+        false,
+    );
+    let mut tag = region.read(&pos).unwrap().expect("stored chunk");
+    tag.put_long("LastUpdate", stamp);
+    region.write(&pos, Some(tag));
+    region.close().unwrap();
+}
+
+fn stored_last_update(dir: &Path, pos: ChunkPos) -> i64 {
+    let mut region = SimpleRegionStorage::new(
+        RegionStorageInfo::new(
+            "entities",
+            Identifier::parse("minecraft:overworld").unwrap(),
+            "chunk",
+        ),
+        dir.join("region"),
+        false,
+    );
+    let tag = region.read(&pos).unwrap().expect("stored chunk");
+    region.close().unwrap();
+    tag.get_long("LastUpdate").expect("LastUpdate")
+}
+
+/// A chunk that is full on disk but only wanted at a lower status stays a read-only `ImposterProtoChunk`: unloading it
+/// or saving the level does not rewrite it.
+#[test]
+fn a_full_chunk_read_for_a_lower_status_is_not_rewritten() {
+    let scratch = tempfile::tempdir().unwrap();
+    let pos = ChunkPos::new(0, 0);
+    let mut level = open(scratch.path());
+    load_chunk(&mut level, pos);
+    level.save(true);
+    level.close();
+    stamp_stored_chunk(scratch.path(), pos, 12345);
+
+    let mut level = open(scratch.path());
+    // a full chunk is no proto chunk: the call waits for the load and returns nothing
+    let _ = level.proto_chunk_blocking(pos.x, pos.z, ChunkStatus::Features, true);
+    let holder = level.chunk_source.chunk_map.holders.holder(pos.pack());
+    assert_eq!(
+        holder.and_then(|h| h.get_persisted_status()),
+        Some(ChunkStatus::Full)
+    );
+    // the ticket of the call expires and the chunk unloads
+    run_until(&mut level, |l| {
+        l.chunk_source
+            .chunk_map
+            .holders
+            .holder(pos.pack())
+            .is_none()
+    });
+    level.save(true);
+    level.close();
+    assert_eq!(stored_last_update(scratch.path(), pos), 12345);
 }

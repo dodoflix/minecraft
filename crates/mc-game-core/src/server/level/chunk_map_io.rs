@@ -138,7 +138,18 @@ impl ChunkMap {
             is_known_structure: &*known,
         };
         let stored_pos = data.chunk_pos;
-        let loaded = data.read(&ctx, pos);
+        let mut loaded = data.read(&ctx, pos);
+        if let Some(env) = self.gen_context.hooks.gen_env() {
+            let access = match &mut loaded.chunk {
+                LoadedChunk::Proto(p) => &mut p.access,
+                LoadedChunk::Level(l) => &mut l.access,
+            };
+            crate::world::level::levelgen::structure::structure_start::normalize_stored_starts(
+                env,
+                pos,
+                &mut access.structures.starts,
+            );
+        }
         if stored_pos != pos {
             self.reporter
                 .report_misplaced_chunk(stored_pos, pos, &self.storage_info);
@@ -323,11 +334,13 @@ impl ChunkMap {
             .shift_remove(&key)
             .expect("present");
         let pos = holder.get_pos();
-        if holder.latest_chunk_status().is_some() {
+        // a full chunk read from disk that never ran its FULL step is vanilla's `ImposterProtoChunk`: `save` skips it
+        let latest = holder.latest_chunk_status();
+        if latest.is_some() {
             let _saved = match &mut holder.slot {
                 ChunkSlot::Level(chunk) => {
                     chunk.data.set_loaded(false);
-                    self.save_slot(pos, &mut holder.slot)
+                    latest == Some(ChunkStatus::Full) && self.save_slot(pos, &mut holder.slot)
                 }
                 slot @ ChunkSlot::Proto(_) => self.save_slot(pos, slot),
                 _ => false,
@@ -355,7 +368,7 @@ impl ChunkMap {
                 .holders
                 .visible_holder(key)
                 .and_then(|h| match &h.slot {
-                    ChunkSlot::Level(l) if h.latest_chunk_status().is_some() => {
+                    ChunkSlot::Level(l) if h.latest_chunk_status() == Some(ChunkStatus::Full) => {
                         Some(l.data.access.is_unsaved())
                     }
                     ChunkSlot::Proto(p) if h.latest_chunk_status().is_some() => {
@@ -391,7 +404,7 @@ impl ChunkMap {
         }
         // Only full chunks (imposter or level chunks) are saved here.
         let (is_full, is_unsaved) = match &holder.slot {
-            ChunkSlot::Level(l) if holder.latest_chunk_status().is_some() => {
+            ChunkSlot::Level(l) if holder.latest_chunk_status() == Some(ChunkStatus::Full) => {
                 (true, l.data.access.is_unsaved())
             }
             _ => (false, false),
@@ -559,7 +572,9 @@ impl ChunkMap {
         let Some(holder) = self.holders.holder_mut(key) else {
             return false;
         };
-        if holder.latest_chunk_status().is_none() || !matches!(holder.slot, ChunkSlot::Level(_)) {
+        if holder.latest_chunk_status() != Some(ChunkStatus::Full)
+            || !matches!(holder.slot, ChunkSlot::Level(_))
+        {
             return false;
         }
         let pos = holder.get_pos();

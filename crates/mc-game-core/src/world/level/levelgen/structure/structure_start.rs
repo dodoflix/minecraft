@@ -304,3 +304,24 @@ impl StartHandle {
             .unwrap_or_else(|| StructureManager::structure_has_piece_at_xyz(x, y, z, &self.lock()))
     }
 }
+
+/// What a chunk read from disk does to its starts (`SerializableChunkData.unpackStructureStart`, then `createTag` when
+/// the chunk is saved): every start is loaded as an object, so the state its pieces recompute on load (the bounding
+/// box of a pool element, which generation widens) is what the next save writes. A start with a piece that does not
+/// load stays as stored: this port does not know every piece type or inline definition, and saving the rest would
+/// lose the structure.
+pub fn normalize_stored_starts(
+    env: &GenEnv,
+    chunk_pos: ChunkPos,
+    starts: &mut indexmap::IndexMap<String, CompoundTag>,
+) {
+    let context = StructurePieceSerializationContext { env };
+    for tag in starts.values_mut() {
+        if let Ok(start) = StructureStart::load_static_start(&context, tag, env.seed)
+            && start.is_valid()
+            && start.piece_container.pieces.len() == tag.get_list_or_empty("Children").len()
+        {
+            *tag = start.create_tag(&context, chunk_pos);
+        }
+    }
+}
