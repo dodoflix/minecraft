@@ -653,8 +653,10 @@ fn pad_palette_entries(
         palette.create_string("Name"),
         palette.create_string("minecraft:air"),
     )]);
-    let minimum_palette_size_to_match_data = (1i32 << (estimated_bits_per_block - 1) as i32) + 1;
-    let additional_palette_entries = minimum_palette_size_to_match_data - palette_size;
+    let minimum_palette_size_to_match_data = 1i32
+        .wrapping_shl((estimated_bits_per_block - 1) as u32)
+        .wrapping_add(1);
+    let additional_palette_entries = minimum_palette_size_to_match_data.wrapping_sub(palette_size);
     for _ in 0..additional_palette_entries {
         palette_list.push(air_pallete_entry.clone());
     }

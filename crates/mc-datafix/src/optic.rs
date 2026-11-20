@@ -406,30 +406,30 @@ impl TypedOptic {
         };
         let builds = self.builds_from(k + 1);
         let inner = |s: Option<Value>, r: Value| self.set_from(k + 1, s, r);
-        let existing = || s.clone().expect("a lens focuses an existing value");
+        let existing = |s: Option<Value>| s.expect("a lens focuses an existing value");
         match &e.optic {
             Optic::Id => inner(s, r),
             Optic::Proj1 => {
-                let (a, b) = existing().into_pair();
+                let (a, b) = existing(s).into_pair();
                 Value::pair(inner((!builds).then_some(a), r), b)
             }
             Optic::Proj2 => {
-                let (a, b) = existing().into_pair();
+                let (a, b) = existing(s).into_pair();
                 Value::pair(a, inner((!builds).then_some(b), r))
             }
             Optic::Inj1 if builds => Value::left(inner(None, r)),
             Optic::Inj2 if builds => Value::right(inner(None, r)),
-            Optic::Inj1 => match existing() {
+            Optic::Inj1 => match existing(s) {
                 Value::Left(a) => Value::left(inner(Some(*a), r)),
                 other => other,
             },
-            Optic::Inj2 => match existing() {
+            Optic::Inj2 => match existing(s) {
                 Value::Right(b) => Value::right(inner(Some(*b), r)),
                 other => other,
             },
             Optic::InjTagged(key) if builds => Value::pair(Value::Str(key.clone()), inner(None, r)),
             Optic::InjTagged(key) => {
-                let (k2, v) = existing().into_pair();
+                let (k2, v) = existing(s).into_pair();
                 if matches!(&k2, Value::Str(s) if s == key) {
                     Value::pair(k2, inner(Some(v), r))
                 } else {
@@ -439,7 +439,7 @@ impl TypedOptic {
             Optic::ListTraversal | Optic::Sum(..) => {
                 panic!("java.lang.IllegalArgumentException: Couldn't upcast")
             }
-            Optic::Choice(_) => self.update(existing(), &mut |_| r.clone()),
+            Optic::Choice(_) => self.update_from(k, existing(s), &mut |_| r.clone()),
         }
     }
 
