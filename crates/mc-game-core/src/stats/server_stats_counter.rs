@@ -1,9 +1,9 @@
 //! `net.minecraft.stats.ServerStatsCounter`: the per-player statistics and their `players/stats/<uuid>.json` file.
 //!
-//! shortcut: files written by an older game version are not run through the DataFixer (`DataFixTypes.STATS`); the
-//! current format (`{"stats": {<type>: {<stat>: <int>}}, "DataVersion": N}`) is read and written exactly. The key
-//! order of a written file follows vanilla's `HashMap` iteration order, except that the stat types are written in
-//! registry order (vanilla's order there is the identity hash of the `StatType` objects, i.e. random per JVM run).
+//! A file is upgraded from its `DataVersion` (1343 when absent) through `DataFixTypes.STATS`, then read in the current
+//! format (`{"stats": {<type>: {<stat>: <int>}}, "DataVersion": N}`). The key order of a written file follows
+//! vanilla's `HashMap` iteration order, except that the stat types are written in registry order (vanilla's order
+//! there is the identity hash of the `StatType` objects, i.e. random per JVM run).
 use super::hash_order::{
     DEFAULT_TABLE, JavaHashMapSim, java_hash_map_order, object_open_hash_order, presized_table,
 };
@@ -13,6 +13,8 @@ use indexmap::IndexSet;
 use mc_core::ident::Identifier;
 use mc_core::math::java::java_string_hash;
 use mc_data::StatType;
+use mc_datafix::{DataFixTypes, data_fixer};
+use mc_dfu::{Dyn, Dynamic, JSON};
 use mc_protocol::packets::play::ClientboundAwardStatsPacket;
 use serde_json::{Map, Value};
 use std::path::{Path, PathBuf};
@@ -95,9 +97,38 @@ impl ServerStatsCounter {
         self.counter.get_value(stat)
     }
 
-    /// `parse(fixerUpper, element)` (without the DataFixer): `STATS_CODEC.parse(data.get("stats").orElseEmptyMap())`
+    /// `DataFixTypes.STATS.updateToCurrentVersion(fixerUpper, data, NbtUtils.getDataVersion(data, 1343))` over the
+    /// JSON element. A file older than the registered part of the fix chain is an error.
+    fn upgrade(element: &Value) -> Result<Value, String> {
+        let data = Dynamic::new(JSON, Dyn::from_json_str(&element.to_string())?);
+        let version = data.get("DataVersion").as_int_or(1343);
+        data_fixer()
+            .check_supported(version)
+            .map_err(|e| e.to_string())?;
+        let fixed = DataFixTypes::STATS.update_to_current_version(data_fixer(), data, version);
+        serde_json::from_str(&fixed.value().to_json_string()).map_err(|e| e.to_string())
+    }
+
+    /// `parse(fixerUpper, element)`: the upgrade, then `STATS_CODEC.parse(data.get("stats").orElseEmptyMap())`
     /// with `resultOrPartial`: malformed entries are skipped (and logged), the rest is loaded.
     pub fn parse(&mut self, element: &Value) {
+        let element = match Self::upgrade(element) {
+            Ok(element) => element,
+            Err(e) => {
+                log::error!(
+                    "Couldn't parse statistics file {}: {e}",
+                    self.file
+                        .as_deref()
+                        .map(|f| f.display().to_string())
+                        .unwrap_or_default()
+                );
+                if let Some(file) = &self.file {
+                    crate::server::players::player_files::keep_copy_if_unsupported(file, element);
+                }
+                return;
+            }
+        };
+        let element = &element;
         let empty = Value::Object(Map::new());
         let stats = element
             .as_object()
@@ -243,5 +274,63 @@ impl ServerStatsCounter {
             })
             .collect();
         ClientboundAwardStatsPacket { stats }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn stat(type_id: &str, value_id: &str) -> Stat {
+        by_names(
+            &Identifier::parse(type_id).unwrap(),
+            &Identifier::parse(value_id).unwrap(),
+        )
+        .unwrap()
+    }
+
+    fn read(json: &str) -> (ServerStatsCounter, tempfile::TempDir) {
+        let dir = tempfile::tempdir().unwrap();
+        let file = dir.path().join("stats.json");
+        std::fs::write(&file, json).unwrap();
+        (ServerStatsCounter::new(file), dir)
+    }
+
+    #[test]
+    fn a_file_of_an_older_version_goes_through_the_fixer() {
+        // the explorer map items were renamed by data version 5012
+        let (counter, _dir) = read(
+            r#"{"stats":{"minecraft:used":{"minecraft:ocean_explorer_map":3}},"DataVersion":5011}"#,
+        );
+        assert_eq!(
+            counter.get_value(&stat("minecraft:used", "minecraft:ocean_monument_map")),
+            3
+        );
+    }
+
+    #[test]
+    fn a_file_below_the_chain_is_logged_kept_and_not_loaded() {
+        let oldest = data_fixer().oldest_supported_version();
+        if oldest == i32::MIN {
+            return;
+        }
+        let (counter, dir) = read(&format!(
+            r#"{{"stats":{{"minecraft:custom":{{"minecraft:play_time":5}}}},"DataVersion":{}}}"#,
+            oldest - 1
+        ));
+        assert_eq!(
+            counter.get_value(&stat("minecraft:custom", "minecraft:play_time")),
+            0
+        );
+        let names: Vec<String> = std::fs::read_dir(dir.path())
+            .unwrap()
+            .map(|e| e.unwrap().file_name().to_string_lossy().into_owned())
+            .collect();
+        assert!(
+            names
+                .iter()
+                .any(|n| n.starts_with("stats_corrupted_") && n.ends_with(".json")),
+            "{names:?}"
+        );
     }
 }

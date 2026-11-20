@@ -1,11 +1,12 @@
 //! `PlayerDataStorage`: `players/data/<uuid>.dat` (raw player compound, gzip NBT) with the `.dat_old`
-//! backup rotation and the `<uuid>-<random>.dat` temp-file swap. The `DataFixTypes.PLAYER` upgrade of `load`
-//! is not performed (the caller sees `get_data_version(&tag)` of the file).
+//! backup rotation and the `<uuid>-<random>.dat` temp-file swap. `load` upgrades the file through
+//! `DataFixTypes.PLAYER` (a missing `DataVersion` reads as -1).
 
 use std::fs;
 use std::io;
 use std::path::{Path, PathBuf};
 
+use mc_datafix::{DataFixTypes, update_to_current};
 use mc_nbt::{CompoundTag, NbtAccounter};
 use uuid::Uuid;
 
@@ -13,7 +14,7 @@ use super::file_util::{
     create_temp_file, format_file_name_date_now, read_compressed, safe_replace_file,
     write_compressed,
 };
-use super::version::add_current_data_version;
+use super::version::{add_current_data_version, get_data_version};
 
 #[derive(Clone, Debug)]
 pub struct PlayerDataStorage {
@@ -81,20 +82,35 @@ impl PlayerDataStorage {
         None
     }
 
-    /// `load(nameAndId)`: `<uuid>.dat`; if that is unreadable, back it up and fall back to `<uuid>.dat_old`.
+    /// `load(nameAndId)`: `<uuid>.dat`; if that is unreadable, back it up and fall back to `<uuid>.dat_old`; the file
+    /// found is upgraded to the current version (`DataFixTypes.PLAYER`).
+    ///
+    /// A file older than the registered part of the fix chain cannot be upgraded; vanilla's fixer failure is an
+    /// exception that aborts the load, here the file is backed up like an unreadable one and no data is returned.
     pub fn load(&self, uuid: &Uuid, name: &str) -> Option<CompoundTag> {
         let tag = self.load_suffix(uuid, name, ".dat");
         if tag.is_none() {
             self.backup(uuid, name, ".dat");
         }
-        tag.or_else(|| self.load_suffix(uuid, name, ".dat_old"))
+        let (tag, suffix) = match tag {
+            Some(tag) => (tag, ".dat"),
+            None => (self.load_suffix(uuid, name, ".dat_old")?, ".dat_old"),
+        };
+        match update_to_current(DataFixTypes::PLAYER, &tag, get_data_version(&tag)) {
+            Ok(fixed) => Some(fixed),
+            Err(e) => {
+                log::error!("Failed to upgrade player data for {name}: {e}");
+                self.backup(uuid, name, suffix);
+                None
+            }
+        }
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use mc_nbt::Tag;
+    use mc_nbt::{ListTag, Tag};
 
     #[test]
     fn save_load_rotate_and_fallback() {
@@ -131,5 +147,63 @@ mod tests {
             .filter(|e| e.file_name().to_string_lossy().contains("_corrupted_"))
             .count();
         assert_eq!(corrupted, 1);
+    }
+
+    fn pot_player(version: i32) -> CompoundTag {
+        let pot = mc_nbt::snbt::parse_compound(
+            "{id:\"minecraft:decorated_pot\",count:1,components:{\"minecraft:pot_decorations\":[\"minecraft:brick\",\"minecraft:brick\",\"minecraft:brick\",\"minecraft:brick\"]}}",
+        )
+        .unwrap();
+        let mut inventory = ListTag::new();
+        inventory.push(Tag::Compound(pot));
+        let mut player = CompoundTag::new().with("Inventory", Tag::List(inventory));
+        player.put_int("DataVersion", version);
+        player
+    }
+
+    fn write_player(storage: &PlayerDataStorage, uuid: &Uuid, tag: &CompoundTag) {
+        write_compressed(tag, &storage.player_dir().join(format!("{uuid}.dat"))).unwrap();
+    }
+
+    #[test]
+    fn an_older_file_is_upgraded_on_load() {
+        let dir = tempfile::tempdir().unwrap();
+        let storage = PlayerDataStorage::new(dir.path().join("players/data"));
+        let uuid = Uuid::from_u128(7);
+        let old = pot_player(4995);
+        write_player(&storage, &uuid, &old);
+        let loaded = storage.load(&uuid, "Bob").unwrap();
+        assert_eq!(
+            loaded,
+            update_to_current(DataFixTypes::PLAYER, &old, 4995).unwrap()
+        );
+        assert_ne!(loaded, old);
+        let decorations = loaded
+            .get_list("Inventory")
+            .and_then(|l| l.get_compound(0))
+            .and_then(|i| i.get_compound("components"))
+            .and_then(|c| c.get("minecraft:pot_decorations"))
+            .unwrap();
+        assert!(matches!(decorations, Tag::Compound(_)), "{decorations:?}");
+    }
+
+    #[test]
+    fn a_file_below_the_chain_is_backed_up_and_not_loaded() {
+        let oldest = mc_datafix::data_fixer().oldest_supported_version();
+        if oldest == i32::MIN {
+            return;
+        }
+        let dir = tempfile::tempdir().unwrap();
+        let storage = PlayerDataStorage::new(dir.path().join("players/data"));
+        let uuid = Uuid::from_u128(8);
+        write_player(&storage, &uuid, &pot_player(oldest - 1));
+        assert!(storage.load(&uuid, "Bob").is_none());
+        let names: Vec<String> = fs::read_dir(storage.player_dir())
+            .unwrap()
+            .map(|e| e.unwrap().file_name().to_string_lossy().into_owned())
+            .collect();
+        // the file stays and the unreadable-file backup is made
+        assert!(names.contains(&format!("{uuid}.dat")), "{names:?}");
+        assert!(names.iter().any(|n| n.contains("_corrupted_")), "{names:?}");
     }
 }

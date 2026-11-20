@@ -4,8 +4,6 @@
 //! Differences from the Java object model (no observable effect on generated worlds):
 //! * `placeInWorld` runs on a [`WorldGenLevel`] (what every structure piece places into); block entities are handed to
 //!   the level as raw NBT (`id`/`x`/`y`/`z` added), entities through `add_structure_entity`.
-//! * The `DataFixer` step of loading is not ported: templates are read as written by the current data version (every
-//!   template of the vanilla pack is). See `StructureTemplateManager`.
 
 use super::structure_place_settings::StructurePlaceSettings;
 use crate::world::block_entity::BlockEntity;

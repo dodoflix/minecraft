@@ -4,9 +4,6 @@
 //! The state sits behind a lock ([`SharedAdvancements`]) shared by the player list (save, reload, removal) and the
 //! `ServerPlayer` (a respawned player keeps its advancements). Operations that run rewards (`award`) never hold the lock
 //! while doing so: rewards can fire further triggers (recipe unlocks, loot) on the same player.
-//!
-//! shortcut: files written by an older game version are not run through `DataFixTypes.ADVANCEMENTS` (the current
-//! format is read and written exactly).
 
 use std::collections::{HashMap, HashSet};
 use std::path::PathBuf;
@@ -14,6 +11,7 @@ use std::sync::Arc;
 
 use indexmap::IndexMap;
 use mc_core::ident::Identifier;
+use mc_datafix::{DataFixTypes, data_fixer};
 use mc_dfu::extra::IDENTIFIER;
 use mc_dfu::{Codec, DataResult, Dyn, JSON};
 use mc_protocol::packets::play::{
@@ -132,10 +130,17 @@ impl PlayerAdvancements {
             match std::fs::read_to_string(&path) {
                 Ok(text) => match parse_player_file(&text) {
                     Ok(data) => self.apply_from(manager, data),
-                    Err(e) => log::error!(
-                        "Couldn't parse player advancements in {}: {e}",
-                        path.display()
-                    ),
+                    Err(e) => {
+                        log::error!(
+                            "Couldn't parse player advancements in {}: {e}",
+                            path.display()
+                        );
+                        if let Ok(json) = serde_json::from_str(&text) {
+                            crate::server::players::player_files::keep_copy_if_unsupported(
+                                &path, &json,
+                            );
+                        }
+                    }
                 },
                 Err(e) => log::error!(
                     "Couldn't access player advancements in {}: {e}",
@@ -462,33 +467,32 @@ impl PlayerAdvancements {
     }
 }
 
-/// `codec.encodeStart(JsonOps.INSTANCE, data)`: the progress file's object including `DataVersion` (`DataFixTypes.wrapCodec`).
+/// `DataFixTypes.ADVANCEMENTS.wrapCodec(Data.CODEC, dataFixer, 1343)`.
+fn file_codec() -> Codec<Vec<(Identifier, AdvancementProgress)>> {
+    DataFixTypes::ADVANCEMENTS.wrap_codec(&data_codec(), data_fixer(), 1343)
+}
+
+/// `codec.encodeStart(JsonOps.INSTANCE, data)`: the progress file's object including `DataVersion`.
 fn progress_file_json(
     data: Vec<(Identifier, AdvancementProgress)>,
 ) -> Option<serde_json::Map<String, Value>> {
-    let encoded = data_codec().encode_start(&JSON, &data).into_result();
-    let Some(Value::Object(mut json)) = encoded
+    match file_codec()
+        .encode_start(&JSON, &data)
+        .into_result()
         .map(|d| d.to_json_string())
         .ok()
         .and_then(|s| serde_json::from_str::<Value>(&s).ok())
-    else {
-        return None;
-    };
-    json.insert(
-        "DataVersion".into(),
-        Value::from(mc_world::level_storage::WORLD_VERSION),
-    );
-    Some(json)
+    {
+        Some(Value::Object(json)) => Some(json),
+        _ => None,
+    }
 }
 
-/// Strict JSON parse of a progress file + `Data.CODEC` (`DataVersion` removed first, like `DataFixTypes.wrapCodec`).
+/// Strict JSON parse of a progress file + the wrapped codec (the `DataFixTypes.ADVANCEMENTS` upgrade from the file's
+/// `DataVersion`, 1343 when absent). A file older than the registered part of the fix chain is a parse error.
 fn parse_player_file(text: &str) -> Result<Vec<(Identifier, AdvancementProgress)>, String> {
-    let mut json: Value = serde_json::from_str(text).map_err(|e| e.to_string())?;
-    if let Value::Object(o) = &mut json {
-        o.remove("DataVersion");
-    }
-    let dyn_value = Dyn::from_json_str(&json.to_string())?;
-    match data_codec().parse(&JSON, &dyn_value) {
+    let json = Dyn::from_json_str(text)?;
+    match file_codec().parse(&JSON, &json) {
         DataResult::Success(v) => Ok(v),
         DataResult::Error { message, .. } => Err(message.get()),
     }
@@ -644,12 +648,80 @@ mod tests {
             .filter_map(|l| l.strip_prefix("advancements "))
             .map(|l| l.split_once('\t').unwrap())
         {
-            let data = parse_player_file(input).unwrap();
+            // the rows carry no `DataVersion`, vanilla upgrades them from 1343: until the registered chain reaches back
+            // that far they are read as files of the current version (current-format content, the fixes change nothing)
+            let input = if data_fixer().oldest_supported_version() <= 1343 {
+                input.to_string()
+            } else {
+                with_version(input, mc_datafix::CURRENT_VERSION)
+            };
+            let data = parse_player_file(&input).unwrap();
             let json = utc_times(Value::Object(progress_file_json(data).unwrap()));
             let written = crate::server::players::player_files::to_gson_pretty(&json);
             assert_eq!(written.replace('\n', "¶"), expected, "{input}");
             rows += 1;
         }
         assert_eq!(rows, 2);
+    }
+
+    fn golden_inputs() -> Vec<&'static str> {
+        include_str!("../../../mc-game/tests/fixtures/saved_data.golden")
+            .lines()
+            .filter_map(|l| l.strip_prefix("advancements "))
+            .map(|l| l.split_once('\t').unwrap().0)
+            .collect()
+    }
+
+    /// The file's own `DataVersion` (set to `version`) selects where the upgrade starts.
+    fn with_version(input: &str, version: i32) -> String {
+        let mut json: Value = serde_json::from_str(input).unwrap();
+        json.as_object_mut()
+            .unwrap()
+            .insert("DataVersion".into(), Value::from(version));
+        json.to_string()
+    }
+
+    #[test]
+    fn a_file_of_an_older_version_goes_through_the_fixer() {
+        for input in golden_inputs() {
+            let current = progress_file_json(
+                parse_player_file(&with_version(input, mc_datafix::CURRENT_VERSION)).unwrap(),
+            );
+            let older = progress_file_json(parse_player_file(&with_version(input, 4903)).unwrap());
+            assert_eq!(older, current, "{input}");
+        }
+    }
+
+    #[test]
+    fn a_file_below_the_chain_is_a_parse_error_not_a_panic() {
+        let oldest = data_fixer().oldest_supported_version();
+        if oldest == i32::MIN {
+            return;
+        }
+        let input = golden_inputs()[0];
+        let Err(err) = parse_player_file(&with_version(input, oldest - 1)) else {
+            panic!("a file below the chain was upgraded");
+        };
+        assert!(err.contains("older than"), "{err}");
+        // no `DataVersion` reads as 1343
+        let mut json: Value = serde_json::from_str(input).unwrap();
+        json.as_object_mut().unwrap().remove("DataVersion");
+        if oldest > 1343 {
+            assert!(parse_player_file(&json.to_string()).is_err());
+        }
+
+        let dir = tempfile::tempdir().unwrap();
+        let file = dir.path().join("a.json");
+        std::fs::write(&file, with_version(input, oldest - 1)).unwrap();
+        let loaded =
+            PlayerAdvancements::new(&ServerAdvancementManager::default(), Some(file.clone()));
+        assert!(loaded.progress.is_empty());
+        // a copy is kept: the next save overwrites the file
+        assert!(std::fs::read_dir(dir.path()).unwrap().any(|e| {
+            e.unwrap()
+                .file_name()
+                .to_string_lossy()
+                .starts_with("a_corrupted_")
+        }));
     }
 }

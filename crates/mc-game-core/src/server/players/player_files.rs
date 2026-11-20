@@ -34,6 +34,34 @@ pub(crate) fn save_json(file: &Path, json: &Value) -> std::io::Result<()> {
     fs::write(file, to_gson_pretty(json))
 }
 
+/// A file whose `DataVersion` (1343 when absent, like the stats and advancements loads) is below the registered part of
+/// the fix chain cannot be upgraded and is loaded as empty; the next save would overwrite it, so a copy
+/// `<name>_corrupted_<time>.<ext>` is made first (the naming of `PlayerDataStorage.backup`).
+pub(crate) fn keep_copy_if_unsupported(file: &Path, json: &Value) {
+    let version = json
+        .get("DataVersion")
+        .and_then(Value::as_i64)
+        .map_or(1343, |v| v as i32);
+    if mc_datafix::data_fixer().check_supported(version).is_ok() {
+        return;
+    }
+    let (stem, ext) = (
+        file.file_stem().unwrap_or_default().to_string_lossy(),
+        file.extension().unwrap_or_default().to_string_lossy(),
+    );
+    let copy = file.with_file_name(format!(
+        "{stem}_corrupted_{}.{ext}",
+        mc_world::level_storage::format_file_name_date_now()
+    ));
+    if let Err(e) = fs::copy(file, &copy) {
+        log::warn!(
+            "Failed to copy {} to {}: {e}",
+            file.display(),
+            copy.display()
+        );
+    }
+}
+
 /// `PlayerList.locateStatsFile`: `<uuid>.json`, migrating a legacy `<name>.json` (`FileUtil.isValidPathSegment`).
 pub fn locate_stats_file(stats_dir: &Path, id: Uuid, name: &str) -> PathBuf {
     let uuid_file = stats_dir.join(format!("{id}.json"));

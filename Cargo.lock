@@ -1278,6 +1278,7 @@ dependencies = [
  "mc-brigadier",
  "mc-core",
  "mc-data",
+ "mc-datafix",
  "mc-dfu",
  "mc-light",
  "mc-nbt",

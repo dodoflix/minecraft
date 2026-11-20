@@ -1,13 +1,11 @@
 //! `TemplateSource`.
 //!
-//! The `DataFixer` upgrade of `readStructure(tag)` is not ported: a template written by an older data version is read
-//! as if it were current (a warning is logged). Every template of the vanilla data pack is at the current version.
+//! `readStructure(tag)` upgrades a template through `DataFixTypes.STRUCTURE` from its `DataVersion` (500 when absent).
 //! SNBT sources (`loadAsText`, only used for the development test-structure directory) are not supported.
 
-use crate::world::level::levelgen::structure::templatesystem::structure_template::{
-    CURRENT_DATA_VERSION, StructureTemplate,
-};
+use crate::world::level::levelgen::structure::templatesystem::structure_template::StructureTemplate;
 use mc_core::ident::Identifier;
+use mc_datafix::{DataFixTypes, update_to_current};
 use mc_nbt::{CompoundTag, NbtAccounter};
 
 pub trait TemplateSource: Send + Sync {
@@ -19,13 +17,20 @@ pub trait TemplateSource: Send + Sync {
 }
 
 /// `TemplateSource.load(opener, asText = false, onError)` once the bytes are read: `readCompressed` + `readStructure`.
-/// Malformed data is reported through `on_error` and yields `None`.
+/// Malformed data, or a template older than the registered part of the fix chain, is reported through `on_error` and
+/// yields `None`.
 pub(super) fn load_from_bytes(
     bytes: &[u8],
     on_error: impl FnOnce(String),
 ) -> Option<StructureTemplate> {
     match mc_nbt::nbt_io::read_compressed(bytes, &mut NbtAccounter::unlimited_heap()) {
-        Ok(tag) => Some(read_structure(&tag)),
+        Ok(tag) => match read_structure(&tag) {
+            Ok(template) => Some(template),
+            Err(e) => {
+                on_error(e);
+                None
+            }
+        },
         Err(e) => {
             on_error(e.to_string());
             None
@@ -33,15 +38,56 @@ pub(super) fn load_from_bytes(
     }
 }
 
-/// `readStructure(tag)`.
-pub fn read_structure(tag: &CompoundTag) -> StructureTemplate {
+/// `readStructure(tag)`: the template of the tag upgraded to the current version.
+pub fn read_structure(tag: &CompoundTag) -> Result<StructureTemplate, String> {
     let version = mc_nbt::nbt_utils::get_data_version_or(tag, 500);
-    if version < CURRENT_DATA_VERSION {
-        log::warn!(
-            "Structure template has data version {version} (current {CURRENT_DATA_VERSION}); data fixing is not supported, loading as is"
-        );
-    }
+    let fixed =
+        update_to_current(DataFixTypes::STRUCTURE, tag, version).map_err(|e| e.to_string())?;
     let mut template = StructureTemplate::new();
-    template.load(tag);
-    template
+    template.load(&fixed);
+    Ok(template)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use mc_data::block::Block;
+
+    /// A one-block template whose palette entry is `Name:` (the field name before data version 5006).
+    fn template(version: i32) -> Vec<u8> {
+        let mut tag = mc_nbt::snbt::parse_compound(
+            "{size:[1,1,1],palette:[{Name:\"minecraft:stone\"}],blocks:[{state:0,pos:[0,0,0]}],entities:[]}",
+        )
+        .unwrap();
+        tag.put_int("DataVersion", version);
+        mc_nbt::nbt_io::write_compressed(&tag)
+    }
+
+    fn load(bytes: &[u8]) -> (Option<StructureTemplate>, Vec<String>) {
+        let mut errors = Vec::new();
+        let loaded = load_from_bytes(bytes, |e| errors.push(e));
+        (loaded, errors)
+    }
+
+    #[test]
+    fn an_older_template_is_upgraded_before_it_is_read() {
+        let (loaded, errors) = load(&template(5005));
+        assert!(errors.is_empty(), "{errors:?}");
+        let palettes = loaded.unwrap();
+        let blocks = palettes.palettes()[0].blocks();
+        assert_eq!(blocks.len(), 1);
+        assert_eq!(blocks[0].state, Block::STONE.default_state());
+    }
+
+    #[test]
+    fn a_template_below_the_chain_is_reported_not_loaded() {
+        let oldest = mc_datafix::data_fixer().oldest_supported_version();
+        if oldest == i32::MIN {
+            return;
+        }
+        let (loaded, errors) = load(&template(oldest - 1));
+        assert!(loaded.is_none());
+        assert_eq!(errors.len(), 1, "{errors:?}");
+        assert!(errors[0].contains("older than"), "{errors:?}");
+    }
 }
