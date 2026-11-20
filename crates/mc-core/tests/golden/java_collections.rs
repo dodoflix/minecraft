@@ -135,6 +135,20 @@ fn matches_java_iteration_order() {
                     .map(|e| e.0.to_string())
                     .collect()
             }
+            "hashmap-compute" => {
+                let mut m = JavaHashMap::with_capacity(cap, |k: &String| java_string_hash(k));
+                for op in &keys {
+                    let key = op[1..].to_string();
+                    match &op[..1] {
+                        "A" => m.compute_if_absent(key, |_| ()),
+                        "C" => m.compute(key, |_, _| ()),
+                        _ => {
+                            m.insert(key, ());
+                        }
+                    }
+                }
+                m.keys().cloned().collect()
+            }
             "posmap" | "posfast" | "posunion" => block_pos_order(kind, cap, &keys),
             _ => panic!("kind {kind}"),
         };

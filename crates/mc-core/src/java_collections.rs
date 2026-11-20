@@ -418,6 +418,51 @@ impl<K: PartialEq, V> JavaHashMap<K, V> {
         None
     }
 
+    /// The `resize()` that `computeIfAbsent` and `compute` run before looking the key up (`size > threshold`, or no table
+    /// yet): unlike `put`, they never resize after inserting, so the 13th entry of a default map leaves 16 buckets, and they prepend to a bin.
+    fn resize_before_compute(&mut self) {
+        if self.table.is_empty() {
+            let cap = if self.initial_capacity == 0 {
+                HASH_MAP_DEFAULT_CAPACITY
+            } else {
+                self.initial_capacity
+            };
+            self.table = (0..cap).map(|_| Vec::new()).collect();
+        } else if self.size > Self::threshold(self.table.len()) {
+            self.resize();
+        }
+    }
+
+    /// `computeIfAbsent(key, f)` for a mapping function that never returns `null`.
+    pub fn compute_if_absent(&mut self, k: K, f: impl FnOnce(&K) -> V) {
+        self.resize_before_compute();
+        if self.get(&k).is_none() {
+            let v = f(&k);
+            self.push_computed(k, v);
+        }
+    }
+
+    /// `compute(key, f)` for a remapping function that never returns `null`; `f` gets the current value, if any.
+    pub fn compute(&mut self, k: K, f: impl FnOnce(&K, Option<&V>) -> V) {
+        self.resize_before_compute();
+        let v = f(&k, self.get(&k));
+        match self.get_mut(&k) {
+            Some(slot) => *slot = v,
+            None => self.push_computed(k, v),
+        }
+    }
+
+    /// The insertion of `computeIfAbsent`/`compute`: the node becomes the head of its bin (`newNode(hash, key, v, first)`),
+    /// where `put` appends, and a bin that now holds 8 nodes is treeified (which resizes a table under 64 buckets).
+    fn push_computed(&mut self, k: K, v: V) {
+        let b = self.bucket(&k, self.table.len());
+        self.table[b].insert(0, (k, v));
+        if self.table[b].len() >= 8 && self.table.len() < 64 {
+            self.resize();
+        }
+        self.size += 1;
+    }
+
     /// `resize()`: double the table; entries are re-bucketed in iteration order, which keeps each bin's order.
     fn resize(&mut self) {
         let cap = self.table.len() * 2;

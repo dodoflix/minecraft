@@ -137,6 +137,26 @@ public class HashOrderGolden {
          for (int k : ints) fi.put(k, "");
          out.append("fastint\t").append(expected).append('\t').append(join(ints)).append('\t').append(join(fi.keySet())).append('\n');
       }
+      // computeIfAbsent / compute resize before looking the key up, never after inserting, and prepend to a bin
+      Random computeRandom = new Random(20260701);
+      for (int round = 0; round < 300; round++) {
+         int n = 1 + (round < 100 ? round % 30 : computeRandom.nextInt(120));
+         int alphabet = 2 + computeRandom.nextInt(24);
+         int cap = new int[] {0, 1, 2, 4, 16, 32}[computeRandom.nextInt(6)];
+         Map<String, Integer> m = cap == 0 ? new HashMap<>() : new HashMap<>(cap);
+         List<String> ops = new ArrayList<>();
+         for (int i = 0; i < n + n / 3; i++) {
+            String k = key(computeRandom, alphabet, 8);
+            int verb = computeRandom.nextInt(3);
+            switch (verb) {
+               case 0 -> m.computeIfAbsent(k, kk -> 0);
+               case 1 -> m.compute(k, (kk, old) -> old == null ? 0 : old + 1);
+               default -> m.put(k, 0);
+            }
+            ops.add("ACP".charAt(verb) + k);
+         }
+         out.append("hashmap-compute\t").append(cap).append('\t').append(join(ops)).append('\t').append(join(m.keySet())).append('\n');
+      }
       Files.writeString(Path.of(args[0]), out.toString());
    }
 }
