@@ -15,6 +15,7 @@ use crate::world::entity::{EntityId, ServerPlayer};
 use crate::world::level::gamerules::GameRules;
 use crate::world::level::saveddata::world_border::WorldBorder;
 use crate::world::level::{DimensionKey, LevelReader};
+use mc_datafix::UnsupportedVersion;
 use mc_protocol::codec::GlobalPos;
 use mc_protocol::packets::play::{
     ClientboundInitializeBorderPacket, ClientboundServerDataPacket, ClientboundSetTimePacket,
@@ -170,17 +171,15 @@ impl JoinHost for ServerJoinHost<'_> {
 
     fn player_advancements(
         &mut self,
-        player: &PlayerHandle,
-    ) -> crate::advancements::SharedAdvancements {
+        id: Uuid,
+    ) -> Result<crate::advancements::SharedAdvancements, UnsupportedVersion> {
         let manager = self
             .server
             .resources
             .managers
             .listener::<crate::advancements::ServerAdvancementManager>()
             .expect("advancement manager is registered");
-        self.server
-            .player_list
-            .get_player_advancements(player, manager)
+        self.server.player_list.get_player_advancements(id, manager)
     }
 
     fn send_commands(&mut self, player: &PlayerHandle, permissions: LevelBasedPermissionSet) {

@@ -16,6 +16,7 @@ use crate::server::permissions::{LevelBasedPermissionSet, PermissionLevel};
 use crate::stats::{ServerStatsCounter, SharedStats};
 use crate::world::level::DimensionKey;
 use mc_core::phys::Vec3;
+use mc_datafix::UnsupportedVersion;
 use mc_nbt::CompoundTag;
 use mc_protocol::codec::EnumSet;
 use mc_protocol::packet::Packet;
@@ -349,8 +350,12 @@ impl PlayerList {
 
     // ---------------------------------------------------------------------------------------------- player files
 
-    /// `loadPlayerData(nameAndId)` (dedicated: never a singleplayer owner).
-    pub fn load_player_data(&self, name_and_id: &NameAndId) -> Option<CompoundTag> {
+    /// `loadPlayerData(nameAndId)` (dedicated: never a singleplayer owner). A file the fixer cannot upgrade is an error
+    /// (the exception of vanilla's fixer), not an empty player.
+    pub fn load_player_data(
+        &self,
+        name_and_id: &NameAndId,
+    ) -> Result<Option<CompoundTag>, UnsupportedVersion> {
         self.player_io.load(&name_and_id.id, &name_and_id.name)
     }
 
@@ -372,37 +377,39 @@ impl PlayerList {
         }
     }
 
-    /// `getPlayerStats(player)`.
-    pub fn get_player_stats(&mut self, handle: &PlayerHandle) -> SharedStats {
-        let stats_dir = &self.stats_dir;
-        self.stats
-            .entry(handle.uuid)
-            .or_insert_with(|| {
-                SharedStats::new(ServerStatsCounter::new(locate_stats_file(
-                    stats_dir,
-                    handle.uuid,
-                    handle.name(),
-                )))
-            })
-            .clone()
+    /// `getPlayerStats(player)`; the load of a file the fixer cannot upgrade is an error.
+    pub fn get_player_stats(
+        &mut self,
+        id: Uuid,
+        name: &str,
+    ) -> Result<SharedStats, UnsupportedVersion> {
+        if let Some(stats) = self.stats.get(&id) {
+            return Ok(stats.clone());
+        }
+        let stats = SharedStats::new(ServerStatsCounter::new(locate_stats_file(
+            &self.stats_dir,
+            id,
+            name,
+        ))?);
+        self.stats.insert(id, stats.clone());
+        Ok(stats)
     }
 
-    /// `getPlayerAdvancements(player)`.
+    /// `getPlayerAdvancements(player)`; the load of a file the fixer cannot upgrade is an error.
     pub fn get_player_advancements(
         &mut self,
-        handle: &PlayerHandle,
+        id: Uuid,
         manager: &ServerAdvancementManager,
-    ) -> SharedAdvancements {
-        let dir = &self.advancements_dir;
-        self.advancements
-            .entry(handle.uuid)
-            .or_insert_with(|| {
-                SharedAdvancements::new(PlayerAdvancements::new(
-                    manager,
-                    Some(dir.join(format!("{}.json", handle.uuid))),
-                ))
-            })
-            .clone()
+    ) -> Result<SharedAdvancements, UnsupportedVersion> {
+        if let Some(advancements) = self.advancements.get(&id) {
+            return Ok(advancements.clone());
+        }
+        let advancements = SharedAdvancements::new(PlayerAdvancements::new(
+            manager,
+            Some(self.advancements_dir.join(format!("{id}.json"))),
+        )?);
+        self.advancements.insert(id, advancements.clone());
+        Ok(advancements)
     }
 
     /// `reloadResources()`' first loop: every player's advancements are re-read against the reloaded manager.
@@ -980,7 +987,8 @@ mod tests {
         assert_eq!(wa.ids(), [None], "disconnect packet + close");
         assert!(!list.disconnect_all_players_with_profile(&Uuid::from_u128(1)));
 
-        list.get_player_stats(&a)
+        list.get_player_stats(a.uuid, a.name())
+            .unwrap()
             .lock()
             .increment(Stats::LEAVE_GAME, 1);
         list.save_player_files(&a);

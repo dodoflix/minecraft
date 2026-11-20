@@ -414,7 +414,7 @@ fn stats_file_matches_vanilla() {
     for (name, stats) in cases {
         let dir = tempfile::tempdir().unwrap();
         let file = dir.path().join("stats.json");
-        let mut counter = ServerStatsCounter::new(file.clone());
+        let mut counter = ServerStatsCounter::new(file.clone()).unwrap();
         for (s, n) in stats {
             counter.increment(s, n);
         }

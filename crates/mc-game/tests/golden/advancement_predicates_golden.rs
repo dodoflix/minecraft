@@ -277,7 +277,8 @@ impl World {
             mc_game::advancements::player_advancements::PlayerAdvancements::new(
                 &ADVANCEMENTS,
                 None,
-            ),
+            )
+            .unwrap(),
         );
         p.set_pos(num(&a[3]), num(&a[4]), num(&a[5]));
         let (yaw, pitch) = (

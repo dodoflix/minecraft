@@ -251,7 +251,8 @@ impl Replay {
             mc_game::advancements::player_advancements::PlayerAdvancements::new(
                 &ADVANCEMENTS,
                 None,
-            ),
+            )
+            .unwrap(),
         );
         p.set_pos(num(&t[3]), num(&t[4]), num(&t[5]));
         let (yaw, pitch) = if t.len() > 7 {

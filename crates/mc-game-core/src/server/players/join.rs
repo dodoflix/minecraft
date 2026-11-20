@@ -16,6 +16,7 @@ use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::{EntityId, ServerPlayer};
 use crate::world::level::DimensionKey;
 use mc_data::enums::GameType;
+use mc_datafix::UnsupportedVersion;
 use mc_protocol::packets::play::{
     ClientboundChangeDifficultyPacket, ClientboundEntityEventPacket, ClientboundGameEventPacket,
     ClientboundInitializeBorderPacket, ClientboundLoginPacket, ClientboundPlayerAbilitiesPacket,
@@ -77,8 +78,8 @@ pub trait JoinHost {
     /// `playerList.getPlayerAdvancements(player)`: loads `advancements/<uuid>.json` against the advancement manager.
     fn player_advancements(
         &mut self,
-        player: &PlayerHandle,
-    ) -> crate::advancements::SharedAdvancements;
+        id: Uuid,
+    ) -> Result<crate::advancements::SharedAdvancements, UnsupportedVersion>;
     /// `ServerPlayer.sendServerStatus(status)` payload (`None` while there is no status yet).
     fn server_data_packet(&self) -> Option<ClientboundServerDataPacket>;
     /// `nameToIdCache.get(id)` / `.add(nameAndId)`.
@@ -263,13 +264,18 @@ pub fn send_level_info_to(host: &dyn JoinHost, info: &LevelJoinInfo, c: &Connect
 
 /// `PlayerList.placeNewPlayer(connection, player, cookie)`. `player` has no connection yet; it is given the sender,
 /// the play listener and its [`PlayerHandle`] here. Returns the handle.
+///
+/// The statistics and advancement files are loaded first (the `ServerPlayer` constructor of vanilla): one the fixer
+/// cannot upgrade is an error and nothing has been sent or registered yet.
 pub fn place_new_player(
     host: &mut dyn JoinHost,
     mut player: ServerPlayer,
     sender: ConnectionSender,
     params: ListenerParams,
-) -> PlayerHandle {
+) -> Result<PlayerHandle, UnsupportedVersion> {
     let profile = player.player.game_profile.clone();
+    player.stats = host.list().get_player_stats(profile.id, &profile.name)?;
+    player.advancements = host.player_advancements(profile.id)?;
     let name_and_id = NameAndId::new(profile.id, profile.name.clone());
     let old_name = host
         .name_cache_get(&name_and_id.id)
@@ -341,9 +347,7 @@ pub fn place_new_player(
     });
     player.send(&host.update_recipes_packet());
     send_player_permission_level(host, &handle);
-    // `player.getStats().markAllDirty()`: the statistics are loaded (and their file created) with the first access
-    player.advancements = host.player_advancements(&handle);
-    player.stats = host.list().get_player_stats(&handle);
+    // `player.getStats().markAllDirty()`
     player.stats.lock().mark_all_dirty();
     send_initial_recipe_book(&player, &host.recipe_manager());
     host.update_entire_scoreboard(&handle);
@@ -376,7 +380,7 @@ pub fn place_new_player(
         player.init_inventory_menu(level);
     });
     host.list().notifications.player_joined(&name_and_id);
-    handle
+    Ok(handle)
 }
 
 /// `sendPlayerPermissionLevel(player)`: the op-level entity event, then the command tree.
@@ -432,9 +436,9 @@ mod tests {
         }
         fn player_advancements(
             &mut self,
-            _player: &PlayerHandle,
-        ) -> crate::advancements::SharedAdvancements {
-            crate::advancements::SharedAdvancements::detached()
+            _id: Uuid,
+        ) -> Result<crate::advancements::SharedAdvancements, UnsupportedVersion> {
+            Ok(crate::advancements::SharedAdvancements::detached())
         }
         fn level_join_info(&mut self) -> LevelJoinInfo {
             LevelJoinInfo {
@@ -529,24 +533,18 @@ mod tests {
         }
     }
 
-    fn fixture_names() -> Vec<String> {
-        include_str!("../../../tests/fixtures/vanilla_join_sequence.txt")
-            .lines()
-            .filter_map(|l| l.split_whitespace().nth(1))
-            .map(str::to_owned)
-            .collect()
-    }
-
-    /// The packets `placeNewPlayer` sends itself (vanilla's list minus what the chunk tracking, the entity tracker, the
-    /// recipe unlock and the first player tick add) are in the order the real server sends them.
-    #[test]
-    fn join_packet_order_matches_the_real_server() {
-        let dir = tempfile::tempdir().unwrap();
+    fn join_bot(
+        dir: &std::path::Path,
+    ) -> (
+        RecordingHost,
+        crate::server::players::player_handle::test_support::Wire,
+        Result<PlayerHandle, UnsupportedVersion>,
+    ) {
         let list = PlayerList::new(
             PlayerListSettings::default(),
-            PlayerDataStorage::new(dir.path().join("players/data")),
-            dir.path().join("players/stats"),
-            dir.path().join("players/advancements"),
+            PlayerDataStorage::new(dir.join("players/data")),
+            dir.join("players/stats"),
+            dir.join("players/advancements"),
             Arc::new(EmptyNotificationService),
         );
         let mut host = RecordingHost {
@@ -566,7 +564,7 @@ mod tests {
             profile.clone(),
             Default::default(),
         );
-        let (wire_handle, mut wire) = handle(5, "Bot", "minecraft:overworld");
+        let (wire_handle, wire) = handle(5, "Bot", "minecraft:overworld");
         let (_tx, inbound) = std::sync::mpsc::channel();
         let params = ListenerParams {
             cookie: CommonListenerCookie {
@@ -583,7 +581,25 @@ mod tests {
             inbound,
             enforce_secure_profile: Arc::new(|| false),
         };
-        place_new_player(&mut host, player, wire_handle.connection.clone(), params);
+        let result = place_new_player(&mut host, player, wire_handle.connection.clone(), params);
+        (host, wire, result)
+    }
+
+    fn fixture_names() -> Vec<String> {
+        include_str!("../../../tests/fixtures/vanilla_join_sequence.txt")
+            .lines()
+            .filter_map(|l| l.split_whitespace().nth(1))
+            .map(str::to_owned)
+            .collect()
+    }
+
+    /// The packets `placeNewPlayer` sends itself (vanilla's list minus what the chunk tracking, the entity tracker, the
+    /// recipe unlock and the first player tick add) are in the order the real server sends them.
+    #[test]
+    fn join_packet_order_matches_the_real_server() {
+        let dir = tempfile::tempdir().unwrap();
+        let (host, mut wire, result) = join_bot(dir.path());
+        result.unwrap();
         let sent: Vec<String> = wire
             .ids()
             .into_iter()
@@ -612,5 +628,26 @@ mod tests {
             "our join sequence differs from the recorded real-server sequence"
         );
         assert_eq!(host.list.get_player_count(), 1);
+    }
+
+    /// A stats file the fixer cannot upgrade fails the join before anything is sent, registered or added.
+    #[test]
+    fn a_stats_file_below_the_chain_fails_the_join_before_anything_happens() {
+        let oldest = mc_datafix::data_fixer().oldest_supported_version();
+        if oldest == i32::MIN {
+            return;
+        }
+        let dir = tempfile::tempdir().unwrap();
+        let id = mc_core::uuid_util::create_offline_player_uuid("Bot");
+        std::fs::create_dir_all(dir.path().join("players/stats")).unwrap();
+        let file = dir.path().join(format!("players/stats/{id}.json"));
+        let text = format!(r#"{{"stats":{{}},"DataVersion":{}}}"#, oldest - 1);
+        std::fs::write(&file, &text).unwrap();
+        let (host, mut wire, result) = join_bot(dir.path());
+        assert_eq!(result.err().unwrap().from_version, oldest - 1);
+        assert!(wire.ids().is_empty());
+        assert_eq!(host.list.get_player_count(), 0);
+        assert!(host.player.is_none());
+        assert_eq!(std::fs::read_to_string(&file).unwrap(), text);
     }
 }

@@ -104,6 +104,7 @@ impl Scenario {
                     server
                         .player_list
                         .load_player_data(&NameAndId::new(profile.id, profile.name.clone()))
+                        .expect("the saved player data upgrades")
                 })
                 .unwrap_or_else(|| panic!("no saved data of {}", a[1]));
                 let list = |key: &str, index: usize| {
@@ -320,6 +321,7 @@ impl Scenario {
                     server
                         .player_list
                         .load_player_data(&NameAndId::new(profile.id, profile.name.clone()))
+                        .expect("the saved player data upgrades")
                 });
                 let stored = stored.map(|mut tag| {
                     super::super::mob_verbs::sort_recipe_book(&mut tag);

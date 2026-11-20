@@ -5,6 +5,7 @@
 use super::name_and_id::NameAndId;
 use super::player_list::PlayerList;
 use crate::world::entity::respawn::SavedPosition;
+use mc_datafix::UnsupportedVersion;
 use mc_nbt::CompoundTag;
 
 /// What `PrepareSpawnTask.start` reads from the player file.
@@ -17,12 +18,15 @@ pub struct LoadedPlayerData {
 
 impl PlayerList {
     /// `loadPlayerData(nameAndId)` + `tag.read(SavedPosition.MAP_CODEC).orElse(EMPTY)`.
-    pub fn load_player_data_with_position(&self, name_and_id: &NameAndId) -> LoadedPlayerData {
-        let data = self.load_player_data(name_and_id);
+    pub fn load_player_data_with_position(
+        &self,
+        name_and_id: &NameAndId,
+    ) -> Result<LoadedPlayerData, UnsupportedVersion> {
+        let data = self.load_player_data(name_and_id)?;
         let position = data
             .as_ref()
             .map_or(SavedPosition::EMPTY, SavedPosition::read);
-        LoadedPlayerData { data, position }
+        Ok(LoadedPlayerData { data, position })
     }
 }
 
@@ -48,7 +52,7 @@ mod tests {
             Arc::new(EmptyNotificationService),
         );
         let steve = NameAndId::create_offline("Steve");
-        let first = list.load_player_data_with_position(&steve);
+        let first = list.load_player_data_with_position(&steve).unwrap();
         assert!(first.data.is_none() && first.position == SavedPosition::EMPTY);
 
         let mut tag = CompoundTag::new();
@@ -66,12 +70,40 @@ mod tests {
             Tag::List([Tag::float(90.0), Tag::float(-10.0)].into_iter().collect()),
         );
         io.save(&steve.id, tag).unwrap();
-        let again = list.load_player_data_with_position(&steve);
+        let again = list.load_player_data_with_position(&steve).unwrap();
         assert_eq!(again.position.position, Some(Vec3::new(1.0, 70.5, -8.25)));
         assert_eq!(
             again.position.dimension.unwrap().to_string(),
             "minecraft:the_nether"
         );
         assert_eq!(again.data.unwrap().get_int("DataVersion"), Some(5023));
+    }
+
+    #[test]
+    fn a_player_file_below_the_chain_aborts_the_load_and_stays_untouched() {
+        let oldest = mc_datafix::data_fixer().oldest_supported_version();
+        if oldest == i32::MIN {
+            return;
+        }
+        let dir = tempfile::tempdir().unwrap();
+        let io = PlayerDataStorage::new(dir.path().join("players/data"));
+        let list = PlayerList::new(
+            PlayerListSettings::default(),
+            io.clone(),
+            dir.path().join("players/stats"),
+            dir.path().join("players/advancements"),
+            Arc::new(EmptyNotificationService),
+        );
+        let steve = NameAndId::create_offline("Steve");
+        let mut tag = CompoundTag::new();
+        tag.put_int("DataVersion", oldest - 1);
+        let file = io.player_dir().join(format!("{}.dat", steve.id));
+        mc_nbt::nbt_io::write_compressed_file(&tag, &file).unwrap();
+        let before = std::fs::read(&file).unwrap();
+
+        let err = list.load_player_data_with_position(&steve).err().unwrap();
+        assert_eq!(err.from_version, oldest - 1);
+        assert_eq!(std::fs::read(&file).unwrap(), before);
+        assert_eq!(std::fs::read_dir(io.player_dir()).unwrap().count(), 1);
     }
 }
