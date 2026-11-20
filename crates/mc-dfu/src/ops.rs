@@ -91,7 +91,7 @@ impl MapLike<'_> {
 
 impl std::fmt::Display for MapLike<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(self.to_java_string().as_lossy_str())
+        f.write_str(&self.to_java_string().to_utf8_string())
     }
 }
 

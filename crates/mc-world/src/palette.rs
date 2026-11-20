@@ -955,12 +955,12 @@ impl ElementCodec<BlockState> for BlockStateCodec {
                 .ok_or_else(|| format!("Unknown registry key in minecraft:block: {name}"))
         };
         match tag {
-            Tag::String(name) => by_name(name.as_lossy_str()).map(Block::default_state),
+            Tag::String(name) => by_name(&name.to_utf8_string()).map(Block::default_state),
             Tag::Compound(c) => {
                 let Some(Tag::String(name)) = c.get("id") else {
                     return Err("No key id in MapLike[...]".into());
                 };
-                let block = by_name(name.as_lossy_str())?;
+                let block = by_name(&name.to_utf8_string())?;
                 let mut state = block.default_state();
                 // lenientOptionalFieldOf("properties") + per-property orElseGet(default)
                 if let Some(Tag::Compound(props)) = c.get("properties") {
@@ -1045,7 +1045,7 @@ impl ElementCodec<BiomeId> for BiomeRegistry {
             .ok_or_else(|| {
                 format!(
                     "Unknown registry key in minecraft:worldgen/biome: {0}",
-                    name.as_lossy_str()
+                    name.to_utf8_string()
                 )
             })
     }

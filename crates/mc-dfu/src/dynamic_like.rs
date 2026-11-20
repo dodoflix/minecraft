@@ -203,7 +203,7 @@ impl Dynamic {
 
 impl fmt::Display for Dynamic {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.write_str(self.to_java_string().as_lossy_str())
+        f.write_str(&self.to_java_string().to_utf8_string())
     }
 }
 

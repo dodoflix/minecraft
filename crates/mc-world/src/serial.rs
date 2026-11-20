@@ -654,7 +654,7 @@ pub fn unpack_structure_starts(
     let starts = tag.get_compound_or_empty("starts");
     for (key, value) in starts {
         if !is_known(key.as_lossy_str()) {
-            log::error!("Unknown structure start: {0}", key.as_lossy_str());
+            log::error!("Unknown structure start: {0}", key.to_utf8_string());
             continue;
         }
         let start = value.as_compound().cloned().unwrap_or_default();
@@ -677,7 +677,7 @@ pub fn unpack_structure_references(
         if !is_known(key.as_lossy_str()) {
             log::warn!(
                 "Found reference to unknown structure '{0}' in chunk {pos}, discarding",
-                key.as_lossy_str()
+                key.to_utf8_string()
             );
             continue;
         }
@@ -692,7 +692,7 @@ pub fn unpack_structure_references(
                 if ref_pos.get_chessboard_distance(&pos) > 8 {
                     log::warn!(
                         "Found invalid structure reference [ {0} @ {ref_pos} ] for chunk {pos}.",
-                        key.as_lossy_str()
+                        key.to_utf8_string()
                     );
                     false
                 } else {

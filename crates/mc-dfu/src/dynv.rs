@@ -596,6 +596,17 @@ impl JsonParser<'_> {
 
 impl fmt::Display for Dyn {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.write_str(self.to_json_string().as_lossy_str())
+        f.write_str(&self.to_json_string().to_utf8_string())
+    }
+}
+
+#[cfg(test)]
+mod display_tests {
+    use super::*;
+
+    #[test]
+    fn display_prints_a_lone_surrogate_as_a_question_mark() {
+        let s = JavaString::from_utf16_units(&[0x61, 0xD800]);
+        assert_eq!(Dyn::Str(s).to_string(), "\"a?\"");
     }
 }
