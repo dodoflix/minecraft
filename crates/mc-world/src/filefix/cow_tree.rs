@@ -177,10 +177,7 @@ fn check_attributes(real: &Path, file_type: fs::FileType) -> io::Result<()> {
 
 /// The tree of the entries of one directory. The walker opens a directory (and fails on it) before it looks at the
 /// directory itself, so a folder that cannot be listed fails before its write access is checked or it is skipped.
-fn build(
-    entries: Vec<fs::DirEntry>,
-    skipped: &dyn Fn(&Path) -> bool,
-) -> io::Result<Children> {
+fn build(entries: Vec<fs::DirEntry>, skipped: &dyn Fn(&Path) -> bool) -> io::Result<Children> {
     let mut children = new_children();
     for entry in entries {
         let real = entry.path();
