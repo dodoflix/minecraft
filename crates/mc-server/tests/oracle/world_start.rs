@@ -25,7 +25,7 @@
 //! * The tickets of `chunk_tickets.dat` as a set: both servers write them in the order of a hash table that they fill
 //!   differently, and the key order of a ticket with a timeout differs ([`ticket_findings`]).
 //! * The log: warnings, errors and the lines of [`INTEREST`] in order, the time and the thread removed, stack traces
-//!   dropped, the failed request for the services' public keys left out ([`log_records`]).
+//!   dropped, the failed request for the services' public keys and the discovery thread's warning left out ([`log_records`]).
 
 use std::collections::BTreeSet;
 use std::fs;
@@ -381,8 +381,13 @@ pub(crate) fn log_records(log: &str) -> Vec<String> {
             continue;
         }
         let level = thread_level.rsplit('/').next().unwrap_or("");
-        // a request to the Mojang services: it fails (or not) with the network, and with a different text in each server
-        if message.starts_with("Failed to request Minecraft Services public key") {
+        // a request to the Mojang services: it fails (or not) with the network, and with a different text in each server.
+        // The discovery thread logs the failure of its request whenever the request ends, so the WARN lands at any record
+        // of the start: runs of ours on the same world logged it at record 9 where the real server's run logged none (the
+        // real server logs it too: a run of it under a debugger did)
+        if message.starts_with("Failed to request Minecraft Services public key")
+            || thread_level == "Minecraft Services Discovery/WARN"
+        {
             continue;
         }
         let interesting = matches!(level, "WARN" | "ERROR" | "FATAL")
