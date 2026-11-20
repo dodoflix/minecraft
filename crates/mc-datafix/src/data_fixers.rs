@@ -2,7 +2,8 @@
 //! load paths use (`mc-world` and the game crates depend on this crate).
 
 use crate::datafix_types::DataFixTypes;
-use crate::fixer::{DataFixer, DataFixerBuilder};
+use crate::fixer::{DataFixer, DataFixerBuilder, make_key};
+use crate::fixes::references::References;
 use crate::ty::ensure_namespaced;
 use mc_nbt::CompoundTag;
 use std::collections::HashMap;
@@ -29,7 +30,14 @@ pub fn data_fixer() -> &'static DataFixer {
     static DATA_FIXER: LazyLock<DataFixer> = LazyLock::new(|| {
         let mut builder = DataFixerBuilder::new(CURRENT_VERSION);
         crate::fixers::add_fixers(&mut builder);
-        builder.build()
+        let fixer = builder.build();
+        // Registering the entity and block entity types resolves their choice types in the newest schema before
+        // anything else uses a schema. Types shared between schemas of equal templates (the unfolded choices) keep
+        // the family name of the schema that unfolds them first, so doing this first fixes those names.
+        let current = fixer.get_schema(make_key(CURRENT_VERSION, 0));
+        current.find_choice_type(&References::ENTITY_TREE);
+        current.find_choice_type(&References::BLOCK_ENTITY);
+        fixer
     });
     &DATA_FIXER
 }

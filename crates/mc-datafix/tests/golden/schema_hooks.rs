@@ -1,5 +1,6 @@
-//! The hook functions the early schemas register (`ADD_NAMES` of the item stack types, the objective id hooks of
-//! schema 1451.6), run through their types: read applies the pre hook, write the post hook.
+//! The hook functions the schemas register (`ADD_NAMES` of the item stack types, the objective id hooks of schema
+//! 1451.6, the plain item id unpacking of schema 3818.5), run through their types: read applies the pre hook, write
+//! the post hook.
 
 use mc_datafix::{References, data_fixer};
 use mc_dfu::{Dyn, Dynamic, NBT};
@@ -88,4 +89,14 @@ fn schema_1460_reuses_the_item_stack_and_objective_hooks() {
     ]);
     let out = round_trip(14600, &References::OBJECTIVE, input.clone());
     assert!(out.java_eq(&input, false), "{out:?}");
+}
+
+#[test]
+fn schema_3818_5_turns_a_plain_item_id_into_a_stack_of_one() {
+    let out = round_trip(38185, &References::ITEM_STACK, s("minecraft:stone"));
+    let expected = Dyn::map_of([("id", s("minecraft:stone")), ("count", Dyn::Int(1))]);
+    assert!(out.java_eq(&expected, false), "{out:?}");
+    let stack = Dyn::map_of([("id", s("minecraft:stone")), ("count", Dyn::Int(3))]);
+    let out = round_trip(38185, &References::ITEM_STACK, stack.clone());
+    assert!(out.java_eq(&stack, false), "{out:?}");
 }
