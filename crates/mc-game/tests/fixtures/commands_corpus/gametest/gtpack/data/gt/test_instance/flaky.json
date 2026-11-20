@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:block_based",
+  "environment": "minecraft:default",
+  "structure": "gt:fail",
+  "max_ticks": 20,
+  "max_attempts": 3,
+  "required_successes": 2
+}

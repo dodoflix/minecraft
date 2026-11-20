@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:block_based",
+  "environment": "minecraft:default",
+  "structure": "gt:pass",
+  "max_ticks": 20,
+  "manual_only": true
+}

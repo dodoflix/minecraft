@@ -38,6 +38,7 @@ corpora!(
     execute,
     functions,
     gametest_cmd,
+    gametest_pack,
     items,
     operating,
     place,

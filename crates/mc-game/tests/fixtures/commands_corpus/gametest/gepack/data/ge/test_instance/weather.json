@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:block_based",
+  "environment": "ge:weather_rain",
+  "structure": "gt:pass",
+  "max_ticks": 20
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:block_based",
+  "environment": "minecraft:default",
+  "structure": "gt:rot",
+  "max_ticks": 20,
+  "rotation": "clockwise_90",
+  "padding": 2,
+  "sky_access": true
+}

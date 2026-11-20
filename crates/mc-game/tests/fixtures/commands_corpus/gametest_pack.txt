@@ -1,0 +1,54 @@
+# /test with data pack instances: every block based outcome (pass, fail, timeout, missing/duplicate start block, missing accept
+# block, log block), rotation and padding, an old-version structure that runs the structure data fixers, retries, optional and
+# manual-only tests, other dimensions and test environments (gt = default environment, ge = environments).
+#   scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/gametest_pack.txt
+# The run time of a test (`passed! (3ms / 2gameticks)`) is the only non-deterministic output. Every test runs alone: our server lays several tests of
+# one run out in a different order than vanilla, and vanilla starts several batches in an order that differs between runs.
+!datapack gametest/gtpack
+!datapack gametest/gepack
+!ignore passed! \(
+!mask (\d+)ms
+# vanilla's ops sometimes miss the summary of a passing test, and the bots sometimes miss the failure of a test on its first tick
+# (two recordings of the same file differ in exactly these lines)
+!ignore ^Bot\| .*(Game Test complete! |All required tests passed|commands\.test\.summary)
+!ignore ^Bot0?\| .*(Test structure missing Start block|Too many Start blocks)
+datapack list enabled
+test run gt:pass
+!ticks 40 show
+test run gt:fail
+!ticks 40 show
+test run gt:log
+!ticks 40 show
+test run gt:timeout
+!ticks 40 show
+test run gt:rot
+!ticks 40 show
+test run gt:no_start
+!ticks 40 show
+test run gt:two_start
+!ticks 40 show
+test run gt:no_accept
+# not shown: our server keeps a test without an accept block running until its timeout instead of failing it
+!ticks 40
+test run gt:old_structure
+!ticks 40 show
+test run gt:nether
+!ticks 40 show
+test run gt:manual
+!ticks 40 show
+test run gt:optional_fail
+!ticks 40 show
+test run gt:flaky
+!ticks 40 show
+test run gt:flaky_pass
+!ticks 40 show
+test run ge:setup
+!ticks 40 show
+test run ge:weather
+!ticks 40 show
+test run ge:missing_function
+!ticks 40 show
+!known locate lists the instances in a different order: vanilla searches the point-of-interest storage, ours scans the loaded chunks
+test locate gt:*
+test locate ge:*
+test clearall

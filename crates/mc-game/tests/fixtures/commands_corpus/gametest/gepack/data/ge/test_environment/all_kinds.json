@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:all_of",
+  "definitions": [
+    {
+      "type": "minecraft:clock_time",
+      "clock": "minecraft:overworld",
+      "time": 6000
+    },
+    {
+      "type": "minecraft:difficulty",
+      "difficulty": "hard"
+    },
+    {
+      "type": "minecraft:game_rules",
+      "rules": {
+        "minecraft:fall_damage": false,
+        "minecraft:fire_spread_radius_around_player": 5
+      }
+    },
+    {
+      "type": "minecraft:function",
+      "setup": "ge:setup",
+      "teardown": "ge:teardown"
+    },
+    {
+      "type": "minecraft:timeline_attributes",
+      "timelines": [
+        "minecraft:day"
+      ]
+    },
+    {
+      "type": "minecraft:weather",
+      "weather": "thunder"
+    }
+  ]
+}

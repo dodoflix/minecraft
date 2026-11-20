@@ -1,0 +1,5 @@
+{
+  "type": "minecraft:function",
+  "setup": "ge:nope",
+  "teardown": "ge:nope"
+}
