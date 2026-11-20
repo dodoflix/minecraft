@@ -241,7 +241,7 @@ fn read_outcome(folder: &std::path::Path) -> Option<bool> {
     let result = s.read(&ChunkPos::new(0, 0));
     result
         .err()
-        .map(|e| mc_world::region::region_file_storage::is_unchecked_nbt_error(&e))
+        .map(|e| mc_core::java_exception::JavaException::is_unchecked(&e))
 }
 
 /// Vanilla reads a deflate stream through an `InflaterInputStream` that takes 512 compressed bytes per refill: a stream

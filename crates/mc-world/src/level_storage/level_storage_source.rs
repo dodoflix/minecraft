@@ -20,7 +20,7 @@ use std::time::{Duration, SystemTime};
 
 use mc_core::ident::Identifier;
 use mc_datafix::{DataFixTypes, update_to_current};
-use mc_nbt::{CompoundTag, NbtAccounter, NbtError};
+use mc_nbt::{CompoundTag, NbtAccounter};
 
 use super::directory_lock::DirectoryLock;
 use super::feature_flags::FeatureFlagSet;
@@ -39,7 +39,7 @@ use super::validation::{ContentValidationException, DirectoryValidator, PathAllo
 use super::version::{
     ANVIL_VERSION_ID, MCREGION_VERSION_ID, get_data_version, requires_file_fixing,
 };
-use super::world_gen_settings::WorldGenSettings;
+use super::world_gen_settings::{ReadError, WorldGenSettings};
 
 /// `LevelStorageSource.TAG_DATA`.
 pub const TAG_DATA: &str = "Data";
@@ -102,22 +102,6 @@ impl fmt::Display for AccessError {
 }
 
 impl std::error::Error for AccessError {}
-
-/// `Throwable.toString()` of the exception `NbtIo.readCompressed(path)` throws for `e`.
-fn java_read_exception(e: &io::Error, path: &Path) -> String {
-    if e.kind() == io::ErrorKind::NotFound {
-        return format!("java.nio.file.NoSuchFileException: {}", path.display());
-    }
-    match e.get_ref().and_then(|i| i.downcast_ref::<NbtError>()) {
-        Some(NbtError::Eof) => "java.io.EOFException".to_owned(),
-        Some(NbtError::Format(m)) => format!("net.minecraft.nbt.NbtFormatException: {m}"),
-        Some(NbtError::Accounter(m)) => format!("net.minecraft.nbt.NbtAccounterException: {m}"),
-        Some(NbtError::Reported { .. }) => {
-            "net.minecraft.nbt.ReportedNbtException: Loading NBT data".to_owned()
-        }
-        _ => format!("java.io.IOException: {e}"),
-    }
-}
 
 impl From<io::Error> for AccessError {
     fn from(e: io::Error) -> Self {
@@ -265,19 +249,27 @@ impl LevelStorageSource {
         WorldDataConfiguration::decode(level_data)
     }
 
-    /// `LevelStorageSource.getLevelDataAndDimensions`: `Err` is the `IllegalStateException` for data that still
-    /// needs file fixing.
+    /// `LevelStorageSource.getLevelDataAndDimensions`: `Err` is the exception it throws (`<class>: <message>`): the
+    /// `IllegalStateException` for data that still needs file fixing, or an unchecked failure to read the world gen
+    /// settings.
     pub fn get_level_data_and_dimensions(
         world_access: &LevelStorageAccess,
         level_data_tag: &CompoundTag,
         data_configuration: WorldDataConfiguration,
     ) -> Result<LevelDataAndDimensions, String> {
         if requires_file_fixing(get_data_version(level_data_tag)) {
-            return Err("Cannot get level data without file fixing first".to_owned());
+            return Err(
+                "java.lang.IllegalStateException: Cannot get level data without file fixing first"
+                    .to_owned(),
+            );
         }
-        let world_gen_settings = WorldGenSettings::read_existing_in_data_dir(
+        let world_gen_settings = match WorldGenSettings::read_existing_in_data_dir(
             &world_access.get_level_path(LevelResource::DATA),
-        );
+        ) {
+            Ok(settings) => Ok(settings),
+            Err(ReadError::Error(message)) => Err(message),
+            Err(ReadError::Thrown(exception)) => return Err(exception),
+        };
         let special = world_gen_settings
             .as_ref()
             .map(WorldGenSettings::special_world_property)
@@ -340,7 +332,6 @@ impl LevelStorageSource {
     /// The error prints as the Java exception does (`<class>: <message>`).
     pub fn read_level_data_tag_raw(data_file: &Path) -> io::Result<CompoundTag> {
         read_compressed(data_file, &mut NbtAccounter::uncompressed_quota())
-            .map_err(|e| io::Error::new(e.kind(), java_read_exception(&e, data_file)))
     }
 
     fn read_level_summary(&self, level: &LevelDirectory, locked: bool) -> LevelSummary {

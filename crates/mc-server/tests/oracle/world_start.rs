@@ -133,7 +133,7 @@ pub(crate) struct World {
     pub(crate) dir: PathBuf,
 }
 
-fn cache_dir() -> PathBuf {
+pub(crate) fn cache_dir() -> PathBuf {
     if let Some(dir) = std::env::var_os("MC_DATAFIX_CACHE") {
         return dir.into();
     }

@@ -1,0 +1,206 @@
+//! Java exceptions as the payload of an [`io::Error`]: the class name and message of the exception the JDK (or the
+//! vanilla code) throws, printed like `Throwable.toString()`. Error types of other crates that stand for a Java
+//! exception print the same way, so an error shown to a user carries Java's class and text wherever it surfaces.
+
+use std::fmt;
+use std::io;
+use std::path::Path;
+
+/// `java.io.EOFException`, the class named by streams that end early.
+pub const EOF_EXCEPTION: &str = "java.io.EOFException";
+/// `java.io.IOException`.
+pub const IO_EXCEPTION: &str = "java.io.IOException";
+/// `java.util.zip.ZipException`.
+pub const ZIP_EXCEPTION: &str = "java.util.zip.ZipException";
+/// `java.nio.file.FileAlreadyExistsException`.
+pub const FILE_ALREADY_EXISTS_EXCEPTION: &str = "java.nio.file.FileAlreadyExistsException";
+
+/// A Java exception: its fully qualified class name and `getMessage()`.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct JavaException {
+    pub class: &'static str,
+    pub message: Option<String>,
+    /// A `RuntimeException` or `Error`: callers that handle `IOException` do not catch it.
+    pub unchecked: bool,
+}
+
+impl JavaException {
+    pub fn new(class: &'static str, message: impl Into<String>) -> JavaException {
+        JavaException {
+            class,
+            message: Some(message.into()),
+            unchecked: false,
+        }
+    }
+
+    /// A `RuntimeException` with a message.
+    pub fn unchecked(class: &'static str, message: impl Into<String>) -> JavaException {
+        JavaException {
+            unchecked: true,
+            ..JavaException::new(class, message)
+        }
+    }
+
+    /// An exception whose `getMessage()` is `null`.
+    pub fn without_message(class: &'static str) -> JavaException {
+        JavaException {
+            class,
+            message: None,
+            unchecked: false,
+        }
+    }
+
+    /// The exception as an [`io::Error`] of `kind`.
+    pub fn into_io(self, kind: io::ErrorKind) -> io::Error {
+        io::Error::new(kind, self)
+    }
+
+    /// The Java exception behind `e`: the payload itself, and for an error that carries none the `IOException` a
+    /// stream read of an OS error is (`strerror`; the path of a failed open is not known here, see
+    /// [`JavaException::from_file_error`]).
+    pub fn of_io(e: &io::Error) -> JavaException {
+        match e
+            .get_ref()
+            .and_then(|inner| inner.downcast_ref::<JavaException>())
+        {
+            Some(exception) => exception.clone(),
+            None if e.get_ref().is_some() => JavaException::new(IO_EXCEPTION, e.to_string()),
+            None => JavaException::read_failure(e),
+        }
+    }
+
+    /// Whether `e` stands for an unchecked Java exception, which a caller that handles `IOException` does not catch.
+    pub fn is_unchecked(e: &io::Error) -> bool {
+        e.get_ref()
+            .and_then(|inner| inner.downcast_ref::<JavaException>())
+            .is_some_and(|exception| exception.unchecked)
+    }
+
+    /// The `IOException(strerror)` a failed read of an open file throws (reading a directory: `Is a directory`).
+    pub fn read_failure(e: &io::Error) -> JavaException {
+        JavaException::new(IO_EXCEPTION, strerror(e))
+    }
+
+    /// The exception `Files.newInputStream(path)` & co. throw for `e` (`UnixException.translateToIOException`).
+    pub fn translate_file_error(e: &io::Error, path: &Path) -> JavaException {
+        JavaException::translate_file_pair_error(e, path, None)
+    }
+
+    /// [`JavaException::translate_file_error`] of an operation on two files (`Files.move(file, other)`): the message
+    /// names both (`file -> other`).
+    pub fn translate_file_pair_error(
+        e: &io::Error,
+        path: &Path,
+        other: Option<&Path>,
+    ) -> JavaException {
+        let mut shown = path.display().to_string();
+        if let Some(other) = other {
+            shown = format!("{shown} -> {}", other.display());
+        }
+        let reason = strerror(e);
+        match (e.raw_os_error(), e.kind()) {
+            (Some(40), _) => JavaException::new(
+                "java.nio.file.FileSystemException",
+                format!("{shown}: {reason} or unable to access attributes of symbolic link"),
+            ),
+            (Some(1), _) => file_system_exception(&shown, &reason),
+            (_, io::ErrorKind::NotFound) => {
+                JavaException::new("java.nio.file.NoSuchFileException", shown)
+            }
+            (_, io::ErrorKind::PermissionDenied) => {
+                JavaException::new("java.nio.file.AccessDeniedException", shown)
+            }
+            (_, io::ErrorKind::AlreadyExists) => {
+                JavaException::new(FILE_ALREADY_EXISTS_EXCEPTION, shown)
+            }
+            _ => file_system_exception(&shown, &reason),
+        }
+    }
+
+    /// [`JavaException::translate_file_error`] as an [`io::Error`] of the same kind. An error that already is a Java
+    /// exception is returned as it is.
+    pub fn from_file_error(e: io::Error, path: &Path) -> io::Error {
+        JavaException::from_file_pair_error(e, path, None)
+    }
+
+    /// [`JavaException::translate_file_pair_error`] as an [`io::Error`] of the same kind.
+    pub fn from_file_pair_error(e: io::Error, path: &Path, other: Option<&Path>) -> io::Error {
+        if e.get_ref().is_some() {
+            return e;
+        }
+        let kind = e.kind();
+        JavaException::translate_file_pair_error(&e, path, other).into_io(kind)
+    }
+}
+
+fn file_system_exception(path: &str, reason: &str) -> JavaException {
+    JavaException::new(
+        "java.nio.file.FileSystemException",
+        format!("{path}: {reason}"),
+    )
+}
+
+/// `strerror` of an OS error: Rust appends ` (os error N)` to it.
+fn strerror(e: &io::Error) -> String {
+    let text = e.to_string();
+    match (e.raw_os_error(), text.rfind(" (os error ")) {
+        (Some(_), Some(at)) => text[..at].to_owned(),
+        _ => text,
+    }
+}
+
+impl fmt::Display for JavaException {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match &self.message {
+            Some(message) => write!(f, "{}: {message}", self.class),
+            None => f.write_str(self.class),
+        }
+    }
+}
+
+impl std::error::Error for JavaException {}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn io_errors_print_as_the_jdk_throws_them() {
+        let path = Path::new("/w/level.dat");
+        let missing = io::Error::from_raw_os_error(2);
+        assert_eq!(
+            JavaException::from_file_error(missing, path).to_string(),
+            "java.nio.file.NoSuchFileException: /w/level.dat"
+        );
+        let denied = io::Error::from_raw_os_error(13);
+        assert_eq!(
+            JavaException::from_file_error(denied, path).to_string(),
+            "java.nio.file.AccessDeniedException: /w/level.dat"
+        );
+        let other = io::Error::from_raw_os_error(20);
+        assert_eq!(
+            JavaException::from_file_error(other, path).to_string(),
+            "java.nio.file.FileSystemException: /w/level.dat: Not a directory"
+        );
+        let directory = io::Error::from_raw_os_error(21);
+        assert_eq!(
+            JavaException::of_io(&directory).to_string(),
+            "java.io.IOException: Is a directory"
+        );
+    }
+
+    #[test]
+    fn a_java_exception_stays_what_it_is() {
+        let zip = JavaException::new(ZIP_EXCEPTION, "Not in GZIP format")
+            .into_io(io::ErrorKind::InvalidData);
+        let again = JavaException::from_file_error(zip, Path::new("x"));
+        assert_eq!(
+            JavaException::of_io(&again).to_string(),
+            "java.util.zip.ZipException: Not in GZIP format"
+        );
+        assert_eq!(
+            JavaException::without_message(EOF_EXCEPTION).to_string(),
+            "java.io.EOFException"
+        );
+    }
+}

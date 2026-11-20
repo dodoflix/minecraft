@@ -12,6 +12,7 @@ publish.workspace = true
 mc-core = { path = "../mc-core" }
 flate2 = { workspace = true }
 indexmap = { workspace = true }
+zlib-rs = { workspace = true }
 
 [dev-dependencies]
 mc-testkit = { path = "../mc-testkit" }

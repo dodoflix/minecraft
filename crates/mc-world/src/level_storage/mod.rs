@@ -54,4 +54,4 @@ pub use version::{
     get_data_version, get_data_version_or, latest_file_fixer_version, requires_file_fixing,
     world_version_to_file_fixer_version,
 };
-pub use world_gen_settings::{WorldGenSettings, WorldOptions, world_gen_settings_id};
+pub use world_gen_settings::{ReadError, WorldGenSettings, WorldOptions, world_gen_settings_id};

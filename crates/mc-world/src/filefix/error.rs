@@ -4,7 +4,7 @@ use std::fmt;
 use std::io;
 use std::path::PathBuf;
 
-use super::cow_tree::CowFsError;
+use mc_core::java_exception::JavaException;
 
 /// `FileMove`: one file moved from `from` to `to`.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -45,29 +45,12 @@ pub struct FileFixCrashReport {
     pub categories: Vec<CrashReportCategory>,
 }
 
-/// `java.nio.file.FileAlreadyExistsException`, as `FileFixUtil.moveFile` throws it (the payload of the [`io::Error`]):
-/// the message is the Java message.
-#[derive(Debug)]
-pub(super) struct NioFileAlreadyExists(pub String);
-
-impl fmt::Display for NioFileAlreadyExists {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.write_str(&self.0)
-    }
-}
-
-impl std::error::Error for NioFileAlreadyExists {}
-
-/// `Throwable.toString()` of the Java exception behind `e`: its class name, then the message. An error that no Java
-/// exception of the file fixes stands for prints as its message alone.
-fn java_to_string(e: &io::Error) -> String {
-    let inner = e.get_ref();
-    if let Some(cow) = inner.and_then(|i| i.downcast_ref::<CowFsError>()) {
-        format!("{}: {cow}", cow.class_name())
-    } else if let Some(nio) = inner.and_then(|i| i.downcast_ref::<NioFileAlreadyExists>()) {
-        format!("java.nio.file.FileAlreadyExistsException: {nio}")
-    } else {
-        e.to_string()
+/// `Throwable.toString()` of the Java exception behind `e`: its class name, then the message. An error with a
+/// payload that no Java exception stands for prints as its message alone.
+pub(super) fn java_to_string(e: &io::Error) -> String {
+    match e.get_ref() {
+        Some(inner) if !inner.is::<JavaException>() => e.to_string(),
+        _ => JavaException::of_io(e).to_string(),
     }
 }
 

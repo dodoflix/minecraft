@@ -1381,6 +1381,7 @@ dependencies = [
  "indexmap",
  "mc-core",
  "mc-testkit",
+ "zlib-rs",
 ]
 
 [[package]]
@@ -1503,7 +1504,6 @@ dependencies = [
  "tempfile",
  "twox-hash",
  "uuid",
- "zlib-rs",
 ]
 
 [[package]]

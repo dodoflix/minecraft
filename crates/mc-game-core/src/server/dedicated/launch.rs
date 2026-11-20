@@ -363,8 +363,7 @@ fn world_data_supplier(
                 access,
                 tag,
                 context.data_configuration.clone(),
-            )
-            .unwrap_or_else(|e| panic!("{e}"));
+            )?;
             // `WorldGenSettings.CODEC` decodes the stems too: any failure falls back to the data pack's dimensions
             let stored = result
                 .world_gen_settings

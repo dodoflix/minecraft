@@ -2,8 +2,8 @@
 
 use super::lz4;
 use flate2::Compression;
-use flate2::read::MultiGzDecoder;
 use flate2::write::{GzEncoder, ZlibEncoder};
+use mc_nbt::java_zip::{GzipInputStream, InflaterInputStream};
 use std::io::{self, Cursor, Read, Write};
 use std::sync::atomic::{AtomicUsize, Ordering};
 
@@ -91,8 +91,8 @@ impl RegionFileVersion {
     /// wrapper (vanilla throws `UnsupportedOperationException`).
     pub fn wrap_input(&self, data: Vec<u8>) -> io::Result<ChunkInputStream> {
         match self.id {
-            1 => Ok(Box::new(MultiGzDecoder::new(Cursor::new(data)))),
-            2 => Ok(Box::new(JavaInflaterStream::new(data))),
+            1 => Ok(Box::new(GzipInputStream::new(data)?)),
+            2 => Ok(Box::new(InflaterInputStream::new(data, 0, true))),
             3 => Ok(Box::new(Cursor::new(data))),
             4 => Ok(Box::new(lz4::Lz4BlockReader::new(data))),
             _ => Err(io::Error::new(
@@ -123,75 +123,6 @@ impl RegionFileVersion {
                 "custom region file compression",
             )),
         }
-    }
-}
-
-/// Bytes `InflaterInputStream` pulls from its source per refill.
-const INFLATER_BUFFER: usize = 512;
-
-/// `new InflaterInputStream(in)` over a stored payload: the compressed bytes are fed to the inflater 512 at a time, and a
-/// `read` returns the output of the first `inflate` call that produces any (capped by the size asked for). A failing call
-/// loses what it decoded and everything after it, as for a Java caller. The inflater is zlib's (`zlib-rs`): it stops
-/// decoding when the buffer it was given is full and rejects the same streams, which flate2's default inflater does not.
-struct JavaInflaterStream {
-    data: Vec<u8>,
-    /// End of the part of `data` the inflater was given so far.
-    fed: usize,
-    inflater: zlib_rs::Inflate,
-    finished: bool,
-}
-
-impl JavaInflaterStream {
-    fn new(data: Vec<u8>) -> Self {
-        Self {
-            data,
-            fed: 0,
-            inflater: zlib_rs::Inflate::new(true, 15),
-            finished: false,
-        }
-    }
-}
-
-impl Read for JavaInflaterStream {
-    fn read(&mut self, out: &mut [u8]) -> io::Result<usize> {
-        if out.is_empty() {
-            return Ok(0);
-        }
-        while !self.finished {
-            let (in_before, out_before) = (self.inflater.total_in(), self.inflater.total_out());
-            let input = &self.data[in_before as usize..self.fed];
-            let status = self
-                .inflater
-                .decompress(input, out, zlib_rs::InflateFlush::NoFlush)
-                .map_err(|e| {
-                    let message = self.inflater.error_message().unwrap_or(e.as_str());
-                    io::Error::new(io::ErrorKind::InvalidData, message)
-                })?;
-            let produced = (self.inflater.total_out() - out_before) as usize;
-            self.finished = status == zlib_rs::Status::StreamEnd;
-            if produced > 0 {
-                return Ok(produced);
-            }
-            if self.finished {
-                continue;
-            }
-            let consumed = self.inflater.total_in() as usize;
-            if consumed == self.fed {
-                if self.fed == self.data.len() {
-                    return Err(io::Error::new(
-                        io::ErrorKind::UnexpectedEof,
-                        "Unexpected end of ZLIB input stream",
-                    ));
-                }
-                self.fed = (self.fed + INFLATER_BUFFER).min(self.data.len());
-            } else if consumed as u64 == in_before {
-                return Err(io::Error::new(
-                    io::ErrorKind::InvalidData,
-                    "inflater made no progress",
-                ));
-            }
-        }
-        Ok(0)
     }
 }
 

@@ -5,64 +5,15 @@ use super::region_file::RegionFile;
 use super::region_storage_info::RegionStorageInfo;
 use indexmap::IndexMap;
 use mc_core::pos::chunk_pos::ChunkPos;
+use mc_nbt::java_zip::{drain, header_incomplete};
 use mc_nbt::stream::StreamTagVisitor;
-use mc_nbt::{CompoundTag, NbtAccounter, NbtError};
+use mc_nbt::{CompoundTag, NbtAccounter};
 use std::fs;
-use std::io::{self, Read};
+use std::io;
 use std::path::PathBuf;
 
 pub const ANVIL_EXTENSION: &str = ".mca";
 const MAX_CACHE_SIZE: usize = 256;
-
-/// NBT failures reach callers as `IOException`/runtime exceptions in vanilla; here all are `io::Error`, the parse error
-/// stays reachable as the source (see [`is_unchecked_nbt_error`]).
-pub fn nbt_io_error(e: NbtError) -> io::Error {
-    match e {
-        NbtError::Eof => io::Error::from(io::ErrorKind::UnexpectedEof),
-        other => io::Error::new(io::ErrorKind::InvalidData, other),
-    }
-}
-
-/// Whether `e` is a parse failure that vanilla throws as an unchecked exception (`NbtFormatException`,
-/// `NbtAccounterException`, `ReportedNbtException`), which callers that only handle an `IOException` do not catch.
-pub fn is_unchecked_nbt_error(e: &io::Error) -> bool {
-    e.get_ref()
-        .and_then(|source| source.downcast_ref::<NbtError>())
-        .is_some_and(unchecked)
-}
-
-fn unchecked(e: &NbtError) -> bool {
-    matches!(
-        e,
-        NbtError::Reported { .. }
-            | NbtError::Format(_)
-            | NbtError::Accounter(_)
-            | NbtError::IllegalArgument(_)
-    )
-}
-
-/// Everything `stream` yields before it fails, read in the 8192-byte refills of `FastBufferedInputStream`, and the
-/// failure. A refill that fails delivers none of its bytes, which is what decides how far a Java caller gets.
-fn drain(stream: &mut impl Read) -> (Vec<u8>, Option<io::Error>) {
-    let (mut data, mut buffer) = (Vec::new(), [0u8; 8192]);
-    loop {
-        match stream.read(&mut buffer) {
-            Ok(0) => return (data, None),
-            Ok(n) => data.extend_from_slice(&buffer[..n]),
-            Err(e) if e.kind() == io::ErrorKind::Interrupted => {}
-            Err(e) => return (data, Some(e)),
-        }
-    }
-}
-
-/// Whether `data` ends before the root tag's type byte and name are complete.
-fn header_incomplete(data: &[u8]) -> bool {
-    match data {
-        [0, ..] => false,
-        [_, hi, lo, ..] => data.len() < 3 + usize::from(u16::from_be_bytes([*hi, *lo])),
-        _ => true,
-    }
-}
 
 pub struct RegionFileStorage {
     /// Most recently used entry last (`Long2ObjectLinkedOpenHashMap` with `getAndMoveToFirst`);
@@ -140,14 +91,14 @@ impl RegionFileStorage {
         };
         // Vanilla parses incrementally and never looks past the end of the root compound, so a
         // decoding error after a complete tag is irrelevant: parse whatever was decoded first.
-        let (data, read_error) = drain(&mut stream);
+        let (data, read_error) = drain(&mut stream, None);
         match mc_nbt::read_named(&mut data.as_slice(), &mut NbtAccounter::unlimited_heap()) {
             Ok(tag) => Ok(Some(tag)),
             // the stream failed before the root tag's header (type, name) was complete: the stream's own `IOException`; a
             // failure further in surfaces from the tag loader as the unchecked `ReportedNbtException`
             Err(e) => Err(read_error
                 .filter(|_| header_incomplete(&data))
-                .unwrap_or_else(|| nbt_io_error(e))),
+                .unwrap_or_else(|| e.into())),
         }
     }
 
@@ -165,13 +116,13 @@ impl RegionFileStorage {
             return Ok(());
         };
         // as in `read`: what follows a complete tag is never looked at
-        let (data, read_error) = drain(&mut stream);
+        let (data, read_error) = drain(&mut stream, None);
         mc_nbt::stream::parse(
             &mut data.as_slice(),
             visitor,
             &mut NbtAccounter::unlimited_heap(),
         )
-        .map_err(|e| read_error.unwrap_or_else(|| nbt_io_error(e)))
+        .map_err(|e| read_error.unwrap_or_else(|| e.into()))
     }
 
     /// `write(pos, value)`: `None` clears the chunk.

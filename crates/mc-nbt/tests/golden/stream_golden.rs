@@ -44,7 +44,9 @@ fn status(e: &NbtError) -> String {
         NbtError::Accounter(m) => format!("NbtAccounterException:{m}"),
         NbtError::Format(m) => format!("NbtFormatException:{m}"),
         NbtError::IllegalArgument(m) => format!("IllegalArgumentException:{m}"),
-        NbtError::Reported { .. } => panic!("parse never wraps errors: {e:?}"),
+        NbtError::Reported { .. } | NbtError::Stream(_) => {
+            panic!("parse never wraps errors or reads a stream: {e:?}")
+        }
     })
 }
 

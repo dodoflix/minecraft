@@ -412,10 +412,8 @@ pub fn parse_compressed(
     visitor: &mut dyn StreamTagVisitor,
     acc: &mut NbtAccounter,
 ) -> Result<()> {
-    // Same decompression bound as `nbt_io::read_compressed`.
-    let limit = (acc.quota() != i64::MAX).then(|| acc.quota().max(0) as u64);
-    let raw = compress::gzip_decompress(data, limit)?;
-    parse(&mut raw.as_slice(), visitor, acc)
+    let (raw, failure) = compress::gunzip(data, acc)?;
+    compress::after_stream(parse(&mut raw.as_slice(), visitor, acc), &raw, failure)
 }
 
 // ------------------------------------------------------------------- accept

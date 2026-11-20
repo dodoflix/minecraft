@@ -3,41 +3,37 @@
 
 use crate::accounter::NbtAccounter;
 use crate::error::{NbtError, Result};
+use crate::java_zip::{self, GzipInputStream};
 use crate::{CompoundTag, io};
 use flate2::Compression;
 use flate2::read::{MultiGzDecoder, ZlibDecoder};
 use flate2::write::{GzEncoder, ZlibEncoder};
 use std::io::{Read, Write};
 
-fn inflate(decoder: impl Read, max_len: Option<u64>) -> Result<Vec<u8>> {
+fn inflate(mut decoder: impl Read, max_len: Option<u64>) -> Result<Vec<u8>> {
     let mut out = Vec::new();
-    inflate_into(decoder, max_len, &mut out)?;
-    Ok(out)
-}
-
-/// Like [`inflate`], keeping what was decoded before a failure in `out`.
-fn inflate_into(mut decoder: impl Read, max_len: Option<u64>, out: &mut Vec<u8>) -> Result<()> {
     match max_len {
         None => {
-            decoder.read_to_end(out)?;
+            decoder.read_to_end(&mut out)?;
         }
         Some(max) => {
             // Read one byte past the limit to detect overflow without unbounded allocation.
             (&mut decoder)
                 .take(max.saturating_add(1))
-                .read_to_end(out)?;
-            if out.len() as u64 > max {
-                return Err(NbtError::Accounter(format!(
-                    "Decompressed NBT is larger than the allowed {max} bytes"
-                )));
-            }
+                .read_to_end(&mut out)?;
+            check_limit(&out, max)?;
         }
     }
-    Ok(())
+    Ok(out)
 }
 
-fn gzip_inflate(data: &[u8], max_len: Option<u64>, out: &mut Vec<u8>) -> Result<()> {
-    inflate_into(MultiGzDecoder::new(data), max_len, out)
+fn check_limit(out: &[u8], max: u64) -> Result<()> {
+    if out.len() as u64 > max {
+        return Err(NbtError::Accounter(format!(
+            "Decompressed NBT is larger than the allowed {max} bytes"
+        )));
+    }
+    Ok(())
 }
 
 /// Decompresses gzip data (concatenated members allowed, like `GZIPInputStream`).
@@ -66,21 +62,33 @@ fn limit(acc: &NbtAccounter) -> Option<u64> {
     (acc.quota() != i64::MAX).then(|| acc.quota().max(0) as u64)
 }
 
-/// `NbtIo.readCompressed`: gzip-wrapped named compound root. The stream inflates while the tag is read, so a broken
-/// stream is only an error where the reader runs out of decoded bytes, and then it is the error of that read (a
-/// `ReportedNbtException` inside the root compound, a plain exception before it).
-pub fn read_compressed(data: &[u8], acc: &mut NbtAccounter) -> Result<CompoundTag> {
-    let mut raw = Vec::new();
-    let failure = match gzip_inflate(data, limit(acc), &mut raw) {
-        Ok(()) => None,
-        Err(e) if !e.is_io() => return Err(e),
-        Err(e) => Some(e),
-    };
-    let read = io::read(&mut raw.as_slice(), acc);
+/// What `NbtIo.createDecompressorStream(in)` delivers over `data` and the failure that ended it. The stream inflates
+/// while the reader reads, so a broken stream is only an error where the reader runs out of the decoded bytes; the
+/// header (`GZIPInputStream`'s constructor) is checked at once.
+pub(crate) fn gunzip(data: &[u8], acc: &NbtAccounter) -> Result<(Vec<u8>, Option<NbtError>)> {
+    let limit = limit(acc);
+    let mut stream = GzipInputStream::new(data)?;
+    let (raw, failure) = java_zip::drain(&mut stream, limit);
+    if let Some(max) = limit {
+        check_limit(&raw, max)?;
+    }
+    Ok((raw, failure.map(NbtError::from)))
+}
+
+/// The outcome of a read over `raw` that stopped at the end of the delivered bytes: the stream's own failure when the
+/// root tag's header (type, name) was not complete (an `IOException` outside the tag loader), otherwise what the read
+/// found (inside the root compound an `IOException` is the unchecked `ReportedNbtException`).
+pub(crate) fn after_stream<T>(read: Result<T>, raw: &[u8], failure: Option<NbtError>) -> Result<T> {
     match (read, failure) {
-        (Err(error), Some(cause)) => Err(error.with_eof_replaced(cause)),
+        (Err(_), Some(failure)) if java_zip::header_incomplete(raw) => Err(failure),
         (read, _) => read,
     }
+}
+
+/// `NbtIo.readCompressed`: gzip-wrapped named compound root.
+pub fn read_compressed(data: &[u8], acc: &mut NbtAccounter) -> Result<CompoundTag> {
+    let (raw, failure) = gunzip(data, acc)?;
+    after_stream(io::read(&mut raw.as_slice(), acc), &raw, failure)
 }
 
 /// `NbtIo.writeCompressed`: gzip-wrapped named compound root.
@@ -121,7 +129,18 @@ mod tests {
             read(&full[..full.len() / 2]),
             Err(NbtError::Reported { .. })
         ));
-        assert_eq!(read(&[]), Err(NbtError::Eof));
+        assert_eq!(
+            read(&[]).unwrap_err().java_exception().to_string(),
+            "java.io.EOFException"
+        );
+        assert_eq!(
+            read(&full[..20]).unwrap_err().java_exception().to_string(),
+            "java.io.EOFException: Unexpected end of ZLIB input stream"
+        );
+        assert_eq!(
+            read(&[0, 1, 2]).unwrap_err().java_exception().to_string(),
+            "java.util.zip.ZipException: Not in GZIP format"
+        );
         let mut damaged = full;
         *damaged.last_mut().expect("trailer") ^= 0xff;
         assert!(read(&damaged).is_ok());

@@ -5,6 +5,7 @@ use std::io;
 use std::path::Path;
 
 use mc_core::ident::Identifier;
+use mc_core::java_exception::JavaException;
 use mc_nbt::{CompoundTag, NbtAccounter, Tag};
 
 use super::file_util::read_compressed;
@@ -143,25 +144,27 @@ impl WorldGenSettings {
     }
 
     /// `LevelStorageSource.readExistingSavedData(access, registries, WorldGenSettings.TYPE)`: reads
-    /// `<world>/data/minecraft/world_gen_settings.dat`. The error string is the `DataResult` message.
-    pub fn read_existing(world_dir: &Path) -> Result<WorldGenSettings, String> {
+    /// `<world>/data/minecraft/world_gen_settings.dat`.
+    pub fn read_existing(world_dir: &Path) -> Result<WorldGenSettings, ReadError> {
         WorldGenSettings::read_existing_in_data_dir(&world_dir.join("data"))
     }
 
     /// [`Self::read_existing`] with the `data` folder (`LevelResource.DATA`) given.
-    pub fn read_existing_in_data_dir(data_dir: &Path) -> Result<WorldGenSettings, String> {
+    pub fn read_existing_in_data_dir(data_dir: &Path) -> Result<WorldGenSettings, ReadError> {
         let path = SavedDataStorage::new(data_dir)
             .get_data_file(&world_gen_settings_id())
-            .map_err(|e| e.to_string())?;
-        // `NoSuchFileException.getMessage()` is the path
+            .map_err(|e| ReadError::Thrown(e.to_string()))?;
         let file = read_compressed(&path, &mut NbtAccounter::unlimited_heap()).map_err(|e| {
-            if e.kind() == std::io::ErrorKind::NotFound {
-                path.display().to_string()
+            let exception = JavaException::of_io(&e);
+            if exception.unchecked {
+                ReadError::Thrown(exception.to_string())
             } else {
-                e.to_string()
+                // `DataResult.error(e::getMessage)`: a missing message prints as `null`
+                ReadError::Error(exception.message.unwrap_or_else(|| "null".to_owned()))
             }
         })?;
         WorldGenSettings::decode(&Tag::Compound(file.get_compound_or_empty("data").clone()))
+            .map_err(ReadError::Error)
     }
 
     /// `LevelStorageSource.writeWorldGenSettings`.
@@ -170,9 +173,64 @@ impl WorldGenSettings {
     }
 }
 
+/// Why [`WorldGenSettings::read_existing`] failed.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum ReadError {
+    /// A `DataResult` error: the message. Vanilla logs it and falls back to the default settings.
+    Error(String),
+    /// An unchecked exception (`<class>: <message>`) that nothing in vanilla catches.
+    Thrown(String),
+}
+
+impl std::fmt::Display for ReadError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let (ReadError::Error(m) | ReadError::Thrown(m)) = self;
+        f.write_str(m)
+    }
+}
+
+impl std::error::Error for ReadError {}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// `readExistingSavedData`: an `IOException` is a `DataResult` error with `getMessage()`, an unchecked exception
+    /// is thrown.
+    #[test]
+    fn a_damaged_file_is_an_error_or_an_exception_like_in_java() {
+        let dir = tempfile::tempdir().unwrap();
+        let file = dir.path().join("minecraft/world_gen_settings.dat");
+        std::fs::create_dir_all(file.parent().unwrap()).unwrap();
+        let read = || WorldGenSettings::read_existing_in_data_dir(dir.path());
+        assert_eq!(
+            read().unwrap_err(),
+            ReadError::Error(file.display().to_string())
+        );
+        let mut tag = CompoundTag::new();
+        tag.put("data", Tag::Compound(CompoundTag::new()));
+        let full = mc_nbt::compress::write_compressed(&tag);
+        for (bytes, expected) in [
+            (vec![0x1f], ReadError::Error("null".to_owned())),
+            (
+                vec![1, 2, 3],
+                ReadError::Error("Not in GZIP format".to_owned()),
+            ),
+            (
+                full[..full.len() / 2].to_vec(),
+                ReadError::Thrown(
+                    "net.minecraft.nbt.ReportedNbtException: Loading NBT data".to_owned(),
+                ),
+            ),
+            (
+                full[..12].to_vec(),
+                ReadError::Error("Unexpected end of ZLIB input stream".to_owned()),
+            ),
+        ] {
+            std::fs::write(&file, bytes).unwrap();
+            assert_eq!(read().unwrap_err(), expected);
+        }
+    }
 
     #[test]
     fn seed_parsing() {

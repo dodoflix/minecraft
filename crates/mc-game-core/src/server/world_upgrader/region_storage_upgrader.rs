@@ -2,12 +2,12 @@
 //! `poi`) of one dimension to the current data version, optionally into recreated region files.
 
 use mc_core::ident::Identifier;
+use mc_core::java_exception::JavaException;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_datafix::{CURRENT_VERSION, DataFixTypes};
 use mc_nbt::CompoundTag;
 use mc_nbt::nbt_utils::get_data_version;
 use mc_world::filefix::{Status, UpgradeProgress};
-use mc_world::region::region_file_storage::is_unchecked_nbt_error;
 use mc_world::region::upgrade::{ChunkUpgradeError, upgrade_chunk_tag_to};
 use mc_world::region::{
     RecreatingSimpleRegionStorage, RegionFile, RegionStorageInfo, SimpleRegionStorage,
@@ -372,7 +372,7 @@ impl RegionStorageUpgrader {
         pos: ChunkPos,
     ) -> Result<bool, UpgradeError> {
         let read = storage.read(&pos).map_err(|e| {
-            if is_unchecked_nbt_error(&e) {
+            if JavaException::is_unchecked(&e) {
                 // not an `IOException`: `processOnePosition` does not catch it
                 UpgradeError::Other(e.to_string())
             } else {

@@ -5,12 +5,13 @@
 use std::io;
 use std::path::{Path, PathBuf};
 
+use mc_core::java_exception::{FILE_ALREADY_EXISTS_EXCEPTION, JavaException};
 use mc_datafix::{DataFixTypes, TypeReference};
 use regex::{Captures, Regex, RegexBuilder};
 
 use super::access::{ChunkNbt, LevelDat, MissingSeverity, PlayerData, SavedDataNbt};
 use super::cow_tree::CowTree;
-use super::error::{FileFixError, NioFileAlreadyExists};
+use super::error::FileFixError;
 use super::progress::UpgradeProgress;
 use super::relation::FileRelation;
 use crate::region::RegionStorageInfo;
@@ -285,12 +286,11 @@ pub fn move_file(
     if tree.exists(&from_absolute) {
         let to_absolute = base_directory.join(to);
         if tree.exists(&to_absolute) {
-            return Err(io::Error::new(
-                io::ErrorKind::AlreadyExists,
-                NioFileAlreadyExists(format!(
-                    "Cannot move file from {from} to {to}: Target already exists"
-                )),
-            ));
+            return Err(JavaException::new(
+                FILE_ALREADY_EXISTS_EXCEPTION,
+                format!("Cannot move file from {from} to {to}: Target already exists"),
+            )
+            .into_io(io::ErrorKind::AlreadyExists));
         }
         if let Some(parent) = to_absolute.parent() {
             tree.create_dir_all(parent)?;

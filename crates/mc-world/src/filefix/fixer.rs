@@ -12,6 +12,7 @@ use std::io::{self, Write};
 use std::path::{Path, PathBuf};
 
 use mc_core::gson::{JsonElement, JsonObject};
+use mc_core::java_exception::JavaException;
 use mc_core::java_string::JavaString;
 use mc_datafix::{
     CURRENT_VERSION, DataFixTypes, DataFixer, FileFixRegistration, FileFixerRegistry, References,
@@ -23,7 +24,7 @@ use super::cow_tree::{
     CowTree, create_directories, hard_link_files, move_files, move_files_with_retry,
     try_revert_moves,
 };
-use super::error::{FileFixError, FileMove, FileSystemCapabilities};
+use super::error::{FileFixError, FileMove, FileSystemCapabilities, java_to_string};
 use super::fix::FileFix;
 use super::names::{find_available_name, is_available_name_of};
 use super::progress::{Status, Type, UpgradeProgress};
@@ -419,6 +420,12 @@ impl FileFixerUpper {
                 loaded_version,
             ) {
                 Ok(staged) => staged,
+                // only an `IOException` is wrapped: an unchecked exception (`ReportedNbtException`, ...) passes
+                Err(FileFixError::Io(e)) if JavaException::is_unchecked(&e) => {
+                    return Err(FileFixError::Unchecked(
+                        JavaException::of_io(&e).to_string(),
+                    ));
+                }
                 Err(FileFixError::Io(e)) => {
                     upgrade_progress
                         .notifications()
@@ -462,11 +469,20 @@ impl FileFixerUpper {
 
             level_data_tag = match world_access.get_unfixed_data_tag(false) {
                 Ok(tag) => tag,
+                Err(e) if JavaException::is_unchecked(&e) => {
+                    return Err(FileFixError::Unchecked(
+                        JavaException::of_io(&e).to_string(),
+                    ));
+                }
                 Err(e) => {
                     upgrade_progress
                         .notifications()
                         .world_upgrade_failed("The world upgrade failed while reading level.dat");
-                    return Err(FileFixError::Io(e));
+                    let kind = e.kind();
+                    return Err(FileFixError::Io(
+                        JavaException::new("java.io.UncheckedIOException", java_to_string(&e))
+                            .into_io(kind),
+                    ));
                 }
             };
             loaded_version = get_data_version(&level_data_tag);
@@ -497,6 +513,7 @@ impl FileFixerUpper {
             delete_directory(file_fix_directory)?;
         }
         let result = fs::create_dir(file_fix_directory)
+            .map_err(|e| JavaException::from_file_error(e, file_fix_directory))
             .map_err(FileFixError::from)
             .and_then(|()| {
                 self.apply_file_fixers_on_cow(
@@ -693,7 +710,7 @@ impl FileFixerUpper {
             log::info!("Complete move");
         } else if capabilities.hard_links {
             log::info!("Moving new hardlinked world to top level");
-            fs::rename(temp_world, &temp_world_top_level)
+            move_dir(temp_world, &temp_world_top_level)
                 .and_then(|()| self.hooks.checkpoint(Checkpoint::NewWorldAtTopLevel))
                 .map_err(|e| {
                     log::error!("Encountered error trying to move world folder: {e}");
@@ -706,7 +723,7 @@ impl FileFixerUpper {
                     self.hooks.checkpoint(Checkpoint::MoveFile(index))
                 })?;
                 log::info!("Moving new world to top level");
-                fs::rename(temp_world, &temp_world_top_level)?;
+                move_dir(temp_world, &temp_world_top_level)?;
                 self.hooks.checkpoint(Checkpoint::NewWorldAtTopLevel)
             })();
             if let Err(e) = result {
@@ -738,7 +755,7 @@ impl FileFixerUpper {
                 }))
             };
             log::info!("Moving out old world folder");
-            match fs::rename(&world_folder, &old_world_folder) {
+            match move_dir(&world_folder, &old_world_folder) {
                 Ok(()) => delete_outdated_level_dat(&old_world_folder),
                 Err(e) => {
                     log::warn!(
@@ -755,7 +772,7 @@ impl FileFixerUpper {
                 .checkpoint(Checkpoint::OldWorldMovedOut)
                 .map_err(failed)?;
             log::info!("Moving in new world folder");
-            if let Err(e) = fs::rename(&temp_world_top_level, &world_folder)
+            if let Err(e) = move_dir(&temp_world_top_level, &world_folder)
                 .and_then(|()| self.hooks.checkpoint(Checkpoint::NewWorldMovedIn))
             {
                 log::warn!("Failed to move in new world folder: {e}");
@@ -793,6 +810,11 @@ impl FileFixerUpper {
         upgrade_progress.notifications().world_upgrade_finished();
         Ok(())
     }
+}
+
+/// `Files.move(from, to)` of a folder: a failure carries the JDK's exception, naming both paths.
+fn move_dir(from: &Path, to: &Path) -> io::Result<()> {
+    fs::rename(from, to).map_err(|e| JavaException::from_file_pair_error(e, from, Some(to)))
 }
 
 /// The `FailedCleanupFileFixException` thrown inside the lambda of `releaseTemporarilyAndRun`, carried through the

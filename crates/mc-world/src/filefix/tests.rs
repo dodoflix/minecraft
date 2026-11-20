@@ -394,9 +394,11 @@ fn io_error(e: FileFixError) -> io::Error {
 }
 
 fn cow_message(e: &io::Error) -> String {
-    e.get_ref()
-        .and_then(|inner| inner.downcast_ref::<CowFsError>())
-        .map_or_else(|| format!("not a CowFsError: {e}"), ToString::to_string)
+    let exception = mc_core::java_exception::JavaException::of_io(e);
+    match exception.class.contains("CowFS") {
+        true => exception.message.unwrap_or_default(),
+        false => format!("not a CowFsError: {e}"),
+    }
 }
 
 #[test]
@@ -557,7 +559,7 @@ fn operations_skip_a_missing_source_and_refuse_an_existing_target() {
     assert_eq!(e.kind(), io::ErrorKind::AlreadyExists);
     assert_eq!(
         e.to_string(),
-        "Cannot move file from a to b: Target already exists"
+        "java.nio.file.FileAlreadyExistsException: Cannot move file from a to b: Target already exists"
     );
 
     FileFixOperation::ApplyInFolders {
@@ -1252,6 +1254,33 @@ fn the_journal_is_pretty_printed_json_and_reads_back() {
         read_moves(&from, &to, &file).unwrap_err(),
         FileFixError::Unchecked(_)
     ));
+}
+
+/// An `IOException` of a read is wrapped in the `AbortedFileFixException`, the unchecked `ReportedNbtException` of a
+/// stream that is cut inside the root compound is not.
+#[test]
+fn a_damaged_file_ends_the_fix_with_the_exception_the_jdk_throws() {
+    let damage = |bytes: fn(Vec<u8>) -> Vec<u8>| {
+        let setup = setup();
+        let file = setup.world.join("data/counter.dat");
+        fs::write(&file, bytes(fs::read(&file).unwrap())).unwrap();
+        run(&setup, &fixer(None), &UpgradeProgress::default())
+            .unwrap_err()
+            .to_string()
+    };
+    let aborted = "net.minecraft.util.filefix.AbortedFileFixException: ";
+    assert_eq!(
+        damage(|_| vec![1, 2, 3]),
+        format!("{aborted}java.util.zip.ZipException: Not in GZIP format")
+    );
+    assert_eq!(
+        damage(|b| b[..12].to_vec()),
+        format!("{aborted}java.io.EOFException: Unexpected end of ZLIB input stream")
+    );
+    assert_eq!(
+        damage(|b| b[..b.len() / 2].to_vec()),
+        "net.minecraft.nbt.ReportedNbtException: Loading NBT data"
+    );
 }
 
 #[test]

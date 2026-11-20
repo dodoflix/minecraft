@@ -6,7 +6,8 @@ use std::fs::{self, File, OpenOptions};
 use std::io::{self, Read, Write};
 use std::path::{Path, PathBuf};
 
-use mc_nbt::{CompoundTag, NbtAccounter, NbtError};
+use mc_core::java_exception::{FILE_ALREADY_EXISTS_EXCEPTION, JavaException};
+use mc_nbt::{CompoundTag, NbtAccounter};
 
 /// `FileUtil.createDirectoriesSafe`: `Files.createDirectories(exists ? toRealPath() : dir)`.
 pub fn create_directories_safe(dir: &Path) -> io::Result<()> {
@@ -17,21 +18,22 @@ pub fn create_directories_safe(dir: &Path) -> io::Result<()> {
     }
 }
 
-/// Maps an NBT failure onto the `IOException` family (the unchecked vanilla variants stay distinguishable
-/// through the message; callers that vanilla wraps in `catch (NbtException | ReportedNbtException | IOException)`
-/// treat every kind alike).
-pub fn nbt_error_to_io(e: NbtError) -> io::Error {
-    match e {
-        NbtError::Eof => io::Error::new(io::ErrorKind::UnexpectedEof, e),
-        other => io::Error::new(io::ErrorKind::InvalidData, other),
-    }
+/// `Files.readAllBytes(path)`: a failure carries the exception the JDK throws for it, with the path.
+pub fn read_all_bytes(path: &Path) -> io::Result<Vec<u8>> {
+    let mut data = Vec::new();
+    File::open(path)
+        .map_err(|e| JavaException::from_file_error(e, path))?
+        .read_to_end(&mut data)
+        .map_err(|e| JavaException::read_failure(&e).into_io(e.kind()))?;
+    Ok(data)
 }
 
 /// `NbtIo.readCompressed(Path, NbtAccounter)`.
 pub fn read_compressed(path: &Path, acc: &mut NbtAccounter) -> io::Result<CompoundTag> {
-    let mut data = Vec::new();
-    File::open(path)?.read_to_end(&mut data)?;
-    mc_nbt::compress::read_compressed(&data, acc).map_err(nbt_error_to_io)
+    Ok(mc_nbt::compress::read_compressed(
+        &read_all_bytes(path)?,
+        acc,
+    )?)
 }
 
 /// `NbtIo.writeCompressed(CompoundTag, Path)`: `CREATE, TRUNCATE_EXISTING, WRITE, SYNC`.
@@ -70,12 +72,12 @@ pub fn create_temp_file(dir: &Path, prefix: &str, suffix: &str) -> io::Result<Pa
 /// `Files.move(from, to)` without options: fails when the target exists.
 fn move_no_replace(from: &Path, to: &Path) -> io::Result<()> {
     if fs::symlink_metadata(to).is_ok() {
-        return Err(io::Error::new(
-            io::ErrorKind::AlreadyExists,
-            to.display().to_string(),
-        ));
+        return Err(
+            JavaException::new(FILE_ALREADY_EXISTS_EXCEPTION, to.display().to_string())
+                .into_io(io::ErrorKind::AlreadyExists),
+        );
     }
-    fs::rename(from, to)
+    fs::rename(from, to).map_err(|e| JavaException::from_file_pair_error(e, from, Some(to)))
 }
 
 type Operation<'a> = (String, Box<dyn Fn() -> bool + 'a>);

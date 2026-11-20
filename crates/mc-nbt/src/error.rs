@@ -1,11 +1,13 @@
 //! Errors raised by NBT IO and parsing. Variants map onto the Java exceptions vanilla throws.
 
+use mc_core::java_exception::JavaException;
 use mc_core::java_string::JavaString;
 use std::fmt;
+use std::io;
 
 /// Failure while reading or writing NBT.
 ///
-/// * [`Eof`](Self::Eof), [`InvalidTagId`](Self::InvalidTagId), [`Io`](Self::Io) and
+/// * [`Eof`](Self::Eof), [`InvalidTagId`](Self::InvalidTagId), [`Io`](Self::Io), [`Stream`](Self::Stream) and
 ///   [`MalformedUtf`](Self::MalformedUtf) are `java.io.IOException`s.
 /// * [`Reported`](Self::Reported) is vanilla's `ReportedNbtException` (an IO error inside a
 ///   compound element / root tag, which vanilla rethrows unchecked).
@@ -21,6 +23,9 @@ pub enum NbtError {
     Io(String),
     /// `UTFDataFormatException` (malformed or too long modified UTF-8).
     MalformedUtf(JavaString),
+    /// An `IOException` of the stream the bytes come from (`ZipException`, `EOFException` of a cut stream, an
+    /// unreadable file), with the JDK's class and message.
+    Stream(JavaException),
     /// `ReportedNbtException`: an IO error wrapped while loading a named tag.
     Reported {
         /// Name of the tag being loaded (absent for a root tag).
@@ -42,27 +47,39 @@ impl NbtError {
     pub(crate) fn is_io(&self) -> bool {
         matches!(
             self,
-            NbtError::Eof | NbtError::InvalidTagId(_) | NbtError::Io(_) | NbtError::MalformedUtf(_)
+            NbtError::Eof
+                | NbtError::InvalidTagId(_)
+                | NbtError::Io(_)
+                | NbtError::MalformedUtf(_)
+                | NbtError::Stream(_)
         )
     }
-}
 
-impl NbtError {
-    /// The error with the end of the input (`EOFException`) that stopped a read replaced by `cause`, the failure of
-    /// the stream the bytes came from.
-    pub(crate) fn with_eof_replaced(self, cause: NbtError) -> NbtError {
+    /// The Java exception this stands for.
+    pub fn java_exception(&self) -> JavaException {
         match self {
-            NbtError::Eof => cause,
-            NbtError::Reported {
-                tag_name,
-                tag_type,
-                cause: inner,
-            } => NbtError::Reported {
-                tag_name,
-                tag_type,
-                cause: Box::new(inner.with_eof_replaced(cause)),
-            },
-            other => other,
+            NbtError::Eof => JavaException::without_message("java.io.EOFException"),
+            NbtError::InvalidTagId(id) => {
+                JavaException::new("java.io.IOException", format!("Invalid tag id: {id}"))
+            }
+            NbtError::Io(m) => JavaException::new("java.io.IOException", m),
+            NbtError::MalformedUtf(m) => {
+                JavaException::new("java.io.UTFDataFormatException", m.as_lossy_str())
+            }
+            NbtError::Stream(exception) => exception.clone(),
+            NbtError::Reported { .. } => JavaException::unchecked(
+                "net.minecraft.nbt.ReportedNbtException",
+                "Loading NBT data",
+            ),
+            NbtError::Format(m) => {
+                JavaException::unchecked("net.minecraft.nbt.NbtFormatException", m)
+            }
+            NbtError::Accounter(m) => {
+                JavaException::unchecked("net.minecraft.nbt.NbtAccounterException", m)
+            }
+            NbtError::IllegalArgument(m) => {
+                JavaException::unchecked("java.lang.IllegalArgumentException", m)
+            }
         }
     }
 }
@@ -73,6 +90,7 @@ impl fmt::Display for NbtError {
             NbtError::Eof => f.write_str("java.io.EOFException"),
             NbtError::InvalidTagId(id) => write!(f, "Invalid tag id: {id}"),
             NbtError::MalformedUtf(m) => f.write_str(m.as_lossy_str()),
+            NbtError::Stream(exception) => write!(f, "{exception}"),
             NbtError::Io(m)
             | NbtError::Format(m)
             | NbtError::Accounter(m)
@@ -94,12 +112,30 @@ impl fmt::Display for NbtError {
 
 impl std::error::Error for NbtError {}
 
-impl From<std::io::Error> for NbtError {
-    fn from(e: std::io::Error) -> Self {
-        if e.kind() == std::io::ErrorKind::UnexpectedEof {
-            NbtError::Eof
-        } else {
-            NbtError::Io(e.to_string())
+/// An NBT failure as the [`io::Error`] its Java exception is: [`JavaException`] payload, so it prints as
+/// `Throwable.toString()` and tells the unchecked exceptions apart.
+impl From<NbtError> for io::Error {
+    fn from(e: NbtError) -> io::Error {
+        let kind = match e {
+            NbtError::Eof => io::ErrorKind::UnexpectedEof,
+            _ => io::ErrorKind::InvalidData,
+        };
+        e.java_exception().into_io(kind)
+    }
+}
+
+impl From<io::Error> for NbtError {
+    fn from(e: io::Error) -> Self {
+        match e.get_ref() {
+            Some(inner) => {
+                if let Some(java) = inner.downcast_ref::<JavaException>() {
+                    NbtError::Stream(java.clone())
+                } else {
+                    NbtError::Io(e.to_string())
+                }
+            }
+            None if e.kind() == io::ErrorKind::UnexpectedEof => NbtError::Eof,
+            None => NbtError::Io(e.to_string()),
         }
     }
 }

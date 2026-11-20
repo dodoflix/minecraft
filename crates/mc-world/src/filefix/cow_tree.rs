@@ -14,6 +14,8 @@ use std::fs;
 use std::io;
 use std::path::{Component, Path, PathBuf};
 
+use mc_core::java_exception::{FILE_ALREADY_EXISTS_EXCEPTION, JavaException};
+
 use super::error::FileMove;
 use super::ops::shown;
 use crate::level_storage::safe_move_file;
@@ -52,7 +54,7 @@ impl CowFsError {
     }
 
     /// The fully qualified Java class name.
-    pub(super) fn class_name(&self) -> &'static str {
+    fn class_name(&self) -> &'static str {
         match self {
             CowFsError::Creation(_) => {
                 "net.minecraft.util.filefix.virtualfilesystem.exception.CowFSCreationException"
@@ -101,7 +103,8 @@ impl std::error::Error for CowFsError {}
 
 impl From<CowFsError> for io::Error {
     fn from(e: CowFsError) -> io::Error {
-        io::Error::new(e.kind(), e)
+        let kind = e.kind();
+        JavaException::new(e.class_name(), e.message()).into_io(kind)
     }
 }
 
@@ -587,7 +590,9 @@ impl CowTree {
 
 /// `CopyOnWriteFileSystem.createDirectories`.
 pub fn create_directories(directories: &[PathBuf]) -> io::Result<()> {
-    directories.iter().try_for_each(fs::create_dir)
+    directories
+        .iter()
+        .try_for_each(|d| fs::create_dir(d).map_err(|e| JavaException::from_file_error(e, d)))
 }
 
 /// `CopyOnWriteFileSystem.hardLinkFiles`: links the originals into the new world, leaving what is there.
@@ -600,7 +605,9 @@ pub fn hard_link_files(moves: &[FileMove]) -> io::Result<()> {
                     m.from.display()
                 )));
             }
-            fs::hard_link(&m.from, &m.to)?;
+            // `Files.createLink(to, from)`
+            fs::hard_link(&m.from, &m.to)
+                .map_err(|e| JavaException::from_file_pair_error(e, &m.to, Some(&m.from)))?;
         }
     }
     Ok(())
@@ -609,12 +616,12 @@ pub fn hard_link_files(moves: &[FileMove]) -> io::Result<()> {
 /// `Files.move(from, to)`: moves a file, failing when the target exists.
 pub(super) fn move_new(from: &Path, to: &Path) -> io::Result<()> {
     if fs::symlink_metadata(to).is_ok() {
-        return Err(io::Error::new(
-            io::ErrorKind::AlreadyExists,
-            to.display().to_string(),
-        ));
+        return Err(
+            JavaException::new(FILE_ALREADY_EXISTS_EXCEPTION, to.display().to_string())
+                .into_io(io::ErrorKind::AlreadyExists),
+        );
     }
-    fs::rename(from, to)
+    fs::rename(from, to).map_err(|e| JavaException::from_file_pair_error(e, from, Some(to)))
 }
 
 /// `CopyOnWriteFileSystem.moveFiles`.
@@ -637,7 +644,8 @@ pub fn move_files_with_retry(
                     m.from.display()
                 )));
             }
-            fs::rename(&m.from, &m.to)?;
+            fs::rename(&m.from, &m.to)
+                .map_err(|e| JavaException::from_file_pair_error(e, &m.from, Some(&m.to)))?;
         }
     }
     Ok(())

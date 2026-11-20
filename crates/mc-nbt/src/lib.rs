@@ -11,6 +11,7 @@ pub mod compress;
 pub mod error;
 mod file;
 mod io;
+pub mod java_zip;
 mod list;
 pub mod nbt_utils;
 pub mod snbt;

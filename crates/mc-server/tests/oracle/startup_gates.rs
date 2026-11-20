@@ -25,21 +25,58 @@ use crate::world_start::{
     game_rules_difference, ignores, run,
 };
 
-/// The level data a fresh start of the real server writes.
-fn fresh_data() -> &'static CompoundTag {
-    static DATA: LazyLock<CompoundTag> = LazyLock::new(|| {
+/// The level data and the saved data files (`name`, bytes) of a fresh world.
+type FreshWorld = (CompoundTag, Vec<(String, Vec<u8>)>);
+
+/// The level data and the saved data files (`data/...`) a fresh start of the real server writes.
+fn fresh_world() -> &'static FreshWorld {
+    static WORLD: LazyLock<FreshWorld> = LazyLock::new(|| {
         let dir = tempfile::tempdir().expect("temp dir");
         let fresh = run(Side::Vanilla, dir.path(), |_| {}, &[]);
         assert!(fresh.started, "the fresh start failed: {:?}", fresh.log);
-        let bytes =
-            fs::read(dir.path().join("world/level.dat")).expect("level.dat of a fresh world");
-        mc_nbt::compress::read_compressed(&bytes, &mut mc_nbt::NbtAccounter::unlimited_heap())
-            .expect("level.dat")
-            .get_compound("Data")
-            .expect("Data")
-            .clone()
+        let world = dir.path().join("world");
+        let bytes = fs::read(world.join("level.dat")).expect("level.dat of a fresh world");
+        let data =
+            mc_nbt::compress::read_compressed(&bytes, &mut mc_nbt::NbtAccounter::unlimited_heap())
+                .expect("level.dat")
+                .get_compound("Data")
+                .expect("Data")
+                .clone();
+        let mut saved = Vec::new();
+        collect_dat(&world, &world, &mut saved);
+        (data, saved)
     });
-    &DATA
+    &WORLD
+}
+
+/// The `.dat` files below `dir` (not `level.dat`), by path relative to `world`.
+fn collect_dat(world: &Path, dir: &Path, out: &mut Vec<(String, Vec<u8>)>) {
+    let mut entries: Vec<_> = fs::read_dir(dir)
+        .expect("world folder")
+        .filter_map(Result::ok)
+        .collect();
+    entries.sort_by_key(|e| e.file_name());
+    for entry in entries {
+        let path = entry.path();
+        if path.is_dir() {
+            if path.starts_with(world.join("data")) {
+                collect_dat(world, &path, out);
+            }
+        } else if path.starts_with(world.join("data"))
+            && path.extension().is_some_and(|e| e == "dat")
+        {
+            let name = path.strip_prefix(world).expect("below world");
+            out.push((
+                name.to_string_lossy().into_owned(),
+                fs::read(&path).expect("saved data file"),
+            ));
+        }
+    }
+}
+
+/// The level data a fresh start of the real server writes.
+fn fresh_data() -> &'static CompoundTag {
+    &fresh_world().0
 }
 
 /// The fresh level data after `edit`.
@@ -72,17 +109,42 @@ fn truncated() -> Vec<u8> {
     bytes[..bytes.len() / 2].to_vec()
 }
 
+/// The same level data without the gzip layer.
+fn plain_nbt() -> Vec<u8> {
+    let mut root = CompoundTag::new();
+    root.put("Data", Tag::Compound(fresh_data().clone()));
+    mc_nbt::nbt_io::to_bytes(&root)
+}
+
+/// A level.dat whose first gzip magic byte is zero.
+fn zeroed_magic() -> Vec<u8> {
+    let mut bytes = level_dat(fresh_data().clone());
+    bytes[0] = 0;
+    bytes
+}
+
 /// A gzip stream whose root tag is a list, not a compound.
 fn list_root() -> Vec<u8> {
     gzip_compress(&[9, 0, 0, 0, 0, 0, 0, 0])
 }
 
 /// The files of the world folder of a case, `None` for a start without a world.
-type Files = Option<Vec<(&'static str, Vec<u8>)>>;
+type Files = Option<Vec<(String, Vec<u8>)>>;
 
 fn cases() -> Vec<(&'static str, Files)> {
-    let dat = |d| Some(vec![("level.dat", level_dat(d))]);
-    let raw = |bytes: Vec<u8>| Some(vec![("level.dat", bytes)]);
+    let dat = |d| Some(vec![("level.dat".to_owned(), level_dat(d))]);
+    let raw = |bytes: Vec<u8>| Some(vec![("level.dat".to_owned(), bytes)]);
+    // a current world whose saved data files all went through `damage`
+    let saved = |damage: fn(Vec<u8>) -> Vec<u8>| {
+        let mut files = vec![("level.dat".to_owned(), level_dat(fresh_data().clone()))];
+        files.extend(
+            fresh_world()
+                .1
+                .iter()
+                .map(|(name, bytes)| (name.clone(), damage(bytes.clone()))),
+        );
+        Some(files)
+    };
     vec![
         ("fresh", None),
         ("current", dat(data(|_| {}))),
@@ -137,20 +199,63 @@ fn cases() -> Vec<(&'static str, Files)> {
         (
             "corrupt_both",
             Some(vec![
-                ("level.dat", Vec::new()),
-                ("level.dat_old", truncated()),
+                ("level.dat".to_owned(), Vec::new()),
+                ("level.dat_old".to_owned(), truncated()),
             ]),
+        ),
+        ("corrupt_plain_nbt", raw(plain_nbt())),
+        ("corrupt_zeroed_magic", raw(zeroed_magic())),
+        ("corrupt_one_byte", raw(vec![0x1f])),
+        ("corrupt_gzip_header_only", raw(vec![0x1f, 0x8b, 8])),
+        (
+            "corrupt_three_bytes_junk_old",
+            Some(vec![
+                ("level.dat".to_owned(), vec![1, 2, 3]),
+                ("level.dat_old".to_owned(), vec![9; 40]),
+            ]),
+        ),
+        (
+            "corrupt_plain_nbt_truncated_old",
+            Some(vec![
+                ("level.dat".to_owned(), plain_nbt()),
+                ("level.dat_old".to_owned(), truncated()),
+            ]),
+        ),
+        ("saved_data_truncated", saved(|b| b[..b.len() / 2].to_vec())),
+        ("saved_data_header_cut", saved(|b| b[..12].to_vec())),
+        ("saved_data_three_bytes", saved(|_| vec![1, 2, 3])),
+        ("saved_data_one_byte", saved(|_| vec![0x1f])),
+        (
+            "saved_data_zeroed_magic",
+            saved(|mut b| {
+                b[0] = 0;
+                b
+            }),
+        ),
+        (
+            "saved_data_plain_nbt",
+            saved(|b| {
+                let tag = mc_nbt::compress::read_compressed(
+                    &b,
+                    &mut mc_nbt::NbtAccounter::unlimited_heap(),
+                )
+                .expect("a saved data file");
+                mc_nbt::nbt_io::to_bytes(&tag)
+            }),
         ),
         (
             "corrupt_level_dat_valid_old",
             Some(vec![
-                ("level.dat", truncated()),
-                ("level.dat_old", level_dat(fresh_data().clone())),
+                ("level.dat".to_owned(), truncated()),
+                ("level.dat_old".to_owned(), level_dat(fresh_data().clone())),
             ]),
         ),
         (
             "only_level_dat_old",
-            Some(vec![("level.dat_old", level_dat(fresh_data().clone()))]),
+            Some(vec![(
+                "level.dat_old".to_owned(),
+                level_dat(fresh_data().clone()),
+            )]),
         ),
     ]
 }
@@ -161,7 +266,7 @@ fn level_dat_root(root: CompoundTag) -> Vec<u8> {
 }
 
 /// The warnings, errors and world-loading records of a run, each with the first line of the exception behind it.
-fn gate_log(run: &Run) -> Vec<String> {
+pub(crate) fn gate_log(run: &Run) -> Vec<String> {
     let server = run.dir.to_string_lossy().into_owned();
     let mut out = Vec::new();
     let mut after_record = false;
@@ -208,7 +313,8 @@ fn set_aside(run: &Run) -> BTreeSet<String> {
         .collect()
 }
 
-fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
+/// `compare_files` is off for the cases that leave a damaged file the tree comparison cannot decode.
+fn compare(vanilla: &Run, ours: &Run, compare_files: bool) -> Vec<String> {
     let mut findings = Vec::new();
     if (vanilla.started, vanilla.exit) != (ours.started, ours.exit) {
         findings.push(format!(
@@ -225,6 +331,9 @@ fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
             set_aside(vanilla),
             set_aside(ours)
         ));
+    }
+    if !compare_files {
+        return findings;
     }
     let files = compare_trees(
         &vanilla.dir,
@@ -252,7 +361,9 @@ fn write_world(dir: &Path, files: &Files) {
     let world = dir.join("world");
     fs::create_dir_all(&world).expect("world folder");
     for (name, bytes) in files {
-        fs::write(world.join(name), bytes).expect("world file");
+        let path = world.join(name);
+        fs::create_dir_all(path.parent().expect("parent")).expect("world subfolder");
+        fs::write(path, bytes).expect("world file");
     }
 }
 
@@ -278,7 +389,7 @@ fn dual(selected: impl Fn(&str) -> bool) {
                 run(side, dir.path(), move |d| write_world(d, &files), &[])
             })
             .collect();
-        let findings = compare(&runs[0], &runs[1]);
+        let findings = compare(&runs[0], &runs[1], !name.starts_with("saved_data"));
         println!(
             "STARTUP GATE {name}: {}",
             if findings.is_empty() {

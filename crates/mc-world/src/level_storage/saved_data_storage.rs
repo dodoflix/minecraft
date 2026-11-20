@@ -3,17 +3,14 @@
 //! the data fixer of its type like vanilla; the raw readers return the file as stored. No typed `SavedData` cache:
 //! callers own the typed codecs (`SavedDataType`) and hand over / receive the `data` tag.
 
-use std::fs;
-use std::io::{self, Read};
+use std::io;
 use std::path::{Component, Path, PathBuf};
 
 use mc_core::ident::Identifier;
 use mc_datafix::DataFixTypes;
 use mc_nbt::{CompoundTag, NbtAccounter, Tag};
 
-use super::file_util::{
-    create_directories_safe, nbt_error_to_io, read_compressed, write_compressed,
-};
+use super::file_util::{create_directories_safe, read_all_bytes, write_compressed};
 use super::version::{add_current_data_version, get_data_version_or};
 
 /// `Path.normalize()` (lexical).
@@ -91,14 +88,13 @@ impl SavedDataStorage {
     /// The file as stored: gzip (magic `1f 8b`) or plain NBT, no datafixer. [`SavedDataStorage::read_fixed_tag_from_disk`]
     /// is `readTagFromDisk`.
     pub fn read_tag_from_disk(data_file: &Path) -> io::Result<CompoundTag> {
-        let mut header = [0u8; 2];
-        let read = fs::File::open(data_file)?.read(&mut header)?;
-        if read == 2 && u16::from_le_bytes(header) == 35615 {
-            read_compressed(data_file, &mut NbtAccounter::unlimited_heap())
+        let data = read_all_bytes(data_file)?;
+        let acc = &mut NbtAccounter::unlimited_heap();
+        // `isGzip`: the first two bytes are the gzip magic
+        if data.len() >= 2 && u16::from_le_bytes([data[0], data[1]]) == 35615 {
+            Ok(mc_nbt::compress::read_compressed(&data, acc)?)
         } else {
-            let data = fs::read(data_file)?;
-            mc_nbt::nbt_io::read(&mut data.as_slice(), &mut NbtAccounter::unlimited_heap())
-                .map_err(nbt_error_to_io)
+            Ok(mc_nbt::nbt_io::read(&mut data.as_slice(), acc)?)
         }
     }
 
