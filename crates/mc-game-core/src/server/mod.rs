@@ -43,3 +43,4 @@ pub use shared::ServerShared;
 pub mod registry_layer;
 pub mod reloadable_resources;
 pub mod world_loader;
+pub mod world_upgrader;
