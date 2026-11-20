@@ -23,7 +23,7 @@ Bot| [system_chat] World border cannot be smaller than 1 block wide
 Bot|   json {"text":"","extra":[{"translate":"commands.worldborder.set.failed.small"}],"color":"red"}
 ### [world_border_tick_spawn.txt:13] @bot worldborder set 100000000
 Bot| [system_chat] Double must not be more than 5.9999968E7: found 1.0E8
-Bot|   json {"text":"","extra":[{"translate":"argument.double.big","with":[59999968.0,100000000.0]}],"color":"red"}
+Bot|   json {"text":"","extra":[{"translate":"argument.double.big","with":[5.9999968E7,1.0E8]}],"color":"red"}
 Bot| [system_chat] ...order set 100000000<--[HERE]
 Bot|   json {"text":"","extra":[{"text":"","extra":["...","order set ",{"text":"100000000","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/worldborder set 100000000","action":"suggest_command"}}],"color":"red"}
 ### [world_border_tick_spawn.txt:14] @bot worldborder set 200
@@ -61,7 +61,7 @@ Bot| [system_chat] Nothing changed. The world border is already centered there
 Bot|   json {"text":"","extra":[{"translate":"commands.worldborder.center.failed"}],"color":"red"}
 ### [world_border_tick_spawn.txt:22] @bot worldborder center 30000000 0
 Bot| [system_chat] World border cannot be further out than 2.9999984E7 blocks
-Bot|   json {"text":"","extra":[{"translate":"commands.worldborder.set.failed.far","with":[29999984.0]}],"color":"red"}
+Bot|   json {"text":"","extra":[{"translate":"commands.worldborder.set.failed.far","with":[2.9999984E7]}],"color":"red"}
 ### [world_border_tick_spawn.txt:23] @bot worldborder center ~ ~
 log| System chat: [Bot: Set the center of the world border to 0.50, 0.50]
 Bot| [system_chat] Set the center of the world border to 0.50, 0.50
@@ -109,7 +109,7 @@ Bot| [system_chat] Nothing changed. The world border warning is already that amo
 Bot|   json {"text":"","extra":[{"translate":"commands.worldborder.warning.time.failed"}],"color":"red"}
 ### [world_border_tick_spawn.txt:33] @bot worldborder set 59999970
 Bot| [system_chat] Double must not be more than 5.9999968E7: found 5.999997E7
-Bot|   json {"text":"","extra":[{"translate":"argument.double.big","with":[59999968.0,59999970.0]}],"color":"red"}
+Bot|   json {"text":"","extra":[{"translate":"argument.double.big","with":[5.9999968E7,5.999997E7]}],"color":"red"}
 Bot| [system_chat] ...order set 59999970<--[HERE]
 Bot|   json {"text":"","extra":[{"text":"","extra":["...","order set ",{"text":"59999970","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/worldborder set 59999970","action":"suggest_command"}}],"color":"red"}
 ### [world_border_tick_spawn.txt:34] @bot worldborder get
