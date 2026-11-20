@@ -43,6 +43,7 @@ mod network_handshake_status;
 mod oracle_drivers_wellformed;
 mod play_chunk_sender_golden;
 mod player_roundtrip;
+mod saved_data_errors;
 mod saved_data_fixing;
 mod saved_data_golden;
 mod scoreboard_build;
