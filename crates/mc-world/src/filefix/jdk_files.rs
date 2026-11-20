@@ -48,7 +48,7 @@ pub(super) fn list(dir: &Path) -> io::Result<Vec<fs::DirEntry>> {
 /// `Files.readString(path)`: a file that is not UTF-8 is a `MalformedInputException`.
 pub(super) fn read_string(path: &Path) -> io::Result<String> {
     String::from_utf8(read_all_bytes(path)?)
-        .map_err(|e| JavaException::malformed_input(&e).into_io(io::ErrorKind::InvalidData))
+        .map_err(|e| JavaException::malformed_string_input(&e).into_io(io::ErrorKind::InvalidData))
 }
 
 /// `Files.deleteIfExists(path)`: an empty directory is removed like a file, a directory that is not empty is a

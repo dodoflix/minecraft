@@ -53,7 +53,7 @@ fn journal(world: &Path, bytes: &[u8], mode: u32) {
 /// A case: what is wrong with the files of the copy of the old world.
 type Damage = fn(&Path);
 
-const CASES: [(&str, Damage); 23] = [
+const CASES: [(&str, Damage); 28] = [
     ("saved_data_unreadable", |w| {
         chmod(w, "data/Mineshaft.dat", 0o200)
     }),
@@ -73,6 +73,21 @@ const CASES: [(&str, Damage); 23] = [
     ("journal_unreadable", |w| journal(w, b"{}", 0o200)),
     ("journal_invalid_utf8", |w| {
         journal(w, &[b'{', 0xff, b'}'], 0o644)
+    }),
+    ("journal_utf8_three_byte_lead", |w| {
+        journal(w, b"{\xe1\x80A}", 0o644)
+    }),
+    ("journal_utf8_three_byte_lead_cut", |w| {
+        journal(w, b"{\xe1\x80", 0o644)
+    }),
+    ("journal_utf8_four_byte_lead", |w| {
+        journal(w, b"{\xf0\x9f\x98}", 0o644)
+    }),
+    ("journal_utf8_overlong_four_byte", |w| {
+        journal(w, b"{\xf0\x80\x80\x80}", 0o644)
+    }),
+    ("journal_utf8_surrogate", |w| {
+        journal(w, b"{\xed\xa0\x80}", 0o644)
     }),
     ("journal_empty", |w| journal(w, b"", 0o644)),
     ("journal_blank", |w| journal(w, b" \r\n\t", 0o644)),

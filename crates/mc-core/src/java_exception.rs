@@ -83,8 +83,8 @@ impl JavaException {
         JavaException::new(IO_EXCEPTION, strerror(e))
     }
 
-    /// The `MalformedInputException` of decoding `bytes` as UTF-8 without replacement (`Files.readString`, a strict
-    /// reader).
+    /// The `MalformedInputException` of a strict reader (`InputStreamReader`) that meets `bytes` that are not UTF-8:
+    /// the decoder reports the malformed sequence it found.
     pub fn malformed_input(e: &std::string::FromUtf8Error) -> JavaException {
         let at = e.utf8_error().valid_up_to();
         let rest = &e.as_bytes()[at..];
@@ -92,6 +92,28 @@ impl JavaException {
             // an encoded surrogate is one malformed sequence of three bytes
             [0xed, 0xa0..=0xbf, 0x80..=0xbf, ..] => 3,
             _ => e.utf8_error().error_len().unwrap_or(rest.len()),
+        };
+        JavaException::new(
+            "java.nio.charset.MalformedInputException",
+            format!("Input length = {length}"),
+        )
+    }
+
+    /// The `MalformedInputException` of decoding `bytes` as UTF-8 without replacement through a `String`
+    /// (`Files.readString`). `String.decodeUTF8_UTF16` reports its own lengths: a 3-byte lead with two bytes behind it
+    /// is `3` whichever of them is bad, a 4-byte lead with three bytes behind it is `4`, and a sequence the end of the
+    /// input cuts is `1` (`2` for a 3-byte lead whose second byte is bad).
+    pub fn malformed_string_input(e: &std::string::FromUtf8Error) -> JavaException {
+        let rest = &e.as_bytes()[e.utf8_error().valid_up_to()..];
+        let length = match *rest {
+            [0xe0..=0xef, _, _, ..] => 3,
+            [lead @ 0xe0..=0xef, second]
+                if (lead == 0xe0 && second & 0xe0 == 0x80) || second & 0xc0 != 0x80 =>
+            {
+                2
+            }
+            [0xf0..=0xf7, _, _, _, ..] => 4,
+            _ => 1,
         };
         JavaException::new(
             "java.nio.charset.MalformedInputException",
@@ -205,6 +227,27 @@ mod tests {
             JavaException::of_io(&directory).to_string(),
             "java.io.IOException: Is a directory"
         );
+    }
+
+    #[test]
+    fn a_string_reports_its_own_malformed_length() {
+        let length = |bytes: &[u8]| {
+            let e = String::from_utf8(bytes.to_vec()).unwrap_err();
+            JavaException::malformed_string_input(&e).to_string()
+        };
+        let at = |n: usize| format!("java.nio.charset.MalformedInputException: Input length = {n}");
+        assert_eq!(length(b"{\xff}"), at(1));
+        assert_eq!(length(b"{\xe1\x80A}"), at(3));
+        assert_eq!(length(b"{\xe1A}"), at(3));
+        assert_eq!(length(b"{\xed\xa0\x80}"), at(3));
+        assert_eq!(length(b"{\xe1\x80"), at(1));
+        assert_eq!(length(b"{\xe1A"), at(2));
+        assert_eq!(length(b"{\xe0\x80"), at(2));
+        assert_eq!(length(b"{\xf0\x80\x80\x80}"), at(4));
+        assert_eq!(length(b"{\xf0\x9f\x98}"), at(4));
+        assert_eq!(length(b"{\xf0\x9f\x98"), at(1));
+        assert_eq!(length(b"{\xc3A}"), at(1));
+        assert_eq!(length(b"{\xf8\x80\x80\x80\x80}"), at(1));
     }
 
     #[test]
