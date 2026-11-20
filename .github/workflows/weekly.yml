@@ -1,0 +1,75 @@
+# The full world matrix of the data fixer dual tests, once a week and on demand: for every version of
+# crates/mc-datafix/tests/fixtures/versions.tsv, the real server and mc-server open identical copies of the corpus world
+# (normal start, a world newer than the current version, the legacy user lists) and the two server directories and the
+# world load log lines are compared (scripts/datafix-world-dual.sh --all; docs/testing.md, "Data fixer corpus").
+# It fails while a version is below the start-up floor of mc-server. Never blocks a pull request.
+# Running this workflow accepts Mojang's EULA (docs/testing.md). The worlds come from the cache of nightly.yml.
+name: weekly
+
+on:
+  schedule:
+    - cron: "41 4 * * 6"
+  workflow_dispatch:
+    inputs:
+      normal_worlds:
+        description: Also open the seed 12345 worlds (<id>-normal), not only the flat scripted ones
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: weekly-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+  CARGO_PROFILE_DEV_DEBUG: "0"
+  CARGO_PROFILE_TEST_DEBUG: "0"
+
+jobs:
+  worlds:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/datafix-worlds
+
+  world-dual:
+    needs: worlds
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup
+          sudo docker image prune --all --force
+          df -h /
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/ref
+      # The servers the tests start need Java 25 even when ref/ came from the cache.
+      - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
+        with:
+          distribution: temurin
+          java-version: "25"
+      - name: Install the pinned toolchain
+        run: rustup show
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          shared-key: test
+          save-if: false
+      - uses: ./.github/actions/datafix-worlds
+      - name: World dual (every version)
+        env:
+          MC_ACCEPT_EULA: "1"
+          NORMAL_WORLDS: ${{ inputs.normal_worlds }}
+        run: |
+          args=(--all)
+          if [ "$NORMAL_WORLDS" = true ]; then args+=(--normal-worlds); fi
+          scripts/datafix-world-dual.sh "${args[@]}"

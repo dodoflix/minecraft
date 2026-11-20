@@ -2,6 +2,12 @@ name: ref
 description: >-
   Restores ref/ (vanilla jar, unbundled libs, datagen reports, extractor output; gitignored) from the cache, and builds
   it from Mojang's download on a miss. Run after checkout. Needs a Java 25 JDK only on a miss, so it installs one there.
+inputs:
+  decompile:
+    description: >-
+      "true" also decompiles the server jar into ref/src (scripts/setup-ref.sh --decompile; the data fixer sample
+      generator reads it); the cache then has its own key.
+    default: "false"
 runs:
   using: composite
   steps:
@@ -10,7 +16,7 @@ runs:
       uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: ref
-        key: ref-26.3-${{ hashFiles('scripts/setup-ref.sh', 'scripts/extract.sh', 'tools/extractor/**') }}
+        key: ref-26.3${{ inputs.decompile == 'true' && '-src' || '' }}-${{ hashFiles('scripts/setup-ref.sh', 'scripts/extract.sh', 'tools/extractor/**') }}
 
     - name: Install JDK 25
       if: steps.cache.outputs.cache-hit != 'true'
@@ -22,7 +28,12 @@ runs:
     - name: Build ref/ (download vanilla 26.3, datagen, extractor)
       if: steps.cache.outputs.cache-hit != 'true'
       shell: bash
-      run: scripts/setup-ref.sh
+      env:
+        DECOMPILE: ${{ inputs.decompile }}
+      run: |
+        args=()
+        if [ "$DECOMPILE" = true ]; then args+=(--decompile); fi
+        scripts/setup-ref.sh "${args[@]}"
 
     # Compare with a local `sha256sum` to catch JVM-dependent generator output.
     - name: Fingerprint ref/

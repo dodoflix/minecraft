@@ -2,7 +2,10 @@
 # - advisories: `cargo deny check advisories` (the RustSec database changes without any commit)
 # - full: the whole T0/T1 suite with scripts/test-known-failures.py, including the slow goldens and the known failures
 #   that push CI skips (ci.yml). A new failure fails the run; listed tests that now pass are reported.
-# - oracle: the tests that start the real vanilla server (T2). They must pass before a release is tagged.
+# - worlds: the corpus worlds of the data fixer tests (old vanilla server jars and the worlds they saved), restored
+#   from the cache or generated; the weekly run (weekly.yml) uses the same cache
+# - oracle: the tests that start the real vanilla server or its data fixers (T2), in 4 shards of the sorted test list
+#   (scripts/test-known-failures.py --oracle --shard). They must pass before a release is tagged.
 #   Running this workflow accepts Mojang's EULA (docs/testing.md). Failures listed in tests/known-failures.txt are
 #   tolerated, like in the full job.
 name: nightly
@@ -62,9 +65,24 @@ jobs:
       - name: Test (full T0/T1)
         run: scripts/test-known-failures.py
 
+  # Old servers need JDK 8 to 25; the cold run takes about two hours, later runs restore the cache in minutes.
+  worlds:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/datafix-worlds
+
   oracle:
+    needs: worlds
     runs-on: ubuntu-latest
     timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
     steps:
       - name: Free disk space
         run: |
@@ -74,7 +92,10 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      # the data fixer sample generator reads the decompiled vanilla sources
       - uses: ./.github/actions/ref
+        with:
+          decompile: "true"
       # The vanilla server the tests start needs Java 25 even when ref/ came from the cache.
       - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
         with:
@@ -86,17 +107,9 @@ jobs:
         with:
           shared-key: test
           save-if: false
-      # The world start tests open worlds that an older vanilla server generated (flat and seed 12345, version 26.2).
-      - name: Cache the corpus worlds
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ~/.cache/mc-datafix-corpus
-          key: datafix-corpus-26.2-${{ hashFiles('scripts/datafix-worlds.sh', 'crates/mc-datafix/tests/corpus/eras/*.txt') }}
-      - name: Generate the corpus worlds
+      # The world start and upgrade tests open worlds that older vanilla servers generated.
+      - uses: ./.github/actions/datafix-worlds
+      - name: Test (oracle, T2, shard ${{ matrix.shard }}/4)
         env:
           MC_ACCEPT_EULA: "1"
-        run: scripts/datafix-worlds.sh 26.2
-      - name: Test (oracle, T2)
-        env:
-          MC_ACCEPT_EULA: "1"
-        run: scripts/test-known-failures.py --oracle -- --test-threads=2
+        run: scripts/test-known-failures.py --oracle --shard ${{ matrix.shard }}/4 -- --test-threads=2

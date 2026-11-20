@@ -1,6 +1,14 @@
-# Slow worldgen and structure goldens (20 s or more each, ~10 min for the slowest alone), one per line:
+# Slow tests (20 s or more each, over 20 min for the slowest alone), one per line: the worldgen and structure goldens and the
+# data fixer corpus replays of the largest fixtures.
 # <package> <test binary path> <test name>, the key format of tests/known-failures.txt.
 # Push and pull request CI skips them (scripts/nextest-filter.py); the nightly run executes them.
+mc-datafix tests/golden/main.rs samples_corpus::chunk_updates_equal_vanilla
+mc-datafix tests/golden/main.rs samples_corpus::entity_chunk_updates_equal_vanilla
+mc-datafix tests/golden/main.rs samples_corpus::hotbar_updates_equal_vanilla
+mc-datafix tests/golden/main.rs samples_corpus::level_updates_equal_vanilla
+mc-datafix tests/golden/main.rs samples_corpus::player_updates_equal_vanilla
+mc-datafix tests/golden/main.rs samples_corpus::saved_data_scoreboard_updates_equal_vanilla
+mc-datafix tests/golden/main.rs samples_corpus::structure_updates_equal_vanilla
 mc-game tests/golden/main.rs feat_ores_golden::feat_ores_match_vanilla
 mc-game tests/golden/main.rs jigsaw_structures_golden::jigsaw_structures_match_vanilla
 mc-game tests/golden/main.rs mineshaft_golden::mineshaft_matches_vanilla

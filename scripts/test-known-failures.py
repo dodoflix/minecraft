@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Run the workspace tests and fail only on failures that tests/known-failures.txt does not list.
 
-Usage: scripts/test-known-failures.py [--oracle] [-p PACKAGE]... [-- LIBTEST_ARGS...]
+Usage: scripts/test-known-failures.py [--oracle [--shard I/K]] [-p PACKAGE]... [-- LIBTEST_ARGS...]
 
 Default: `cargo test --no-fail-fast` for every workspace package (T0/T1).
 --oracle: the oracle tier instead: `--test oracle -- --ignored` for every package that has a tests/oracle/main.rs
           (set MC_ACCEPT_EULA=1; it starts the vanilla server).
+--shard:  with --oracle, run only shard I of K (1-based): the oracle tests of the selected packages are listed, sorted by
+          "<package> <test name>" and every K-th one starting at I is run, so K runners together run each test once.
 -p:       only these packages.
 
 Each package is run on its own so that every result has the key "<package> <test binary> <test name>", for example
@@ -36,6 +38,23 @@ CARGO_ENV = {**os.environ, "CARGO_TERM_COLOR": "never"}
 def packages():
     meta = json.loads(subprocess.check_output(["cargo", "metadata", "--no-deps", "--format-version", "1"], cwd=ROOT))
     return {p["name"]: Path(p["manifest_path"]).parent for p in meta["packages"]}
+
+
+def list_tests(package, cargo_args, libtest_args):
+    """The names of the tests `cargo test` would run in `package` (the libtest `--list` output of every binary)."""
+    cmd = ["cargo", "test", "--locked", "-p", package, *cargo_args, "--", *libtest_args, "--list"]
+    print("+", " ".join(cmd), flush=True)
+    proc = subprocess.run(cmd, cwd=ROOT, env=CARGO_ENV, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    if proc.returncode:
+        sys.exit(f"cannot list the tests of {package}:\n{proc.stdout[-4000:]}")
+    return [m[1] for l in proc.stdout.splitlines() if (m := re.fullmatch(r"(.+): test", l))]
+
+
+def parse_shard(text):
+    m = re.fullmatch(r"(\d+)/(\d+)", text)
+    if not m or not 1 <= int(m[1]) <= int(m[2]):
+        sys.exit(f"--shard needs I/K with 1 <= I <= K, got {text!r}")
+    return int(m[1]), int(m[2])
 
 
 def run_package(package, cargo_args, libtest_args):
@@ -86,16 +105,32 @@ def main():
     argv = argv[: argv.index("--")] if "--" in argv else argv
     oracle = "--oracle" in argv
     only = {argv[i + 1] for i, a in enumerate(argv) if a == "-p"}
+    shard = parse_shard(argv[argv.index("--shard") + 1]) if "--shard" in argv else None
+    if shard and not oracle:
+        sys.exit("--shard needs --oracle")
     if oracle:
         libtest_args = ["--ignored", *libtest_args]
 
-    results, outputs = {}, {}
+    selected = {}
     for name, directory in sorted(packages().items()):
         if only and name not in only:
             continue
         if oracle and not (directory / "tests" / "oracle" / "main.rs").exists():
             continue
-        results[name], outputs[name] = run_package(name, ["--test", "oracle"] if oracle else [], libtest_args)
+        selected[name] = ["--test", "oracle"] if oracle else []
+    exact = {}
+    if shard:
+        index, count = shard
+        every = sorted((n, t) for n, args in selected.items() for t in list_tests(n, args, ["--ignored"]))
+        for n, t in every[index - 1 :: count]:
+            exact.setdefault(n, []).append(t)
+        print(f"shard {index}/{count}: {sum(map(len, exact.values()))} of {len(every)} tests", flush=True)
+
+    results, outputs = {}, {}
+    for name, cargo_args in selected.items():
+        if shard and name not in exact:
+            continue
+        results[name], outputs[name] = run_package(name, cargo_args, [*libtest_args, *(["--exact", *exact[name]] if shard else [])])
 
     known = set()
     if KNOWN.exists():

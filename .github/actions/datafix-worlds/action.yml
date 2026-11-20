@@ -1,0 +1,59 @@
+name: datafix-worlds
+description: >-
+  Restores the corpus worlds of the data fixer tests (the old vanilla server jars and the worlds they saved; kept outside
+  the working tree, never committed) from the cache, and generates them with scripts/datafix-worlds.sh on a miss. The cache key is the
+  hash of what produces the worlds: the generator, the era scripts and versions.tsv. It holds every listed version, so
+  one cache serves the nightly and the weekly runs. Run after checkout. Accepts
+  Mojang's EULA (the generator starts the vanilla servers) and installs JDK 8 to 25 only on a miss.
+runs:
+  using: composite
+  steps:
+    - name: Cache the corpus worlds
+      id: cache
+      uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: ~/.cache/mc-datafix-corpus
+        key: datafix-corpus-${{ hashFiles('scripts/datafix-worlds.sh', 'crates/mc-datafix/tests/corpus/eras/*.txt', 'crates/mc-datafix/tests/fixtures/versions.tsv') }}
+
+    # The jars need the JDK of their era (8 for 1.7 to 1.16, 16 or 17 for 1.17 to 1.20.4, 21, 25); 25 comes last so that
+    # it is the default `java`. The script finds JDKs under ~/.jdks and picks the smallest one that is new enough.
+    - name: Install the JDKs of the old servers
+      if: steps.cache.outputs.cache-hit != 'true'
+      uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
+      with:
+        distribution: temurin
+        java-version: |
+          8
+          17
+          21
+          25
+
+    - name: Generate the corpus worlds
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        MC_ACCEPT_EULA: "1"
+        MC_OLD_JAVA: ${{ env.JAVA_HOME_8_X64 }}
+      # The script exits 0 when a jar does not start in time or no JDK fits, so the worlds are counted before the cache is
+      # saved: an incomplete set under the content key would be restored as a hit for good.
+      run: |
+        mkdir -p ~/.jdks
+        for v in 17 21 25; do
+          home="JAVA_HOME_${v}_X64"
+          ln -sfn "${!home}" ~/.jdks/"$v"
+        done
+        versions=crates/mc-datafix/tests/fixtures/versions.tsv
+        ids=$(awk -F'\t' 'NR > 1 && $5 == "true" { print $1 }' "$versions")
+        scripts/datafix-worlds.sh
+        for id in $ids; do
+          for w in "$id" "$id-normal"; do
+            [ -f ~/.cache/mc-datafix-corpus/worlds/"$w"/level.dat ] || { echo "no world $w after the run" >&2; exit 1; }
+          done
+        done
+
+    - name: Save the corpus worlds
+      if: steps.cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: ~/.cache/mc-datafix-corpus
+        key: ${{ steps.cache.outputs.cache-primary-key }}

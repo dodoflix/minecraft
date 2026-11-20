@@ -4,7 +4,7 @@ default-filter = "not (package(mc-datafix) & test(/^samples_corpus::/))"
 
 # cargo-nextest profile of the push and pull request CI (.github/workflows/ci.yml, `--profile ci`).
 [profile.ci]
-default-filter = "all()"    # the CI runs the corpus replays (one at a time, see the test group below)
+default-filter = "all()"    # the CI runs the corpus replays except the slow ones (the filterset of scripts/nextest-filter.py)
 retries = 1                 # a test that passes on retry is reported as FLAKY, not as a failure
 fail-fast = false
 failure-output = "final"

@@ -40,6 +40,16 @@ Mojang servers wrote into scripted worlds, inputs generated from the schemas of 
 vanilla data fixers, and the results of vanilla's data fixers for them. They are derived
 from Mojang's software and are Mojang's, not relicensed here.
 
+The old vanilla server jars and the worlds they save (scripts/datafix-worlds.sh, kept in
+$MC_DATAFIX_CACHE outside the working tree) are Mojang's software and output. The jars and
+the complete worlds are never committed. What is committed from them is derived: the
+version, DataVersion and jar SHA-1 table (crates/mc-datafix/tests/fixtures/versions.tsv),
+the SHA-256 lists of the files of each world (crates/mc-datafix/tests/fixtures/world_hashes),
+and in crates/mc-world/tests/fixtures/filefix the file fixer records of those worlds and the
+minimal worlds cut out of them (a few chunks of each region file). They are Mojang's, not
+relicensed here. The scripted commands that build the worlds
+(crates/mc-datafix/tests/corpus/eras) are MIT.
+
 The lookup tables of the data fixes (crates/mc-datafix/src/fixes/data/*.tsv.gz: the
 legacy block state, item, entity, block entity, stat, key, recipe, biome and other
 renaming tables of the fix classes) are committed and embedded in the build. They are
@@ -127,5 +137,6 @@ or any build that embeds Mojang data. Releases of this project are source-only
 for that reason.
 
 scripts/setup-ref.sh downloads the vanilla server from Mojang, and the oracle and
-end-to-end test tiers run it. By running them you accept the Minecraft EULA
+end-to-end test tiers run it; scripts/datafix-worlds.sh downloads older server releases
+the same way. By running them you accept the Minecraft EULA
 (https://aka.ms/MinecraftEULA) yourself.

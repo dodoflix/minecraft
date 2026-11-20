@@ -57,11 +57,11 @@ CI (`.github/workflows/ci.yml`) runs on every pull request and every push to `ma
 | `ref` | builds or restores the cached `ref/` that `clippy`, `test-build` and `doctest` need |
 | `ci-ok` | passes only when all of the above passed; the one required check |
 
-The `test` job skips the known failures and the slow worldgen goldens (`scripts/nextest-filter.py` prints the nextest filterset), so any failure in it fails CI; a test that fails and passes on the retry is reported as flaky (a warning) and gets fixed. The skipped tests run in the nightly `full` job.
+The `test` job skips the known failures and the slow tests, the worldgen goldens and the largest data fixer replays (`scripts/nextest-filter.py` prints the nextest filterset), so any failure in it fails CI; a test that fails and passes on the retry is reported as flaky (a warning) and gets fixed. The skipped tests run in the nightly `full` job.
 
 `scripts/test-known-failures.py` fails only on a test that `tests/known-failures.txt` does not list; run it locally the same way (`-p <crate>` limits it); the nightly `full` job runs it over the whole workspace. A change that makes a listed test pass deletes its line. A new failure is re-run once alone; if it passes, the run reports it as flaky (a warning) instead of failing, and the flaky test gets fixed.
 
-`.github/workflows/nightly.yml` runs once a day and on demand: `cargo deny check advisories`, the full T0/T1 suite (`scripts/test-known-failures.py`, including the known failures and slow goldens that `ci.yml` skips) and the oracle tier (`scripts/test-known-failures.py --oracle`, which starts the vanilla server and sets `MC_ACCEPT_EULA=1`). None blocks a pull request; the oracle tier must be green before a release is tagged. To run CI on a branch without a pull request: `gh workflow run ci.yml --ref <branch>`.
+`.github/workflows/nightly.yml` runs once a day and on demand: `cargo deny check advisories`, the full T0/T1 suite (`scripts/test-known-failures.py`, including the known failures and slow goldens that `ci.yml` skips) and the oracle tier (`scripts/test-known-failures.py --oracle --shard N/4` in four parallel shards, which starts the vanilla server and sets `MC_ACCEPT_EULA=1`; the old worlds it needs are cached). `.github/workflows/weekly.yml` runs the world dual over every old version once a week. None blocks a pull request; the oracle tier must be green before a release is tagged. To run CI on a branch without a pull request: `gh workflow run ci.yml --ref <branch>`.
 
 Also run:
 

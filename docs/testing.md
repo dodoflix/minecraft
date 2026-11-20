@@ -342,12 +342,109 @@ status check and passes only when every job passed:
   failure that `tests/known-failures.txt` does not list; a binary that aborts counts as a failure. It prints listed
   tests that now pass: delete their lines (section 8). A new failure is re-run once alone: a pass is reported as flaky
   (a warning, not a failure).
-- `oracle`: the oracle tier, `scripts/test-known-failures.py --oracle`, which runs each package's `tests/oracle` target
-  with `--ignored` and the same known-failures filter, with `MC_ACCEPT_EULA=1`. It must pass before a release is tagged.
+- `worlds`: restores the corpus worlds of the data fixer tests from the cache or generates them (section 10), once for
+  the jobs below.
+- `oracle`: the oracle tier, `scripts/test-known-failures.py --oracle --shard N/4 -- --test-threads=2`, in four parallel
+  shards: every package's `tests/oracle` target is listed, the tests are sorted by package and name, and shard N runs
+  every fourth one with `--ignored` and the same known-failures filter, with `MC_ACCEPT_EULA=1` and a `ref/` that was built
+  with `--decompile` (the data fixer sample generator reads the vanilla sources). The shards together
+  run each oracle test of every crate that has an oracle target once, among them the data fixer live suites (`mc-datafix`: the oracle and sample generator checks, the
+  recordings, the tables, the file fixer records) and the world start, world upgrade and legacy user duals
+  (`mc-server`). It must pass before a release is tagged.
 
-`tests/slow-tests.txt` lists the slow worldgen and structure goldens (20 s or more each) in the same key format; they
-run in `full` only. Like known failures they are skipped by the push and pull request run, so a change to worldgen
-shows up the next night.
+`.github/workflows/weekly.yml` runs once a week and on demand (`gh workflow run weekly.yml`, input `normal_worlds` adds
+the seed 12345 worlds): `scripts/datafix-world-dual.sh --all`, the world dual of section 10 over every version of
+`versions.tsv`. It reads the same world cache as the nightly run and, like it, never blocks a pull request.
+
+`tests/slow-tests.txt` lists the tests that take 20 s or more (the slow worldgen and structure goldens, the data fixer
+corpus replays that are long) in the same key format; they run in `full` only. Like known failures they are skipped by
+the push and pull request run, so a change to worldgen or to a data fix shows up the next night.
 
 Run the full filter locally with `scripts/test-known-failures.py [-p <crate>]...`. To run CI on a branch without a pull
 request: `gh workflow run ci.yml --ref <branch>`.
+
+## 10. Data fixer corpus
+
+The data fixers (`mc-datafix`, the file fixer in `mc-world`, the world upgrader) are proved by running the same input
+through vanilla's classes and through ours. Old worlds are the inputs; they are too large and too much Mojang output to
+commit, so the proof has tiers (section 1) that need different amounts of them:
+
+| Tier | What it runs | Needs | Where |
+|---|---|---|---|
+| T0 | replay of recorded samples: `samples_step_*` (one fix version at a time), `samples_corpus` (chunks, level data, saved data and the rest of the constants that old servers wrote, and inputs generated from the schemas), `samples_json_files`, the type hashes, the chain listing, the lookup tables; the file fixer on the minimal worlds and on a world interrupted halfway (`crates/mc-world/tests/golden/file_fix.rs`, which also replays the corpus worlds it finds in the cache and reports the others as not compared) | committed fixtures only | `crates/mc-datafix/tests/golden/`, fixtures in `crates/mc-datafix/tests/fixtures/` and `crates/mc-world/tests/fixtures/filefix/` |
+| T2 | vanilla's `DataFixers` in a JVM against ours: the oracle self-checks, the sample generator (it harvests its vocabulary from the vanilla sources in `ref/`), the recordings against the live chain, the tables, the file fixer records | `ref/` with the decompiled sources (`scripts/setup-ref.sh --decompile`), JDK 25 | `crates/mc-datafix/tests/oracle/` |
+| T2 dual | the vanilla server and `mc-server` open identical copies of a corpus world (normal start, a world newer than the current version, `--forceUpgrade`, `--eraseCache`, `--recreateRegionFiles`) and the legacy user lists, then the server directories and the log lines are compared | the corpus worlds, `ref/`, JDK 25, `MC_ACCEPT_EULA=1` | `crates/mc-server/tests/oracle/{world_start,world_upgrade,legacy_users}.rs`, `scripts/datafix-world-dual.sh` |
+
+T0 runs in every `cargo test` and in push CI. The corpus replays (`samples_corpus::*`) are the heaviest of it; they are
+skipped by local `cargo nextest run` through the default profile (`.config/nextest.toml`); CI runs them, except the
+largest (`tests/slow-tests.txt`), which only the nightly `full` job runs.
+Proof is differential: the same input goes to both implementations, because an old server's world differs from run to
+run (clocks, entity UUIDs, tick counters; `crates/mc-datafix/tests/fixtures/world_run_dependent.txt` says what).
+
+### Where the worlds live: never in git
+
+Everything an old server wrote or shipped stays in `$MC_DATAFIX_CACHE` (default `${XDG_CACHE_HOME:-$HOME/.cache}/mc-datafix-corpus`),
+outside the working tree:
+
+- `jars/<id>.jar`: the server of release `<id>`, downloaded from Mojang and checked against the SHA-1 of the version manifest;
+- `worlds/<id>` (flat, scripted) and `worlds/<id>-normal` (seed 12345, with structures): the world as the server left it;
+- `json/`, `logs/`: the version metadata and the server logs of each run;
+- `corpus/`: the working files of `scripts/datafix-corpus.sh` (candidate samples, requests, records; a few GB).
+
+No jar and no complete world of an old server is committed (only the minimal worlds below); `scripts/check.sh` rejects jars, class files and
+archives and any tracked file over 8 MiB, and the root `NOTICE` says that what Mojang's software wrote is not relicensed.
+What is committed is derived from them and small: the sample fixtures (`fixtures/samples/corpus_*.tsv.gz`, under 6 MiB together),
+`fixtures/versions.tsv` (id, DataVersion, jar SHA-1, Java major, whether the jar runs), `fixtures/world_hashes/<id>.txt` (SHA-256 of
+every world file), the file fixer records and the minimal worlds (a few chunks of the region files cut out of the seed 12345 worlds,
+`crates/mc-world/tests/fixtures/filefix`) and the scripts that make the worlds
+(`crates/mc-datafix/tests/corpus/eras/*.txt`, one console command per line).
+
+A dual test that needs a world and finds none panics with the command that makes it (section 2).
+
+### Regeneration
+
+Run in this order; each step reads the cache and the previous step's output, and a rerun with the same inputs gives
+identical files:
+
+```sh
+export MC_ACCEPT_EULA=1                  # the generator starts the old servers: running them accepts the EULA in your name
+export MC_OLD_JAVA=/path/to/jdk-8        # releases up to 1.16.5 need a JDK 8; none is ever downloaded
+scripts/datafix-worlds.sh                # jars and worlds of every listed version (or ids: scripts/datafix-worlds.sh 1.12.2 26.2);
+                                         # rewrites versions.tsv and world_hashes/; --list shows what is cached
+scripts/datafix-corpus.sh all            # extract, synth, select, record: rewrites fixtures/samples/corpus_*.tsv.gz
+scripts/datafix-oracle.sh --regen        # fixes.tsv, schema types, tables, table accessors, file fixer records of the minimal worlds
+scripts/datafix-oracle.sh --regen-filefix-corpus   # the file fixer records of the corpus worlds
+git diff --stat                          # review (section 5): only expected files, sizes within budget
+cargo nextest run -p mc-datafix --ignore-default-filter -E 'test(/^samples_corpus::/)'   # replay green
+```
+
+Rules:
+
+- The sample fixtures are a function of the worlds in the cache and the seed. A different set of worlds (new era script, new
+  version, a regenerated world) gives a different fixture: a reviewed diff, never an automatic update. A diff after
+  recording twice from the same worlds is a bug (an unseeded generator), to be fixed there and not committed.
+- Recording needs the real vanilla classes, so only `scripts/datafix-oracle.sh` and the scripts that call it write
+  recordings; `MC_UPDATE_FIXTURES=1` works inside the oracle target only (section 5).
+- A change to `datafix-worlds.sh`, an era script or `versions.tsv` changes the cache key of the CI worlds (below) and so
+  regenerates them; regenerate the fixtures in the same commit.
+
+### Running the live suites
+
+```sh
+MC_ACCEPT_EULA=1 scripts/test-known-failures.py --oracle -p mc-datafix -- --test-threads=2           # T2, all
+MC_ACCEPT_EULA=1 scripts/test-known-failures.py --oracle --shard 2/4 -- --test-threads=2             # one nightly shard
+MC_ACCEPT_EULA=1 scripts/datafix-world-dual.sh [--nightly | --all | ID...] [--normal-worlds]         # the world dual
+```
+
+`scripts/datafix-world-dual.sh` takes the worlds from the cache; without arguments it opens every corpus version that
+`mc-server` accepts (at or above its start-up floor), `--nightly` the four of 1.12.2, 1.16.5, 1.20.4 and 1.21.11, `--all`
+every version of `versions.tsv`. A failure prints the first differing log line and the differing files and chunks.
+`--keep DIR` keeps both server directories of every run.
+
+### CI
+
+`nightly.yml` and `weekly.yml` get the worlds from `.github/actions/datafix-worlds`: it restores `~/.cache/mc-datafix-corpus`
+(a cache named `datafix-corpus-<hash>`, the hash of `scripts/datafix-worlds.sh`, the era scripts and `versions.tsv`), and on a
+miss installs JDK 8, 17, 21 and 25, runs `scripts/datafix-worlds.sh` for every listed version and saves the cache. The cold
+run takes hours, the later ones minutes. The nightly `oracle` job runs the T2 suites in four shards (section 9); the weekly
+run is the `--all` dual over every version. The jars are downloaded from Mojang on the runner; none is uploaded as an artifact.
