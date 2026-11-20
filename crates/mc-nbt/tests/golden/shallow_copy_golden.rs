@@ -23,3 +23,22 @@ fn shallow_copy_presizes_like_the_jdk() {
     }
     assert_eq!(checked, 60);
 }
+
+#[test]
+fn a_compound_rebuilt_from_its_iteration_order_writes_the_same_bytes() {
+    for n in 1..60 {
+        let source: CompoundTag = (0..n).map(|i| (format!("k{i}"), i)).collect();
+        for original in [source.clone(), source.shallow_copy()] {
+            let entries = original
+                .iter_java_order()
+                .into_iter()
+                .map(|(k, v)| (k.clone(), v.clone()));
+            let rebuilt = CompoundTag::from_hash_order(entries);
+            assert_eq!(
+                nbt_io::to_bytes(&rebuilt),
+                nbt_io::to_bytes(&original),
+                "n = {n}"
+            );
+        }
+    }
+}

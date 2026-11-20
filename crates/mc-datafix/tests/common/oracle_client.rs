@@ -1,7 +1,8 @@
 //! Client of the data fixer oracle (`scripts/datafix-oracle.sh`, `tests/oracle/DataFixerOracle.java`): a batch JVM that
 //! runs vanilla's `DataFixers` on NBT inputs, and one-shot verbs. One JVM per test process.
 
-use crate::compare::{Outcome, Request, Status, read_tag};
+pub use crate::compare::parse_record;
+use crate::compare::{Outcome, Request};
 use base64::Engine;
 use std::io::{BufRead, BufReader, Write};
 use std::path::{Path, PathBuf};
@@ -124,33 +125,4 @@ pub fn oracle() -> MutexGuard<'static, Oracle> {
         .get_or_init(|| Mutex::new(Oracle::start()))
         .lock()
         .unwrap_or_else(PoisonError::into_inner)
-}
-
-/// Parses a record of the oracle (format: the header of `DataFixerOracle.java`).
-pub fn parse_record(line: &str) -> (String, Outcome) {
-    let f: Vec<&str> = line.splitn(9, '\t').collect();
-    assert_eq!(f.len(), 9, "malformed oracle record: {line}");
-    let dash = |s: &str| (s != "-").then(|| s.to_string());
-    let status = match f[1] {
-        "ok" => {
-            let bytes = base64::engine::general_purpose::STANDARD
-                .decode(f[3])
-                .expect("record bytes are base64");
-            let tag =
-                read_tag(&bytes).unwrap_or_else(|e| panic!("record {} is not NBT: {e}", f[0]));
-            Status::Ok { tag, bytes }
-        }
-        "threw" => Status::Threw {
-            class: f[4].to_string(),
-            message_hash: f[5].to_string(),
-        },
-        "bad" => Status::Bad(f[4].to_string()),
-        other => panic!("unknown record status {other}"),
-    };
-    let outcome = Outcome {
-        status,
-        error_count: f[6].parse().expect("error count"),
-        errors_hash: dash(f[7]),
-    };
-    (f[0].to_string(), outcome)
 }

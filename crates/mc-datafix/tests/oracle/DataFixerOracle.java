@@ -16,7 +16,7 @@
 // Output: the record formats below on stdout (log noise goes to stderr).
 //
 // TYPE is a DataFixTypes constant (CHUNK) or `ref:NAME`, a References type by its type name (ref:item_stack), which
-// reaches the types no DataFixTypes names. Input of `batch`, tab separated: ID TYPE FROM TO BASE64(NbtIo bytes of a named root).
+// reaches the types no DataFixTypes names. Input of `batch`, tab separated: ID TYPE FROM TO BASE64(NbtIo bytes of a named root) or SNBT text starting with `{`.
 // Record, tab separated: ID STATUS SHA256 BASE64 EXCEPTION EXCEPTION_HASH ERRORS ERRORS_HASH SNBT where STATUS is
 //   ok       SHA256 and BASE64 describe NbtIo.write of the result (HashMap key order), EXCEPTION is -
 //   threw    EXCEPTION is the class name of what update threw, EXCEPTION_HASH the sha256 of its message
@@ -123,7 +123,7 @@ public class DataFixerOracle {
           if (line.isEmpty()) continue;
           String[] f = line.split("\t", -1);
           if (f.length != 5) throw new IllegalArgumentException("batch line needs 5 tab separated fields: " + line);
-          out.println(update(f[1], Integer.parseInt(f[2]), Integer.parseInt(f[3]), Base64.getDecoder().decode(f[4])).line(f[0]));
+          out.println(update(f[1], Integer.parseInt(f[2]), Integer.parseInt(f[3]), input(f[4])).line(f[0]));
           out.flush();
         }
         out.flush();
@@ -192,6 +192,14 @@ public class DataFixerOracle {
 
   static String escape(String s) {
     return s.replace("\\", "\\\\").replace("\n", "\\n").replace("\t", "\\t").replace("\r", "\\r");
+  }
+
+  /** A batch input field: the base64 of NbtIo bytes, or SNBT text (starts with `{`) for hand written samples. */
+  static byte[] input(String field) throws Exception {
+    if (!field.startsWith("{")) return Base64.getDecoder().decode(field);
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    NbtIo.write(net.minecraft.nbt.TagParser.parseCompoundFully(field), new DataOutputStream(bytes));
+    return bytes.toByteArray();
   }
 
   static Outcome update(String type, int from, int to, byte[] nbt) {

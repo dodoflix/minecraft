@@ -10,6 +10,12 @@ mod compare;
 mod recorded_chain;
 #[path = "../common/recorded_schemas.rs"]
 mod recorded_schemas;
+#[allow(
+    dead_code,
+    reason = "each band of fixes replays its own recorded samples through this module"
+)]
+#[path = "../common/step_samples.rs"]
+mod step_samples;
 
 mod base_fixes;
 mod chain_parity;

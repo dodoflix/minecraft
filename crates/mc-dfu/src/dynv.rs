@@ -215,18 +215,17 @@ impl Dyn {
             Dyn::Str(s) => Tag::String(s.clone()),
             Dyn::List(l) => Tag::List(l.iter().map(Dyn::to_tag).collect::<Result<ListTag, _>>()?),
             Dyn::Map(m) => {
-                let mut c = CompoundTag::new();
+                let mut entries = Vec::with_capacity(m.len());
                 for (k, v) in m {
                     match k {
-                        Dyn::Str(s) => {
-                            c.put(s.clone(), v.to_tag()?);
-                        }
+                        Dyn::Str(s) => entries.push((s.clone(), v.to_tag()?)),
                         other => {
                             return Err(format!("Cannot create map with non-string key: {other}"));
                         }
                     }
                 }
-                Tag::Compound(c)
+                // a map's entry order is the iteration order of the table it was built in
+                Tag::Compound(CompoundTag::from_hash_order(entries))
             }
             Dyn::Bytes(v) => Tag::ByteArray(v.clone()),
             Dyn::Ints(v) => Tag::IntArray(v.clone()),

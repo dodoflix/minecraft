@@ -845,7 +845,7 @@ impl Type {
         use TypeKind::*;
         match &self.0.kind {
             Primitive(p) => ops.merge_to_primitive(&prefix, p.write(ops, value)),
-            EmptyPart => put_entries(ops, prefix, Vec::new()),
+            EmptyPart => ops.merge_to_map(&prefix, &[]),
             Passthrough => encode_passthrough(ops, value.as_dynamic(), prefix),
             Product(first, second) => {
                 let (a, b) = value.as_pair();
@@ -1746,24 +1746,14 @@ fn decode_compound_list(key: &Type, element: &Type, ops: &Ops, input: &Dyn) -> D
     }
 }
 
-/// `mapBuilder().add(..).build(prefix)` with in-place merging into `prefix` (no copy of large prefixes).
+/// `mapBuilder().add(..).build(prefix)`: a map prefix is copied and the entries put into the copy (the table size of
+/// that copy decides the iteration order of NBT compounds).
 fn put_entries(ops: &Ops, prefix: Dyn, entries: Vec<(Dyn, Dyn)>) -> DataResult<Dyn> {
-    match prefix {
-        Dyn::Empty => DataResult::success(ops.create_map(entries)),
-        Dyn::Map(mut m) => {
-            for (k, v) in entries {
-                Dyn::map_put(&mut m, k, v);
-            }
-            DataResult::success(Dyn::Map(m))
-        }
-        other => {
-            let o = other.clone();
-            DataResult::error_partial(
-                move || format!("mergeToMap called with not a map: {o}"),
-                other,
-            )
-        }
+    let mut b = ops.map_builder();
+    for (k, v) in entries {
+        b.add_key(k, v);
     }
+    b.build(&prefix)
 }
 
 /// `Codec.PASSTHROUGH.encode(input, ops, prefix)`.

@@ -295,3 +295,53 @@ pub fn read_tag(bytes: &[u8]) -> Result<CompoundTag, String> {
     let mut input = bytes;
     mc_nbt::read_named(&mut input, &mut NbtAccounter::unlimited_heap()).map_err(|e| e.to_string())
 }
+
+/// Parses a record of the oracle (format: the header of `DataFixerOracle.java`).
+pub fn parse_record(line: &str) -> (String, Outcome) {
+    let f: Vec<&str> = line.splitn(9, '\t').collect();
+    assert_eq!(f.len(), 9, "malformed oracle record: {line}");
+    let dash = |s: &str| (s != "-").then(|| s.to_string());
+    let status = match f[1] {
+        "ok" => {
+            let bytes = base64::Engine::decode(&base64::engine::general_purpose::STANDARD, f[3])
+                .expect("record bytes are base64");
+            let tag =
+                read_tag(&bytes).unwrap_or_else(|e| panic!("record {} is not NBT: {e}", f[0]));
+            Status::Ok { tag, bytes }
+        }
+        "threw" => Status::Threw {
+            class: f[4].to_string(),
+            message_hash: f[5].to_string(),
+        },
+        "bad" => Status::Bad(f[4].to_string()),
+        other => panic!("unknown record status {other}"),
+    };
+    let outcome = Outcome {
+        status,
+        error_count: f[6].parse().expect("error count"),
+        errors_hash: dash(f[7]),
+    };
+    (f[0].to_string(), outcome)
+}
+
+/// The path and the two key sequences of the first compound whose keys come in another order in `a` than in `b`
+/// (both read back from `NbtIo` bytes, so the order is the written order).
+pub fn first_order_difference(a: &Tag, b: &Tag) -> Option<String> {
+    match (a, b) {
+        (Tag::Compound(x), Tag::Compound(y)) => {
+            let (kx, ky): (Vec<&String>, Vec<&String>) = (x.keys().collect(), y.keys().collect());
+            if kx != ky {
+                return Some(format!("keys {kx:?} vs {ky:?}"));
+            }
+            kx.iter().find_map(|k| {
+                first_order_difference(x.get(k)?, y.get(k)?).map(|d| format!("{k}/{d}"))
+            })
+        }
+        (Tag::List(x), Tag::List(y)) => x
+            .iter()
+            .zip(y.iter())
+            .enumerate()
+            .find_map(|(i, (p, q))| first_order_difference(p, q).map(|d| format!("[{i}]/{d}"))),
+        _ => None,
+    }
+}

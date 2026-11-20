@@ -104,6 +104,29 @@ impl CompoundTag {
         v.into_iter().map(|(_, e)| e).collect()
     }
 
+    /// A compound whose `HashMap` iterates `entries` in exactly this order (the entries are the iteration order of a
+    /// vanilla compound whose table capacity is unknown, for example the result of a `Dynamic` rewrite). The table
+    /// capacity is the smallest one that yields the order, so the binary form lists the entries as given.
+    pub fn from_hash_order(entries: impl IntoIterator<Item = (String, Tag)>) -> Self {
+        let tags: IndexMap<String, Tag> = entries.into_iter().collect();
+        let hashes: Vec<u32> = tags.keys().map(|k| java_hash(k)).collect();
+        let mut cap = 1u32;
+        while cap <= (1 << 30) {
+            if hashes.len() * 4 <= cap as usize * 3
+                && hashes
+                    .windows(2)
+                    .all(|w| (w[0] & (cap - 1)) <= (w[1] & (cap - 1)))
+            {
+                break;
+            }
+            cap *= 2;
+        }
+        CompoundTag {
+            cap: if tags.is_empty() { 0 } else { cap },
+            tags,
+        }
+    }
+
     /// `put(name, tag)`, returning the previous value.
     pub fn put(&mut self, name: impl Into<String>, tag: impl Into<Tag>) -> Option<Tag> {
         let (_, old) = self.tags.insert_full(name.into(), tag.into());
