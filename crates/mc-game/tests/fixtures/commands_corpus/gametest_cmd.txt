@@ -124,3 +124,16 @@ test runclosest 2
 test clearthese
 test clearall
 test locate always_pass
+
+# ---- command suggestions (`!suggest`: answered by the next connection tick) and the GUI packets of a missing block
+!packets command_suggestions
+@bot !suggest /test run always
+@bot !suggest "/test run "
+@bot !suggest /test
+@bot !suggest test r
+@bot !suggest /gamemode c
+@bot0 !suggest "/test "
+@bot0 !suggest /t
+@bot !send set_test_block 5 5 5 accept "no block here"
+@bot !send test_instance_block_action 5 5 5 save key=foo:bar size=1,1,1
+!file world/generated/foo/structure/bar.nbt

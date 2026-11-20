@@ -16,7 +16,12 @@ use crate::join::BotOptions;
 use crate::log::Dir;
 use mc_protocol::codec::{Decode, read_varint};
 use mc_protocol::command_tree_diff::{canonical, diff_trees};
-use mc_protocol::packets::play::ClientboundCommandsPacket;
+use mc_protocol::packets::play::{
+    ClientboundCommandsPacket, ServerboundCommandSuggestionPacket, ServerboundPlayPacket,
+    ServerboundSetTestBlockPacket, ServerboundTestInstanceBlockActionPacket,
+    ServerboundTestInstanceBlockActionPacketAction, TestBlockMode, TestInstanceBlockEntityData,
+    TestInstanceBlockEntityStatus,
+};
 use regex::Regex;
 
 const BOTS: [&str; 2] = ["Bot", "Bot0"];
@@ -46,6 +51,12 @@ enum Item {
     Datapack(String),
     /// `!world flat|normal [structures]`: the world type of both servers (default flat, no structures).
     World(String, bool),
+    /// `!send <packet> ...`: a serverbound play packet sent as the bot (`@bot0 !send ...` as Bot0).
+    Send(usize, Box<ServerboundPlayPacket>),
+    /// `!suggest <text>`: a `command_suggestion` request as the bot (`@bot0 !suggest ...` as Bot0).
+    Suggest(usize, String),
+    /// `!file <path>`: the gzip NBT file at `path` (relative to the server directory) as pretty SNBT.
+    File(String),
 }
 
 #[derive(Debug, Clone)]
@@ -128,6 +139,13 @@ fn parse_corpus(file: &str, text: &str) -> Res<Vec<Line>> {
                     };
                     Item::World(format!("minecraft:{kind}"), structures)
                 }
+                "send" | "suggest" => parse_bot_directive(word, arg, 0).map_err(at)?,
+                "file" => {
+                    if arg.is_empty() {
+                        return Err(at("!file needs a path".into()));
+                    }
+                    Item::File(arg.to_string())
+                }
                 "known" => {
                     if arg.is_empty() {
                         return Err(at("!known needs the reason".into()));
@@ -148,10 +166,18 @@ fn parse_corpus(file: &str, text: &str) -> Res<Vec<Line>> {
                 }
                 _ => return Err(at(format!("unknown directive !{word}"))),
             }
-        } else if let Some(rest) = line.strip_prefix("@bot0 ") {
-            Item::Player(1, rest.trim_start_matches('/').to_string())
-        } else if let Some(rest) = line.strip_prefix("@bot ") {
-            Item::Player(0, rest.trim_start_matches('/').to_string())
+        } else if let Some((bot, rest)) = line
+            .strip_prefix("@bot0 ")
+            .map(|r| (1, r))
+            .or_else(|| line.strip_prefix("@bot ").map(|r| (0, r)))
+        {
+            match rest
+                .strip_prefix('!')
+                .map(|d| d.split_once(' ').unwrap_or((d, "")))
+            {
+                Some((word, arg)) => parse_bot_directive(word, arg.trim(), bot).map_err(at)?,
+                None => Item::Player(bot, rest.trim_start_matches('/').to_string()),
+            }
         } else if line.starts_with('@') {
             return Err(at("unknown `@` prefix (use `@bot ` or `@bot0 `)".into()));
         } else {
@@ -160,7 +186,13 @@ fn parse_corpus(file: &str, text: &str) -> Res<Vec<Line>> {
         if known.is_some()
             && !matches!(
                 item,
-                Item::Console(_) | Item::Player(..) | Item::Join(_) | Item::Leave(_)
+                Item::Console(_)
+                    | Item::Player(..)
+                    | Item::Join(_)
+                    | Item::Leave(_)
+                    | Item::Send(..)
+                    | Item::Suggest(..)
+                    | Item::File(_)
             )
         {
             return Err(at("`!known` must be followed by a command".into()));
@@ -177,6 +209,140 @@ fn parse_corpus(file: &str, text: &str) -> Res<Vec<Line>> {
         return Err(format!("{file}: `!known {k}` is not followed by a command"));
     }
     Ok(out)
+}
+
+/// `!send` and `!suggest`, which a bot prefix (`@bot0 !send ...`) may address to another bot.
+fn parse_bot_directive(word: &str, arg: &str, bot: usize) -> Result<Item, String> {
+    match word {
+        "send" => parse_send(arg).map(|p| Item::Send(bot, Box::new(p))),
+        "suggest" if !arg.is_empty() => Ok(Item::Suggest(bot, unquote(arg))),
+        "suggest" => Err("!suggest needs the text to complete".into()),
+        _ => Err(format!("!{word} cannot follow a bot prefix")),
+    }
+}
+
+/// The text of a `"quoted"` argument (`\"` and `\\` escape), or the argument itself when it is not quoted.
+fn unquote(text: &str) -> String {
+    let Some(inner) = text.strip_prefix('"').and_then(|t| t.strip_suffix('"')) else {
+        return text.to_string();
+    };
+    let mut out = String::new();
+    let mut chars = inner.chars();
+    while let Some(c) = chars.next() {
+        match (c, chars.clone().next()) {
+            ('\\', Some(n @ ('"' | '\\'))) => {
+                out.push(n);
+                chars.next();
+            }
+            _ => out.push(c),
+        }
+    }
+    out
+}
+
+fn parse_pos(words: &[&str]) -> Result<mc_core::pos::block_pos::BlockPos, String> {
+    let n = |i: usize| -> Result<i32, String> {
+        let w = words.get(i).ok_or("the position needs X Y Z")?;
+        w.parse().map_err(|_| format!("`{w}` is not a coordinate"))
+    };
+    Ok(mc_core::pos::block_pos::BlockPos::new(n(0)?, n(1)?, n(2)?))
+}
+
+/// `!send set_test_block X Y Z MODE "message"` and
+/// `!send test_instance_block_action X Y Z ACTION [key=<id>] [size=X,Y,Z] [rotation=<name>] [ignore=<bool>]
+/// [status=<name>]` (the data of the packet starts as the client's empty one: no test, size 0 0 0, no rotation, entities
+/// kept, status cleared).
+fn parse_send(arg: &str) -> Result<ServerboundPlayPacket, String> {
+    let (kind, rest) = arg.split_once(' ').unwrap_or((arg, ""));
+    match kind {
+        "set_test_block" => {
+            let mut words = rest.trim_start().splitn(5, ' ');
+            let head: Vec<&str> = words.by_ref().take(4).collect();
+            let position = parse_pos(&head)?;
+            let mode = match head.get(3).copied() {
+                Some("start") => TestBlockMode::Start,
+                Some("log") => TestBlockMode::Log,
+                Some("fail") => TestBlockMode::Fail,
+                Some("accept") => TestBlockMode::Accept,
+                other => {
+                    return Err(format!(
+                        "test block mode must be start|log|fail|accept, got {other:?}"
+                    ));
+                }
+            };
+            Ok(ServerboundPlayPacket::SetTestBlock(
+                ServerboundSetTestBlockPacket {
+                    position,
+                    mode,
+                    message: unquote(words.next().unwrap_or("").trim()),
+                },
+            ))
+        }
+        "test_instance_block_action" => {
+            let words: Vec<&str> = rest.split_whitespace().collect();
+            let pos = parse_pos(&words)?;
+            let action = match words.get(3).copied() {
+                Some("init") => ServerboundTestInstanceBlockActionPacketAction::Init,
+                Some("query") => ServerboundTestInstanceBlockActionPacketAction::Query,
+                Some("set") => ServerboundTestInstanceBlockActionPacketAction::Set,
+                Some("reset") => ServerboundTestInstanceBlockActionPacketAction::Reset,
+                Some("save") => ServerboundTestInstanceBlockActionPacketAction::Save,
+                Some("export") => ServerboundTestInstanceBlockActionPacketAction::Export,
+                Some("run") => ServerboundTestInstanceBlockActionPacketAction::Run,
+                other => return Err(format!("unknown test instance action {other:?}")),
+            };
+            let mut data = TestInstanceBlockEntityData {
+                test: None,
+                size: mc_core::pos::vec3i::Vec3i::ZERO,
+                rotation: mc_core::rotation::Rotation::None,
+                ignore_entities: false,
+                status: TestInstanceBlockEntityStatus::Cleared,
+                error_message: None,
+            };
+            for kv in &words[4..] {
+                let (key, value) = kv
+                    .split_once('=')
+                    .ok_or(format!("`{kv}` is not key=value"))?;
+                let bad = || format!("bad value in `{kv}`");
+                match key {
+                    "key" => {
+                        data.test =
+                            Some(mc_core::ident::Identifier::read(value).map_err(|_| bad())?)
+                    }
+                    "size" => {
+                        let n: Vec<i32> = value
+                            .split(',')
+                            .map(|v| v.parse().map_err(|_| bad()))
+                            .collect::<Result<_, _>>()?;
+                        let [x, y, z] = n[..] else { return Err(bad()) };
+                        data.size = mc_core::pos::vec3i::Vec3i::new(x, y, z);
+                    }
+                    "rotation" => {
+                        data.rotation =
+                            mc_core::rotation::Rotation::by_name(value).ok_or_else(bad)?
+                    }
+                    "ignore" => data.ignore_entities = value.parse().map_err(|_| bad())?,
+                    "status" => {
+                        data.status = match value {
+                            "cleared" => TestInstanceBlockEntityStatus::Cleared,
+                            "running" => TestInstanceBlockEntityStatus::Running,
+                            "finished" => TestInstanceBlockEntityStatus::Finished,
+                            _ => return Err(bad()),
+                        }
+                    }
+                    _ => {
+                        return Err(format!(
+                            "unknown key `{key}` (key|size|rotation|ignore|status)"
+                        ));
+                    }
+                }
+            }
+            Ok(ServerboundPlayPacket::TestInstanceBlockAction(
+                ServerboundTestInstanceBlockActionPacket { pos, action, data },
+            ))
+        }
+        _ => Err("!send needs set_test_block or test_instance_block_action".into()),
+    }
 }
 
 // ---- normalization ----------------------------------------------------------------------------------------------
@@ -438,6 +604,8 @@ struct Side {
     bots: [Option<Bot>; 2],
     log_off: usize,
     marker: u32,
+    /// Id of the next `command_suggestion` request.
+    suggest_id: i32,
     frozen: bool,
     ignore: Vec<Regex>,
     sort: Vec<Regex>,
@@ -657,6 +825,69 @@ impl Side {
         self.finish(m, header, n, who).await
     }
 
+    /// Sends `packet` as bot `i`, followed by a marker command on the same connection (so the packet is handled first).
+    /// `reply` = `(packet name, start of its debug form)` of an answer the server sends later than the marker, which is
+    /// waited for (10 s at most) before the marker.
+    async fn issue_packet(
+        &mut self,
+        i: usize,
+        packet: ServerboundPlayPacket,
+        reply: Option<(&str, String)>,
+        header: String,
+    ) -> Res<Seg> {
+        let Some(bot) = &self.bots[i] else {
+            return Ok(Seg {
+                header,
+                lines: vec![format!("{}| (not connected: packet not sent)", BOTS[i])],
+                known: None,
+            });
+        };
+        self.marker += 1;
+        let n = self.marker;
+        let m = self.mark();
+        bot.send(packet);
+        if let Some((name, prefix)) = reply {
+            let start = Instant::now();
+            while start.elapsed() < Duration::from_secs(10)
+                && !bot.shared.log.lock().is_ok_and(|l| {
+                    l.entries()
+                        .iter()
+                        .skip(m.pkt[i])
+                        .any(|e| e.dir == Dir::In && e.name == name && e.debug.starts_with(&prefix))
+                })
+            {
+                tokio::time::sleep(Duration::from_millis(15)).await;
+            }
+        }
+        bot.command(&format!("me {MARKER} {n}"));
+        self.finish(m, header, n, Some(i)).await
+    }
+
+    /// `!file`: the SNBT of a gzip NBT file of the server directory, one `file| ` line per SNBT line.
+    fn file_segment(&self, path: &str, header: String) -> Seg {
+        let path = self.srv.dir().join(path);
+        let lines = if !path.exists() {
+            vec!["file| (missing)".to_string()]
+        } else {
+            match mc_nbt::nbt_io::read_compressed_file(
+                &path,
+                &mut mc_nbt::NbtAccounter::unlimited_heap(),
+            ) {
+                Ok(tag) => mc_nbt::snbt::print_pretty(&mc_nbt::Tag::Compound(tag))
+                    .into_string_lossy()
+                    .lines()
+                    .map(|l| format!("file| {l}"))
+                    .collect(),
+                Err(e) => vec![format!("file| (unreadable: {e})")],
+            }
+        };
+        Seg {
+            header,
+            lines,
+            known: None,
+        }
+    }
+
     async fn gametime(&mut self) -> Res<i64> {
         let seg = self
             .issue(None, Some("time query gametime"), String::new())
@@ -722,6 +953,30 @@ impl Side {
                     .retain(|l| !TIME_QUERY.is_match(l) && !l.contains("commands.time.query"));
                 Ok(Some(seg))
             }
+            Item::Send(i, packet) => self
+                .issue_packet(*i, (**packet).clone(), None, header)
+                .await
+                .map(Some),
+            Item::Suggest(i, text) => {
+                self.suggest_id += 1;
+                let packet =
+                    ServerboundPlayPacket::CommandSuggestion(ServerboundCommandSuggestionPacket {
+                        id: self.suggest_id,
+                        command: text.clone(),
+                    });
+                // answered by the next connection tick, after the marker
+                let reply = (
+                    "command_suggestions",
+                    format!(
+                        "CommandSuggestions(ClientboundCommandSuggestionsPacket {{ id: {}, ",
+                        self.suggest_id
+                    ),
+                );
+                self.issue_packet(*i, packet, Some(reply), header)
+                    .await
+                    .map(Some)
+            }
+            Item::File(path) => Ok(Some(self.file_segment(path, header))),
             Item::Datapack(_) | Item::World(..) => Ok(None),
             Item::Ignore(r) => {
                 self.ignore.push(Regex::new(r).expect("checked at parse"));
@@ -823,6 +1078,7 @@ async fn run_side(ours: bool, o: &Opts, tag: &str, lines: &[Line]) -> Res<SideOu
         bots: [None, None],
         log_off: 0,
         marker: 0,
+        suggest_id: 0,
         frozen: false,
         ignore: Vec::new(),
         sort: Vec::new(),
@@ -1265,6 +1521,94 @@ mod tests {
         assert!(parse_corpus("x", "!known why\n!respawn Bot").is_err());
         assert!(parse_corpus("x", "!known why").is_err());
         assert!(parse_corpus("x", "@alice hi").is_err());
+    }
+
+    #[test]
+    fn send_suggest_and_file_directives() {
+        let t = "!send set_test_block 1 -60 2 log \"say \\\"hi\\\" \\\\\"\n\
+                 !send set_test_block 0 0 0 accept \"\"\n\
+                 @bot0 !send test_instance_block_action 3 4 5 set key=gt:pass size=1,2,3 rotation=clockwise_90 ignore=true status=finished\n\
+                 @bot !send test_instance_block_action -1 2 3 query\n\
+                 !suggest /test run a\n\
+                 @bot0 !suggest \"test run \"\n\
+                 !file world/generated/gt/structure/x.nbt\n";
+        let items: Vec<Item> = parse_corpus("x", t)
+            .unwrap()
+            .into_iter()
+            .map(|l| l.item)
+            .collect();
+        let pos = |x, y, z| mc_core::pos::block_pos::BlockPos::new(x, y, z);
+        let block = |position, mode, message: &str| {
+            Item::Send(
+                0,
+                Box::new(ServerboundPlayPacket::SetTestBlock(
+                    ServerboundSetTestBlockPacket {
+                        position,
+                        mode,
+                        message: message.into(),
+                    },
+                )),
+            )
+        };
+        assert_eq!(
+            items[0],
+            block(pos(1, -60, 2), TestBlockMode::Log, "say \"hi\" \\")
+        );
+        assert_eq!(items[1], block(pos(0, 0, 0), TestBlockMode::Accept, ""));
+        let Item::Send(1, packet) = &items[2] else {
+            panic!("{:?}", items[2])
+        };
+        let ServerboundPlayPacket::TestInstanceBlockAction(a) = &**packet else {
+            panic!("{packet:?}")
+        };
+        assert_eq!(a.pos, pos(3, 4, 5));
+        assert_eq!(
+            a.action,
+            ServerboundTestInstanceBlockActionPacketAction::Set
+        );
+        assert_eq!(
+            a.data.test.as_ref().map(ToString::to_string).as_deref(),
+            Some("gt:pass")
+        );
+        assert_eq!(a.data.size, mc_core::pos::vec3i::Vec3i::new(1, 2, 3));
+        assert_eq!(a.data.rotation, mc_core::rotation::Rotation::Clockwise90);
+        assert!(a.data.ignore_entities);
+        assert_eq!(a.data.status, TestInstanceBlockEntityStatus::Finished);
+        let Item::Send(0, packet) = &items[3] else {
+            panic!("{:?}", items[3])
+        };
+        let ServerboundPlayPacket::TestInstanceBlockAction(q) = &**packet else {
+            panic!("{packet:?}")
+        };
+        assert_eq!(
+            q.action,
+            ServerboundTestInstanceBlockActionPacketAction::Query
+        );
+        assert_eq!(q.data.size, mc_core::pos::vec3i::Vec3i::ZERO);
+        assert_eq!(q.data.test, None);
+        assert_eq!(items[4], Item::Suggest(0, "/test run a".into()));
+        assert_eq!(items[5], Item::Suggest(1, "test run ".into()));
+        assert_eq!(
+            items[6],
+            Item::File("world/generated/gt/structure/x.nbt".into())
+        );
+        for bad in [
+            "!send",
+            "!send nothing",
+            "!send set_test_block 1 2 log hi",
+            "!send set_test_block 1 2 3 sideways hi",
+            "!send test_instance_block_action 1 2 3 jump",
+            "!send test_instance_block_action 1 2 3 set size=1,2",
+            "!send test_instance_block_action 1 2 3 set rotation=left",
+            "!send test_instance_block_action 1 2 3 set what=1",
+            "!suggest",
+            "!file",
+            "@bot !file x",
+            "@bot0 !send",
+        ] {
+            assert!(parse_corpus("x", bad).is_err(), "{bad}");
+        }
+        assert!(parse_corpus("x", "!known why\n!file a.nbt").is_ok());
     }
 
     #[test]

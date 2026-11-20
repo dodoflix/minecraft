@@ -45,6 +45,15 @@
 #   !join <Bot|Bot0>   (re)connect that bot (e.g. after `kick Bot`); output = join log + messages
 #   !respawn <Bot|Bot0> a dead bot respawns (client request); output dropped, follow with `!ticks`
 #   !leave <Bot|Bot0>  disconnect that bot
+#   !send <packet>     a serverbound play packet as Bot (`@bot0 !send ...`: as Bot0), followed by a marker on the same connection;
+#                      an answer the server sends in a later tick lands in the next segment. Packets:
+#                      `set_test_block X Y Z start|log|fail|accept "message"` and
+#                      `test_instance_block_action X Y Z init|query|set|reset|save|export|run [key=<test id>] [size=X,Y,Z]
+#                      [rotation=none|clockwise_90|180|counterclockwise_90] [ignore=<bool>] [status=cleared|running|finished]`
+#   !suggest <text>    a `command_suggestion` request as Bot (`@bot0 !suggest ...`; text as the client sends it, a "quoted" text
+#                      keeps trailing blanks), waits for the answer with that request id; record it with `!packets command_suggestions`
+#   !file <path>       the gzip NBT file `<path>` of the server directory as pretty SNBT, one `file| ` line per line (`(missing)`
+#                      when it does not exist)
 # Segmentation: each command is followed by a marker (`say @@END n` from the console; `me @@END n` sent by the
 # SAME bot for @bot/@bot0 commands (level 0, so it works for Bot0; same packet type, hence processed right after the command)). The command's output is
 # everything before the marker in the server log, and in each bot's chat stream, which is why the order is robust and

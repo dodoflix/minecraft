@@ -1051,3 +1051,23 @@ log| System chat: Could not find any tests to clear
 ### [gametest_cmd.txt:126] test locate always_pass
 log| System chat: Started locating test structures. This might take a while...
 log| System chat: Found no test instances
+### [gametest_cmd.txt:130] @bot !suggest /test run always
+Bot| packet command_suggestions CommandSuggestions(ClientboundCommandSuggestionsPacket { id: 1, start: 10, length: 6, suggestions: [ClientboundCommandSuggestionsEntry { text: "always_pass", tooltip: None }] })
+### [gametest_cmd.txt:131] @bot !suggest "/test run "
+Bot| packet command_suggestions CommandSuggestions(ClientboundCommandSuggestionsPacket { id: 2, start: 10, length: 0, suggestions: [ClientboundCommandSuggestionsEntry { text: "always_pass", tooltip: None }] })
+### [gametest_cmd.txt:132] @bot !suggest /test
+Bot| packet command_suggestions CommandSuggestions(ClientboundCommandSuggestionsPacket { id: 3, start: 0, length: 0, suggestions: [] })
+### [gametest_cmd.txt:133] @bot !suggest test r
+Bot| packet command_suggestions CommandSuggestions(ClientboundCommandSuggestionsPacket { id: 4, start: 5, length: 1, suggestions: [ClientboundCommandSuggestionsEntry { text: "resetclosest", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "resetthat", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "resetthese", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "run", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "runclosest", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "runfailed", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "runmultiple", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "runthat", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "runthese", tooltip: None }] })
+### [gametest_cmd.txt:134] @bot !suggest /gamemode c
+Bot| packet command_suggestions CommandSuggestions(ClientboundCommandSuggestionsPacket { id: 5, start: 10, length: 1, suggestions: [ClientboundCommandSuggestionsEntry { text: "creative", tooltip: None }] })
+### [gametest_cmd.txt:135] @bot0 !suggest "/test "
+Bot0| packet command_suggestions CommandSuggestions(ClientboundCommandSuggestionsPacket { id: 6, start: 0, length: 0, suggestions: [] })
+### [gametest_cmd.txt:136] @bot0 !suggest /t
+Bot0| packet command_suggestions CommandSuggestions(ClientboundCommandSuggestionsPacket { id: 7, start: 1, length: 1, suggestions: [ClientboundCommandSuggestionsEntry { text: "tag", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "team", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "teammsg", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "teleport", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "tell", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "tellraw", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "test", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "tick", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "time", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "title", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "tm", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "tp", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "transfer", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "trigger", tooltip: None }] })
+### [gametest_cmd.txt:137] @bot !send set_test_block 5 5 5 accept "no block here"
+
+### [gametest_cmd.txt:138] @bot !send test_instance_block_action 5 5 5 save key=foo:bar size=1,1,1
+
+### [gametest_cmd.txt:139] !file world/generated/foo/structure/bar.nbt
+file| (missing)

@@ -11,9 +11,9 @@ use crate::commands::arguments::message_argument::MessageArgument;
 use crate::commands::command_signing_context::CommandSigningContext;
 use crate::server::chat::signed_message::DecodeException;
 use crate::server::chat::{LastSeenMessages, PlayerChatMessage, SignedMessageBody};
-use mc_brigadier::ImmutableStringReader;
 use mc_brigadier::context::CommandContextBuilder;
 use mc_brigadier::dispatcher::ParseResults;
+use mc_brigadier::{ImmutableStringReader, StringReader};
 use mc_protocol::packets::play::{
     ClientboundCommandSuggestionsEntry, ClientboundCommandSuggestionsPacket,
     ClientboundSystemChatPacket, LastSeenMessagesUpdate, ServerboundChatAckPacket,
@@ -509,14 +509,18 @@ impl PlayCtx<'_> {
             return;
         };
         lis.suggestion_budget = false;
-        let command = command.strip_prefix('/').unwrap_or(&command).to_owned();
+        // the reader skips the slash like vanilla's, so the suggestion range counts it
+        let mut reader = StringReader::new(command.as_str());
+        if reader.can_read() && reader.peek() == '/' {
+            reader.skip();
+        }
         let commands = self.server.commands.clone();
         let Some(source) = self.create_command_source_stack() else {
             return;
         };
         let suggestions = crate::commands::server_access::enter_server(self.server, || {
             let dispatcher = commands.get_dispatcher();
-            let parse = dispatcher.parse(&command, source);
+            let parse = dispatcher.parse_reader(reader, source);
             dispatcher.get_completion_suggestions(&parse)
         });
         let range = suggestions.get_range();
