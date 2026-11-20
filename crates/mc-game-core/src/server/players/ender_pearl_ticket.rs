@@ -5,6 +5,7 @@
 
 use crate::server::MinecraftServer;
 use crate::server::level::{AnyDimensionEntity, ServerLevel, TicketType};
+use crate::world::block_entity::problem_reporter;
 use crate::world::entity::factory::{self, EntitySpawnRequest};
 use crate::world::entity::projectile::throwableitemprojectile::thrown_enderpearl::ThrownEnderpearl;
 use crate::world::entity::{EntityId, ServerPlayer};
@@ -221,7 +222,7 @@ pub fn load_and_spawn_ender_pearls(
         .and_then(|e| e.as_any_mut().downcast_mut::<ServerPlayer>())
         .map(|p| std::mem::take(&mut p.saved_ender_pearls))
         .unwrap_or_default();
-    for tag in saved {
+    for (index, tag) in saved {
         let Some(dimension) = tag
             .get_string("ender_pearl_dimension")
             .and_then(|s| Identifier::parse(s).ok())
@@ -229,9 +230,9 @@ pub fn load_and_spawn_ender_pearls(
             continue;
         };
         let spawned = if dimension == level.dimension {
-            spawn_ender_pearl(level, &tag)
+            spawn_ender_pearl(level, &tag, index)
         } else if let Some(spawned) =
-            server.with_level(&dimension, |_, other| spawn_ender_pearl(other, &tag))
+            server.with_level(&dimension, |_, other| spawn_ender_pearl(other, &tag, index))
         {
             spawned
         } else {
@@ -256,12 +257,16 @@ pub fn load_and_spawn_ender_pearls(
 fn spawn_ender_pearl(
     level: &mut ServerLevel,
     tag: &CompoundTag,
+    index: usize,
 ) -> Option<(EntityId, Option<Uuid>)> {
     let request = EntitySpawnRequest {
         reason: EntitySpawnReason::Load,
         ignore_checks: false,
     };
-    let Some(pearl) = factory::create_and_load(tag, level, request) else {
+    let Some(pearl) = problem_reporter::with_child(
+        || format!(".ender_pearls[{index}]"),
+        || factory::create_and_load(tag, level, request),
+    ) else {
         log::warn!(
             "Failed to spawn player ender pearl in level ({}), skipping",
             level.dimension

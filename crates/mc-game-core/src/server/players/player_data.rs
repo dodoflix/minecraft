@@ -11,7 +11,7 @@ use mc_nbt::CompoundTag;
 pub struct LoadedPlayerData {
     /// The whole compound (`None` for a first-time player).
     pub data: Option<CompoundTag>,
-    /// `ServerPlayer.SavedPosition` (`EMPTY` for a first-time player or an unreadable position).
+    /// `ServerPlayer.SavedPosition` (`EMPTY` for a first-time player; the fields that decode for a damaged file).
     pub position: SavedPosition,
 }
 

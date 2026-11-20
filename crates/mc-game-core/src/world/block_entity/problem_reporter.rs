@@ -118,9 +118,14 @@ fn tree_report(root: &str, problems: Vec<(Vec<String>, String)>) -> String {
     tree.lines().join("\n")
 }
 
-/// Runs `f` with a collector rooted at `root` open and logs its problems under `logger` when it ends
-/// (`ProblemReporter.ScopedCollector.close`, `getTreeReport`).
-pub fn with_scoped_collector<R>(logger: &str, root: &str, f: impl FnOnce() -> R) -> R {
+/// Runs `f` with a collector open and logs its problems under `logger` when it ends (`ProblemReporter.ScopedCollector.close`,
+/// `getTreeReport`). `root` names the root element and is evaluated at that point, like the lazy `PathElement.get`: an
+/// entity's path shows where the entity is by then.
+pub fn with_scoped_collector<R>(
+    logger: &str,
+    root: impl FnOnce() -> String,
+    f: impl FnOnce() -> R,
+) -> R {
     let outer = PROBLEMS.with(|collector| {
         collector.borrow_mut().replace(Collector {
             path: Vec::new(),
@@ -134,7 +139,7 @@ pub fn with_scoped_collector<R>(logger: &str, root: &str, f: impl FnOnce() -> R)
     if !problems.is_empty() {
         log::warn!(
             "[{logger}] Serialization errors:\n{}",
-            tree_report(root, problems)
+            tree_report(&root(), problems)
         );
     }
     result
@@ -155,7 +160,7 @@ pub fn with_block_entity_collector<R>(
         pos.y(),
         pos.z()
     );
-    with_scoped_collector(logger, &root, f)
+    with_scoped_collector(logger, || root, f)
 }
 
 /// `ChunkAccess.problemPath(pos)`.

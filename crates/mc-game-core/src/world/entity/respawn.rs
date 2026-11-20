@@ -1,6 +1,8 @@
 //! `ServerPlayer.RespawnConfig`, `RespawnPosAngle`, `SavedPosition` and the respawn-position search
 //! (`findRespawnAndUseSpawnBlock` joins once `ServerLevel` implements `BlockGetter`).
 
+use crate::world::block_entity::read_map_codec;
+use crate::world::item::enchantment::codecs::{vec2_codec, vec3_codec};
 use crate::world::level::DimensionKey;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
@@ -8,6 +10,7 @@ use mc_core::phys::{Vec2, Vec3};
 use mc_core::pos::BlockPos;
 use mc_nbt::{CompoundTag, Tag};
 use mc_world::level_storage::RespawnData;
+use std::sync::LazyLock;
 
 /// `ServerPlayer.RespawnConfig(respawnData, forced)`.
 #[derive(Clone, Debug, PartialEq)]
@@ -88,48 +91,23 @@ impl SavedPosition {
         rotation: None,
     };
 
-    /// `MAP_CODEC` decode through `ValueInput.read`: a present-but-invalid field fails the whole codec (caller then
-    /// uses `EMPTY`).
+    /// `SavedPosition.MAP_CODEC`.
+    fn map_codec() -> &'static mc_dfu::MapCodec<SavedPosition> {
+        static CODEC: LazyLock<mc_dfu::MapCodec<SavedPosition>> = LazyLock::new(|| {
+            mc_dfu::record!(SavedPosition {
+                dimension: mc_dfu::extra::IDENTIFIER.optional_field_of("Dimension"),
+                position: vec3_codec().optional_field_of("Pos"),
+                rotation: vec2_codec().optional_field_of("Rotation"),
+            })
+        });
+        &CODEC
+    }
+
+    /// `tag.read(MAP_CODEC).orElse(EMPTY)`: a failed decode keeps its partial value, and is reported to the open
+    /// [`problem_reporter`](crate::world::block_entity::problem_reporter) scope.
     pub fn read(tag: &CompoundTag) -> SavedPosition {
-        Self::try_read(tag).unwrap_or(Self::EMPTY)
+        read_map_codec(tag, Self::map_codec()).unwrap_or(Self::EMPTY)
     }
-
-    fn try_read(tag: &CompoundTag) -> Option<SavedPosition> {
-        let dimension = match tag.get("Dimension") {
-            None => None,
-            Some(t) => Some(Identifier::try_parse(t.as_string()?)?),
-        };
-        let position = match tag.get("Pos") {
-            None => None,
-            Some(t) => {
-                let n = fixed_numbers(t, 3)?;
-                Some(Vec3::new(n[0], n[1], n[2]))
-            }
-        };
-        let rotation = match tag.get("Rotation") {
-            None => None,
-            Some(t) => {
-                let n = fixed_numbers(t, 2)?;
-                Some(Vec2::new(n[0] as f32, n[1] as f32))
-            }
-        };
-        Some(SavedPosition {
-            dimension,
-            position,
-            rotation,
-        })
-    }
-}
-
-/// `Codec.DOUBLE.listOf()` of exactly `n` numbers (`Util.fixedSize`).
-fn fixed_numbers(tag: &Tag, n: usize) -> Option<Vec<f64>> {
-    let list = tag.as_list()?;
-    if list.len() != n {
-        return None;
-    }
-    list.iter()
-        .map(|t| t.as_number().map(|x| x.double_value()))
-        .collect()
 }
 
 /// `ServerPlayer.RespawnPosAngle`.
@@ -189,7 +167,7 @@ mod tests {
     }
 
     #[test]
-    fn saved_position_is_all_or_nothing_per_codec() {
+    fn saved_position_keeps_the_fields_that_decode() {
         let mut c = CompoundTag::new();
         c.put_string("Dimension", "minecraft:overworld");
         c.put(
@@ -203,11 +181,13 @@ mod tests {
         let p = SavedPosition::read(&c);
         assert_eq!(p.position, Some(Vec3::new(1.5, 64.0, -3.0)));
         assert!(p.dimension.is_some() && p.rotation.is_none());
-        // wrong list size invalidates the whole codec (vanilla falls back to EMPTY)
+        // a field that fails to decode is left out, the others are kept (`OptionalFieldCodec` returns a partial result)
         c.put(
             "Rotation",
             Tag::List([Tag::float(1.0)].into_iter().collect()),
         );
-        assert_eq!(SavedPosition::read(&c), SavedPosition::EMPTY);
+        let partial = SavedPosition::read(&c);
+        assert_eq!(partial.position, Some(Vec3::new(1.5, 64.0, -3.0)));
+        assert!(partial.dimension.is_some() && partial.rotation.is_none());
     }
 }

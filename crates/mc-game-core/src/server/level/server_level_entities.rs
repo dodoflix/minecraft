@@ -874,7 +874,7 @@ impl ServerLevel {
             // `EntityStorage.loadEntities`: the entities load under a collector of the chunk
             let entities = problem_reporter::with_scoped_collector(
                 "net.minecraft.world.level.chunk.storage.EntityStorage",
-                &problem_reporter::chunk_root(chunk.get_pos()),
+                || problem_reporter::chunk_root(chunk.get_pos()),
                 || {
                     let mut entities = crate::world::entity::factory::load_entity_list(
                         chunk.get_entities(),

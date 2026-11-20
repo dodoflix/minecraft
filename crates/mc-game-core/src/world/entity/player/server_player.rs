@@ -3,6 +3,7 @@
 use super::PlayerData;
 use crate::server::level::ServerLevel;
 use crate::server::network::ConnectionSender;
+use crate::world::block_entity::list_or_empty;
 use crate::world::entity::entity::{self, Entity, EntityData, EntityLookupFn};
 use crate::world::entity::living::{self, LivingEntityData};
 use crate::world::entity::respawn::RespawnConfig;
@@ -136,8 +137,9 @@ pub struct ServerPlayer {
     /// `enderPearls`: the pearls this player threw that are still registered, each with the level it is in (a pearl
     /// that went through a portal is a new entity in another level).
     pub ender_pearls: Vec<PearlRef>,
-    /// The `ender_pearls` tags of the loaded player data: `loadAndSpawnEnderPearls` consumes them on join.
-    pub saved_ender_pearls: Vec<CompoundTag>,
+    /// The `ender_pearls` tags of the loaded player data with their index in the list: `loadAndSpawnEnderPearls` consumes
+    /// them on join.
+    pub saved_ender_pearls: Vec<(usize, CompoundTag)>,
     pub post_effects_dirty: bool,
     pub shoulder_entity_left: CompoundTag,
     pub shoulder_entity_right: CompoundTag,
@@ -1317,11 +1319,9 @@ impl Entity for ServerPlayer {
             living::read_additional_save_data(&mut self.player.living, level, input);
         self.player.inventory.equipment_mut().set_all(&equipment);
         // Player
-        if let Some(list) = input.get_list("Inventory") {
-            self.player.inventory.load(list);
-        } else {
-            self.player.inventory.load(&ListTag::new());
-        }
+        self.player
+            .inventory
+            .load(list_or_empty(input, "Inventory"));
         let _ = self
             .player
             .inventory
@@ -1330,11 +1330,11 @@ impl Entity for ServerPlayer {
             use crate::world::container::Container;
             let chest = &mut self.player.ender_chest;
             chest.clear_content();
-            if let Some(list) = input.get_list("EnderItems") {
-                for (slot, stack) in crate::world::container::load_slots(list) {
-                    if slot < chest.get_container_size() {
-                        chest.set_item(slot, stack);
-                    }
+            for (slot, stack) in
+                crate::world::container::load_slots(list_or_empty(input, "EnderItems"))
+            {
+                if slot < chest.get_container_size() {
+                    chest.set_item(slot, stack);
                 }
             }
         }
@@ -1423,7 +1423,12 @@ impl Entity for ServerPlayer {
         );
         self.saved_ender_pearls = input
             .get_list("ender_pearls")
-            .map(|l| l.iter().filter_map(|t| t.as_compound().cloned()).collect())
+            .map(|l| {
+                l.iter()
+                    .enumerate()
+                    .filter_map(|(i, t)| t.as_compound().map(|t| (i, t.clone())))
+                    .collect()
+            })
             .unwrap_or_default();
         self.saved_dimension = input
             .get_string("Dimension")

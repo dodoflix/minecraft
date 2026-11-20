@@ -4,9 +4,9 @@
 use std::cell::Cell;
 
 use mc_core::ident::Identifier;
-use mc_core::phys::Vec3;
+use mc_core::phys::{Vec2, Vec3};
 use mc_core::pos::Vec3i;
-use mc_dfu::{Codec, DOUBLE, DataResult, INT_STREAM};
+use mc_dfu::{Codec, DOUBLE, DataResult, FLOAT, INT_STREAM};
 use mc_protocol::components::holder::{Holder, HolderSet};
 use mc_protocol::registry_context as global;
 
@@ -196,11 +196,16 @@ pub fn registry_set_codec<T: mc_data::registry::RegistryId>()
 /// `Vec3.CODEC`: a list of exactly three doubles.
 pub fn vec3_codec() -> Codec<Vec3> {
     DOUBLE.list_of().comap_flat_map(
-        |list| match mc_dfu::extra::fixed_size(list, 3) {
-            DataResult::Success(l) => DataResult::success(Vec3::new(l[0], l[1], l[2])),
-            DataResult::Error { message, .. } => DataResult::error_msg(message, None),
-        },
+        |list| mc_dfu::extra::fixed_size(list, 3).map(|l| Vec3::new(l[0], l[1], l[2])),
         |v: &Vec3| vec![v.x, v.y, v.z],
+    )
+}
+
+/// `Vec2.CODEC`: a list of exactly two floats.
+pub fn vec2_codec() -> Codec<Vec2> {
+    FLOAT.list_of().comap_flat_map(
+        |list| mc_dfu::extra::fixed_size(list, 2).map(|l| Vec2::new(l[0], l[1])),
+        |v: &Vec2| vec![v.x, v.y],
     )
 }
 

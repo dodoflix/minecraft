@@ -11,6 +11,7 @@ use super::vec_delta_codec::VecDeltaCodec;
 use super::{EntityId, MoverType, RemovalReason};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
+use crate::world::block_entity::read_codec;
 use mc_core::math::mth;
 use mc_core::phys::{AABB, Vec2, Vec3};
 use mc_core::pos::chunk_pos::ChunkPos;
@@ -5322,9 +5323,14 @@ pub fn load<E: Entity + ?Sized>(
     level: Option<&ServerLevel>,
     input: &CompoundTag,
 ) -> Result<(), String> {
-    let pos = read_vec3(input.get(TAG_POS)).unwrap_or(Vec3::ZERO);
-    let motion = read_vec3(input.get(TAG_MOTION)).unwrap_or(Vec3::ZERO);
-    let rotation = read_vec2(input.get(TAG_ROTATION)).unwrap_or(Vec2::ZERO);
+    static VEC3: std::sync::LazyLock<mc_dfu::Codec<Vec3>> =
+        std::sync::LazyLock::new(crate::world::item::enchantment::codecs::vec3_codec);
+    static VEC2: std::sync::LazyLock<mc_dfu::Codec<Vec2>> =
+        std::sync::LazyLock::new(crate::world::item::enchantment::codecs::vec2_codec);
+    // `input.read(key, codec)`: a failed decode is reported to the open problem scope
+    let pos = read_codec(input, TAG_POS, &VEC3).unwrap_or(Vec3::ZERO);
+    let motion = read_codec(input, TAG_MOTION, &VEC3).unwrap_or(Vec3::ZERO);
+    let rotation = read_codec(input, TAG_ROTATION, &VEC2).unwrap_or(Vec2::ZERO);
     {
         let b = entity.base_mut();
         let m = |v: f64| if v.abs() > 10.0 { 0.0 } else { v };

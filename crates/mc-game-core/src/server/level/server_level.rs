@@ -401,7 +401,7 @@ impl ServerLevel {
                     // `ChunkStatusTasks.full`: `postLoadProtoChunk` under a collector of the chunk
                     problem_reporter::with_scoped_collector(
                         "net.minecraft.world.level.chunk.status.ChunkStatusTasks",
-                        &problem_reporter::chunk_root(pos),
+                        || problem_reporter::chunk_root(pos),
                         || {
                             let mut entities = crate::world::entity::factory::load_entity_list(
                                 &world_gen_entities,
@@ -441,7 +441,7 @@ impl ServerLevel {
                 // `SerializableChunkData.postLoadChunk`: the entities load under a collector of the chunk
                 problem_reporter::with_scoped_collector(
                     "net.minecraft.world.level.chunk.storage.SerializableChunkData",
-                    &problem_reporter::chunk_root(pos),
+                    || problem_reporter::chunk_root(pos),
                     || {
                         let mut entities = crate::world::entity::factory::load_entity_list(
                             &tags,

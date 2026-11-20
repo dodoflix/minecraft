@@ -7,6 +7,7 @@ use super::ender_pearl_ticket::load_and_spawn_ender_pearls;
 use super::join::{ListenerParams, place_new_player};
 use super::name_and_id::NameAndId;
 use super::server_join_host::ServerJoinHost;
+use crate::commands::host::entity_to_string;
 use crate::server::MinecraftServer;
 use crate::server::level::player_spawn_finder::{
     FindSpawn, PlayerSpawnFinder, Step, fixup_spawn_height,
@@ -18,6 +19,7 @@ use crate::server::network::hooks::ServerHandle;
 use crate::server::network::pending_player::PendingPlayer;
 use crate::server::network::server_network_hooks::PrepareSpawnFactory;
 use crate::server::world_dimensions::overworld_key;
+use crate::world::block_entity::problem_reporter;
 use crate::world::entity::entity::Entity;
 use crate::world::entity::factory::{self, EntitySpawnRequest};
 use crate::world::entity::{EntityId, ServerPlayer};
@@ -28,7 +30,11 @@ use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::enums::{EntitySpawnReason, GameType};
 use mc_nbt::CompoundTag;
 use mc_protocol::codec::GameProfile;
+use std::cell::RefCell;
 use std::sync::Arc;
+
+/// The logger of `PrepareSpawnTask`, which names its problem reports.
+const PREPARE_SPAWN_LOGGER: &str = "net.minecraft.server.network.config.PrepareSpawnTask";
 
 /// `PrepareSpawnTask.PREPARE_CHUNK_RADIUS`.
 const PREPARE_CHUNK_RADIUS: i32 = 3;
@@ -107,9 +113,12 @@ impl PrepareSpawnTask {
 
     /// `PrepareSpawnTask.start`.
     fn start_world(&mut self, server: &mut MinecraftServer) {
-        let loaded = server
-            .player_list
-            .load_player_data_with_position(&self.name_and_id);
+        let loaded =
+            problem_reporter::with_scoped_collector(PREPARE_SPAWN_LOGGER, String::new, || {
+                server
+                    .player_list
+                    .load_player_data_with_position(&self.name_and_id)
+            });
         self.saved = loaded.data;
         let respawn = server.world_data.lock().respawn_data.clone();
         let level = loaded
@@ -322,57 +331,77 @@ impl PrepareSpawn for PrepareSpawnTask {
         let saved = self.saved.take();
         let profile = self.profile.clone();
         let result = server.with_level(&ready.level, |server, level| -> Result<(), TaskError> {
-            let mut player = ServerPlayer::new(
-                level.next_entity_id(),
-                ready.level.clone(),
-                profile,
-                pending.cookie.client_information.clone(),
-            );
-            if server.is_demo {
-                player.use_demo_mode();
-            }
-            let loaded_mode = saved
-                .as_ref()
-                .and_then(|t| t.get("playerGameType"))
-                .and_then(|t| t.as_number())
-                .map(|n| game_type_by_id(n.int_value()));
-            let previous = player.game_mode.previous_game_mode_for_player;
-            if let Some(tag) = &saved {
-                player.load(level, tag)?;
-                player
-                    .recipe_book
-                    .retain_known(&server.shared.recipe_manager());
-            }
-            let previous = if saved.is_some() {
-                player.game_mode.previous_game_mode_for_player
-            } else {
-                previous
-            };
-            let mode = calculate_game_mode_for_new_player(server, loaded_mode);
-            player.set_game_mode_for_player(mode, previous);
-            player.snap_to(
-                ready.position.x,
-                ready.position.y,
-                ready.position.z,
-                ready.angle.x,
-                ready.angle.y,
-            );
-            let settings = server.player_list.settings.clone();
-            let params = ListenerParams {
-                remote_address: pending.sender.remote_address(),
-                cookie: pending.cookie,
-                now_ms: crate::server::network::connection::get_millis(),
-                command_spam_threshold_seconds: server.get_command_spam_threshold_seconds(),
-                chat_spam_threshold_seconds: server.get_chat_spam_threshold_seconds(),
-                memory_connection: false,
-                inbound: pending.inbound,
-                enforce_secure_profile: Arc::new(move || settings.enforces_secure_profile()),
-            };
-            let mut host = ServerJoinHost { server, level };
-            let handle = place_new_player(&mut host, player, pending.sender, params);
-            load_and_spawn_ender_pearls(server, level, handle.id);
-            load_and_spawn_parent_vehicle(level, handle.id);
-            Ok(())
+            // `PrepareSpawnTask.spawn`: `ScopedCollector(player.problemPath(), LOGGER)`, closed after the ender pearls and the
+            // vehicle load; the path is the player's `Entity.toString()` at that point
+            let level_name = server.world_data.lock().settings.level_name.clone();
+            let root = RefCell::new(String::new());
+            problem_reporter::with_scoped_collector(
+                PREPARE_SPAWN_LOGGER,
+                || root.borrow().clone(),
+                || -> Result<(), TaskError> {
+                    let mut player = ServerPlayer::new(
+                        level.next_entity_id(),
+                        ready.level.clone(),
+                        profile,
+                        pending.cookie.client_information.clone(),
+                    );
+                    *root.borrow_mut() = entity_to_string(&player, &level_name);
+                    if server.is_demo {
+                        player.use_demo_mode();
+                    }
+                    let loaded_mode = saved
+                        .as_ref()
+                        .and_then(|t| t.get("playerGameType"))
+                        .and_then(|t| t.as_number())
+                        .map(|n| game_type_by_id(n.int_value()));
+                    let previous = player.game_mode.previous_game_mode_for_player;
+                    if let Some(tag) = &saved {
+                        let loaded = player.load(level, tag);
+                        *root.borrow_mut() = entity_to_string(&player, &level_name);
+                        loaded?;
+                        player
+                            .recipe_book
+                            .retain_known(&server.shared.recipe_manager());
+                    }
+                    let previous = if saved.is_some() {
+                        player.game_mode.previous_game_mode_for_player
+                    } else {
+                        previous
+                    };
+                    let mode = calculate_game_mode_for_new_player(server, loaded_mode);
+                    player.set_game_mode_for_player(mode, previous);
+                    player.snap_to(
+                        ready.position.x,
+                        ready.position.y,
+                        ready.position.z,
+                        ready.angle.x,
+                        ready.angle.y,
+                    );
+                    *root.borrow_mut() = entity_to_string(&player, &level_name);
+                    let settings = server.player_list.settings.clone();
+                    let params = ListenerParams {
+                        remote_address: pending.sender.remote_address(),
+                        cookie: pending.cookie,
+                        now_ms: crate::server::network::connection::get_millis(),
+                        command_spam_threshold_seconds: server.get_command_spam_threshold_seconds(),
+                        chat_spam_threshold_seconds: server.get_chat_spam_threshold_seconds(),
+                        memory_connection: false,
+                        inbound: pending.inbound,
+                        enforce_secure_profile: Arc::new(move || {
+                            settings.enforces_secure_profile()
+                        }),
+                    };
+                    let mut host = ServerJoinHost { server, level };
+                    let handle = place_new_player(&mut host, player, pending.sender, params);
+                    load_and_spawn_ender_pearls(server, level, handle.id);
+                    load_and_spawn_parent_vehicle(level, handle.id);
+                    // riding a vehicle moves the player: the path is read when the scope closes
+                    if let Some(player) = level.get_entity(handle.id) {
+                        *root.borrow_mut() = entity_to_string(player, &level_name);
+                    }
+                    Ok(())
+                },
+            )
         });
         result.unwrap_or_else(|| Err("the spawn level is unavailable".into()))
     }
@@ -396,7 +425,15 @@ pub fn load_and_spawn_parent_vehicle(level: &mut ServerLevel, player: EntityId) 
         ignore_checks: false,
     };
     let mut loaded = Vec::new();
-    factory::load_entity_recursive(tag, level, request, &mut loaded);
+    problem_reporter::with_child(
+        || ".RootVehicle".to_owned(),
+        || {
+            problem_reporter::with_child(
+                || ".Entity".to_owned(),
+                || factory::load_entity_recursive(tag, level, request, &mut loaded),
+            );
+        },
+    );
     // `loadEntityRecursive` yields nothing when the root cannot be created
     let members: Vec<(EntityId, uuid::Uuid)> = loaded.iter().map(|e| (e.id(), e.uuid())).collect();
     if members.is_empty() || !level.try_add_fresh_entity_with_passengers(loaded) {

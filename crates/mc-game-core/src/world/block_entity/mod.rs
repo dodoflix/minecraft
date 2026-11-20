@@ -549,6 +549,37 @@ pub fn read_codec<A: 'static>(tag: &CompoundTag, key: &str, codec: &mc_dfu::Code
     result.result_or_partial()
 }
 
+/// `ValueInput.read(codec)` of a map codec over the whole compound: the decoded value, or the partial value of a failed
+/// decode; a failed decode is reported to the open [`problem_reporter`] scope.
+pub fn read_map_codec<A: 'static>(tag: &CompoundTag, codec: &mc_dfu::MapCodec<A>) -> Option<A> {
+    let input = mc_dfu::Dyn::from(&mc_nbt::Tag::Compound(tag.clone()));
+    let result = mc_dfu::NBT
+        .get_map(&input)
+        .flat_map(|map| codec.decode(&mc_dfu::NBT, &map));
+    if let Some(error) = result.error_message() {
+        problem_reporter::report(|| format!("Failed to decode from map: {error}"));
+    }
+    result.result_or_partial()
+}
+
+/// `ValueInput.listOrEmpty(key, codec)`'s lookup: the list at `key`, empty when it is absent or not a list (`UnexpectedTypeProblem`,
+/// reported to the open [`problem_reporter`] scope).
+///
+/// shortcut: the failed decodes of the elements (`DecodeFromListFailedProblem`) are not reported, extend when a corpus needs them.
+pub fn list_or_empty<'a>(tag: &'a CompoundTag, key: &str) -> &'a mc_nbt::ListTag {
+    if let Some(value) = tag.get(key)
+        && value.as_list().is_none()
+    {
+        problem_reporter::report(|| {
+            format!(
+                "Expected field '{key}' to contain value of type LIST, but got {}",
+                mc_nbt::Tag::type_name(value.id())
+            )
+        });
+    }
+    tag.get_list_or_empty(key)
+}
+
 /// A registered block entity type implementation.
 pub struct BlockEntityRegistration {
     pub ty: BlockEntityType,

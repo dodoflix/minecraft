@@ -215,3 +215,62 @@ async fn playerdata_matches_vanilla() {
         report.join("\n")
     );
 }
+
+/// The `Serialization errors` reports of a server log, each as `[logger] Serialization errors:` and the lines under it.
+fn serialization_reports(log: &str) -> Vec<String> {
+    let mut reports: Vec<String> = Vec::new();
+    let mut open = false;
+    for line in log.lines() {
+        if line.starts_with('[') {
+            let message = line.split_once("]: ").map(|(_, message)| message);
+            open = message.is_some_and(|m| m.contains("] Serialization errors:"));
+            if let Some(message) = message.filter(|_| open) {
+                reports.push(message.to_owned());
+            }
+        } else if open && let Some(report) = reports.last_mut() {
+            report.push('\n');
+            report.push_str(line);
+        }
+    }
+    reports
+}
+
+/// A player file whose `Pos` is not a list and whose `Inventory` is not a list: the join logs the decode problems of the
+/// position (read twice, before the player exists and by `Entity.load`) and of the inventory, with the paths of the
+/// reports.
+#[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
+async fn player_load_problems_match_vanilla() {
+    let mut seed = snbt::parse_compound(r#"{Pos:"x",Inventory:5,Rotation:[1.0f]}"#).expect("seed");
+    seed.put_int(
+        "DataVersion",
+        mc_world::region::entity_storage::CURRENT_DATA_VERSION,
+    );
+    // a flat world without structures: the report names the id of the player and the position it was put at, which a
+    // generated world makes differ (entities created while it generates, the height of the terrain at the spawn)
+    let props = ["level-type=minecraft:flat", "generate-structures=false"];
+    let mut reports = Vec::new();
+    for vanilla_side in [true, false] {
+        let seed = seed.clone();
+        let builder = if vanilla_side {
+            vanilla(12345, "survival", &props)
+        } else {
+            ours(12345, "survival", &props)
+        };
+        let server = builder
+            .prepare(move |dir| write_seed(dir, &seed))
+            .start()
+            .expect("server");
+        server.cmd("gamerule respawn_radius 0");
+        server
+            .wait_log("respawn_radius", 30)
+            .expect("the gamerule is set");
+        let bot = join("127.0.0.1", server.port, "Bot").await;
+        let log = server.log();
+        bot.disconnect().await;
+        server.stop();
+        reports.push(serialization_reports(&log));
+    }
+    assert!(!reports[0].is_empty(), "the real server logged nothing");
+    assert_eq!(reports[0], reports[1], "vanilla / ours");
+}
