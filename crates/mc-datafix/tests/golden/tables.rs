@@ -97,6 +97,24 @@ fn block_state_data_dump_has_the_vanilla_shape() {
 }
 
 #[test]
+fn block_state_data_slots_share_the_objects_vanilla_shares() {
+    let same =
+        |a: i32, b: i32| std::ptr::eq(block_state_data::get_tag(a), block_state_data::get_tag(b));
+    // data values 7 to 15 of stone (slots 23 to 31) hold the object of its first registered state (slot 16)
+    assert!(same(23, 16) && same(31, 16));
+    assert!(!same(17, 16), "granite is a state of its own");
+    // an id no block registers falls back to the state of slot 0
+    assert!(same(-1, 0) && same(100_000, 0));
+    // the dump names for every slot the lowest slot that holds the identical object
+    let first = tables::table("block_state_data").field("MAP_FIRST");
+    assert_eq!(first.entries.len(), 4096);
+    for (slot, entry) in first.entries.iter().enumerate() {
+        let target = entry.value.as_ref().and_then(Tag::as_int).expect("int");
+        assert!(target <= slot as i32, "slot {slot} names a later slot");
+    }
+}
+
+#[test]
 fn block_state_data_accessors_equal_the_recording() {
     for (args, result) in rows("BlockStateData.getTag") {
         let id: i32 = args[0].parse().expect("id");

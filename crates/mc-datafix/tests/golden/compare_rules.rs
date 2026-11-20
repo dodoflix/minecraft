@@ -89,6 +89,24 @@ fn the_same_tree_in_another_key_order_is_order_only() {
 }
 
 #[test]
+fn the_key_order_of_block_state_properties_is_not_compared() {
+    let keys = reordered_pair();
+    let state = |properties: CompoundTag| {
+        let mut state = CompoundTag::new();
+        state.put("Name", "minecraft:lever");
+        state.put("Properties", properties);
+        state
+    };
+    let (a, b) = (state(plain(&keys)), state(grown(&keys)));
+    assert_eq!(compare(&ok(a), &ok(b)), Ok(()));
+    let other = |inner: CompoundTag| compound! { "Name" => "minecraft:lever", "Other" => inner };
+    assert_eq!(
+        compare(&ok(other(plain(&keys))), &ok(other(grown(&keys)))),
+        Err(Mismatch::OrderOnly)
+    );
+}
+
+#[test]
 fn exceptions_compare_by_class_and_message() {
     let tag = compound! { "a" => 1i8 };
     assert!(matches!(

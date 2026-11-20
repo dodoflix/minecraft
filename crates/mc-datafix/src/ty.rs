@@ -1474,6 +1474,7 @@ impl Type {
             TaggedChoice(tc) => tc
                 .types
                 .iter()
+                .rev()
                 .find_map(|(_, t)| t.find_checked_type(index)),
             RecursivePoint { index: i, .. } => self.unfold().find_checked_type(*i),
             _ => None,
@@ -1511,6 +1512,7 @@ impl Type {
             TaggedChoice(tc) => tc
                 .types
                 .iter()
+                .rev()
                 .find_map(|(_, t)| t.find_field_type_opt(name)),
             RecursivePoint { .. } => self.unfold().find_field_type_opt(name),
             _ => None,
@@ -1575,9 +1577,12 @@ impl Type {
                 }
             }
             Hook { delegate, .. } => delegate.point(ops),
+            // `types.entrySet().stream()` (the `values().stream()` of the two finders below too): the spliterator of a
+            // fastutil open hash map walks the table upwards, the iterator downwards
             TaggedChoice(tc) => tc
                 .types
                 .iter()
+                .rev()
                 .find_map(|(k, t)| t.point(ops).map(|v| Value::named(k.clone(), v))),
             RecursivePoint { .. } => self.unfold().point(ops),
         }

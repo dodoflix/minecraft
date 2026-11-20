@@ -111,6 +111,17 @@ public class TableDump {
       Object v = f.get(null);
       if (v == null) throw new IllegalStateException(c.getName() + "." + f.getName() + " is null");
       dumpField(out, f.getName(), v);
+      if (c.getSimpleName().equals("BlockStateData") && f.getName().equals("MAP")) {
+        // MAP_FIRST: per slot the lowest slot holding the identical object (-1 for a null slot); ChunkPalettedStorageFix compares states by identity
+        Object[] slots = (Object[]) v;
+        Map<Object, Integer> first = new IdentityHashMap<>();
+        int[] shared = new int[slots.length];
+        for (int i = 0; i < slots.length; i++) {
+          Integer j = slots[i] == null ? null : first.putIfAbsent(slots[i], i);
+          shared[i] = slots[i] == null ? -1 : j == null ? i : j;
+        }
+        dumpField(out, "MAP_FIRST", shared);
+      }
       dumped++;
     }
     if (dumped == 0) throw new IllegalStateException("no table field in " + c.getName());

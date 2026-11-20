@@ -121,13 +121,46 @@ fn describe(s: &Status) -> String {
     }
 }
 
+/// The key order of the `Properties` of every block state (a compound holding a string `Name` and a compound
+/// `Properties`) is sorted. Vanilla builds the legacy block states of `BlockStateData` and `ChunkPalettedStorageFix`
+/// from immutable `Map.of` maps, whose iteration order changes with every JVM run: the key order of those `Properties`
+/// differs between two runs of vanilla itself, so only the rest of the key order is compared.
+fn sort_block_state_properties(tag: &mut Tag) {
+    match tag {
+        Tag::Compound(c) => {
+            let is_block_state = matches!(c.get("Name"), Some(Tag::String(_)));
+            if is_block_state && let Some(Tag::Compound(properties)) = c.get_mut("Properties") {
+                let mut entries: Vec<(String, Tag)> = properties
+                    .iter()
+                    .map(|(k, v)| (k.clone(), v.clone()))
+                    .collect();
+                entries.sort_by(|a, b| a.0.cmp(&b.0));
+                *properties = entries.into_iter().collect();
+            }
+            c.values_mut().for_each(sort_block_state_properties);
+        }
+        Tag::List(l) => l.iter_mut().for_each(sort_block_state_properties),
+        _ => {}
+    }
+}
+
+/// Whether the two results (their `NbtIo` bytes) come in the same key order apart from the `Properties` of block states.
+fn same_order_but_block_state_properties(vanilla: &[u8], ours: &[u8]) -> bool {
+    let read = |bytes: &[u8]| {
+        let mut tag = Tag::Compound(read_tag(bytes).expect("a result is NBT"));
+        sort_block_state_properties(&mut tag);
+        tag
+    };
+    first_order_difference(&read(vanilla), &read(ours)).is_none()
+}
+
 pub fn compare(vanilla: &Outcome, ours: &Outcome) -> Result<(), Mismatch> {
     match (&vanilla.status, &ours.status) {
         (Status::Ok { tag: vt, bytes: vb }, Status::Ok { tag: ot, bytes: ob }) => {
             if vt != ot {
                 return Err(Mismatch::TreeDiffers);
             }
-            if vb != ob {
+            if vb != ob && !same_order_but_block_state_properties(vb, ob) {
                 return Err(Mismatch::OrderOnly);
             }
         }

@@ -45,6 +45,9 @@ impl LegacyKey {
 struct Data {
     /// `MAP` after `finalizeMaps`: a slot is `None` where no block of its id is registered.
     map: Vec<Option<Tag>>,
+    /// Per slot the lowest slot that holds the identical `Dynamic` in vanilla (an unregistered data value shares the
+    /// object of its block's first registered state), `-1` for a `None` slot.
+    first: Vec<i32>,
     id_by_old: HashMap<LegacyKey, i32>,
     id_by_old_name: HashMap<String, i32>,
 }
@@ -58,6 +61,13 @@ static DATA: LazyLock<Data> = LazyLock::new(|| {
         .map(|e| e.value.clone())
         .collect();
     assert_eq!(map.len(), 4096, "BlockStateData.MAP has 4096 slots");
+    let first: Vec<i32> = t
+        .field("MAP_FIRST")
+        .entries
+        .iter()
+        .map(|e| e.value.as_ref().and_then(Tag::as_int).expect("slot index"))
+        .collect();
+    assert_eq!(first.len(), 4096, "one identity slot per map slot");
     let old_states = &t.field("ID_BY_OLD").entries;
     let id_by_old: HashMap<LegacyKey, i32> = old_states
         .iter()
@@ -75,6 +85,7 @@ static DATA: LazyLock<Data> = LazyLock::new(|| {
         .collect();
     Data {
         map,
+        first,
         id_by_old,
         id_by_old_name,
     }
@@ -82,7 +93,8 @@ static DATA: LazyLock<Data> = LazyLock::new(|| {
 
 fn slot(id: i32) -> Option<&'static Tag> {
     let i = usize::try_from(id).ok()?;
-    DATA.map.get(i)?.as_ref()
+    let first = usize::try_from(*DATA.first.get(i)?).ok()?;
+    DATA.map[first].as_ref()
 }
 
 fn name_of(tag: &Tag) -> &str {
@@ -115,6 +127,8 @@ pub fn upgrade_block_id(id: i32) -> &'static str {
 }
 
 /// `getTag(id)`: the block state of a legacy slot, the one of slot 0 (air) for an unregistered or out of range one.
+/// Slots that vanilla fills with the same object return the same reference: two states are the same palette entry of
+/// `ChunkPalettedStorageFix` only when they are the same object.
 pub fn get_tag(id: i32) -> &'static Tag {
     slot(id).unwrap_or_else(|| slot(0).expect("slot 0 is registered"))
 }
