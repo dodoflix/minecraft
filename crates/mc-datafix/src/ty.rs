@@ -327,6 +327,29 @@ impl Rest {
 
 type Decoded = DataResult<(Value, Rest)>;
 
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum DecodeMode {
+    Idle,
+    Running,
+    /// The outermost read failed: build the messages with the map dumps (see [`Type::decode`]).
+    WithMapDumps,
+}
+
+thread_local! {
+    static DECODE_MODE: std::cell::Cell<DecodeMode> = const { std::cell::Cell::new(DecodeMode::Idle) };
+}
+
+/// `"No key {name} in MapLike[{map}]"`; the map is dumped only in the second pass of [`Type::decode`].
+fn no_key_error<A>(name: &str, map: &mc_dfu::MapLike<'_>) -> DataResult<A> {
+    let name = name.to_string();
+    if DECODE_MODE.get() == DecodeMode::WithMapDumps {
+        let map = map.to_string();
+        DataResult::error(move || format!("No key {name} in {map}"))
+    } else {
+        DataResult::error(move || format!("No key {name} in MapLike[..]"))
+    }
+}
+
 fn singleton(kind: TypeKind) -> Type {
     Type::new(kind)
 }
@@ -720,7 +743,31 @@ impl Type {
     // ---- codec --------------------------------------------------------------------------------------------------
 
     /// `type.codec().decode(ops, input)`.
+    /// `type.decode(ops, input)`. Error messages that dump the map they failed on (`No key x in MapLike[..]`) cost a copy
+    /// of the whole map, and a failed `Tag` read is the normal way an `optional(..)` field is found absent, so the first
+    /// pass builds them without the dump; when the outermost read fails it is run again with the dumps, which are the
+    /// messages Java prints.
     pub(crate) fn decode(&self, ops: &Ops, input: &Dyn) -> Decoded {
+        if DECODE_MODE.get() != DecodeMode::Idle {
+            return self.decode_body(ops, input);
+        }
+        struct Reset;
+        impl Drop for Reset {
+            fn drop(&mut self) {
+                DECODE_MODE.set(DecodeMode::Idle);
+            }
+        }
+        let _reset = Reset;
+        DECODE_MODE.set(DecodeMode::Running);
+        let result = self.decode_body(ops, input);
+        if result.is_success() {
+            return result;
+        }
+        DECODE_MODE.set(DecodeMode::WithMapDumps);
+        self.decode_body(ops, input)
+    }
+
+    fn decode_body(&self, ops: &Ops, input: &Dyn) -> Decoded {
         use TypeKind::*;
         match &self.0.kind {
             Primitive(p) => p.read(ops, input).map(|v| (v, Rest::Val(Dyn::Empty))),
@@ -775,10 +822,7 @@ impl Type {
             CompoundList(key, element) => decode_compound_list(key, element, ops, input),
             Tag(name, element) => match ops.get_map(input) {
                 DataResult::Success(map) => match map.get(name) {
-                    None => {
-                        let n = name.clone();
-                        DataResult::error(move || format!("No key {n} in MapLike[..]"))
-                    }
+                    None => no_key_error(name, &map),
                     Some(v) => element.decode(ops, v).map(|(a, _)| (a, Rest::Same)),
                 },
                 DataResult::Error { message, .. } => DataResult::error_msg(message, None),
@@ -817,10 +861,7 @@ impl Type {
                     }
                 };
                 let key = match map.get(&tc.name) {
-                    None => {
-                        let n = tc.name.clone();
-                        return DataResult::error(move || format!("No key {n} in MapLike[..]"));
-                    }
+                    None => return no_key_error(&tc.name, &map),
                     Some(k) => match tc.key_type.decode(ops, k) {
                         DataResult::Success((k, _)) => k,
                         DataResult::Error { message, .. } => {

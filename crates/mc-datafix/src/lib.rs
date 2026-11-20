@@ -15,8 +15,7 @@
 //! *optimizer* is not ported (performance only). Everything is `Send + Sync`.
 //!
 //! Deviations (all unobservable in vanilla): `findType(.., recurse = true)` through a recursive family (used by no
-//! vanilla fix), `TypeTemplate.findFieldOrType/applyO/toSimpleType`, `Type.updateMu`, `DataFixerBuilder.Result.optimize`,
-//! codec error *messages* for missing keys (`No key X in MapLike[..]` has no map dump).
+//! vanilla fix), `TypeTemplate.findFieldOrType/applyO/toSimpleType`, `Type.updateMu`, `DataFixerBuilder.Result.optimize`.
 //!
 //! # How to port Java DFU code
 //! Names keep the Java names in snake_case; a Java `Typed<?>` is [`typed::Typed`], `OpticFinder<T>` is

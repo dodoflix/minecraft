@@ -187,10 +187,7 @@ fn update_starts(starts: Dynamic, chunk: &Dynamic) -> Dynamic {
                     key.as_string_or("<missing key>")
                 ),
                 Some(new_key) => {
-                    if !new_map.contains_key(&new_key) {
-                        let new_start = start.set("id", new_key.clone());
-                        new_map.insert(new_key, new_start);
-                    }
+                    new_map.compute_if_absent(new_key, |new_key| start.set("id", new_key.clone()));
                 }
             }
         }
@@ -208,18 +205,15 @@ fn update_references(references: Dynamic, chunk: &Dynamic) -> Dynamic {
                     "Encountered unknown structure in datafixer: {}",
                     key.as_string_or("<missing key>")
                 ),
-                Some(new_key) => {
-                    let merged = match new_map.get(&new_key) {
-                        None => ref_list,
-                        Some(old_ref_list) => ref_list.create_long_list(
-                            old_ref_list
-                                .as_long_stream()
-                                .into_iter()
-                                .chain(ref_list.as_long_stream()),
-                        ),
-                    };
-                    new_map.insert(new_key, merged);
-                }
+                Some(new_key) => new_map.compute(new_key, |_, old_ref_list| match old_ref_list {
+                    None => ref_list.clone(),
+                    Some(old_ref_list) => ref_list.create_long_list(
+                        old_ref_list
+                            .as_long_stream()
+                            .into_iter()
+                            .chain(ref_list.as_long_stream()),
+                    ),
+                }),
             }
         }
     }
