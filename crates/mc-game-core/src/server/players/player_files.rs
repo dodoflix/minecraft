@@ -56,17 +56,42 @@ pub(crate) fn read_strict_json(file: &Path) -> Result<JsonElement, JsonFileError
         .map_err(JsonFileError::Open)?
         .read_to_end(&mut bytes)
         .map_err(|e| JsonFileError::Reader(JavaException::read_failure(&e)))?;
-    let text = String::from_utf8(bytes).map_err(|e| {
-        let length = e
-            .utf8_error()
-            .error_len()
-            .unwrap_or(e.as_bytes().len() - e.utf8_error().valid_up_to());
-        JsonFileError::Reader(JavaException::new(
-            "java.nio.charset.MalformedInputException",
-            format!("Input length = {length}"),
-        ))
-    })?;
-    gson::parse_strict_json_parser(&text).map_err(JsonFileError::Parse)
+    match String::from_utf8(bytes) {
+        Ok(text) => gson::parse_strict_json_parser(&text).map_err(JsonFileError::Parse),
+        Err(e) => {
+            let valid = &e.as_bytes()[..e.utf8_error().valid_up_to()];
+            let delivered = delivered_before_malformed(std::str::from_utf8(valid).expect("valid"));
+            match gson::parse_strict_json_parser_then_fail(delivered) {
+                // a `null` document is complete before the parser looks further
+                Ok(element) => Ok(element),
+                Err(Some(syntax)) => Err(JsonFileError::Parse(syntax)),
+                // the parser needed a character that the decoder never delivered
+                Err(None) => Err(JsonFileError::Reader(JavaException::malformed_input(&e))),
+            }
+        }
+    }
+}
+
+/// What the `BufferedReader` over the decoder of a file delivers before the decoder fails on malformed input: a read
+/// decodes up to 8192 chars and throws on the malformed input it meets, so the chars of that read are lost with it.
+/// `valid` is the text before the malformed input.
+fn delivered_before_malformed(valid: &str) -> &str {
+    const READ: usize = 8192;
+    let (mut units, mut end) = (0, 0);
+    for (at, c) in valid.char_indices() {
+        let width = c.len_utf16();
+        if units + width > READ {
+            // a surrogate pair that does not fit ends the read early
+            end = at;
+            units = 0;
+        }
+        units += width;
+        if units == READ {
+            end = at + c.len_utf8();
+            units = 0;
+        }
+    }
+    &valid[..end]
 }
 
 /// `PlayerList.locateStatsFile`: `<uuid>.json`, migrating a legacy `<name>.json` (`FileUtil.isValidPathSegment`).

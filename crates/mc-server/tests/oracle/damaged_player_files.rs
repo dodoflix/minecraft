@@ -70,6 +70,11 @@ fn cases() -> Vec<(&'static str, &'static str, String)> {
         // the bytes are written by the test: UTF-8 is malformed
         ("stats", "invalid_utf8", String::new()),
         ("advancements", "invalid_utf8", String::new()),
+        ("stats", "late_invalid_utf8", String::new()),
+        ("stats", "syntax_error_before_late_invalid_utf8", String::new()),
+        ("advancements", "late_invalid_utf8", String::new()),
+        ("advancements", "syntax_error_before_late_invalid_utf8", String::new()),
+        ("stats", "invalid_utf8_after_document", String::new()),
         (
             "stats",
             "duplicate_keys",
@@ -104,6 +109,26 @@ fn cases() -> Vec<(&'static str, &'static str, String)> {
             r#"{"minecraft:story/root":{"criteria":{"crafting_table":"yesterday"},"done":true},"DataVersion":1343}"#.to_owned(),
         ),
     ]
+}
+
+/// The files whose text is not UTF-8, which the cases cannot hold as strings. The decoder fails on a read of 8192 chars,
+/// so a failure late in a file only shows when the parser needs the chars of that read.
+fn invalid_utf8_bytes(name: &str) -> Option<Vec<u8>> {
+    let padded = |text: &str, spaces: usize| {
+        let mut bytes = text.as_bytes().to_vec();
+        bytes.extend(std::iter::repeat_n(b' ', spaces));
+        bytes.extend([0xff, 0xfe]);
+        bytes
+    };
+    Some(match name {
+        "invalid_utf8" => b"{\"a\":\"\xff\xfe\"}".to_vec(),
+        // a whole document, and then more than a read of blanks before the bad bytes
+        "late_invalid_utf8" => padded("{}", 9000),
+        "syntax_error_before_late_invalid_utf8" => padded("{\"a\":,", 9000),
+        // the bad bytes in the first read, after the document: nothing of that read is delivered
+        "invalid_utf8_after_document" => padded("{}", 100),
+        _ => return None,
+    })
 }
 
 fn player_name(index: usize) -> String {
@@ -192,11 +217,7 @@ fn damaged_player_files() {
     let cases: Vec<(&'static str, &'static str, Vec<u8>)> = cases()
         .into_iter()
         .map(|(folder, name, text)| {
-            let bytes = if name == "invalid_utf8" {
-                b"{\"a\":\"\xff\xfe\"}".to_vec()
-            } else {
-                text.into_bytes()
-            };
+            let bytes = invalid_utf8_bytes(name).unwrap_or_else(|| text.into_bytes());
             (folder, name, bytes)
         })
         .collect();

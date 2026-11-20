@@ -441,6 +441,29 @@ pub fn parse_strict_json_parser<T: JsonText + ?Sized>(text: &T) -> Result<JsonEl
     Ok(element)
 }
 
+/// `StrictJsonParser.parse(Reader)` over a reader that delivers `text` and then fails with an `IOException`: `Err(None)`
+/// is that failure, thrown wherever the parser needs a character beyond `text`; a syntax error before it is `Err(Some)`.
+pub fn parse_strict_json_parser_then_fail<T: JsonText + ?Sized>(
+    text: &T,
+) -> Result<JsonElement, Option<JsonError>> {
+    let mut r = Reader::new(text.to_units(), Strictness::Strict);
+    r.source_fails_at_end = true;
+    let failed = |e: ReadErr| (e.message != SOURCE_FAILED).then(|| e.into_error());
+    let element = match r.peek() {
+        Err(e) if e.eof => JsonElement::Null,
+        Err(e) => return Err(failed(e)),
+        Ok(_) => r.read_element().map_err(failed)?,
+    };
+    if element != JsonElement::Null {
+        match r.peek() {
+            Ok(Token::EndDocument) => {}
+            Ok(_) => return Err(Some(JsonError::new("Did not consume the entire document."))),
+            Err(e) => return Err(failed(e)),
+        }
+    }
+    Ok(element)
+}
+
 /// `GsonHelper.parse(String)`: strict, must be a JSON object.
 pub fn parse_object_strict<T: JsonText + ?Sized>(text: &T) -> Result<JsonObject, JsonError> {
     match parse(text, false)? {
@@ -640,6 +663,9 @@ impl ReadErr {
 
 type RResult<T> = Result<T, ReadErr>;
 
+/// The `message` of the error that stands for the failing reader of [`parse_strict_json_parser_then_fail`].
+const SOURCE_FAILED: &str = "\0source failed";
+
 const PEEKED_NONE: u8 = 0;
 const PEEKED_BEGIN_OBJECT: u8 = 1;
 const PEEKED_END_OBJECT: u8 = 2;
@@ -675,6 +701,8 @@ const DEFAULT_NESTING_LIMIT: usize = 255;
 struct Reader {
     buf: Vec<u16>,
     pos: usize,
+    /// The reader fails, instead of ending, where the text ends (`fillBuffer` throws).
+    source_fails_at_end: bool,
     strictness: Strictness,
     line_number: usize,
     line_start: usize,
@@ -697,6 +725,7 @@ impl Reader {
         Reader {
             buf,
             pos: bom,
+            source_fails_at_end: false,
             strictness,
             line_number: 0,
             line_start: bom,
@@ -711,6 +740,17 @@ impl Reader {
 
     fn limit(&self) -> usize {
         self.buf.len()
+    }
+
+    /// `fillBuffer` at the end of the text: the end of the input, or the failure of the reader.
+    fn fill_fails(&self) -> RResult<()> {
+        if self.source_fails_at_end {
+            return Err(ReadErr {
+                eof: false,
+                message: SOURCE_FAILED.to_owned(),
+            });
+        }
+        Ok(())
     }
 
     fn top(&self) -> usize {
@@ -1013,6 +1053,7 @@ impl Reader {
         let length = keyword.len();
         for i in 0..length {
             if self.pos + i >= self.limit() {
+                self.fill_fails()?;
                 return Ok(0);
             }
             let c = self.buf[self.pos + i];
@@ -1020,7 +1061,9 @@ impl Reader {
                 return Ok(0);
             }
         }
-        if self.pos + length < self.limit() && self.is_literal(self.buf[self.pos + length])? {
+        if self.pos + length >= self.limit() {
+            self.fill_fails()?;
+        } else if self.is_literal(self.buf[self.pos + length])? {
             return Ok(0);
         }
         self.pos += length;
@@ -1040,6 +1083,7 @@ impl Reader {
                 return Ok(0);
             }
             if p + i == l {
+                self.fill_fails()?;
                 break;
             }
             let c = self.buf[p + i];
@@ -1251,6 +1295,7 @@ impl Reader {
             }
         }
         self.pos = p;
+        self.fill_fails()?;
         Err(self.syntax_error("Unterminated string"))
     }
 
@@ -1266,6 +1311,9 @@ impl Reader {
                 _ => i += 1,
             }
         }
+        if self.pos + i >= self.limit() && i < BUFFER_SIZE {
+            self.fill_fails()?;
+        }
         let s = JavaString::from_utf16_units(&self.buf[self.pos..self.pos + i]);
         self.pos += i;
         Ok(s)
@@ -1277,6 +1325,7 @@ impl Reader {
         loop {
             if p == l {
                 self.pos = p;
+                self.fill_fails()?;
                 if throw_on_eof {
                     return Err(ReadErr {
                         eof: true,
@@ -1297,6 +1346,7 @@ impl Reader {
                 if c == 47 {
                     self.pos = p;
                     if p == l {
+                        self.fill_fails()?;
                         return Ok(i32::from(c));
                     }
                     self.check_lenient()?;
@@ -1358,6 +1408,7 @@ impl Reader {
 
     fn read_escape_character(&mut self) -> RResult<u16> {
         if self.pos == self.limit() {
+            self.fill_fails()?;
             return Err(self.syntax_error("Unterminated escape sequence"));
         }
         let escaped = self.buf[self.pos];
@@ -1387,6 +1438,7 @@ impl Reader {
             0x74 => Ok(9),
             0x75 => {
                 if self.pos + 4 > self.limit() {
+                    self.fill_fails()?;
                     return Err(self.syntax_error("Unterminated escape sequence"));
                 }
                 let mut result: u16 = 0;
@@ -1512,6 +1564,20 @@ fn attach(container: &mut JsonElement, name: Option<JavaString>, value: JsonElem
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_failing_reader_is_met_where_the_parser_needs_more() {
+        let read = |text: &str| parse_strict_json_parser_then_fail(text);
+        assert_eq!(read("null"), Ok(JsonElement::Null));
+        for needs_more in [
+            "", "{}", "[1,2", "{\"a\":", "tr", "12", "\"abc", "\"a\\", "\"\\u12", "abc",
+        ] {
+            assert_eq!(read(needs_more), Err(None), "{needs_more:?}");
+        }
+        for wrong in ["{\"a\":,", "[1,]", "[1,2]x", "abc"] {
+            assert!(matches!(read(wrong), Err(Some(_))), "{wrong:?}");
+        }
+    }
 
     #[test]
     fn pretty_matches_gson_layout() {
