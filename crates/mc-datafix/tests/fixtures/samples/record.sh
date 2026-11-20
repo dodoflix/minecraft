@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Records STEP samples from the real vanilla fixer.
 # Usage: crates/mc-datafix/tests/fixtures/samples/record.sh NAME N [INVALID]
+# Output: crates/mc-datafix/tests/fixtures/samples/NAME.tsv.gz
 # Reads samples/NAME.spec (lines `FROM TO TYPE[,TYPE..]`, `#` comments), draws N schema-driven samples per (type, FROM)
 # with the sample generator (INVALID: fraction damaged on purpose, default 0.1), runs them through vanilla's
 # DataFixers.update and writes samples/NAME.tsv.gz: alternating lines, the batch request and vanilla's record.
