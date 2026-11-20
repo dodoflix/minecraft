@@ -179,7 +179,7 @@ pub fn read_utf(input: &mut &[u8], max_length: usize) -> DecodeResult<String> {
             "Not enough bytes in buffer, expected {len}, but got {available}"
         )));
     }
-    let s = String::from_utf8_lossy(take(input, len as usize)?).into_owned();
+    let s = mc_core::java_string::decode_utf8(take(input, len as usize)?);
     let chars = utf16_len(&s);
     if chars > max_length {
         return Err(DecodeError::Message(format!(

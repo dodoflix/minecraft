@@ -8,6 +8,7 @@ mod derive;
 mod dialog_golden;
 mod golden;
 mod item_defaults;
+mod lone_surrogate_golden;
 mod net;
 mod play_chat;
 mod play_debug;

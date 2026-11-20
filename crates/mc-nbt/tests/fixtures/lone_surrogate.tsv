@@ -1,0 +1,154 @@
+nbt_string_write		080000		""	""	0	false
+nbt_key_write		0a000001000001010001610200	a	{"":1b,a:2b}
+nbt_list_write		09080000000200000000	["",""]
+nbt_string_write	a	08000161	a	"a"	"a"	97	false
+nbt_key_write	a	0a0000010001610200	a	{a:2b}
+nbt_list_write	a	09080000000200016100026161	["a","aa"]
+nbt_string_write	\ud800	080003eda080	\ud800	"\ud800"	"\ud800"	55296	false
+nbt_key_write	\ud800	0a0000010003eda08001010001610200	\ud800,a	{a:2b,"\ud800":1b}
+nbt_list_write	\ud800	0908000000020003eda0800006eda080eda080	["\ud800","\ud800\ud800"]
+nbt_string_write	\udc00	080003edb080	\udc00	"\udc00"	"\udc00"	56320	false
+nbt_key_write	\udc00	0a0000010003edb08001010001610200	\udc00,a	{a:2b,"\udc00":1b}
+nbt_list_write	\udc00	0908000000020003edb0800006edb080edb080	["\udc00","\udc00\udc00"]
+nbt_string_write	\udbff	080003edafbf	\udbff	"\udbff"	"\udbff"	56319	false
+nbt_key_write	\udbff	0a00000100016102010003edafbf0100	a,\udbff	{a:2b,"\udbff":1b}
+nbt_list_write	\udbff	0908000000020003edafbf0006edafbfedafbf	["\udbff","\udbff\udbff"]
+nbt_string_write	\udfff	080003edbfbf	\udfff	"\udfff"	"\udfff"	57343	false
+nbt_key_write	\udfff	0a00000100016102010003edbfbf0100	a,\udfff	{a:2b,"\udfff":1b}
+nbt_list_write	\udfff	0908000000020003edbfbf0006edbfbfedbfbf	["\udfff","\udfff\udfff"]
+nbt_string_write	a\ud800b	08000561eda08062	a\ud800b	"a\ud800b"	"a\ud800b"	1807491	false
+nbt_key_write	a\ud800b	0a0000010001610201000561eda080620100	a,a\ud800b	{a:2b,"a\ud800b":1b}
+nbt_list_write	a\ud800b	090800000002000561eda08062000a61eda0806261eda08062	["a\ud800b","a\ud800ba\ud800b"]
+nbt_string_write	\ud83d\ude00	080006eda0bdedb880	\ud83d\ude00	"\ud83d\ude00"	"\ud83d\ude00"	1772899	false
+nbt_key_write	\ud83d\ude00	0a00000100016102010006eda0bdedb8800100	a,\ud83d\ude00	{a:2b,"\ud83d\ude00":1b}
+nbt_list_write	\ud83d\ude00	0908000000020006eda0bdedb880000ceda0bdedb880eda0bdedb880	["\ud83d\ude00","\ud83d\ude00\ud83d\ude00"]
+nbt_string_write	\ude00\ud83d	080006edb880eda0bd	\ude00\ud83d	"\ude00\ud83d"	"\ude00\ud83d"	1817149	false
+nbt_key_write	\ude00\ud83d	0a00000100016102010006edb880eda0bd0100	a,\ude00\ud83d	{a:2b,"\ude00\ud83d":1b}
+nbt_list_write	\ude00\ud83d	0908000000020006edb880eda0bd000cedb880eda0bdedb880eda0bd	["\ude00\ud83d","\ude00\ud83d\ude00\ud83d"]
+nbt_string_write	a\ud83d	08000461eda0bd	a\ud83d	"a\ud83d"	"a\ud83d"	58364	false
+nbt_key_write	a\ud83d	0a0000010001610201000461eda0bd0100	a,a\ud83d	{a:2b,"a\ud83d":1b}
+nbt_list_write	a\ud83d	090800000002000461eda0bd000861eda0bd61eda0bd	["a\ud83d","a\ud83da\ud83d"]
+nbt_string_write	\ude00b	080004edb88062	\ude00b	"\ude00b"	"\ude00b"	1761890	false
+nbt_key_write	\ude00b	0a00000100016102010004edb880620100	a,\ude00b	{a:2b,"\ude00b":1b}
+nbt_list_write	\ude00b	0908000000020004edb880620008edb88062edb88062	["\ude00b","\ude00b\ude00b"]
+nbt_string_write	\ud800\ud800	080006eda080eda080	\ud800\ud800	"\ud800\ud800"	"\ud800\ud800"	1769472	false
+nbt_key_write	\ud800\ud800	0a00000100016102010006eda080eda0800100	a,\ud800\ud800	{a:2b,"\ud800\ud800":1b}
+nbt_list_write	\ud800\ud800	0908000000020006eda080eda080000ceda080eda080eda080eda080	["\ud800\ud800","\ud800\ud800\ud800\ud800"]
+nbt_string_write	\ud83d\ud83d\ude00	080009eda0bdeda0bdedb880	\ud83d\ud83d\ude00	"\ud83d\ud83d\ude00"	"\ud83d\ud83d\ude00"	54970976	false
+nbt_key_write	\ud83d\ud83d\ude00	0a00000100016102010009eda0bdeda0bdedb8800100	a,\ud83d\ud83d\ude00	{a:2b,"\ud83d\ud83d\ude00":1b}
+nbt_list_write	\ud83d\ud83d\ude00	0908000000020009eda0bdeda0bdedb8800012eda0bdeda0bdedb880eda0bdeda0bdedb880	["\ud83d\ud83d\ude00","\ud83d\ud83d\ude00\ud83d\ud83d\ude00"]
+nbt_string_write	\ud83d\ude00\ud83d	080009eda0bdedb880eda0bd	\ud83d\ude00\ud83d	"\ud83d\ude00\ud83d"	"\ud83d\ude00\ud83d"	55015226	false
+nbt_key_write	\ud83d\ude00\ud83d	0a00000100016102010009eda0bdedb880eda0bd0100	a,\ud83d\ude00\ud83d	{a:2b,"\ud83d\ude00\ud83d":1b}
+nbt_list_write	\ud83d\ude00\ud83d	0908000000020009eda0bdedb880eda0bd0012eda0bdedb880eda0bdeda0bdedb880eda0bd	["\ud83d\ude00\ud83d","\ud83d\ude00\ud83d\ud83d\ude00\ud83d"]
+nbt_string_write	\ue000	080003ee8080	\ue000	"\ue000"	"\ue000"	57344	false
+nbt_key_write	\ue000	0a0000010003ee808001010001610200	\ue000,a	{a:2b,"\ue000":1b}
+nbt_list_write	\ue000	0908000000020003ee80800006ee8080ee8080	["\ue000","\ue000\ue000"]
+nbt_string_write	\ufffd	080003efbfbd	\ufffd	"\ufffd"	"\ufffd"	65533	true
+nbt_key_write	\ufffd	0a00000100016102010003efbfbd0100	a,\ufffd	{a:2b,"\ufffd":1b}
+nbt_list_write	\ufffd	0908000000020003efbfbd0006efbfbdefbfbd	["\ufffd","\ufffd\ufffd"]
+nbt_string_write	\u0000	080002c080	\u0000	"\\x00"	"\\x00"	0	false
+nbt_key_write	\u0000	0a0000010002c08001010001610200	\u0000,a	{"\\x00":1b,a:2b}
+nbt_list_write	\u0000	0908000000020002c0800004c080c080	["\\x00","\\x00\\x00"]
+nbt_string_write	\u00e9	080002c3a9	\u00e9	"\u00e9"	"\u00e9"	233	false
+nbt_key_write	\u00e9	0a00000100016102010002c3a90100	a,\u00e9	{a:2b,"\u00e9":1b}
+nbt_list_write	\u00e9	0908000000020002c3a90004c3a9c3a9	["\u00e9","\u00e9\u00e9"]
+nbt_string_write	\u20ac	080003e282ac	\u20ac	"\u20ac"	"\u20ac"	8364	false
+nbt_key_write	\u20ac	0a00000100016102010003e282ac0100	a,\u20ac	{a:2b,"\u20ac":1b}
+nbt_list_write	\u20ac	0908000000020003e282ac0006e282ace282ac	["\u20ac","\u20ac\u20ac"]
+nbt_string_write	x\ud83d\ude00y	08000878eda0bdedb88079	x\ud83d\ude00y	"x\ud83d\ude00y"	"x\ud83d\ude00y"	58534910	false
+nbt_key_write	x\ud83d\ude00y	0a0000010001610201000878eda0bdedb880790100	a,x\ud83d\ude00y	{a:2b,"x\ud83d\ude00y":1b}
+nbt_list_write	x\ud83d\ude00y	090800000002000878eda0bdedb88079001078eda0bdedb8807978eda0bdedb88079	["x\ud83d\ude00y","x\ud83d\ude00yx\ud83d\ude00y"]
+nbt_string_write_rep:21845	\ud800	131076:08ffffeda080eda080ed
+nbt_string_write_rep:21846	\ud800	ERR:UTFDataFormatException:encoded string (\ud800\ud800\ud800\ud800\ud800\ud800\ud800\ud800...\ud800\ud800\ud800\ud800\ud800\ud800\ud800\ud800) too long: 65538 bytes
+nbt_read	eda080	\ud800	"\ud800"	080003eda080
+nbt_read_key	eda080	\ud800	0a0000010003eda0800500
+nbt_read	edbfbf	\udfff	"\udfff"	080003edbfbf
+nbt_read_key	edbfbf	\udfff	0a0000010003edbfbf0500
+nbt_read	eda0bdb880	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 3	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 3	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 3
+nbt_read_key	eda0bdb880	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 3	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 3
+nbt_read	edb880eda0bd	\ude00\ud83d	"\ude00\ud83d"	080006edb880eda0bd
+nbt_read_key	edb880eda0bd	\ude00\ud83d	0a0000010006edb880eda0bd0500
+nbt_read	eda0bdeda0bd	\ud83d\ud83d	"\ud83d\ud83d"	080006eda0bdeda0bd
+nbt_read_key	eda0bdeda0bd	\ud83d\ud83d	0a0000010006eda0bdeda0bd0500
+nbt_read	efbfbd	\ufffd	"\ufffd"	080003efbfbd
+nbt_read_key	efbfbd	\ufffd	0a0000010003efbfbd0500
+nbt_read	c080	\u0000	"\\x00"	080002c080
+nbt_read_key	c080	\u0000	0a0000010002c0800500
+nbt_read	f09f9880	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read_key	f09f9880	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read	e080	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end
+nbt_read_key	e080	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end
+nbt_read	eda0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end
+nbt_read_key	eda0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end
+nbt_read	eda0bd	\ud83d	"\ud83d"	080003eda0bd
+nbt_read_key	eda0bd	\ud83d	0a0000010003eda0bd0500
+nbt_read	61eda08062	a\ud800b	"a\ud800b"	08000561eda08062
+nbt_read_key	61eda08062	a\ud800b	0a000001000561eda080620500
+nbt_read	edc080	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 2	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 2	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 2
+nbt_read_key	edc080	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 2	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 2
+nbt_read	eda0c0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 2	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 2	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 2
+nbt_read_key	eda0c0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 2	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 2
+nbt_read	80	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read_key	80	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read	ff	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read_key	ff	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read	e0a080	\u0800	"\u0800"	080003e0a080
+nbt_read_key	e0a080	\u0800	0a0000010003e0a0800500
+nbt_read	c1bf	\u007f	"\u007f"	0800017f
+nbt_read_key	c1bf	\u007f	0a00000100017f0500
+nbt_read	e08080	\u0000	"\\x00"	080002c080
+nbt_read_key	e08080	\u0000	0a0000010002c0800500
+nbt_read	ed9fbf	\ud7ff	"\ud7ff"	080003ed9fbf
+nbt_read_key	ed9fbf	\ud7ff	0a0000010003ed9fbf0500
+nbt_read	ee8080	\ue000	"\ue000"	080003ee8080
+nbt_read_key	ee8080	\ue000	0a0000010003ee80800500
+nbt_read	efbfbe	\ufffe	"\ufffe"	080003efbfbe
+nbt_read_key	efbfbe	\ufffe	0a0000010003efbfbe0500
+nbt_read	c3	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end
+nbt_read_key	c3	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end
+nbt_read	e282	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end
+nbt_read_key	e282	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input: partial character at end
+nbt_read	f4908080	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read_key	f4908080	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read	f0808080	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read_key	f0808080	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read	418042	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 1	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 1	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 1
+nbt_read_key	418042	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 1	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 1
+nbt_read	f09f98	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read_key	f09f98	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read	eda0bdedb880	\ud83d\ude00	"\ud83d\ude00"	080006eda0bdedb880
+nbt_read_key	eda0bdedb880	\ud83d\ude00	0a0000010006eda0bdedb8800500
+nbt_read	f5808080	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read_key	f5808080	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read	f5	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read_key	f5	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read	f580	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read_key	f580	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read	f58080	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read_key	f58080	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read	f7bfbfbf	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read_key	f7bfbfbf	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read	f5a0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read_key	f5a0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 0
+nbt_read	41f5	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 1	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 1	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 1
+nbt_read_key	41f5	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 1	ERR:ReportedNbtException:Loading NBT data<-UTFDataFormatException:malformed input around byte 1
+snbt_parse	"\\ud800"	"\ud800"	080003eda080	"\ud800"
+snbt_parse	'\\ud83d\\ude00'	"\ud83d\ude00"	080006eda0bdedb880	"\ud83d\ude00"
+snbt_parse	"\\ud83d"	"\ud83d"	080003eda0bd	"\ud83d"
+snbt_parse	"a\\ud800b"	"a\ud800b"	08000561eda08062	"a\ud800b"
+snbt_parse	"\\ude00\\ud83d"	"\ude00\ud83d"	080006edb880eda0bd	"\ude00\ud83d"
+snbt_parse	{"\\ud800":1b}	{"\ud800":1b}	0a010003eda0800100	{\n    "\ud800": 1b\n}
+snbt_parse	{"\\ud800":1,"\\ufffd":2,a:3}	{a:3,"\ud800":1,"\ufffd":2}	0a030003eda080000000010300016100000003030003efbfbd0000000200	{\n    a: 3,\n    "\ud800": 1,\n    "\ufffd": 2\n}
+snbt_parse	["\\ud800","\\udc00"]	["\ud800","\udc00"]	0908000000020003eda0800003edb080	[\n    "\ud800",\n    "\udc00"\n]
+snbt_parse	{a:"\\ud83d\\ude00"}	{a:"\ud83d\ude00"}	0a080001610006eda0bdedb88000	{\n    a: "\ud83d\ude00"\n}
+snbt_parse	{a:"\\ud800\\ud800"}	{a:"\ud800\ud800"}	0a080001610006eda080eda08000	{\n    a: "\ud800\ud800"\n}
+snbt_parse	"\\ud83d\\\\ude00"	"\ud83d\\\\ude00"	080009eda0bd5c7564653030	"\ud83d\\\\ude00"
+snbt_parse	"\\u00e9\\ud800"	"\u00e9\ud800"	080005c3a9eda080	"\u00e9\ud800"
+snbt_parse	"\\x41\\ud800"	"A\ud800"	08000441eda080	"A\ud800"
+snbt_parse	"\\ud800\\u0041"	"\ud800A"	080004eda08041	"\ud800A"
+snbt_parse	{text:"\\ud800"}	{text:"\ud800"}	0a080004746578740003eda08000	{\n    text: "\ud800"\n}
+snbt_parse	{text:"a",extra:["\\ud83d","\\ude00"]}	{extra:["\ud83d","\ude00"],text:"a"}	0a090005657874726108000000020003eda0bd0003edb8800800047465787400016100	{\n    extra: [\n        "\ud83d",\n        "\ude00"\n    ],\n    text: "a"\n}
+snbt_parse	{id:"a",Count:1,tag:{x:"\\ud800"}}	{Count:1,id:"a",tag:{x:"\ud800"}}	0a0800026964000161030005436f756e74000000010a0003746167080001780003eda0800000	{\n    Count: 1,\n    id: "a",\n    tag: {\n        x: "\ud800"\n    }\n}
+snbt_parse	"\\d800"	ERR:CommandSyntaxException:Expected literal b at position 2: "\\<--[HERE]	ERR:CommandSyntaxException:Expected literal b at position 2: "\\<--[HERE]	ERR:CommandSyntaxException:Expected literal b at position 2: "\\<--[HERE]
+snbt_parse	"\\uzzzz"	ERR:CommandSyntaxException:Expected a character literal of length 4 at position 3: "\\u<--[HERE]	ERR:CommandSyntaxException:Expected a character literal of length 4 at position 3: "\\u<--[HERE]	ERR:CommandSyntaxException:Expected a character literal of length 4 at position 3: "\\u<--[HERE]
+snbt_parse	"\\ud8"	ERR:CommandSyntaxException:Expected a character literal of length 4 at position 3: "\\u<--[HERE]	ERR:CommandSyntaxException:Expected a character literal of length 4 at position 3: "\\u<--[HERE]	ERR:CommandSyntaxException:Expected a character literal of length 4 at position 3: "\\u<--[HERE]

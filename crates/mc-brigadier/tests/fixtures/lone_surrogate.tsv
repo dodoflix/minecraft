@@ -1,0 +1,10 @@
+ctx:1	\ud83d\ude00abc	\ud83d<--[HERE]	Expected something at position 1: \ud83d<--[HERE]	08000ceda0bd3c2d2d5b484552455d
+ctx:2	\ud83d\ude00abc	\ud83d\ude00<--[HERE]	Expected something at position 2: \ud83d\ude00<--[HERE]	08000feda0bdedb8803c2d2d5b484552455d
+ctx:2	x\ud83d\ude00	x\ud83d<--[HERE]	Expected something at position 2: x\ud83d<--[HERE]	08000d78eda0bd3c2d2d5b484552455d
+ctx:10	abcdefghi\ud83d\ude00z	abcdefghi\ud83d<--[HERE]	Expected something at position 10: abcdefghi\ud83d<--[HERE]	080015616263646566676869eda0bd3c2d2d5b484552455d
+ctx:11	abcdefghi\ud83d\ude00z	...bcdefghi\ud83d\ude00<--[HERE]	Expected something at position 11: ...bcdefghi\ud83d\ude00<--[HERE]	08001a2e2e2e6263646566676869eda0bdedb8803c2d2d5b484552455d
+ctx:11	\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00	...\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d<--[HERE]	Expected something at position 11: ...\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d<--[HERE]	08002a2e2e2eedb880eda0bdedb880eda0bdedb880eda0bdedb880eda0bdedb880eda0bd3c2d2d5b484552455d
+ctx:12	\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00	...\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00<--[HERE]	Expected something at position 12: ...\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00<--[HERE]	08002a2e2e2eeda0bdedb880eda0bdedb880eda0bdedb880eda0bdedb880eda0bdedb8803c2d2d5b484552455d
+ctx:9	\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00	\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d<--[HERE]	Expected something at position 9: \ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d\ude00\ud83d<--[HERE]	080024eda0bdedb880eda0bdedb880eda0bdedb880eda0bdedb880eda0bd3c2d2d5b484552455d
+ctx:7	say \ud83d\ude00\ud83d\ude00\ud83d\ude00 hi	say \ud83d\ude00\ud83d<--[HERE]	Expected something at position 7: say \ud83d\ude00\ud83d<--[HERE]	08001673617920eda0bdedb880eda0bd3c2d2d5b484552455d
+ctx:1	\ud800abc	\ud800<--[HERE]	Expected something at position 1: \ud800<--[HERE]	08000ceda0803c2d2d5b484552455d

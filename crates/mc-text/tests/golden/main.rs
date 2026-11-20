@@ -2,3 +2,4 @@
 
 mod api;
 mod golden;
+mod lone_surrogate_golden;
