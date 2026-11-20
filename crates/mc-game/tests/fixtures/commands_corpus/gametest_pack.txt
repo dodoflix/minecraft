@@ -29,8 +29,7 @@ test run gt:no_start
 test run gt:two_start
 !ticks 40 show
 test run gt:no_accept
-# not shown: our server keeps a test without an accept block running until its timeout instead of failing it
-!ticks 40
+!ticks 40 show
 test run gt:old_structure
 !ticks 40 show
 test run gt:nether

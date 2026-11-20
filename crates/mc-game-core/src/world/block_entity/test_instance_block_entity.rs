@@ -223,9 +223,9 @@ pub fn aabb_of(bounding_box: &BoundingBox) -> AABB {
         bounding_box.min_x(),
         bounding_box.min_y(),
         bounding_box.min_z(),
-        bounding_box.max_x() + 1,
-        bounding_box.max_y() + 1,
-        bounding_box.max_z() + 1,
+        bounding_box.max_x(),
+        bounding_box.max_y(),
+        bounding_box.max_z(),
     )
 }
 
@@ -800,4 +800,22 @@ pub fn run_test(
     let runner = crate::gametest::game_test_runner::Builder::from_info(vec![info]).build();
     let source = server.create_command_source_stack();
     crate::gametest::test_command::track_and_start_runner(server, source, &runner);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// `AABB.of(BoundingBox)` covers the whole last block: a box of two blocks along x is two units wide.
+    #[test]
+    fn aabb_of_covers_the_last_block() {
+        let bounds = aabb_of(&BoundingBox::from_corners(
+            &Vec3i::new(0, 5, 4),
+            &Vec3i::new(1, 5, 4),
+        ));
+        assert_eq!(
+            (bounds.get_xsize(), bounds.get_ysize(), bounds.get_zsize()),
+            (2.0, 1.0, 1.0)
+        );
+    }
 }

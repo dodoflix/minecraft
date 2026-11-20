@@ -1,22 +1,22 @@
-### [gametest_pack.txt:15] datapack list enabled
+### [gametest_pack.txt:16] datapack list enabled
 log| System chat: There are 3 data pack(s) enabled: [vanilla (built-in)], [file/gepack (world)], [file/gtpack (world)]
-### [gametest_pack.txt:16] test run gt:pass
+### [gametest_pack.txt:17] test run gt:pass
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:17] !ticks 40 show
+### [gametest_pack.txt:18] !ticks 40 show
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
-### [gametest_pack.txt:18] test run gt:fail
+### [gametest_pack.txt:19] test run gt:fail
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:19] !ticks 40 show
+### [gametest_pack.txt:20] !ticks 40 show
 log| ERROR: gt:fail failed at 0, -60, 3! boom on tick 1
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: 1 required test(s) failed :(
@@ -25,24 +25,24 @@ Bot| [system_chat] gt:fail failed! boom on tick 1
 Bot|   json {"text":"gt:fail failed! boom on tick 1","color":"red"}
 Bot0| [system_chat] gt:fail failed! boom on tick 1
 Bot0|   json {"text":"gt:fail failed! boom on tick 1","color":"red"}
-### [gametest_pack.txt:20] test run gt:log
+### [gametest_pack.txt:21] test run gt:log
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:21] !ticks 40 show
+### [gametest_pack.txt:22] !ticks 40 show
 log| Test log (at BlockPos{x=0, y=-59, z=4}): hello log
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
-### [gametest_pack.txt:22] test run gt:timeout
+### [gametest_pack.txt:23] test run gt:timeout
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:23] !ticks 40 show
+### [gametest_pack.txt:24] !ticks 40 show
 log| ERROR: gt:timeout failed at 0, -60, 3! Didn't succeed or fail within 5 ticks
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: 1 required test(s) failed :(
@@ -51,44 +51,54 @@ Bot| [system_chat] gt:timeout failed! Didn't succeed or fail within 5 ticks
 Bot|   json {"text":"gt:timeout failed! Didn't succeed or fail within 5 ticks","color":"red"}
 Bot0| [system_chat] gt:timeout failed! Didn't succeed or fail within 5 ticks
 Bot0|   json {"text":"gt:timeout failed! Didn't succeed or fail within 5 ticks","color":"red"}
-### [gametest_pack.txt:24] test run gt:rot
+### [gametest_pack.txt:25] test run gt:rot
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:25] !ticks 40 show
+### [gametest_pack.txt:26] !ticks 40 show
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
-### [gametest_pack.txt:26] test run gt:no_start
+### [gametest_pack.txt:27] test run gt:no_start
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:27] !ticks 40 show
+### [gametest_pack.txt:28] !ticks 40 show
 log| ERROR: gt:no_start failed at 0, -60, 3! Test structure missing Start block on tick 0
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: 1 required test(s) failed :(
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
-### [gametest_pack.txt:28] test run gt:two_start
+### [gametest_pack.txt:29] test run gt:two_start
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:29] !ticks 40 show
+### [gametest_pack.txt:30] !ticks 40 show
 log| ERROR: gt:two_start failed at 0, -60, 3! Too many Start blocks on tick 0
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: 1 required test(s) failed :(
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
-### [gametest_pack.txt:30] test run gt:no_accept
+### [gametest_pack.txt:31] test run gt:no_accept
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+### [gametest_pack.txt:32] !ticks 40 show
+log| Test log (at BlockPos{x=1, y=-59, z=4}): no accept
+log| ERROR: gt:no_accept failed at 0, -60, 3! Test structure missing Accept block on tick 1
+log| System chat: Game Test complete! 1 test(s) were run
+log| System chat: 1 required test(s) failed :(
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] gt:no_accept failed! Test structure missing Accept block on tick 1
+Bot|   json {"text":"gt:no_accept failed! Test structure missing Accept block on tick 1","color":"red"}
+Bot0| [system_chat] gt:no_accept failed! Test structure missing Accept block on tick 1
+Bot0|   json {"text":"gt:no_accept failed! Test structure missing Accept block on tick 1","color":"red"}
 ### [gametest_pack.txt:33] test run gt:old_structure
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
