@@ -353,7 +353,7 @@ pub(crate) mod tests {
 
     pub(crate) fn holder() -> NoiseHolder {
         NoiseHolder {
-            key: Identifier::parse("test:noise").expect("valid identifier"),
+            key: Some(Identifier::parse("test:noise").expect("valid identifier")),
             value: Arc::new(NormalNoise::builder().build()),
         }
     }

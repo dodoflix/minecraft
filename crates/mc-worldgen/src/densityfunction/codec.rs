@@ -254,11 +254,17 @@ pub fn density_function_direct_from_json(
     }
 }
 
+/// `NormalNoise.CODEC`: a string is a reference, an object an inline definition (`Holder.Direct`).
 fn noise_holder(value: &Value, registries: &WorldgenRegistries) -> LoadResult<NoiseHolder> {
     match value {
         Value::String(_) => registries.noise(&parse_identifier(value)?),
-        // Vanilla stores an unregistered `Holder.Direct` that fails when used (no key to seed from).
-        Value::Object(_) => Err(LoadError::new("inline noise definitions are not supported")),
+        // a noise without a key loads, but no sampler can be built for it (`unwrapKey().orElseThrow()`)
+        Value::Object(_) => Ok(NoiseHolder {
+            key: None,
+            value: std::sync::Arc::new(crate::synth::NormalNoise::new(
+                crate::data::parse_noise_parameters(value)?,
+            )),
+        }),
         _ => Err(LoadError::new("expected string")),
     }
 }

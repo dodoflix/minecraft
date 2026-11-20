@@ -62,26 +62,37 @@ pub trait DfOp {
     fn domain_axes(&self) -> u8;
 }
 
-/// `Holder<NormalNoise>` referencing a registered noise (equality/hash by key).
+/// `Holder<NormalNoise>`: a registered noise (equality/hash by key) or an inline definition (`Holder.Direct`, no key,
+/// equal only to itself).
 #[derive(Clone)]
 pub struct NoiseHolder {
-    pub key: Identifier,
+    pub key: Option<Identifier>,
     pub value: Arc<NormalNoise>,
 }
 impl PartialEq for NoiseHolder {
     fn eq(&self, other: &Self) -> bool {
-        self.key == other.key
+        match (&self.key, &other.key) {
+            (Some(a), Some(b)) => a == b,
+            (None, None) => Arc::ptr_eq(&self.value, &other.value),
+            _ => false,
+        }
     }
 }
 impl Eq for NoiseHolder {}
 impl Hash for NoiseHolder {
     fn hash<H: Hasher>(&self, state: &mut H) {
-        self.key.hash(state)
+        match &self.key {
+            Some(key) => key.hash(state),
+            None => Arc::as_ptr(&self.value).hash(state),
+        }
     }
 }
 impl std::fmt::Debug for NoiseHolder {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "NoiseHolder({})", self.key)
+        match &self.key {
+            Some(key) => write!(f, "NoiseHolder({key})"),
+            None => write!(f, "NoiseHolder(direct)"),
+        }
     }
 }
 

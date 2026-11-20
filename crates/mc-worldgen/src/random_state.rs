@@ -35,18 +35,23 @@ impl Shared {
         LegacyRandomSource::new(self.seed.wrapping_add(seed_offset))
     }
 
-    /// `getOrCreateNoise` for an already resolved noise: `Noises.instantiate`.
+    /// `getOrCreateNoise` for an already resolved noise: `Noises.instantiate`. A `Holder.Direct` has no key to seed from
+    /// (`unwrapKey().orElseThrow()`).
     fn get_or_create_noise(&self, noise: &NoiseHolder) -> Arc<dyn Noise> {
+        let key = noise
+            .key
+            .as_ref()
+            .expect("java.util.NoSuchElementException: No value present");
         let mut instances = self
             .noise_instances
             .lock()
             .expect("noise instance lock poisoned");
         instances
-            .entry(noise.key.clone())
+            .entry(key.clone())
             .or_insert_with(|| {
                 noise
                     .value
-                    .create(&mut *self.random.from_hash_of_identifier(&noise.key))
+                    .create(&mut *self.random.from_hash_of_identifier(key))
             })
             .clone()
     }
@@ -60,11 +65,11 @@ struct RandomStateCompileContext {
 impl CompileContext for RandomStateCompileContext {
     fn create_noise_sampler(&self, parameters: &NoiseHolder) -> Arc<dyn Noise> {
         let shared = &self.shared;
-        if parameters.key == noises::key(names::TEMPERATURE_NETHER) {
+        if parameters.key.as_ref() == Some(&noises::key(names::TEMPERATURE_NETHER)) {
             parameters
                 .value
                 .create_for_legacy_nether_biome(&mut shared.new_legacy_instance(0))
-        } else if parameters.key == noises::key(names::VEGETATION_NETHER) {
+        } else if parameters.key.as_ref() == Some(&noises::key(names::VEGETATION_NETHER)) {
             parameters
                 .value
                 .create_for_legacy_nether_biome(&mut shared.new_legacy_instance(1))

@@ -299,7 +299,7 @@ impl WorldgenRegistries {
         let parameters =
             parse_noise_parameters(&json).map_err(|e| e.in_entry(NOISE_REGISTRY, id))?;
         let holder = NoiseHolder {
-            key: id.clone(),
+            key: Some(id.clone()),
             value: Arc::new(NormalNoise::new(parameters)),
         };
         Ok(lock(&self.noises)

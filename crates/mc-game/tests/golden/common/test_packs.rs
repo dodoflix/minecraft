@@ -193,6 +193,23 @@ fn write_state_data(root: &Path) {
             );
         }
     }
+    // inline noise definitions inside density functions: the entries load (a noise without a key only fails once a
+    // sampler is built for it)
+    let inline_noise = json!({"type": "minecraft:add",
+        "left": {"type": "minecraft:noise", "noise": {"base_octave": -2, "base_amplitude": 2.0}, "xz_scale": 1, "y_scale": 0.5,
+            "shift_x": {"type": "minecraft:shift_a", "noise": {"base_octave": -3}}},
+        "right": {"type": "minecraft:shift_b", "noise": {"base_octave": -4, "normalize": "legacy"}}});
+    write(
+        root.join("worldgen/density_function/inline_noise.json"),
+        &inline_noise.to_string(),
+    );
+    let mut settings = vanilla_json("worldgen/noise_settings/overworld.json");
+    settings["noise_router"]["final_density"] = inline_noise;
+    settings["noise_router"]["erosion"] = "test:inline_noise".into();
+    write(
+        root.join("worldgen/noise_settings/inline_noise.json"),
+        &settings.to_string(),
+    );
 }
 
 /// A world whose only pack contains entries that must fail the load.

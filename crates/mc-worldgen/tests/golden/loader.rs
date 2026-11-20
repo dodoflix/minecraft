@@ -241,6 +241,23 @@ fn optional_fields_take_defaults() {
     );
 }
 
+/// An inline noise definition loads (`Holder.Direct`); it has no key a sampler could be seeded from.
+#[test]
+fn inline_noise_definitions_load_without_a_key() {
+    let f = decode(
+        json!({"type": "minecraft:noise", "noise": {"base_octave": -2, "base_amplitude": 2.0},
+        "xz_scale": 1, "y_scale": 0.5}),
+    )
+    .expect("inline noise");
+    let DfNode::Noise(noise) = f.node() else {
+        panic!("expected Noise")
+    };
+    assert_eq!(noise.noise.key, None);
+    let shift = decode(json!({"type": "minecraft:shift_a", "noise": {"base_octave": -3}}))
+        .expect("inline shift noise");
+    assert!(matches!(shift.node(), DfNode::Shift(_)));
+}
+
 #[test]
 fn spline_shape() {
     let f = decode(json!({"type": "minecraft:spline", "spline": {
@@ -315,8 +332,8 @@ fn rejects_malformed_functions() {
             "point: Input is not a list of 3 ints",
         ),
         (
-            json!({"type": "noise", "noise": {"base_octave": 0}, "xz_scale": 1, "y_scale": 1}),
-            "noise: inline noise definitions are not supported",
+            json!({"type": "noise", "noise": {"base_octave": 99}, "xz_scale": 1, "y_scale": 1}),
+            "noise.base_octave: Value 99 outside of range [-32:32]",
         ),
         (
             json!({"type": "old_blended_noise", "xz_scale": 0.0001, "y_scale": 1, "xz_factor": 1, "y_factor": 1,
