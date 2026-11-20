@@ -495,11 +495,8 @@ pub fn read_additional_save_data(
             .entity_data
             .set(DATA_VILLAGER_DATA, villager_data);
     }
-    let trade_offers = input.get("Offers").and_then(|t| {
-        mc_dfu::parse_nbt(&MerchantOffers::codec(), t)
-            .into_result()
-            .ok()
-    });
+    let trade_offers =
+        crate::world::block_entity::read_codec(input, "Offers", &MerchantOffers::codec());
     let gossips = input.get_list("Gossips").map(GossipContainer::from_nbt);
     let conversion_time = input.get_int_or("ConversionTime", NOT_CONVERTING);
     let starter = (conversion_time != NOT_CONVERTING)

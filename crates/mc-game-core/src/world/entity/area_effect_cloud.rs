@@ -10,6 +10,7 @@ use super::{Entity, EntityData, EntityId, entity};
 use crate::advancements::predicates::entity::support::base_entity_components;
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
+use crate::world::block_entity::read_codec;
 use crate::world::effect::{EffectCause, MobEffectExt, potion_contents};
 use crate::world::item::ItemStack;
 use linkme::distributed_slice;
@@ -476,18 +477,12 @@ impl Entity for AreaEffectCloud {
         self.radius_per_tick = input.get_float_or("RadiusPerTick", 0.0);
         self.set_radius(input.get_float_or("Radius", 3.0));
         self.owner = entity::read_uuid(input.get("Owner"));
-        self.set_custom_particle(input.get("custom_particle").and_then(|t| {
-            mc_dfu::parse_nbt(&ParticleOptions::codec(), t)
-                .into_result()
-                .ok()
-        }));
-        let contents = input
-            .get("potion_contents")
-            .and_then(|t| {
-                mc_dfu::parse_nbt(&PotionContents::codec(), t)
-                    .into_result()
-                    .ok()
-            })
+        self.set_custom_particle(read_codec(
+            input,
+            "custom_particle",
+            &ParticleOptions::codec(),
+        ));
+        let contents = read_codec(input, "potion_contents", &PotionContents::codec())
             .unwrap_or_else(potion_contents::empty_contents);
         self.set_potion_contents(contents);
         self.potion_duration_scale = input.get_float_or("potion_duration_scale", 1.0);

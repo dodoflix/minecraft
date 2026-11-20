@@ -4,6 +4,7 @@
 use super::PlayerRecord;
 use super::ServerLevel;
 use super::entity_tracker::Entities;
+use crate::world::block_entity::problem_reporter;
 use crate::world::entity::{Entity, EntityId, RemovalReason};
 use crate::world::level::entity::{EntityLevelEvent, PersistentEntitySectionManager};
 use crate::world::level::gameevent::DynamicListenerAction;
@@ -870,12 +871,21 @@ impl ServerLevel {
     /// `processPendingLoads()`: instantiate the entities of chunks whose entity data arrived and add them.
     pub fn process_pending_entity_loads(&mut self) {
         for chunk in self.entity_manager.take_loaded_chunks() {
-            let mut entities = crate::world::entity::factory::load_entities_recursive(
-                chunk.get_entities(),
-                self,
-                mc_data::enums::EntitySpawnReason::Load,
+            // `EntityStorage.loadEntities`: the entities load under a collector of the chunk
+            let entities = problem_reporter::with_scoped_collector(
+                "net.minecraft.world.level.chunk.storage.EntityStorage",
+                &problem_reporter::chunk_root(chunk.get_pos()),
+                || {
+                    let mut entities = crate::world::entity::factory::load_entity_list(
+                        chunk.get_entities(),
+                        self,
+                        mc_data::enums::EntitySpawnReason::Load,
+                        Some("Entities"),
+                    );
+                    crate::world::entity::factory::read_level_dependent_data(&mut entities, self);
+                    entities
+                },
             );
-            crate::world::entity::factory::read_level_dependent_data(&mut entities, self);
             let loaded_ids: Vec<EntityId> = entities
                 .iter()
                 .filter(|e| e.raider().is_some())

@@ -1030,14 +1030,11 @@ pub fn read_additional_save_data(
     use crate::world::item::load_item_stack;
     super::read_additional_save_data(arrow, level, input);
     arrow.arrow_data_mut().life = i32::from(input.get_short_or("life", 0));
-    arrow.arrow_data_mut().last_state = input.get("inBlockState").and_then(|t| {
-        mc_dfu::parse_nbt(
-            &crate::world::item::enchantment::value_codecs::block_state_codec(),
-            t,
-        )
-        .into_result()
-        .ok()
-    });
+    arrow.arrow_data_mut().last_state = crate::world::block_entity::read_codec(
+        input,
+        "inBlockState",
+        &crate::world::item::enchantment::value_codecs::block_state_codec(),
+    );
     arrow.arrow_data_mut().shake_time = i32::from(input.get_byte_or("shake", 0)) & 255;
     arrow.set_in_ground(input.get_boolean_or("inGround", false));
     arrow.arrow_data_mut().base_damage = input.get_double_or("damage", 2.0);

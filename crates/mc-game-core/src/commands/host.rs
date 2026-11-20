@@ -1201,7 +1201,7 @@ pub fn block_entity_load_data(
         else {
             return;
         };
-        let loaded = crate::world::block_entity::problem_reporter::with_scoped_collector(
+        let loaded = crate::world::block_entity::problem_reporter::with_block_entity_collector(
             "net.minecraft.server.commands.data.BlockDataAccessor",
             ty,
             pos,

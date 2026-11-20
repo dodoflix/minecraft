@@ -371,14 +371,12 @@ pub fn read_additional_save_data(
     if let Some(list) = input.get_list("attributes") {
         living.attributes.apply(list);
     }
-    living.locator_bar_icon = input
-        .get("locator_bar_icon")
-        .and_then(|tag| {
-            mc_dfu::parse_nbt(&crate::world::waypoints::Icon::codec(), tag)
-                .into_result()
-                .ok()
-        })
-        .unwrap_or_default();
+    living.locator_bar_icon = crate::world::block_entity::read_codec(
+        input,
+        "locator_bar_icon",
+        &crate::world::waypoints::Icon::codec(),
+    )
+    .unwrap_or_default();
     living.active_effects.clear();
     if let Some(list) = input.get_list("active_effects") {
         for tag in list.iter() {

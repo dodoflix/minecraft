@@ -8,6 +8,7 @@
 use super::plain::PlainEntity;
 use super::{Entity, EntityId};
 use crate::server::level::ServerLevel;
+use crate::world::block_entity::problem_reporter;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
 use mc_data::EntityType;
@@ -218,13 +219,17 @@ pub fn load_entity_recursive(
     let root_index = out.len();
     let root_id = entity.id();
     out.push(entity);
-    for passenger_tag in tag
+    for (index, passenger_tag) in tag
         .get_list_or_empty("Passengers")
         .iter()
-        .filter_map(|t| t.as_compound())
+        .enumerate()
+        .filter_map(|(i, t)| t.as_compound().map(|t| (i, t)))
     {
         let start = out.len();
-        load_entity_recursive(passenger_tag, level, request, out);
+        problem_reporter::with_child(
+            || format!(".Passengers[{index}]"),
+            || load_entity_recursive(passenger_tag, level, request, out),
+        );
         if out.len() > start {
             // `passenger.startRiding(entity, true, false)`: the first loaded entity of the subtree is the passenger
             let passenger_id = out[start].id();
@@ -277,13 +282,30 @@ pub fn load_entities_recursive(
     level: &ServerLevel,
     reason: EntitySpawnReason,
 ) -> LoadedEntities {
+    load_entity_list(tags, level, reason, None)
+}
+
+/// [`load_entities_recursive`] for a list that a problem collector watches: `name` is the field the list was read from
+/// (`.Entities[3]`), none for a bare list (`[3]`).
+pub fn load_entity_list(
+    tags: &[CompoundTag],
+    level: &ServerLevel,
+    reason: EntitySpawnReason,
+    name: Option<&str>,
+) -> LoadedEntities {
     let request = EntitySpawnRequest {
         reason,
         ignore_checks: false,
     };
     let mut out = Vec::new();
-    for tag in tags {
-        load_entity_recursive(tag, level, request, &mut out);
+    for (index, tag) in tags.iter().enumerate() {
+        problem_reporter::with_child(
+            || match name {
+                Some(name) => format!(".{name}[{index}]"),
+                None => format!("[{index}]"),
+            },
+            || load_entity_recursive(tag, level, request, &mut out),
+        );
     }
     out
 }

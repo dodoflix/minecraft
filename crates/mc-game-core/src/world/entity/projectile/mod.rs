@@ -802,9 +802,11 @@ pub fn read_additional_save_data(
     d.left_owner = input.get_boolean_or("LeftOwner", false);
     d.has_been_shot = input.get_boolean_or("HasBeenShot", false);
     // `input.read` keeps the partial value of a failed decode
-    d.can_break = input
-        .get("can_break")
-        .and_then(|t| mc_dfu::parse_nbt(&AdventureModePredicate::codec(), t).result_or_partial());
+    d.can_break = crate::world::block_entity::read_codec(
+        input,
+        "can_break",
+        &AdventureModePredicate::codec(),
+    );
 }
 
 /// `Projectile` fields of the rich scenario dumps (`owner leftowner shot canbreak`).

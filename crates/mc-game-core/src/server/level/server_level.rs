@@ -7,7 +7,7 @@ use super::server_chunk_cache::{ChunkFuture, ServerChunkCache};
 use super::world_gen::{ChunkGeneratorBackend, WorldGenContext, WorldGenRegion};
 use super::{FullChunkStatus, Ticket, TicketType};
 use crate::server::shared::ServerShared;
-use crate::world::block_entity::BlockEntity;
+use crate::world::block_entity::{BlockEntity, problem_reporter};
 use crate::world::entity::EntityId;
 use crate::world::entity::ai::village::poi::PoiManager;
 use crate::world::level::chunk::LevelChunk;
@@ -398,13 +398,24 @@ impl ServerLevel {
                 self.register_all_block_entities_after_level_load(pos);
                 self.register_tick_container_in_level(pos);
                 if !world_gen_entities.is_empty() {
-                    let mut entities = crate::world::entity::factory::load_entities_recursive(
-                        &world_gen_entities,
-                        self,
-                        mc_data::enums::EntitySpawnReason::Load,
+                    // `ChunkStatusTasks.full`: `postLoadProtoChunk` under a collector of the chunk
+                    problem_reporter::with_scoped_collector(
+                        "net.minecraft.world.level.chunk.status.ChunkStatusTasks",
+                        &problem_reporter::chunk_root(pos),
+                        || {
+                            let mut entities = crate::world::entity::factory::load_entity_list(
+                                &world_gen_entities,
+                                self,
+                                mc_data::enums::EntitySpawnReason::Load,
+                                None,
+                            );
+                            crate::world::entity::factory::read_level_dependent_data(
+                                &mut entities,
+                                self,
+                            );
+                            self.entity_manager.add_world_gen_chunk_entities(entities);
+                        },
                     );
-                    crate::world::entity::factory::read_level_dependent_data(&mut entities, self);
-                    self.entity_manager.add_world_gen_chunk_entities(entities);
                     self.process_entity_events();
                 }
             }
@@ -426,14 +437,25 @@ impl ServerLevel {
             ChunkMapEvent::LightChanged { sky, pos } => self.chunk_source.on_light_update(sky, pos),
             ChunkMapEvent::PoiRemoved(pos) => self.debug_drop_poi(pos),
             ChunkMapEvent::PoiAdded(record) => self.debug_register_poi(&record),
-            ChunkMapEvent::LegacyEntities(_pos, tags) => {
-                let mut entities = crate::world::entity::factory::load_entities_recursive(
-                    &tags,
-                    self,
-                    mc_data::enums::EntitySpawnReason::Load,
+            ChunkMapEvent::LegacyEntities(pos, tags) => {
+                // `SerializableChunkData.postLoadChunk`: the entities load under a collector of the chunk
+                problem_reporter::with_scoped_collector(
+                    "net.minecraft.world.level.chunk.storage.SerializableChunkData",
+                    &problem_reporter::chunk_root(pos),
+                    || {
+                        let mut entities = crate::world::entity::factory::load_entity_list(
+                            &tags,
+                            self,
+                            mc_data::enums::EntitySpawnReason::Load,
+                            None,
+                        );
+                        crate::world::entity::factory::read_level_dependent_data(
+                            &mut entities,
+                            self,
+                        );
+                        self.entity_manager.add_legacy_chunk_entities(entities);
+                    },
                 );
-                crate::world::entity::factory::read_level_dependent_data(&mut entities, self);
-                self.entity_manager.add_legacy_chunk_entities(entities);
                 self.process_entity_events();
             }
         }

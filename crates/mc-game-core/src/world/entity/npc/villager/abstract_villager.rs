@@ -74,11 +74,7 @@ pub fn read_additional_save_data(
     _level: Option<&ServerLevel>,
     input: &CompoundTag,
 ) {
-    data.offers = input.get("Offers").and_then(|t| {
-        mc_dfu::parse_nbt(&MerchantOffers::codec(), t)
-            .into_result()
-            .ok()
-    });
+    data.offers = crate::world::block_entity::read_codec(input, "Offers", &MerchantOffers::codec());
     inventory_carrier::read_inventory_from_tag(&mut data.inventory, input);
 }
 
