@@ -60,7 +60,13 @@ pub(crate) fn read_strict_json(file: &Path) -> Result<JsonElement, JsonFileError
         Ok(text) => gson::parse_strict_json_parser(&text).map_err(JsonFileError::Parse),
         Err(e) => {
             let valid = &e.as_bytes()[..e.utf8_error().valid_up_to()];
-            let delivered = delivered_before_malformed(std::str::from_utf8(valid).expect("valid"));
+            let valid = std::str::from_utf8(valid).expect("valid");
+            // a sequence cut short by the end of the file ends the read that holds it, which delivers its chars
+            let delivered = if e.utf8_error().error_len().is_none() {
+                valid
+            } else {
+                delivered_before_malformed(valid)
+            };
             match gson::parse_strict_json_parser_then_fail(delivered) {
                 // a `null` document is complete before the parser looks further
                 Ok(element) => Ok(element),
@@ -74,7 +80,8 @@ pub(crate) fn read_strict_json(file: &Path) -> Result<JsonElement, JsonFileError
 
 /// What the `BufferedReader` over the decoder of a file delivers before the decoder fails on malformed input: a read
 /// decodes up to 8192 chars and throws on the malformed input it meets, so the chars of that read are lost with it.
-/// `valid` is the text before the malformed input.
+/// `valid` is the text before the malformed input. Limit: the parser asks for chars in reads of up to 1024 and the
+/// buffer hands out what it holds before it refills, so a parse decided in the last chars before the cut can differ.
 fn delivered_before_malformed(valid: &str) -> &str {
     const READ: usize = 8192;
     let (mut units, mut end) = (0, 0);

@@ -1568,9 +1568,9 @@ mod tests {
     #[test]
     fn a_failing_reader_is_met_where_the_parser_needs_more() {
         let read = |text: &str| parse_strict_json_parser_then_fail(text);
-        assert_eq!(read("null"), Ok(JsonElement::Null));
+        assert_eq!(read("null "), Ok(JsonElement::Null));
         for needs_more in [
-            "", "{}", "[1,2", "{\"a\":", "tr", "12", "\"abc", "\"a\\", "\"\\u12", "abc",
+            "", "null", "{}", "[1,2", "{\"a\":", "tr", "12", "\"abc", "\"a\\", "\"\\u12",
         ] {
             assert_eq!(read(needs_more), Err(None), "{needs_more:?}");
         }

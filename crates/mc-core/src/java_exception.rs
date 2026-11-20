@@ -86,10 +86,13 @@ impl JavaException {
     /// The `MalformedInputException` of decoding `bytes` as UTF-8 without replacement (`Files.readString`, a strict
     /// reader).
     pub fn malformed_input(e: &std::string::FromUtf8Error) -> JavaException {
-        let length = e
-            .utf8_error()
-            .error_len()
-            .unwrap_or(e.as_bytes().len() - e.utf8_error().valid_up_to());
+        let at = e.utf8_error().valid_up_to();
+        let rest = &e.as_bytes()[at..];
+        let length = match rest {
+            // an encoded surrogate is one malformed sequence of three bytes
+            [0xed, 0xa0..=0xbf, 0x80..=0xbf, ..] => 3,
+            _ => e.utf8_error().error_len().unwrap_or(rest.len()),
+        };
         JavaException::new(
             "java.nio.charset.MalformedInputException",
             format!("Input length = {length}"),
