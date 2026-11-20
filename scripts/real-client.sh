@@ -12,9 +12,16 @@
 #   real-client.sh stop NAME                                close the client (SIGTERM, then SIGKILL)
 #
 # start opts: --width N (854) --height N (480) --render-distance N (4) --xmx 2G --option key:value (extra options.txt line)
+#             --discovery URL (http://127.0.0.1:9/minecraft/client: a closed local port, so the services are offline)
+# Isolation: the client never talks to Mojang. authlib reads only -Dminecraft.api.discovery.host (every services URL
+# comes from that document; the other -Dminecraft.api.*.host flags are ignored). The Realms host is set to
+# localhost:8080 (-Drealms.environment=local) and patchy's hard-coded block list fetch is taken off the classpath.
+# E2eResolver refuses every other name but loopback, the machine's own and the game server's; each refused name is
+# printed as an "[E2E-NET]" line and fails the verdict. net-watch.py records sockets to non-loopback addresses
+# (literal IPs bypass the resolver). status shows both under "egress".
 # State lives in run/clients/NAME/{game,client.out,pid,display}. client.out = JVM stdout+stderr = the client log
 # (the stock client has no log file without the launcher's log4j config). Each start wipes old logs/screenshots/crash reports.
-# Needs: python3; java, javac, gamescope, xdotool for start/screenshot/key. The run/ directory is created on first use.
+# Needs: python3; java, javac, gamescope, xdotool, ss for start/screenshot/key. The run/ directory is created on first use.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -39,9 +46,12 @@ D="$(D_OF "$name")"
 
 case "$cmd" in
 start)
-  need java javac python3 gamescope xdotool setsid
+  need java javac python3 gamescope xdotool setsid ss
   user="${1:?USERNAME}"; addr="${2:?HOST:PORT}"; shift 2
-  w=854 h=480 rd=4 xmx=2G; extra=()
+  # the client asks DNS for a SRV record of the host whenever the port is 25565 (outside the resolver below)
+  [[ "$addr" =~ :([0-9]+)$ ]] || die "HOST:PORT needs an explicit port (the client defaults to 25565)"
+  ((10#${BASH_REMATCH[1]} != 25565)) || die "port 25565 makes the client query DNS for _minecraft._tcp.HOST: use another port"
+  w=854 h=480 rd=4 xmx=2G; extra=(); discovery="http://127.0.0.1:9/minecraft/client"
   while (($#)); do
     case "$1" in
       --width) w="$2"; shift 2;;
@@ -49,17 +59,32 @@ start)
       --render-distance) rd="$2"; shift 2;;
       --xmx) xmx="$2"; shift 2;;
       --option) extra+=("$2"); shift 2;;
+      --discovery) discovery="$2"; shift 2;;
       *) die "unknown option $1";;
     esac
   done
   ! alive "$name" || die "client $name already running"
   CP="$(prepare)"
+  # patchy's MojangBlockListSupplier (found by ServiceLoader when a connection starts) fetches
+  # https://sessionserver.mojang.com/blockedservers: a hard-coded host that no -D flag changes. Without it the client
+  # blocks no address.
+  CP="$(tr ':' '\n' <<<"$CP" | grep -v '/com/mojang/patchy/' | paste -sd:)"
   # E2eMain wraps the stock Main and prints observable client state ("[E2E] {json}"); see scripts/e2e/E2eMain.java
   SHIM="$CACHE/e2e-shim"
-  if [[ ! -f "$SHIM/E2eMain.class" || "$ROOT/scripts/e2e/E2eMain.java" -nt "$SHIM/E2eMain.class" ]]; then
-    mkdir -p "$SHIM" && javac -proc:none -cp "$CP" -d "$SHIM" "$ROOT/scripts/e2e/E2eMain.java"
+  if [[ ! -f "$SHIM/E2eMain.class" || ! -f "$SHIM/E2eResolver.class" || "$ROOT/scripts/e2e/E2eMain.java" -nt "$SHIM/E2eMain.class" \
+        || "$ROOT/scripts/e2e/E2eResolver.java" -nt "$SHIM/E2eResolver.class" ]]; then
+    mkdir -p "$SHIM/META-INF/services"
+    javac -proc:none -cp "$CP" -d "$SHIM" "$ROOT/scripts/e2e/E2eMain.java" "$ROOT/scripts/e2e/E2eResolver.java"
+    echo E2eResolver > "$SHIM/META-INF/services/java.net.spi.InetAddressResolverProvider"
   fi
-  rm -rf "$D/game/logs" "$D/game/screenshots" "$D/game/crash-reports" "$D/client.out" "$D/display"
+  # the game server's own address: the resolver lets its name through (a literal address is never looked up) and
+  # net-watch accepts connections to it
+  host="${addr%:*}"; host="${host#[}"; host="${host%]}"; allow_hosts="$host" watch_allow=(--allow "$host")
+  if [[ ! "$host" =~ ^[0-9.]+$ && "$host" != *:* ]]; then
+    while read -r ip; do watch_allow+=(--allow "$ip"); done < <(python3 -c \
+      'import socket,sys;print(*{a[4][0] for a in socket.getaddrinfo(sys.argv[1],None)},sep="\n")' "$host" 2>/dev/null || true)
+  fi
+  rm -rf "$D/game/logs" "$D/game/screenshots" "$D/game/crash-reports" "$D/client.out" "$D/display" "$D/net-egress.log"
   mkdir -p "$D/game" "$D/natives"
   {
     echo "renderDistance:$rd"
@@ -90,8 +115,8 @@ exec nice -n 10 java -XX:ActiveProcessorCount=4 -Xms512M -Xmx$xmx -XX:+UseZGC -X
   --add-exports java.base/jdk.internal.misc=ALL-UNNAMED \\
   -Djava.library.path="$D/natives/java" -Djna.tmpdir="$D/natives/jna" \\
   -Dorg.lwjgl.system.SharedLibraryExtractPath="$D/natives/lwjgl" -Dio.netty.native.workdir="$D/natives/netty" \\
-  -Dminecraft.api.env=custom -Dminecraft.api.auth.host=http://127.0.0.1:9 -Dminecraft.api.account.host=http://127.0.0.1:9 \\
-  -Dminecraft.api.session.host=http://127.0.0.1:9 -Dminecraft.api.services.host=http://127.0.0.1:9 \\
+  -Dminecraft.api.discovery.host="$discovery" -De2e.allow-hosts="$allow_hosts" \\
+  -De2e.local-host="$(cat /proc/sys/kernel/hostname 2>/dev/null || true)" -Drealms.environment=local \\
   -Dminecraft.launcher.brand=e2e -Dminecraft.launcher.version=1 \\
   -cp "$CP:$SHIM" E2eMain \\
   --username "$user" --uuid "\$(python3 -c 'import uuid,sys;print(uuid.uuid3(uuid.NAMESPACE_OID,"OfflinePlayer:"+sys.argv[1]).hex)' "$user")" \\
@@ -104,6 +129,7 @@ LAUNCH
   setsid env -u DISPLAY -u WAYLAND_DISPLAY gamescope --backend headless -W "$w" -H "$h" -w "$w" -h "$h" \
     -- "$D/launch.sh" > "$D/client.out" 2>&1 < /dev/null &
   echo $! > "$D/pid"
+  python3 "$ROOT/scripts/e2e/net-watch.py" "$D" "${watch_allow[@]}" > /dev/null 2>&1 < /dev/null &
   for _ in $(seq 100); do [[ -s "$D/display" ]] && break; sleep 0.1; done
   echo "started pid=$(cat "$D/pid") display=$(cat "$D/display" 2>/dev/null) log=$D/client.out"
   ;;

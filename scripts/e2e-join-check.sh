@@ -4,12 +4,14 @@
 #   e2e-join-check.sh HOST PORT [--seconds N=15] [--join-timeout N=90] [--username U=E2EBot] [--out DIR]
 #                     [--render-distance N=4] [--keep-client]
 #
-# Flow: launch client -> wait until joined (window title "Multiplayer") / disconnected / crashed / join-timeout
+# Flow: launch client -> wait until joined (the world is visible: a level and player exist and no screen is open, so
+#       the loading screen does not count) / disconnected / crashed / join-timeout
 #       -> stay connected --seconds more (aborts early on disconnect) -> screenshot (F2) -> stop client.
 # Artifacts in --out (default run/e2e/<timestamp>): verdict.json, client.log, screenshot.png.
 # Verdict JSON: ok, joined, stayed_connected, connected_seconds, client_game_time_ticks, chunks_loaded, disconnect_reason, decode_errors[], errors[],
-#   crashed, crash_report, screenshot, log, elapsed_seconds, host, port.
-# Exit code 0 only if joined, still connected at the end, no disconnect, no decode errors, no crash.
+#   egress[], crashed, crash_report, screenshot, log, elapsed_seconds, host, port.
+# Exit code 0 only if joined, still connected at the end, no disconnect, no decode errors, no other client WARN/ERROR
+# line, no attempt to reach a non-local host (egress), no crash.
 # client_game_time_ticks / chunks_loaded come from scripts/e2e/E2eMain.java (state probe inside the stock client).
 # Needs: python3 and the prerequisites of scripts/real-client.sh.
 set -euo pipefail
@@ -78,13 +80,14 @@ connected = (int(os.environ["END"]) - int(join_at)) if join_at else 0
 shot = os.path.join(out, "screenshot.png")
 v = {
     "joined": s["joined_ever"],
-    "stayed_connected": s["joined"] and not s["disconnected"] and s["running"],
+    "stayed_connected": s["in_level"] and not s["disconnected"] and s["running"],
     "connected_seconds": connected,
     "client_game_time_ticks": sj.get("game_time"),  # client level game time at last in-world sample
     "chunks_loaded": sj.get("chunks_loaded"),       # chunks the client had received at that sample
     "disconnect_reason": s["disconnect_reason"],
     "decode_errors": s["decode_errors"],
     "errors": s["errors"],
+    "egress": s["egress"],
     "crashed": s["crashed"],
     "crash_report": os.path.join(out, "crash-report.txt") if s["crash_report"] else None,
     "screenshot": shot if os.path.exists(shot) else None,
@@ -93,7 +96,7 @@ v = {
     "host": os.environ["HOST"], "port": int(os.environ["PORT"]),
 }
 v["ok"] = bool(v["joined"] and v["stayed_connected"] and not v["disconnect_reason"]
-               and not v["decode_errors"] and not v["crashed"])
+               and not v["decode_errors"] and not v["errors"] and not v["egress"] and not v["crashed"])
 json.dump({"ok": v.pop("ok"), **v}, open(os.path.join(out, "verdict.json"), "w"), indent=2)
 print(open(os.path.join(out, "verdict.json")).read())
 sys.exit(0 if json.load(open(os.path.join(out, "verdict.json")))["ok"] else 1)
