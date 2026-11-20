@@ -1,10 +1,12 @@
-//! `ProblemReporter.ScopedCollector` of a block entity load (`BlockDataAccessor.setData`) or of the entities of a chunk
-//! (`EntityStorage`, `SerializableChunkData`): the problems of the field decodes that went through
-//! [`super::read_codec`] while a scope is open are logged as `Serialization errors:` when it closes.
+//! `ProblemReporter.ScopedCollector` of a block entity load (`BlockDataAccessor.setData`), of the entities of a chunk
+//! (`EntityStorage`, `SerializableChunkData`, `ChunkStatusTasks`) and of a joining player (`PrepareSpawnTask`): the problems
+//! of the decodes that went through [`super::read_codec`] (`DecodeFromFieldFailedProblem`), [`super::read_map_codec`]
+//! (`DecodeFromMapFailedProblem`) and [`super::list_or_empty`] (`UnexpectedTypeProblem`) while a scope is open are logged
+//! as `Serialization errors:` when it closes, grouped by path element ([`with_child`]).
 //!
-//! shortcut: only `ValueInput.read(key, codec)` failures are reported, at the element that is being loaded (a block
-//! entity, or an entity of a chunk's list; no child path elements for nested compounds); the type-mismatch problems of
-//! the scalar getters are not, extend when a corpus needs them.
+//! shortcut: the type-mismatch problems of the scalar getters, the failed decodes of list elements and of an entity's `id`
+//! are not reported, and the index of an entity in `.Entities[i]` skips non-compound elements; extend when a corpus needs
+//! them.
 
 use std::cell::RefCell;
 

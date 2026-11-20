@@ -216,23 +216,12 @@ async fn playerdata_matches_vanilla() {
     );
 }
 
-/// The `Serialization errors` reports of a server log, each as `[logger] Serialization errors:` and the lines under it.
+/// The `Serialization errors` reports of a server log, each as `LEVEL [logger] Serialization errors:` and the lines under it.
 fn serialization_reports(log: &str) -> Vec<String> {
-    let mut reports: Vec<String> = Vec::new();
-    let mut open = false;
-    for line in log.lines() {
-        if line.starts_with('[') {
-            let message = line.split_once("]: ").map(|(_, message)| message);
-            open = message.is_some_and(|m| m.contains("] Serialization errors:"));
-            if let Some(message) = message.filter(|_| open) {
-                reports.push(message.to_owned());
-            }
-        } else if open && let Some(report) = reports.last_mut() {
-            report.push('\n');
-            report.push_str(line);
-        }
-    }
-    reports
+    crate::world_start::log_records(log)
+        .into_iter()
+        .filter(|record| record.contains("] Serialization errors:"))
+        .collect()
 }
 
 /// A player file whose `Pos` is not a list and whose `Inventory` is not a list: the join logs the decode problems of the
