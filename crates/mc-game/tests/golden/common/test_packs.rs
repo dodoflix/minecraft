@@ -67,6 +67,11 @@ pub fn write_custom_packs(world: &Path) {
     spawns["monster"] =
         serde_json::json!([{"type": "minecraft:zombie", "count": 4, "weight": 5}, 7]);
     spawns["ambient"] = serde_json::json!([{"count": 4}]);
+    // a `MISC` category type becomes a pig in `SpawnerData`
+    spawns["misc"] = serde_json::json!([
+        {"type": "minecraft:arrow", "count": 2, "weight": 3},
+        {"type": "minecraft:wolf", "count": 1, "weight": 2}
+    ]);
     write(
         dp.join("good/data/test/worldgen/biome/partial_spawns.json"),
         &partial_spawns.to_string(),
@@ -282,6 +287,50 @@ pub fn write_broken_packs(world: &Path) {
         r#"{"type": "minecraft:noise_threshold", "seed": 1, "noise": {"base_octave": -2}, "scale": 1.0, "threshold": 0.5, "high_chance": 0.5, "default_state": "minecraft:nope", "low_states": [{"id": "minecraft:stone", "properties": 3}], "high_states": []}"#,
     );
     write_broken_state_data(&dp.join("broken/data/test"));
+    write_broken_light_levels(&dp.join("broken/data/test"));
+}
+
+/// Dimension types whose `monster_spawn_light_level` provider fails with a partial result: the range check of
+/// `IntProviders.codec(0, 15)` still sees the partial provider.
+fn write_broken_light_levels(root: &Path) {
+    let weighted = |entries: serde_json::Value| serde_json::json!({"type": "minecraft:weighted_list", "distribution": entries});
+    let cases = [
+        (
+            "light_partial_too_high",
+            weighted(serde_json::json!([{"data": 20, "weight": 1}, {"data": "x", "weight": 1}])),
+        ),
+        (
+            "light_partial_in_range",
+            weighted(serde_json::json!([{"data": 5, "weight": 1}, {"data": "x", "weight": 1}])),
+        ),
+        (
+            "light_partial_too_low",
+            weighted(serde_json::json!([{"data": -4, "weight": 1}, {"weight": 1}])),
+        ),
+        (
+            "light_partial_empty",
+            weighted(serde_json::json!([{"data": "x", "weight": 1}])),
+        ),
+        (
+            "light_weighted_zero",
+            weighted(serde_json::json!([{"data": 5, "weight": 0}])),
+        ),
+        ("light_weighted_empty", weighted(serde_json::json!([]))),
+        (
+            "light_partial_nested",
+            serde_json::json!({"type": "minecraft:clamped", "min_inclusive": 0, "max_inclusive": 99, "source": weighted(
+                serde_json::json!([{"data": 30, "weight": 1}, {"data": "x", "weight": 1}])
+            )}),
+        ),
+    ];
+    for (name, light) in cases {
+        let mut dim = vanilla_json("dimension_type/overworld.json");
+        dim["monster_spawn_light_level"] = light;
+        write(
+            root.join(format!("dimension_type/{name}.json")),
+            &dim.to_string(),
+        );
+    }
 }
 
 /// Provider and transformer entries that fail in different ways: the error texts (list sizes, appended checks, the

@@ -583,9 +583,22 @@ fn entity_type_by_name() -> Schema {
     })
 }
 
+/// The `type` of a `SpawnerData`: its canonical constructor turns a `MISC` category type into a pig.
+fn spawner_entity_type() -> Schema {
+    Schema::custom(|v, ctx| match entity_type_by_name().convert(v, ctx)? {
+        Tag::String(id)
+            if mc_data::ids::EntityType::by_name(id.as_lossy_str())
+                .is_some_and(|ty| ty.data().category == mc_data::enums::MobCategory::Misc) =>
+        {
+            Ok(Tag::String("minecraft:pig".into()))
+        }
+        other => Ok(other),
+    })
+}
+
 fn mob_spawn_settings() -> Schema {
     let spawner = Schema::Record(vec![
-        req("type", entity_type_by_name()),
+        req("type", spawner_entity_type()),
         req("count", super::int_provider::schema(i32::MIN, i32::MAX)),
         req("weight", non_negative_int()),
     ]);
@@ -786,6 +799,25 @@ mod tests {
             );
         }
         assert!(attribute(&Identifier::parse("minecraft:gameplay/bed_rule").unwrap()).is_some());
+    }
+
+    #[test]
+    fn a_misc_category_spawner_type_becomes_a_pig() {
+        let l = L;
+        let ctx = RegistryDecodeContext::new(&l);
+        let json = json!({
+            "spawns_by_category": {"misc": [
+                {"type": "minecraft:arrow", "count": 2, "weight": 3},
+                {"type": "minecraft:wolf", "count": 1, "weight": 2},
+            ]},
+            "spawn_costs": {},
+        });
+        let encoded = mob_spawn_settings()
+            .convert(&json, &ctx)
+            .unwrap()
+            .to_string();
+        assert!(encoded.contains(r#"type:"minecraft:pig""#) && !encoded.contains("arrow"));
+        assert!(encoded.contains(r#"type:"minecraft:wolf""#));
     }
 
     #[test]

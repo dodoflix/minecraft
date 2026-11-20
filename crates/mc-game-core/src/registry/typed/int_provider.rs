@@ -7,6 +7,7 @@ use mc_nbt::Tag;
 use serde_json::{Map, Value};
 
 use crate::registry::codec::{Failure, RegistryDecodeContext, Schema};
+use crate::server::world_dimensions::nbt_to_json;
 
 /// An `IntProvider` read from data.
 #[derive(Clone, Debug, PartialEq)]
@@ -93,8 +94,15 @@ fn bounds(o: &Map<String, Value>) -> Option<(i32, i32)> {
         | "biased_to_bottom"
         | "very_biased_to_bottom"
         | "trapezoid"
-        | "clamped_normal"
-        | "clamped" => Some((field("min_inclusive")?, field("max_inclusive")?)),
+        | "clamped_normal" => Some((field("min_inclusive")?, field("max_inclusive")?)),
+        // `ClampedInt.minInclusive()` / `maxInclusive()` narrow the bounds to the source's
+        "clamped" => {
+            let source = IntProvider::from_json(o.get("source")?)?;
+            Some((
+                field("min_inclusive")?.max(source.min_inclusive()),
+                field("max_inclusive")?.min(source.max_inclusive()),
+            ))
+        }
         "weighted_list" => {
             let list = o.get("distribution")?.as_array()?;
             let mut min = i32::MAX;
@@ -166,13 +174,24 @@ fn provider_types(ty: &str) -> Option<Schema> {
         ]),
         "weighted_list" => Schema::Record(vec![req(
             "distribution",
-            Schema::list_of(Schema::Record(vec![
-                req("data", schema(i32::MIN, i32::MAX)),
-                req("weight", Schema::IntRange(1, i32::MAX)),
-            ])),
+            super::state_provider::non_empty_weighted_list(schema(i32::MIN, i32::MAX)),
         )]),
         _ => return None,
     })
+}
+
+/// `IntProviders.validate(minValue, maxValue, provider)`.
+fn check_range(provider: &IntProvider, min_value: i32, max_value: i32) -> Result<(), String> {
+    let (min, max) = (provider.min_inclusive(), provider.max_inclusive());
+    if min < min_value {
+        Err(format!("Value provider too low: {min_value} [{min}-{max}]"))
+    } else if max > max_value {
+        Err(format!(
+            "Value provider too high: {max_value} [{min}-{max}]"
+        ))
+    } else {
+        Ok(())
+    }
 }
 
 /// `IntProviders.codec(minValue, maxValue)`: a constant (bare number) or a typed provider whose bounds lie in the range.
@@ -192,8 +211,17 @@ pub fn schema(min_value: i32, max_value: i32) -> Schema {
             };
             let body = match second {
                 Ok(body) => body,
-                Err(failure) if failure.partial.is_some() || failure.is_thrown() => {
-                    return Err(failure);
+                Err(failure) if failure.is_thrown() => return Err(failure),
+                // `validate` is a `flatMap`: it checks the partial provider and joins its message to the failure's
+                Err(failure) if failure.partial.is_some() => {
+                    let partial = failure.partial.as_ref().map(nbt_to_json);
+                    return Err(match partial.as_ref().and_then(IntProvider::from_json) {
+                        Some(provider) => match check_range(&provider, min_value, max_value) {
+                            Ok(()) => failure,
+                            Err(range) => Failure::from(format!("{}; {range}", failure.message)),
+                        },
+                        None => failure,
+                    });
                 }
                 Err(failure) => {
                     return Err(Failure::from(format!(
@@ -214,20 +242,7 @@ pub fn schema(min_value: i32, max_value: i32) -> Schema {
         };
         let provider = IntProvider::from_json(v)
             .ok_or_else(|| Failure::from("Unsupported value provider".to_owned()))?;
-        if provider.min_inclusive() < min_value {
-            return Err(Failure::from(format!(
-                "Value provider too low: {min_value} [{}-{}]",
-                provider.min_inclusive(),
-                provider.max_inclusive()
-            )));
-        }
-        if provider.max_inclusive() > max_value {
-            return Err(Failure::from(format!(
-                "Value provider too high: {max_value} [{}-{}]",
-                provider.min_inclusive(),
-                provider.max_inclusive()
-            )));
-        }
+        check_range(&provider, min_value, max_value).map_err(Failure::from)?;
         Ok(tag)
     })
 }
@@ -285,6 +300,27 @@ mod tests {
             )
             .unwrap_err()
             .contains("Second: Max must be at least min")
+        );
+    }
+
+    #[test]
+    fn the_range_check_sees_a_partial_provider() {
+        let weighted =
+            |entries: Value| json!({"type": "minecraft:weighted_list", "distribution": entries});
+        let failed = json!({"data": "x", "weight": 1});
+        let too_high = conv(0, 15, weighted(json!([{"data": 20, "weight": 1}, failed])));
+        assert!(
+            too_high
+                .unwrap_err()
+                .ends_with("Not a JSON object: \"x\"; Value provider too high: 15 [20-20]")
+        );
+        let in_range = conv(0, 15, weighted(json!([{"data": 5, "weight": 1}, failed])));
+        assert!(!in_range.unwrap_err().contains("Value provider"));
+        // a clamped provider is narrowed to its source
+        let clamped = json!({"type": "minecraft:clamped", "min_inclusive": 0, "max_inclusive": 99, "source": 30});
+        assert_eq!(
+            conv(0, 15, clamped).unwrap_err(),
+            "Value provider too high: 15 [30-30]"
         );
     }
 }

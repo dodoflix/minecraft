@@ -324,11 +324,16 @@ fn non_negative_int() -> Schema {
     })
 }
 
-/// `WeightedList.nonEmptyCodec(BlockState.CODEC)`: `{data, weight}` entries, at least one with weight. `WeightedList.of`
-/// throws when the weights add up to more than `Integer.MAX_VALUE`, before the check for an empty list runs.
+/// `WeightedList.nonEmptyCodec(BlockState.CODEC)`.
 fn weighted_states() -> Schema {
+    non_empty_weighted_list(block_state_schema())
+}
+
+/// `WeightedList.nonEmptyCodec(data)`: `{data, weight}` entries, at least one with weight. `WeightedList.of` throws when
+/// the weights add up to more than `Integer.MAX_VALUE`, before the check for an empty list runs.
+pub(super) fn non_empty_weighted_list(data: Schema) -> Schema {
     let entries = Schema::list_of(Schema::Record(vec![
-        req("data", block_state_schema()),
+        req("data", data),
         req("weight", non_negative_int()),
     ]));
     Schema::custom_partial(move |v, ctx| {

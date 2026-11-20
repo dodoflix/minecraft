@@ -349,7 +349,7 @@ fn broken_pack_fails_like_vanilla() {
         "broken",
         common::test_packs::write_broken_packs,
         "broken",
-        105,
+        112,
     );
 }
 
