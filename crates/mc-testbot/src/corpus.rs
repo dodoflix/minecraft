@@ -7,6 +7,7 @@
     reason = "command-line tool: its output is the product"
 )]
 use std::path::{Path, PathBuf};
+use std::sync::LazyLock;
 use std::time::{Duration, Instant};
 
 use crate::Bot;
@@ -31,7 +32,8 @@ enum Item {
     /// `(bot index, command)`
     Player(usize, String),
     Wait(u64),
-    Ticks(u64),
+    /// `!ticks n [show]`: `show` records the output of the window as a segment instead of dropping it.
+    Ticks(u64, bool),
     Ignore(String),
     Packets(String),
     Sort(String),
@@ -73,10 +75,18 @@ fn parse_corpus(file: &str, text: &str) -> Res<Vec<Line>> {
                     arg.parse()
                         .map_err(|_| at(format!("!wait needs milliseconds, got `{arg}`")))?,
                 ),
-                "ticks" => Item::Ticks(
-                    arg.parse()
-                        .map_err(|_| at(format!("!ticks needs a tick count, got `{arg}`")))?,
-                ),
+                "ticks" => {
+                    let (n, show) = match arg.split_once(' ') {
+                        Some((n, "show")) => (n, true),
+                        _ => (arg, false),
+                    };
+                    Item::Ticks(
+                        n.parse().map_err(|_| {
+                            at(format!("!ticks needs a tick count [show], got `{arg}`"))
+                        })?,
+                        show,
+                    )
+                }
                 "ignore" => {
                     Regex::new(arg).map_err(|e| at(format!("bad !ignore regex: {e}")))?;
                     Item::Ignore(arg.to_string())
@@ -651,10 +661,9 @@ impl Side {
         let seg = self
             .issue(None, Some("time query gametime"), String::new())
             .await?;
-        let re = Regex::new(r"The (?:game )?time is (-?\d+)").expect("regex");
         seg.lines
             .iter()
-            .find_map(|l| re.captures(l).and_then(|c| c[1].parse().ok()))
+            .find_map(|l| TIME_QUERY.captures(l).and_then(|c| c[1].parse().ok()))
             .ok_or_else(|| {
                 format!(
                     "{}: `time query gametime` gave no time: {:?}",
@@ -681,7 +690,9 @@ impl Side {
                 tokio::time::sleep(Duration::from_millis(*ms)).await;
                 Ok(None)
             }
-            Item::Ticks(n) => {
+            Item::Ticks(n, show) => {
+                // `show` reads the window as ONE segment: output between two marker round trips would be lost
+                let (log_off, m0) = (self.log_off, self.mark());
                 let g0 = self.gametime().await?;
                 if self.frozen {
                     self.issue(None, Some(&format!("tick step {n}")), String::new())
@@ -698,7 +709,18 @@ impl Side {
                     }
                     tokio::time::sleep(Duration::from_millis(40)).await;
                 }
-                Ok(None)
+                if !*show {
+                    return Ok(None);
+                }
+                // the last window tick finished before this marker is read; the polls' own output is dropped below
+                self.marker += 1;
+                let marker = self.marker;
+                self.log_off = log_off;
+                self.srv.cmd(&format!("say {MARKER} {marker}"));
+                let mut seg = self.finish(m0, header, marker, None).await?;
+                seg.lines
+                    .retain(|l| !TIME_QUERY.is_match(l) && !l.contains("commands.time.query"));
+                Ok(Some(seg))
             }
             Item::Datapack(_) | Item::World(..) => Ok(None),
             Item::Ignore(r) => {
@@ -847,6 +869,9 @@ async fn run_side(ours: bool, o: &Opts, tag: &str, lines: &[Line]) -> Res<SideOu
     }
     result.map(|()| SideOut { segs, trees })
 }
+
+static TIME_QUERY: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"The (?:game )?time is (-?\d+)").expect("regex"));
 
 /// The first `commands` packet the bot received (op/permission view at join).
 fn first_commands_packet(bot: &Bot) -> Option<ClientboundCommandsPacket> {
@@ -1218,12 +1243,17 @@ mod tests {
                 Item::Player(0, "give @s stone".into()),
                 Item::Player(1, "kill".into()),
                 Item::Wait(5),
-                Item::Ticks(3),
+                Item::Ticks(3, false),
                 Item::Ignore("^foo".into()),
                 Item::Join(1),
             ]
         );
         assert!(parse_corpus("x", "!bogus").is_err());
+        assert_eq!(
+            parse_corpus("x", "!ticks 4 show").unwrap()[0].item,
+            Item::Ticks(4, true)
+        );
+        assert!(parse_corpus("x", "!ticks 4 shown").is_err());
         let l = parse_corpus(
             "x",
             "!world normal structures\n!known why\nsay hi\n!respawn Bot",

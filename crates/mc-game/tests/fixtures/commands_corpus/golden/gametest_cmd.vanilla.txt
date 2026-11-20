@@ -1,0 +1,1053 @@
+### [gametest_cmd.txt:5] gamerule advance_time false
+log| System chat: Game rule advance_time is now set to false
+Bot| [system_chat] [Server: Game rule advance_time is now set to false]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["advance_time","false"]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:6] gamerule advance_weather false
+log| System chat: Game rule advance_weather is now set to false
+Bot| [system_chat] [Server: Game rule advance_weather is now set to false]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["advance_weather","false"]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:7] tick freeze
+log| System chat: The game is frozen
+Bot| [system_chat] [Server: The game is frozen]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.status.frozen"}],"color":"gray","italic":true}
+### [gametest_cmd.txt:12] test
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: test<--[HERE]
+### [gametest_cmd.txt:13] test bogus
+log| System chat: Incorrect argument for command
+log| System chat: test bogus<--[HERE]
+### [gametest_cmd.txt:14] test run
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: test run<--[HERE]
+### [gametest_cmd.txt:15] test run nothing
+log| System chat: No matches for selector 'minecraft:nothing' of type 'minecraft:test_instance'
+log| System chat: ...un nothing<--[HERE]
+### [gametest_cmd.txt:16] test run nothing:*
+log| System chat: No matches for selector 'nothing:*' of type 'minecraft:test_instance'
+log| System chat: ... nothing:*<--[HERE]
+### [gametest_cmd.txt:17] test run minecraft:always_pass extra extra
+log| System chat: Expected integer
+log| System chat: ...ways_pass extra extra<--[HERE]
+### [gametest_cmd.txt:18] test run always_pass -1
+log| System chat: Integer must not be less than 0: found -1
+log| System chat: ...ways_pass -1<--[HERE]
+### [gametest_cmd.txt:19] test run always_pass 1 maybe
+log| System chat: Invalid boolean: expected 'true' or 'false' but found 'maybe'
+log| System chat: ...ys_pass 1 maybe<--[HERE]
+### [gametest_cmd.txt:20] test run always_pass 1 true 1 8 9
+log| System chat: Incorrect argument for command
+log| System chat: ... true 1 8 9<--[HERE]
+### [gametest_cmd.txt:21] test runmultiple
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...unmultiple<--[HERE]
+### [gametest_cmd.txt:22] test runmultiple always_pass abc
+log| System chat: Expected integer
+log| System chat: ...ways_pass abc<--[HERE]
+### [gametest_cmd.txt:23] test verify
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...est verify<--[HERE]
+### [gametest_cmd.txt:24] test locate
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...est locate<--[HERE]
+### [gametest_cmd.txt:25] test create
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...est create<--[HERE]
+### [gametest_cmd.txt:26] test create foo
+log| System chat: Created test setup for test minecraft:foo
+Bot| [system_chat] [Server: Created test setup for test minecraft:foo]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.create.success","with":["minecraft:foo"]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:27] test create foo:bar x
+log| System chat: Expected integer
+log| System chat: ...e foo:bar x<--[HERE]
+### [gametest_cmd.txt:28] test clearall abc
+log| System chat: Expected integer
+log| System chat: ... clearall abc<--[HERE]
+### [gametest_cmd.txt:29] test pos 1 2
+log| System chat: Incorrect argument for command
+log| System chat: ...est pos 1 2<--[HERE]
+### [gametest_cmd.txt:30] test export always_pass
+log| System chat: Incorrect argument for command
+log| System chat: test export always_pass<--[HERE]
+### [gametest_cmd.txt:31] test exportthat
+log| System chat: Incorrect argument for command
+log| System chat: test exportthat<--[HERE]
+### [gametest_cmd.txt:32] @bot0 test
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] test<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"test","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/test","action":"suggest_command"}}],"color":"red"}
+### [gametest_cmd.txt:33] @bot0 test run always_pass
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] test run always_pass<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"test run always_pass","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/test run always_pass","action":"suggest_command"}}],"color":"red"}
+### [gametest_cmd.txt:34] @bot0 test create foo:bar
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] test create foo:bar<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"test create foo:bar","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/test create foo:bar","action":"suggest_command"}}],"color":"red"}
+### [gametest_cmd.txt:35] @bot0 test stop
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] test stop<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"test stop","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/test stop","action":"suggest_command"}}],"color":"red"}
+### [gametest_cmd.txt:38] test stop
+
+### [gametest_cmd.txt:39] test locate always_pass
+log| System chat: Started locating test structures. This might take a while...
+log| System chat: Found no test instances
+### [gametest_cmd.txt:40] test clearall
+log| System chat: Cleared 1 structure(s)
+Bot| [system_chat] [Server: Cleared 1 structure(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.clear.success","with":[1]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:41] test clearall 0
+log| System chat: Could not find any tests to clear
+### [gametest_cmd.txt:42] test clearall -5
+log| System chat: Could not find any tests to clear
+### [gametest_cmd.txt:43] test clearthese
+log| System chat: Could not find any tests to clear
+### [gametest_cmd.txt:44] test clearthat
+log| System chat: An unexpected error occurred while trying to execute that command
+### [gametest_cmd.txt:45] test resetthese
+log| System chat: Could not find any tests to clear
+### [gametest_cmd.txt:46] test resetclosest
+log| System chat: Could not find any tests to clear
+### [gametest_cmd.txt:47] test resetthat
+log| System chat: An unexpected error occurred while trying to execute that command
+### [gametest_cmd.txt:48] test runthese
+log| System chat: No tests to run
+### [gametest_cmd.txt:49] test runclosest
+log| System chat: No tests to run
+### [gametest_cmd.txt:50] test runthat
+log| System chat: An unexpected error occurred while trying to execute that command
+### [gametest_cmd.txt:51] test runfailed
+log| System chat: No tests to run
+### [gametest_cmd.txt:52] test runfailed true
+log| System chat: No tests to run
+### [gametest_cmd.txt:53] test runfailed false 1 false 1 8
+log| System chat: No tests to run
+### [gametest_cmd.txt:54] test pos
+log| System chat: A player is required to run this command here
+### [gametest_cmd.txt:55] @bot test pos
+Bot| [system_chat] Can't find a test instance that contains 0, -59, 10
+Bot|   json {"text":"","extra":[{"translate":"commands.test.error.no_test_containing_pos","with":[0,-59,10]}],"color":"red"}
+### [gametest_cmd.txt:56] @bot test runthat
+Bot| [system_chat] No tests to run
+Bot|   json {"translate":"commands.test.no_tests"}
+### [gametest_cmd.txt:57] @bot test resetthat
+Bot| [system_chat] Could not find any tests to clear
+Bot|   json {"text":"","extra":[{"translate":"commands.test.clear.error.no_tests"}],"color":"red"}
+### [gametest_cmd.txt:60] test create foo:bar 49
+log| System chat: The structure size must be less than 48 blocks along each axis
+### [gametest_cmd.txt:61] test create foo:bar 1 49 1
+log| System chat: The structure size must be less than 48 blocks along each axis
+### [gametest_cmd.txt:62] test create foo:bar 1 1 49
+log| System chat: The structure size must be less than 48 blocks along each axis
+### [gametest_cmd.txt:63] test create foo:bar 0 0 0
+log| System chat: Created test setup for test foo:bar
+Bot| [system_chat] [Server: Created test setup for test foo:bar]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.create.success","with":["foo:bar"]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:64] @bot test create foo:bar 2 2 2
+log| System chat: [Bot: Created test setup for test foo:bar]
+Bot| [system_chat] Created test setup for test foo:bar
+Bot|   json {"translate":"commands.test.create.success","with":["foo:bar"]}
+### [gametest_cmd.txt:65] @bot test create Foo:bar
+Bot| [system_chat] Expected whitespace to end one argument, but found trailing data
+Bot|   json {"text":"","extra":[{"translate":"command.expected.separator"}],"color":"red"}
+Bot| [system_chat] ...st create Foo:bar<--[HERE]
+Bot|   json {"text":"","extra":[{"text":"","extra":["...","st create ",{"text":"Foo:bar","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/test create Foo:bar","action":"suggest_command"}}],"color":"red"}
+### [gametest_cmd.txt:66] @bot test create minecraft:always_pass 3 4 5
+log| System chat: [Bot: Created test setup for test minecraft:always_pass]
+Bot| [system_chat] Created test setup for test minecraft:always_pass
+Bot|   json {"translate":"commands.test.create.success","with":["minecraft:always_pass"]}
+### [gametest_cmd.txt:67] test create foo:bar
+log| System chat: Created test setup for test foo:bar
+Bot| [system_chat] [Server: Created test setup for test foo:bar]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.create.success","with":["foo:bar"]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:68] test locate always_pass
+log| System chat: Started locating test structures. This might take a while...
+log| System chat: Found no test instances
+### [gametest_cmd.txt:69] test locate foo:bar
+log| System chat: No matches for selector 'foo:bar' of type 'minecraft:test_instance'
+log| System chat: ...te foo:bar<--[HERE]
+### [gametest_cmd.txt:70] test locate minecraft:*
+log| System chat: Started locating test structures. This might take a while...
+log| System chat: Found no test instances
+### [gametest_cmd.txt:71] @bot test locate always_pass
+Bot| [system_chat] Started locating test structures. This might take a while...
+Bot|   json {"translate":"commands.test.locate.started"}
+Bot| [system_chat] Found no test instances
+Bot|   json {"text":"","extra":[{"translate":"commands.test.error.no_test_instances"}],"color":"red"}
+### [gametest_cmd.txt:72] @bot test pos
+Bot| [system_chat] Can't find a test instance that contains 0, -59, 3
+Bot|   json {"text":"","extra":[{"translate":"commands.test.error.no_test_containing_pos","with":[0,-59,3]}],"color":"red"}
+### [gametest_cmd.txt:73] @bot test pos var
+Bot| [system_chat] Can't find a test instance that contains 0, -59, 3
+Bot|   json {"text":"","extra":[{"translate":"commands.test.error.no_test_containing_pos","with":[0,-59,3]}],"color":"red"}
+### [gametest_cmd.txt:74] test clearall 0
+log| System chat: Could not find any tests to clear
+### [gametest_cmd.txt:75] @bot test clearthese
+log| System chat: [Bot: Cleared 1 structure(s)]
+Bot| [system_chat] Cleared 1 structure(s)
+Bot|   json {"translate":"commands.test.clear.success","with":[1]}
+### [gametest_cmd.txt:76] test clearall
+log| System chat: Could not find any tests to clear
+### [gametest_cmd.txt:79] test run always_pass
+log| System chat: Running 1 test(s)...
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:80] !ticks 20 show
+log| System chat: Stepping 20 tick(s)
+log| System chat: Game Test complete! 1 test(s) were run
+log| System chat: All required tests passed :)
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] [Server: Stepping 20 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.step.success","with":[20]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
+### [gametest_cmd.txt:81] test run minecraft:always_pass
+log| System chat: Running 1 test(s)...
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:82] !ticks 20 show
+log| System chat: Stepping 20 tick(s)
+log| System chat: Game Test complete! 1 test(s) were run
+log| System chat: All required tests passed :)
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] [Server: Stepping 20 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.step.success","with":[20]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
+### [gametest_cmd.txt:83] test run minecraft:*
+log| System chat: Running 1 test(s)...
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:84] !ticks 20 show
+log| System chat: Stepping 20 tick(s)
+log| System chat: Game Test complete! 1 test(s) were run
+log| System chat: All required tests passed :)
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] [Server: Stepping 20 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.step.success","with":[20]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
+### [gametest_cmd.txt:85] test run *
+log| System chat: Running 1 test(s)...
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:86] !ticks 20 show
+log| System chat: Stepping 20 tick(s)
+log| System chat: Game Test complete! 1 test(s) were run
+log| System chat: All required tests passed :)
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] [Server: Stepping 20 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.step.success","with":[20]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
+### [gametest_cmd.txt:87] test run always_pass 3
+log| System chat: Running 1 test(s)...
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:88] !ticks 40 show
+log| System chat: Stepping 40 tick(s)
+log| Starting re-run of tests: minecraft:always_pass
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+log| Starting re-run of tests: minecraft:always_pass
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+log| System chat: Game Test complete! 3 test(s) were run
+log| System chat: All required tests passed :)
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] [Server: Stepping 40 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.step.success","with":[40]}],"color":"gray","italic":true}
+Bot| [system_chat] [Run:    1, Ok:    1, Fail:    0, Left:    2]        minecraft:always_pass passed! <masked>ms
+Bot|   json {"text":"[Run:    1, Ok:    1, Fail:    0, Left:    2]        minecraft:always_pass passed! <masked>ms","color":"green"}
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+Bot| [system_chat] [Run:    2, Ok:    2, Fail:    0, Left:    1]        minecraft:always_pass passed! <masked>ms
+Bot|   json {"text":"[Run:    2, Ok:    2, Fail:    0, Left:    1]        minecraft:always_pass passed! <masked>ms","color":"green"}
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+Bot| [system_chat] [Run:    3, Ok:    3, Fail:    0, Left:    0]        minecraft:always_pass passed! <masked>ms
+Bot|   json {"text":"[Run:    3, Ok:    3, Fail:    0, Left:    0]        minecraft:always_pass passed! <masked>ms","color":"green"}
+Bot| [system_chat] [Server: Game Test complete! 3 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[3],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
+Bot0| [system_chat] [Run:    1, Ok:    1, Fail:    0, Left:    2]        minecraft:always_pass passed! <masked>ms
+Bot0|   json {"text":"[Run:    1, Ok:    1, Fail:    0, Left:    2]        minecraft:always_pass passed! <masked>ms","color":"green"}
+Bot0| [system_chat] [Run:    2, Ok:    2, Fail:    0, Left:    1]        minecraft:always_pass passed! <masked>ms
+Bot0|   json {"text":"[Run:    2, Ok:    2, Fail:    0, Left:    1]        minecraft:always_pass passed! <masked>ms","color":"green"}
+Bot0| [system_chat] [Run:    3, Ok:    3, Fail:    0, Left:    0]        minecraft:always_pass passed! <masked>ms
+Bot0|   json {"text":"[Run:    3, Ok:    3, Fail:    0, Left:    0]        minecraft:always_pass passed! <masked>ms","color":"green"}
+### [gametest_cmd.txt:89] test run always_pass 2 true
+log| System chat: Running 1 test(s)...
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:90] !ticks 40 show
+log| System chat: Stepping 40 tick(s)
+log| Starting re-run of tests: minecraft:always_pass
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+log| System chat: Game Test complete! 2 test(s) were run
+log| System chat: All required tests passed :)
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] [Server: Stepping 40 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.step.success","with":[40]}],"color":"gray","italic":true}
+Bot| [system_chat] [Run:    1, Ok:    1, Fail:    0, Left:    1]        minecraft:always_pass passed! <masked>ms
+Bot|   json {"text":"[Run:    1, Ok:    1, Fail:    0, Left:    1]        minecraft:always_pass passed! <masked>ms","color":"green"}
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+Bot| [system_chat] [Run:    2, Ok:    2, Fail:    0, Left:    0]        minecraft:always_pass passed! <masked>ms
+Bot|   json {"text":"[Run:    2, Ok:    2, Fail:    0, Left:    0]        minecraft:always_pass passed! <masked>ms","color":"green"}
+Bot| [system_chat] [Server: Game Test complete! 2 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[2],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
+Bot0| [system_chat] [Run:    1, Ok:    1, Fail:    0, Left:    1]        minecraft:always_pass passed! <masked>ms
+Bot0|   json {"text":"[Run:    1, Ok:    1, Fail:    0, Left:    1]        minecraft:always_pass passed! <masked>ms","color":"green"}
+Bot0| [system_chat] [Run:    2, Ok:    2, Fail:    0, Left:    0]        minecraft:always_pass passed! <masked>ms
+Bot0|   json {"text":"[Run:    2, Ok:    2, Fail:    0, Left:    0]        minecraft:always_pass passed! <masked>ms","color":"green"}
+### [gametest_cmd.txt:91] test run always_pass 1 false 1
+log| System chat: Running 1 test(s)...
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:92] !ticks 20 show
+log| System chat: Stepping 20 tick(s)
+log| System chat: Game Test complete! 1 test(s) were run
+log| System chat: All required tests passed :)
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] [Server: Stepping 20 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.step.success","with":[20]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
+### [gametest_cmd.txt:93] test run always_pass 1 false 2 2
+log| System chat: Running 1 test(s)...
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:94] !ticks 20 show
+log| System chat: Stepping 20 tick(s)
+log| System chat: Game Test complete! 1 test(s) were run
+log| System chat: All required tests passed :)
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] [Server: Stepping 20 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.step.success","with":[20]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
+### [gametest_cmd.txt:95] test run always_pass 1 false 4
+log| System chat: An unexpected error occurred while trying to execute that command
+### [gametest_cmd.txt:96] test run always_pass 1 false -1
+log| System chat: An unexpected error occurred while trying to execute that command
+### [gametest_cmd.txt:97] test runmultiple always_pass
+log| System chat: Running 1 test(s)...
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:98] !ticks 20 show
+log| System chat: Stepping 20 tick(s)
+log| System chat: Game Test complete! 1 test(s) were run
+log| System chat: All required tests passed :)
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] [Server: Stepping 20 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.step.success","with":[20]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
+### [gametest_cmd.txt:99] test runmultiple always_pass 3
+log| System chat: Running 3 test(s)...
+log| Running test environment 'minecraft:default' batch 0 (3 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:100] !ticks 20 show
+log| System chat: Stepping 20 tick(s)
+log| System chat: Game Test complete! 3 test(s) were run
+log| System chat: All required tests passed :)
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] [Server: Stepping 20 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.step.success","with":[20]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Game Test complete! 3 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[3],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
+### [gametest_cmd.txt:101] test runmultiple always_pass 0
+log| System chat: No tests to run
+### [gametest_cmd.txt:102] test runmultiple always_pass -2
+log| System chat: No tests to run
+### [gametest_cmd.txt:103] test verify always_pass
+log| Running test environment 'minecraft:default' batch 0 (100 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:104] !ticks 100 show
+log| System chat: Stepping 100 tick(s)
+log| Running test environment 'minecraft:default' batch 1 (100 tests)...
+log| System chat: Starting environment minecraft:default batch 1
+log| Running test environment 'minecraft:default' batch 2 (100 tests)...
+log| System chat: Starting environment minecraft:default batch 2
+log| Running test environment 'minecraft:default' batch 3 (100 tests)...
+log| System chat: Starting environment minecraft:default batch 3
+log| System chat: Game Test complete! 400 test(s) were run
+log| System chat: All required tests passed :)
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] [Server: Stepping 100 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.step.success","with":[100]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 1]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",1]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",2]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 3]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",3]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Game Test complete! 400 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[400],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
+### [gametest_cmd.txt:105] test stop
+
+### [gametest_cmd.txt:106] test runfailed
+log| System chat: No tests to run
+### [gametest_cmd.txt:107] test runfailed true 2
+log| System chat: No tests to run
+### [gametest_cmd.txt:108] !ticks 20 show
+log| System chat: Stepping 20 tick(s)
+Bot| [system_chat] [Server: Stepping 20 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.step.success","with":[20]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:110] test locate always_pass
+log| System chat: Started locating test structures. This might take a while...
+log| System chat: Found structure at: [12, -60, 11 ->[overworld]] (distance: 16)
+log| System chat: Found structure at: [6, -60, 3 ->[overworld]] (distance: 6)
+log| System chat: Found structure at: [0, -60, 11 ->[overworld]] (distance: 11)
+log| System chat: Found structure at: [12, -60, 3 ->[overworld]] (distance: 12)
+log| System chat: Found structure at: [6, -60, 11 ->[overworld]] (distance: 12)
+log| System chat: Found structure at: [0, -60, 3 ->[overworld]] (distance: 3)
+log| System chat: Found structure at: [18, -60, 3 ->[overworld]] (distance: 18)
+log| System chat: Found structure at: [30, -60, 11 ->[overworld]] (distance: 31)
+log| System chat: Found structure at: [24, -60, 3 ->[overworld]] (distance: 24)
+log| System chat: Found structure at: [18, -60, 11 ->[overworld]] (distance: 21)
+log| System chat: Found structure at: [30, -60, 3 ->[overworld]] (distance: 30)
+log| System chat: Found structure at: [24, -60, 11 ->[overworld]] (distance: 26)
+log| System chat: Found structure at: [42, -60, 11 ->[overworld]] (distance: 43)
+log| System chat: Found structure at: [36, -60, 3 ->[overworld]] (distance: 36)
+log| System chat: Found structure at: [42, -60, 3 ->[overworld]] (distance: 42)
+log| System chat: Found structure at: [36, -60, 11 ->[overworld]] (distance: 37)
+log| System chat: Found structure at: [54, -60, 3 ->[overworld]] (distance: 54)
+log| System chat: Found structure at: [48, -60, 11 ->[overworld]] (distance: 49)
+log| System chat: Found structure at: [54, -60, 11 ->[overworld]] (distance: 55)
+log| System chat: Found structure at: [48, -60, 3 ->[overworld]] (distance: 48)
+log| System chat: Found structure at: [12, -60, 27 ->[overworld]] (distance: 29)
+log| System chat: Found structure at: [6, -60, 19 ->[overworld]] (distance: 19)
+log| System chat: Found structure at: [0, -60, 27 ->[overworld]] (distance: 27)
+log| System chat: Found structure at: [12, -60, 19 ->[overworld]] (distance: 22)
+log| System chat: Found structure at: [6, -60, 27 ->[overworld]] (distance: 27)
+log| System chat: Found structure at: [0, -60, 19 ->[overworld]] (distance: 19)
+log| System chat: Found structure at: [18, -60, 19 ->[overworld]] (distance: 26)
+log| System chat: Found structure at: [30, -60, 27 ->[overworld]] (distance: 40)
+log| System chat: Found structure at: [24, -60, 19 ->[overworld]] (distance: 30)
+log| System chat: Found structure at: [18, -60, 27 ->[overworld]] (distance: 32)
+log| System chat: Found structure at: [30, -60, 19 ->[overworld]] (distance: 35)
+log| System chat: Found structure at: [24, -60, 27 ->[overworld]] (distance: 36)
+log| System chat: Found structure at: [42, -60, 27 ->[overworld]] (distance: 49)
+log| System chat: Found structure at: [36, -60, 19 ->[overworld]] (distance: 40)
+log| System chat: Found structure at: [42, -60, 19 ->[overworld]] (distance: 46)
+log| System chat: Found structure at: [36, -60, 27 ->[overworld]] (distance: 45)
+log| System chat: Found structure at: [54, -60, 19 ->[overworld]] (distance: 57)
+log| System chat: Found structure at: [48, -60, 27 ->[overworld]] (distance: 55)
+log| System chat: Found structure at: [54, -60, 27 ->[overworld]] (distance: 60)
+log| System chat: Found structure at: [48, -60, 19 ->[overworld]] (distance: 51)
+log| System chat: Found structure at: [12, -60, 43 ->[overworld]] (distance: 44)
+log| System chat: Found structure at: [6, -60, 35 ->[overworld]] (distance: 35)
+log| System chat: Found structure at: [0, -60, 43 ->[overworld]] (distance: 43)
+log| System chat: Found structure at: [12, -60, 35 ->[overworld]] (distance: 37)
+log| System chat: Found structure at: [6, -60, 43 ->[overworld]] (distance: 43)
+log| System chat: Found structure at: [0, -60, 35 ->[overworld]] (distance: 35)
+log| System chat: Found structure at: [18, -60, 35 ->[overworld]] (distance: 39)
+log| System chat: Found structure at: [30, -60, 43 ->[overworld]] (distance: 52)
+log| System chat: Found structure at: [24, -60, 35 ->[overworld]] (distance: 42)
+log| System chat: Found structure at: [18, -60, 43 ->[overworld]] (distance: 46)
+log| System chat: Found structure at: [30, -60, 35 ->[overworld]] (distance: 46)
+log| System chat: Found structure at: [24, -60, 43 ->[overworld]] (distance: 49)
+log| System chat: Found structure at: [42, -60, 43 ->[overworld]] (distance: 60)
+log| System chat: Found structure at: [36, -60, 35 ->[overworld]] (distance: 50)
+log| System chat: Found structure at: [42, -60, 35 ->[overworld]] (distance: 54)
+log| System chat: Found structure at: [36, -60, 43 ->[overworld]] (distance: 56)
+log| System chat: Found structure at: [54, -60, 35 ->[overworld]] (distance: 64)
+log| System chat: Found structure at: [48, -60, 43 ->[overworld]] (distance: 64)
+log| System chat: Found structure at: [54, -60, 43 ->[overworld]] (distance: 69)
+log| System chat: Found structure at: [48, -60, 35 ->[overworld]] (distance: 59)
+log| System chat: Found structure at: [12, -60, 59 ->[overworld]] (distance: 60)
+log| System chat: Found structure at: [6, -60, 51 ->[overworld]] (distance: 51)
+log| System chat: Found structure at: [0, -60, 59 ->[overworld]] (distance: 59)
+log| System chat: Found structure at: [12, -60, 51 ->[overworld]] (distance: 52)
+log| System chat: Found structure at: [6, -60, 59 ->[overworld]] (distance: 59)
+log| System chat: Found structure at: [0, -60, 51 ->[overworld]] (distance: 51)
+log| System chat: Found structure at: [18, -60, 51 ->[overworld]] (distance: 54)
+log| System chat: Found structure at: [30, -60, 59 ->[overworld]] (distance: 66)
+log| System chat: Found structure at: [24, -60, 51 ->[overworld]] (distance: 56)
+log| System chat: Found structure at: [18, -60, 59 ->[overworld]] (distance: 61)
+log| System chat: Found structure at: [30, -60, 51 ->[overworld]] (distance: 59)
+log| System chat: Found structure at: [24, -60, 59 ->[overworld]] (distance: 63)
+log| System chat: Found structure at: [42, -60, 59 ->[overworld]] (distance: 72)
+log| System chat: Found structure at: [36, -60, 51 ->[overworld]] (distance: 62)
+log| System chat: Found structure at: [42, -60, 51 ->[overworld]] (distance: 66)
+log| System chat: Found structure at: [36, -60, 59 ->[overworld]] (distance: 69)
+log| System chat: Found structure at: [54, -60, 51 ->[overworld]] (distance: 74)
+log| System chat: Found structure at: [48, -60, 59 ->[overworld]] (distance: 76)
+log| System chat: Found structure at: [54, -60, 59 ->[overworld]] (distance: 79)
+log| System chat: Found structure at: [48, -60, 51 ->[overworld]] (distance: 70)
+log| System chat: Found structure at: [12, -60, 75 ->[overworld]] (distance: 75)
+log| System chat: Found structure at: [6, -60, 67 ->[overworld]] (distance: 67)
+log| System chat: Found structure at: [0, -60, 75 ->[overworld]] (distance: 75)
+log| System chat: Found structure at: [12, -60, 67 ->[overworld]] (distance: 68)
+log| System chat: Found structure at: [6, -60, 75 ->[overworld]] (distance: 75)
+log| System chat: Found structure at: [0, -60, 67 ->[overworld]] (distance: 67)
+log| System chat: Found structure at: [18, -60, 67 ->[overworld]] (distance: 69)
+log| System chat: Found structure at: [30, -60, 75 ->[overworld]] (distance: 80)
+log| System chat: Found structure at: [24, -60, 67 ->[overworld]] (distance: 71)
+log| System chat: Found structure at: [18, -60, 75 ->[overworld]] (distance: 77)
+log| System chat: Found structure at: [30, -60, 67 ->[overworld]] (distance: 73)
+log| System chat: Found structure at: [24, -60, 75 ->[overworld]] (distance: 78)
+log| System chat: Found structure at: [42, -60, 75 ->[overworld]] (distance: 85)
+log| System chat: Found structure at: [36, -60, 67 ->[overworld]] (distance: 76)
+log| System chat: Found structure at: [42, -60, 67 ->[overworld]] (distance: 79)
+log| System chat: Found structure at: [36, -60, 75 ->[overworld]] (distance: 83)
+log| System chat: Found structure at: [54, -60, 67 ->[overworld]] (distance: 86)
+log| System chat: Found structure at: [48, -60, 75 ->[overworld]] (distance: 89)
+log| System chat: Found structure at: [54, -60, 75 ->[overworld]] (distance: 92)
+log| System chat: Found structure at: [48, -60, 67 ->[overworld]] (distance: 82)
+log| System chat: Finished locating: found 100 structure(s)
+Bot| [system_chat] [Server: Finished locating: found 100 structure(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.locate.done","with":[100]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:112] test locate *
+log| System chat: Started locating test structures. This might take a while...
+log| System chat: Found structure at: [12, -60, 11 ->[overworld]] (distance: 16)
+log| System chat: Found structure at: [6, -60, 3 ->[overworld]] (distance: 6)
+log| System chat: Found structure at: [0, -60, 11 ->[overworld]] (distance: 11)
+log| System chat: Found structure at: [12, -60, 3 ->[overworld]] (distance: 12)
+log| System chat: Found structure at: [6, -60, 11 ->[overworld]] (distance: 12)
+log| System chat: Found structure at: [0, -60, 3 ->[overworld]] (distance: 3)
+log| System chat: Found structure at: [18, -60, 3 ->[overworld]] (distance: 18)
+log| System chat: Found structure at: [30, -60, 11 ->[overworld]] (distance: 31)
+log| System chat: Found structure at: [24, -60, 3 ->[overworld]] (distance: 24)
+log| System chat: Found structure at: [18, -60, 11 ->[overworld]] (distance: 21)
+log| System chat: Found structure at: [30, -60, 3 ->[overworld]] (distance: 30)
+log| System chat: Found structure at: [24, -60, 11 ->[overworld]] (distance: 26)
+log| System chat: Found structure at: [42, -60, 11 ->[overworld]] (distance: 43)
+log| System chat: Found structure at: [36, -60, 3 ->[overworld]] (distance: 36)
+log| System chat: Found structure at: [42, -60, 3 ->[overworld]] (distance: 42)
+log| System chat: Found structure at: [36, -60, 11 ->[overworld]] (distance: 37)
+log| System chat: Found structure at: [54, -60, 3 ->[overworld]] (distance: 54)
+log| System chat: Found structure at: [48, -60, 11 ->[overworld]] (distance: 49)
+log| System chat: Found structure at: [54, -60, 11 ->[overworld]] (distance: 55)
+log| System chat: Found structure at: [48, -60, 3 ->[overworld]] (distance: 48)
+log| System chat: Found structure at: [12, -60, 27 ->[overworld]] (distance: 29)
+log| System chat: Found structure at: [6, -60, 19 ->[overworld]] (distance: 19)
+log| System chat: Found structure at: [0, -60, 27 ->[overworld]] (distance: 27)
+log| System chat: Found structure at: [12, -60, 19 ->[overworld]] (distance: 22)
+log| System chat: Found structure at: [6, -60, 27 ->[overworld]] (distance: 27)
+log| System chat: Found structure at: [0, -60, 19 ->[overworld]] (distance: 19)
+log| System chat: Found structure at: [18, -60, 19 ->[overworld]] (distance: 26)
+log| System chat: Found structure at: [30, -60, 27 ->[overworld]] (distance: 40)
+log| System chat: Found structure at: [24, -60, 19 ->[overworld]] (distance: 30)
+log| System chat: Found structure at: [18, -60, 27 ->[overworld]] (distance: 32)
+log| System chat: Found structure at: [30, -60, 19 ->[overworld]] (distance: 35)
+log| System chat: Found structure at: [24, -60, 27 ->[overworld]] (distance: 36)
+log| System chat: Found structure at: [42, -60, 27 ->[overworld]] (distance: 49)
+log| System chat: Found structure at: [36, -60, 19 ->[overworld]] (distance: 40)
+log| System chat: Found structure at: [42, -60, 19 ->[overworld]] (distance: 46)
+log| System chat: Found structure at: [36, -60, 27 ->[overworld]] (distance: 45)
+log| System chat: Found structure at: [54, -60, 19 ->[overworld]] (distance: 57)
+log| System chat: Found structure at: [48, -60, 27 ->[overworld]] (distance: 55)
+log| System chat: Found structure at: [54, -60, 27 ->[overworld]] (distance: 60)
+log| System chat: Found structure at: [48, -60, 19 ->[overworld]] (distance: 51)
+log| System chat: Found structure at: [12, -60, 43 ->[overworld]] (distance: 44)
+log| System chat: Found structure at: [6, -60, 35 ->[overworld]] (distance: 35)
+log| System chat: Found structure at: [0, -60, 43 ->[overworld]] (distance: 43)
+log| System chat: Found structure at: [12, -60, 35 ->[overworld]] (distance: 37)
+log| System chat: Found structure at: [6, -60, 43 ->[overworld]] (distance: 43)
+log| System chat: Found structure at: [0, -60, 35 ->[overworld]] (distance: 35)
+log| System chat: Found structure at: [18, -60, 35 ->[overworld]] (distance: 39)
+log| System chat: Found structure at: [30, -60, 43 ->[overworld]] (distance: 52)
+log| System chat: Found structure at: [24, -60, 35 ->[overworld]] (distance: 42)
+log| System chat: Found structure at: [18, -60, 43 ->[overworld]] (distance: 46)
+log| System chat: Found structure at: [30, -60, 35 ->[overworld]] (distance: 46)
+log| System chat: Found structure at: [24, -60, 43 ->[overworld]] (distance: 49)
+log| System chat: Found structure at: [42, -60, 43 ->[overworld]] (distance: 60)
+log| System chat: Found structure at: [36, -60, 35 ->[overworld]] (distance: 50)
+log| System chat: Found structure at: [42, -60, 35 ->[overworld]] (distance: 54)
+log| System chat: Found structure at: [36, -60, 43 ->[overworld]] (distance: 56)
+log| System chat: Found structure at: [54, -60, 35 ->[overworld]] (distance: 64)
+log| System chat: Found structure at: [48, -60, 43 ->[overworld]] (distance: 64)
+log| System chat: Found structure at: [54, -60, 43 ->[overworld]] (distance: 69)
+log| System chat: Found structure at: [48, -60, 35 ->[overworld]] (distance: 59)
+log| System chat: Found structure at: [12, -60, 59 ->[overworld]] (distance: 60)
+log| System chat: Found structure at: [6, -60, 51 ->[overworld]] (distance: 51)
+log| System chat: Found structure at: [0, -60, 59 ->[overworld]] (distance: 59)
+log| System chat: Found structure at: [12, -60, 51 ->[overworld]] (distance: 52)
+log| System chat: Found structure at: [6, -60, 59 ->[overworld]] (distance: 59)
+log| System chat: Found structure at: [0, -60, 51 ->[overworld]] (distance: 51)
+log| System chat: Found structure at: [18, -60, 51 ->[overworld]] (distance: 54)
+log| System chat: Found structure at: [30, -60, 59 ->[overworld]] (distance: 66)
+log| System chat: Found structure at: [24, -60, 51 ->[overworld]] (distance: 56)
+log| System chat: Found structure at: [18, -60, 59 ->[overworld]] (distance: 61)
+log| System chat: Found structure at: [30, -60, 51 ->[overworld]] (distance: 59)
+log| System chat: Found structure at: [24, -60, 59 ->[overworld]] (distance: 63)
+log| System chat: Found structure at: [42, -60, 59 ->[overworld]] (distance: 72)
+log| System chat: Found structure at: [36, -60, 51 ->[overworld]] (distance: 62)
+log| System chat: Found structure at: [42, -60, 51 ->[overworld]] (distance: 66)
+log| System chat: Found structure at: [36, -60, 59 ->[overworld]] (distance: 69)
+log| System chat: Found structure at: [54, -60, 51 ->[overworld]] (distance: 74)
+log| System chat: Found structure at: [48, -60, 59 ->[overworld]] (distance: 76)
+log| System chat: Found structure at: [54, -60, 59 ->[overworld]] (distance: 79)
+log| System chat: Found structure at: [48, -60, 51 ->[overworld]] (distance: 70)
+log| System chat: Found structure at: [12, -60, 75 ->[overworld]] (distance: 75)
+log| System chat: Found structure at: [6, -60, 67 ->[overworld]] (distance: 67)
+log| System chat: Found structure at: [0, -60, 75 ->[overworld]] (distance: 75)
+log| System chat: Found structure at: [12, -60, 67 ->[overworld]] (distance: 68)
+log| System chat: Found structure at: [6, -60, 75 ->[overworld]] (distance: 75)
+log| System chat: Found structure at: [0, -60, 67 ->[overworld]] (distance: 67)
+log| System chat: Found structure at: [18, -60, 67 ->[overworld]] (distance: 69)
+log| System chat: Found structure at: [30, -60, 75 ->[overworld]] (distance: 80)
+log| System chat: Found structure at: [24, -60, 67 ->[overworld]] (distance: 71)
+log| System chat: Found structure at: [18, -60, 75 ->[overworld]] (distance: 77)
+log| System chat: Found structure at: [30, -60, 67 ->[overworld]] (distance: 73)
+log| System chat: Found structure at: [24, -60, 75 ->[overworld]] (distance: 78)
+log| System chat: Found structure at: [42, -60, 75 ->[overworld]] (distance: 85)
+log| System chat: Found structure at: [36, -60, 67 ->[overworld]] (distance: 76)
+log| System chat: Found structure at: [42, -60, 67 ->[overworld]] (distance: 79)
+log| System chat: Found structure at: [36, -60, 75 ->[overworld]] (distance: 83)
+log| System chat: Found structure at: [54, -60, 67 ->[overworld]] (distance: 86)
+log| System chat: Found structure at: [48, -60, 75 ->[overworld]] (distance: 89)
+log| System chat: Found structure at: [54, -60, 75 ->[overworld]] (distance: 92)
+log| System chat: Found structure at: [48, -60, 67 ->[overworld]] (distance: 82)
+log| System chat: Finished locating: found 100 structure(s)
+Bot| [system_chat] [Server: Finished locating: found 100 structure(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.locate.done","with":[100]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:114] @bot test locate always_pass
+log| System chat: [Bot: Finished locating: found 100 structure(s)]
+Bot| [system_chat] Started locating test structures. This might take a while...
+Bot|   json {"translate":"commands.test.locate.started"}
+Bot| [system_chat] Found structure at: [12, -60, 11 ->[overworld]] (distance: 16)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[12,-60,11],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 9 -60 11 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"16"]}
+Bot| [system_chat] Found structure at: [6, -60, 3 ->[overworld]] (distance: 6)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[6,-60,3],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 3 -60 3 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"6"]}
+Bot| [system_chat] Found structure at: [0, -60, 11 ->[overworld]] (distance: 11)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[0,-60,11],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s -3 -60 11 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"11"]}
+Bot| [system_chat] Found structure at: [12, -60, 3 ->[overworld]] (distance: 12)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[12,-60,3],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 9 -60 3 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"12"]}
+Bot| [system_chat] Found structure at: [6, -60, 11 ->[overworld]] (distance: 12)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[6,-60,11],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 3 -60 11 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"12"]}
+Bot| [system_chat] Found structure at: [0, -60, 3 ->[overworld]] (distance: 3)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[0,-60,3],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s -3 -60 3 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"3"]}
+Bot| [system_chat] Found structure at: [18, -60, 3 ->[overworld]] (distance: 18)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[18,-60,3],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 15 -60 3 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"18"]}
+Bot| [system_chat] Found structure at: [30, -60, 11 ->[overworld]] (distance: 31)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[30,-60,11],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 27 -60 11 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"31"]}
+Bot| [system_chat] Found structure at: [24, -60, 3 ->[overworld]] (distance: 24)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[24,-60,3],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 21 -60 3 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"24"]}
+Bot| [system_chat] Found structure at: [18, -60, 11 ->[overworld]] (distance: 21)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[18,-60,11],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 15 -60 11 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"21"]}
+Bot| [system_chat] Found structure at: [30, -60, 3 ->[overworld]] (distance: 30)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[30,-60,3],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 27 -60 3 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"30"]}
+Bot| [system_chat] Found structure at: [24, -60, 11 ->[overworld]] (distance: 26)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[24,-60,11],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 21 -60 11 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"26"]}
+Bot| [system_chat] Found structure at: [42, -60, 11 ->[overworld]] (distance: 43)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[42,-60,11],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 39 -60 11 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"43"]}
+Bot| [system_chat] Found structure at: [36, -60, 3 ->[overworld]] (distance: 36)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[36,-60,3],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 33 -60 3 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"36"]}
+Bot| [system_chat] Found structure at: [42, -60, 3 ->[overworld]] (distance: 42)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[42,-60,3],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 39 -60 3 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"42"]}
+Bot| [system_chat] Found structure at: [36, -60, 11 ->[overworld]] (distance: 37)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[36,-60,11],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 33 -60 11 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"37"]}
+Bot| [system_chat] Found structure at: [54, -60, 3 ->[overworld]] (distance: 54)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[54,-60,3],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 51 -60 3 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"54"]}
+Bot| [system_chat] Found structure at: [48, -60, 11 ->[overworld]] (distance: 49)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[48,-60,11],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 45 -60 11 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"49"]}
+Bot| [system_chat] Found structure at: [54, -60, 11 ->[overworld]] (distance: 55)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[54,-60,11],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 51 -60 11 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"55"]}
+Bot| [system_chat] Found structure at: [48, -60, 3 ->[overworld]] (distance: 48)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[48,-60,3],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 45 -60 3 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"48"]}
+Bot| [system_chat] Found structure at: [12, -60, 27 ->[overworld]] (distance: 29)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[12,-60,27],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 9 -60 27 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"29"]}
+Bot| [system_chat] Found structure at: [6, -60, 19 ->[overworld]] (distance: 19)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[6,-60,19],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 3 -60 19 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"19"]}
+Bot| [system_chat] Found structure at: [0, -60, 27 ->[overworld]] (distance: 27)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[0,-60,27],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s -3 -60 27 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"27"]}
+Bot| [system_chat] Found structure at: [12, -60, 19 ->[overworld]] (distance: 22)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[12,-60,19],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 9 -60 19 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"22"]}
+Bot| [system_chat] Found structure at: [6, -60, 27 ->[overworld]] (distance: 27)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[6,-60,27],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 3 -60 27 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"27"]}
+Bot| [system_chat] Found structure at: [0, -60, 19 ->[overworld]] (distance: 19)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[0,-60,19],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s -3 -60 19 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"19"]}
+Bot| [system_chat] Found structure at: [18, -60, 19 ->[overworld]] (distance: 26)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[18,-60,19],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 15 -60 19 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"26"]}
+Bot| [system_chat] Found structure at: [30, -60, 27 ->[overworld]] (distance: 40)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[30,-60,27],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 27 -60 27 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"40"]}
+Bot| [system_chat] Found structure at: [24, -60, 19 ->[overworld]] (distance: 30)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[24,-60,19],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 21 -60 19 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"30"]}
+Bot| [system_chat] Found structure at: [18, -60, 27 ->[overworld]] (distance: 32)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[18,-60,27],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 15 -60 27 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"32"]}
+Bot| [system_chat] Found structure at: [30, -60, 19 ->[overworld]] (distance: 35)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[30,-60,19],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 27 -60 19 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"35"]}
+Bot| [system_chat] Found structure at: [24, -60, 27 ->[overworld]] (distance: 36)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[24,-60,27],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 21 -60 27 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"36"]}
+Bot| [system_chat] Found structure at: [42, -60, 27 ->[overworld]] (distance: 49)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[42,-60,27],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 39 -60 27 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"49"]}
+Bot| [system_chat] Found structure at: [36, -60, 19 ->[overworld]] (distance: 40)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[36,-60,19],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 33 -60 19 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"40"]}
+Bot| [system_chat] Found structure at: [42, -60, 19 ->[overworld]] (distance: 46)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[42,-60,19],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 39 -60 19 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"46"]}
+Bot| [system_chat] Found structure at: [36, -60, 27 ->[overworld]] (distance: 45)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[36,-60,27],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 33 -60 27 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"45"]}
+Bot| [system_chat] Found structure at: [54, -60, 19 ->[overworld]] (distance: 57)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[54,-60,19],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 51 -60 19 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"57"]}
+Bot| [system_chat] Found structure at: [48, -60, 27 ->[overworld]] (distance: 55)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[48,-60,27],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 45 -60 27 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"55"]}
+Bot| [system_chat] Found structure at: [54, -60, 27 ->[overworld]] (distance: 60)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[54,-60,27],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 51 -60 27 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"60"]}
+Bot| [system_chat] Found structure at: [48, -60, 19 ->[overworld]] (distance: 51)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[48,-60,19],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 45 -60 19 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"51"]}
+Bot| [system_chat] Found structure at: [12, -60, 43 ->[overworld]] (distance: 44)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[12,-60,43],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 9 -60 43 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"44"]}
+Bot| [system_chat] Found structure at: [6, -60, 35 ->[overworld]] (distance: 35)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[6,-60,35],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 3 -60 35 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"35"]}
+Bot| [system_chat] Found structure at: [0, -60, 43 ->[overworld]] (distance: 43)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[0,-60,43],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s -3 -60 43 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"43"]}
+Bot| [system_chat] Found structure at: [12, -60, 35 ->[overworld]] (distance: 37)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[12,-60,35],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 9 -60 35 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"37"]}
+Bot| [system_chat] Found structure at: [6, -60, 43 ->[overworld]] (distance: 43)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[6,-60,43],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 3 -60 43 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"43"]}
+Bot| [system_chat] Found structure at: [0, -60, 35 ->[overworld]] (distance: 35)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[0,-60,35],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s -3 -60 35 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"35"]}
+Bot| [system_chat] Found structure at: [18, -60, 35 ->[overworld]] (distance: 39)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[18,-60,35],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 15 -60 35 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"39"]}
+Bot| [system_chat] Found structure at: [30, -60, 43 ->[overworld]] (distance: 52)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[30,-60,43],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 27 -60 43 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"52"]}
+Bot| [system_chat] Found structure at: [24, -60, 35 ->[overworld]] (distance: 42)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[24,-60,35],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 21 -60 35 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"42"]}
+Bot| [system_chat] Found structure at: [18, -60, 43 ->[overworld]] (distance: 46)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[18,-60,43],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 15 -60 43 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"46"]}
+Bot| [system_chat] Found structure at: [30, -60, 35 ->[overworld]] (distance: 46)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[30,-60,35],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 27 -60 35 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"46"]}
+Bot| [system_chat] Found structure at: [24, -60, 43 ->[overworld]] (distance: 49)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[24,-60,43],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 21 -60 43 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"49"]}
+Bot| [system_chat] Found structure at: [42, -60, 43 ->[overworld]] (distance: 60)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[42,-60,43],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 39 -60 43 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"60"]}
+Bot| [system_chat] Found structure at: [36, -60, 35 ->[overworld]] (distance: 50)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[36,-60,35],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 33 -60 35 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"50"]}
+Bot| [system_chat] Found structure at: [42, -60, 35 ->[overworld]] (distance: 54)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[42,-60,35],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 39 -60 35 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"54"]}
+Bot| [system_chat] Found structure at: [36, -60, 43 ->[overworld]] (distance: 56)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[36,-60,43],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 33 -60 43 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"56"]}
+Bot| [system_chat] Found structure at: [54, -60, 35 ->[overworld]] (distance: 64)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[54,-60,35],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 51 -60 35 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"64"]}
+Bot| [system_chat] Found structure at: [48, -60, 43 ->[overworld]] (distance: 64)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[48,-60,43],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 45 -60 43 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"64"]}
+Bot| [system_chat] Found structure at: [54, -60, 43 ->[overworld]] (distance: 69)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[54,-60,43],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 51 -60 43 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"69"]}
+Bot| [system_chat] Found structure at: [48, -60, 35 ->[overworld]] (distance: 59)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[48,-60,35],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 45 -60 35 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"59"]}
+Bot| [system_chat] Found structure at: [12, -60, 59 ->[overworld]] (distance: 60)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[12,-60,59],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 9 -60 59 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"60"]}
+Bot| [system_chat] Found structure at: [6, -60, 51 ->[overworld]] (distance: 51)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[6,-60,51],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 3 -60 51 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"51"]}
+Bot| [system_chat] Found structure at: [0, -60, 59 ->[overworld]] (distance: 59)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[0,-60,59],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s -3 -60 59 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"59"]}
+Bot| [system_chat] Found structure at: [12, -60, 51 ->[overworld]] (distance: 52)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[12,-60,51],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 9 -60 51 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"52"]}
+Bot| [system_chat] Found structure at: [6, -60, 59 ->[overworld]] (distance: 59)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[6,-60,59],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 3 -60 59 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"59"]}
+Bot| [system_chat] Found structure at: [0, -60, 51 ->[overworld]] (distance: 51)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[0,-60,51],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s -3 -60 51 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"51"]}
+Bot| [system_chat] Found structure at: [18, -60, 51 ->[overworld]] (distance: 54)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[18,-60,51],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 15 -60 51 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"54"]}
+Bot| [system_chat] Found structure at: [30, -60, 59 ->[overworld]] (distance: 66)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[30,-60,59],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 27 -60 59 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"66"]}
+Bot| [system_chat] Found structure at: [24, -60, 51 ->[overworld]] (distance: 56)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[24,-60,51],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 21 -60 51 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"56"]}
+Bot| [system_chat] Found structure at: [18, -60, 59 ->[overworld]] (distance: 61)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[18,-60,59],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 15 -60 59 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"61"]}
+Bot| [system_chat] Found structure at: [30, -60, 51 ->[overworld]] (distance: 59)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[30,-60,51],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 27 -60 51 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"59"]}
+Bot| [system_chat] Found structure at: [24, -60, 59 ->[overworld]] (distance: 63)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[24,-60,59],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 21 -60 59 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"63"]}
+Bot| [system_chat] Found structure at: [42, -60, 59 ->[overworld]] (distance: 72)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[42,-60,59],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 39 -60 59 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"72"]}
+Bot| [system_chat] Found structure at: [36, -60, 51 ->[overworld]] (distance: 62)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[36,-60,51],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 33 -60 51 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"62"]}
+Bot| [system_chat] Found structure at: [42, -60, 51 ->[overworld]] (distance: 66)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[42,-60,51],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 39 -60 51 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"66"]}
+Bot| [system_chat] Found structure at: [36, -60, 59 ->[overworld]] (distance: 69)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[36,-60,59],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 33 -60 59 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"69"]}
+Bot| [system_chat] Found structure at: [54, -60, 51 ->[overworld]] (distance: 74)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[54,-60,51],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 51 -60 51 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"74"]}
+Bot| [system_chat] Found structure at: [48, -60, 59 ->[overworld]] (distance: 76)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[48,-60,59],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 45 -60 59 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"76"]}
+Bot| [system_chat] Found structure at: [54, -60, 59 ->[overworld]] (distance: 79)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[54,-60,59],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 51 -60 59 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"79"]}
+Bot| [system_chat] Found structure at: [48, -60, 51 ->[overworld]] (distance: 70)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[48,-60,51],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 45 -60 51 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"70"]}
+Bot| [system_chat] Found structure at: [12, -60, 75 ->[overworld]] (distance: 75)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[12,-60,75],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 9 -60 75 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"75"]}
+Bot| [system_chat] Found structure at: [6, -60, 67 ->[overworld]] (distance: 67)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[6,-60,67],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 3 -60 67 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"67"]}
+Bot| [system_chat] Found structure at: [0, -60, 75 ->[overworld]] (distance: 75)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[0,-60,75],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s -3 -60 75 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"75"]}
+Bot| [system_chat] Found structure at: [12, -60, 67 ->[overworld]] (distance: 68)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[12,-60,67],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 9 -60 67 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"68"]}
+Bot| [system_chat] Found structure at: [6, -60, 75 ->[overworld]] (distance: 75)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[6,-60,75],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 3 -60 75 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"75"]}
+Bot| [system_chat] Found structure at: [0, -60, 67 ->[overworld]] (distance: 67)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[0,-60,67],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s -3 -60 67 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"67"]}
+Bot| [system_chat] Found structure at: [18, -60, 67 ->[overworld]] (distance: 69)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[18,-60,67],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 15 -60 67 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"69"]}
+Bot| [system_chat] Found structure at: [30, -60, 75 ->[overworld]] (distance: 80)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[30,-60,75],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 27 -60 75 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"80"]}
+Bot| [system_chat] Found structure at: [24, -60, 67 ->[overworld]] (distance: 71)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[24,-60,67],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 21 -60 67 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"71"]}
+Bot| [system_chat] Found structure at: [18, -60, 75 ->[overworld]] (distance: 77)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[18,-60,75],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 15 -60 75 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"77"]}
+Bot| [system_chat] Found structure at: [30, -60, 67 ->[overworld]] (distance: 73)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[30,-60,67],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 27 -60 67 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"73"]}
+Bot| [system_chat] Found structure at: [24, -60, 75 ->[overworld]] (distance: 78)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[24,-60,75],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 21 -60 75 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"78"]}
+Bot| [system_chat] Found structure at: [42, -60, 75 ->[overworld]] (distance: 85)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[42,-60,75],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 39 -60 75 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"85"]}
+Bot| [system_chat] Found structure at: [36, -60, 67 ->[overworld]] (distance: 76)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[36,-60,67],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 33 -60 67 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"76"]}
+Bot| [system_chat] Found structure at: [42, -60, 67 ->[overworld]] (distance: 79)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[42,-60,67],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 39 -60 67 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"79"]}
+Bot| [system_chat] Found structure at: [36, -60, 75 ->[overworld]] (distance: 83)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[36,-60,75],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 33 -60 75 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"83"]}
+Bot| [system_chat] Found structure at: [54, -60, 67 ->[overworld]] (distance: 86)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[54,-60,67],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 51 -60 67 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"86"]}
+Bot| [system_chat] Found structure at: [48, -60, 75 ->[overworld]] (distance: 89)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[48,-60,75],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 45 -60 75 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"89"]}
+Bot| [system_chat] Found structure at: [54, -60, 75 ->[overworld]] (distance: 92)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[54,-60,75],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 51 -60 75 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"92"]}
+Bot| [system_chat] Found structure at: [48, -60, 67 ->[overworld]] (distance: 82)
+Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[48,-60,67],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 45 -60 67 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"82"]}
+Bot| [system_chat] Finished locating: found 100 structure(s)
+Bot|   json {"translate":"commands.test.locate.done","with":[100]}
+### [gametest_cmd.txt:115] test resetthese
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset 100 structure(s)
+Bot| [system_chat] [Server: Reset 100 structure(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.reset.success","with":[100]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:116] test resetclosest
+log| System chat: Reset succeeded for test: minecraft:always_pass
+log| System chat: Reset 1 structure(s)
+Bot| [system_chat] [Server: Reset 1 structure(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.reset.success","with":[1]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:117] @bot test resetclosest
+log| System chat: [Bot: Reset 1 structure(s)]
+Bot| [system_chat] Reset succeeded for test: minecraft:always_pass
+Bot|   json {"translate":"test_instance_block.reset_success","with":["minecraft:always_pass"],"color":"green"}
+Bot| [system_chat] Reset 1 structure(s)
+Bot|   json {"translate":"commands.test.reset.success","with":[1]}
+### [gametest_cmd.txt:118] test runthese
+log| System chat: Running 100 test(s)...
+log| Running test environment 'minecraft:default' batch 0 (50 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:119] !ticks 20 show
+log| System chat: Stepping 20 tick(s)
+log| Running test environment 'minecraft:default' batch 1 (50 tests)...
+log| System chat: Starting environment minecraft:default batch 1
+log| System chat: Game Test complete! 100 test(s) were run
+log| System chat: All required tests passed :)
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] [Server: Stepping 20 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.step.success","with":[20]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 1]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",1]}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: Game Test complete! 100 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[100],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
+### [gametest_cmd.txt:120] test runclosest 2
+log| System chat: Running 1 test(s)...
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:121] !ticks 40 show
+log| System chat: Stepping 40 tick(s)
+log| Starting re-run of tests: minecraft:always_pass
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+log| System chat: Game Test complete! 2 test(s) were run
+log| System chat: All required tests passed :)
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] [Server: Stepping 40 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.step.success","with":[40]}],"color":"gray","italic":true}
+Bot| [system_chat] [Run:    1, Ok:    1, Fail:    0, Left:    1]        minecraft:always_pass passed! <masked>ms
+Bot|   json {"text":"[Run:    1, Ok:    1, Fail:    0, Left:    1]        minecraft:always_pass passed! <masked>ms","color":"green"}
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+Bot| [system_chat] [Run:    2, Ok:    2, Fail:    0, Left:    0]        minecraft:always_pass passed! <masked>ms
+Bot|   json {"text":"[Run:    2, Ok:    2, Fail:    0, Left:    0]        minecraft:always_pass passed! <masked>ms","color":"green"}
+Bot| [system_chat] [Server: Game Test complete! 2 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[2],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
+Bot0| [system_chat] [Run:    1, Ok:    1, Fail:    0, Left:    1]        minecraft:always_pass passed! <masked>ms
+Bot0|   json {"text":"[Run:    1, Ok:    1, Fail:    0, Left:    1]        minecraft:always_pass passed! <masked>ms","color":"green"}
+Bot0| [system_chat] [Run:    2, Ok:    2, Fail:    0, Left:    0]        minecraft:always_pass passed! <masked>ms
+Bot0|   json {"text":"[Run:    2, Ok:    2, Fail:    0, Left:    0]        minecraft:always_pass passed! <masked>ms","color":"green"}
+### [gametest_cmd.txt:122] @bot test runclosest
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: [Bot: Starting environment minecraft:default batch 0]
+Bot| [system_chat] Running 1 test(s)...
+Bot|   json {"translate":"commands.test.run.running","with":[1]}
+Bot| [system_chat] Starting environment minecraft:default batch 0
+Bot|   json {"translate":"commands.test.batch.starting","with":["minecraft:default",0]}
+### [gametest_cmd.txt:123] !ticks 20 show
+log| System chat: Stepping 20 tick(s)
+log| System chat: [Bot: Game Test complete! 1 test(s) were run]
+log| System chat: [Bot: All required tests passed :)]
+Bot| [system_chat] [Server: Stepping 20 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.step.success","with":[20]}],"color":"gray","italic":true}
+Bot| [system_chat] Game Test complete! 1 test(s) were run
+Bot|   json {"translate":"commands.test.summary","with":[1],"color":"white"}
+Bot| [system_chat] All required tests passed :)
+Bot|   json {"translate":"commands.test.summary.all_required_passed","color":"green"}
+### [gametest_cmd.txt:124] test clearthese
+log| System chat: Cleared 100 structure(s)
+Bot| [system_chat] [Server: Cleared 100 structure(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.clear.success","with":[100]}],"color":"gray","italic":true}
+### [gametest_cmd.txt:125] test clearall
+log| System chat: Could not find any tests to clear
+### [gametest_cmd.txt:126] test locate always_pass
+log| System chat: Started locating test structures. This might take a while...
+log| System chat: Found no test instances

@@ -37,6 +37,7 @@ corpora!(
     entity_commands,
     execute,
     functions,
+    gametest_cmd,
     items,
     operating,
     place,

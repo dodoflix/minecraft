@@ -1,9 +1,12 @@
 # /test: syntax errors, permissions, argument errors, create/locate/pos/clear/reset/run of the vanilla `always_pass` instance.
-#   scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/test.txt
-# The run time of a finished test (`passed! (3ms / 2gameticks)`) is the only non-deterministic output.
+#   scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/gametest_cmd.txt
+# The ticks are frozen, so every `!ticks n` steps the server by exactly n ticks and a test finishes in a known window. The
+# run time of a test (`passed! (3ms / 2gameticks)`, `always_pass passed! 3ms`) is the only non-deterministic output.
 gamerule advance_time false
 gamerule advance_weather false
+tick freeze
 !ignore passed! \(
+!mask (\d+)ms
 
 # ---- syntax / permissions
 test
@@ -74,47 +77,50 @@ test clearall
 
 # ---- run the built-in instance
 test run always_pass
-!ticks 20
+!ticks 20 show
 test run minecraft:always_pass
-!ticks 20
+!ticks 20 show
 test run minecraft:*
-!ticks 20
+!ticks 20 show
 test run *
-!ticks 20
+!ticks 20 show
 test run always_pass 3
-!ticks 40
+!ticks 40 show
 test run always_pass 2 true
-!ticks 40
+!ticks 40 show
 test run always_pass 1 false 1
-!ticks 20
+!ticks 20 show
 test run always_pass 1 false 2 2
-!ticks 20
+!ticks 20 show
 test run always_pass 1 false 4
 test run always_pass 1 false -1
 test runmultiple always_pass
-!ticks 20
+!ticks 20 show
 test runmultiple always_pass 3
-!ticks 20
+!ticks 20 show
 test runmultiple always_pass 0
 test runmultiple always_pass -2
 test verify always_pass
-!ticks 100
+!ticks 100 show
 test stop
 test runfailed
 test runfailed true 2
-!ticks 20
+!ticks 20 show
+!known locate lists the instances in a different order: vanilla searches the point-of-interest storage, ours scans the loaded chunks
 test locate always_pass
+!known locate lists the instances in a different order: vanilla searches the point-of-interest storage, ours scans the loaded chunks
 test locate *
+!known locate lists the instances in a different order: vanilla searches the point-of-interest storage, ours scans the loaded chunks
 @bot test locate always_pass
 test resetthese
 test resetclosest
 @bot test resetclosest
 test runthese
-!ticks 20
+!ticks 20 show
 test runclosest 2
-!ticks 40
+!ticks 40 show
 @bot test runclosest
-!ticks 20
+!ticks 20 show
 test clearthese
 test clearall
 test locate always_pass

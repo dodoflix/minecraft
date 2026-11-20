@@ -30,6 +30,8 @@
 #                      command's segment
 #   !ticks <n>         wait n game ticks: polls `time query gametime` (and runs `tick step n` first when the corpus did
 #                      `tick freeze`); `tick freeze` / `tick step` are the way to make tick-dependent output exact
+#   !ticks <n> show    the same, and everything the server and the bots emitted during the window (minus the `time query`
+#                      polls) becomes the segment of this line instead of being dropped
 #   !ignore <regex>    drop every normalized output line matching the regex (log, bot chat, packets) for the rest of the file
 #   !sort <regex>      sort every run of consecutive output lines matching the regex (vanilla emits some sets in identity-hash
 #                      order, e.g. the advancements one grant completes); the sort applies to the rest of the file
