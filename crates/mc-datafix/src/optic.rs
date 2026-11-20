@@ -5,8 +5,8 @@
 //! `ReForgetC`, `IdF`, `Const`, `FunctionType`). All of them boil down to two operations on the dynamic [`Value`]:
 //! *visit* every focused value, and *update* every focused value; both are implemented once by [`TypedOptic::visit`]
 //! and [`TypedOptic::update`]. The optic-bound lattice (`Cartesian`/`Cocartesian`/`AffineP`/`TraversalP`) only decides
-//! which Java instance may evaluate an optic (a failing `upCast` throws `IllegalArgumentException`); it is not tracked
-//! here, so misuse that throws in Java (e.g. `Typed.get` through an `optional`) simply yields the first focus.
+//! which Java instance may evaluate an optic (a failing `upCast` throws `IllegalArgumentException`); [`Bound`] and
+//! [`Instance`] track it, so `Typed.get` through an `optional` or a tagged choice throws like in Java.
 
 use crate::ty::{TaggedChoiceType, Type};
 use crate::value::Value;
@@ -33,7 +33,7 @@ pub(crate) enum Optic {
     /// `Sum.SumType.mergeOptics`: left optic on `Either.left`, right optic on `Either.right`.
     Sum(Box<TypedOptic>, Box<TypedOptic>),
     /// `TaggedChoiceType.findTypeInChildren` with several matching choices: per-key optic, other keys untouched.
-    Choice(Arc<Vec<(String, TypedOptic)>>),
+    Choice(Arc<Vec<(String, TypedOptic)>>, Bound),
 }
 
 impl PartialEq for Optic {
@@ -48,7 +48,7 @@ impl PartialEq for Optic {
             | (ListTraversal, ListTraversal) => true,
             (InjTagged(a), InjTagged(b)) => a == b,
             (Sum(a1, a2), Sum(b1, b2)) => a1 == b1 && a2 == b2,
-            (Choice(a), Choice(b)) => {
+            (Choice(a, _), Choice(b, _)) => {
                 a.len() == b.len()
                     && a.iter()
                         .all(|(k, v)| b.iter().any(|(k2, v2)| k == k2 && v == v2))
@@ -69,7 +69,18 @@ impl Optic {
             Optic::ListTraversal => 5,
             Optic::InjTagged(_) => 6,
             Optic::Sum(..) => 8,
-            Optic::Choice(_) => 9,
+            Optic::Choice(..) => 9,
+        }
+    }
+
+    /// The class this optic is bound by (`TypedOptic` constructors of DFU).
+    fn bound(&self) -> Bound {
+        match self {
+            Optic::Id => Bound::Profunctor,
+            Optic::Proj1 | Optic::Proj2 => Bound::Cartesian,
+            Optic::Inj1 | Optic::Inj2 | Optic::InjTagged(_) => Bound::Cocartesian,
+            Optic::ListTraversal | Optic::Sum(..) => Bound::Traversal,
+            Optic::Choice(_, bound) => *bound,
         }
     }
 
@@ -86,11 +97,13 @@ impl Optic {
             }
             Optic::Inj1 => match s {
                 Value::Left(a) => Value::left(f(*a)),
-                other => other,
+                right @ Value::Right(_) => right,
+                other => crate::value::mismatch("Either", &other),
             },
             Optic::Inj2 => match s {
                 Value::Right(b) => Value::right(f(*b)),
-                other => other,
+                left @ Value::Left(_) => left,
+                other => crate::value::mismatch("Either", &other),
             },
             Optic::ListTraversal => Value::List(s.into_list().into_iter().map(f).collect()),
             Optic::InjTagged(key) => {
@@ -104,9 +117,9 @@ impl Optic {
             Optic::Sum(l, r) => match s {
                 Value::Left(a) => Value::left(l.update(*a, f)),
                 Value::Right(b) => Value::right(r.update(*b, f)),
-                other => panic!("expected Either, got {other:?}"),
+                other => crate::value::mismatch("Either", &other),
             },
-            Optic::Choice(optics) => {
+            Optic::Choice(optics, _) => {
                 let (k, v) = s.into_pair();
                 match optics
                     .iter()
@@ -124,16 +137,16 @@ impl Optic {
             Optic::Id => f(s),
             Optic::Proj1 => f(s.as_pair().0),
             Optic::Proj2 => f(s.as_pair().1),
-            Optic::Inj1 => {
-                if let Value::Left(a) = s {
-                    f(a)
-                }
-            }
-            Optic::Inj2 => {
-                if let Value::Right(b) = s {
-                    f(b)
-                }
-            }
+            Optic::Inj1 => match s {
+                Value::Left(a) => f(a),
+                Value::Right(_) => {}
+                other => crate::value::mismatch("Either", other),
+            },
+            Optic::Inj2 => match s {
+                Value::Right(b) => f(b),
+                Value::Left(_) => {}
+                other => crate::value::mismatch("Either", other),
+            },
             Optic::ListTraversal => s.as_list().iter().for_each(f),
             Optic::InjTagged(key) => {
                 let (k, v) = s.as_pair();
@@ -144,9 +157,9 @@ impl Optic {
             Optic::Sum(l, r) => match s {
                 Value::Left(a) => l.visit(a, f),
                 Value::Right(b) => r.visit(b, f),
-                other => panic!("expected Either, got {other:?}"),
+                other => crate::value::mismatch("Either", other),
             },
-            Optic::Choice(optics) => {
+            Optic::Choice(optics, _) => {
                 let (k, v) = s.as_pair();
                 if let Some((_, o)) = optics
                     .iter()
@@ -155,6 +168,36 @@ impl Optic {
                     o.visit(v, f)
                 }
             }
+        }
+    }
+}
+
+/// The optic classes of DFU a `TypedOptic` is bound by (`TypedOptic.bounds`): the profunctor class an evaluating
+/// instance must provide. An adapter needs only a profunctor, a lens a cartesian one, a prism a cocartesian one, a
+/// traversal the full traversal class.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub(crate) enum Bound {
+    Profunctor,
+    Cartesian,
+    Cocartesian,
+    Traversal,
+}
+
+/// The evaluating instances of `Typed` (`Forget` for `get`, `ForgetOpt` for `getOptional`, `ReForgetC` for `set`); the
+/// updating and collecting instances (`FunctionType`, `Const`) accept every optic.
+#[derive(Clone, Copy, Debug)]
+pub(crate) enum Instance {
+    /// `Forget`: cartesian only, so an optic through a prism or a traversal cannot be evaluated.
+    Forget,
+    /// `ForgetOpt` and `ReForgetC`: affine (cartesian and cocartesian), but no traversals.
+    Affine,
+}
+
+impl Instance {
+    fn accepts(self, bound: Bound) -> bool {
+        match self {
+            Instance::Forget => matches!(bound, Bound::Profunctor | Bound::Cartesian),
+            Instance::Affine => bound != Bound::Traversal,
         }
     }
 }
@@ -217,6 +260,22 @@ impl TypedOptic {
     }
     pub fn b_type(&self) -> &Type {
         &self.elements[self.elements.len() - 1].b
+    }
+
+    /// `TypedOptic.upCast`: whether `instance` can evaluate this optic (every element must satisfy its bound).
+    pub(crate) fn accepts(&self, instance: Instance) -> bool {
+        self.elements
+            .iter()
+            .all(|e| instance.accepts(e.optic.bound()))
+    }
+
+    /// `TypedOptic.apply` with `instance`: `IllegalArgumentException: Couldn't upcast` when it cannot evaluate this
+    /// optic.
+    #[track_caller]
+    pub(crate) fn require(&self, instance: Instance) {
+        if !self.accepts(instance) {
+            panic!("java.lang.IllegalArgumentException: Couldn't upcast");
+        }
     }
 
     /// `TypedOptic.compose(other)`: `self` is the outer optic.
@@ -364,7 +423,21 @@ impl TypedOptic {
         b: Type,
         optics: Vec<(String, TypedOptic)>,
     ) -> TypedOptic {
-        TypedOptic::single(s, t, a, b, Optic::Choice(Arc::new(optics)))
+        // `TaggedChoiceType.findTypeInChildren`: a lens when every choice matched through lenses, an affine optic when all
+        // matched optics are affine, otherwise a traversal
+        let choices = match s.kind() {
+            crate::ty::TypeKind::TaggedChoice(tc) => tc.types.len(),
+            _ => 0,
+        };
+        let bound =
+            if optics.len() == choices && optics.iter().all(|(_, o)| o.accepts(Instance::Forget)) {
+                Bound::Cartesian
+            } else if optics.iter().all(|(_, o)| o.accepts(Instance::Affine)) {
+                Bound::Cocartesian
+            } else {
+                Bound::Traversal
+            };
+        TypedOptic::single(s, t, a, b, Optic::Choice(Arc::new(optics), bound))
     }
 
     // ---- evaluation ---------------------------------------------------------------------------------------------
@@ -421,11 +494,13 @@ impl TypedOptic {
             Optic::Inj2 if builds => Value::right(inner(None, r)),
             Optic::Inj1 => match existing(s) {
                 Value::Left(a) => Value::left(inner(Some(*a), r)),
-                other => other,
+                right @ Value::Right(_) => right,
+                other => crate::value::mismatch("Either", &other),
             },
             Optic::Inj2 => match existing(s) {
                 Value::Right(b) => Value::right(inner(Some(*b), r)),
-                other => other,
+                left @ Value::Left(_) => left,
+                other => crate::value::mismatch("Either", &other),
             },
             Optic::InjTagged(key) if builds => Value::pair(Value::Str(key.clone()), inner(None, r)),
             Optic::InjTagged(key) => {
@@ -439,7 +514,7 @@ impl TypedOptic {
             Optic::ListTraversal | Optic::Sum(..) => {
                 panic!("java.lang.IllegalArgumentException: Couldn't upcast")
             }
-            Optic::Choice(_) => self.update_from(k, existing(s), &mut |_| r.clone()),
+            Optic::Choice(..) => self.update_from(k, existing(s), &mut |_| r.clone()),
         }
     }
 

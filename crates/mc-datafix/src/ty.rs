@@ -897,7 +897,7 @@ impl Type {
             Sum(first, second) => match value {
                 Value::Left(a) => first.encode(ops, a, prefix),
                 Value::Right(b) => second.encode(ops, b, prefix),
-                other => panic!("expected Either, got {other:?}"),
+                other => crate::value::mismatch("Either", other),
             },
             List(element) => {
                 let mut b = ops.list_builder();

@@ -32,7 +32,39 @@ pub mod write_and_read_fix;
 // end: base and family classes
 
 // begin: versions 99..1343
+pub mod bed_item_color_fix;
 pub mod block_entity_id_fix;
+pub mod block_entity_shulker_box_color_fix;
+pub mod chunk_bed_block_entity_injecter_fix;
+pub mod entity_armor_stand_silent_fix;
+pub mod entity_elder_guardian_split_fix;
+pub mod entity_equipment_to_armor_and_hand_fix;
+pub mod entity_health_fix;
+pub mod entity_horse_saddle_fix;
+pub mod entity_horse_split_fix;
+pub mod entity_id_fix;
+pub mod entity_minecart_identifiers_fix;
+pub mod entity_painting_item_frame_direction_fix;
+pub mod entity_redundant_chance_tags_fix;
+pub mod entity_riding_to_passengers_fix;
+pub mod entity_shulker_color_fix;
+pub mod entity_skeleton_split_fix;
+pub mod entity_string_uuid_fix;
+pub mod entity_tipped_arrow_fix;
+pub mod entity_zombie_split_fix;
+pub mod entity_zombie_villager_type_fix;
+pub mod item_banner_color_fix;
+pub mod item_id_fix;
+pub mod item_potion_fix;
+pub mod item_shulker_box_color_fix;
+pub mod item_spawn_egg_fix;
+pub mod item_water_potion_fix;
+pub mod mob_spawner_entity_identifiers_fix;
+pub mod options_force_vbo_fix;
+pub mod options_lower_case_language_fix;
+pub mod sign_text_strict_json_fix;
+pub mod villager_set_can_pick_up_loot_fix;
+pub mod written_book_pages_strict_json_fix;
 // end: versions 99..1343
 
 // begin: versions 1344..1459

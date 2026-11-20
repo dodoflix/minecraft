@@ -37,10 +37,61 @@ pub enum Value {
     List(Vec<Value>),
 }
 
+/// The Java class of the runtime object a value stands for. A list is assumed to be an immutable `List.of` list, the
+/// only list class a fix builds itself (decoded lists have another class: the message of a cast of one is not exact).
+fn java_class(value: &Value) -> &'static str {
+    match value {
+        Value::Unit => "com.mojang.datafixers.util.Unit",
+        Value::Bool(_) => "java.lang.Boolean",
+        Value::Byte(_) => "java.lang.Byte",
+        Value::Short(_) => "java.lang.Short",
+        Value::Int(_) => "java.lang.Integer",
+        Value::Long(_) => "java.lang.Long",
+        Value::Float(_) => "java.lang.Float",
+        Value::Double(_) => "java.lang.Double",
+        Value::Str(_) => "java.lang.String",
+        Value::Dynamic(_) => "com.mojang.serialization.Dynamic",
+        Value::Pair(_) => "com.mojang.datafixers.util.Pair",
+        Value::Left(_) => "com.mojang.datafixers.util.Either$Left",
+        Value::Right(_) => "com.mojang.datafixers.util.Either$Right",
+        Value::List(l) if matches!(l.len(), 1 | 2) => "java.util.ImmutableCollections$List12",
+        Value::List(_) => "java.util.ImmutableCollections$ListN",
+    }
+}
+
+/// Where a Java class lives, as the `ClassCastException` message names it.
+fn java_module(class: &str) -> &'static str {
+    if class.starts_with("java.") {
+        "module java.base of loader 'bootstrap'"
+    } else {
+        "unnamed module of loader 'app'"
+    }
+}
+
+/// The `ClassCastException` of casting `got` to the Java class `want` (a `Value` accessor on the wrong shape).
 #[cold]
 #[track_caller]
-fn mismatch(want: &str, got: &Value) -> ! {
-    panic!("expected {want}, got {got:?}")
+pub(crate) fn mismatch(want: &str, got: &Value) -> ! {
+    let want = match want {
+        "Pair" => "com.mojang.datafixers.util.Pair",
+        "Either" => "com.mojang.datafixers.util.Either",
+        "String" => "java.lang.String",
+        "Int" => "java.lang.Integer",
+        "Long" => "java.lang.Long",
+        "Byte" => "java.lang.Byte",
+        "Boolean" => "java.lang.Boolean",
+        "Dynamic" => "com.mojang.serialization.Dynamic",
+        "List" => "java.util.List",
+        other => panic!("java.lang.ClassCastException: {other}"),
+    };
+    let got = java_class(got);
+    let (got_module, want_module) = (java_module(got), java_module(want));
+    let modules = if got_module == want_module {
+        format!("{got} and {want} are in {got_module}")
+    } else {
+        format!("{got} is in {got_module}; {want} is in {want_module}")
+    };
+    panic!("java.lang.ClassCastException: class {got} cannot be cast to class {want} ({modules})")
 }
 
 impl Value {

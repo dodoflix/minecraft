@@ -89,7 +89,8 @@ regen_tables() {
 
 # -XX:hashCode=2 makes every identity hash 1: Dynamic.hashCode() includes ops.hashCode() (an identity hash), so the order of the
 # HashMap<Dynamic, Dynamic> behind Dynamic.updateMapValues would otherwise differ from run to run (recordings could not repeat).
-ORACLE=(java -XX:+UnlockExperimentalVMOptions -XX:hashCode=2 -Dlog4j2.configurationFile="$SRC/log4j2-oracle.xml" -cp "$OUT:$CP")
+ORACLE=(java -XX:+UnlockExperimentalVMOptions -XX:hashCode=2 -XX:-OmitStackTraceInFastThrow -Dlog4j2.configurationFile="$SRC/log4j2-oracle.xml" -cp "$OUT:$CP")
+# -XX:-OmitStackTraceInFastThrow: HotSpot would reuse a message-less exception after many identical throws, so a record would depend on the JVM history
 if [ "$1" = gen ]; then
   VOCAB="$(vocab)" # a failing assignment stops the script
   ORACLE+=("-Ddatafix.vocab=$VOCAB")

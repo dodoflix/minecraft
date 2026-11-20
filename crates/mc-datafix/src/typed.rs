@@ -5,7 +5,7 @@
 //! `Either.orThrow()` -> `RuntimeException`), exactly like vanilla fixes that mis-name a field.
 
 use crate::finder::{OpticFinder, remainder_finder};
-use crate::optic::TypedOptic;
+use crate::optic::{Instance, TypedOptic};
 use crate::ty::Type;
 use crate::value::Value;
 use mc_dfu::{DataResult, Dynamic, Ops};
@@ -48,8 +48,9 @@ impl Typed {
     /// `typed.get(optic)`.
     #[track_caller]
     pub fn get(&self, f: &OpticFinder) -> Value {
-        self.find(f, f.ty(), false)
-            .first(&self.value)
+        let o = self.find(f, f.ty(), false);
+        o.require(Instance::Forget);
+        o.first(&self.value)
             .unwrap_or_else(|| panic!("typed.get: no value found for a finder of type {}", f.ty()))
     }
 
@@ -57,6 +58,7 @@ impl Typed {
     #[track_caller]
     pub fn get_typed(&self, f: &OpticFinder) -> Typed {
         let o = self.find(f, f.ty(), false);
+        o.require(Instance::Forget);
         let v = o.first(&self.value).unwrap_or_else(|| {
             panic!(
                 "typed.getTyped: no value found for a finder of type {}",
@@ -69,7 +71,9 @@ impl Typed {
     /// `typed.getOptional(optic)`.
     #[track_caller]
     pub fn get_optional(&self, f: &OpticFinder) -> Option<Value> {
-        self.find(f, f.ty(), false).first(&self.value)
+        let o = self.find(f, f.ty(), false);
+        o.require(Instance::Affine);
+        o.first(&self.value)
     }
 
     /// `typed.getOrCreate(optic)`.
@@ -95,6 +99,7 @@ impl Typed {
     #[track_caller]
     pub fn get_optional_typed(&self, f: &OpticFinder) -> Option<Typed> {
         let o = self.find(f, f.ty(), false);
+        o.require(Instance::Affine);
         o.first(&self.value)
             .map(|v| Typed::new(o.a_type().clone(), self.ops, v))
     }
@@ -157,6 +162,7 @@ impl Typed {
     #[track_caller]
     pub fn set_typed(self, f: &OpticFinder, new_value: Typed) -> Typed {
         let field = self.find(f, &new_value.ty, false);
+        field.require(Instance::Affine);
         let b = field.set(self.value, new_value.value);
         Typed::new(field.t_type().clone(), self.ops, b)
     }

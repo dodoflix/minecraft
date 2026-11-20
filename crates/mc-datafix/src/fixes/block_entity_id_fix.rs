@@ -1,5 +1,10 @@
-//! `net.minecraft.util.datafix.fixes.BlockEntityIdFix`.
+//! `BlockEntityIdFix`: renames the legacy block entity ids to namespaced ids (the `BLOCK_ENTITY` choice changes).
 
+use crate::datafix::DataFix;
+use crate::fixes::references::References;
+use crate::rewrite::TypeRewriteRule;
+use crate::schema::Schema;
+use crate::value::Value;
 use mc_core::java_collections::{HASH_MAP_DEFAULT_CAPACITY, hash_map_ordered};
 use mc_core::math::java::java_string_hash;
 use std::sync::LazyLock;
@@ -41,4 +46,40 @@ pub fn id_map() -> &'static [(&'static str, &'static str)] {
         )
     });
     &ID_MAP
+}
+
+/// `new BlockEntityIdFix(outputSchema, changesType)`.
+pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
+    DataFix::new("BlockEntityIdFix", output_schema, changes_type, |df| {
+        let old_item_stack_type = df.input_schema().get_type(&References::ITEM_STACK);
+        let new_item_stack_type = df.output_schema().get_type(&References::ITEM_STACK);
+        let old_type = df
+            .input_schema()
+            .find_choice_type(&References::BLOCK_ENTITY);
+        let new_type = df
+            .output_schema()
+            .find_choice_type(&References::BLOCK_ENTITY);
+        TypeRewriteRule::seq(
+            df.convert_unchecked(
+                "item stack block entity name hook converter",
+                &old_item_stack_type,
+                &new_item_stack_type,
+            ),
+            df.fix_type_everywhere_new(
+                "BlockEntityIdFix",
+                old_type.ty(),
+                new_type.ty(),
+                |_, input| {
+                    input.map_first(|id| {
+                        let id = id.into_string();
+                        let new_id = id_map()
+                            .iter()
+                            .find(|(old, _)| *old == id)
+                            .map_or(id, |(_, new)| (*new).to_string());
+                        Value::Str(new_id)
+                    })
+                },
+            ),
+        )
+    })
 }
