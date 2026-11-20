@@ -100,9 +100,41 @@ pub fn java_string_hash(s: &str) -> i32 {
         .fold(0i32, |h, c| h.wrapping_mul(31).wrapping_add(c as i32))
 }
 
-/// `Integer.parseInt(s)` for ASCII digits (`None` where Java throws `NumberFormatException`).
+/// First code point of every block of ten decimal digits of the basic multilingual plane (`Character.digit(char, 10)`
+/// reads UTF-16 units, so supplementary digits are not digits); the digit value is the offset into the block.
+const DECIMAL_DIGIT_ZEROS: [u32; 37] = [
+    0x30, 0x660, 0x6F0, 0x7C0, 0x966, 0x9E6, 0xA66, 0xAE6, 0xB66, 0xBE6, 0xC66, 0xCE6, 0xD66,
+    0xDE6, 0xE50, 0xED0, 0xF20, 0x1040, 0x1090, 0x17E0, 0x1810, 0x1946, 0x19D0, 0x1A80, 0x1A90,
+    0x1B50, 0x1BB0, 0x1C40, 0x1C50, 0xA620, 0xA8D0, 0xA900, 0xA9D0, 0xA9F0, 0xAA50, 0xABF0, 0xFF10,
+];
+
+/// `Character.digit(c, 10)`: `None` for -1.
+fn java_digit10(c: char) -> Option<u32> {
+    let c = c as u32;
+    let block = DECIMAL_DIGIT_ZEROS
+        .partition_point(|&zero| zero <= c)
+        .checked_sub(1)?;
+    (c - DECIMAL_DIGIT_ZEROS[block] < 10).then(|| c - DECIMAL_DIGIT_ZEROS[block])
+}
+
+/// `Integer.parseInt(s)`: an optional sign and decimal digits of any script (`None` where Java throws
+/// `NumberFormatException`).
 pub fn parse_int(s: &str) -> Option<i32> {
-    s.parse().ok()
+    let (negative, digits) = match s.strip_prefix('-') {
+        Some(rest) => (true, rest),
+        None => (false, s.strip_prefix('+').unwrap_or(s)),
+    };
+    if digits.is_empty() {
+        return None;
+    }
+    let mut value: i64 = 0;
+    for c in digits.chars() {
+        value = value * 10 + i64::from(java_digit10(c)?);
+        if value > i64::from(i32::MAX) + 1 {
+            return None;
+        }
+    }
+    i32::try_from(if negative { -value } else { value }).ok()
 }
 
 /// Lays out Rust `{:e}`-style `digits[.digits]e<exp>` (sign already removed) the way `Double/Float.toString` does.
@@ -208,5 +240,31 @@ mod tests {
         assert_eq!(round_f32(-0.5), 0);
         assert_eq!(java_string_hash("hello"), 99162322);
         assert_eq!(java_string_hash(""), 0);
+    }
+
+    #[test]
+    fn parse_int_follows_integer_parse_int() {
+        for (text, want) in [
+            ("12", Some(12)),
+            ("+5", Some(5)),
+            ("-2147483648", Some(i32::MIN)),
+            ("2147483647", Some(i32::MAX)),
+            ("2147483648", None),
+            ("-2147483649", None),
+            ("-0", Some(0)),
+            ("\u{663}", Some(3)),
+            ("\u{ff11}\u{ff12}", Some(12)),
+            ("\u{1d7f7}7", None),
+            ("", None),
+            ("-", None),
+            ("+", None),
+            (" 1", None),
+            ("1 ", None),
+            ("0x1", None),
+            ("1_0", None),
+            ("--1", None),
+        ] {
+            assert_eq!(parse_int(text), want, "{text:?}");
+        }
     }
 }

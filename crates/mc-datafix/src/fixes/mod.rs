@@ -42,6 +42,38 @@ pub mod block_entity_id_fix;
 // end: versions 1460..2199
 
 // begin: versions 2200..2699
+pub mod attributes_rename_legacy;
+pub mod biome_fix;
+pub mod bit_storage_align_fix;
+pub mod block_entity_uuid_fix;
+pub mod cauldron_rename_fix;
+pub mod chunk_biome_fix;
+pub mod entity_projectile_owner_fix;
+pub mod entity_shulker_rotation_fix;
+pub mod entity_uuid_fix;
+pub mod entity_zombified_piglin_rename_fix;
+pub mod force_poi_rebuild;
+pub mod furnace_recipe_fix;
+pub mod gossip_uuid_fix;
+pub mod item_stack_uuid_fix;
+pub mod jigsaw_properties_fix;
+pub mod legacy_dimension_id_fix;
+pub mod legacy_jigsaw_rotation_fix;
+pub mod level_legacy_world_gen_settings_fix;
+pub mod level_uuid_fix;
+pub mod memory_expiry_data_fix;
+pub mod missing_dimension_fix;
+pub mod options_fancy_graphics_to_graphics_mode_fix;
+pub mod options_rename_field_fix;
+pub mod player_uuid_fix;
+pub mod poi_type_rename_fix;
+pub mod redstone_wire_connections_fix;
+pub mod saved_data_uuid_fix;
+pub mod strider_gravity_fix;
+pub mod structure_reference_count_fix;
+pub mod villager_follow_range_fix;
+pub mod wall_property_fix;
+pub mod world_gen_settings_fix;
 // end: versions 2200..2699
 
 // begin: versions 2700..3299

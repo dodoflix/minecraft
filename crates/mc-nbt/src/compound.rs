@@ -106,20 +106,26 @@ impl CompoundTag {
 
     /// A compound whose `HashMap` iterates `entries` in exactly this order (the entries are the iteration order of a
     /// vanilla compound whose table capacity is unknown, for example the result of a `Dynamic` rewrite). The table
-    /// capacity is the smallest one that yields the order, so the binary form lists the entries as given.
+    /// capacity is the one of an organically filled map when that yields the order, else the smallest that does, so the
+    /// binary form lists the entries as given.
     pub fn from_hash_order(entries: impl IntoIterator<Item = (String, Tag)>) -> Self {
         let tags: IndexMap<String, Tag> = entries.into_iter().collect();
         let hashes: Vec<u32> = tags.keys().map(|k| java_hash(k)).collect();
-        let mut cap = 1u32;
-        while cap <= (1 << 30) {
-            if hashes.len() * 4 <= cap as usize * 3
+        let fits = |cap: u32| {
+            hashes.len() * 4 <= cap as usize * 3
                 && hashes
                     .windows(2)
                     .all(|w| (w[0] & (cap - 1)) <= (w[1] & (cap - 1)))
-            {
-                break;
+        };
+        // the table of a map filled by `put`s is preferred: a later `put` then orders new keys like vanilla
+        let organic = organic_cap(hashes.len()).max(1);
+        let mut cap = 1u32;
+        if fits(organic) {
+            cap = organic;
+        } else {
+            while cap <= (1 << 30) && !fits(cap) {
+                cap *= 2;
             }
-            cap *= 2;
         }
         CompoundTag {
             cap: if tags.is_empty() { 0 } else { cap },
