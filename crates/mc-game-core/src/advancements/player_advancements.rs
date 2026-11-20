@@ -654,14 +654,12 @@ mod tests {
             .filter_map(|l| l.strip_prefix("advancements "))
             .map(|l| l.split_once('\t').unwrap())
         {
-            // the rows carry no `DataVersion`, vanilla upgrades them from 1343: until the registered chain reaches back
-            // that far they are read as files of the current version (current-format content, the fixes change nothing)
-            let input = if data_fixer().oldest_supported_version() <= 1343 {
-                input.to_string()
-            } else {
-                with_version(input, mc_datafix::CURRENT_VERSION)
-            };
-            let data = parse_player_file(&input).unwrap();
+            // the golden builds the progress map straight from the input (no fixer on the way in, `asData()` order):
+            // the data fixer's `updateMapValues` would reorder the top-level keys through its hashed intermediate map
+            let data = data_codec()
+                .parse(&JSON, &Dyn::from_json_str(input).unwrap())
+                .into_result()
+                .unwrap();
             let json = utc_times(Value::Object(progress_file_json(data).unwrap()));
             let written = crate::server::players::player_files::to_gson_pretty(&json);
             assert_eq!(written.replace('\n', "¶"), expected, "{input}");

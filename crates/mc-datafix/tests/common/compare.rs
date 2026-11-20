@@ -160,7 +160,8 @@ pub fn compare(vanilla: &Outcome, ours: &Outcome) -> Result<(), Mismatch> {
             if vt != ot {
                 return Err(Mismatch::TreeDiffers);
             }
-            if vb != ob && !same_order_but_block_state_properties(vb, ob) {
+            if vb != ob && !(vb.len() == ob.len() && same_order_but_block_state_properties(vb, ob))
+            {
                 return Err(Mismatch::OrderOnly);
             }
         }
@@ -304,10 +305,15 @@ pub fn run_ours(fixer: &DataFixer, request: &Request) -> Outcome {
         }))
     });
     let status = match result {
-        Ok(tag) => Status::Ok {
-            bytes: mc_nbt::nbt_io::to_bytes(&tag),
-            tag,
-        },
+        // The tree is the one read back from the written bytes, like the oracle's: a compound that holds an end tag
+        // (a `JsonNull` converted to NBT) is cut short where the end tag is written.
+        Ok(tag) => {
+            let bytes = mc_nbt::nbt_io::to_bytes(&tag);
+            Status::Ok {
+                tag: read_tag(&bytes).unwrap_or(tag),
+                bytes,
+            }
+        }
         Err(payload) => {
             let (class, message) = thrown(&*payload);
             Status::Threw {

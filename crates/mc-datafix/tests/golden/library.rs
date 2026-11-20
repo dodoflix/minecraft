@@ -106,7 +106,10 @@ fn packed_case(name: &str) -> String {
         Ok(()) => "OK".into(),
         Err(p) => format!(
             "EX:IllegalArgumentException:{}",
-            p.downcast_ref::<String>().unwrap()
+            p.downcast_ref::<String>()
+                .unwrap()
+                .strip_prefix("java.lang.IllegalArgumentException: ")
+                .expect("an IllegalArgumentException payload")
         ),
     }
 }

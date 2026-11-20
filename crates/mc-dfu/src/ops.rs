@@ -662,7 +662,7 @@ impl Ops {
     fn convert_nested(&self, out: &Ops, input: &Dyn) -> Dyn {
         assert!(
             !(self.is_json() && input.is_empty_value()),
-            "NullPointerException: JsonNull element in JsonOps.convertTo"
+            "java.lang.NullPointerException: Cannot invoke \"com.google.gson.JsonElement.getAsJsonPrimitive()\" because \"input\" is null"
         );
         self.convert_to(out, input)
     }

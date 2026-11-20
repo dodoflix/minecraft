@@ -7,7 +7,7 @@ use mc_core::math::mth::round_toward_i32;
 fn inclusive_between(start: i64, end: i64, value: i64) {
     assert!(
         (start..=end).contains(&value),
-        "The value {value} is not in the specified inclusive range of {start} to {end}"
+        "java.lang.IllegalArgumentException: The value {value} is not in the specified inclusive range of {start} to {end}"
     );
 }
 
@@ -29,7 +29,10 @@ impl PackedBitStorage {
     #[track_caller]
     pub fn new(bits: i32, size: i32) -> PackedBitStorage {
         let length = required_length(bits, size);
-        assert!(length >= 0, "NegativeArraySizeException: {length}");
+        assert!(
+            length >= 0,
+            "java.lang.NegativeArraySizeException: {length}"
+        );
         PackedBitStorage::from_data(bits, size, vec![0; length as usize])
     }
 
@@ -40,7 +43,7 @@ impl PackedBitStorage {
         let required = required_length(bits, size);
         assert!(
             i64::try_from(data.len()) == Ok(i64::from(required)),
-            "Invalid length given for storage, got: {} but expected: {required}",
+            "java.lang.IllegalArgumentException: Invalid length given for storage, got: {} but expected: {required}",
             data.len()
         );
         PackedBitStorage {

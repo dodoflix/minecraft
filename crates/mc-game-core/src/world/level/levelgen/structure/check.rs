@@ -322,12 +322,9 @@ mod tests {
     }
 
     #[test]
-    fn a_chunk_older_than_the_fixer_chain_cannot_be_fixed() {
+    fn a_chunk_of_the_oldest_data_version_is_fixed_not_refused() {
         let check = StructureCheck::new(Box::new(NoChunkScan));
         let dimension = Identifier::parse("minecraft:overworld").unwrap();
-        let error = check
-            .fix_scanned_chunk(&dimension, &chunk(100))
-            .unwrap_err();
-        assert_eq!(error.data_version, 100);
+        assert!(check.fix_scanned_chunk(&dimension, &chunk(100)).is_ok());
     }
 }

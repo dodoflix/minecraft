@@ -91,6 +91,46 @@ pub mod villager_trade_fix;
 // end: versions 1344..1459
 
 // begin: versions 1460..2199
+pub mod advancements_fix;
+pub mod block_entity_keep_packed;
+pub mod cat_type_fix;
+pub mod chunk_light_remove_fix;
+pub mod chunk_status_fix;
+pub mod chunk_status_fix2;
+pub mod chunk_structures_template_rename_fix;
+pub mod chunk_to_protochunk_fix;
+pub mod colorless_shulker_entity_fix;
+pub mod dye_item_rename_fix;
+pub mod entity_cat_split_fix;
+pub mod entity_cod_salmon_fix;
+pub mod entity_painting_motive_fix;
+pub mod entity_pufferfish_rename_fix;
+pub mod entity_ravager_rename_fix;
+pub mod entity_the_renamening_fix;
+pub mod heightmap_renaming_fix;
+pub mod igloo_metadata_removal_fix;
+pub mod item_lore_fix;
+pub mod item_stack_enchantment_names_fix;
+pub mod leaves_fix;
+pub mod level_data_generator_options_fix;
+pub mod map_id_fix;
+pub mod new_village_fix;
+pub mod objective_render_type_fix;
+pub mod ominous_banner_block_entity_rename_fix;
+pub mod ominous_banner_rename_fix;
+pub mod options_add_text_background_fix;
+pub mod recipes_fix;
+pub mod recipes_renamening_fix;
+pub mod remove_golem_gossip_fix;
+pub mod renamed_coral_fans_fix;
+pub mod renamed_coral_fix;
+pub mod reorganize_poi;
+pub mod scoreboard_display_name_fix;
+pub mod trapped_chest_block_entity_fix;
+pub mod villager_data_fix;
+pub mod villager_rebuild_level_and_xp_fix;
+pub mod weapon_smith_chest_loot_table_fix;
+pub mod zombie_villager_rebuild_xp_fix;
 // end: versions 1460..2199
 
 // begin: versions 2200..2699

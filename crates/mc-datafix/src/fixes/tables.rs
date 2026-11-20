@@ -320,6 +320,24 @@ impl Field {
         self.pairs(string_of, int_of)
     }
 
+    /// The entries of a `Map<String, String>` in dump order, borrowed from the table (for `createRenamer`).
+    pub fn string_pairs(&'static self) -> Vec<(&'static str, &'static str)> {
+        assert_eq!(self.kind, Kind::Map, "{} is not a map", self.name);
+        let text = |t: &'static Tag| -> &'static str {
+            t.as_string()
+                .unwrap_or_else(|| panic!("table value {t} is not a string"))
+        };
+        self.entries
+            .iter()
+            .map(|e| {
+                (
+                    text(e.key.as_ref().expect("map key")),
+                    text(e.value.as_ref().expect("map value")),
+                )
+            })
+            .collect()
+    }
+
     /// `Set<String>`.
     pub fn string_set(&self) -> OrderedSet<String> {
         assert_eq!(self.kind, Kind::Set, "{} is not a set", self.name);
