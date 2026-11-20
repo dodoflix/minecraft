@@ -9,7 +9,7 @@
 //! resolved like `Path.normalize` (`..` stops at the root).
 
 use std::fmt;
-use std::fs;
+use std::fs::{self, OpenOptions};
 use std::io;
 use std::path::{Component, Path, PathBuf};
 
@@ -18,6 +18,7 @@ use mc_core::java_exception::{FILE_ALREADY_EXISTS_EXCEPTION, JavaException};
 use mc_core::math::java::java_string_hash;
 
 use super::error::FileMove;
+use super::jdk_files::{copy_file, create_directory, delete_if_exists, delete_tree, list};
 use super::ops::shown;
 use crate::level_storage::safe_move_file;
 
@@ -174,11 +175,19 @@ fn check_attributes(real: &Path, file_type: fs::FileType) -> io::Result<()> {
     Ok(())
 }
 
-fn build(real_dir: &Path, skipped: &dyn Fn(&Path) -> bool) -> io::Result<Children> {
+/// The tree of the entries of one directory. The walker opens a directory (and fails on it) before it looks at the
+/// directory itself, so a folder that cannot be listed fails before its write access is checked or it is skipped.
+fn build(
+    entries: Vec<fs::DirEntry>,
+    skipped: &dyn Fn(&Path) -> bool,
+) -> io::Result<Children> {
     let mut children = new_children();
-    for entry in fs::read_dir(real_dir)? {
-        let real = entry?.path();
-        let file_type = fs::symlink_metadata(&real)?.file_type();
+    for entry in entries {
+        let real = entry.path();
+        let file_type = fs::symlink_metadata(&real)
+            .map_err(|e| JavaException::from_file_error(e, &real))?
+            .file_type();
+        let listing = file_type.is_dir().then(|| list(&real)).transpose()?;
         check_attributes(&real, file_type)?;
         if skipped(&real) {
             continue;
@@ -188,13 +197,12 @@ fn build(real_dir: &Path, skipped: &dyn Fn(&Path) -> bool) -> io::Result<Childre
             .expect("a directory entry has a name")
             .to_string_lossy()
             .into_owned();
-        let node = if file_type.is_dir() {
-            Node::Dir(build(&real, skipped)?)
-        } else {
-            Node::File {
+        let node = match listing {
+            Some(entries) => Node::Dir(build(entries, skipped)?),
+            None => Node::File {
                 storage: real,
                 is_copy: false,
-            }
+            },
         };
         children.insert(name, node);
     }
@@ -246,21 +254,27 @@ impl CowTree {
             ))
             .into());
         }
-        let base_type = fs::symlink_metadata(base_directory)?.file_type();
+        let base_type = fs::symlink_metadata(base_directory)
+            .map_err(|e| JavaException::from_file_error(e, base_directory))?
+            .file_type();
+        let entries = base_type
+            .is_dir()
+            .then(|| list(base_directory))
+            .transpose()?;
         check_attributes(base_directory, base_type)?;
         let tree = CowTree {
             tmp_directory: tmp_directory.to_path_buf(),
-            root: build(base_directory, &skipped)?,
+            root: build(entries.unwrap_or_default(), &skipped)?,
             tmp_file_index: 0,
         };
-        fs::create_dir(tmp_directory)?;
+        create_directory(tmp_directory)?;
         Ok(tree)
     }
 
     /// `close`: deletes the temporary directory.
     pub fn close(self) -> io::Result<()> {
         if self.tmp_directory.exists() {
-            fs::remove_dir_all(&self.tmp_directory)?;
+            delete_tree(&self.tmp_directory)?;
         }
         Ok(())
     }
@@ -388,11 +402,7 @@ impl CowTree {
                 storage,
                 is_copy: true,
             }) => {
-                if let Err(e) = fs::remove_file(storage)
-                    && e.kind() != io::ErrorKind::NotFound
-                {
-                    return Err(e);
-                }
+                delete_if_exists(storage)?;
             }
             Some(_) => {}
         }
@@ -499,7 +509,12 @@ impl CowTree {
                 let parent = path.parent().unwrap_or(Path::new(""));
                 self.dir_mut(parents, parent)?;
                 let tmp = self.create_temporary_file_path();
-                fs::File::create(&tmp)?;
+                OpenOptions::new()
+                    .write(true)
+                    .create(true)
+                    .truncate(true)
+                    .open(&tmp)
+                    .map_err(|e| JavaException::from_file_error(e, &tmp))?;
                 self.dir_mut(parents, parent)?.insert(
                     name.clone(),
                     Node::File {
@@ -511,7 +526,7 @@ impl CowTree {
             }
             Found::Original(original) => {
                 let tmp = self.create_temporary_file_path();
-                fs::copy(&original, &tmp)?;
+                copy_file(&original, &tmp)?;
                 let (name, parents) = names.split_last().expect("not the root");
                 let parent = path.parent().unwrap_or(Path::new(""));
                 self.dir_mut(parents, parent)?.insert(
@@ -546,7 +561,7 @@ impl CowTree {
                 storage,
                 is_copy: true,
             }) => {
-                let _ = fs::remove_file(storage);
+                let _ = delete_if_exists(storage);
             }
             _ => {}
         }
@@ -592,9 +607,7 @@ impl CowTree {
 
 /// `CopyOnWriteFileSystem.createDirectories`.
 pub fn create_directories(directories: &[PathBuf]) -> io::Result<()> {
-    directories
-        .iter()
-        .try_for_each(|d| fs::create_dir(d).map_err(|e| JavaException::from_file_error(e, d)))
+    directories.iter().try_for_each(|d| create_directory(d))
 }
 
 /// `CopyOnWriteFileSystem.hardLinkFiles`: links the originals into the new world, leaving what is there.

@@ -8,6 +8,7 @@ use std::fs;
 use std::io;
 use std::path::{Path, PathBuf};
 
+use mc_core::java_exception::JavaException;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_datafix::{DataFixTypes, References, TypeReference, data_fixer};
 use mc_dfu::{Dyn, Dynamic, NBT};
@@ -15,6 +16,7 @@ use mc_nbt::{CompoundTag, NbtAccounter, Tag};
 
 use super::cow_tree::CowTree;
 use super::error::FileFixError;
+use super::jdk_files::{copy_file, create_directory, delete_tree, list};
 use super::ops::shown;
 use crate::level_storage::{read_compressed, write_compressed};
 use crate::region::upgrade::upgrade_chunk_tag_to;
@@ -243,6 +245,11 @@ pub struct ChunkNbt {
     closed: bool,
 }
 
+/// Moves a finished file out of the staging folder (`Files.move`).
+fn move_staged(from: &Path, to: &Path) -> io::Result<()> {
+    fs::rename(from, to).map_err(|e| JavaException::from_file_pair_error(e, from, Some(to)))
+}
+
 fn region_file_name(pos: &ChunkPos) -> String {
     format!("r.{}.{}.mca", pos.get_region_x(), pos.get_region_z())
 }
@@ -257,7 +264,7 @@ impl ChunkNbt {
         target_version: i32,
     ) -> io::Result<ChunkNbt> {
         let stage = tree.create_temporary_file_path();
-        fs::create_dir(&stage)?;
+        create_directory(&stage)?;
         Ok(ChunkNbt {
             folder,
             ty,
@@ -279,9 +286,9 @@ impl ChunkNbt {
                     .iter()
                     .filter(|n| n.starts_with("c.") && n.ends_with(".mcc"))
                 {
-                    fs::copy(
-                        tree.file_for_read(&self.folder.join(name))?,
-                        self.stage.join(name),
+                    copy_file(
+                        &tree.file_for_read(&self.folder.join(name))?,
+                        &self.stage.join(name),
                     )?;
                 }
             }
@@ -292,7 +299,7 @@ impl ChunkNbt {
         }
         let virtual_path = self.folder.join(&name);
         if tree.is_file(&virtual_path) {
-            fs::copy(tree.file_for_read(&virtual_path)?, self.stage.join(&name))?;
+            copy_file(&tree.file_for_read(&virtual_path)?, &self.stage.join(&name))?;
             self.staged_regions.insert(name);
         }
         Ok(())
@@ -307,8 +314,12 @@ impl ChunkNbt {
         data_fix_context: Option<&CompoundTag>,
         fixer: impl FnOnce(CompoundTag) -> CompoundTag,
     ) -> io::Result<()> {
-        self.stage(tree, pos)?;
-        let Some(tag) = self.storage.read(pos)? else {
+        // the region file is opened (copied) by the read, whose failure the region worker logs
+        let stored = self
+            .stage(tree, pos)
+            .and_then(|()| self.storage.read(pos))
+            .inspect_err(|e| log::warn!("Failed to read chunk {pos}\n{e}"))?;
+        let Some(tag) = stored else {
             return Ok(());
         };
         let tag = upgrade_chunk_tag_to(self.ty, tag, -1, data_fix_context, self.target_version)
@@ -325,16 +336,16 @@ impl ChunkNbt {
         for name in &self.staged_regions {
             let staged = self.stage.join(name);
             let tmp = tree.create_temporary_file_path();
-            fs::rename(&staged, &tmp)?;
+            move_staged(&staged, &tmp)?;
             tree.adopt_file(&self.folder.join(name), tmp)?;
         }
         if self.staged_external {
             let mut kept = BTreeSet::new();
-            for entry in fs::read_dir(&self.stage)? {
-                let name = entry?.file_name().to_string_lossy().into_owned();
+            for entry in list(&self.stage)? {
+                let name = entry.file_name().to_string_lossy().into_owned();
                 if name.starts_with("c.") && name.ends_with(".mcc") {
                     let tmp = tree.create_temporary_file_path();
-                    fs::rename(self.stage.join(&name), &tmp)?;
+                    move_staged(&self.stage.join(&name), &tmp)?;
                     tree.adopt_file(&self.folder.join(&name), tmp)?;
                     kept.insert(name);
                 }
@@ -348,7 +359,7 @@ impl ChunkNbt {
                 }
             }
         }
-        fs::remove_dir_all(&self.stage)
+        delete_tree(&self.stage)
     }
 }
 

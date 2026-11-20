@@ -10,6 +10,7 @@ mod error;
 mod fix;
 mod fixer;
 pub mod fixes;
+mod jdk_files;
 mod names;
 mod ops;
 mod progress;

@@ -26,7 +26,7 @@ pub use directory_lock::{DirectoryLock, LockException};
 pub use feature_flags::FeatureFlagSet;
 pub use file_util::{
     create_directories_safe, create_temp_file, format_file_name_date, format_file_name_date_at,
-    format_file_name_date_now, read_compressed, safe_move_file, safe_replace_file,
+    format_file_name_date_now, read_all_bytes, read_compressed, safe_move_file, safe_replace_file,
     safe_replace_or_move_file, write_compressed,
 };
 pub use level_data::{

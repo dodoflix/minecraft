@@ -7,6 +7,7 @@ use std::io;
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
 
+use mc_core::java_exception::JavaException;
 use regex::Regex;
 
 /// `java.nio.file.PathMatcher`.
@@ -308,7 +309,7 @@ impl DirectoryValidator {
         path: &Path,
         issues: &mut Vec<ForbiddenSymlinkInfo>,
     ) -> io::Result<()> {
-        let target = fs::read_link(path)?;
+        let target = fs::read_link(path).map_err(|e| JavaException::from_file_error(e, path))?;
         if !(self.symlink_target_allow_list)(&target) {
             issues.push(ForbiddenSymlinkInfo {
                 link: path.to_path_buf(),
@@ -333,7 +334,7 @@ impl DirectoryValidator {
         let attrs = match fs::symlink_metadata(directory) {
             Ok(a) => a,
             Err(e) if e.kind() == io::ErrorKind::NotFound => return Ok(issues),
-            Err(e) => return Err(e),
+            Err(e) => return Err(JavaException::from_file_error(e, directory)),
         };
         if attrs.is_file() {
             return Err(io::Error::other(format!(
@@ -347,7 +348,8 @@ impl DirectoryValidator {
                 self.validate_symlink_into(&directory, &mut issues)?;
                 return Ok(issues);
             }
-            directory = fs::read_link(&directory)?;
+            directory = fs::read_link(&directory)
+                .map_err(|e| JavaException::from_file_error(e, &directory))?;
         }
         self.validate_known_directory(&directory, &mut issues)?;
         Ok(issues)
@@ -359,11 +361,12 @@ impl DirectoryValidator {
         directory: &Path,
         issues: &mut Vec<ForbiddenSymlinkInfo>,
     ) -> io::Result<()> {
-        let attrs = fs::symlink_metadata(directory)?;
+        let failed = |e| JavaException::from_file_error(e, directory);
+        let attrs = fs::symlink_metadata(directory).map_err(failed)?;
         if attrs.file_type().is_symlink() {
             self.validate_symlink_into(directory, issues)
         } else if attrs.is_dir() {
-            for entry in fs::read_dir(directory)? {
+            for entry in fs::read_dir(directory).map_err(failed)? {
                 self.validate_known_directory(&entry?.path(), issues)?;
             }
             Ok(())

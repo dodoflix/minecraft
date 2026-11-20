@@ -14,6 +14,8 @@ pub const IO_EXCEPTION: &str = "java.io.IOException";
 pub const ZIP_EXCEPTION: &str = "java.util.zip.ZipException";
 /// `java.nio.file.FileAlreadyExistsException`.
 pub const FILE_ALREADY_EXISTS_EXCEPTION: &str = "java.nio.file.FileAlreadyExistsException";
+/// `java.nio.file.DirectoryNotEmptyException`.
+pub const DIRECTORY_NOT_EMPTY_EXCEPTION: &str = "java.nio.file.DirectoryNotEmptyException";
 
 /// A Java exception: its fully qualified class name and `getMessage()`.
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -79,6 +81,19 @@ impl JavaException {
     /// The `IOException(strerror)` a failed read of an open file throws (reading a directory: `Is a directory`).
     pub fn read_failure(e: &io::Error) -> JavaException {
         JavaException::new(IO_EXCEPTION, strerror(e))
+    }
+
+    /// The `MalformedInputException` of decoding `bytes` as UTF-8 without replacement (`Files.readString`, a strict
+    /// reader).
+    pub fn malformed_input(e: &std::string::FromUtf8Error) -> JavaException {
+        let length = e
+            .utf8_error()
+            .error_len()
+            .unwrap_or(e.as_bytes().len() - e.utf8_error().valid_up_to());
+        JavaException::new(
+            "java.nio.charset.MalformedInputException",
+            format!("Input length = {length}"),
+        )
     }
 
     /// The exception `Files.newInputStream(path)` & co. throw for `e` (`UnixException.translateToIOException`).

@@ -10,6 +10,7 @@ use mc_dfu::{Dynamic, NBT};
 use mc_nbt::CompoundTag;
 use std::collections::BTreeMap;
 
+use crate::filefix::error::java_to_string;
 use crate::filefix::{
     ChunkNbt, ContentContext, FileFix, FileFixError, FileRelation, MissingSeverity, Status, Type,
     only_file,
@@ -257,8 +258,14 @@ fn store_legacy_structure_data_to_chunks(
                     tag
                 },
             )
-            // a failed read or write completes the chunk future of vanilla exceptionally, which `join` throws unchecked
-            .map_err(|e| FileFixError::Unchecked(e.to_string()))?;
+            // a failed read or write completes the chunk future of vanilla exceptionally, which `join` throws unchecked;
+            // vanilla joins a window of eight chunks at a time, here the first failure ends the fix
+            .map_err(|e| {
+                FileFixError::Unchecked(format!(
+                    "java.util.concurrent.CompletionException: {}",
+                    java_to_string(&e)
+                ))
+            })?;
         ctx.progress.increment_finished_operations_by(1);
     }
     Ok(())

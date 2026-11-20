@@ -41,6 +41,7 @@ mod server_policy_dual;
 mod server_properties_dual;
 mod services_keys_ours;
 mod startup_gates;
+mod unreadable_world_files;
 mod vanilla_play;
 mod world_commands_dual;
 mod world_save_compare;

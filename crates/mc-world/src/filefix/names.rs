@@ -7,6 +7,8 @@ use std::sync::LazyLock;
 
 use regex::Regex;
 
+use super::jdk_files::{create_directory, delete_if_exists};
+
 /// `SharedConstants.ILLEGAL_FILE_CHARACTERS`.
 const ILLEGAL_FILE_CHARACTERS: [char; 15] = [
     '/', '\n', '\r', '\t', '\0', '\u{c}', '`', '?', '*', '\\', '<', '>', '|', '"', ':',
@@ -93,9 +95,10 @@ pub(super) fn find_available_name(
         }
         let mut name = String::from_utf16_lossy(&name_to_test);
         name.push_str(suffix);
-        match std::fs::create_dir(base_dir.join(&name)) {
+        let candidate = base_dir.join(&name);
+        match create_directory(&candidate) {
             Ok(()) => {
-                std::fs::remove_dir(base_dir.join(&name))?;
+                delete_if_exists(&candidate)?;
                 return Ok(name);
             }
             Err(e) if e.kind() == io::ErrorKind::AlreadyExists => count += 1,

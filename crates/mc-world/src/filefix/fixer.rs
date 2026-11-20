@@ -26,6 +26,7 @@ use super::cow_tree::{
 };
 use super::error::{FileFixError, FileMove, FileSystemCapabilities, java_to_string};
 use super::fix::FileFix;
+use super::jdk_files::{create_directory, create_file, delete_if_exists, delete_tree, read_string};
 use super::names::{find_available_name, is_available_name_of};
 use super::progress::{Status, Type, UpgradeProgress};
 use crate::level_storage::{
@@ -102,14 +103,10 @@ fn with_scratch_files<T>(
 ) -> io::Result<T> {
     let source = dir.join(random_name());
     let target = dir.join(random_name());
-    File::create_new(&source)?;
+    create_file(&source)?;
     let result = test(&source, &target);
     for path in [&source, &target] {
-        if let Err(e) = fs::remove_file(path)
-            && e.kind() != io::ErrorKind::NotFound
-        {
-            return Err(e);
-        }
+        delete_if_exists(path)?;
     }
     result
 }
@@ -154,7 +151,7 @@ fn delete_directory(directory: &Path) -> io::Result<()> {
     }
     delete_all(directory);
     if directory.exists() {
-        fs::remove_dir_all(directory)?;
+        delete_tree(directory)?;
     }
     Ok(())
 }
@@ -241,14 +238,17 @@ pub(super) fn write_moves(
     let mut tmp = file_path.as_os_str().to_owned();
     tmp.push(".tmp");
     let tmp = PathBuf::from(tmp);
+    // `Files.writeString(file_path, ...)`: a failure names the journal, not the file it is staged in
+    let named = |e| JavaException::from_file_error(e, file_path);
     let mut file = OpenOptions::new()
         .write(true)
         .create(true)
         .truncate(true)
-        .open(&tmp)?;
+        .open(&tmp)
+        .map_err(named)?;
     file.write_all(json.as_bytes())?;
     file.sync_all()?;
-    fs::rename(&tmp, file_path)?;
+    fs::rename(&tmp, file_path).map_err(named)?;
     // Persist the rename: the journal must exist before the first file is moved.
     #[cfg(unix)]
     if let Some(parent) = file_path.parent() {
@@ -278,7 +278,7 @@ pub(super) fn read_moves(
 ) -> Result<Journal, FileFixError> {
     // A journal that cannot be parsed is a `RuntimeException` of Gson or the codec, not an `IOException`.
     let invalid = |message: String| FileFixError::Unchecked(message);
-    let json = mc_core::gson::parse_object_strict(&fs::read_to_string(file_path)?)
+    let json = mc_core::gson::parse_object_strict(&read_string(file_path)?)
         .map_err(|e| invalid(e.to_string()))?;
     let Some(JsonElement::Array(entries)) = json.get("moves") else {
         return Err(invalid("No key moves in MapLike".to_owned()));
@@ -515,8 +515,7 @@ impl FileFixerUpper {
         if file_fix_directory.exists() {
             delete_directory(file_fix_directory)?;
         }
-        let result = fs::create_dir(file_fix_directory)
-            .map_err(|e| JavaException::from_file_error(e, file_fix_directory))
+        let result = create_directory(file_fix_directory)
             .map_err(FileFixError::from)
             .and_then(|()| {
                 self.apply_file_fixers_on_cow(
@@ -554,7 +553,7 @@ impl FileFixerUpper {
             Path::new(""),
         )?;
         let moves = tree.collect_move_operations(temp_world);
-        fs::create_dir(temp_world)?;
+        create_directory(temp_world)?;
         create_directories(&moves.directories)?;
         move_files(&moves.copied_files)?;
         tree.close()?;
@@ -855,8 +854,5 @@ fn delete_outdated_level_dat(folder: &Path) {
 
 /// `Files.deleteIfExists`.
 fn remove_if_exists(path: &Path) -> io::Result<()> {
-    match fs::remove_file(path) {
-        Err(e) if e.kind() != io::ErrorKind::NotFound => Err(e),
-        _ => Ok(()),
-    }
+    delete_if_exists(path).map(drop)
 }
