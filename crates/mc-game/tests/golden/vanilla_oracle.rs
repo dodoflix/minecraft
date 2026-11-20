@@ -230,28 +230,28 @@ fn custom_packs_world_matches_vanilla() {
     assert_eq!(ours, vanilla);
 }
 
-#[test]
-fn broken_pack_fails_like_vanilla() {
-    let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
-    common::init_logger();
-    let dir = tempfile::tempdir().unwrap();
-    let world = dir.path().join("world");
-    common::test_packs::write_broken_packs(&world);
-    let err = match common::load_world(&world, WorldDataConfiguration::DEFAULT, true) {
-        Err(e) => e,
-        Ok(_) => panic!("vanilla refuses this world, so must we"),
-    };
-    let _ = common::take_logs();
-    let mc_game::server::world_loader::WorldLoadError::Registries(failure) = err else {
-        panic!("{err}")
-    };
+/// Identity hash codes (`Class@1b2c3d`) differ between two vanilla runs: both sides are compared with them masked.
+fn mask_identity_hashes(text: &str) -> String {
+    let mut out = String::with_capacity(text.len());
+    let mut rest = text;
+    while let Some(at) = rest.find('@') {
+        out.push_str(&rest[..=at]);
+        let digits = rest[at + 1..]
+            .find(|c: char| !c.is_ascii_hexdigit())
+            .unwrap_or(rest.len() - at - 1);
+        out.push('0');
+        rest = &rest[at + 1 + digits..];
+    }
+    out.push_str(rest);
+    out
+}
 
-    // what vanilla reported: (registry, element, "Caused by" lines)
-    let log = read_log("broken");
+/// What vanilla reported when a world's registries failed to load: (registry, element, "Caused by" lines).
+fn vanilla_load_errors(log: &[String]) -> Vec<(String, String, Vec<String>)> {
     let mut expected: Vec<(String, String, Vec<String>)> = Vec::new();
     let mut registry = String::new();
     let mut in_errors = false;
-    for line in &log {
+    for line in log {
         if line.contains("Registry loading errors:") {
             in_errors = true;
         } else if in_errors {
@@ -270,7 +270,28 @@ fn broken_pack_fails_like_vanilla() {
             }
         }
     }
-    assert_eq!(expected.len(), 54);
+    expected
+}
+
+/// Loads the world `write` creates (which vanilla refused: `scenario` is its recorded log with `count` failed entries) and
+/// compares the entries that fail, their order and the first cause of each with vanilla's.
+fn compare_load_failure(scenario: &str, write: fn(&Path), pack: &str, count: usize) {
+    let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+    common::init_logger();
+    let dir = tempfile::tempdir().unwrap();
+    let world = dir.path().join("world");
+    write(&world);
+    let err = match common::load_world(&world, WorldDataConfiguration::DEFAULT, true) {
+        Err(e) => e,
+        Ok(_) => panic!("vanilla refuses this world, so must we"),
+    };
+    let _ = common::take_logs();
+    let mc_game::server::world_loader::WorldLoadError::Registries(failure) = err else {
+        panic!("{err}")
+    };
+
+    let expected = vanilla_load_errors(&read_log(scenario));
+    assert_eq!(expected.len(), count);
     let ours: Vec<(String, String, Vec<String>)> = failure
         .errors
         .iter()
@@ -286,6 +307,7 @@ fn broken_pack_fails_like_vanilla() {
         ours.iter().map(|e| (&e.0, &e.1)).collect::<Vec<_>>(),
         expected.iter().map(|e| (&e.0, &e.1)).collect::<Vec<_>>()
     );
+    let mut differing = Vec::new();
     for (o, v) in ours.iter().zip(&expected) {
         if o.1.ends_with("bad_syntax") {
             assert!(
@@ -294,13 +316,51 @@ fn broken_pack_fails_like_vanilla() {
             );
         } else {
             // the entry of `minecraft:root` (an unbound reference) has no cause
-            assert_eq!(o.2.first(), v.2.first(), "{}", o.1);
+            let first = |e: &(String, String, Vec<String>)| {
+                e.2.first().map(|cause| mask_identity_hashes(cause))
+            };
+            if first(o) != first(v) {
+                differing.push(format!(
+                    "{}\n  ours:    {:?}\n  vanilla: {:?}",
+                    o.1,
+                    first(o),
+                    first(v)
+                ));
+            }
         }
     }
+    assert!(
+        differing.is_empty(),
+        "{} of {count} entries differ:\n{}",
+        differing.len(),
+        differing.join("\n")
+    );
     // the first lines of the full report are the same shape as vanilla's
     let details = failure.full_details();
     let (registry, element, _) = &expected[0];
-    assert!(details.starts_with(&format!("> Errors in registry {registry}:\n>> Errors in element {element}:\njava.lang.IllegalStateException: Failed to parse {element} from pack file/broken\nCaused by: ")));
+    assert!(details.starts_with(&format!("> Errors in registry {registry}:\n>> Errors in element {element}:\njava.lang.IllegalStateException: Failed to parse {element} from pack file/{pack}\nCaused by: ")));
+}
+
+#[test]
+fn broken_pack_fails_like_vanilla() {
+    compare_load_failure(
+        "broken",
+        common::test_packs::write_broken_packs,
+        "broken",
+        103,
+    );
+}
+
+/// Inline noise settings with errors in every codec of the tree (density functions, noise holders, anchors, splines,
+/// material rules, spawn targets, settings): the dimension stage reports vanilla's messages.
+#[test]
+fn broken_dimensions_fail_like_vanilla() {
+    compare_load_failure(
+        "broken_dimensions",
+        common::test_packs::write_broken_dimension_packs,
+        "broken_dimensions",
+        98,
+    );
 }
 
 /// Whether `ours` writes every compound's keys in the order they arrived in from vanilla (`vanilla` was read from the

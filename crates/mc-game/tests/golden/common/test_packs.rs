@@ -323,6 +323,10 @@ fn write_broken_state_data(root: &Path) {
         ("variety_inverted", dual("[3, 2]")),
         ("variety_too_low", dual("0")),
         ("variety_too_high", dual("[1, 65]")),
+        ("variety_list_too_long", dual("[1, 2, 3]")),
+        ("variety_list_too_long_low", dual("[0, 1, 2]")),
+        ("variety_list_too_long_high", dual("[1, 65, 2]")),
+        ("variety_list_too_long_bad_third", dual(r#"[1, 2, "x"]"#)),
         ("normalize_bad_type", noise(r#"{"base_octave": -2, "normalize": 5}"#)),
         ("normalize_bad_string", noise(r#"{"base_octave": -2, "normalize": "nope"}"#)),
         ("amplitude_wrong_size", modifiers(2, "[1.0]")),
@@ -376,6 +380,330 @@ fn write_broken_state_data(root: &Path) {
     for (name, json) in &transformers {
         write(root.join(format!("block_transformer/{name}.json")), json);
     }
+    write_broken_provider_data(root);
+}
+
+/// Providers and transformers whose errors travel through reference-or-inline holders, the provider `xor`, predicates
+/// with offsets and anchors, and an enchantment whose provider throws.
+fn write_broken_provider_data(root: &Path) {
+    use serde_json::json;
+    let stone = json!({"id": "minecraft:stone"});
+    let bad_noise = json!({"type": "minecraft:noise", "seed": 1, "noise": {"base_octave": -2, "normalize": 5}, "scale": 1.0, "states": [stone]});
+    let noise_ok =
+        json!({"seed": 1, "noise": {"base_octave": -2}, "scale": 1.0, "states": [stone]});
+    let with_type = |ty: &str, rest: serde_json::Value| {
+        let mut provider = rest;
+        provider["type"] = ty.into();
+        provider
+    };
+    // the full-state alternative reads too (`id`), so the two alternatives both succeed
+    let both = |ty: &str, rest: serde_json::Value| {
+        let mut provider = with_type(ty, rest);
+        provider["id"] = "minecraft:stone".into();
+        provider
+    };
+    let one_of_each_predicate = json!([
+        {"type": "minecraft:all_of", "predicates": [{"type": "minecraft:true"}]},
+        {"type": "minecraft:any_of", "predicates": []},
+        {"type": "minecraft:not", "predicate": {"type": "minecraft:true"}},
+        {"type": "minecraft:matching_blocks", "blocks": "minecraft:stone"},
+        {"type": "minecraft:matching_fluids", "fluids": ["minecraft:water"]},
+        {"type": "minecraft:matching_block_tag", "tag": "minecraft:logs", "offset": [0, 1, 0]},
+        {"type": "minecraft:matching_biomes", "biomes": "minecraft:plains"},
+        {"type": "minecraft:has_sturdy_face", "direction": "up"},
+        {"type": "minecraft:solid"},
+        {"type": "minecraft:replaceable", "offset": [1, 2, 3]},
+        {"type": "minecraft:inside_world_bounds"},
+        {"type": "minecraft:would_survive", "state": stone},
+        {"type": "minecraft:unobstructed", "offset": [4, 5, 6]},
+        {"type": "minecraft:height_range", "min_inclusive": {"absolute": 1}, "max_inclusive": {"below_top": 2}},
+        {"type": "minecraft:volume_match", "min": [-1, -2, -3], "max": [3, 2, 1], "match": {"type": "minecraft:solid"}},
+    ]);
+    let rules = |predicates: serde_json::Value, then: serde_json::Value| {
+        json!(
+            predicates
+                .as_array()
+                .unwrap()
+                .iter()
+                .map(|p| json!({"if_true": p, "then": then}))
+                .collect::<Vec<_>>()
+        )
+    };
+    let rule_based =
+        |rules: serde_json::Value| json!({"type": "minecraft:rule_based", "rules": rules});
+    let predicate = |p: serde_json::Value| rule_based(rules(json!([p]), stone.clone()));
+    let offset = |ty: &str, offset: serde_json::Value| {
+        predicate(json!({"type": format!("minecraft:{ty}"), "offset": offset}))
+    };
+    let anchor = |anchor: serde_json::Value| {
+        predicate(
+            json!({"type": "minecraft:height_range", "min_inclusive": anchor, "max_inclusive": {"absolute": 1}}),
+        )
+    };
+    let providers = vec![
+        ("good_target", stone.clone()),
+        (
+            "both_weighted",
+            both(
+                "minecraft:weighted",
+                json!({"entries": [{"data": stone, "weight": 1}]}),
+            ),
+        ),
+        ("both_noise", both("minecraft:noise", noise_ok.clone())),
+        (
+            "both_dual_noise",
+            both(
+                "minecraft:dual_noise",
+                json!({"variety": 2, "slow_noise": {"base_octave": -4}, "slow_scale": 1.0, "seed": 1, "noise": {"base_octave": -2}, "scale": 1.0, "states": [stone]}),
+            ),
+        ),
+        (
+            "both_noise_threshold",
+            both(
+                "minecraft:noise_threshold",
+                json!({"seed": 1, "noise": {"base_octave": -2}, "scale": 1.0, "threshold": 0.5, "high_chance": 0.5, "default_state": stone, "low_states": [stone], "high_states": [stone]}),
+            ),
+        ),
+        (
+            "both_randomized_int",
+            both(
+                "minecraft:randomized_int",
+                json!({"source": stone, "property": "age", "values": 1}),
+            ),
+        ),
+        (
+            "both_random_block_tag",
+            both(
+                "minecraft:random_block",
+                json!({"blocks": "#minecraft:logs"}),
+            ),
+        ),
+        (
+            "both_rotated_reference",
+            both("minecraft:rotated", json!({"state": "test:good_target"})),
+        ),
+        (
+            "both_copy_properties_reference",
+            both(
+                "minecraft:copy_properties",
+                json!({"source": "test:good_target"}),
+            ),
+        ),
+        (
+            "both_rule_based_fallback",
+            both(
+                "minecraft:rule_based",
+                json!({"fallback": stone, "rules": []}),
+            ),
+        ),
+        (
+            "both_rule_based_fallback_reference",
+            both(
+                "minecraft:rule_based",
+                json!({"fallback": "test:good_target", "rules": []}),
+            ),
+        ),
+        (
+            "both_rule_based_predicates",
+            both(
+                "minecraft:rule_based",
+                json!({"rules": rules(one_of_each_predicate.clone(), json!("test:good_target"))}),
+            ),
+        ),
+        (
+            "both_rule_based_inline_then",
+            both(
+                "minecraft:rule_based",
+                json!({"rules": rules(json!([{"type": "minecraft:solid"}]), json!({"type": "minecraft:rotated", "state": stone}))}),
+            ),
+        ),
+        (
+            "rotated_bad_inline_state",
+            with_type("minecraft:rotated", json!({"state": bad_noise})),
+        ),
+        (
+            "rotated_state_invalid_id",
+            with_type("minecraft:rotated", json!({"state": "Not Valid"})),
+        ),
+        (
+            "rotated_state_number",
+            with_type("minecraft:rotated", json!({"state": 5})),
+        ),
+        (
+            "rotated_state_missing_reference",
+            with_type("minecraft:rotated", json!({"state": "test:missing"})),
+        ),
+        (
+            "rule_based_bad_fallback",
+            with_type(
+                "minecraft:rule_based",
+                json!({"fallback": bad_noise, "rules": []}),
+            ),
+        ),
+        (
+            "rule_based_rule_missing_fields",
+            rule_based(json!([{}, {"then": stone}, {"if_true": {"type": "minecraft:solid"}}])),
+        ),
+        (
+            "rule_based_bad_predicate_type",
+            rule_based(rules(
+                json!([{"type": "minecraft:nope"}, {"type": 5}, "x"]),
+                stone.clone(),
+            )),
+        ),
+        (
+            "rule_based_bad_then",
+            rule_based(rules(
+                json!([{"type": "minecraft:solid"}]),
+                json!({"type": "minecraft:nope"}),
+            )),
+        ),
+        (
+            "predicate_solid_offset_short",
+            offset("solid", json!([1, 2])),
+        ),
+        (
+            "predicate_solid_offset_long",
+            offset("solid", json!([1, 2, 3, 4])),
+        ),
+        (
+            "predicate_solid_offset_long_far",
+            offset("solid", json!([100, 0, 0, 0])),
+        ),
+        (
+            "predicate_solid_offset_not_ints",
+            offset("solid", json!(["a", 1, 2])),
+        ),
+        ("predicate_solid_offset_number", offset("solid", json!(5))),
+        (
+            "predicate_solid_offset_far",
+            offset("solid", json!([100, -3, 0])),
+        ),
+        (
+            "predicate_solid_offset_fraction",
+            offset("solid", json!([1.5, 2.5, 16.5])),
+        ),
+        (
+            "predicate_unobstructed_offset_short",
+            offset("unobstructed", json!([1, 2])),
+        ),
+        (
+            "predicate_unobstructed_offset_far",
+            offset("unobstructed", json!([100, 0, 0])),
+        ),
+        (
+            "predicate_would_survive_offset_far",
+            predicate(
+                json!({"type": "minecraft:would_survive", "offset": [0, 17, 0], "state": "minecraft:nope"}),
+            ),
+        ),
+        (
+            "predicate_volume_match_bad",
+            predicate(
+                json!({"type": "minecraft:volume_match", "min": [1, 2], "max": [100, 0, 0], "match": {"type": "minecraft:nope"}}),
+            ),
+        ),
+        (
+            "predicate_height_range_both",
+            anchor(json!({"absolute": 5, "above_bottom": 3})),
+        ),
+        ("predicate_height_range_none", anchor(json!({}))),
+        (
+            "predicate_height_range_out_of_range",
+            anchor(json!({"absolute": 99999})),
+        ),
+        ("predicate_height_range_number", anchor(json!(5))),
+        (
+            "predicate_height_range_three",
+            anchor(json!({"absolute": 1, "above_bottom": 2, "below_top": 3})),
+        ),
+        (
+            "predicate_height_range_all",
+            anchor(
+                json!({"absolute": 1, "above_bottom": 2, "below_top": 3, "relative_to_sea_level": 4}),
+            ),
+        ),
+        (
+            "predicate_height_range_last_two",
+            anchor(json!({"below_top": 1, "relative_to_sea_level": 2})),
+        ),
+    ];
+    for (name, provider) in &providers {
+        write(
+            root.join(format!("worldgen/block_state_provider/{name}.json")),
+            &provider.to_string(),
+        );
+    }
+    let transformer = |provider: serde_json::Value| json!([{"block_state_provider": provider}]);
+    let transformers = [
+        ("holder_bad_inline_provider", transformer(bad_noise.clone())),
+        (
+            "holder_good_and_bad_inline_provider",
+            json!([{"block_state_provider": stone}, {"block_state_provider": bad_noise}]),
+        ),
+        (
+            "holder_both_alternatives",
+            transformer(both(
+                "minecraft:random_block",
+                json!({"blocks": "minecraft:dirt"}),
+            )),
+        ),
+        ("holder_invalid_id", transformer(json!("Not Valid"))),
+        ("holder_number", transformer(json!(5))),
+        (
+            "holder_state_without_id",
+            transformer(json!({"properties": {}})),
+        ),
+        (
+            "holder_nested_both_alternatives",
+            transformer(with_type(
+                "minecraft:rotated",
+                json!({"state": both("minecraft:random_block", json!({"blocks": "minecraft:dirt"}))}),
+            )),
+        ),
+    ];
+    for (name, json) in &transformers {
+        write(
+            root.join(format!("block_transformer/{name}.json")),
+            &json.to_string(),
+        );
+    }
+    // a provider whose weights overflow throws instead of failing: the exception ends the entry, other errors vanish
+    let overflow = json!({"type": "minecraft:weighted", "entries": [{"data": stone, "weight": 2147483647}, {"data": stone, "weight": 1}]});
+    let enchantment = |providers: Vec<serde_json::Value>| {
+        let mut enchantment = vanilla_json("enchantment/frost_walker.json");
+        let effects = enchantment["effects"]["minecraft:location_changed"]
+            .as_array_mut()
+            .unwrap();
+        for provider in providers {
+            effects.push(json!({"effect": {"type": "minecraft:replace_block", "offset": [0, -1, 0], "block_state": provider}}));
+        }
+        enchantment
+    };
+    for (name, enchantment) in [
+        ("overflow", enchantment(vec![overflow.clone()])),
+        (
+            "bad_provider",
+            enchantment(vec![json!({"type": "minecraft:nope"})]),
+        ),
+        (
+            "overflow_and_bad_provider",
+            enchantment(vec![
+                json!({"type": "minecraft:nope"}),
+                overflow.clone(),
+                bad_noise.clone(),
+            ]),
+        ),
+        (
+            "bad_provider_and_overflow",
+            enchantment(vec![bad_noise, overflow]),
+        ),
+    ] {
+        write(
+            root.join(format!("enchantment/{name}.json")),
+            &enchantment.to_string(),
+        );
+    }
 }
 
 /// A `world_preset` (`test:custom`) whose dimensions carry inline noise settings: every vanilla one, the overworld's with
@@ -394,12 +722,410 @@ pub fn write_dimension_pack(world: &Path) {
     );
 }
 
+/// A world whose pack holds only `dimension` entries with broken inline noise settings: the worldgen registries load, so
+/// the dimension stage reports each entry's error. Every entry is the synthetic settings with some edits (`(JSON pointer
+/// into the settings, new value)`; no value removes the key).
+pub fn write_broken_dimension_packs(world: &Path) {
+    let dp = world.join("datapacks");
+    write(
+        dp.join("broken_dimensions/pack.mcmeta"),
+        r##"{"pack": {"description": "broken dimensions", "min_format": 121, "max_format": 121}}"##,
+    );
+    for (name, edits) in broken_dimension_cases() {
+        let mut value = stem("minecraft:overworld", synthetic_noise_settings());
+        for (pointer, replacement) in edits {
+            let (parent, key) = pointer.rsplit_once('/').unwrap_or(("", ""));
+            let parent = value.pointer_mut(parent).expect("parent of the edit");
+            match replacement {
+                Some(json) => {
+                    let json = serde_json::from_str(json).unwrap();
+                    match parent {
+                        serde_json::Value::Array(list) => {
+                            list[key.parse::<usize>().unwrap()] = json
+                        }
+                        _ => {
+                            parent[key] = json;
+                        }
+                    }
+                }
+                None => {
+                    parent.as_object_mut().unwrap().remove(key);
+                }
+            }
+        }
+        write(
+            dp.join(format!("broken_dimensions/data/test/dimension/{name}.json")),
+            &value.to_string(),
+        );
+    }
+}
+
+type DimensionEdit = (String, Option<&'static str>);
+
+/// `(entry name, edits)`; pointers of the settings are relative to `/generator/settings`.
+fn broken_dimension_cases() -> Vec<(&'static str, Vec<DimensionEdit>)> {
+    let at =
+        |pointer: &str, json: &'static str| (format!("/generator/settings{pointer}"), Some(json));
+    let without = |pointer: &str| (format!("/generator/settings{pointer}"), None);
+    let one = |case: (&'static str, DimensionEdit)| (case.0, vec![case.1]);
+    let density = |name: &'static str, json: &'static str| {
+        one((name, at("/noise_router/final_density", json)))
+    };
+    let rule = |name: &'static str, json: &'static str| one((name, at("/material_rule", json)));
+    let anchor = |name: &'static str, json: &'static str| {
+        one((
+            name,
+            at("/material_rule/sequence/2/if_true/true_at_and_below", json),
+        ))
+    };
+    let spawn = |name: &'static str, json: &'static str| one((name, at("/spawn_target", json)));
+    let noise = |name: &'static str, json: &'static str| one((name, at("/noise", json)));
+    vec![
+        // density function holders
+        density("density_unknown_type", r#"{"type": "minecraft:nope"}"#),
+        density("density_unknown_type_unprefixed", r#"{"type": "nope"}"#),
+        density("density_type_not_a_string", r#"{"type": 5}"#),
+        density("density_no_type", "{}"),
+        density("density_invalid_id", r#""Not Valid""#),
+        density("density_missing_reference", r#""test:missing""#),
+        density("density_boolean", "true"),
+        density("density_array", "[1, 2]"),
+        density("density_null", "null"),
+        density(
+            "density_constant_out_of_range",
+            r#"{"type": "minecraft:constant", "value": 2000000}"#,
+        ),
+        density("density_number_out_of_range", "2000000.5"),
+        density(
+            "density_bad_left",
+            r#"{"type": "minecraft:add", "left": {"type": "minecraft:nope"}, "right": 1}"#,
+        ),
+        density(
+            "density_both_bad",
+            r#"{"type": "minecraft:add", "left": "Not Valid", "right": {}}"#,
+        ),
+        density(
+            "density_missing_right",
+            r#"{"type": "minecraft:add", "left": 1}"#,
+        ),
+        density(
+            "density_clamp_inverted",
+            r#"{"type": "minecraft:clamp", "input": 0, "min": 5, "max": 2}"#,
+        ),
+        density(
+            "density_gradient_equal",
+            r#"{"type": "minecraft:gradient", "axis": "y", "from_coordinate": 3, "to_coordinate": 3, "from_value": 0, "to_value": 1}"#,
+        ),
+        density(
+            "density_point_short",
+            r#"{"type": "minecraft:distance_to_point", "point": [1, 2], "metric": "manhattan"}"#,
+        ),
+        density(
+            "density_point_long",
+            r#"{"type": "minecraft:distance_to_point", "point": [1, 2, 3, 4], "metric": "manhattan"}"#,
+        ),
+        density(
+            "density_point_not_ints",
+            r#"{"type": "minecraft:distance_to_point", "point": ["a", 1, 2], "metric": "manhattan"}"#,
+        ),
+        density(
+            "density_point_number",
+            r#"{"type": "minecraft:distance_to_point", "point": 5, "metric": "manhattan"}"#,
+        ),
+        density(
+            "density_point_bad_metric",
+            r#"{"type": "minecraft:distance_to_point", "point": [1, 2, 3], "metric": "x"}"#,
+        ),
+        density(
+            "density_top_surface_range",
+            r#"{"type": "minecraft:find_top_surface", "density": 0, "upper_bound": 0, "lower_bound": 99999, "cell_height": 0}"#,
+        ),
+        density(
+            "density_blended_noise_range",
+            r#"{"type": "minecraft:old_blended_noise", "xz_scale": 5000, "y_scale": 2.5, "xz_factor": 80, "y_factor": 160, "smear_scale_multiplier": 40}"#,
+        ),
+        // noise holders
+        density(
+            "noise_inline_octave",
+            r#"{"type": "minecraft:noise", "noise": {"base_octave": 99}, "xz_scale": 1, "y_scale": 1}"#,
+        ),
+        density(
+            "noise_inline_modifiers",
+            r#"{"type": "minecraft:noise", "noise": {"base_octave": -2, "octave_count": 2, "amplitude_modifiers": [1]}, "xz_scale": 1, "y_scale": 1}"#,
+        ),
+        density(
+            "noise_inline_empty",
+            r#"{"type": "minecraft:noise", "noise": {}, "xz_scale": 1, "y_scale": 1}"#,
+        ),
+        density(
+            "noise_invalid_id",
+            r#"{"type": "minecraft:noise", "noise": "Not Valid", "xz_scale": 1, "y_scale": 1}"#,
+        ),
+        density(
+            "noise_number",
+            r#"{"type": "minecraft:noise", "noise": 5, "xz_scale": 1, "y_scale": 1}"#,
+        ),
+        density(
+            "noise_missing_reference",
+            r#"{"type": "minecraft:noise", "noise": "minecraft:nope", "xz_scale": 1, "y_scale": 1}"#,
+        ),
+        density(
+            "noise_shift_inline",
+            r#"{"type": "minecraft:shift_a", "noise": {"base_octave": 99}}"#,
+        ),
+        density(
+            "noise_bad_everything",
+            r#"{"type": "minecraft:noise", "noise": {"base_octave": 99, "normalize": 5}, "xz_scale": "x", "shift_x": {"type": "nope"}}"#,
+        ),
+        // interval select, splines
+        one((
+            "select_few_thresholds",
+            at("/noise_router/erosion/thresholds", "[0.5]"),
+        )),
+        one((
+            "select_unordered_thresholds",
+            at("/noise_router/erosion/thresholds", "[1, 0, 2]"),
+        )),
+        one((
+            "select_one_function",
+            at("/noise_router/erosion/functions", "[1]"),
+        )),
+        one((
+            "select_bad_function",
+            at(
+                "/noise_router/erosion/functions",
+                r#"[1, {"type": "minecraft:nope"}]"#,
+            ),
+        )),
+        one((
+            "select_bad_first_function",
+            at("/noise_router/erosion/functions/0", r#"{"type": "nope"}"#),
+        )),
+        one((
+            "select_inline_noise_bad_function",
+            at(
+                "/noise_router/erosion/functions/0",
+                r#"{"type": "minecraft:noise", "noise": {"base_octave": 99}, "xz_scale": 1, "y_scale": 1}"#,
+            ),
+        )),
+        one((
+            "select_bad_threshold",
+            at("/noise_router/erosion/thresholds/0", r#""x""#),
+        )),
+        one((
+            "spline_no_points",
+            at("/noise_router/depth/input/second/spline/points", "[]"),
+        )),
+        one((
+            "spline_bad_point",
+            at(
+                "/noise_router/depth/input/second/spline/points",
+                r#"[{"location": "x", "value": 1, "derivative": 0}]"#,
+            ),
+        )),
+        one((
+            "spline_bad_nested_value",
+            at(
+                "/noise_router/depth/input/second/spline/points",
+                r#"[{"location": 0, "value": {"coordinate": "minecraft:y", "points": []}, "derivative": 0}]"#,
+            ),
+        )),
+        one((
+            "spline_bad_coordinate",
+            at(
+                "/noise_router/depth/input/second/spline/coordinate",
+                r#"{"type": "nope"}"#,
+            ),
+        )),
+        one((
+            "spline_not_an_object",
+            at("/noise_router/depth/input/second/spline", r#""x""#),
+        )),
+        // material rules and conditions
+        rule("rule_unknown_type", r#"{"type": "minecraft:nope"}"#),
+        rule("rule_invalid_id", r#""Not Valid""#),
+        rule("rule_missing_reference", r#""test:missing""#),
+        rule(
+            "rule_sequence_bad_element",
+            r#"{"type": "sequence", "sequence": [{"type": "nope"}, {"type": "bandlands"}]}"#,
+        ),
+        rule(
+            "rule_sequence_two_bad",
+            r#"{"type": "sequence", "sequence": [{"type": "nope"}, {"type": "x"}]}"#,
+        ),
+        rule(
+            "rule_condition_no_then",
+            r#"{"type": "condition", "if_true": {"type": "hole"}}"#,
+        ),
+        rule(
+            "rule_condition_bad_condition",
+            r#"{"type": "condition", "if_true": {"type": "nope"}, "then_run": {"type": "bandlands"}}"#,
+        ),
+        rule(
+            "rule_block_unknown_state",
+            r#"{"type": "block", "result_state": "minecraft:nope"}"#,
+        ),
+        one((
+            "rule_ore_chance",
+            at("/material_rule/sequence/14/raw_ore_chance", "2"),
+        )),
+        one((
+            "condition_biome_missing",
+            at(
+                "/material_rule/sequence/8/if_true/biome_is",
+                r#"["minecraft:nope"]"#,
+            ),
+        )),
+        one((
+            "condition_biome_tag_missing",
+            at(
+                "/material_rule/sequence/9/if_true/biome_is",
+                r##""#minecraft:nope""##,
+            ),
+        )),
+        one((
+            "condition_multiplier_range",
+            at(
+                "/material_rule/sequence/3/if_true/surface_depth_multiplier",
+                "99",
+            ),
+        )),
+        one((
+            "condition_noise_invalid_id",
+            at("/material_rule/sequence/6/if_true/noise", r#""Not Valid""#),
+        )),
+        one((
+            "condition_surface_type",
+            at("/material_rule/sequence/5/if_true/surface_type", r#""x""#),
+        )),
+        // vertical anchors
+        anchor("anchor_two", r#"{"absolute": 5, "above_bottom": 3}"#),
+        anchor(
+            "anchor_absolute_and_sea_level",
+            r#"{"absolute": 5, "relative_to_sea_level": 1}"#,
+        ),
+        anchor(
+            "anchor_last_three",
+            r#"{"above_bottom": 1, "below_top": 2, "relative_to_sea_level": 3}"#,
+        ),
+        anchor(
+            "anchor_all",
+            r#"{"absolute": 1, "above_bottom": 2, "below_top": 3, "relative_to_sea_level": 4}"#,
+        ),
+        anchor(
+            "anchor_last_two",
+            r#"{"below_top": 1, "relative_to_sea_level": 2}"#,
+        ),
+        anchor("anchor_none", "{}"),
+        anchor("anchor_out_of_range", r#"{"absolute": 99999}"#),
+        anchor("anchor_number", "5"),
+        anchor("anchor_bad_value", r#"{"above_bottom": "x"}"#),
+        anchor(
+            "anchor_two_bad_values",
+            r#"{"absolute": "x", "below_top": true}"#,
+        ),
+        // settings
+        noise("noise_min_y_multiple", r#"{"min_y": 5, "height": 384}"#),
+        noise("noise_height_multiple", r#"{"min_y": -64, "height": 100}"#),
+        noise("noise_too_high", r#"{"min_y": 2000, "height": 384}"#),
+        noise("noise_empty", "{}"),
+        noise("noise_not_an_object", "5"),
+        one(("settings_sea_level_string", at("/sea_level", r#""x""#))),
+        one(("settings_default_block_number", at("/default_block", "5"))),
+        one((
+            "settings_default_fluid_unknown",
+            at("/default_fluid", r#"{"id": "minecraft:nope"}"#),
+        )),
+        one(("settings_no_sea_level", without("/sea_level"))),
+        one((
+            "settings_no_legacy_random_source",
+            without("/legacy_random_source"),
+        )),
+        one((
+            "settings_aquifers_bad",
+            at("/aquifers", r#"{"barrier": {"type": "nope"}}"#),
+        )),
+        one((
+            "settings_debug_functions_bad",
+            at(
+                "/debug_functions",
+                r#"[{"label": 5, "function": {"type": "nope"}}]"#,
+            ),
+        )),
+        one((
+            "settings_router_missing_field",
+            without("/noise_router/ridges"),
+        )),
+        one(("settings_router_empty", at("/noise_router", "{}"))),
+        (
+            "settings_several_errors",
+            vec![
+                without("/sea_level"),
+                at("/noise", "{}"),
+                at("/default_block", "5"),
+                without("/noise_router/depth"),
+            ],
+        ),
+        // spawn targets
+        spawn(
+            "spawn_interval_long",
+            r#"[{"minecraft:y": [0.1, 0.2, 0.3]}]"#,
+        ),
+        spawn(
+            "spawn_interval_inverted",
+            r#"[{"minecraft:y": [0.5, 0.1]}]"#,
+        ),
+        spawn("spawn_interval_short", r#"[{"minecraft:y": [0.1]}]"#),
+        spawn(
+            "spawn_interval_object_missing",
+            r#"[{"minecraft:y": {"min": 0.1}}]"#,
+        ),
+        spawn(
+            "spawn_interval_object_inverted",
+            r#"[{"minecraft:y": {"min": 0.5, "max": 0.1}}]"#,
+        ),
+        spawn("spawn_interval_string", r#"[{"minecraft:y": "x"}]"#),
+        spawn("spawn_interval_out_of_range", r#"[{"minecraft:y": 3}]"#),
+        spawn(
+            "spawn_interval_bad_element",
+            r#"[{"minecraft:y": [0.1, "x"]}]"#,
+        ),
+        spawn(
+            "spawn_interval_bad_and_long",
+            r#"[{"minecraft:y": [0.1, "x", 0.3]}]"#,
+        ),
+        spawn("spawn_missing_key", r#"[{"minecraft:nope": 0}]"#),
+        spawn("spawn_invalid_key", r#"[{"Not Valid": 0}]"#),
+        spawn("spawn_not_a_map", "[5]"),
+        spawn("spawn_not_a_list", "{}"),
+        // the settings of the generator
+        one((
+            "stem_settings_invalid_id",
+            ("/generator/settings".to_owned(), Some(r#""Not Valid""#)),
+        )),
+        one((
+            "stem_settings_missing_reference",
+            ("/generator/settings".to_owned(), Some(r#""test:missing""#)),
+        )),
+        one((
+            "stem_settings_number",
+            ("/generator/settings".to_owned(), Some("5")),
+        )),
+        one((
+            "stem_settings_missing",
+            ("/generator/settings".to_owned(), None),
+        )),
+    ]
+}
+
+/// A noise level stem with inline noise `settings`.
+fn stem(dimension_type: &str, settings: serde_json::Value) -> serde_json::Value {
+    serde_json::json!({"type": dimension_type, "generator": {"type": "minecraft:noise", "settings": settings,
+        "biome_source": {"type": "minecraft:fixed", "biome": "minecraft:plains"}}})
+}
+
 fn dimension_preset() -> serde_json::Value {
     use serde_json::json;
-    let stem = |dimension_type: &str, settings: serde_json::Value| {
-        json!({"type": dimension_type, "generator": {"type": "minecraft:noise", "settings": settings,
-            "biome_source": {"type": "minecraft:fixed", "biome": "minecraft:plains"}}})
-    };
     let settings = |name: &str| vanilla_json(&format!("worldgen/noise_settings/{name}.json"));
     let mut overworld = settings("overworld");
     expand_references(&mut overworld);
@@ -558,7 +1284,7 @@ fn synthetic_noise_settings() -> serde_json::Value {
         {"type": "block", "result_state": {"id": "minecraft:lava", "properties": {"level": "3"}}},
         {"type": "condition", "if_true": {"type": "not", "invert": {"type": "hole"}}, "then_run": {"type": "bandlands"}},
         {"type": "condition", "if_true": {"type": "vertical_gradient", "random_name": "bedrock_floor",
-            "true_at_and_below": {"above_bottom": 0}, "false_at_and_above": {"absolute": 5}}, "then_run": stone},
+            "true_at_and_below": {"above_bottom": 0}, "false_at_and_above": {"absolute": 5, "above_bottom": 2, "below_top": 3}}, "then_run": stone},
         {"type": "condition", "if_true": {"type": "y_above", "anchor": {"relative_to_sea_level": -2}, "surface_depth_multiplier": 1, "add_stone_depth": false}, "then_run": stone},
         {"type": "condition", "if_true": {"type": "water", "offset": 0, "surface_depth_multiplier": -1, "add_stone_depth": true}, "then_run": stone},
         {"type": "condition", "if_true": {"type": "stone_depth", "offset": 0, "add_surface_depth": false, "secondary_depth_range": 2, "surface_type": "ceiling"}, "then_run": stone},

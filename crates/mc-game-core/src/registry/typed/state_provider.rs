@@ -10,13 +10,13 @@ use serde_json::Value;
 use super::int_provider;
 use super::network::{positive_float, sound_event};
 use crate::registry::codec::{
-    Field, RegistryDecodeContext, Schema, default, illegal_argument, interval_codec, opt, req,
-    split_thrown, validate,
+    Failure, Field, RegistryDecodeContext, Schema, default, illegal_argument, int_value,
+    interval_codec, opt, req, validate, xor,
 };
 use crate::registry::keys;
 use crate::world::item::enchantment::value_codecs::{
     block_predicate_schema, block_state_schema, block_state_tag, parse_block_state_json,
-    parse_full_state,
+    parse_full_state, vertical_anchor_text,
 };
 
 const DIRECTIONS: [&str; 6] = ["down", "up", "north", "south", "west", "east"];
@@ -31,52 +31,29 @@ fn holder() -> Schema {
 
 /// `BlockStateProvider.DIRECT_CODEC`.
 pub fn direct_schema() -> Schema {
-    Schema::custom(direct)
+    Schema::custom_partial(direct)
 }
 
 /// `BlockStateProvider.DIRECT_CODEC`: `Codec.xor(BlockState.FULL_CODEC, TYPED_CODEC)`, a `simple` provider re-encoding as
 /// its state.
-pub fn direct(v: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, String> {
-    let full = full_state(v);
-    let typed = typed(v, ctx);
-    // an exception thrown by the typed codec aborts before the two results are compared
-    if let Err(error) = &typed
-        && split_thrown(error).is_some()
-    {
-        return typed;
-    }
-    match (full, typed) {
-        (Ok(_), Ok(_)) => Err(both_alternatives(v)),
-        (Ok(tag), _) | (_, Ok(tag)) => Ok(tag),
-        // vanilla lists the typed alternative's error first
-        (Err(full), Err(typed)) => Err(format!("{typed}; {full}")),
-    }
+pub fn direct(v: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, Failure> {
+    xor(full_state(v), typed(v, ctx), |_, _| {
+        both_alternatives(v, ctx)
+    })
 }
 
 /// `BlockState.FULL_CODEC`: `id` is required, even for a block without properties.
-fn full_state(v: &Value) -> Result<Tag, String> {
-    parse_full_state(v).map(|state| block_state_tag(state, false))
+fn full_state(v: &Value) -> Result<Tag, Failure> {
+    parse_full_state(v)
+        .map(|state| block_state_tag(state, false))
+        .map_err(Failure::from)
 }
 
 /// `TYPED_CODEC`: the `type` key selects the provider's map codec.
-fn typed(v: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, String> {
-    if !v.is_object() {
-        return Err(format!("Not a JSON object: {v}"));
-    }
-    let id = provider_type_id(v);
-    if let Some(id) = id.as_deref()
-        && provider_type(id).is_none()
-    {
-        return Err(format!(
-            "Unknown registry key in ResourceKey[minecraft:root / minecraft:worldgen/block_state_provider_type]: {id}"
-        ));
-    }
-    let tag = Schema::Dispatch {
-        key: "type",
-        resolve: provider_type,
-    }
-    .convert(v, ctx)?;
-    if id.as_deref() != Some("minecraft:simple") {
+fn typed(v: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, Failure> {
+    let tag =
+        Schema::dispatch("worldgen/block_state_provider_type", provider_type).decode(v, ctx)?;
+    if provider_type_id(v).as_deref() != Some("minecraft:simple") {
         return Ok(tag);
     }
     match v.get("state").map(parse_block_state_json) {
@@ -94,11 +71,11 @@ fn provider_type_id(v: &Value) -> Option<String> {
 }
 
 /// `XorCodec`'s error when both alternatives read: it prints both results (`Pair.toString`: the value and the input).
-fn both_alternatives(v: &Value) -> String {
+fn both_alternatives(v: &Value, ctx: &RegistryDecodeContext) -> String {
     let state = parse_full_state(v).map(state_string).unwrap_or_default();
     format!(
         "Both alternatives read successfully, can not pick the correct one; first: (Left[{state}], {v}) second: (Right[{}], {v})",
-        provider_string(v)
+        provider_string(v, ctx)
     )
 }
 
@@ -111,19 +88,18 @@ fn state_string(state: BlockState) -> String {
     }
 }
 
-/// Java's `toString` of the provider an (already validated) typed provider JSON decodes to. The identity-hash text of the
-/// classes that are not records is not reproducible: it is written as `@0`.
-///
-/// shortcut: registry references, block tags and rule predicates inside the provider are not modelled (references and tags
-/// print as unresolved, a rule list as empty); upgrade when a message needs them.
-fn provider_string(v: &Value) -> String {
+/// Java's `toString` of the provider an (already validated) typed provider JSON decodes to. Classes that are not records
+/// print their identity hash code (`Class@1b2c3d`), which differs between runs of the vanilla server: it is written as
+/// `@0` and comparisons mask the hash. Registry references of the registry being loaded are not bound yet, so they print
+/// without their value.
+fn provider_string(v: &Value, ctx: &RegistryDecodeContext) -> String {
     const PACKAGE: &str = "net.minecraft.world.level.levelgen.feature.stateproviders";
     let inline = |v: &Value| match parse_full_state(v) {
         Ok(state) => format!(
             "Direct{{SimpleStateProvider[state={}]}}",
             state_string(state)
         ),
-        Err(_) => format!("Direct{{{}}}", provider_string(v)),
+        Err(_) => format!("Direct{{{}}}", provider_string(v, ctx)),
     };
     let holder = |v: Option<&Value>| match v {
         Some(Value::String(id)) => {
@@ -142,20 +118,31 @@ fn provider_string(v: &Value) -> String {
         }
         Some("minecraft:random_block") => {
             let blocks = match v.get("blocks") {
-                Some(Value::Array(list)) => list.iter().collect(),
-                Some(single) => vec![single],
-                None => Vec::new(),
+                Some(Value::String(tag)) if tag.starts_with('#') => {
+                    let id = mc_core::ident::Identifier::read(&tag[1..])
+                        .map_or_else(|_| tag[1..].to_owned(), |id| id.to_string());
+                    format!("NamedSet(TagKey[minecraft:block / {id}])[null]")
+                }
+                blocks => {
+                    let blocks = match blocks {
+                        Some(Value::Array(list)) => list.iter().collect(),
+                        Some(single) => vec![single],
+                        None => Vec::new(),
+                    };
+                    let blocks: Vec<String> = blocks
+                        .into_iter()
+                        .filter_map(Value::as_str)
+                        .filter_map(|id| mc_core::ident::Identifier::read(id).ok())
+                        .map(|id| {
+                            format!(
+                                "Reference{{ResourceKey[minecraft:block / {id}]=Block{{{id}}}}}"
+                            )
+                        })
+                        .collect();
+                    format!("DirectSet[[{}]]", blocks.join(", "))
+                }
             };
-            let blocks: Vec<String> = blocks
-                .into_iter()
-                .filter_map(Value::as_str)
-                .filter_map(|id| mc_core::ident::Identifier::read(id).ok())
-                .map(|id| format!("Reference{{ResourceKey[minecraft:block / {id}]=Block{{{id}}}}}"))
-                .collect();
-            format!(
-                "RandomBlockProvider[blocks=DirectSet[[{}]]]",
-                blocks.join(", ")
-            )
+            format!("RandomBlockProvider[blocks={blocks}]")
         }
         Some("minecraft:rotated") => {
             let direction = match v.get("direction").and_then(Value::as_str) {
@@ -170,10 +157,28 @@ fn provider_string(v: &Value) -> String {
         Some("minecraft:copy_properties") => {
             format!("CopyPropertiesProvider[source={}]", holder(v.get("source")))
         }
-        Some("minecraft:rule_based") => format!(
-            "RuleBasedStateProvider[fallback={}, rules=[]]",
-            holder(v.get("fallback"))
-        ),
+        Some("minecraft:rule_based") => {
+            let rules: Vec<String> = v
+                .get("rules")
+                .and_then(Value::as_array)
+                .into_iter()
+                .flatten()
+                .map(|rule| {
+                    format!(
+                        "Rule[ifTrue={}, then={}]",
+                        rule.get("if_true")
+                            .map(|p| predicate_string(p, ctx))
+                            .unwrap_or_default(),
+                        holder(rule.get("then"))
+                    )
+                })
+                .collect();
+            format!(
+                "RuleBasedStateProvider[fallback={}, rules=[{}]]",
+                holder(v.get("fallback")),
+                rules.join(", ")
+            )
+        }
         Some("minecraft:weighted") => {
             "WeightedStateProvider[weightedList=net.minecraft.util.random.WeightedList@0]"
                 .to_owned()
@@ -183,6 +188,60 @@ fn provider_string(v: &Value) -> String {
         Some("minecraft:noise_threshold") => format!("{PACKAGE}.NoiseThresholdProvider@0"),
         Some("minecraft:randomized_int") => format!("{PACKAGE}.RandomizedIntStateProvider@0"),
         _ => String::new(),
+    }
+}
+
+/// Java's `toString` of the block predicate an (already validated) predicate JSON decodes to: the records print their
+/// fields, the other classes their identity hash (`@0`, see [`provider_string`]).
+fn predicate_string(v: &Value, ctx: &RegistryDecodeContext) -> String {
+    const PACKAGE: &str = "net.minecraft.world.level.levelgen.blockpredicates";
+    let offset = |v: Option<&Value>| {
+        let ints: Vec<i32> = v
+            .and_then(Value::as_array)
+            .into_iter()
+            .flatten()
+            .filter_map(Value::as_number)
+            .map(int_value)
+            .collect();
+        let at = |i: usize| ints.get(i).copied().unwrap_or(0);
+        format!("Vec3i{{x={}, y={}, z={}}}", at(0), at(1), at(2))
+    };
+    let anchor = |v: Option<&Value>| v.map(|a| vertical_anchor_text(a, ctx)).unwrap_or_default();
+    let ty = v.get("type").and_then(Value::as_str).unwrap_or_default();
+    match ty.strip_prefix("minecraft:").unwrap_or(ty) {
+        "unobstructed" => format!("UnobstructedPredicate[offset={}]", offset(v.get("offset"))),
+        "height_range" => format!(
+            "HeightRangePredicate[minInclusive={}, maxInclusive={}]",
+            anchor(v.get("min_inclusive")),
+            anchor(v.get("max_inclusive"))
+        ),
+        "volume_match" => format!(
+            "VolumeMatchPredicate[min={}, max={}, match={}]",
+            offset(v.get("min")),
+            offset(v.get("max")),
+            v.get("match")
+                .map(|p| predicate_string(p, ctx))
+                .unwrap_or_default()
+        ),
+        class => {
+            let class = match class {
+                "all_of" => "AllOfPredicate",
+                "any_of" => "AnyOfPredicate",
+                "not" => "NotPredicate",
+                "true" => "TrueBlockPredicate",
+                "matching_blocks" => "MatchingBlocksPredicate",
+                "matching_fluids" => "MatchingFluidsPredicate",
+                "matching_block_tag" => "MatchingBlockTagPredicate",
+                "matching_biomes" => "MatchingBiomesPredicate",
+                "has_sturdy_face" => "HasSturdyFacePredicate",
+                "solid" => "SolidPredicate",
+                "replaceable" => "ReplaceablePredicate",
+                "inside_world_bounds" => "InsideWorldBoundsPredicate",
+                "would_survive" => "WouldSurvivePredicate",
+                other => other,
+            };
+            format!("{PACKAGE}.{class}@0")
+        }
     }
 }
 

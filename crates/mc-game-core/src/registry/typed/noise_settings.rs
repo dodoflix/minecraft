@@ -11,14 +11,16 @@ use serde_json::Value;
 
 use super::state_provider::noise_parameters;
 use crate::registry::codec::{
-    RegistryDecodeContext, Schema, default, interval_codec, opt, req, validate,
+    Failure, RegistryDecodeContext, Schema, default, interval_codec, opt, req, validate,
 };
 use crate::registry::keys;
-use crate::world::item::enchantment::value_codecs::block_state_schema;
+use crate::world::item::enchantment::value_codecs::{
+    block_state_schema, vec3i_schema, vertical_anchor_schema,
+};
 
 /// `NoiseGeneratorSettings.DIRECT_CODEC` `parse` + `encodeStart`.
-pub fn direct(v: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, String> {
-    settings().convert(v, ctx)
+pub fn direct(v: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, Failure> {
+    settings().decode(v, ctx)
 }
 
 fn settings() -> Schema {
@@ -148,66 +150,6 @@ fn positive_int() -> Schema {
     })
 }
 
-/// A `type`-dispatched codec whose `type` names an entry of the static registry `registry`.
-fn dispatch(registry: &'static str, resolve: fn(&str) -> Option<Schema>) -> Schema {
-    Schema::custom(move |v, ctx| {
-        if !v.is_object() {
-            return Err(format!("Not a JSON object: {v}"));
-        }
-        let unknown = v
-            .get("type")
-            .and_then(Value::as_str)
-            .and_then(|t| mc_core::ident::Identifier::read(t).ok())
-            .map(|id| id.to_string())
-            .filter(|id| resolve(id).is_none());
-        if let Some(id) = unknown {
-            return Err(format!(
-                "Unknown registry key in ResourceKey[minecraft:root / minecraft:{registry}]: {id}"
-            ));
-        }
-        Schema::Dispatch {
-            key: "type",
-            resolve,
-        }
-        .convert(v, ctx)
-    })
-}
-
-/// `VerticalAnchor.CODEC`: exactly one of `absolute`, `above_bottom`, `below_top` and `relative_to_sea_level`.
-fn vertical_anchor() -> Schema {
-    Schema::custom(|v, ctx| {
-        let results: Vec<Result<Tag, String>> = [
-            "absolute",
-            "above_bottom",
-            "below_top",
-            "relative_to_sea_level",
-        ]
-        .into_iter()
-        .map(|key| {
-            Schema::Record(vec![req(
-                key,
-                Schema::IntRange(DIMENSION_MIN_Y, DIMENSION_MAX_Y),
-            )])
-            .convert(v, ctx)
-        })
-        .collect();
-        let mut read = results.iter().filter_map(|r| r.as_ref().ok());
-        match (read.next(), read.next()) {
-            (Some(tag), None) => Ok(tag.clone()),
-            (Some(_), Some(_)) => {
-                Err("Both alternatives read successfully, can not pick the correct one".to_owned())
-            }
-            // the nested `xor`s list the error of the last alternative first
-            _ => Err(results
-                .iter()
-                .rev()
-                .filter_map(|r| r.as_ref().err().cloned())
-                .collect::<Vec<_>>()
-                .join("; ")),
-        }
-    })
-}
-
 // ---- density functions -----------------------------------------------------------------------------------------
 
 /// `DensityFunction.CODEC`: a reference to a registered function or an inline one.
@@ -219,17 +161,22 @@ fn density_function() -> Schema {
 }
 
 /// `DensityFunctions.DIRECT_CODEC`: a number or a `type`-dispatched object; a `constant` encodes as its bare number.
-fn density_direct(v: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, String> {
-    let tag = Schema::either(
-        noise_value(),
-        dispatch("worldgen/density_function_type", density_type),
-    )
-    .convert(v, ctx)?;
-    Ok(match &tag {
+fn density_direct(v: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, Failure> {
+    let constant_as_number = |tag: Tag| match &tag {
         Tag::Compound(c) if matches!(c.get("type"), Some(Tag::String(t)) if t == "minecraft:constant") => {
             c.get("value").cloned().unwrap_or(tag)
         }
         _ => tag,
+    };
+    Schema::either(
+        noise_value(),
+        Schema::dispatch("worldgen/density_function_type", density_type),
+    )
+    .decode(v, ctx)
+    .map(constant_as_number)
+    .map_err(|failure| Failure {
+        partial: failure.partial.map(constant_as_number),
+        ..failure
     })
 }
 
@@ -237,7 +184,7 @@ fn density_direct(v: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, String>
 fn noise_holder() -> Schema {
     Schema::HolderOrDirect {
         registry: keys::NOISE,
-        direct: |v, ctx| noise_parameters().convert(v, ctx),
+        direct: |v, ctx| noise_parameters().decode(v, ctx),
     }
 }
 
@@ -258,7 +205,7 @@ fn density_type(name: &str) -> Option<Schema> {
             default("shift_z", df(), zero()),
         ]),
         "distance_to_point" => S::Record(vec![
-            req("point", vec3i()),
+            req("point", vec3i_schema(None)),
             req(
                 "metric",
                 S::Enum(&["euclidean", "euclidean_squared", "manhattan", "chebyshev"]),
@@ -405,37 +352,13 @@ fn density_type(name: &str) -> Option<Schema> {
     })
 }
 
-/// `Vec3i.CODEC`: three ints, written as an int array.
-fn vec3i() -> Schema {
-    Schema::custom(|v, _| {
-        let Value::Array(list) = v else {
-            return Err(format!("Not a json array: {v}"));
-        };
-        let ints: Option<Vec<i32>> = list
-            .iter()
-            .map(|e| match e {
-                Value::Number(n) => n
-                    .as_i64()
-                    .map(|i| i as i32)
-                    .or_else(|| n.as_f64().map(|f| f as i32)),
-                _ => None,
-            })
-            .collect();
-        match ints {
-            None => Err(format!("Some elements are not ints: {v}")),
-            Some(ints) if ints.len() == 3 => Ok(Tag::IntArray(ints)),
-            Some(_) => Err("Input is not a list of 3 ints".to_owned()),
-        }
-    })
-}
-
 /// `CubicSpline.codec(DensityFunction.CODEC)`: a constant or a multipoint spline whose points hold sub-splines.
 fn cubic_spline() -> Schema {
     let point = Schema::Record(vec![
         req("location", Schema::Float),
         req(
             "value",
-            Schema::custom(|v, ctx| cubic_spline().convert(v, ctx)),
+            Schema::custom_partial(|v, ctx| cubic_spline().decode(v, ctx)),
         ),
         req("derivative", Schema::Float),
     ]);
@@ -454,7 +377,7 @@ fn cubic_spline() -> Schema {
 fn material_rule() -> Schema {
     Schema::HolderOrDirect {
         registry: keys::MATERIAL_RULE,
-        direct: |v, ctx| dispatch("worldgen/material_rule_type", rule_type).convert(v, ctx),
+        direct: |v, ctx| Schema::dispatch("worldgen/material_rule_type", rule_type).decode(v, ctx),
     }
 }
 
@@ -463,7 +386,7 @@ fn material_condition() -> Schema {
     Schema::HolderOrDirect {
         registry: keys::MATERIAL_CONDITION,
         direct: |v, ctx| {
-            dispatch("worldgen/material_condition_type", condition_type).convert(v, ctx)
+            Schema::dispatch("worldgen/material_condition_type", condition_type).decode(v, ctx)
         },
     }
 }
@@ -509,11 +432,11 @@ fn condition_type(name: &str) -> Option<Schema> {
         ]),
         "vertical_gradient" => S::Record(vec![
             req("random_name", S::Identifier),
-            req("true_at_and_below", vertical_anchor()),
-            req("false_at_and_above", vertical_anchor()),
+            req("true_at_and_below", vertical_anchor_schema()),
+            req("false_at_and_above", vertical_anchor_schema()),
         ]),
         "y_above" => S::Record(vec![
-            req("anchor", vertical_anchor()),
+            req("anchor", vertical_anchor_schema()),
             req("surface_depth_multiplier", S::IntRange(-20, 20)),
             req("add_stone_depth", S::Bool),
         ]),

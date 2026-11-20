@@ -1,8 +1,8 @@
 //! Regenerates the vanilla registry fixtures of `golden::vanilla_oracle`.
 //!
-//! `regen_oracle_fixtures` starts the vanilla server on three worlds (default, custom data packs, broken data pack),
-//! connects as a client that knows no packs (so `registry_data` carries every entry) and stores the raw configuration packets
-//! and the server log under `tests/fixtures/oracle/`.
+//! `regen_oracle_fixtures` starts the vanilla server on four worlds (default, custom data packs, broken data pack, broken
+//! dimensions), connects as a client that knows no packs (so `registry_data` carries every entry) and stores the raw
+//! configuration packets and the server log under `tests/fixtures/oracle/`.
 //! Regenerate: `MC_UPDATE_FIXTURES=1 cargo test -p mc-game --test oracle -- --ignored regen_oracle_fixtures --nocapture`.
 
 use crate::test_packs;
@@ -187,6 +187,12 @@ fn regen_oracle_fixtures() {
             &dir,
             "broken",
             &run_vanilla(test_packs::write_broken_packs, false).await,
+            false,
+        );
+        write_fixture(
+            &dir,
+            "broken_dimensions",
+            &run_vanilla(test_packs::write_broken_dimension_packs, false).await,
             false,
         );
     });

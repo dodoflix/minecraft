@@ -5,7 +5,7 @@ use serde_json::Value;
 
 use super::attributes::EnvironmentAttributeMap;
 use super::{HolderSetRef, get_bool, get_f32, get_str};
-use crate::registry::codec::{RegistryDecodeContext, Schema, default, req};
+use crate::registry::codec::{Failure, RegistryDecodeContext, Schema, default, req};
 use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
 use crate::registry::keys;
 
@@ -167,8 +167,8 @@ fn convert(json: &Value, ctx: &RegistryDecodeContext, direct: bool) -> Result<Ta
 }
 
 /// `Biome.DIRECT_CODEC` `parse` + `encodeStart` (the inline holder form).
-fn encode_direct(json: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, String> {
-    convert(json, ctx, true)
+fn encode_direct(json: &Value, ctx: &RegistryDecodeContext) -> Result<Tag, Failure> {
+    convert(json, ctx, true).map_err(Failure::from)
 }
 
 /// `Biome.CODEC` (`RegistryCodecs.holder(BIOME, DIRECT_CODEC)`): a reference or an inline definition.

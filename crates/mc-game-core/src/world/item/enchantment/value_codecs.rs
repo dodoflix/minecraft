@@ -21,11 +21,14 @@ use mc_protocol::components::common::SoundEvent;
 use mc_protocol::components::holder::{Holder, registry_by_name_codec};
 use mc_protocol::components::{ItemStackTemplate, NoDirect};
 use mc_protocol::packets::play::{ParticleOptions, PositionSource as ParticlePositionSource};
+use mc_worldgen::noise_settings::{DIMENSION_MAX_Y, DIMENSION_MIN_Y};
 use mc_worldgen::provider::FloatProvider;
 use serde_json::Value;
 
 use super::codecs::{holder_file_codec, type_codec, vec3_codec};
-use crate::registry::codec::{Lookup, RegistryDecodeContext, RegistryLookup, Schema};
+use crate::registry::codec::{
+    Failure, Lookup, RegistryDecodeContext, RegistryLookup, Schema, int_value, req, validate, xor,
+};
 use crate::registry::typed::damage_type::{
     DamageEffects, DamageScaling, DamageType, DeathMessageType,
 };
@@ -815,37 +818,42 @@ pub(crate) fn with_gen_registries<R>(
     with_gen_ctx(|ctx| f(ctx.worldgen, ctx.biomes))
 }
 
-fn vec3i_offset_schema(max: i32, _required: bool) -> Schema {
-    Schema::custom(move |v, _| {
-        let list = v.as_array().ok_or_else(|| format!("Not a list: {v}"))?;
-        let ints: Vec<i32> = list
-            .iter()
-            .map(|e| {
-                e.as_i64()
-                    .or_else(|| e.as_f64().map(|f| f as i64))
-                    .map(|i| i as i32)
-                    .ok_or_else(|| format!("Not a number: {e}"))
-            })
-            .collect::<Result<_, _>>()?;
-        if ints.len() != 3 {
-            return Err("Input is not a list of 3 elements".to_string());
-        }
-        if ints.iter().any(|i| i.unsigned_abs() as i64 > max as i64) {
-            return Err(format!(
+/// `Vec3i.CODEC` (no `max`) or `Vec3i.offsetCodec(max)`: `Codec.INT_STREAM` and `Util.fixedSize(.., 3)` (a longer list keeps
+/// its first three ints as the partial result), then the range check of an offset; written as an int array.
+pub(crate) fn vec3i_schema(max: Option<i32>) -> Schema {
+    Schema::custom_partial(move |v, _| {
+        let list = v
+            .as_array()
+            .ok_or_else(|| Failure::from(format!("Not a json array: {v}")))?;
+        let ints: Option<Vec<i32>> = list.iter().map(|e| e.as_number().map(int_value)).collect();
+        let Some(mut ints) = ints else {
+            return Err(Failure::from(format!("Some elements are not ints: {v}")));
+        };
+        let size = ints.len();
+        ints.truncate(3);
+        let tag = Tag::IntArray(ints);
+        let result = match size {
+            3 => Ok(tag),
+            4.. => Err(Failure {
+                message: "Input is not a list of 3 ints".to_owned(),
+                partial: Some(tag),
+            }),
+            _ => Err(Failure::from("Input is not a list of 3 ints".to_owned())),
+        };
+        let Some(max) = max else { return result };
+        validate(result, |tag| match tag {
+            // `Math.abs` keeps `Integer.MIN_VALUE` negative
+            Tag::IntArray(p) if p.iter().any(|c| c.wrapping_abs() > max) => Err(format!(
                 "Position out of range, expected at most {max}: Vec3i{{x={}, y={}, z={}}}",
-                ints[0], ints[1], ints[2]
-            ));
-        }
-        Ok(Tag::IntArray(ints))
+                p[0], p[1], p[2]
+            )),
+            _ => Ok(()),
+        })
     })
 }
 
 fn offset_field() -> crate::registry::codec::Field {
-    crate::registry::codec::default(
-        "offset",
-        vec3i_offset_schema(16, false),
-        Value::from(vec![0, 0, 0]),
-    )
+    crate::registry::codec::default("offset", vec3i_schema(Some(16)), Value::from(vec![0, 0, 0]))
 }
 
 pub(crate) fn block_state_schema() -> Schema {
@@ -896,26 +904,84 @@ pub(crate) fn block_state_tag(state: BlockState, bare_ok: bool) -> Tag {
     Tag::Compound(compound)
 }
 
-fn vertical_anchor_schema() -> Schema {
-    Schema::custom(|v, _| {
-        let o = v.as_object().ok_or_else(|| format!("Not a map: {v}"))?;
-        for key in ["absolute", "above_bottom", "below_top"] {
-            if let Some(n) = o.get(key) {
-                let n = n.as_i64().ok_or_else(|| format!("Not a number: {n}"))? as i32;
-                if !(-2032..=2031).contains(&n) {
-                    return Err(format!("Value {n} outside of range [-2032:2031]"));
-                }
-                let mut c = CompoundTag::new();
-                c.put(key, Tag::Int(n));
-                return Ok(Tag::Compound(c));
-            }
+const ANCHOR_KEYS: [&str; 4] = [
+    "absolute",
+    "above_bottom",
+    "below_top",
+    "relative_to_sea_level",
+];
+
+/// The position among the `VerticalAnchor.CODEC` alternatives of the anchor `tag` (a one-field compound) and its
+/// `toString`.
+fn anchor(tag: &Tag) -> (usize, String) {
+    const NAMES: [&str; 4] = [
+        "absolute",
+        "above bottom",
+        "below top",
+        "relative to sea level",
+    ];
+    let Tag::Compound(c) = tag else {
+        return (0, String::new());
+    };
+    let position = ANCHOR_KEYS
+        .iter()
+        .position(|key| c.get(key).is_some())
+        .unwrap_or(0);
+    let offset = c.get_int(ANCHOR_KEYS[position]).unwrap_or(0);
+    (position, format!("{offset} {}", NAMES[position]))
+}
+
+/// `VerticalAnchor.toString` of the anchor `v` decodes to (empty when it does not decode).
+pub(crate) fn vertical_anchor_text(v: &Value, ctx: &RegistryDecodeContext) -> String {
+    vertical_anchor_schema()
+        .decode(v, ctx)
+        .map(|tag| anchor(&tag).1)
+        .unwrap_or_default()
+}
+
+/// `VerticalAnchor.CODEC`: `xor(absolute, xor(above_bottom, xor(below_top, relative_to_sea_level)))` over single-field
+/// records. An inner xor whose two alternatives both read is an error, which the xor around it treats as a failed
+/// alternative: `{above_bottom, below_top, relative_to_sea_level}` reads as `above_bottom`.
+pub(crate) fn vertical_anchor_schema() -> Schema {
+    /// `Either.toString` of the nested `xor` result at `level` that holds the anchor at `position`.
+    fn either(level: usize, position: usize, text: &str) -> String {
+        if position == level {
+            format!("Left[{text}]")
+        } else if level == 2 {
+            format!("Right[{text}]")
+        } else {
+            format!("Right[{}]", either(level + 1, position, text))
         }
-        Err("Input does not contain a key [absolute]: ".to_owned() + &v.to_string())
+    }
+    Schema::custom_partial(|v, ctx| {
+        let [absolute, above_bottom, below_top, sea_level] = ANCHOR_KEYS.map(|key| {
+            Schema::Record(vec![req(
+                key,
+                Schema::IntRange(DIMENSION_MIN_Y, DIMENSION_MAX_Y),
+            )])
+            .decode(v, ctx)
+        });
+        let both = |level: usize| {
+            move |first: &Tag, second: &Tag| {
+                let ((_, first), (position, second)) = (anchor(first), anchor(second));
+                // the innermost xor's second alternative is the anchor itself, not another xor
+                let second = if level == 2 {
+                    second
+                } else {
+                    either(level + 1, position, &second)
+                };
+                format!(
+                    "Both alternatives read successfully, can not pick the correct one; first: (Left[{first}], {v}) second: (Right[{second}], {v})"
+                )
+            }
+        };
+        let inner = xor(below_top, sea_level, both(2));
+        let inner = xor(above_bottom, inner, both(1));
+        xor(absolute, inner, both(0))
     })
 }
 
 pub(crate) fn block_predicate_schema() -> Schema {
-    use crate::registry::codec::req;
     fn resolve(name: &str) -> Option<Schema> {
         let block_set = |registry: &'static str| Schema::HolderSet {
             registry,
@@ -930,17 +996,11 @@ pub(crate) fn block_predicate_schema() -> Schema {
         Some(match name {
             "minecraft:all_of" | "minecraft:any_of" => Schema::Record(vec![req(
                 "predicates",
-                Schema::list_of(Schema::Dispatch {
-                    key: "type",
-                    resolve,
-                }),
+                Schema::list_of(Schema::dispatch("block_predicate_type", resolve)),
             )]),
             "minecraft:not" => Schema::Record(vec![req(
                 "predicate",
-                Schema::Dispatch {
-                    key: "type",
-                    resolve,
-                },
+                Schema::dispatch("block_predicate_type", resolve),
             )]),
             "minecraft:true" => Schema::Record(vec![]),
             "minecraft:matching_blocks" => {
@@ -968,7 +1028,7 @@ pub(crate) fn block_predicate_schema() -> Schema {
             }
             "minecraft:unobstructed" => Schema::Record(vec![crate::registry::codec::default(
                 "offset",
-                vec3i_offset_schema(i32::MAX, false),
+                vec3i_schema(None),
                 Value::from(vec![0, 0, 0]),
             )]),
             "minecraft:height_range" => Schema::Record(vec![
@@ -976,23 +1036,14 @@ pub(crate) fn block_predicate_schema() -> Schema {
                 req("max_inclusive", vertical_anchor_schema()),
             ]),
             "minecraft:volume_match" => Schema::Record(vec![
-                req("min", vec3i_offset_schema(16, true)),
-                req("max", vec3i_offset_schema(16, true)),
-                req(
-                    "match",
-                    Schema::Dispatch {
-                        key: "type",
-                        resolve,
-                    },
-                ),
+                req("min", vec3i_schema(Some(16))),
+                req("max", vec3i_schema(Some(16))),
+                req("match", Schema::dispatch("block_predicate_type", resolve)),
             ]),
             _ => return None,
         })
     }
-    Schema::Dispatch {
-        key: "type",
-        resolve,
-    }
+    Schema::dispatch("block_predicate_type", resolve)
 }
 
 /// A decoded `BlockPredicate` together with its `encodeStart(NbtOps)` form.
