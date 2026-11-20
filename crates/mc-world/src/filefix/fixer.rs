@@ -13,7 +13,7 @@ use std::path::{Path, PathBuf};
 
 use mc_core::gson::{JsonElement, JsonObject};
 use mc_datafix::{
-    CURRENT_VERSION, DataFixTypes, DataFixer, FileFixerRegistry, References,
+    CURRENT_VERSION, DataFixTypes, DataFixer, FileFixRegistration, FileFixerRegistry, References,
     world_version_to_file_fixer_version,
 };
 use mc_nbt::{CompoundTag, NbtAccounter};
@@ -328,20 +328,20 @@ impl FileFixerUpper {
     }
 
     /// `FileFixerUpper.Builder.build`: the file fixes registered in `registry` (`DataFixers.getFileFixer()`), each
-    /// built by `make_fix` from its name; a fix must be of the version it is registered for.
+    /// built by `make_fix` from its registration; a fix must be of the version it is registered for.
     ///
     /// # Panics
     /// When a built fix is of another version than its registration.
     pub fn from_registry(
         data_fixer: &'static DataFixer,
         registry: &FileFixerRegistry,
-        make_fix: impl Fn(&str) -> FileFix,
+        make_fix: impl Fn(&FileFixRegistration) -> FileFix,
     ) -> FileFixerUpper {
         let file_fixes = registry
             .fixes()
             .iter()
             .map(|registration| {
-                let fix = make_fix(registration.name);
+                let fix = make_fix(registration);
                 assert_eq!(
                     fix.version(),
                     registration.version,

@@ -5,6 +5,7 @@ mod chunk_common;
 mod chunk_model;
 mod chunk_packet_golden;
 mod data_layer_golden;
+mod file_fix;
 mod height_status_common;
 mod heightmap_golden;
 mod level_storage_golden;

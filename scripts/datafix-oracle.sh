@@ -10,13 +10,18 @@
 #   scripts/datafix-oracle.sh fix TYPE FROM TO FILE [OUT]   one NBT file through DataFixTypes.update (TYPE: CHUNK or ref:item_stack)
 #   scripts/datafix-oracle.sh batch IN|- OUT|-              many updates, one line each (record format: DataFixerOracle.java)
 #   scripts/datafix-oracle.sh gen OPTIONS                   schema-driven samples as batch lines (options and shapes: SampleGen.java)
+#   scripts/datafix-oracle.sh filefix WORLD_DIR --out TREE.txt [--from V --to V]   the file fixer on a copy of a world (format: FileFixVerbs.java)
+#   scripts/datafix-oracle.sh summary-after WORLD_DIR [--from V --to V]            the level summary of that world afterwards
 #   scripts/datafix-oracle.sh tables DIR                    the lookup tables of the fix classes as DIR/<class>.tsv (format: TableDump.java)
 #   scripts/datafix-oracle.sh table-accessors               rows of the public table accessors over every key (format: TableDump.java)
 #   scripts/datafix-oracle.sh --regen                       rewrite fixes.tsv, schema_types.tsv.gz and table_accessors.tsv.gz under
-#                                                           crates/mc-datafix/tests/fixtures and the tables under crates/mc-datafix/src/fixes/data
+#                                                           crates/mc-datafix/tests/fixtures, the tables under crates/mc-datafix/src/fixes/data
+#                                                           and the file fixer records of the minimal worlds (crates/mc-world/tests/fixtures/filefix)
+#   scripts/datafix-oracle.sh --regen-filefix-corpus        rewrite the file fixer records of the worlds of scripts/datafix-worlds.sh
+#                                                           (crates/mc-world/tests/fixtures/filefix/corpus/<id>.txt)
 #
 # Output: stdout of the verb (--regen writes crates/mc-datafix/tests/fixtures/fixes.tsv, schema_types.tsv.gz,
-# table_accessors.tsv.gz and crates/mc-datafix/src/fixes/data/*.tsv.gz).
+# table_accessors.tsv.gz, crates/mc-datafix/src/fixes/data/*.tsv.gz and crates/mc-world/tests/fixtures/filefix/<id>.txt).
 # `gen` reads the vocabulary target/datafix/vocab.txt (string literals of the datafix sources plus the registry ids of
 # ref/extracted), rebuilt when a datafix source is newer.
 # The Java sources in crates/mc-datafix/tests/oracle are compiled into target/datafix-oracle when they changed.
@@ -91,6 +96,18 @@ regen_tables() {
 # HashMap<Dynamic, Dynamic> behind Dynamic.updateMapValues would otherwise differ from run to run (recordings could not repeat).
 ORACLE=(java -XX:+UnlockExperimentalVMOptions -XX:hashCode=2 -XX:-OmitStackTraceInFastThrow -Dlog4j2.configurationFile="$SRC/log4j2-oracle.xml" -cp "$OUT:$CP")
 # -XX:-OmitStackTraceInFastThrow: HotSpot would reuse a message-less exception after many identical throws, so a record would depend on the JVM history
+# regen_filefix OUT_DIR WORLD...: OUT_DIR/<name of the world folder>.txt for each world folder; FILEFIX_ARGS are added
+# to each call.
+FILEFIX_ARGS=()
+regen_filefix() {
+  local out="$1" world
+  shift
+  mkdir -p "$out"
+  for world in "$@"; do
+    "${ORACLE[@]}" filefix "$world" --out "$out/$(basename "$world").txt" "${FILEFIX_ARGS[@]}" >&2
+  done
+}
+
 if [ "$1" = gen ]; then
   VOCAB="$(vocab)" # a failing assignment stops the script
   ORACLE+=("-Ddatafix.vocab=$VOCAB")
@@ -101,7 +118,16 @@ if [ "$1" = --regen ]; then
   to_file "$FX/schema_types.tsv.gz" "${ORACLE[@]}" schema-dump all
   to_file "$FX/table_accessors.tsv.gz" "${ORACLE[@]}" table-accessors
   regen_tables
+  FF="$ROOT/crates/mc-world/tests/fixtures/filefix"
+  regen_filefix "$FF" "$FF"/worlds/*
+  FILEFIX_ARGS=(--saves)
+  regen_filefix "$FF/interrupted" "$FF"/interrupted/*/
+  FILEFIX_ARGS=()
   wc -l "$FX/fixes.tsv" >&2
+elif [ "$1" = --regen-filefix-corpus ]; then
+  CORPUS="${MC_DATAFIX_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}/mc-datafix-corpus}/worlds"
+  [ -d "$CORPUS" ] || die "$CORPUS missing; run scripts/datafix-worlds.sh"
+  regen_filefix "$ROOT/crates/mc-world/tests/fixtures/filefix/corpus" "$CORPUS"/*/
 else
   exec "${ORACLE[@]}" "$@" # the JVM replaces the script: a caller's process group and parent-death signal reach it
 fi

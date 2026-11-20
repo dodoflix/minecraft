@@ -50,6 +50,33 @@ impl CowFsError {
         }
     }
 
+    /// The fully qualified Java class name.
+    pub(super) fn class_name(&self) -> &'static str {
+        match self {
+            CowFsError::Creation(_) => {
+                "net.minecraft.util.filefix.virtualfilesystem.exception.CowFSCreationException"
+            }
+            CowFsError::Symlink(_) => {
+                "net.minecraft.util.filefix.virtualfilesystem.exception.CowFSSymlinkException"
+            }
+            CowFsError::NoSuchFile(_) => {
+                "net.minecraft.util.filefix.virtualfilesystem.exception.CowFSNoSuchFileException"
+            }
+            CowFsError::NotDirectory(_) => {
+                "net.minecraft.util.filefix.virtualfilesystem.exception.CowFSNotDirectoryException"
+            }
+            CowFsError::FileAlreadyExists(_) => {
+                "net.minecraft.util.filefix.virtualfilesystem.exception.CowFSFileAlreadyExistsException"
+            }
+            CowFsError::DirectoryNotEmpty(_) => {
+                "net.minecraft.util.filefix.virtualfilesystem.exception.CowFSDirectoryNotEmptyException"
+            }
+            CowFsError::FileSystem(_) => {
+                "net.minecraft.util.filefix.virtualfilesystem.exception.CowFSFileSystemException"
+            }
+        }
+    }
+
     fn kind(&self) -> io::ErrorKind {
         match self {
             CowFsError::NoSuchFile(_) => io::ErrorKind::NotFound,

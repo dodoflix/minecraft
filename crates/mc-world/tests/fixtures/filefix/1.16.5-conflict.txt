@@ -1,0 +1,43 @@
+LOG	INFO: Starting upgrade for world "world"
+LOG	DEBUG: Missing file: /data/Monument.dat
+LOG	DEBUG: Missing file: /data/Stronghold.dat
+LOG	DEBUG: Missing file: /data/Mineshaft.dat
+LOG	DEBUG: Missing file: /data/Temple.dat
+LOG	DEBUG: Missing file: /data/Mansion.dat
+LOG	DEBUG: Missing file: /data/Fortress.dat
+LOG	DEBUG: Missing file: /data/EndCity.dat
+THREW	net.minecraft.util.filefix.AbortedFileFixException: java.nio.file.FileAlreadyExistsException: Cannot move file from resources.zip to resourcepacks/resources.zip: Target already exists
+TREE	D world
+TREE	D world/DIM-1
+TREE	D world/DIM-1/data
+TREE	F world/DIM-1/data/chunks.dat 691 d0983ce7c159345e17068bb13a9e2ba8b7495c6d3a755f2252773cb417727598
+TREE	F world/DIM-1/data/raids.dat 76 9ef82eb4822f9b671ce76505379ce1dec5a253dd0ffc1dc790001e30ffd244aa
+TREE	D world/DIM-1/region
+TREE	R world/DIM-1/region/r.-1.-1.mca 2 9012c21786db3f77057efc8a296e60f61d9166e45969b47cae75e38e66a90672
+TREE	R world/DIM-1/region/r.-1.0.mca 2 d35963294d02ce563f7725bfe4740cf89194bd0534207a9254066bbeec9fba1e
+TREE	R world/DIM-1/region/r.0.-1.mca 2 650f6cf3e5178bfee7d9862c39099520da82cba5909467fe5abe0ad04ca347d3
+TREE	R world/DIM-1/region/r.0.0.mca 2 e196b3e62dbb276565f1c38c1180e779554b03a6bc963dd758ff2777fc36222e
+TREE	D world/DIM1
+TREE	D world/DIM1/data
+TREE	F world/DIM1/data/chunks.dat 51 ea9eb74847fd34e105bf0c193f0c221b178a12846debad5d4088630b8890b7ba
+TREE	F world/DIM1/data/raids_end.dat 76 9ef82eb4822f9b671ce76505379ce1dec5a253dd0ffc1dc790001e30ffd244aa
+TREE	D world/DIM1/region
+TREE	R world/DIM1/region/r.-1.-1.mca 2 90d3db4ffb1c255fd61776af1cc0547c091daed6be48d8889bb343cca1e1ec91
+TREE	R world/DIM1/region/r.-1.0.mca 2 aba1c5a8c81709b3aea09a5c18a22280f3cab2218ba57ec74ac3f93f3d96cb72
+TREE	R world/DIM1/region/r.0.-1.mca 2 4aa18be8067a922a2ed83204c153a45d522d033427476f498961316841f013a1
+TREE	R world/DIM1/region/r.0.0.mca 2 4e538579cf7bb4074d4a34ad2760f7da9cd37f3ca148c74f3e17389164728ed4
+TREE	D world/data
+TREE	F world/data/chunks.dat 691 d0983ce7c159345e17068bb13a9e2ba8b7495c6d3a755f2252773cb417727598
+TREE	F world/data/raids.dat 76 9ef82eb4822f9b671ce76505379ce1dec5a253dd0ffc1dc790001e30ffd244aa
+TREE	F world/level.dat 2508 ee25db6a5c6f3bb4d6e8b6299ef1edb6a5dd05efacc1c2404b1b46b92b3ecd61
+TREE	F world/level.dat_old 2508 41b15a6bd11c5f11fcde621344057ddf9570bb103fa05d31c2f2f0b906ec0122
+TREE	D world/region
+TREE	R world/region/r.-1.-1.mca 2 a9958e08c5846e946647a1278806c5c883f1259836a441faa3d923f4b4d7d537
+TREE	R world/region/r.-1.0.mca 2 10b8c628c13b7ec9fcedcf3a8fc8d5c091e861964dcd4d7aa603c80637236d70
+TREE	R world/region/r.0.-1.mca 2 aa2ef62f023bb2ea2dfa09bbf766444fc501a0385657083eaba324177fe17d9d
+TREE	R world/region/r.0.0.mca 2 6cac868097b8d7225d9fddb73e9150b78130f66a60908331ae8705b1361956ce
+TREE	D world/resourcepacks
+TREE	F world/resourcepacks/resources.zip 22 8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85
+TREE	F world/resources.zip 22 8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85
+TREE	F world/session.lock 3 51643361c79ecaef25a8de802de24f570ba25d9c2df1d22d94fade11b4f466cc
+SUMMARY	name=world mode=CREATIVE hardcore=false commands=false experimental=false manual=false fileFix=true compatible=true backup=file_fixing_required shouldBackup=true downgrade=false disabled=false upload=true edit=false recreate=false version=1.16.5,2586,main,false

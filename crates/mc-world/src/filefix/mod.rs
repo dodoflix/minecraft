@@ -9,6 +9,7 @@ mod cow_tree;
 mod error;
 mod fix;
 mod fixer;
+pub mod fixes;
 mod names;
 mod ops;
 mod progress;
@@ -22,6 +23,7 @@ pub use error::{
 pub use fix::FileFix;
 pub(crate) use fixer::add_versions_to_level_data;
 pub use fixer::{Checkpoint, FileFixerUpper, FixHooks, detect_file_system_capabilities};
+pub use fixes::{file_fixer, new_file_fixer};
 pub use ops::{
     ContentContext, DeleteFileOrEmptyDirectory, FileFixOperation, ModifyContent, Move, RegexMove,
     delete_file_or_empty_directory, move_file, only_file,

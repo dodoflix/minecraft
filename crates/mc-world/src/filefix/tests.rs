@@ -14,7 +14,8 @@ use mc_datafix::{
     DSL, DataFix, DataFixTypes, DataFixer, DataFixerBuilder, References, Schema, SchemaDef,
     TemplateMap, TypeRewriteRule,
 };
-use mc_nbt::{CompoundTag, NbtAccounter};
+use mc_dfu::{Dyn, Dynamic, NBT};
+use mc_nbt::{CompoundTag, NbtAccounter, Tag};
 
 use super::*;
 use crate::level_storage::{LevelStorageSource, read_compressed, write_compressed};
@@ -169,9 +170,9 @@ fn fix_of_version() -> FileFix {
             &FileRelation::data().for_file("counter.dat"),
             MissingSeverity::Neutral,
         ))?;
-        let mut data = counter.read(ctx.tree)?.expect("counter.dat exists");
-        data.put_int("counter", data.get_int_or("counter", 0) + 1);
-        counter.write(ctx.tree, data);
+        let data = counter.read(ctx.tree)?.expect("counter.dat exists");
+        let next = data.get("counter").as_int_or(0) + 1;
+        counter.write(ctx.tree, &data.set("counter", data.create_int(next)));
         let mut chunks = only_file(ctx.chunk_nbt(
             &FileRelation::region(),
             &region_info(),
@@ -555,7 +556,7 @@ fn operations_skip_a_missing_source_and_refuse_an_existing_target() {
     );
     assert_eq!(e.kind(), io::ErrorKind::AlreadyExists);
     assert_eq!(
-        cow_message(&e),
+        e.to_string(),
         "Cannot move file from a to b: Target already exists"
     );
 
@@ -1267,14 +1268,8 @@ fn the_latest_file_fixer_version_is_derived_from_the_registered_file_fixes() {
 #[test]
 fn the_registered_file_fixes_build_the_fixer_and_a_fix_of_another_version_is_refused() {
     let registry = mc_datafix::get_file_fixer();
-    let fixer = FileFixerUpper::from_registry(test_data_fixer(), registry, |name| {
-        let version = registry
-            .fixes()
-            .iter()
-            .find(|f| f.name == name)
-            .unwrap()
-            .version;
-        FileFix::new(version)
+    let fixer = FileFixerUpper::from_registry(test_data_fixer(), registry, |registration| {
+        FileFix::new(registration.version)
     });
     assert!(fixer.requires_file_fixing(4898) && !fixer.requires_file_fixing(4899));
     let refused = std::panic::catch_unwind(|| {
@@ -1427,25 +1422,27 @@ fn level_dat_player_data_and_saved_data_are_read_and_written_in_the_view() {
     let mut tree = CowTree::create(&world, &tmp.path().join("cow"), |_| false).unwrap();
 
     let level = LevelDat::new(PathBuf::from("level.dat"), FIX_VERSION);
-    let mut data = level.read(&tree).unwrap().expect("level.dat exists");
-    assert_eq!(data.get_string_or("LevelName", ""), "world");
-    data.put_string("LevelName", "renamed");
-    level.write(&mut tree, data);
+    let data = level.read(&tree).unwrap().expect("level.dat exists");
+    assert_eq!(data.get("LevelName").as_string_or(""), "world");
+    level.write(
+        &mut tree,
+        &data.set("LevelName", data.create_string("renamed")),
+    );
     let data = level.read(&tree).unwrap().unwrap();
-    assert_eq!(data.get_string_or("LevelName", ""), "renamed");
-    assert_eq!(data.get_int_or("DataVersion", 0), FIX_VERSION);
+    assert_eq!(data.get("LevelName").as_string_or(""), "renamed");
+    assert_eq!(data.get("DataVersion").as_int_or(0), FIX_VERSION);
 
     let player_file = PlayerData::new(PathBuf::from("players/data/p.dat"), FIX_VERSION);
-    let mut player = player_file.read(&tree).unwrap().unwrap();
-    assert_eq!(player.get_int_or("Health", 0), 20);
-    player.put_int("Health", 10);
-    player_file.write(&mut tree, player);
+    let player = player_file.read(&tree).unwrap().unwrap();
+    assert_eq!(player.get("Health").as_int_or(0), 20);
+    player_file.write(&mut tree, &player.set("Health", player.create_int(10)));
     assert_eq!(
         player_file
             .read(&tree)
             .unwrap()
             .unwrap()
-            .get_int_or("Health", 0),
+            .get("Health")
+            .as_int_or(0),
         10
     );
 
@@ -1453,17 +1450,16 @@ fn level_dat_player_data_and_saved_data_are_read_and_written_in_the_view() {
     let missing = PlayerData::new(PathBuf::from("players/data/other.dat"), FIX_VERSION);
     let (read, logs) = capture_logs(|| missing.read(&tree).unwrap());
     assert!(read.is_none());
-    assert_eq!(logs, ["INFO: Missing file: players/data/other.dat"]);
+    assert_eq!(logs, ["INFO: Missing file: /players/data/other.dat"]);
     let saved = SavedDataNbt::new(
         References::SAVED_DATA_GAME_RULES,
         PathBuf::from("dimensions/minecraft/the_end/data/minecraft/rules.dat"),
         FIX_VERSION,
         MissingSeverity::Minor,
     );
-    let mut rules = CompoundTag::new();
-    rules.put_int("n", 3);
-    saved.write(&mut tree, rules);
-    assert_eq!(saved.read(&tree).unwrap().unwrap().get_int_or("n", 0), 3);
+    let rules = Dynamic::new(NBT, Dyn::from(&Tag::Compound(CompoundTag::new())));
+    saved.write(&mut tree, &rules.set("n", rules.create_int(3)));
+    assert_eq!(saved.read(&tree).unwrap().unwrap().get("n").as_int_or(0), 3);
 
     assert_eq!(snapshot(&world, &[]), before, "the world is not changed");
 }

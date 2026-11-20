@@ -5,7 +5,7 @@
 #   scripts/check-oracle-java.sh [FILE.java ...]
 #
 # Default: EntityOracleDriver.java, VanillaLevel.java, MenuOracleBase.java and EnchantAnvilOracle.java (crates/mc-game/tests/oracle) and
-# DataFixerOracle.java, SchemaWalk.java, GrammarSample.java and SampleGen.java (crates/mc-datafix/tests/oracle). Exit 0 iff everything compiles.
+# DataFixerOracle.java, SchemaWalk.java, GrammarSample.java, SampleGen.java and FileFixVerbs.java (crates/mc-datafix/tests/oracle). Exit 0 iff everything compiles.
 # Needs: java, javac, ref/ with decompiled sources (scripts/setup-ref.sh --decompile).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -19,7 +19,7 @@ OUT="$(mktemp -d)"; trap 'rm -rf "$OUT"' EXIT
 D="$ROOT/crates/mc-datafix/tests/oracle"
 if [ $# -eq 0 ]; then
   set -- "$T/EntityOracleDriver.java" "$T/VanillaLevel.java" "$T/MenuOracleBase.java" "$T/EnchantAnvilOracle.java" \
-    "$D/DataFixerOracle.java" "$D/SchemaWalk.java" "$D/GrammarSample.java" "$D/SampleGen.java"
+    "$D/DataFixerOracle.java" "$D/SchemaWalk.java" "$D/GrammarSample.java" "$D/SampleGen.java" "$D/FileFixVerbs.java"
 fi
 # the shadow RandomSupport (reseedUniquifier) must shadow the vanilla class: compile it first and put it in front of the classpath
 mkdir -p "$OUT/shadow"

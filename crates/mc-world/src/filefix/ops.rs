@@ -9,8 +9,8 @@ use mc_datafix::{DataFixTypes, TypeReference};
 use regex::{Captures, Regex, RegexBuilder};
 
 use super::access::{ChunkNbt, LevelDat, MissingSeverity, PlayerData, SavedDataNbt};
-use super::cow_tree::{CowFsError, CowTree};
-use super::error::FileFixError;
+use super::cow_tree::CowTree;
+use super::error::{FileFixError, NioFileAlreadyExists};
 use super::progress::UpgradeProgress;
 use super::relation::FileRelation;
 use crate::region::RegionStorageInfo;
@@ -270,7 +270,7 @@ impl FileFixOperation {
 }
 
 /// How the Java `Path` of the virtual file system prints: absolute.
-fn shown(path: &Path) -> String {
+pub(super) fn shown(path: &Path) -> String {
     format!("/{}", path.display()).replace("//", "/")
 }
 
@@ -285,10 +285,12 @@ pub fn move_file(
     if tree.exists(&from_absolute) {
         let to_absolute = base_directory.join(to);
         if tree.exists(&to_absolute) {
-            return Err(CowFsError::FileAlreadyExists(format!(
-                "Cannot move file from {from} to {to}: Target already exists"
-            ))
-            .into());
+            return Err(io::Error::new(
+                io::ErrorKind::AlreadyExists,
+                NioFileAlreadyExists(format!(
+                    "Cannot move file from {from} to {to}: Target already exists"
+                )),
+            ));
         }
         if let Some(parent) = to_absolute.parent() {
             tree.create_dir_all(parent)?;

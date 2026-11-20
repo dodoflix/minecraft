@@ -14,6 +14,8 @@
 //                                  TYPE `scan:DIMENSION[@GENERATOR]`: the partial chunk fix of StructureCheck, FROM and TO unused)
 //   batch IN OUT                   records for every line of IN (`-` = stdin), written to OUT (`-` = stdout)
 //   gen OPTIONS                    batch lines of schema-driven samples (SampleGen.java: --type --from --to --seed --n --invalid --mutate --matrix --shard --report)
+//   filefix WORLD_DIR --out TREE.txt [--from V --to V] [--saves]   the file fixer on a copy of a world: log lines, level data, tree listing (FileFixVerbs.java)
+//   summary-after WORLD_DIR [--from V --to V] [--saves]  the LevelSummary of that world afterwards (FileFixVerbs.java)
 //   tables DIR                     the lookup tables of the fix classes as DIR/<class>.tsv (TableDump.java)
 //   table-accessors                rows of the public table accessors over every key (TableDump.java)
 // Output: the record formats below on stdout (log noise goes to stderr).
@@ -81,7 +83,7 @@ public class DataFixerOracle {
     proto = new PrintStream(new BufferedOutputStream(new FileOutputStream(FileDescriptor.out), 1 << 16), false, StandardCharsets.UTF_8);
     System.setOut(System.err);
     if (args.length == 0 || args[0].equals("-h") || args[0].equals("--help")) {
-      System.err.println("Usage: scripts/datafix-oracle.sh fixes-list | schema-dump KEY TYPE|all | schema-dump all | fix TYPE FROM TO FILE [OUT] | batch IN OUT | gen OPTIONS | tables DIR | table-accessors");
+      System.err.println("Usage: scripts/datafix-oracle.sh fixes-list | schema-dump KEY TYPE|all | schema-dump all | fix TYPE FROM TO FILE [OUT] | batch IN OUT | gen OPTIONS | filefix WORLD_DIR --out TREE.txt | summary-after WORLD_DIR | tables DIR | table-accessors");
       System.exit(args.length == 0 ? 2 : 0);
     }
     Throwable[] failure = new Throwable[1];
@@ -113,6 +115,7 @@ public class DataFixerOracle {
       case "schema-dump" -> schemaDump(args);
       case "grammar-sample" -> proto.print(GrammarSample.dump());
       case "gen" -> SampleGen.run(args, proto);
+      case "filefix", "summary-after" -> FileFixVerbs.run(args[0], args, proto);
       case "tables" -> {
         if (args.length != 2) throw new IllegalArgumentException("tables DIR");
         TableDump.dump(Path.of(args[1]));

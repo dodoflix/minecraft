@@ -1,0 +1,92 @@
+LOG	INFO: Starting upgrade for world "world"
+LOG	DEBUG: Missing file: /data/Monument.dat
+LOG	DEBUG: Missing file: /data/Stronghold.dat
+LOG	DEBUG: Missing file: /data/Mineshaft.dat
+LOG	DEBUG: Missing file: /data/Temple.dat
+LOG	DEBUG: Missing file: /data/Mansion.dat
+LOG	DEBUG: Missing file: /data/Fortress.dat
+LOG	DEBUG: Missing file: /data/EndCity.dat
+LOG	INFO: File system capabilities: FileSystemCapabilities[atomicMove=true, hardLinks=true]
+LOG	INFO: Applying file structure changes for world "world"
+LOG	INFO: Moving new hardlinked world to top level
+LOG	INFO: Start cleanup
+LOG	INFO: Moving out old world folder
+LOG	INFO: Moving in new world folder
+LOG	INFO: Done applying file structure changes for world "world". Cleaning up outdated data...
+LOG	INFO: Upgrade done for world "world"
+FIXED	b36f72b0c45d5f68ef4e10c2ad6cfeef92ba858c3045a8bd10993e9df2ea4367	{DataPacks:{Disabled:["bundle","update_1_20"],Enabled:["vanilla"]},DataVersion:5023,GameType:1,LastPlayed:0L,LevelName:"world",ServerBrands:["vanilla"],Time:1636L,Version:{Id:5023,Name:"26.3",Series:"main",Snapshot:0b},WasModded:0b,allowCommands:0b,difficulty_settings:{difficulty:"easy",hardcore:0b,locked:0b},initialized:1b,spawn:{dimension:"minecraft:overworld",pitch:0.0f,pos:[I;0,-60,0],yaw:0.0f},version:19133}
+TREE	D world
+TREE	D world/data
+TREE	D world/data/minecraft
+TREE	F world/data/minecraft/custom_boss_events.dat 30 2610c733f621704e2775a079b9436d1bd0eed3140fc82c7db140da561e5e72c9
+TREE	F world/data/minecraft/game_rules.dat 1448 c75b511f4310bc4cab59c1e209aff25bb43c8e03647b78a3a07b8365be313cb3
+TREE	F world/data/minecraft/scheduled_events.dat 44 fe364c47e55076a67ea721d3f9666f7721619bae96609697a1552f0cfba38e29
+TREE	F world/data/minecraft/scoreboard.dat 702 eb19d9e674b891039f5b5003438a3e6e262da09838286681570b6a83953a228c
+TREE	F world/data/minecraft/wandering_trader.dat 67 591c91e48e16ce99f8a8162bf743786bf9b73834b7557fb8b1b90eb297e8970b
+TREE	F world/data/minecraft/weather.dat 115 f827cdda9073585e8a2e05bf9724658167025a91fb98e70366de165cab771233
+TREE	F world/data/minecraft/world_clocks.dat 85 87f1546f8a01f6cd0b293bb3fe7d67b7120740d80059a25ae98aa8b3929d02b9
+TREE	F world/data/minecraft/world_gen_settings.dat 795 7bfef843819b1dd03d0f8c43b72d65772e06ebe5a6e5d4a1288395a752da1c6a
+TREE	D world/datapacks
+TREE	D world/dimensions
+TREE	D world/dimensions/minecraft
+TREE	D world/dimensions/minecraft/overworld
+TREE	D world/dimensions/minecraft/overworld/data
+TREE	D world/dimensions/minecraft/overworld/data/minecraft
+TREE	F world/dimensions/minecraft/overworld/data/minecraft/chunk_tickets.dat 115 66bf00faf87a3f447a1ac3755227484c44341227ffd004317e8f071da81ad394
+TREE	F world/dimensions/minecraft/overworld/data/minecraft/raids.dat 76 c306b12361fd9547460348f2e768ac99f37502189453226ef7a3e42fbc65aa26
+TREE	F world/dimensions/minecraft/overworld/data/minecraft/world_border.dat 212 d2bee3b24f3a4f15e357a87fe041aa221eec48d79556f28808717b364e011f97
+TREE	D world/dimensions/minecraft/overworld/entities
+TREE	R world/dimensions/minecraft/overworld/entities/r.-1.-1.mca 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+TREE	R world/dimensions/minecraft/overworld/entities/r.-1.0.mca 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+TREE	R world/dimensions/minecraft/overworld/entities/r.0.-1.mca 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+TREE	R world/dimensions/minecraft/overworld/entities/r.0.0.mca 4 d9b9d0fe525a7382a614be9b807b51ef2ce9e41a72b2a283d716d8eebfe25675
+TREE	D world/dimensions/minecraft/overworld/poi
+TREE	R world/dimensions/minecraft/overworld/poi/r.0.0.mca 6 e24fabd5b454a3f02ee7bce399548fdc58d2358aeeedcff2e4a4200b3c459953
+TREE	D world/dimensions/minecraft/overworld/region
+TREE	R world/dimensions/minecraft/overworld/region/r.-1.-1.mca 484 99cabb89e4fa39abbf93f923937b4b1e00203fb0262fa970bf263de88407e96c
+TREE	R world/dimensions/minecraft/overworld/region/r.-1.0.mca 506 6616bbe0484f2f0fb59b6ddba4331dde40e847e484141e764b75d0cdfd5bec91
+TREE	R world/dimensions/minecraft/overworld/region/r.0.-1.mca 506 603e167e6f78be8b8f85ba21041a4125a63b2c69e46da314cfb6f0727edbc248
+TREE	R world/dimensions/minecraft/overworld/region/r.0.0.mca 529 49912ba3c4dc644ff53c8331d4a768cbfadfc414678620b0e91380ac651e1834
+TREE	D world/dimensions/minecraft/the_end
+TREE	D world/dimensions/minecraft/the_end/data
+TREE	D world/dimensions/minecraft/the_end/data/minecraft
+TREE	F world/dimensions/minecraft/the_end/data/minecraft/chunk_tickets.dat 51 f129ee59cb1d11c80ae6308e510f2f8748ad31859a22664204b242fdb2dcc45d
+TREE	F world/dimensions/minecraft/the_end/data/minecraft/ender_dragon_fight.dat 188 2a7101f5812f091fa9f755f21d1bf6a8ee320c944dc197647431505228a55718
+TREE	F world/dimensions/minecraft/the_end/data/minecraft/raids.dat 76 c306b12361fd9547460348f2e768ac99f37502189453226ef7a3e42fbc65aa26
+TREE	F world/dimensions/minecraft/the_end/data/minecraft/world_border.dat 212 d2bee3b24f3a4f15e357a87fe041aa221eec48d79556f28808717b364e011f97
+TREE	D world/dimensions/minecraft/the_end/entities
+TREE	R world/dimensions/minecraft/the_end/entities/r.-1.-1.mca 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+TREE	R world/dimensions/minecraft/the_end/entities/r.-1.0.mca 1 70a7ea0cdfd2079895d9b97d2da3ffee26217d3662bc7e1dd9745ab414251098
+TREE	R world/dimensions/minecraft/the_end/entities/r.0.-1.mca 1 67e204da22b76d28c1c1b5027825ffc7adc6294e5b6d1cb1872e70295a38ff6b
+TREE	R world/dimensions/minecraft/the_end/entities/r.0.0.mca 3 107c7fcc49c6a07ff0e0076652c1d8b1ee6c95e240918e4537e98c96be14e98d
+TREE	D world/dimensions/minecraft/the_end/region
+TREE	R world/dimensions/minecraft/the_end/region/r.-1.-1.mca 169 a26ca664e30a3904efbbecba32fa4e384578193fff2b8a5c0652a06a79c6fda3
+TREE	R world/dimensions/minecraft/the_end/region/r.-1.0.mca 182 ee36f05e5112ee771ab0e18bfe778f00c1a17ae9e136a991ab09588444e063f6
+TREE	R world/dimensions/minecraft/the_end/region/r.0.-1.mca 182 4da1cb027dcd79de518e89445b25715c40a4121f351118de6f44eb6444fb4e0c
+TREE	R world/dimensions/minecraft/the_end/region/r.0.0.mca 196 51c320aae9967fb37a368876b5fc2c4b250795e4ffbc867071d863ab8bd8db12
+TREE	D world/dimensions/minecraft/the_nether
+TREE	D world/dimensions/minecraft/the_nether/data
+TREE	D world/dimensions/minecraft/the_nether/data/minecraft
+TREE	F world/dimensions/minecraft/the_nether/data/minecraft/chunk_tickets.dat 115 66bf00faf87a3f447a1ac3755227484c44341227ffd004317e8f071da81ad394
+TREE	F world/dimensions/minecraft/the_nether/data/minecraft/raids.dat 76 c306b12361fd9547460348f2e768ac99f37502189453226ef7a3e42fbc65aa26
+TREE	F world/dimensions/minecraft/the_nether/data/minecraft/world_border.dat 212 d2bee3b24f3a4f15e357a87fe041aa221eec48d79556f28808717b364e011f97
+TREE	D world/dimensions/minecraft/the_nether/entities
+TREE	R world/dimensions/minecraft/the_nether/entities/r.-1.-1.mca 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+TREE	R world/dimensions/minecraft/the_nether/entities/r.-1.0.mca 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+TREE	R world/dimensions/minecraft/the_nether/entities/r.0.-1.mca 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+TREE	R world/dimensions/minecraft/the_nether/entities/r.0.0.mca 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+TREE	D world/dimensions/minecraft/the_nether/poi
+TREE	R world/dimensions/minecraft/the_nether/poi/r.-1.-1.mca 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+TREE	R world/dimensions/minecraft/the_nether/poi/r.-1.0.mca 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+TREE	R world/dimensions/minecraft/the_nether/poi/r.0.-1.mca 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+TREE	R world/dimensions/minecraft/the_nether/poi/r.0.0.mca 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+TREE	D world/dimensions/minecraft/the_nether/region
+TREE	R world/dimensions/minecraft/the_nether/region/r.-1.-1.mca 169 cb6a8bfe0233b8a64c5295e32937e03b4187f4d6548e011b23d7bd322f836f5e
+TREE	R world/dimensions/minecraft/the_nether/region/r.-1.0.mca 208 fc926729789af349cab0e794bfc6644ce0fe4c8ebc91a618ab5b5ccfc0cc05b4
+TREE	R world/dimensions/minecraft/the_nether/region/r.0.-1.mca 208 18213cae5198c8eb93f455636822d2b054ce1acf037d72d5e67ba14b9d5fe613
+TREE	R world/dimensions/minecraft/the_nether/region/r.0.0.mca 256 92a46809ffa22cd830812e70692d1b6abedbd1fa916671d4c043807dea429a35
+TREE	F world/level.dat 472 dc41d7844fc0c5bd849619fc07eccfc690643c644e6c53b61f1ef8d545f02bd6
+TREE	D world/players
+TREE	D world/players/data
+TREE	F world/session.lock 3 51643361c79ecaef25a8de802de24f570ba25d9c2df1d22d94fade11b4f466cc
+SUMMARY	name=world mode=CREATIVE hardcore=false commands=false experimental=false manual=false fileFix=false compatible=true backup= shouldBackup=false downgrade=false disabled=false upload=true edit=true recreate=true version=26.3,5023,main,false

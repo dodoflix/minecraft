@@ -1,7 +1,7 @@
 //! `net.minecraft.util.filefix.access`: typed access to the files a content fix reads and writes, through the
 //! [`CowTree`]: `level.dat` (`LevelDat`), a player file (`PlayerData`), a saved data file (`SavedDataNbt`) and the
 //! chunks of a region folder (`ChunkNbt`). Reads run the stored data through the data fixer up to the version of
-//! the fix; writes stamp that version. Tags are returned as compounds.
+//! the fix; writes stamp that version. Values are read and written as `Dynamic`, like vanilla.
 
 use std::collections::BTreeSet;
 use std::fs;
@@ -10,10 +10,12 @@ use std::path::{Path, PathBuf};
 
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_datafix::{DataFixTypes, References, TypeReference, data_fixer};
-use mc_nbt::{CompoundTag, NbtAccounter};
+use mc_dfu::{Dyn, Dynamic, NBT};
+use mc_nbt::{CompoundTag, NbtAccounter, Tag};
 
 use super::cow_tree::CowTree;
-use crate::level_storage::{get_data_version, read_compressed, write_compressed};
+use super::ops::shown;
+use crate::level_storage::{read_compressed, write_compressed};
 use crate::region::upgrade::upgrade_chunk_tag_to;
 use crate::region::{RegionFileStorage, RegionStorageInfo};
 
@@ -28,9 +30,9 @@ pub enum MissingSeverity {
 impl MissingSeverity {
     fn log(self, path: &Path) {
         match self {
-            MissingSeverity::Important => log::error!("Missing file: {}", path.display()),
-            MissingSeverity::Neutral => log::info!("Missing file: {}", path.display()),
-            MissingSeverity::Minor => log::debug!("Missing file: {}", path.display()),
+            MissingSeverity::Important => log::error!("Missing file: {}", shown(path)),
+            MissingSeverity::Neutral => log::info!("Missing file: {}", shown(path)),
+            MissingSeverity::Minor => log::debug!("Missing file: {}", shown(path)),
         }
     }
 }
@@ -40,12 +42,12 @@ fn read_file(
     tree: &CowTree,
     path: &Path,
     missing_severity: MissingSeverity,
-) -> io::Result<Option<CompoundTag>> {
+) -> io::Result<Option<Dynamic>> {
     match tree
         .file_for_read(path)
         .and_then(|real| read_compressed(real, &mut NbtAccounter::unlimited_heap()))
     {
-        Ok(tag) => Ok(Some(tag)),
+        Ok(tag) => Ok(Some(Dynamic::new(NBT, Dyn::from(&Tag::Compound(tag))))),
         Err(e) if e.kind() == io::ErrorKind::NotFound => {
             missing_severity.log(path);
             Ok(None)
@@ -55,17 +57,33 @@ fn read_file(
 }
 
 /// `CompressedNbt.writeFile`: creates the folders and writes; a failure is logged and the file left as it is.
-fn write_file(tree: &mut CowTree, path: &Path, data: &CompoundTag) {
+fn write_file(tree: &mut CowTree, path: &Path, data: &Dynamic) {
     let result = (|| {
+        let Ok(Tag::Compound(data)) = data.cast(&NBT).to_tag() else {
+            panic!(
+                "Cannot write a value that is not a compound to {}",
+                path.display()
+            );
+        };
         if let Some(parent) = path.parent() {
             tree.create_dir_all(parent)?;
         }
         let real = tree.file_for_write(path, true)?;
-        write_compressed(data, &real)
+        write_compressed(&data, &real)
     })();
     if let Err(e) = result {
-        log::error!("Failed to write to {}: {e}", path.display());
+        log::error!("Failed to write to {}: {e}", shown(path));
     }
+}
+
+/// `NbtUtils.getDataVersion(Dynamic)`.
+fn data_version(data: &Dynamic) -> i32 {
+    data.get("DataVersion").as_int_or(-1)
+}
+
+/// `NbtUtils.addDataVersion(Dynamic, version)`.
+fn add_data_version(data: &Dynamic, version: i32) -> Dynamic {
+    data.set("DataVersion", data.create_int(version))
 }
 
 /// `LevelDat`: `level.dat`, the `Data` compound at the data version it was last fixed to.
@@ -87,25 +105,19 @@ impl LevelDat {
     }
 
     /// The `Data` compound fixed to the target version, `None` for a missing file.
-    pub fn read(&self, tree: &CowTree) -> io::Result<Option<CompoundTag>> {
+    pub fn read(&self, tree: &CowTree) -> io::Result<Option<Dynamic>> {
         Ok(
-            read_file(tree, &self.path, MissingSeverity::Important)?.map(|root| {
-                let content = root.get_compound_or_empty("Data");
-                data_fixer().update_tag(
-                    &References::LEVEL,
-                    content,
-                    get_data_version(content),
-                    self.target_version,
-                )
+            read_file(tree, &self.path, MissingSeverity::Important)?.map(|read_data| {
+                let content = read_data.get("Data").or_else_empty_map();
+                let version = data_version(&content);
+                data_fixer().update(&References::LEVEL, content, version, self.target_version)
             }),
         )
     }
 
-    pub fn write(&self, tree: &mut CowTree, mut data: CompoundTag) {
-        data.put_int("DataVersion", self.target_version);
-        let mut root = CompoundTag::new();
-        root.put("Data", data);
-        write_file(tree, &self.path, &root);
+    pub fn write(&self, tree: &mut CowTree, data: &Dynamic) {
+        let versioned = add_data_version(data, self.target_version);
+        write_file(tree, &self.path, &data.empty_map().set("Data", versioned));
     }
 }
 
@@ -127,22 +139,21 @@ impl PlayerData {
         &self.path
     }
 
-    pub fn read(&self, tree: &CowTree) -> io::Result<Option<CompoundTag>> {
+    pub fn read(&self, tree: &CowTree) -> io::Result<Option<Dynamic>> {
         Ok(
-            read_file(tree, &self.path, MissingSeverity::Neutral)?.map(|root| {
-                data_fixer().update_tag(
-                    &References::PLAYER,
-                    &root,
-                    get_data_version(&root),
-                    self.target_version,
-                )
+            read_file(tree, &self.path, MissingSeverity::Neutral)?.map(|read_data| {
+                let version = data_version(&read_data);
+                data_fixer().update(&References::PLAYER, read_data, version, self.target_version)
             }),
         )
     }
 
-    pub fn write(&self, tree: &mut CowTree, mut data: CompoundTag) {
-        data.put_int("DataVersion", self.target_version);
-        write_file(tree, &self.path, &data);
+    pub fn write(&self, tree: &mut CowTree, data: &Dynamic) {
+        write_file(
+            tree,
+            &self.path,
+            &add_data_version(data, self.target_version),
+        );
     }
 }
 
@@ -173,27 +184,25 @@ impl SavedDataNbt {
         &self.path
     }
 
-    pub fn read(&self, tree: &CowTree) -> io::Result<Option<CompoundTag>> {
+    pub fn read(&self, tree: &CowTree) -> io::Result<Option<Dynamic>> {
         Ok(
-            read_file(tree, &self.path, self.missing_severity)?.map(|root| {
+            read_file(tree, &self.path, self.missing_severity)?.map(|read_data| {
+                let version = data_version(&read_data);
                 data_fixer()
-                    .update_tag(
-                        &self.ty,
-                        &root,
-                        get_data_version(&root),
-                        self.target_version,
-                    )
-                    .get_compound_or_empty("data")
-                    .clone()
+                    .update(&self.ty, read_data, version, self.target_version)
+                    .get("data")
+                    .or_else_empty_map()
             }),
         )
     }
 
-    pub fn write(&self, tree: &mut CowTree, data: CompoundTag) {
-        let mut root = CompoundTag::new();
-        root.put("data", data);
-        root.put_int("DataVersion", self.target_version);
-        write_file(tree, &self.path, &root);
+    pub fn write(&self, tree: &mut CowTree, data: &Dynamic) {
+        let data_tag = data.empty_map().set("data", data.clone());
+        write_file(
+            tree,
+            &self.path,
+            &add_data_version(&data_tag, self.target_version),
+        );
     }
 }
 

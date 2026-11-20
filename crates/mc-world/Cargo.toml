@@ -12,6 +12,7 @@ publish.workspace = true
 mc-core = { path = "../mc-core" }
 mc-nbt = { path = "../mc-nbt" }
 mc-datafix = { path = "../mc-datafix" }
+mc-dfu = { path = "../mc-dfu" }
 mc-data = { path = "../mc-data" }
 flate2 = { workspace = true }
 twox-hash = { workspace = true, features = ["xxhash32"] }

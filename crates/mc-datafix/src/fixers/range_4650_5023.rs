@@ -86,6 +86,8 @@ pub fn add(b: &mut DataFixerBuilder) {
     let v4771 = b.add_schema(4771, v4771::new);
     b.add_fixer(level_dat_difficulty_fix::new(&v4771));
     b.add_fixer(level_dat_to_saved_data_preparation_fix::new(&v4771));
+    b.add_schema(4772, Schema::same_namespaced);
+    b.add_schema(4773, Schema::same_namespaced);
     let v4881 = b.add_schema(4881, v4881::new);
     b.add_fixer(add_new_choices::new(
         &v4881,
@@ -103,6 +105,7 @@ pub fn add(b: &mut DataFixerBuilder) {
     b.add_fixer(rename_nameplate_to_name_tag_fix::new(&v4888));
     let v4892 = b.add_schema(4892, Schema::same_namespaced);
     b.add_fixer(options_force_default_graphics_api_fix::new(&v4892));
+    b.add_schema(4899, Schema::same_namespaced);
     let v4996 = b.add_schema(4996, v4996::new);
     b.add_fixer(pot_decorations_component_unflattening_fix::new(&v4996));
     let v4996_1 = b.add_schema_sub(4996, 1, v4996_1::new);

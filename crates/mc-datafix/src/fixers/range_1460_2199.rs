@@ -225,6 +225,7 @@ pub fn add(b: &mut DataFixerBuilder) {
     ));
     let v1492 = b.add_schema(1492, Schema::same_namespaced);
     b.add_fixer(chunk_structures_template_rename_fix::new(&v1492, false));
+    b.add_schema(1493, Schema::same_namespaced);
     let v1494 = b.add_schema(1494, Schema::same_namespaced);
     b.add_fixer(item_stack_enchantment_names_fix::new(&v1494, false));
     let v1496 = b.add_schema(1496, Schema::same_namespaced);

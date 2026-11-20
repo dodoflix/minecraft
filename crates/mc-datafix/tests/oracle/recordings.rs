@@ -170,3 +170,48 @@ fn registered_schemas_match_live_descriptions() {
     }
     assert!(report.is_empty(), "{}", report.join("\n"));
 }
+
+/// The file fixer records of `crates/mc-world/tests/fixtures/filefix` (the minimal worlds and what earlier starts left
+/// behind) against vanilla's `FileFixerUpper` now.
+#[test]
+#[ignore = "oracle: runs vanilla's FileFixerUpper in a JVM"]
+fn file_fix_records_match_the_live_oracle() {
+    let fixtures = crate::oracle_client::repo_root().join("crates/mc-world/tests/fixtures/filefix");
+    let out = crate::oracle_client::repo_root().join("target/tmp/file-fix-oracle");
+    std::fs::create_dir_all(&out).unwrap();
+    let mut compared = 0;
+    for (folder, saves) in [("worlds", false), ("interrupted", true)] {
+        let mut worlds: Vec<_> = std::fs::read_dir(fixtures.join(folder))
+            .unwrap()
+            .map(|e| e.unwrap().path())
+            .filter(|p| p.is_dir())
+            .collect();
+        worlds.sort();
+        for world in worlds {
+            let id = world.file_name().unwrap().to_str().unwrap().to_owned();
+            let live = out.join(format!("{id}.txt"));
+            let mut args = vec![
+                "filefix",
+                world.to_str().unwrap(),
+                "--out",
+                live.to_str().unwrap(),
+            ];
+            if saves {
+                args.push("--saves");
+            }
+            run_verb(&args);
+            let recorded_path = if saves {
+                fixtures.join("interrupted").join(format!("{id}.txt"))
+            } else {
+                fixtures.join(format!("{id}.txt"))
+            };
+            assert_eq!(
+                std::fs::read_to_string(&live).unwrap(),
+                std::fs::read_to_string(&recorded_path).unwrap(),
+                "{id}: regenerate with scripts/datafix-oracle.sh --regen"
+            );
+            compared += 1;
+        }
+    }
+    assert!(compared >= 11, "{compared} records compared");
+}

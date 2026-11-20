@@ -1491,6 +1491,7 @@ dependencies = [
  "mc-core",
  "mc-data",
  "mc-datafix",
+ "mc-dfu",
  "mc-nbt",
  "mc-testkit",
  "regex",
