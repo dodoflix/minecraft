@@ -6,6 +6,7 @@ use crate::commands::CommandSourceStack;
 use crate::commands::execution::UnboundEntryAction;
 use mc_brigadier::{CommandDispatcher, StringReader};
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_nbt::{CompoundTag, Tag};
 use mc_text::Component;
 use std::sync::{Arc, Mutex};
@@ -32,7 +33,7 @@ impl MacroEntry {
 
     fn instantiate(
         &self,
-        substitutions: &[String],
+        substitutions: &[JavaString],
         dispatcher: &CommandDispatcher<CommandSourceStack>,
         function_id: &Identifier,
     ) -> Result<Arc<dyn UnboundEntryAction>, FunctionInstantiationException> {
@@ -67,7 +68,7 @@ impl MacroEntry {
 
 pub struct MacroFunction {
     parameters: Vec<String>,
-    cache: Mutex<Vec<(Vec<String>, Arc<InstantiatedFunction>)>>,
+    cache: Mutex<Vec<(Vec<JavaString>, Arc<InstantiatedFunction>)>>,
     id: Identifier,
     entries: Vec<MacroEntry>,
 }
@@ -155,15 +156,15 @@ fn format_decimal(value: f64) -> String {
 }
 
 /// `MacroFunction.stringify(tag)`.
-fn stringify(tag: &Tag) -> String {
+fn stringify(tag: &Tag) -> JavaString {
     match tag {
-        Tag::Float(v) => format_decimal(f64::from(*v)),
-        Tag::Double(v) => format_decimal(*v),
-        Tag::Byte(v) => i32::from(*v).to_string(),
-        Tag::Short(v) => i32::from(*v).to_string(),
-        Tag::Long(v) => v.to_string(),
-        Tag::String(s) => s.as_lossy_str().to_owned(),
-        other => other.to_string(),
+        Tag::Float(v) => format_decimal(f64::from(*v)).into(),
+        Tag::Double(v) => format_decimal(*v).into(),
+        Tag::Byte(v) => i32::from(*v).to_string().into(),
+        Tag::Short(v) => i32::from(*v).to_string().into(),
+        Tag::Long(v) => v.to_string().into(),
+        Tag::String(s) => s.clone(),
+        other => mc_nbt::snbt::print_compact(other),
     }
 }
 
@@ -222,12 +223,12 @@ impl CommandFunction for MacroFunction {
 impl MacroFunction {
     fn substitute_and_parse(
         &self,
-        values: &[String],
+        values: &[JavaString],
         dispatcher: &CommandDispatcher<CommandSourceStack>,
     ) -> Result<Arc<InstantiatedFunction>, FunctionInstantiationException> {
         let mut new_entries = Vec::with_capacity(self.entries.len());
         for entry in &self.entries {
-            let entry_arguments: Vec<String> = entry
+            let entry_arguments: Vec<JavaString> = entry
                 .parameters()
                 .iter()
                 .map(|&i| values[i].clone())

@@ -3,7 +3,7 @@ use mc_text::Component;
 
 use super::{
     Decode, DecodeError, DecodeResult, Encode, EncodeError, EncodeResult, NbtLimit, read_utf,
-    write_utf,
+    write_java_utf,
 };
 
 /// Component as NBT in network form (text-only components are a bare string tag). Fails like
@@ -54,11 +54,12 @@ const JSON_MAX: usize = 262144;
 
 impl Encode for JsonComponent {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
-        let s = self
+        // `lenientJson`: Gson without HTML escaping
+        let json = self
             .0
-            .to_json_string()
+            .to_json()
             .map_err(|e| EncodeError(format!("Failed to encode: {e} {:?}", self.0)))?;
-        write_utf(out, &s, JSON_MAX)
+        write_java_utf(out, &json.to_gson_string_unescaped(), JSON_MAX)
     }
 }
 impl Decode for JsonComponent {

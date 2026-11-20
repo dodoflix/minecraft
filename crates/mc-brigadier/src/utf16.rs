@@ -2,7 +2,6 @@
 //! suggestion ranges and error positions are all visible on the wire), so every index in this crate
 //! is a UTF-16 unit index, never a byte or `char` index.
 
-use mc_core::java_string::JavaString;
 use std::cmp::Ordering;
 
 /// `String.length()`.
@@ -14,22 +13,13 @@ pub fn len16(s: &str) -> usize {
     }
 }
 
-/// `String.substring(start, end)` with each lone surrogate shown as U+FFFD (see [`substring_java`]); panics like `StringIndexOutOfBoundsException` when out of range.
+/// `String.substring(start, end)` with each lone surrogate shown as U+FFFD (`JavaString::substring` keeps it); panics like `StringIndexOutOfBoundsException` when out of range.
 pub fn substring(s: &str, start: usize, end: usize) -> String {
     if s.is_ascii() {
         return s[start..end].to_owned();
     }
     let units: Vec<u16> = s.encode_utf16().collect();
     String::from_utf16_lossy(&units[start..end])
-}
-
-/// [`substring`] keeping lone surrogates: a window that starts or ends inside a surrogate pair holds half of it.
-pub fn substring_java(s: &str, start: usize, end: usize) -> JavaString {
-    if s.is_ascii() {
-        return JavaString::from(&s[start..end]);
-    }
-    let units: Vec<u16> = s.encode_utf16().collect();
-    JavaString::from_utf16_units(&units[start..end])
 }
 
 /// `String.substring(start)`.

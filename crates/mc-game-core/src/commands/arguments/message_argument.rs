@@ -10,11 +10,11 @@ use crate::server::chat::{FilteredText, PlayerChatMessage, chat_decorator};
 use crate::server::permissions::permissions;
 use crate::translatable;
 use mc_brigadier::arguments::value;
-use mc_brigadier::utf16::{len16, substring, substring_from};
 use mc_brigadier::{
     ArgumentType, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType,
     ImmutableStringReader, ParsedValue, StringReader,
 };
+use mc_core::java_string::JavaString;
 use mc_protocol::packets::play::ArgumentTypeTemplate;
 use mc_text::Component;
 use std::sync::LazyLock;
@@ -52,7 +52,7 @@ impl Part {
 /// `MessageArgument.Message`.
 #[derive(Clone, Debug)]
 pub struct Message {
-    pub text: String,
+    pub text: JavaString,
     pub parts: Vec<Part>,
 }
 
@@ -77,18 +77,21 @@ impl Message {
         if self.parts.is_empty() || !allow_selectors {
             return Ok(Component::literal(self.text.clone()));
         }
-        let mut result = Component::literal(substring(&self.text, 0, self.parts[0].start));
+        let mut result = Component::literal(self.text.substring(0, self.parts[0].start));
         let mut read_to = self.parts[0].start;
         for part in &self.parts {
             let component = part.to_component(sender)?;
             if read_to < part.start {
-                result = result.append_str(&substring(&self.text, read_to, part.start));
+                result =
+                    result.append(Component::literal(self.text.substring(read_to, part.start)));
             }
             result = result.append(component);
             read_to = part.end;
         }
-        if read_to < len16(&self.text) {
-            result = result.append_str(&substring_from(&self.text, read_to));
+        if read_to < self.text.utf16_len() {
+            result = result.append(Component::literal(
+                self.text.substring(read_to, self.text.utf16_len()),
+            ));
         }
         Ok(result)
     }
@@ -100,7 +103,7 @@ impl Message {
         if reader.get_remaining_length() > 256 {
             return Err(TOO_LONG.create(reader.get_remaining_length() as i32, 256));
         }
-        let text = reader.get_remaining().to_owned();
+        let text = reader.get_remaining_java();
         if !allow_selectors {
             reader.set_cursor(reader.get_total_length());
             return Ok(Message {
@@ -186,7 +189,7 @@ impl MessageArgument {
                 );
             }
             None => {
-                let argument = PlayerChatMessage::system(message.text.clone())
+                let argument = PlayerChatMessage::system(message.text.as_lossy_str())
                     .with_unsigned_content(formatted);
                 let decorated = chat_decorator::plain(None, argument.decorated_content());
                 task(argument.with_unsigned_content(decorated));

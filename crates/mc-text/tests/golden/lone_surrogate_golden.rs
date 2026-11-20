@@ -66,6 +66,29 @@ fn components_from_json_match_vanilla() {
     assert_eq!(n, 13);
 }
 
+/// A number of a JSON text beyond the range of a double or a float is converted like `JsonOps.convertTo`.
+#[test]
+fn json_numbers_match_vanilla() {
+    let mut n = 0;
+    for c in rows(GOLDEN, "comp_num") {
+        let text = format!("{{\"translate\":\"%s\",\"with\":[{}]}}", input(c[1]));
+        let component = Component::from_json(&parse_lenient_json_parser(&text).unwrap()).unwrap();
+        assert_eq!(
+            component.get_java_string(),
+            java(c[2]),
+            "getString of {text}"
+        );
+        match component.to_json() {
+            Ok(json) => assert_eq!(json.to_stable_string(), java(c[3]), "JSON of {text}"),
+            // the encoder refuses a non-finite number with its own text (Gson: "Numeric values must be finite, but was ..")
+            Err(_) => assert!(c[3].starts_with("ERR:"), "vanilla encodes {text}"),
+        }
+        assert_eq!(nbt_hex(&component), c[4], "nbt of {text}");
+        n += 1;
+    }
+    assert_eq!(n, 13);
+}
+
 #[test]
 fn components_from_snbt_match_vanilla() {
     let mut n = 0;

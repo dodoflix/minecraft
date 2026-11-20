@@ -47,10 +47,22 @@ impl Num {
     }
 
     /// [`Num::from_json`] of the number text of a Gson `JsonPrimitive`.
+    /// Like `JsonOps.convertTo`: an exact long is the narrowest of byte, short, int and long, any other value is a float
+    /// when exactly representable and else a double (a text beyond the range of a double is infinite).
     pub fn from_json_text(text: &str) -> Num {
-        match text.parse::<Number>() {
-            Ok(n) => Num::from_json(&n),
-            Err(_) => Num::Double(text.parse::<f64>().unwrap_or(0.0)),
+        if let Some(l) = mc_core::gson::decimal_long_exact(text) {
+            return match l {
+                _ if l as i8 as i64 == l => Num::Byte(l as i8),
+                _ if l as i16 as i64 == l => Num::Short(l as i16),
+                _ if l as i32 as i64 == l => Num::Int(l as i32),
+                _ => Num::Long(l),
+            };
+        }
+        let d: f64 = text.parse().unwrap_or(0.0);
+        if d as f32 as f64 == d {
+            Num::Float(d as f32)
+        } else {
+            Num::Double(d)
         }
     }
 

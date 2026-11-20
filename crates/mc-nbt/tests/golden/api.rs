@@ -1,5 +1,6 @@
 //! Behavioural tests of the tag model and SNBT entry points that don't need the oracle.
 
+use mc_core::java_string::JavaString;
 use mc_nbt::{CompoundTag, ListTag, NbtAccounter, NbtError, Tag, compound, nbt_io, snbt};
 
 #[test]
@@ -96,22 +97,21 @@ fn accounter_limits() {
 }
 
 #[test]
-fn snbt_argument_parsing_uses_byte_offsets() {
-    let input = "say é {a:1} rest";
-    let start = input.find('{').unwrap();
-    let (tag, end) = snbt::parse_as_argument(input, start).unwrap();
+fn snbt_argument_parsing_uses_utf16_offsets() {
+    let input = JavaString::from("say \u{1f600} {a:1} rest");
+    let start = input.encode_utf16().position(|u| u == 0x7b).unwrap();
+    let (tag, end) = snbt::parse_as_argument(&input, start).unwrap();
     assert_eq!(tag.to_string(), "{a:1}");
-    assert_eq!(&input[end..], " rest");
-    let (c, _) = snbt::parse_compound_as_argument(input, start).unwrap();
+    assert_eq!(end, input.utf16_len() - " rest".len());
+    let (c, _) = snbt::parse_compound_as_argument(&input, start).unwrap();
     assert_eq!(c.get_int("a"), Some(1));
-    let err = snbt::parse_compound_as_argument("[1]", 0).unwrap_err();
+    let err = snbt::parse_compound_as_argument(&JavaString::from("[1]"), 0).unwrap_err();
     assert_eq!(
         err.to_string(),
         "Expected compound tag at position 3: [1]<--[HERE]"
     );
     let err = snbt::parse("{\"é\":}").unwrap_err();
     assert_eq!(err.cursor(), 5);
-    assert_eq!(err.byte_cursor(), 6);
 }
 
 #[test]

@@ -7,3 +7,18 @@ item_cmd	writable_book[writable_book_content={pages:["\\ud800"]}]	0a0a000a636f6d
 item_cmd	stick[custom_name={text:"a\\ud83d",extra:["\\ude00"]}]	0a0a000a636f6d706f6e656e74730a00156d696e6563726166743a637573746f6d5f6e616d65090005657874726108000000010003edb88008000474657874000461eda0bd0000030005636f756e74000000010800026964000f6d696e6563726166743a737469636b00	01a4080100060a090005657874726108000000010003edb88008000474657874000461eda0bd00	a\ud83d\ude00
 item_cmd	stick[custom_data={"\\ud800":1}]	0a0a000a636f6d706f6e656e74730a00156d696e6563726166743a637573746f6d5f64617461030003eda080000000010000030005636f756e74000000010800026964000f6d696e6563726166743a737469636b00	01a4080100000a030003eda0800000000100	Stick
 item_cmd	stick[custom_name="\\ud83d\\ude00"]	0a0a000a636f6d706f6e656e74730800156d696e6563726166743a637573746f6d5f6e616d650006eda0bdedb88000030005636f756e74000000010800026964000f6d696e6563726166743a737469636b00	01a408010006080006eda0bdedb880	\ud83d\ude00
+pack_prompt	{"text":"hi"}	0800026869
+pack_prompt	"plain"	080005706c61696e
+pack_prompt	{"text":"a","color":"nope"}	08000161
+pack_prompt	{"text":"a","extra":["b",1,{"text":"c"}]}	0a090005657874726108000000020001620001630800047465787400016100
+pack_prompt	[{"text":"a"},{"text":5,"bold":"x"}]	08000161
+pack_prompt	{"translate":"k","with":[1,{"bad":[]}]}	no prompt
+pack_prompt	{"text":"a","extra":[{"text":"b","extra":[true]}]}	0a090005657874726108000000010001620800047465787400016100
+pack_prompt	not json	no prompt
+pack_prompt	{"text":"a","click_event":{"action":"run_command"}}	08000161
+pack_prompt	{"text":"x","bold":"maybe"}	08000178
+pack_prompt	{}	no prompt
+pack_prompt	{"selector":"@e","separator":5}	no prompt
+pack_prompt	{"text":"a"} trailing	no prompt
+pack_prompt	[]	no prompt
+pack_prompt	[1]	no prompt

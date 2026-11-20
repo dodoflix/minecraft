@@ -15,6 +15,7 @@ use mc_brigadier::{
     CommandDispatcher, CommandSyntaxException, ContextChain, ImmutableStringReader, StringReader,
 };
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_nbt::CompoundTag;
 use mc_text::Component;
 use std::sync::Arc;
@@ -83,15 +84,24 @@ fn should_concatenate_next_line(line: &str) -> bool {
 }
 
 /// `checkCommandLineLength` (`IllegalStateException`, here an `Err` message).
-pub fn check_command_line_length(line: &str) -> Result<(), String> {
-    let length = mc_brigadier::utf16::len16(line);
+pub fn check_command_line_length(line: &JavaString) -> Result<(), JavaString> {
+    let length = line.utf16_len();
     if length > MAX_COMMAND_LENGTH {
-        let truncated = mc_brigadier::utf16::substring(line, 0, length.min(512));
-        return Err(format!(
-            "Command too long: {length} characters, contents: {truncated}..."
-        ));
+        let mut message =
+            JavaString::from(format!("Command too long: {length} characters, contents: "));
+        message.push_java(&line.substring(0, length.min(512)));
+        message.push_str("...");
+        return Err(message);
     }
     Ok(())
+}
+
+/// [`check_command_line_length`] of a line read from a function file.
+fn check_file_line_length(line: &str) -> Result<(), String> {
+    if mc_brigadier::utf16::len16(line) <= MAX_COMMAND_LENGTH {
+        return Ok(());
+    }
+    check_command_line_length(&JavaString::from(line)).map_err(JavaString::into_string_lossy)
 }
 
 /// Java `String.trim()`: removes everything <= U+0020 at both ends.
@@ -121,7 +131,7 @@ pub fn from_lines(
                 builder.pop();
                 let inner_line = java_trim(&lines[i]);
                 builder.push_str(inner_line);
-                check_command_line_length(&builder)?;
+                check_file_line_length(&builder)?;
                 if !should_concatenate_next_line(&builder) {
                     break;
                 }
@@ -130,7 +140,7 @@ pub fn from_lines(
         } else {
             input_line
         };
-        check_command_line_length(&line)?;
+        check_file_line_length(&line)?;
         let mut input = StringReader::new(line.clone());
         if input.can_read() && input.peek() != '#' {
             if input.peek() == '/' {

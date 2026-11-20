@@ -335,6 +335,57 @@ impl From<&JavaString> for JavaString {
     }
 }
 
+/// A value that [`jformat!`] can put in a Java string: a Java string exactly, anything with a `Display` by its text.
+pub trait JavaDisplay {
+    fn write_java(&self, out: &mut JavaString);
+}
+
+impl<T: fmt::Display + ?Sized> JavaDisplay for T {
+    fn write_java(&self, out: &mut JavaString) {
+        use fmt::Write;
+        let _ = write!(out, "{self}");
+    }
+}
+
+impl JavaDisplay for JavaString {
+    fn write_java(&self, out: &mut JavaString) {
+        out.push_java(self);
+    }
+}
+
+/// [`jformat!`]: `template` with each `{}` replaced by the next argument (`{{` and `}}` are braces).
+pub fn format_java(template: &str, args: &[&dyn JavaDisplay]) -> JavaString {
+    let mut out = JavaString::new();
+    let mut args = args.iter();
+    let mut chars = template.chars().peekable();
+    while let Some(c) = chars.next() {
+        match (c, chars.peek()) {
+            ('{', Some('{')) | ('}', Some('}')) => {
+                out.push(c);
+                chars.next();
+            }
+            ('{', Some('}')) => {
+                chars.next();
+                args.next()
+                    .expect("a format argument for every `{}`")
+                    .write_java(&mut out);
+            }
+            _ => out.push(c),
+        }
+    }
+    assert!(args.next().is_none(), "an unused format argument");
+    out
+}
+
+/// `format!` for Java strings: only plain `{}` placeholders, whose arguments may be [`JavaString`]s that keep their lone
+/// surrogates.
+#[macro_export]
+macro_rules! jformat {
+    ($template:literal $(, $arg:expr)* $(,)?) => {
+        $crate::java_string::format_java($template, &[$(&$arg as &dyn $crate::java_string::JavaDisplay),*])
+    };
+}
+
 /// `new String(bytes, StandardCharsets.UTF_8)` (what Netty's `ByteBuf.toString(UTF_8)` does): malformed input becomes
 /// U+FFFD, but Java and Rust disagree on how many replacement characters a malformed sequence yields (Java replaces
 /// an encoded surrogate `ed a0 80` by one, Rust by three). The result never holds a lone surrogate.
@@ -445,6 +496,18 @@ mod tests {
 
     fn lone() -> JavaString {
         JavaString::from_utf16_units(&[0xD800])
+    }
+
+    #[test]
+    fn jformat_keeps_lone_surrogates() {
+        let s = crate::jformat!("a {} b {{{}}} {}", lone(), 5, "c");
+        assert_eq!(
+            s.encode_utf16().collect::<Vec<_>>(),
+            "a \u{0} b {5} c"
+                .encode_utf16()
+                .map(|u| if u == 0 { 0xD800 } else { u })
+                .collect::<Vec<_>>()
+        );
     }
 
     #[test]

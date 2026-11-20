@@ -431,11 +431,15 @@ fn parse_resource_pack_prompt(prompt: &str) -> Option<Component> {
             return None;
         }
     };
-    match Component::from_json(&json) {
+    // `resultOrPartial`: a prompt that decodes only partly is kept
+    match Component::from_json_partial(&json) {
         Ok(c) => Some(c),
-        Err(e) => {
-            log::warn!("Failed to parse resource pack prompt '{prompt}': {e}");
-            None
+        Err(partial) => {
+            log::warn!(
+                "Failed to parse resource pack prompt '{prompt}': {}",
+                partial.error
+            );
+            partial.value
         }
     }
 }

@@ -1,21 +1,27 @@
 //! `com.mojang.serialization.DataResult` (lifecycles are not modelled): a success, or an error message with an
 //! optional partial result. Messages are lazy (`Supplier<String>` in Java) so that failing alternatives are cheap.
 
+use mc_core::java_string::JavaString;
 use std::fmt;
 use std::sync::Arc;
 
+/// An error message: a Java string, since it can quote the offending input.
 #[derive(Clone)]
-pub struct Msg(Arc<dyn Fn() -> String + Send + Sync>);
+pub struct Msg(Arc<dyn Fn() -> JavaString + Send + Sync>);
 
 impl Msg {
-    pub fn new(f: impl Fn() -> String + Send + Sync + 'static) -> Self {
-        Msg(Arc::new(f))
+    pub fn new<R: Into<JavaString>>(f: impl Fn() -> R + Send + Sync + 'static) -> Self {
+        Msg(Arc::new(move || f().into()))
     }
-    pub fn lit(s: impl Into<String>) -> Self {
-        let s: String = s.into();
+    pub fn lit(s: impl Into<JavaString>) -> Self {
+        let s: JavaString = s.into();
         Msg(Arc::new(move || s.clone()))
     }
+    /// The message, each lone surrogate shown as U+FFFD.
     pub fn get(&self) -> String {
+        self.get_java().into_string_lossy()
+    }
+    pub fn get_java(&self) -> JavaString {
         (self.0)()
     }
 }
@@ -39,20 +45,23 @@ impl<A> DataResult<A> {
         Success(a)
     }
     /// `DataResult.error(() -> message)`.
-    pub fn error(message: impl Fn() -> String + Send + Sync + 'static) -> Self {
+    pub fn error<R: Into<JavaString>>(message: impl Fn() -> R + Send + Sync + 'static) -> Self {
         Error {
             message: Msg::new(message),
             partial: None,
         }
     }
     /// Error with a constant message.
-    pub fn error_str(message: impl Into<String>) -> Self {
+    pub fn error_str(message: impl Into<JavaString>) -> Self {
         Error {
             message: Msg::lit(message),
             partial: None,
         }
     }
-    pub fn error_partial(message: impl Fn() -> String + Send + Sync + 'static, partial: A) -> Self {
+    pub fn error_partial<R: Into<JavaString>>(
+        message: impl Fn() -> R + Send + Sync + 'static,
+        partial: A,
+    ) -> Self {
         Error {
             message: Msg::new(message),
             partial: Some(partial),
@@ -100,12 +109,9 @@ impl<A> DataResult<A> {
             Error { partial, .. } => partial.as_ref(),
         }
     }
-    /// The error message (`None` for a success).
+    /// The error message (`None` for a success), each lone surrogate shown as U+FFFD (`error_msg_ref().get_java()` keeps it).
     pub fn error_message(&self) -> Option<String> {
-        match self {
-            Success(_) => None,
-            Error { message, .. } => Some(message.get()),
-        }
+        self.error_msg_ref().map(Msg::get)
     }
     pub fn error_msg_ref(&self) -> Option<&Msg> {
         match self {
@@ -172,7 +178,9 @@ impl<A> DataResult<A> {
                     message: m2,
                     partial: p2,
                 } => Error {
-                    message: Msg::new(move || format!("{}; {}", message.get(), m2.get())),
+                    message: Msg::new(move || {
+                        mc_core::jformat!("{}; {}", message.get_java(), m2.get_java())
+                    }),
                     partial: p2,
                 },
             },
@@ -202,7 +210,9 @@ impl<A> DataResult<A> {
                     partial: p2,
                 },
             ) => Error {
-                message: Msg::new(move || format!("{}; {}", m2.get(), m1.get())),
+                message: Msg::new(move || {
+                    mc_core::jformat!("{}; {}", m2.get_java(), m1.get_java())
+                }),
                 partial: match (p1, p2) {
                     (Some(a), Some(b)) => Some(f(a, b)),
                     _ => None,

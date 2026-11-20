@@ -29,7 +29,10 @@ async fn status_and_offline_login_to_configuration() {
     else {
         panic!("expected status response")
     };
-    println!("status: {}", resp.status.to_json_string().unwrap());
+    println!(
+        "status: {}",
+        resp.status.to_json_string().unwrap().as_lossy_str()
+    );
     assert_eq!(
         resp.status.version.as_ref().unwrap().protocol,
         PROTOCOL_VERSION

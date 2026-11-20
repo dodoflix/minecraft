@@ -236,10 +236,10 @@ pub fn dispatched_map<K: PartialEq + 'static, V: 'static>(
                 if let Some((key, val)) = entry_result.result_or_partial() {
                     if entries.iter().any(|(ek, _)| *ek == key) {
                         failed.push((k.clone(), v.clone()));
-                        let key_text = k.clone();
+                        let key_text = k.to_json_string();
                         result = result.apply2(
                             DataResult::error(move || {
-                                format!("Duplicate entry for key: '{key_text}'")
+                                mc_core::jformat!("Duplicate entry for key: '{}'", key_text)
                             }),
                             |_, _: ()| (),
                         );
@@ -257,7 +257,9 @@ pub fn dispatched_map<K: PartialEq + 'static, V: 'static>(
             match result {
                 DataResult::Success(()) => DataResult::success(pair),
                 DataResult::Error { message, .. } => DataResult::error_msg(
-                    crate::Msg::new(move || format!("{} missed input: {}", message.get(), errors)),
+                    crate::Msg::new(move || {
+                        mc_core::jformat!("{} missed input: {}", message.get_java(), errors)
+                    }),
                     Some(pair),
                 ),
             }

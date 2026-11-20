@@ -101,7 +101,7 @@ impl<T: PartialOrd + Copy> Bounds<T> {
             CommandSyntaxException::with_context(
                 e.get_type(),
                 e.get_raw_message().clone(),
-                e.get_input().unwrap_or("").to_owned(),
+                e.get_java_input().cloned().unwrap_or_default(),
                 start,
             )
         })

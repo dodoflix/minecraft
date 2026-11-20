@@ -1,0 +1,124 @@
+# say, storage and chat arguments
+CF msg Running function fn:say
+CF msg Running function fn:say
+CF msg Running function fn:say
+CF msg Running function fn:say
+CF msg Running function fn:store
+STORAGE fn:out {m:"?"}
+CF msg Running function fn:store
+STORAGE fn:out {m:"😀"}
+CF msg Running function fn:tellraw
+CF msg Running function fn:tellraw
+CF msg Running function fn:tellraw
+CF msg Running function fn:tellraw_raw
+CF msg Running function fn:tellraw_raw
+CF msg Running function fn:tellraw_raw
+CF fail Failed to instantiate function fn:tellraw_raw: While instantiating macro fn:tellraw_raw: Command 'tellraw A "?' caused error: Invalid string contents at position 12: ...llraw A "?<--[HERE]
+CF result failure 0
+CF msg Running function fn:tellraw_raw
+CF msg Running function fn:msg
+CF msg Running function fn:title
+CF msg Running function fn:objective
+PKT A minecraft:disguised_chat 21080009eda08020616e6420780508000653657276657200
+PKT A minecraft:disguised_chat 2108000beda0bd20616e6420edb8800508000653657276657200
+PKT A minecraft:disguised_chat 2108000ceda0bdedb88020616e6420790508000653657276657200
+PKT A minecraft:disguised_chat 2108000e61eda0bd6220616e6420edb8807a0508000653657276657200
+PKT A minecraft:system_chat 7c080003eda08000
+PKT A minecraft:system_chat 7c080003eda08000
+PKT A minecraft:system_chat 7c080006eda0bdedb88000
+PKT A minecraft:system_chat 7c080003eda08000
+PKT A minecraft:system_chat 7c080003eda0bd00
+PKT A minecraft:system_chat 7c080003eda08000
+PKT A minecraft:disguised_chat 21080003eda0800308000653657276657200
+PKT A minecraft:set_title_text 74080003eda080
+# syntax errors in the substituted line
+CF msg Running function fn:bogus
+CF fail Failed to instantiate function fn:bogus: While instantiating macro fn:bogus: Command 'bogus ?' caused error: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+CF result failure 0
+CF msg Running function fn:bogus
+CF fail Failed to instantiate function fn:bogus: While instantiating macro fn:bogus: Command 'bogus 😀' caused error: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+CF result failure 0
+CF msg Running function fn:setblock
+CF fail Failed to instantiate function fn:setblock: While instantiating macro fn:setblock: Command 'setblock 0 -60 0 ?' caused error: Unknown block type 'minecraft:' at position 17: ...k 0 -60 0 <--[HERE]
+CF result failure 0
+CF msg Running function fn:setblock
+CF fail Failed to instantiate function fn:setblock: While instantiating macro fn:setblock: Command 'setblock 0 -60 0 stone?' caused error: Expected whitespace to end one argument, but found trailing data at position 22: ...60 0 stone<--[HERE]
+CF result failure 0
+CF msg Running function fn:setblock
+CF fail Failed to instantiate function fn:setblock: While instantiating macro fn:setblock: Command 'setblock 0 -60 0 😀' caused error: Unknown block type 'minecraft:' at position 17: ...k 0 -60 0 <--[HERE]
+CF result failure 0
+CF msg Running function fn:weather
+CF fail Failed to instantiate function fn:weather: While instantiating macro fn:weather: Command 'weather clear?' caused error: Incorrect argument for command at position 8: weather <--[HERE]
+CF result failure 0
+CF msg Running function fn:weather
+CF fail Failed to instantiate function fn:weather: While instantiating macro fn:weather: Command 'weather clear😀' caused error: Incorrect argument for command at position 8: weather <--[HERE]
+CF result failure 0
+CF msg Running function fn:weather
+CF fail Failed to instantiate function fn:weather: While instantiating macro fn:weather: Command 'weather clear 😀😀?' caused error: Expected float at position 14: ...her clear <--[HERE]
+CF result failure 0
+CF msg Running function fn:give
+CF msg Running function fn:give
+CF fail Failed to instantiate function fn:give: While instantiating macro fn:give: Command 'give A stick[custom_name="\\u"]' caused error: Expected a character literal of length 4 at position 28: ...m_name="\\u<--[HERE]
+CF result failure 0
+CF msg Running function fn:exec
+CF fail Failed to instantiate function fn:exec: While instantiating macro fn:exec: Command 'execute as ? run say hi' caused error: Invalid name or UUID at position 11: ...xecute as <--[HERE]
+CF result failure 0
+CF msg Running function fn:exec
+CF fail Failed to instantiate function fn:exec: While instantiating macro fn:exec: Command 'execute as "😀? run say hi' caused error: Unclosed quoted string at position 26: ...run say hi<--[HERE]
+CF result failure 0
+CF msg Running function fn:exec
+CF fail Failed to instantiate function fn:exec: While instantiating macro fn:exec: Command 'execute as "? run say hi' caused error: Unclosed quoted string at position 24: ...run say hi<--[HERE]
+CF result failure 0
+CF msg Running function fn:tp
+CF fail Failed to instantiate function fn:tp: While instantiating macro fn:tp: Command 'tp ? 0 0 0' caused error: Incorrect argument for command at position 3: tp <--[HERE]
+CF result failure 0
+CF msg Running function fn:tp
+CF fail Failed to instantiate function fn:tp: While instantiating macro fn:tp: Command 'tp "a? 0 0 0' caused error: Incorrect argument for command at position 3: tp <--[HERE]
+CF result failure 0
+CF msg Running function fn:score
+CF msg Running function fn:score
+CF msg Running function fn:call
+CF fail Failed to instantiate function fn:call: While instantiating macro fn:call: Command 'function ?' caused error: Expected whitespace to end one argument, but found trailing data at position 9: function <--[HERE]
+CF result failure 0
+CF msg Running function fn:call
+CF fail Failed to instantiate function fn:call: While instantiating macro fn:call: Command 'function fn:a?' caused error: Expected whitespace to end one argument, but found trailing data at position 13: ...ction fn:a<--[HERE]
+CF result failure 0
+CF msg Running function fn:storage_id
+CF fail Failed to instantiate function fn:storage_id: While instantiating macro fn:storage_id: Command 'data get storage ?' caused error: Expected whitespace to end one argument, but found trailing data at position 17: ...t storage <--[HERE]
+CF result failure 0
+CF msg Running function fn:storage_id
+CF fail Failed to instantiate function fn:storage_id: While instantiating macro fn:storage_id: Command 'data get storage fn:😀' caused error: Expected whitespace to end one argument, but found trailing data at position 20: ...torage fn:<--[HERE]
+CF result failure 0
+CF msg Running function fn:give_raw
+CF fail Failed to instantiate function fn:give_raw: While instantiating macro fn:give_raw: Command 'give A stick[custom_name="?]' caused error: Invalid string contents at position 28: ...m_name="?]<--[HERE]
+CF result failure 0
+CF msg Running function fn:give_raw
+CF fail Failed to instantiate function fn:give_raw: While instantiating macro fn:give_raw: Command 'give A stick[custom_name='?]' caused error: Invalid string contents at position 28: ...m_name='?]<--[HERE]
+CF result failure 0
+CF msg Running function fn:give_raw
+CF fail Failed to instantiate function fn:give_raw: While instantiating macro fn:give_raw: Command 'give A stick[custom_name="\\?"]' caused error: Expected literal b at position 27: ...om_name="\\<--[HERE]
+CF result failure 0
+CF msg Running function fn:give_raw
+CF fail Failed to instantiate function fn:give_raw: While instantiating macro fn:give_raw: Command 'give A stick[custom_name="\\😀"]' caused error: Expected literal b at position 27: ...om_name="\\<--[HERE]
+CF result failure 0
+CF msg Running function fn:merge
+CF fail Failed to instantiate function fn:merge: While instantiating macro fn:merge: Command 'data merge storage fn:out {k:?}' caused error: Expected a valid unquoted string at position 29: ...fn:out {k:<--[HERE]
+CF result failure 0
+CF msg Running function fn:merge
+CF msg Running function fn:merge
+CF msg Running function fn:team
+CF fail Failed to instantiate function fn:team: While instantiating macro fn:team: Command 'team add ?' caused error: Expected whitespace to end one argument, but found trailing data at position 9: team add <--[HERE]
+CF result failure 0
+CF msg Running function fn:team
+CF fail Failed to instantiate function fn:team: While instantiating macro fn:team: Command 'team add "?"' caused error: Expected whitespace to end one argument, but found trailing data at position 9: team add <--[HERE]
+CF result failure 0
+# names and items
+CF msg Running function fn:give
+CF msg Running function fn:give
+CF msg A has the following entity data: [{components: {"minecraft:custom_name": "?"}, count: 2, Slot: 0b, id: "minecraft:stick"}, {components: {"minecraft:custom_name": "😀"}, count: 1, Slot: 1b, id: "minecraft:stick"}]
+CF result success 2
+CF msg Running function fn:summon
+CF msg ? has the following entity data: "?"
+CF result success 1
+CF msg Killed ?
+CF result success 1

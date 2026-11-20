@@ -2,6 +2,7 @@ use crate::arguments::{ArgumentType, ParsedValue, value};
 use crate::context::CommandContext;
 use crate::exceptions::CommandSyntaxException;
 use crate::string_reader::{ImmutableStringReader, StringReader};
+use mc_core::java_string::JavaString;
 
 /// `StringArgumentType.StringType`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -46,8 +47,16 @@ impl StringArgumentType {
         }
     }
 
+    /// The argument's text, each lone surrogate shown as U+FFFD.
     pub fn get_string<'a, S: 'static>(context: &'a CommandContext<S>, name: &str) -> &'a str {
-        context.get_argument::<String>(name)
+        Self::get_java_string(context, name).as_lossy_str()
+    }
+
+    pub fn get_java_string<'a, S: 'static>(
+        context: &'a CommandContext<S>,
+        name: &str,
+    ) -> &'a JavaString {
+        context.get_argument::<JavaString>(name)
     }
 
     pub fn get_type(&self) -> StringType {
@@ -59,12 +68,12 @@ impl<S: 'static> ArgumentType<S> for StringArgumentType {
     fn parse(&self, reader: &mut StringReader) -> Result<ParsedValue, CommandSyntaxException> {
         Ok(value(match self.type_ {
             StringType::GreedyPhrase => {
-                let text = reader.get_remaining();
+                let text = reader.get_remaining_java();
                 reader.set_cursor(reader.get_total_length());
                 text
             }
-            StringType::SingleWord => reader.read_unquoted_string(),
-            StringType::QuotablePhrase => reader.read_string()?,
+            StringType::SingleWord => reader.read_unquoted_string().into(),
+            StringType::QuotablePhrase => reader.read_string_java()?,
         }))
     }
 

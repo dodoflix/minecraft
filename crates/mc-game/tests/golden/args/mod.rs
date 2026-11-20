@@ -1210,7 +1210,6 @@ case!(
 );
 
 case!(
-    #[ignore = "permanent: vanilla's message contains a lone surrogate (UTF-16 split of an emoji), which a Rust String cannot hold"]
     swizzle_matches_vanilla,
     "swizzle",
     |_| Arc::new(a::coordinates::swizzle_argument::SwizzleArgument::swizzle()),

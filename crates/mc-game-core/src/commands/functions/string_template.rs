@@ -1,5 +1,7 @@
 //! `StringTemplate`: a macro line split at `$(variable)`.
 
+use mc_core::java_string::JavaString;
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct StringTemplate {
     pub segments: Vec<String>,
@@ -60,11 +62,11 @@ impl StringTemplate {
     }
 
     /// `substitute(arguments)`.
-    pub fn substitute(&self, arguments: &[String]) -> Result<String, String> {
-        let mut builder = String::new();
+    pub fn substitute(&self, arguments: &[JavaString]) -> Result<JavaString, JavaString> {
+        let mut builder = JavaString::new();
         for (i, segment) in self.segments.iter().enumerate().take(self.variables.len()) {
             builder.push_str(segment);
-            builder.push_str(&arguments[i]);
+            builder.push_java(&arguments[i]);
             super::check_command_line_length(&builder)?;
         }
         if self.segments.len() > self.variables.len() {

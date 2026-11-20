@@ -26,7 +26,16 @@ macro_rules! record {
                 if errs.is_empty() {
                     $crate::DataResult::Success($ty { $( $field: $field.result().unwrap() ),+ })
                 } else {
-                    let message = $crate::Msg::new(move || errs.iter().rev().map(|m| m.get()).collect::<Vec<_>>().join("; "));
+                    let message = $crate::Msg::new(move || {
+                        let mut out = ::mc_core::java_string::JavaString::new();
+                        for (i, m) in errs.iter().rev().enumerate() {
+                            if i > 0 {
+                                out.push_str("; ");
+                            }
+                            out.push_java(&m.get_java());
+                        }
+                        out
+                    });
                     let partial = if all_partial { Some($ty { $( $field: $field.result_or_partial().unwrap() ),+ }) } else { None };
                     $crate::DataResult::Error { message, partial }
                 }

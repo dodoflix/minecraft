@@ -1,5 +1,7 @@
 use std::sync::Arc;
 
+use mc_core::java_string::JavaString;
+
 use crate::exceptions::{CommandSyntaxException, built_in_exceptions};
 use crate::utf16::is_java_whitespace;
 
@@ -12,9 +14,12 @@ fn unit_to_char(u: u16) -> char {
 }
 
 /// `com.mojang.brigadier.ImmutableStringReader`. All indices are UTF-16 code units, like Java.
-/// `peek` returns a `char`; a lone surrogate unit (half of a non-BMP character) maps to U+FFFD.
+/// `peek` returns a `char`; a lone surrogate unit (half of a non-BMP character) maps to U+FFFD. The `String`
+/// accessors show each lone surrogate as U+FFFD; [`get_java_string`](Self::get_java_string) and the `_java`
+/// readers of [`StringReader`] keep it.
 pub trait ImmutableStringReader {
     fn get_string(&self) -> &str;
+    fn get_java_string(&self) -> &JavaString;
     fn get_remaining_length(&self) -> usize;
     fn get_total_length(&self) -> usize;
     fn get_cursor(&self) -> usize;
@@ -28,7 +33,7 @@ pub trait ImmutableStringReader {
 
 #[derive(Debug)]
 struct Data {
-    string: String,
+    string: JavaString,
     units: Box<[u16]>,
 }
 
@@ -41,7 +46,7 @@ pub struct StringReader {
 }
 
 impl StringReader {
-    pub fn new(string: impl Into<String>) -> Self {
+    pub fn new(string: impl Into<JavaString>) -> Self {
         let string = string.into();
         let units = string.encode_utf16().collect();
         Self {
@@ -65,10 +70,15 @@ impl StringReader {
     }
 
     fn slice(&self, start: usize, end: usize) -> String {
-        if self.data.string.is_ascii() {
-            self.data.string[start..end].to_owned()
+        self.slice_java(start, end).into_string_lossy()
+    }
+
+    fn slice_java(&self, start: usize, end: usize) -> JavaString {
+        let text = self.data.string.as_lossy_str();
+        if text.is_ascii() {
+            JavaString::from(&text[start..end])
         } else {
-            String::from_utf16_lossy(&self.data.units[start..end])
+            JavaString::from_utf16_units(&self.data.units[start..end])
         }
     }
 
@@ -77,6 +87,11 @@ impl StringReader {
         let c = self.peek();
         self.cursor += 1;
         c
+    }
+
+    /// `getRemaining()` keeping lone surrogates.
+    pub fn get_remaining_java(&self) -> JavaString {
+        self.slice_java(self.cursor, self.data.units.len())
     }
 
     pub fn skip(&mut self) {
@@ -178,8 +193,14 @@ impl StringReader {
     }
 
     pub fn read_quoted_string(&mut self) -> Result<String, CommandSyntaxException> {
+        self.read_quoted_string_java()
+            .map(JavaString::into_string_lossy)
+    }
+
+    /// [`read_quoted_string`](Self::read_quoted_string) keeping lone surrogates.
+    pub fn read_quoted_string_java(&mut self) -> Result<JavaString, CommandSyntaxException> {
         if !self.can_read() {
-            return Ok(String::new());
+            return Ok(JavaString::new());
         }
         let next = self.peek();
         if !Self::is_quoted_string_start(next) {
@@ -188,13 +209,22 @@ impl StringReader {
                 .create_with_context(self));
         }
         self.skip();
-        self.read_string_until(next)
+        self.read_string_until_java(next)
     }
 
     pub fn read_string_until(
         &mut self,
         terminator: char,
     ) -> Result<String, CommandSyntaxException> {
+        self.read_string_until_java(terminator)
+            .map(JavaString::into_string_lossy)
+    }
+
+    /// [`read_string_until`](Self::read_string_until) keeping lone surrogates.
+    pub fn read_string_until_java(
+        &mut self,
+        terminator: char,
+    ) -> Result<JavaString, CommandSyntaxException> {
         let terminator = u16::try_from(terminator as u32).ok();
         let mut result: Vec<u16> = Vec::new();
         let mut escaped = false;
@@ -206,7 +236,7 @@ impl StringReader {
                     self.cursor -= 1;
                     return Err(built_in_exceptions()
                         .reader_invalid_escape()
-                        .create_with_context(self, unit_to_char(c).to_string()));
+                        .create_with_context(self, JavaString::from_utf16_units(&[c])));
                 }
                 result.push(c);
                 escaped = false;
@@ -214,7 +244,7 @@ impl StringReader {
                 escaped = true;
             } else {
                 if Some(c) == terminator {
-                    return Ok(String::from_utf16_lossy(&result));
+                    return Ok(JavaString::from_utf16_units(&result));
                 }
                 result.push(c);
             }
@@ -225,22 +255,27 @@ impl StringReader {
     }
 
     pub fn read_string(&mut self) -> Result<String, CommandSyntaxException> {
+        self.read_string_java().map(JavaString::into_string_lossy)
+    }
+
+    /// [`read_string`](Self::read_string) keeping lone surrogates.
+    pub fn read_string_java(&mut self) -> Result<JavaString, CommandSyntaxException> {
         if !self.can_read() {
-            return Ok(String::new());
+            return Ok(JavaString::new());
         }
         let next = self.unit(self.cursor);
         if next == SYNTAX_DOUBLE_QUOTE || next == SYNTAX_SINGLE_QUOTE {
             self.skip();
-            self.read_string_until(unit_to_char(next))
+            self.read_string_until_java(unit_to_char(next))
         } else {
-            Ok(self.read_unquoted_string())
+            Ok(self.read_unquoted_string().into())
         }
     }
 
     pub fn read_boolean(&mut self) -> Result<bool, CommandSyntaxException> {
         let start = self.cursor;
-        let value = self.read_string()?;
-        match value.as_str() {
+        let value = self.read_string_java()?;
+        match value.as_lossy_str() {
             "" => Err(built_in_exceptions()
                 .reader_expected_bool()
                 .create_with_context(self)),
@@ -269,6 +304,10 @@ impl StringReader {
 
 impl ImmutableStringReader for StringReader {
     fn get_string(&self) -> &str {
+        self.data.string.as_lossy_str()
+    }
+
+    fn get_java_string(&self) -> &JavaString {
         &self.data.string
     }
 

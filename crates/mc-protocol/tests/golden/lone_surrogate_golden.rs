@@ -6,11 +6,14 @@ use mc_core::java_string::JavaString;
 use mc_data::Item;
 use mc_dfu::{Dyn, NBT};
 use mc_nbt::nbt_io;
+use mc_protocol::codec::JsonComponent;
 use mc_protocol::codec::{Decode, Encode, read_utf, write_java_utf};
 use mc_protocol::components::{
     CUSTOM_NAME, Filterable, ItemStack, SignText, WritableBookContent, WrittenBookContent,
 };
+use mc_protocol::packets::login::ClientboundLoginDisconnectPacket;
 use mc_protocol::packets::play::ClientboundSystemChatPacket;
+use mc_protocol::packets::status::{ClientboundStatusResponsePacket, ServerStatus};
 use mc_testkit::{hex, rows, unesc_units, unhex};
 use mc_text::Component;
 use mc_text::nbt_text::{Styling, TextComponentTagVisitor};
@@ -200,4 +203,32 @@ fn system_chat_packets_match_vanilla() {
         }
     }
     assert_eq!(n, 13 - 1 + 10 + 17);
+}
+
+/// `lenientJson`: Gson without HTML escaping, then `Utf8String.write` (Netty's `writeUtf8`).
+#[test]
+fn status_and_login_json_match_vanilla() {
+    let mut n = 0;
+    for c in rows(GOLDEN, "status_response") {
+        let description = Component::literal(java(c[1]));
+        let status = ServerStatus {
+            description: description.clone(),
+            players: None,
+            version: None,
+            favicon: None,
+            enforces_secure_chat: false,
+        };
+        assert_eq!(
+            wire(&ClientboundStatusResponsePacket { status }),
+            c[2],
+            "status response of {}",
+            c[1]
+        );
+        let reason = ClientboundLoginDisconnectPacket {
+            reason: JsonComponent(description),
+        };
+        assert_eq!(wire(&reason), c[3], "login disconnect of {}", c[1]);
+        n += 1;
+    }
+    assert_eq!(n, 10);
 }

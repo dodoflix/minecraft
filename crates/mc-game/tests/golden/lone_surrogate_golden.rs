@@ -1,0 +1,99 @@
+//! Items parsed by the item argument from SNBT strings with lone UTF-16 surrogates (`\ud800` escapes), against vanilla:
+//! `fixtures/lone_surrogate.tsv`, recorded by `crates/mc-protocol/tests/fixtures/lone_surrogate/LoneSurrogateGolden.java`.
+//! Per row the item as NBT (hex), as sent to a client (hex) and its hover name.
+
+use mc_brigadier::{ArgumentType, StringReader};
+use mc_core::java_string::JavaString;
+use mc_dfu::NBT;
+use mc_game::commands::CommandBuildContext;
+use mc_game::commands::arguments::item::{ItemArgument, ItemInput};
+use mc_game::commands::command_build_context::AccessRegistries;
+use mc_game::server::dedicated::java_properties::Properties;
+use mc_game::server::dedicated::properties::DedicatedServerProperties;
+use mc_game::world::item::ItemStackExt;
+use mc_protocol::codec::Encode;
+use mc_protocol::components::ItemStack;
+use mc_testkit::{hex, rows, unesc_units};
+use std::sync::Arc;
+
+use crate::command_common;
+
+const GOLDEN: &str = include_str!("../fixtures/lone_surrogate.tsv");
+
+#[test]
+fn items_from_commands_match_vanilla() {
+    mc_game::commands::BrigadierExceptions::install();
+    mc_game::commands::install_text_validators();
+    mc_protocol::components::install_text_hooks();
+    let (server, _keep) = command_common::test_server();
+    let build = CommandBuildContext::simple(
+        Arc::new(AccessRegistries(
+            server.registries.composite_access().clone(),
+        )),
+        mc_world::level_storage::FeatureFlagSet::VANILLA,
+    );
+    let argument = ItemArgument::item(&build);
+    let mut n = 0;
+    for c in rows(GOLDEN, "item_cmd") {
+        let command =
+            String::from_utf16(&unesc_units(c[1])).expect("a command without a lone surrogate");
+        let mut reader = StringReader::new(command.clone());
+        let value = argument.parse(&mut reader).unwrap();
+        let stack = value
+            .downcast_ref::<ItemInput>()
+            .unwrap()
+            .create_item_stack(1)
+            .unwrap();
+        let nbt = ItemStack::codec()
+            .encode_start(&NBT, &stack)
+            .into_result()
+            .unwrap();
+        let mut tag = Vec::new();
+        mc_nbt::nbt_io::write_any_tag(&nbt.to_tag().unwrap(), &mut tag).unwrap();
+        assert_eq!(hex(&tag), c[2], "nbt of {command}");
+        let mut wire = Vec::new();
+        stack.encode(&mut wire).unwrap();
+        assert_eq!(hex(&wire), c[3], "network bytes of {command}");
+        let name = stack.get_hover_name().get_java_string();
+        assert_eq!(
+            name,
+            JavaString::from_utf16_units(&unesc_units(c[4])),
+            "hover name of {command}"
+        );
+        n += 1;
+    }
+    assert_eq!(n, 9);
+}
+
+/// `resource-pack-prompt` of `server.properties`: a prompt that decodes only partly is kept, one that does not parse is dropped.
+#[test]
+fn resource_pack_prompts_match_vanilla() {
+    let mut n = 0;
+    for c in rows(GOLDEN, "pack_prompt") {
+        let prompt =
+            String::from_utf16(&unesc_units(c[1])).expect("a prompt without a lone surrogate");
+        let mut props = Properties::new();
+        props.put("resource-pack", "http://localhost/pack.zip");
+        props.put("resource-pack-id", "00000000-0000-0000-0000-000000000001");
+        props.put(
+            "resource-pack-sha1",
+            "0123456789abcdef0123456789abcdef01234567",
+        );
+        props.put("resource-pack-prompt", prompt.as_str());
+        let info = DedicatedServerProperties::new(props)
+            .unwrap()
+            .server_resource_pack_info
+            .expect("a pack");
+        let got = match info.prompt {
+            None => "no prompt".to_owned(),
+            Some(component) => {
+                let mut out = Vec::new();
+                mc_nbt::nbt_io::write_any_tag(&component.to_nbt().unwrap(), &mut out).unwrap();
+                hex(&out)
+            }
+        };
+        assert_eq!(got, c[2], "prompt {prompt}");
+        n += 1;
+    }
+    assert_eq!(n, 15);
+}

@@ -3,7 +3,7 @@
 //! Vanilla parses with the packrat `SnbtGrammar`; `mc_nbt::snbt` is a port of it, so error texts, cursors and the
 //! grammar-driven suggestions (`parseForSuggestions`, [`snbt::suggest`]) match.
 
-use super::util::{reader_byte_cursor, set_reader_byte_cursor, snbt_exception};
+use super::util::snbt_exception;
 use crate::commands::CommandSourceStack;
 use crate::commands::message::dynamic_translatable;
 use crate::commands::shared_suggestion_provider::suggest;
@@ -12,6 +12,7 @@ use mc_brigadier::{
     ArgumentType, CommandContext, CommandSyntaxException, DynamicCommandExceptionType,
     ImmutableStringReader, ParsedValue, StringReader, Suggestions, SuggestionsBuilder,
 };
+use mc_core::java_string::JavaString;
 use mc_nbt::{CompoundTag, Tag, snbt};
 use mc_text::{Component, Style};
 use std::sync::LazyLock;
@@ -27,10 +28,10 @@ fn grammar_suggestions(builder: SuggestionsBuilder) -> Suggestions {
 
 /// `TagParser.parseAsArgument(reader)`.
 pub fn parse_tag_as_argument(reader: &mut StringReader) -> Result<Tag, CommandSyntaxException> {
-    let input = reader.get_string().to_owned();
-    let (tag, end) = snbt::parse_as_argument(&input, reader_byte_cursor(reader))
-        .map_err(|e| snbt_exception(&e, &input))?;
-    set_reader_byte_cursor(reader, end);
+    let input = reader.get_java_string();
+    let (tag, end) = snbt::parse_as_argument(input, reader.get_cursor())
+        .map_err(|e| snbt_exception(&e, input))?;
+    reader.set_cursor(end);
     Ok(tag)
 }
 
@@ -38,10 +39,10 @@ pub fn parse_tag_as_argument(reader: &mut StringReader) -> Result<Tag, CommandSy
 pub fn parse_compound_as_argument(
     reader: &mut StringReader,
 ) -> Result<CompoundTag, CommandSyntaxException> {
-    let input = reader.get_string().to_owned();
-    let (tag, end) = snbt::parse_compound_as_argument(&input, reader_byte_cursor(reader))
-        .map_err(|e| snbt_exception(&e, &input))?;
-    set_reader_byte_cursor(reader, end);
+    let input = reader.get_java_string();
+    let (tag, end) = snbt::parse_compound_as_argument(input, reader.get_cursor())
+        .map_err(|e| snbt_exception(&e, input))?;
+    reader.set_cursor(end);
     Ok(tag)
 }
 
@@ -112,22 +113,22 @@ impl ArgumentType<CommandSourceStack> for NbtTagArgument {
     }
 }
 
-pub static ERROR_INVALID_COMPONENT: LazyLock<DynamicCommandExceptionType<String>> =
+pub static ERROR_INVALID_COMPONENT: LazyLock<DynamicCommandExceptionType<JavaString>> =
     LazyLock::new(|| dynamic_translatable("argument.component.invalid"));
-pub static ERROR_INVALID_STYLE: LazyLock<DynamicCommandExceptionType<String>> =
+pub static ERROR_INVALID_STYLE: LazyLock<DynamicCommandExceptionType<JavaString>> =
     LazyLock::new(|| dynamic_translatable("argument.style.invalid"));
 
 /// `CommandArgumentParser.withCodec`: parse an SNBT tag, then decode it, failing with `exception` at the start cursor.
 fn parse_with_codec<T>(
     reader: &mut StringReader,
     decode: impl FnOnce(&Tag) -> Result<T, mc_text::CodecError>,
-    exception: &DynamicCommandExceptionType<String>,
+    exception: &DynamicCommandExceptionType<JavaString>,
 ) -> Result<T, CommandSyntaxException> {
     let cursor = reader.get_cursor();
     let tag = parse_tag_as_argument(reader)?;
     decode(&tag).map_err(|e| {
         reader.set_cursor(cursor);
-        exception.create_with_context(reader, e.0.into_string_lossy())
+        exception.create_with_context(reader, e.0)
     })
 }
 

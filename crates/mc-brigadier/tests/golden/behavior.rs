@@ -462,8 +462,8 @@ fn argument_lookup_errors() {
                 .map_err(|e| e.0),
         );
         sink.lock().unwrap().push(
-            c.try_get_argument::<String>("n")
-                .map(|v| v.len() as i32)
+            c.try_get_argument::<mc_core::java_string::JavaString>("n")
+                .map(|v| v.as_lossy_str().len() as i32)
                 .map_err(|e| e.0.split(' ').take(3).collect::<Vec<_>>().join(" ")),
         );
         Ok(1)

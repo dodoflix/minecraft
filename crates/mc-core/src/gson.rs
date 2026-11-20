@@ -177,8 +177,8 @@ impl JsonElement {
     }
 
     /// `new GsonBuilder().disableHtmlEscaping().create().toJson(element)`: compact, `\u2028`/`\u2029` escaped, nulls
-    /// skipped in objects (`ByteBufCodecs.lenientJson`).
-    pub fn to_gson_string_unescaped(&self) -> String {
+    /// skipped in objects (`ByteBufCodecs.lenientJson`). A lone surrogate is written as it is.
+    pub fn to_gson_string_unescaped(&self) -> JavaString {
         let mut out = JavaString::new();
         write_element(
             &mut out,
@@ -191,7 +191,7 @@ impl JsonElement {
             },
             0,
         );
-        out.to_utf8_string().into_owned()
+        out
     }
 
     /// `GsonBuilder().setPrettyPrinting().create().toJson(element)`.
@@ -457,6 +457,53 @@ pub fn parse_object_strict<T: JsonText + ?Sized>(text: &T) -> Result<JsonObject,
             )))
         }
     }
+}
+
+/// `BigDecimal(text).longValueExact()`: the integer value when `text` is an exact long.
+pub fn decimal_long_exact(text: &str) -> Option<i64> {
+    let t = text.trim();
+    let (neg, t) = match t.strip_prefix('-') {
+        Some(r) => (true, r),
+        None => (false, t.strip_prefix('+').unwrap_or(t)),
+    };
+    let (mant, exp) = match t.find(['e', 'E']) {
+        Some(i) => (&t[..i], t[i + 1..].parse::<i64>().ok()?),
+        None => (t, 0),
+    };
+    let (int_part, frac_part) = match mant.split_once('.') {
+        Some((a, b)) => (a, b),
+        None => (mant, ""),
+    };
+    let mut digits: String = format!("{int_part}{frac_part}");
+    if digits.is_empty() || !digits.bytes().all(|b| b.is_ascii_digit()) {
+        return None;
+    }
+    let scale = frac_part.len() as i64 - exp; // value = digits * 10^-scale
+    if scale > 0 {
+        let s = scale as usize;
+        let tail_start = digits.len().checked_sub(s);
+        match tail_start {
+            Some(i) if digits[i..].bytes().all(|b| b == b'0') => digits.truncate(i),
+            None if digits.bytes().all(|b| b == b'0') => digits.clear(),
+            _ => return None,
+        }
+    } else if scale < 0 {
+        if scale < -40 {
+            return if digits.bytes().all(|b| b == b'0') {
+                Some(0)
+            } else {
+                None
+            };
+        }
+        digits.push_str(&"0".repeat((-scale) as usize));
+    }
+    let digits = digits.trim_start_matches('0');
+    if digits.is_empty() {
+        return Some(0);
+    }
+    let v: i128 = digits.parse().ok()?;
+    let v = if neg { -v } else { v };
+    i64::try_from(v).ok()
 }
 
 /// `LazilyParsedNumber.intValue()` of a JSON number text: `Integer.parseInt`, then `(int) Long.parseLong`, then

@@ -21,6 +21,11 @@ fn macro_functions_arguments_and_errors_match_vanilla() {
 }
 
 #[test]
+fn macro_lines_keep_lone_surrogates_like_vanilla() {
+    common::block_scenario::check("cmd_function_surrogate");
+}
+
+#[test]
 fn return_values_and_forks_match_vanilla() {
     common::block_scenario::check("cmd_function_return");
 }

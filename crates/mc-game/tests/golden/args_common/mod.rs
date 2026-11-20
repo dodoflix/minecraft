@@ -155,7 +155,7 @@ pub fn canon_json(v: &serde_json::Value) -> String {
 
 /// `ArgsSpecs.message`.
 pub fn render_message(m: &mc_game::commands::arguments::message_argument::Message) -> String {
-    let mut out = format!("{}|", m.text);
+    let mut out = format!("{}|", m.text.as_lossy_str());
     for p in &m.parts {
         out.push_str(&format!("{}-{}:{};", p.start, p.end, p.selector.describe()));
     }
@@ -254,16 +254,21 @@ pub fn render_resource_or_id(
     }
 }
 
-/// Java `esc` of the generator.
+/// Java `esc` of the generator: a lone surrogate prints as `\uXXXX`.
 pub fn esc(s: &str) -> String {
+    esc_java(&s.into())
+}
+
+pub fn esc_java(s: &mc_core::java_string::JavaString) -> String {
     let mut b = String::new();
-    for c in s.chars() {
-        match c {
-            '\\' => b.push_str("\\\\"),
-            c if (c as u32) < 0x20 || c as u32 == 0x7f => {
+    for r in char::decode_utf16(s.encode_utf16()) {
+        match r {
+            Ok('\\') => b.push_str("\\\\"),
+            Ok(c) if (c as u32) < 0x20 || c as u32 == 0x7f => {
                 b.push_str(&format!("\\u{:04x}", c as u32))
             }
-            c => b.push(c),
+            Ok(c) => b.push(c),
+            Err(e) => b.push_str(&format!("\\u{:04x}", e.unpaired_surrogate())),
         }
     }
     b
@@ -295,7 +300,7 @@ pub fn unesc(s: &str) -> String {
 fn exception_line(e: &mc_brigadier::CommandSyntaxException) -> String {
     format!(
         "{}@{}",
-        esc(e.get_message().as_lossy_str()),
+        esc_java(&e.get_message()),
         e.get_cursor().map_or(-1, |c| c as i64) - 2
     )
 }

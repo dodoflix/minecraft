@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import net.minecraft.SharedConstants;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.arguments.item.ItemArgument;
@@ -39,6 +40,10 @@ import net.minecraft.network.Utf8String;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
+import net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket;
+import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
+import net.minecraft.network.protocol.status.ServerStatus;
+import net.minecraft.server.dedicated.DedicatedServerProperties;
 import net.minecraft.server.network.Filterable;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
@@ -59,8 +64,7 @@ import net.minecraft.world.level.block.entity.SignText;
  *   wire.tsv       network strings and the signs, books and item names sent to a client
  *   brigadier.tsv  command syntax exception contexts (a context window can split a surrogate pair)
  *   game.tsv       items parsed by the command argument
- * Not every op is replayed yet: `comp_json`, `sign`, `book_page`, `book_title`, `item_name`, `item_cmd` and `nbt_string_write_rep` are
- * recorded ahead of the string type that can hold the results; the tests of each crate replay the ops they can.
+ * Every op is replayed by the tests of the crate that consumes the file.
  * Usage: crates/mc-protocol/tests/fixtures/lone_surrogate/gen.sh
  * Output: the file of each crate named in gen.sh
  */
@@ -344,6 +348,9 @@ public class LoneSurrogateGolden {
          "{\"text\":\"b\",\"click_event\":{\"action\":\"copy_to_clipboard\",\"value\":\"\\ud800\"}}", "{\"text\":\"b\",\"hover_event\":{\"action\":\"show_text\",\"value\":\"\\ud800\"}}",
          "{\"keybind\":\"\\ud800\"}", "{\"text\":\"b\",\"font\":\"\\ud800\"}", "[\"\\ud83d\",\"\\ude00\"]", "\"\\ud83d\\ude00\"", "{\"text\":\"\\ud83d\\u0041\"}"})
          row("text.tsv", "comp_json", s, concat(componentCells(() -> fromJson(s))));
+      // numbers of a JSON text beyond the range of a double or a float (`JsonOps.convertTo`: exact long, else float when exact, else double)
+      for (String s : new String[] {"1e400", "-1e400", "1e-400", "3.4028236e38", "3.4028235e38", "0.1", "1.0E10", "12345678901234567890", "-9223372036854775808", "9223372036854775808", "1e2", "0.5e1", "100e-2"})
+         row("text.tsv", "comp_num", s, concat(componentCells(() -> fromJson("{\"translate\":\"%s\",\"with\":[" + s + "]}"))));
       for (String s : new String[] {"\"\\ud800\"", "'\\ud83d'", "{text:\"\\ud83d\"}", "{text:\"a\\ud83d\",extra:[\"\\ude00b\"]}", "[\"\\ud83d\",\"\\ude00\"]",
          "{translate:\"%s\",fallback:\"[%s]\",with:[\"\\ud800\"]}", "{text:\"b\",insertion:\"\\ud800\"}",
          "{text:\"b\",click_event:{action:\"copy_to_clipboard\",value:\"\\ud800\"}}", "{text:\"b\",hover_event:{action:\"show_text\",value:\"\\ud800\"}}",
@@ -403,6 +410,39 @@ public class LoneSurrogateGolden {
          "stick[lore=[\"\\ud800\"]]", "writable_book[writable_book_content={pages:[\"\\ud800\"]}]", "stick[custom_name={text:\"a\\ud83d\",extra:[\"\\ude00\"]}]",
          "stick[custom_data={\"\\ud800\":1}]", "stick[custom_name=\"\\ud83d\\ude00\"]"})
          row("game.tsv", "item_cmd", s, concat(itemCells(() -> new ItemArgument(ctx).parse(new StringReader(s)).createItemStack(1))));
+
+      // `resource-pack-prompt` of server.properties: a prompt that decodes only partly is kept (`resultOrPartial`), one that does not parse is dropped
+      for (String s : new String[] {"{\"text\":\"hi\"}", "\"plain\"", "{\"text\":\"a\",\"color\":\"nope\"}", "{\"text\":\"a\",\"extra\":[\"b\",1,{\"text\":\"c\"}]}", "[{\"text\":\"a\"},{\"text\":5,\"bold\":\"x\"}]",
+         "{\"translate\":\"k\",\"with\":[1,{\"bad\":[]}]}", "{\"text\":\"a\",\"extra\":[{\"text\":\"b\",\"extra\":[true]}]}", "not json", "{\"text\":\"a\",\"click_event\":{\"action\":\"run_command\"}}", "{\"text\":\"x\",\"bold\":\"maybe\"}", "{}",
+         "{\"selector\":\"@e\",\"separator\":5}", "{\"text\":\"a\"} trailing", "[]", "[1]"})
+         row("game.tsv", "pack_prompt", s, cell(() -> {
+            java.util.Properties props = new java.util.Properties();
+            props.setProperty("resource-pack", "http://localhost/pack.zip");
+            props.setProperty("resource-pack-id", "00000000-0000-0000-0000-000000000001");
+            props.setProperty("resource-pack-sha1", "0123456789abcdef0123456789abcdef01234567");
+            props.setProperty("resource-pack-prompt", s);
+            var info = new DedicatedServerProperties(props).serverResourcePackInfo;
+            if (info.isEmpty()) return "no pack";
+            Component prompt = info.get().prompt();
+            return prompt == null ? "no prompt" : hex(nbtAny(ComponentSerialization.CODEC.encodeStart(nbtOps, prompt).getOrThrow()));
+         }));
+
+      // the status response and the login disconnect: `lenientJson` prints with Gson (no HTML escaping), `Utf8String.write` encodes
+      // with Netty's `writeUtf8` (a lone surrogate is `?`, a high surrogate swallows the next unit)
+      for (String s : new String[] {"\ud800", "\udc00", "a\ud83d", "\ud83d\ud83d", "\ud83dx", "\ud83d\ude00", "\ude00\ud83d", "<&>='", "a\u2028\ud800\u2029b", "\ud83d\ud83d\ud83d\ude00"}) {
+         Component description = Component.literal(s);
+         row("wire.tsv", "status_response", s,
+            cell(() -> {
+               ByteBuf b = Unpooled.buffer();
+               ClientboundStatusResponsePacket.STREAM_CODEC.encode(b, new ClientboundStatusResponsePacket(new ServerStatus(description, Optional.empty(), Optional.empty(), Optional.empty(), false)));
+               return bytes(b);
+            }),
+            cell(() -> {
+               ByteBuf b = Unpooled.buffer();
+               ClientboundLoginDisconnectPacket.STREAM_CODEC.encode(b, new ClientboundLoginDisconnectPacket(description));
+               return bytes(b);
+            }));
+      }
 
       // brigadier: the context of a syntax error is a window of the input in UTF-16 units; it can split a pair
       String[][] contexts = {{"\ud83d\ude00abc", "1"}, {"\ud83d\ude00abc", "2"}, {"x\ud83d\ude00", "2"}, {"abcdefghi\ud83d\ude00z", "10"},

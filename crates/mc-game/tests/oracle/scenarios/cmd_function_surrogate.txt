@@ -1,0 +1,69 @@
+# Strings with lone UTF-16 surrogates (an NBT string escape such as `\ud800`) substituted into macro lines: the command line, the
+# command arguments parsed from it and the syntax error text built from it keep the unpaired units like Java's String does.
+datapack fn_surrogate
+command_env
+level flat
+preload 2
+entity_counter 3400
+spawn_player A survival 0.5 -60 0.5 0 0
+tick 1
+dump packets:A:none
+note say, storage and chat arguments
+cmd function fn:say {a:"\ud800",b:"x"}
+cmd function fn:say {a:"\ud83d",b:"\ude00"}
+cmd function fn:say {a:"\ud83d\ude00",b:"y"}
+cmd function fn:say {a:"a\ud83db",b:"\ude00z"}
+cmd function fn:store {a:"\ud800"}
+dump storage:fn:out
+cmd function fn:store {a:"\ud83d\ude00"}
+dump storage:fn:out
+cmd function fn:tellraw {a:"\ud800"}
+cmd function fn:tellraw {a:"\\ud800"}
+cmd function fn:tellraw {a:"\ud83d\ude00"}
+cmd function fn:tellraw_raw {a:"\"\ud800\""}
+cmd function fn:tellraw_raw {a:"{text:\"\ud83d\"}"}
+cmd function fn:tellraw_raw {a:"\"\ud800"}
+cmd function fn:tellraw_raw {a:"{\"text\":\"\ud800\"}"}
+cmd function fn:msg {a:"\ud800"}
+cmd function fn:title {a:"\ud800"}
+cmd function fn:objective {a:"\\ud800"}
+dump packets:A:disguised_chat,system_chat,set_title_text
+note syntax errors in the substituted line
+cmd function fn:bogus {a:"\ud800"}
+cmd function fn:bogus {a:"\ud83d\ude00"}
+cmd function fn:setblock {a:"\ud800"}
+cmd function fn:setblock {a:"stone\ud800"}
+cmd function fn:setblock {a:"\ud83d\ude00"}
+cmd function fn:weather {a:"\ud800"}
+cmd function fn:weather {a:"\ud83d\ude00"}
+cmd function fn:weather {a:" \ud83d\ude00\ud83d\ude00\ud83d"}
+cmd function fn:give {a:"\\ud800"}
+cmd function fn:give {a:"\\u"}
+cmd function fn:exec {a:"\ud800"}
+cmd function fn:exec {a:"\"\ud83d\ude00\ud83d"}
+cmd function fn:exec {a:"\"\ud800"}
+cmd function fn:tp {a:"\ud800"}
+cmd function fn:tp {a:"\"a\ud83d"}
+cmd function fn:score {a:"\ud800"}
+cmd function fn:score {a:"x\ud800"}
+cmd function fn:call {a:"\ud800"}
+cmd function fn:call {a:"fn:a\ud800"}
+cmd function fn:storage_id {a:"\ud800"}
+cmd function fn:storage_id {a:"fn:\ud83d\ude00"}
+cmd function fn:give_raw {a:"\"\ud800"}
+cmd function fn:give_raw {a:"'\ud800"}
+cmd function fn:give_raw {a:"\"\\\ud800\""}
+cmd function fn:give_raw {a:"\"\\\ud83d\ude00\""}
+cmd function fn:merge {a:"\ud800"}
+cmd function fn:merge {a:"\"\ud800\""}
+cmd function fn:merge {a:"\"\\ud800\""}
+cmd function fn:team {a:"\ud800"}
+cmd function fn:team {a:"\"\ud800\""}
+note names and items
+cmd function fn:give {a:"\ud800"}
+cmd function fn:give {a:"\ud83d\ude00"}
+cmd data get entity A Inventory
+cmd function fn:summon {a:"\ud800"}
+cmd data get entity @e[type=marker,limit=1] CustomName
+cmd kill @e[type=marker]
+dump packets:A:disguised_chat,system_chat,set_title_text

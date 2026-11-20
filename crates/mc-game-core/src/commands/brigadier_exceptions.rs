@@ -6,6 +6,7 @@ use mc_brigadier::exceptions::{BuiltInExceptionProvider, CommandSyntaxException}
 use mc_brigadier::{
     Dynamic2CommandExceptionType, DynamicCommandExceptionType, SimpleCommandExceptionType,
 };
+use mc_core::java_string::JavaString;
 use std::sync::Arc;
 
 /// `Component.translatableEscape(key, min, found)` with the `Dynamic2CommandExceptionType(found, limit)` argument order.
@@ -29,8 +30,8 @@ pub struct BrigadierExceptions {
     literal_incorrect: DynamicCommandExceptionType<String>,
     reader_expected_start_of_quote: SimpleCommandExceptionType,
     reader_expected_end_of_quote: SimpleCommandExceptionType,
-    reader_invalid_escape: DynamicCommandExceptionType<String>,
-    reader_invalid_bool: DynamicCommandExceptionType<String>,
+    reader_invalid_escape: DynamicCommandExceptionType<JavaString>,
+    reader_invalid_bool: DynamicCommandExceptionType<JavaString>,
     reader_invalid_int: DynamicCommandExceptionType<String>,
     reader_expected_int: SimpleCommandExceptionType,
     reader_invalid_long: DynamicCommandExceptionType<String>,
@@ -129,10 +130,10 @@ impl BuiltInExceptionProvider for BrigadierExceptions {
     fn reader_expected_end_of_quote(&self) -> &SimpleCommandExceptionType {
         &self.reader_expected_end_of_quote
     }
-    fn reader_invalid_escape(&self) -> &DynamicCommandExceptionType<String> {
+    fn reader_invalid_escape(&self) -> &DynamicCommandExceptionType<JavaString> {
         &self.reader_invalid_escape
     }
-    fn reader_invalid_bool(&self) -> &DynamicCommandExceptionType<String> {
+    fn reader_invalid_bool(&self) -> &DynamicCommandExceptionType<JavaString> {
         &self.reader_invalid_bool
     }
     fn reader_invalid_int(&self) -> &DynamicCommandExceptionType<String> {

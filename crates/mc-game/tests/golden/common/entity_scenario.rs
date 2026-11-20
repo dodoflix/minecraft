@@ -267,7 +267,8 @@ pub fn item_full(s: &ItemStack) -> String {
     format!("{base}{}", canon(&tag))
 }
 
-/// The driver's `canon(Tag)`: sorted compound keys printed raw, everything else as the SNBT of the tag.
+/// The driver's `canon(Tag)`: sorted compound keys printed raw, everything else as the SNBT of the tag. The driver writes its
+/// lines as UTF-8, so a lone surrogate prints as `?`.
 pub fn canon(tag: &Tag) -> String {
     match tag {
         Tag::Compound(c) => {
@@ -278,7 +279,7 @@ pub fn canon(tag: &Tag) -> String {
                 .map(|k| {
                     format!(
                         "{}:{}",
-                        k.as_lossy_str(),
+                        k.to_utf8_string(),
                         canon(c.get_java(k).expect("key exists"))
                     )
                 })
@@ -286,7 +287,9 @@ pub fn canon(tag: &Tag) -> String {
             format!("{{{}}}", parts.join(","))
         }
         Tag::List(l) => format!("[{}]", l.iter().map(canon).collect::<Vec<_>>().join(",")),
-        other => other.to_string(),
+        other => mc_nbt::snbt::print_compact(other)
+            .to_utf8_string()
+            .into_owned(),
     }
 }
 

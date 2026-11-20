@@ -8,7 +8,6 @@ use std::sync::{Arc, LazyLock, RwLock};
 use crate::java_fmt::{double_to_string, float_to_string};
 use crate::message::{MessageRef, literal};
 use crate::string_reader::ImmutableStringReader;
-use crate::utf16::{len16, substring_java};
 use mc_core::java_string::JavaString;
 
 /// Identity of an exception type (`CommandExceptionType`): two exceptions have the same type iff
@@ -35,7 +34,7 @@ pub struct CommandSyntaxException {
     type_: CommandExceptionType,
     message: MessageRef,
     /// `(input, cursor)`; vanilla's `input == null / cursor == -1` is `None`.
-    context: Option<(String, usize)>,
+    context: Option<(JavaString, usize)>,
 }
 
 impl CommandSyntaxException {
@@ -52,13 +51,13 @@ impl CommandSyntaxException {
     pub fn with_context(
         type_: CommandExceptionType,
         message: MessageRef,
-        input: String,
+        input: impl Into<JavaString>,
         cursor: usize,
     ) -> Self {
         Self {
             type_,
             message,
-            context: Some((input, cursor)),
+            context: Some((input.into(), cursor)),
         }
     }
 
@@ -74,7 +73,7 @@ impl CommandSyntaxException {
 
     /// `getMessage()`: message plus " at position N: ...<--\[HERE\]" when there is a context.
     pub fn get_message(&self) -> JavaString {
-        let mut message = JavaString::from(self.message.get_string());
+        let mut message = self.message.get_java_string();
         if let Some(context) = self.get_context() {
             message.push_str(&format!(
                 " at position {}: ",
@@ -92,16 +91,12 @@ impl CommandSyntaxException {
     /// The window of the input before the cursor; it can start inside a surrogate pair, so it is a Java string.
     pub fn get_context(&self) -> Option<JavaString> {
         let (input, cursor) = self.context.as_ref()?;
-        let cursor = (*cursor).min(len16(input));
+        let cursor = (*cursor).min(input.utf16_len());
         let mut out = JavaString::new();
         if cursor > Self::CONTEXT_AMOUNT {
             out.push_str("...");
         }
-        out.push_java(&substring_java(
-            input,
-            cursor.saturating_sub(Self::CONTEXT_AMOUNT),
-            cursor,
-        ));
+        out.push_java(&input.substring(cursor.saturating_sub(Self::CONTEXT_AMOUNT), cursor));
         out.push_str("<--[HERE]");
         Some(out)
     }
@@ -110,8 +105,13 @@ impl CommandSyntaxException {
         self.type_
     }
 
+    /// The input, each lone surrogate shown as U+FFFD.
     pub fn get_input(&self) -> Option<&str> {
-        self.context.as_ref().map(|c| c.0.as_str())
+        self.context.as_ref().map(|c| c.0.as_lossy_str())
+    }
+
+    pub fn get_java_input(&self) -> Option<&JavaString> {
+        self.context.as_ref().map(|c| &c.0)
     }
 
     pub fn get_cursor(&self) -> Option<usize> {
@@ -135,7 +135,7 @@ fn with_reader(
     CommandSyntaxException::with_context(
         type_,
         message,
-        reader.get_string().to_owned(),
+        reader.get_java_string().clone(),
         reader.get_cursor(),
     )
 }
@@ -244,8 +244,8 @@ pub trait BuiltInExceptionProvider: Send + Sync {
     fn literal_incorrect(&self) -> &DynamicCommandExceptionType<String>;
     fn reader_expected_start_of_quote(&self) -> &SimpleCommandExceptionType;
     fn reader_expected_end_of_quote(&self) -> &SimpleCommandExceptionType;
-    fn reader_invalid_escape(&self) -> &DynamicCommandExceptionType<String>;
-    fn reader_invalid_bool(&self) -> &DynamicCommandExceptionType<String>;
+    fn reader_invalid_escape(&self) -> &DynamicCommandExceptionType<JavaString>;
+    fn reader_invalid_bool(&self) -> &DynamicCommandExceptionType<JavaString>;
     fn reader_invalid_int(&self) -> &DynamicCommandExceptionType<String>;
     fn reader_expected_int(&self) -> &SimpleCommandExceptionType;
     fn reader_invalid_long(&self) -> &DynamicCommandExceptionType<String>;
@@ -292,6 +292,19 @@ fn dynamic(
     DynamicCommandExceptionType::new(move |a| literal(f(a)))
 }
 
+fn dynamic_java(
+    f: impl Fn(JavaString) -> JavaString + Send + Sync + 'static,
+) -> DynamicCommandExceptionType<JavaString> {
+    DynamicCommandExceptionType::new(move |a| literal(f(a)))
+}
+
+fn quoted(before: &str, value: JavaString, after: &str) -> JavaString {
+    let mut out = JavaString::from(before);
+    out.push_java(&value);
+    out.push_str(after);
+    out
+}
+
 built_in_exceptions_struct! {
     double_too_low: Dynamic2CommandExceptionType<f64, f64> = Dynamic2CommandExceptionType::new(|found, min| literal(format!("Double must not be less than {}, found {}", double_to_string(min), double_to_string(found))));
     double_too_high: Dynamic2CommandExceptionType<f64, f64> = Dynamic2CommandExceptionType::new(|found, max| literal(format!("Double must not be more than {}, found {}", double_to_string(max), double_to_string(found))));
@@ -304,8 +317,8 @@ built_in_exceptions_struct! {
     literal_incorrect: DynamicCommandExceptionType<String> = dynamic(|expected| format!("Expected literal {expected}"));
     reader_expected_start_of_quote: SimpleCommandExceptionType = simple("Expected quote to start a string");
     reader_expected_end_of_quote: SimpleCommandExceptionType = simple("Unclosed quoted string");
-    reader_invalid_escape: DynamicCommandExceptionType<String> = dynamic(|c| format!("Invalid escape sequence '{c}' in quoted string"));
-    reader_invalid_bool: DynamicCommandExceptionType<String> = dynamic(|v| format!("Invalid bool, expected true or false but found '{v}'"));
+    reader_invalid_escape: DynamicCommandExceptionType<JavaString> = dynamic_java(|c| quoted("Invalid escape sequence '", c, "' in quoted string"));
+    reader_invalid_bool: DynamicCommandExceptionType<JavaString> = dynamic_java(|v| quoted("Invalid bool, expected true or false but found '", v, "'"));
     reader_invalid_int: DynamicCommandExceptionType<String> = dynamic(|v| format!("Invalid integer '{v}'"));
     reader_expected_int: SimpleCommandExceptionType = simple("Expected integer");
     reader_invalid_long: DynamicCommandExceptionType<String> = dynamic(|v| format!("Invalid long '{v}'"));

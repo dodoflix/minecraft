@@ -75,15 +75,23 @@ impl<'a> MapLike<'a> {
     }
 }
 
+impl MapLike<'_> {
+    /// `MapLike.toString()`, a lone surrogate kept.
+    pub fn to_java_string(&self) -> JavaString {
+        let map = Dyn::Map(self.entries.to_vec());
+        // `NbtOps`' map is a `CompoundTag`: its `toString()` is SNBT
+        match map.to_tag() {
+            Ok(tag) if self.kind == OpsKind::Nbt => {
+                mc_core::jformat!("MapLike[{}]", mc_nbt::snbt::print_compact(&tag))
+            }
+            _ => mc_core::jformat!("MapLike[{}]", map.to_json_string()),
+        }
+    }
+}
+
 impl std::fmt::Display for MapLike<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        // `NbtOps`' map is a `CompoundTag`: its `toString()` is SNBT
-        if self.kind == OpsKind::Nbt
-            && let Ok(tag) = Dyn::Map(self.entries.to_vec()).to_tag()
-        {
-            return write!(f, "MapLike[{tag}]");
-        }
-        write!(f, "MapLike[{}]", Dyn::Map(self.entries.to_vec()))
+        f.write_str(self.to_java_string().as_lossy_str())
     }
 }
 
@@ -219,9 +227,9 @@ impl Ops {
             Dyn::JsonNum(t) if self.is_json() => JNum::Lazy(t.clone()),
             _ => {
                 let msg = if self.is_nbt() {
-                    "Not a number".to_string()
+                    JavaString::from("Not a number")
                 } else {
-                    format!("Not a number: {}", self.show(input))
+                    mc_core::jformat!("Not a number: {}", self.show(input))
                 };
                 return DataResult::error(move || msg.clone());
             }
@@ -237,7 +245,7 @@ impl Ops {
                 Dyn::Bool(b) => DataResult::success(*b),
                 _ => {
                     let i = self.show(input);
-                    DataResult::error(move || format!("Not a boolean: {i}"))
+                    DataResult::error(move || mc_core::jformat!("Not a boolean: {}", i))
                 }
             },
             OpsKind::Hash => unsupported(),
@@ -254,7 +262,7 @@ impl Ops {
                     DataResult::error_str("Not a string")
                 } else {
                     let i = self.show(input);
-                    DataResult::error(move || format!("Not a string: {i}"))
+                    DataResult::error(move || mc_core::jformat!("Not a string: {}", i))
                 }
             }
         }
@@ -280,9 +288,9 @@ impl Ops {
             _ => {
                 let i = self.show(input);
                 if self.is_nbt() {
-                    DataResult::error(move || format!("Not a list: {i}"))
+                    DataResult::error(move || mc_core::jformat!("Not a list: {}", i))
                 } else {
-                    DataResult::error(move || format!("Not a json array: {i}"))
+                    DataResult::error(move || mc_core::jformat!("Not a json array: {}", i))
                 }
             }
         }
@@ -308,9 +316,9 @@ impl Ops {
             _ => {
                 let i = self.show(input);
                 if self.is_nbt() {
-                    DataResult::error(move || format!("Not a map: {i}"))
+                    DataResult::error(move || mc_core::jformat!("Not a map: {}", i))
                 } else {
-                    DataResult::error(move || format!("Not a JSON object: {i}"))
+                    DataResult::error(move || mc_core::jformat!("Not a JSON object: {}", i))
                 }
             }
         }
@@ -337,7 +345,7 @@ impl Ops {
                 )
             } else {
                 let i = self.show(input);
-                DataResult::error(move || format!("Some elements are not bytes: {i}"))
+                DataResult::error(move || mc_core::jformat!("Some elements are not bytes: {}", i))
             }
         })
     }
@@ -356,7 +364,7 @@ impl Ops {
                 )
             } else {
                 let i = self.show(input);
-                DataResult::error(move || format!("Some elements are not ints: {i}"))
+                DataResult::error(move || mc_core::jformat!("Some elements are not ints: {}", i))
             }
         })
     }
@@ -375,7 +383,7 @@ impl Ops {
                 )
             } else {
                 let i = self.show(input);
-                DataResult::error(move || format!("Some elements are not longs: {i}"))
+                DataResult::error(move || mc_core::jformat!("Some elements are not longs: {}", i))
             }
         })
     }
@@ -410,7 +418,7 @@ impl Ops {
                 _ => {
                     let p = self.show(prefix);
                     DataResult::error_partial(
-                        move || format!("mergeToList called with not a list: {p}"),
+                        move || mc_core::jformat!("mergeToList called with not a list: {}", p),
                         prefix.clone(),
                     )
                 }
@@ -429,7 +437,7 @@ impl Ops {
                     _ => {
                         let p = self.show(prefix);
                         return DataResult::error_partial(
-                            move || format!("mergeToList called with not a list: {p}"),
+                            move || mc_core::jformat!("mergeToList called with not a list: {}", p),
                             prefix.clone(),
                         );
                     }
@@ -460,14 +468,14 @@ impl Ops {
                 if !matches!(map, Dyn::Map(_) | Dyn::Empty) {
                     let m = self.show(map);
                     return DataResult::error_partial(
-                        move || format!("mergeToMap called with not a map: {m}"),
+                        move || mc_core::jformat!("mergeToMap called with not a map: {}", m),
                         map.clone(),
                     );
                 }
                 if !matches!(key, Dyn::Str(_)) {
                     let k = self.show(&key);
                     return DataResult::error_partial(
-                        move || format!("key is not a string: {k}"),
+                        move || mc_core::jformat!("key is not a string: {}", k),
                         map.clone(),
                     );
                 }
@@ -508,7 +516,7 @@ impl Ops {
                 if !matches!(map, Dyn::Map(_) | Dyn::Empty) {
                     let m = self.show(map);
                     return DataResult::error_partial(
-                        move || format!("mergeToMap called with not a map: {m}"),
+                        move || mc_core::jformat!("mergeToMap called with not a map: {}", m),
                         map.clone(),
                     );
                 }
@@ -548,7 +556,9 @@ impl Ops {
         if !prefix.is_empty_value() {
             let (p, v) = (self.show(prefix), self.show(&value));
             DataResult::error_partial(
-                move || format!("Do not know how to append a primitive value {v} to {p}"),
+                move || {
+                    mc_core::jformat!("Do not know how to append a primitive value {} to {}", v, p)
+                },
                 value,
             )
         } else {
@@ -578,7 +588,9 @@ impl Ops {
                 Some(v) => DataResult::success(v.clone()),
                 None => {
                     let (k, i) = (self.show(key), self.show(input));
-                    DataResult::error(move || format!("No element {k} in the map {i}"))
+                    DataResult::error(move || {
+                        mc_core::jformat!("No element {} in the map {}", k, i)
+                    })
                 }
             }
         })
@@ -613,13 +625,13 @@ impl Ops {
     }
 
     /// `toString()` of a value of this ops' type (`Tag` SNBT, `JsonElement` text).
-    pub fn show(&self, value: &Dyn) -> String {
+    pub fn show(&self, value: &Dyn) -> JavaString {
         if self.is_nbt()
             && let Ok(tag) = value.to_tag()
         {
-            return tag.to_string();
+            return mc_nbt::snbt::print_compact(&tag);
         }
-        value.to_json_string().into_string_lossy()
+        value.to_json_string()
     }
 
     /// `Dynamic.convert`: re-express `input` (built by `self`) in `out`'s ops.
@@ -697,7 +709,7 @@ impl Ops {
             }
             other => panic!("not a number: {other}"),
         };
-        if let Some(l) = decimal_long_exact(&text) {
+        if let Some(l) = mc_core::gson::decimal_long_exact(&text) {
             return if l as i8 as i64 == l {
                 out.create_byte(l as i8)
             } else if l as i16 as i64 == l {
@@ -733,53 +745,6 @@ impl Ops {
             items: DataResult::success(Vec::new()),
         }
     }
-}
-
-/// `BigDecimal(text).longValueExact()`: the integer value when `text` is an exact long.
-fn decimal_long_exact(text: &str) -> Option<i64> {
-    let t = text.trim();
-    let (neg, t) = match t.strip_prefix('-') {
-        Some(r) => (true, r),
-        None => (false, t.strip_prefix('+').unwrap_or(t)),
-    };
-    let (mant, exp) = match t.find(['e', 'E']) {
-        Some(i) => (&t[..i], t[i + 1..].parse::<i64>().ok()?),
-        None => (t, 0),
-    };
-    let (int_part, frac_part) = match mant.split_once('.') {
-        Some((a, b)) => (a, b),
-        None => (mant, ""),
-    };
-    let mut digits: String = format!("{int_part}{frac_part}");
-    if digits.is_empty() || !digits.bytes().all(|b| b.is_ascii_digit()) {
-        return None;
-    }
-    let scale = frac_part.len() as i64 - exp; // value = digits * 10^-scale
-    if scale > 0 {
-        let s = scale as usize;
-        let tail_start = digits.len().checked_sub(s);
-        match tail_start {
-            Some(i) if digits[i..].bytes().all(|b| b == b'0') => digits.truncate(i),
-            None if digits.bytes().all(|b| b == b'0') => digits.clear(),
-            _ => return None,
-        }
-    } else if scale < 0 {
-        if scale < -40 {
-            return if digits.bytes().all(|b| b == b'0') {
-                Some(0)
-            } else {
-                None
-            };
-        }
-        digits.push_str(&"0".repeat((-scale) as usize));
-    }
-    let digits = digits.trim_start_matches('0');
-    if digits.is_empty() {
-        return Some(0);
-    }
-    let v: i128 = digits.parse().ok()?;
-    let v = if neg { -v } else { v };
-    i64::try_from(v).ok()
 }
 
 enum Collector {
@@ -983,7 +948,7 @@ impl RecordBuilder {
                 other => {
                     let o = ops.show(other);
                     DataResult::error_partial(
-                        move || format!("mergeToMap called with not a map: {o}"),
+                        move || mc_core::jformat!("mergeToMap called with not a map: {}", o),
                         other.clone(),
                     )
                 }

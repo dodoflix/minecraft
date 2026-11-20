@@ -13,6 +13,7 @@ use mc_brigadier::{
     CommandSyntaxException, ImmutableStringReader, StringReader, Suggestions, SuggestionsBuilder,
 };
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_nbt::Tag;
 
 /// `ComponentPredicateParser.Context<T, C, P>`.
@@ -125,7 +126,7 @@ enum Lookup {
 }
 
 impl<'a, X: Context> Parser<'a, X> {
-    fn new_state(ctx: &'a X, input: &str, cursor: usize) -> Parser<'a, X> {
+    fn new_state(ctx: &'a X, input: impl Into<JavaString>, cursor: usize) -> Parser<'a, X> {
         let mut reader = StringReader::new(input);
         reader.set_cursor(cursor);
         Parser {
@@ -409,7 +410,7 @@ pub fn parse_for_commands<X: Context>(
     ctx: &X,
     reader: &mut StringReader,
 ) -> Result<Vec<X::T>, CommandSyntaxException> {
-    let mut parser = Parser::new_state(ctx, reader.get_string(), reader.get_cursor());
+    let mut parser = Parser::new_state(ctx, reader.get_java_string().clone(), reader.get_cursor());
     let result = parser.run_top();
     reader.set_cursor(parser.mark());
     if let Some(r) = result {
@@ -420,14 +421,14 @@ pub fn parse_for_commands<X: Context>(
         match reason {
             Reason::Exception(e) => return Err(e),
             Reason::Literal(c) => {
-                let mut r = StringReader::new(reader.get_string());
+                let mut r = StringReader::new(reader.get_java_string().clone());
                 r.set_cursor(cursor);
                 return Err(CommandSyntaxException::built_in_exceptions()
                     .literal_incorrect()
                     .create_with_context(&r, c.to_string()));
             }
             Reason::InvalidId => {
-                let mut r = StringReader::new(reader.get_string());
+                let mut r = StringReader::new(reader.get_java_string().clone());
                 r.set_cursor(cursor);
                 return Err(ERROR_INVALID_ID.create_with_context(&r));
             }

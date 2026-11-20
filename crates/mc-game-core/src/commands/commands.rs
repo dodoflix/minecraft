@@ -9,11 +9,11 @@ use crate::server::MinecraftServer;
 use crate::server::permissions::{PermissionCheck, PermissionSet, permissions};
 use crate::translatable;
 use linkme::distributed_slice;
-use mc_brigadier::utf16::{len16, substring, substring_from};
 use mc_brigadier::{
     CommandDispatcher, CommandSyntaxException, ContextChain, LiteralArgumentBuilder, ParseResults,
     StringReader,
 };
+use mc_core::java_string::JavaString;
 use mc_text::events::{ClickEvent, HoverEvent};
 use mc_text::util::ellipsis;
 use mc_text::{ChatFormatting, Component};
@@ -389,23 +389,27 @@ impl Commands {
             Ok(chain) => Some(chain),
             Err(e) => {
                 sender.send_failure(from_message(e.get_raw_message().as_ref()));
-                if let (Some(input), Some(cursor)) = (e.get_input(), e.get_cursor()) {
-                    let cursor = cursor.min(len16(input));
-                    let command_text = format!("/{command_string}");
+                if let (Some(input), Some(cursor)) = (e.get_java_input(), e.get_cursor()) {
+                    let length = input.utf16_len();
+                    let cursor = cursor.min(length);
+                    let mut command_text = JavaString::from("/");
+                    command_text.push_str(command_string);
                     let mut context = Component::empty()
                         .with_format(ChatFormatting::Gray)
                         .with_style_fn(|s| {
                             s.with_click_event(Some(ClickEvent::SuggestCommand(
-                                command_text.clone().into(),
+                                command_text.clone(),
                             )))
                         });
                     if cursor > 10 {
                         context = context.append(ellipsis());
                     }
-                    context =
-                        context.append_str(&substring(input, cursor.saturating_sub(10), cursor));
-                    if cursor < len16(input) {
-                        let remaining = Component::literal(substring_from(input, cursor))
+                    let window = input.substring(cursor.saturating_sub(10), cursor);
+                    if window.utf16_len() > 0 {
+                        context = context.append(Component::literal(window));
+                    }
+                    if cursor < length {
+                        let remaining = Component::literal(input.substring(cursor, length))
                             .with_formats(&[ChatFormatting::Red, ChatFormatting::Underline]);
                         context = context.append(remaining);
                     }

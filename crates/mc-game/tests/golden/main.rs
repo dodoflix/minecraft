@@ -189,6 +189,7 @@ mod level_construction_guards;
 mod levelgen_predicates_golden;
 mod lightning_golden;
 mod living_entity_golden;
+mod lone_surrogate_golden;
 mod loot_all_golden;
 mod loot_call_sites_golden;
 mod loot_golden;

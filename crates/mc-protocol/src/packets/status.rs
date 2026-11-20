@@ -4,10 +4,12 @@ use mc_text::Component;
 use uuid::Uuid;
 
 use crate::codec::{
-    DecodeError, DecodeResult, EncodeError, EncodeResult, MAX_STRING_LENGTH, read_utf, write_utf,
+    DecodeError, DecodeResult, EncodeError, EncodeResult, MAX_STRING_LENGTH, read_utf,
+    write_java_utf,
 };
 use crate::{Decode, Encode, Packet, packet_enum};
 use mc_core::gson::{self, JsonElement, JsonObject};
+use mc_core::java_string::JavaString;
 
 const FAVICON_PREFIX: &str = "data:image/png;base64,";
 
@@ -114,7 +116,7 @@ impl ServerStatus {
 
     /// The text of the status response: `ByteBufCodecs.lenientJson` writes it with a Gson that has HTML escaping
     /// disabled.
-    pub fn to_json_string(&self) -> EncodeResult<String> {
+    pub fn to_json_string(&self) -> EncodeResult<JavaString> {
         Ok(self.to_json()?.to_gson_string_unescaped())
     }
 
@@ -303,7 +305,7 @@ pub struct ClientboundStatusResponsePacket {
 impl Encode for ClientboundStatusResponsePacket {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         // `ByteBufCodecs.lenientJson(32767)`
-        write_utf(out, &self.status.to_json_string()?, MAX_STRING_LENGTH)
+        write_java_utf(out, &self.status.to_json_string()?, MAX_STRING_LENGTH)
     }
 }
 impl Decode for ClientboundStatusResponsePacket {

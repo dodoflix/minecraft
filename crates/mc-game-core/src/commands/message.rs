@@ -2,6 +2,7 @@
 //! rule needs a newtype here).
 
 use mc_brigadier::{LiteralMessage, Message, MessageRef};
+use mc_core::java_string::JavaString;
 use mc_text::Component;
 use std::sync::Arc;
 
@@ -12,6 +13,10 @@ pub struct ComponentMessage(pub Component);
 impl Message for ComponentMessage {
     fn get_string(&self) -> String {
         self.0.get_string()
+    }
+
+    fn get_java_string(&self) -> JavaString {
+        self.0.get_java_string()
     }
 }
 
@@ -24,7 +29,7 @@ pub fn message(component: Component) -> MessageRef {
 pub fn from_message(message: &dyn Message) -> Component {
     match (message as &dyn std::any::Any).downcast_ref::<ComponentMessage>() {
         Some(component) => component.0.clone(),
-        None => Component::literal(message.get_string()),
+        None => Component::literal(message.get_java_string()),
     }
 }
 
@@ -45,15 +50,15 @@ pub fn simple_translatable(key: &'static str) -> mc_brigadier::SimpleCommandExce
 }
 
 /// `new DynamicCommandExceptionType(a -> Component.translatableEscape(key, a))` for string-like arguments.
-pub fn dynamic_translatable(
+pub fn dynamic_translatable<A: Into<mc_text::component::TranslatableArg> + 'static>(
     key: &'static str,
-) -> mc_brigadier::DynamicCommandExceptionType<String> {
-    mc_brigadier::DynamicCommandExceptionType::new(move |a: String| {
+) -> mc_brigadier::DynamicCommandExceptionType<A> {
+    mc_brigadier::DynamicCommandExceptionType::new(move |a: A| {
         message(Component::translatable(key, vec![a.into()]))
     })
 }
 
 /// `LiteralMessage`.
-pub fn literal_message(text: impl Into<String>) -> MessageRef {
+pub fn literal_message(text: impl Into<JavaString>) -> MessageRef {
     Arc::new(LiteralMessage::new(text))
 }

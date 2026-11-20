@@ -33,7 +33,7 @@ impl BuiltInExceptionProvider for Translating {
         long_too_low -> Dynamic2CommandExceptionType<i64, i64>, long_too_high -> Dynamic2CommandExceptionType<i64, i64>,
         literal_incorrect -> DynamicCommandExceptionType<String>,
         reader_expected_start_of_quote -> SimpleCommandExceptionType, reader_expected_end_of_quote -> SimpleCommandExceptionType,
-        reader_invalid_escape -> DynamicCommandExceptionType<String>, reader_invalid_bool -> DynamicCommandExceptionType<String>,
+        reader_invalid_escape -> DynamicCommandExceptionType<mc_core::java_string::JavaString>, reader_invalid_bool -> DynamicCommandExceptionType<mc_core::java_string::JavaString>,
         reader_invalid_int -> DynamicCommandExceptionType<String>, reader_expected_int -> SimpleCommandExceptionType,
         reader_invalid_long -> DynamicCommandExceptionType<String>, reader_expected_long -> SimpleCommandExceptionType,
         reader_invalid_double -> DynamicCommandExceptionType<String>, reader_expected_double -> SimpleCommandExceptionType,

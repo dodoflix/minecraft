@@ -415,10 +415,10 @@ impl<A: 'static> Codec<A> {
                     if let Some((key, val)) = entry_result.result_or_partial() {
                         if read.iter().any(|(rk, _)| *rk == key) {
                             failed.push((k.clone(), v.clone()));
-                            let key_text = k.clone();
+                            let key_text = k.to_json_string();
                             result = result.apply2(
                                 DataResult::error(move || {
-                                    format!("Duplicate entry for key: '{key_text}'")
+                                    mc_core::jformat!("Duplicate entry for key: '{}'", key_text)
                                 }),
                                 |_, _: ()| (),
                             );
@@ -436,7 +436,7 @@ impl<A: 'static> Codec<A> {
                     DataResult::Success(()) => DataResult::success(read),
                     DataResult::Error { message, .. } => DataResult::error_msg(
                         crate::result::Msg::new(move || {
-                            format!("{} missed input: {}", message.get(), errors)
+                            mc_core::jformat!("{} missed input: {}", message.get_java(), errors)
                         }),
                         Some(read),
                     ),
@@ -489,10 +489,10 @@ impl<A: 'static> Codec<A> {
                     second.error_msg_ref().cloned().unwrap(),
                 );
                 DataResult::error(move || {
-                    format!(
+                    mc_core::jformat!(
                         "Failed to parse either. First: {}; Second: {}",
-                        m1.get(),
-                        m2.get()
+                        m1.get_java(),
+                        m2.get_java()
                     )
                 })
             },
@@ -525,10 +525,10 @@ impl<A: 'static> Codec<A> {
                     second.error_msg_ref().cloned().unwrap(),
                 );
                 DataResult::error(move || {
-                    format!(
+                    mc_core::jformat!(
                         "Failed to parse either. First: {}; Second: {}",
-                        m1.get(),
-                        m2.get()
+                        m1.get_java(),
+                        m2.get_java()
                     )
                 })
             },
@@ -564,10 +564,10 @@ impl<A: 'static> Codec<A> {
                     second.error_msg_ref().cloned().unwrap(),
                 );
                 DataResult::error(move || {
-                    format!(
+                    mc_core::jformat!(
                         "Failed to parse either. First: {}; Second: {}",
-                        m1.get(),
-                        m2.get()
+                        m1.get_java(),
+                        m2.get_java()
                     )
                 })
             },
@@ -593,8 +593,8 @@ impl<A: 'static> Codec<A> {
             },
             move |ops, input| match input.get(&n2) {
                 None => {
-                    let (n, i) = (n2.clone(), input.to_string());
-                    DataResult::error(move || format!("No key {n} in {i}"))
+                    let (n, i) = (n2.clone(), input.to_java_string());
+                    DataResult::error(move || mc_core::jformat!("No key {} in {}", n, i))
                 }
                 Some(v) => d.parse(ops, v),
             },

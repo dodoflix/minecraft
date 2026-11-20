@@ -114,7 +114,13 @@ pub static PASSTHROUGH: LazyLock<Codec<Dynamic>> = LazyLock::new(|| {
             }
             let (p, c) = (prefix.clone(), casted);
             DataResult::error_partial(
-                move || format!("Don't know how to merge {p} and {c}"),
+                move || {
+                    mc_core::jformat!(
+                        "Don't know how to merge {} and {}",
+                        p.to_json_string(),
+                        c.to_json_string()
+                    )
+                },
                 prefix,
             )
         },
@@ -211,18 +217,31 @@ pub fn string_range(min: usize, max: usize) -> Codec<String> {
     })
 }
 
-/// [`string_range`] over [`JAVA_STRING`]: the value keeps lone surrogates (the error message shows them as U+FFFD).
+/// [`string_range`] over [`JAVA_STRING`]: the value and the error message keep lone surrogates.
 pub fn java_string_range(min: usize, max: usize) -> Codec<JavaString> {
     JAVA_STRING.validate(move |value| {
         let length = value.utf16_len();
-        let shown = value.as_lossy_str().to_owned();
         if length < min {
+            let shown = value.clone();
             DataResult::error(move || {
-                format!("String \"{shown}\" is too short: {length}, expected range [{min}-{max}]")
+                mc_core::jformat!(
+                    "String \"{}\" is too short: {}, expected range [{}-{}]",
+                    shown,
+                    length,
+                    min,
+                    max
+                )
             })
         } else if length > max {
+            let shown = value.clone();
             DataResult::error(move || {
-                format!("String \"{shown}\" is too long: {length}, expected range [{min}-{max}]")
+                mc_core::jformat!(
+                    "String \"{}\" is too long: {}, expected range [{}-{}]",
+                    shown,
+                    length,
+                    min,
+                    max
+                )
             })
         } else {
             DataResult::success(value)

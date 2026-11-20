@@ -73,8 +73,10 @@ struct Feedback {
 impl CommandSource for Feedback {
     fn send_system_message(&self, message: &Component) {
         let failure = message.style().color() == Some(TextColor::RED);
+        // the oracle writes its lines as UTF-8: a lone surrogate becomes `?`
         let text = message
-            .get_string()
+            .get_java_string()
+            .to_utf8_string()
             .replace('\\', "\\\\")
             .replace('\n', "\\n");
         let mut lines = self.lines.lock();

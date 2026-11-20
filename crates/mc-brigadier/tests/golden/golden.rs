@@ -179,8 +179,8 @@ fn value_string(v: &ParsedValue) -> String {
         float_to_string(*x)
     } else if let Some(x) = a.downcast_ref::<bool>() {
         x.to_string()
-    } else if let Some(x) = a.downcast_ref::<String>() {
-        x.clone()
+    } else if let Some(x) = a.downcast_ref::<mc_core::java_string::JavaString>() {
+        x.as_lossy_str().to_owned()
     } else {
         "?".into()
     }

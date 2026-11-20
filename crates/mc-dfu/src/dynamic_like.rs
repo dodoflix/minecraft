@@ -194,10 +194,16 @@ impl PartialEq for Dynamic {
     }
 }
 
+impl Dynamic {
+    /// `Dynamic.toString()`: `%s[%s]` of the ops name and the value's `toString()`, a lone surrogate kept.
+    pub fn to_java_string(&self) -> mc_core::java_string::JavaString {
+        mc_core::jformat!("{}[{}]", self.ops.name(), self.ops.show(&self.value))
+    }
+}
+
 impl fmt::Display for Dynamic {
-    /// `Dynamic.toString()`: `%s[%s]` of the ops name and the value's `toString()`.
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}[{}]", self.ops.name(), self.ops.show(&self.value))
+        f.write_str(self.to_java_string().as_lossy_str())
     }
 }
 
@@ -304,7 +310,9 @@ impl Dynamic {
                 Some(v) => DataResult::success(self.wrap(v)),
                 None => {
                     let (key, value) = (key.to_string(), self.ops.show(&self.value));
-                    DataResult::error(move || format!("key missing: {key} in {value}"))
+                    DataResult::error(move || {
+                        mc_core::jformat!("key missing: {} in {}", key, value)
+                    })
                 }
             });
         OptionalDynamic {
