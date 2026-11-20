@@ -15,7 +15,7 @@ use std::time::Duration;
 
 /// `[12:00:00] [Server thread/INFO]: text` as `Server thread/INFO: text`; lines of other threads and the launcher are
 /// `None`.
-fn message(line: &str) -> Option<String> {
+pub(crate) fn message(line: &str) -> Option<String> {
     let rest = line.strip_prefix('[')?.split_once("] ")?.1;
     let rest = rest.strip_prefix('[')?;
     let (thread_level, text) = rest.split_once("]: ")?;
@@ -23,7 +23,7 @@ fn message(line: &str) -> Option<String> {
 }
 
 /// `Starting Minecraft server on 127.0.0.1:41234`, `RCON running on 0.0.0.0:25575`: the port is not comparable.
-fn mask_ports(text: &str) -> String {
+pub(crate) fn mask_ports(text: &str) -> String {
     let mut out = String::new();
     let mut chars = text.chars().peekable();
     while let Some(c) = chars.next() {
@@ -82,7 +82,7 @@ fn startup(server: &Server) -> Vec<String> {
 }
 
 /// The same scenario on the real vanilla server and on `mc-server`; `props` are `key=value` entries for both.
-async fn on_both<F: AsyncFn(&Server, bool) -> Vec<String>>(
+pub(crate) async fn on_both<F: AsyncFn(&Server, bool) -> Vec<String>>(
     props: &[&str],
     prepare: fn(&Path),
     scenario: F,
@@ -107,7 +107,7 @@ async fn on_both<F: AsyncFn(&Server, bool) -> Vec<String>>(
     assert_eq!(theirs.len(), ours.len(), "number of lines");
 }
 
-fn nothing(_: &Path) {}
+pub(crate) fn nothing(_: &Path) {}
 
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "oracle: starts the vanilla server and the mc-server binary"]

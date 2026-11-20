@@ -33,6 +33,7 @@ mod play_policy_dual;
 mod play_scenario;
 mod playerdata_diff;
 mod portal_dual;
+mod query_dual;
 mod rcon_dual;
 mod record_setblock;
 mod server_policy_dual;
