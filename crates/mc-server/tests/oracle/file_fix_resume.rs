@@ -13,7 +13,7 @@
 //! `<world> upgraded`, so the journal has nothing left to continue from. Vanilla fails on it (`Not a regular file`, it
 //! looks for the moved files in the staging folder that is gone); `mc-server` finishes the swap. There the real server
 //! upgrades the same world without an interruption, and the comparison skips the log (the interrupted start logs the
-//! continuation).
+//! continuation). Worlds that are already at the latest file fixer version have no file fix to interrupt and are skipped.
 
 use std::fs;
 use std::panic::{AssertUnwindSafe, catch_unwind};
@@ -22,7 +22,7 @@ use std::path::Path;
 use mc_world::filefix::{
     Checkpoint, FileSystemCapabilities, FixHooks, UpgradeProgress, new_file_fixer,
 };
-use mc_world::level_storage::LevelStorageSource;
+use mc_world::level_storage::{LevelStorageSource, get_data_version};
 
 use crate::world_start::{Side, compare, copy_dir, run, stop_random_ticks, worlds};
 
@@ -48,8 +48,9 @@ impl FixHooks for Crash {
     }
 }
 
-/// Upgrades the world folder `saves/world` until `crash` stops it.
-fn interrupt(saves: &Path, crash: Crash) {
+/// Upgrades the world folder `saves/world` until `crash` stops it; `false`: the world is at the latest file fixer version,
+/// there is nothing to interrupt.
+fn interrupt(saves: &Path, crash: Crash) -> bool {
     let source = LevelStorageSource::create_default(saves).expect("saves folder");
     let mut access = source
         .validate_and_create_access("world")
@@ -58,10 +59,14 @@ fn interrupt(saves: &Path, crash: Crash) {
         .get_unfixed_data_tag_with_fallback()
         .expect("level.dat");
     let fixer = new_file_fixer().with_hooks(Box::new(crash));
+    if !fixer.requires_file_fixing(get_data_version(&unfixed)) {
+        return false;
+    }
     let outcome = catch_unwind(AssertUnwindSafe(|| {
         fixer.fix(&mut access, unfixed, &UpgradeProgress::default())
     }));
     assert!(outcome.is_err(), "the upgrade was not interrupted");
+    true
 }
 
 /// The state in which vanilla cannot continue (see the module documentation).
@@ -92,7 +97,13 @@ fn an_interrupted_file_fix_is_continued_like_vanilla_does() {
             let staging = tempfile::tempdir().expect("temp dir");
             copy_dir(&world.dir, &staging.path().join("world"));
             stop_random_ticks(&staging.path().join("world"));
-            interrupt(staging.path(), Crash { at, hard_links });
+            if !interrupt(staging.path(), Crash { at, hard_links }) {
+                println!(
+                    "FILE FIX RESUME {} {state}: no file fix to interrupt",
+                    world.name
+                );
+                continue;
+            }
             let dirs = [
                 tempfile::tempdir().expect("temp dir"),
                 tempfile::tempdir().expect("temp dir"),
