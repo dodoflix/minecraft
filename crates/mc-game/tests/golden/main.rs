@@ -307,3 +307,4 @@ mod vegetation_features_golden;
 mod world_dimensions_golden;
 mod world_gen_settings_errors;
 mod world_generation_features;
+mod worldgen_light_order_golden;

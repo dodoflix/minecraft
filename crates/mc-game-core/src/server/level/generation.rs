@@ -144,13 +144,16 @@ impl ChunkMap {
     /// Hand the next queued task slice to the "executor" while the worldgen thread is idle.
     pub(crate) fn pump_worldgen(&mut self) {
         while !self.worldgen_busy {
-            // light work waits while a batch has chunks lent out: give it its turn before the next batch starts. An inline
-            // worldgen thread (oracle mode) lends nothing between batches and vanilla's light engine runs once per poll
-            // (`tryScheduleUpdate`), not between the worldgen tasks of one `runGenerationTasks`
-            if !self.worldgen.is_inline() {
-                self.run_light_updates();
-            }
             let Some((_, tasks)) = self.worldgen_queue.pop() else {
+                // the worker has nothing queued: the light update gets its turn (an inline worldgen thread, the oracle's
+                // direct executors, runs light once per poll in `poll_main_task` instead)
+                if !self.worldgen.is_inline() && self.light.has_pending_work() {
+                    self.run_light_updates();
+                    self.process_ready();
+                    if self.worldgen_queue.has_work() {
+                        continue;
+                    }
+                }
                 return;
             };
             for id in tasks {

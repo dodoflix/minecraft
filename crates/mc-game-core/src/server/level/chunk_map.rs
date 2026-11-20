@@ -860,10 +860,22 @@ impl ChunkMap {
         }
     }
 
+    /// Vanilla's `light` executor task is scheduled by the game thread (`tryScheduleUpdate`), from outside the pool's
+    /// worker: a `ForkJoinPool` worker empties its own queue (the chained worldgen tasks and the light dispatcher hops
+    /// they submit) before it looks at tasks other threads submitted. The light update therefore runs when the worker has
+    /// nothing left to do, however many chunk steps are queued before.
+    fn worker_idle(&self) -> bool {
+        self.worldgen.is_inline()
+            || (!self.worldgen_busy()
+                && !self.worldgen_queue.has_work()
+                && self.pending_generation_tasks.is_empty()
+                && self.ready.is_empty())
+    }
+
     pub(super) fn run_light_updates(&mut self) {
         // the chunks a worldgen batch works on are lent out: the light thread reads them live in vanilla, here a lent chunk
         // reads as missing (bedrock), which would lose the light of everything it holds, so light waits for the batch
-        if self.worldgen_busy || !self.light.has_pending_work() {
+        if !self.worker_idle() || !self.light.has_pending_work() {
             return;
         }
         let holders = &self.holders;
