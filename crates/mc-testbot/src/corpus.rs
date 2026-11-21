@@ -602,6 +602,9 @@ struct Side {
     label: &'static str,
     srv: mc_testkit::Server,
     bots: [Option<Bot>; 2],
+    /// Per bot, the chat index just after the last marker it saw: a `!ticks n show` window starts there, so output that
+    /// arrives between that marker and the window's own mark (a loaded host) is not lost.
+    chat_end: [Option<usize>; 2],
     log_off: usize,
     marker: u32,
     /// Id of the next `command_suggestion` request.
@@ -632,6 +635,7 @@ impl Side {
             .await
             .map_err(|e| format!("{} {} ready: {e}", self.label, BOTS[i]))?;
         self.bots[i] = Some(bot);
+        self.chat_end[i] = None;
         Ok(())
     }
 
@@ -727,7 +731,13 @@ impl Side {
                         .then_some(())
                 })
                 .await;
-            let chat: Vec<(String, String)> = bot.with_state(|s| {
+            let (chat, end): (Vec<(String, String)>, Option<usize>) = bot.with_state(|s| {
+                let end = s
+                    .chat
+                    .iter()
+                    .skip(m.chat[i])
+                    .position(|l| l.text.contains(&tag))
+                    .map(|p| m.chat[i] + p + 1);
                 let mut chat = Vec::new();
                 for l in s.chat.iter().skip(m.chat[i]) {
                     if l.text.contains(MARKER) {
@@ -747,8 +757,9 @@ impl Side {
                         l.json.clone(),
                     ));
                 }
-                chat
+                (chat, end)
             });
+            self.chat_end[i] = end;
             for (text, json) in chat {
                 let t = self.clean(&text);
                 if self.keep_line(&t) {
@@ -923,7 +934,13 @@ impl Side {
             }
             Item::Ticks(n, show) => {
                 // `show` reads the window as ONE segment: output between two marker round trips would be lost
-                let (log_off, m0) = (self.log_off, self.mark());
+                let log_off = self.log_off;
+                let mut m0 = self.mark();
+                for (i, end) in self.chat_end.iter().enumerate() {
+                    if let Some(end) = end {
+                        m0.chat[i] = m0.chat[i].min(*end);
+                    }
+                }
                 let g0 = self.gametime().await?;
                 if self.frozen {
                     self.issue(None, Some(&format!("tick step {n}")), String::new())
@@ -1076,6 +1093,7 @@ async fn run_side(ours: bool, o: &Opts, tag: &str, lines: &[Line]) -> Res<SideOu
         label,
         srv,
         bots: [None, None],
+        chat_end: [None, None],
         log_off: 0,
         marker: 0,
         suggest_id: 0,
