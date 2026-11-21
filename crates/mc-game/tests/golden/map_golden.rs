@@ -390,3 +390,9 @@ fn biome_preview_map_matches_vanilla() {
 fn map_item_use_scenario_matches_vanilla() {
     crate::common::block_scenario::check("itm_map_use");
 }
+
+/// Static `map_decorations` keys with a lone surrogate are distinct keys of the map data (`tests/oracle/scenarios/map_decoration_keys_surrogate.txt`).
+#[test]
+fn static_decoration_keys_with_lone_surrogates_match_vanilla() {
+    crate::common::block_scenario::check("map_decoration_keys_surrogate");
+}

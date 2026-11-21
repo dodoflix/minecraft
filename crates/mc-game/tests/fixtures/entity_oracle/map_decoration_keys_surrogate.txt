@@ -1,0 +1,12 @@
+I A 0 minecraft:filled_map*1{minecraft:map_id:0}
+# two keys that differ only in the unpaired unit
+CF msg Replaced 1 slot(s) on A with [Map]
+CF result success 1
+I A 0 minecraft:filled_map*1{minecraft:map_decorations:{?:{rotation:0.0f,type:"minecraft:target_x",x:3.0d,z:3.0d},�:{rotation:0.0f,type:"minecraft:target_point",x:-3.0d,z:-3.0d}},minecraft:map_id:0}
+PKT A minecraft:map_item_data 3400000001030001010000040606000005fbfb000000
+# a lone high and low surrogate that join into one key are the same key as the pair
+CF msg Replaced 1 slot(s) on A with [Map]
+CF result success 1
+I A 0 minecraft:filled_map*1{minecraft:map_decorations:{?:{rotation:0.0f,type:"minecraft:red_x",x:6.0d,z:6.0d},😀:{rotation:0.0f,type:"minecraft:target_x",x:5.0d,z:5.0d},?:{rotation:0.0f,type:"minecraft:red_x",x:7.0d,z:7.0d}},minecraft:map_id:0}
+PKT A minecraft:map_item_data 34000000000180000080010505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505
+PKT A minecraft:map_item_data 3400000001060001010000040606000005fbfb00001a0e0e0000040a0a00001a0c0c000000

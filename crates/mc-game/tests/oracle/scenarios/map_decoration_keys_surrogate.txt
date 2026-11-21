@@ -1,0 +1,22 @@
+# Map decorations kept on the item (`map_decorations`) are copied into the map data under their key when the holder ticks the map: a key
+# with a lone UTF-16 surrogate (an SNBT `\ud800` escape) is its own key, never the key with U+FFFD, so both decorations reach the client.
+command_env
+level flat
+preload 2
+entity_counter 3600
+spawn_player A survival 0.5 -60 0.5 0 0
+op A
+tick 2
+give A hotbar0 minecraft:map 1
+select A 0
+use A main
+tick 1
+dump inventory:A packets:A:none
+note two keys that differ only in the unpaired unit
+cmd item replace entity A weapon.mainhand with minecraft:filled_map[minecraft:map_id=0,minecraft:map_decorations={"\ud800":{type:"minecraft:target_x",x:3d,z:3d,rotation:0f},"\ufffd":{type:"minecraft:target_point",x:-3d,z:-3d,rotation:0f}}]
+tick 12
+dump inventory:A packets:A:map_item_data
+note a lone high and low surrogate that join into one key are the same key as the pair
+cmd item replace entity A weapon.mainhand with minecraft:filled_map[minecraft:map_id=0,minecraft:map_decorations={"\ud83d\ude00":{type:"minecraft:target_x",x:5d,z:5d,rotation:0f},"\ud83d":{type:"minecraft:red_x",x:6d,z:6d,rotation:0f},"\ude00":{type:"minecraft:red_x",x:7d,z:7d,rotation:0f}}]
+tick 12
+dump inventory:A packets:A:map_item_data

@@ -10,6 +10,7 @@ use crate::world::level::saveddata::{SavedData, SavedDataType};
 use crate::world::level::{BlockGetter, DimensionKey};
 use indexmap::IndexMap;
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_core::pos::BlockPos;
 use mc_dfu::extra::IDENTIFIER;
 use mc_dfu::{BOOL, BYTE, BYTE_BUFFER, Codec, INT};
@@ -128,7 +129,7 @@ pub struct MapItemSavedData {
     /// `Maps.newHashMap()`: iteration order is `String.hashCode` order (it is the saved list order).
     banner_markers: JavaHashMap<MapBanner>,
     /// `Maps.newLinkedHashMap()`.
-    decorations: IndexMap<String, MapDecoration>,
+    decorations: IndexMap<JavaString, MapDecoration>,
     frame_markers: JavaHashMap<MapFrame>,
     tracked_decoration_count: i32,
 }
@@ -354,14 +355,14 @@ impl MapItemSavedData {
         if !static_decorations
             .decorations
             .iter()
-            .all(|(id, _)| self.decorations.contains_key(id.as_lossy_str()))
+            .all(|(id, _)| self.decorations.contains_key(id))
         {
             for (id, entry) in &static_decorations.decorations {
-                if !self.decorations.contains_key(id.as_lossy_str()) {
+                if !self.decorations.contains_key(id) {
                     self.add_decoration(
                         entry.ty,
                         Some(env.game_time),
-                        id.as_lossy_str(),
+                        id,
                         entry.x,
                         entry.z,
                         f64::from(entry.rotation),
@@ -372,8 +373,8 @@ impl MapItemSavedData {
         }
     }
 
-    fn remove_decoration(&mut self, key: &str) {
-        if let Some(decoration) = self.decorations.shift_remove(key)
+    fn remove_decoration(&mut self, key: impl Into<JavaString>) {
+        if let Some(decoration) = self.decorations.shift_remove(&key.into())
             && track_count(decoration.ty)
         {
             self.tracked_decoration_count -= 1;
@@ -414,12 +415,13 @@ impl MapItemSavedData {
         &mut self,
         ty: MapDecorationType,
         game_time: Option<i64>,
-        key: &str,
+        key: impl Into<JavaString>,
         x_pos: f64,
         z_pos: f64,
         y_rot: f64,
         name: Option<Component>,
     ) {
+        let key = key.into();
         let scaling = 1i32 << self.scale;
         let x_delta = (x_pos - f64::from(self.center_x)) as f32 / scaling as f32;
         let y_delta = (z_pos - f64::from(self.center_z)) as f32 / scaling as f32;
@@ -427,9 +429,7 @@ impl MapItemSavedData {
             None => self.remove_decoration(key),
             Some((ty, x, y, rot)) => {
                 let new_decoration = MapDecoration::new(ty, x, y, rot, name);
-                let previous = self
-                    .decorations
-                    .insert(key.to_owned(), new_decoration.clone());
+                let previous = self.decorations.insert(key, new_decoration.clone());
                 if previous.as_ref() != Some(&new_decoration) {
                     if let Some(previous) = &previous
                         && track_count(previous.ty)
