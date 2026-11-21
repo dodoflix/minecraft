@@ -1,0 +1,34 @@
+# /test runs of several tests at once: the structure grid (tests per row, columns 5 and rows 6 blocks apart), the order the tests
+# of one run start in, flaky re-runs, `numberOfTimes`, `runmultiple`, `runthese` and rotation steps (gt = data pack of gametest_pack).
+#   scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/gametest_multi.txt
+# Every run here holds tests of ONE environment and ONE dimension. Vanilla groups the tests of a run by (environment, dimension) in
+# a HashMap keyed by identity hashes, so a run over several environments or dimensions starts its batches in an order that differs
+# between runs of vanilla itself (three recordings of `test run gt:*` (overworld and nether) started the batches in two different
+# orders, and so did `test run ge:*`); those runs are covered one test at a time in gametest_pack.
+!datapack gametest/gtpack
+!ignore passed! \(
+!mask (\d+)ms
+# the bots sometimes miss the failure of a test on its first tick (see gametest_pack)
+!ignore ^Bot0?\| .*(Test structure missing (Start|Accept) block|Too many Start blocks)
+test run gt:f*
+!ticks 100 show
+test locate gt:*
+test clearall
+test run gt:?o* 1 false 0 2
+!ticks 100 show
+test locate gt:*
+test clearall
+test run gt:pass 3 false 0 2
+!ticks 100 show
+test runmultiple gt:pass 5
+!ticks 100 show
+test run gt:fail 1 false 1
+!ticks 100 show
+test runthese
+!ticks 100 show
+test clearall
+# more than 50 tests of one key are split into batches of 50, and the grid lays 8 per row
+test runmultiple gt:pass 120
+!ticks 400 show
+test locate gt:pass
+test clearall
