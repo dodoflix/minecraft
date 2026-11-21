@@ -730,6 +730,13 @@ impl WorldGenLevel for GenLevel<'_> {
     }
 
     fn add_fresh_entity_nbt(&mut self, tag: CompoundTag) -> bool {
+        // vanilla builds the entity (`new MinecartChest(level, ..)`) before the chunk saves it as this tag: its constructor
+        // takes an id of the level's counter, which loading the chunk's entities later does again
+        let _ = self
+            .live
+            .as_ref()
+            .and_then(|l| l.next_entity_id())
+            .unwrap_or_else(crate::server::level::next_detached_entity_id);
         self.push_entity_tag(tag);
         true
     }
