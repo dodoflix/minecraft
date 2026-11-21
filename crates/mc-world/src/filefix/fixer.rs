@@ -175,29 +175,40 @@ fn illegal_state(message: impl std::fmt::Display) -> FileFixError {
     FileFixError::Unchecked(format!("java.lang.IllegalStateException: {message}"))
 }
 
-/// `UpgradeInProgress.codec`'s path codec: `base` plus a relative path that stays inside it.
-fn guarded_path(base: &Path, text: &str) -> Result<PathBuf, FileFixError> {
+/// `Path.normalize`: `.` and `x/..` are dropped, a `..` that has nothing to cancel stays (and is dropped at a root).
+fn normalized(path: &Path) -> String {
     use std::path::Component;
-    let path = Path::new(text);
-    if path.is_absolute() {
-        return Err(illegal_state(format!("Illegal absolute path: {text}")));
-    }
-    let mut normal = false;
+    let mut parts: Vec<String> = Vec::new();
     for component in path.components() {
         match component {
-            Component::Normal(_) => normal = true,
-            Component::CurDir | Component::ParentDir => {
-                return Err(illegal_state(format!("Illegal path traversal: {text}")));
+            Component::Normal(name) => parts.push(name.to_string_lossy().into_owned()),
+            Component::ParentDir if parts.last().is_some_and(|last| last != "..") => {
+                parts.pop();
             }
-            Component::RootDir | Component::Prefix(_) => {
-                return Err(illegal_state(format!("Illegal absolute path: {text}")));
-            }
+            Component::ParentDir if !path.has_root() => parts.push("..".to_owned()),
+            _ => {}
         }
     }
-    if !normal {
-        return Err(illegal_state(format!("Path is empty: {text}")));
+    let joined = parts.join("/");
+    if path.has_root() {
+        format!("/{joined}")
+    } else {
+        joined
     }
-    Ok(base.join(path))
+}
+
+/// `ExtraCodecs.guardedPathCodec`: `base` plus a relative path that stays inside it (the message of a failure).
+fn guarded_path(base: &Path, text: &str) -> Result<PathBuf, String> {
+    let path = normalized(Path::new(text));
+    if path.starts_with('/') {
+        Err(format!("Illegal absolute path: {path}"))
+    } else if path.split('/').any(|element| element == "..") {
+        Err(format!("Illegal path traversal: {path}"))
+    } else if path.is_empty() {
+        Err(format!("Path is empty: {path}"))
+    } else {
+        Ok(base.join(path))
+    }
 }
 
 /// `writeMoves`: `{"moves": [{"from", "to"}], "upgraded_folder": name}` (`from` relative to the world, `to` to the new
@@ -288,58 +299,10 @@ pub(super) fn read_moves(
         None => return Err(illegal_state("Not a JSON object: null")),
         Some(element) => mc_core::gson::expect_object(element).map_err(syntax)?,
     };
-    let map_like = |map: &JsonObject| {
-        format!(
-            "MapLike[{}]",
-            JsonElement::Object(map.clone()).to_compact_string()
-        )
-    };
-    let entries = match json.get("moves") {
-        Some(JsonElement::Array(entries)) => entries,
-        Some(other) => {
-            return Err(illegal_state(format!(
-                "Not a json array: {}",
-                other.to_compact_string()
-            )));
-        }
-        None => {
-            return Err(illegal_state(format!(
-                "No key moves in {}",
-                map_like(&json)
-            )));
-        }
-    };
-    let text_of = |value: &JsonElement| match value {
-        JsonElement::String(text) => Ok(text.clone().into_string_lossy()),
-        other => Err(illegal_state(format!(
-            "Not a string: {}",
-            other.to_compact_string()
-        ))),
-    };
-    let field = |entry: &JsonElement, name: &str| -> Result<String, FileFixError> {
-        let JsonElement::Object(map) = entry else {
-            return Err(illegal_state(format!(
-                "Not a JSON object: {}",
-                entry.to_compact_string()
-            )));
-        };
-        match map.get(name) {
-            Some(value) => text_of(value),
-            None => Err(illegal_state(format!("No key {name} in {}", map_like(map)))),
-        }
-    };
-    let moves = entries
-        .iter()
-        .map(|entry| {
-            Ok(FileMove {
-                from: guarded_path(from_directory, &field(entry, "from")?)?,
-                to: guarded_path(to_directory, &field(entry, "to")?)?,
-            })
-        })
-        .collect::<Result<Vec<_>, FileFixError>>()?;
+    let moves = decode_moves(&json, from_directory, to_directory).map_err(illegal_state)?;
     let upgraded_folder = match json.get("upgraded_folder") {
         Some(name) => {
-            let name = text_of(name)?;
+            let name = text_of(name).map_err(illegal_state)?;
             if Path::new(&name).components().count() != 1
                 || guarded_path(Path::new(""), &name).is_err()
             {
@@ -353,6 +316,73 @@ pub(super) fn read_moves(
         moves,
         upgraded_folder,
     })
+}
+
+/// `JsonOps` reads a `null` member like a missing one.
+fn member<'a>(map: &'a JsonObject, key: &str) -> Result<&'a JsonElement, String> {
+    match map.get(key) {
+        Some(value) if *value != JsonElement::Null => Ok(value),
+        _ => Err(format!(
+            "No key {key} in MapLike[{}]",
+            JsonElement::Object(map.clone()).to_compact_string()
+        )),
+    }
+}
+
+/// `Codec.STRING` of `JsonOps`.
+fn text_of(value: &JsonElement) -> Result<String, String> {
+    match value {
+        JsonElement::String(text) => Ok(text.clone().into_string_lossy()),
+        other => Err(format!("Not a string: {}", other.to_compact_string())),
+    }
+}
+
+/// The failures of independent parts of a record or a list are all in the message, `; ` apart and the last one first
+/// (`DataResult.apply2stable`).
+fn all<T>(results: impl IntoIterator<Item = Result<T, String>>) -> Result<Vec<T>, String> {
+    let (mut values, mut errors) = (Vec::new(), Vec::new());
+    for result in results {
+        match result {
+            Ok(value) => values.push(value),
+            Err(message) => errors.push(message),
+        }
+    }
+    if errors.is_empty() {
+        Ok(values)
+    } else {
+        errors.reverse();
+        Err(errors.join("; "))
+    }
+}
+
+/// `UpgradeInProgress.codec`: the `moves` list of the journal.
+fn decode_moves(
+    json: &JsonObject,
+    from_directory: &Path,
+    to_directory: &Path,
+) -> Result<Vec<FileMove>, String> {
+    let moves = member(json, "moves")?;
+    let JsonElement::Array(entries) = moves else {
+        return Err(format!("Not a json array: {}", moves.to_compact_string()));
+    };
+    all(entries.iter().map(|entry| {
+        let JsonElement::Object(map) = entry else {
+            return Err(format!("Not a JSON object: {}", entry.to_compact_string()));
+        };
+        let path = |key: &str, base: &Path| {
+            member(map, key)
+                .and_then(text_of)
+                .and_then(|text| guarded_path(base, &text))
+        };
+        match (path("from", from_directory), path("to", to_directory)) {
+            (Ok(from), Ok(to)) => Ok(FileMove { from, to }),
+            (from, to) => Err([to.err(), from.err()]
+                .into_iter()
+                .flatten()
+                .collect::<Vec<_>>()
+                .join("; ")),
+        }
+    }))
 }
 
 impl FileFixerUpper {

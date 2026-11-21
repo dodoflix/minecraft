@@ -53,7 +53,7 @@ fn journal(world: &Path, bytes: &[u8], mode: u32) {
 /// A case: what is wrong with the files of the copy of the old world.
 type Damage = fn(&Path);
 
-const CASES: [(&str, Damage); 28] = [
+const CASES: [(&str, Damage); 34] = [
     ("saved_data_unreadable", |w| {
         chmod(w, "data/Mineshaft.dat", 0o200)
     }),
@@ -110,6 +110,24 @@ const CASES: [(&str, Damage); 28] = [
     }),
     ("journal_move_from_number", |w| {
         journal(w, br#"{"moves":[{"from":5,"to":"b"}]}"#, 0o644)
+    }),
+    ("journal_moves_null", |w| {
+        journal(w, br#"{"moves":null}"#, 0o644)
+    }),
+    ("journal_move_without_paths", |w| {
+        journal(w, br#"{"moves":[{}]}"#, 0o644)
+    }),
+    ("journal_move_null_source", |w| {
+        journal(w, br#"{"moves":[{"from":null,"to":"b"}]}"#, 0o644)
+    }),
+    ("journal_move_both_outside", |w| {
+        journal(w, br#"{"moves":[{"from":"../a","to":"../b"}]}"#, 0o644)
+    }),
+    ("journal_two_moves_not_objects", |w| {
+        journal(w, br#"{"moves":[5,6,7]}"#, 0o644)
+    }),
+    ("journal_move_to_empty_path", |w| {
+        journal(w, br#"{"moves":[{"from":"a/..","to":"b"}]}"#, 0o644)
     }),
     ("journal_move_outside", |w| {
         journal(w, br#"{"moves":[{"from":"../a","to":"b"}]}"#, 0o644)

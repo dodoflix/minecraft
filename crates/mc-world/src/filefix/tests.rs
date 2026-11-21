@@ -1237,6 +1237,27 @@ fn the_journal_is_pretty_printed_json_and_reads_back() {
         (r#"{}"#, "No key moves in MapLike[{}]"),
         (r#"{"moves":[5]}"#, "Not a JSON object: 5"),
         (r#"{"moves":{}}"#, "Not a json array: {}"),
+        (
+            r#"{"moves":null}"#,
+            r#"No key moves in MapLike[{"moves":null}]"#,
+        ),
+        (
+            r#"{"moves":[{}]}"#,
+            "No key to in MapLike[{}]; No key from in MapLike[{}]",
+        ),
+        (
+            r#"{"moves":[{"from":null,"to":"b"}]}"#,
+            r#"No key from in MapLike[{"from":null,"to":"b"}]"#,
+        ),
+        (
+            r#"{"moves":[{"from":"../a","to":"../b"}]}"#,
+            "Illegal path traversal: ../b; Illegal path traversal: ../a",
+        ),
+        (
+            r#"{"moves":[5,6,7]}"#,
+            "Not a JSON object: 7; Not a JSON object: 6; Not a JSON object: 5",
+        ),
+        (r#"{"moves":[{"from":"a/..","to":"b"}]}"#, "Path is empty: "),
         (r#"{"moves":[{"from":5,"to":"y"}]}"#, "Not a string: 5"),
         // Gson reads an empty document, and one of only a BOM, blanks or comments, as `null`
         ("", "Not a JSON object: null"),
@@ -1279,6 +1300,15 @@ fn the_journal_is_pretty_printed_json_and_reads_back() {
             .upgraded_folder
             .is_none(),
         "a journal of vanilla"
+    );
+    // the paths are normalized before they are checked
+    fs::write(&file, r#"{"moves":[{"from":"./a/../b","to":"c//d"}]}"#).unwrap();
+    assert_eq!(
+        read_moves(&from, &to, &file).unwrap().moves,
+        [FileMove {
+            from: from.join("b"),
+            to: to.join("c/d"),
+        }]
     );
 }
 
@@ -1462,14 +1492,14 @@ fn a_content_fix_can_cancel_and_the_only_file_is_checked() {
     assert_eq!(snapshot(&setup.world, &[]), before);
     assert_eq!(*recorder.0.lock().unwrap(), ["started"]);
 
-    assert!(matches!(
-        only_file(vec![1, 2]),
-        Err(FileFixError::Unchecked(_))
-    ));
-    assert!(matches!(
-        only_file::<i32>(vec![]),
-        Err(FileFixError::Unchecked(_))
-    ));
+    assert_eq!(
+        only_file(vec![1, 2]).unwrap_err().to_string(),
+        "java.lang.IllegalStateException: Trying to get only file, but there are 2 files"
+    );
+    assert_eq!(
+        only_file::<i32>(vec![]).unwrap_err().to_string(),
+        "java.lang.IllegalStateException: Trying to get only file, but there are 0 files"
+    );
     assert_eq!(only_file(vec![7]).unwrap(), 7);
 }
 
