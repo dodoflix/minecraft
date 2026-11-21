@@ -130,6 +130,43 @@ const BELOW_ZERO_RACES: &[&str] = &[
     "dimensions/minecraft/overworld/region/*.mca#PostProcessing",
 ];
 
+/// Chunks in which two runs of the real server place overlapping feature blocks differently at the lowest sections: the
+/// features of the neighbour chunks that decorate them finish on worker threads in an order that varies. The sections
+/// below y = 32 of such a chunk are left out of the semantic comparison, the rest of it and every other chunk stay
+/// compared. `(dimension, chunk, only worlds older than 1.18)`. Evidence, runs of the real server and of `mc-server` on
+/// the same copy of each normal world:
+/// * overworld [-6, 6] (diorite, granite and andesite blobs at y 13 to 16): the 1.14.4 world, 5 blocks in two of three
+///   pairs of real runs; the 1.16.5 world, 16 blocks in one of three pairs; the 1.17.1 world, 16 blocks in two of three
+///   pairs. The only block difference at y >= 0 that remained between the servers in 9 runs lies in this chunk.
+/// * nether [6, -5] (8 blocks) and [6, -4] (3 blocks) of the 1.17.1 world: gravel against magma block at y 28 to 30 in
+///   two of three pairs of real runs, nothing else differs between two real runs there.
+///
+/// The runs of `mc-server` are identical in these chunks in every pair (nine pairs).
+const BLOCK_RACE_CHUNKS: &[(&str, (i32, i32), bool)] = &[
+    ("overworld", (-6, 6), true),
+    ("the_nether", (6, -5), false),
+    ("the_nether", (6, -4), false),
+];
+
+/// `rect` without the chunk `hole` (at most four rectangles).
+fn rect_without(
+    rect @ (x1, z1, x2, z2): (i32, i32, i32, i32),
+    (hx, hz): (i32, i32),
+) -> Vec<(i32, i32, i32, i32)> {
+    if !(x1..=x2).contains(&hx) || !(z1..=z2).contains(&hz) {
+        return vec![rect];
+    }
+    [
+        (x1, z1, x2, hz - 1),
+        (x1, hz + 1, x2, z2),
+        (x1, hz, hx - 1, hz),
+        (hx + 1, hz, x2, hz),
+    ]
+    .into_iter()
+    .filter(|(a, b, c, d)| a <= c && b <= d)
+    .collect()
+}
+
 /// Reruns of the real server on a world that differs from `mc-server` (never more than this many; `mc-server` runs once and
 /// has to be deterministic). The real server's first tick is a race: after `Done` it entity-ticks the loaded chunks whose
 /// promotion the start-up wait had finished, and it ran that promotion for chunk [0, 0] of the old flat corpus worlds in
@@ -662,7 +699,33 @@ pub(crate) fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
         for rect in outside {
             reports.push(compare_dimension(&v, &o, dim, &exact(rect, below_zero)));
         }
-        reports.push(compare_dimension(&v, &o, dim, &semantic(below_zero)));
+        // the chunks of [`BLOCK_RACE_CHUNKS`] are compared on their own, without the sections that hold the races
+        let holes: Vec<(i32, i32)> = BLOCK_RACE_CHUNKS
+            .iter()
+            .filter(|(d, _, old_only)| *d == dim && (!old_only || vanilla.below_zero))
+            .map(|(_, chunk, _)| *chunk)
+            .collect();
+        let rects = holes.iter().fold(vec![inner], |rects, hole| {
+            rects
+                .into_iter()
+                .flat_map(|r| rect_without(r, *hole))
+                .collect()
+        });
+        for rect in rects {
+            let filter = Filter {
+                chunks: Some(rect),
+                ..semantic(below_zero)
+            };
+            reports.push(compare_dimension(&v, &o, dim, &filter));
+        }
+        let race = format!("dimensions/minecraft/{dim}/region/*.mca#sections.*[Y<2]");
+        for (x, z) in holes {
+            let filter = Filter {
+                chunks: Some((x, z, x, z)),
+                ..semantic(&[below_zero, &[race.as_str()][..]].concat())
+            };
+            reports.push(compare_dimension(&v, &o, dim, &filter));
+        }
         // the semantic mode skips chunks below status full: those are compared exactly, one by one; the chunks the
         // servers generated while running (the world has no such chunk) also leave out [`GENERATED_CHUNK_RACES`]
         let stored = vanilla
