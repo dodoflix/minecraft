@@ -5,6 +5,7 @@ pub mod crude_incremental_int_identity_hash_bimap;
 pub mod direction;
 pub mod display;
 pub mod gson;
+pub mod hash_bins;
 pub mod ident;
 pub mod java_case;
 mod java_cased_letters;

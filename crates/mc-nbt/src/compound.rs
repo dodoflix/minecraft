@@ -5,12 +5,18 @@
 //! capacity a Java `HashMap` would have, so that [`CompoundTag::iter_java_order`] (used for binary
 //! output) reproduces vanilla's byte-exact key order.
 //!
-//! shortcut: bins with 9+ colliding keys are treeified by Java and iterate differently; that is
-//! not modelled (needs >8 keys with the same bucket, upgrade if byte-identical files demand it).
+//! A bin of 9 or more keys is a red-black tree in Java whose iteration order is not the insertion order:
+//! when that can happen, the order comes from replaying the `put`s on [`mc_core::hash_bins::Bins`].
+//!
+//! shortcut: the replay knows the keys present now, put in their order, on the table a fresh or copied map starts
+//! with; the puts and removes that came and went before are forgotten, and after a `remove` that changed a tree bin
+//! the entries keep that order as it stands (`frozen`) while later puts only move to their bucket. Upgrade when a
+//! compound that was edited in place after such a remove has to be byte-identical.
 
 use crate::ListTag;
 use crate::tag::{Number, Tag};
 use indexmap::{Equivalent, IndexMap};
+use mc_core::hash_bins::Bins;
 use mc_core::java_string::JavaString;
 use std::hash::{Hash, Hasher};
 use std::sync::LazyLock;
@@ -20,6 +26,10 @@ pub struct CompoundTag {
     tags: IndexMap<JavaString, Tag>,
     /// Capacity of the Java `HashMap` table (0 = not yet allocated).
     cap: u32,
+    /// The table size the first `resize` made for a map built by `new HashMap<>(map)` (0 = a fresh map: 16).
+    init_cap: u32,
+    /// The entries are in the iteration order of a tree-bin map (see the module shortcut): no replay.
+    frozen: bool,
 }
 
 static EMPTY_COMPOUND: LazyLock<CompoundTag> = LazyLock::new(CompoundTag::new);
@@ -103,19 +113,79 @@ impl CompoundTag {
         self.tags.values_mut()
     }
 
-    /// Entries in the order a vanilla `HashMap` would iterate them (bucket index, then insertion).
+    /// Entries in the order a vanilla `HashMap` would iterate them (bucket index, then insertion; the keys of a tree
+    /// bin in the order of its `next` chain).
     pub fn iter_java_order(&self) -> Vec<(&JavaString, &Tag)> {
-        let mut v: Vec<(u32, (&JavaString, &Tag))> = if self.cap == 0 {
-            Vec::new()
-        } else {
-            let mask = self.cap - 1;
+        self.java_order()
+            .into_iter()
+            .filter_map(|i| self.tags.get_index(i))
+            .collect()
+    }
+
+    /// Indices into `tags` in the iteration order of the `HashMap`.
+    fn java_order(&self) -> Vec<usize> {
+        if self.cap == 0 {
+            return Vec::new();
+        }
+        if !self.frozen
+            && let Some((order, _)) = self.tree_order(None)
+        {
+            return order;
+        }
+        let mask = self.cap - 1;
+        let mut order: Vec<usize> = (0..self.tags.len()).collect();
+        // stable: insertion order within a bucket
+        order.sort_by_cached_key(|&i| {
             self.tags
-                .iter()
-                .map(|(k, t)| (java_hash(k) & mask, (k, t)))
-                .collect()
-        };
-        v.sort_by_key(|(bucket, _)| *bucket); // stable: insertion order within a bucket
-        v.into_iter().map(|(_, e)| e).collect()
+                .get_index(i)
+                .map_or(0, |(k, _)| java_hash(k) & mask)
+        });
+        order
+    }
+
+    /// The table size of the first `resize`.
+    fn first_cap(&self) -> usize {
+        if self.init_cap == 0 {
+            16
+        } else {
+            self.init_cap as usize
+        }
+    }
+
+    /// Do 9 keys share a bucket of the first table? A tree bin in a later table needs that (tables only grow).
+    fn has_bin_of_nine(&self, first_cap: usize) -> bool {
+        if self.tags.len() < 9 {
+            return false;
+        }
+        let mut counts = vec![0u32; first_cap];
+        for k in self.tags.keys() {
+            let bucket = java_hash(k) as usize & (first_cap - 1);
+            counts[bucket] += 1;
+            if counts[bucket] == 9 {
+                return true;
+            }
+        }
+        false
+    }
+
+    /// The iteration order (indices into `tags`) of the map after the `put` of every key in order, then the `remove` of
+    /// index `removed`; `None` when no bin can have 9 keys, where sorting by bucket is exact.
+    fn tree_order(&self, removed: Option<usize>) -> Option<(Vec<usize>, usize)> {
+        let first_cap = self.first_cap();
+        if !self.has_bin_of_nine(first_cap) {
+            return None;
+        }
+        let keys: Vec<&JavaString> = self.tags.keys().collect();
+        let hashes = keys.iter().map(|k| k.java_hash_code()).collect();
+        let compare = |a: usize, b: usize| keys[a].java_cmp(keys[b]);
+        let mut bins = Bins::new(hashes, &compare, self.init_cap as usize);
+        for key in 0..keys.len() {
+            bins.put(key);
+        }
+        if let Some(key) = removed {
+            bins.remove(key);
+        }
+        Some((bins.order(), bins.capacity()))
     }
 
     /// A compound whose `HashMap` iterates `entries` in exactly this order (the entries are the iteration order of a
@@ -147,6 +217,9 @@ impl CompoundTag {
         CompoundTag {
             cap: if tags.is_empty() { 0 } else { cap },
             tags,
+            init_cap: 0,
+            // the given order may be a tree bin's: replaying the keys would reorder it
+            frozen: true,
         }
     }
 
@@ -312,6 +385,21 @@ impl CompoundTag {
 
     /// `remove(name)`, preserving the order of the remaining entries.
     pub fn remove(&mut self, name: &str) -> Option<Tag> {
+        if !self.frozen
+            && let Some(index) = self.tags.get_index_of(&Name(name))
+            && let Some((order, cap)) = self.tree_order(Some(index))
+        {
+            // removing from a tree bin reshapes the tree: keep the entries in the order the map now iterates them
+            let mut slots: Vec<Option<(JavaString, Tag)>> = std::mem::take(&mut self.tags)
+                .into_iter()
+                .map(Some)
+                .collect();
+            let removed = slots[index].take().map(|(_, tag)| tag);
+            self.tags = order.into_iter().filter_map(|i| slots[i].take()).collect();
+            self.cap = cap as u32; // a bin of 9 keys may have doubled the table
+            self.frozen = true;
+            return removed;
+        }
         self.tags.shift_remove(&Name(name))
     }
 
@@ -332,6 +420,8 @@ impl CompoundTag {
                 .map(|(k, v)| (k.clone(), v.share()))
                 .collect(),
             cap: self.cap,
+            init_cap: self.init_cap,
+            frozen: self.frozen,
         }
     }
 
@@ -344,6 +434,7 @@ impl CompoundTag {
             let t = (n as f64 / 0.75f64).ceil() as u32;
             out.cap = t.max(1).next_power_of_two();
         }
+        out.init_cap = out.cap;
         for (k, v) in self.iter_java_order() {
             out.tags.insert(k.clone(), v.clone());
         }
@@ -361,25 +452,13 @@ impl CompoundTag {
         } else {
             0
         };
-        let mask = self.cap.wrapping_sub(1);
-        let mut entries: Vec<(u32, (JavaString, Tag))> = self
-            .tags
-            .into_iter()
-            .map(|(k, t)| {
-                (
-                    if self.cap == 0 {
-                        0
-                    } else {
-                        java_hash(&k) & mask
-                    },
-                    (k, t),
-                )
-            })
-            .collect();
-        entries.sort_by_key(|(bucket, _)| *bucket); // stable: insertion order within a bucket
+        let order = self.java_order();
+        let mut slots: Vec<Option<(JavaString, Tag)>> = self.tags.into_iter().map(Some).collect();
         CompoundTag {
             cap,
-            tags: entries.into_iter().map(|(_, e)| e).collect(),
+            init_cap: cap,
+            frozen: false,
+            tags: order.into_iter().filter_map(|i| slots[i].take()).collect(),
         }
     }
 
@@ -401,11 +480,13 @@ impl Clone for CompoundTag {
     /// Vanilla `copy()` semantics (see [`CompoundTag::copy`]).
     fn clone(&self) -> Self {
         let cap = organic_cap(self.tags.len());
-        if cap == self.cap {
+        if cap == self.cap && !self.frozen && self.init_cap == 0 && !self.has_bin_of_nine(16) {
             // Same table size: Java's re-insertion keeps every bucket's relative order.
             return CompoundTag {
                 tags: self.tags.clone(),
                 cap,
+                init_cap: 0,
+                frozen: false,
             };
         }
         let mut out = CompoundTag::new();

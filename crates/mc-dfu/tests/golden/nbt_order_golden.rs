@@ -3,6 +3,7 @@
 //! resize small tables and turn bins into red-black trees.
 
 use mc_dfu::{Dyn, NBT};
+use mc_nbt::CompoundTag;
 use std::sync::LazyLock;
 
 static GOLDEN: LazyLock<String> =
@@ -47,6 +48,54 @@ fn compound_key_order_matches_vanilla() {
             };
         }
         assert_eq!(keys(&tag), want, "initial {initial:?} operations {ops:?}");
+        n += 1;
+    }
+    assert!(n >= 900, "{n}");
+}
+
+/// The same sequences through `CompoundTag` itself: `new CompoundTag()` and `put`s, then per operation `shallowCopy()` with a
+/// `put` (`NbtOps.set`) or a `remove`; the order of `iter_java_order` (what the binary writer lists) is vanilla's `keySet()`.
+#[test]
+fn compound_tag_key_order_matches_vanilla() {
+    let mut n = 0;
+    for line in GOLDEN.lines() {
+        let f: Vec<&str> = line.split('\t').collect();
+        let (initial, ops, want) = (split(f[0]), split(f[1]), split(f[2]));
+        let mut tag = CompoundTag::new();
+        for (i, k) in initial.iter().enumerate() {
+            tag.put_int(*k, i as i32);
+        }
+        for (i, op) in ops.iter().enumerate() {
+            let mut copy = tag.shallow_copy();
+            match op.split_at(1) {
+                ("+", key) => copy.put_int(key, 1000 + i as i32),
+                ("-", key) => {
+                    copy.remove(key);
+                }
+                _ => panic!("operation {op}"),
+            }
+            let owned: Vec<String> = copy
+                .share()
+                .into_shallow_copy()
+                .iter_java_order()
+                .into_iter()
+                .map(|(k, _)| k.as_lossy_str().to_owned())
+                .collect();
+            let borrowed: Vec<String> = copy
+                .shallow_copy()
+                .iter_java_order()
+                .into_iter()
+                .map(|(k, _)| k.as_lossy_str().to_owned())
+                .collect();
+            assert_eq!(owned, borrowed, "initial {initial:?} operations {ops:?}");
+            tag = copy;
+        }
+        let got: Vec<String> = tag
+            .iter_java_order()
+            .into_iter()
+            .map(|(k, _)| k.as_lossy_str().to_owned())
+            .collect();
+        assert_eq!(got, want, "initial {initial:?} operations {ops:?}");
         n += 1;
     }
     assert!(n >= 900, "{n}");

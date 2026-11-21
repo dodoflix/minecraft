@@ -9,11 +9,11 @@
 //! iterates buckets ascending with insertion order inside a bucket, so the result is the stable sort, by final bucket, of
 //! "source iteration order + new keys appended" (replaced keys keep their slot, removed keys vanish). A bin of 9 keys
 //! makes `HashMap` double a table under 64 buckets and turn the bin into a red-black tree in a bigger one, so then the
-//! history matters: [`crate::hash_bins`] replays the `put`s and the `remove` on a model of the table, tree bins
+//! history matters: [`mc_core::hash_bins`] replays the `put`s and the `remove` on a model of the table, tree bins
 //! included.
 
 use crate::dynv::Dyn;
-use crate::hash_bins::Bins;
+use mc_core::hash_bins::Bins;
 use mc_core::java_collections::hash_map_copy_capacity;
 
 type Entries = Vec<(Dyn, Dyn)>;

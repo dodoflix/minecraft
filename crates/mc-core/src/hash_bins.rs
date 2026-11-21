@@ -29,7 +29,7 @@ struct Node {
 
 /// The table of one `HashMap` over the keys `0..keys`: `hash(k)` is `String.hashCode()` of key `k` and `compare` is
 /// `String.compareTo`.
-pub(crate) struct Bins<'a> {
+pub struct Bins<'a> {
     hashes: Vec<i32>,
     compare: &'a dyn Fn(usize, usize) -> Ordering,
     nodes: Vec<Node>,
@@ -47,7 +47,7 @@ fn spread(h: i32) -> i32 {
 
 impl<'a> Bins<'a> {
     /// A map without a table whose first `resize` makes `initial_capacity` buckets (`0`: the default 16).
-    pub(crate) fn new(
+    pub fn new(
         hash_codes: Vec<i32>,
         compare: &'a dyn Fn(usize, usize) -> Ordering,
         initial_capacity: usize,
@@ -64,7 +64,7 @@ impl<'a> Bins<'a> {
     }
 
     /// `put(key, ..)` of a key that is not in the map yet; a key that is has its value replaced and nothing else changes.
-    pub(crate) fn put(&mut self, key: usize) {
+    pub fn put(&mut self, key: usize) {
         if self.node_of[key] != NIL {
             return;
         }
@@ -103,7 +103,7 @@ impl<'a> Bins<'a> {
     }
 
     /// `remove(key)`.
-    pub(crate) fn remove(&mut self, key: usize) {
+    pub fn remove(&mut self, key: usize) {
         let node = self.node_of[key];
         if node == NIL {
             return;
@@ -127,8 +127,13 @@ impl<'a> Bins<'a> {
         self.size -= 1;
     }
 
+    /// The number of buckets of the table (`0` before the first `put`).
+    pub fn capacity(&self) -> usize {
+        self.table.len()
+    }
+
     /// The keys in iteration order: buckets in ascending order, each bin along its `next` chain.
-    pub(crate) fn order(&self) -> Vec<usize> {
+    pub fn order(&self) -> Vec<usize> {
         let mut out = Vec::with_capacity(self.size);
         for &head in &self.table {
             let mut e = head;
