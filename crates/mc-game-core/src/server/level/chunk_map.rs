@@ -837,15 +837,11 @@ impl ChunkMap {
     /// next one is queued, in the order its job was submitted, once the tasks before it have run: which chunk steps follow
     /// each other (feature decoration of neighbours is order dependent) then does not depend on how fast a thread was.
     ///
-    /// Oracle mode (inline worldgen) keeps vanilla's arrival order: its recordings are made with direct executors, and the
-    /// draws of the unique seeds depend on the order the main thread runs its tasks in.
+    /// Oracle mode (inline worldgen) has no worker results to order: its direct executors finish a chunk read, parse and
+    /// every worldgen batch inside the call that submitted it, and queue the main-thread continuation there.
     fn drain_worker_results(&mut self) {
         while let Ok((seq, msg)) = self.results.try_recv() {
-            if self.worldgen.is_inline() {
-                self.main_tasks.push_back(MainTask::Worker(Box::new(msg)));
-            } else {
-                self.held_results.insert(seq, msg);
-            }
+            self.held_results.insert(seq, msg);
         }
         if self.main_tasks.is_empty()
             && let Some(msg) = self.held_results.remove(&self.apply_seq)

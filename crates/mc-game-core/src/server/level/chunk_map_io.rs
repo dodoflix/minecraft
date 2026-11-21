@@ -32,8 +32,30 @@ impl ChunkMap {
     // ------------------------------------------------------------------ loading
 
     /// `scheduleChunkLoad(pos)`: the read goes to the IO thread; the result continues in [`Self::handle_worker_message`].
+    /// Oracle mode: vanilla's direct executors read and parse inside this call and queue the main-thread continuation at
+    /// once, so that is where it goes in the main task queue.
     pub(crate) fn start_chunk_load(&mut self, key: i64) {
         self.loading.add(key);
+        if self.worldgen.is_inline() {
+            let message = match self.io.read_blocking(ChunkPos::unpack(key)) {
+                Ok(Some(tag)) => {
+                    let context = self.data_fix_context_tag();
+                    std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+                        parse_stored_chunk(key, tag, self.level_height, &self.factory, &context)
+                    }))
+                    .unwrap_or_else(|payload| WorkerMessage::ChunkParsed {
+                        key,
+                        result: Box::new(Err(ChunkReadException(
+                            crate::crash_report::exception_text(payload.as_ref()),
+                        ))),
+                    })
+                }
+                result => WorkerMessage::ChunkRead { key, result },
+            };
+            self.main_tasks
+                .push_back(super::chunk_map::MainTask::Worker(Box::new(message)));
+            return;
+        }
         let seq = self.next_result_seq();
         self.io.read(ChunkPos::unpack(key), seq);
     }
@@ -46,22 +68,10 @@ impl ChunkMap {
                     let height = self.level_height;
                     let factory = self.factory.clone();
                     let context = self.data_fix_context_tag();
-                    // `readChunk`: the data fix runs between the read and the parse
                     let seq = self.next_result_seq();
                     self.pool.submit_sequenced(
                         seq,
-                        move || {
-                            let tag = match upgrade_level_chunk_tag(tag, &context) {
-                                Ok(tag) => tag,
-                                Err(e) => {
-                                    let result = Box::new(Err(ChunkReadException(e.to_string())));
-                                    return WorkerMessage::ChunkParsed { key, result };
-                                }
-                            };
-                            let result =
-                                Box::new(SerializableChunkData::parse(height, &factory, &tag));
-                            WorkerMessage::ChunkParsed { key, result }
-                        },
+                        move || parse_stored_chunk(key, tag, height, &factory, &context),
                         // `parseChunk` throwing: `handleChunkLoadFailure` reports it and continues with an empty chunk
                         move |text| WorkerMessage::ChunkParsed {
                             key,
@@ -645,4 +655,19 @@ impl ChunkMap {
             log::error!("Failed to close storage: {e}");
         }
     }
+}
+
+/// `readChunk` + `parseChunk`: the data fix runs between the read and the parse.
+fn parse_stored_chunk(
+    key: i64,
+    tag: CompoundTag,
+    height: mc_world::chunk::LevelHeight,
+    factory: &mc_world::palette::PalettedContainerFactory,
+    context: &CompoundTag,
+) -> WorkerMessage {
+    let result = match upgrade_level_chunk_tag(tag, context) {
+        Ok(tag) => Box::new(SerializableChunkData::parse(height, factory, &tag)),
+        Err(e) => Box::new(Err(ChunkReadException(e.to_string()))),
+    };
+    WorkerMessage::ChunkParsed { key, result }
 }
