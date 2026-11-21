@@ -6,6 +6,7 @@ use crate::server::level::ServerLevel;
 use crate::world::block_entity::test_instance_block_entity::{
     self, Data, Status, TestInstanceView, structure_pos_of,
 };
+use crate::world::entity::ai::village::poi::{Occupancy, PoiTypes};
 use crate::world::level::{DimensionKey, LevelAccessor};
 use mc_core::bounding_box::BoundingBox;
 use mc_core::ident::Identifier;
@@ -13,7 +14,6 @@ use mc_core::mirror::Mirror;
 use mc_core::phys::AABB;
 use mc_core::pos::{BlockPos, Vec3i};
 use mc_core::rotation::Rotation;
-use mc_data::BlockEntityType;
 use mc_data::block::Block;
 
 /// `DEFAULT_Y_SEARCH_RADIUS`.
@@ -132,7 +132,7 @@ pub fn get_structure_bounding_box(
 
 /// `findTestContainingPos(pos, searchRadius, level)`.
 pub fn find_test_containing_pos(
-    server: &MinecraftServer,
+    server: &mut MinecraftServer,
     dimension: &DimensionKey,
     pos: BlockPos,
     search_radius: i32,
@@ -146,7 +146,7 @@ pub fn find_test_containing_pos(
 
 /// `findNearestTest(relativeToPos, searchRadius, level)`: the first of the closest (`Stream.min` keeps the first).
 pub fn find_nearest_test(
-    server: &MinecraftServer,
+    server: &mut MinecraftServer,
     dimension: &DimensionKey,
     relative_to_pos: BlockPos,
     search_radius: i32,
@@ -161,52 +161,34 @@ pub fn find_nearest_test(
     best.map(|(_, pos)| pos)
 }
 
-/// `findTestBlocks(centerPos, searchRadius, level)`: `PoiManager.findAll(TEST_INSTANCE, any, center, radius, ANY)`, i.e.
-/// the test instance blocks inside the square of `radius` around the center and within `radius` (euclidean).
-/// The point-of-interest index of vanilla is the set of chunk block entities of the test instance block type here (every
-/// test instance block has one); chunks are visited in `ChunkPos.rangeClosed` order (x fastest) and only loaded chunks are
-/// searched (vanilla's POI manager also finds unloaded-but-saved chunks).
+/// `findTestBlocks(centerPos, searchRadius, level)`: `PoiManager.findAll(TEST_INSTANCE, any, center, radius, ANY)`, in the
+/// order the point-of-interest storage walks its sections.
 pub fn find_test_blocks(
-    server: &MinecraftServer,
+    server: &mut MinecraftServer,
     dimension: &DimensionKey,
     center: BlockPos,
     search_radius: i32,
 ) -> Vec<BlockPos> {
-    let Some(level) = server.level(dimension) else {
+    let Some(level) = server.level_mut(dimension) else {
         return Vec::new();
     };
-    let chunk_radius = search_radius.div_euclid(16) + 1;
-    let (center_chunk_x, center_chunk_z) = (center.x() >> 4, center.z() >> 4);
-    let radius_sqr = f64::from(search_radius.wrapping_mul(search_radius));
-    let mut found = Vec::new();
-    for chunk_z in (center_chunk_z - chunk_radius)..=(center_chunk_z + chunk_radius) {
-        for chunk_x in (center_chunk_x - chunk_radius)..=(center_chunk_x + chunk_radius) {
-            let Some(chunk) = level.chunk_now(chunk_x, chunk_z) else {
-                continue;
-            };
-            let mut in_chunk: Vec<BlockPos> = chunk
-                .block_entities
-                .iter()
-                .filter(|(_, be)| {
-                    be.get_type() == BlockEntityType::TEST_INSTANCE_BLOCK && !be.is_removed()
-                })
-                .map(|(pos, _)| *pos)
-                .filter(|pos| {
-                    (pos.x() - center.x()).abs() <= search_radius
-                        && (pos.z() - center.z()).abs() <= search_radius
-                        && pos.dist_sqr(&center) <= radius_sqr
-                })
-                .collect();
-            in_chunk.sort_by_key(|p| (p.y(), p.z(), p.x()));
-            found.extend(in_chunk);
-        }
+    let found = level.poi_manager().find_all(
+        &|poi_type| poi_type.is(PoiTypes::TEST_INSTANCE),
+        &|_| true,
+        center,
+        search_radius,
+        Occupancy::Any,
+    );
+    // every caller goes on with `level.getBlockEntity(pos)`, which loads the chunk of a saved but unloaded test block
+    for pos in &found {
+        level.chunk_blocking_mut(pos.x() >> 4, pos.z() >> 4);
     }
     found
 }
 
 /// `lookedAtTestPos(pos, camera, level)`: the closest test whose structure the view ray hits.
 pub fn looked_at_test_pos(
-    server: &MinecraftServer,
+    server: &mut MinecraftServer,
     dimension: &DimensionKey,
     pos: BlockPos,
     eye: mc_core::phys::Vec3,

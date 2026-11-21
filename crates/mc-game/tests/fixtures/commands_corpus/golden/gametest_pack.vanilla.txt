@@ -238,19 +238,19 @@ log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
 log| ERROR: Test Batch failed for non-existent function ge:nope
-### [gametest_pack.txt:52] test locate gt:*
+### [gametest_pack.txt:51] test locate gt:*
 log| System chat: Started locating test structures. This might take a while...
 log| System chat: Found structure at: [0, 128, 3 ->[the_nether]] (distance: N/A)
 log| System chat: Finished locating: found 1 structure(s)
 Bot| [system_chat] [Server: Finished locating: found 1 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.locate.done","with":[1]}],"color":"gray","italic":true}
-### [gametest_pack.txt:53] test locate ge:*
+### [gametest_pack.txt:52] test locate ge:*
 log| System chat: Started locating test structures. This might take a while...
 log| System chat: Found structure at: [0, -60, 3 ->[overworld]] (distance: 3)
 log| System chat: Finished locating: found 1 structure(s)
 Bot| [system_chat] [Server: Finished locating: found 1 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.locate.done","with":[1]}],"color":"gray","italic":true}
-### [gametest_pack.txt:54] test clearall
+### [gametest_pack.txt:53] test clearall
 log| System chat: Cleared 1 structure(s)
 Bot| [system_chat] [Server: Cleared 1 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.clear.success","with":[1]}],"color":"gray","italic":true}

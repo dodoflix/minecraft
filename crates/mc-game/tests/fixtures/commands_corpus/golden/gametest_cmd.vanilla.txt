@@ -404,7 +404,7 @@ log| System chat: No tests to run
 log| System chat: No tests to run
 ### [gametest_cmd.txt:107] !ticks 20 show
 
-### [gametest_cmd.txt:109] test locate always_pass
+### [gametest_cmd.txt:108] test locate always_pass
 log| System chat: Started locating test structures. This might take a while...
 log| System chat: Found structure at: [12, -60, 11 ->[overworld]] (distance: 16)
 log| System chat: Found structure at: [6, -60, 3 ->[overworld]] (distance: 6)
@@ -509,7 +509,7 @@ log| System chat: Found structure at: [48, -60, 67 ->[overworld]] (distance: 82)
 log| System chat: Finished locating: found 100 structure(s)
 Bot| [system_chat] [Server: Finished locating: found 100 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.locate.done","with":[100]}],"color":"gray","italic":true}
-### [gametest_cmd.txt:111] test locate *
+### [gametest_cmd.txt:109] test locate *
 log| System chat: Started locating test structures. This might take a while...
 log| System chat: Found structure at: [12, -60, 11 ->[overworld]] (distance: 16)
 log| System chat: Found structure at: [6, -60, 3 ->[overworld]] (distance: 6)
@@ -614,7 +614,7 @@ log| System chat: Found structure at: [48, -60, 67 ->[overworld]] (distance: 82)
 log| System chat: Finished locating: found 100 structure(s)
 Bot| [system_chat] [Server: Finished locating: found 100 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.locate.done","with":[100]}],"color":"gray","italic":true}
-### [gametest_cmd.txt:113] @bot test locate always_pass
+### [gametest_cmd.txt:110] @bot test locate always_pass
 log| System chat: [Bot: Finished locating: found 100 structure(s)]
 Bot| [system_chat] Started locating test structures. This might take a while...
 Bot|   json {"translate":"commands.test.locate.started"}
@@ -820,7 +820,7 @@ Bot| [system_chat] Found structure at: [48, -60, 67 ->[overworld]] (distance: 82
 Bot|   json {"translate":"commands.test.locate.found","with":[{"translate":"chat.square_brackets","with":[{"translate":"chat.coordinates","with":[48,-60,67],"extra":[" ->[overworld]"]}],"color":"green","click_event":{"command":"/execute in minecraft:overworld run tp @s 45 -60 67 270 0","action":"suggest_command"},"hover_event":{"value":{"translate":"chat.coordinates.tooltip"},"action":"show_text"}},"82"]}
 Bot| [system_chat] Finished locating: found 100 structure(s)
 Bot|   json {"translate":"commands.test.locate.done","with":[100]}
-### [gametest_cmd.txt:114] test resetthese
+### [gametest_cmd.txt:111] test resetthese
 log| System chat: Reset succeeded for test: minecraft:always_pass
 log| System chat: Reset succeeded for test: minecraft:always_pass
 log| System chat: Reset succeeded for test: minecraft:always_pass
@@ -924,24 +924,24 @@ log| System chat: Reset succeeded for test: minecraft:always_pass
 log| System chat: Reset 100 structure(s)
 Bot| [system_chat] [Server: Reset 100 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.reset.success","with":[100]}],"color":"gray","italic":true}
-### [gametest_cmd.txt:115] test resetclosest
+### [gametest_cmd.txt:112] test resetclosest
 log| System chat: Reset succeeded for test: minecraft:always_pass
 log| System chat: Reset 1 structure(s)
 Bot| [system_chat] [Server: Reset 1 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.reset.success","with":[1]}],"color":"gray","italic":true}
-### [gametest_cmd.txt:116] @bot test resetclosest
+### [gametest_cmd.txt:113] @bot test resetclosest
 log| System chat: [Bot: Reset 1 structure(s)]
 Bot| [system_chat] Reset succeeded for test: minecraft:always_pass
 Bot|   json {"translate":"test_instance_block.reset_success","with":["minecraft:always_pass"],"color":"green"}
 Bot| [system_chat] Reset 1 structure(s)
 Bot|   json {"translate":"commands.test.reset.success","with":[1]}
-### [gametest_cmd.txt:117] test runthese
+### [gametest_cmd.txt:114] test runthese
 log| System chat: Running 100 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (50 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_cmd.txt:118] !ticks 20 show
+### [gametest_cmd.txt:115] !ticks 20 show
 log| Running test environment 'minecraft:default' batch 1 (50 tests)...
 log| System chat: Starting environment minecraft:default batch 1
 log| System chat: Game Test complete! 100 test(s) were run
@@ -953,13 +953,13 @@ Bot| [system_chat] [Server: Game Test complete! 100 test(s) were run]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[100],"color":"white"}],"color":"gray","italic":true}
 Bot| [system_chat] [Server: All required tests passed :)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
-### [gametest_cmd.txt:119] test runclosest 2
+### [gametest_cmd.txt:116] test runclosest 2
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_cmd.txt:120] !ticks 40 show
+### [gametest_cmd.txt:117] !ticks 40 show
 log| Starting re-run of tests: minecraft:always_pass
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
@@ -980,46 +980,46 @@ Bot0| [system_chat] [Run:    1, Ok:    1, Fail:    0, Left:    1]        minecra
 Bot0|   json {"text":"[Run:    1, Ok:    1, Fail:    0, Left:    1]        minecraft:always_pass passed! <masked>ms","color":"green"}
 Bot0| [system_chat] [Run:    2, Ok:    2, Fail:    0, Left:    0]        minecraft:always_pass passed! <masked>ms
 Bot0|   json {"text":"[Run:    2, Ok:    2, Fail:    0, Left:    0]        minecraft:always_pass passed! <masked>ms","color":"green"}
-### [gametest_cmd.txt:121] @bot test runclosest
+### [gametest_cmd.txt:118] @bot test runclosest
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: [Bot: Starting environment minecraft:default batch 0]
 Bot| [system_chat] Running 1 test(s)...
 Bot|   json {"translate":"commands.test.run.running","with":[1]}
 Bot| [system_chat] Starting environment minecraft:default batch 0
 Bot|   json {"translate":"commands.test.batch.starting","with":["minecraft:default",0]}
-### [gametest_cmd.txt:122] !ticks 20 show
+### [gametest_cmd.txt:119] !ticks 20 show
 log| System chat: [Bot: Game Test complete! 1 test(s) were run]
 log| System chat: [Bot: All required tests passed :)]
 Bot| [system_chat] Game Test complete! 1 test(s) were run
 Bot|   json {"translate":"commands.test.summary","with":[1],"color":"white"}
 Bot| [system_chat] All required tests passed :)
 Bot|   json {"translate":"commands.test.summary.all_required_passed","color":"green"}
-### [gametest_cmd.txt:123] test clearthese
+### [gametest_cmd.txt:120] test clearthese
 log| System chat: Cleared 100 structure(s)
 Bot| [system_chat] [Server: Cleared 100 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.clear.success","with":[100]}],"color":"gray","italic":true}
-### [gametest_cmd.txt:124] test clearall
+### [gametest_cmd.txt:121] test clearall
 log| System chat: Could not find any tests to clear
-### [gametest_cmd.txt:125] test locate always_pass
+### [gametest_cmd.txt:122] test locate always_pass
 log| System chat: Started locating test structures. This might take a while...
 log| System chat: Found no test instances
-### [gametest_cmd.txt:129] @bot !suggest /test run always
+### [gametest_cmd.txt:126] @bot !suggest /test run always
 Bot| packet command_suggestions CommandSuggestions(ClientboundCommandSuggestionsPacket { id: 1, start: 10, length: 6, suggestions: [ClientboundCommandSuggestionsEntry { text: "always_pass", tooltip: None }] })
-### [gametest_cmd.txt:130] @bot !suggest "/test run "
+### [gametest_cmd.txt:127] @bot !suggest "/test run "
 Bot| packet command_suggestions CommandSuggestions(ClientboundCommandSuggestionsPacket { id: 2, start: 10, length: 0, suggestions: [ClientboundCommandSuggestionsEntry { text: "always_pass", tooltip: None }] })
-### [gametest_cmd.txt:131] @bot !suggest /test
+### [gametest_cmd.txt:128] @bot !suggest /test
 Bot| packet command_suggestions CommandSuggestions(ClientboundCommandSuggestionsPacket { id: 3, start: 0, length: 0, suggestions: [] })
-### [gametest_cmd.txt:132] @bot !suggest test r
+### [gametest_cmd.txt:129] @bot !suggest test r
 Bot| packet command_suggestions CommandSuggestions(ClientboundCommandSuggestionsPacket { id: 4, start: 5, length: 1, suggestions: [ClientboundCommandSuggestionsEntry { text: "resetclosest", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "resetthat", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "resetthese", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "run", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "runclosest", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "runfailed", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "runmultiple", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "runthat", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "runthese", tooltip: None }] })
-### [gametest_cmd.txt:133] @bot !suggest /gamemode c
+### [gametest_cmd.txt:130] @bot !suggest /gamemode c
 Bot| packet command_suggestions CommandSuggestions(ClientboundCommandSuggestionsPacket { id: 5, start: 10, length: 1, suggestions: [ClientboundCommandSuggestionsEntry { text: "creative", tooltip: None }] })
-### [gametest_cmd.txt:134] @bot0 !suggest "/test "
+### [gametest_cmd.txt:131] @bot0 !suggest "/test "
 Bot0| packet command_suggestions CommandSuggestions(ClientboundCommandSuggestionsPacket { id: 6, start: 0, length: 0, suggestions: [] })
-### [gametest_cmd.txt:135] @bot0 !suggest /t
+### [gametest_cmd.txt:132] @bot0 !suggest /t
 Bot0| packet command_suggestions CommandSuggestions(ClientboundCommandSuggestionsPacket { id: 7, start: 1, length: 1, suggestions: [ClientboundCommandSuggestionsEntry { text: "tag", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "team", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "teammsg", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "teleport", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "tell", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "tellraw", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "test", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "tick", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "time", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "title", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "tm", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "tp", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "transfer", tooltip: None }, ClientboundCommandSuggestionsEntry { text: "trigger", tooltip: None }] })
-### [gametest_cmd.txt:136] @bot !send set_test_block 5 5 5 accept "no block here"
+### [gametest_cmd.txt:133] @bot !send set_test_block 5 5 5 accept "no block here"
 
-### [gametest_cmd.txt:137] @bot !send test_instance_block_action 5 5 5 save key=foo:bar size=1,1,1
+### [gametest_cmd.txt:134] @bot !send test_instance_block_action 5 5 5 save key=foo:bar size=1,1,1
 
-### [gametest_cmd.txt:138] !file world/generated/foo/structure/bar.nbt
+### [gametest_cmd.txt:135] !file world/generated/foo/structure/bar.nbt
 file| (missing)

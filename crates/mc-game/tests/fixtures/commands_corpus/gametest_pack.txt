@@ -48,7 +48,6 @@ test run ge:weather
 !ticks 40 show
 test run ge:missing_function
 !ticks 40 show
-!known locate lists the instances in a different order: vanilla searches the point-of-interest storage, ours scans the loaded chunks
 test locate gt:*
 test locate ge:*
 test clearall

@@ -105,11 +105,8 @@ test stop
 test runfailed
 test runfailed true 2
 !ticks 20 show
-!known locate lists the instances in a different order: vanilla searches the point-of-interest storage, ours scans the loaded chunks
 test locate always_pass
-!known locate lists the instances in a different order: vanilla searches the point-of-interest storage, ours scans the loaded chunks
 test locate *
-!known locate lists the instances in a different order: vanilla searches the point-of-interest storage, ours scans the loaded chunks
 @bot test locate always_pass
 test resetthese
 test resetclosest
