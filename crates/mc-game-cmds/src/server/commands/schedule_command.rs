@@ -57,7 +57,7 @@ register_command!("ScheduleCommand", |_ctx| {
                                 server
                                     .scheduled_events()
                                     .get_events_ids()
-                                    .map(str::to_owned)
+                                    .filter_map(|id| id.exact_str().map(str::to_owned))
                                     .collect()
                             });
                             Ok(suggest_resource(

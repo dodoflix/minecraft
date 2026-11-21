@@ -6,10 +6,13 @@ use mc_brigadier::{ArgumentType, CommandSyntaxException, StringReader};
 use mc_core::java_string::JavaString;
 use mc_dfu::NBT;
 use mc_game::commands::CommandBuildContext;
-use mc_game::commands::arguments::item::{ItemArgument, ItemInput, ItemPredicateArgument};
+use mc_game::commands::arguments::item::{
+    ItemArgument, ItemInput, ItemPredicateArgument, ItemPredicateResult,
+};
 use mc_game::commands::command_build_context::AccessRegistries;
 use mc_game::server::dedicated::java_properties::Properties;
 use mc_game::server::dedicated::properties::DedicatedServerProperties;
+use mc_game::util::timer_queue::{FunctionHost, TimerQueue};
 use mc_game::world::item::ItemStackExt;
 use mc_protocol::codec::Encode;
 use mc_protocol::components::ItemStack;
@@ -62,7 +65,7 @@ fn items_from_commands_match_vanilla() {
         );
         n += 1;
     }
-    assert_eq!(n, 14);
+    assert_eq!(n, 17);
 }
 
 /// An item argument that fails on a string with a lone surrogate: the exception message and the component built from its raw
@@ -121,6 +124,68 @@ fn item_argument_errors_match_vanilla() {
         n += 1;
     }
     assert_eq!(n, 28);
+}
+
+/// Item predicates over books: a page, title or author with a lone surrogate matches only the same unit, never U+FFFD.
+#[test]
+fn book_predicates_match_vanilla() {
+    mc_game::commands::BrigadierExceptions::install();
+    mc_game::commands::install_text_validators();
+    mc_protocol::components::install_text_hooks();
+    let (server, _keep) = command_common::test_server();
+    let build = CommandBuildContext::simple(
+        Arc::new(AccessRegistries(
+            server.registries.composite_access().clone(),
+        )),
+        mc_world::level_storage::FeatureFlagSet::VANILLA,
+    );
+    let item = ItemArgument::item(&build);
+    let predicate = ItemPredicateArgument::item_predicate(&build);
+    let mut n = 0;
+    for c in rows(GOLDEN, "item_pred_match") {
+        let text = |i: usize| String::from_utf16(&unesc_units(c[i])).unwrap();
+        let (pred, book) = (text(1), text(2));
+        let value = predicate
+            .parse(&mut StringReader::new(pred.clone()))
+            .unwrap();
+        let stack = item
+            .parse(&mut StringReader::new(book.clone()))
+            .unwrap()
+            .downcast_ref::<ItemInput>()
+            .unwrap()
+            .create_item_stack(1)
+            .unwrap();
+        let matched = value
+            .downcast_ref::<ItemPredicateResult>()
+            .unwrap()
+            .test(&stack);
+        assert_eq!(matched.to_string(), c[3], "{pred} on {book}");
+        n += 1;
+    }
+    assert_eq!(n, 24);
+}
+
+struct NoFunctions;
+impl FunctionHost for NoFunctions {
+    fn execute_function(&mut self, _: &mc_core::ident::Identifier) {}
+    fn execute_function_tag(&mut self, _: &mc_core::ident::Identifier) {}
+}
+
+/// The scheduled events saved data: an event id with a lone surrogate is kept, and is not the id with U+FFFD.
+#[test]
+fn scheduled_event_ids_match_vanilla() {
+    let ty = TimerQueue::<NoFunctions>::type_();
+    let mut n = 0;
+    for c in rows(GOLDEN, "saved_timer") {
+        let input = String::from_utf16(&unesc_units(c[1])).unwrap();
+        let tag = mc_nbt::snbt::parse(&input).unwrap();
+        let queue = (ty.decode)(&tag).map_err(|e| e.error).unwrap();
+        let mut bytes = Vec::new();
+        mc_nbt::nbt_io::write_any_tag(&(ty.encode)(&queue).unwrap(), &mut bytes).unwrap();
+        assert_eq!(hex(&bytes), c[2], "events of {input}");
+        n += 1;
+    }
+    assert_eq!(n, 4);
 }
 
 /// `resource-pack-prompt` of `server.properties`: a prompt that decodes only partly is kept, one that does not parse is dropped.

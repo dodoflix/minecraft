@@ -16,8 +16,9 @@ use crate::components::values::decor::FireworkShape;
 use crate::components::values::effects::EquipmentSlotGroup;
 use crate::packets::play::AttributeModifierOperation;
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_dfu::extra::IDENTIFIER;
-use mc_dfu::{BOOL, Codec, STRING, string_enum_codec};
+use mc_dfu::{BOOL, Codec, JAVA_STRING, string_enum_codec};
 use mc_text::Component;
 use std::sync::LazyLock;
 
@@ -283,7 +284,7 @@ impl FireworksPredicate {
 /// `WritableBookPredicate.PagePredicate`.
 #[derive(Clone, Debug, PartialEq)]
 pub struct WritableBookPagePredicate {
-    pub contents: String,
+    pub contents: JavaString,
 }
 
 /// `WritableBookPredicate`.
@@ -294,7 +295,7 @@ pub struct WritableBookPredicate {
 
 impl WritableBookPredicate {
     pub fn codec() -> Codec<WritableBookPredicate> {
-        let page = STRING.xmap(
+        let page = JAVA_STRING.xmap(
             |contents| WritableBookPagePredicate { contents },
             |p: &WritableBookPagePredicate| p.contents.clone(),
         );
@@ -315,8 +316,8 @@ pub struct WrittenBookPagePredicate {
 #[derive(Clone, Debug, PartialEq)]
 pub struct WrittenBookPredicate {
     pub pages: Option<CollectionPredicate<WrittenBookPagePredicate>>,
-    pub author: Option<String>,
-    pub title: Option<String>,
+    pub author: Option<JavaString>,
+    pub title: Option<JavaString>,
     pub generation: Ints,
     pub resolved: Option<bool>,
 }
@@ -329,8 +330,8 @@ impl WrittenBookPredicate {
         );
         mc_dfu::record!(WrittenBookPredicate {
             pages: CollectionPredicate::codec(&page).optional_field_of("pages"),
-            author: STRING.optional_field_of("author"),
-            title: STRING.optional_field_of("title"),
+            author: JAVA_STRING.optional_field_of("author"),
+            title: JAVA_STRING.optional_field_of("title"),
             generation: Ints::codec().optional_field_of_default("generation", Ints::any()),
             resolved: BOOL.optional_field_of("resolved"),
         })

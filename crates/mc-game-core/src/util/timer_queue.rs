@@ -8,8 +8,9 @@ use std::collections::{BTreeMap, HashMap};
 use std::sync::Arc;
 
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_dfu::extra::IDENTIFIER;
-use mc_dfu::{Codec, DataResult, Dyn, LONG, MapCodec, NBT, STRING};
+use mc_dfu::{Codec, DataResult, Dyn, JAVA_STRING, LONG, MapCodec, NBT};
 use mc_nbt::{CompoundTag, Tag};
 
 use crate::world::level::saveddata::{SavedData, SavedDataType};
@@ -160,7 +161,7 @@ impl<C: FunctionHost + 'static> TimerCallbacks<C> {
 }
 
 struct Event<T> {
-    id: String,
+    id: JavaString,
     callback: Box<dyn TimerCallback<T>>,
 }
 
@@ -171,7 +172,7 @@ pub struct TimerQueue<T> {
     queue: BTreeMap<(i64, u64), Event<T>>,
     sequential_id: u64,
     /// The `events` table: id -> trigger time -> sequential id. Rows are dropped when empty (Guava `HashBasedTable`).
-    events: HashMap<String, HashMap<i64, u64>>,
+    events: HashMap<JavaString, HashMap<i64, u64>>,
 }
 
 impl<T: 'static> SavedData for TimerQueue<T> {
@@ -227,32 +228,33 @@ impl<T: 'static> TimerQueue<T> {
     }
 
     /// `schedule`: ignored when `id` already has an event at `time`.
-    pub fn schedule(&mut self, id: &str, time: i64, callback: Box<dyn TimerCallback<T>>) {
+    pub fn schedule(
+        &mut self,
+        id: impl Into<JavaString>,
+        time: i64,
+        callback: Box<dyn TimerCallback<T>>,
+    ) {
+        let id = id.into();
         if self
             .events
-            .get(id)
+            .get(&id)
             .is_some_and(|row| row.contains_key(&time))
         {
             return;
         }
         self.sequential_id = self.sequential_id.wrapping_add(1);
         self.events
-            .entry(id.to_string())
+            .entry(id.clone())
             .or_default()
             .insert(time, self.sequential_id);
-        self.queue.insert(
-            (time, self.sequential_id),
-            Event {
-                id: id.to_string(),
-                callback,
-            },
-        );
+        self.queue
+            .insert((time, self.sequential_id), Event { id, callback });
         self.set_dirty();
     }
 
     /// `remove(id)`: removes every event with this id, returns how many table cells it had.
-    pub fn remove(&mut self, id: &str) -> usize {
-        let size = match self.events.remove(id) {
+    pub fn remove(&mut self, id: impl Into<JavaString>) -> usize {
+        let size = match self.events.remove(&id.into()) {
             Some(row) => {
                 for (time, seq) in &row {
                     self.queue.remove(&(*time, *seq));
@@ -265,8 +267,8 @@ impl<T: 'static> TimerQueue<T> {
         size
     }
 
-    pub fn get_events_ids(&self) -> impl Iterator<Item = &str> {
-        self.events.keys().map(String::as_str)
+    pub fn get_events_ids(&self) -> impl Iterator<Item = &JavaString> {
+        self.events.keys()
     }
 
     /// `TimerQueue.codec(callbacks)`: `{events: [{trigger_time, id, callback}, ...]}` (the packed events in queue order).
@@ -275,7 +277,7 @@ impl<T: 'static> TimerQueue<T> {
         let packed = mc_dfu::record!(PackedEvents<T> {
             events: mc_dfu::record!(PackedEvent<T> {
                 trigger_time: LONG.field_of("trigger_time"),
-                id: STRING.field_of("id"),
+                id: JAVA_STRING.field_of("id"),
                 callback: callback.field_of("callback"),
             })
             .codec()
@@ -291,7 +293,7 @@ impl<T: 'static> TimerQueue<T> {
                     let ((time, _), event) = event;
                     let mut entry = ops.map_builder();
                     entry.add_result("trigger_time", LONG.encode_start(ops, time));
-                    entry.add_result("id", STRING.encode_start(ops, &event.id));
+                    entry.add_result("id", JAVA_STRING.encode_start(ops, &event.id));
                     entry.add_result("callback", callback.encode_start(ops, &event.callback));
                     events.add_result(entry.build(&ops.empty()));
                 }
@@ -303,7 +305,7 @@ impl<T: 'static> TimerQueue<T> {
                 packed.decode(ops, input).map(|(packed, rest)| {
                     let mut queue = TimerQueue::new();
                     for event in packed.events {
-                        queue.schedule(&event.id, event.trigger_time, event.callback);
+                        queue.schedule(event.id, event.trigger_time, event.callback);
                     }
                     (queue, rest)
                 })
@@ -320,7 +322,7 @@ struct PackedEvents<T> {
 /// `TimerQueue.Event.Packed`.
 struct PackedEvent<T> {
     trigger_time: i64,
-    id: String,
+    id: JavaString,
     callback: Box<dyn TimerCallback<T>>,
 }
 
@@ -373,7 +375,10 @@ mod tests {
         q.tick(&mut ctx, 10);
         let names: Vec<_> = ctx.log.iter().map(|e| e.0.as_str()).collect();
         assert_eq!(names, ["f:n:b", "f:n:a1", "f:n:c"]);
-        let mut ids: Vec<_> = q.get_events_ids().collect();
+        let mut ids: Vec<_> = q
+            .get_events_ids()
+            .map(|id| id.as_lossy_str().to_owned())
+            .collect();
         ids.sort();
         // "b" fired late (5 < 10): its table cell at 5 is stale (vanilla removes the cell at the current tick)
         assert_eq!(ids, ["a", "b"]);

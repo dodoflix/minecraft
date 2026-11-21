@@ -5,7 +5,7 @@ use super::containers::{read_list, read_optional, write_list, write_optional};
 use crate::codec::EncodeResult;
 use crate::codec::{
     Decode, DecodeError, DecodeResult, Encode, MAX_STRING_LENGTH, NbtLimit, decode_tag_with,
-    encode_tag, read_utf, read_varint, write_java_utf, write_utf, write_varint,
+    encode_tag, read_utf, read_varint, write_java_utf, write_varint,
 };
 use crate::components::common::{DyeColor, SoundEvent, component_codec, read_enum_zero};
 use crate::components::component::{ComponentDef, ComponentKey};
@@ -19,7 +19,7 @@ use mc_dfu::extra::{
     IDENTIFIER, NON_NEGATIVE_FLOAT, NON_NEGATIVE_INT, POSITIVE_FLOAT, UNSIGNED_BYTE,
     extra_int_range, optional_always_present_field_of,
 };
-use mc_dfu::{BOOL, Codec, DataResult, INT, JAVA_STRING, STRING, java_string_range, record};
+use mc_dfu::{BOOL, Codec, DataResult, INT, JAVA_STRING, java_string_range, record};
 use mc_text::Component;
 
 pub const WRITABLE_BOOK_CONTENT: ComponentKey<WritableBookContent> =
@@ -397,14 +397,14 @@ impl Decode for Fireworks {
 #[derive(Clone, Debug, PartialEq)]
 pub struct BannerPattern {
     pub asset_id: Identifier,
-    pub translation_key: String,
+    pub translation_key: JavaString,
 }
 
 impl BannerPattern {
     pub fn direct_codec() -> Codec<BannerPattern> {
         record!(BannerPattern {
             asset_id: IDENTIFIER.field_of("asset_id"),
-            translation_key: STRING.field_of("translation_key")
+            translation_key: JAVA_STRING.field_of("translation_key")
         })
         .codec()
     }
@@ -415,14 +415,14 @@ impl BannerPattern {
     pub fn encode_holder(h: &Holder<BannerPattern>, out: &mut Vec<u8>) -> EncodeResult<()> {
         holder::encode_holder(BANNER_PATTERN, h, out, |p, o| {
             p.asset_id.encode(o)?;
-            write_utf(o, &p.translation_key, MAX_STRING_LENGTH)
+            write_java_utf(o, &p.translation_key, MAX_STRING_LENGTH)
         })
     }
     pub fn decode_holder(input: &mut &[u8]) -> DecodeResult<Holder<BannerPattern>> {
         holder::decode_holder(BANNER_PATTERN, input, |i| {
             Ok(BannerPattern {
                 asset_id: Identifier::decode(i)?,
-                translation_key: read_utf(i, MAX_STRING_LENGTH)?,
+                translation_key: JavaString::from(read_utf(i, MAX_STRING_LENGTH)?),
             })
         })
     }

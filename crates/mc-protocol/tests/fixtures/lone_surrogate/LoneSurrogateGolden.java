@@ -56,6 +56,7 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.SignText;
+import net.minecraft.world.level.timers.TimerQueue;
 
 /**
  * Golden generator for strings that hold lone UTF-16 surrogates (Java strings can, Rust strings cannot): what vanilla writes,
@@ -431,8 +432,29 @@ public class LoneSurrogateGolden {
          "stick[lore=[\"\\ud800\"]]", "writable_book[writable_book_content={pages:[\"\\ud800\"]}]", "stick[custom_name={text:\"a\\ud83d\",extra:[\"\\ude00\"]}]",
          "stick[custom_data={\"\\ud800\":1}]", "stick[custom_name=\"\\ud83d\\ude00\"]",
          "stick[block_state={\"\\ud800\":\"\\ud83d\"}]", "stick[block_state={a:\"\\ude00\"}]", "stick[custom_model_data={strings:[\"\\ud800\",\"a\\ud83d\"]}]",
-         "potion[potion_contents={custom_name:\"\\ud800\"}]", "filled_map[map_decorations={\"\\ud800\":{type:\"player\",x:1d,z:1d,rotation:1f}}]"})
+         "potion[potion_contents={custom_name:\"\\ud800\"}]", "filled_map[map_decorations={\"\\ud800\":{type:\"player\",x:1d,z:1d,rotation:1f}}]",
+         "white_banner[banner_patterns=[{pattern:{asset_id:\"a\",translation_key:\"\\ud800\"},color:\"red\"}]]",
+         "white_banner[banner_patterns=[{pattern:{asset_id:\"a\",translation_key:\"x\\ud83d\"},color:\"red\"},{pattern:\"minecraft:globe\",color:\"blue\"}]]",
+         "white_banner[banner_patterns=[{pattern:{asset_id:\"a\",translation_key:\"\\ud83d\\ude00\"},color:\"red\"}]]"})
          row("game.tsv", "item_cmd", s, concat(itemCells(() -> new ItemArgument(ctx).parse(new StringReader(s)).createItemStack(1))));
+
+      // item predicates over books: a page, title or author with a lone surrogate matches only the same unit, never U+FFFD
+      String[] books = {"writable_book[writable_book_content={pages:[\"\\ud800\"]}]", "writable_book[writable_book_content={pages:[\"\\ufffd\"]}]",
+         "written_book[written_book_content={title:\"\\ud800\",author:\"\\ud83d\",pages:[]}]", "written_book[written_book_content={title:\"\\ufffd\",author:\"\\ufffd\",pages:[]}]"};
+      String[] bookPredicates = {"*[writable_book_content~{pages:{contains:[\"\\ud800\"]}}]", "*[writable_book_content~{pages:{contains:[\"\\ufffd\"]}}]",
+         "*[written_book_content~{author:\"\\ud83d\"}]", "*[written_book_content~{author:\"\\ufffd\"}]", "*[written_book_content~{title:\"\\ud800\"}]", "*[written_book_content~{title:\"\\ufffd\"}]"};
+      for (String p : bookPredicates)
+         for (String b : books)
+            row("game.tsv", "item_pred_match", p, esc(b),
+               cell(() -> String.valueOf(ItemPredicateArgument.itemPredicate(ctx).parse(new StringReader(p)).test(new ItemArgument(ctx).parse(new StringReader(b)).createItemStack(1)))));
+
+      // the scheduled events saved data: an event id with a lone surrogate is kept, and is not the id with U+FFFD
+      for (String s : new String[] {
+         "{events:[{trigger_time:5L,id:\"\\ud800\",callback:{type:\"minecraft:function\",id:\"a:b\"}}]}",
+         "{events:[{trigger_time:5L,id:\"\\ud800\",callback:{type:\"minecraft:function\",id:\"a:b\"}},{trigger_time:5L,id:\"\\ufffd\",callback:{type:\"minecraft:function\",id:\"a:b\"}}]}",
+         "{events:[{trigger_time:5L,id:\"a\\ud83d\",callback:{type:\"minecraft:function\",id:\"a:b\"}},{trigger_time:7L,id:\"a\\ud83d\",callback:{type:\"minecraft:function\",id:\"a:b\"}},{trigger_time:5L,id:\"a\\ud83d\",callback:{type:\"minecraft:function\",id:\"a:b\"}}]}",
+         "{events:[{trigger_time:5L,id:\"\\ud83d\\ude00\",callback:{type:\"minecraft:function\",id:\"a:b\"}}]}"})
+         row("game.tsv", "saved_timer", s, cell(() -> hex(nbtAny(TimerQueue.CODEC.encodeStart(nbtOps, TimerQueue.CODEC.parse(nbtOps, parseSnbt(s)).getOrThrow()).getOrThrow()))));
 
       // item argument failures that quote a string with a lone surrogate: the message of the exception and the component the client gets
       String[] itemErrors = {"stick[rarity=\"\\ud800\"]", "stick[item_model=\"\\ud800\"]", "stick[item_model=\"a:\\ud83d\"]", "stick[tooltip_style=\"a\\ud83d\"]",
