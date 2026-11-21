@@ -104,7 +104,7 @@ pub fn read_additional_save_data(
     if has_chest(e) {
         let size = e.horse().inventory.get_container_size();
         for (slot, stack) in
-            mc_game_core::world::container::load_slots(input.get_list_or_empty("Items"))
+            mc_game_core::world::container::load_slots(input.get_list_or_empty("Items"), "Items")
         {
             if slot < size {
                 e.horse_mut().inventory.set_item(slot, stack);

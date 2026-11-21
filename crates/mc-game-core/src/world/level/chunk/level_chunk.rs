@@ -207,7 +207,7 @@ impl LevelChunk {
 }
 
 impl LevelChunk {
-    /// The live block entity of `tag` (`BlockEntityType.create` + `loadAdditional`), `None` for a type without an
+    /// The live block entity of `tag` (`BlockEntity.loadStatic`: create + `loadWithComponents`), `None` for a type without an
     /// implementation or whose block state does not match.
     fn instantiate(&self, pos: BlockPos, tag: &CompoundTag) -> Option<Box<dyn BlockEntity>> {
         let ty = tag
@@ -218,7 +218,7 @@ impl LevelChunk {
             return None;
         }
         let mut be = crate::world::block_entity::create_block_entity(ty, pos, state)?;
-        be.load_additional(tag);
+        crate::world::block_entity::load_static_data(&mut *be, tag);
         Some(be)
     }
 

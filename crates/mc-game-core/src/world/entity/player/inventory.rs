@@ -385,9 +385,9 @@ impl Inventory {
     }
 
     /// `load(input)`: undecodable entries and slots outside `0..36` are skipped.
-    pub fn load(&mut self, list: &ListTag) {
+    pub fn load(&mut self, list: &ListTag, key: &str) {
         self.items.fill(ItemStack::empty());
-        for (slot, stack) in load_slots(list) {
+        for (slot, stack) in load_slots(list, key) {
             if slot < self.items.len() {
                 self.set_item(slot, stack);
             }

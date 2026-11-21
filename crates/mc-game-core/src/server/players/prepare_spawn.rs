@@ -339,12 +339,21 @@ impl PrepareSpawn for PrepareSpawnTask {
                 PREPARE_SPAWN_LOGGER,
                 || root.borrow().clone(),
                 || -> Result<(), TaskError> {
+                    let (id, name) = (profile.id, profile.name.clone());
                     let mut player = ServerPlayer::new(
                         level.next_entity_id(),
                         ready.level.clone(),
                         profile,
                         pending.cookie.client_information.clone(),
                     );
+                    // the `ServerPlayer` constructor: the statistics and advancement files load before the player file
+                    player.stats = server.player_list.get_player_stats(id, &name);
+                    let manager = server
+                        .resources
+                        .managers
+                        .listener::<crate::advancements::ServerAdvancementManager>()
+                        .expect("advancement manager is registered");
+                    player.advancements = server.player_list.get_player_advancements(id, manager);
                     *root.borrow_mut() = entity_to_string(&player, &level_name);
                     if server.is_demo {
                         player.use_demo_mode();

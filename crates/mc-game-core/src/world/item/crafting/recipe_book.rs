@@ -271,7 +271,9 @@ impl ServerRecipeBook {
                 if is_valid(&id) {
                     target.insert(id);
                 } else {
-                    log::error!("Tried to load unrecognized recipe: {id} removed now.");
+                    log::error!(
+                        "Tried to load unrecognized recipe: ResourceKey[minecraft:recipe / {id}] removed now."
+                    );
                 }
             }
         }
@@ -290,7 +292,9 @@ impl ServerRecipeBook {
             set.retain(|id| {
                 let known = manager.by_key(id).is_some();
                 if !known {
-                    log::error!("Tried to load unrecognized recipe: {id} removed now.");
+                    log::error!(
+                        "Tried to load unrecognized recipe: ResourceKey[minecraft:recipe / {id}] removed now."
+                    );
                 }
                 known
             });

@@ -263,3 +263,66 @@ async fn player_load_problems_match_vanilla() {
     assert!(!reports[0].is_empty(), "the real server logged nothing");
     assert_eq!(reports[0], reports[1], "vanilla / ours");
 }
+
+/// A joining player whose stats file is cut, whose advancement file names an advancement that does not exist and whose
+/// recipe book holds a recipe that does not exist: the three files are read in the order of the `ServerPlayer`
+/// constructor (statistics, advancements) and then `load` (recipe book), and each log record names the recipe as a
+/// `ResourceKey`.
+#[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
+async fn player_side_file_problems_match_vanilla() {
+    let mut seed = snbt::parse_compound(
+        r#"{recipeBook:{recipes:["minecraft:crafting_table","minecraft:no_such_recipe"],toBeDisplayed:["minecraft:no_such_recipe"]}}"#,
+    )
+    .expect("seed");
+    seed.put_int(
+        "DataVersion",
+        mc_world::region::entity_storage::CURRENT_DATA_VERSION,
+    );
+    let props = ["level-type=minecraft:flat", "generate-structures=false"];
+    let uuid = mc_core::uuid_util::create_offline_player_uuid("Bot");
+    let mut logs = Vec::new();
+    for vanilla_side in [true, false] {
+        let seed = seed.clone();
+        let builder = if vanilla_side {
+            vanilla(12345, "survival", &props)
+        } else {
+            ours(12345, "survival", &props)
+        };
+        let server = builder
+            .prepare(move |dir| {
+                write_seed(dir, &seed);
+                let players = dir.join("world/players");
+                for (folder, text) in [
+                    ("stats", r#"{"stats":{"minecraft:custom":{"minecraft:jump""#),
+                    (
+                        "advancements",
+                        r#"{"minecraft:story/no_such_advancement":{"criteria":{"a":"2020-01-01 00:00:00 +0000"},"done":true},"DataVersion":4903}"#,
+                    ),
+                ] {
+                    std::fs::create_dir_all(players.join(folder)).expect("create the folder");
+                    std::fs::write(players.join(folder).join(format!("{uuid}.json")), text)
+                        .expect("write the file");
+                }
+            })
+            .start()
+            .expect("server");
+        let bot = join("127.0.0.1", server.port, "Bot").await;
+        let log = server.log();
+        bot.disconnect().await;
+        server.stop();
+        logs.push(crate::world_start::log_records(&log));
+    }
+    let text = logs[0].join("\n");
+    for expected in [
+        "Couldn't parse statistics file",
+        "Ignored advancement 'minecraft:story/no_such_advancement'",
+        "Tried to load unrecognized recipe: ResourceKey[minecraft:recipe / minecraft:no_such_recipe]",
+    ] {
+        assert!(
+            text.contains(expected),
+            "the real server did not log {expected}:\n{text}"
+        );
+    }
+    assert_eq!(logs[0], logs[1], "vanilla / ours");
+}

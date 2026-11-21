@@ -536,6 +536,18 @@ pub trait BlockEntity: Any {
     }
 }
 
+/// The data part of `BlockEntity.loadStatic`: `loadWithComponents` under a collector of the block entity, whose problems
+/// are logged by the `BlockEntity` logger.
+pub fn load_static_data(block_entity: &mut dyn BlockEntity, tag: &CompoundTag) {
+    let (ty, pos) = (block_entity.get_type(), block_entity.get_block_pos());
+    problem_reporter::with_block_entity_collector(
+        "net.minecraft.world.level.block.entity.BlockEntity",
+        ty,
+        pos,
+        || block_entity.load_with_components(tag),
+    );
+}
+
 /// `ValueInput.read(key, codec)`: the decoded value, or the partial value of a failed decode (`resultOrPartial`); a failed
 /// decode is reported to the open [`problem_reporter`] scope.
 pub fn read_codec<A: 'static>(tag: &CompoundTag, key: &str, codec: &mc_dfu::Codec<A>) -> Option<A> {

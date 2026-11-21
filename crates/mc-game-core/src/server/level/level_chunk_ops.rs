@@ -344,7 +344,7 @@ impl ServerLevel {
                 }
                 Some(ty) => match create_block_entity(ty, pos, state) {
                     Some(mut be) => {
-                        be.load_additional(&tag);
+                        crate::world::block_entity::load_static_data(&mut *be, &tag);
                         Some(be)
                     }
                     None => {

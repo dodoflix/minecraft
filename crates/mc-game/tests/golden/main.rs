@@ -29,6 +29,7 @@ mod blk_proj_golden;
 mod blk_shelf_golden;
 mod block_behaviour_golden;
 mod block_class_binding;
+mod block_entity_load_problems_golden;
 mod block_placement_golden;
 mod block_registration_guards;
 mod block_scenario_golden;

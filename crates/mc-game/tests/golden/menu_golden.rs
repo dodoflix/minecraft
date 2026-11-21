@@ -209,7 +209,7 @@ fn menu_click_golden() {
                 // load the saved list into a fresh inventory and compare against vanilla's loaded contents
                 let p = player.as_ref().unwrap();
                 let mut inv2 = Inventory::new();
-                inv2.load(&p.inv.save());
+                inv2.load(&p.inv.save(), "Inventory");
                 let mut s = String::from("NBTLOAD");
                 for i in 0..36 {
                     if !inv2.get_item(i).is_empty() {
@@ -390,7 +390,7 @@ fn inventory_nbt_layout() {
     inv.set_item(35, mk("diamond_pickaxe", 1, 7, "-"));
     let list = inv.save();
     let mut inv2 = Inventory::new();
-    inv2.load(&list);
+    inv2.load(&list, "Inventory");
     assert_eq!(st(inv2.get_item(3)), "stonex5");
     assert!(inv2.get_item(35).is_damaged() || st(inv2.get_item(35)).starts_with("diamond_pickaxe"));
 }

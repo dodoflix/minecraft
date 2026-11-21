@@ -8,7 +8,7 @@ use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::damagesource::DamageSource;
 use crate::world::entity::ServerPlayer;
-use crate::world::item::{ItemStack, ItemStackExt, load_item_stack};
+use crate::world::item::{ItemStack, ItemStackExt};
 use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
 use linkme::distributed_slice;
@@ -546,9 +546,7 @@ impl Entity for ItemEntity {
         self.pickup_delay = i32::from(input.get_short_or("PickupDelay", 0));
         self.target = entity::read_uuid(input.get("Owner"));
         self.thrower = entity::read_uuid(input.get("Thrower"));
-        let item = input
-            .get_compound("Item")
-            .and_then(load_item_stack)
+        let item = crate::world::block_entity::read_codec(input, "Item", &ItemStack::codec())
             .unwrap_or_else(ItemStack::empty);
         self.set_item(item);
         if self.get_item().is_empty() {

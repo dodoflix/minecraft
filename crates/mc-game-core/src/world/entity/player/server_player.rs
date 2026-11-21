@@ -1321,7 +1321,7 @@ impl Entity for ServerPlayer {
         // Player
         self.player
             .inventory
-            .load(list_or_empty(input, "Inventory"));
+            .load(list_or_empty(input, "Inventory"), "Inventory");
         let _ = self
             .player
             .inventory
@@ -1330,9 +1330,10 @@ impl Entity for ServerPlayer {
             use crate::world::container::Container;
             let chest = &mut self.player.ender_chest;
             chest.clear_content();
-            for (slot, stack) in
-                crate::world::container::load_slots(list_or_empty(input, "EnderItems"))
-            {
+            for (slot, stack) in crate::world::container::load_slots(
+                list_or_empty(input, "EnderItems"),
+                "EnderItems",
+            ) {
                 if slot < chest.get_container_size() {
                     chest.set_item(slot, stack);
                 }

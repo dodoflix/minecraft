@@ -8,7 +8,7 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::EntityId;
 use crate::world::inventory::MenuPlayer;
 use crate::world::item::ItemStack;
-use crate::world::item::{ItemStackExt, load_item_stack};
+use crate::world::item::ItemStackExt;
 use mc_core::direction::Direction;
 use mc_data::Item;
 use mc_nbt::{CompoundTag, ListTag, Tag};
@@ -486,7 +486,7 @@ pub mod helper {
 
     /// `loadAllItems(input, items)`.
     pub fn load_all_items(tag: &CompoundTag, stacks: &mut [ItemStack]) {
-        for (slot, stack) in load_slots(tag.get_list_or_empty("Items")) {
+        for (slot, stack) in load_slots(tag.get_list_or_empty("Items"), "Items") {
             if slot < stacks.len() {
                 stacks[slot] = stack;
             }
@@ -508,13 +508,27 @@ pub fn save_slots<'a>(stacks: impl Iterator<Item = (usize, &'a ItemStack)>) -> L
     list
 }
 
-/// `ItemStackWithSlot.CODEC` list decode: entries that fail to decode are dropped, a missing `Slot` is 0
-/// (`optionalAlwaysPresentFieldOf(UNSIGNED_BYTE, "Slot", 0)`). The slot is NOT bounds-checked here (`isValidInContainer`).
-pub fn load_slots(list: &ListTag) -> Vec<(usize, ItemStack)> {
-    list.compounds()
-        .filter_map(|tag| {
-            let slot = tag.get_byte_or("Slot", 0) as u8 as usize;
-            load_item_stack(tag).map(|stack| (slot, stack))
+/// `ItemStackWithSlot.CODEC` list decode (`ValueInput.listOrEmpty(key, codec)`): the partial value of an entry that fails
+/// to decode counts and the failure is reported to the open problem scope (`DecodeFromListFailedProblem`), a missing
+/// `Slot` is 0 (`optionalAlwaysPresentFieldOf(UNSIGNED_BYTE, "Slot", 0)`). The slot is NOT bounds-checked here
+/// (`isValidInContainer`).
+///
+/// shortcut: an entry that is not a compound is dropped without a report and a wrong-typed `Slot` is not reported,
+/// extend when a corpus needs them.
+pub fn load_slots(list: &ListTag, key: &str) -> Vec<(usize, ItemStack)> {
+    list.iter()
+        .enumerate()
+        .filter_map(|(index, element)| {
+            let slot = element.as_compound()?.get_byte_or("Slot", 0) as u8 as usize;
+            let decoded = ItemStack::from_tag(element);
+            if let Some(error) = decoded.error_message() {
+                crate::world::block_entity::problem_reporter::report(|| {
+                    format!(
+                        "Failed to decode value '{element}' from field '{key}' at index {index}': {error}"
+                    )
+                });
+            }
+            decoded.result_or_partial().map(|stack| (slot, stack))
         })
         .collect()
 }
