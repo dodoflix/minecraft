@@ -486,6 +486,12 @@ impl ServerLevel {
         updated
     }
 
+    /// Run chunk work until the worldgen worker, the light engine and the main-thread queue have nothing left (the state
+    /// the vanilla oracle's direct executors reach by themselves, so light reads see every update).
+    pub fn settle_chunk_work(&mut self) {
+        self.block_on_chunks(|cs| cs.chunk_map.is_settled());
+    }
+
     /// `managedBlock(until)` on the chunk source: run chunk work until `until` holds (worker results arrive on their
     /// own threads, so idle iterations sleep briefly).
     pub fn block_on_chunks(&mut self, until: impl Fn(&ServerChunkCache) -> bool) {

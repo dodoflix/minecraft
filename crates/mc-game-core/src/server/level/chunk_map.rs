@@ -872,6 +872,12 @@ impl ChunkMap {
                 && self.ready.is_empty())
     }
 
+    /// Nothing is left for the worldgen worker, the light engine or the main-thread queue: the state the vanilla oracle's
+    /// direct executors always reach before a tick.
+    pub fn is_settled(&self) -> bool {
+        self.worker_idle() && !self.light.has_pending_work() && self.main_tasks.is_empty()
+    }
+
     pub(super) fn run_light_updates(&mut self) {
         // the chunks a worldgen batch works on are lent out: the light thread reads them live in vanilla, here a lent chunk
         // reads as missing (bedrock), which would lose the light of everything it holds, so light waits for the batch

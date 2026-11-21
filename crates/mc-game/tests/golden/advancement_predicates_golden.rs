@@ -702,6 +702,8 @@ impl World {
                 for _ in 0..a.get(1).map_or(1, |n| n.parse().unwrap()) {
                     self.level.tick_chunk_source(&|| true, false, true);
                     while self.level.poll_chunk_task() {}
+                    // the oracle's direct executors finish worldgen and light before the next tick
+                    self.level.settle_chunk_work();
                     self.level.tick_entity_management();
                 }
             }
