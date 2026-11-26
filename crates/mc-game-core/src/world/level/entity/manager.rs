@@ -53,9 +53,6 @@ struct EntitySlot {
     section_key: i64,
     /// `isAlwaysTicking()` (fixed per entity; cached so it is answerable while the entity is taken out).
     always_ticking: bool,
-    /// The entity was removed before it was added (an entity that discards itself while it loads): vanilla gives it its
-    /// level callback only on the add, so that earlier removal never reaches the level and the entity stays in it.
-    removed_on_add: bool,
 }
 
 fn effective_status(always_ticking: bool, status: Visibility) -> Visibility {
@@ -195,16 +192,17 @@ impl PersistentEntitySectionManager {
         section.add(id);
         let section_status = section.status();
         let always_ticking = entity.is_always_ticking();
-        let removed_on_add = entity.is_removed();
         let mut entity = entity;
         entity.base_mut().moved_since_sync = false;
+        // vanilla gives the entity its level callback here: a removal from before (an entity that discards itself while it
+        // loads) never reached the level, so the entity stays in it until something removes it again
+        entity.base_mut().clear_removal_requested();
         self.entities.insert(
             id,
             EntitySlot {
                 entity: Some(entity),
                 section_key,
                 always_ticking,
-                removed_on_add,
             },
         );
         if !loaded {
@@ -694,7 +692,7 @@ impl PersistentEntitySectionManager {
             return;
         };
         if let Some(reason) = entity.base().removal_reason() {
-            if !slot.removed_on_add {
+            if entity.base().removal_requested() {
                 self.finish_removal(id, reason);
             }
             return;
@@ -1280,6 +1278,11 @@ mod tests {
             ev.contains(&EntityLevelEvent::TrackingStart(1))
                 && !ev.contains(&EntityLevelEvent::Destroyed(1))
         );
+        // a removal after the add reaches the level, also when the entity already has a removal reason
+        let mut e = m.take(1).unwrap();
+        e.discard();
+        m.put_back(1, e);
+        assert!(m.get_any(1).is_none() && m.count() == 0);
     }
 
     #[test]

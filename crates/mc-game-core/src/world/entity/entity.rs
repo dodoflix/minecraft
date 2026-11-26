@@ -130,6 +130,9 @@ pub struct EntityData {
     /// The holder of a leash that `readLeashData` removed (`removeLeash()`); its level effects run in `finish_leash_load`.
     pub leash_removed_on_load: Option<EntityId>,
     removal_reason: Option<RemovalReason>,
+    /// `setRemoved` ran since the entity got its level callback (the manager clears it on the add): the manager applies
+    /// the removal to the level only then, as vanilla calls `onRemove` on every `setRemoved`, also when a reason is set.
+    removal_requested: bool,
     pub move_dist: f32,
     pub fly_dist: f32,
     pub fall_distance: f64,
@@ -250,6 +253,7 @@ impl EntityData {
             stuck_speed_multiplier: Vec3::ZERO,
             leash_removed_on_load: None,
             removal_reason: None,
+            removal_requested: false,
             move_dist: 0.0,
             fly_dist: 0.0,
             fall_distance: 0.0,
@@ -368,6 +372,16 @@ impl EntityData {
     }
     pub fn is_removed(&self) -> bool {
         self.removal_reason.is_some()
+    }
+
+    /// Whether a removal was requested since the level callback was set (see the field).
+    pub fn removal_requested(&self) -> bool {
+        self.removal_requested
+    }
+
+    /// The entity got its level callback: a removal from before does not count.
+    pub fn clear_removal_requested(&mut self) {
+        self.removal_requested = false;
     }
 
     /// `setDeltaMovement(Vec3)`: ignored unless finite.
@@ -539,6 +553,7 @@ impl EntityData {
     /// `setRemoved` core: records the reason (first one wins). Deregistration from the level happens when the
     /// manager syncs the entity.
     pub fn set_removal_reason(&mut self, reason: RemovalReason) {
+        self.removal_requested = true;
         if self.removal_reason.is_none() {
             self.removal_reason = Some(reason);
         }
@@ -547,6 +562,7 @@ impl EntityData {
     /// `unsetRemoved()`.
     pub fn unset_removed(&mut self) {
         self.removal_reason = None;
+        self.removal_requested = false;
     }
 
     pub fn add_tag(&mut self, tag: &str) -> bool {
