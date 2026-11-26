@@ -172,7 +172,7 @@ fn rect_without(
 /// promotion the start-up wait had finished, and it ran that promotion for chunk [0, 0] of the old flat corpus worlds in
 /// most runs (1.14.4 flat, six runs: four with the tick, two without) and not in the others. `mc-server` finishes the
 /// promotions before `Done`, which is what the majority of the real runs show.
-const VANILLA_RETRIES: usize = 3;
+pub(crate) const VANILLA_RETRIES: usize = 3;
 
 /// Info lines that belong to the world loading and the file fixer (warnings and errors are always compared).
 pub(crate) const INTEREST: &[&str] = &[
