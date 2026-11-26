@@ -1,0 +1,109 @@
+== exit
+0
+== log
+[ServerMain] Running GameTestMain with cwd '<CWD>', universe path 'u-lone_dash'
+[Worker-Main-N] Loaded 1866 advancements
+[Server thread] Selecting global world spawn...
+[Server thread] Loading 0 persistent chunks...
+[Server thread] Preparing spawn area: 100%
+[Server thread] Time elapsed: <MS> ms
+[Server thread] Each test that matches minecraft:always_pass will be run 1 times (total: 1)
+[Server thread] Started game test server
+[Server thread] 1 tests are now running at position <POS>!
+[Server thread] Running test environment 'minecraft:default' batch 0 (1 tests)...
+[Server thread] [+]
+[Server thread] ========= 1 GAME TESTS COMPLETE IN <TIME> ======
+[Server thread] All 1 required tests passed :)
+[Server thread] ====================================================
+[Server thread] Stopping server
+[Server thread] Saving players
+[Server thread] Saving worlds
+[Server thread] Saving chunks for level 'ServerLevel[Test Level]'/minecraft:overworld
+[Server thread] Saving chunks for level 'ServerLevel[Test Level]'/minecraft:the_end
+[Server thread] Saving chunks for level 'ServerLevel[Test Level]'/minecraft:the_nether
+[Server thread] Game test server shutting down
+== layout
+./data
+./data/minecraft
+./data/minecraft/custom_boss_events.dat
+./data/minecraft/game_rules.dat
+./data/minecraft/random_sequences.dat
+./data/minecraft/scheduled_events.dat
+./data/minecraft/scoreboard.dat
+./data/minecraft/stopwatches.dat
+./data/minecraft/weather.dat
+./data/minecraft/world_clocks.dat
+./data/minecraft/world_gen_settings.dat
+./datapacks
+./dimensions
+./dimensions/minecraft
+./dimensions/minecraft/overworld
+./dimensions/minecraft/overworld/data
+./dimensions/minecraft/overworld/data/minecraft
+./dimensions/minecraft/overworld/data/minecraft/chunk_tickets.dat
+./dimensions/minecraft/overworld/data/minecraft/raids.dat
+./dimensions/minecraft/overworld/data/minecraft/world_border.dat
+./dimensions/minecraft/overworld/poi
+./dimensions/minecraft/overworld/poi/r.<far>.<far>.mca
+./dimensions/minecraft/overworld/region
+./dimensions/minecraft/overworld/region/r.-1.-1.mca
+./dimensions/minecraft/overworld/region/r.-1.0.mca
+./dimensions/minecraft/overworld/region/r.0.-1.mca
+./dimensions/minecraft/overworld/region/r.0.0.mca
+./dimensions/minecraft/overworld/region/r.<far>.<far>.mca
+./dimensions/minecraft/the_end
+./dimensions/minecraft/the_end/data
+./dimensions/minecraft/the_end/data/minecraft
+./dimensions/minecraft/the_end/data/minecraft/chunk_tickets.dat
+./dimensions/minecraft/the_end/data/minecraft/ender_dragon_fight.dat
+./dimensions/minecraft/the_end/data/minecraft/raids.dat
+./dimensions/minecraft/the_end/data/minecraft/world_border.dat
+./dimensions/minecraft/the_nether
+./dimensions/minecraft/the_nether/data
+./dimensions/minecraft/the_nether/data/minecraft
+./dimensions/minecraft/the_nether/data/minecraft/chunk_tickets.dat
+./dimensions/minecraft/the_nether/data/minecraft/raids.dat
+./dimensions/minecraft/the_nether/data/minecraft/world_border.dat
+./level.dat
+./players
+./players/data
+./session.lock
+== level.dat
+.Data.DataPacks.Disabled = <list 0>
+.Data.DataPacks.Enabled = <list 4>
+.Data.DataPacks.Enabled[0] = 'vanilla'
+.Data.DataPacks.Enabled[1] = 'minecart_improvements'
+.Data.DataPacks.Enabled[2] = 'redstone_experiments'
+.Data.DataPacks.Enabled[3] = 'trade_rebalance'
+.Data.DataVersion = 5023
+.Data.GameType = 1
+.Data.LastPlayed = <N>
+.Data.LevelName = 'Test Level'
+.Data.ServerBrands = <list 1>
+.Data.ServerBrands[0] = 'vanilla'
+.Data.Time = <N>
+.Data.Version.Id = 5023
+.Data.Version.Name = '26.3'
+.Data.Version.Series = 'main'
+.Data.Version.Snapshot = 0b
+.Data.WasModded = 0b
+.Data.allowCommands = 1b
+.Data.difficulty_settings.difficulty = 'normal'
+.Data.difficulty_settings.hardcore = 0b
+.Data.difficulty_settings.locked = 0b
+.Data.enabled_features = <list 2>
+.Data.enabled_features[0] = 'minecraft:vanilla'
+.Data.enabled_features[1] = 'minecraft:trade_rebalance'
+.Data.initialized = 1b
+.Data.spawn.dimension = 'minecraft:overworld'
+.Data.spawn.pitch = 0.0f
+.Data.spawn.pos = <array 3>
+.Data.spawn.yaw = 0.0f
+.Data.version = 19133
+.Data.version_history = <list 1>
+.Data.version_history[0] = 5023
+== report
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><testsuite><testsuite time="<TIME>" timestamp="<TIME>">
+<testcase classname="minecraft:empty" name="minecraft:always_pass" time="<TIME>"/>
+</testsuite>
+</testsuite>

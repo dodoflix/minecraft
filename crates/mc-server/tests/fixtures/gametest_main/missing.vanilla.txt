@@ -1,0 +1,23 @@
+== exit
+255
+== log
+[ServerMain] Running GameTestMain with cwd '<CWD>', universe path 'u-missing'
+[Worker-Main-N] Loaded 1866 advancements
+[Server thread] Selecting global world spawn...
+[Server thread] Loading 0 persistent chunks...
+[Server thread] Preparing spawn area: 100%
+[Server thread] Time elapsed: <MS> ms
+WARN: [Server thread] Test selection matcher (nobody:nothing) found no tests
+== layout
+./datapacks
+./dimensions
+./dimensions/minecraft
+./dimensions/minecraft/overworld
+./dimensions/minecraft/overworld/data
+./dimensions/minecraft/the_end
+./dimensions/minecraft/the_end/data
+./dimensions/minecraft/the_nether
+./dimensions/minecraft/the_nether/data
+./players
+./players/data
+./session.lock

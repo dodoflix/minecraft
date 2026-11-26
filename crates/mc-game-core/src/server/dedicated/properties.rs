@@ -513,6 +513,15 @@ impl DedicatedServerSettings {
         Ok(DedicatedServerSettings { source, properties })
     }
 
+    /// The default properties with no file behind them: the headless game test server reads and stores none.
+    pub fn detached() -> DedicatedServerSettings {
+        DedicatedServerSettings {
+            source: PathBuf::new(),
+            properties: DedicatedServerProperties::new(Properties::new())
+                .expect("the default properties are valid"),
+        }
+    }
+
     pub fn get_properties(&self) -> &DedicatedServerProperties {
         &self.properties
     }

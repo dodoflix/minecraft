@@ -461,7 +461,7 @@ fn create_normal_world_dimensions(
         .unwrap_or_else(|| panic!("Invalid datapack contents: can't find default preset"))
 }
 
-fn preset_dimensions(
+pub(crate) fn preset_dimensions(
     decoder: &DimensionDecoder,
     context: &DataLoadContext,
     id: &str,

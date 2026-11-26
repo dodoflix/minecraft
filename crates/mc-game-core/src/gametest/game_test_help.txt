@@ -1,0 +1,16 @@
+Option                   Description                                       
+------                   -----------                                       
+--help                                                                     
+--packs <String>         A folder of datapacks to include in the world     
+--repeatCount <Integer>  Runs each of the specified tests this many times  
+                           (default: 1)                                    
+--report <File>          Exports results in a junit-like XML report at the 
+                           given path.                                     
+--tests <String>         Which test(s) to run (namespaced ID selector using
+                           wildcards). Empty means run all.                
+--universe <String>      The path to where the test server world will be   
+                           created. Any existing folder will be replaced.  
+                           (default: gametestserver)                       
+--verify <Boolean>       Runs the tests specified with `test` or           
+                           `testNamespace` 100 times for each 90 degree    
+                           rotation step (default: false)                  

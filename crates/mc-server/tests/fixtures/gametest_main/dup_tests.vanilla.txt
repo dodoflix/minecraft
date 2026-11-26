@@ -1,0 +1,7 @@
+== exit
+0
+== log
+[ServerMain] Running GameTestMain with cwd '<CWD>', universe path 'u-dup_tests'
+[ServerMain] [STDERR]: joptsimple.MultipleArgumentsForOptionException: Found multiple arguments for option tests, but you asked for only one
+== layout
+./session.lock

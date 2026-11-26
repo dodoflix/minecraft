@@ -41,6 +41,9 @@ pub struct DedicatedServer {
     pub services_keys: ServicesKeys,
     /// `serverTextFilter`: `None` without a (valid) `text-filtering-config`.
     pub text_filter: Option<Arc<crate::server::network::server_text_filter::ServerTextFilter>>,
+    /// Set for the headless game test server (`GameTestServer`), which is a `MinecraftServer` without the dedicated
+    /// server's console, network and property-driven settings.
+    pub game_test: Option<crate::gametest::game_test_server::GameTestConfig>,
 }
 
 impl DedicatedServer {
@@ -74,6 +77,7 @@ impl DedicatedServer {
             server_links,
             services_keys,
             text_filter,
+            game_test: None,
         })
     }
 }
@@ -180,6 +184,11 @@ impl MinecraftServer {
     /// `DedicatedServer.initServer`: everything between the thread start and the first tick. `Ok(false)` = failed to
     /// initialize (vanilla: `IllegalStateException("Failed to initialize server")`).
     pub(in crate::server) fn init_server(&mut self) -> io::Result<bool> {
+        if let Some(config) = self.dedicated.game_test.clone() {
+            return Ok(crate::gametest::game_test_server::init_server(
+                self, &config,
+            ));
+        }
         spawn_console_thread(
             self.dedicated.console_input.clone(),
             self.dedicated.stop_signal.clone(),
@@ -347,7 +356,7 @@ impl MinecraftServer {
     // ------------------------------------------------------------------ DedicatedServer overrides
 
     pub fn is_dedicated_server(&self) -> bool {
-        true
+        self.dedicated.game_test.is_none()
     }
 
     /// `getMotd`.
@@ -362,6 +371,9 @@ impl MinecraftServer {
     }
 
     pub fn get_max_players(&self) -> i32 {
+        if self.dedicated.game_test.is_some() {
+            return 1;
+        }
         *self.properties().max_players.get()
     }
 
@@ -411,8 +423,11 @@ impl MinecraftServer {
         self.force_difficulty();
     }
 
-    /// `forceDifficulty` (dedicated override).
+    /// `forceDifficulty` (dedicated override; the game test server keeps the level settings' difficulty).
     pub(in crate::server) fn force_difficulty(&mut self) {
+        if self.dedicated.game_test.is_some() {
+            return;
+        }
         let difficulty = *self.properties().difficulty.get();
         self.set_difficulty(difficulty, true);
     }
@@ -473,6 +488,9 @@ impl MinecraftServer {
     }
 
     pub fn operator_user_permissions(&self) -> LevelBasedPermissionSet {
+        if self.dedicated.game_test.is_some() {
+            return LevelBasedPermissionSet::ALL;
+        }
         *self.properties().op_permissions.get()
     }
 
@@ -483,6 +501,9 @@ impl MinecraftServer {
     }
 
     pub fn get_function_compilation_permissions(&self) -> LevelBasedPermissionSet {
+        if self.dedicated.game_test.is_some() {
+            return LevelBasedPermissionSet::OWNER;
+        }
         self.properties().function_permissions
     }
 
@@ -532,6 +553,9 @@ impl MinecraftServer {
 
     /// `pauseWhenEmptySeconds`.
     pub fn pause_when_empty_seconds(&self) -> i32 {
+        if self.dedicated.game_test.is_some() {
+            return 0;
+        }
         *self.properties().pause_when_empty_seconds.get()
     }
 
@@ -587,27 +611,36 @@ impl MinecraftServer {
     }
 
     pub fn get_rate_limit_packets_per_second(&self) -> i32 {
+        if self.dedicated.game_test.is_some() {
+            return 0;
+        }
         self.properties().rate_limit_packets_per_second
     }
 
     pub fn get_command_spam_threshold_seconds(&self) -> i32 {
+        if self.dedicated.game_test.is_some() {
+            return 0;
+        }
         self.properties().command_spam_threshold_seconds
     }
 
     pub fn get_chat_spam_threshold_seconds(&self) -> i32 {
+        if self.dedicated.game_test.is_some() {
+            return 0;
+        }
         self.properties().chat_spam_threshold_seconds
     }
 
     pub fn use_native_transport(&self) -> bool {
-        self.properties().use_native_transport
+        self.dedicated.game_test.is_none() && self.properties().use_native_transport
     }
 
     pub fn should_rcon_broadcast(&self) -> bool {
-        self.properties().broadcast_rcon_to_ops
+        self.dedicated.game_test.is_none() && self.properties().broadcast_rcon_to_ops
     }
 
     pub fn should_inform_admins(&self) -> bool {
-        self.properties().broadcast_console_to_ops
+        self.dedicated.game_test.is_none() && self.properties().broadcast_console_to_ops
     }
 
     pub fn get_absolute_max_world_size(&self) -> i32 {
@@ -661,6 +694,10 @@ impl MinecraftServer {
 
     /// `fillServerSystemReport`.
     pub(in crate::server) fn fill_system_report_details(&self, report: &mut SystemReport) {
+        if self.dedicated.game_test.is_some() {
+            report.set_detail("Type", "Game test server");
+            return;
+        }
         report.set_detail(
             "Is Modded",
             if self.world_data.lock().was_modded {
@@ -823,6 +860,10 @@ impl MinecraftServer {
 
     /// `onServerExit`.
     pub(in crate::server) fn on_server_exit(&mut self) {
+        if self.dedicated.game_test.is_some() {
+            crate::gametest::game_test_server::on_server_exit(self);
+            return;
+        }
         // Text filter, GUI, rcon/query threads and the management server stop here.
         if let Some(filter) = self.dedicated.text_filter.take() {
             filter.close();
@@ -850,10 +891,10 @@ impl MinecraftServer {
     }
 
     /// `onServerCrash` (nothing for the dedicated server).
-    pub(in crate::server) fn on_server_crash(
-        &mut self,
-        _report: &crate::crash_report::CrashReport,
-    ) {
+    pub(in crate::server) fn on_server_crash(&mut self, report: &crate::crash_report::CrashReport) {
+        if self.dedicated.game_test.is_some() {
+            crate::gametest::game_test_server::on_server_crash(report);
+        }
     }
 
     /// `MinecraftServer.buildServerStatus`.

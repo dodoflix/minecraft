@@ -813,6 +813,10 @@ impl MinecraftServer {
     /// `waitUntilNextTick`.
     pub fn wait_until_next_tick(&mut self) {
         self.run_all_tasks();
+        if self.dedicated.game_test.is_some() {
+            // `GameTestServer.waitUntilNextTick`: no wait, the tests run as fast as the server can tick
+            return;
+        }
         self.waiting_for_next_tick = true;
         self.managed_block(|server| !server.have_time());
         self.waiting_for_next_tick = false;
@@ -1038,6 +1042,9 @@ impl MinecraftServer {
         self.refresh_shared_info();
         self.log_tick_method_time(nano);
         crate::util::profiling::pop();
+        if self.dedicated.game_test.is_some() {
+            crate::gametest::game_test_server::tick_server(self);
+        }
     }
 
     /// `autoSave`.

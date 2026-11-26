@@ -815,8 +815,10 @@ impl ResourceSelectorArgument {
     }
 }
 
-impl ArgumentType<CommandSourceStack> for ResourceSelectorArgument {
-    fn parse(&self, reader: &mut StringReader) -> Result<ParsedValue, CommandSyntaxException> {
+impl ResourceSelectorArgument {
+    /// The static `parse(reader, registry)`: the keys of the registry whose id matches the (wildcard) pattern; none is
+    /// not an error, and the pattern read is returned for the error text.
+    pub fn select(&self, reader: &mut StringReader) -> (String, Vec<ResourceKey>) {
         let pattern = ensure_namespaced(&read_pattern(reader));
         let results: Vec<ResourceKey> = self
             .registry_lookup
@@ -825,6 +827,13 @@ impl ArgumentType<CommandSourceStack> for ResourceSelectorArgument {
             .filter(|id| wildcard_match(&id.to_string(), &pattern))
             .map(|id| ResourceKey::create(&self.registry_key, id))
             .collect();
+        (pattern, results)
+    }
+}
+
+impl ArgumentType<CommandSourceStack> for ResourceSelectorArgument {
+    fn parse(&self, reader: &mut StringReader) -> Result<ParsedValue, CommandSyntaxException> {
+        let (pattern, results) = self.select(reader);
         if results.is_empty() {
             Err(ERROR_NO_MATCHES.create_with_context(
                 reader,

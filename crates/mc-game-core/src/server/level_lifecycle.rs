@@ -98,7 +98,7 @@ fn built_generator(
 
 impl MinecraftServer {
     /// `loadLevel`.
-    pub(super) fn load_level(&mut self) {
+    pub(crate) fn load_level(&mut self) {
         let brand = self.get_server_mod_name();
         self.world_data.lock().set_modded_info(brand, false);
         let profiled_duration = crate::util::profiling::jfr::instance().on_world_loaded_started();
@@ -930,7 +930,7 @@ impl MinecraftServer {
         self.stop_connection();
         self.shared.set_saving(true);
         // vanilla's player list does not exist yet when `initServer` failed before it (a bind failure)
-        if self.network_hooks.is_some() {
+        if self.network_hooks.is_some() || self.dedicated.game_test.is_some() {
             log::info!("Saving players");
             crate::server::players::player_ops::save_all(self);
             let kicked: Vec<_> = self

@@ -1,0 +1,24 @@
+== exit
+0
+== log
+[ServerMain] Running GameTestMain with cwd '<CWD>', universe path 'gametestserver'
+[Worker-Main-N] Loaded 1866 advancements
+[Server thread] Selecting global world spawn...
+[Server thread] Loading 0 persistent chunks...
+[Server thread] Preparing spawn area: 100%
+[Server thread] Time elapsed: <MS> ms
+[Server thread] Each test that matches minecraft:always_pass will be run 1 times (total: 1)
+[Server thread] Started game test server
+[Server thread] 1 tests are now running at position <POS>!
+[Server thread] Running test environment 'minecraft:default' batch 0 (1 tests)...
+[Server thread] [+]
+[Server thread] ========= 1 GAME TESTS COMPLETE IN <TIME> ======
+[Server thread] All 1 required tests passed :)
+[Server thread] ====================================================
+[Server thread] Stopping server
+[Server thread] Saving players
+[Server thread] Saving worlds
+[Server thread] Saving chunks for level 'ServerLevel[Test Level]'/minecraft:overworld
+[Server thread] Saving chunks for level 'ServerLevel[Test Level]'/minecraft:the_end
+[Server thread] Saving chunks for level 'ServerLevel[Test Level]'/minecraft:the_nether
+[Server thread] Game test server shutting down
