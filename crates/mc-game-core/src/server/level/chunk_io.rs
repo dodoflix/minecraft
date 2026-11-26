@@ -539,8 +539,47 @@ impl WorkerPool {
     }
 }
 
-/// `Util.backgroundExecutor()`: the process-wide pool (`cores - 1` threads) the biome and terrain steps run on, shared by
-/// every chunk map. Jobs carry their own [`ResultSender`].
+/// Environment variable standing for vanilla's `max.bg.threads` system property.
+pub const MAX_BG_THREADS_VARIABLE: &str = "MC_MAX_BG_THREADS";
+
+/// `Util.getMaxThreads()`: the configured cap of the background executor, 255 unless the setting is an integer in 1..=255.
+fn configured_max_bg_threads(setting: Option<&str>) -> usize {
+    const LIMIT: usize = 255;
+    let Some(value) = setting else {
+        return LIMIT;
+    };
+    // `Integer.parseInt`: a value outside the int range does not parse
+    match value.parse::<i32>() {
+        Ok(n) if (1..=LIMIT as i32).contains(&n) => n as usize,
+        Ok(_) => {
+            log::error!(
+                "Wrong max.bg.threads property value '{value}'. Should be an integer value between 1 and {LIMIT}."
+            );
+            LIMIT
+        }
+        Err(_) => {
+            log::error!(
+                "Could not parse max.bg.threads property value '{value}'. Should be an integer value between 1 and {LIMIT}."
+            );
+            LIMIT
+        }
+    }
+}
+
+/// `Util.maxAllowedExecutorThreads()`: `clamp(processors - 1, 1, max.bg.threads)` workers.
+pub fn background_threads() -> usize {
+    static THREADS: LazyLock<usize> = LazyLock::new(|| {
+        let setting = std::env::var(MAX_BG_THREADS_VARIABLE).ok();
+        let processors = std::thread::available_parallelism().map_or(1, |n| n.get());
+        processors
+            .saturating_sub(1)
+            .clamp(1, configured_max_bg_threads(setting.as_deref()))
+    });
+    *THREADS
+}
+
+/// `Util.backgroundExecutor()`: the process-wide pool ([`background_threads`] workers, jobs started in submission order)
+/// the biome and terrain steps run on, shared by every chunk map. Jobs carry their own [`ResultSender`].
 struct BackgroundExecutor {
     tx: Sender<Box<dyn FnOnce() + Send>>,
     threads: usize,
@@ -549,8 +588,7 @@ struct BackgroundExecutor {
 static BACKGROUND: LazyLock<BackgroundExecutor> = LazyLock::new(|| {
     let (tx, rx) = channel::<Box<dyn FnOnce() + Send>>();
     let rx = Arc::new(Mutex::new(rx));
-    let threads =
-        std::thread::available_parallelism().map_or(1, |n| n.get().saturating_sub(1).max(1));
+    let threads = background_threads();
     for i in 0..threads {
         let rx = rx.clone();
         std::thread::Builder::new()
@@ -609,6 +647,8 @@ pub struct WorldgenThread {
     /// Oracle mode: the batch runs on the submitting thread (the vanilla oracle's direct executors), so the unique
     /// seeds it draws continue the calling thread's reproducible sequence, and [`WorldgenThread::submit`] hands the result back.
     inline: bool,
+    /// The worker count vanilla's background executor has ([`background_threads`] unless a caller configures another).
+    background_workers: usize,
 }
 
 impl WorldgenThread {
@@ -619,6 +659,7 @@ impl WorldgenThread {
                 thread: None,
                 results,
                 inline: true,
+                background_workers: background_threads(),
             };
         }
         let (tx, rx) = channel::<(u64, Arc<WorldGenContext>, GenBatch)>();
@@ -641,7 +682,14 @@ impl WorldgenThread {
             thread: Some(thread),
             results,
             inline: false,
+            background_workers: background_threads(),
         }
+    }
+
+    /// Order the jobs as a background executor with `workers` threads would (see
+    /// [`WorldgenThread::single_background_worker`]); the pool itself keeps its [`background_threads`].
+    pub fn set_background_workers(&mut self, workers: usize) {
+        self.background_workers = workers;
     }
 
     /// Whether biome and terrain batches may overlap (not in oracle mode, where every step runs inline).
@@ -651,6 +699,12 @@ impl WorldgenThread {
 
     pub fn is_inline(&self) -> bool {
         self.inline
+    }
+
+    /// Whether vanilla's background executor has one worker: the dispatcher polls, the slices and the background jobs then
+    /// share one FIFO thread, so a slice's jobs run before the poll that follows it.
+    pub fn single_background_worker(&self) -> bool {
+        !self.inline && self.background_workers == 1
     }
 
     /// Queues the batch for the worldgen thread (its result is number `seq` of the submitted jobs); inline (oracle mode) it
@@ -695,6 +749,17 @@ mod tests {
     use super::*;
     use mc_core::pos::ChunkPos;
     use std::time::Instant;
+
+    /// `Util.getMaxThreads()`: an integer in 1..=255 is taken, anything else (or no setting) leaves the cap at 255.
+    #[test]
+    fn the_background_thread_cap_reads_the_setting_like_vanilla() {
+        assert_eq!(configured_max_bg_threads(None), 255);
+        assert_eq!(configured_max_bg_threads(Some("1")), 1);
+        assert_eq!(configured_max_bg_threads(Some("255")), 255);
+        for wrong in ["0", "256", "-3", "two", "", "1.5", "3000000000"] {
+            assert_eq!(configured_max_bg_threads(Some(wrong)), 255, "{wrong}");
+        }
+    }
 
     /// A result sent while the game thread sleeps toward the next tick wakes it at once.
     #[test]

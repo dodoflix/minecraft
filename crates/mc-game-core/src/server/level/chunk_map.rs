@@ -483,6 +483,11 @@ impl ChunkMap {
         self.tasks.len()
     }
 
+    /// Order generation as vanilla's background executor with `workers` threads does (`max.bg.threads`).
+    pub fn set_background_workers(&mut self, workers: usize) {
+        self.worldgen.set_background_workers(workers);
+    }
+
     /// Whether a worldgen batch is still running (the serial thread or the background pool).
     pub fn worldgen_busy(&self) -> bool {
         self.worldgen_busy || !self.background_batches.is_empty()

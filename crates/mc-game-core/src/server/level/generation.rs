@@ -144,6 +144,11 @@ impl ChunkMap {
     /// Hand the next queued task slice to the "executor" while the worldgen thread is idle.
     pub(crate) fn pump_worldgen(&mut self) {
         while !self.worldgen_busy {
+            // one background worker: the jobs a slice submitted are ahead of the dispatcher's next poll on that worker, so the
+            // poll (and with it the next chunk's tasks) comes after they completed and resubmitted what waited on them
+            if !self.background_batches.is_empty() && self.worldgen.single_background_worker() {
+                return;
+            }
             let Some((_, tasks)) = self.worldgen_queue.pop() else {
                 // the worker has nothing queued: the light update gets its turn (an inline worldgen thread, the oracle's
                 // direct executors, runs light once per poll in `poll_main_task` instead)

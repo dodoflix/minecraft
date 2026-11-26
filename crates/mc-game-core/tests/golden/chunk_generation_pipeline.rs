@@ -400,6 +400,42 @@ fn a_slice_runs_the_starts_and_references_layers_without_another_task_in_between
     );
 }
 
+/// With one background worker (`max.bg.threads=1`) the biome jobs a slice submitted sit ahead of the dispatcher's next poll
+/// on the single FIFO thread: another task's slice starts only after they completed. (With more workers the poll runs
+/// on a second thread meanwhile.)
+#[test]
+fn a_single_background_worker_finishes_a_slices_jobs_before_the_next_task_runs() {
+    let dir = std::env::temp_dir().join(format!("mc-pipeline-single-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&dir);
+    let log: Log = Arc::default();
+    let (west, east) = (ChunkPos::new(0, 0), ChunkPos::new(60, 0));
+    // every biome job takes up to 2.5 ms, so the batch of one task is still running when the other one could start
+    let mut level = open_with(&dir, &log, None, false, None, None, 1, &[west, east]);
+    level.chunk_source.chunk_map.set_background_workers(1);
+    let futures = [west, east].map(|c| {
+        level
+            .chunk_source
+            .get_chunk_future_main_thread(c.x, c.z, ChunkStatus::Spawn, true)
+    });
+    level.apply_chunk_events();
+    level.block_on_chunks(|chunks| futures.iter().all(|f| chunks.future_result(*f).is_some()));
+    level.close();
+    let _ = std::fs::remove_dir_all(&dir);
+    let log = log.lock().unwrap();
+    let first_east_start = log
+        .iter()
+        .position(|(stage, pos, _)| *stage == Stage::Starts && pos.x > 30)
+        .expect("east starts");
+    let last_west_biomes = log
+        .iter()
+        .rposition(|(stage, pos, _)| *stage == Stage::Biomes && pos.x < 30)
+        .expect("west biomes");
+    assert!(
+        last_west_biomes < first_east_start,
+        "the east task started ({first_east_start}) while west biome jobs were still running ({last_west_biomes})"
+    );
+}
+
 #[test]
 fn stages_run_in_chunk_pyramid_order_on_the_worldgen_thread() {
     let dir = std::env::temp_dir().join(format!("mc-pipeline-order-{}", std::process::id()));
