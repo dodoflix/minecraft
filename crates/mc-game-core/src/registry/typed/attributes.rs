@@ -332,12 +332,30 @@ impl EnvironmentAttributeMap {
         let mut entries = IndexMap::new();
         let mut nbt = CompoundTag::new();
         let mut not_positional = Vec::new();
+        // `DispatchedMapCodec.decode`: every entry is read; the errors come in entry order and the raw entries that
+        // failed follow them (`missed input`)
+        let mut errors: Vec<String> = Vec::new();
+        let mut failed = serde_json::Map::new();
         for (key, value) in object {
-            let id = Identifier::read(key)?;
-            let def = attribute(&id).ok_or_else(|| {
-                format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:environment_attribute]: ResourceKey[minecraft:environment_attribute / {id}]")
-            })?;
-            let (modifier, mut argument, encoded) = parse_entry(def, value, ctx)?;
+            // a failed key fails the value too: both results carry the key's error
+            let key_result = Identifier::read(key).and_then(|id| {
+                attribute(&id)
+                    .map(|def| (id.clone(), def))
+                    .ok_or_else(|| format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:environment_attribute]: {id}"))
+            });
+            let parsed = match key_result {
+                Ok((id, def)) => parse_entry(def, value, ctx).map(|entry| (id, def, entry)),
+                Err(error) => Err(format!("{error}; {error}")),
+            };
+            let (id, def, (modifier, mut argument, encoded)) = match parsed {
+                Ok(parsed) => parsed,
+                Err(error) if Failure::from(error.clone()).is_thrown() => return Err(error),
+                Err(error) => {
+                    errors.push(error);
+                    failed.insert(key.clone(), value.clone());
+                    continue;
+                }
+            };
             if def.kind == K::MobSpawnSettings {
                 // the spawn lists keep what decoded (`promotePartial` drops the failed entries)
                 let decoded = match &encoded {
@@ -362,11 +380,27 @@ impl EnvironmentAttributeMap {
                 },
             );
         }
+        let mut message = errors.join("; ");
+        if !failed.is_empty() {
+            message = format!(
+                "{message} missed input: {}",
+                mc_core::gson::value_to_string(&Value::Object(failed))
+            );
+        }
+        // `CODEC_ONLY_POSITIONAL.validate` also checks the partial result of a failed map
         if positional_only && !not_positional.is_empty() {
-            return Err(format!(
+            let illegal = format!(
                 "The following attributes cannot be positional: [{}]",
                 not_positional.join(", ")
-            ));
+            );
+            message = if message.is_empty() {
+                illegal
+            } else {
+                format!("{message}; {illegal}")
+            };
+        }
+        if !message.is_empty() {
+            return Err(message);
         }
         Ok((EnvironmentAttributeMap { entries }, nbt))
     }

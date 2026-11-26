@@ -506,6 +506,27 @@ pub fn write_broken_number_field_packs(world: &Path) {
                 "light_limit",
                 Box::new(|d| d["monster_spawn_block_light_limit"] = number("10000000000.0")),
             ),
+            (
+                "attribute_music_delay",
+                Box::new(|d| {
+                    d["attributes"]["minecraft:audio/background_music"]["default"] = json!({
+                        "sound": "minecraft:music.game", "min_delay": number("-10000000000.0"), "max_delay": 1});
+                }),
+            ),
+            (
+                "attribute_unknown_key",
+                Box::new(|d| d["attributes"]["minecraft:nope"] = 1.into()),
+            ),
+            (
+                "attribute_music_volume",
+                Box::new(|d| d["attributes"]["minecraft:audio/music_volume"] = number("1e400")),
+            ),
+            (
+                "attribute_fog_end_negative",
+                Box::new(|d| {
+                    d["attributes"]["minecraft:visual/fog_end_distance"] = number("-1e400");
+                }),
+            ),
         ],
     );
     songs_and_instruments(

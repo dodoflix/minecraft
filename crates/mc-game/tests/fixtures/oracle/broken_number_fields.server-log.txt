@@ -39,10 +39,78 @@ Unpacking org/joml/joml/1.10.9/joml-1.10.9.jar (libraries:org.joml:joml:1.10.9) 
 Unpacking org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar (libraries:org.jspecify:jspecify:1.0.0) to libraries/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar
 Unpacking org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar (libraries:org.slf4j:slf4j-api:2.0.17) to libraries/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
 Starting net.minecraft.server.Main
-[21:11:28] [ServerMain/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
-[21:11:28] [ServerMain/INFO]: Found new data pack file/broken_number_fields, loading it automatically
-[21:11:29] [Worker-Main-21/ERROR]: Registry loading errors:
+[21:37:51] [ServerMain/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[21:37:51] [ServerMain/INFO]: Found new data pack file/broken_number_fields, loading it automatically
+[21:37:52] [Worker-Main-21/ERROR]: Registry loading errors:
 > Errors in registry minecraft:dimension_type:
+>> Errors in element test:attribute_fog_end_negative:
+java.lang.IllegalStateException: Failed to parse test:attribute_fog_end_negative from pack file/broken_number_fields
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Failed to parse either. First: -Infinity is not in range [0.0; Infinity]; Second: Not a JSON object: -1e400 missed input: {"minecraft:visual/fog_end_distance":-1e400}
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:attribute_music_delay:
+java.lang.IllegalStateException: Failed to parse test:attribute_music_delay from pack file/broken_number_fields
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Value must be non-negative: -1410065408 missed input: {"minecraft:audio/background_music":{"creative":{"max_delay":24000,"min_delay":12000,"sound":"minecraft:music.creative"},"default":{"sound":"minecraft:music.game","min_delay":-10000000000.0,"max_delay":1}}}
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:attribute_music_volume:
+java.lang.IllegalStateException: Failed to parse test:attribute_music_volume from pack file/broken_number_fields
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Failed to parse either. First: Infinity is not in range [0.0; 1.0]; Second: Not a JSON object: 1e400 missed input: {"minecraft:audio/music_volume":1e400}
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:attribute_unknown_key:
+java.lang.IllegalStateException: Failed to parse test:attribute_unknown_key from pack file/broken_number_fields
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Unknown registry key in ResourceKey[minecraft:root / minecraft:environment_attribute]: minecraft:nope; Unknown registry key in ResourceKey[minecraft:root / minecraft:environment_attribute]: minecraft:nope missed input: {"minecraft:nope":1}
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
 >> Errors in element test:coordinate_scale:
 java.lang.IllegalStateException: Failed to parse test:coordinate_scale from pack file/broken_number_fields
 	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
@@ -336,7 +404,7 @@ Caused by: java.lang.IllegalStateException: Value must be positive: Infinity
 	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
 	... 9 more
 
-[21:11:29] [ServerMain/WARN]: Failed to load datapacks, can't proceed with server load. You can either fix your datapacks or reset to vanilla with --safeMode
+[21:37:52] [ServerMain/WARN]: Failed to load datapacks, can't proceed with server load. You can either fix your datapacks or reset to vanilla with --safeMode
 java.util.concurrent.ExecutionException: net.minecraft.ReportedException: Registry Loading
 	at java.base/java.util.concurrent.CompletableFuture.wrapInExecutionException(CompletableFuture.java:345)
 	at java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:440)

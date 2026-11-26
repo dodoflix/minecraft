@@ -461,7 +461,7 @@ fn broken_number_fields_fail_like_vanilla() {
         "broken_number_fields",
         common::test_packs::write_broken_number_field_packs,
         "broken_number_fields",
-        17,
+        21,
     );
 }
 
