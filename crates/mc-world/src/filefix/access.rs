@@ -15,7 +15,7 @@ use mc_dfu::{Dyn, Dynamic, NBT};
 use mc_nbt::{CompoundTag, NbtAccounter, Tag};
 
 use super::cow_tree::CowTree;
-use super::error::FileFixError;
+use super::error::{FileFixError, java_to_string};
 use super::jdk_files::{copy_file, create_directory, delete_tree, list};
 use super::ops::shown;
 use crate::level_storage::{read_compressed, write_compressed};
@@ -75,7 +75,7 @@ fn write_file(tree: &mut CowTree, path: &Path, data: &Dynamic) -> Result<(), Fil
         write_compressed(&data, &real)
     })();
     if let Err(e) = result {
-        log::error!("Failed to write to {}: {e}", shown(path));
+        log::error!("Failed to write to {}\n{}", shown(path), java_to_string(&e));
     }
     Ok(())
 }
@@ -242,6 +242,7 @@ pub struct ChunkNbt {
     storage: RegionFileStorage,
     staged_regions: BTreeSet<String>,
     staged_external: bool,
+    read_failed: bool,
     closed: bool,
 }
 
@@ -273,6 +274,7 @@ impl ChunkNbt {
             stage,
             staged_regions: BTreeSet::new(),
             staged_external: false,
+            read_failed: false,
             closed: false,
         })
     }
@@ -305,6 +307,28 @@ impl ChunkNbt {
         Ok(())
     }
 
+    /// The stored tag of the chunk at `pos`: the region file is opened (copied) by the read, whose failure the `IOWorker`
+    /// logs.
+    fn read_chunk(&mut self, tree: &CowTree, pos: &ChunkPos) -> io::Result<Option<CompoundTag>> {
+        let stored = self
+            .stage(tree, pos)
+            .and_then(|()| self.storage.read(pos))
+            .inspect_err(|e| log::warn!("Failed to read chunk {pos}\n{e}"));
+        self.read_failed = stored.is_err();
+        stored
+    }
+
+    /// Whether the last chunk read of [`ChunkNbt::update_chunk`] failed.
+    pub fn last_read_failed(&self) -> bool {
+        self.read_failed
+    }
+
+    /// A read of the chunk at `pos` whose result nothing uses: one that was queued before the fix stopped (its failure
+    /// is logged).
+    pub fn read_ahead(&mut self, tree: &CowTree, pos: &ChunkPos) {
+        let _ = self.read_chunk(tree, pos);
+    }
+
     /// `updateChunk`: the chunk at `pos` is data fixed to the target version (with `data_fix_context` as its
     /// `__context`), passed through `fixer` and written back; a chunk that is not stored is left alone.
     pub fn update_chunk(
@@ -314,11 +338,7 @@ impl ChunkNbt {
         data_fix_context: Option<&CompoundTag>,
         fixer: impl FnOnce(CompoundTag) -> CompoundTag,
     ) -> io::Result<()> {
-        // the region file is opened (copied) by the read, whose failure the `IOWorker` logs
-        let stored = self
-            .stage(tree, pos)
-            .and_then(|()| self.storage.read(pos))
-            .inspect_err(|e| log::warn!("Failed to read chunk {pos}\n{e}"))?;
+        let stored = self.read_chunk(tree, pos)?;
         let Some(tag) = stored else {
             return Ok(());
         };

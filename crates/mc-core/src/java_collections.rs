@@ -4,6 +4,7 @@
 //!
 //! Tested against the real `java.util.HashMap` / fastutil classes (`tests/golden/java_collections.rs`, `HashOrderGolden.java`).
 
+use crate::long_open_hash_set::mix_long;
 use crate::math::java::java_string_hash;
 use crate::pos::BlockPos;
 use std::fmt;
@@ -82,6 +83,8 @@ pub struct FastOpenHashMap<K, V> {
     min_n: usize,
     size: usize,
     hash: fn(&K) -> i32,
+    /// The key of a `long` keyed map, mixed as a whole by `HashCommon.mix(long)` instead of through `hash`.
+    long_key: Option<fn(&K) -> i64>,
 }
 
 impl<K: PartialEq + fmt::Debug, V: fmt::Debug> fmt::Debug for FastOpenHashMap<K, V> {
@@ -121,6 +124,7 @@ impl<K: PartialEq, V> FastOpenHashMap<K, V> {
             min_n: n,
             size: 0,
             hash,
+            long_key: None,
         }
     }
 
@@ -132,9 +136,17 @@ impl<K: PartialEq, V> FastOpenHashMap<K, V> {
         self.size == 0
     }
 
+    /// The table slot a key starts probing at.
+    fn slot_of(&self, k: &K) -> usize {
+        match self.long_key {
+            Some(key) => mix_long(key(k)),
+            None => mix((self.hash)(k)),
+        }
+    }
+
     /// The table slot holding `k` (never the null key).
     fn find(&self, k: &K) -> Option<usize> {
-        let mut pos = mix((self.hash)(k)) & self.mask;
+        let mut pos = self.slot_of(k) & self.mask;
         while let Some((ek, _)) = &self.slots[pos] {
             if ek == k {
                 return Some(pos);
@@ -175,7 +187,7 @@ impl<K: PartialEq, V> FastOpenHashMap<K, V> {
             self.grow();
             return None;
         }
-        let mut pos = mix((self.hash)(&k)) & self.mask;
+        let mut pos = self.slot_of(&k) & self.mask;
         while let Some((ek, ev)) = &mut self.slots[pos] {
             if *ek == k {
                 return Some(std::mem::replace(ev, v));
@@ -212,8 +224,9 @@ impl<K: PartialEq, V> FastOpenHashMap<K, V> {
     fn rehash(&mut self, new_n: usize) {
         let mask = new_n - 1;
         let mut new_slots: Vec<Option<(K, V)>> = (0..new_n).map(|_| None).collect();
-        for entry in self.slots.iter_mut().rev().filter_map(Option::take) {
-            let mut pos = mix((self.hash)(&entry.0)) & mask;
+        let old = std::mem::take(&mut self.slots);
+        for entry in old.into_iter().rev().flatten() {
+            let mut pos = self.slot_of(&entry.0) & mask;
             while new_slots[pos].is_some() {
                 pos = (pos + 1) & mask;
             }
@@ -265,7 +278,7 @@ impl<K: PartialEq, V> FastOpenHashMap<K, V> {
                 let Some((ck, _)) = &self.slots[pos] else {
                     return;
                 };
-                let slot = mix((self.hash)(ck)) & self.mask;
+                let slot = self.slot_of(ck) & self.mask;
                 let movable = if last <= pos {
                     last >= slot || slot > pos
                 } else {
@@ -307,6 +320,23 @@ impl<K: PartialEq, V> FastOpenHashMap<K, V> {
             .into_iter()
             .chain(self.slots.into_iter().rev().flatten())
             .collect()
+    }
+}
+
+impl<V> FastOpenHashMap<i64, V> {
+    /// `new Long2ObjectOpenHashMap<>(expected)`: keys mixed by `HashCommon.mix(long)`, the key `0` kept outside the table.
+    pub fn new_long(expected: usize) -> Self {
+        let mut map = Self::with_null_key(expected, |_| 0, |k| *k == 0);
+        map.long_key = Some(|k| *k);
+        map
+    }
+
+    /// `long2ObjectEntrySet().stream()`: the key `0`, then the table from its first slot up (the iterator walks it down).
+    pub fn iter_ascending(&self) -> impl Iterator<Item = (&i64, &V)> {
+        self.null_key
+            .iter()
+            .chain(self.slots.iter().flatten())
+            .map(|e| (&e.0, &e.1))
     }
 }
 

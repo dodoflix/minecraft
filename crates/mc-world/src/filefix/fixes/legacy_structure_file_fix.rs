@@ -2,13 +2,12 @@
 //! files move into the chunks they belong to (`Level.Structures`).
 
 use mc_core::ident::Identifier;
-use mc_core::java_collections::JavaHashMap;
+use mc_core::java_collections::{FastOpenHashMap, JavaHashMap};
 use mc_core::math::java::java_string_hash;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_datafix::{DataFixTypes, References};
 use mc_dfu::{Dynamic, NBT};
 use mc_nbt::CompoundTag;
-use std::collections::BTreeMap;
 
 use crate::filefix::error::java_to_string;
 use crate::filefix::{
@@ -63,12 +62,23 @@ impl LegacyStructureData {
     }
 }
 
+/// A `Long2ObjectOpenHashMap<LegacyStructureData>` keyed by packed chunk position.
+type Structures = FastOpenHashMap<i64, LegacyStructureData>;
+
+/// `computeIfAbsent(pos, l -> new LegacyStructureData())`.
+fn structure_at(structures: &mut Structures, pos: i64) -> &mut LegacyStructureData {
+    if !structures.contains_key(&pos) {
+        structures.put(pos, LegacyStructureData::new());
+    }
+    structures.get_mut(&pos).expect("just put")
+}
+
 /// One dimension: its index files, its chunks and the data of the chunks that get structures.
 struct DimensionFixEntry {
     dimension: &'static str,
     structure_ids: &'static [&'static str],
     old_folder: FileRelation,
-    structures: BTreeMap<i64, LegacyStructureData>,
+    structures: Structures,
 }
 
 pub fn new(version: i32) -> FileFix {
@@ -84,19 +94,19 @@ pub fn new(version: i32) -> FileFix {
                 dimension: "minecraft:overworld",
                 structure_ids: &OVERWORLD_LEGACY_STRUCTURES,
                 old_folder: FileRelation::old_overworld(),
-                structures: BTreeMap::new(),
+                structures: Structures::new_long(16),
             },
             DimensionFixEntry {
                 dimension: "minecraft:the_nether",
                 structure_ids: &NETHER_LEGACY_STRUCTURES,
                 old_folder: FileRelation::old_nether(),
-                structures: BTreeMap::new(),
+                structures: Structures::new_long(16),
             },
             DimensionFixEntry {
                 dimension: "minecraft:the_end",
                 structure_ids: &END_LEGACY_STRUCTURES,
                 old_folder: FileRelation::old_end(),
-                structures: BTreeMap::new(),
+                structures: Structures::new_long(16),
             },
         ];
         extract_and_store_legacy_structure_data(ctx, &level_data, &mut entries)
@@ -168,10 +178,7 @@ fn extract_and_store_legacy_structure_data(
 }
 
 /// `extractLegacyStructureData`: the starts of an index file, and the neighbours that reference them.
-fn extract_legacy_structure_data(
-    structure_data: &Dynamic,
-    extracted: &mut BTreeMap<i64, LegacyStructureData>,
-) {
+fn extract_legacy_structure_data(structure_data: &Dynamic, extracted: &mut Structures) {
     let features = structure_data.get("Features");
     let map: Vec<(Dynamic, Dynamic)> = features.as_map(|key| key, |value| value);
     for (_, mut value) in map {
@@ -190,19 +197,14 @@ fn extract_legacy_structure_data(
             value = value.set("id", value.create_string(id));
         }
         if let Some(id) = value.get("id").as_string().result() {
-            extracted
-                .entry(pos)
-                .or_insert_with(LegacyStructureData::new)
-                .add_start(id.as_lossy_str().to_owned(), value);
+            structure_at(extracted, pos).add_start(id.as_lossy_str().to_owned(), value);
             let (x, z) = (ChunkPos::get_x(pos), ChunkPos::get_z(pos));
             // int arithmetic of Java: wraps (and then loops zero times) at the ends of the range
             let range =
                 |at: i32| at.wrapping_sub(STRUCTURE_RANGE)..=at.wrapping_add(STRUCTURE_RANGE);
             for neighbor_x in range(x) {
                 for neighbor_z in range(z) {
-                    extracted
-                        .entry(ChunkPos::pack_xz(neighbor_x, neighbor_z))
-                        .or_insert_with(LegacyStructureData::new)
+                    structure_at(extracted, ChunkPos::pack_xz(neighbor_x, neighbor_z))
                         .add_index(id.as_lossy_str(), pos);
                 }
             }
@@ -220,52 +222,58 @@ fn compound_or_insert<'a>(tag: &'a mut CompoundTag, key: &str) -> &'a mut Compou
 
 /// `storeLegacyStructureDataToChunks`: the chunks, a region at a time, get their starts and references.
 fn store_legacy_structure_data_to_chunks(
-    structures: &BTreeMap<i64, LegacyStructureData>,
+    structures: &Structures,
     chunks: &mut ChunkNbt,
     ctx: &mut ContentContext<'_>,
     data_fix_context: &CompoundTag,
 ) -> Result<(), FileFixError> {
-    let mut entries: Vec<(&i64, &LegacyStructureData)> = structures.iter().collect();
+    // `long2ObjectEntrySet().stream()`, then a stable sort by region
+    let mut entries: Vec<(&i64, &LegacyStructureData)> = structures.iter_ascending().collect();
     entries.sort_by_key(|(pos, _)| {
         ChunkPos::pack_xz(
             ChunkPos::get_region_x_from_long(**pos),
             ChunkPos::get_region_z_from_long(**pos),
         )
     });
-    for (pos, legacy_data) in entries {
+    for (index, &(pos, legacy_data)) in entries.iter().enumerate() {
         if ctx.progress.is_canceled() {
             return Err(FileFixError::Canceled);
         }
-        chunks
-            .update_chunk(
-                ctx.tree,
-                &ChunkPos::unpack(*pos),
-                Some(data_fix_context),
-                |mut tag| {
-                    let level_tag = compound_or_insert(&mut tag, "Level");
-                    let structure_tag = compound_or_insert(level_tag, "Structures");
-                    let start_tag = compound_or_insert(structure_tag, "Starts");
-                    for (id, value) in legacy_data.starts.iter() {
-                        start_tag.put(
-                            id.clone(),
-                            value.cast(&NBT).to_tag().expect("a start is a valid tag"),
-                        );
-                    }
-                    let references_tag = compound_or_insert(structure_tag, "References");
-                    for (id, indexes) in legacy_data.indexes.iter() {
-                        references_tag.put_long_array(id.clone(), indexes.clone());
-                    }
-                    tag
-                },
-            )
-            // a failed read or write completes the chunk future of vanilla exceptionally, which `join` throws unchecked;
-            // vanilla joins a window of eight chunks at a time, here the first failure ends the fix
-            .map_err(|e| {
-                FileFixError::Unchecked(format!(
-                    "java.util.concurrent.CompletionException: {}",
-                    java_to_string(&e)
-                ))
-            })?;
+        let updated = chunks.update_chunk(
+            ctx.tree,
+            &ChunkPos::unpack(*pos),
+            Some(data_fix_context),
+            |mut tag| {
+                let level_tag = compound_or_insert(&mut tag, "Level");
+                let structure_tag = compound_or_insert(level_tag, "Structures");
+                let start_tag = compound_or_insert(structure_tag, "Starts");
+                for (id, value) in legacy_data.starts.iter() {
+                    start_tag.put(
+                        id.clone(),
+                        value.cast(&NBT).to_tag().expect("a start is a valid tag"),
+                    );
+                }
+                let references_tag = compound_or_insert(structure_tag, "References");
+                for (id, indexes) in legacy_data.indexes.iter() {
+                    references_tag.put_long_array(id.clone(), indexes.clone());
+                }
+                tag
+            },
+        );
+        // a failed read or write completes the chunk future of vanilla exceptionally, which `join` throws unchecked;
+        // vanilla joins a window of eight chunks at a time, here the first failure ends the fix. The read of the chunk
+        // after a failed read has been queued behind it and still runs (and logs) before the join throws.
+        if let Err(e) = updated {
+            if chunks.last_read_failed()
+                && let Some(&(next, _)) = entries.get(index + 1)
+            {
+                chunks.read_ahead(ctx.tree, &ChunkPos::unpack(*next));
+            }
+            return Err(FileFixError::Unchecked(format!(
+                "java.util.concurrent.CompletionException: {}",
+                java_to_string(&e)
+            )));
+        }
         ctx.progress.increment_finished_operations_by(1);
     }
     Ok(())

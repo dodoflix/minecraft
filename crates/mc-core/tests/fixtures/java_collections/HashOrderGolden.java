@@ -1,5 +1,6 @@
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.nio.file.*;
@@ -17,6 +18,8 @@ import net.minecraft.core.BlockPos;
  * new HashSet(pending.keySet()) then addAll(live.keySet())).
  * Chunk position sets (the long arrays of `structures.References`, packed `ChunkPos` values around a chunk): longset (`new LongOpenHashSet(long[])`, the
  * keys column is the array, possibly with repeats) and longsetadd (`new LongOpenHashSet()` then `add` of each), both listed by `toLongArray()`.
+ * Long keyed map: fastlong (`new Long2ObjectOpenHashMap<>(expected)` after the puts, possibly with repeats and the key 0, listed by
+ * `long2ObjectEntrySet().stream()`, which walks the table from its first slot up).
  * Usage: crates/mc-core/tests/fixtures/java_collections/gen.sh
  * Output: crates/mc-core/tests/fixtures/java_collections/golden.txt.gz
  */
@@ -184,6 +187,31 @@ public class HashOrderGolden {
          for (long v : values) added.add(v);
          out.append("longset\t").append(n).append('\t').append(join(list)).append('\t').append(join(longs(fromArray.toLongArray()))).append('\n');
          out.append("longsetadd\t").append(n).append('\t').append(join(list)).append('\t').append(join(longs(added.toLongArray()))).append('\n');
+      }
+      // Long2ObjectOpenHashMap: its entry set stream walks the table upwards, the key 0 first
+      Random longRandom = new Random(20261121);
+      for (int round = 0; round < 300; round++) {
+         int expected = new int[] {0, 1, 16, 16, 100}[longRandom.nextInt(5)];
+         int n = round < 60 ? 1 + round % 20 : 1 + longRandom.nextInt(round < 250 ? 60 : 700);
+         int cx = longRandom.nextInt(400) - 200, cz = longRandom.nextInt(400) - 200;
+         List<Long> keys = new ArrayList<>();
+         for (int i = 0; i < n; i++) {
+            long k;
+            if (round % 3 == 0) {
+               int x = cx + longRandom.nextInt(17) - 8, z = cz + longRandom.nextInt(17) - 8;
+               k = (x & 0xFFFFFFFFL) | ((z & 0xFFFFFFFFL) << 32);
+            } else if (round % 3 == 1) {
+               k = longRandom.nextLong();
+            } else {
+               k = longRandom.nextInt(40) - 5;
+            }
+            keys.add(i % 17 == 5 ? 0L : k);
+         }
+         Long2ObjectOpenHashMap<String> m = new Long2ObjectOpenHashMap<>(expected);
+         for (long k : keys) m.put(k, "");
+         List<Long> order = new ArrayList<>();
+         m.long2ObjectEntrySet().stream().forEach(e -> order.add(e.getLongKey()));
+         out.append("fastlong\t").append(expected).append('\t').append(join(keys)).append('\t').append(join(order)).append('\n');
       }
       Files.writeString(Path.of(args[0]), out.toString());
    }

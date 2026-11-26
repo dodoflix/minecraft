@@ -1,9 +1,8 @@
 //! An old world whose files or folders the server may not read, list or write: the real 26.3 server and `mc-server`
 //! each upgrade a copy of it, and the warnings and errors of the two logs (with the first line of the exception behind
 //! each) are compared in order. The file fixer reads, lists, copies and moves the real files, and the exception of a
-//! failed operation names the path. `mc-world` stops at the first chunk of a folder it cannot read and logs one
-//! `Failed to read chunk` line, where vanilla's asynchronous reads log a varying number of them, in the hash order of its
-//! structure data: the comparison shows the failing reads once, without their position. Run with
+//! failed operation names the path. The chunks of a folder that cannot be read fail in the hash order of the structure
+//! data, and the `Failed to read chunk` lines of the two logs are compared with their positions. Run with
 //! `cargo test -p mc-server --test oracle unreadable_ -- --ignored --nocapture`.
 
 use std::fs;
@@ -53,7 +52,7 @@ fn journal(world: &Path, bytes: &[u8], mode: u32) {
 /// A case: what is wrong with the files of the copy of the old world.
 type Damage = fn(&Path);
 
-const CASES: [(&str, Damage); 34] = [
+const CASES: [(&str, Damage); 35] = [
     ("saved_data_unreadable", |w| {
         chmod(w, "data/Mineshaft.dat", 0o200)
     }),
@@ -68,6 +67,9 @@ const CASES: [(&str, Damage); 34] = [
     }),
     ("data_folder_unlistable", |w| chmod(w, "data", 0o300)),
     ("data_folder_unwritable", |w| chmod(w, "data", 0o500)),
+    ("saved_data_folder_is_a_file", |w| {
+        fs::write(w.join("data/minecraft"), b"x").expect("file")
+    }),
     ("region_folder_unlistable", |w| chmod(w, "region", 0o300)),
     ("dimension_folder_unlistable", |w| chmod(w, "DIM-1", 0o300)),
     ("journal_unreadable", |w| journal(w, b"{}", 0o200)),
@@ -134,29 +136,29 @@ const CASES: [(&str, Damage); 34] = [
     }),
 ];
 
-/// The chunk reads that fail alike, shown once with their position left out: which chunk of the folder fails first
-/// follows the hash order of the structure data in vanilla, and how many fail before the upgrade stops depends on how far
-/// the asynchronous reads of vanilla run ahead of its first join.
-fn collapse_chunk_reads(log: Vec<String>) -> Vec<String> {
-    let mut out: Vec<String> = Vec::new();
-    for line in log {
-        if let Some(rest) = line.strip_prefix("WARN Failed to read chunk [") {
-            let tail = rest.split_once(']').map_or("", |(_, tail)| tail);
-            out.push(format!("WARN Failed to read chunk <pos>{tail}"));
-        } else if line.starts_with("  ")
-            && out
-                .last()
-                .is_some_and(|last| last.starts_with("WARN Failed to read chunk <pos>"))
-        {
-            let last = out.last_mut().expect("checked");
-            last.push('\n');
-            last.push_str(&line);
-        } else {
-            out.push(line);
-        }
-    }
-    out.dedup_by(|a, b| a == b && a.starts_with("WARN Failed to read chunk <pos>"));
-    out
+const READ_FAILED: &str = "WARN Failed to read chunk [";
+
+/// The second `Failed to read chunk` record of a folder that cannot be read: a worker of the I/O pool of vanilla logs it
+/// while the main thread already fails the upgrade and stops the server, so a run of the real server may end without it
+/// (12 of 13 runs on the unreadable region logged it, one did not; the first record always came out). `mc-world` always
+/// logs it, so when the real log has no second record, ours is compared without the records after its first.
+fn without_late_reads(log: Vec<String>) -> Vec<String> {
+    let mut reads = 0;
+    let mut skipping = false;
+    log.into_iter()
+        .filter(|line| {
+            if line.starts_with("  ") {
+                return !skipping;
+            }
+            if line.starts_with(READ_FAILED) {
+                reads += 1;
+                skipping = reads > 1;
+            } else {
+                skipping = false;
+            }
+            !skipping
+        })
+        .collect()
 }
 
 fn upgrade(side: Side, dir: &Path, damage: Damage) -> Run {
@@ -201,10 +203,15 @@ fn unreadable_world_files() {
                 runs[0].started, runs[0].exit, runs[1].started, runs[1].exit
             ));
         }
-        let (vanilla, ours) = (
-            collapse_chunk_reads(gate_log(&runs[0])),
-            collapse_chunk_reads(gate_log(&runs[1])),
-        );
+        let (vanilla, mut ours) = (gate_log(&runs[0]), gate_log(&runs[1]));
+        if vanilla
+            .iter()
+            .filter(|l| l.starts_with(READ_FAILED))
+            .count()
+            < 2
+        {
+            ours = without_late_reads(ours);
+        }
         println!("UNREADABLE {name}: vanilla log: {vanilla:#?}");
         if let Some(d) = first_log_difference(&vanilla, &ours) {
             findings.push(d);

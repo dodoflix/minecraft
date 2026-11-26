@@ -3,7 +3,7 @@
 //! references of a chunk in it).
 
 /// `HashCommon.mix(long)`.
-fn mix(x: i64) -> usize {
+pub(crate) fn mix_long(x: i64) -> usize {
     let mut h = x.wrapping_mul(-7046029254386353131); // LONG_PHI = 0x9E3779B97F4A7C15
     h ^= ((h as u64) >> 32) as i64;
     (h ^ (((h as u64) >> 16) as i64)) as i32 as u32 as usize
@@ -79,7 +79,7 @@ impl LongOpenHashSet {
         if k == 0 {
             return self.contains_null;
         }
-        let mut pos = mix(k) & self.mask;
+        let mut pos = mix_long(k) & self.mask;
         loop {
             let curr = self.key[pos];
             if curr == 0 {
@@ -99,7 +99,7 @@ impl LongOpenHashSet {
             }
             self.contains_null = true;
         } else {
-            let mut pos = mix(k) & self.mask;
+            let mut pos = mix_long(k) & self.mask;
             loop {
                 let curr = self.key[pos];
                 if curr == 0 {
@@ -136,7 +136,7 @@ impl LongOpenHashSet {
                     break;
                 }
             }
-            let mut pos = mix(self.key[i]) & mask;
+            let mut pos = mix_long(self.key[i]) & mask;
             while new_key[pos] != 0 {
                 pos = (pos + 1) & mask;
             }

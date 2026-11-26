@@ -136,6 +136,13 @@ fn matches_java_iteration_order() {
                     .map(|e| e.0.to_string())
                     .collect()
             }
+            "fastlong" => {
+                let mut m = FastOpenHashMap::new_long(cap);
+                keys.iter().for_each(|k| {
+                    m.put(k.parse::<i64>().unwrap(), ());
+                });
+                m.iter_ascending().map(|e| e.0.to_string()).collect()
+            }
             "hashmap-compute" => {
                 let mut m = JavaHashMap::with_capacity(cap, |k: &String| java_string_hash(k));
                 for op in &keys {
