@@ -125,11 +125,11 @@ public final class Agent {
                 try {
                     // never hang the program on the agent: a class the worker does not take or finish in time loads as it is
                     if (!QUEUE.offer(r, 60, TimeUnit.SECONDS) || !r.done().await(60, TimeUnit.SECONDS)) {
-                        r.abandoned().set(true);
+                        abandon(r);
                         return null;
                     }
                 } catch (InterruptedException e) {
-                    r.abandoned().set(true);
+                    abandon(r);
                     Thread.currentThread().interrupt();
                     return null;
                 }
@@ -190,6 +190,13 @@ public final class Agent {
                 SKIPPED.add(r.name() + "\tnot instrumented\t" + t);
             }
             return null;
+        }
+    }
+
+    /** Under {@code LOCK}, like {@link #register}: a class abandoned after the worker took it must not list its methods. */
+    private static void abandon(Request r) {
+        synchronized (LOCK) {
+            r.abandoned().set(true);
         }
     }
 
@@ -350,7 +357,11 @@ public final class Agent {
             return;
         }
         try {
-            String[] cmd = Files.readString(controlFile).trim().split("\\s+");
+            String text = Files.readString(controlFile).trim();
+            if (text.isEmpty()) {
+                return; // the writer is between creating the file and writing the command: look again next round
+            }
+            String[] cmd = text.split("\\s+");
             if (cmd[0].equals("dump")) {
                 dump(cmd.length > 1 ? Path.of(cmd[1]) : outFile);
             } else if (cmd[0].equals("reset")) {
@@ -377,7 +388,7 @@ public final class Agent {
     }
 
     /** Writes the current markers to {@code out} (replaced atomically). */
-    public static void dump(Path out) throws IOException {
+    public static synchronized void dump(Path out) throws IOException {
         List<Method> snapshot;
         List<String> skipped;
         int used;
