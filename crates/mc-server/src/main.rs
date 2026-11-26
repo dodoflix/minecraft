@@ -55,6 +55,8 @@ fn run() -> ExitCode {
         let jfr = mc_game::util::profiling::jfr::instance();
         jfr.start(mc_game::util::profiling::jfr::ENVIRONMENT_DESCRIPTION);
     }
+    // `setDumpOnExit(true)`: a recording still running when `run` returns is dumped
+    let _dump_on_exit = DumpOnExit;
 
     let settings_file = Path::new("server.properties");
     let settings = match DedicatedServerSettings::new(settings_file) {
@@ -83,6 +85,15 @@ fn run() -> ExitCode {
         return report(e);
     }
     start_server(options, settings)
+}
+
+/// Dumps the flight recording of `--jfrProfile` on every way out of `run`.
+struct DumpOnExit;
+
+impl Drop for DumpOnExit {
+    fn drop(&mut self) {
+        mc_game::util::profiling::jfr::instance().stop_on_exit();
+    }
 }
 
 fn report(error: impl std::fmt::Display) -> ExitCode {

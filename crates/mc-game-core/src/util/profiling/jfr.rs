@@ -916,6 +916,18 @@ fn float(value: f32) -> Value {
     raw(java_float_to_string(value))
 }
 
+/// Gson writes `JsonObject` members with a null value only when it serialises nulls, which `toJson` does not.
+fn drop_nulls(value: &mut Value) {
+    match value {
+        Value::Object(map) => {
+            map.retain(|_, v| !v.is_null());
+            map.values_mut().for_each(drop_nulls);
+        }
+        Value::Array(items) => items.iter_mut().for_each(drop_nulls),
+        _ => {}
+    }
+}
+
 /// Replaces every marked string of [`raw`] by its bare token (`serde_json` writes the marker as `\u0001`).
 fn unquote(text: &str) -> String {
     const MARK: &str = "\\u0001";
@@ -1151,7 +1163,9 @@ impl Summary {
         root.insert("threadAllocation".into(), json!([]));
         root.insert("chunkGen".into(), self.chunk_gen_json());
         root.insert("structureGen".into(), self.structure_gen_json());
-        unquote(&serde_json::to_string_pretty(&Value::Object(root)).expect("plain JSON values"))
+        let mut root = Value::Object(root);
+        drop_nulls(&mut root);
+        unquote(&serde_json::to_string_pretty(&root).expect("plain JSON values"))
     }
 }
 
@@ -1567,6 +1581,10 @@ mod tests {
         let chunk = &json["chunkGen"]["status"][0];
         assert_eq!(chunk["state"], "minecraft:biomes");
         assert_eq!(chunk["count"], 1);
+        assert!(
+            chunk.get("secondSlowest").is_none(),
+            "Gson leaves null members out"
+        );
         // vanilla reads `chunkPosX` for both coordinates of the position
         assert_eq!(chunk["fastest"]["chunkPosZ"], 3);
         assert_eq!(chunk["fastest"]["worldPosZ"], -32);

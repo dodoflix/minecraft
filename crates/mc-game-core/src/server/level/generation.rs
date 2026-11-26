@@ -416,9 +416,10 @@ impl ChunkMap {
             holder.has_chunk_unchecked(target.parent()),
             "Parent chunk missing"
         );
-        if holder
-            .get_persisted_status()
-            .is_none_or(|status| status.is_before(target))
+        if crate::util::profiling::jfr::instance().is_running()
+            && holder
+                .get_persisted_status()
+                .is_none_or(|status| status.is_before(target))
         {
             let pos = ChunkPos::unpack(key);
             if let Some(profiled) = crate::util::profiling::jfr::instance().on_chunk_generate(
