@@ -1,0 +1,4 @@
+# Differences between vanilla and our server that scripts/client-e2e.sh reports and that are accepted until fixed.
+# One per line: SCENARIO KEY, where KEY is the key printed in diff.txt (scripts/client_e2e/compare.py lists the kinds).
+# A line whose difference no longer occurs is reported by the runner: delete it. Never add a line to get a run green;
+# fix the difference or record why it stays.

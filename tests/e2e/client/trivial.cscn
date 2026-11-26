@@ -1,0 +1,9 @@
+# The smallest scenario: join, stay a second of game time, read the client state, leave.
+server seed=12345
+client join
+wait_screen null 120
+# 117 = the chunks of view distance 4 (the runner's default)
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+snapshot joined
+client disconnect
+wait_screen TitleScreen 30

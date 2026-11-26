@@ -1,0 +1,3 @@
+# Exact server log lines that count as findings (errors, exceptions) but that the vanilla server prints itself in these runs.
+# Form: LEVEL: message (scripts/client_e2e/normalise.py). Same rule as client-log-noise.txt: only lines seen on a run.
+ERROR: No key layers in MapLike[{}]
