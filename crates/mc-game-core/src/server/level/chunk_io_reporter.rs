@@ -97,8 +97,9 @@ impl ChunkIoReporter {
         report
             .add_category("Misplaced Chunk")
             .set_detail("Stored Position", stored_pos);
+        // the exception logged is the `ReportedException` around the report; the state error is its cause
         log::error!(
-            "Failed to load chunk {},{}\n{exception}",
+            "Failed to load chunk {},{}\nnet.minecraft.ReportedException: Chunk found in invalid location\nCaused by: {exception}",
             requested_pos.x,
             requested_pos.z
         );
