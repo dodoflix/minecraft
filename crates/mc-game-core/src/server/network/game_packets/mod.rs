@@ -31,7 +31,7 @@ mod technical_blocks;
 pub mod hooks;
 
 use super::InboundPacket;
-use super::game_listener::ServerGamePacketListenerImpl;
+use super::game_listener::{DeferredTask, ServerGamePacketListenerImpl};
 use crate::server::MinecraftServer;
 use crate::server::level::ServerLevel;
 use crate::server::players::end_credits::finish_player_step;
@@ -236,27 +236,52 @@ pub fn process_queued_packets(server: &mut MinecraftServer) {
         }
     }
     for uuid in uuids {
-        let Some(handle) = server.player_list.get_player(&uuid).cloned() else {
-            continue;
-        };
-        let Some((pending, deferred)) = with_player(server, uuid, |ctx| {
-            ctx.run_main_thread_packets();
+        // what a handler called directly (a replay delivering a packet itself) left behind is settled first
+        let Some((packets, pending, deferred)) = with_player(server, uuid, |ctx| {
             (
+                std::mem::take(&mut ctx.lis().main_thread_packets),
                 ctx.lis().pending_respawn.take(),
                 std::mem::take(&mut ctx.lis().deferred_tasks),
             )
         }) else {
             continue;
         };
-        finish_player_step(server, uuid);
-        for task in deferred {
-            task(server);
-        }
-        if let Some(won_game) = pending {
-            perform_respawn(server, &handle, won_game);
+        settle_player_step(server, uuid, pending, deferred);
+        // Vanilla handles each packet inline, so what a packet queues (test actions, respawn) happens before the next
+        // packet: the player is put back and its deferred tasks run after every packet.
+        for (packet, received_at_ms) in packets {
+            let Some((pending, deferred)) = with_player(server, uuid, |ctx| {
+                ctx.run_main_thread_packet(packet, received_at_ms);
+                (
+                    ctx.lis().pending_respawn.take(),
+                    std::mem::take(&mut ctx.lis().deferred_tasks),
+                )
+            }) else {
+                break;
+            };
+            settle_player_step(server, uuid, pending, deferred);
         }
     }
     handle_disconnections(server);
+}
+
+/// What follows one handled packet once the player is back in its level: the removal `showEndCredits()` asked for, the
+/// server tasks the handler queued and its respawn request.
+fn settle_player_step(
+    server: &mut MinecraftServer,
+    uuid: Uuid,
+    pending_respawn: Option<bool>,
+    deferred: Vec<DeferredTask>,
+) {
+    finish_player_step(server, uuid);
+    for task in deferred {
+        task(server);
+    }
+    if let Some(won_game) = pending_respawn
+        && let Some(handle) = server.player_list.get_player(&uuid).cloned()
+    {
+        perform_respawn(server, &handle, won_game);
+    }
 }
 
 /// `Connection.handleDisconnection()` for every player whose connection `disconnect(reason)` has just closed for
@@ -333,7 +358,7 @@ pub fn tick_connection(server: &mut MinecraftServer, uuid: Uuid) {
 
 impl PlayCtx<'_> {
     /// Drains this connection's inbound channel and handles its netty-thread packets; the main-thread packets wait in
-    /// `main_thread_packets` for `run_main_thread_packets` (see the module docs for the ordering).
+    /// `main_thread_packets` for `process_queued_packets` (see the module docs for the ordering).
     fn drain_inbound_netty(&mut self) {
         // A player placed by a server task between ticks has not run its first `tick()` yet: vanilla places it while
         // processing packets and ticks the connection in the same server tick, so `firstGood`/`lastGood` already hold
@@ -370,18 +395,16 @@ impl PlayCtx<'_> {
         }
     }
 
-    /// `PacketProcessor.processQueuedPackets()` for this connection's packets.
-    fn run_main_thread_packets(&mut self) {
-        for (packet, received_at_ms) in std::mem::take(&mut self.lis().main_thread_packets) {
-            // `PacketProcessor`: `shouldHandleMessage` = `isAcceptingMessages()` (a closed connection, or one
-            // waiting for the switch to configuration, ignores everything but `ConfigurationAcknowledged`).
-            let closed_for_good = self.lis().pending_disconnect.is_some();
-            if closed_for_good || !self.lis().is_accepting_messages() {
-                log::debug!("Ignoring packet due to disconnection: {:?}", packet.name());
-                continue;
-            }
-            self.dispatch(packet, received_at_ms);
+    /// `PacketProcessor.processQueuedPackets()` for one of this connection's packets.
+    fn run_main_thread_packet(&mut self, packet: ServerboundPlayPacket, received_at_ms: i64) {
+        // `PacketProcessor`: `shouldHandleMessage` = `isAcceptingMessages()` (a closed connection, or one
+        // waiting for the switch to configuration, ignores everything but `ConfigurationAcknowledged`).
+        let closed_for_good = self.lis().pending_disconnect.is_some();
+        if closed_for_good || !self.lis().is_accepting_messages() {
+            log::debug!("Ignoring packet due to disconnection: {:?}", packet.name());
+            return;
         }
+        self.dispatch(packet, received_at_ms);
     }
 
     /// Handles the chat packets held while the Services keys were being fetched, once they are known.

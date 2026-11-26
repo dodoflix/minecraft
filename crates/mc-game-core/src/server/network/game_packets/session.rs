@@ -191,7 +191,7 @@ impl PlayCtx<'_> {
 
     /// The `PERFORM_RESPAWN` arms: `this.player = playerList.respawn(player, keepAll, reason)`. The respawn replaces the
     /// player entity in its level, which is not possible while this player is taken out of it, so it is queued and run
-    /// by [`super::process_queued_packets`] right after the batch (the new player keeps this listener).
+    /// by [`super::process_queued_packets`] right after the packet (the new player keeps this listener).
     fn respawn_player(&mut self, won_game: bool) {
         self.lis().pending_respawn = Some(won_game);
     }

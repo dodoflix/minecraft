@@ -29,7 +29,7 @@ use std::sync::Arc;
 use std::sync::mpsc::Receiver;
 
 /// A `server.execute(..)` task queued by a packet handler.
-type DeferredTask = Box<dyn FnOnce(&mut crate::server::MinecraftServer)>;
+pub(crate) type DeferredTask = Box<dyn FnOnce(&mut crate::server::MinecraftServer)>;
 
 /// `ServerGamePacketListenerImpl.CLIENT_LOADED_TIMEOUT_TIME`.
 pub const CLIENT_LOADED_TIMEOUT_TIME: i32 = 60;
@@ -80,10 +80,10 @@ pub struct ServerGamePacketListenerImpl {
     pub(crate) pending_disconnect: Option<mc_text::Component>,
     pub(crate) disconnection_handled: bool,
     /// `PERFORM_RESPAWN` requested while the player was taken out of its level: `PlayerList.respawn(keepAll)` runs
-    /// right after the packet batch (`Some(won_game)`).
+    /// right after the packet (`Some(won_game)`).
     pub(crate) pending_respawn: Option<bool>,
     /// `server.execute(..)` tasks queued by packet handlers while the player was taken out of its level (commands
-    /// must see the player in the level and every level in the server): run right after the packet batch.
+    /// must see the player in the level and every level in the server): run right after the packet.
     pub(crate) deferred_tasks: Vec<DeferredTask>,
     /// The main-thread packets of the batch drained at the start of the tick, in arrival order: they wait in
     /// `PacketProcessor` while the tasks of the netty-handled packets run, so they are handled after those.

@@ -17,7 +17,7 @@ struct AdminHandlers;
 
 impl PlayHandlers for AdminHandlers {
     fn handle_set_game_rule(&self, ctx: &mut PlayCtx, packet: &ServerboundSetGameRulePacket) {
-        // run after the packet batch: `onGameRuleChanged` acts on every level, including the one the player is taken out of
+        // run after the packet: `onGameRuleChanged` acts on every level, including the one the player is taken out of
         let entries = packet.entries.clone();
         ctx.lis().deferred_tasks.push(Box::new(move |server| {
             for entry in &entries {
