@@ -456,8 +456,9 @@ impl Builder {
         self
     }
 
-    /// Points the server's Mojang services (session server, profile keys) at `mock`: the discovery property for the
-    /// vanilla jar, `MINECRAFT_API_DISCOVERY_HOST` for our own server.
+    /// Points the server's Mojang services at `mock`: the discovery property for the vanilla jar (session server, profile
+    /// keys, profile lookups), `MINECRAFT_API_DISCOVERY_HOST` for our own server (profile keys and lookups only: its
+    /// `hasJoined` request still goes to the fixed session server URL).
     pub fn mojang(self, mock: &MockMojang) -> Self {
         match self.program {
             Program::Vanilla => {

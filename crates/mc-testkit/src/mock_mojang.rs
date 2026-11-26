@@ -2,8 +2,9 @@
 //! the real ones.
 //!
 //! authlib (client and vanilla server alike) takes every service URL from one discovery document. Setting the JVM
-//! property `minecraft.api.discovery.host` to [`MockMojang::discovery_url`] (see [`crate::Builder::mojang`]) or, for
-//! our own server, `MINECRAFT_API_DISCOVERY_HOST`, points all of them here. The mock serves:
+//! property `minecraft.api.discovery.host` to [`MockMojang::discovery_url`] (see [`crate::Builder::mojang`]) points all of
+//! them here. Our own server reads `MINECRAFT_API_DISCOVERY_HOST` for its profile key set and profile lookups; its
+//! `hasJoined` request still goes to the fixed session server URL. The mock serves:
 //!
 //! | Discovery entry | Route | Answer |
 //! |---|---|---|
@@ -86,8 +87,8 @@ pub struct Certificate {
 struct State {
     requests: Vec<Request>,
     joins: Vec<Join>,
-    /// Lower-case player name to profile id.
-    profiles: HashMap<String, Uuid>,
+    /// Lower-case player name to the name as spelled and the profile id.
+    profiles: HashMap<String, (String, Uuid)>,
     certificates: HashMap<Uuid, Certificate>,
 }
 
@@ -179,7 +180,7 @@ impl MockMojang {
     pub fn register_profile(&self, name: &str, id: Uuid) {
         lock(&self.shared.state)
             .profiles
-            .insert(name.to_lowercase(), id);
+            .insert(name.to_lowercase(), (name.to_owned(), id));
     }
 
     /// The certificate served to `profile_id` (generated on first use, the same one afterwards).
@@ -217,7 +218,7 @@ fn now_millis() -> i64 {
         .map_or(0, |d| d.as_millis() as i64)
 }
 
-/// `Instant.toString()` for whole milliseconds: `2026-11-26T12:00:00.123Z`.
+/// `Instant.toString()` for whole milliseconds: `2026-11-26T12:00:00.123Z`, no fraction at 0 ms.
 fn iso_instant(millis: i64) -> String {
     let secs = millis.div_euclid(1000);
     let (days, rem) = (secs.div_euclid(86_400), secs.rem_euclid(86_400));
@@ -231,12 +232,15 @@ fn iso_instant(millis: i64) -> String {
     let day = doy - (153 * mp + 2) / 5 + 1;
     let month = if mp < 10 { mp + 3 } else { mp - 9 };
     let year = yoe + era * 400 + i64::from(month <= 2);
+    let fraction = match millis.rem_euclid(1000) {
+        0 => String::new(),
+        ms => format!(".{ms:03}"),
+    };
     format!(
-        "{year:04}-{month:02}-{day:02}T{:02}:{:02}:{:02}.{:03}Z",
+        "{year:04}-{month:02}-{day:02}T{:02}:{:02}:{:02}{fraction}Z",
         rem / 3600,
         rem % 3600 / 60,
-        rem % 60,
-        millis.rem_euclid(1000)
+        rem % 60
     )
 }
 
@@ -408,8 +412,7 @@ fn profile_of(shared: &Shared, name: &str) -> Uuid {
     lock(&shared.state)
         .profiles
         .get(&name.to_lowercase())
-        .copied()
-        .unwrap_or_else(|| offline_uuid(name))
+        .map_or_else(|| offline_uuid(name), |(_, id)| *id)
 }
 
 fn route(shared: &Shared, request: &Request) -> Response {
@@ -463,7 +466,10 @@ fn route(shared: &Shared, request: &Request) -> Response {
             {
                 return Response::empty(204);
             }
-            state.profiles.insert(name.to_lowercase(), id);
+            state
+                .profiles
+                .entry(name.to_lowercase())
+                .or_insert((name.clone(), id));
             Response::json(json!({"id": undashed(id), "name": name, "properties": []}))
         }
         ("GET", p) if p.starts_with("/session/minecraft/profile/") => {
@@ -471,7 +477,7 @@ fn route(shared: &Shared, request: &Request) -> Response {
                 return Response::error(400, path, "malformed profile id");
             };
             let state = lock(&shared.state);
-            match state.profiles.iter().find(|(_, v)| **v == id) {
+            match state.profiles.values().find(|(_, v)| *v == id) {
                 Some((name, _)) => {
                     Response::json(json!({"id": undashed(id), "name": name, "properties": []}))
                 }
@@ -592,9 +598,9 @@ mod tests {
 
     #[test]
     fn instants_print_like_java() {
-        assert_eq!(iso_instant(0), "1970-01-01T00:00:00.000Z");
+        assert_eq!(iso_instant(0), "1970-01-01T00:00:00Z");
         assert_eq!(iso_instant(951_782_400_123), "2000-02-29T00:00:00.123Z");
-        assert_eq!(iso_instant(1_795_694_400_000), "2026-11-26T12:00:00.000Z");
+        assert_eq!(iso_instant(1_795_694_400_000), "2026-11-26T12:00:00Z");
     }
 
     #[test]
@@ -701,7 +707,7 @@ mod tests {
             &format!("/session/minecraft/profile/{}?unsigned=true", undashed(id)),
             None,
         );
-        assert_eq!(by_id["name"], "steve");
+        assert_eq!(by_id["name"], "Steve"); // the registered spelling, not the lower-case key
         let unknown = format!(
             "/session/minecraft/profile/{}",
             undashed(Uuid::from_u128(9))
