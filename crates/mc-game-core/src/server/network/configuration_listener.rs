@@ -420,6 +420,7 @@ pub(super) async fn run(
     ctx: &mut ConnectionContext,
     cookie: CommonListenerCookie,
 ) -> Option<CommonListenerCookie> {
+    ctx.reader.reset_ends_quietly();
     let listener = ServerConfigurationPacketListenerImpl::new(
         ctx.sender.clone(),
         ctx.hooks.clone(),

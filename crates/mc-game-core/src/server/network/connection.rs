@@ -569,6 +569,7 @@ pub struct FrameReader {
     decoder: FrameDecoder,
     chunk: Box<[u8; 8192]>,
     last_read: Instant,
+    reset_is_eof: bool,
 }
 
 impl FrameReader {
@@ -578,7 +579,15 @@ impl FrameReader {
             decoder: FrameDecoder::new(),
             chunk: Box::new([0; 8192]),
             last_read: Instant::now(),
+            reset_is_eof: false,
         }
+    }
+
+    /// A client that resets the connection (its socket closed with unread data) during the configuration or play
+    /// protocol reads as a closed one on vanilla's server, `Disconnected`, not an exception: netty's channel is closed
+    /// before `exceptionCaught` could report it. Only the login protocol reports `Connection reset by peer`.
+    pub fn reset_ends_quietly(&mut self) {
+        self.reset_is_eof = true;
     }
 
     /// Inbound half of `Connection.setupCompression`.
@@ -611,6 +620,10 @@ impl FrameReader {
         .await
         {
             Err(_) => Err(ReadError::Timeout),
+            // a reset after the login is a closed channel to vanilla: see `reset_ends_quietly`
+            Ok(Err(e)) if self.reset_is_eof && e.kind() == std::io::ErrorKind::ConnectionReset => {
+                Err(ReadError::Eof)
+            }
             Ok(Err(e)) => Err(ReadError::Net(NetError::Io(e))),
             Ok(Ok(0)) => Err(ReadError::Eof),
             Ok(Ok(n)) => {
@@ -635,7 +648,14 @@ impl FrameReader {
 /// `Connection.exceptionCaught` text for a read/decode failure: `Internal Exception: <cause.toString()>`.
 pub fn internal_exception_text(error: &NetError) -> String {
     let cause = match error {
-        NetError::Io(e) => format!("java.io.IOException: {}", io_error_text(e)),
+        NetError::Io(e) => match e.raw_os_error() {
+            // netty's epoll transport (`use-native-transport`, the default on Linux) fails a read with this exception
+            Some(errno) => format!(
+                "io.netty.channel.unix.Errors$NativeIoException: recvAddress(..) failed with error(-{errno}): {}",
+                io_error_text(e)
+            ),
+            None => format!("java.io.IOException: {}", io_error_text(e)),
+        },
         NetError::Eof => "java.io.IOException: end of stream".to_owned(),
         NetError::CorruptedFrame(m) => {
             format!("io.netty.handler.codec.CorruptedFrameException: {m}")
@@ -707,6 +727,38 @@ mod tests {
         ));
         assert_eq!(started.elapsed(), Duration::from_secs(50));
         let _client = writer.await.unwrap();
+    }
+
+    /// A client that resets the connection after the login reads as a closed one, but a reset during the login keeps its
+    /// exception text.
+    #[tokio::test]
+    async fn a_reset_ends_quietly_only_after_the_login() {
+        for quiet in [false, true] {
+            let listener = TcpListener::bind("127.0.0.1:0").await.unwrap();
+            let client = TcpStream::connect(listener.local_addr().unwrap())
+                .await
+                .unwrap();
+            let (server_side, _) = listener.accept().await.unwrap();
+            let (read, _write) = server_side.into_split();
+            let mut reader = FrameReader::new(read);
+            if quiet {
+                reader.reset_ends_quietly();
+            }
+            client.set_zero_linger().unwrap();
+            drop(client);
+            let result = reader.next_payload().await;
+            if quiet {
+                assert!(matches!(result, Err(ReadError::Eof)));
+            } else {
+                let Err(ReadError::Net(e)) = result else {
+                    panic!("a reset read fails")
+                };
+                assert_eq!(
+                    internal_exception_text(&e),
+                    "Internal Exception: io.netty.channel.unix.Errors$NativeIoException: recvAddress(..) failed with error(-104): Connection reset by peer"
+                );
+            }
+        }
     }
 
     #[test]
