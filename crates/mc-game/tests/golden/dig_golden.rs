@@ -75,8 +75,7 @@ fn parse_fixture() -> Vec<Case> {
             } else if let Some(p) = line.strip_prefix("PKT Obs ") {
                 let (kind, hex) = p.split_once(' ').unwrap();
                 if kind == BLOCK_DESTRUCTION || kind == LEVEL_EVENT {
-                    c.packets
-                        .push((tick, kind.to_owned(), normalize(kind, hex)));
+                    c.packets.push((tick, kind.to_owned(), hex.to_owned()));
                 }
             }
         }
@@ -99,19 +98,6 @@ fn read_varint(bytes: &[u8]) -> (i32, usize) {
 
 fn hex(bytes: &[u8]) -> String {
     bytes.iter().map(|b| format!("{b:02x}")).collect()
-}
-
-/// A destruction packet carries the breaker's entity id, which differs between the servers: drop it.
-fn normalize(kind: &str, hex_text: &str) -> String {
-    if kind != BLOCK_DESTRUCTION {
-        return hex_text.to_owned();
-    }
-    let bytes: Vec<u8> = (0..hex_text.len() / 2)
-        .map(|i| u8::from_str_radix(&hex_text[2 * i..2 * i + 2], 16).unwrap())
-        .collect();
-    let (_, n) = read_varint(&bytes);
-    let (_, m) = read_varint(&bytes[n..]);
-    format!("{}|{}", hex(&bytes[..n]), hex(&bytes[n + m..]))
 }
 
 struct Replay {
@@ -159,7 +145,7 @@ fn replay_setup() -> Replay {
     Replay { level, steve, rx }
 }
 
-/// What the observer received since the last call: `(kind, normalized hex)`.
+/// What the observer received since the last call: `(kind, hex)`.
 fn drain(rx: &mut UnboundedReceiver<Outbound>) -> Vec<(String, String)> {
     let mut out = Vec::new();
     while let Ok(msg) = rx.try_recv() {
@@ -174,7 +160,7 @@ fn drain(rx: &mut UnboundedReceiver<Outbound>) -> Vec<(String, String)> {
         } else {
             continue;
         };
-        out.push((kind.to_owned(), normalize(kind, &hex(&p))));
+        out.push((kind.to_owned(), hex(&p)));
     }
     out
 }
