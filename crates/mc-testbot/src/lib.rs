@@ -11,6 +11,7 @@ pub mod log;
 pub mod physics;
 pub mod raw;
 pub mod scenario;
+pub mod signed_chat;
 pub mod state;
 pub mod tracking;
 pub mod world;

@@ -18,7 +18,7 @@ fn json(c: &mc_text::Component) -> String {
 }
 
 impl State {
-    pub(crate) fn on_other(&mut self, packet: ClientboundPlayPacket, _out: &mut Out) {
+    pub(crate) fn on_other(&mut self, packet: ClientboundPlayPacket, out: &mut Out) {
         use ClientboundPlayPacket as P;
         match packet {
             // ---- entities ----
@@ -292,8 +292,14 @@ impl State {
                     .as_ref()
                     .map(text)
                     .unwrap_or(p.body.content.clone());
-                if p.signature.is_some() {
-                    self.pending_chat_acks += 1;
+                // `ClientPacketListener.markMessageAsProcessed`: acknowledge once more than 64 are pending
+                if let Some(signature) = &p.signature
+                    && self.last_seen.add_pending(signature)
+                    && self.last_seen.offset() > 64
+                {
+                    out.push(ServerboundPlayPacket::ChatAck(ServerboundChatAckPacket {
+                        offset: self.last_seen.take_offset(),
+                    }));
                 }
                 self.chat.push(ChatLine {
                     tick: self.tick,

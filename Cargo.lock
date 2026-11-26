@@ -1451,6 +1451,8 @@ dependencies = [
 name = "mc-testbot"
 version = "0.1.0"
 dependencies = [
+ "base64",
+ "chrono",
  "mc-core",
  "mc-data",
  "mc-nbt",
@@ -1459,9 +1461,11 @@ dependencies = [
  "mc-text",
  "regex",
  "reqwest",
+ "rsa",
  "serde",
  "serde_json",
  "sha1 0.10.7",
+ "sha2 0.10.9",
  "thiserror",
  "tokio",
  "uuid",

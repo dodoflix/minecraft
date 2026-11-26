@@ -194,8 +194,10 @@ pub struct State {
     /// The currently open container menu, if any.
     pub open_menu: Option<Menu>,
     pub selected_slot: usize,
-    /// Signed chat messages seen since the last `chat_ack`.
-    pub pending_chat_acks: i32,
+    /// `LastSeenMessagesTracker(20)`: the signed messages seen, acknowledged by the next chat packet.
+    pub last_seen: crate::signed_chat::LastSeenTracker,
+    /// Set by [`crate::Bot::start_chat_session`]: chat packets are signed from then on.
+    pub chat_session: Option<crate::signed_chat::ChatSession>,
     pub chat: Vec<ChatLine>,
     pub custom_payloads: Vec<(Identifier, Vec<u8>)>,
     pub transfer: Option<(String, i32)>,
@@ -340,7 +342,8 @@ impl State {
             inventory: Menu::player_inventory(),
             open_menu: None,
             selected_slot: 0,
-            pending_chat_acks: 0,
+            last_seen: Default::default(),
+            chat_session: None,
             chat: Vec::new(),
             custom_payloads: Vec::new(),
             transfer: None,

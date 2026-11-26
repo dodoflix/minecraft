@@ -16,9 +16,19 @@ use crate::conn::{Conn, SharedLog, WirePacket, log_packet, log_undecodable};
 use crate::error::{BotError, Result};
 use crate::join::{self, BotOptions};
 use crate::log::{Dir, PacketLog};
+use crate::signed_chat::{Body, ChatSession, ProfileKeyPair};
 use crate::state::{Out, Phase, State, WalkGoal};
 use mc_protocol::components::ItemStack;
 use mc_protocol::packets::play::{ClientboundPlayPacket, ServerboundPlayPacket};
+
+/// A fault applied to a signed chat packet, for the server's validation tests.
+#[derive(Debug, Clone, Copy, Default)]
+pub struct ChatFault {
+    /// Added to the packet's timestamp (the signature covers the shifted one).
+    pub time_offset_ms: i64,
+    /// Flips a byte of the signature.
+    pub corrupt_signature: bool,
+}
 
 /// State shared between the connection task and the API.
 pub struct Shared {
@@ -570,25 +580,57 @@ impl Bot {
             .map_or(0, |d| d.as_millis() as i64)
     }
 
-    fn last_seen_update(&self) -> LastSeenMessagesUpdate {
-        let offset = self.with_state_mut(|s| std::mem::take(&mut s.pending_chat_acks));
-        LastSeenMessagesUpdate {
-            offset,
-            acknowledged: Default::default(),
-            checksum: 0,
-        }
+    fn salt() -> i64 {
+        uuid::Uuid::new_v4().as_u128() as i64
     }
 
-    /// Unsigned chat message (the server must run with `enforce-secure-profile=false`).
+    /// Starts the chat session of the bot's account: fetches its profile key pair from the services and sends the
+    /// `ChatSessionUpdate`; `chat` and `command_signed_args` are signed from then on.
+    pub async fn start_chat_session(&self) -> Result<()> {
+        let session = self.options.session.as_ref().ok_or_else(|| {
+            BotError::Protocol("the bot has no session (BotOptions::session)".into())
+        })?;
+        let keys = ProfileKeyPair::fetch(&session.discovery_url, &session.access_token).await?;
+        let chat = ChatSession::new(self.options.profile_uuid(), &keys)?;
+        self.send(chat.update_packet());
+        self.with_state_mut(|s| s.chat_session = Some(chat));
+        Ok(())
+    }
+
+    /// A chat message: signed with the chat session when there is one, else unsigned (the server must run with
+    /// `enforce-secure-profile=false`).
     pub fn chat(&self, message: &str) {
-        let last_seen = self.last_seen_update();
-        self.send(ServerboundPlayPacket::Chat(ServerboundChatPacket {
-            message: message.to_string(),
-            time_stamp: mc_protocol::codec::Instant(Self::epoch_millis()),
-            salt: 0,
-            signature: None,
-            last_seen_messages: last_seen,
-        }));
+        self.chat_with(message, ChatFault::default());
+    }
+
+    /// [`chat`](Self::chat) with `fault` applied to the packet.
+    pub fn chat_with(&self, message: &str, fault: ChatFault) {
+        let time_stamp = Self::epoch_millis() + fault.time_offset_ms;
+        let salt = Self::salt();
+        let packet = self.with_state_mut(|s| {
+            let (seen, last_seen_messages) = s.last_seen.generate_and_apply_update();
+            let mut signature = s.chat_session.as_mut().and_then(|c| {
+                c.sign(&Body {
+                    content: message,
+                    time_stamp_millis: time_stamp,
+                    salt,
+                    last_seen: &seen,
+                })
+            });
+            if fault.corrupt_signature
+                && let Some(signature) = &mut signature
+            {
+                signature.0[0] ^= 0xff;
+            }
+            ServerboundChatPacket {
+                message: message.to_string(),
+                time_stamp: mc_protocol::codec::Instant(time_stamp),
+                salt,
+                signature,
+                last_seen_messages,
+            }
+        });
+        self.send(ServerboundPlayPacket::Chat(packet));
     }
 
     /// `chat_command` (no leading slash).
@@ -602,18 +644,42 @@ impl Bot {
 
     /// `chat_command_signed` without argument signatures (what a client without a chat session sends).
     pub fn command_signed(&self, command: &str) {
-        let last_seen = self.last_seen_update();
-        self.send(ServerboundPlayPacket::ChatCommandSigned(
+        self.command_signed_args(command, &[]);
+    }
+
+    /// `chat_command_signed` with a signature for each `(argument name, value)`, signed in order like
+    /// `ArgumentSignatures.signCommand` (without a chat session the list is sent empty).
+    pub fn command_signed_args(&self, command: &str, arguments: &[(&str, &str)]) {
+        let time_stamp = Self::epoch_millis();
+        let salt = Self::salt();
+        let packet = self.with_state_mut(|s| {
+            let (seen, last_seen_messages) = s.last_seen.generate_and_apply_update();
+            let mut entries = Vec::new();
+            if let Some(chat) = s.chat_session.as_mut() {
+                for (name, value) in arguments {
+                    let body = Body {
+                        content: value,
+                        time_stamp_millis: time_stamp,
+                        salt,
+                        last_seen: &seen,
+                    };
+                    if let Some(signature) = chat.sign(&body) {
+                        entries.push(ArgumentSignaturesEntry {
+                            name: (*name).to_string(),
+                            signature,
+                        });
+                    }
+                }
+            }
             ServerboundChatCommandSignedPacket {
                 command: command.trim_start_matches('/').to_string(),
-                time_stamp: mc_protocol::codec::Instant(Self::epoch_millis()),
-                salt: 0,
-                argument_signatures: ArgumentSignatures {
-                    entries: Vec::new(),
-                },
-                last_seen_messages: last_seen,
-            },
-        ));
+                time_stamp: mc_protocol::codec::Instant(time_stamp),
+                salt,
+                argument_signatures: ArgumentSignatures { entries },
+                last_seen_messages,
+            }
+        });
+        self.send(ServerboundPlayPacket::ChatCommandSigned(packet));
     }
 
     /// Wait for a chat/system message whose text contains `needle`, sent after `since` (index into `chat`).
