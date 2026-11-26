@@ -103,6 +103,7 @@ impl WorldLoadError {
                 &match self {
                     WorldLoadError::Registries(e)
                     | WorldLoadError::Reload(ReloadError::Registries(e)) => e.thrown_text(),
+                    WorldLoadError::Reload(e @ ReloadError::IllegalState(_)) => e.thrown_text(),
                     WorldLoadError::Reload(e) => format!(
                         "net.minecraft.ReportedException: Failed to load registries due to errors: {e}"
                     ),

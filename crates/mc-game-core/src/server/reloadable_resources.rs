@@ -69,7 +69,12 @@ pub static RELOAD_LISTENERS: [ReloadListenerRegistration];
 #[derive(Debug)]
 pub enum ReloadError {
     Registries(RegistryLoadFailure),
-    Listener { name: &'static str, message: String },
+    Listener {
+        name: &'static str,
+        message: String,
+    },
+    /// An `IllegalStateException` thrown while the reloadable registries are validated (loot tables).
+    IllegalState(String),
 }
 
 impl ReloadError {
@@ -78,6 +83,9 @@ impl ReloadError {
         match self {
             ReloadError::Registries(e) => e.thrown_text(),
             ReloadError::Listener { .. } => self.to_string(),
+            ReloadError::IllegalState(message) => {
+                format!("java.lang.IllegalStateException: {message}")
+            }
         }
     }
 }
@@ -89,6 +97,7 @@ impl std::fmt::Display for ReloadError {
             ReloadError::Listener { name, message } => {
                 write!(f, "Failed to reload {name}: {message}")
             }
+            ReloadError::IllegalState(message) => f.write_str(message),
         }
     }
 }
@@ -131,10 +140,7 @@ impl ReloadableServerResources {
         let full_with_tags =
             build_updated_lookups(layers.composite_access(), &updated_context_tags);
         crate::world::level::storage::loot::loading::validate_loot_registries(&full_with_tags)
-            .map_err(|message| ReloadError::Listener {
-                name: "loot tables",
-                message,
-            })?;
+            .map_err(ReloadError::IllegalState)?;
         let commands = Arc::new(Commands::new(
             CommandSelection::Dedicated,
             &CommandBuildContext::simple(
