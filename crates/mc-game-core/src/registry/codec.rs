@@ -611,6 +611,23 @@ fn range_error<T: std::fmt::Display>(v: T, min: T, max: T) -> String {
 }
 
 impl Schema {
+    /// Whether this schema reads a JSON number.
+    fn is_number(&self) -> bool {
+        matches!(
+            self,
+            Schema::Byte
+                | Schema::Short
+                | Schema::Int
+                | Schema::Long
+                | Schema::Float
+                | Schema::Double
+                | Schema::IntRange(..)
+                | Schema::ExtraIntRange(..)
+                | Schema::FloatRange(..)
+                | Schema::DoubleRange(..)
+        )
+    }
+
     pub fn custom(
         f: impl Fn(&Value, &RegistryDecodeContext) -> Result<Tag, String> + Send + Sync + 'static,
     ) -> Schema {
@@ -1043,10 +1060,12 @@ fn decode_record(
     let mut errors: Vec<String> = Vec::new();
     let mut has_partial = true;
     for field in fields {
-        // `JsonOps` hands a JSON `null` to `MapLike.get` as absent (a number beyond `f64` is a `null` here, but present)
+        // `JsonOps` hands a JSON `null` to `MapLike.get` as absent (a number beyond `f64` is a `null` here, but present
+        // for a numeric field)
         match (
-            o.get(field.name)
-                .filter(|value| !value.is_null() || ctx.lazy_number(value).is_some()),
+            o.get(field.name).filter(|value| {
+                !value.is_null() || (field.schema.is_number() && ctx.lazy_number(value).is_some())
+            }),
             &field.kind,
         ) {
             (None, FieldKind::Required) => {
