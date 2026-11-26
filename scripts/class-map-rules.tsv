@@ -36,7 +36,8 @@
 ^net/minecraft/world/inventory/StackedContentsCompatible(\$.*)?	folded	crates/mc-game-core/src/world/inventory/crafting.rs	recipe-matching interface
 ^net/minecraft/world/item/(CreativeModeTabs|DiscFragmentItem|Instruments|JukeboxSongs|ToolMaterial|TooltipFlag|ItemStackLinkedSet|SmithingTemplateItem|alchemy/PotionIds|equipment/.*|component/(BlockTransformers|BookContent|Consumables|ContainerComponent|GrowableMutableContainer|SimpleMutableContainer|TooltipProvider)|consume_effects/ClearAllStatusEffectsConsumeEffect)(\$.*)?	folded	crates/mc-game-core/src/world/item/mod.rs	item constants, materials and component helpers: values are vendored data or component codecs; creative tabs and tooltips are client-side
 ^net/minecraft/world/item/crafting/.*	folded	crates/mc-game-core/src/world/item/crafting/mod.rs	recipe classes, serializers, books and displays: the crafting module and the vendored recipes
-^net/minecraft/world/item/enchantment/(effects|providers)/.*	folded	crates/mc-game-core/src/world/item/enchantment/providers.rs	enchantment effect components and providers
+^net/minecraft/world/item/enchantment/effects/.*	folded	crates/mc-game-core/src/world/item/enchantment/effects/mod.rs	enchantment effect components
+^net/minecraft/world/item/enchantment/providers/.*	folded	crates/mc-game-core/src/world/item/enchantment/providers.rs	enchantment providers
 ^net/minecraft/world/item/slot/.*	folded	crates/mc-game-core/src/world/item/crafting/display.rs	slot sources of slot displays and the item command
 ^net/minecraft/world/attribute/.*	folded	crates/mc-game-core/src/world/attribute/mod.rs	environment attribute reading, modifiers and interpolation
 ^net/minecraft/world/clock/.*	folded	crates/mc-game-core/src/world/clock/mod.rs	world clocks
@@ -62,12 +63,12 @@
 ^net/minecraft/world/level/levelgen/(carver/WorldCarverTypes|feature/FeatureTypes|feature/\w+/\w+Type|feature/stateproviders/BlockStateProviderTypes|placement/PlacementModifierTypes|structure/templatesystem/\w+Type|structure/templatesystem/\w+Types|structure/templatesystem/rule/blockentity/\w+Type|structure/BuiltinStructureSets|structure/BuiltinStructures|structure/PostPlacementProcessor|feature/FeatureCountTracker)(\$.*)?	folded	crates/mc-game-core/src/registry/mod.rs	type registries and key constants of worldgen codecs: the Rust registry layer maps each type id to its decoder
 ^net/minecraft/world/level/levelgen/heightproviders/.*	folded	crates/mc-game-levelgen/src/world/level/levelgen/placement/height_range_placement.rs	height provider implementations
 ^net/minecraft/world/level/levelgen/material/condition/.*	folded	crates/mc-worldgen/src/generator/noise_based.rs	surface rule conditions of the noise generator
-^net/minecraft/world/level/lighting/SpatialLongSet(\$.*)?	folded	crates/mc-light/src/lib.rs	light engine set type
+^net/minecraft/world/level/lighting/SpatialLongSet(\$.*)?	n/a		no vanilla code uses it; the Rust light engine uses a plain hash set
 ^net/minecraft/world/level/material/(FluidIds|FogType)(\$.*)?	folded	crates/mc-data/src/fluid.rs	fluid id constants; fog type is client rendering
 ^net/minecraft/world/level/redstone/InstantNeighborUpdater(\$.*)?	folded	crates/mc-game-core/src/server/level/level_mutation.rs	neighbour updater implementation
-^net/minecraft/world/level/storage/(TagValueInput|TagValueOutput|ValueInputContextHelper)(\$.*)?	folded	crates/mc-game-core/src/world/container.rs	value input and output over nbt: saved data is read and written as nbt
+^net/minecraft/world/level/storage/(TagValueInput|TagValueOutput|ValueInputContextHelper)(\$.*)?	folded	crates/mc-nbt/src/lib.rs	value input and output wrappers over nbt: saved data is read and written as nbt compounds directly
 ^net/minecraft/world/level/storage/loot/.*	folded	crates/mc-game-core/src/world/level/storage/loot/mod.rs	loot entries, number providers and builders: the loot module
-^net/minecraft/world/phys/shapes/IdenticalMerger(\$.*)?	folded	crates/mc-data/src/voxel.rs	voxel shape merger
+^net/minecraft/world/phys/shapes/IdenticalMerger(\$.*)?	folded	crates/mc-core/src/phys/shapes/coords.rs	voxel shape merger (IndexMerger::Identical)
 ^net/minecraft/world/ticks/WorldGenTickAccess(\$.*)?	folded	crates/mc-game-core/src/server/level/level_tick_state.rs	tick access of chunks that are still generating
 ^net/minecraft/advancements/predicates/SingleComponentItemPredicate(\$.*)?	folded	crates/mc-game-core/src/world/item/crafting/ingredient.rs	item predicate base class
 ^net/minecraft/server/dialog/.*	folded	crates/mc-protocol/src/dialog/mod.rs	dialog definitions and type registries
