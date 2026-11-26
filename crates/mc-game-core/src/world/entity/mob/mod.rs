@@ -195,6 +195,9 @@ pub struct MobData {
     /// Passengers created together with this mob in `finalizeSpawn` (spider jockey skeleton): they are added to the level
     /// together with it (`addFreshEntityWithPassengers`).
     pub pending_passengers: Vec<Box<dyn Entity>>,
+    /// The saved state of each rider (`Entity.save` output) when it started riding this mob inside its own `finalizeSpawn`:
+    /// vanilla's `ProtoChunk.addEntity` writes the vehicle's tag when it is added, before that `finalizeSpawn` ends.
+    pub pending_rider_tags: Vec<mc_nbt::CompoundTag>,
 }
 
 impl MobData {
@@ -267,6 +270,7 @@ impl MobData {
             tamable: (kind == MobKind::TamableAnimal).then(TamableData::default),
             neutral: None,
             pending_passengers: Vec::new(),
+            pending_rider_tags: Vec::new(),
         };
         if kind.is_animal() {
             // `Animal.<init>`

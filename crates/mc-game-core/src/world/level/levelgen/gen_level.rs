@@ -76,9 +76,6 @@ pub struct GenLevel<'a> {
     light: Option<mc_light::LightReader>,
     /// Heightmaps read while missing from their (writable) chunk: `(chunkX, chunkZ, type)`, primed lazily.
     pending_heightmaps: RefCell<Vec<(i32, i32, HeightmapType)>>,
-    /// The last vehicle saved without its riders (a jockey mount: the rider is added right after it): its entity id,
-    /// chunk and index in the chunk's entity list, so that the rider is saved into its `Passengers`.
-    unridden_vehicle: Option<(crate::world::entity::EntityId, BlockPos, usize)>,
 }
 
 impl<'a> GenLevel<'a> {
@@ -107,7 +104,6 @@ impl<'a> GenLevel<'a> {
             registries: Default::default(),
             light: None,
             pending_heightmaps: RefCell::new(Vec::new()),
-            unridden_vehicle: None,
         }
     }
 
@@ -896,37 +892,28 @@ impl crate::world::level::server_level_accessor::ServerLevelAccessor for GenLeve
         let mut entity = entity;
         // `setAge` ran `ageBoundaryReached()` inside `finalizeSpawn`: the saved attributes carry its effect
         crate::world::entity::mob::ageable::run_pending_age_boundary_without_level(entity.as_mut());
-        // a jockey rider: `Entity.save` skips passengers, so it is saved into the vehicle added just before it
-        if let Some(vehicle) = entity.base().vehicle
-            && let Some((id, pos, index)) = self.unridden_vehicle
-            && id == vehicle
-        {
-            self.unridden_vehicle = None;
-            let Some(rider) = crate::world::entity::entity::save_as_passenger(&*entity, &|_| None)
-            else {
-                return false;
-            };
-            if let Some(saved) = self
-                .chunk_for_write(pos)
-                .and_then(|chunk| chunk.entities.get_mut(index))
-            {
-                let mut passengers = ListTag::new();
-                passengers.push(mc_nbt::Tag::Compound(rider));
-                saved.put("Passengers", passengers);
-            }
-            return true;
-        }
-        let pending = entity
+        let (pending, riders) = entity
             .mob_mut()
-            .map(|m| std::mem::take(&mut m.pending_passengers))
+            .map(|m| {
+                (
+                    std::mem::take(&mut m.pending_passengers),
+                    std::mem::take(&mut m.pending_rider_tags),
+                )
+            })
             .unwrap_or_default();
         let lookup = |id| pending.iter().find(|p| p.id() == id).map(|p| &**p);
-        let Some(tag) = crate::world::entity::entity::save(&*entity, &lookup) else {
+        let Some(mut tag) = crate::world::entity::entity::save(&*entity, &lookup) else {
             return false;
         };
-        let unridden = !entity.base().passengers.is_empty() && !tag.contains("Passengers");
-        let (pos, index) = self.push_entity_tag(tag);
-        self.unridden_vehicle = index.filter(|_| unridden).map(|i| (entity.id(), pos, i));
+        // a jockey vehicle added inside its rider's `finalizeSpawn`: it keeps the rider as it was when the vehicle was added
+        if !riders.is_empty() && !tag.contains("Passengers") {
+            let mut passengers = ListTag::new();
+            for rider in riders {
+                passengers.push(mc_nbt::Tag::Compound(rider));
+            }
+            tag.put("Passengers", passengers);
+        }
+        self.push_entity_tag(tag);
         true
     }
 

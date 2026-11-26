@@ -594,6 +594,11 @@ pub fn start_riding_fresh_vehicle(
     rider.base_mut().vehicle = Some(vehicle.id());
     vehicle.add_passenger(&*rider, false);
     crate::world::entity::mob::set_first_passenger(vehicle, Some(&*rider));
+    if let Some(tag) = crate::world::entity::entity::save_as_passenger(&*rider, &|_| None)
+        && let Some(mob) = vehicle.mob_mut()
+    {
+        mob.pending_rider_tags.push(tag);
+    }
     if send_event_and_triggers {
         level.game_event(
             mc_data::GameEvent::ENTITY_MOUNT,

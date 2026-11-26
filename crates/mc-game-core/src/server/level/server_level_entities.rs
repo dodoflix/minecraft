@@ -212,7 +212,11 @@ impl ServerLevel {
         // `addFreshEntityWithPassengers`: passengers created by `finalizeSpawn` (spider jockey) follow their vehicle
         let passengers = entity
             .mob_mut()
-            .map(|m| std::mem::take(&mut m.pending_passengers))
+            .map(|m| {
+                // only a generation region saves the vehicle with them
+                m.pending_rider_tags.clear();
+                std::mem::take(&mut m.pending_passengers)
+            })
             .unwrap_or_default();
         // the vanilla caller keeps the object it could not add (a replay's references dump it): kept where removed entities are
         let ok = match self.entity_manager.add_new_entity(entity) {
