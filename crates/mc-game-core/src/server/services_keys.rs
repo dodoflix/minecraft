@@ -9,6 +9,7 @@
 
 use crate::server::chat::signature::SignatureValidator;
 use base64::Engine;
+use mc_protocol::auth::PROD_DISCOVERY_URL;
 use parking_lot::Mutex;
 use rsa::RsaPublicKey;
 use rsa::pkcs1v15::{Signature, VerifyingKey};
@@ -19,8 +20,6 @@ use sha1::Sha1;
 use std::sync::Arc;
 use std::time::Duration;
 
-/// `MinecraftServicesEnvironment.PROD` discovery URL.
-const PROD_DISCOVERY_URL: &str = "https://discovery.minecraftservices.com/minecraft/client";
 /// Replaces the discovery URL, like the system property `minecraft.api.discovery.host` does for authlib.
 const DISCOVERY_URL_VARIABLE: &str = "MINECRAFT_API_DISCOVERY_HOST";
 /// `MinecraftClient.CONNECT_TIMEOUT_MS` / `READ_TIMEOUT_MS`.

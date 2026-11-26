@@ -754,7 +754,9 @@ impl MinecraftServer {
             self.shared.clone(),
             self.network_settings(),
             key_pair,
-            mc_protocol::auth::SessionClient::default(),
+            mc_protocol::auth::SessionClient::from_discovery(
+                crate::server::services_keys::discovery_url(),
+            ),
             Arc::new(configuration_data(self)),
         ));
         let mut connection = crate::server::network::ServerConnectionListener::new(hooks.clone())?;

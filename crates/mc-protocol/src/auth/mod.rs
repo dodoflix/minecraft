@@ -9,4 +9,4 @@ pub use crypt::{
     CryptError, PublicKey, ServerKeyPair, digest_server_id, encrypt_with_public_key,
     generate_secret, public_key_from_der,
 };
-pub use session::{AuthError, SessionClient};
+pub use session::{AuthError, PROD_DISCOVERY_URL, SessionClient};

@@ -314,3 +314,96 @@ async fn has_joined_unreachable_is_error() {
         Err(AuthError::Io(_))
     ));
 }
+
+#[tokio::test]
+async fn discovery_client_joins_and_verifies_through_the_documented_endpoints() {
+    let mock = mc_testkit::MockMojang::start().expect("start the mock services");
+    let client = SessionClient::from_discovery(mock.discovery_url());
+    let id = mc_testkit::offline_uuid("Notch");
+
+    // no recorded join: not verified
+    assert!(
+        client
+            .has_joined("Notch", "-1a2b", Some("127.0.0.1"))
+            .await
+            .unwrap()
+            .is_none()
+    );
+    client.join_server(id, "Notch", "-1a2b").await.unwrap();
+    let joins = mock.joins();
+    assert_eq!(joins.len(), 1);
+    assert_eq!(
+        (joins[0].profile_id, joins[0].server_id.as_str()),
+        (id, "-1a2b")
+    );
+    let profile = client
+        .has_joined("Notch", "-1a2b", Some("127.0.0.1"))
+        .await
+        .unwrap()
+        .unwrap();
+    assert_eq!((profile.id, profile.name.as_str()), (id, "Notch"));
+
+    // the discovery document is read once
+    let discovery_requests = mock
+        .requests()
+        .iter()
+        .filter(|r| r.target.starts_with("/minecraft/client"))
+        .count();
+    assert_eq!(discovery_requests, 1);
+}
+
+#[tokio::test]
+async fn discovery_client_without_services_is_unavailable() {
+    let listener = TcpListener::bind("127.0.0.1:0").await.unwrap();
+    let url = format!("http://{}/minecraft/client", listener.local_addr().unwrap());
+    drop(listener);
+    let client = SessionClient::from_discovery(url);
+    assert!(matches!(
+        client.has_joined("a", "b", None).await,
+        Err(AuthError::ServicesUnavailable)
+    ));
+    assert!(matches!(
+        client.join_server(uuid::Uuid::nil(), "token", "b").await,
+        Err(AuthError::ServicesUnavailable)
+    ));
+}
+
+#[tokio::test]
+async fn discovery_without_a_session_entry_is_unavailable() {
+    let (base, _) = mock(json_response(
+        r#"{"discovery":{"authentication":{"endpoints":{}}}}"#,
+    ))
+    .await;
+    let client = SessionClient::from_discovery(format!("{base}/minecraft/client"));
+    assert!(matches!(
+        client.has_joined("a", "b", None).await,
+        Err(AuthError::ServicesUnavailable)
+    ));
+}
+
+#[tokio::test]
+async fn a_failed_discovery_fetch_is_not_repeated_at_once() {
+    let listener = TcpListener::bind("127.0.0.1:0").await.unwrap();
+    let url = format!("http://{}/minecraft/client", listener.local_addr().unwrap());
+    let served = std::sync::Arc::new(std::sync::atomic::AtomicUsize::new(0));
+    let count = served.clone();
+    tokio::spawn(async move {
+        loop {
+            let (mut sock, _) = listener.accept().await.unwrap();
+            count.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
+            let mut buf = [0u8; 1024];
+            let _ = sock.read(&mut buf).await;
+            let _ = sock
+                .write_all(b"HTTP/1.1 503 Service Unavailable\r\nContent-Length: 0\r\nConnection: close\r\n\r\n")
+                .await;
+        }
+    });
+    let client = SessionClient::from_discovery(url);
+    for _ in 0..3 {
+        assert!(matches!(
+            client.has_joined("a", "b", None).await,
+            Err(AuthError::ServicesUnavailable)
+        ));
+    }
+    assert_eq!(served.load(std::sync::atomic::Ordering::SeqCst), 1);
+}

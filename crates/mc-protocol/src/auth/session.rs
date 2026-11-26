@@ -1,3 +1,4 @@
+use std::sync::Arc;
 use std::time::Duration;
 
 use serde_json::Value;
@@ -8,6 +9,9 @@ use crate::codec::{GameProfile, Property};
 /// authlib `MinecraftClient.CONNECT_TIMEOUT_MS` / `READ_TIMEOUT_MS`.
 const TIMEOUT: Duration = Duration::from_millis(5000);
 
+/// `MinecraftServicesEnvironment.PROD` discovery URL.
+pub const PROD_DISCOVERY_URL: &str = "https://discovery.minecraftservices.com/minecraft/client";
+
 /// Vanilla `AuthenticationUnavailableException`: the session server could not be asked
 /// (the login then ends with `multiplayer.disconnect.authservers_down`).
 #[derive(Debug, thiserror::Error)]
@@ -16,31 +20,144 @@ pub enum AuthError {
     Io(#[from] reqwest::Error),
     #[error("session server returned HTTP {0}")]
     Status(u16),
+    /// `MinecraftServicesDiscoveryService.getEndpoint`: "Services are unavailable".
+    #[error("Services are unavailable")]
+    ServicesUnavailable,
 }
 
-/// Client for the Yggdrasil session server's `hasJoined` endpoint.
+/// Where the `join` and `verify` endpoints come from.
+#[derive(Debug, Clone)]
+enum Endpoints {
+    /// A session server at a fixed base URL (tests).
+    Fixed(String),
+    /// The services discovery document, fetched on first use.
+    // shortcut: the document is never refreshed (vanilla refetches every 24 h), restart to pick up a change.
+    Discovery {
+        url: String,
+        document: Arc<tokio::sync::Mutex<Fetched>>,
+    },
+}
+
+/// The discovery document and the state of its fetch (`RetryableFetch`): a failed fetch is not repeated before
+/// `BASE_FAILURE_INTERVAL_MINUTES` (1 for the discovery document) doubled per earlier failure, at most 2^6 times.
+#[derive(Debug, Default)]
+struct Fetched {
+    document: Option<Value>,
+    failures: u32,
+    retry_at: Option<std::time::Instant>,
+}
+
+/// Client for the session server's `join` and `hasJoined` endpoints
+/// (authlib `MinecraftServicesSessionService`).
 #[derive(Debug, Clone)]
 pub struct SessionClient {
-    base_url: String,
+    endpoints: Endpoints,
     http: reqwest::Client,
 }
 
 impl Default for SessionClient {
     fn default() -> Self {
-        Self::new("https://sessionserver.mojang.com")
+        Self::from_discovery(PROD_DISCOVERY_URL)
     }
 }
 
 impl SessionClient {
+    /// A session server at `base_url`, without a discovery document.
     pub fn new(base_url: impl Into<String>) -> Self {
+        Self::with(Endpoints::Fixed(
+            base_url.into().trim_end_matches('/').to_owned(),
+        ))
+    }
+
+    /// The endpoints named by the discovery document at `discovery_url`.
+    pub fn from_discovery(discovery_url: impl Into<String>) -> Self {
+        Self::with(Endpoints::Discovery {
+            url: discovery_url.into(),
+            document: Arc::default(),
+        })
+    }
+
+    fn with(endpoints: Endpoints) -> Self {
         let http = reqwest::Client::builder()
             .connect_timeout(TIMEOUT)
             .read_timeout(TIMEOUT)
             .build()
             .expect("TLS backend initialisation");
-        Self {
-            base_url: base_url.into().trim_end_matches('/').to_owned(),
-            http,
+        Self { endpoints, http }
+    }
+
+    /// `MinecraftServicesDiscoveryService.getUrl(SESSION, key)`.
+    async fn endpoint(&self, key: &str, fixed_path: &str) -> Result<String, AuthError> {
+        let (url, document) = match &self.endpoints {
+            Endpoints::Fixed(base) => return Ok(format!("{base}{fixed_path}")),
+            Endpoints::Discovery { url, document } => (url, document),
+        };
+        let mut fetched = document.lock().await;
+        let due = fetched
+            .retry_at
+            .is_none_or(|at| std::time::Instant::now() >= at);
+        if fetched.document.is_none() && due {
+            let response = async {
+                self.http
+                    .get(url)
+                    .send()
+                    .await?
+                    .error_for_status()?
+                    .json::<Value>()
+                    .await
+            }
+            .await;
+            match response {
+                Ok(document) => {
+                    *fetched = Fetched {
+                        document: Some(document),
+                        ..Fetched::default()
+                    }
+                }
+                Err(e) => {
+                    log::warn!("Failed to connect: {e}");
+                    let exponent = fetched.failures.min(6);
+                    fetched.failures += 1;
+                    fetched.retry_at =
+                        Some(std::time::Instant::now() + Duration::from_secs(60 * (1 << exponent)));
+                }
+            }
+        }
+        let Some(document) = &fetched.document else {
+            log::warn!("Services are unavailable, unable to fetch uri for SESSION/{key}");
+            return Err(AuthError::ServicesUnavailable);
+        };
+        match document
+            .pointer(&format!("/discovery/session/endpoints/{key}/uri"))
+            .and_then(Value::as_str)
+        {
+            Some(uri) => Ok(uri.to_owned()),
+            None => {
+                log::warn!("Services are available, but unable to find uri for SESSION/{key}");
+                Err(AuthError::ServicesUnavailable)
+            }
+        }
+    }
+
+    /// `SessionService.joinServer`: the client tells the session server it is joining `server_id`.
+    /// Any non-success status is an error (vanilla `AuthenticationException`).
+    pub async fn join_server(
+        &self,
+        profile_id: Uuid,
+        access_token: &str,
+        server_id: &str,
+    ) -> Result<(), AuthError> {
+        let url = self.endpoint("join", "/session/minecraft/join").await?;
+        let body = serde_json::json!({
+            "accessToken": access_token,
+            "selectedProfile": profile_id.simple().to_string(),
+            "serverId": server_id,
+        });
+        let status = self.http.post(url).json(&body).send().await?.status();
+        if status.is_success() {
+            Ok(())
+        } else {
+            Err(AuthError::Status(status.as_u16()))
         }
     }
 
@@ -64,7 +181,16 @@ impl SessionClient {
             url_encode(server_hash),
             url_encode(username)
         ));
-        let url = format!("{}/session/minecraft/hasJoined?{query}", self.base_url);
+        // `HttpDiscoveryService.concatenateURL`
+        let base = self
+            .endpoint("verify", "/session/minecraft/hasJoined")
+            .await?;
+        let separator = if base.split_once('?').is_some_and(|(_, q)| !q.is_empty()) {
+            '&'
+        } else {
+            '?'
+        };
+        let url = format!("{base}{separator}{query}");
 
         let response = self.http.get(url).send().await?;
         let status = response.status();

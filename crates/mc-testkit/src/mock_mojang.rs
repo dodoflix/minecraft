@@ -3,8 +3,8 @@
 //!
 //! authlib (client and vanilla server alike) takes every service URL from one discovery document. Setting the JVM
 //! property `minecraft.api.discovery.host` to [`MockMojang::discovery_url`] (see [`crate::Builder::mojang`]) points all of
-//! them here. Our own server reads `MINECRAFT_API_DISCOVERY_HOST` for its profile key set and profile lookups; its
-//! `hasJoined` request still goes to the fixed session server URL. The mock serves:
+//! them here. Our own server reads `MINECRAFT_API_DISCOVERY_HOST` for its profile key set, profile lookups and
+//! `hasJoined` requests. The mock serves:
 //!
 //! | Discovery entry | Route | Answer |
 //! |---|---|---|

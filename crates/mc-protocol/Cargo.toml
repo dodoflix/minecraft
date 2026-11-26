@@ -19,6 +19,7 @@ mc-protocol-macros = { path = "../mc-protocol-macros" }
 aes = { workspace = true }
 cfb8 = { workspace = true }
 flate2 = { workspace = true }
+log = { workspace = true }
 reqwest = { workspace = true, features = ["json", "rustls"] }
 rand_core = { workspace = true, features = ["getrandom"] }
 rsa = { workspace = true }
