@@ -22,6 +22,7 @@ use crate::synth::{Noise, NoiseStack, SimplexNoise};
 pub const BIOME_REGISTRY: &str = "worldgen/biome";
 const CARVER_TAG_DIR: &str = "worldgen/carver";
 const PLACED_FEATURE_TAG_DIR: &str = "worldgen/placed_feature";
+const CONFIGURED_FEATURE_TAG_DIR: &str = "worldgen/configured_feature";
 const BIOME_TAG_DIR: &str = "worldgen/biome";
 
 static TEMPERATURE_NOISE: LazyLock<SimplexNoise> = LazyLock::new(|| {
@@ -207,6 +208,34 @@ impl BiomeGenerationSettings {
         })?;
         Ok(BiomeGenerationSettings { carvers, features })
     }
+
+    /// [`from_json`](Self::from_json) + [`check_references`](Self::check_references) as the lenient flat `biome` field
+    /// reads it: DFU hands that field the partial result of a definition whose list entries fail, so an id that does not
+    /// resolve (or is no id at all) is dropped from its list, a feature step that fails as a whole is dropped from the
+    /// steps, and a carvers field that fails as a whole fails the biome.
+    fn from_json_partial(
+        biome: &Value,
+        source: &dyn WorldgenDataSource,
+    ) -> LoadResult<BiomeGenerationSettings> {
+        let fields = Fields::new(biome)?;
+        let carvers = fields.required("carvers", |v| {
+            partial_holder_set(v, CARVER_TAG_DIR, source)?
+                .ok_or_else(|| LoadError::new("Failed to get element from registry"))
+        })?;
+        let features = fields.required("features", |v| {
+            let Value::Array(steps) = v else {
+                return Err(LoadError::new("Not a list"));
+            };
+            let mut kept = Vec::new();
+            for step in steps {
+                if let Some(ids) = partial_holder_set(step, PLACED_FEATURE_TAG_DIR, source)? {
+                    kept.push(ids.into_iter().map(PlacedFeatureRef::Named).collect());
+                }
+            }
+            Ok(kept)
+        })?;
+        Ok(BiomeGenerationSettings { carvers, features })
+    }
 }
 
 /// A `HolderSet` of registry entries by id: a single id, a `#tag` (resolved against the vanilla tags of
@@ -237,6 +266,55 @@ fn holder_set_names(value: &Value, tag_dir: &str) -> LoadResult<Vec<Identifier>>
     }
 }
 
+/// [`holder_set_names`] as a list codec keeps what decodes: `None` when the set fails as a whole (an unresolved tag or
+/// id, a value that is no set), else the ids that resolve in `source`. An inline definition is an error (not modelled)
+/// unless it certainly fails to decode (see [`inline_placed_feature_fails`]) and is dropped like an unresolved id.
+fn partial_holder_set(
+    value: &Value,
+    tag_dir: &str,
+    source: &dyn WorldgenDataSource,
+) -> LoadResult<Option<Vec<Identifier>>> {
+    let resolved = |value: &Value| match value {
+        Value::String(s) => Identifier::read(s)
+            .ok()
+            .filter(|id| source.get(tag_dir, id).is_some()),
+        _ => None,
+    };
+    match value {
+        Value::String(s) if s.starts_with('#') => Ok(holder_set_names(value, tag_dir).ok()),
+        Value::String(_) => Ok(resolved(value).map(|id| vec![id])),
+        Value::Array(items) => {
+            let mut ids = Vec::new();
+            for item in items {
+                if item.is_object()
+                    && !(tag_dir == PLACED_FEATURE_TAG_DIR
+                        && inline_placed_feature_fails(item, source))
+                {
+                    return Err(LoadError::new(
+                        "inline registry entries are not supported here",
+                    ));
+                }
+                ids.extend(resolved(item));
+            }
+            Ok(Some(ids))
+        }
+        _ => Ok(None),
+    }
+}
+
+/// Whether an inline `PlacedFeature` object certainly fails to decode: no `placement`, or a `feature` that is no
+/// configured feature id nor an object. (An object `feature` and the placement modifiers are not decoded here.)
+fn inline_placed_feature_fails(value: &Value, source: &dyn WorldgenDataSource) -> bool {
+    value.get("placement").is_none()
+        || match value.get("feature") {
+            Some(Value::String(s)) => Identifier::read(s)
+                .ok()
+                .is_none_or(|id| source.get(CONFIGURED_FEATURE_TAG_DIR, &id).is_none()),
+            Some(Value::Object(_)) => false,
+            _ => true,
+        }
+}
+
 /// `Biome`.
 #[derive(Clone, Debug)]
 pub struct Biome {
@@ -251,11 +329,26 @@ pub struct Biome {
 impl Biome {
     /// `Biome.DIRECT_CODEC`.
     pub fn from_json(value: &Value) -> LoadResult<Biome> {
+        Biome::decode(value, BiomeGenerationSettings::from_json)
+    }
+
+    /// `Biome.DIRECT_CODEC`'s partial result, with the carver and placed feature references resolved against `source`
+    /// (see [`BiomeGenerationSettings::from_json_partial`]).
+    fn from_json_partial(value: &Value, source: &dyn WorldgenDataSource) -> LoadResult<Biome> {
+        Biome::decode(value, |v| {
+            BiomeGenerationSettings::from_json_partial(v, source)
+        })
+    }
+
+    fn decode(
+        value: &Value,
+        generation_settings: impl FnOnce(&Value) -> LoadResult<BiomeGenerationSettings>,
+    ) -> LoadResult<Biome> {
         let fields = Fields::new(value)?;
         let climate = ClimateSettings::from_json(value)?;
         let attributes = fields.optional("attributes", |v| Ok(v.clone()))?;
         let effects = fields.required("effects", |v| Ok(v.clone()))?;
-        let generation_settings = BiomeGenerationSettings::from_json(value)?;
+        let generation_settings = generation_settings(value)?;
         Ok(Biome {
             climate,
             generation_settings,
@@ -337,23 +430,37 @@ impl Biome {
 /// with registry ids (vanilla's `IdMap` gives a direct holder the id -1 and cannot serialize it by name either).
 const INLINE_BIOME_BASE: u32 = 1 << 30;
 
-/// Every inline biome definition decoded so far, deduplicated by its JSON. Direct holders live as long as the
-/// generator/levels using them, so the entries are leaked (`&'static`) and ids stay valid across registry instances.
-static INLINE_BIOMES: Mutex<Vec<(Value, &'static Biome)>> = Mutex::new(Vec::new());
+/// Every inline biome definition decoded so far, deduplicated by its JSON and by whether it was read leniently (a lenient
+/// read keeps the partial result a strict one rejects). Direct holders live as long as the generator/levels using them,
+/// so the entries are leaked (`&'static`) and ids stay valid across registry instances.
+static INLINE_BIOMES: Mutex<Vec<(Value, bool, &'static Biome)>> = Mutex::new(Vec::new());
 
 /// What [`BiomeRegistry::key`] reports for an inline biome: never a registry entry, so no tag or id check matches it.
 static INLINE_BIOME_KEY: LazyLock<Identifier> =
     LazyLock::new(|| Identifier::with_default_namespace("__inline_biome__").expect("valid id"));
 
-/// `Biome.DIRECT_CODEC` as a `Holder.Direct`: the id of the (deduplicated) inline definition.
-fn inline_biome_id(value: &Value, source: &dyn WorldgenDataSource) -> LoadResult<BiomeId> {
-    let biome = Biome::from_json(value)?;
-    biome.generation_settings.check_references(source)?;
+/// `Biome.DIRECT_CODEC` as a `Holder.Direct`: the id of the (deduplicated) inline definition. `lenient`: the partial
+/// result of a definition with unresolved list entries (the lenient flat `biome` field) instead of an error.
+fn inline_biome_id(
+    value: &Value,
+    source: &dyn WorldgenDataSource,
+    lenient: bool,
+) -> LoadResult<BiomeId> {
+    let biome = if lenient {
+        Biome::from_json_partial(value, source)?
+    } else {
+        let biome = Biome::from_json(value)?;
+        biome.generation_settings.check_references(source)?;
+        biome
+    };
     let mut inline = INLINE_BIOMES.lock().unwrap_or_else(|e| e.into_inner());
-    let index = match inline.iter().position(|(json, _)| json == value) {
+    let index = match inline
+        .iter()
+        .position(|(json, l, _)| json == value && *l == lenient)
+    {
         Some(index) => index,
         None => {
-            inline.push((value.clone(), Box::leak(Box::new(biome))));
+            inline.push((value.clone(), lenient, Box::leak(Box::new(biome))));
             inline.len() - 1
         }
     };
@@ -362,7 +469,7 @@ fn inline_biome_id(value: &Value, source: &dyn WorldgenDataSource) -> LoadResult
 
 fn inline_biome(id: BiomeId) -> &'static Biome {
     let inline = INLINE_BIOMES.lock().unwrap_or_else(|e| e.into_inner());
-    inline[(id.0 - INLINE_BIOME_BASE) as usize].1
+    inline[(id.0 - INLINE_BIOME_BASE) as usize].2
 }
 
 /// The biome registry as the dedicated server builds it from the vanilla data pack: entries are
@@ -466,11 +573,20 @@ impl BiomeRegistry {
     /// non-string value, like vanilla's "not a resource key" fallback).
     pub fn holder_from_json(&self, value: &Value) -> LoadResult<BiomeId> {
         if !value.is_string() {
-            return inline_biome_id(value, self.source.as_ref());
+            return inline_biome_id(value, self.source.as_ref(), false);
         }
         let id = parse_identifier(value)?;
         self.id_of(&id)
             .ok_or_else(|| LoadError::new(format!("Failed to get element {id}")))
+    }
+
+    /// [`holder_from_json`](Self::holder_from_json) for `Biome.CODEC.lenientOptionalFieldOf`: an inline definition whose
+    /// list entries do not resolve is kept without them.
+    pub fn holder_from_json_lenient(&self, value: &Value) -> LoadResult<BiomeId> {
+        if !value.is_string() {
+            return inline_biome_id(value, self.source.as_ref(), true);
+        }
+        self.holder_from_json(value)
     }
 
     /// `Biome.LIST_CODEC` (`HolderSetCodec`): a single biome id, a `#tag` or a list of biome ids, flattened in

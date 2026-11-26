@@ -268,6 +268,43 @@ public class FlatOracle {
       cases.add(flatWith("\"#minecraft:is_ocean\"", ""));
       // an inline biome next to a structure override list and the full encode of the preset cases
       cases.add(flatWith(desert.toString(), ",\"structure_overrides\":[\"minecraft:villages\"],\"features\":true"));
+      // unresolved references inside an otherwise valid inline biome: the lenient field keeps what decoded
+      int firstStep = 0;
+      while (plains.getAsJsonArray("features").get(firstStep).getAsJsonArray().isEmpty()) firstStep++;
+      for (String mode : new String[] {"front", "back", "alone", "number", "inline_unresolved"}) {
+         JsonObject b = plains.deepCopy();
+         JsonArray step = b.getAsJsonArray("features").get(firstStep).getAsJsonArray();
+         JsonArray replaced = new JsonArray();
+         switch (mode) {
+            case "front" -> { replaced.add("minecraft:nope"); replaced.addAll(step); }
+            case "back" -> { replaced.addAll(step); replaced.add("minecraft:nope"); }
+            case "number" -> { replaced.add(5); replaced.addAll(step); }
+            case "inline_unresolved" -> {
+               JsonObject inline = new JsonObject();
+               inline.addProperty("feature", "minecraft:nope");
+               inline.add("placement", new JsonArray());
+               replaced.add(inline);
+               replaced.addAll(step);
+            }
+            default -> replaced.add("minecraft:nope");
+         }
+         if (mode.equals("alone")) {
+            b.getAsJsonArray("features").set(firstStep, new com.google.gson.JsonPrimitive("minecraft:nope"));
+         } else {
+            b.getAsJsonArray("features").set(firstStep, replaced);
+         }
+         cases.add(flatWith(b.toString(), ",\"features\":true"));
+      }
+      for (String carvers : new String[] {
+         "[\"minecraft:nope\",\"minecraft:cave\"]", "[\"minecraft:cave\",\"minecraft:nope\"]", "[\"minecraft:cave\",5]", "\"#minecraft:nope\"", "[\"#minecraft:nope\"]", "5", "\"minecraft:nope\"", "\"minecraft:cave\"", "[]"}) {
+         JsonObject b = plains.deepCopy();
+         b.add("carvers", JsonParser.parseString(carvers));
+         cases.add(flatWith(b.toString(), ",\"features\":true"));
+      }
+      JsonObject badSpawners = plains.deepCopy();
+      badSpawners.add("spawners", new JsonArray());
+      badSpawners.addProperty("creature_spawn_probability", 5);
+      cases.add(flatWith(badSpawners.toString(), ""));
       return cases;
    }
 

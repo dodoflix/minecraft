@@ -2648,6 +2648,861 @@ custom59 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFAC
 custom59 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
 custom59 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
 custom59 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+INPUT custom60 {"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:snow","height":1}],"biome":{"has_precipitation":true,"temperature":0.8,"downfall":0.4,"attributes":{"minecraft:gameplay/natural_mob_spawns":{"argument":{"spawns_by_category":{"ambient":[{"type":"minecraft:bat","count":8,"weight":10}],"creature":[{"type":"minecraft:sheep","count":4,"weight":12},{"type":"minecraft:pig","count":4,"weight":10},{"type":"minecraft:chicken","count":4,"weight":10},{"type":"minecraft:cow","count":4,"weight":8},{"type":"minecraft:horse","count":{"min_inclusive":2,"max_inclusive":6,"type":"minecraft:uniform"},"weight":5},{"type":"minecraft:donkey","count":{"min_inclusive":1,"max_inclusive":3,"type":"minecraft:uniform"},"weight":1}],"monster":[{"type":"minecraft:spider","count":4,"weight":100},{"type":"minecraft:zombie","count":4,"weight":90},{"type":"minecraft:zombie_villager","count":1,"weight":5},{"type":"minecraft:zombie_horse","count":1,"weight":5},{"type":"minecraft:skeleton","count":4,"weight":100},{"type":"minecraft:creeper","count":4,"weight":100},{"type":"minecraft:slime","count":4,"weight":100},{"type":"minecraft:enderman","count":{"min_inclusive":1,"max_inclusive":4,"type":"minecraft:uniform"},"weight":10},{"type":"minecraft:witch","count":1,"weight":5}],"underground_water_creature":[{"type":"minecraft:glow_squid","count":{"min_inclusive":4,"max_inclusive":6,"type":"minecraft:uniform"},"weight":10}]},"spawn_costs":{}},"modifier":"overlay"},"minecraft:visual/sky_color":"#78a7ff"},"effects":{"water_color":"#3f76e4"},"carvers":["minecraft:cave","minecraft:cave_extra_underground","minecraft:canyon"],"features":[[],["minecraft:nope","minecraft:lake_lava_underground","minecraft:lake_lava_surface"],["minecraft:amethyst_geode"],["minecraft:monster_room","minecraft:monster_room_deep"],[],[],["minecraft:ore_dirt","minecraft:ore_gravel","minecraft:ore_granite_upper","minecraft:ore_granite_lower","minecraft:ore_diorite_upper","minecraft:ore_diorite_lower","minecraft:ore_andesite_upper","minecraft:ore_andesite_lower","minecraft:ore_tuff","minecraft:ore_coal_upper","minecraft:ore_coal_lower","minecraft:ore_iron_upper","minecraft:ore_iron_middle","minecraft:ore_iron_small","minecraft:ore_gold","minecraft:ore_gold_lower","minecraft:ore_redstone","minecraft:ore_redstone_lower","minecraft:ore_diamond","minecraft:ore_diamond_medium","minecraft:ore_diamond_large","minecraft:ore_diamond_buried","minecraft:ore_lapis","minecraft:ore_lapis_buried","minecraft:ore_copper","minecraft:underwater_magma","minecraft:disk_sand","minecraft:disk_clay","minecraft:disk_gravel"],[],["minecraft:spring_water","minecraft:spring_lava"],["minecraft:glow_lichen","minecraft:patch_tall_grass_2","minecraft:patch_bush","minecraft:trees_plains","minecraft:flower_plains","minecraft:patch_grass_plain","minecraft:brown_mushroom_normal","minecraft:red_mushroom_normal","minecraft:patch_pumpkin","minecraft:patch_sugar_cane","minecraft:patch_firefly_bush_near_water"],["minecraft:freeze_top_layer"]]},"features":true}
+CASE custom60 OK layers=1*88,2*10,1*8589, state_layers=1:88 2:10 1:8589 biome=<inline> lakes=false features=true void=false so=none
+custom60 pre consts min_y=0 gen_depth=384 sea_level=-63
+custom60 pre fn -64 384 spawn=-60 WORLD_SURFACE_WG=-60/-60/-61 WORLD_SURFACE=-60/-60/-61 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom60 pre col -64 384 3:0 1:88 2:10 1:8589 383:0
+custom60 pre fn 0 256 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom60 pre col 0 256 3:0 1:88 2:10 1:8589 255:0
+custom60 pre fn 0 16 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom60 pre col 0 16 3:0 1:88 2:10 1:8589 15:0
+custom60 pre fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom60 pre col -64 32 3:0 1:88 2:10 1:8589 31:0
+custom60 pre fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2028/-2028/-2029 WORLD_SURFACE=-2028/-2028/-2029 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom60 pre col -2032 4064 3:0 1:88 2:10 1:8589 599:0
+custom60 pre fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom60 pre col 0 3 3:0 1:88 2:10 3:0
+custom60 pre chunk -64 384 0 0 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom60 pre chunk -64 384 -3 7 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom60 pre chunk 0 256 0 0 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom60 pre chunk 0 256 -3 7 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom60 pre chunk 0 16 0 0 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom60 pre chunk 0 16 -3 7 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom60 pre chunk -64 32 0 0 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom60 pre chunk -64 32 -3 7 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom60 pre chunk -2032 4064 0 0 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom60 pre chunk -2032 4064 -3 7 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom60 pre chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom60 pre chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom60 post adjust_flat carvers= steps=11 total=47 |0: |1:minecraft:lake_lava_underground,minecraft:lake_lava_surface, |2:minecraft:amethyst_geode, |3: |4: |5: |6:minecraft:ore_dirt,minecraft:ore_gravel,minecraft:ore_granite_upper,minecraft:ore_granite_lower,minecraft:ore_diorite_upper,minecraft:ore_diorite_lower,minecraft:ore_andesite_upper,minecraft:ore_andesite_lower,minecraft:ore_tuff,minecraft:ore_coal_upper,minecraft:ore_coal_lower,minecraft:ore_iron_upper,minecraft:ore_iron_middle,minecraft:ore_iron_small,minecraft:ore_gold,minecraft:ore_gold_lower,minecraft:ore_redstone,minecraft:ore_redstone_lower,minecraft:ore_diamond,minecraft:ore_diamond_medium,minecraft:ore_diamond_large,minecraft:ore_diamond_buried,minecraft:ore_lapis,minecraft:ore_lapis_buried,minecraft:ore_copper,minecraft:underwater_magma,minecraft:disk_sand,minecraft:disk_clay,minecraft:disk_gravel, |7: |8:minecraft:spring_water,minecraft:spring_lava, |9:minecraft:glow_lichen,minecraft:patch_tall_grass_2,minecraft:patch_bush,minecraft:trees_plains,minecraft:flower_plains,minecraft:patch_grass_plain,minecraft:brown_mushroom_normal,minecraft:red_mushroom_normal,minecraft:patch_pumpkin,minecraft:patch_sugar_cane,minecraft:patch_firefly_bush_near_water, |10:minecraft:freeze_top_layer,fill_layer(3,8589)+0,
+custom60 post adjust_void minecraft:the_void carvers= steps=11 total=1
+custom60 post adjust_plains minecraft:plains carvers=minecraft:cave,minecraft:cave_extra_underground,minecraft:canyon, steps=11 total=48
+custom60 post layers_after 1:88 2:10 1:null
+custom60 post source biomes=[<inline>]
+custom60 post consts min_y=0 gen_depth=384 sea_level=-63
+custom60 post fn -64 384 spawn=-60 WORLD_SURFACE_WG=-61/-61/-62 WORLD_SURFACE=-61/-61/-62 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom60 post col -64 384 3:0 1:88 2:10 384:0
+custom60 post fn 0 256 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom60 post col 0 256 3:0 1:88 2:10 256:0
+custom60 post fn 0 16 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom60 post col 0 16 3:0 1:88 2:10 16:0
+custom60 post fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom60 post col -64 32 3:0 1:88 2:10 32:0
+custom60 post fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2029/-2029/-2030 WORLD_SURFACE=-2029/-2029/-2030 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom60 post col -2032 4064 3:0 1:88 2:10 600:0
+custom60 post fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom60 post col 0 3 3:0 1:88 2:10 3:0
+custom60 post chunk -64 384 0 0 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom60 post chunk -64 384 -3 7 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom60 post chunk 0 256 0 0 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom60 post chunk 0 256 -3 7 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom60 post chunk 0 16 0 0 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom60 post chunk 0 16 -3 7 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom60 post chunk -64 32 0 0 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom60 post chunk -64 32 -3 7 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom60 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom60 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom60 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom60 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+INPUT custom61 {"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:snow","height":1}],"biome":{"has_precipitation":true,"temperature":0.8,"downfall":0.4,"attributes":{"minecraft:gameplay/natural_mob_spawns":{"argument":{"spawns_by_category":{"ambient":[{"type":"minecraft:bat","count":8,"weight":10}],"creature":[{"type":"minecraft:sheep","count":4,"weight":12},{"type":"minecraft:pig","count":4,"weight":10},{"type":"minecraft:chicken","count":4,"weight":10},{"type":"minecraft:cow","count":4,"weight":8},{"type":"minecraft:horse","count":{"min_inclusive":2,"max_inclusive":6,"type":"minecraft:uniform"},"weight":5},{"type":"minecraft:donkey","count":{"min_inclusive":1,"max_inclusive":3,"type":"minecraft:uniform"},"weight":1}],"monster":[{"type":"minecraft:spider","count":4,"weight":100},{"type":"minecraft:zombie","count":4,"weight":90},{"type":"minecraft:zombie_villager","count":1,"weight":5},{"type":"minecraft:zombie_horse","count":1,"weight":5},{"type":"minecraft:skeleton","count":4,"weight":100},{"type":"minecraft:creeper","count":4,"weight":100},{"type":"minecraft:slime","count":4,"weight":100},{"type":"minecraft:enderman","count":{"min_inclusive":1,"max_inclusive":4,"type":"minecraft:uniform"},"weight":10},{"type":"minecraft:witch","count":1,"weight":5}],"underground_water_creature":[{"type":"minecraft:glow_squid","count":{"min_inclusive":4,"max_inclusive":6,"type":"minecraft:uniform"},"weight":10}]},"spawn_costs":{}},"modifier":"overlay"},"minecraft:visual/sky_color":"#78a7ff"},"effects":{"water_color":"#3f76e4"},"carvers":["minecraft:cave","minecraft:cave_extra_underground","minecraft:canyon"],"features":[[],["minecraft:lake_lava_underground","minecraft:lake_lava_surface","minecraft:nope"],["minecraft:amethyst_geode"],["minecraft:monster_room","minecraft:monster_room_deep"],[],[],["minecraft:ore_dirt","minecraft:ore_gravel","minecraft:ore_granite_upper","minecraft:ore_granite_lower","minecraft:ore_diorite_upper","minecraft:ore_diorite_lower","minecraft:ore_andesite_upper","minecraft:ore_andesite_lower","minecraft:ore_tuff","minecraft:ore_coal_upper","minecraft:ore_coal_lower","minecraft:ore_iron_upper","minecraft:ore_iron_middle","minecraft:ore_iron_small","minecraft:ore_gold","minecraft:ore_gold_lower","minecraft:ore_redstone","minecraft:ore_redstone_lower","minecraft:ore_diamond","minecraft:ore_diamond_medium","minecraft:ore_diamond_large","minecraft:ore_diamond_buried","minecraft:ore_lapis","minecraft:ore_lapis_buried","minecraft:ore_copper","minecraft:underwater_magma","minecraft:disk_sand","minecraft:disk_clay","minecraft:disk_gravel"],[],["minecraft:spring_water","minecraft:spring_lava"],["minecraft:glow_lichen","minecraft:patch_tall_grass_2","minecraft:patch_bush","minecraft:trees_plains","minecraft:flower_plains","minecraft:patch_grass_plain","minecraft:brown_mushroom_normal","minecraft:red_mushroom_normal","minecraft:patch_pumpkin","minecraft:patch_sugar_cane","minecraft:patch_firefly_bush_near_water"],["minecraft:freeze_top_layer"]]},"features":true}
+CASE custom61 OK layers=1*88,2*10,1*8589, state_layers=1:88 2:10 1:8589 biome=<inline> lakes=false features=true void=false so=none
+custom61 pre consts min_y=0 gen_depth=384 sea_level=-63
+custom61 pre fn -64 384 spawn=-60 WORLD_SURFACE_WG=-60/-60/-61 WORLD_SURFACE=-60/-60/-61 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom61 pre col -64 384 3:0 1:88 2:10 1:8589 383:0
+custom61 pre fn 0 256 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom61 pre col 0 256 3:0 1:88 2:10 1:8589 255:0
+custom61 pre fn 0 16 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom61 pre col 0 16 3:0 1:88 2:10 1:8589 15:0
+custom61 pre fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom61 pre col -64 32 3:0 1:88 2:10 1:8589 31:0
+custom61 pre fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2028/-2028/-2029 WORLD_SURFACE=-2028/-2028/-2029 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom61 pre col -2032 4064 3:0 1:88 2:10 1:8589 599:0
+custom61 pre fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom61 pre col 0 3 3:0 1:88 2:10 3:0
+custom61 pre chunk -64 384 0 0 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom61 pre chunk -64 384 -3 7 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom61 pre chunk 0 256 0 0 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom61 pre chunk 0 256 -3 7 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom61 pre chunk 0 16 0 0 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom61 pre chunk 0 16 -3 7 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom61 pre chunk -64 32 0 0 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom61 pre chunk -64 32 -3 7 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom61 pre chunk -2032 4064 0 0 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom61 pre chunk -2032 4064 -3 7 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom61 pre chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom61 pre chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom61 post adjust_flat carvers= steps=11 total=47 |0: |1:minecraft:lake_lava_underground,minecraft:lake_lava_surface, |2:minecraft:amethyst_geode, |3: |4: |5: |6:minecraft:ore_dirt,minecraft:ore_gravel,minecraft:ore_granite_upper,minecraft:ore_granite_lower,minecraft:ore_diorite_upper,minecraft:ore_diorite_lower,minecraft:ore_andesite_upper,minecraft:ore_andesite_lower,minecraft:ore_tuff,minecraft:ore_coal_upper,minecraft:ore_coal_lower,minecraft:ore_iron_upper,minecraft:ore_iron_middle,minecraft:ore_iron_small,minecraft:ore_gold,minecraft:ore_gold_lower,minecraft:ore_redstone,minecraft:ore_redstone_lower,minecraft:ore_diamond,minecraft:ore_diamond_medium,minecraft:ore_diamond_large,minecraft:ore_diamond_buried,minecraft:ore_lapis,minecraft:ore_lapis_buried,minecraft:ore_copper,minecraft:underwater_magma,minecraft:disk_sand,minecraft:disk_clay,minecraft:disk_gravel, |7: |8:minecraft:spring_water,minecraft:spring_lava, |9:minecraft:glow_lichen,minecraft:patch_tall_grass_2,minecraft:patch_bush,minecraft:trees_plains,minecraft:flower_plains,minecraft:patch_grass_plain,minecraft:brown_mushroom_normal,minecraft:red_mushroom_normal,minecraft:patch_pumpkin,minecraft:patch_sugar_cane,minecraft:patch_firefly_bush_near_water, |10:minecraft:freeze_top_layer,fill_layer(3,8589)+0,
+custom61 post adjust_void minecraft:the_void carvers= steps=11 total=1
+custom61 post adjust_plains minecraft:plains carvers=minecraft:cave,minecraft:cave_extra_underground,minecraft:canyon, steps=11 total=48
+custom61 post layers_after 1:88 2:10 1:null
+custom61 post source biomes=[<inline>]
+custom61 post consts min_y=0 gen_depth=384 sea_level=-63
+custom61 post fn -64 384 spawn=-60 WORLD_SURFACE_WG=-61/-61/-62 WORLD_SURFACE=-61/-61/-62 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom61 post col -64 384 3:0 1:88 2:10 384:0
+custom61 post fn 0 256 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom61 post col 0 256 3:0 1:88 2:10 256:0
+custom61 post fn 0 16 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom61 post col 0 16 3:0 1:88 2:10 16:0
+custom61 post fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom61 post col -64 32 3:0 1:88 2:10 32:0
+custom61 post fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2029/-2029/-2030 WORLD_SURFACE=-2029/-2029/-2030 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom61 post col -2032 4064 3:0 1:88 2:10 600:0
+custom61 post fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom61 post col 0 3 3:0 1:88 2:10 3:0
+custom61 post chunk -64 384 0 0 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom61 post chunk -64 384 -3 7 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom61 post chunk 0 256 0 0 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom61 post chunk 0 256 -3 7 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom61 post chunk 0 16 0 0 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom61 post chunk 0 16 -3 7 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom61 post chunk -64 32 0 0 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom61 post chunk -64 32 -3 7 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom61 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom61 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom61 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom61 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+INPUT custom62 {"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:snow","height":1}],"biome":{"has_precipitation":true,"temperature":0.8,"downfall":0.4,"attributes":{"minecraft:gameplay/natural_mob_spawns":{"argument":{"spawns_by_category":{"ambient":[{"type":"minecraft:bat","count":8,"weight":10}],"creature":[{"type":"minecraft:sheep","count":4,"weight":12},{"type":"minecraft:pig","count":4,"weight":10},{"type":"minecraft:chicken","count":4,"weight":10},{"type":"minecraft:cow","count":4,"weight":8},{"type":"minecraft:horse","count":{"min_inclusive":2,"max_inclusive":6,"type":"minecraft:uniform"},"weight":5},{"type":"minecraft:donkey","count":{"min_inclusive":1,"max_inclusive":3,"type":"minecraft:uniform"},"weight":1}],"monster":[{"type":"minecraft:spider","count":4,"weight":100},{"type":"minecraft:zombie","count":4,"weight":90},{"type":"minecraft:zombie_villager","count":1,"weight":5},{"type":"minecraft:zombie_horse","count":1,"weight":5},{"type":"minecraft:skeleton","count":4,"weight":100},{"type":"minecraft:creeper","count":4,"weight":100},{"type":"minecraft:slime","count":4,"weight":100},{"type":"minecraft:enderman","count":{"min_inclusive":1,"max_inclusive":4,"type":"minecraft:uniform"},"weight":10},{"type":"minecraft:witch","count":1,"weight":5}],"underground_water_creature":[{"type":"minecraft:glow_squid","count":{"min_inclusive":4,"max_inclusive":6,"type":"minecraft:uniform"},"weight":10}]},"spawn_costs":{}},"modifier":"overlay"},"minecraft:visual/sky_color":"#78a7ff"},"effects":{"water_color":"#3f76e4"},"carvers":["minecraft:cave","minecraft:cave_extra_underground","minecraft:canyon"],"features":[[],"minecraft:nope",["minecraft:amethyst_geode"],["minecraft:monster_room","minecraft:monster_room_deep"],[],[],["minecraft:ore_dirt","minecraft:ore_gravel","minecraft:ore_granite_upper","minecraft:ore_granite_lower","minecraft:ore_diorite_upper","minecraft:ore_diorite_lower","minecraft:ore_andesite_upper","minecraft:ore_andesite_lower","minecraft:ore_tuff","minecraft:ore_coal_upper","minecraft:ore_coal_lower","minecraft:ore_iron_upper","minecraft:ore_iron_middle","minecraft:ore_iron_small","minecraft:ore_gold","minecraft:ore_gold_lower","minecraft:ore_redstone","minecraft:ore_redstone_lower","minecraft:ore_diamond","minecraft:ore_diamond_medium","minecraft:ore_diamond_large","minecraft:ore_diamond_buried","minecraft:ore_lapis","minecraft:ore_lapis_buried","minecraft:ore_copper","minecraft:underwater_magma","minecraft:disk_sand","minecraft:disk_clay","minecraft:disk_gravel"],[],["minecraft:spring_water","minecraft:spring_lava"],["minecraft:glow_lichen","minecraft:patch_tall_grass_2","minecraft:patch_bush","minecraft:trees_plains","minecraft:flower_plains","minecraft:patch_grass_plain","minecraft:brown_mushroom_normal","minecraft:red_mushroom_normal","minecraft:patch_pumpkin","minecraft:patch_sugar_cane","minecraft:patch_firefly_bush_near_water"],["minecraft:freeze_top_layer"]]},"features":true}
+CASE custom62 OK layers=1*88,2*10,1*8589, state_layers=1:88 2:10 1:8589 biome=<inline> lakes=false features=true void=false so=none
+custom62 pre consts min_y=0 gen_depth=384 sea_level=-63
+custom62 pre fn -64 384 spawn=-60 WORLD_SURFACE_WG=-60/-60/-61 WORLD_SURFACE=-60/-60/-61 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom62 pre col -64 384 3:0 1:88 2:10 1:8589 383:0
+custom62 pre fn 0 256 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom62 pre col 0 256 3:0 1:88 2:10 1:8589 255:0
+custom62 pre fn 0 16 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom62 pre col 0 16 3:0 1:88 2:10 1:8589 15:0
+custom62 pre fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom62 pre col -64 32 3:0 1:88 2:10 1:8589 31:0
+custom62 pre fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2028/-2028/-2029 WORLD_SURFACE=-2028/-2028/-2029 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom62 pre col -2032 4064 3:0 1:88 2:10 1:8589 599:0
+custom62 pre fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom62 pre col 0 3 3:0 1:88 2:10 3:0
+custom62 pre chunk -64 384 0 0 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom62 pre chunk -64 384 -3 7 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom62 pre chunk 0 256 0 0 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom62 pre chunk 0 256 -3 7 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom62 pre chunk 0 16 0 0 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom62 pre chunk 0 16 -3 7 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom62 pre chunk -64 32 0 0 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom62 pre chunk -64 32 -3 7 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom62 pre chunk -2032 4064 0 0 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom62 pre chunk -2032 4064 -3 7 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom62 pre chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom62 pre chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom62 post adjust_flat carvers= steps=11 total=47 |0: |1:minecraft:amethyst_geode, |2:minecraft:monster_room,minecraft:monster_room_deep, |3: |4: |5:minecraft:ore_dirt,minecraft:ore_gravel,minecraft:ore_granite_upper,minecraft:ore_granite_lower,minecraft:ore_diorite_upper,minecraft:ore_diorite_lower,minecraft:ore_andesite_upper,minecraft:ore_andesite_lower,minecraft:ore_tuff,minecraft:ore_coal_upper,minecraft:ore_coal_lower,minecraft:ore_iron_upper,minecraft:ore_iron_middle,minecraft:ore_iron_small,minecraft:ore_gold,minecraft:ore_gold_lower,minecraft:ore_redstone,minecraft:ore_redstone_lower,minecraft:ore_diamond,minecraft:ore_diamond_medium,minecraft:ore_diamond_large,minecraft:ore_diamond_buried,minecraft:ore_lapis,minecraft:ore_lapis_buried,minecraft:ore_copper,minecraft:underwater_magma,minecraft:disk_sand,minecraft:disk_clay,minecraft:disk_gravel, |6: |7:minecraft:spring_water,minecraft:spring_lava, |8:minecraft:glow_lichen,minecraft:patch_tall_grass_2,minecraft:patch_bush,minecraft:trees_plains,minecraft:flower_plains,minecraft:patch_grass_plain,minecraft:brown_mushroom_normal,minecraft:red_mushroom_normal,minecraft:patch_pumpkin,minecraft:patch_sugar_cane,minecraft:patch_firefly_bush_near_water, |9:minecraft:freeze_top_layer, |10:fill_layer(3,8589)+0,
+custom62 post adjust_void minecraft:the_void carvers= steps=11 total=1
+custom62 post adjust_plains minecraft:plains carvers=minecraft:cave,minecraft:cave_extra_underground,minecraft:canyon, steps=11 total=48
+custom62 post layers_after 1:88 2:10 1:null
+custom62 post source biomes=[<inline>]
+custom62 post consts min_y=0 gen_depth=384 sea_level=-63
+custom62 post fn -64 384 spawn=-60 WORLD_SURFACE_WG=-61/-61/-62 WORLD_SURFACE=-61/-61/-62 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom62 post col -64 384 3:0 1:88 2:10 384:0
+custom62 post fn 0 256 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom62 post col 0 256 3:0 1:88 2:10 256:0
+custom62 post fn 0 16 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom62 post col 0 16 3:0 1:88 2:10 16:0
+custom62 post fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom62 post col -64 32 3:0 1:88 2:10 32:0
+custom62 post fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2029/-2029/-2030 WORLD_SURFACE=-2029/-2029/-2030 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom62 post col -2032 4064 3:0 1:88 2:10 600:0
+custom62 post fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom62 post col 0 3 3:0 1:88 2:10 3:0
+custom62 post chunk -64 384 0 0 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom62 post chunk -64 384 -3 7 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom62 post chunk 0 256 0 0 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom62 post chunk 0 256 -3 7 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom62 post chunk 0 16 0 0 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom62 post chunk 0 16 -3 7 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom62 post chunk -64 32 0 0 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom62 post chunk -64 32 -3 7 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom62 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom62 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom62 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom62 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+INPUT custom63 {"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:snow","height":1}],"biome":{"has_precipitation":true,"temperature":0.8,"downfall":0.4,"attributes":{"minecraft:gameplay/natural_mob_spawns":{"argument":{"spawns_by_category":{"ambient":[{"type":"minecraft:bat","count":8,"weight":10}],"creature":[{"type":"minecraft:sheep","count":4,"weight":12},{"type":"minecraft:pig","count":4,"weight":10},{"type":"minecraft:chicken","count":4,"weight":10},{"type":"minecraft:cow","count":4,"weight":8},{"type":"minecraft:horse","count":{"min_inclusive":2,"max_inclusive":6,"type":"minecraft:uniform"},"weight":5},{"type":"minecraft:donkey","count":{"min_inclusive":1,"max_inclusive":3,"type":"minecraft:uniform"},"weight":1}],"monster":[{"type":"minecraft:spider","count":4,"weight":100},{"type":"minecraft:zombie","count":4,"weight":90},{"type":"minecraft:zombie_villager","count":1,"weight":5},{"type":"minecraft:zombie_horse","count":1,"weight":5},{"type":"minecraft:skeleton","count":4,"weight":100},{"type":"minecraft:creeper","count":4,"weight":100},{"type":"minecraft:slime","count":4,"weight":100},{"type":"minecraft:enderman","count":{"min_inclusive":1,"max_inclusive":4,"type":"minecraft:uniform"},"weight":10},{"type":"minecraft:witch","count":1,"weight":5}],"underground_water_creature":[{"type":"minecraft:glow_squid","count":{"min_inclusive":4,"max_inclusive":6,"type":"minecraft:uniform"},"weight":10}]},"spawn_costs":{}},"modifier":"overlay"},"minecraft:visual/sky_color":"#78a7ff"},"effects":{"water_color":"#3f76e4"},"carvers":["minecraft:cave","minecraft:cave_extra_underground","minecraft:canyon"],"features":[[],[5,"minecraft:lake_lava_underground","minecraft:lake_lava_surface"],["minecraft:amethyst_geode"],["minecraft:monster_room","minecraft:monster_room_deep"],[],[],["minecraft:ore_dirt","minecraft:ore_gravel","minecraft:ore_granite_upper","minecraft:ore_granite_lower","minecraft:ore_diorite_upper","minecraft:ore_diorite_lower","minecraft:ore_andesite_upper","minecraft:ore_andesite_lower","minecraft:ore_tuff","minecraft:ore_coal_upper","minecraft:ore_coal_lower","minecraft:ore_iron_upper","minecraft:ore_iron_middle","minecraft:ore_iron_small","minecraft:ore_gold","minecraft:ore_gold_lower","minecraft:ore_redstone","minecraft:ore_redstone_lower","minecraft:ore_diamond","minecraft:ore_diamond_medium","minecraft:ore_diamond_large","minecraft:ore_diamond_buried","minecraft:ore_lapis","minecraft:ore_lapis_buried","minecraft:ore_copper","minecraft:underwater_magma","minecraft:disk_sand","minecraft:disk_clay","minecraft:disk_gravel"],[],["minecraft:spring_water","minecraft:spring_lava"],["minecraft:glow_lichen","minecraft:patch_tall_grass_2","minecraft:patch_bush","minecraft:trees_plains","minecraft:flower_plains","minecraft:patch_grass_plain","minecraft:brown_mushroom_normal","minecraft:red_mushroom_normal","minecraft:patch_pumpkin","minecraft:patch_sugar_cane","minecraft:patch_firefly_bush_near_water"],["minecraft:freeze_top_layer"]]},"features":true}
+CASE custom63 OK layers=1*88,2*10,1*8589, state_layers=1:88 2:10 1:8589 biome=<inline> lakes=false features=true void=false so=none
+custom63 pre consts min_y=0 gen_depth=384 sea_level=-63
+custom63 pre fn -64 384 spawn=-60 WORLD_SURFACE_WG=-60/-60/-61 WORLD_SURFACE=-60/-60/-61 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom63 pre col -64 384 3:0 1:88 2:10 1:8589 383:0
+custom63 pre fn 0 256 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom63 pre col 0 256 3:0 1:88 2:10 1:8589 255:0
+custom63 pre fn 0 16 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom63 pre col 0 16 3:0 1:88 2:10 1:8589 15:0
+custom63 pre fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom63 pre col -64 32 3:0 1:88 2:10 1:8589 31:0
+custom63 pre fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2028/-2028/-2029 WORLD_SURFACE=-2028/-2028/-2029 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom63 pre col -2032 4064 3:0 1:88 2:10 1:8589 599:0
+custom63 pre fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom63 pre col 0 3 3:0 1:88 2:10 3:0
+custom63 pre chunk -64 384 0 0 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom63 pre chunk -64 384 -3 7 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom63 pre chunk 0 256 0 0 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom63 pre chunk 0 256 -3 7 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom63 pre chunk 0 16 0 0 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom63 pre chunk 0 16 -3 7 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom63 pre chunk -64 32 0 0 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom63 pre chunk -64 32 -3 7 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom63 pre chunk -2032 4064 0 0 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom63 pre chunk -2032 4064 -3 7 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom63 pre chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom63 pre chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom63 post adjust_flat carvers= steps=11 total=47 |0: |1:minecraft:lake_lava_underground,minecraft:lake_lava_surface, |2:minecraft:amethyst_geode, |3: |4: |5: |6:minecraft:ore_dirt,minecraft:ore_gravel,minecraft:ore_granite_upper,minecraft:ore_granite_lower,minecraft:ore_diorite_upper,minecraft:ore_diorite_lower,minecraft:ore_andesite_upper,minecraft:ore_andesite_lower,minecraft:ore_tuff,minecraft:ore_coal_upper,minecraft:ore_coal_lower,minecraft:ore_iron_upper,minecraft:ore_iron_middle,minecraft:ore_iron_small,minecraft:ore_gold,minecraft:ore_gold_lower,minecraft:ore_redstone,minecraft:ore_redstone_lower,minecraft:ore_diamond,minecraft:ore_diamond_medium,minecraft:ore_diamond_large,minecraft:ore_diamond_buried,minecraft:ore_lapis,minecraft:ore_lapis_buried,minecraft:ore_copper,minecraft:underwater_magma,minecraft:disk_sand,minecraft:disk_clay,minecraft:disk_gravel, |7: |8:minecraft:spring_water,minecraft:spring_lava, |9:minecraft:glow_lichen,minecraft:patch_tall_grass_2,minecraft:patch_bush,minecraft:trees_plains,minecraft:flower_plains,minecraft:patch_grass_plain,minecraft:brown_mushroom_normal,minecraft:red_mushroom_normal,minecraft:patch_pumpkin,minecraft:patch_sugar_cane,minecraft:patch_firefly_bush_near_water, |10:minecraft:freeze_top_layer,fill_layer(3,8589)+0,
+custom63 post adjust_void minecraft:the_void carvers= steps=11 total=1
+custom63 post adjust_plains minecraft:plains carvers=minecraft:cave,minecraft:cave_extra_underground,minecraft:canyon, steps=11 total=48
+custom63 post layers_after 1:88 2:10 1:null
+custom63 post source biomes=[<inline>]
+custom63 post consts min_y=0 gen_depth=384 sea_level=-63
+custom63 post fn -64 384 spawn=-60 WORLD_SURFACE_WG=-61/-61/-62 WORLD_SURFACE=-61/-61/-62 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom63 post col -64 384 3:0 1:88 2:10 384:0
+custom63 post fn 0 256 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom63 post col 0 256 3:0 1:88 2:10 256:0
+custom63 post fn 0 16 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom63 post col 0 16 3:0 1:88 2:10 16:0
+custom63 post fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom63 post col -64 32 3:0 1:88 2:10 32:0
+custom63 post fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2029/-2029/-2030 WORLD_SURFACE=-2029/-2029/-2030 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom63 post col -2032 4064 3:0 1:88 2:10 600:0
+custom63 post fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom63 post col 0 3 3:0 1:88 2:10 3:0
+custom63 post chunk -64 384 0 0 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom63 post chunk -64 384 -3 7 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom63 post chunk 0 256 0 0 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom63 post chunk 0 256 -3 7 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom63 post chunk 0 16 0 0 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom63 post chunk 0 16 -3 7 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom63 post chunk -64 32 0 0 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom63 post chunk -64 32 -3 7 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom63 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom63 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom63 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom63 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+INPUT custom64 {"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:snow","height":1}],"biome":{"has_precipitation":true,"temperature":0.8,"downfall":0.4,"attributes":{"minecraft:gameplay/natural_mob_spawns":{"argument":{"spawns_by_category":{"ambient":[{"type":"minecraft:bat","count":8,"weight":10}],"creature":[{"type":"minecraft:sheep","count":4,"weight":12},{"type":"minecraft:pig","count":4,"weight":10},{"type":"minecraft:chicken","count":4,"weight":10},{"type":"minecraft:cow","count":4,"weight":8},{"type":"minecraft:horse","count":{"min_inclusive":2,"max_inclusive":6,"type":"minecraft:uniform"},"weight":5},{"type":"minecraft:donkey","count":{"min_inclusive":1,"max_inclusive":3,"type":"minecraft:uniform"},"weight":1}],"monster":[{"type":"minecraft:spider","count":4,"weight":100},{"type":"minecraft:zombie","count":4,"weight":90},{"type":"minecraft:zombie_villager","count":1,"weight":5},{"type":"minecraft:zombie_horse","count":1,"weight":5},{"type":"minecraft:skeleton","count":4,"weight":100},{"type":"minecraft:creeper","count":4,"weight":100},{"type":"minecraft:slime","count":4,"weight":100},{"type":"minecraft:enderman","count":{"min_inclusive":1,"max_inclusive":4,"type":"minecraft:uniform"},"weight":10},{"type":"minecraft:witch","count":1,"weight":5}],"underground_water_creature":[{"type":"minecraft:glow_squid","count":{"min_inclusive":4,"max_inclusive":6,"type":"minecraft:uniform"},"weight":10}]},"spawn_costs":{}},"modifier":"overlay"},"minecraft:visual/sky_color":"#78a7ff"},"effects":{"water_color":"#3f76e4"},"carvers":["minecraft:cave","minecraft:cave_extra_underground","minecraft:canyon"],"features":[[],[{"feature":"minecraft:nope","placement":[]},"minecraft:lake_lava_underground","minecraft:lake_lava_surface"],["minecraft:amethyst_geode"],["minecraft:monster_room","minecraft:monster_room_deep"],[],[],["minecraft:ore_dirt","minecraft:ore_gravel","minecraft:ore_granite_upper","minecraft:ore_granite_lower","minecraft:ore_diorite_upper","minecraft:ore_diorite_lower","minecraft:ore_andesite_upper","minecraft:ore_andesite_lower","minecraft:ore_tuff","minecraft:ore_coal_upper","minecraft:ore_coal_lower","minecraft:ore_iron_upper","minecraft:ore_iron_middle","minecraft:ore_iron_small","minecraft:ore_gold","minecraft:ore_gold_lower","minecraft:ore_redstone","minecraft:ore_redstone_lower","minecraft:ore_diamond","minecraft:ore_diamond_medium","minecraft:ore_diamond_large","minecraft:ore_diamond_buried","minecraft:ore_lapis","minecraft:ore_lapis_buried","minecraft:ore_copper","minecraft:underwater_magma","minecraft:disk_sand","minecraft:disk_clay","minecraft:disk_gravel"],[],["minecraft:spring_water","minecraft:spring_lava"],["minecraft:glow_lichen","minecraft:patch_tall_grass_2","minecraft:patch_bush","minecraft:trees_plains","minecraft:flower_plains","minecraft:patch_grass_plain","minecraft:brown_mushroom_normal","minecraft:red_mushroom_normal","minecraft:patch_pumpkin","minecraft:patch_sugar_cane","minecraft:patch_firefly_bush_near_water"],["minecraft:freeze_top_layer"]]},"features":true}
+CASE custom64 OK layers=1*88,2*10,1*8589, state_layers=1:88 2:10 1:8589 biome=<inline> lakes=false features=true void=false so=none
+custom64 pre consts min_y=0 gen_depth=384 sea_level=-63
+custom64 pre fn -64 384 spawn=-60 WORLD_SURFACE_WG=-60/-60/-61 WORLD_SURFACE=-60/-60/-61 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom64 pre col -64 384 3:0 1:88 2:10 1:8589 383:0
+custom64 pre fn 0 256 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom64 pre col 0 256 3:0 1:88 2:10 1:8589 255:0
+custom64 pre fn 0 16 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom64 pre col 0 16 3:0 1:88 2:10 1:8589 15:0
+custom64 pre fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom64 pre col -64 32 3:0 1:88 2:10 1:8589 31:0
+custom64 pre fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2028/-2028/-2029 WORLD_SURFACE=-2028/-2028/-2029 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom64 pre col -2032 4064 3:0 1:88 2:10 1:8589 599:0
+custom64 pre fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom64 pre col 0 3 3:0 1:88 2:10 3:0
+custom64 pre chunk -64 384 0 0 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom64 pre chunk -64 384 -3 7 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom64 pre chunk 0 256 0 0 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom64 pre chunk 0 256 -3 7 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom64 pre chunk 0 16 0 0 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom64 pre chunk 0 16 -3 7 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom64 pre chunk -64 32 0 0 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom64 pre chunk -64 32 -3 7 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom64 pre chunk -2032 4064 0 0 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom64 pre chunk -2032 4064 -3 7 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom64 pre chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom64 pre chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom64 post adjust_flat carvers= steps=11 total=47 |0: |1:minecraft:lake_lava_underground,minecraft:lake_lava_surface, |2:minecraft:amethyst_geode, |3: |4: |5: |6:minecraft:ore_dirt,minecraft:ore_gravel,minecraft:ore_granite_upper,minecraft:ore_granite_lower,minecraft:ore_diorite_upper,minecraft:ore_diorite_lower,minecraft:ore_andesite_upper,minecraft:ore_andesite_lower,minecraft:ore_tuff,minecraft:ore_coal_upper,minecraft:ore_coal_lower,minecraft:ore_iron_upper,minecraft:ore_iron_middle,minecraft:ore_iron_small,minecraft:ore_gold,minecraft:ore_gold_lower,minecraft:ore_redstone,minecraft:ore_redstone_lower,minecraft:ore_diamond,minecraft:ore_diamond_medium,minecraft:ore_diamond_large,minecraft:ore_diamond_buried,minecraft:ore_lapis,minecraft:ore_lapis_buried,minecraft:ore_copper,minecraft:underwater_magma,minecraft:disk_sand,minecraft:disk_clay,minecraft:disk_gravel, |7: |8:minecraft:spring_water,minecraft:spring_lava, |9:minecraft:glow_lichen,minecraft:patch_tall_grass_2,minecraft:patch_bush,minecraft:trees_plains,minecraft:flower_plains,minecraft:patch_grass_plain,minecraft:brown_mushroom_normal,minecraft:red_mushroom_normal,minecraft:patch_pumpkin,minecraft:patch_sugar_cane,minecraft:patch_firefly_bush_near_water, |10:minecraft:freeze_top_layer,fill_layer(3,8589)+0,
+custom64 post adjust_void minecraft:the_void carvers= steps=11 total=1
+custom64 post adjust_plains minecraft:plains carvers=minecraft:cave,minecraft:cave_extra_underground,minecraft:canyon, steps=11 total=48
+custom64 post layers_after 1:88 2:10 1:null
+custom64 post source biomes=[<inline>]
+custom64 post consts min_y=0 gen_depth=384 sea_level=-63
+custom64 post fn -64 384 spawn=-60 WORLD_SURFACE_WG=-61/-61/-62 WORLD_SURFACE=-61/-61/-62 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom64 post col -64 384 3:0 1:88 2:10 384:0
+custom64 post fn 0 256 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom64 post col 0 256 3:0 1:88 2:10 256:0
+custom64 post fn 0 16 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom64 post col 0 16 3:0 1:88 2:10 16:0
+custom64 post fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom64 post col -64 32 3:0 1:88 2:10 32:0
+custom64 post fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2029/-2029/-2030 WORLD_SURFACE=-2029/-2029/-2030 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom64 post col -2032 4064 3:0 1:88 2:10 600:0
+custom64 post fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom64 post col 0 3 3:0 1:88 2:10 3:0
+custom64 post chunk -64 384 0 0 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom64 post chunk -64 384 -3 7 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom64 post chunk 0 256 0 0 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom64 post chunk 0 256 -3 7 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom64 post chunk 0 16 0 0 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom64 post chunk 0 16 -3 7 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom64 post chunk -64 32 0 0 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom64 post chunk -64 32 -3 7 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom64 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom64 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom64 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom64 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+INPUT custom65 {"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:snow","height":1}],"biome":{"has_precipitation":true,"temperature":0.8,"downfall":0.4,"attributes":{"minecraft:gameplay/natural_mob_spawns":{"argument":{"spawns_by_category":{"ambient":[{"type":"minecraft:bat","count":8,"weight":10}],"creature":[{"type":"minecraft:sheep","count":4,"weight":12},{"type":"minecraft:pig","count":4,"weight":10},{"type":"minecraft:chicken","count":4,"weight":10},{"type":"minecraft:cow","count":4,"weight":8},{"type":"minecraft:horse","count":{"min_inclusive":2,"max_inclusive":6,"type":"minecraft:uniform"},"weight":5},{"type":"minecraft:donkey","count":{"min_inclusive":1,"max_inclusive":3,"type":"minecraft:uniform"},"weight":1}],"monster":[{"type":"minecraft:spider","count":4,"weight":100},{"type":"minecraft:zombie","count":4,"weight":90},{"type":"minecraft:zombie_villager","count":1,"weight":5},{"type":"minecraft:zombie_horse","count":1,"weight":5},{"type":"minecraft:skeleton","count":4,"weight":100},{"type":"minecraft:creeper","count":4,"weight":100},{"type":"minecraft:slime","count":4,"weight":100},{"type":"minecraft:enderman","count":{"min_inclusive":1,"max_inclusive":4,"type":"minecraft:uniform"},"weight":10},{"type":"minecraft:witch","count":1,"weight":5}],"underground_water_creature":[{"type":"minecraft:glow_squid","count":{"min_inclusive":4,"max_inclusive":6,"type":"minecraft:uniform"},"weight":10}]},"spawn_costs":{}},"modifier":"overlay"},"minecraft:visual/sky_color":"#78a7ff"},"effects":{"water_color":"#3f76e4"},"carvers":["minecraft:nope","minecraft:cave"],"features":[[],["minecraft:lake_lava_underground","minecraft:lake_lava_surface"],["minecraft:amethyst_geode"],["minecraft:monster_room","minecraft:monster_room_deep"],[],[],["minecraft:ore_dirt","minecraft:ore_gravel","minecraft:ore_granite_upper","minecraft:ore_granite_lower","minecraft:ore_diorite_upper","minecraft:ore_diorite_lower","minecraft:ore_andesite_upper","minecraft:ore_andesite_lower","minecraft:ore_tuff","minecraft:ore_coal_upper","minecraft:ore_coal_lower","minecraft:ore_iron_upper","minecraft:ore_iron_middle","minecraft:ore_iron_small","minecraft:ore_gold","minecraft:ore_gold_lower","minecraft:ore_redstone","minecraft:ore_redstone_lower","minecraft:ore_diamond","minecraft:ore_diamond_medium","minecraft:ore_diamond_large","minecraft:ore_diamond_buried","minecraft:ore_lapis","minecraft:ore_lapis_buried","minecraft:ore_copper","minecraft:underwater_magma","minecraft:disk_sand","minecraft:disk_clay","minecraft:disk_gravel"],[],["minecraft:spring_water","minecraft:spring_lava"],["minecraft:glow_lichen","minecraft:patch_tall_grass_2","minecraft:patch_bush","minecraft:trees_plains","minecraft:flower_plains","minecraft:patch_grass_plain","minecraft:brown_mushroom_normal","minecraft:red_mushroom_normal","minecraft:patch_pumpkin","minecraft:patch_sugar_cane","minecraft:patch_firefly_bush_near_water"],["minecraft:freeze_top_layer"]]},"features":true}
+CASE custom65 OK layers=1*88,2*10,1*8589, state_layers=1:88 2:10 1:8589 biome=<inline> lakes=false features=true void=false so=none
+custom65 pre consts min_y=0 gen_depth=384 sea_level=-63
+custom65 pre fn -64 384 spawn=-60 WORLD_SURFACE_WG=-60/-60/-61 WORLD_SURFACE=-60/-60/-61 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom65 pre col -64 384 3:0 1:88 2:10 1:8589 383:0
+custom65 pre fn 0 256 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom65 pre col 0 256 3:0 1:88 2:10 1:8589 255:0
+custom65 pre fn 0 16 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom65 pre col 0 16 3:0 1:88 2:10 1:8589 15:0
+custom65 pre fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom65 pre col -64 32 3:0 1:88 2:10 1:8589 31:0
+custom65 pre fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2028/-2028/-2029 WORLD_SURFACE=-2028/-2028/-2029 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom65 pre col -2032 4064 3:0 1:88 2:10 1:8589 599:0
+custom65 pre fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom65 pre col 0 3 3:0 1:88 2:10 3:0
+custom65 pre chunk -64 384 0 0 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom65 pre chunk -64 384 -3 7 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom65 pre chunk 0 256 0 0 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom65 pre chunk 0 256 -3 7 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom65 pre chunk 0 16 0 0 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom65 pre chunk 0 16 -3 7 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom65 pre chunk -64 32 0 0 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom65 pre chunk -64 32 -3 7 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom65 pre chunk -2032 4064 0 0 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom65 pre chunk -2032 4064 -3 7 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom65 pre chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom65 pre chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom65 post adjust_flat carvers= steps=11 total=47 |0: |1:minecraft:lake_lava_underground,minecraft:lake_lava_surface, |2:minecraft:amethyst_geode, |3: |4: |5: |6:minecraft:ore_dirt,minecraft:ore_gravel,minecraft:ore_granite_upper,minecraft:ore_granite_lower,minecraft:ore_diorite_upper,minecraft:ore_diorite_lower,minecraft:ore_andesite_upper,minecraft:ore_andesite_lower,minecraft:ore_tuff,minecraft:ore_coal_upper,minecraft:ore_coal_lower,minecraft:ore_iron_upper,minecraft:ore_iron_middle,minecraft:ore_iron_small,minecraft:ore_gold,minecraft:ore_gold_lower,minecraft:ore_redstone,minecraft:ore_redstone_lower,minecraft:ore_diamond,minecraft:ore_diamond_medium,minecraft:ore_diamond_large,minecraft:ore_diamond_buried,minecraft:ore_lapis,minecraft:ore_lapis_buried,minecraft:ore_copper,minecraft:underwater_magma,minecraft:disk_sand,minecraft:disk_clay,minecraft:disk_gravel, |7: |8:minecraft:spring_water,minecraft:spring_lava, |9:minecraft:glow_lichen,minecraft:patch_tall_grass_2,minecraft:patch_bush,minecraft:trees_plains,minecraft:flower_plains,minecraft:patch_grass_plain,minecraft:brown_mushroom_normal,minecraft:red_mushroom_normal,minecraft:patch_pumpkin,minecraft:patch_sugar_cane,minecraft:patch_firefly_bush_near_water, |10:minecraft:freeze_top_layer,fill_layer(3,8589)+0,
+custom65 post adjust_void minecraft:the_void carvers= steps=11 total=1
+custom65 post adjust_plains minecraft:plains carvers=minecraft:cave,minecraft:cave_extra_underground,minecraft:canyon, steps=11 total=48
+custom65 post layers_after 1:88 2:10 1:null
+custom65 post source biomes=[<inline>]
+custom65 post consts min_y=0 gen_depth=384 sea_level=-63
+custom65 post fn -64 384 spawn=-60 WORLD_SURFACE_WG=-61/-61/-62 WORLD_SURFACE=-61/-61/-62 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom65 post col -64 384 3:0 1:88 2:10 384:0
+custom65 post fn 0 256 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom65 post col 0 256 3:0 1:88 2:10 256:0
+custom65 post fn 0 16 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom65 post col 0 16 3:0 1:88 2:10 16:0
+custom65 post fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom65 post col -64 32 3:0 1:88 2:10 32:0
+custom65 post fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2029/-2029/-2030 WORLD_SURFACE=-2029/-2029/-2030 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom65 post col -2032 4064 3:0 1:88 2:10 600:0
+custom65 post fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom65 post col 0 3 3:0 1:88 2:10 3:0
+custom65 post chunk -64 384 0 0 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom65 post chunk -64 384 -3 7 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom65 post chunk 0 256 0 0 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom65 post chunk 0 256 -3 7 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom65 post chunk 0 16 0 0 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom65 post chunk 0 16 -3 7 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom65 post chunk -64 32 0 0 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom65 post chunk -64 32 -3 7 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom65 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom65 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom65 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom65 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+INPUT custom66 {"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:snow","height":1}],"biome":{"has_precipitation":true,"temperature":0.8,"downfall":0.4,"attributes":{"minecraft:gameplay/natural_mob_spawns":{"argument":{"spawns_by_category":{"ambient":[{"type":"minecraft:bat","count":8,"weight":10}],"creature":[{"type":"minecraft:sheep","count":4,"weight":12},{"type":"minecraft:pig","count":4,"weight":10},{"type":"minecraft:chicken","count":4,"weight":10},{"type":"minecraft:cow","count":4,"weight":8},{"type":"minecraft:horse","count":{"min_inclusive":2,"max_inclusive":6,"type":"minecraft:uniform"},"weight":5},{"type":"minecraft:donkey","count":{"min_inclusive":1,"max_inclusive":3,"type":"minecraft:uniform"},"weight":1}],"monster":[{"type":"minecraft:spider","count":4,"weight":100},{"type":"minecraft:zombie","count":4,"weight":90},{"type":"minecraft:zombie_villager","count":1,"weight":5},{"type":"minecraft:zombie_horse","count":1,"weight":5},{"type":"minecraft:skeleton","count":4,"weight":100},{"type":"minecraft:creeper","count":4,"weight":100},{"type":"minecraft:slime","count":4,"weight":100},{"type":"minecraft:enderman","count":{"min_inclusive":1,"max_inclusive":4,"type":"minecraft:uniform"},"weight":10},{"type":"minecraft:witch","count":1,"weight":5}],"underground_water_creature":[{"type":"minecraft:glow_squid","count":{"min_inclusive":4,"max_inclusive":6,"type":"minecraft:uniform"},"weight":10}]},"spawn_costs":{}},"modifier":"overlay"},"minecraft:visual/sky_color":"#78a7ff"},"effects":{"water_color":"#3f76e4"},"carvers":["minecraft:cave","minecraft:nope"],"features":[[],["minecraft:lake_lava_underground","minecraft:lake_lava_surface"],["minecraft:amethyst_geode"],["minecraft:monster_room","minecraft:monster_room_deep"],[],[],["minecraft:ore_dirt","minecraft:ore_gravel","minecraft:ore_granite_upper","minecraft:ore_granite_lower","minecraft:ore_diorite_upper","minecraft:ore_diorite_lower","minecraft:ore_andesite_upper","minecraft:ore_andesite_lower","minecraft:ore_tuff","minecraft:ore_coal_upper","minecraft:ore_coal_lower","minecraft:ore_iron_upper","minecraft:ore_iron_middle","minecraft:ore_iron_small","minecraft:ore_gold","minecraft:ore_gold_lower","minecraft:ore_redstone","minecraft:ore_redstone_lower","minecraft:ore_diamond","minecraft:ore_diamond_medium","minecraft:ore_diamond_large","minecraft:ore_diamond_buried","minecraft:ore_lapis","minecraft:ore_lapis_buried","minecraft:ore_copper","minecraft:underwater_magma","minecraft:disk_sand","minecraft:disk_clay","minecraft:disk_gravel"],[],["minecraft:spring_water","minecraft:spring_lava"],["minecraft:glow_lichen","minecraft:patch_tall_grass_2","minecraft:patch_bush","minecraft:trees_plains","minecraft:flower_plains","minecraft:patch_grass_plain","minecraft:brown_mushroom_normal","minecraft:red_mushroom_normal","minecraft:patch_pumpkin","minecraft:patch_sugar_cane","minecraft:patch_firefly_bush_near_water"],["minecraft:freeze_top_layer"]]},"features":true}
+CASE custom66 OK layers=1*88,2*10,1*8589, state_layers=1:88 2:10 1:8589 biome=<inline> lakes=false features=true void=false so=none
+custom66 pre consts min_y=0 gen_depth=384 sea_level=-63
+custom66 pre fn -64 384 spawn=-60 WORLD_SURFACE_WG=-60/-60/-61 WORLD_SURFACE=-60/-60/-61 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom66 pre col -64 384 3:0 1:88 2:10 1:8589 383:0
+custom66 pre fn 0 256 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom66 pre col 0 256 3:0 1:88 2:10 1:8589 255:0
+custom66 pre fn 0 16 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom66 pre col 0 16 3:0 1:88 2:10 1:8589 15:0
+custom66 pre fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom66 pre col -64 32 3:0 1:88 2:10 1:8589 31:0
+custom66 pre fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2028/-2028/-2029 WORLD_SURFACE=-2028/-2028/-2029 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom66 pre col -2032 4064 3:0 1:88 2:10 1:8589 599:0
+custom66 pre fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom66 pre col 0 3 3:0 1:88 2:10 3:0
+custom66 pre chunk -64 384 0 0 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom66 pre chunk -64 384 -3 7 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom66 pre chunk 0 256 0 0 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom66 pre chunk 0 256 -3 7 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom66 pre chunk 0 16 0 0 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom66 pre chunk 0 16 -3 7 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom66 pre chunk -64 32 0 0 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom66 pre chunk -64 32 -3 7 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom66 pre chunk -2032 4064 0 0 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom66 pre chunk -2032 4064 -3 7 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom66 pre chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom66 pre chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom66 post adjust_flat carvers= steps=11 total=47 |0: |1:minecraft:lake_lava_underground,minecraft:lake_lava_surface, |2:minecraft:amethyst_geode, |3: |4: |5: |6:minecraft:ore_dirt,minecraft:ore_gravel,minecraft:ore_granite_upper,minecraft:ore_granite_lower,minecraft:ore_diorite_upper,minecraft:ore_diorite_lower,minecraft:ore_andesite_upper,minecraft:ore_andesite_lower,minecraft:ore_tuff,minecraft:ore_coal_upper,minecraft:ore_coal_lower,minecraft:ore_iron_upper,minecraft:ore_iron_middle,minecraft:ore_iron_small,minecraft:ore_gold,minecraft:ore_gold_lower,minecraft:ore_redstone,minecraft:ore_redstone_lower,minecraft:ore_diamond,minecraft:ore_diamond_medium,minecraft:ore_diamond_large,minecraft:ore_diamond_buried,minecraft:ore_lapis,minecraft:ore_lapis_buried,minecraft:ore_copper,minecraft:underwater_magma,minecraft:disk_sand,minecraft:disk_clay,minecraft:disk_gravel, |7: |8:minecraft:spring_water,minecraft:spring_lava, |9:minecraft:glow_lichen,minecraft:patch_tall_grass_2,minecraft:patch_bush,minecraft:trees_plains,minecraft:flower_plains,minecraft:patch_grass_plain,minecraft:brown_mushroom_normal,minecraft:red_mushroom_normal,minecraft:patch_pumpkin,minecraft:patch_sugar_cane,minecraft:patch_firefly_bush_near_water, |10:minecraft:freeze_top_layer,fill_layer(3,8589)+0,
+custom66 post adjust_void minecraft:the_void carvers= steps=11 total=1
+custom66 post adjust_plains minecraft:plains carvers=minecraft:cave,minecraft:cave_extra_underground,minecraft:canyon, steps=11 total=48
+custom66 post layers_after 1:88 2:10 1:null
+custom66 post source biomes=[<inline>]
+custom66 post consts min_y=0 gen_depth=384 sea_level=-63
+custom66 post fn -64 384 spawn=-60 WORLD_SURFACE_WG=-61/-61/-62 WORLD_SURFACE=-61/-61/-62 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom66 post col -64 384 3:0 1:88 2:10 384:0
+custom66 post fn 0 256 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom66 post col 0 256 3:0 1:88 2:10 256:0
+custom66 post fn 0 16 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom66 post col 0 16 3:0 1:88 2:10 16:0
+custom66 post fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom66 post col -64 32 3:0 1:88 2:10 32:0
+custom66 post fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2029/-2029/-2030 WORLD_SURFACE=-2029/-2029/-2030 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom66 post col -2032 4064 3:0 1:88 2:10 600:0
+custom66 post fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom66 post col 0 3 3:0 1:88 2:10 3:0
+custom66 post chunk -64 384 0 0 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom66 post chunk -64 384 -3 7 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom66 post chunk 0 256 0 0 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom66 post chunk 0 256 -3 7 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom66 post chunk 0 16 0 0 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom66 post chunk 0 16 -3 7 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom66 post chunk -64 32 0 0 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom66 post chunk -64 32 -3 7 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom66 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom66 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom66 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom66 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+INPUT custom67 {"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:snow","height":1}],"biome":{"has_precipitation":true,"temperature":0.8,"downfall":0.4,"attributes":{"minecraft:gameplay/natural_mob_spawns":{"argument":{"spawns_by_category":{"ambient":[{"type":"minecraft:bat","count":8,"weight":10}],"creature":[{"type":"minecraft:sheep","count":4,"weight":12},{"type":"minecraft:pig","count":4,"weight":10},{"type":"minecraft:chicken","count":4,"weight":10},{"type":"minecraft:cow","count":4,"weight":8},{"type":"minecraft:horse","count":{"min_inclusive":2,"max_inclusive":6,"type":"minecraft:uniform"},"weight":5},{"type":"minecraft:donkey","count":{"min_inclusive":1,"max_inclusive":3,"type":"minecraft:uniform"},"weight":1}],"monster":[{"type":"minecraft:spider","count":4,"weight":100},{"type":"minecraft:zombie","count":4,"weight":90},{"type":"minecraft:zombie_villager","count":1,"weight":5},{"type":"minecraft:zombie_horse","count":1,"weight":5},{"type":"minecraft:skeleton","count":4,"weight":100},{"type":"minecraft:creeper","count":4,"weight":100},{"type":"minecraft:slime","count":4,"weight":100},{"type":"minecraft:enderman","count":{"min_inclusive":1,"max_inclusive":4,"type":"minecraft:uniform"},"weight":10},{"type":"minecraft:witch","count":1,"weight":5}],"underground_water_creature":[{"type":"minecraft:glow_squid","count":{"min_inclusive":4,"max_inclusive":6,"type":"minecraft:uniform"},"weight":10}]},"spawn_costs":{}},"modifier":"overlay"},"minecraft:visual/sky_color":"#78a7ff"},"effects":{"water_color":"#3f76e4"},"carvers":["minecraft:cave",5],"features":[[],["minecraft:lake_lava_underground","minecraft:lake_lava_surface"],["minecraft:amethyst_geode"],["minecraft:monster_room","minecraft:monster_room_deep"],[],[],["minecraft:ore_dirt","minecraft:ore_gravel","minecraft:ore_granite_upper","minecraft:ore_granite_lower","minecraft:ore_diorite_upper","minecraft:ore_diorite_lower","minecraft:ore_andesite_upper","minecraft:ore_andesite_lower","minecraft:ore_tuff","minecraft:ore_coal_upper","minecraft:ore_coal_lower","minecraft:ore_iron_upper","minecraft:ore_iron_middle","minecraft:ore_iron_small","minecraft:ore_gold","minecraft:ore_gold_lower","minecraft:ore_redstone","minecraft:ore_redstone_lower","minecraft:ore_diamond","minecraft:ore_diamond_medium","minecraft:ore_diamond_large","minecraft:ore_diamond_buried","minecraft:ore_lapis","minecraft:ore_lapis_buried","minecraft:ore_copper","minecraft:underwater_magma","minecraft:disk_sand","minecraft:disk_clay","minecraft:disk_gravel"],[],["minecraft:spring_water","minecraft:spring_lava"],["minecraft:glow_lichen","minecraft:patch_tall_grass_2","minecraft:patch_bush","minecraft:trees_plains","minecraft:flower_plains","minecraft:patch_grass_plain","minecraft:brown_mushroom_normal","minecraft:red_mushroom_normal","minecraft:patch_pumpkin","minecraft:patch_sugar_cane","minecraft:patch_firefly_bush_near_water"],["minecraft:freeze_top_layer"]]},"features":true}
+CASE custom67 OK layers=1*88,2*10,1*8589, state_layers=1:88 2:10 1:8589 biome=<inline> lakes=false features=true void=false so=none
+custom67 pre consts min_y=0 gen_depth=384 sea_level=-63
+custom67 pre fn -64 384 spawn=-60 WORLD_SURFACE_WG=-60/-60/-61 WORLD_SURFACE=-60/-60/-61 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom67 pre col -64 384 3:0 1:88 2:10 1:8589 383:0
+custom67 pre fn 0 256 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom67 pre col 0 256 3:0 1:88 2:10 1:8589 255:0
+custom67 pre fn 0 16 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom67 pre col 0 16 3:0 1:88 2:10 1:8589 15:0
+custom67 pre fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom67 pre col -64 32 3:0 1:88 2:10 1:8589 31:0
+custom67 pre fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2028/-2028/-2029 WORLD_SURFACE=-2028/-2028/-2029 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom67 pre col -2032 4064 3:0 1:88 2:10 1:8589 599:0
+custom67 pre fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom67 pre col 0 3 3:0 1:88 2:10 3:0
+custom67 pre chunk -64 384 0 0 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom67 pre chunk -64 384 -3 7 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom67 pre chunk 0 256 0 0 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom67 pre chunk 0 256 -3 7 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom67 pre chunk 0 16 0 0 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom67 pre chunk 0 16 -3 7 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom67 pre chunk -64 32 0 0 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom67 pre chunk -64 32 -3 7 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom67 pre chunk -2032 4064 0 0 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom67 pre chunk -2032 4064 -3 7 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom67 pre chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom67 pre chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom67 post adjust_flat carvers= steps=11 total=47 |0: |1:minecraft:lake_lava_underground,minecraft:lake_lava_surface, |2:minecraft:amethyst_geode, |3: |4: |5: |6:minecraft:ore_dirt,minecraft:ore_gravel,minecraft:ore_granite_upper,minecraft:ore_granite_lower,minecraft:ore_diorite_upper,minecraft:ore_diorite_lower,minecraft:ore_andesite_upper,minecraft:ore_andesite_lower,minecraft:ore_tuff,minecraft:ore_coal_upper,minecraft:ore_coal_lower,minecraft:ore_iron_upper,minecraft:ore_iron_middle,minecraft:ore_iron_small,minecraft:ore_gold,minecraft:ore_gold_lower,minecraft:ore_redstone,minecraft:ore_redstone_lower,minecraft:ore_diamond,minecraft:ore_diamond_medium,minecraft:ore_diamond_large,minecraft:ore_diamond_buried,minecraft:ore_lapis,minecraft:ore_lapis_buried,minecraft:ore_copper,minecraft:underwater_magma,minecraft:disk_sand,minecraft:disk_clay,minecraft:disk_gravel, |7: |8:minecraft:spring_water,minecraft:spring_lava, |9:minecraft:glow_lichen,minecraft:patch_tall_grass_2,minecraft:patch_bush,minecraft:trees_plains,minecraft:flower_plains,minecraft:patch_grass_plain,minecraft:brown_mushroom_normal,minecraft:red_mushroom_normal,minecraft:patch_pumpkin,minecraft:patch_sugar_cane,minecraft:patch_firefly_bush_near_water, |10:minecraft:freeze_top_layer,fill_layer(3,8589)+0,
+custom67 post adjust_void minecraft:the_void carvers= steps=11 total=1
+custom67 post adjust_plains minecraft:plains carvers=minecraft:cave,minecraft:cave_extra_underground,minecraft:canyon, steps=11 total=48
+custom67 post layers_after 1:88 2:10 1:null
+custom67 post source biomes=[<inline>]
+custom67 post consts min_y=0 gen_depth=384 sea_level=-63
+custom67 post fn -64 384 spawn=-60 WORLD_SURFACE_WG=-61/-61/-62 WORLD_SURFACE=-61/-61/-62 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom67 post col -64 384 3:0 1:88 2:10 384:0
+custom67 post fn 0 256 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom67 post col 0 256 3:0 1:88 2:10 256:0
+custom67 post fn 0 16 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom67 post col 0 16 3:0 1:88 2:10 16:0
+custom67 post fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom67 post col -64 32 3:0 1:88 2:10 32:0
+custom67 post fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2029/-2029/-2030 WORLD_SURFACE=-2029/-2029/-2030 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom67 post col -2032 4064 3:0 1:88 2:10 600:0
+custom67 post fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom67 post col 0 3 3:0 1:88 2:10 3:0
+custom67 post chunk -64 384 0 0 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom67 post chunk -64 384 -3 7 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom67 post chunk 0 256 0 0 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom67 post chunk 0 256 -3 7 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom67 post chunk 0 16 0 0 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom67 post chunk 0 16 -3 7 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom67 post chunk -64 32 0 0 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom67 post chunk -64 32 -3 7 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom67 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom67 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom67 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom67 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+INPUT custom68 {"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:snow","height":1}],"biome":{"has_precipitation":true,"temperature":0.8,"downfall":0.4,"attributes":{"minecraft:gameplay/natural_mob_spawns":{"argument":{"spawns_by_category":{"ambient":[{"type":"minecraft:bat","count":8,"weight":10}],"creature":[{"type":"minecraft:sheep","count":4,"weight":12},{"type":"minecraft:pig","count":4,"weight":10},{"type":"minecraft:chicken","count":4,"weight":10},{"type":"minecraft:cow","count":4,"weight":8},{"type":"minecraft:horse","count":{"min_inclusive":2,"max_inclusive":6,"type":"minecraft:uniform"},"weight":5},{"type":"minecraft:donkey","count":{"min_inclusive":1,"max_inclusive":3,"type":"minecraft:uniform"},"weight":1}],"monster":[{"type":"minecraft:spider","count":4,"weight":100},{"type":"minecraft:zombie","count":4,"weight":90},{"type":"minecraft:zombie_villager","count":1,"weight":5},{"type":"minecraft:zombie_horse","count":1,"weight":5},{"type":"minecraft:skeleton","count":4,"weight":100},{"type":"minecraft:creeper","count":4,"weight":100},{"type":"minecraft:slime","count":4,"weight":100},{"type":"minecraft:enderman","count":{"min_inclusive":1,"max_inclusive":4,"type":"minecraft:uniform"},"weight":10},{"type":"minecraft:witch","count":1,"weight":5}],"underground_water_creature":[{"type":"minecraft:glow_squid","count":{"min_inclusive":4,"max_inclusive":6,"type":"minecraft:uniform"},"weight":10}]},"spawn_costs":{}},"modifier":"overlay"},"minecraft:visual/sky_color":"#78a7ff"},"effects":{"water_color":"#3f76e4"},"carvers":"#minecraft:nope","features":[[],["minecraft:lake_lava_underground","minecraft:lake_lava_surface"],["minecraft:amethyst_geode"],["minecraft:monster_room","minecraft:monster_room_deep"],[],[],["minecraft:ore_dirt","minecraft:ore_gravel","minecraft:ore_granite_upper","minecraft:ore_granite_lower","minecraft:ore_diorite_upper","minecraft:ore_diorite_lower","minecraft:ore_andesite_upper","minecraft:ore_andesite_lower","minecraft:ore_tuff","minecraft:ore_coal_upper","minecraft:ore_coal_lower","minecraft:ore_iron_upper","minecraft:ore_iron_middle","minecraft:ore_iron_small","minecraft:ore_gold","minecraft:ore_gold_lower","minecraft:ore_redstone","minecraft:ore_redstone_lower","minecraft:ore_diamond","minecraft:ore_diamond_medium","minecraft:ore_diamond_large","minecraft:ore_diamond_buried","minecraft:ore_lapis","minecraft:ore_lapis_buried","minecraft:ore_copper","minecraft:underwater_magma","minecraft:disk_sand","minecraft:disk_clay","minecraft:disk_gravel"],[],["minecraft:spring_water","minecraft:spring_lava"],["minecraft:glow_lichen","minecraft:patch_tall_grass_2","minecraft:patch_bush","minecraft:trees_plains","minecraft:flower_plains","minecraft:patch_grass_plain","minecraft:brown_mushroom_normal","minecraft:red_mushroom_normal","minecraft:patch_pumpkin","minecraft:patch_sugar_cane","minecraft:patch_firefly_bush_near_water"],["minecraft:freeze_top_layer"]]},"features":true}
+CASE custom68 OK layers=1*88,2*10,1*8589, state_layers=1:88 2:10 1:8589 biome=minecraft:plains lakes=false features=true void=false so=none
+custom68 pre consts min_y=0 gen_depth=384 sea_level=-63
+custom68 pre fn -64 384 spawn=-60 WORLD_SURFACE_WG=-60/-60/-61 WORLD_SURFACE=-60/-60/-61 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom68 pre col -64 384 3:0 1:88 2:10 1:8589 383:0
+custom68 pre fn 0 256 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom68 pre col 0 256 3:0 1:88 2:10 1:8589 255:0
+custom68 pre fn 0 16 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom68 pre col 0 16 3:0 1:88 2:10 1:8589 15:0
+custom68 pre fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom68 pre col -64 32 3:0 1:88 2:10 1:8589 31:0
+custom68 pre fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2028/-2028/-2029 WORLD_SURFACE=-2028/-2028/-2029 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom68 pre col -2032 4064 3:0 1:88 2:10 1:8589 599:0
+custom68 pre fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom68 pre col 0 3 3:0 1:88 2:10 3:0
+custom68 pre chunk -64 384 0 0 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom68 pre chunk -64 384 -3 7 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom68 pre chunk 0 256 0 0 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom68 pre chunk 0 256 -3 7 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom68 pre chunk 0 16 0 0 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom68 pre chunk 0 16 -3 7 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom68 pre chunk -64 32 0 0 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom68 pre chunk -64 32 -3 7 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom68 pre chunk -2032 4064 0 0 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom68 pre chunk -2032 4064 -3 7 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom68 pre chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom68 pre chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom68 post adjust_flat carvers= steps=11 total=47 |0: |1:minecraft:lake_lava_underground,minecraft:lake_lava_surface, |2:minecraft:amethyst_geode, |3: |4: |5: |6:minecraft:ore_dirt,minecraft:ore_gravel,minecraft:ore_granite_upper,minecraft:ore_granite_lower,minecraft:ore_diorite_upper,minecraft:ore_diorite_lower,minecraft:ore_andesite_upper,minecraft:ore_andesite_lower,minecraft:ore_tuff,minecraft:ore_coal_upper,minecraft:ore_coal_lower,minecraft:ore_iron_upper,minecraft:ore_iron_middle,minecraft:ore_iron_small,minecraft:ore_gold,minecraft:ore_gold_lower,minecraft:ore_redstone,minecraft:ore_redstone_lower,minecraft:ore_diamond,minecraft:ore_diamond_medium,minecraft:ore_diamond_large,minecraft:ore_diamond_buried,minecraft:ore_lapis,minecraft:ore_lapis_buried,minecraft:ore_copper,minecraft:underwater_magma,minecraft:disk_sand,minecraft:disk_clay,minecraft:disk_gravel, |7: |8:minecraft:spring_water,minecraft:spring_lava, |9:minecraft:glow_lichen,minecraft:patch_tall_grass_2,minecraft:patch_bush,minecraft:trees_plains,minecraft:flower_plains,minecraft:patch_grass_plain,minecraft:brown_mushroom_normal,minecraft:red_mushroom_normal,minecraft:patch_pumpkin,minecraft:patch_sugar_cane,minecraft:patch_firefly_bush_near_water, |10:minecraft:freeze_top_layer,fill_layer(3,8589)+0,
+custom68 post adjust_void minecraft:the_void carvers= steps=11 total=1
+custom68 post adjust_plains minecraft:plains carvers= steps=11 total=47
+custom68 post layers_after 1:88 2:10 1:null
+custom68 post source biomes=[minecraft:plains]
+custom68 post consts min_y=0 gen_depth=384 sea_level=-63
+custom68 post fn -64 384 spawn=-60 WORLD_SURFACE_WG=-61/-61/-62 WORLD_SURFACE=-61/-61/-62 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom68 post col -64 384 3:0 1:88 2:10 384:0
+custom68 post fn 0 256 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom68 post col 0 256 3:0 1:88 2:10 256:0
+custom68 post fn 0 16 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom68 post col 0 16 3:0 1:88 2:10 16:0
+custom68 post fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom68 post col -64 32 3:0 1:88 2:10 32:0
+custom68 post fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2029/-2029/-2030 WORLD_SURFACE=-2029/-2029/-2030 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom68 post col -2032 4064 3:0 1:88 2:10 600:0
+custom68 post fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom68 post col 0 3 3:0 1:88 2:10 3:0
+custom68 post chunk -64 384 0 0 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom68 post chunk -64 384 -3 7 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom68 post chunk 0 256 0 0 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom68 post chunk 0 256 -3 7 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom68 post chunk 0 16 0 0 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom68 post chunk 0 16 -3 7 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom68 post chunk -64 32 0 0 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom68 post chunk -64 32 -3 7 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom68 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom68 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom68 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom68 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+INPUT custom69 {"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:snow","height":1}],"biome":{"has_precipitation":true,"temperature":0.8,"downfall":0.4,"attributes":{"minecraft:gameplay/natural_mob_spawns":{"argument":{"spawns_by_category":{"ambient":[{"type":"minecraft:bat","count":8,"weight":10}],"creature":[{"type":"minecraft:sheep","count":4,"weight":12},{"type":"minecraft:pig","count":4,"weight":10},{"type":"minecraft:chicken","count":4,"weight":10},{"type":"minecraft:cow","count":4,"weight":8},{"type":"minecraft:horse","count":{"min_inclusive":2,"max_inclusive":6,"type":"minecraft:uniform"},"weight":5},{"type":"minecraft:donkey","count":{"min_inclusive":1,"max_inclusive":3,"type":"minecraft:uniform"},"weight":1}],"monster":[{"type":"minecraft:spider","count":4,"weight":100},{"type":"minecraft:zombie","count":4,"weight":90},{"type":"minecraft:zombie_villager","count":1,"weight":5},{"type":"minecraft:zombie_horse","count":1,"weight":5},{"type":"minecraft:skeleton","count":4,"weight":100},{"type":"minecraft:creeper","count":4,"weight":100},{"type":"minecraft:slime","count":4,"weight":100},{"type":"minecraft:enderman","count":{"min_inclusive":1,"max_inclusive":4,"type":"minecraft:uniform"},"weight":10},{"type":"minecraft:witch","count":1,"weight":5}],"underground_water_creature":[{"type":"minecraft:glow_squid","count":{"min_inclusive":4,"max_inclusive":6,"type":"minecraft:uniform"},"weight":10}]},"spawn_costs":{}},"modifier":"overlay"},"minecraft:visual/sky_color":"#78a7ff"},"effects":{"water_color":"#3f76e4"},"carvers":["#minecraft:nope"],"features":[[],["minecraft:lake_lava_underground","minecraft:lake_lava_surface"],["minecraft:amethyst_geode"],["minecraft:monster_room","minecraft:monster_room_deep"],[],[],["minecraft:ore_dirt","minecraft:ore_gravel","minecraft:ore_granite_upper","minecraft:ore_granite_lower","minecraft:ore_diorite_upper","minecraft:ore_diorite_lower","minecraft:ore_andesite_upper","minecraft:ore_andesite_lower","minecraft:ore_tuff","minecraft:ore_coal_upper","minecraft:ore_coal_lower","minecraft:ore_iron_upper","minecraft:ore_iron_middle","minecraft:ore_iron_small","minecraft:ore_gold","minecraft:ore_gold_lower","minecraft:ore_redstone","minecraft:ore_redstone_lower","minecraft:ore_diamond","minecraft:ore_diamond_medium","minecraft:ore_diamond_large","minecraft:ore_diamond_buried","minecraft:ore_lapis","minecraft:ore_lapis_buried","minecraft:ore_copper","minecraft:underwater_magma","minecraft:disk_sand","minecraft:disk_clay","minecraft:disk_gravel"],[],["minecraft:spring_water","minecraft:spring_lava"],["minecraft:glow_lichen","minecraft:patch_tall_grass_2","minecraft:patch_bush","minecraft:trees_plains","minecraft:flower_plains","minecraft:patch_grass_plain","minecraft:brown_mushroom_normal","minecraft:red_mushroom_normal","minecraft:patch_pumpkin","minecraft:patch_sugar_cane","minecraft:patch_firefly_bush_near_water"],["minecraft:freeze_top_layer"]]},"features":true}
+CASE custom69 OK layers=1*88,2*10,1*8589, state_layers=1:88 2:10 1:8589 biome=<inline> lakes=false features=true void=false so=none
+custom69 pre consts min_y=0 gen_depth=384 sea_level=-63
+custom69 pre fn -64 384 spawn=-60 WORLD_SURFACE_WG=-60/-60/-61 WORLD_SURFACE=-60/-60/-61 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom69 pre col -64 384 3:0 1:88 2:10 1:8589 383:0
+custom69 pre fn 0 256 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom69 pre col 0 256 3:0 1:88 2:10 1:8589 255:0
+custom69 pre fn 0 16 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom69 pre col 0 16 3:0 1:88 2:10 1:8589 15:0
+custom69 pre fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom69 pre col -64 32 3:0 1:88 2:10 1:8589 31:0
+custom69 pre fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2028/-2028/-2029 WORLD_SURFACE=-2028/-2028/-2029 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom69 pre col -2032 4064 3:0 1:88 2:10 1:8589 599:0
+custom69 pre fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom69 pre col 0 3 3:0 1:88 2:10 3:0
+custom69 pre chunk -64 384 0 0 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom69 pre chunk -64 384 -3 7 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom69 pre chunk 0 256 0 0 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom69 pre chunk 0 256 -3 7 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom69 pre chunk 0 16 0 0 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom69 pre chunk 0 16 -3 7 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom69 pre chunk -64 32 0 0 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom69 pre chunk -64 32 -3 7 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom69 pre chunk -2032 4064 0 0 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom69 pre chunk -2032 4064 -3 7 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom69 pre chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom69 pre chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom69 post adjust_flat carvers= steps=11 total=47 |0: |1:minecraft:lake_lava_underground,minecraft:lake_lava_surface, |2:minecraft:amethyst_geode, |3: |4: |5: |6:minecraft:ore_dirt,minecraft:ore_gravel,minecraft:ore_granite_upper,minecraft:ore_granite_lower,minecraft:ore_diorite_upper,minecraft:ore_diorite_lower,minecraft:ore_andesite_upper,minecraft:ore_andesite_lower,minecraft:ore_tuff,minecraft:ore_coal_upper,minecraft:ore_coal_lower,minecraft:ore_iron_upper,minecraft:ore_iron_middle,minecraft:ore_iron_small,minecraft:ore_gold,minecraft:ore_gold_lower,minecraft:ore_redstone,minecraft:ore_redstone_lower,minecraft:ore_diamond,minecraft:ore_diamond_medium,minecraft:ore_diamond_large,minecraft:ore_diamond_buried,minecraft:ore_lapis,minecraft:ore_lapis_buried,minecraft:ore_copper,minecraft:underwater_magma,minecraft:disk_sand,minecraft:disk_clay,minecraft:disk_gravel, |7: |8:minecraft:spring_water,minecraft:spring_lava, |9:minecraft:glow_lichen,minecraft:patch_tall_grass_2,minecraft:patch_bush,minecraft:trees_plains,minecraft:flower_plains,minecraft:patch_grass_plain,minecraft:brown_mushroom_normal,minecraft:red_mushroom_normal,minecraft:patch_pumpkin,minecraft:patch_sugar_cane,minecraft:patch_firefly_bush_near_water, |10:minecraft:freeze_top_layer,fill_layer(3,8589)+0,
+custom69 post adjust_void minecraft:the_void carvers= steps=11 total=1
+custom69 post adjust_plains minecraft:plains carvers=minecraft:cave,minecraft:cave_extra_underground,minecraft:canyon, steps=11 total=48
+custom69 post layers_after 1:88 2:10 1:null
+custom69 post source biomes=[<inline>]
+custom69 post consts min_y=0 gen_depth=384 sea_level=-63
+custom69 post fn -64 384 spawn=-60 WORLD_SURFACE_WG=-61/-61/-62 WORLD_SURFACE=-61/-61/-62 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom69 post col -64 384 3:0 1:88 2:10 384:0
+custom69 post fn 0 256 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom69 post col 0 256 3:0 1:88 2:10 256:0
+custom69 post fn 0 16 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom69 post col 0 16 3:0 1:88 2:10 16:0
+custom69 post fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom69 post col -64 32 3:0 1:88 2:10 32:0
+custom69 post fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2029/-2029/-2030 WORLD_SURFACE=-2029/-2029/-2030 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom69 post col -2032 4064 3:0 1:88 2:10 600:0
+custom69 post fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom69 post col 0 3 3:0 1:88 2:10 3:0
+custom69 post chunk -64 384 0 0 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom69 post chunk -64 384 -3 7 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom69 post chunk 0 256 0 0 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom69 post chunk 0 256 -3 7 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom69 post chunk 0 16 0 0 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom69 post chunk 0 16 -3 7 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom69 post chunk -64 32 0 0 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom69 post chunk -64 32 -3 7 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom69 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom69 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom69 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom69 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+INPUT custom70 {"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:snow","height":1}],"biome":{"has_precipitation":true,"temperature":0.8,"downfall":0.4,"attributes":{"minecraft:gameplay/natural_mob_spawns":{"argument":{"spawns_by_category":{"ambient":[{"type":"minecraft:bat","count":8,"weight":10}],"creature":[{"type":"minecraft:sheep","count":4,"weight":12},{"type":"minecraft:pig","count":4,"weight":10},{"type":"minecraft:chicken","count":4,"weight":10},{"type":"minecraft:cow","count":4,"weight":8},{"type":"minecraft:horse","count":{"min_inclusive":2,"max_inclusive":6,"type":"minecraft:uniform"},"weight":5},{"type":"minecraft:donkey","count":{"min_inclusive":1,"max_inclusive":3,"type":"minecraft:uniform"},"weight":1}],"monster":[{"type":"minecraft:spider","count":4,"weight":100},{"type":"minecraft:zombie","count":4,"weight":90},{"type":"minecraft:zombie_villager","count":1,"weight":5},{"type":"minecraft:zombie_horse","count":1,"weight":5},{"type":"minecraft:skeleton","count":4,"weight":100},{"type":"minecraft:creeper","count":4,"weight":100},{"type":"minecraft:slime","count":4,"weight":100},{"type":"minecraft:enderman","count":{"min_inclusive":1,"max_inclusive":4,"type":"minecraft:uniform"},"weight":10},{"type":"minecraft:witch","count":1,"weight":5}],"underground_water_creature":[{"type":"minecraft:glow_squid","count":{"min_inclusive":4,"max_inclusive":6,"type":"minecraft:uniform"},"weight":10}]},"spawn_costs":{}},"modifier":"overlay"},"minecraft:visual/sky_color":"#78a7ff"},"effects":{"water_color":"#3f76e4"},"carvers":5,"features":[[],["minecraft:lake_lava_underground","minecraft:lake_lava_surface"],["minecraft:amethyst_geode"],["minecraft:monster_room","minecraft:monster_room_deep"],[],[],["minecraft:ore_dirt","minecraft:ore_gravel","minecraft:ore_granite_upper","minecraft:ore_granite_lower","minecraft:ore_diorite_upper","minecraft:ore_diorite_lower","minecraft:ore_andesite_upper","minecraft:ore_andesite_lower","minecraft:ore_tuff","minecraft:ore_coal_upper","minecraft:ore_coal_lower","minecraft:ore_iron_upper","minecraft:ore_iron_middle","minecraft:ore_iron_small","minecraft:ore_gold","minecraft:ore_gold_lower","minecraft:ore_redstone","minecraft:ore_redstone_lower","minecraft:ore_diamond","minecraft:ore_diamond_medium","minecraft:ore_diamond_large","minecraft:ore_diamond_buried","minecraft:ore_lapis","minecraft:ore_lapis_buried","minecraft:ore_copper","minecraft:underwater_magma","minecraft:disk_sand","minecraft:disk_clay","minecraft:disk_gravel"],[],["minecraft:spring_water","minecraft:spring_lava"],["minecraft:glow_lichen","minecraft:patch_tall_grass_2","minecraft:patch_bush","minecraft:trees_plains","minecraft:flower_plains","minecraft:patch_grass_plain","minecraft:brown_mushroom_normal","minecraft:red_mushroom_normal","minecraft:patch_pumpkin","minecraft:patch_sugar_cane","minecraft:patch_firefly_bush_near_water"],["minecraft:freeze_top_layer"]]},"features":true}
+CASE custom70 OK layers=1*88,2*10,1*8589, state_layers=1:88 2:10 1:8589 biome=minecraft:plains lakes=false features=true void=false so=none
+custom70 pre consts min_y=0 gen_depth=384 sea_level=-63
+custom70 pre fn -64 384 spawn=-60 WORLD_SURFACE_WG=-60/-60/-61 WORLD_SURFACE=-60/-60/-61 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom70 pre col -64 384 3:0 1:88 2:10 1:8589 383:0
+custom70 pre fn 0 256 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom70 pre col 0 256 3:0 1:88 2:10 1:8589 255:0
+custom70 pre fn 0 16 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom70 pre col 0 16 3:0 1:88 2:10 1:8589 15:0
+custom70 pre fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom70 pre col -64 32 3:0 1:88 2:10 1:8589 31:0
+custom70 pre fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2028/-2028/-2029 WORLD_SURFACE=-2028/-2028/-2029 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom70 pre col -2032 4064 3:0 1:88 2:10 1:8589 599:0
+custom70 pre fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom70 pre col 0 3 3:0 1:88 2:10 3:0
+custom70 pre chunk -64 384 0 0 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom70 pre chunk -64 384 -3 7 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom70 pre chunk 0 256 0 0 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom70 pre chunk 0 256 -3 7 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom70 pre chunk 0 16 0 0 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom70 pre chunk 0 16 -3 7 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom70 pre chunk -64 32 0 0 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom70 pre chunk -64 32 -3 7 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom70 pre chunk -2032 4064 0 0 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom70 pre chunk -2032 4064 -3 7 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom70 pre chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom70 pre chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom70 post adjust_flat carvers= steps=11 total=47 |0: |1:minecraft:lake_lava_underground,minecraft:lake_lava_surface, |2:minecraft:amethyst_geode, |3: |4: |5: |6:minecraft:ore_dirt,minecraft:ore_gravel,minecraft:ore_granite_upper,minecraft:ore_granite_lower,minecraft:ore_diorite_upper,minecraft:ore_diorite_lower,minecraft:ore_andesite_upper,minecraft:ore_andesite_lower,minecraft:ore_tuff,minecraft:ore_coal_upper,minecraft:ore_coal_lower,minecraft:ore_iron_upper,minecraft:ore_iron_middle,minecraft:ore_iron_small,minecraft:ore_gold,minecraft:ore_gold_lower,minecraft:ore_redstone,minecraft:ore_redstone_lower,minecraft:ore_diamond,minecraft:ore_diamond_medium,minecraft:ore_diamond_large,minecraft:ore_diamond_buried,minecraft:ore_lapis,minecraft:ore_lapis_buried,minecraft:ore_copper,minecraft:underwater_magma,minecraft:disk_sand,minecraft:disk_clay,minecraft:disk_gravel, |7: |8:minecraft:spring_water,minecraft:spring_lava, |9:minecraft:glow_lichen,minecraft:patch_tall_grass_2,minecraft:patch_bush,minecraft:trees_plains,minecraft:flower_plains,minecraft:patch_grass_plain,minecraft:brown_mushroom_normal,minecraft:red_mushroom_normal,minecraft:patch_pumpkin,minecraft:patch_sugar_cane,minecraft:patch_firefly_bush_near_water, |10:minecraft:freeze_top_layer,fill_layer(3,8589)+0,
+custom70 post adjust_void minecraft:the_void carvers= steps=11 total=1
+custom70 post adjust_plains minecraft:plains carvers= steps=11 total=47
+custom70 post layers_after 1:88 2:10 1:null
+custom70 post source biomes=[minecraft:plains]
+custom70 post consts min_y=0 gen_depth=384 sea_level=-63
+custom70 post fn -64 384 spawn=-60 WORLD_SURFACE_WG=-61/-61/-62 WORLD_SURFACE=-61/-61/-62 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom70 post col -64 384 3:0 1:88 2:10 384:0
+custom70 post fn 0 256 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom70 post col 0 256 3:0 1:88 2:10 256:0
+custom70 post fn 0 16 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom70 post col 0 16 3:0 1:88 2:10 16:0
+custom70 post fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom70 post col -64 32 3:0 1:88 2:10 32:0
+custom70 post fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2029/-2029/-2030 WORLD_SURFACE=-2029/-2029/-2030 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom70 post col -2032 4064 3:0 1:88 2:10 600:0
+custom70 post fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom70 post col 0 3 3:0 1:88 2:10 3:0
+custom70 post chunk -64 384 0 0 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom70 post chunk -64 384 -3 7 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom70 post chunk 0 256 0 0 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom70 post chunk 0 256 -3 7 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom70 post chunk 0 16 0 0 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom70 post chunk 0 16 -3 7 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom70 post chunk -64 32 0 0 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom70 post chunk -64 32 -3 7 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom70 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom70 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom70 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom70 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+INPUT custom71 {"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:snow","height":1}],"biome":{"has_precipitation":true,"temperature":0.8,"downfall":0.4,"attributes":{"minecraft:gameplay/natural_mob_spawns":{"argument":{"spawns_by_category":{"ambient":[{"type":"minecraft:bat","count":8,"weight":10}],"creature":[{"type":"minecraft:sheep","count":4,"weight":12},{"type":"minecraft:pig","count":4,"weight":10},{"type":"minecraft:chicken","count":4,"weight":10},{"type":"minecraft:cow","count":4,"weight":8},{"type":"minecraft:horse","count":{"min_inclusive":2,"max_inclusive":6,"type":"minecraft:uniform"},"weight":5},{"type":"minecraft:donkey","count":{"min_inclusive":1,"max_inclusive":3,"type":"minecraft:uniform"},"weight":1}],"monster":[{"type":"minecraft:spider","count":4,"weight":100},{"type":"minecraft:zombie","count":4,"weight":90},{"type":"minecraft:zombie_villager","count":1,"weight":5},{"type":"minecraft:zombie_horse","count":1,"weight":5},{"type":"minecraft:skeleton","count":4,"weight":100},{"type":"minecraft:creeper","count":4,"weight":100},{"type":"minecraft:slime","count":4,"weight":100},{"type":"minecraft:enderman","count":{"min_inclusive":1,"max_inclusive":4,"type":"minecraft:uniform"},"weight":10},{"type":"minecraft:witch","count":1,"weight":5}],"underground_water_creature":[{"type":"minecraft:glow_squid","count":{"min_inclusive":4,"max_inclusive":6,"type":"minecraft:uniform"},"weight":10}]},"spawn_costs":{}},"modifier":"overlay"},"minecraft:visual/sky_color":"#78a7ff"},"effects":{"water_color":"#3f76e4"},"carvers":"minecraft:nope","features":[[],["minecraft:lake_lava_underground","minecraft:lake_lava_surface"],["minecraft:amethyst_geode"],["minecraft:monster_room","minecraft:monster_room_deep"],[],[],["minecraft:ore_dirt","minecraft:ore_gravel","minecraft:ore_granite_upper","minecraft:ore_granite_lower","minecraft:ore_diorite_upper","minecraft:ore_diorite_lower","minecraft:ore_andesite_upper","minecraft:ore_andesite_lower","minecraft:ore_tuff","minecraft:ore_coal_upper","minecraft:ore_coal_lower","minecraft:ore_iron_upper","minecraft:ore_iron_middle","minecraft:ore_iron_small","minecraft:ore_gold","minecraft:ore_gold_lower","minecraft:ore_redstone","minecraft:ore_redstone_lower","minecraft:ore_diamond","minecraft:ore_diamond_medium","minecraft:ore_diamond_large","minecraft:ore_diamond_buried","minecraft:ore_lapis","minecraft:ore_lapis_buried","minecraft:ore_copper","minecraft:underwater_magma","minecraft:disk_sand","minecraft:disk_clay","minecraft:disk_gravel"],[],["minecraft:spring_water","minecraft:spring_lava"],["minecraft:glow_lichen","minecraft:patch_tall_grass_2","minecraft:patch_bush","minecraft:trees_plains","minecraft:flower_plains","minecraft:patch_grass_plain","minecraft:brown_mushroom_normal","minecraft:red_mushroom_normal","minecraft:patch_pumpkin","minecraft:patch_sugar_cane","minecraft:patch_firefly_bush_near_water"],["minecraft:freeze_top_layer"]]},"features":true}
+CASE custom71 OK layers=1*88,2*10,1*8589, state_layers=1:88 2:10 1:8589 biome=minecraft:plains lakes=false features=true void=false so=none
+custom71 pre consts min_y=0 gen_depth=384 sea_level=-63
+custom71 pre fn -64 384 spawn=-60 WORLD_SURFACE_WG=-60/-60/-61 WORLD_SURFACE=-60/-60/-61 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom71 pre col -64 384 3:0 1:88 2:10 1:8589 383:0
+custom71 pre fn 0 256 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom71 pre col 0 256 3:0 1:88 2:10 1:8589 255:0
+custom71 pre fn 0 16 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom71 pre col 0 16 3:0 1:88 2:10 1:8589 15:0
+custom71 pre fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom71 pre col -64 32 3:0 1:88 2:10 1:8589 31:0
+custom71 pre fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2028/-2028/-2029 WORLD_SURFACE=-2028/-2028/-2029 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom71 pre col -2032 4064 3:0 1:88 2:10 1:8589 599:0
+custom71 pre fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom71 pre col 0 3 3:0 1:88 2:10 3:0
+custom71 pre chunk -64 384 0 0 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom71 pre chunk -64 384 -3 7 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom71 pre chunk 0 256 0 0 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom71 pre chunk 0 256 -3 7 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom71 pre chunk 0 16 0 0 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom71 pre chunk 0 16 -3 7 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom71 pre chunk -64 32 0 0 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom71 pre chunk -64 32 -3 7 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom71 pre chunk -2032 4064 0 0 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom71 pre chunk -2032 4064 -3 7 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom71 pre chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom71 pre chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom71 post adjust_flat carvers= steps=11 total=47 |0: |1:minecraft:lake_lava_underground,minecraft:lake_lava_surface, |2:minecraft:amethyst_geode, |3: |4: |5: |6:minecraft:ore_dirt,minecraft:ore_gravel,minecraft:ore_granite_upper,minecraft:ore_granite_lower,minecraft:ore_diorite_upper,minecraft:ore_diorite_lower,minecraft:ore_andesite_upper,minecraft:ore_andesite_lower,minecraft:ore_tuff,minecraft:ore_coal_upper,minecraft:ore_coal_lower,minecraft:ore_iron_upper,minecraft:ore_iron_middle,minecraft:ore_iron_small,minecraft:ore_gold,minecraft:ore_gold_lower,minecraft:ore_redstone,minecraft:ore_redstone_lower,minecraft:ore_diamond,minecraft:ore_diamond_medium,minecraft:ore_diamond_large,minecraft:ore_diamond_buried,minecraft:ore_lapis,minecraft:ore_lapis_buried,minecraft:ore_copper,minecraft:underwater_magma,minecraft:disk_sand,minecraft:disk_clay,minecraft:disk_gravel, |7: |8:minecraft:spring_water,minecraft:spring_lava, |9:minecraft:glow_lichen,minecraft:patch_tall_grass_2,minecraft:patch_bush,minecraft:trees_plains,minecraft:flower_plains,minecraft:patch_grass_plain,minecraft:brown_mushroom_normal,minecraft:red_mushroom_normal,minecraft:patch_pumpkin,minecraft:patch_sugar_cane,minecraft:patch_firefly_bush_near_water, |10:minecraft:freeze_top_layer,fill_layer(3,8589)+0,
+custom71 post adjust_void minecraft:the_void carvers= steps=11 total=1
+custom71 post adjust_plains minecraft:plains carvers= steps=11 total=47
+custom71 post layers_after 1:88 2:10 1:null
+custom71 post source biomes=[minecraft:plains]
+custom71 post consts min_y=0 gen_depth=384 sea_level=-63
+custom71 post fn -64 384 spawn=-60 WORLD_SURFACE_WG=-61/-61/-62 WORLD_SURFACE=-61/-61/-62 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom71 post col -64 384 3:0 1:88 2:10 384:0
+custom71 post fn 0 256 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom71 post col 0 256 3:0 1:88 2:10 256:0
+custom71 post fn 0 16 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom71 post col 0 16 3:0 1:88 2:10 16:0
+custom71 post fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom71 post col -64 32 3:0 1:88 2:10 32:0
+custom71 post fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2029/-2029/-2030 WORLD_SURFACE=-2029/-2029/-2030 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom71 post col -2032 4064 3:0 1:88 2:10 600:0
+custom71 post fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom71 post col 0 3 3:0 1:88 2:10 3:0
+custom71 post chunk -64 384 0 0 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom71 post chunk -64 384 -3 7 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom71 post chunk 0 256 0 0 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom71 post chunk 0 256 -3 7 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom71 post chunk 0 16 0 0 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom71 post chunk 0 16 -3 7 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom71 post chunk -64 32 0 0 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom71 post chunk -64 32 -3 7 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom71 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom71 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom71 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom71 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+INPUT custom72 {"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:snow","height":1}],"biome":{"has_precipitation":true,"temperature":0.8,"downfall":0.4,"attributes":{"minecraft:gameplay/natural_mob_spawns":{"argument":{"spawns_by_category":{"ambient":[{"type":"minecraft:bat","count":8,"weight":10}],"creature":[{"type":"minecraft:sheep","count":4,"weight":12},{"type":"minecraft:pig","count":4,"weight":10},{"type":"minecraft:chicken","count":4,"weight":10},{"type":"minecraft:cow","count":4,"weight":8},{"type":"minecraft:horse","count":{"min_inclusive":2,"max_inclusive":6,"type":"minecraft:uniform"},"weight":5},{"type":"minecraft:donkey","count":{"min_inclusive":1,"max_inclusive":3,"type":"minecraft:uniform"},"weight":1}],"monster":[{"type":"minecraft:spider","count":4,"weight":100},{"type":"minecraft:zombie","count":4,"weight":90},{"type":"minecraft:zombie_villager","count":1,"weight":5},{"type":"minecraft:zombie_horse","count":1,"weight":5},{"type":"minecraft:skeleton","count":4,"weight":100},{"type":"minecraft:creeper","count":4,"weight":100},{"type":"minecraft:slime","count":4,"weight":100},{"type":"minecraft:enderman","count":{"min_inclusive":1,"max_inclusive":4,"type":"minecraft:uniform"},"weight":10},{"type":"minecraft:witch","count":1,"weight":5}],"underground_water_creature":[{"type":"minecraft:glow_squid","count":{"min_inclusive":4,"max_inclusive":6,"type":"minecraft:uniform"},"weight":10}]},"spawn_costs":{}},"modifier":"overlay"},"minecraft:visual/sky_color":"#78a7ff"},"effects":{"water_color":"#3f76e4"},"carvers":"minecraft:cave","features":[[],["minecraft:lake_lava_underground","minecraft:lake_lava_surface"],["minecraft:amethyst_geode"],["minecraft:monster_room","minecraft:monster_room_deep"],[],[],["minecraft:ore_dirt","minecraft:ore_gravel","minecraft:ore_granite_upper","minecraft:ore_granite_lower","minecraft:ore_diorite_upper","minecraft:ore_diorite_lower","minecraft:ore_andesite_upper","minecraft:ore_andesite_lower","minecraft:ore_tuff","minecraft:ore_coal_upper","minecraft:ore_coal_lower","minecraft:ore_iron_upper","minecraft:ore_iron_middle","minecraft:ore_iron_small","minecraft:ore_gold","minecraft:ore_gold_lower","minecraft:ore_redstone","minecraft:ore_redstone_lower","minecraft:ore_diamond","minecraft:ore_diamond_medium","minecraft:ore_diamond_large","minecraft:ore_diamond_buried","minecraft:ore_lapis","minecraft:ore_lapis_buried","minecraft:ore_copper","minecraft:underwater_magma","minecraft:disk_sand","minecraft:disk_clay","minecraft:disk_gravel"],[],["minecraft:spring_water","minecraft:spring_lava"],["minecraft:glow_lichen","minecraft:patch_tall_grass_2","minecraft:patch_bush","minecraft:trees_plains","minecraft:flower_plains","minecraft:patch_grass_plain","minecraft:brown_mushroom_normal","minecraft:red_mushroom_normal","minecraft:patch_pumpkin","minecraft:patch_sugar_cane","minecraft:patch_firefly_bush_near_water"],["minecraft:freeze_top_layer"]]},"features":true}
+CASE custom72 OK layers=1*88,2*10,1*8589, state_layers=1:88 2:10 1:8589 biome=<inline> lakes=false features=true void=false so=none
+custom72 pre consts min_y=0 gen_depth=384 sea_level=-63
+custom72 pre fn -64 384 spawn=-60 WORLD_SURFACE_WG=-60/-60/-61 WORLD_SURFACE=-60/-60/-61 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom72 pre col -64 384 3:0 1:88 2:10 1:8589 383:0
+custom72 pre fn 0 256 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom72 pre col 0 256 3:0 1:88 2:10 1:8589 255:0
+custom72 pre fn 0 16 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom72 pre col 0 16 3:0 1:88 2:10 1:8589 15:0
+custom72 pre fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom72 pre col -64 32 3:0 1:88 2:10 1:8589 31:0
+custom72 pre fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2028/-2028/-2029 WORLD_SURFACE=-2028/-2028/-2029 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom72 pre col -2032 4064 3:0 1:88 2:10 1:8589 599:0
+custom72 pre fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom72 pre col 0 3 3:0 1:88 2:10 3:0
+custom72 pre chunk -64 384 0 0 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom72 pre chunk -64 384 -3 7 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom72 pre chunk 0 256 0 0 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom72 pre chunk 0 256 -3 7 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom72 pre chunk 0 16 0 0 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom72 pre chunk 0 16 -3 7 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom72 pre chunk -64 32 0 0 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom72 pre chunk -64 32 -3 7 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom72 pre chunk -2032 4064 0 0 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom72 pre chunk -2032 4064 -3 7 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom72 pre chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom72 pre chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom72 post adjust_flat carvers= steps=11 total=47 |0: |1:minecraft:lake_lava_underground,minecraft:lake_lava_surface, |2:minecraft:amethyst_geode, |3: |4: |5: |6:minecraft:ore_dirt,minecraft:ore_gravel,minecraft:ore_granite_upper,minecraft:ore_granite_lower,minecraft:ore_diorite_upper,minecraft:ore_diorite_lower,minecraft:ore_andesite_upper,minecraft:ore_andesite_lower,minecraft:ore_tuff,minecraft:ore_coal_upper,minecraft:ore_coal_lower,minecraft:ore_iron_upper,minecraft:ore_iron_middle,minecraft:ore_iron_small,minecraft:ore_gold,minecraft:ore_gold_lower,minecraft:ore_redstone,minecraft:ore_redstone_lower,minecraft:ore_diamond,minecraft:ore_diamond_medium,minecraft:ore_diamond_large,minecraft:ore_diamond_buried,minecraft:ore_lapis,minecraft:ore_lapis_buried,minecraft:ore_copper,minecraft:underwater_magma,minecraft:disk_sand,minecraft:disk_clay,minecraft:disk_gravel, |7: |8:minecraft:spring_water,minecraft:spring_lava, |9:minecraft:glow_lichen,minecraft:patch_tall_grass_2,minecraft:patch_bush,minecraft:trees_plains,minecraft:flower_plains,minecraft:patch_grass_plain,minecraft:brown_mushroom_normal,minecraft:red_mushroom_normal,minecraft:patch_pumpkin,minecraft:patch_sugar_cane,minecraft:patch_firefly_bush_near_water, |10:minecraft:freeze_top_layer,fill_layer(3,8589)+0,
+custom72 post adjust_void minecraft:the_void carvers= steps=11 total=1
+custom72 post adjust_plains minecraft:plains carvers=minecraft:cave,minecraft:cave_extra_underground,minecraft:canyon, steps=11 total=48
+custom72 post layers_after 1:88 2:10 1:null
+custom72 post source biomes=[<inline>]
+custom72 post consts min_y=0 gen_depth=384 sea_level=-63
+custom72 post fn -64 384 spawn=-60 WORLD_SURFACE_WG=-61/-61/-62 WORLD_SURFACE=-61/-61/-62 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom72 post col -64 384 3:0 1:88 2:10 384:0
+custom72 post fn 0 256 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom72 post col 0 256 3:0 1:88 2:10 256:0
+custom72 post fn 0 16 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom72 post col 0 16 3:0 1:88 2:10 16:0
+custom72 post fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom72 post col -64 32 3:0 1:88 2:10 32:0
+custom72 post fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2029/-2029/-2030 WORLD_SURFACE=-2029/-2029/-2030 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom72 post col -2032 4064 3:0 1:88 2:10 600:0
+custom72 post fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom72 post col 0 3 3:0 1:88 2:10 3:0
+custom72 post chunk -64 384 0 0 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom72 post chunk -64 384 -3 7 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom72 post chunk 0 256 0 0 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom72 post chunk 0 256 -3 7 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom72 post chunk 0 16 0 0 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom72 post chunk 0 16 -3 7 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom72 post chunk -64 32 0 0 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom72 post chunk -64 32 -3 7 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom72 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom72 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom72 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom72 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+INPUT custom73 {"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:snow","height":1}],"biome":{"has_precipitation":true,"temperature":0.8,"downfall":0.4,"attributes":{"minecraft:gameplay/natural_mob_spawns":{"argument":{"spawns_by_category":{"ambient":[{"type":"minecraft:bat","count":8,"weight":10}],"creature":[{"type":"minecraft:sheep","count":4,"weight":12},{"type":"minecraft:pig","count":4,"weight":10},{"type":"minecraft:chicken","count":4,"weight":10},{"type":"minecraft:cow","count":4,"weight":8},{"type":"minecraft:horse","count":{"min_inclusive":2,"max_inclusive":6,"type":"minecraft:uniform"},"weight":5},{"type":"minecraft:donkey","count":{"min_inclusive":1,"max_inclusive":3,"type":"minecraft:uniform"},"weight":1}],"monster":[{"type":"minecraft:spider","count":4,"weight":100},{"type":"minecraft:zombie","count":4,"weight":90},{"type":"minecraft:zombie_villager","count":1,"weight":5},{"type":"minecraft:zombie_horse","count":1,"weight":5},{"type":"minecraft:skeleton","count":4,"weight":100},{"type":"minecraft:creeper","count":4,"weight":100},{"type":"minecraft:slime","count":4,"weight":100},{"type":"minecraft:enderman","count":{"min_inclusive":1,"max_inclusive":4,"type":"minecraft:uniform"},"weight":10},{"type":"minecraft:witch","count":1,"weight":5}],"underground_water_creature":[{"type":"minecraft:glow_squid","count":{"min_inclusive":4,"max_inclusive":6,"type":"minecraft:uniform"},"weight":10}]},"spawn_costs":{}},"modifier":"overlay"},"minecraft:visual/sky_color":"#78a7ff"},"effects":{"water_color":"#3f76e4"},"carvers":[],"features":[[],["minecraft:lake_lava_underground","minecraft:lake_lava_surface"],["minecraft:amethyst_geode"],["minecraft:monster_room","minecraft:monster_room_deep"],[],[],["minecraft:ore_dirt","minecraft:ore_gravel","minecraft:ore_granite_upper","minecraft:ore_granite_lower","minecraft:ore_diorite_upper","minecraft:ore_diorite_lower","minecraft:ore_andesite_upper","minecraft:ore_andesite_lower","minecraft:ore_tuff","minecraft:ore_coal_upper","minecraft:ore_coal_lower","minecraft:ore_iron_upper","minecraft:ore_iron_middle","minecraft:ore_iron_small","minecraft:ore_gold","minecraft:ore_gold_lower","minecraft:ore_redstone","minecraft:ore_redstone_lower","minecraft:ore_diamond","minecraft:ore_diamond_medium","minecraft:ore_diamond_large","minecraft:ore_diamond_buried","minecraft:ore_lapis","minecraft:ore_lapis_buried","minecraft:ore_copper","minecraft:underwater_magma","minecraft:disk_sand","minecraft:disk_clay","minecraft:disk_gravel"],[],["minecraft:spring_water","minecraft:spring_lava"],["minecraft:glow_lichen","minecraft:patch_tall_grass_2","minecraft:patch_bush","minecraft:trees_plains","minecraft:flower_plains","minecraft:patch_grass_plain","minecraft:brown_mushroom_normal","minecraft:red_mushroom_normal","minecraft:patch_pumpkin","minecraft:patch_sugar_cane","minecraft:patch_firefly_bush_near_water"],["minecraft:freeze_top_layer"]]},"features":true}
+CASE custom73 OK layers=1*88,2*10,1*8589, state_layers=1:88 2:10 1:8589 biome=<inline> lakes=false features=true void=false so=none
+custom73 pre consts min_y=0 gen_depth=384 sea_level=-63
+custom73 pre fn -64 384 spawn=-60 WORLD_SURFACE_WG=-60/-60/-61 WORLD_SURFACE=-60/-60/-61 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom73 pre col -64 384 3:0 1:88 2:10 1:8589 383:0
+custom73 pre fn 0 256 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom73 pre col 0 256 3:0 1:88 2:10 1:8589 255:0
+custom73 pre fn 0 16 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom73 pre col 0 16 3:0 1:88 2:10 1:8589 15:0
+custom73 pre fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom73 pre col -64 32 3:0 1:88 2:10 1:8589 31:0
+custom73 pre fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2028/-2028/-2029 WORLD_SURFACE=-2028/-2028/-2029 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom73 pre col -2032 4064 3:0 1:88 2:10 1:8589 599:0
+custom73 pre fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom73 pre col 0 3 3:0 1:88 2:10 3:0
+custom73 pre chunk -64 384 0 0 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom73 pre chunk -64 384 -3 7 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom73 pre chunk 0 256 0 0 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom73 pre chunk 0 256 -3 7 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom73 pre chunk 0 16 0 0 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom73 pre chunk 0 16 -3 7 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom73 pre chunk -64 32 0 0 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom73 pre chunk -64 32 -3 7 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom73 pre chunk -2032 4064 0 0 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom73 pre chunk -2032 4064 -3 7 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom73 pre chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom73 pre chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom73 post adjust_flat carvers= steps=11 total=47 |0: |1:minecraft:lake_lava_underground,minecraft:lake_lava_surface, |2:minecraft:amethyst_geode, |3: |4: |5: |6:minecraft:ore_dirt,minecraft:ore_gravel,minecraft:ore_granite_upper,minecraft:ore_granite_lower,minecraft:ore_diorite_upper,minecraft:ore_diorite_lower,minecraft:ore_andesite_upper,minecraft:ore_andesite_lower,minecraft:ore_tuff,minecraft:ore_coal_upper,minecraft:ore_coal_lower,minecraft:ore_iron_upper,minecraft:ore_iron_middle,minecraft:ore_iron_small,minecraft:ore_gold,minecraft:ore_gold_lower,minecraft:ore_redstone,minecraft:ore_redstone_lower,minecraft:ore_diamond,minecraft:ore_diamond_medium,minecraft:ore_diamond_large,minecraft:ore_diamond_buried,minecraft:ore_lapis,minecraft:ore_lapis_buried,minecraft:ore_copper,minecraft:underwater_magma,minecraft:disk_sand,minecraft:disk_clay,minecraft:disk_gravel, |7: |8:minecraft:spring_water,minecraft:spring_lava, |9:minecraft:glow_lichen,minecraft:patch_tall_grass_2,minecraft:patch_bush,minecraft:trees_plains,minecraft:flower_plains,minecraft:patch_grass_plain,minecraft:brown_mushroom_normal,minecraft:red_mushroom_normal,minecraft:patch_pumpkin,minecraft:patch_sugar_cane,minecraft:patch_firefly_bush_near_water, |10:minecraft:freeze_top_layer,fill_layer(3,8589)+0,
+custom73 post adjust_void minecraft:the_void carvers= steps=11 total=1
+custom73 post adjust_plains minecraft:plains carvers=minecraft:cave,minecraft:cave_extra_underground,minecraft:canyon, steps=11 total=48
+custom73 post layers_after 1:88 2:10 1:null
+custom73 post source biomes=[<inline>]
+custom73 post consts min_y=0 gen_depth=384 sea_level=-63
+custom73 post fn -64 384 spawn=-60 WORLD_SURFACE_WG=-61/-61/-62 WORLD_SURFACE=-61/-61/-62 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom73 post col -64 384 3:0 1:88 2:10 384:0
+custom73 post fn 0 256 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom73 post col 0 256 3:0 1:88 2:10 256:0
+custom73 post fn 0 16 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom73 post col 0 16 3:0 1:88 2:10 16:0
+custom73 post fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom73 post col -64 32 3:0 1:88 2:10 32:0
+custom73 post fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2029/-2029/-2030 WORLD_SURFACE=-2029/-2029/-2030 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom73 post col -2032 4064 3:0 1:88 2:10 600:0
+custom73 post fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom73 post col 0 3 3:0 1:88 2:10 3:0
+custom73 post chunk -64 384 0 0 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom73 post chunk -64 384 -3 7 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom73 post chunk 0 256 0 0 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom73 post chunk 0 256 -3 7 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom73 post chunk 0 16 0 0 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom73 post chunk 0 16 -3 7 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom73 post chunk -64 32 0 0 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom73 post chunk -64 32 -3 7 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom73 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom73 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom73 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom73 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+INPUT custom74 {"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:snow","height":1}],"biome":{"has_precipitation":true,"temperature":0.8,"downfall":0.4,"attributes":{"minecraft:gameplay/natural_mob_spawns":{"argument":{"spawns_by_category":{"ambient":[{"type":"minecraft:bat","count":8,"weight":10}],"creature":[{"type":"minecraft:sheep","count":4,"weight":12},{"type":"minecraft:pig","count":4,"weight":10},{"type":"minecraft:chicken","count":4,"weight":10},{"type":"minecraft:cow","count":4,"weight":8},{"type":"minecraft:horse","count":{"min_inclusive":2,"max_inclusive":6,"type":"minecraft:uniform"},"weight":5},{"type":"minecraft:donkey","count":{"min_inclusive":1,"max_inclusive":3,"type":"minecraft:uniform"},"weight":1}],"monster":[{"type":"minecraft:spider","count":4,"weight":100},{"type":"minecraft:zombie","count":4,"weight":90},{"type":"minecraft:zombie_villager","count":1,"weight":5},{"type":"minecraft:zombie_horse","count":1,"weight":5},{"type":"minecraft:skeleton","count":4,"weight":100},{"type":"minecraft:creeper","count":4,"weight":100},{"type":"minecraft:slime","count":4,"weight":100},{"type":"minecraft:enderman","count":{"min_inclusive":1,"max_inclusive":4,"type":"minecraft:uniform"},"weight":10},{"type":"minecraft:witch","count":1,"weight":5}],"underground_water_creature":[{"type":"minecraft:glow_squid","count":{"min_inclusive":4,"max_inclusive":6,"type":"minecraft:uniform"},"weight":10}]},"spawn_costs":{}},"modifier":"overlay"},"minecraft:visual/sky_color":"#78a7ff"},"effects":{"water_color":"#3f76e4"},"carvers":["minecraft:cave","minecraft:cave_extra_underground","minecraft:canyon"],"features":[[],["minecraft:lake_lava_underground","minecraft:lake_lava_surface"],["minecraft:amethyst_geode"],["minecraft:monster_room","minecraft:monster_room_deep"],[],[],["minecraft:ore_dirt","minecraft:ore_gravel","minecraft:ore_granite_upper","minecraft:ore_granite_lower","minecraft:ore_diorite_upper","minecraft:ore_diorite_lower","minecraft:ore_andesite_upper","minecraft:ore_andesite_lower","minecraft:ore_tuff","minecraft:ore_coal_upper","minecraft:ore_coal_lower","minecraft:ore_iron_upper","minecraft:ore_iron_middle","minecraft:ore_iron_small","minecraft:ore_gold","minecraft:ore_gold_lower","minecraft:ore_redstone","minecraft:ore_redstone_lower","minecraft:ore_diamond","minecraft:ore_diamond_medium","minecraft:ore_diamond_large","minecraft:ore_diamond_buried","minecraft:ore_lapis","minecraft:ore_lapis_buried","minecraft:ore_copper","minecraft:underwater_magma","minecraft:disk_sand","minecraft:disk_clay","minecraft:disk_gravel"],[],["minecraft:spring_water","minecraft:spring_lava"],["minecraft:glow_lichen","minecraft:patch_tall_grass_2","minecraft:patch_bush","minecraft:trees_plains","minecraft:flower_plains","minecraft:patch_grass_plain","minecraft:brown_mushroom_normal","minecraft:red_mushroom_normal","minecraft:patch_pumpkin","minecraft:patch_sugar_cane","minecraft:patch_firefly_bush_near_water"],["minecraft:freeze_top_layer"]],"spawners":[],"creature_spawn_probability":5}}
+CASE custom74 OK layers=1*88,2*10,1*8589, state_layers=1:88 2:10 1:8589 biome=<inline> lakes=false features=false void=false so=none
+custom74 pre consts min_y=0 gen_depth=384 sea_level=-63
+custom74 pre fn -64 384 spawn=-60 WORLD_SURFACE_WG=-60/-60/-61 WORLD_SURFACE=-60/-60/-61 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom74 pre col -64 384 3:0 1:88 2:10 1:8589 383:0
+custom74 pre fn 0 256 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom74 pre col 0 256 3:0 1:88 2:10 1:8589 255:0
+custom74 pre fn 0 16 spawn=4 WORLD_SURFACE_WG=4/4/3 WORLD_SURFACE=4/4/3 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom74 pre col 0 16 3:0 1:88 2:10 1:8589 15:0
+custom74 pre fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom74 pre col -64 32 3:0 1:88 2:10 1:8589 31:0
+custom74 pre fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2028/-2028/-2029 WORLD_SURFACE=-2028/-2028/-2029 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom74 pre col -2032 4064 3:0 1:88 2:10 1:8589 599:0
+custom74 pre fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom74 pre col 0 3 3:0 1:88 2:10 3:0
+custom74 pre chunk -64 384 0 0 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom74 pre chunk -64 384 -3 7 blocks 256:88 512:10 256:8589 97280:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom74 pre chunk 0 256 0 0 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom74 pre chunk 0 256 -3 7 blocks 256:88 512:10 256:8589 64512:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom74 pre chunk 0 16 0 0 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom74 pre chunk 0 16 -3 7 blocks 256:88 512:10 256:8589 3072:0 ; WORLD_SURFACE_WG 256:4 ; OCEAN_FLOOR_WG 256:3
+custom74 pre chunk -64 32 0 0 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom74 pre chunk -64 32 -3 7 blocks 256:88 512:10 256:8589 7168:0 ; WORLD_SURFACE_WG 256:-60 ; OCEAN_FLOOR_WG 256:-61
+custom74 pre chunk -2032 4064 0 0 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom74 pre chunk -2032 4064 -3 7 blocks 256:88 512:10 256:8589 1039360:0 ; WORLD_SURFACE_WG 256:-2028 ; OCEAN_FLOOR_WG 256:-2029
+custom74 pre chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom74 pre chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom74 post adjust_flat carvers= steps=11 total=1 |0: |1: |2: |3: |4: |5: |6: |7: |8: |9: |10:fill_layer(3,8589)+0,
+custom74 post adjust_void minecraft:the_void carvers= steps=11 total=1
+custom74 post adjust_plains minecraft:plains carvers=minecraft:cave,minecraft:cave_extra_underground,minecraft:canyon, steps=11 total=48
+custom74 post layers_after 1:88 2:10 1:null
+custom74 post source biomes=[<inline>]
+custom74 post consts min_y=0 gen_depth=384 sea_level=-63
+custom74 post fn -64 384 spawn=-60 WORLD_SURFACE_WG=-61/-61/-62 WORLD_SURFACE=-61/-61/-62 OCEAN_FLOOR_WG=-61/-61/-62 OCEAN_FLOOR=-61/-61/-62 MOTION_BLOCKING=-61/-61/-62 MOTION_BLOCKING_NO_LEAVES=-61/-61/-62
+custom74 post col -64 384 3:0 1:88 2:10 384:0
+custom74 post fn 0 256 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom74 post col 0 256 3:0 1:88 2:10 256:0
+custom74 post fn 0 16 spawn=4 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom74 post col 0 16 3:0 1:88 2:10 16:0
+custom74 post fn -64 32 spawn=-60 WORLD_SURFACE_WG=-64/-64/-65 WORLD_SURFACE=-64/-64/-65 OCEAN_FLOOR_WG=-64/-64/-65 OCEAN_FLOOR=-64/-64/-65 MOTION_BLOCKING=-64/-64/-65 MOTION_BLOCKING_NO_LEAVES=-64/-64/-65
+custom74 post col -64 32 3:0 1:88 2:10 32:0
+custom74 post fn -2032 4064 spawn=-2028 WORLD_SURFACE_WG=-2029/-2029/-2030 WORLD_SURFACE=-2029/-2029/-2030 OCEAN_FLOOR_WG=-2029/-2029/-2030 OCEAN_FLOOR=-2029/-2029/-2030 MOTION_BLOCKING=-2029/-2029/-2030 MOTION_BLOCKING_NO_LEAVES=-2029/-2029/-2030
+custom74 post col -2032 4064 3:0 1:88 2:10 600:0
+custom74 post fn 0 3 spawn=3 WORLD_SURFACE_WG=3/3/2 WORLD_SURFACE=3/3/2 OCEAN_FLOOR_WG=3/3/2 OCEAN_FLOOR=3/3/2 MOTION_BLOCKING=3/3/2 MOTION_BLOCKING_NO_LEAVES=3/3/2
+custom74 post col 0 3 3:0 1:88 2:10 3:0
+custom74 post chunk -64 384 0 0 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom74 post chunk -64 384 -3 7 blocks 256:88 512:10 97536:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom74 post chunk 0 256 0 0 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom74 post chunk 0 256 -3 7 blocks 256:88 512:10 64768:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom74 post chunk 0 16 0 0 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom74 post chunk 0 16 -3 7 blocks 256:88 512:10 3328:0 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom74 post chunk -64 32 0 0 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom74 post chunk -64 32 -3 7 blocks 256:88 512:10 7424:0 ; WORLD_SURFACE_WG 256:-61 ; OCEAN_FLOOR_WG 256:-61
+custom74 post chunk -2032 4064 0 0 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom74 post chunk -2032 4064 -3 7 blocks 256:88 512:10 1039616:0 ; WORLD_SURFACE_WG 256:-2029 ; OCEAN_FLOOR_WG 256:-2029
+custom74 post chunk 0 3 0 0 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
+custom74 post chunk 0 3 -3 7 blocks 256:88 512:10 ; WORLD_SURFACE_WG 256:3 ; OCEAN_FLOOR_WG 256:3
 PRESET minecraft:bottomless_pit display=minecraft:feather layers=2*14,3*10,1*9, state_layers=2:14 3:10 1:9 biome=minecraft:plains lakes=false features=false void=false so=list:minecraft:villages,
 PRESET_JSON minecraft:bottomless_pit {"structure_overrides":"minecraft:villages","layers":[{"height":2,"block":"minecraft:cobblestone"},{"height":3,"block":"minecraft:dirt"},{"height":1,"block":"minecraft:grass_block"}],"lakes":false,"features":false,"biome":"minecraft:plains"}
 INPUT preset:minecraft:bottomless_pit {"structure_overrides":"minecraft:villages","layers":[{"height":2,"block":"minecraft:cobblestone"},{"height":3,"block":"minecraft:dirt"},{"height":1,"block":"minecraft:grass_block"}],"lakes":false,"features":false,"biome":"minecraft:plains"}

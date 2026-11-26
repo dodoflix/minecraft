@@ -381,5 +381,5 @@ pub fn create_lakes_list(registries: &WorldgenRegistries) -> LoadResult<Vec<Iden
 fn decode_lenient_biome(value: &Value, biomes: &BiomeRegistry) -> LoadResult<Option<BiomeId>> {
     Ok(value
         .get("biome")
-        .and_then(|biome| biomes.holder_from_json(biome).ok()))
+        .and_then(|biome| biomes.holder_from_json_lenient(biome).ok()))
 }
