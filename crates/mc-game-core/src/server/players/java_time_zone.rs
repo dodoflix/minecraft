@@ -1,8 +1,8 @@
 //! `sun.util.calendar.ZoneInfo`: the history of a time zone of the JDK (its transitions up to 2100 and the
 //! `SimpleTimeZone` rule that follows), which `SimpleDateFormat` uses to place a local time in a zone it parsed by name and
 //! to print an instant in the zone it left in the format. The data is `java_zone_rules.tsv.gz`, written by
-//! `ZoneRulesGen.java` from the JDK the vanilla server runs on (Temurin 25.0.5.1, tzdata 2026f). A JDK with other tz data changes the
-//! transitions and names: regenerate this file, `java_zone_strings.tsv` and the date golden together.
+//! `ZoneRulesGen.java` from the JDK the vanilla server runs on (Temurin 25.0.5.1, tzdata 2026f). A JDK with other tz
+//! data changes the transitions and names: regenerate this file, `java_zone_strings.tsv` and the date golden together.
 
 use std::collections::HashMap;
 use std::io::Read;

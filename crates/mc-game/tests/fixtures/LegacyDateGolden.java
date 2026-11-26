@@ -11,7 +11,7 @@ import java.util.*;
  *   zseq   operations on one format (p<text hex> parse, f<epoch ms> format, joined by ;), then their results
  *   zfmt   zone name, then the format of six instants at the ends of the `long` range in the zone a parse of that name left
  * Pinned to Temurin 25.0.5.1 (tzdata 2026f): run it with that JDK first on PATH; regenerate together with `java_zone_rules.tsv.gz`
- * and `legacy_date_golden.txt.gz` when the tzdata of the JDK changes.
+ * and `java_zone_strings.tsv` when the tzdata of the JDK changes.
  * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/legacy_date_golden.txt.gz crates/mc-game/tests/fixtures/LegacyDateGolden.java
  * Output: crates/mc-game/tests/fixtures/legacy_date_golden.txt.gz
  */
