@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Log4j configuration of the real client run by scripts/real-client.sh (-Dlog4j.configurationFile).
+  Same line layout as the launcher's stock configuration. The console (client.out) keeps INFO and above; game/latest.log
+  also keeps the DEBUG lines of the network and multiplayer packages, where the client reports a packet it failed to
+  decode or send. Packet-level trace (NETWORK_PACKETS) stays off. -De2e.game-dir names the game directory.
+-->
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="SysOut" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{HH:mm:ss}] [%t/%level]: %msg{nolookups}%n" />
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+        </Console>
+        <File name="File" fileName="${sys:e2e.game-dir}/latest.log" append="false">
+            <PatternLayout pattern="[%d{HH:mm:ss}] [%t/%level] [%c{1.}]: %msg{nolookups}%n" />
+            <MarkerFilter marker="NETWORK_PACKETS" onMatch="DENY" onMismatch="NEUTRAL" />
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="net.minecraft.network" level="debug" />
+        <Logger name="net.minecraft.client.multiplayer" level="debug" />
+        <Root level="info">
+            <AppenderRef ref="SysOut" />
+            <AppenderRef ref="File" />
+        </Root>
+    </Loggers>
+</Configuration>

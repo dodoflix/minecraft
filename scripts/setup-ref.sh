@@ -2,10 +2,12 @@
 # Builds the gitignored reference material under ref/ (see ARCHITECTURE.md). Idempotent: every step is skipped when
 # its output already exists; nothing existing under ref/ is deleted (use --force to regenerate generated/ + extracted/).
 #
-#   scripts/setup-ref.sh [--decompile] [--libs] [--force] [--no-extract]
+#   scripts/setup-ref.sh [--decompile] [--libs] [--client-src] [--force] [--no-extract]
 #
 #   --decompile   decompile the vanilla server jar into ref/src with Vineflower (downloads ref/vineflower.jar if missing)
 #   --libs        also decompile brigadier / DataFixerUpper / authlib / ... from the bundle into ref/libs/<name>
+#   --client-src  download the vanilla client jar to ref/client.jar and decompile it into ref/client-src with Vineflower
+#                 (the sources the real-client probe in scripts/e2e is written against; never committed)
 #   --force       rerun datagen and the extractor even if their output exists
 #   --no-extract  skip the Java data extractor (tools/extractor -> ref/extracted)
 set -euo pipefail
@@ -20,11 +22,12 @@ VERSION="26.3"
 VINEFLOWER_URL="https://repo1.maven.org/maven2/org/vineflower/vineflower/1.11.1/vineflower-1.11.1.jar"
 MANIFEST_URL="https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
 
-DECOMPILE=0 LIBS=0 FORCE=0 EXTRACT=1
+DECOMPILE=0 LIBS=0 CLIENT_SRC=0 FORCE=0 EXTRACT=1
 for a in "$@"; do
   case "$a" in
     --decompile) DECOMPILE=1 ;;
     --libs) LIBS=1 ;;
+    --client-src) CLIENT_SRC=1 ;;
     --force) FORCE=1 ;;
     --no-extract) EXTRACT=0 ;;
     *) echo "unknown option: $a" >&2; exit 2 ;;
@@ -97,6 +100,22 @@ if (( DECOMPILE )); then
         java -jar "$REF/vineflower.jar" -thr="$(nproc)" "$jar" "$REF/libs/$name"
       fi
     done < <(find "$REF/bundle/META-INF/libraries" -name '*.jar' | sort)
+  fi
+fi
+
+if (( CLIENT_SRC )); then
+  if [[ ! -s "$REF/vineflower.jar" ]]; then
+    log "downloading vineflower"
+    download "$VINEFLOWER_URL" "$REF/vineflower.jar"
+  fi
+  if [[ ! -s "$REF/client.jar" ]]; then
+    log "downloading client.jar"
+    download "$(jq -r '.downloads.client.url' "$REF/$VERSION.json")" "$REF/client.jar" "$(jq -r '.downloads.client.sha1' "$REF/$VERSION.json")"
+  fi
+  if [[ ! -s "$REF/client-src/net/minecraft/client/Minecraft.java" || $FORCE == 1 ]]; then
+    log "decompiling client jar -> ref/client-src (takes a few minutes)"
+    mkdir -p "$REF/client-src"
+    java -jar "$REF/vineflower.jar" -thr="$(nproc)" "$REF/client.jar" "$REF/client-src"
   fi
 fi
 

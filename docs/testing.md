@@ -24,6 +24,8 @@ T0 and T1 spawn no processes. Building the workspace already needs `ref/` and JD
 server from Mojang; you accept Mojang's EULA yourself (section 3). `scripts/setup-ref.sh --decompile` additionally
 decompiles the server jar into `ref/src/net/minecraft/`: you need it to read the vanilla source, and the oracle
 programs that compile against vanilla sources (`scripts/oracle-shadow.sh`, `scripts/entity-oracle.sh`) refuse to run without it.
+`scripts/setup-ref.sh --client-src` decompiles the client jar into `ref/client-src/` (the real-client probe in
+`scripts/e2e/` is written against it; the shim compiles against the downloaded jar, so the sources are only for reading).
 
 **Contract.** `cargo test --workspace` runs T0 and T1 only. After `scripts/setup-ref.sh` it reports exactly the
 failures listed in `tests/known-failures.txt` (section 8) and no others, so it does not pass cleanly while that file has
