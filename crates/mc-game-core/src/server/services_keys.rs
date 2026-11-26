@@ -133,45 +133,202 @@ fn fetch_loop(state: &Mutex<State>, discovery_url: &str, refresh: Duration, retr
     }
 }
 
-fn get_json(client: &reqwest::blocking::Client, url: &str) -> Result<Value, String> {
-    client
-        .get(url)
-        .send()
-        .and_then(|r| r.error_for_status())
-        .and_then(|r| r.json())
-        .map_err(|e| e.to_string())
+const CLIENT_EXCEPTION: &str = "com.mojang.authlib.exceptions.MinecraftClientException";
+/// How many times vanilla fetches the key set at start: `Services` and the session service each ask the discovery service for
+/// their own `ServicesKeySet`, and each one is a `RetryableFetch` of its own.
+const KEY_SET_FETCHES: usize = 2;
+
+/// The text Java's `IOException` carries for the failures a loopback or network request can end in
+/// (`Socket.connect`, `HttpURLConnection`).
+fn io_message(error: &reqwest::Error) -> String {
+    if error.is_dns() {
+        // `UnknownHostException` carries the host name
+        return error
+            .url()
+            .and_then(|u| u.host_str())
+            .unwrap_or_default()
+            .to_owned();
+    }
+    if error.is_timeout() {
+        return if error.is_connect() {
+            "Connect timed out"
+        } else {
+            "Read timed out"
+        }
+        .into();
+    }
+    let mut source: Option<&(dyn std::error::Error + 'static)> = Some(error);
+    while let Some(e) = source {
+        if let Some(io) = e.downcast_ref::<std::io::Error>() {
+            return match io.kind() {
+                std::io::ErrorKind::ConnectionRefused => {
+                    "Connection refused (connect failed)".into()
+                }
+                std::io::ErrorKind::TimedOut if error.is_connect() => "Connect timed out".into(),
+                std::io::ErrorKind::TimedOut => "Read timed out".into(),
+                _ => io.to_string(),
+            };
+        }
+        source = e.source();
+    }
+    error.to_string()
 }
 
-/// The discovery document, then `authentication/getPublicKeys` (`MinecraftServicesKeyInfo.fetch`).
+/// `Map.toString` of a Gson value: strings bare, numbers as `Double`.
+fn java_value(value: &Value) -> String {
+    match value {
+        Value::String(s) => s.clone(),
+        Value::Number(n) => n
+            .as_f64()
+            .map_or_else(|| n.to_string(), |f| format!("{f:?}")),
+        Value::Object(map) => format!(
+            "{{{}}}",
+            map.iter()
+                .map(|(k, v)| format!("{k}={}", java_value(v)))
+                .collect::<Vec<_>>()
+                .join(", ")
+        ),
+        Value::Array(items) => format!(
+            "[{}]",
+            items.iter().map(java_value).collect::<Vec<_>>().join(", ")
+        ),
+        other => other.to_string(),
+    }
+}
+
+/// `ObjectMapper.readValue`: `Ok(None)` for an empty body (Gson answers null), the object for a JSON object, else the
+/// exception Gson's parse failure becomes.
+fn read_value(body: &str) -> Result<Option<Value>, String> {
+    let failed = || format!("{CLIENT_EXCEPTION}: Failed to read value {body}");
+    if body.trim().is_empty() {
+        return Ok(None);
+    }
+    match serde_json::from_str::<Value>(body) {
+        Ok(Value::Null) => Ok(None),
+        Ok(value @ Value::Object(_)) => Ok(Some(value)),
+        _ => Err(failed()),
+    }
+}
+
+/// `MinecraftClientHttpException.toString()` for an error answer (`MinecraftClient.buildHttpException` reads the body as an
+/// `ErrorResponse` unless it is an HTML page, which it logs); a body that is not an object fails the way `readValue` does.
+fn http_exception(url: &str, status: u16, content_type: &str, body: &str) -> String {
+    let response = if content_type.starts_with("text/html") {
+        log::error!("Got an error with a html body connecting to {url}: {body}");
+        "null".to_owned()
+    } else {
+        match read_value(body) {
+            Ok(Some(fields)) => {
+                let field = |name: &str| fields.get(name).map_or("null".to_owned(), java_value);
+                format!(
+                    "ErrorResponse[path={}, error={}, errorMessage={}, details={}]",
+                    field("path"),
+                    field("error"),
+                    field("errorMessage"),
+                    field("details")
+                )
+            }
+            Ok(None) => "null".to_owned(),
+            Err(exception) => return exception,
+        }
+    };
+    format!("MinecraftClientHttpException[type=HTTP_ERROR, status={status}, response={response}]")
+}
+
+/// `MinecraftClient.get`: the JSON object of the body (`None` for an empty one), or the first line of the exception
+/// vanilla would throw.
+fn get_json(client: &reqwest::blocking::Client, url: &str) -> Result<Option<Value>, String> {
+    let response = client.get(url).send().map_err(|e| {
+        format!(
+            "{CLIENT_EXCEPTION}: Failed to read from {url} due to {}",
+            io_message(&e)
+        )
+    })?;
+    let status = response.status().as_u16();
+    let content_type = response
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or_default()
+        .to_owned();
+    let body = response.text().map_err(|e| {
+        format!(
+            "{CLIENT_EXCEPTION}: Failed to read from {url} due to {}",
+            io_message(&e)
+        )
+    })?;
+    if status >= 400 {
+        return Err(http_exception(url, status, &content_type, &body));
+    }
+    read_value(&body)
+}
+
+/// What `RetryableFetch` logs when the fetch throws.
+fn log_fetch_failure(exception: &str) {
+    log::warn!("Failed to connect\n{exception}");
+}
+
+/// One `getServicesKeySet` fetch: `getUrl(AUTHENTICATION, "getPublicKeys")` against the discovery document, then
+/// `MinecraftServicesKeyInfo.fetch`.
+fn fetch_key_set(client: &reqwest::blocking::Client, document: Option<&Value>) -> Option<KeySet> {
+    let unavailable = format!("{CLIENT_EXCEPTION}: Services are unavailable");
+    let Some(document) = document.filter(|d| d["environment"] != "offline") else {
+        log::warn!(
+            "Services are unavailable, unable to fetch uri for AUTHENTICATION/getPublicKeys"
+        );
+        log_fetch_failure(&unavailable);
+        return None;
+    };
+    let Some(keys_url) = document
+        .pointer("/discovery/authentication/endpoints/getPublicKeys/uri")
+        .and_then(Value::as_str)
+    else {
+        log::warn!(
+            "Services are available, but unable to find uri for AUTHENTICATION/getPublicKeys"
+        );
+        log_fetch_failure(&unavailable);
+        return None;
+    };
+    let body = match get_json(client, keys_url) {
+        Ok(Some(body)) => body,
+        Ok(None) => return None,
+        Err(exception) => {
+            log::error!("Failed to request Minecraft Services public key\n{exception}");
+            return None;
+        }
+    };
+    match parse_keys(&body) {
+        Ok(keys) => Some(keys),
+        Err(_) => {
+            log::error!(
+                "Received malformed Minecraft Services public key data\njava.lang.IllegalArgumentException: Invalid Minecraft Services public key!"
+            );
+            None
+        }
+    }
+}
+
+/// The discovery document (`MinecraftServicesDiscoveryService.createDiscoverySupplier`), then the key set fetches in the
+/// order vanilla runs them on its one discovery thread.
 fn fetch(discovery_url: &str) -> Result<KeySet, String> {
     let client = reqwest::blocking::Client::builder()
         .connect_timeout(HTTP_TIMEOUT)
-        .timeout(HTTP_TIMEOUT)
+        .timeout(HTTP_TIMEOUT * 2) // Java allows the connect and the read 5 s each
         .build()
         .map_err(|e| e.to_string())?;
-    let keys_url = get_json(&client, discovery_url)
-        .ok()
-        .and_then(|document| {
-            document
-                .pointer("/discovery/authentication/endpoints/getPublicKeys/uri")?
-                .as_str()
-                .map(str::to_owned)
-        })
-        .ok_or_else(|| {
-            log::warn!(
-                "Services are unavailable, unable to fetch uri for AUTHENTICATION/getPublicKeys"
-            );
-            log::warn!("Failed to connect\nServices are unavailable");
-            "Services are unavailable".to_owned()
-        })?;
-    let body = get_json(&client, &keys_url).map_err(|e| {
-        log::error!("Failed to request Minecraft Services public key: {e}");
-        e
-    })?;
-    parse_keys(&body).map_err(|e| {
-        log::error!("Received malformed Minecraft Services public key data: {e}");
-        e
-    })
+    let document = match get_json(&client, discovery_url) {
+        Ok(document) => document,
+        Err(exception) => {
+            log_fetch_failure(&exception);
+            None
+        }
+    };
+    // the session service's fetch comes first and only logs; `Services.servicesKeySet` is the last one
+    let mut keys = None;
+    for _ in 0..KEY_SET_FETCHES {
+        keys = fetch_key_set(&client, document.as_ref());
+    }
+    keys.ok_or_else(|| "no Minecraft Services public key".to_owned())
 }
 
 /// `KeySetResponse.playerCertificateKeys` through `MinecraftServicesKeyInfo.parse`: any malformed key fails the set.
@@ -315,6 +472,42 @@ mod tests {
 
         keys_ok.store(true, Ordering::SeqCst);
         wait_until("the retry", || keys.can_validate_profile_keys());
+    }
+
+    #[test]
+    fn error_answers_read_like_authlibs_exceptions() {
+        let html = "text/html";
+        let json = "application/json";
+        assert_eq!(
+            http_exception(
+                "u",
+                500,
+                json,
+                r#"{"errorMessage":"x","details":{"n":1,"a":"b"}}"#
+            ),
+            "MinecraftClientHttpException[type=HTTP_ERROR, status=500, response=ErrorResponse[path=null, error=null, errorMessage=x, details={n=1.0, a=b}]]"
+        );
+        assert_eq!(
+            http_exception("u", 503, json, ""),
+            "MinecraftClientHttpException[type=HTTP_ERROR, status=503, response=null]"
+        );
+        assert_eq!(
+            http_exception("u", 502, json, "\"Bad Gateway\""),
+            format!("{CLIENT_EXCEPTION}: Failed to read value \"Bad Gateway\"")
+        );
+        assert!(http_exception("u", 502, html, "<p>x</p>").ends_with("response=null]"));
+    }
+
+    #[test]
+    fn bodies_read_like_gson_into_a_class() {
+        assert_eq!(read_value("  "), Ok(None));
+        assert_eq!(read_value("null"), Ok(None));
+        assert_eq!(
+            read_value(r#"{"a":1}"#),
+            Ok(Some(serde_json::json!({"a": 1})))
+        );
+        assert!(read_value("[1]").is_err());
+        assert!(read_value("{").is_err());
     }
 
     #[test]
