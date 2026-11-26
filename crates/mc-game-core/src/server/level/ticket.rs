@@ -178,15 +178,33 @@ impl std::fmt::Display for Ticket {
             // Vanilla's text really has "( out of" without a space after "of".
             write!(
                 f,
-                "Ticket[{} {}] with {} ticks left ( out of{})",
+                "Ticket[minecraft:{} {}] with {} ticks left ( out of{})",
                 self.ty.name, self.ticket_level, self.ticks_left, self.ty.timeout
             )
         } else {
             write!(
                 f,
-                "Ticket[{} {}] with no timeout",
+                "Ticket[minecraft:{} {}] with no timeout",
                 self.ty.name, self.ticket_level
             )
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// `Ticket.toString` names the type by its registry key.
+    #[test]
+    fn display_names_the_registry_key() {
+        assert_eq!(
+            Ticket::new(TicketType::PLAYER_LOADING, 31).to_string(),
+            "Ticket[minecraft:player_loading 31] with no timeout"
+        );
+        assert_eq!(
+            Ticket::new(TicketType::PLAYER_SPAWN, 30).to_string(),
+            "Ticket[minecraft:player_spawn 30] with 20 ticks left ( out of20)"
+        );
     }
 }
