@@ -868,12 +868,13 @@ impl Entity for Fox {
     fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, level, input);
         self.clear_trusted();
-        if let Some(list) = input.get_list("Trusted") {
-            for tag in list.iter() {
-                if let Some(uuid) = mc_game_core::world::entity::entity::read_uuid(Some(tag)) {
-                    self.add_trusted_entity(uuid);
-                }
-            }
+        // `TRUSTED_LIST_CODEC`: a failed decode is reported and keeps the elements that decoded
+        static TRUSTED: std::sync::LazyLock<mc_dfu::Codec<Vec<uuid::Uuid>>> =
+            std::sync::LazyLock::new(|| mc_protocol::components::uuid_codec().list_of());
+        for uuid in mc_game_core::world::block_entity::read_codec(input, "Trusted", &TRUSTED)
+            .unwrap_or_default()
+        {
+            self.add_trusted_entity(uuid);
         }
         self.set_sleeping(input.get_boolean_or("Sleeping", false));
         self.set_variant(

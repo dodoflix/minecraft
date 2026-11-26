@@ -430,7 +430,7 @@ impl Entity for ShulkerBullet {
             .get("Dir")
             .and_then(|t| t.as_number())
             .map(|n| Direction::from_3d_data_value(i32::from(n.boxed_byte_value())));
-        self.final_target = entity::read_uuid(input.get("Target"));
+        self.final_target = entity::read_uuid_field(input, "Target");
     }
 }
 

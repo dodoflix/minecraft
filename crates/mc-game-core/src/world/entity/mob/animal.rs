@@ -243,5 +243,5 @@ pub fn read_additional_save_data(
 ) {
     let a = anm(e);
     a.in_love = input.get_int_or("InLove", 0);
-    a.love_cause = crate::world::entity::entity::read_uuid(input.get("LoveCause"));
+    a.love_cause = crate::world::entity::entity::read_uuid_field(input, "LoveCause");
 }

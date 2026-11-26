@@ -402,9 +402,9 @@ pub fn read_additional_save_data(
         None => living.clear_sleeping_pos(),
     }
     // `this.brain = this.makeBrain(packed)` needs the whole entity: `ai::brain::read_brain` (called by the mob chain)
-    living.last_hurt_by_player = super::entity::read_uuid(input.get("last_hurt_by_player"));
+    living.last_hurt_by_player = super::entity::read_uuid_field(input, "last_hurt_by_player");
     living.last_hurt_by_player_memory_time = input.get_int_or("last_hurt_by_player_memory_time", 0);
-    living.last_hurt_by_mob = super::entity::read_uuid(input.get("last_hurt_by_mob"));
+    living.last_hurt_by_mob = super::entity::read_uuid_field(input, "last_hurt_by_mob");
     living.last_hurt_by_mob_timestamp = living
         .entity
         .tick_count

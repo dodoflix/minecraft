@@ -544,8 +544,8 @@ impl Entity for ItemEntity {
         self.health = i32::from(input.get_short_or("Health", 5));
         self.age = i32::from(input.get_short_or("Age", 0));
         self.pickup_delay = i32::from(input.get_short_or("PickupDelay", 0));
-        self.target = entity::read_uuid(input.get("Owner"));
-        self.thrower = entity::read_uuid(input.get("Thrower"));
+        self.target = entity::read_uuid_field(input, "Owner");
+        self.thrower = entity::read_uuid_field(input, "Thrower");
         let item = crate::world::block_entity::read_codec(input, "Item", &ItemStack::codec())
             .unwrap_or_else(ItemStack::empty);
         self.set_item(item);

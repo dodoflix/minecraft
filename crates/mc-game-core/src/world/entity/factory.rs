@@ -185,14 +185,14 @@ pub fn create_and_load(
     level: &ServerLevel,
     request: EntitySpawnRequest,
 ) -> Option<Box<dyn Entity>> {
-    let Some(ty) = by(tag) else {
+    // an id that does not create (unknown, or a type the level's difficulty does not allow) is skipped with the same warning
+    let Some(mut entity) = by(tag).and_then(|ty| create(ty, level, request)) else {
         log::warn!(
             "Skipping Entity with id {}",
             tag.get_string("id").unwrap_or("[invalid]")
         );
         return None;
     };
-    let mut entity = create(ty, level, request)?;
     match entity.load(level, tag) {
         Ok(()) => {
             entity.resolve_registry_refs(&level.registries);

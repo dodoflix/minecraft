@@ -5319,15 +5319,21 @@ pub fn read_uuid(tag: Option<&Tag>) -> Option<Uuid> {
     Some(mc_core::uuid_util::uuid_from_int_array(arr))
 }
 
+/// `input.read(key, UUIDUtil.CODEC)`, which is also `EntityReference.read(input, key)`: a failed decode is reported to the
+/// open problem scope and keeps its partial value.
+pub fn read_uuid_field(input: &CompoundTag, key: &str) -> Option<Uuid> {
+    static UUID: std::sync::LazyLock<mc_dfu::Codec<Uuid>> =
+        std::sync::LazyLock::new(mc_protocol::components::common::uuid_codec);
+    read_codec(input, key, &UUID)
+}
+
 /// `EntityReference.readWithOldOwnerConversion`: a UUID (a failed decode is reported), or a legacy player name.
 pub fn read_owner_with_old_conversion(
     level: Option<&ServerLevel>,
     input: &CompoundTag,
     key: &str,
 ) -> Option<Uuid> {
-    static UUID: std::sync::LazyLock<mc_dfu::Codec<Uuid>> =
-        std::sync::LazyLock::new(mc_protocol::components::common::uuid_codec);
-    if let Some(uuid) = read_codec(input, key, &UUID) {
+    if let Some(uuid) = read_uuid_field(input, key) {
         return Some(uuid);
     }
     let name = crate::world::block_entity::read_string(input, key)?;
@@ -5375,7 +5381,7 @@ pub fn load<E: Entity + ?Sized>(
         b.permanently_invulnerable = input.get_boolean_or("Invulnerable", false);
         b.invulnerable_time = input.get_int_or("invulnerable_time", 0);
         b.portal_cooldown = input.get_int_or("PortalCooldown", 0);
-        if let Some(id) = read_uuid(input.get(TAG_UUID)) {
+        if let Some(id) = read_uuid_field(input, TAG_UUID) {
             b.uuid = id;
         }
     }

@@ -543,24 +543,62 @@ async fn item_list_decode_problems_match_vanilla() {
 
 /// The `Owner` of tameable animals and horses: a legacy owner name, a short int array, an int and a name that is too
 /// long to be one. Every failed decode of the field is reported once per entity, then the old name conversion runs.
+/// The other uuid fields of entities (`Thrower`, `LoveCause`, `angry_at`, `last_hurt_by_*`, the owner of projectiles, a
+/// vex, tnt, fangs and a cloud, the target of a shulker bullet, `ConversionPlayer`, `UUID`) are read with the same codec
+/// and report the same way.
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "oracle: starts the vanilla server and the mc-server binary"]
 async fn owner_decode_problems_match_vanilla() {
-    let entity = |id: &str, owner: &str, uuid: i32| {
+    let entity = |id: &str, fields: &str, uuid: i32| {
         snbt::parse_compound(&format!(
-            r#"{{id:"{id}",Pos:[8.5d,-60.0d,8.5d],Motion:[0.0d,0.0d,0.0d],Rotation:[0.0f,0.0f],UUID:[I;{uuid},2,3,4],Owner:{owner}}}"#
+            r#"{{id:"{id}",Pos:[8.5d,-60.0d,8.5d],Motion:[0.0d,0.0d,0.0d],Rotation:[0.0f,0.0f],UUID:[I;{uuid},2,3,4],{fields}}}"#
         ))
         .expect("entity")
     };
+    let stone = r#"Item:{id:"minecraft:stone",count:1}"#;
     let entities = [
-        entity("minecraft:wolf", r#""Bot""#, 1),
-        entity("minecraft:cat", "[I;1,2]", 2),
-        entity("minecraft:parrot", "5", 3),
-        entity("minecraft:horse", r#""Bot""#, 4),
-        entity("minecraft:donkey", "[I;1,2,3,4,5]", 5),
-        entity("minecraft:mule", r#""a_name_longer_than_sixteen""#, 6),
-        entity("minecraft:wolf", "[I;1,2,3,4]", 7),
+        entity("minecraft:wolf", r#"Owner:"Bot""#, 1),
+        entity("minecraft:cat", "Owner:[I;1,2]", 2),
+        entity("minecraft:parrot", "Owner:5", 3),
+        entity("minecraft:horse", r#"Owner:"Bot""#, 4),
+        entity("minecraft:donkey", "Owner:[I;1,2,3,4,5]", 5),
+        entity("minecraft:mule", r#"Owner:"a_name_longer_than_sixteen""#, 6),
+        entity("minecraft:wolf", "Owner:[I;1,2,3,4]", 7),
+        entity(
+            "minecraft:item",
+            &format!(r#"{stone},Owner:"x",Thrower:[I;1,2,3]"#),
+            8,
+        ),
+        entity(
+            "minecraft:item",
+            &format!("{stone},Owner:[I;1,2,3,4,5],Thrower:7"),
+            9,
+        ),
+        entity("minecraft:cow", "LoveCause:[I;1]", 10),
+        entity("minecraft:cow", r#"LoveCause:"x",angry_at:5"#, 11),
+        entity("minecraft:wolf", r#"angry_at:[I;1,2,3,4,5,6]"#, 12),
+        entity(
+            "minecraft:zombie",
+            "last_hurt_by_mob:[I;1],last_hurt_by_player:5",
+            13,
+        ),
+        entity("minecraft:arrow", "Owner:[I;1,2]", 14),
+        entity("minecraft:snowball", r#"Owner:"x""#, 15),
+        entity("minecraft:vex", "owner:[I;1,2,3]", 16),
+        entity("minecraft:evoker_fangs", "Owner:5", 17),
+        entity("minecraft:shulker_bullet", r#"Target:"x""#, 18),
+        entity("minecraft:tnt", "owner:[I;1]", 19),
+        entity("minecraft:area_effect_cloud", "Owner:[I;1,2,3,4,5]", 20),
+        entity(
+            "minecraft:zombie_villager",
+            r#"ConversionTime:100,ConversionPlayer:"x""#,
+            21,
+        ),
+        entity("minecraft:fox", "Trusted:[[I;1,2],[I;1,2,3,4],5]", 22),
     ];
+    let mut bad_uuid = entity("minecraft:cow", "Age:0", 23);
+    bad_uuid.put_string("UUID", "not-an-array");
+    let entities: Vec<CompoundTag> = entities.into_iter().chain([bad_uuid]).collect();
     let mut seed = snbt::parse_compound("{Inventory:[]}").expect("seed");
     seed.put_int(
         "DataVersion",

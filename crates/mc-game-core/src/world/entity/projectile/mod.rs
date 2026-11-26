@@ -797,7 +797,7 @@ pub fn read_additional_save_data(
     input: &mc_nbt::CompoundTag,
 ) {
     let d = projectile.projectile_data_mut();
-    d.owner = super::entity::read_uuid(input.get("Owner"));
+    d.owner = super::entity::read_uuid_field(input, "Owner");
     d.owner_id = None;
     d.left_owner = input.get_boolean_or("LeftOwner", false);
     d.has_been_shot = input.get_boolean_or("HasBeenShot", false);

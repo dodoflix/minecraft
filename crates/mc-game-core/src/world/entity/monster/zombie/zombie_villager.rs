@@ -500,7 +500,7 @@ pub fn read_additional_save_data(
     let gossips = input.get_list("Gossips").map(GossipContainer::from_nbt);
     let conversion_time = input.get_int_or("ConversionTime", NOT_CONVERTING);
     let starter = (conversion_time != NOT_CONVERTING)
-        .then(|| crate::world::entity::entity::read_uuid(input.get("ConversionPlayer")))
+        .then(|| crate::world::entity::entity::read_uuid_field(input, "ConversionPlayer"))
         .flatten();
     let converting = conversion_time != NOT_CONVERTING;
     {

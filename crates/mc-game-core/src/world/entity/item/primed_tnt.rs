@@ -293,7 +293,7 @@ impl Entity for PrimedTnt {
             0.0,
             128.0,
         );
-        self.owner = entity::read_uuid(input.get("owner"));
+        self.owner = entity::read_uuid_field(input, "owner");
     }
 }
 

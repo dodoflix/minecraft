@@ -211,7 +211,7 @@ impl Entity for Vex {
             Some(n) => self.set_limited_life(n.int_value()),
             None => self.has_limited_life = false,
         }
-        self.owner = mc_game_core::world::entity::entity::read_uuid(input.get("owner"));
+        self.owner = mc_game_core::world::entity::entity::read_uuid_field(input, "owner");
     }
 
     fn add_additional_save_data(&self, out: &mut CompoundTag) {

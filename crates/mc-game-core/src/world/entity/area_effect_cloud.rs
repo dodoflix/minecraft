@@ -476,7 +476,7 @@ impl Entity for AreaEffectCloud {
         self.radius_on_use = input.get_float_or("RadiusOnUse", 0.0);
         self.radius_per_tick = input.get_float_or("RadiusPerTick", 0.0);
         self.set_radius(input.get_float_or("Radius", 3.0));
-        self.owner = entity::read_uuid(input.get("Owner"));
+        self.owner = entity::read_uuid_field(input, "Owner");
         self.set_custom_particle(read_codec(
             input,
             "custom_particle",

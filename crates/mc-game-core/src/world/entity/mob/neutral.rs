@@ -99,7 +99,7 @@ pub fn read_persistent_anger_save_data(
     }
     set_persistent_anger_target(
         e,
-        crate::world::entity::entity::read_uuid(input.get("angry_at")),
+        crate::world::entity::entity::read_uuid_field(input, "angry_at"),
     );
     if let Some(level) = level {
         let target = get_persistent_anger_target(e)
