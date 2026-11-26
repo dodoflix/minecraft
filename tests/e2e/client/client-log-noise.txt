@@ -1,0 +1,7 @@
+# Exact client log lines that every headless, offline run produces and that mean nothing for a comparison.
+# Form: LEVEL: message, then ` | ` and the exception line under it when the entry has one (scripts/client_e2e/gate.py).
+# A line only gets here when it was seen on a run of the current harness; never a substring or a pattern.
+WARN: Requested post effect does not exist: minecraft:end_of_frame
+ERROR: Error while loading the narrator | com.mojang.text2speech.Narrator$InitializeException: Failed to load library flite
+ERROR: Failed to fetch Realms feature flags | com.mojang.realmsclient.exception.RealmsServiceException: Realms service error (500) with message 'Could not connect to Realms: Connection refused (connect failed)'
+ERROR: Couldn't connect to realms | com.mojang.realmsclient.exception.RealmsServiceException: Realms service error (500) with message 'Could not connect to Realms: Connection refused (connect failed)'

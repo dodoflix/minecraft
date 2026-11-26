@@ -1,0 +1,120 @@
+[13:34:15] [Datafixer Bootstrap #0/INFO]: 307 Datafixer optimizations took 245 milliseconds
+[13:34:17] [Render thread/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[13:34:17] [Render thread/INFO]: Setting user: Steve
+[13:34:17] [Render thread/INFO]: Backend library: LWJGL version 3.4.3+4
+[13:34:17] [Render thread/INFO]: SDL [SYSTEM]: App name: Minecraft
+[13:34:17] [Render thread/INFO]: SDL [SYSTEM]: App version: 26.3
+[13:34:17] [Render thread/INFO]: SDL [SYSTEM]: App ID: com.mojang.minecraft
+[13:34:17] [Render thread/INFO]: SDL [SYSTEM]: SDL revision: SDL-3.4.14--128-NOTFOUND
+[13:34:17] [Render thread/INFO]: SDL [VIDEO]: Detected XWayland
+[13:34:18] [Render thread/INFO]: Using graphics backend OpenGL, using drivers: 3.3.0 NVIDIA 615.78.08
+[13:34:18] [Render thread/INFO]: Using graphics device: NVIDIA GeForce RTX 4070 SUPER/PCIe/SSE2 (NVIDIA Corporation)
+[13:34:18] [Render thread/INFO]: Using graphics device extensions: GL_ARB_multi_draw_indirect, GL_ARB_shader_draw_parameters, GL_ARB_base_instance, GL_KHR_debug, GL_ARB_draw_indirect, GL_ARB_clip_control, GL_ARB_vertex_attrib_binding, GL_ARB_direct_state_access, GL_EXT_texture_filter_anisotropic
+[13:34:18] [Render thread/INFO]: Created window using SDL video driver: x11
+[13:34:18] [Download-2/ERROR]: Failed to fetch user properties
+com.mojang.authlib.exceptions.InvalidCredentialsException: Status: 401
+	at com.mojang.authlib.exceptions.MinecraftClientHttpException.toAuthenticationException(MinecraftClientHttpException.java:70)
+	at com.mojang.authlib.services.MinecraftServicesUserApiService.fetchProperties(MinecraftServicesUserApiService.java:168)
+	at net.minecraft.client.Minecraft.lambda$new$1(Minecraft.java:451)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1789)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1527)
+Caused by: MinecraftClientHttpException[type=HTTP_ERROR, status=401, response=ErrorResponse[path=/player/attributes, error=null, errorMessage=null, details=null]]
+	at com.mojang.authlib.minecraft.client.MinecraftClient.buildHttpException(MinecraftClient.java:170)
+	at com.mojang.authlib.minecraft.client.MinecraftClient.readServiceResponse(MinecraftClient.java:147)
+	at com.mojang.authlib.minecraft.client.MinecraftClient.getWithEtag(MinecraftClient.java:81)
+	at com.mojang.authlib.minecraft.client.MinecraftClient.get(MinecraftClient.java:65)
+	at com.mojang.authlib.services.MinecraftServicesUserApiService.fetchProperties(MinecraftServicesUserApiService.java:118)
+	... 5 more
+[13:34:18] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":false,"joined_ever":false,"disconnect_reason":null,"game_time":-1,"chunks":0}
+[13:34:18] [Render thread/ERROR]: Error while loading the narrator
+com.mojang.text2speech.Narrator$InitializeException: Failed to load library flite
+	at com.mojang.text2speech.NarratorLinux$FliteLibrary.loadNative(NarratorLinux.java:82)
+	at com.mojang.text2speech.NarratorLinux.<init>(NarratorLinux.java:19)
+	at com.mojang.text2speech.Narrator.getNarrator(Narrator.java:41)
+	at net.minecraft.client.GameNarrator.<init>(GameNarrator.java:20)
+	at net.minecraft.client.Minecraft.<init>(Minecraft.java:740)
+	at net.minecraft.client.main.Main.main(Main.java:278)
+	at E2eMain.main(E2eMain.java:19)
+Caused by: java.lang.UnsatisfiedLinkError: Unable to load library 'flite':
+	at com.sun.jna.NativeLibrary.loadLibrary(NativeLibrary.java:325)
+	at com.sun.jna.NativeLibrary.getInstance(NativeLibrary.java:481)
+	at com.sun.jna.NativeLibrary.getInstance(NativeLibrary.java:423)
+	at com.mojang.text2speech.NarratorLinux$FliteLibrary.loadNative(NarratorLinux.java:80)
+	... 6 more
+		at com.sun.jna.Native.open(Native Method)
+		at com.sun.jna.NativeLibrary.loadLibrary(NativeLibrary.java:213)
+		... 9 more
+		at com.sun.jna.Native.open(Native Method)
+		at com.sun.jna.NativeLibrary.loadLibrary(NativeLibrary.java:226)
+		... 9 more
+		at com.sun.jna.Native.extractFromResourcePath(Native.java:1141)
+		at com.sun.jna.NativeLibrary.loadLibrary(NativeLibrary.java:297)
+		... 9 more
+[13:34:18] [Render thread/INFO]: Reloading ResourceManager: vanilla, vanilla
+[13:34:18] [Worker-Main-1/INFO]: Found unifont_all_no_pua-17.0.01.hex, loading
+[13:34:18] [Worker-Main-3/INFO]: Found unifont_pua-17.0.01.hex, loading
+[13:34:18] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":"GenericMessageScreen","screen_title":"Loading Minecraft","in_level":false,"joined_ever":false,"disconnect_reason":null,"game_time":-1,"chunks":0}
+[13:34:18] [Download-1/INFO]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: 0
+[13:34:18] [Download-1/ERROR]: Failed to fetch Realms feature flags
+com.mojang.realmsclient.exception.RealmsServiceException: Realms authentication error with message 'java.lang.RuntimeException: Failed to parse into SignedJWT: 0'
+	at com.mojang.realmsclient.client.RealmsClient.execute(RealmsClient.java:625)
+	at com.mojang.realmsclient.client.RealmsClient.fetchFeatureFlags(RealmsClient.java:204)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1789)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1527)
+[13:34:18] [Worker-Main-1/INFO]: Found unifont_jp_patch-17.0.01.hex, loading
+[13:34:19] [Render thread/INFO]: OpenAL initialized on device No Output
+[13:34:19] [Render thread/INFO]: Sound engine started
+[13:34:19] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[13:34:19] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/celestials.png-atlas
+[13:34:19] [Render thread/INFO]: Created: 128x128x0 minecraft:textures/atlas/decorated_pot.png-atlas
+[13:34:19] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[13:34:19] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/shield_patterns.png-atlas
+[13:34:19] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/banner_patterns.png-atlas
+[13:34:19] [Render thread/INFO]: Created: 2048x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[13:34:19] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/items.png-atlas
+[13:34:19] [Render thread/INFO]: Created: 1024x1024x0 minecraft:textures/atlas/gui.png-atlas
+[13:34:19] [Render thread/INFO]: Created: 128x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[13:34:19] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/chest.png-atlas
+[13:34:19] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/shulker_boxes.png-atlas
+[13:34:19] [Render thread/INFO]: Connecting to 127.0.0.1, 25571
+[13:34:19] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":"ConnectScreen","screen_title":"","in_level":false,"joined_ever":false,"disconnect_reason":null,"game_time":-1,"chunks":0}
+[13:34:22] [Render thread/INFO]: Loaded 2 advancements
+[13:34:22] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":"LevelLoadingScreen","screen_title":"","in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":193,"chunks":15}
+[13:34:22] [Render thread/WARN]: Requested post effect does not exist: minecraft:end_of_frame
+[13:34:22] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 2 reached during a single frame. New capacity will be 4.
+[13:34:22] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 4 reached during a single frame. New capacity will be 8.
+[13:34:22] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 8 reached during a single frame. New capacity will be 16.
+[13:34:22] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 2 reached during a single frame. New capacity will be 8.
+[13:34:23] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 8 reached during a single frame. New capacity will be 32.
+[13:34:23] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 2 reached during a single frame. New capacity will be 16.
+[13:34:23] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":202,"chunks":45}
+[13:34:23] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 32 reached during a single frame. New capacity will be 64.
+[13:34:23] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 16 reached during a single frame. New capacity will be 32.
+[13:34:23] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 64 reached during a single frame. New capacity will be 128.
+[13:34:23] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 32 reached during a single frame. New capacity will be 64.
+[13:34:23] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 128 reached during a single frame. New capacity will be 256.
+[13:34:23] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 64 reached during a single frame. New capacity will be 128.
+[13:34:24] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":233,"chunks":101}
+[13:34:25] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":253,"chunks":117}
+[13:34:26] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":273,"chunks":117}
+[13:34:27] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":293,"chunks":117}
+[13:34:28] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":313,"chunks":117}
+[13:34:29] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":333,"chunks":117}
+[13:34:30] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":353,"chunks":117}
+[13:34:31] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":373,"chunks":117}
+[13:34:32] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":393,"chunks":117}
+[13:34:33] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":413,"chunks":117}
+[13:34:34] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":433,"chunks":117}
+[13:34:35] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":453,"chunks":117}
+[13:34:36] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":473,"chunks":117}
+[13:34:37] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":493,"chunks":117}
+[13:34:38] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":513,"chunks":117}
+[13:34:39] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":533,"chunks":117}
+[13:34:40] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":553,"chunks":117}
+[13:34:41] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":573,"chunks":117}
+[13:34:42] [e2e-watch/INFO]: [STDOUT]: [E2E] {"screen":null,"screen_title":null,"in_level":true,"joined_ever":true,"disconnect_reason":null,"game_time":593,"chunks":117}
+[13:34:42] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-11-04_13.34.42.png
