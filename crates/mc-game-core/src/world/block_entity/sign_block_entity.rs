@@ -595,8 +595,8 @@ static HANGING_SIGN: BlockEntityRegistration = BlockEntityRegistration {
     create: |pos, state| Box::new(SignBlockEntity::new_hanging(pos, state)),
 };
 
-/// The sign part of the play listener (`ServerGamePacketListenerImpl.handleSignUpdate` after the lines were stripped of
-/// formatting): text filtering, then `SignBlockEntity.updateSignText` for a loaded chunk.
+/// The sign part of the play listener (`ServerGamePacketListenerImpl.updateSignText` after the lines were stripped of
+/// formatting and filtered): `SignBlockEntity.updateSignText` for a loaded chunk.
 struct SignPlayHandlers;
 
 impl crate::server::network::game_packets::hooks::PlayHandlers for SignPlayHandlers {
@@ -604,29 +604,26 @@ impl crate::server::network::game_packets::hooks::PlayHandlers for SignPlayHandl
         &self,
         ctx: &mut crate::server::network::game_packets::PlayCtx,
         packet: &mc_protocol::packets::play::ServerboundSignUpdatePacket,
-        lines: &[String],
+        lines: &[FilteredText],
     ) {
         update_sign_text_from_packet(ctx.level, ctx.player, packet.pos, packet.slot, lines);
     }
 }
 
-/// `ServerGamePacketListenerImpl.updateSignText` of the already formatting-stripped lines: text filtering, then
-/// `SignBlockEntity.updateSignText` for a loaded chunk.
+/// `ServerGamePacketListenerImpl.updateSignText` of the filtered lines: `SignBlockEntity.updateSignText` for a loaded
+/// chunk.
 pub fn update_sign_text_from_packet(
     level: &mut ServerLevel,
     player: &ServerPlayer,
     pos: BlockPos,
     slot: SignTextSlot,
-    lines: &[String],
+    filtered: &[FilteredText],
 ) {
-    use crate::server::network::text_filter::{DummyTextFilter, TextFilter};
     use crate::world::level::LevelReader;
-    // `filterTextPacket(lines)`: the dummy filter (no `text-filtering-config` backend is ported)
-    let filtered = DummyTextFilter.process_message_bundle(lines);
     if level.has_chunk(pos.x() >> 4, pos.z() >> 4) {
         level.with_block_entity(pos, |level, be| {
             if let Some(sign) = be.as_any_mut().downcast_mut::<SignBlockEntity>() {
-                sign.update_sign_text(level, player, slot, &filtered);
+                sign.update_sign_text(level, player, slot, filtered);
             }
         });
     }

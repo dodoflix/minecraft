@@ -195,6 +195,39 @@ impl CrashReportCategory {
         self
     }
 
+    /// `formatLocation(levelHeightAccessor, x, y, z)`: the block, its section and its region.
+    pub fn format_location(
+        level_height: mc_world::chunk::LevelHeight,
+        x: i32,
+        y: i32,
+        z: i32,
+    ) -> String {
+        let (section_x, section_y, section_z) = (x >> 4, y >> 4, z >> 4);
+        let min_block_x = section_x.wrapping_shl(4);
+        let min_block_z = section_z.wrapping_shl(4);
+        let max_block_x = section_x.wrapping_add(1).wrapping_shl(4).wrapping_sub(1);
+        let max_block_z = section_z.wrapping_add(1).wrapping_shl(4).wrapping_sub(1);
+        let (min_y, max_y) = (level_height.min_y, level_height.max_y());
+        let (region_x, region_z) = (x >> 9, z >> 9);
+        let min_chunk_x = region_x.wrapping_shl(5);
+        let min_chunk_z = region_z.wrapping_shl(5);
+        let max_chunk_x = region_x.wrapping_add(1).wrapping_shl(5).wrapping_sub(1);
+        let max_chunk_z = region_z.wrapping_add(1).wrapping_shl(5).wrapping_sub(1);
+        let region_min_x = region_x.wrapping_shl(9);
+        let region_min_z = region_z.wrapping_shl(9);
+        let region_max_x = region_x.wrapping_add(1).wrapping_shl(9).wrapping_sub(1);
+        let region_max_z = region_z.wrapping_add(1).wrapping_shl(9).wrapping_sub(1);
+        format!(
+            "World: ({x},{y},{z}), Section: (at {},{},{} in {section_x},{section_y},{section_z}; chunk contains blocks \
+             {min_block_x},{min_y},{min_block_z} to {max_block_x},{max_y},{max_block_z}), Region: ({region_x},{region_z}; \
+             contains chunks {min_chunk_x},{min_chunk_z} to {max_chunk_x},{max_chunk_z}, blocks \
+             {region_min_x},{min_y},{region_min_z} to {region_max_x},{max_y},{region_max_z})",
+            x & 15,
+            y & 15,
+            z & 15
+        )
+    }
+
     fn write_details(&self, out: &mut String) {
         out.push_str("-- ");
         out.push_str(&self.title);

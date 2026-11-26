@@ -89,6 +89,7 @@ pub struct CommandSourceStack {
     anchor: Anchor,
     rotation: Vec2,
     signing_context: CommandSigningContext,
+    chat_services: Option<super::command_signing_context::ChatServices>,
 }
 
 impl CommandSourceStack {
@@ -167,6 +168,7 @@ impl CommandSourceStack {
             anchor: Anchor::Feet,
             rotation,
             signing_context: CommandSigningContext::Anonymous,
+            chat_services: None,
         }
     }
 
@@ -294,6 +296,21 @@ impl CommandSourceStack {
             signing_context,
             ..self.clone()
         }
+    }
+
+    /// `withSigningContext(context, chainer)`: the chain and filter of the player who sent the signed command.
+    pub fn with_chat_services(
+        &self,
+        chat_services: super::command_signing_context::ChatServices,
+    ) -> Self {
+        Self {
+            chat_services: Some(chat_services),
+            ..self.clone()
+        }
+    }
+
+    pub fn get_chat_services(&self) -> Option<&super::command_signing_context::ChatServices> {
+        self.chat_services.as_ref()
     }
 
     pub fn get_display_name(&self) -> Component {

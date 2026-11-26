@@ -3,6 +3,8 @@
 //! dimensions use [`DerivedLevelData`] (spawn and game time of the overworld, everything else from the world data).
 //! Weather, clocks and the world border are saved data of their own (GameServerState), not part of these views.
 
+use crate::crash_report::CrashReportCategory;
+use mc_world::chunk::LevelHeight;
 use mc_world::level_storage::{Difficulty, GameType, PrimaryLevelData, RespawnData};
 use parking_lot::Mutex;
 use std::sync::Arc;
@@ -23,6 +25,37 @@ pub trait ServerLevelData: Send {
     fn set_game_type(&mut self, game_type: GameType);
     fn set_allow_commands(&mut self, allow_commands: bool);
     fn set_initialized(&mut self, initialized: bool);
+    /// `fillCrashReportCategory(category, levelHeightAccessor)`.
+    fn fill_crash_report_category(
+        &self,
+        category: &mut CrashReportCategory,
+        level_height: LevelHeight,
+    );
+}
+
+/// `LevelData.fillCrashReportCategory` and `ServerLevelData.fillCrashReportCategory`: the details every level data has.
+fn fill_server_level_data_category(
+    data: &dyn ServerLevelData,
+    category: &mut CrashReportCategory,
+    level_height: LevelHeight,
+) {
+    let pos = data.get_respawn_data().pos;
+    category.set_detail(
+        "Level spawn location",
+        CrashReportCategory::format_location(level_height, pos.x(), pos.y(), pos.z()),
+    );
+    category.set_detail("Level name", data.get_level_name());
+    let game_type = data.get_game_type();
+    category.set_detail(
+        "Level game mode",
+        format!(
+            "Game mode: {} (ID {}). Hardcore: {}. Commands: {}",
+            game_type.get_name(),
+            game_type.get_id(),
+            data.is_hardcore(),
+            data.is_allow_commands()
+        ),
+    );
 }
 
 /// The world data (`WorldData`/`PrimaryLevelData`) shared by the server and the levels.
@@ -89,6 +122,36 @@ impl ServerLevelData for PrimaryServerLevelData {
     fn set_initialized(&mut self, initialized: bool) {
         self.0.lock().initialized = initialized;
     }
+    fn fill_crash_report_category(
+        &self,
+        category: &mut CrashReportCategory,
+        level_height: LevelHeight,
+    ) {
+        fill_server_level_data_category(self, category, level_height);
+        // `WorldData.fillCrashReportCategory`
+        let data = self.0.lock();
+        let brands: Vec<&str> = data
+            .known_server_brands
+            .iter()
+            .map(String::as_str)
+            .collect();
+        category.set_detail("Known server brands", brands.join(", "));
+        let removed: Vec<&str> = data
+            .removed_feature_flags
+            .iter()
+            .map(String::as_str)
+            .collect();
+        category.set_detail("Removed feature flags", removed.join(", "));
+        category.set_detail("Level was modded", data.was_modded);
+        category.set_detail(
+            "Level storage version",
+            format!(
+                "0x{:05X} - {}",
+                data.version,
+                PrimaryLevelData::storage_version_name(data.version)
+            ),
+        );
+    }
 }
 
 /// `DerivedLevelData`: spawn, game time and initialized state come from the wrapped (overworld) data, the rest from the
@@ -146,6 +209,15 @@ impl ServerLevelData for DerivedLevelData {
     fn set_game_type(&mut self, _game_type: GameType) {}
     fn set_allow_commands(&mut self, _allow_commands: bool) {}
     fn set_initialized(&mut self, _initialized: bool) {}
+    fn fill_crash_report_category(
+        &self,
+        category: &mut CrashReportCategory,
+        level_height: LevelHeight,
+    ) {
+        category.set_detail("Derived", true);
+        self.wrapped
+            .fill_crash_report_category(category, level_height);
+    }
 }
 
 #[cfg(test)]

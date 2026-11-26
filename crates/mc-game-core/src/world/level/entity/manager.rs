@@ -1160,6 +1160,50 @@ impl PersistentEntitySectionManager {
             self.chunks_to_unload.len()
         )
     }
+
+    /// `dumpSections(output)`: the `entity_chunks.csv` table of the level dump, one row per existing section.
+    // shortcut: vanilla walks a hash set filled in the order of its section map's keys; the chunks are added in key order
+    // here, so rows that collide in the hash set may come in another order.
+    pub(crate) fn dump_sections(&self) -> String {
+        let mut csv = crate::util::csv_output::CsvOutput::new(&[
+            "x",
+            "y",
+            "z",
+            "visibility",
+            "load_status",
+            "entity_count",
+        ]);
+        let mut chunk_keys: Vec<i64> = self
+            .section_storage
+            .get_all_chunks_with_existing_sections()
+            .into_iter()
+            .collect();
+        chunk_keys.sort_unstable();
+        let mut chunks = crate::server::level::fastutil::LongOpenHashSet::new();
+        for key in chunk_keys {
+            chunks.add(key);
+        }
+        for chunk_key in chunks.iter() {
+            let load_status =
+                format!("{:?}", self.chunk_load_status(chunk_key)).to_ascii_uppercase();
+            for section_key in self
+                .section_storage
+                .existing_section_positions_in_chunk(chunk_key)
+            {
+                if let Some(section) = self.section_storage.get_section(section_key) {
+                    csv.write_row(&[
+                        &SectionPos::x_from_long(section_key),
+                        &SectionPos::y_from_long(section_key),
+                        &SectionPos::z_from_long(section_key),
+                        &format!("{:?}", section.status()).to_ascii_uppercase(),
+                        &load_status,
+                        &section.size(),
+                    ]);
+                }
+            }
+        }
+        csv.finish()
+    }
 }
 
 fn describe(e: &dyn Entity) -> String {

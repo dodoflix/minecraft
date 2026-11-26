@@ -72,7 +72,9 @@ pub use block_item::{
     BlockItem, block_is_enabled, bucket_empty_success_item, calculate_view_vector,
     player_pov_hit_result, player_pov_hit_result_fluid, update_custom_block_entity_tag,
 };
-pub use book::{edit_book, flush_open_item_gui, resolve_for_item, resolve_written_book};
+pub use book::{
+    edit_book, flush_open_item_gui, resolve_for_item, resolve_written_book, texts_to_filter,
+};
 pub use bundle::{
     BundleItem, BundleMutable, can_item_be_in_bundle,
     toggle_selected_item as toggle_bundle_selected_item,

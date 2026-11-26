@@ -1223,6 +1223,10 @@ impl Scenario {
                     })
                     .map(mc_text::ChatFormatting::strip_formatting)
                     .collect();
+                let lines: Vec<_> = lines
+                    .into_iter()
+                    .map(mc_game::server::network::text_filter::FilteredText::pass_through)
+                    .collect();
                 self.with_player_named(&a[1], |level, p| {
                     update_sign_text_from_packet(level, p, pos, slot, &lines)
                 });

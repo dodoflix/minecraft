@@ -39,6 +39,8 @@ pub struct DedicatedServer {
     pub server_links: ServerLinks,
     /// `services.servicesKeySet()`: what `canValidateProfileKeys` and `profileKeySignatureValidator` read.
     pub services_keys: ServicesKeys,
+    /// `serverTextFilter`: `None` without a (valid) `text-filtering-config`.
+    pub text_filter: Option<Arc<crate::server::network::server_text_filter::ServerTextFilter>>,
 }
 
 impl DedicatedServer {
@@ -50,6 +52,11 @@ impl DedicatedServer {
         services_keys: ServicesKeys,
     ) -> io::Result<Self> {
         let server_links = create_server_links(settings.get_properties());
+        let text_filter =
+            crate::server::network::server_text_filter::ServerTextFilter::create_from_config(
+                settings.get_properties(),
+            )
+            .map_err(io::Error::other)?;
         let code_of_conduct_texts = if settings.get_properties().code_of_conduct {
             read_code_of_conducts()?
         } else {
@@ -66,6 +73,7 @@ impl DedicatedServer {
             profile_lookup,
             server_links,
             services_keys,
+            text_filter,
         })
     }
 }
@@ -172,16 +180,6 @@ impl MinecraftServer {
     /// `DedicatedServer.initServer`: everything between the thread start and the first tick. `Ok(false)` = failed to
     /// initialize (vanilla: `IllegalStateException("Failed to initialize server")`).
     pub(in crate::server) fn init_server(&mut self) -> io::Result<bool> {
-        if properties_management_enabled(self.properties()) {
-            let api = Arc::new(crate::server::management_api::ServerManagementApi::new(
-                self.shared.clone(),
-            ));
-            match crate::server::jsonrpc::create(self.properties(), &self.notification_manager, api)
-            {
-                Ok(server) => self.dedicated.management_server = server,
-                Err(e) => return Err(io::Error::other(e)),
-            }
-        }
         spawn_console_thread(
             self.dedicated.console_input.clone(),
             self.dedicated.stop_signal.clone(),
@@ -826,6 +824,9 @@ impl MinecraftServer {
     /// `onServerExit`.
     pub(in crate::server) fn on_server_exit(&mut self) {
         // Text filter, GUI, rcon/query threads and the management server stop here.
+        if let Some(filter) = self.dedicated.text_filter.take() {
+            filter.close();
+        }
         if let Some(mut rcon) = self.dedicated.rcon_thread.take() {
             rcon.stop();
         }
@@ -834,6 +835,17 @@ impl MinecraftServer {
         }
         if let Some(mut management) = self.dedicated.management_server.take() {
             management.stop();
+        }
+    }
+
+    /// `createTextFilterForPlayer`.
+    pub(in crate::server) fn create_text_filter_for_player(
+        &self,
+        profile: &mc_protocol::codec::GameProfile,
+    ) -> Arc<dyn crate::server::network::text_filter::TextFilter> {
+        match &self.dedicated.text_filter {
+            Some(filter) => filter.create_context(profile.clone()),
+            None => Arc::new(crate::server::network::text_filter::DummyTextFilter),
         }
     }
 
@@ -918,10 +930,6 @@ impl QueryServerInfo for ServerHandle {
 /// `GameType.toString()` (the Java enum constant name).
 fn game_type_name(game_type: GameType) -> String {
     game_type.get_name().to_uppercase()
-}
-
-fn properties_management_enabled(properties: &DedicatedServerProperties) -> bool {
-    properties.management_server_enabled
 }
 
 /// `Exception.toString()` of the netty epoll transport's bind failure.

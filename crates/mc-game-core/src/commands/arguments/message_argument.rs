@@ -6,9 +6,12 @@ use super::selector::entity_selector_parser::{
 use super::selector::{EntitySelector, EntitySelectorParser};
 use crate::commands::CommandSourceStack;
 use crate::commands::message::message;
+use crate::commands::server_access::enter_server;
 use crate::server::chat::{FilteredText, PlayerChatMessage, chat_decorator};
+use crate::server::network::future_chain::Appended;
 use crate::server::permissions::permissions;
 use crate::translatable;
+use crate::util::completion::Completion;
 use mc_brigadier::arguments::value;
 use mc_brigadier::{
     ArgumentType, CommandContext, CommandSyntaxException, Dynamic2CommandExceptionType,
@@ -167,11 +170,13 @@ impl MessageArgument {
             .resolve_component(context.get_source())
     }
 
-    /// `resolveChatMessage(context, name, task)`: builds the (possibly signed) `PlayerChatMessage` and hands it to `task`.
+    /// `resolveChatMessage(context, name, task)`: builds the (possibly signed) `PlayerChatMessage` and hands it to `task`;
+    /// a message the player signed goes through the player's text filter and chat message chain first, so `task` may run
+    /// later, as a game-thread task.
     pub fn resolve_chat_message(
         context: &CommandContext<CommandSourceStack>,
         name: &str,
-        task: impl FnOnce(PlayerChatMessage),
+        task: impl FnOnce(PlayerChatMessage) + Send + 'static,
     ) -> Result<(), CommandSyntaxException> {
         let message = context.get_argument::<Message>(name);
         let sender = context.get_source();
@@ -179,14 +184,30 @@ impl MessageArgument {
         match sender.get_signing_context().get_argument(name) {
             Some(signed) => {
                 let signed = signed.with_unsigned_content(formatted);
-                // `filterPlainText`: the dedicated server has no text filter, so the message passes through.
-                let filtered = FilteredText::pass_through(signed.signed_content());
+                let services = sender.get_chat_services();
+                // `filterPlainText`: only a message the sender signed is asked of the text filter
+                let future = match services {
+                    Some(s) if signed.has_signature_from(s.sender) => {
+                        s.filter.process_stream_message(signed.signed_content())
+                    }
+                    _ => Completion::completed(FilteredText::pass_through(signed.signed_content())),
+                };
                 let decorated = chat_decorator::plain(None, signed.decorated_content());
-                task(
-                    signed
-                        .with_unsigned_content(decorated)
-                        .filter_with_mask(filtered.mask),
-                );
+                let run = move |filtered: FilteredText| {
+                    task(
+                        signed
+                            .with_unsigned_content(decorated)
+                            .filter_with_mask(filtered.mask),
+                    );
+                };
+                match services.map(|s| s.chain.append(future.clone())) {
+                    Some(Appended::Queued(link)) => {
+                        link.run(move |server, filtered| enter_server(server, || run(filtered)));
+                    }
+                    Some(Appended::Ready(filtered)) => run(filtered),
+                    // `TaskChainer.immediate(server)`
+                    None => run(future.get().expect("a completed future")),
+                }
             }
             None => {
                 let argument = PlayerChatMessage::system(message.text.as_lossy_str())

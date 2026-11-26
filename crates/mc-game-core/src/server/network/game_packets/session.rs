@@ -284,6 +284,8 @@ impl PlayCtx<'_> {
     /// `removePlayerFromWorld`: leave message, `player.disconnect()` and `PlayerList.remove(player)` (the level removal
     /// is applied when the taken-out player is put back, see `ServerLevel::put_back_entity`).
     fn remove_player_from_world(&mut self) {
+        let text_filter = self.lis().text_filter.clone();
+        self.lis().chat_message_chain.close();
         self.server.invalidate_status();
         let message = Component::translatable(
             "multiplayer.player.left",
@@ -295,6 +297,7 @@ impl PlayCtx<'_> {
             .broadcast_system_message(&message, false);
         self.player.disconnect(&mut *self.level);
         self.remove_from_player_list();
+        text_filter.leave();
     }
 
     /// `PlayerList.remove(player)`.

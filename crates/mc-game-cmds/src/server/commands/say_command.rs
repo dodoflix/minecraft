@@ -12,8 +12,8 @@ register_command!("SayCommand", |ctx| {
             .requires(has_permission(LEVEL_GAMEMASTERS))
             .then(
                 argument("message", MessageArgument::message()).executes(|c| {
-                    MessageArgument::resolve_chat_message(c, "message", |message| {
-                        let source = c.get_source();
+                    let source = c.get_source().clone();
+                    MessageArgument::resolve_chat_message(c, "message", move |message| {
                         let name = source.get_display_name();
                         source.with_server(|server| {
                             let bound = host::bind_chat_type(server, chat_type::SAY_COMMAND, name);

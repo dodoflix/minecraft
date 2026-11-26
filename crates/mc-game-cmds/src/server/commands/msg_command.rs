@@ -13,12 +13,14 @@ register_command!("MsgCommand", |ctx| {
         argument("targets", EntityArgument::players()).then(
             argument("message", MessageArgument::message()).executes(|c| {
                 let players = EntityArgument::get_players(c, "targets")?;
+                let count = players.len() as i32;
                 if !players.is_empty() {
-                    MessageArgument::resolve_chat_message(c, "message", |message| {
-                        send_message(c.get_source(), &players, &message)
+                    let source = c.get_source().clone();
+                    MessageArgument::resolve_chat_message(c, "message", move |message| {
+                        send_message(&source, &players, &message)
                     })?;
                 }
-                Ok(players.len() as i32)
+                Ok(count)
             }),
         ),
     ));

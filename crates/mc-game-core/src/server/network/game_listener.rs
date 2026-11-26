@@ -5,10 +5,12 @@
 //! `ARCHITECTURE.md`).
 
 use super::common_listener::{CommonListenerCookie, ServerCommonListener};
+use super::future_chain::FutureChain;
 pub use super::game_packets::{
     PlayCtx, handle_disconnections, process_queued_packets, send_next_chunks_all, tick_connection,
 };
 use super::player_chunk_sender::PlayerChunkSender;
+use super::text_filter::{DummyTextFilter, TextFilter};
 use super::{ConnectionSender, InboundPacket};
 use crate::server::chat::signed_message::{Decoder, UnsignedDecoder};
 use crate::server::chat::{OutgoingChatState, RemoteChatSession};
@@ -98,6 +100,10 @@ pub struct ServerGamePacketListenerImpl {
     /// `ServerCommandSuggestionsProvider`: the latest unanswered request `(client id, command)` and the per-tick budget.
     pub(crate) suggestion_request: Option<(i32, String)>,
     pub(crate) suggestion_budget: bool,
+    /// `player.getTextFilter()`: the player's filter context, the same object for the whole connection.
+    pub(crate) text_filter: Arc<dyn TextFilter>,
+    /// `chatMessageChain`.
+    pub(crate) chat_message_chain: Arc<FutureChain>,
 }
 
 /// What `new ServerGamePacketListenerImpl(server, connection, player, cookie)` reads from the server.
@@ -183,7 +189,22 @@ impl ServerGamePacketListenerImpl {
             chat_out,
             suggestion_request: None,
             suggestion_budget: false,
+            text_filter: Arc::new(DummyTextFilter),
+            chat_message_chain: Arc::new(FutureChain::new(None)),
         }
+    }
+
+    /// The text filter context and the game thread's task queue of the connection; `join()` is called here, like the
+    /// constructor of vanilla's listener does.
+    pub fn with_text_filter(
+        mut self,
+        text_filter: Arc<dyn TextFilter>,
+        server: Option<Arc<crate::server::shared::ServerShared>>,
+    ) -> Self {
+        text_filter.join();
+        self.text_filter = text_filter;
+        self.chat_message_chain = Arc::new(FutureChain::new(server));
+        self
     }
 
     /// `send(packet)`.

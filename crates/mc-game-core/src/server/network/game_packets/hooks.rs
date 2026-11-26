@@ -11,6 +11,7 @@
 //! level), exactly what vanilla reaches through `this.player` / `this.server`.
 
 use super::PlayCtx;
+use crate::server::network::text_filter::FilteredText;
 use linkme::distributed_slice;
 use mc_protocol::packets::play::*;
 
@@ -269,12 +270,13 @@ pub trait PlayHandlers: Sync {
     fn handle_select_trade(&self, ctx: &mut PlayCtx, packet: &ServerboundSelectTradePacket) {}
     /// `handleEditBook` (text is passed through the pass-through text filter first).
     fn handle_edit_book(&self, ctx: &mut PlayCtx, packet: &ServerboundEditBookPacket) {}
-    /// `updateSignText` (after `resetLastActionTime`, with `ChatFormatting.stripFormatting` applied to the lines).
+    /// `updateSignText` (after `resetLastActionTime`, with the text filter's answer for the lines that had
+    /// `ChatFormatting.stripFormatting` applied).
     fn update_sign_text(
         &self,
         ctx: &mut PlayCtx,
         packet: &ServerboundSignUpdatePacket,
-        lines: &[String],
+        lines: &[FilteredText],
     ) {
     }
     /// `handleSetCommandBlock` (`player.canUseGameMasterBlocks()` is checked by the implementor, it owns the message).
@@ -373,7 +375,7 @@ impl PlayCtx<'_> {
         ITEM_SYSTEMS.first().copied().unwrap_or(&NoItemSystems)
     }
 
-    fn hooks(&mut self, f: impl Fn(&dyn PlayHandlers, &mut PlayCtx)) {
+    pub(super) fn hooks(&mut self, f: impl Fn(&dyn PlayHandlers, &mut PlayCtx)) {
         for handler in PLAY_HANDLERS {
             f(*handler, self);
         }
@@ -423,8 +425,14 @@ impl PlayCtx<'_> {
                     .iter()
                     .map(|l| mc_text::ChatFormatting::strip_formatting(l))
                     .collect();
-                self.player.reset_last_action_time();
-                self.hooks(|h, c| h.update_sign_text(c, &p, &lines));
+                let filtered = self.lis().text_filter.process_message_bundle(&lines);
+                self.then_on_server(filtered, move |ctx, lines| {
+                    if !ctx.accepts_filtered_result() {
+                        return;
+                    }
+                    ctx.player.reset_last_action_time();
+                    ctx.hooks(|h, c| h.update_sign_text(c, &p, &lines));
+                });
             }
             P::SetCommandBlock(p) => self.hooks(|h, c| h.handle_set_command_block(c, &p)),
             P::SetCommandMinecart(p) => self.hooks(|h, c| h.handle_set_command_minecart(c, &p)),

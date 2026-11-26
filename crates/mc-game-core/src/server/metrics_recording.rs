@@ -6,6 +6,8 @@ use std::io;
 use std::path::Path;
 
 use super::MinecraftServer;
+use super::debug_report_jvm;
+use super::level::level_tick::WeatherState;
 use crate::commands::server_access::enter_server;
 use crate::util::profiling::metrics::ActiveMetricsRecorder;
 use crate::util::profiling::{self, ProfileResults, ProfilerScope};
@@ -114,14 +116,37 @@ impl MinecraftServer {
         }
     }
 
-    /// `saveDebugReport(output)`. Not written: `levels/` (`ServerLevel.saveDebugReport`), `classpath.txt`,
-    /// `threads.txt` and `modules.txt` (JVM introspection).
+    /// `saveDebugReport(output)`. analogue: the JVM files `classpath.txt`, `threads.txt` and `modules.txt` and the
+    /// `queue:` line of `stats.txt` describe this process instead (see `debug_report_jvm`).
     fn save_debug_report(&mut self, output: &Path) {
         let mut write = || -> io::Result<()> {
             std::fs::create_dir_all(output)?;
+            let levels_dir = output.join("levels");
+            let weather = {
+                let data = self.weather_data();
+                WeatherState {
+                    clear_weather_time: data.get_clear_weather_time(),
+                    thunder_time: data.get_thunder_time(),
+                    rain_time: data.get_rain_time(),
+                    thundering: data.is_thundering(),
+                    raining: data.is_raining(),
+                }
+            };
+            for dimension in self.level_keys() {
+                let level_path = levels_dir
+                    .join(dimension.namespace())
+                    .join(dimension.path());
+                std::fs::create_dir_all(&level_path)?;
+                if let Some(level) = self.level_mut(&dimension) {
+                    level.save_debug_report(&level_path, weather)?;
+                }
+            }
             self.dump_game_rules(&output.join("gamerules.txt"))?;
+            debug_report_jvm::dump_classpath(&output.join("classpath.txt"))?;
             self.dump_misc_stats(&output.join("stats.txt"))?;
-            self.dump_server_properties(&output.join("server.properties.txt"))
+            debug_report_jvm::dump_threads(&output.join("threads.txt"))?;
+            self.dump_server_properties(&output.join("server.properties.txt"))?;
+            debug_report_jvm::dump_native_modules(&output.join("modules.txt"))
         };
         if let Err(e) = write() {
             log::warn!("Failed to save debug report\n{e}");
@@ -167,6 +192,7 @@ impl MinecraftServer {
             )
         );
         let _ = writeln!(out, "tick_times: [{}]", tick_times.join(", "));
+        out.push_str(&debug_report_jvm::queue_line());
         std::fs::write(path, out)
     }
 }

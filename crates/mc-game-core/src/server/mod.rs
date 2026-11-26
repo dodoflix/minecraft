@@ -2,6 +2,7 @@
 pub mod bossevents;
 pub mod chat;
 pub mod commands;
+mod debug_report_jvm;
 pub mod dedicated;
 pub mod event_loop;
 pub mod jsonrpc;

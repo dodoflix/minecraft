@@ -2,6 +2,8 @@
 //! `TimerQueue`). Other slices add their own small helpers here.
 pub mod block_util;
 pub mod codec;
+pub mod completion;
+pub mod csv_output;
 pub mod debug;
 pub mod debugchart;
 pub mod file_util;

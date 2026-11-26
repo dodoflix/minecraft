@@ -28,6 +28,7 @@ use tempfile::TempDir;
 
 mod deflate;
 mod fixture;
+mod mock_filter;
 mod mock_mojang;
 mod permit;
 mod query;
@@ -35,6 +36,7 @@ mod units;
 mod worldref;
 pub use deflate::{Corrupt, Deflate};
 pub use fixture::{gunzip, read_gz};
+pub use mock_filter::{FilterAnswer, FilterRequest, MockFilterServer};
 pub use mock_mojang::{Certificate, Join, MockMojang, Request, offline_uuid};
 pub use query::{Answer, QueryClient};
 pub use units::{hex, rows, unesc_units, unhex};

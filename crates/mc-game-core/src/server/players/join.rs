@@ -58,6 +58,17 @@ pub struct LevelJoinInfo {
 pub trait JoinHost {
     /// `server.getPlayerList()`.
     fn list(&mut self) -> &mut PlayerList;
+    /// `server.createTextFilterForPlayer(player)`.
+    fn create_text_filter(
+        &self,
+        _profile: &mc_protocol::codec::GameProfile,
+    ) -> std::sync::Arc<dyn crate::server::network::text_filter::TextFilter> {
+        std::sync::Arc::new(crate::server::network::text_filter::DummyTextFilter)
+    }
+    /// The task queue of the game thread (`MinecraftServer.execute`).
+    fn server_shared(&self) -> Option<std::sync::Arc<crate::server::shared::ServerShared>> {
+        None
+    }
     /// `server.levelKeys()` (vanilla `getAllLevels` dimensions in order).
     fn level_keys(&self) -> Vec<DimensionKey>;
     /// The level facts of the level the player is placed in.
@@ -301,19 +312,22 @@ pub fn place_new_player(
         player.dimension.clone(),
     );
     player.connection = Some(sender.clone());
-    player.listener = Some(ServerGamePacketListenerImpl::new(
-        sender.clone(),
-        params.inbound,
-        &params.cookie,
-        handle.chat_out.clone(),
-        crate::server::network::game_listener::ListenerSettings {
-            command_spam_threshold_seconds: params.command_spam_threshold_seconds,
-            chat_spam_threshold_seconds: params.chat_spam_threshold_seconds,
-            memory_connection: params.memory_connection,
-            enforce_secure_profile: params.enforce_secure_profile,
-        },
-        params.now_ms,
-    ));
+    player.listener = Some(
+        ServerGamePacketListenerImpl::new(
+            sender.clone(),
+            params.inbound,
+            &params.cookie,
+            handle.chat_out.clone(),
+            crate::server::network::game_listener::ListenerSettings {
+                command_spam_threshold_seconds: params.command_spam_threshold_seconds,
+                chat_spam_threshold_seconds: params.chat_spam_threshold_seconds,
+                memory_connection: params.memory_connection,
+                enforce_secure_profile: params.enforce_secure_profile,
+            },
+            params.now_ms,
+        )
+        .with_text_filter(host.create_text_filter(&profile), host.server_shared()),
+    );
     handle.shared.lock().latency = params.cookie.latency;
     player.handle = Some(handle.clone());
     player.sync_handle();

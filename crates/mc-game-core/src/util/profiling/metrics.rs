@@ -14,6 +14,7 @@ use mc_core::math::java::java_double_to_string;
 use parking_lot::Mutex;
 
 use super::{ActiveProfiler, MetricCategory, ProfileResults, ProfilerHandle};
+use crate::util::csv_output::escape_csv;
 use crate::util::file_util::sanitize_to_path_chars;
 use crate::util::util::get_nanos;
 
@@ -354,15 +355,6 @@ fn create_temp_dir(prefix: &str) -> io::Result<PathBuf> {
             Err(e) if e.kind() == io::ErrorKind::AlreadyExists => salt = salt.wrapping_add(1),
             Err(e) => return Err(e),
         }
-    }
-}
-
-/// `StringEscapeUtils.escapeCsv`.
-fn escape_csv(value: &str) -> String {
-    if value.contains([',', '"', '\r', '\n']) {
-        format!("\"{}\"", value.replace('"', "\"\""))
-    } else {
-        value.to_owned()
     }
 }
 

@@ -9,8 +9,8 @@ use mc_game_core::server::chat::chat_type;
 register_command!("EmoteCommands", |ctx| {
     ctx.dispatcher.register(literal("me").then(
         argument("action", MessageArgument::message()).executes(|c| {
-            MessageArgument::resolve_chat_message(c, "action", |message| {
-                let source = c.get_source();
+            let source = c.get_source().clone();
+            MessageArgument::resolve_chat_message(c, "action", move |message| {
                 let name = source.get_display_name();
                 source.with_server(|server| {
                     let bound = host::bind_chat_type(server, chat_type::EMOTE_COMMAND, name);

@@ -139,6 +139,16 @@ fn prepare(
         name_to_id_cache.clone(),
     ));
     let notification_manager = Arc::new(NotificationManager::new());
+    // `JsonRpc.create` runs before the level storage is opened: a bad secret or a taken port stops the start before
+    // any world file is touched
+    let (shared, tasks) = ServerShared::new();
+    let management_server = crate::server::jsonrpc::create(
+        settings.get_properties(),
+        &notification_manager,
+        Arc::new(crate::server::management_api::ServerManagementApi::new(
+            shared.clone(),
+        )),
+    )?;
     let properties = settings.get_properties().clone();
     let level_name = options
         .world_name
@@ -265,7 +275,7 @@ fn prepare(
     if let Err(e) = stop_signal.install_signal_handlers() {
         log::warn!("Failed to install the signal handlers: {e}");
     }
-    let dedicated = DedicatedServer::new(
+    let mut dedicated = DedicatedServer::new(
         settings,
         console_input,
         stop_signal.clone(),
@@ -273,8 +283,8 @@ fn prepare(
         services_keys,
     )
     .map_err(|e| e.to_string())?;
+    dedicated.management_server = management_server;
 
-    let (shared, tasks) = ServerShared::new();
     let init = ServerInit {
         server_directory: PathBuf::new(),
         storage_source: access,

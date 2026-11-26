@@ -143,6 +143,17 @@ pub fn level_join_info(server: &mut MinecraftServer, level: &mut ServerLevel) ->
 }
 
 impl JoinHost for ServerJoinHost<'_> {
+    fn create_text_filter(
+        &self,
+        profile: &mc_protocol::codec::GameProfile,
+    ) -> std::sync::Arc<dyn crate::server::network::text_filter::TextFilter> {
+        self.server.create_text_filter_for_player(profile)
+    }
+
+    fn server_shared(&self) -> Option<std::sync::Arc<crate::server::shared::ServerShared>> {
+        Some(self.server.shared.clone())
+    }
+
     fn list(&mut self) -> &mut PlayerList {
         &mut self.server.player_list
     }

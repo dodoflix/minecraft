@@ -42,12 +42,14 @@ register_command!("TeamMsgCommand", |ctx| {
             }) else {
                 return Err::<i32, CommandSyntaxException>(ERROR_NOT_ON_TEAM.create());
             };
+            let count = receivers.len() as i32;
             if !receivers.is_empty() {
-                MessageArgument::resolve_chat_message(c, "message", |message| {
-                    send_message(source, &entity, &team, &receivers, &message)
+                let source = source.clone();
+                MessageArgument::resolve_chat_message(c, "message", move |message| {
+                    send_message(&source, &entity, &team, &receivers, &message)
                 })?;
             }
-            Ok(receivers.len() as i32)
+            Ok(count)
         }),
     ));
     ctx.dispatcher.register(literal("tm").redirect(msg));

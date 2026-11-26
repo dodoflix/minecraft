@@ -226,27 +226,44 @@ fn sign_book(
     player.player.inventory.set_item(slot, written_book);
 }
 
-/// `handleEditBook` after the hotbar/offhand slot check and the text filter (`filtered` = the filter's answer per
-/// string: the title first when the packet has one, then the pages).
+/// `handleEditBook` once the filter answered: `filtered` holds the title first when the packet has one, then the pages.
 pub fn edit_book(
     player: &mut ServerPlayer,
     packet: &ServerboundEditBookPacket,
-    filter: impl Fn(&str) -> FilteredText,
+    filtered: &[FilteredText],
 ) {
     let slot = packet.slot as usize;
-    let pages = packet.pages.iter().map(|p| filter(p)).collect::<Vec<_>>();
     match &packet.title {
-        Some(title) => sign_book(player, &filter(title), &pages, slot),
-        None => update_book_contents(player, &pages, slot),
+        Some(_) => sign_book(player, &filtered[0], &filtered[1..], slot),
+        None => update_book_contents(player, filtered, slot),
     }
+}
+
+/// The strings `handleEditBook` sends to the text filter: the title first when the packet has one, then the pages.
+pub fn texts_to_filter(packet: &ServerboundEditBookPacket) -> Vec<String> {
+    packet
+        .title
+        .iter()
+        .chain(packet.pages.iter())
+        .cloned()
+        .collect()
 }
 
 struct BookHandlers;
 
 impl PlayHandlers for BookHandlers {
-    /// `handleEditBook`: the dedicated server's `TextFilter` passes everything through (see `text_filter.rs`).
+    /// `handleEditBook`: the texts go through the player's text filter, the book changes once it answered.
     fn handle_edit_book(&self, ctx: &mut PlayCtx, packet: &ServerboundEditBookPacket) {
-        edit_book(ctx.player, packet, |s| FilteredText::pass_through(s));
+        let filtered = ctx
+            .lis()
+            .text_filter
+            .process_message_bundle(&texts_to_filter(packet));
+        let packet = packet.clone();
+        ctx.then_on_server(filtered, move |ctx, filtered| {
+            if ctx.accepts_filtered_result() {
+                edit_book(ctx.player, &packet, &filtered);
+            }
+        });
     }
 }
 
@@ -256,6 +273,14 @@ static BOOK_HANDLERS: &dyn PlayHandlers = &BookHandlers;
 #[cfg(test)]
 mod tests {
     use super::*;
+    fn pass_through_edit(p: &mut ServerPlayer, packet: &ServerboundEditBookPacket) {
+        let filtered: Vec<FilteredText> = texts_to_filter(packet)
+            .into_iter()
+            .map(FilteredText::pass_through)
+            .collect();
+        edit_book(p, packet, &filtered);
+    }
+
     use crate::commands::component_utils::LimitBehavior;
     use std::cell::Cell;
 
@@ -362,7 +387,7 @@ mod tests {
             pages: vec!["a".into(), "b".into()],
             title: None,
         };
-        edit_book(&mut p, &packet, |s| FilteredText::pass_through(s));
+        pass_through_edit(&mut p, &packet);
         let content = p
             .player
             .inventory
@@ -378,11 +403,7 @@ mod tests {
             ]
         );
         // a slot without a writable book is left alone
-        edit_book(
-            &mut p,
-            &ServerboundEditBookPacket { slot: 3, ..packet },
-            |s| FilteredText::pass_through(s),
-        );
+        pass_through_edit(&mut p, &ServerboundEditBookPacket { slot: 3, ..packet });
         assert_eq!(p.player.inventory.get_item(3), &ItemStack::new(Item::STONE));
     }
 
@@ -400,7 +421,7 @@ mod tests {
             pages: vec!["page one".into()],
             title: Some("Title".into()),
         };
-        edit_book(&mut p, &packet, |s| FilteredText::pass_through(s));
+        pass_through_edit(&mut p, &packet);
         let signed = p.player.inventory.get_item(40);
         assert_eq!(signed.item(), Item::WRITTEN_BOOK);
         assert!(!signed.has(DataComponentType::WRITABLE_BOOK_CONTENT));

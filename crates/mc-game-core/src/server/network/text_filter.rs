@@ -1,88 +1,33 @@
-//! `TextFilter`, `FilteredText`, `Filterable`: the chat/sign/book text filtering model. The dedicated server uses
-//! [`DummyTextFilter`] unless `text-filtering-config` names a moderation endpoint (the HTTP-backed
-//! `ServerTextFilter` implementations are not ported).
+//! `TextFilter`, `Filterable`: the chat/sign/book text filtering model. A player's filter is the dummy one (every
+//! text passes) unless `text-filtering-config` names a moderation service (`ServerTextFilter`).
 
-use mc_protocol::packets::play::FilterMask;
+pub use crate::server::chat::FilteredText;
+use crate::util::completion::Completion;
 
-/// `FilterMask.apply`: `None` = fully filtered.
-pub fn apply_filter_mask(mask: &FilterMask, text: &str) -> Option<String> {
-    match mask {
-        FilterMask::PassThrough => Some(text.to_owned()),
-        FilterMask::FullyFiltered => None,
-        FilterMask::PartiallyFiltered(bits) => {
-            let mut units: Vec<u16> = text.encode_utf16().collect();
-            for (i, unit) in units.iter_mut().enumerate().take(bits.length()) {
-                if bits.get(i) {
-                    *unit = u16::from(b'#');
-                }
-            }
-            Some(String::from_utf16_lossy(&units))
-        }
-    }
-}
-
-/// `FilteredText`.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct FilteredText {
-    pub raw: String,
-    pub mask: FilterMask,
-}
-
-impl FilteredText {
-    pub fn empty() -> Self {
-        Self::pass_through("")
-    }
-
-    pub fn pass_through(message: impl Into<String>) -> Self {
-        Self {
-            raw: message.into(),
-            mask: FilterMask::PassThrough,
-        }
-    }
-
-    pub fn fully_filtered(message: impl Into<String>) -> Self {
-        Self {
-            raw: message.into(),
-            mask: FilterMask::FullyFiltered,
-        }
-    }
-
-    pub fn filtered(&self) -> Option<String> {
-        apply_filter_mask(&self.mask, &self.raw)
-    }
-
-    pub fn filtered_or_empty(&self) -> String {
-        self.filtered().unwrap_or_default()
-    }
-
-    /// `isFiltered`: the mask is not `PASS_THROUGH`.
-    pub fn is_filtered(&self) -> bool {
-        self.mask != FilterMask::PassThrough
-    }
-}
-
-/// `TextFilter`. Vanilla returns `CompletableFuture`s; the implementations offered here complete immediately, a
-/// remote filter returns its result from a worker.
+/// `TextFilter`. Like vanilla's futures, a result is complete at once (the dummy filter) or is completed by a worker
+/// thread later.
 pub trait TextFilter: Send + Sync {
     fn join(&self) {}
     fn leave(&self) {}
-    fn process_stream_message(&self, message: &str) -> FilteredText;
-    fn process_message_bundle(&self, messages: &[String]) -> Vec<FilteredText>;
+    fn process_stream_message(&self, message: &str) -> Completion<FilteredText>;
+    fn process_message_bundle(&self, messages: &[String]) -> Completion<Vec<FilteredText>>;
 }
 
 /// `TextFilter.DUMMY`.
 pub struct DummyTextFilter;
 
 impl TextFilter for DummyTextFilter {
-    fn process_stream_message(&self, message: &str) -> FilteredText {
-        FilteredText::pass_through(message)
+    fn process_stream_message(&self, message: &str) -> Completion<FilteredText> {
+        Completion::completed(FilteredText::pass_through(message))
     }
 
-    fn process_message_bundle(&self, messages: &[String]) -> Vec<FilteredText> {
-        messages
-            .iter()
-            .map(|m| FilteredText::pass_through(m.as_str()))
-            .collect()
+    fn process_message_bundle(&self, messages: &[String]) -> Completion<Vec<FilteredText>> {
+        Completion::completed(
+            messages
+                .iter()
+                .map(|m| FilteredText::pass_through(m.as_str()))
+                .collect(),
+        )
     }
 }
 
@@ -138,7 +83,9 @@ impl Filterable<String> {
     pub fn from_text(text: &FilteredText) -> Self {
         Self {
             raw: text.raw.clone(),
-            filtered: text.is_filtered().then(|| text.filtered_or_empty()),
+            filtered: text
+                .is_filtered()
+                .then(|| text.filtered_or_empty().as_lossy_str().to_owned()),
         }
     }
 }
@@ -147,6 +94,7 @@ impl Filterable<String> {
 mod tests {
     use super::*;
     use mc_protocol::codec::BitSet;
+    use mc_protocol::packets::play::FilterMask;
 
     #[test]
     fn masks_apply_like_vanilla() {
@@ -158,10 +106,15 @@ mod tests {
             raw: "abcd".into(),
             mask: FilterMask::PartiallyFiltered(bits),
         };
-        assert_eq!(text.filtered().as_deref(), Some("a##d"));
+        assert_eq!(text.filtered().unwrap().as_lossy_str(), "a##d");
         assert!(text.is_filtered());
         assert_eq!(FilteredText::fully_filtered("x").filtered(), None);
-        assert_eq!(FilteredText::fully_filtered("x").filtered_or_empty(), "");
+        assert_eq!(
+            FilteredText::fully_filtered("x")
+                .filtered_or_empty()
+                .as_lossy_str(),
+            ""
+        );
         assert!(!FilteredText::pass_through("x").is_filtered());
         assert_eq!(
             Filterable::from_text(&text),
@@ -200,8 +153,8 @@ mod tests {
     fn dummy_filter_passes_everything() {
         let messages = vec!["a".to_owned(), String::new()];
         assert_eq!(
-            DummyTextFilter.process_message_bundle(&messages),
-            vec![FilteredText::pass_through("a"), FilteredText::empty()]
+            DummyTextFilter.process_message_bundle(&messages).get(),
+            Some(vec![FilteredText::pass_through("a"), FilteredText::empty()])
         );
     }
 }

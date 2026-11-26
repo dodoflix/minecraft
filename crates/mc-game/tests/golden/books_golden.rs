@@ -6,7 +6,7 @@ use mc_game::commands::component_utils::{LimitBehavior, ResolutionContext};
 use mc_game::server::network::text_filter::FilteredText;
 use mc_game::world::container::Container;
 use mc_game::world::entity::ServerPlayer;
-use mc_game::world::item::{ItemStack, edit_book, resolve_for_item};
+use mc_game::world::item::{ItemStack, edit_book, resolve_for_item, texts_to_filter};
 use mc_nbt::Tag;
 use mc_protocol::codec::GameProfile;
 use mc_protocol::packets::play::ServerboundEditBookPacket;
@@ -77,15 +77,16 @@ fn books_match_vanilla() {
                     }
                 };
                 let pages: Vec<String> = serde_json::from_str(pages).unwrap();
-                edit_book(
-                    &mut player,
-                    &ServerboundEditBookPacket {
-                        slot: slot as i32,
-                        pages,
-                        title,
-                    },
-                    |s| FilteredText::pass_through(s),
-                );
+                let packet = ServerboundEditBookPacket {
+                    slot: slot as i32,
+                    pages,
+                    title,
+                };
+                let filtered: Vec<FilteredText> = texts_to_filter(&packet)
+                    .into_iter()
+                    .map(FilteredText::pass_through)
+                    .collect();
+                edit_book(&mut player, &packet, &filtered);
             }
             "USE" => {
                 slot = rest.parse().unwrap();

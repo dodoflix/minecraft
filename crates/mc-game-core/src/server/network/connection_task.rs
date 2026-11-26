@@ -1,7 +1,8 @@
 //! The per-connection task: everything netty's event loop does for one `Connection` before the play protocol takes
 //! over — legacy-ping sniffing, then the handshake → status | login → configuration listeners (each a module of this
-//! directory) run one after the other on the connection's task, with the 50 ms "tick" that vanilla gets from
-//! `ServerConnectionListener.tick`, the 30 s read timeout, packet-rate limiting and `exceptionCaught` handling.
+//! directory) run one after the other on the connection's task, with the "tick" that vanilla gets from
+//! `ServerConnectionListener.tick` (the server's tick, or every 50 ms for a listener nothing ticks), the 30 s read
+//! timeout, packet-rate limiting and `exceptionCaught` handling.
 
 use super::common_listener::CommonListenerCookie;
 use super::configuration_listener;
@@ -26,7 +27,7 @@ use std::panic::AssertUnwindSafe;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::net::TcpStream;
-use tokio::sync::mpsc;
+use tokio::sync::{mpsc, watch};
 use tokio::time::{Interval, MissedTickBehavior, interval};
 use uuid::Uuid;
 
@@ -36,6 +37,11 @@ pub struct ListenerShared {
     connections: Mutex<Vec<Arc<ConnectionHandle>>>,
     /// Connections whose listener lives on the game thread (play protocol): ticked by `ServerConnectionListener::tick`.
     play_connections: Mutex<Vec<(Uuid, Arc<ConnectionHandle>)>>,
+    /// The number of server ticks so far: what ticks the connections of a listener the server ticks.
+    server_ticks: watch::Sender<u64>,
+    /// Set once the server ticks this listener (`ServerConnectionListener.tick`): connections then tick with the server
+    /// instead of by the clock.
+    ticked_by_server: std::sync::atomic::AtomicBool,
 }
 
 impl ListenerShared {
@@ -44,7 +50,16 @@ impl ListenerShared {
             session_id: Mutex::new(None),
             connections: Mutex::new(Vec::new()),
             play_connections: Mutex::new(Vec::new()),
+            server_ticks: watch::channel(0).0,
+            ticked_by_server: std::sync::atomic::AtomicBool::new(false),
         })
+    }
+
+    /// One server tick of `ServerConnectionListener.tick`: every login and configuration connection ticks.
+    pub(super) fn signal_server_tick(&self) {
+        self.ticked_by_server
+            .store(true, std::sync::atomic::Ordering::SeqCst);
+        self.server_ticks.send_modify(|ticks| *ticks += 1);
     }
 
     /// `getSessionId`: one random UUID for as long as there are connections.
@@ -105,6 +120,33 @@ pub(super) enum Event {
     ReadError(ReadError),
 }
 
+/// The ticks of the server a connection follows.
+struct ServerTicks {
+    receiver: watch::Receiver<u64>,
+    /// The tick counter last read from `receiver`.
+    seen: u64,
+    /// Ticks read but not yet delivered.
+    pending: u64,
+    /// `Connection.tickCount`.
+    tick_count: u64,
+}
+
+/// Waits for the next server tick; `true` when a tick is due (never when the connection runs by the clock).
+async fn wait_server_tick(ticks: &mut Option<ServerTicks>) -> bool {
+    let Some(ticks) = ticks else {
+        return std::future::pending().await;
+    };
+    if ticks.pending == 0 {
+        if ticks.receiver.changed().await.is_err() {
+            return std::future::pending().await;
+        }
+        let now = *ticks.receiver.borrow_and_update();
+        ticks.pending = now - ticks.seen;
+        ticks.seen = now;
+    }
+    true
+}
+
 /// A fault is a failure of the pipeline (not a clean disconnect decision of a listener).
 pub(super) struct ConnectionContext {
     pub reader: FrameReader,
@@ -115,6 +157,8 @@ pub(super) struct ConnectionContext {
     pub listener: Arc<ListenerShared>,
     tick: Interval,
     second: Interval,
+    /// The server ticks still to be delivered as [`Event::Tick`] (`Some`: the connection ticks with the server).
+    server_ticks: Option<ServerTicks>,
     /// `RateKickingConnection` limit (`<= 0` = off).
     rate_limit: i32,
     received_packets: u32,
@@ -144,14 +188,33 @@ impl ConnectionContext {
         }
     }
 
+    /// `Connection.tick` on the server's tick: the once-a-second part every 20th tick.
+    fn deliver_server_tick(&mut self) {
+        let Some(ticks) = &mut self.server_ticks else {
+            return;
+        };
+        ticks.pending -= 1;
+        let count = ticks.tick_count;
+        ticks.tick_count += 1;
+        if count % 20 == 0 {
+            self.tick_second();
+        }
+    }
+
     /// Next thing the connection task has to react to.
     pub(super) async fn next_event(&mut self) -> Event {
         loop {
             tokio::select! {
                 biased;
                 () = self.handle.stopped() => return Event::Stopped,
-                _ = self.second.tick() => self.tick_second(),
-                _ = self.tick.tick() => return Event::Tick,
+                _ = self.second.tick(), if self.server_ticks.is_none() => self.tick_second(),
+                _ = self.tick.tick(), if self.server_ticks.is_none() => return Event::Tick,
+                due = wait_server_tick(&mut self.server_ticks) => {
+                    if due {
+                        self.deliver_server_tick();
+                        return Event::Tick;
+                    }
+                }
                 r = self.reader.next_payload() => {
                     return match r {
                         Ok(p) => {
@@ -234,6 +297,11 @@ pub(super) async fn run_connection(
     listener.add_connection(handle.clone());
 
     let settings = hooks.settings();
+    let receiver = listener.server_ticks.subscribe();
+    let seen = *receiver.borrow();
+    let ticked = listener
+        .ticked_by_server
+        .load(std::sync::atomic::Ordering::SeqCst);
     let mut tick = interval(Duration::from_millis(50));
     tick.set_missed_tick_behavior(MissedTickBehavior::Delay);
     let mut second = interval(Duration::from_secs(1));
@@ -247,6 +315,12 @@ pub(super) async fn run_connection(
         listener,
         tick,
         second,
+        server_ticks: ticked.then(|| ServerTicks {
+            seen,
+            receiver,
+            pending: 0,
+            tick_count: 0,
+        }),
         rate_limit: settings.rate_limit_packets_per_second,
         received_packets: 0,
         average_received_packets: 0.0,

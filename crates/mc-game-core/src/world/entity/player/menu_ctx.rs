@@ -22,6 +22,10 @@ impl MenuPlayer for PlayerCtx<'_> {
     fn entity_id(&self) -> i32 {
         self.player.base_id()
     }
+    fn process_stream_message(&mut self, text: &str) {
+        // the answer of the filter is not used: the rename is only sent for moderation
+        let _ = self.player.text_filter().process_stream_message(text);
+    }
     fn registries(&self) -> crate::registry::RegistryAccess {
         self.level.registries.clone()
     }

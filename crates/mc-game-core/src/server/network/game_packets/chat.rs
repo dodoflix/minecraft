@@ -2,8 +2,8 @@
 //! `handleChatAck`, `handleChatSessionUpdate`, `handleCustomCommandSuggestions` and the spam throttling.
 //! The chat model (signatures, last-seen tracking, `PlayerChatMessage`) is `crate::server::chat`.
 //!
-//! Text filtering: the dedicated server's `TextFilter` is `TextFilter.DUMMY` unless a filtering service is
-//! configured, which passes every message through unchanged; `filterTextPacket` is therefore synchronous here.
+//! Text filtering: `handleChat` asks the player's `TextFilter` and broadcasts the message through the chat message
+//! chain once the answer is in (at once for the dummy filter, from a game-thread task after a worker completed it).
 
 use super::PlayCtx;
 use crate::commands::Commands;
@@ -157,15 +157,21 @@ impl PlayCtx<'_> {
                     return;
                 }
             };
-            // `filterTextPacket` (DUMMY filter: pass-through) throws CancellationException once disconnected
-            if !ctx.lis().is_accepting_messages() {
-                log::debug!("Ignoring packet due to disconnection");
-                return;
-            }
+            let filtered_future = ctx
+                .lis()
+                .text_filter
+                .process_stream_message(signed_message.signed_content());
             // `ChatDecorator.PLAIN`: the decorated content is the signed content itself
             let decorated = signed_message.decorated_content();
-            let filtered_message = signed_message.with_unsigned_content(decorated);
-            ctx.broadcast_chat_message(filtered_message);
+            ctx.append_chat_task(filtered_future, move |ctx, filtered| {
+                if !ctx.accepts_filtered_result() {
+                    return;
+                }
+                let filtered_message = signed_message
+                    .with_unsigned_content(decorated)
+                    .filter_with_mask(filtered.mask);
+                ctx.broadcast_chat_message(filtered_message);
+            });
         });
     }
 
@@ -244,8 +250,15 @@ impl PlayCtx<'_> {
             }
         };
         let context = CommandSigningContext::Signed(Arc::new(signed));
+        let services = crate::commands::command_signing_context::ChatServices {
+            sender: crate::world::entity::Entity::uuid(&*self.player),
+            filter: self.lis().text_filter.clone(),
+            chain: self.lis().chat_message_chain.clone(),
+        };
         let parsed = Commands::map_source(parsed, |source| {
-            source.with_signing_context(context.clone())
+            source
+                .with_signing_context(context.clone())
+                .with_chat_services(services.clone())
         });
         let command = packet.command.clone();
         self.lis().deferred_tasks.push(Box::new(move |server| {

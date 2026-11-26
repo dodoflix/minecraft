@@ -171,6 +171,16 @@ impl ServerPlayer {
     }
 
     /// `ServerPlayer(server, level, gameProfile, clientInformation)`; `id` = `level.getNextEntityId()`.
+    /// `getTextFilter()`: the filter context of the connection (the dummy filter without a listener).
+    pub fn text_filter(
+        &self,
+    ) -> std::sync::Arc<dyn crate::server::network::text_filter::TextFilter> {
+        match &self.listener {
+            Some(listener) => listener.text_filter.clone(),
+            None => std::sync::Arc::new(crate::server::network::text_filter::DummyTextFilter),
+        }
+    }
+
     pub fn new(
         id: EntityId,
         dimension: Identifier,

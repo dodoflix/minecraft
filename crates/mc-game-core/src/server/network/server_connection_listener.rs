@@ -116,6 +116,7 @@ impl ServerConnectionListener {
 
     /// `tick()`: ticks the play connections, forgets closed connections.
     pub fn tick(&mut self, server: &mut MinecraftServer) {
+        self.listener.signal_server_tick();
         let play = self.listener.play_snapshot();
         if let Some(ticker) = self.play_ticker {
             for (id, _) in &play {

@@ -59,6 +59,58 @@ impl PlayCtx<'_> {
             .expect("play context without a listener")
     }
 
+    /// `future.thenAcceptAsync(task, server)`: `task` runs now when the future is complete (the game thread runs
+    /// it inline), else as a game-thread task once a worker completed the future; a player that is gone by then
+    /// is not served.
+    pub fn then_on_server<T: Clone + Send + 'static>(
+        &mut self,
+        future: crate::util::completion::Completion<T>,
+        task: impl FnOnce(&mut PlayCtx, T) + Send + 'static,
+    ) {
+        match future.get() {
+            Some(value) => task(self, value),
+            None => {
+                let Some(shared) = self.lis().chat_message_chain.server() else {
+                    return;
+                };
+                let uuid = crate::world::entity::Entity::uuid(&*self.player);
+                future.then(move |value| {
+                    shared.execute(move |server| {
+                        with_player(server, uuid, |ctx| task(ctx, value));
+                    });
+                });
+            }
+        }
+    }
+
+    /// `chatMessageChain.append(preparation, task)`.
+    pub fn append_chat_task<T: Clone + Send + 'static>(
+        &mut self,
+        preparation: crate::util::completion::Completion<T>,
+        task: impl FnOnce(&mut PlayCtx, T) + Send + 'static,
+    ) {
+        use super::future_chain::Appended;
+        let chain = self.lis().chat_message_chain.clone();
+        match chain.append(preparation) {
+            Appended::Ready(value) => task(self, value),
+            Appended::Queued(link) => {
+                let uuid = crate::world::entity::Entity::uuid(&*self.player);
+                link.run(move |server, value| {
+                    with_player(server, uuid, |ctx| task(ctx, value));
+                });
+            }
+        }
+    }
+
+    /// The check of `filterTextPacket` once the filter answered: no message is handled for a connection that is gone.
+    pub fn accepts_filtered_result(&mut self) -> bool {
+        let accepting = self.lis().is_accepting_messages();
+        if !accepting {
+            log::debug!("Ignoring packet due to disconnection");
+        }
+        accepting
+    }
+
     /// `send(packet)`.
     pub fn send<P: Packet>(&mut self, packet: &P) {
         self.lis().send(packet);

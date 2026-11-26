@@ -543,6 +543,7 @@ impl WorkerPool {
 /// every chunk map. Jobs carry their own [`ResultSender`].
 struct BackgroundExecutor {
     tx: Sender<Box<dyn FnOnce() + Send>>,
+    threads: usize,
 }
 
 static BACKGROUND: LazyLock<BackgroundExecutor> = LazyLock::new(|| {
@@ -566,8 +567,18 @@ static BACKGROUND: LazyLock<BackgroundExecutor> = LazyLock::new(|| {
             })
             .expect("spawn background worker");
     }
-    BackgroundExecutor { tx }
+    BackgroundExecutor { tx, threads }
 });
+
+/// The worker count (`ForkJoinPool.getParallelism()`) of `Util.backgroundExecutor()` and an identity for its
+/// `toString` hash.
+pub(crate) fn background_executor_state() -> (usize, u32) {
+    let executor: &BackgroundExecutor = &BACKGROUND;
+    (
+        executor.threads,
+        std::ptr::from_ref(executor) as usize as u32,
+    )
+}
 
 /// Runs a batch; a panic outside the per-step guard of `run_batch` is a crash report like a failed step.
 fn run_batch_message(ctx: &WorldGenContext, batch: GenBatch) -> WorkerMessage {
