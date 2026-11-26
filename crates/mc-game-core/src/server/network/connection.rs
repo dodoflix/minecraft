@@ -450,11 +450,18 @@ pub fn get_millis() -> i64 {
     crate::server::shared::get_nanos() / 1_000_000
 }
 
-/// The disconnect packet of `state` (`VarInt id + body`), if that protocol has one.
+/// The disconnect packet of `state` (`VarInt id + body`), if that protocol has one. The status protocol has none: the
+/// encoder logs the unknown packet and the connection closes.
 fn disconnect_payload(state: ConnectionState, reason: &Component) -> Option<Vec<u8>> {
     // A reason that cannot be encoded is vanilla's double fault: the connection closes without a disconnect packet.
     match state {
-        ConnectionState::Handshake | ConnectionState::Status => None,
+        ConnectionState::Handshake => None,
+        ConnectionState::Status => {
+            log::error!(
+                "Error sending packet clientbound/minecraft:disconnect\nio.netty.handler.codec.EncoderException: Sending unknown packet 'clientbound/minecraft:disconnect'"
+            );
+            None
+        }
         ConnectionState::Login => encode_packet(&login::ClientboundLoginDisconnectPacket {
             reason: mc_protocol::codec::JsonComponent(reason.clone()),
         })

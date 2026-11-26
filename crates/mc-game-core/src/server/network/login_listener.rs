@@ -94,6 +94,22 @@ impl Login {
         ctx.log_on_server(move || log::info!("Disconnecting {user}: {text}"));
         ctx.sender.disconnect(reason);
     }
+
+    /// `disconnect(component)` from a handler that never hops to the main thread (the packet handlers of a query or
+    /// cookie answer): the log line comes from the network thread.
+    fn disconnect_on_network_thread(
+        &self,
+        ctx: &ConnectionContext,
+        log_ips: bool,
+        reason: Component,
+    ) {
+        log::info!(
+            "Disconnecting {}: {}",
+            self.user_name(ctx, log_ips),
+            reason.get_string()
+        );
+        ctx.sender.disconnect(reason);
+    }
 }
 
 /// Runs the login protocol. `Some(profile)` once `LoginAcknowledged` was handled (state `ACCEPTED`): the caller starts
@@ -212,7 +228,7 @@ fn handle_packet(
         ServerboundLoginPacket::Key(key) => handle_key(ctx, login, key),
         ServerboundLoginPacket::CustomQueryAnswer(_)
         | ServerboundLoginPacket::CookieResponse(_) => {
-            login.disconnect(ctx, log_ips, disconnect_unexpected_query());
+            login.disconnect_on_network_thread(ctx, log_ips, disconnect_unexpected_query());
             Ok(())
         }
         ServerboundLoginPacket::LoginAcknowledged(_) => {
