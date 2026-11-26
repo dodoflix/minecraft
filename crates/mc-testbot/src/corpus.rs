@@ -49,6 +49,9 @@ enum Item {
     Respawn(usize),
     /// Directory copied to `world/datapacks/<name>` of both servers before they start.
     Datapack(String),
+    /// `!addpack <dir>`: the directory is copied to `world/datapacks/<name>` of both running servers at this point (a
+    /// following `reload` finds it; `!datapack` copies before the servers start).
+    AddPack(String),
     /// `!world flat|normal [structures]`: the world type of both servers (default flat, no structures).
     World(String, bool),
     /// `!send <packet> ...`: a serverbound play packet sent as the bot (`@bot0 !send ...` as Bot0).
@@ -123,6 +126,16 @@ fn parse_corpus(file: &str, text: &str) -> Res<Vec<Line>> {
                         )));
                     }
                     Item::Datapack(dir.to_string_lossy().into_owned())
+                }
+                "addpack" => {
+                    let dir = Path::new(file).parent().unwrap_or(Path::new(".")).join(arg);
+                    if arg.is_empty() || !dir.is_dir() {
+                        return Err(at(format!(
+                            "!addpack needs a directory relative to the corpus file ({} is none)",
+                            dir.display()
+                        )));
+                    }
+                    Item::AddPack(dir.to_string_lossy().into_owned())
                 }
                 "world" => {
                     let mut words = arg.split_whitespace();
@@ -994,6 +1007,16 @@ impl Side {
                     .map(Some)
             }
             Item::File(path) => Ok(Some(self.file_segment(path, header))),
+            Item::AddPack(dir) => {
+                let src = Path::new(dir);
+                let to = self
+                    .srv
+                    .dir()
+                    .join("world/datapacks")
+                    .join(src.file_name().unwrap_or_default());
+                copy_dir(src, &to).map_err(|e| format!("{}: !addpack {dir}: {e}", self.label))?;
+                Ok(None)
+            }
             Item::Datapack(_) | Item::World(..) => Ok(None),
             Item::Ignore(r) => {
                 self.ignore.push(Regex::new(r).expect("checked at parse"));
@@ -1539,6 +1562,16 @@ mod tests {
         assert!(parse_corpus("x", "!known why\n!respawn Bot").is_err());
         assert!(parse_corpus("x", "!known why").is_err());
         assert!(parse_corpus("x", "@alice hi").is_err());
+    }
+
+    #[test]
+    fn addpack_needs_a_directory() {
+        assert_eq!(
+            parse_corpus("x", "!addpack .").unwrap()[0].item,
+            Item::AddPack(".".into())
+        );
+        assert!(parse_corpus("x", "!addpack").is_err());
+        assert!(parse_corpus("x", "!addpack no_such_directory").is_err());
     }
 
     #[test]

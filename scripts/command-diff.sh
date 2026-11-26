@@ -39,6 +39,10 @@
 #                      values that differ between two runs of vanilla itself (absolute game times, identity-hash order)
 #   !packets <regex>   also record the packets the bots RECEIVE whose name (e.g. set_title_text, level_particles, sound) matches
 #                      (`!packets ^$` switches it off); recorded with the packet's Debug form
+#   !datapack <dir>    the directory (relative to the corpus file) is copied to `world/datapacks/<name>` of both servers before they
+#                      start (a pack that fails to load keeps the server from starting)
+#   !addpack <dir>     the same copy into the RUNNING servers at this point; `reload` and `datapack list` rescan and find it
+#                      (`datapack enable` only after one of them)
 #   !world flat|normal [structures]   world type of both servers for this file (default flat without structures)
 #   !known <reason>    the NEXT command's output differs from vanilla on purpose: the diff is printed with the reason and does
 #                      not fail; once the output is identical the line is reported as stale
