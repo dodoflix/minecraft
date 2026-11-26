@@ -1,8 +1,9 @@
 //! `util.profiling.metrics`: `MetricSampler`, `ServerMetricsSamplersProvider`, `ActiveMetricsRecorder` and
 //! `MetricsPersister` (what `/perf start|stop` records and writes).
 //!
-//! Not ported: `MetricsRegistry` samplers (executors / pathfinding, which have no counterpart here) and the
-//! `ProfilerSamplerAdapter` (samplers of paths marked for charting; nothing marks one).
+//! Not ported: the `MetricsRegistry` samplers of pathfinding, and the `ProfilerSamplerAdapter` (samplers of paths marked
+//! for charting; nothing marks one). The registered executors (`event-loops.csv`, `consecutive-executors.csv`) have
+//! columns of the same names but no queues behind them: see [`executor_samplers`].
 
 use std::fmt::Write as _;
 use std::io;
@@ -185,8 +186,40 @@ fn resident_mib() -> f64 {
     f64::from(((pages * 4096) as i64) as f32 / 1048576.0_f32)
 }
 
+/// The `MetricsRegistry` samplers of the executors a dedicated server registers: one `<name>-pending-tasks` per event
+/// loop (the server and each level's chunk source) and one `<name>-queue-size` per consecutive executor.
+/// This server has no such queues (its work runs on thread pools without a queue counter), so every column reads zero.
+/// Vanilla writes the columns in the iteration order of a hash set, which depends on the CPU count and the levels;
+/// they are written here in creation order.
+fn executor_samplers(level_names: &[String]) -> Vec<MetricSampler> {
+    const CONSECUTIVE_EXECUTORS: [&str; 7] = [
+        "light",
+        "entity-deserializer",
+        "worldgen",
+        "dispatcher",
+        "IOWorker-poi",
+        "IOWorker-chunk",
+        "IOWorker-entities",
+    ];
+    let event_loops = level_names
+        .iter()
+        .map(|level| format!("Chunk source main thread executor for {level}-pending-tasks"))
+        .chain(std::iter::once("Server-pending-tasks".to_owned()))
+        .map(|name| (name, MetricCategory::EventLoops));
+    let consecutive = CONSECUTIVE_EXECUTORS.iter().map(|name| {
+        (
+            format!("{name}-queue-size"),
+            MetricCategory::ConsecutiveExecutors,
+        )
+    });
+    event_loops
+        .chain(consecutive)
+        .map(|(name, category)| MetricSampler::create(name, category, || 0.0))
+        .collect()
+}
+
 /// `new ServerMetricsSamplersProvider(timeSource, isDedicatedServer).samplers(..)`.
-fn server_samplers(dedicated: bool) -> Vec<MetricSampler> {
+fn server_samplers(dedicated: bool, level_names: &[String]) -> Vec<MetricSampler> {
     let mut samplers = vec![tick_time_sampler()];
     if dedicated {
         let cpus = read_cpu_ticks().len();
@@ -204,6 +237,7 @@ fn server_samplers(dedicated: bool) -> Vec<MetricSampler> {
             MetricCategory::Jvm,
             resident_mib,
         ));
+        samplers.extend(executor_samplers(level_names));
     }
     samplers
 }
@@ -235,7 +269,7 @@ pub struct ActiveMetricsRecorder {
 
 impl ActiveMetricsRecorder {
     /// `ActiveMetricsRecorder.createStarted(new ServerMetricsSamplersProvider(..), ..)`.
-    pub fn create_started(dedicated: bool) -> Self {
+    pub fn create_started(dedicated: bool, level_names: &[String]) -> Self {
         let current_tick = Arc::new(AtomicI32::new(0));
         let tick = current_tick.clone();
         let task_profiler = Arc::new(Mutex::new(ActiveProfiler::new(
@@ -244,7 +278,7 @@ impl ActiveMetricsRecorder {
             false,
         )));
         let mut recorder = Self {
-            samplers: server_samplers(dedicated),
+            samplers: server_samplers(dedicated, level_names),
             deviations: Vec::new(),
             task_profiler,
             single_tick_profiler: None,
@@ -435,7 +469,7 @@ mod tests {
 
     #[test]
     fn records_ticks_and_writes_reports() {
-        let mut recorder = ActiveMetricsRecorder::create_started(false);
+        let mut recorder = ActiveMetricsRecorder::create_started(false, &[]);
         for _ in 0..3 {
             recorder.start_tick();
             {

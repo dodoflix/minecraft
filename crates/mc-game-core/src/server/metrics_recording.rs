@@ -63,7 +63,13 @@ impl MinecraftServer {
     /// profilers on this thread until the scope is dropped.
     pub(super) fn begin_metrics_tick(&mut self) -> ProfilerScope {
         if self.metrics_recording.will_start {
-            self.metrics_recording.recorder = Some(ActiveMetricsRecorder::create_started(true));
+            let level_names: Vec<String> = self
+                .level_keys()
+                .iter()
+                .map(|key| format!("{}:{}", key.namespace(), key.path()))
+                .collect();
+            self.metrics_recording.recorder =
+                Some(ActiveMetricsRecorder::create_started(true, &level_names));
             self.metrics_recording.will_start = false;
         }
         match &mut self.metrics_recording.recorder {
