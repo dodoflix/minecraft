@@ -11,6 +11,7 @@
 #                                                    scenarios/*.txt[.gz] twin
 #
 # Output: stdout, or OUT with -o (replaced only when the run succeeded; --regen writes crates/mc-game/tests/fixtures/entity_oracle/*.txt[.gz]).
+# Env MC_VANILLA_AGENT: run under the execution-coverage agent (scripts/vanilla-agent.sh).
 # Needs: java, javac, python3, ref/ with decompiled sources (setup-ref.sh --decompile) and MC_ACCEPT_EULA=1 (the oracle starts a vanilla
 # level). The shadow classes AdvancementNode/Holder/ResourceKey/RandomSource/Util/AttributeInstance/GossipContainer/RandomSupport (vanilla + tests/oracle/shadow.patch, see oracle-shadow.sh) are
 # generated and compiled into target/entity-oracle-shadow on demand.
@@ -72,6 +73,8 @@ JAVA_OPTS_ORACLE=(-Xmx2G -Dio.netty.noUnsafe=false -Doracle.directExecutors=true
 scenario="$(realpath "$1")"; shift
 out=""
 if [ "${1:-}" = -o ]; then out="$(realpath -m "$2")"; shift 2; fi
+agent_opts "eo-$(basename "$scenario" .gz | sed 's/\.[a-z]*$//')"
+JAVA_OPTS_ORACLE+=("${AGENT_OPTS[@]}")
 # vanilla writes banned-*.json/ops.json/whitelist.json into the working directory: every run gets a fresh one (a leftover ops.json
 # of an earlier `op` scenario, or a parallel run sharing the directory, would change the next fixture)
 mkdir -p "$ROOT/target"

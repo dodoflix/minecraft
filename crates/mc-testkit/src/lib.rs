@@ -179,6 +179,8 @@ struct Proc {
     stdin: Mutex<Option<ChildStdin>>,
     log: Arc<Log>,
     pgid: libc::pid_t,
+    /// The coverage agent's control file, when the child runs under it.
+    coverage_control: Option<PathBuf>,
 }
 
 impl Proc {
@@ -189,6 +191,10 @@ impl Proc {
             .stdin(Stdio::piped())
             .stdout(out_writer)
             .stderr(File::create(dir.join("stderr.log"))?);
+        let coverage_control = cmd
+            .get_envs()
+            .find(|(k, _)| *k == "MC_VANILLA_AGENT_CONTROL")
+            .and_then(|(_, v)| v.map(PathBuf::from));
         let mut child = spawn_in_group(cmd)?;
         let stdin = child.stdin.take();
         let log = Arc::new(Log::default());
@@ -199,6 +205,7 @@ impl Proc {
             child: Mutex::new(child),
             stdin: Mutex::new(stdin),
             log,
+            coverage_control,
         })
     }
 
@@ -227,6 +234,15 @@ impl Proc {
     fn kill(&self) {
         let mut child = lock(&self.child);
         if child.try_wait().ok().flatten().is_none() {
+            if let Some(control) = &self.coverage_control {
+                // the agent writes its counters and then removes the file
+                if fs::write(control, "dump").is_ok() {
+                    let deadline = Instant::now() + Duration::from_secs(10);
+                    while control.exists() && Instant::now() < deadline {
+                        std::thread::sleep(Duration::from_millis(20));
+                    }
+                }
+            }
             // SAFETY: plain syscall. The group id is the pid of our own unreaped child, so it cannot name a stranger.
             unsafe { libc::kill(-self.pgid, libc::SIGKILL) };
             let _ = child.wait();
@@ -616,6 +632,18 @@ impl Builder {
                 };
                 let mut cmd = Command::new(&java);
                 cmd.arg(format!("-Xmx{}", self.xmx));
+                if self.java.is_none() {
+                    let agent = coverage_agent_options()?;
+                    cmd.args(&agent);
+                    if std::env::var_os("MC_VANILLA_AGENT_LABEL").is_none() {
+                        let test = std::thread::current();
+                        cmd.env("MC_VANILLA_AGENT_LABEL", test.name().unwrap_or("testkit"));
+                    }
+                    if !agent.is_empty() {
+                        // `kill` asks the agent for a dump first: SIGKILL skips its shutdown hook
+                        cmd.env("MC_VANILLA_AGENT_CONTROL", dir.join("coverage.ctl"));
+                    }
+                }
                 cmd.args(
                     self.java_properties
                         .iter()
@@ -679,6 +707,29 @@ impl Builder {
             _permit: None,
         })
     }
+}
+
+/// JVM options that attach the vanilla execution-coverage agent when `MC_VANILLA_AGENT` is set (`scripts/vanilla-agent.sh`).
+fn coverage_agent_options() -> Result<Vec<String>> {
+    if std::env::var_os("MC_VANILLA_AGENT").is_none_or(|v| v.is_empty() || v == "0") {
+        return Ok(Vec::new());
+    }
+    let script = repo_root().join("scripts/vanilla-agent.sh");
+    let out = Command::new(&script)
+        .arg("opts")
+        .output()
+        .map_err(|e| Error(format!("{}: {e}", script.display())))?;
+    if !out.status.success() {
+        return Err(Error(format!(
+            "{} opts failed: {}",
+            script.display(),
+            String::from_utf8_lossy(&out.stderr)
+        )));
+    }
+    Ok(String::from_utf8_lossy(&out.stdout)
+        .lines()
+        .map(str::to_owned)
+        .collect())
 }
 
 /// The classpath of the unbundled vanilla server (`scripts/vanilla-cp.sh`).

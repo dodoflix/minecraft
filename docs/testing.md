@@ -287,6 +287,22 @@ git add <generator> <output>              # commit generator and output together
 
 A fixture diff that nobody can explain is a bug in the generator or in the test, not something to commit.
 
+### Execution coverage of the vanilla side
+
+Every vanilla JVM the scripts start can run under `tools/vanilla-agent`, a `-javaagent` written against `java.lang.classfile`
+(JDK 25 or newer, no dependency). It records, for every method of `net.minecraft.*` and for every basic block in it, whether
+it ran. Set `MC_VANILLA_AGENT=1` (files in `target/vanilla-coverage`) or `MC_VANILLA_AGENT=<directory>` before
+`scripts/entity-oracle.sh`, `scripts/vanilla-java.sh`, `scripts/vanilla-server.sh` or a T2 test (`mc-testkit` passes the agent to
+the vanilla JVMs it starts). `MC_VANILLA_AGENT_MODE=count` counts hits instead of flagging them. The file
+`<label>.<pid>.cov.gz` is written at JVM exit; writing `dump [PATH]` or `reset` into `<label>.<pid>.ctl` next to it dumps or
+clears the counters of a running server. The agent leaves the program's output byte-identical (scenario fixtures recorded under it
+equal the committed ones); methods that depend on thread timing, such as the server's task scheduler, can differ between two runs
+of the same scenario with or without the agent.
+
+`scripts/vanilla-coverage.py` compares (`diff`), merges (`merge`) and reports (`report`) coverage files against the list of
+all methods that `scripts/vanilla-agent.sh universe` writes; `scripts/vanilla-coverage-campaign.sh` runs the oracle drivers
+one after the other and merges them. `scripts/vanilla-agent.sh selftest` checks the agent itself.
+
 ## 6. Feature families
 
 Every feature family registered through the `linkme` slots (crafting, commands, advancements and loot hosts, and

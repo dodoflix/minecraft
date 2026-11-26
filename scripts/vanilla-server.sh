@@ -15,6 +15,8 @@
 #             releases up to 1.16.5 need JDK 8)
 # Trailing `key=value` args override/add any server.properties entry.
 # Env VANILLA_JVM_OPTS: extra JVM flags (e.g. "-Dmax.bg.threads=1").
+# Env MC_VANILLA_AGENT: run under the execution-coverage agent (scripts/vanilla-agent.sh); not with --jar/--java. The coverage
+#   file is written when the server stops.
 # Env MC_ACCEPT_EULA=1 is required to start: it writes eula.txt, i.e. accepts the Minecraft EULA in your name.
 # Defaults: online-mode=false, enforce-secure-profile=false, white-list=false, spawn-protection=0.
 # Needs: java, ref/ (scripts/setup-ref.sh) unless --jar and --java are given.
@@ -38,7 +40,7 @@ D="$(dir_of "$name")"
 case "$cmd" in
 start)
   need mkfifo setsid
-  port=25565 seed="" level_type="minecraft:normal" vd=6 sd=6 gm=creative diff=peaceful reset=0 xmx=2G jar="$ROOT/ref/server.jar" java=java
+  port=25565 seed="" level_type="minecraft:normal" vd=6 sd=6 gm=creative diff=peaceful reset=0 custom=0 xmx=2G jar="$ROOT/ref/server.jar" java=java
   declare -A extra=()
   while (($#)); do
     case "$1" in
@@ -50,8 +52,8 @@ start)
       --gamemode) gm="$2"; shift 2;;
       --difficulty) diff="$2"; shift 2;;
       --xmx) xmx="$2"; shift 2;;
-      --jar) jar="$2"; shift 2;;
-      --java) java="$2"; shift 2;;
+      --jar) jar="$2"; custom=1; shift 2;;
+      --java) java="$2"; custom=1; shift 2;;
       --reset) reset=1; shift;;
       --) shift;;
       *=*) extra["${1%%=*}"]="${1#*=}"; shift;;
@@ -64,6 +66,7 @@ start)
   [[ $java != */* ]] || java="$(readlink -f "$java")"  # the server starts in another directory
   ! alive "$name" || die "$name already running (pid $(pid_of "$name"))"
   require_eula
+  if ((custom)); then AGENT_OPTS=(); else agent_opts "server-$name"; fi
   ((reset)) && rm -rf "$D"
   mkdir -p "$D"
   write_eula "$D"
@@ -90,8 +93,8 @@ start)
   (cd "$D" && setsid bash -c '
       exec 3<>stdin.fifo
       echo $$ > server.pid
-      exec "$2" -Xms512M -Xmx'"$xmx"' '"${VANILLA_JVM_OPTS:-}"' -jar "$1" nogui <&3 >server.out 2>&1
-    ' _ "$jar" "$java" &) 
+      exec "$2" -Xms512M -Xmx'"$xmx"' '"${VANILLA_JVM_OPTS:-}"' "${@:3}" -jar "$1" nogui <&3 >server.out 2>&1
+    ' _ "$jar" "$java" "${AGENT_OPTS[@]}" &) 
   for _ in $(seq 100); do [[ -s "$D/server.pid" ]] && break; sleep 0.1; done
   # readiness: "Done (1.2s)! For help, type "help""; also fail fast if the process dies
   for _ in $(seq 240); do

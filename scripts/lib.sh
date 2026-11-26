@@ -58,3 +58,17 @@ quiet() {
   rm -f "$err"
   return "$rc"
 }
+
+# agent_opts [LABEL]: fills AGENT_OPTS with the JVM options of the vanilla coverage agent (scripts/vanilla-agent.sh) when
+# MC_VANILLA_AGENT is set, else empties it; LABEL names the run's coverage file unless MC_VANILLA_AGENT_LABEL is set.
+# Use as `java "${AGENT_OPTS[@]}" ...`.
+agent_opts() {
+  AGENT_OPTS=()
+  case "${MC_VANILLA_AGENT:-}" in "" | 0) return 0 ;; esac
+  export MC_VANILLA_AGENT_LABEL="${MC_VANILLA_AGENT_LABEL:-${1:-}}"
+  [ -n "$MC_VANILLA_AGENT_LABEL" ] || unset MC_VANILLA_AGENT_LABEL
+  local opts
+  opts="$("$ROOT/scripts/vanilla-agent.sh" opts)" || die "the coverage agent options failed: scripts/vanilla-agent.sh opts"
+  # shellcheck disable=SC2034  # read by the sourcing script
+  mapfile -t AGENT_OPTS <<<"$opts"
+}
