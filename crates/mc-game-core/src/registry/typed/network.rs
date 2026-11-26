@@ -71,8 +71,8 @@ pub fn network_schema(registry: &str) -> Option<Schema> {
             req("baby_assets", Schema::Raw),
         ]),
         keys::PAINTING_VARIANT => Schema::Record(vec![
-            req("width", Schema::IntRange(1, 16)),
-            req("height", Schema::IntRange(1, 16)),
+            req("width", Schema::ExtraIntRange(1, 16)),
+            req("height", Schema::ExtraIntRange(1, 16)),
             req("asset_id", Schema::Identifier),
             opt("title", Schema::Text),
             opt("author", Schema::Text),
@@ -81,7 +81,7 @@ pub fn network_schema(registry: &str) -> Option<Schema> {
             req("sound_event", sound_event()),
             req("description", Schema::Text),
             req("length_in_seconds", positive_float()),
-            req("comparator_output", Schema::IntRange(0, 15)),
+            req("comparator_output", Schema::ExtraIntRange(0, 15)),
         ]),
         keys::INSTRUMENT => Schema::Record(vec![
             req("sound_event", sound_event()),

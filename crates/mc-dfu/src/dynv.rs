@@ -89,6 +89,14 @@ pub enum JNum {
     Lazy(String),
 }
 
+/// Throws a `NumberFormatException` out of a codec (a Java exception unwinds through the decoder to whoever catches it).
+/// `resume_unwind` skips the panic hook: vanilla prints nothing for an exception that is caught.
+pub fn throw_number_format(message: &str) -> ! {
+    std::panic::resume_unwind(Box::new(format!(
+        "java.lang.NumberFormatException: {message}"
+    )))
+}
+
 impl JNum {
     /// `Number.intValue()`.
     pub fn int_value(&self) -> i32 {
@@ -100,7 +108,7 @@ impl JNum {
             JNum::Float(v) => *v as i32,
             JNum::Double(v) => *v as i32,
             JNum::Lazy(t) => mc_core::gson::lazily_parsed_int_value(t)
-                .unwrap_or_else(|e| panic!("java.lang.NumberFormatException: {e}")),
+                .unwrap_or_else(|e| throw_number_format(&e)),
         }
     }
     /// `Number.longValue()`.
@@ -113,7 +121,7 @@ impl JNum {
             JNum::Float(v) => *v as i64,
             JNum::Double(v) => *v as i64,
             JNum::Lazy(t) => mc_core::gson::lazily_parsed_long_value(t)
-                .unwrap_or_else(|e| panic!("java.lang.NumberFormatException: {e}")),
+                .unwrap_or_else(|e| throw_number_format(&e)),
         }
     }
     /// `Number.byteValue()`: `(byte) intValue()` for floating point and lazy numbers (Java narrows via int).

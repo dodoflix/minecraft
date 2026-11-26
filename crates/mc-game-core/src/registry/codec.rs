@@ -11,7 +11,7 @@ use std::cell::RefCell;
 use mc_core::gson::JsonElement;
 use mc_core::ident::Identifier;
 use mc_core::math::java::{java_double_to_string, java_float_to_string};
-use mc_dfu::Dyn;
+use mc_dfu::{Dyn, JNum};
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use serde_json::Value;
 
@@ -146,6 +146,19 @@ impl<'a> RegistryDecodeContext<'a> {
                 Ok(Dyn::from_json_element(element))
             }
             _ => Dyn::from_json_str(&json.to_string()),
+        }
+    }
+
+    /// The text of the JSON number `v` stands for when `serde_json` could not hold it (`1e400`: `v` is `null`), read
+    /// from the Gson tree the entry was loaded from. `None` for any other value.
+    pub fn lazy_number(&self, v: &Value) -> Option<&'a str> {
+        let (root, element) = self.exact?;
+        if !v.is_null() {
+            return None;
+        }
+        match exact_element(root, element, v)? {
+            JsonElement::Number(text) => Some(text),
+            _ => None,
         }
     }
 
@@ -437,6 +450,8 @@ pub enum Schema {
     Float,
     Double,
     IntRange(i32, i32),
+    /// `ExtraCodecs.intRange`: its own error message.
+    ExtraIntRange(i32, i32),
     FloatRange(f32, f32),
     DoubleRange(f64, f64),
     String,
@@ -493,29 +508,51 @@ fn compact(v: &Value) -> String {
     serde_json::to_string(v).unwrap_or_default()
 }
 
-fn number<'v>(v: &'v Value, ctx: &RegistryDecodeContext) -> Result<&'v serde_json::Number, String> {
-    match v {
-        Value::Number(n) => Ok(n),
-        _ => Err(ctx.not_a("number", "number", v)),
+/// The node of the Gson tree `element` that `target` (a node of `value`, the lossy copy of the tree) was made from.
+fn exact_element<'a>(
+    value: &Value,
+    element: &'a JsonElement,
+    target: &Value,
+) -> Option<&'a JsonElement> {
+    if std::ptr::eq(value, target) {
+        return Some(element);
     }
+    match (value, element) {
+        (Value::Array(values), JsonElement::Array(elements)) => values
+            .iter()
+            .zip(elements)
+            .find_map(|(v, e)| exact_element(v, e, target)),
+        // keys that collide once lossy (two lone surrogates) shift the members: no match then
+        (Value::Object(values), JsonElement::Object(members)) if values.len() == members.len() => {
+            values
+                .values()
+                .zip(members.iter().map(|(_, e)| e))
+                .find_map(|(v, e)| exact_element(v, e, target))
+        }
+        _ => None,
+    }
+}
+
+/// The number `v` holds as a Gson `Number` (`LazilyParsedNumber` for one `serde_json` cannot hold, such as `1e400`).
+fn number(v: &Value, ctx: &RegistryDecodeContext) -> Result<JNum, String> {
+    match v {
+        Value::Number(n) => Ok(jnum(n)),
+        _ => ctx
+            .lazy_number(v)
+            .map(|text| JNum::Lazy(text.to_owned()))
+            .ok_or_else(|| ctx.not_a("number", "number", v)),
+    }
+}
+
+/// A `serde_json` number as the JSON reader typed it: an integer, else a double.
+pub(crate) fn jnum(n: &serde_json::Number) -> JNum {
+    n.as_i64()
+        .map_or_else(|| JNum::Double(n.as_f64().unwrap_or(0.0)), JNum::Long)
 }
 
 /// `Number.intValue()`.
 pub fn int_value(n: &serde_json::Number) -> i32 {
-    n.as_i64()
-        .map(|i| i as i32)
-        .or_else(|| n.as_f64().map(|f| f as i32))
-        .unwrap_or(0)
-}
-
-fn long_value(n: &serde_json::Number) -> i64 {
-    n.as_i64()
-        .or_else(|| n.as_f64().map(|f| f as i64))
-        .unwrap_or(0)
-}
-
-fn double_value(n: &serde_json::Number) -> f64 {
-    n.as_f64().unwrap_or(0.0)
+    jnum(n).int_value()
 }
 
 /// `JsonOps.convertTo(NbtOps.INSTANCE, json)`.
@@ -641,22 +678,30 @@ impl Schema {
                 }
                 _ => Err(format!("Not a boolean: {}", compact(v))),
             },
-            Schema::Byte => Ok(Tag::Byte(int_value(number(v, ctx)?) as i8)),
-            Schema::Short => Ok(Tag::Short(int_value(number(v, ctx)?) as i16)),
-            Schema::Int => Ok(Tag::Int(int_value(number(v, ctx)?))),
-            Schema::Long => Ok(Tag::Long(long_value(number(v, ctx)?))),
-            Schema::Float => Ok(Tag::Float(double_value(number(v, ctx)?) as f32)),
-            Schema::Double => Ok(Tag::Double(double_value(number(v, ctx)?))),
+            Schema::Byte => Ok(Tag::Byte(number(v, ctx)?.byte_value())),
+            Schema::Short => Ok(Tag::Short(number(v, ctx)?.short_value())),
+            Schema::Int => Ok(Tag::Int(number(v, ctx)?.int_value())),
+            Schema::Long => Ok(Tag::Long(number(v, ctx)?.long_value())),
+            Schema::Float => Ok(Tag::Float(number(v, ctx)?.float_value())),
+            Schema::Double => Ok(Tag::Double(number(v, ctx)?.double_value())),
             Schema::IntRange(min, max) => {
-                let n = int_value(number(v, ctx)?);
+                let n = number(v, ctx)?.int_value();
                 if n >= *min && n <= *max {
                     Ok(Tag::Int(n))
                 } else {
                     Err(range_error(n, *min, *max))
                 }
             }
+            Schema::ExtraIntRange(min, max) => {
+                let n = number(v, ctx)?.int_value();
+                if n >= *min && n <= *max {
+                    Ok(Tag::Int(n))
+                } else {
+                    Err(format!("Value must be within range [{min};{max}]: {n}"))
+                }
+            }
             Schema::FloatRange(min, max) => {
-                let f = double_value(number(v, ctx)?) as f32;
+                let f = number(v, ctx)?.float_value();
                 if f >= *min && f <= *max {
                     Ok(Tag::Float(f))
                 } else {
@@ -669,7 +714,7 @@ impl Schema {
                 }
             }
             Schema::DoubleRange(min, max) => {
-                let d = double_value(number(v, ctx)?);
+                let d = number(v, ctx)?.double_value();
                 if d >= *min && d <= *max {
                     Ok(Tag::Double(d))
                 } else {
@@ -998,9 +1043,10 @@ fn decode_record(
     let mut errors: Vec<String> = Vec::new();
     let mut has_partial = true;
     for field in fields {
-        // `JsonOps` hands a JSON `null` to `MapLike.get` as absent
+        // `JsonOps` hands a JSON `null` to `MapLike.get` as absent (a number beyond `f64` is a `null` here, but present)
         match (
-            o.get(field.name).filter(|value| !value.is_null()),
+            o.get(field.name)
+                .filter(|value| !value.is_null() || ctx.lazy_number(value).is_some()),
             &field.kind,
         ) {
             (None, FieldKind::Required) => {

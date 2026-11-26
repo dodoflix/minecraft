@@ -305,7 +305,7 @@ fn compare_load_failure(scenario: &str, write: fn(&Path), pack: &str, count: usi
             (
                 r.clone(),
                 id.to_string(),
-                e.cause.iter().map(|(c, m)| format!("{c}: {m}")).collect(),
+                e.causes.iter().map(|(c, m)| format!("{c}: {m}")).collect(),
             )
         })
         .collect();
@@ -315,9 +315,12 @@ fn compare_load_failure(scenario: &str, write: fn(&Path), pack: &str, count: usi
     );
     let mut differing = Vec::new();
     for (o, v) in ours.iter().zip(&expected) {
-        // the entry of `minecraft:root` (an unbound reference) has no cause
+        // the entry of `minecraft:root` (an unbound reference) has no cause; a multi-line message is compared by its
+        // first line (the log prints the rest as plain lines)
         let first = |e: &(String, String, Vec<String>)| {
-            e.2.first().map(|cause| mask_identity_hashes(cause))
+            e.2.iter()
+                .map(|cause| mask_identity_hashes(cause.lines().next().unwrap_or("")))
+                .collect::<Vec<_>>()
         };
         if first(o) != first(v) {
             differing.push(format!(
@@ -360,6 +363,24 @@ fn broken_dimensions_fail_like_vanilla() {
         "broken_dimensions",
         98,
     );
+}
+
+/// Number spellings beyond `f64` in an int field (`1e10000`, `1e400`, a 10001-digit literal): the entries that fail, with
+/// every cause line, are vanilla's.
+#[test]
+fn broken_numbers_fail_like_vanilla() {
+    compare_load_failure(
+        "broken_numbers",
+        common::test_packs::write_broken_number_packs,
+        "broken_numbers",
+        7,
+    );
+}
+
+/// The same spellings in float fields and fractional ones in int fields load, with the values vanilla sends.
+#[test]
+fn number_edges_load_like_vanilla() {
+    compare_scenario("numbers", common::test_packs::write_number_edge_packs);
 }
 
 /// Whether `ours` writes every compound's keys in the order they arrived in from vanilla (`vanilla` was read from the

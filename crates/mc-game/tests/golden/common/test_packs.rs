@@ -305,6 +305,60 @@ fn write_game_test_data(root: &Path) {
     }
 }
 
+/// Number spellings Gson reads but the codecs treat differently from `f64`: entries that load.
+pub fn write_number_edge_packs(world: &Path) {
+    let dp = world.join("datapacks");
+    write(
+        dp.join("numbers/pack.mcmeta"),
+        r##"{"pack": {"description": "numbers", "min_format": 121, "max_format": 121}}"##,
+    );
+    for (name, exhaustion) in [
+        ("big", "1e400"),
+        ("bigger", "1e10000"),
+        ("negative", "-1e400"),
+        ("tiny", "1e-400"),
+        ("overflow", "1e99999999999"),
+        ("huge_exponent", "1E+400"),
+    ] {
+        write(
+            dp.join(format!("numbers/data/test/damage_type/{name}.json")),
+            &format!(r#"{{"message_id": "n", "scaling": "always", "exhaustion": {exhaustion}}}"#),
+        );
+    }
+    for (name, width) in [("fraction", "2.5"), ("exponent", "1e1"), ("float", "3.0e0")] {
+        write(
+            dp.join(format!("numbers/data/test/painting_variant/{name}.json")),
+            &format!(r#"{{"asset_id": "minecraft:alban", "width": {width}, "height": 1}}"#),
+        );
+    }
+}
+
+/// Number spellings an int or double field cannot take: every entry fails (some with `NumberFormatException`).
+pub fn write_broken_number_packs(world: &Path) {
+    let dp = world.join("datapacks");
+    write(
+        dp.join("broken_numbers/pack.mcmeta"),
+        r##"{"pack": {"description": "broken numbers", "min_format": 121, "max_format": 121}}"##,
+    );
+    let long_digits = format!("1{}", "0".repeat(10000));
+    for (name, width) in [
+        ("exp_10000", "1e10000"),
+        ("exp_9999", "1e9999"),
+        ("exp_400", "1e400"),
+        ("exp_negative", "1e-400"),
+        ("exp_overflow", "1e99999999999"),
+        ("long_value", "10000000000"),
+        ("long_digits", long_digits.as_str()),
+    ] {
+        write(
+            dp.join(format!(
+                "broken_numbers/data/test/painting_variant/{name}.json"
+            )),
+            &format!(r#"{{"asset_id": "minecraft:alban", "width": {width}, "height": 1}}"#),
+        );
+    }
+}
+
 /// A world whose only pack contains entries that must fail the load.
 pub fn write_broken_packs(world: &Path) {
     let dp = world.join("datapacks");

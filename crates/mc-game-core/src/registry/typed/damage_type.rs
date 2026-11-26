@@ -82,7 +82,7 @@ impl DamageType {
                 Some("always") => DamageScaling::Always,
                 _ => DamageScaling::WhenCausedByLivingNonPlayer,
             },
-            exhaustion: get_f32(json, "exhaustion").unwrap_or(0.0),
+            exhaustion: get_f32(json, "exhaustion", ctx).unwrap_or(0.0),
             effects: match get_str(json, "effects") {
                 Some("thorns") => DamageEffects::Thorns,
                 Some("drowning") => DamageEffects::Drowning,

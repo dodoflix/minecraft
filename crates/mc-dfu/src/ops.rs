@@ -703,7 +703,7 @@ impl Ops {
             Dyn::JsonNum(t) => {
                 // `getAsBigDecimal` of a `LazilyParsedNumber` enforces Gson's `NumberLimits`
                 if let Err(e) = mc_core::gson::lazily_parsed_int_value(t) {
-                    panic!("java.lang.NumberFormatException: {e}");
+                    crate::dynv::throw_number_format(&e);
                 }
                 t.clone()
             }

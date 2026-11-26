@@ -213,9 +213,9 @@ fn decode_checked(
             None => EnvironmentAttributeMap::default(),
         };
         let (min_y, height, logical_height) = (
-            get_i32(json, "min_y").unwrap_or(0),
-            get_i32(json, "height").unwrap_or(0),
-            get_i32(json, "logical_height").unwrap_or(0),
+            get_i32(json, "min_y", ctx).unwrap_or(0),
+            get_i32(json, "height", ctx).unwrap_or(0),
+            get_i32(json, "logical_height", ctx).unwrap_or(0),
         );
         check(height, min_y, logical_height)?;
         let dim = DimensionType {
@@ -223,7 +223,7 @@ fn decode_checked(
             has_sky_light: get_bool(json, "has_skylight").unwrap_or(false),
             has_ceiling: get_bool(json, "has_ceiling").unwrap_or(false),
             has_ender_dragon_fight: get_bool(json, "has_ender_dragon_fight").unwrap_or(false),
-            coordinate_scale: get_f64(json, "coordinate_scale").unwrap_or(1.0),
+            coordinate_scale: get_f64(json, "coordinate_scale", ctx).unwrap_or(1.0),
             min_y,
             height,
             logical_height,
@@ -231,12 +231,12 @@ fn decode_checked(
                 .get("infiniburn")
                 .and_then(HolderSetRef::from_json)
                 .ok_or("Missing infiniburn")?,
-            ambient_light: get_f32(json, "ambient_light").unwrap_or(0.0),
+            ambient_light: get_f32(json, "ambient_light", ctx).unwrap_or(0.0),
             monster_spawn_light_test: json
                 .get("monster_spawn_light_level")
                 .and_then(IntProvider::from_json)
                 .ok_or("Missing monster_spawn_light_level")?,
-            monster_spawn_block_light_limit: get_i32(json, "monster_spawn_block_light_limit")
+            monster_spawn_block_light_limit: get_i32(json, "monster_spawn_block_light_limit", ctx)
                 .unwrap_or(0),
             skybox: match get_str(json, "skybox") {
                 Some("none") => Skybox::None,

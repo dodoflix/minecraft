@@ -198,6 +198,35 @@ fn regen_oracle_fixtures() {
     });
 }
 
+/// Records the worlds of number spellings (`1e400`, `1e10000`, ...) into `numbers` (loads) and `broken_numbers` (fails).
+/// Regenerate: `MC_UPDATE_FIXTURES=1 cargo test -p mc-game --test oracle -- --ignored regen_number_fixtures`.
+#[test]
+#[ignore = "oracle: starts the vanilla server (only with MC_UPDATE_FIXTURES=1)"]
+fn regen_number_fixtures() {
+    if !std::env::var("MC_UPDATE_FIXTURES").is_ok_and(|v| v == "1") {
+        return;
+    }
+    let dir = fixture_dir();
+    let rt = tokio::runtime::Builder::new_multi_thread()
+        .enable_all()
+        .build()
+        .unwrap();
+    rt.block_on(async {
+        write_fixture(
+            &dir,
+            "broken_numbers",
+            &run_vanilla(test_packs::write_broken_number_packs, false).await,
+            false,
+        );
+        write_fixture(
+            &dir,
+            "numbers",
+            &run_vanilla(test_packs::write_number_edge_packs, true).await,
+            true,
+        );
+    });
+}
+
 /// Starts the vanilla server on a new world created from the `test:custom` world preset (dimensions with inline noise
 /// settings), stops it so that it saves, and stores the saved `world_gen_settings.dat` as `world_gen_settings.dat`.
 /// Regenerate: `MC_UPDATE_FIXTURES=1 cargo test -p mc-game --test oracle -- --ignored regen_world_gen_settings_fixture`.

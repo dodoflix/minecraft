@@ -203,13 +203,13 @@ impl Biome {
         let color = |key: &str| effects.get(key).and_then(|v| parse_rgb(v).ok());
         Ok(Biome {
             has_precipitation: get_bool(json, "has_precipitation").unwrap_or(false),
-            temperature: get_f32(json, "temperature").unwrap_or(0.0),
+            temperature: get_f32(json, "temperature", ctx).unwrap_or(0.0),
             temperature_modifier: if get_str(json, "temperature_modifier") == Some("frozen") {
                 TemperatureModifier::Frozen
             } else {
                 TemperatureModifier::None
             },
-            downfall: get_f32(json, "downfall").unwrap_or(0.0),
+            downfall: get_f32(json, "downfall", ctx).unwrap_or(0.0),
             attributes,
             special_effects: BiomeSpecialEffects {
                 water_color: color("water_color").unwrap_or(0),

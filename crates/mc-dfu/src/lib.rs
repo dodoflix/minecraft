@@ -17,7 +17,7 @@ mod result;
 pub use builtin::*;
 pub use codec::{Codec, CodecImpl, Dynamic, Either, MapCodec, MapCodecImpl};
 pub use dynamic_like::OptionalDynamic;
-pub use dynv::{Dyn, JNum};
+pub use dynv::{Dyn, JNum, throw_number_format};
 pub use hash::{crc32c, hash_dyn};
 pub use ops::{HASH, JSON, ListBuilder, MapLike, NBT, Ops, OpsKind, RecordBuilder};
 pub use result::{DataResult, Msg};

@@ -27,13 +27,19 @@ use super::tags::{ElementRef, TagLoader};
 use crate::server::packs::{FileToIdConverter, ResourceManager, throwable};
 use crate::world::item::crafting::{CustomRecipe, Recipe, RecipeKind};
 
-/// A load failure of one element or registry (a Java `Exception`: class, message and optional cause).
+/// A load failure of one element or registry (a Java `Exception`: class, message and the chain of its causes).
 #[derive(Clone, Debug)]
 pub struct LoadingError {
     pub class: &'static str,
     pub message: String,
-    pub cause: Option<(&'static str, String)>,
+    pub causes: Vec<(&'static str, String)>,
 }
+
+/// The exceptions a Gson reader wraps in a `JsonSyntaxException` (whose message is their `toString()`).
+const GSON_READER_ERRORS: [&str; 2] = [
+    "com.google.gson.stream.MalformedJsonException",
+    "java.io.EOFException",
+];
 
 impl LoadingError {
     fn failed_to_parse(
@@ -42,10 +48,21 @@ impl LoadingError {
         cause_class: &'static str,
         cause: String,
     ) -> LoadingError {
+        let mut causes = vec![(cause_class, cause.clone())];
+        if cause_class == "com.google.gson.JsonSyntaxException" {
+            let inner = GSON_READER_ERRORS.into_iter().find(|class| {
+                cause
+                    .strip_prefix(class)
+                    .is_some_and(|m| m.starts_with(": "))
+            });
+            if let Some(class) = inner {
+                causes.push((class, cause[class.len() + 2..].to_owned()));
+            }
+        }
         LoadingError {
             class: "java.lang.IllegalStateException",
             message: format!("Failed to parse {id} from pack {pack}"),
-            cause: Some((cause_class, cause)),
+            causes,
         }
     }
 
@@ -53,14 +70,14 @@ impl LoadingError {
         LoadingError {
             class: "java.lang.IllegalStateException",
             message,
-            cause: None,
+            causes: Vec::new(),
         }
     }
 
     /// `printStackTrace` without the frames.
     pub fn print(&self) -> String {
         let mut out = throwable(self.class, &self.message);
-        if let Some((class, message)) = &self.cause {
+        for (class, message) in &self.causes {
             out.push_str("\nCaused by: ");
             out.push_str(&throwable(class, message));
         }
@@ -637,10 +654,7 @@ mod feature_layer_tests {
             error.message,
             "Failed to parse test:broken from pack file/test_pack"
         );
-        assert!(
-            error.cause.as_ref().unwrap().1.contains("test:missing"),
-            "{error:?}"
-        );
+        assert!(error.causes[0].1.contains("test:missing"), "{error:?}");
         assert_eq!(failure.errors.len(), 1);
     }
 }
