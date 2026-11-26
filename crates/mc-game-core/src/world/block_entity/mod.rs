@@ -623,7 +623,18 @@ pub fn check_shape(tag: &CompoundTag, key: &str, shape: Shape) {
     let Some(value) = tag.get(key) else { return };
     let error = match shape {
         Shape::Map if value.as_compound().is_none() => format!("Not a map: {value}"),
-        Shape::List if value.as_list().is_none() => format!("Not a list: {value}"),
+        // `NbtOps.getList` accepts the array tags too
+        Shape::List
+            if !matches!(
+                value,
+                mc_nbt::Tag::List(_)
+                    | mc_nbt::Tag::ByteArray(_)
+                    | mc_nbt::Tag::IntArray(_)
+                    | mc_nbt::Tag::LongArray(_)
+            ) =>
+        {
+            format!("Not a list: {value}")
+        }
         Shape::Number if value.as_number().is_none() => "Not a number".to_owned(),
         _ => return,
     };
