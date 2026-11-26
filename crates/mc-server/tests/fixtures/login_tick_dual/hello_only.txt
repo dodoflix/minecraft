@@ -1,0 +1,9 @@
+login_compression 256
+login_finished Bot
+> console tick sprint 700
+error: connection closed
+  log: [Server thread/INFO] System chat: The game is sprinting
+  log: [Server thread/INFO] Disconnecting Bot (/127.0.0.1:<port>): Took too long to log in
+  log: [Server thread/INFO] Bot (/127.0.0.1:<port>) lost connection: <reason>
+  log: [Server thread/INFO] System chat: Sprint completed with <speed>
+  raw: Bot (/127.0.0.1:<port>) lost connection: Took too long to log in

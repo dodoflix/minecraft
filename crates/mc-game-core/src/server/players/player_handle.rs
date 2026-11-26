@@ -299,6 +299,7 @@ pub(crate) mod test_support {
                     | Outbound::SetCompression(_)
                     | Outbound::EnableEncryption(_)
                     | Outbound::SetState(_)
+                    | Outbound::Unconfigured
                     | Outbound::Raw(_) => continue,
                 });
             }

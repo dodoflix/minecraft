@@ -436,6 +436,7 @@ fn finish_login_and_wait_for_client(
         game_profile: profile,
         session_id: ctx.listener.session_id(),
     });
+    ctx.sender.finish_outbound_protocol();
 }
 
 #[cfg(test)]

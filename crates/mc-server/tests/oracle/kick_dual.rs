@@ -353,6 +353,11 @@ fn log_message(line: &str, mask_moves: bool) -> Option<String> {
         Some((head, _)) => format!("{head}The game time is <n> tick(s)"),
         None => message,
     };
+    // the speed of a finished sprint
+    let message = match message.split_once("Sprint completed with ") {
+        Some((head, _)) => format!("{head}Sprint completed with <speed>"),
+        None => message,
+    };
     Some(format!("  log: [{thread_level}] {}", mask_ports(&message)))
 }
 
@@ -366,7 +371,7 @@ fn translation_key(component: &mc_text::Component) -> String {
 }
 
 /// `/127.0.0.1:51234` becomes `/127.0.0.1:<port>`.
-fn mask_ports(text: &str) -> String {
+pub(crate) fn mask_ports(text: &str) -> String {
     let mut out = String::new();
     let mut rest = text;
     while let Some(at) = rest.find("/127.0.0.1:") {

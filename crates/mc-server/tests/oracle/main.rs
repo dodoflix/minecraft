@@ -28,6 +28,7 @@ mod jsonrpc_dual;
 mod kick_dual;
 mod legacy_users;
 mod light_packets_dual;
+mod login_tick_dual;
 mod management_start_dual;
 mod network_vanilla_diff;
 mod ours_play;

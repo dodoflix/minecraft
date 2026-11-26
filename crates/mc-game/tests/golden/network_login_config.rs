@@ -135,7 +135,7 @@ async fn invalid_usernames_and_protocol_errors_disconnect_with_vanilla_text() {
     read_login(&mut c).await; // login compression
     c.set_compression(256, true);
     hello(&mut c, "Steve").await;
-    // (login finished may still be in flight; skip to the disconnect)
+    // (login finished may already have gone out: the pipeline then takes no disconnect packet and just closes)
     loop {
         match read_login(&mut c).await {
             ClientboundLoginPacket::LoginDisconnect(d) => {
@@ -143,6 +143,10 @@ async fn invalid_usernames_and_protocol_errors_disconnect_with_vanilla_text() {
                     d.reason.0.get_string(),
                     "Internal Exception: java.lang.IllegalStateException: Unexpected hello packet"
                 );
+                break;
+            }
+            ClientboundLoginPacket::LoginFinished(_) => {
+                expect_closed(&mut c).await;
                 break;
             }
             _ => continue,

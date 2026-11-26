@@ -1,0 +1,15 @@
+> console tick rate 1
+login_compression 256
+login_finished Bot
+> wait 4 s
+still connected
+> console tick rate 20
+> console tick sprint 700
+error: connection closed
+  log: [Server thread/INFO] System chat: Set the target tick rate to 1.0 per second
+  log: [Server thread/INFO] System chat: Set the target tick rate to 20.0 per second
+  log: [Server thread/INFO] System chat: The game is sprinting
+  log: [Server thread/INFO] Disconnecting Bot (/127.0.0.1:<port>): Took too long to log in
+  log: [Server thread/INFO] Bot (/127.0.0.1:<port>) lost connection: <reason>
+  log: [Server thread/INFO] System chat: Sprint completed with <speed>
+  raw: Bot (/127.0.0.1:<port>) lost connection: Took too long to log in

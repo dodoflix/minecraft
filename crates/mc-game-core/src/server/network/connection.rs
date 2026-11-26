@@ -89,6 +89,8 @@ pub enum Outbound {
     EnableEncryption([u8; 16]),
     /// `Connection.setupOutboundProtocol`: the protocol the disconnect packet below is encoded for.
     SetState(ConnectionState),
+    /// No outbound protocol until the next `SetState`: a disconnect closes without a disconnect packet.
+    Unconfigured,
     /// The disconnect packet of the current outbound protocol (`ClientboundLoginDisconnect` / `ClientboundDisconnect`;
     /// none for handshake/status), then flush and close the connection.
     Disconnect(Box<Component>),
@@ -383,6 +385,12 @@ impl ConnectionSender {
         let _ = self.tx.send(Outbound::SetState(state));
     }
 
+    /// `ProtocolSwapHandler.handleOutboundTerminalPacket` of `ClientboundLoginFinished`: until the configuration
+    /// protocol is set up the encoder takes no packet, so a disconnect closes the connection without one.
+    pub fn finish_outbound_protocol(&self) {
+        let _ = self.tx.send(Outbound::Unconfigured);
+    }
+
     /// Outbound half of `Connection.setupCompression`. (The inbound half is applied by the reader owner.)
     pub fn set_compression(&self, threshold: i32) {
         let _ = self.tx.send(Outbound::SetCompression(threshold));
@@ -476,6 +484,9 @@ pub(crate) async fn run_writer(
     // Data was encoded into `buf` but no flush was requested yet; `deadline` = when `Connection.tick` would flush it.
     let mut deadline: Option<Instant> = None;
     let mut closing = false;
+    // After a terminal packet (`ClientboundLoginFinished`) and before the next `SetState` vanilla's pipeline has no
+    // outbound protocol: it rejects every packet, a disconnect packet included.
+    let mut unconfigured = false;
     let mut fault: Option<NetError> = None;
 
     while !closing {
@@ -510,10 +521,12 @@ pub(crate) async fn run_writer(
                 Outbound::EnableEncryption(k) => encoder.enable_encryption(k),
                 Outbound::SetState(s) => {
                     state = s;
+                    unconfigured = false;
                     handle.set_protocol_state(s);
                 }
+                Outbound::Unconfigured => unconfigured = true,
                 Outbound::Disconnect(reason) => {
-                    if let Some(p) = disconnect_payload(state, &reason) {
+                    if !unconfigured && let Some(p) = disconnect_payload(state, &reason) {
                         let _ = encoder.encode(&p, &mut buf);
                     }
                     closing = true;
@@ -533,7 +546,7 @@ pub(crate) async fn run_writer(
             let reason = generic_reason(internal_exception_text(&e));
             handle.set_disconnection_details(DisconnectionDetails::new(reason.clone()));
             handle.set_read_only();
-            if let Some(p) = disconnect_payload(state, &reason) {
+            if !unconfigured && let Some(p) = disconnect_payload(state, &reason) {
                 let _ = encoder.encode(&p, &mut buf);
             }
             closing = true;
