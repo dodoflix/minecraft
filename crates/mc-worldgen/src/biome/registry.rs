@@ -219,7 +219,7 @@ impl BiomeGenerationSettings {
     ) -> LoadResult<BiomeGenerationSettings> {
         let fields = Fields::new(biome)?;
         let carvers = fields.required("carvers", |v| {
-            partial_holder_set(v, CARVER_TAG_DIR, source)?
+            partial_holder_set(v, CARVER_TAG_DIR, false, source)?
                 .ok_or_else(|| LoadError::new("Failed to get element from registry"))
         })?;
         let features = fields.required("features", |v| {
@@ -228,7 +228,7 @@ impl BiomeGenerationSettings {
             };
             let mut kept = Vec::new();
             for step in steps {
-                if let Some(ids) = partial_holder_set(step, PLACED_FEATURE_TAG_DIR, source)? {
+                if let Some(ids) = partial_holder_set(step, PLACED_FEATURE_TAG_DIR, true, source)? {
                     kept.push(ids.into_iter().map(PlacedFeatureRef::Named).collect());
                 }
             }
@@ -272,6 +272,7 @@ fn holder_set_names(value: &Value, tag_dir: &str) -> LoadResult<Vec<Identifier>>
 fn partial_holder_set(
     value: &Value,
     tag_dir: &str,
+    always_list: bool,
     source: &dyn WorldgenDataSource,
 ) -> LoadResult<Option<Vec<Identifier>>> {
     let resolved = |value: &Value| match value {
@@ -282,6 +283,8 @@ fn partial_holder_set(
     };
     match value {
         Value::String(s) if s.starts_with('#') => Ok(holder_set_names(value, tag_dir).ok()),
+        // `HolderSetCodec` with `alwaysUseList`: a lone id is no set
+        Value::String(_) if always_list => Ok(None),
         Value::String(_) => Ok(resolved(value).map(|id| vec![id])),
         Value::Array(items) => {
             let mut ids = Vec::new();
@@ -454,10 +457,9 @@ fn inline_biome_id(
         biome
     };
     let mut inline = INLINE_BIOMES.lock().unwrap_or_else(|e| e.into_inner());
-    let index = match inline
-        .iter()
-        .position(|(json, l, _)| json == value && *l == lenient)
-    {
+    let index = match inline.iter().position(|(json, l, b)| {
+        json == value && *l == lenient && b.generation_settings == biome.generation_settings
+    }) {
         Some(index) => index,
         None => {
             inline.push((value.clone(), lenient, Box::leak(Box::new(biome))));

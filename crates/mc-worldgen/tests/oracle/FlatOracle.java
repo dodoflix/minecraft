@@ -271,13 +271,14 @@ public class FlatOracle {
       // unresolved references inside an otherwise valid inline biome: the lenient field keeps what decoded
       int firstStep = 0;
       while (plains.getAsJsonArray("features").get(firstStep).getAsJsonArray().isEmpty()) firstStep++;
-      for (String mode : new String[] {"front", "back", "alone", "number", "inline_unresolved"}) {
+      for (String mode : new String[] {"front", "back", "alone", "number", "inline_unresolved", "bare_valid"}) {
          JsonObject b = plains.deepCopy();
          JsonArray step = b.getAsJsonArray("features").get(firstStep).getAsJsonArray();
          JsonArray replaced = new JsonArray();
          switch (mode) {
             case "front" -> { replaced.add("minecraft:nope"); replaced.addAll(step); }
             case "back" -> { replaced.addAll(step); replaced.add("minecraft:nope"); }
+            case "bare_valid" -> replaced.add("minecraft:lake_lava_surface");
             case "number" -> { replaced.add(5); replaced.addAll(step); }
             case "inline_unresolved" -> {
                JsonObject inline = new JsonObject();
@@ -288,8 +289,8 @@ public class FlatOracle {
             }
             default -> replaced.add("minecraft:nope");
          }
-         if (mode.equals("alone")) {
-            b.getAsJsonArray("features").set(firstStep, new com.google.gson.JsonPrimitive("minecraft:nope"));
+         if (mode.equals("alone") || mode.equals("bare_valid")) {
+            b.getAsJsonArray("features").set(firstStep, new com.google.gson.JsonPrimitive(mode.equals("alone") ? "minecraft:nope" : "minecraft:lake_lava_surface"));
          } else {
             b.getAsJsonArray("features").set(firstStep, replaced);
          }
