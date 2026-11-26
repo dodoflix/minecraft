@@ -17,6 +17,7 @@ use crate::world::item::{InteractionHand, InteractionResult, ItemStack};
 use crate::world::level::base_command_block::{BaseCommandBlock, Begin};
 use crate::world::scores::PlayerTeam;
 use linkme::distributed_slice;
+use mc_core::java_string::JavaString;
 use mc_core::phys::{Vec2, Vec3};
 use mc_data::block::{Block, BlockState};
 use mc_data::{EntityType, Item};
@@ -39,7 +40,7 @@ pub struct MinecartCommandBlock {
 impl MinecartCommandBlock {
     pub fn new(ty: EntityType, id: EntityId) -> Self {
         let (base, minecart) = abstract_minecart::new_base(ty, id, 6, |b| {
-            b.define(DATA_ID_COMMAND_NAME, String::new());
+            b.define(DATA_ID_COMMAND_NAME, JavaString::new());
             b.define(DATA_ID_LAST_OUTPUT, Component::empty());
         });
         Self {
@@ -63,7 +64,7 @@ impl MinecartCommandBlock {
     /// `MinecartCommandBase.onUpdated(level)`: the command and the last output go to the synched data; a changed value runs
     /// `onSyncedDataUpdated`, which hands it back to the command block (a changed command name resets its success count).
     pub fn on_updated(&mut self) {
-        let command = self.command_block.get_command().to_owned();
+        let command = self.command_block.get_command().clone();
         if self.base.entity_data.set(DATA_ID_COMMAND_NAME, command) {
             self.on_synced_data_updated(DATA_ID_COMMAND_NAME.id());
         }

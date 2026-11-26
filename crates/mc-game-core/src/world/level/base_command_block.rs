@@ -194,8 +194,8 @@ impl BaseCommandBlock {
         self.set_success_count(0);
     }
 
-    pub fn get_command(&self) -> &str {
-        self.command.as_lossy_str()
+    pub fn get_command(&self) -> &JavaString {
+        &self.command
     }
 
     /// `getName()`.
@@ -237,13 +237,13 @@ impl BaseCommandBlock {
         if game_time == self.last_execution {
             return Begin::Done(false);
         }
-        if self.get_command().eq_ignore_ascii_case("Searge") {
+        if self.command.as_lossy_str().eq_ignore_ascii_case("Searge") {
             *self.shared.last_output.lock() = Some(Component::literal("#itzlipofutzli"));
             self.set_success_count(1);
             return Begin::Done(true);
         }
         self.set_success_count(0);
-        if level.command_blocks_work() && !self.get_command().is_empty() {
+        if level.command_blocks_work() && !self.command.as_lossy_str().is_empty() {
             *self.shared.last_output.lock() = None;
             let source = self.track_output.then(|| {
                 Arc::new(CloseableCommandBlockSource {

@@ -44,7 +44,7 @@ serializers! {
     Int(i32) = "INT";
     Long(i64) = "LONG";
     Float(f32) = "FLOAT";
-    String(std::string::String) = "STRING";
+    String(mc_core::java_string::JavaString) = "STRING";
     Component(mc_text::Component) = "COMPONENT";
     OptionalComponent(Option<mc_text::Component>) = "OPTIONAL_COMPONENT";
     Boolean(bool) = "BOOLEAN";

@@ -1,0 +1,27 @@
+# The command of a command block minecart can hold a lone UTF-16 surrogate (an SNBT `\ud800` escape): the synched command name, the saved
+# command and the message the cart sends keep the unpaired units, never U+FFFD.
+level flat
+preload 3
+command_env
+entity_counter 1000
+level_seed 6
+gamerule send_command_feedback false
+fill -4 -60 -6 20 -40 14 minecraft:air
+fill 0 -60 0 20 -60 0 minecraft:rail[shape=east_west]
+block 6 -61 0 minecraft:redstone_block
+block 6 -60 0 minecraft:activator_rail[powered=true,shape=east_west]
+spawn_player Op creative 3.5 -60 2.5 0 0
+tick 3
+op Op
+dump packets:Op:none
+note a cart summoned with a command holding unpaired units keeps them in its data and runs the command with them
+spawn act minecraft:command_block_minecart 6.5 -59.9375 0.5 0 0 {Command:"say \ud800 a\ud83d \ude00"}
+entity_seed act 81
+dump edata:act nbt:act
+tick 6
+dump packets:Op:system_chat,disguised_chat nbt:act edata:act
+note the command set later through the data keeps them too, and U+FFFD stays a different command
+nbt act {Command:"say \ud83d"}
+dump nbt:act edata:act
+nbt act {Command:"say \ufffd"}
+dump nbt:act edata:act

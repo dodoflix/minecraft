@@ -30,6 +30,11 @@ fn command_block_cart_runs_its_command_and_takes_the_editor_packet() {
 }
 
 #[test]
+fn command_block_cart_keeps_unpaired_surrogates() {
+    common::block_scenario::check("cmd_minecart_surrogate");
+}
+
+#[test]
 fn spawner_cart_spawns_like_a_spawner_block() {
     common::block_scenario::check("ent_spawner_minecart");
 }

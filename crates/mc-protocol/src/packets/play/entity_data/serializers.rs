@@ -2,6 +2,7 @@
 use crate::codec::EncodeResult;
 use mc_core::direction::Direction;
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_core::pos::block_pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::enums::Pose;
@@ -210,7 +211,7 @@ pub enum EntityDataValue {
     Int(#[mc(var)] i32),
     Long(#[mc(var)] i64),
     Float(f32),
-    String(#[mc(max = 32767)] String),
+    String(#[mc(max = 32767)] JavaString),
     Component(Component),
     OptionalComponent(Option<Component>),
     ItemStack(ItemStack),

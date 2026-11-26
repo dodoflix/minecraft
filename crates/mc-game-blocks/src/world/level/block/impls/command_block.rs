@@ -135,7 +135,10 @@ impl BlockBehaviour for CommandBlock {
         let Some((command_set, mode, was_condition_met)) = level
             .with_typed_block_entity::<CommandBlockEntity, _>(pos, |_, be| {
                 (
-                    !be.get_command_block().get_command().is_empty(),
+                    !be.get_command_block()
+                        .get_command()
+                        .as_lossy_str()
+                        .is_empty(),
                     be.get_mode(),
                     be.was_condition_met(),
                 )

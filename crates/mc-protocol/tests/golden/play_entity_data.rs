@@ -330,7 +330,7 @@ fn set_entity_data_scalars(g: &Golden) {
         ("max", "a".repeat(32767)),
         ("max_nonbmp", "\u{1F600}".repeat(16383) + "x"),
     ] {
-        sed(g, &format!("string_{l}"), EntityDataValue::String(s));
+        sed(g, &format!("string_{l}"), EntityDataValue::String(s.into()));
     }
     let translated = Component::translatable(
         "chat.type.text",
