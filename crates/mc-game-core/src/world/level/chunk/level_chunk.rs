@@ -3,7 +3,7 @@
 //! post-processing) is `impl ServerLevel` in `server/level/level_chunk_ops.rs` (the chunk lives inside the level's chunk
 //! map, so those operations are level methods addressed by position).
 use crate::server::level::FullChunkStatus;
-use crate::world::block_entity::BlockEntity;
+use crate::world::block_entity::{BlockEntity, CreateFailed, create_block_entity_for_load};
 use crate::world::level::gameevent::EuclideanGameEventListenerRegistry;
 use mc_core::java_collections::{FastOpenHashMap, block_pos_hash};
 use mc_core::pos::BlockPos;
@@ -150,12 +150,13 @@ impl LevelChunk {
         );
         for (pos, tag) in live.into_entries() {
             match chunk.instantiate(pos, &tag) {
-                Some(be) => {
+                Ok(Some(be)) => {
                     chunk.block_entities.insert(pos, be);
                 }
-                None => {
+                Ok(None) => {
                     chunk.data.access.block_entities.insert(pos, tag);
                 }
+                Err(CreateFailed) => {}
             }
         }
         chunk
@@ -207,53 +208,72 @@ impl LevelChunk {
 }
 
 impl LevelChunk {
-    /// The live block entity of `tag` (`BlockEntity.loadStatic`: create + `loadWithComponents`), `None` for a type without an
-    /// implementation or whose block state does not match.
-    fn instantiate(&self, pos: BlockPos, tag: &CompoundTag) -> Option<Box<dyn BlockEntity>> {
-        let ty = tag
+    /// The live block entity of `tag` (`BlockEntity.loadStatic`: create + `loadWithComponents`): `Ok(None)` for a type without
+    /// an implementation (or an unknown type), [`CreateFailed`] when the block state does not fit the type (logged; the tag
+    /// is dropped).
+    fn instantiate(
+        &self,
+        pos: BlockPos,
+        tag: &CompoundTag,
+    ) -> Result<Option<Box<dyn BlockEntity>>, CreateFailed> {
+        let Some(ty) = tag
             .get_string("id")
-            .and_then(mc_data::BlockEntityType::by_name)?;
+            .and_then(mc_data::BlockEntityType::by_name)
+        else {
+            return Ok(None);
+        };
         let state = self.data.get_block_state(pos);
-        if !ty.data().valid_blocks.contains(&state.block()) {
-            return None;
-        }
-        let mut be = crate::world::block_entity::create_block_entity(ty, pos, state)?;
+        let Some(mut be) = create_block_entity_for_load(ty, pos, state)? else {
+            return Ok(None);
+        };
         crate::world::block_entity::load_static_data(&mut *be, tag);
-        Some(be)
+        Ok(Some(be))
     }
 
     /// `runPostLoad` for the block entities: a tag with `keepPacked` becomes pending NBT, any other one a live block
-    /// entity (`loadStatic` + `setBlockEntity`), in list order. Tags that cannot be instantiated stay raw pending NBT,
-    /// so nothing is lost when the chunk is saved.
+    /// entity (`loadStatic` + `setBlockEntity`), in list order. A tag of a type without an implementation stays raw
+    /// pending NBT (nothing is lost when the chunk is saved); one whose block does not fit the type is dropped.
     pub fn run_post_load(&mut self) {
         for tag in std::mem::take(&mut self.post_load_block_entities) {
             let pos = block_entity_pos_from_tag(self.pos(), &tag);
             let live = if tag.get_boolean_or("keepPacked", false) {
-                None
+                Ok(None)
             } else {
                 self.instantiate(pos, &tag)
             };
             match live {
-                Some(be) => {
+                Ok(Some(be)) => {
                     self.block_entities.insert(pos, be);
                 }
-                None => self.data.access.set_block_entity_nbt(tag),
+                Ok(None) => self.data.access.set_block_entity_nbt(tag),
+                Err(CreateFailed) => {}
             }
         }
     }
 
     /// The pending block entity NBT of a chunk promoted from a proto chunk becomes live block entities, in the pending
-    /// map's order (vanilla promotes them on first access, at the latest in `postProcessGeneration`). Tags that cannot
-    /// be instantiated stay raw in `data.access.block_entities`.
+    /// map's order (vanilla promotes them on first access, at the latest in `postProcessGeneration`). Tags of a type
+    /// without an implementation stay raw in `data.access.block_entities`; one whose block does not fit the type is removed.
     pub fn promote_pending_block_entities(&mut self) {
         let positions: Vec<BlockPos> = self.data.access.block_entities.keys().copied().collect();
         for pos in positions {
             let Some(tag) = self.data.access.block_entities.get(&pos) else {
                 continue;
             };
-            if let Some(be) = self.instantiate(pos, tag) {
-                self.data.access.block_entities.remove(&pos);
-                self.block_entities.insert(pos, be);
+            match self.instantiate(pos, tag) {
+                Ok(Some(be)) => {
+                    self.data.access.block_entities.remove(&pos);
+                    self.block_entities.insert(pos, be);
+                }
+                Ok(None) => {}
+                Err(CreateFailed) => {
+                    self.data.access.block_entities.remove(&pos);
+                    log::warn!(
+                        "Tried to load a block entity for block {} but failed at location {}",
+                        self.data.get_block_state(pos),
+                        pos
+                    );
+                }
             }
         }
     }

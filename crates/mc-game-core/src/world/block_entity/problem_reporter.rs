@@ -170,6 +170,17 @@ pub fn chunk_root(pos: mc_core::pos::ChunkPos) -> String {
     format!("chunk@{pos}")
 }
 
+/// `BlockEntity.getNameForReporting()`.
+pub fn name_for_reporting(ty: BlockEntityType) -> String {
+    format!("{} // {}", ty.name(), canonical_class_name(ty))
+}
+
+/// `BlockEntityType.toString()`: the default `Object.toString()` with an identity hash, which differs between runs of the
+/// vanilla server: it is written as `@0` and comparisons mask the hash.
+pub fn type_to_string(_ty: BlockEntityType) -> String {
+    "net.minecraft.world.level.block.entity.BlockEntityType@0".to_owned()
+}
+
 /// `getClass().getCanonicalName()` of the vanilla class behind a block entity type.
 fn canonical_class_name(ty: BlockEntityType) -> String {
     const PKG: &str = "net.minecraft.world.level.block.entity";

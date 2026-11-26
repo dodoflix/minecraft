@@ -100,3 +100,29 @@ fn post_load_fills_the_map_in_list_order_and_saves_in_set_order() {
         hash_set_union_order(pending.into_iter(), live.into_iter(), block_pos_hash)
     );
 }
+
+#[test]
+fn a_block_entity_on_a_block_that_is_not_its_own_is_dropped_by_post_load() {
+    let factory =
+        PalettedContainerFactory::create(BiomeRegistry::new(vec!["minecraft:plains".into()]))
+            .unwrap();
+    let height = LevelHeight {
+        min_y: -64,
+        height: 384,
+    };
+    let proto = ProtoChunk::new(
+        ChunkPos::new(2, -1),
+        UpgradeData::empty(),
+        height,
+        &factory,
+        None,
+    );
+    let pos = BlockPos::new(33, -60, -11);
+    let data = mc_world::chunk::LevelChunk::from_proto(proto, &factory);
+    // the chunk holds air where the chest was
+    let mut chunk = LevelChunk::from_data(data, vec![tag(pos, false)]);
+    chunk.run_post_load();
+    assert!(chunk.block_entities.is_empty());
+    assert!(chunk.data.access.block_entities.is_empty());
+    assert!(chunk.block_entity_nbt_for_saving().is_empty());
+}

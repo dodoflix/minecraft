@@ -633,6 +633,43 @@ pub fn create_block_entity(
         .map(|r| (r.create)(pos, state))
 }
 
+/// `BlockEntity.loadStatic` rejected the block: the `BlockEntity` constructor threw, the failure is logged and the
+/// block entity dropped.
+#[derive(Debug)]
+pub struct CreateFailed;
+
+/// `type.create(pos, state)` as `BlockEntity.loadStatic` calls it: the constructor validates the block state first
+/// (`BlockEntity.validateBlockState`), so a type on a block that is not one of its blocks throws. The throw is logged
+/// (`Failed to create block entity`) and reported as [`CreateFailed`]; `Ok(None)` means the type has no implementation yet.
+pub fn create_block_entity_for_load(
+    ty: BlockEntityType,
+    pos: BlockPos,
+    state: BlockState,
+) -> Result<Option<Box<dyn BlockEntity>>, CreateFailed> {
+    if ty.data().valid_blocks.contains(&state.block()) {
+        return Ok(create_block_entity(ty, pos, state));
+    }
+    let pos_text = format!("BlockPos{{x={}, y={}, z={}}}", pos.x(), pos.y(), pos.z());
+    // `BannerBlockEntity(pos, state)` casts the block before its `super` call
+    let exception = if ty.name() == "minecraft:banner" {
+        // shortcut: only air gets its own class name, every other block that is no banner reports the plain `Block` class
+        let class = if state.is_air() { "AirBlock" } else { "Block" };
+        format!(
+            "java.lang.ClassCastException: class net.minecraft.world.level.block.{class} cannot be cast to class net.minecraft.world.level.block.AbstractBannerBlock (net.minecraft.world.level.block.{class} and net.minecraft.world.level.block.AbstractBannerBlock are in unnamed module of loader java.net.URLClassLoader @0)"
+        )
+    } else {
+        format!(
+            "java.lang.IllegalStateException: Invalid block entity {} state at {pos_text}, got {state}",
+            problem_reporter::name_for_reporting(ty)
+        )
+    };
+    log::error!(
+        "Failed to create block entity {} for block {state} at position {pos_text} \n{exception}",
+        problem_reporter::type_to_string(ty)
+    );
+    Err(CreateFailed)
+}
+
 /// `EntityBlock.newBlockEntity(pos, state)` for a block entity block: the registered implementation of the block entity
 /// type that is valid for the state's block (`None` while that type has no implementation).
 pub fn new_block_entity(pos: BlockPos, state: BlockState) -> Option<Box<dyn BlockEntity>> {

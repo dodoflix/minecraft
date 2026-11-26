@@ -5,7 +5,9 @@
 //! step re-borrows the chunk (block behaviour code run in between may touch any chunk).
 
 use super::ServerLevel;
-use crate::world::block_entity::{BlockEntity, create_block_entity, new_block_entity};
+use crate::world::block_entity::{
+    BlockEntity, CreateFailed, create_block_entity_for_load, new_block_entity,
+};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::chunk::{LevelChunk, TickerCell};
 use crate::world::level::flags::*;
@@ -328,7 +330,7 @@ impl ServerLevel {
             } else {
                 log::warn!(
                     "Tried to load a DUMMY block entity @ {} but found not block entity block {} at location",
-                    pos.to_short_string(),
+                    pos,
                     state
                 );
                 None
@@ -342,12 +344,13 @@ impl ServerLevel {
                     );
                     None
                 }
-                Some(ty) => match create_block_entity(ty, pos, state) {
-                    Some(mut be) => {
+                Some(ty) => match create_block_entity_for_load(ty, pos, state) {
+                    Err(CreateFailed) => None,
+                    Ok(Some(mut be)) => {
                         crate::world::block_entity::load_static_data(&mut *be, &tag);
                         Some(be)
                     }
-                    None => {
+                    Ok(None) => {
                         // no implementation for this type yet: keep the data
                         if let Some(chunk) = self.chunk_at_mut(pos) {
                             chunk.data.access.block_entities.insert(pos, tag);
@@ -366,7 +369,7 @@ impl ServerLevel {
                 log::warn!(
                     "Tried to load a block entity for block {} but failed at location {}",
                     state,
-                    pos.to_short_string()
+                    pos
                 );
                 false
             }
