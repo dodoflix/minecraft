@@ -542,7 +542,7 @@ fn build_surface_matches_vanilla() {
     let missing: Vec<String> = reachable
         .iter()
         .filter(|id| !produced.contains(id))
-        .map(|&id| state(id).to_string())
+        .map(|&id| state(id).serialize())
         .collect();
     eprintln!("rule result states never produced by the fixture chunks: {missing:?}");
     let unexpected: Vec<&String> = missing

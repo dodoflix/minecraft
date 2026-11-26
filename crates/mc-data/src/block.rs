@@ -529,16 +529,22 @@ impl BlockState {
 impl fmt::Display for BlockState {
     /// Vanilla `BlockState.toString()`: `Block{minecraft:oak_stairs}[facing=north,half=top,...]`.
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let text = self.serialize();
-        match text.split_once('[') {
-            Some((name, props)) => write!(f, "Block{{{name}}}[{props}"),
-            None => write!(f, "Block{{{text}}}"),
+        write!(f, "Block{{{}}}", self.block().name())?;
+        let mut first = true;
+        for (def, i) in self.values() {
+            f.write_str(if first { "[" } else { "," })?;
+            first = false;
+            write!(f, "{}={}", def.name, def.values[i])?;
         }
+        if !first {
+            f.write_str("]")?;
+        }
+        Ok(())
     }
 }
 
 impl fmt::Debug for BlockState {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "BlockState({}: {})", self.0, self)
+        write!(f, "BlockState({}: {})", self.0, self.serialize())
     }
 }
