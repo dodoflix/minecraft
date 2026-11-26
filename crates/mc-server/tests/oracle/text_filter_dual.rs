@@ -3,6 +3,9 @@
 //! (the filter mask and unsigned content of `player_chat`, the book the filter touched) and what the server logs
 //! (the warnings, with the first line of the exception) for the answers a service can give, and the startup lines
 //! for a configuration that cannot be used.
+use mc_core::direction::Direction;
+use mc_core::pos::block_pos::BlockPos;
+use mc_protocol::components::ItemStack;
 use mc_protocol::packets::play::*;
 use mc_testbot::join::BotOptions;
 use mc_testbot::log::Dir;
@@ -124,6 +127,8 @@ fn answer_for(request: &FilterRequest) -> FilterAnswer {
         "badjson" => json("not json"),
         "array" => json("[1]"),
         "slow" => FilterAnswer::Slow(Duration::from_secs(3), r#"{"response":true}"#.into()),
+        // slower than the game's tick, quicker than the read timeout
+        "late" => FilterAnswer::Slow(Duration::from_millis(1200), r#"{"response":true}"#.into()),
         _ => json(r#"{"response":true}"#),
     }
 }
@@ -182,7 +187,8 @@ async fn session(server: &Server, mock: &MockFilterServer, messages: &[&str]) ->
     out
 }
 
-async fn run_both(extra: &str, messages: &[&str]) {
+/// Runs `play` against vanilla and against ours, each with a text filter pointed at its own mock, and compares the rows.
+async fn run_with(extra: &str, play: impl AsyncFn(&Server, &MockFilterServer) -> Vec<String>) {
     let mut sides = Vec::new();
     for ours in [false, true] {
         let mock = MockFilterServer::start().expect("mock filter server");
@@ -195,7 +201,7 @@ async fn run_both(extra: &str, messages: &[&str]) {
             harness::vanilla(7, "survival", &props)
         };
         let server = builder.start().expect("start server");
-        let rows = session(&server, &mock, messages).await;
+        let rows = play(&server, &mock).await;
         server.stop();
         sides.push(rows);
     }
@@ -204,6 +210,177 @@ async fn run_both(extra: &str, messages: &[&str]) {
     };
     println!("{}", vanilla.join("\n"));
     assert_eq!(vanilla, ours, "vanilla (left) vs ours (right)");
+}
+
+async fn run_both(extra: &str, messages: &[&str]) {
+    run_with(extra, async |server, mock| {
+        session(server, mock, messages).await
+    })
+    .await;
+}
+
+/// The requests in a fixed order: the lines of a sign go out on several worker threads at once.
+fn sorted(mut rows: Vec<String>) -> Vec<String> {
+    rows.sort();
+    rows
+}
+
+/// A sender in creative mode with `item` in the first hotbar slot, and the block next to it. The player spawns at a
+/// random place, so the platform is built at fixed coordinates before the sender is teleported onto it.
+async fn creative_with(server: &Server, item: mc_data::Item) -> (Arc<Bot>, BlockPos) {
+    server.cmd("forceload add -16 -16 16 16");
+    server.wait_log("Marked", 30).expect("forceload");
+    let filled = |s: &Server| s.log().matches("Successfully filled").count();
+    let before = filled(server);
+    // the chunks load in the background: repeat until the fill finds them
+    for _ in 0..60 {
+        server.cmd("fill -2 99 -2 3 99 2 stone");
+        tokio::time::sleep(Duration::from_millis(500)).await;
+        if filled(server) > before {
+            break;
+        }
+    }
+    assert!(filled(server) > before, "the platform was never built");
+    server.cmd("fill -2 100 -2 3 103 2 air");
+    let sender = connect(server.port, "Sender", false).await;
+    server.cmd("gamemode creative Sender");
+    server.cmd("tp Sender 0.5 100 0.5");
+    for _ in 0..200 {
+        let p = sender.position();
+        if (p.y - 100.0).abs() < 0.001 && (p.x - 0.5).abs() < 0.001 {
+            break;
+        }
+        tokio::time::sleep(Duration::from_millis(50)).await;
+    }
+    let p = sender.position();
+    assert!(
+        (p.y - 100.0).abs() < 0.001,
+        "the sender is not on the platform: {p:?}"
+    );
+    sender.creative_set_slot(36, ItemStack::with_count(item, 1));
+    tokio::time::sleep(Duration::from_millis(500)).await;
+    (sender, BlockPos::new(1, 100, 0))
+}
+
+async fn data_get_block(server: &Server, at: BlockPos) -> String {
+    let (x, y, z) = (at.x(), at.y(), at.z());
+    server.cmd(&format!("data get block {x} {y} {z}"));
+    let line = server
+        .wait_log(
+            &format!(r"{x}, {y}, {z} has the following block data: "),
+            30,
+        )
+        .unwrap_or_else(|| {
+            let log = server.log();
+            let tail: Vec<&str> = log.lines().rev().take(12).collect();
+            panic!("block data of {x} {y} {z}: {tail:#?}")
+        });
+    line.split_once("block data: ")
+        .map_or(line.clone(), |(_, d)| d.to_owned())
+}
+
+/// What the mock saw and the filter logged once the sender is gone.
+async fn finish(server: &Server, mock: &MockFilterServer, mut out: Vec<String>) -> Vec<String> {
+    tokio::time::sleep(Duration::from_millis(1500)).await;
+    out.push("-- requests".to_owned());
+    out.extend(sorted(requests(mock)));
+    out.push("-- log".to_owned());
+    out.extend(filter_log(server));
+    out
+}
+
+/// Sign text goes through the filter as a bundle of four lines; the filtered lines land in the block entity.
+async fn sign_session(server: &Server, mock: &MockFilterServer) -> Vec<String> {
+    let (sender, at) = creative_with(server, mc_data::Item::OAK_SIGN).await;
+    // placing the sign opens its editor for the placer
+    sender.use_item_on(
+        InteractionHand::MainHand,
+        at.below(),
+        Direction::Up,
+        (0.5, 1.0, 0.5),
+        false,
+    );
+    tokio::time::sleep(Duration::from_millis(1000)).await;
+    sender.send(ServerboundPlayPacket::SignUpdate(
+        ServerboundSignUpdatePacket {
+            pos: at,
+            lines: [
+                "pass".into(),
+                "hashed".into(),
+                "\u{a7}ahashed".into(),
+                "nohash".into(),
+            ],
+            slot: SignTextSlot::Front,
+        },
+    ));
+    tokio::time::sleep(Duration::from_millis(1500)).await;
+    let sign = data_get_block(server, at).await;
+    let out = vec![format!("-- sign {sign}")];
+    sender.disconnect().await;
+    finish(server, mock, out).await
+}
+
+/// Taking the result of an anvil rename sends the new name to the filter (the answer is ignored).
+async fn anvil_session(server: &Server, mock: &MockFilterServer) -> Vec<String> {
+    let (sender, at) = creative_with(server, mc_data::Item::IRON_SWORD).await;
+    server.cmd(&format!("setblock {} {} {} anvil", at.x(), at.y(), at.z()));
+    tokio::time::sleep(Duration::from_millis(500)).await;
+    sender.use_item_on(
+        InteractionHand::MainHand,
+        at,
+        Direction::Up,
+        (0.5, 1.0, 0.5),
+        false,
+    );
+    for _ in 0..50 {
+        if sender.with_state(|s| s.open_menu.is_some()) {
+            break;
+        }
+        tokio::time::sleep(Duration::from_millis(100)).await;
+    }
+    assert!(sender.with_state(|s| s.open_menu.is_some()), "anvil menu");
+    // the sword from the hotbar into the input slot, the new name, the result into the inventory
+    sender.click_slot(30, 0, ContainerInput::QuickMove);
+    tokio::time::sleep(Duration::from_millis(500)).await;
+    sender.send(ServerboundPlayPacket::RenameItem(
+        ServerboundRenameItemPacket {
+            name: "hashed".into(),
+        },
+    ));
+    tokio::time::sleep(Duration::from_millis(800)).await;
+    sender.click_slot(2, 0, ContainerInput::QuickMove);
+    tokio::time::sleep(Duration::from_millis(1500)).await;
+    sender.close_container();
+    tokio::time::sleep(Duration::from_millis(500)).await;
+    server.cmd("data get entity Sender Inventory");
+    let line = server
+        .wait_log(r"Sender has the following entity data: \[", 30)
+        .expect("inventory dump");
+    let out = vec![format!(
+        "-- inventory {}",
+        line.split_once("entity data: ").map_or("", |(_, d)| d)
+    )];
+    sender.disconnect().await;
+    finish(server, mock, out).await
+}
+
+/// A sender that leaves while its message is still with the filter (the answer is slow): the answer arrives after the
+/// disconnection and the message is dropped.
+async fn disconnect_session(server: &Server, mock: &MockFilterServer) -> Vec<String> {
+    let sender = connect(server.port, "Sender", false).await;
+    let on = connect(server.port, "ObsOn", true).await;
+    let off = connect(server.port, "ObsOff", false).await;
+    sender.chat("late");
+    tokio::time::sleep(Duration::from_millis(300)).await;
+    sender.disconnect().await;
+    tokio::time::sleep(Duration::from_millis(2500)).await;
+    let mut out = vec!["-- observer with the filter on".to_owned()];
+    out.extend(chat_packets(&on));
+    out.push("-- observer with the filter off".to_owned());
+    out.extend(chat_packets(&off));
+    on.disconnect().await;
+    off.disconnect().await;
+    finish(server, mock, out).await
 }
 
 const MESSAGES: [&str; 14] = [
@@ -298,4 +475,22 @@ async fn unusable_configurations_log_like_vanilla() {
         println!("{config} v{version}: {rows:?}");
         assert!(!rows.is_empty(), "no log line for {config}");
     }
+}
+
+#[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
+async fn sign_lines_go_through_the_filter_as_a_bundle() {
+    run_with("", sign_session).await;
+}
+
+#[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
+async fn anvil_name_is_filtered_when_the_result_is_taken() {
+    run_with("", anvil_session).await;
+}
+
+#[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
+async fn answer_after_the_sender_left_is_dropped() {
+    run_with("", disconnect_session).await;
 }
