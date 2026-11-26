@@ -68,10 +68,14 @@ class RustIndex:
             rel = os.path.relpath(path, ROOT)
             text = open(path, errors="replace").read()
             self.stems[os.path.basename(path)[:-3]].append(rel)
-            for m in re.finditer(r"^([ \t]*(?:///[^\n]*\n[ \t]*)*)(pub(?:\([a-z]+\))?\s+)?(?:struct|enum|trait|type|union)\s+([A-Za-z_]\w*)", text, re.M):
+            for m in re.finditer(r"^([ \t]*(?:(?:///[^\n]*|#\[[^\n]*\])\n[ \t]*)*)(pub(?:\([a-z]+\))?\s+)?(?:struct|enum|trait|type|union)\s+([A-Za-z_]\w*)", text, re.M):
                 doc, public, item = m.groups()
                 # a private type counts only when its doc comment starts with its own name in backticks
-                if public or re.match(r"\s*///\s*`%s`" % item, doc):
+                first = re.search(r"///\s*`([^`]+)`", doc)
+                named = re.split(r"[.:]+", re.sub(r"\(.*?\)", "", first.group(1))) if first else []
+                if first and item not in named:
+                    continue  # documented as a different vanilla type (`Outer.Inner`), not as this one
+                if public or (first and named[0] == item):
                     self.items[item].add(rel)
             for m in re.finditer(r"\bregister_\w+!\(\s*\"([A-Za-z_]\w*)\"", text):
                 self.registered[m.group(1)].add(rel)
@@ -93,7 +97,7 @@ class RustIndex:
                 return shared - 0.5 * (len(segs) - shared)  # a file fits a deeper package it also names better
 
             others = [c for c in self.simple_names[name.rsplit("/", 1)[1]] if c != name]
-            files = [f for f in files if fit(f, name) > max([fit(f, c) for c in others] + [0])]
+            files = [f for f in files if fit(f, name) > max(fit(f, c) for c in others)]
         def score(f):
             parts = set(re.split(r"[/_.]", f))
             return -sum(1 for s in segments if s in parts)
