@@ -14,7 +14,8 @@ TSV row per class (stdout, or FILE):
               named      the name occurs three or more times (or in two files) in Rust code or comments, no unit of its own
               mentioned  the name occurs once or twice in one file: weakest evidence, read before relying on it
               folded     implemented without a unit of its own; `reason` says where or why
-              nested     nested/anonymous/local class of a ported, named or folded class
+              nested     nested/anonymous/local class of a ported, named or folded class (of a mentioned class: mentioned)
+              missing    no Rust counterpart yet, though one is needed; `reason` says what is not implemented
               n/a        no counterpart needed; `reason` says why
               unclassified   no rule applies (the run exits 1 when any exists)
   how         the rule that decided: stem, item, registered, rule, block-overrides, structure, outer, named, ...
@@ -44,14 +45,16 @@ def snake(name):
 def rust_sources():
     for d, dirs, fs in os.walk(os.path.join(ROOT, "crates")):
         crate_root = os.path.dirname(d) == os.path.join(ROOT, "crates")
-        dirs[:] = [x for x in dirs if x != "tests" and not (crate_root and x == "target")]
+        # the test client is not the server; a crate's build directory is not source
+        dirs[:] = [x for x in dirs if x != "tests" and not (crate_root and x == "target") and not (d.endswith("/crates") and x == "mc-testbot")]
         for f in fs:
             if f.endswith(".rs"):
                 yield os.path.join(d, f)
 
 
 class RustIndex:
-    def __init__(self):
+    def __init__(self, simple_names):
+        self.simple_names = simple_names
         self.stems = collections.defaultdict(list)
         self.items = collections.defaultdict(set)
         self.words = collections.defaultdict(collections.Counter)
@@ -61,7 +64,7 @@ class RustIndex:
             rel = os.path.relpath(path, ROOT)
             text = open(path, errors="replace").read()
             self.stems[os.path.basename(path)[:-3]].append(rel)
-            for m in re.finditer(r"\b(?:struct|enum|trait|type|union)\s+([A-Za-z_]\w*)", text):
+            for m in re.finditer(r"\bpub(?:\([a-z]+\))?\s+(?:struct|enum|trait|type|union)\s+([A-Za-z_]\w*)", text):
                 self.items[m.group(1)].add(rel)
             for m in re.finditer(r"\bregister_\w+!\(\s*\"([A-Za-z_]\w*)\"", text):
                 self.registered[m.group(1)].add(rel)
@@ -74,6 +77,9 @@ class RustIndex:
         Files of the datafixer crates only count for vanilla datafixer classes: they define many generic type names."""
         if not name.startswith(PREFIX + "util/datafix"):
             files = [f for f in files if not f.startswith(("crates/mc-datafix/", "crates/mc-dfu/"))]
+        if segments and len(self.simple_names[name.rsplit("/", 1)[1]]) > 1:
+            # several vanilla classes share this simple name: demand a shared package segment
+            files = [f for f in files if any(s in set(re.split(r"[/_.]", f)) for s in segments)]
         def score(f):
             parts = set(re.split(r"[/_.]", f))
             return -sum(1 for s in segments if s in parts)
@@ -87,8 +93,8 @@ def load_rules():
         if not line.strip() or line.startswith("#"):
             continue
         cols = line.rstrip("\n").split("\t")
-        if len(cols) != 4 or cols[1] not in ("n/a", "folded"):
-            sys.exit(f"{path}:{n}: expected `regex<TAB>n/a|folded<TAB>rust files<TAB>reason`")
+        if len(cols) != 4 or cols[1] not in ("n/a", "folded", "missing"):
+            sys.exit(f"{path}:{n}: expected `regex<TAB>n/a|folded|missing<TAB>rust files<TAB>reason`")
         for f in filter(None, cols[2].split(",")):
             if not os.path.exists(os.path.join(ROOT, f)):
                 sys.exit(f"{path}:{n}: no such Rust file: {f}")
@@ -132,7 +138,10 @@ def main():
     jar = args.jar or sorted(glob.glob(os.path.join(ROOT, "ref/bundle/META-INF/versions/*/server-*.jar")))[-1]
 
     classes = dump(jar)
-    rs = RustIndex()
+    names = collections.defaultdict(list)
+    for n in classes:
+        names[n.rsplit("/", 1)[1]].append(n)
+    rs = RustIndex(names)
     rules = load_rules()
     client, masked, over = block_overrides()
     result = {}
@@ -144,6 +153,9 @@ def main():
             return "n/a", [], "structure", "package marker, no code"
         if c["kind"] == "annotation":
             return "n/a", [], "structure", "annotation without runtime behaviour"
+        for rx, status, files, reason in rules:
+            if status == "n/a" and rx.fullmatch(name):
+                return status, [], "rule", reason
         for how, index, key in (("stem", rs.stems, snake(simple)), ("item", rs.items, simple), ("registered", rs.registered, simple)):
             found = rs.best(index.get(key, ()), segs, name)
             if found:
@@ -157,10 +169,11 @@ def main():
                 return "folded", [], "block-overrides", "masked subclass: " + masked[simple]
             if not server_side:
                 return "folded", [], "block-overrides", "overrides only data or client-side methods: " + (",".join(sorted(over[simple])) or "none")
-        if simple in rs.words:
-            seen = rs.words[simple]
+        seen = {f: n for f, n in rs.words.get(simple, {}).items() if rs.best([f], segs, name)}
+        if seen:
             strong = sum(seen.values()) >= 3 or len(seen) >= 2
-            return ("named" if strong else "mentioned"), [f for f, _ in seen.most_common(3)], "named", ""
+            top = sorted(seen, key=lambda f: (-seen[f], f))[:3]
+            return ("named" if strong else "mentioned"), top, "named", ""
         if c["kind"] == "interface" and c["own"] == "0":
             return "folded", [], "structure", "marker interface without methods"
         if c["own"] == "0" and c["fields"] == "0" and c["kind"] in ("class", "record") and c["nest"] == "top":
@@ -176,7 +189,7 @@ def main():
             if status in ("unclassified", "named", "mentioned", "folded") or how == "structure":
                 ostatus, ofiles, _, oreason = resolve(c["outer"])
                 if ostatus != "unclassified":
-                    status = ostatus if ostatus == "n/a" else "nested"
+                    status = ostatus if ostatus in ("n/a", "mentioned") else "nested"
                     files, how = ofiles, "outer"
                     reason = f"{c['nest']} class of {c['outer'].rsplit('/', 1)[-1]}" + (f": {oreason}" if ostatus == "n/a" else "")
             result[name] = (status, files, how, reason)

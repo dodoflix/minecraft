@@ -40,12 +40,13 @@
 ^net/minecraft/world/item/slot/.*	folded	crates/mc-game-core/src/world/item/crafting/display.rs	slot sources of slot displays and the item command
 ^net/minecraft/world/attribute/.*	folded	crates/mc-game-core/src/world/attribute/mod.rs	environment attribute reading, modifiers and interpolation
 ^net/minecraft/world/clock/.*	folded	crates/mc-game-core/src/world/clock/mod.rs	world clocks
-^net/minecraft/world/timeline/.*	folded	crates/mc-game-core/src/world/clock/mod.rs	timeline tracks of the world clocks
+^net/minecraft/world/timeline/.*	folded	crates/mc-game-core/src/world/attribute/system.rs	timeline attribute tracks: keyframe sampling lives in the attribute system
 ^net/minecraft/world/waypoints/.*	folded	crates/mc-game-core/src/world/waypoints.rs	waypoint tracking
 ^net/minecraft/world/level/(ColorMapColorUtil|ColorResolver|DryFoliageColor|FoliageColor|GrassColor)(\$.*)?	n/a		rendering colour lookup, client-side
 ^net/minecraft/world/level/(BlockAndLightGetter|CommonLevelAccessor|EmptyStructureManager|ItemLike|LevelSimulatedReader|LevelWriter)(\$.*)?	folded	crates/mc-game-core/src/server/level/mod.rs	level access interfaces: one ServerLevel type implements all of them
 ^net/minecraft/world/level/biome/.*	folded	crates/mc-worldgen/src/biome/multi_noise.rs	biome source tables and parameter lists
-^net/minecraft/world/level/block/(ColorCollection|HangingSignBlock|PlainSignBlock)	folded	crates/mc-game-core/src/world/block_entity/sign_block_entity.rs	sign family bases
+^net/minecraft/world/level/block/(HangingSignBlock|PlainSignBlock)	folded	crates/mc-game-blocks/src/world/level/block/impls/standing_sign_block.rs	abstract sign block bases: the standing, wall and hanging sign blocks implement them
+^net/minecraft/world/level/block/ColorCollection	folded	crates/mc-data/src/block.rs	per-dye-colour block and item key sets: generated block data
 ^net/minecraft/world/level/block/entity/(BannerPatterns|BlockEntityTypeIds|BlockEntityTypes|BlockEntityType)(\$.*)?	folded	crates/mc-game-core/src/world/block_entity/mod.rs	block entity type registry and ids
 ^net/minecraft/world/level/block/entity/(BlockEntityTicker|TickingBlockEntity)(\$.*)?	folded	crates/mc-game-core/src/server/level/level_tick_state.rs	block entity ticking
 ^net/minecraft/world/level/block/entity/(BoundingBoxRenderable|LidBlockEntity|vault/VaultClientData)(\$.*)?	n/a		client rendering or animation interface
@@ -70,11 +71,12 @@
 ^net/minecraft/world/ticks/WorldGenTickAccess(\$.*)?	folded	crates/mc-game-core/src/server/level/level_tick_state.rs	tick access of chunks that are still generating
 ^net/minecraft/advancements/predicates/SingleComponentItemPredicate(\$.*)?	folded	crates/mc-game-core/src/world/item/crafting/ingredient.rs	item predicate base class
 ^net/minecraft/server/dialog/.*	folded	crates/mc-protocol/src/dialog/mod.rs	dialog definitions and type registries
-^net/minecraft/server/level/(BlockDestructionProgress|ChunkResult|ServerEntityGetter|progress/ChunkLoadStatusView)(\$.*)?	folded	crates/mc-game-core/src/server/level/mod.rs	small level helpers and interfaces
+^net/minecraft/server/level/BlockDestructionProgress(\$.*)?	folded	crates/mc-game-core/src/server/level/level_events.rs	destroy-progress broadcasting of the level events
+^net/minecraft/server/level/(ChunkResult|ServerEntityGetter|progress/ChunkLoadStatusView)(\$.*)?	folded	crates/mc-game-core/src/server/level/mod.rs	small level helpers and interfaces
 ^net/minecraft/server/network/(EventLoopGroupHolder|MemoryServerHandshakePacketListenerImpl|ServerPlayerConnection)(\$.*)?	folded	crates/mc-game-core/src/server/network/connection.rs	netty event loop, in-process connection and connection interface
 ^net/minecraft/server/network/(LegacyTextFilter|PlayerSafetyServiceTextFilter)(\$.*)?	folded	crates/mc-game-core/src/server/network/text_filter.rs	the two text filter versions
 ^net/minecraft/server/packs/linkfs/.*	n/a		in-memory file system used to expose packs as paths, Rust reads them through std paths
-^net/minecraft/server/packs/(DownloadCacheCleaner|DownloadQueue)(\$.*)?	folded	crates/mc-game-core/src/server/packs/mod.rs	resource pack download cache (client side of pack downloading is the client)
+^net/minecraft/server/packs/(DownloadCacheCleaner|DownloadQueue)(\$.*)?	n/a		client-side resource pack download cache; no server code uses it
 ^net/minecraft/server/packs/(metadata|resources)/.*	folded	crates/mc-game-core/src/server/packs/resource_manager.rs	pack metadata and reload listeners: the reload steps of the server
 ^net/minecraft/server/permissions/.*	folded	crates/mc-game-core/src/server/permissions	permission checks and sets
 ^net/minecraft/server/(ChainedJsonException|ConsoleInput|DebugLoggedPrintStream|LoggedPrintStream|RunningOnDifferentThreadException)(\$.*)?	folded	crates/mc-game-core/src/server/dedicated/mod.rs	console input, stdout/stderr logging and thread-hop exception: the dedicated server loop
@@ -83,7 +85,9 @@
 ^net/minecraft/util/thread/.*	folded	crates/mc-game-core/src/server/event_loop.rs	executors and queues: the server event loop
 ^net/minecraft/util/valueproviders/SampledFloat(\$.*)?	folded	crates/mc-core/src/random/mod.rs	float provider sampling
 ^net/minecraft/util/debug/DebugValueAccess(\$.*)?	n/a		debug subscription value access, developer feature
-^net/minecraft/util/(FormattedCharSequence|FormattedCharSink|BinaryAnimator|SmoothDouble|ParticleUtils|Keyframe|KeyframeTrack|NativeModuleLister|ModCheck|MemoryReserve|HttpUtil|DummyFileAttributes|FileSystemUtil|CsvOutput|ThreadingDetector)	n/a		client rendering or JVM/OS plumbing without server-visible behaviour
+^net/minecraft/util/(FormattedCharSequence|FormattedCharSink|BinaryAnimator|SmoothDouble|ParticleUtils|NativeModuleLister|ModCheck|MemoryReserve|HttpUtil|DummyFileAttributes|FileSystemUtil|ThreadingDetector)	n/a		client rendering or JVM/OS plumbing without server-visible behaviour
+^net/minecraft/util/(Keyframe|KeyframeTrack)(\$.*)?	folded	crates/mc-game-core/src/world/attribute/system.rs	timeline keyframe tracks sampled by the environment attribute system
+^net/minecraft/util/CsvOutput(\$.*)?	folded	crates/mc-game-core/src/util/profiling/metrics.rs	CSV writer of the metrics and debug-report files
 ^net/minecraft/util/(AbortableIterationConsumer|AbstractListBuilder|ArrayListDeque|BoundedFloatFunction|ToFloatFunction|ListAndDeque|DelegateDataOutput|FutureChain|TaskChainer|EncoderCache|ExceptionCollector|SingleKeyCache|StaticCache2D|TimeSource|ProgressListener|RegistryContextSwapper|PlaceholderLookupProvider|NullOps|ClassTreeIdRegistry)(\$.*)?	folded	crates/mc-core/src/java_collections.rs	Java collection, functional-interface and executor helpers: replaced by std and the Java-compatible collections of mc-core
 ^net/minecraft/(WorldVersion|DetectedVersion|SharedConstants)(\$.*)?	folded	crates/mc-world/src/level_storage/version.rs	version constants and detected version
 ^net/minecraft/(CharPredicate|Optionull|TracingExecutor|DefaultUncaughtExceptionHandler|DefaultUncaughtExceptionHandlerWithName)(\$.*)?	n/a		Java helper types: functional interface, null helper, JVM uncaught-exception hook, tracing executor wrapper
@@ -91,3 +95,5 @@
 ^com/mojang/math/(Divisor|Quadrant)(\$.*)?	folded	crates/mc-core/src/math	integer divisor and rotation helpers
 ^net/minecraft/gametest/framework/(GameTestEntityBuilder|GameTestEnvironments|GameTestInstances|GameTestMainUtil|GameTestMobBuilder)(\$.*)?	folded	crates/mc-game-core/src/gametest/mod.rs	game test builders, built-in environments and instances
 ^net/minecraft/server/commands/InCommandFunction(\$.*)?	folded	crates/mc-game-cmds/src/server/commands/function_command.rs	functional interface of command functions
+^net/minecraft/gametest/Main(\$.*)?	missing		not implemented yet: the headless game test server entry point (--gametest runner without a world)
+^net/minecraft/(network/chat/LocalChatSession|world/entity/player/ProfileKeyPair)(\$.*)?	n/a		client-side signing session and key pair: no server class references it (the server only sees the public key and the remote session)
