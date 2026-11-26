@@ -1,0 +1,21 @@
+# The order of one tick's inbound packets. A chat command is handled on the network thread and its server task runs before the
+# main thread drains the packets of the batch, so the marker that `!send` puts after a packet answers before the packet's own
+# reply: a `test_instance_block_status` answer lands in the window after the marker's segment, and only `reply` (which waits for
+# it before sending the marker) puts it in the segment of the `!send` line.
+#   scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/packet_order.txt
+!packets test_instance_block_status
+setblock 10 -60 10 minecraft:test_instance_block
+
+# ---- the answer comes after the marker
+@bot !send test_instance_block_action 10 -60 10 init
+!ticks 3 show
+@bot !send test_instance_block_action 10 -60 10 query
+!ticks 3 show
+
+# ---- `reply` waits for the answer: it is in the segment of the packet
+@bot !send test_instance_block_action 10 -60 10 init reply
+@bot !send test_instance_block_action 10 -60 10 query reply
+
+# ---- a packet that sends nothing back leaves the segment empty
+@bot !send test_instance_block_action 11 -60 10 query
+!ticks 3 show

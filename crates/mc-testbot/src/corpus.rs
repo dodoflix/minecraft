@@ -56,8 +56,8 @@ enum Item {
     World(String, bool),
     /// `!send <packet> ...`: a serverbound play packet sent as the bot (`@bot0 !send ...` as Bot0).
     Send(usize, Box<ServerboundPlayPacket>),
-    /// `!send <packet> reply`: the same, then waits for the `test_instance_block_status` answer (a main-thread handler answers
-    /// in the tick after the marker's, so without the wait the answer lands in a random segment).
+    /// `!send test_instance_block_action ... reply`: the same, then waits for the `test_instance_block_status` answer. A
+    /// main-thread packet is handled after the marker's chat command, so its answer comes after the marker's segment.
     SendReply(usize, Box<ServerboundPlayPacket>),
     /// `!suggest <text>`: a `command_suggestion` request as the bot (`@bot0 !suggest ...` as Bot0).
     Suggest(usize, String),
@@ -231,7 +231,10 @@ fn parse_corpus(file: &str, text: &str) -> Res<Vec<Line>> {
 /// `!send` and `!suggest`, which a bot prefix (`@bot0 !send ...`) may address to another bot.
 fn parse_bot_directive(word: &str, arg: &str, bot: usize) -> Result<Item, String> {
     match word {
-        "send" => match arg.strip_suffix(" reply") {
+        "send" => match arg
+            .strip_suffix(" reply")
+            .filter(|_| arg.starts_with("test_instance_block_action "))
+        {
             Some(arg) => parse_send(arg).map(|p| Item::SendReply(bot, Box::new(p))),
             None => parse_send(arg).map(|p| Item::Send(bot, Box::new(p))),
         },
@@ -625,6 +628,8 @@ struct Side {
     /// Per bot, the chat index just after the last marker it saw: a `!ticks n show` window starts there, so output that
     /// arrives between that marker and the window's own mark (a loaded host) is not lost.
     chat_end: [Option<usize>; 2],
+    /// The same for the packet log: the index just after the last marker's packet.
+    pkt_end: [Option<usize>; 2],
     log_off: usize,
     marker: u32,
     /// Id of the next `command_suggestion` request.
@@ -656,6 +661,7 @@ impl Side {
             .map_err(|e| format!("{} {} ready: {e}", self.label, BOTS[i]))?;
         self.bots[i] = Some(bot);
         self.chat_end[i] = None;
+        self.pkt_end[i] = None;
         Ok(())
     }
 
@@ -789,13 +795,25 @@ impl Side {
                     }
                 }
             }
+            // the marker's own packet ends the segment, in wire order: what the server sends after it belongs to the next
+            // segment, however early the harness reads (a main-thread answer comes a tick later)
+            let pkt_end = bot.shared.log.lock().ok().and_then(|l| {
+                l.entries()
+                    .iter()
+                    .enumerate()
+                    .skip(m.pkt[i])
+                    .find(|(_, e)| e.dir == Dir::In && e.debug.contains(&tag))
+                    .map(|(k, _)| k)
+            });
+            self.pkt_end[i] = pkt_end.map(|k| k + 1);
             if let Some(re) = &self.packets {
                 let entries: Vec<String> = bot
                     .shared
                     .log
                     .lock()
                     .map(|l| {
-                        l.entries()
+                        let all = l.entries();
+                        all[..pkt_end.unwrap_or(all.len())]
                             .iter()
                             .skip(m.pkt[i])
                             .filter(|e| e.dir == Dir::In && re.is_match(&e.name))
@@ -956,6 +974,11 @@ impl Side {
                 // `show` reads the window as ONE segment: output between two marker round trips would be lost
                 let log_off = self.log_off;
                 let mut m0 = self.mark();
+                for (i, end) in self.pkt_end.iter().enumerate() {
+                    if let Some(end) = end {
+                        m0.pkt[i] = m0.pkt[i].min(*end);
+                    }
+                }
                 for (i, end) in self.chat_end.iter().enumerate() {
                     if let Some(end) = end {
                         m0.chat[i] = m0.chat[i].min(*end);
@@ -1136,6 +1159,7 @@ async fn run_side(ours: bool, o: &Opts, tag: &str, lines: &[Line]) -> Res<SideOu
         srv,
         bots: [None, None],
         chat_end: [None, None],
+        pkt_end: [None, None],
         log_off: 0,
         marker: 0,
         suggest_id: 0,
@@ -1591,6 +1615,14 @@ mod tests {
         );
         assert!(parse_corpus("x", "!addpack").is_err());
         assert!(parse_corpus("x", "!addpack no_such_directory").is_err());
+    }
+
+    #[test]
+    fn only_a_test_instance_action_takes_reply() {
+        let l = parse_corpus("x", "!send set_test_block 1 2 3 log reply").unwrap();
+        assert!(matches!(l[0].item, Item::Send(..)));
+        let l = parse_corpus("x", "!send test_instance_block_action 1 2 3 query reply").unwrap();
+        assert!(matches!(l[0].item, Item::SendReply(..)));
     }
 
     #[test]

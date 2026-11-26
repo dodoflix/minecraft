@@ -1,0 +1,20 @@
+### [packet_order.txt:7] setblock 10 -60 10 minecraft:test_instance_block
+log| System chat: Changed the block at 10, -60, 10
+Bot| [system_chat] [Server: Changed the block at 10, -60, 10]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[10,-60,10]}],"color":"gray","italic":true}
+### [packet_order.txt:10] @bot !send test_instance_block_action 10 -60 10 init
+
+### [packet_order.txt:11] !ticks 3 show
+Bot| packet test_instance_block_status TestInstanceBlockStatus(ClientboundTestInstanceBlockStatus { status: Component { contents: Translatable(TranslatableContents { key: "test_instance.description.no_test", fallback: None, args: [] }), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, size: None })
+### [packet_order.txt:12] @bot !send test_instance_block_action 10 -60 10 query
+
+### [packet_order.txt:13] !ticks 3 show
+Bot| packet test_instance_block_status TestInstanceBlockStatus(ClientboundTestInstanceBlockStatus { status: Component { contents: Translatable(TranslatableContents { key: "test_instance.description.no_test", fallback: None, args: [] }), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, size: None })
+### [packet_order.txt:16] @bot !send test_instance_block_action 10 -60 10 init reply
+Bot| packet test_instance_block_status TestInstanceBlockStatus(ClientboundTestInstanceBlockStatus { status: Component { contents: Translatable(TranslatableContents { key: "test_instance.description.no_test", fallback: None, args: [] }), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, size: None })
+### [packet_order.txt:17] @bot !send test_instance_block_action 10 -60 10 query reply
+Bot| packet test_instance_block_status TestInstanceBlockStatus(ClientboundTestInstanceBlockStatus { status: Component { contents: Translatable(TranslatableContents { key: "test_instance.description.no_test", fallback: None, args: [] }), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, size: None })
+### [packet_order.txt:20] @bot !send test_instance_block_action 11 -60 10 query
+
+### [packet_order.txt:21] !ticks 3 show
+

@@ -54,8 +54,10 @@
 #                      `set_test_block X Y Z start|log|fail|accept "message"` and
 #                      `test_instance_block_action X Y Z init|query|set|reset|save|export|run [key=<test id>] [size=X,Y,Z]
 #                      [rotation=none|clockwise_90|180|counterclockwise_90] [ignore=<bool>] [status=cleared|running|finished]`
-#                      A trailing `reply` waits for the `test_instance_block_status` answer of `init`/`query` before the marker (a
-#                      main-thread packet is answered in the tick after the marker's, so the answer would land in a random segment).
+#                      A trailing `reply` (only after `test_instance_block_action`) waits for the `test_instance_block_status` answer of
+#                      `init`/`query` before the marker. A main-thread packet is handled after the marker's chat command (which the
+#                      network thread queues first), so without `reply` the answer lands after the marker's segment, in vanilla and
+#                      here alike; the wait also covers the rare packet that reaches vanilla one tick before the marker.
 #   !suggest <text>    a `command_suggestion` request as Bot (`@bot0 !suggest ...`; text as the client sends it, a "quoted" text
 #                      keeps trailing blanks), waits for the answer with that request id; record it with `!packets command_suggestions`
 #   !file <path>       the gzip NBT file `<path>` of the server directory as pretty SNBT, one `file| ` line per line (`(missing)`

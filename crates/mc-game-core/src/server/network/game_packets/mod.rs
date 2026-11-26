@@ -7,9 +7,11 @@
 //! Vanilla handles some packets directly on the netty thread (keep-alive, chat family, command suggestions, ping,
 //! book/sign editing, configuration acknowledgement; chat then queues a server task) and the rest on the main thread
 //! through the `PacketProcessor`, which is drained once at the very start of every tick (before `tickServer`).
-//! The queued tasks of the netty-handled packets run before that drain. `drain_inbound` reproduces this
-//! ordering for the batch of packets that arrived since the previous tick: first the netty-thread packets in arrival
-//! order, then the main-thread ones in arrival order.
+//! The queued tasks of the netty-handled packets run in the previous tick's `waitUntilNextTick` (the server task queue
+//! is polled until the next tick starts), so they run before that drain. `process_queued_packets` reproduces this
+//! ordering for the batch of packets that arrived since the previous tick, for every player in turn: first the
+//! netty-thread packets of the batch and the server tasks they queued (arrival order), then the main-thread packets
+//! (arrival order). A main-thread packet sent before a chat command is therefore handled after the command ran.
 //!
 //! # Extension points for subsystems outside the listener
 //! Packets whose subsystem is not part of the listener (containers, recipe book, advancements, command blocks,
@@ -160,13 +162,26 @@ pub fn process_queued_packets(server: &mut MinecraftServer) {
         .iter()
         .map(|p| p.uuid)
         .collect();
+    // The server tasks of the netty-handled packets (`BlockableEventLoop` queue) run before the main-thread drain
+    for &uuid in &uuids {
+        let Some(deferred) = with_player(server, uuid, |ctx| {
+            ctx.replay_held_chat_packets();
+            ctx.drain_inbound_netty();
+            std::mem::take(&mut ctx.lis().deferred_tasks)
+        }) else {
+            continue;
+        };
+        finish_player_step(server, uuid);
+        for task in deferred {
+            task(server);
+        }
+    }
     for uuid in uuids {
         let Some(handle) = server.player_list.get_player(&uuid).cloned() else {
             continue;
         };
         let Some((pending, deferred)) = with_player(server, uuid, |ctx| {
-            ctx.replay_held_chat_packets();
-            ctx.drain_inbound();
+            ctx.run_main_thread_packets();
             (
                 ctx.lis().pending_respawn.take(),
                 std::mem::take(&mut ctx.lis().deferred_tasks),
@@ -258,8 +273,9 @@ pub fn tick_connection(server: &mut MinecraftServer, uuid: Uuid) {
 }
 
 impl PlayCtx<'_> {
-    /// Drain this connection's inbound channel (see the module docs for the ordering).
-    fn drain_inbound(&mut self) {
+    /// Drains this connection's inbound channel and handles its netty-thread packets; the main-thread packets wait in
+    /// `main_thread_packets` for `run_main_thread_packets` (see the module docs for the ordering).
+    fn drain_inbound_netty(&mut self) {
         // A player placed by a server task between ticks has not run its first `tick()` yet: vanilla places it while
         // processing packets and ticks the connection in the same server tick, so `firstGood`/`lastGood` already hold
         // the spawn position when the client's first packets (accept-teleport) are handled.
@@ -272,7 +288,6 @@ impl PlayCtx<'_> {
             batch.push(event);
         }
         let mut netty = Vec::new();
-        let mut main = Vec::new();
         for event in batch {
             match event {
                 InboundPacket::Packet {
@@ -282,7 +297,7 @@ impl PlayCtx<'_> {
                 InboundPacket::Packet {
                     packet,
                     received_at_ms,
-                } => main.push((*packet, received_at_ms)),
+                } => lis.main_thread_packets.push((*packet, received_at_ms)),
                 InboundPacket::Disconnected(details) => {
                     lis.pending_disconnect.get_or_insert(details.reason.clone());
                 }
@@ -294,7 +309,11 @@ impl PlayCtx<'_> {
             }
             self.dispatch(packet, received_at_ms);
         }
-        for (packet, received_at_ms) in main {
+    }
+
+    /// `PacketProcessor.processQueuedPackets()` for this connection's packets.
+    fn run_main_thread_packets(&mut self) {
+        for (packet, received_at_ms) in std::mem::take(&mut self.lis().main_thread_packets) {
             // `PacketProcessor`: `shouldHandleMessage` = `isAcceptingMessages()` (a closed connection, or one
             // waiting for the switch to configuration, ignores everything but `ConfigurationAcknowledged`).
             let closed_for_good = self.lis().pending_disconnect.is_some();

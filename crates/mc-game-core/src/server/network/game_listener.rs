@@ -83,6 +83,9 @@ pub struct ServerGamePacketListenerImpl {
     /// `server.execute(..)` tasks queued by packet handlers while the player was taken out of its level (commands
     /// must see the player in the level and every level in the server): run right after the packet batch.
     pub(crate) deferred_tasks: Vec<DeferredTask>,
+    /// The main-thread packets of the batch drained at the start of the tick, in arrival order: they wait in
+    /// `PacketProcessor` while the tasks of the netty-handled packets run, so they are handled after those.
+    pub(crate) main_thread_packets: Vec<(mc_protocol::packets::play::ServerboundPlayPacket, i64)>,
     /// `chatSession`, `signedMessageDecoder`.
     pub(crate) chat_session: Option<RemoteChatSession>,
     /// The chat packets (`ChatSessionUpdate`, `Chat`, `ChatCommandSigned`, `ChatAck`) received since a `ChatSessionUpdate`
@@ -170,6 +173,7 @@ impl ServerGamePacketListenerImpl {
             disconnection_handled: false,
             pending_respawn: None,
             deferred_tasks: Vec::new(),
+            main_thread_packets: Vec::new(),
             chat_session: None,
             held_chat_packets: Vec::new(),
             signed_message_decoder: Box::new(UnsignedDecoder::new(

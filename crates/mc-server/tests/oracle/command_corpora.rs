@@ -45,6 +45,7 @@ corpora!(
     gametest_run,
     items,
     operating,
+    packet_order,
     place,
     recipes,
     scoreboard,
