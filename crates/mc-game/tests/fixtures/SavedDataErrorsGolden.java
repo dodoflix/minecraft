@@ -1,5 +1,6 @@
 import com.mojang.serialization.*;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.nbt.*;
 import net.minecraft.resources.*;
@@ -12,6 +13,8 @@ import net.minecraft.world.level.TicketStorage;
 import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.dimension.end.EnderDragonFight;
 import net.minecraft.world.level.gamerules.GameRuleMap;
+import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.WorldGenSettings;
 import net.minecraft.world.level.saveddata.*;
 import net.minecraft.world.level.saveddata.maps.MapId;
@@ -151,6 +154,36 @@ public class SavedDataErrorsGolden {
     }
   }
 
+
+  /** Only the given inputs (no mutations): `name<TAB>input<TAB>result` per input. */
+  static <T extends SavedData> void only(String name, SavedDataType<T> type, boolean encode, String... snbts) throws Exception {
+    for (String s : snbts) {
+      Tag in = value(s);
+      out.println(name + "\t" + line(in.toString()) + "\t" + eval(type, in, encode));
+    }
+  }
+
+  static final String NOISE = "{biome_source:{preset:\"minecraft:overworld\",type:\"minecraft:multi_noise\"},settings:\"minecraft:overworld\",type:\"minecraft:noise\"}";
+
+  /** `world_gen_settings` data with the given `overworld` stem and optional other stems (`"x:y":<stem>,`). */
+  static String wgs(String others, String stem) {
+    return "{seed:5L,dimensions:{" + others + "\"minecraft:overworld\":" + stem + "}}";
+  }
+
+  /** `stem` as the `x:y` dimension next to a valid overworld: its messages show as the partial result's error. */
+  static String other(String stem) {
+    return wgs("\"x:y\":" + stem + ",", stem("\"minecraft:overworld\"", NOISE));
+  }
+
+  static String stem(String type, String generator) { return "{generator:" + generator + ",type:" + type + "}"; }
+
+  /** The overworld dimension type with `monster_spawn_light_level` replaced by `provider`. */
+  static String dimType(CompoundTag dt, String provider) throws Exception {
+    CompoundTag copy = dt.copy();
+    copy.put("monster_spawn_light_level", value(provider));
+    return copy.toString();
+  }
+
   static Tag file(String path) throws Exception {
     return NbtIo.readCompressed(java.nio.file.Path.of(FIXTURE_WORLD + path), NbtAccounter.unlimitedHeap()).get("data");
   }
@@ -187,6 +220,53 @@ public class SavedDataErrorsGolden {
         snbt("{seed:5L,generate_structures:1b,bonus_chest:0b,legacy_custom_options:\"x\",dimensions:{\"minecraft:overworld\":{generator:{biome_source:{preset:\"minecraft:overworld\",type:\"minecraft:multi_noise\"},settings:\"minecraft:overworld\",type:\"minecraft:noise\"},type:\"minecraft:overworld\"}}}"),
         snbt("{seed:5L,dimensions:{\"minecraft:overworld\":{generator:{biome_source:{preset:\"minecraft:overworld\",type:\"minecraft:multi_noise\"},settings:\"minecraft:overworld\",type:\"minecraft:noise\"},type:\"minecraft:overworld\"},\"Bad Key\":{},\"x:y\":5}}"),
         snbt("{seed:5L,dimensions:{\"minecraft:overworld\":{generator:{type:\"minecraft:flat\",settings:{biome:\"minecraft:plains\",layers:[{block:\"minecraft:stone\",height:3000},{block:\"minecraft:dirt\",height:3000}]}},type:\"minecraft:overworld\"}}}"));
+    // inline dimension types and generators: int providers, a thrown `IllegalArgumentException`, `Not a map` wording
+    CompoundTag dt = (CompoundTag) DimensionType.DIRECT_CODEC.encodeStart(ops,
+        registries.lookupOrThrow(Registries.DIMENSION_TYPE).getOrThrow(BuiltinDimensionTypes.OVERWORLD).value()).getOrThrow();
+    String overflow = "{type:\"minecraft:weighted_list\",distribution:[{data:1,weight:2147483647},{data:2,weight:1}]}";
+    List<String> providers = List.of(
+        "7", "{type:\"minecraft:constant\",value:7}",
+        "{type:\"minecraft:clamped\",source:7,min_inclusive:2,max_inclusive:9}",
+        "{type:\"minecraft:clamped\",source:7,min_inclusive:9,max_inclusive:2}",
+        "{type:\"minecraft:clamped\",source:7,min_inclusive:20,max_inclusive:3}",
+        "{type:\"minecraft:clamped\",source:\"x\",min_inclusive:9,max_inclusive:2}",
+        "{type:\"minecraft:clamped\",source:{type:\"minecraft:weighted_list\",distribution:[{data:1,weight:1},{data:\"x\",weight:1}]},min_inclusive:2,max_inclusive:9}",
+        "{type:\"minecraft:clamped\",source:{type:\"minecraft:weighted_list\",distribution:[{data:1,weight:1},{data:\"x\",weight:1}]},min_inclusive:9,max_inclusive:2}",
+        "{type:\"minecraft:clamped_normal\",mean:7.0f,deviation:2.0f,min_inclusive:2,max_inclusive:9}",
+        "{type:\"minecraft:clamped_normal\",mean:7.0f,deviation:2.0f,min_inclusive:9,max_inclusive:2}",
+        "{type:\"minecraft:clamped_normal\",mean:7.0f,deviation:2.0f,min_inclusive:20,max_inclusive:3}",
+        "{type:\"minecraft:trapezoid\",min:2,max:9,plateau:3}",
+        "{type:\"minecraft:trapezoid\",min:9,max:2,plateau:0}",
+        "{type:\"minecraft:trapezoid\",min:2,max:9,plateau:8}",
+        "{type:\"minecraft:trapezoid\",min_inclusive:2,max_inclusive:9,plateau:3}",
+        "{type:\"minecraft:uniform\",min_inclusive:9,max_inclusive:2}",
+        "{type:\"minecraft:biased_to_bottom\",min_inclusive:2,max_inclusive:9}",
+        "\"x\"", "[1]", "[]", "{}", "{type:\"minecraft:nope\"}", "{type:5}",
+        overflow,
+        "{type:\"minecraft:weighted_list\",distribution:[{data:1,weight:2147483647},{data:2,weight:1},{data:\"x\",weight:1}]}",
+        "{type:\"minecraft:weighted_list\",distribution:[{data:1,weight:2147483647},{data:2,weight:2147483647},{data:3,weight:2147483647}]}");
+    List<String> inputs = new ArrayList<>();
+    for (String provider : providers) inputs.add(other(stem(dimType(dt, provider), NOISE)));
+    CompoundTag broken = dt.copy();
+    broken.put("monster_spawn_block_light_limit", value("99"));
+    broken.remove("has_skylight");
+    inputs.add(other(stem(dimType(broken, overflow), NOISE)));
+    inputs.add(other(stem(dimType(broken, "7"), NOISE)));
+    CompoundTag noLight = dt.copy();
+    noLight.remove("ambient_light");
+    inputs.add(other(stem(dimType(noLight, "7"), NOISE)));
+    String thrown = stem(dimType(dt, overflow), NOISE);
+    String fine = stem("\"minecraft:overworld\"", NOISE);
+    inputs.add("{seed:5L,dimensions:{\"x:y\":" + thrown + "}}");
+    inputs.add(wgs("\"x:y\":" + thrown + ",", fine));
+    inputs.add(wgs("\"x:y\":" + fine + ",", thrown));
+    inputs.add(wgs("\"x:y\":5,", thrown));
+    inputs.add(wgs("\"x:y\":[],", fine));
+    inputs.add(wgs("\"x:y\":\"x\",", fine));
+    for (String settings : new String[] {"5", "\"x\"", "[]", "{}", "{layers:[]}", "{layers:5}", "{layers:[{block:\"minecraft:stone\",height:3}],biome:\"minecraft:plains\"}", "{biome:\"minecraft:plains\"}"}) {
+      inputs.add(other(stem("\"minecraft:overworld\"", "{type:\"minecraft:flat\",settings:" + settings + "}")));
+    }
+    only("world_gen_settings", WorldGenSettings.TYPE, true, inputs.toArray(new String[0]));
     run("wandering_trader", WanderingTraderData.TYPE, false, true, snbt("{spawn_delay:5,spawn_chance:7}"));
     run("weather", WeatherData.TYPE, false, true, file("data/minecraft/weather.dat"));
     run("map_index", MapIndex.TYPE, false, true, snbt("{map:5}"));

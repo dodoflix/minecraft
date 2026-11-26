@@ -89,9 +89,7 @@ fn flat_settings(
     ctx: &RegistryDecodeContext,
     validate_height: bool,
 ) -> Result<Tag, Failure> {
-    let o = v
-        .as_object()
-        .ok_or_else(|| format!("Not a JSON object: {v}"))?;
+    let o = v.as_object().ok_or_else(|| ctx.not_a_map(v))?;
     let mut out = CompoundTag::new();
     if let Some(tag) = o.get("structure_overrides").and_then(|s| {
         Schema::HolderSet {
@@ -109,7 +107,7 @@ fn flat_settings(
     ]);
     let layers = o
         .get("layers")
-        .ok_or_else(|| format!("No key layers in MapLike[{v}]"))?;
+        .ok_or_else(|| format!("No key layers in MapLike[{}]", ctx.input_text(v)))?;
     let layers = Schema::list_of(layer).convert(layers, ctx)?;
     // `validateHeight`: `IntStream.sum` wraps
     let total = match &layers {

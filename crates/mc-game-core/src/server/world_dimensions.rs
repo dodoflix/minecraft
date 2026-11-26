@@ -133,17 +133,22 @@ impl<'a> DimensionDecoder<'a> {
                     Ok(tag) => tag,
                     Err(e) => return DataResult::error(move || e.clone()),
                 };
+                let json = nbt_to_json(&tag);
                 let lookup = AccessLookup(&access);
                 let mut ctx = RegistryDecodeContext::new(&lookup);
                 ctx.numeric_booleans = true;
-                match level_stem::encode_partial(&nbt_to_json(&tag), &ctx) {
+                ctx.typed_source = Some((&json, &tag));
+                match level_stem::encode_partial(&json, &ctx) {
                     Ok(tag) => DataResult::success(tag),
-                    Err(failure) => match failure.partial {
-                        Some(partial) => {
-                            DataResult::error_partial(move || failure.message.clone(), partial)
+                    Err(failure) => {
+                        let message = nbt_inline_input(failure.message, &tag);
+                        match failure.partial {
+                            Some(partial) => {
+                                DataResult::error_partial(move || message.clone(), partial)
+                            }
+                            None => DataResult::error(move || message.clone()),
                         }
-                        None => DataResult::error(move || failure.message.clone()),
-                    },
+                    }
                 }
             },
             |tag: &Tag| DataResult::success(Dynamic::new(NBT, Dyn::from(tag))),
@@ -158,6 +163,21 @@ impl<'a> DimensionDecoder<'a> {
             .map_err(|e| e.to_string())?;
         Ok((Arc::new(stem), tag))
     }
+}
+
+/// The inline dimension type of a stem as `NbtOps` prints it: `catchDecoderException` puts the input of the dimension
+/// type codec into its message, and the decode ran over JSON converted from `stem`.
+fn nbt_inline_input(message: String, stem: &Tag) -> String {
+    let Some(dimension_type @ Tag::Compound(_)) = stem.as_compound().and_then(|c| c.get("type"))
+    else {
+        return message;
+    };
+    let json = serde_json::to_string(&nbt_to_json(dimension_type)).unwrap_or_default();
+    message.replacen(
+        &format!("Caught exception decoding {json}:"),
+        &format!("Caught exception decoding {dimension_type}:"),
+        1,
+    )
 }
 
 impl DimensionTypes for DimensionDecoder<'_> {

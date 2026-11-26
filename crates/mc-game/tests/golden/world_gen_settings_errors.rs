@@ -69,7 +69,7 @@ fn damaged_world_gen_settings_report_like_vanilla() {
             differing.push(format!("{input}\n  ours:    {ours}\n  vanilla: {vanilla}"));
         }
     }
-    assert_eq!(total, 72);
+    assert_eq!(total, 115);
     assert!(
         differing.is_empty(),
         "of {total} damaged files, these differ from vanilla:\n{}",

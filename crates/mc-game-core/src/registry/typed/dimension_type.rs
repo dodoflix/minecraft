@@ -7,7 +7,7 @@ use serde_json::Value;
 use super::attributes::EnvironmentAttributeMap;
 use super::int_provider::{self, IntProvider};
 use super::{HolderSetRef, get_bool, get_f32, get_f64, get_i32, get_str};
-use crate::registry::codec::{RegistryDecodeContext, Schema, default, opt, req};
+use crate::registry::codec::{RegistryDecodeContext, Schema, default, opt, req, split_thrown};
 use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
 use crate::registry::keys;
 
@@ -257,16 +257,18 @@ fn decode_checked(
         };
         Ok((dim, Tag::Compound(nbt)))
     };
-    // `ExtraCodecs.catchDecoderException` wraps the constructor's `IllegalStateException`
+    // `ExtraCodecs.catchDecoderException` turns the constructor's `IllegalStateException` and an
+    // `IllegalArgumentException` of a nested codec (weights adding up too far) into a `DataResult` error
     inner().map_err(|e| {
-        if is_constructor_error(&e) {
-            format!(
-                "Caught exception decoding {}: {e}",
-                serde_json::to_string(json).unwrap_or_default()
-            )
-        } else {
-            e
-        }
+        let message = match split_thrown(&e) {
+            Some((_, message)) => message,
+            None if is_constructor_error(&e) => &e,
+            None => return e,
+        };
+        format!(
+            "Caught exception decoding {}: {message}",
+            serde_json::to_string(json).unwrap_or_default()
+        )
     })
 }
 

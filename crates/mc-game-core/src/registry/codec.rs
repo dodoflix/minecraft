@@ -39,6 +39,8 @@ pub struct RegistryDecodeContext<'a> {
     pub entry: Option<Identifier>,
     /// The JSON was converted from NBT: a number is a valid boolean (`NbtOps.getBooleanValue`).
     pub numeric_booleans: bool,
+    /// The JSON converted from NBT and the tag it came from: a failure message prints a value of it as the tag.
+    pub typed_source: Option<(&'a Value, &'a Tag)>,
     /// A decode of an entry that was already decoded (for its network form) does not report promoted partial results again.
     quiet: std::cell::Cell<bool>,
     pub(crate) unbound_values: RefCell<Vec<(String, Identifier)>>,
@@ -52,9 +54,61 @@ impl<'a> RegistryDecodeContext<'a> {
             worldgen: None,
             entry: None,
             numeric_booleans: false,
+            typed_source: None,
             quiet: std::cell::Cell::new(false),
             unbound_values: RefCell::new(Vec::new()),
             unbound_tags: RefCell::new(Vec::new()),
+        }
+    }
+
+    /// A value as the failure messages print it: `JsonOps` prints JSON, `NbtOps` the tag.
+    ///
+    /// shortcut: without [`typed_source`](Self::typed_source) the JSON of an NBT value has lost its number types, so a
+    /// float or a byte prints as the int or the double it decoded to; only the stems of `world_gen_settings.dat` have a
+    /// source.
+    pub(crate) fn input_text(&self, v: &Value) -> String {
+        fn tag(v: &Value) -> Tag {
+            match v {
+                Value::Number(n) => match n.as_i64() {
+                    Some(i) => i32::try_from(i).map_or(Tag::Long(i), Tag::Int),
+                    None => Tag::Double(n.as_f64().unwrap_or(0.0)),
+                },
+                Value::Array(items) => Tag::List(items.iter().map(tag).collect::<Vec<_>>().into()),
+                Value::Object(map) => {
+                    let mut out = CompoundTag::new();
+                    for (key, value) in map {
+                        out.put(key.clone(), tag(value));
+                    }
+                    Tag::Compound(out)
+                }
+                other => json_to_nbt(other),
+            }
+        }
+        /// The node of `tag` that `target` (a node of the tree `json`) was converted from.
+        fn source<'t>(json: &Value, tag: &'t Tag, target: &Value) -> Option<&'t Tag> {
+            if std::ptr::eq(json, target) {
+                return Some(tag);
+            }
+            match (json, tag) {
+                (Value::Object(map), Tag::Compound(c)) => map
+                    .iter()
+                    .find_map(|(key, json)| source(json, c.get(key)?, target)),
+                (Value::Array(items), Tag::List(list)) => items
+                    .iter()
+                    .zip(list.iter())
+                    .find_map(|(json, tag)| source(json, tag, target)),
+                _ => None,
+            }
+        }
+        if !self.numeric_booleans {
+            return compact(v);
+        }
+        match self
+            .typed_source
+            .and_then(|(json, root)| source(json, root, v))
+        {
+            Some(found) => found.to_string(),
+            None => tag(v).to_string(),
         }
     }
 
@@ -65,7 +119,19 @@ impl<'a> RegistryDecodeContext<'a> {
         } else {
             "JSON object"
         };
-        format!("Not a {kind}: {}", compact(v))
+        format!("Not a {kind}: {}", self.input_text(v))
+    }
+
+    /// A value of the wrong type: `NbtOps` words the error without the value (`Not a number`; a list keeps it), `JsonOps`
+    /// with it (`Not a number: "x"`; `json` is the kind it names).
+    pub(crate) fn not_a(&self, nbt: &str, json: &str, v: &Value) -> String {
+        if !self.numeric_booleans {
+            format!("Not a {json}: {}", compact(v))
+        } else if nbt == "list" {
+            format!("Not a list: {}", self.input_text(v))
+        } else {
+            format!("Not a {nbt}")
+        }
     }
 
     /// Runs `f` without reporting promoted partial results (the entry was reported by its first decode).
@@ -330,9 +396,9 @@ pub fn interval_codec(
         flat_map(bounds.decode(v, ctx), |record| match record {
             Tag::Compound(c) => match (c.get(lower), c.get(upper)) {
                 (Some(min), Some(max)) => make(min, max),
-                _ => Err("Not a JSON object".to_owned()),
+                _ => Err(ctx.not_a_map(v)),
             },
-            _ => Err("Not a JSON object".to_owned()),
+            _ => Err(ctx.not_a_map(v)),
         })
     });
     Schema::either(from_point, Schema::either(from_list, from_object))
@@ -412,10 +478,10 @@ fn compact(v: &Value) -> String {
     serde_json::to_string(v).unwrap_or_default()
 }
 
-fn number(v: &Value) -> Result<&serde_json::Number, String> {
+fn number<'v>(v: &'v Value, ctx: &RegistryDecodeContext) -> Result<&'v serde_json::Number, String> {
     match v {
         Value::Number(n) => Ok(n),
-        _ => Err(format!("Not a number: {}", compact(v))),
+        _ => Err(ctx.not_a("number", "number", v)),
     }
 }
 
@@ -560,14 +626,14 @@ impl Schema {
                 }
                 _ => Err(format!("Not a boolean: {}", compact(v))),
             },
-            Schema::Byte => Ok(Tag::Byte(int_value(number(v)?) as i8)),
-            Schema::Short => Ok(Tag::Short(int_value(number(v)?) as i16)),
-            Schema::Int => Ok(Tag::Int(int_value(number(v)?))),
-            Schema::Long => Ok(Tag::Long(long_value(number(v)?))),
-            Schema::Float => Ok(Tag::Float(double_value(number(v)?) as f32)),
-            Schema::Double => Ok(Tag::Double(double_value(number(v)?))),
+            Schema::Byte => Ok(Tag::Byte(int_value(number(v, ctx)?) as i8)),
+            Schema::Short => Ok(Tag::Short(int_value(number(v, ctx)?) as i16)),
+            Schema::Int => Ok(Tag::Int(int_value(number(v, ctx)?))),
+            Schema::Long => Ok(Tag::Long(long_value(number(v, ctx)?))),
+            Schema::Float => Ok(Tag::Float(double_value(number(v, ctx)?) as f32)),
+            Schema::Double => Ok(Tag::Double(double_value(number(v, ctx)?))),
             Schema::IntRange(min, max) => {
-                let n = int_value(number(v)?);
+                let n = int_value(number(v, ctx)?);
                 if n >= *min && n <= *max {
                     Ok(Tag::Int(n))
                 } else {
@@ -575,7 +641,7 @@ impl Schema {
                 }
             }
             Schema::FloatRange(min, max) => {
-                let f = double_value(number(v)?) as f32;
+                let f = double_value(number(v, ctx)?) as f32;
                 if f >= *min && f <= *max {
                     Ok(Tag::Float(f))
                 } else {
@@ -588,7 +654,7 @@ impl Schema {
                 }
             }
             Schema::DoubleRange(min, max) => {
-                let d = double_value(number(v)?);
+                let d = double_value(number(v, ctx)?);
                 if d >= *min && d <= *max {
                     Ok(Tag::Double(d))
                 } else {
@@ -603,17 +669,13 @@ impl Schema {
             Schema::String => v
                 .as_str()
                 .map(|s| Tag::String(s.to_owned().into()))
-                .ok_or_else(|| format!("Not a string: {}", compact(v))),
+                .ok_or_else(|| ctx.not_a("string", "string", v)),
             Schema::Identifier => {
-                let s = v
-                    .as_str()
-                    .ok_or_else(|| format!("Not a string: {}", compact(v)))?;
+                let s = v.as_str().ok_or_else(|| ctx.not_a("string", "string", v))?;
                 Ok(Tag::String(Identifier::read(s)?.to_string().into()))
             }
             Schema::Enum(names) => {
-                let s = v
-                    .as_str()
-                    .ok_or_else(|| format!("Not a string: {}", compact(v)))?;
+                let s = v.as_str().ok_or_else(|| ctx.not_a("string", "string", v))?;
                 if names.contains(&s) {
                     Ok(Tag::String(s.to_owned().into()))
                 } else {
@@ -621,9 +683,7 @@ impl Schema {
                 }
             }
             Schema::StaticRegistry(registry) => {
-                let s = v
-                    .as_str()
-                    .ok_or_else(|| format!("Not a string: {}", compact(v)))?;
+                let s = v.as_str().ok_or_else(|| ctx.not_a("string", "string", v))?;
                 let id = Identifier::read(s)?;
                 match ctx.lookup.contains(registry, &id) {
                     Lookup::Yes | Lookup::Pending => Ok(Tag::String(id.to_string().into())),
@@ -698,10 +758,10 @@ impl Schema {
                 let type_value = o
                     .get(*key)
                     .filter(|t| !t.is_null())
-                    .ok_or_else(|| format!("No key {key} in MapLike[{}]", compact(v)))?;
+                    .ok_or_else(|| format!("No key {key} in MapLike[{}]", ctx.input_text(v)))?;
                 let type_str = type_value
                     .as_str()
-                    .ok_or_else(|| format!("Not a string: {}", compact(type_value)))?;
+                    .ok_or_else(|| ctx.not_a("string", "string", type_value))?;
                 let type_id = Identifier::read(type_str)?;
                 let schema = resolve(&type_id.to_string())
                     .ok_or_else(|| format!("Unknown type {type_id}"))?;
@@ -760,7 +820,7 @@ fn decode_list(
 ) -> Result<Tag, Failure> {
     let list = v
         .as_array()
-        .ok_or_else(|| Failure::from(format!("Not a json array: {}", compact(v))))?;
+        .ok_or_else(|| Failure::from(ctx.not_a("list", "json array", v)))?;
     let mut kept = ListTag::new();
     let mut errors: Vec<String> = Vec::new();
     for element in list {
@@ -882,9 +942,7 @@ fn convert_holder_set(
         ) {
             return direct(e, ctx).map_err(|failure| failure.message);
         }
-        let s = e
-            .as_str()
-            .ok_or_else(|| format!("Not a string: {}", compact(e)))?;
+        let s = e.as_str().ok_or_else(|| ctx.not_a("string", "string", e))?;
         let id = Identifier::read(s)?;
         ctx.check_holder(registry, &id)?;
         Ok(Tag::String(id.to_string().into()))
@@ -931,7 +989,11 @@ fn decode_record(
             &field.kind,
         ) {
             (None, FieldKind::Required) => {
-                errors.push(format!("No key {} in MapLike[{}]", field.name, compact(v)));
+                errors.push(format!(
+                    "No key {} in MapLike[{}]",
+                    field.name,
+                    ctx.input_text(v)
+                ));
                 has_partial = false;
             }
             (None, FieldKind::Optional | FieldKind::Lenient | FieldKind::Default(_)) => {}
