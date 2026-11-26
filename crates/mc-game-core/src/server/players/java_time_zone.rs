@@ -24,13 +24,13 @@ enum Time {
     Wall,
 }
 
-/// The mode of the start or end rule of a `SimpleTimeZone`.
+/// The mode of the start or end rule of a `SimpleTimeZone`: `DOM_MODE`, `DOW_IN_MONTH_MODE`, `DOW_GE_DOM_MODE`, `DOW_LE_DOM_MODE`.
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Mode {
-    DayOfMonth,
-    DayOfWeekInMonth,
-    DayOfWeekAfterDayOfMonth,
-    DayOfWeekBeforeDayOfMonth,
+    Fixed,
+    InMonth,
+    OnOrAfter,
+    OnOrBefore,
 }
 
 /// The `WALL_TIME`, `STANDARD_TIME` and `UTC_TIME` of `SimpleTimeZone`.
@@ -51,13 +51,13 @@ impl Rule {
     /// `SimpleTimeZone.decodeStartRule` / `decodeEndRule` of rules the JDK built itself (always valid).
     fn decode(month: i32, day: i32, day_of_week: i32, time: i32, time_mode: i32) -> Rule {
         let (mode, day, day_of_week) = if day_of_week == 0 {
-            (Mode::DayOfMonth, day, 0)
+            (Mode::Fixed, day, 0)
         } else if day_of_week > 0 {
-            (Mode::DayOfWeekInMonth, day, day_of_week)
+            (Mode::InMonth, day, day_of_week)
         } else if day > 0 {
-            (Mode::DayOfWeekAfterDayOfMonth, day, -day_of_week)
+            (Mode::OnOrAfter, day, -day_of_week)
         } else {
-            (Mode::DayOfWeekBeforeDayOfMonth, -day, -day_of_week)
+            (Mode::OnOrBefore, -day, -day_of_week)
         };
         Rule {
             month,
@@ -92,8 +92,8 @@ impl Rule {
         };
         let day = i64::from(self.day);
         let fixed_date = match self.mode {
-            Mode::DayOfMonth => fixed(day),
-            Mode::DayOfWeekInMonth => {
+            Mode::Fixed => fixed(day),
+            Mode::InMonth => {
                 let first = if self.day < 0 {
                     fixed(i64::from(month_length(julian, year, self.month)))
                 } else {
@@ -101,8 +101,8 @@ impl Rule {
                 };
                 nth_day_of_week(day, first)
             }
-            Mode::DayOfWeekAfterDayOfMonth => nth_day_of_week(1, fixed(day)),
-            Mode::DayOfWeekBeforeDayOfMonth => nth_day_of_week(-1, fixed(day)),
+            Mode::OnOrAfter => nth_day_of_week(1, fixed(day)),
+            Mode::OnOrBefore => nth_day_of_week(-1, fixed(day)),
         };
         (fixed_date - EPOCH_OFFSET)
             .wrapping_mul(ONE_DAY)
