@@ -1,0 +1,906 @@
+### [facing_angles.txt:4] gamerule send_command_feedback true
+log| System chat: Game rule send_command_feedback is already set to true
+### [facing_angles.txt:5] summon minecraft:cow 0.5 -60 0.5 {NoAI:1b,NoGravity:1b,Silent:1b}
+log| System chat: Summoned new Cow
+Bot| [system_chat] [Server: Summoned new Cow]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [facing_angles.txt:6] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 19.783 -57.106 -23.587
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:7] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-141.32076f, -5.358372f]
+### [facing_angles.txt:8] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 8.061 -62.07 22.106
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:9] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-19.28749f, 5.1671634f]
+### [facing_angles.txt:10] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 21.153 -62.581 14.672
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:11] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-55.542187f, 5.8830743f]
+### [facing_angles.txt:12] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 0.219 -42.395 36.299
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:13] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [0.4497223f, -26.186049f]
+### [facing_angles.txt:14] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 38.941 -50.089 27.531
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:15] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-54.88588f, -11.909295f]
+### [facing_angles.txt:16] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 22.904 -30.96 -37.697
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:17] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-149.60683f, -33.256207f]
+### [facing_angles.txt:18] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 35.032 -56.442 -29.647
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:19] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-131.12144f, -4.4382987f]
+### [facing_angles.txt:20] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 7.797 -35.479 36.534
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:21] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-11.4478f, -33.70163f]
+### [facing_angles.txt:22] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -10.858 -35.859 -37.537
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:23] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [163.37427f, -31.305378f]
+### [facing_angles.txt:24] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 37.48 -54.022 3.481
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:25] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-85.39123f, -9.153571f]
+### [facing_angles.txt:26] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -30.053 -62.51 -39.385
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:27] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [142.54723f, 2.8600788f]
+### [facing_angles.txt:28] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 8.013 -44.922 25.276
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:29] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-16.869133f, -30.215914f]
+### [facing_angles.txt:30] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 28.091 -49.603 27.787
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:31] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-45.317398f, -14.998775f]
+### [facing_angles.txt:32] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -23.941 -34.05 -19.957
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:33] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [129.92903f, -39.15162f]
+### [facing_angles.txt:34] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 35.18 -50.934 -5.755
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:35] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-100.22413f, -14.427494f]
+### [facing_angles.txt:36] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 1.466 -61.997 -34.009
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:37] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-178.39655f, 3.3106594f]
+### [facing_angles.txt:38] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 3.595 -39.721 -36.42
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:39] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-175.20816f, -28.694069f]
+### [facing_angles.txt:40] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -7.46 -51.421 22.492
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:41] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [19.897682f, -20.143394f]
+### [facing_angles.txt:42] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 39.235 -60.92 3.495
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:43] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-85.5786f, 1.3565186f]
+### [facing_angles.txt:44] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -31.665 -37.353 35.377
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:45] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [42.68335f, -25.51668f]
+### [facing_angles.txt:46] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 16.518 -44.228 -36.758
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:47] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-156.73615f, -21.251144f]
+### [facing_angles.txt:48] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -32.299 -55.851 -33.461
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:49] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [135.99713f, -5.022006f]
+### [facing_angles.txt:50] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -29.297 -31.383 -12.166
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:51] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [113.02916f, -41.47201f]
+### [facing_angles.txt:52] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 32.549 -38.132 22.032
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:53] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-56.104893f, -29.526123f]
+### [facing_angles.txt:54] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 33.029 -40.271 -12.188
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:55] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-111.308365f, -29.468348f]
+### [facing_angles.txt:56] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -2.426 -50.738 -37.416
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:57] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [175.58713f, -13.687861f]
+### [facing_angles.txt:58] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -36.473 -44.702 1.819
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:59] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [87.95686f, -22.46508f]
+### [facing_angles.txt:60] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 37.794 -42.899 25.495
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:61] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-56.169468f, -20.852203f]
+### [facing_angles.txt:62] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -1.879 -44.211 25.244
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:63] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [5.4916077f, -32.42229f]
+### [facing_angles.txt:64] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -37.274 -63.349 -5.63
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:65] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [99.21765f, 5.001359f]
+### [facing_angles.txt:66] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -16.624 -49.445 -34.879
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:67] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [154.17247f, -15.031377f]
+### [facing_angles.txt:68] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -26.489 -60.653 8.697
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:69] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [73.10565f, 1.3262167f]
+### [facing_angles.txt:70] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -37.357 -63.303 14.456
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:71] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [69.76376f, 4.6800523f]
+### [facing_angles.txt:72] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -6.137 -63.226 35.234
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:73] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [10.8177185f, 5.2124767f]
+### [facing_angles.txt:74] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -0.752 -32.139 11.884
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:75] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [6.2761f, -67.65425f]
+### [facing_angles.txt:76] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 3.754 -50.563 -31.95
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:77] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-174.27357f, -16.13861f]
+### [facing_angles.txt:78] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 37.265 -49.052 -15.51
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:79] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-113.531525f, -15.270552f]
+### [facing_angles.txt:80] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -28.361 -43.743 38.659
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:81] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [37.101364f, -18.767124f]
+### [facing_angles.txt:82] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -7.853 -36.56 15.988
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:83] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [28.338905f, -53.103676f]
+### [facing_angles.txt:84] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 1.209 -41.786 18.588
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:85] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-2.24469f, -45.177128f]
+### [facing_angles.txt:86] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 34.267 -62.5 -28.493
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:87] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-130.65005f, 3.2149937f]
+### [facing_angles.txt:88] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -20.612 -61.712 -17.509
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:89] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [130.46487f, 3.5304065f]
+### [facing_angles.txt:90] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -5.169 -56.575 -0.045
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:91] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [95.49133f, -31.022316f]
+### [facing_angles.txt:92] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -39.461 -32.926 17.165
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:93] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [67.36244f, -32.017952f]
+### [facing_angles.txt:94] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -31.711 -56.756 20.609
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:95] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [58.024033f, -4.8829684f]
+### [facing_angles.txt:96] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -28.581 -39.037 -36.976
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:97] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [142.18889f, -23.841562f]
+### [facing_angles.txt:98] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 9.759 -40.863 3.312
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:99] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-73.106346f, -63.17679f]
+### [facing_angles.txt:100] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 23.567 -32.053 38.819
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:101] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-31.046803f, -31.99877f]
+### [facing_angles.txt:102] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -35.748 -47.525 -30.716
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:103] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [130.73431f, -14.616354f]
+### [facing_angles.txt:104] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 19.535 -57.0 -26.579
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:105] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-144.89499f, -5.178826f]
+### [facing_angles.txt:106] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -35.256 -63.47 -19.085
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:107] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [118.7113f, 4.8651032f]
+### [facing_angles.txt:108] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -24.38 -46.192 25.56
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:109] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [44.793472f, -21.356236f]
+### [facing_angles.txt:110] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 17.682 -52.975 -19.519
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:111] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-139.36136f, -14.911058f]
+### [facing_angles.txt:112] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 22.317 -54.64 11.85
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:113] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-62.51496f, -12.295153f]
+### [facing_angles.txt:114] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 37.641 -44.268 -2.172
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:115] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-94.11483f, -22.902992f]
+### [facing_angles.txt:116] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -36.07 -55.1 35.936
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:117] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [45.90233f, -5.496167f]
+### [facing_angles.txt:118] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -35.45 -62.161 8.215
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:119] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [77.88779f, 3.3635793f]
+### [facing_angles.txt:120] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -15.389 -43.642 -21.409
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:121] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [144.04947f, -31.149305f]
+### [facing_angles.txt:122] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -22.415 -55.435 17.141
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:123] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [54.01268f, -9.156965f]
+### [facing_angles.txt:124] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 15.52 -63.043 16.732
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:125] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-42.779125f, 7.83461f]
+### [facing_angles.txt:126] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 21.001 -48.089 -32.427
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:127] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-148.0929f, -17.070755f]
+### [facing_angles.txt:128] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -38.934 -30.716 -32.037
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:129] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [129.5261f, -29.804068f]
+### [facing_angles.txt:130] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -39.913 -61.949 32.665
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:131] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [51.483673f, 2.1611218f]
+### [facing_angles.txt:132] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 39.916 -38.138 35.123
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:133] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-48.703915f, -22.622046f]
+### [facing_angles.txt:134] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 24.725 -61.546 -9.687
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:135] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-112.807434f, 3.3667345f]
+### [facing_angles.txt:136] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 11.288 -40.596 21.121
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:137] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-27.616642f, -39.820538f]
+### [facing_angles.txt:138] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 15.395 -59.978 -8.335
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:139] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-120.674385f, -0.07278525f]
+### [facing_angles.txt:140] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 35.702 -42.094 -24.793
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:141] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-125.697525f, -22.445084f]
+### [facing_angles.txt:142] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -6.598 -31.52 -19.101
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:143] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [160.0935f, -53.796867f]
+### [facing_angles.txt:144] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -31.952 -36.413 12.008
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:145] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [70.47467f, -34.412045f]
+### [facing_angles.txt:146] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -10.479 -48.121 -18.683
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:147] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [150.21625f, -28.255613f]
+### [facing_angles.txt:148] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 15.269 -53.77 4.105
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:149] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-76.28272f, -22.283707f]
+### [facing_angles.txt:150] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 33.801 -41.651 -11.889
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:151] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-110.406746f, -27.312729f]
+### [facing_angles.txt:152] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -29.098 -47.088 -36.112
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:153] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [141.0471f, -15.336888f]
+### [facing_angles.txt:154] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 21.825 -48.113 -4.242
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:155] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-102.53686f, -28.551802f]
+### [facing_angles.txt:156] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -16.149 -40.159 -4.403
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:157] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [106.4093f, -48.822414f]
+### [facing_angles.txt:158] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -4.637 -56.979 -33.687
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:159] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [171.45456f, -4.994157f]
+### [facing_angles.txt:160] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -33.879 -56.083 19.162
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:161] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [61.50554f, -5.7180314f]
+### [facing_angles.txt:162] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 13.006 -57.377 -37.422
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:163] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-161.74843f, -3.758348f]
+### [facing_angles.txt:164] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -18.426 -40.789 -20.325
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:165] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [137.7351f, -34.320854f]
+### [facing_angles.txt:166] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -3.218 -59.966 23.128
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:167] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [9.330826f, -0.08491514f]
+### [facing_angles.txt:168] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 6.098 -49.025 39.126
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:169] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-8.246452f, -15.705724f]
+### [facing_angles.txt:170] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 0.68 -54.633 14.693
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:171] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-0.7265854f, -20.712214f]
+### [facing_angles.txt:172] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 36.08 -42.757 33.795
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:173] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-46.90012f, -19.486498f]
+### [facing_angles.txt:174] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 4.14 -53.867 11.374
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:175] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-18.507607f, -28.139603f]
+### [facing_angles.txt:176] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -34.645 -30.488 0.26
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:177] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [90.391266f, -40.02028f]
+### [facing_angles.txt:178] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -37.368 -53.709 9.862
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:179] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [76.11351f, -9.161524f]
+### [facing_angles.txt:180] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 28.429 -32.735 -10.775
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:181] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-111.984055f, -42.152817f]
+### [facing_angles.txt:182] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 31.445 -46.717 5.879
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:183] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-80.13905f, -22.923698f]
+### [facing_angles.txt:184] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 29.629 -39.631 5.257
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:185] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-80.72501f, -34.61057f]
+### [facing_angles.txt:186] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -38.707 -52.501 19.536
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:187] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [64.10219f, -9.762595f]
+### [facing_angles.txt:188] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -6.782 -63.076 28.651
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:189] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [14.503151f, 6.0386286f]
+### [facing_angles.txt:190] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -10.972 -38.906 -12.138
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:191] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [137.76877f, -51.02186f]
+### [facing_angles.txt:192] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -10.651 -43.914 1.034
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:193] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [87.25833f, -55.239105f]
+### [facing_angles.txt:194] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 33.935 -44.064 -11.687
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:195] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-110.02672f, -24.122923f]
+### [facing_angles.txt:196] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 4.46 -38.399 18.952
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:197] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-12.112633f, -48.85729f]
+### [facing_angles.txt:198] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -38.817 -46.305 31.515
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:199] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [51.7323f, -15.29483f]
+### [facing_angles.txt:200] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -2.348 -58.567 -28.576
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:201] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [174.40572f, -2.8081024f]
+### [facing_angles.txt:202] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 2.805 -36.432 21.242
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:203] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-6.341011f, -48.47517f]
+### [facing_angles.txt:204] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -8.564 -62.191 -15.288
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:205] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [150.13962f, 6.862723f]
+### [facing_angles.txt:206] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 7.333 -47.233 -8.178
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:207] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-141.7834f, -49.135605f]
+### [facing_angles.txt:208] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -23.672 -48.641 -27.182
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:209] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [138.87251f, -17.175787f]
+### [facing_angles.txt:210] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 10.845 -58.941 -27.922
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:211] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-159.99951f, -2.0052671f]
+### [facing_angles.txt:212] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 34.817 -63.202 -11.651
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:213] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-109.49805f, 5.026511f]
+### [facing_angles.txt:214] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -0.313 -60.461 -11.099
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:215] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [175.99055f, 2.2704263f]
+### [facing_angles.txt:216] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 30.885 -37.867 -13.317
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:217] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-114.45277f, -33.547424f]
+### [facing_angles.txt:218] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -8.803 -54.631 26.78
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:219] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [19.493645f, -10.901031f]
+### [facing_angles.txt:220] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -14.759 -38.281 37.072
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:221] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [22.647232f, -28.726145f]
+### [facing_angles.txt:222] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -17.099 -42.539 25.003
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:223] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [35.687325f, -30.061731f]
+### [facing_angles.txt:224] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 2.948 -32.432 -17.576
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:225] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-172.28748f, -56.50849f]
+### [facing_angles.txt:226] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -2.272 -51.902 -16.891
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:227] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [170.94366f, -24.694803f]
+### [facing_angles.txt:228] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 36.317 -61.956 -11.385
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:229] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-108.35725f, 2.9670415f]
+### [facing_angles.txt:230] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 38.762 -54.974 13.655
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:231] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-71.02641f, -7.081201f]
+### [facing_angles.txt:232] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 29.86 -55.987 -22.969
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:233] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-128.63722f, -6.0940533f]
+### [facing_angles.txt:234] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 14.329 -61.772 8.7
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:235] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-59.334106f, 6.2895784f]
+### [facing_angles.txt:236] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 31.132 -33.226 32.517
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:237] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-43.73356f, -31.141785f]
+### [facing_angles.txt:238] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -1.436 -36.294 36.875
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:239] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [3.0466309f, -33.055515f]
+### [facing_angles.txt:240] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 16.123 -55.35 20.876
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:241] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-37.478283f, -10.265303f]
+### [facing_angles.txt:242] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 1.148 -49.476 -26.868
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:243] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-178.64365f, -21.028204f]
+### [facing_angles.txt:244] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 25.881 -41.302 -37.033
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:245] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-145.93222f, -22.424873f]
+### [facing_angles.txt:246] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -23.851 -62.629 3.571
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:247] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [82.81215f, 6.1137924f]
+### [facing_angles.txt:248] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 17.523 -52.371 -24.92
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:249] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-146.1911f, -14.002133f]
+### [facing_angles.txt:250] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -8.767 -43.185 -36.117
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:251] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [165.79779f, -23.99751f]
+### [facing_angles.txt:252] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -33.575 -41.509 32.614
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:253] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [46.697144f, -21.549587f]
+### [facing_angles.txt:254] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 5.823 -61.401 0.898
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:255] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-85.72398f, 14.706418f]
+### [facing_angles.txt:256] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -18.735 -45.577 -18.975
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:257] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [135.3552f, -27.785189f]
+### [facing_angles.txt:258] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -19.43 -31.322 -11.131
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:259] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [120.26752f, -51.178314f]
+### [facing_angles.txt:260] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -4.396 -30.168 -4.453
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:261] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [135.33159f, -76.85944f]
+### [facing_angles.txt:262] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -13.178 -55.024 -27.401
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:263] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [153.88467f, -9.097758f]
+### [facing_angles.txt:264] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 26.842 -31.971 7.574
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:265] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-74.96829f, -45.78101f]
+### [facing_angles.txt:266] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 9.74 -60.293 -34.693
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:267] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-165.2889f, 0.4613649f]
+### [facing_angles.txt:268] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -10.606 -61.928 16.906
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:269] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [34.095726f, 5.5584f]
+### [facing_angles.txt:270] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 16.837 -35.148 -9.556
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:271] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-121.61371f, -52.334774f]
+### [facing_angles.txt:272] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -0.072 -61.975 -6.571
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:273] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [175.37517f, 15.557225f]
+### [facing_angles.txt:274] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 32.709 -56.473 6.632
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:275] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-79.22092f, -6.1397266f]
+### [facing_angles.txt:276] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 3.521 -56.077 -16.526
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:277] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-169.93846f, -12.78226f]
+### [facing_angles.txt:278] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -31.852 -35.622 29.796
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:279] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [47.837875f, -29.185556f]
+### [facing_angles.txt:280] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 27.323 -33.405 -38.181
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:281] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-145.26094f, -29.466288f]
+### [facing_angles.txt:282] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -31.869 -54.015 -28.28
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:283] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [131.64099f, -7.8672643f]
+### [facing_angles.txt:284] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 14.515 -43.554 -12.992
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:285] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-133.91052f, -40.210472f]
+### [facing_angles.txt:286] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 39.499 -63.462 -23.036
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:287] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-121.11107f, 4.3462753f]
+### [facing_angles.txt:288] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -25.861 -62.257 -16.173
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:289] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [122.31291f, 4.1385365f]
+### [facing_angles.txt:290] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 13.623 -30.67 3.753
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:291] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-76.07772f, -65.251884f]
+### [facing_angles.txt:292] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -22.152 -46.362 4.742
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:293] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [79.39317f, -30.616001f]
+### [facing_angles.txt:294] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -25.32 -41.195 30.225
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:295] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [40.978577f, -25.529497f]
+### [facing_angles.txt:296] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 14.096 -60.214 5.014
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:297] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-71.63333f, 0.855837f]
+### [facing_angles.txt:298] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 37.379 -39.452 -12.34
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:299] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-109.196304f, -27.752996f]
+### [facing_angles.txt:300] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -19.195 -37.212 -16.651
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:301] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [131.05028f, -41.106834f]
+### [facing_angles.txt:302] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 37.58 -31.523 6.583
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:303] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [-80.683655f, -37.156803f]
+### [facing_angles.txt:304] tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -28.297 -43.266 2.779
+log| System chat: Teleported Cow to 0.500000, -60.000000, 0.500000
+Bot| [system_chat] [Server: Teleported Cow to 0.500000, -60.000000, 0.500000]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.teleport.success.location.single","with":[{"translate":"entity.minecraft.cow","hover_event":{"id":"minecraft:cow","uuid":[<UUID>],"name":{"translate":"entity.minecraft.cow"},"action":"show_entity"},"insertion":"<UUID>"},"0.500000","-60.000000","0.500000"]}],"color":"gray","italic":true}
+### [facing_angles.txt:305] data get entity @e[type=minecraft:cow,limit=1] Rotation
+log| System chat: Cow has the following entity data: [85.47502f, -30.083294f]

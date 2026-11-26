@@ -4,6 +4,11 @@
 use crate::common::block_scenario::check;
 
 #[test]
+fn pet_love_and_death() {
+    check("mob_pet_love_death");
+}
+
+#[test]
 fn flee_sun() {
     check("mob_goal_flee_sun");
 }

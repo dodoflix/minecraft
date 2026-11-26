@@ -16,6 +16,11 @@ fn dolphin_feed_matches_vanilla() {
 }
 
 #[test]
+fn dolphin_attack_sound_matches_vanilla() {
+    block_scenario::check("mob_dolphin_attack_sound");
+}
+
+#[test]
 fn dolphin_jump_matches_vanilla() {
     block_scenario::check("mob_dolphin_jump");
 }

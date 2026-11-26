@@ -816,6 +816,11 @@ impl Cat {
 impl Entity for Cat {
     mc_game_core::mob_entity_accessors!(mob);
 
+    /// `TamableAnimal.die(source)`: the owner gets the death message.
+    fn die(&mut self, level: &mut ServerLevel, source: &DamageSource) {
+        tamable::die(self, level, source);
+    }
+
     /// `hiss()`.
     fn hiss(&mut self, level: &mut ServerLevel) {
         let sound = self.get_sound_set().hiss_sound;

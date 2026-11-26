@@ -1,0 +1,22 @@
+# Tamed pets: a wolf in love loses the love when it is hurt (Animal.actuallyHurt), a tamed cat and parrot that die send their death
+# message to the owner (TamableAnimal.die).
+level flat
+difficulty normal
+entity_counter 9600
+level_seed 9601
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn Wolf minecraft:wolf 4.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn Cat minecraft:cat 6.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn Parrot minecraft:parrot 8.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+tame Wolf Steve
+tame Cat Steve
+tame Parrot Steve
+love Wolf Steve
+tick 1
+dump mob:Wolf
+hurt Wolf minecraft:generic 1
+dump mob:Wolf
+hurt Cat minecraft:generic 100
+hurt Parrot minecraft:generic 100
+tick 1
+dump packets:Steve:system_chat events

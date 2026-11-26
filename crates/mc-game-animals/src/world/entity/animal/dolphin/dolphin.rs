@@ -223,6 +223,10 @@ impl Entity for Dolphin {
         Some("minecraft:dolphin")
     }
 
+    fn play_attack_sound(&mut self, level: &mut ServerLevel) {
+        self.play_sound(level, SoundEvent::ENTITY_DOLPHIN_ATTACK, 1.0, 1.0);
+    }
+
     fn finalize_spawn(
         &mut self,
         level: &mut dyn ServerLevelAccessor,

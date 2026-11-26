@@ -36,6 +36,7 @@ corpora!(
     block_entities,
     entity_commands,
     execute,
+    facing_angles,
     functions,
     gametest_bad,
     gametest_cmd,

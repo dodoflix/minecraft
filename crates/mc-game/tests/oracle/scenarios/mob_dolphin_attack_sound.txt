@@ -1,0 +1,14 @@
+# A dolphin's melee hit plays the dolphin attack sound (Dolphin.playAttackSound).
+level flat
+difficulty normal
+entity_counter 9610
+level_seed 9611
+fill -4 -60 -4 20 -40 20 minecraft:air
+fill 4 -61 -4 20 -50 8 minecraft:stone
+fill 5 -60 -3 19 -52 7 minecraft:water[level=0]
+spawn_player Steve survival 12.5 -57 0.5 0 0
+mobspawn Dolphin minecraft:dolphin 13.5 -57 0.5 0 0 nofinalize {PersistenceRequired:1b}
+tick 1
+mob_attack Dolphin Steve
+tick 1
+dump events packets:Steve:sound,entity_sound

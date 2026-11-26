@@ -517,6 +517,11 @@ impl ShoulderRidingAccess for Parrot {
 impl Entity for Parrot {
     crate::mob_entity_accessors!(mob);
 
+    /// `TamableAnimal.die(source)`: the owner gets the death message.
+    fn die(&mut self, level: &mut ServerLevel, source: &DamageSource) {
+        tamable::die(self, level, source);
+    }
+
     fn get_encode_id(&self) -> Option<&'static str> {
         Some("minecraft:parrot")
     }

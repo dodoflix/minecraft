@@ -1,0 +1,4 @@
+MOBATTACK Dolphin Steve -> true
+EV sound at=12.5,-57.0,0.5 r=16.0 ex=1 event=minecraft:entity.player.hurt source=player vol=1.0 pitch=1.0
+EV sound at=13.495833450758003,-56.995,0.5236355645326884 r=16.0 ex=0 event=minecraft:entity.dolphin.attack source=neutral vol=1.0 pitch=1.0
+PKT Steve minecraft:sound 778e04060000006bfffffe39000000043f8000003f8000003dace6703e05bff8

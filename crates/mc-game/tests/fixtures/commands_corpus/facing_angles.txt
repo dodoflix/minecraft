@@ -1,0 +1,305 @@
+# Facing angles: tp ... facing x y z at arbitrary targets (yaw and pitch rounding).
+# Run: scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/facing_angles.txt
+
+gamerule send_command_feedback true
+summon minecraft:cow 0.5 -60 0.5 {NoAI:1b,NoGravity:1b,Silent:1b}
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 19.783 -57.106 -23.587
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 8.061 -62.07 22.106
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 21.153 -62.581 14.672
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 0.219 -42.395 36.299
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 38.941 -50.089 27.531
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 22.904 -30.96 -37.697
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 35.032 -56.442 -29.647
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 7.797 -35.479 36.534
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -10.858 -35.859 -37.537
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 37.48 -54.022 3.481
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -30.053 -62.51 -39.385
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 8.013 -44.922 25.276
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 28.091 -49.603 27.787
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -23.941 -34.05 -19.957
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 35.18 -50.934 -5.755
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 1.466 -61.997 -34.009
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 3.595 -39.721 -36.42
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -7.46 -51.421 22.492
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 39.235 -60.92 3.495
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -31.665 -37.353 35.377
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 16.518 -44.228 -36.758
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -32.299 -55.851 -33.461
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -29.297 -31.383 -12.166
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 32.549 -38.132 22.032
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 33.029 -40.271 -12.188
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -2.426 -50.738 -37.416
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -36.473 -44.702 1.819
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 37.794 -42.899 25.495
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -1.879 -44.211 25.244
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -37.274 -63.349 -5.63
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -16.624 -49.445 -34.879
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -26.489 -60.653 8.697
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -37.357 -63.303 14.456
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -6.137 -63.226 35.234
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -0.752 -32.139 11.884
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 3.754 -50.563 -31.95
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 37.265 -49.052 -15.51
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -28.361 -43.743 38.659
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -7.853 -36.56 15.988
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 1.209 -41.786 18.588
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 34.267 -62.5 -28.493
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -20.612 -61.712 -17.509
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -5.169 -56.575 -0.045
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -39.461 -32.926 17.165
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -31.711 -56.756 20.609
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -28.581 -39.037 -36.976
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 9.759 -40.863 3.312
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 23.567 -32.053 38.819
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -35.748 -47.525 -30.716
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 19.535 -57.0 -26.579
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -35.256 -63.47 -19.085
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -24.38 -46.192 25.56
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 17.682 -52.975 -19.519
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 22.317 -54.64 11.85
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 37.641 -44.268 -2.172
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -36.07 -55.1 35.936
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -35.45 -62.161 8.215
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -15.389 -43.642 -21.409
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -22.415 -55.435 17.141
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 15.52 -63.043 16.732
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 21.001 -48.089 -32.427
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -38.934 -30.716 -32.037
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -39.913 -61.949 32.665
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 39.916 -38.138 35.123
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 24.725 -61.546 -9.687
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 11.288 -40.596 21.121
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 15.395 -59.978 -8.335
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 35.702 -42.094 -24.793
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -6.598 -31.52 -19.101
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -31.952 -36.413 12.008
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -10.479 -48.121 -18.683
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 15.269 -53.77 4.105
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 33.801 -41.651 -11.889
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -29.098 -47.088 -36.112
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 21.825 -48.113 -4.242
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -16.149 -40.159 -4.403
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -4.637 -56.979 -33.687
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -33.879 -56.083 19.162
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 13.006 -57.377 -37.422
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -18.426 -40.789 -20.325
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -3.218 -59.966 23.128
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 6.098 -49.025 39.126
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 0.68 -54.633 14.693
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 36.08 -42.757 33.795
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 4.14 -53.867 11.374
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -34.645 -30.488 0.26
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -37.368 -53.709 9.862
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 28.429 -32.735 -10.775
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 31.445 -46.717 5.879
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 29.629 -39.631 5.257
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -38.707 -52.501 19.536
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -6.782 -63.076 28.651
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -10.972 -38.906 -12.138
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -10.651 -43.914 1.034
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 33.935 -44.064 -11.687
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 4.46 -38.399 18.952
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -38.817 -46.305 31.515
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -2.348 -58.567 -28.576
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 2.805 -36.432 21.242
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -8.564 -62.191 -15.288
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 7.333 -47.233 -8.178
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -23.672 -48.641 -27.182
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 10.845 -58.941 -27.922
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 34.817 -63.202 -11.651
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -0.313 -60.461 -11.099
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 30.885 -37.867 -13.317
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -8.803 -54.631 26.78
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -14.759 -38.281 37.072
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -17.099 -42.539 25.003
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 2.948 -32.432 -17.576
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -2.272 -51.902 -16.891
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 36.317 -61.956 -11.385
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 38.762 -54.974 13.655
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 29.86 -55.987 -22.969
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 14.329 -61.772 8.7
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 31.132 -33.226 32.517
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -1.436 -36.294 36.875
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 16.123 -55.35 20.876
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 1.148 -49.476 -26.868
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 25.881 -41.302 -37.033
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -23.851 -62.629 3.571
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 17.523 -52.371 -24.92
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -8.767 -43.185 -36.117
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -33.575 -41.509 32.614
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 5.823 -61.401 0.898
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -18.735 -45.577 -18.975
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -19.43 -31.322 -11.131
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -4.396 -30.168 -4.453
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -13.178 -55.024 -27.401
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 26.842 -31.971 7.574
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 9.74 -60.293 -34.693
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -10.606 -61.928 16.906
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 16.837 -35.148 -9.556
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -0.072 -61.975 -6.571
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 32.709 -56.473 6.632
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 3.521 -56.077 -16.526
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -31.852 -35.622 29.796
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 27.323 -33.405 -38.181
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -31.869 -54.015 -28.28
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 14.515 -43.554 -12.992
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 39.499 -63.462 -23.036
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -25.861 -62.257 -16.173
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 13.623 -30.67 3.753
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -22.152 -46.362 4.742
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -25.32 -41.195 30.225
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 14.096 -60.214 5.014
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 37.379 -39.452 -12.34
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -19.195 -37.212 -16.651
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing 37.58 -31.523 6.583
+data get entity @e[type=minecraft:cow,limit=1] Rotation
+tp @e[type=minecraft:cow,limit=1] 0.5 -60 0.5 facing -28.297 -43.266 2.779
+data get entity @e[type=minecraft:cow,limit=1] Rotation

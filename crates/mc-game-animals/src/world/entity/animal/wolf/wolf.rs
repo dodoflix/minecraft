@@ -745,6 +745,7 @@ impl Entity for Wolf {
 
     fn actually_hurt(&mut self, level: &mut ServerLevel, source: &DamageSource, damage: f32) {
         if !self.can_armor_absorb(level, source) {
+            mc_game_core::world::entity::mob::animal::reset_love(self);
             mc_game_core::world::entity::living_entity::damage::actually_hurt(
                 self, level, source, damage,
             );
