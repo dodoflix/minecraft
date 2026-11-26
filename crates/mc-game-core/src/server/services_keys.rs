@@ -1,7 +1,9 @@
 //! `Services.servicesKeySet()` (authlib `MinecraftServicesKeyInfo.get`, `RetryableFetch`): the Mojang Services
 //! `playerCertificateKeys` (`SHA1withRSA`) that sign players' profile public keys. A background thread ("Minecraft
-//! Services Discovery") reads the discovery document, then the key set behind `authentication/getPublicKeys`, at server
-//! start; a failure is retried after 5 minutes doubling up to 5 * 2^6, a success refreshed after 24 hours.
+//! Services Discovery") reads the discovery document, then twice the key set behind `authentication/getPublicKeys`
+//! (the session service's own fetch and `Services.servicesKeySet`), at server start. Each of the three is its own
+//! `RetryableFetch`: a failure is retried after 1 minute (the document) or 5 minutes (a key set) doubling up to 2^6
+//! times that, a success refreshed after 24 hours.
 //!
 //! Vanilla's `ServicesKeySet.keys` waits for the first attempt to finish on whichever thread asks, which is the game
 //! thread for the status flag, the login packet and `ChatSessionUpdate`. Here the key set is empty (unavailable) until the
@@ -9,6 +11,8 @@
 
 use crate::server::chat::signature::SignatureValidator;
 use base64::Engine;
+use base64::alphabet;
+use base64::engine::{DecodePaddingMode, GeneralPurpose, GeneralPurposeConfig};
 use mc_protocol::auth::PROD_DISCOVERY_URL;
 use parking_lot::Mutex;
 use rsa::RsaPublicKey;
@@ -17,15 +21,17 @@ use rsa::pkcs8::DecodePublicKey;
 use rsa::signature::Verifier;
 use serde_json::Value;
 use sha1::Sha1;
+use std::cmp::Reverse;
+use std::collections::BinaryHeap;
 use std::sync::Arc;
-use std::time::Duration;
+use std::time::{Duration, Instant};
 
 /// Replaces the discovery URL, like the system property `minecraft.api.discovery.host` does for authlib.
 const DISCOVERY_URL_VARIABLE: &str = "MINECRAFT_API_DISCOVERY_HOST";
 /// `MinecraftClient.CONNECT_TIMEOUT_MS` / `READ_TIMEOUT_MS`.
 const HTTP_TIMEOUT: Duration = Duration::from_secs(5);
 const REFRESH_INTERVAL: Duration = Duration::from_secs(24 * 3600);
-const RETRY_INTERVAL: Duration = Duration::from_secs(5 * 60);
+const KEY_RETRY_INTERVAL: Duration = Duration::from_secs(5 * 60);
 /// `RetryableFetch.MAX_BACKOFF_EXPONENT`.
 const MAX_BACKOFF_EXPONENT: u32 = 6;
 
@@ -73,7 +79,7 @@ impl ServicesKeys {
 
     /// Starts the background fetch against `discovery_url`.
     pub fn start(discovery_url: String) -> Self {
-        Self::start_with(discovery_url, REFRESH_INTERVAL, RETRY_INTERVAL)
+        Self::start_with(discovery_url, REFRESH_INTERVAL, KEY_RETRY_INTERVAL)
     }
 
     fn start_with(discovery_url: String, refresh: Duration, retry: Duration) -> Self {
@@ -109,26 +115,75 @@ impl ServicesKeys {
     }
 }
 
-/// `RetryableFetch$1.run`: fetch, then reschedule (refresh after a value exists, backoff while there is none).
+/// What the discovery thread runs, in the order vanilla queues them at start.
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+enum Task {
+    Discovery,
+    /// The `n`th key set fetch; the last one is the one `Services.servicesKeySet` holds.
+    KeySet(usize),
+}
+
+/// `RetryableFetch$1.reschedule`: a refresh once there is a value, else the backoff doubling per failure.
+fn next_delay(has_value: bool, failures: &mut u32, refresh: Duration, retry: Duration) -> Duration {
+    if has_value {
+        return refresh;
+    }
+    let exponent = (*failures).min(MAX_BACKOFF_EXPONENT);
+    *failures += 1;
+    retry * (1 << exponent)
+}
+
+/// The single thread of vanilla's `DISCOVERY_EXECUTOR`: the discovery document and each key set are a `RetryableFetch`
+/// of their own on it, run by their due time. A key set fetch reads the document as it stands then (the offline
+/// stand-in until a fetch of it succeeded).
 fn fetch_loop(state: &Mutex<State>, discovery_url: &str, refresh: Duration, retry: Duration) {
-    let mut failures = 0u32;
-    loop {
-        if let Ok(keys) = fetch(discovery_url) {
-            state.lock().keys = Some(Arc::new(keys));
-            failures = 0;
-        }
-        let delay = {
-            let mut state = state.lock();
-            state.first_attempt_done = true;
-            if state.keys.is_some() {
-                refresh
-            } else {
-                let exponent = failures.min(MAX_BACKOFF_EXPONENT);
-                failures += 1;
-                retry * (1 << exponent)
+    let Ok(client) = reqwest::blocking::Client::builder()
+        .connect_timeout(HTTP_TIMEOUT)
+        .timeout(HTTP_TIMEOUT * 2) // Java allows the connect and the read 5 s each
+        .build()
+    else {
+        state.lock().first_attempt_done = true;
+        return;
+    };
+    let mut document: Option<Value> = None;
+    let mut failures = [0u32; 1 + KEY_SET_FETCHES];
+    let mut has_keys = [false; KEY_SET_FETCHES];
+    let mut queue = BinaryHeap::new();
+    let now = Instant::now();
+    queue.push(Reverse((now, Task::Discovery)));
+    for n in 0..KEY_SET_FETCHES {
+        queue.push(Reverse((now, Task::KeySet(n))));
+    }
+    while let Some(Reverse((due, task))) = queue.pop() {
+        std::thread::sleep(due.saturating_duration_since(Instant::now()));
+        let delay = match task {
+            Task::Discovery => {
+                match get_json(&client, discovery_url, |document| Some(document.clone())) {
+                    Ok(Some(fetched)) => {
+                        document = Some(fetched);
+                        failures[0] = 0;
+                    }
+                    Ok(None) => {}
+                    Err(exception) => log_fetch_failure(&exception),
+                }
+                // the document's own fetch retries after 1 minute where a key set's takes 5
+                next_delay(document.is_some(), &mut failures[0], refresh, retry / 5)
+            }
+            Task::KeySet(n) => {
+                if let Some(keys) = fetch_key_set(&client, document.as_ref()) {
+                    has_keys[n] = true;
+                    failures[1 + n] = 0;
+                    if n == KEY_SET_FETCHES - 1 {
+                        state.lock().keys = Some(Arc::new(keys));
+                    }
+                }
+                if n == KEY_SET_FETCHES - 1 {
+                    state.lock().first_attempt_done = true;
+                }
+                next_delay(has_keys[n], &mut failures[1 + n], refresh, retry)
             }
         };
-        std::thread::sleep(delay);
+        queue.push(Reverse((Instant::now() + delay, task)));
     }
 }
 
@@ -173,13 +228,42 @@ fn io_message(error: &reqwest::Error) -> String {
     error.to_string()
 }
 
+/// `Double.toString`: the shortest digits that round-trip, plain in `[1e-3, 1e7)`, else `d.dddE±n`.
+fn java_double(f: f64) -> String {
+    if f == 0.0 {
+        return if f.is_sign_negative() { "-0.0" } else { "0.0" }.to_owned();
+    }
+    let sign = if f < 0.0 { "-" } else { "" };
+    let mut scientific = format!("{:e}", f.abs());
+    if !scientific.contains('.') {
+        // a single shortest digit: the JDK takes the closest two-digit decimal, which only differs for subnormals
+        scientific = format!("{:.1e}", f.abs());
+    }
+    let (mantissa, exponent) = scientific.split_once('e').unwrap_or((&scientific, "0"));
+    let exponent: i32 = exponent.parse().unwrap_or(0);
+    let digits = mantissa.replace('.', "");
+    if !(-3..7).contains(&exponent) {
+        let fraction = digits.get(1..).filter(|d| !d.is_empty()).unwrap_or("0");
+        return format!("{sign}{}.{fraction}E{exponent}", &digits[..1]);
+    }
+    if exponent < 0 {
+        let zeros = "0".repeat((-exponent - 1) as usize);
+        return format!("{sign}0.{zeros}{}", digits.trim_end_matches('0'));
+    }
+    let integer = exponent as usize + 1;
+    let padded = format!("{digits:0<integer$}");
+    let fraction = padded
+        .get(integer..)
+        .filter(|d| !d.is_empty())
+        .unwrap_or("0");
+    format!("{sign}{}.{fraction}", &padded[..integer])
+}
+
 /// `Map.toString` of a Gson value: strings bare, numbers as `Double`.
 fn java_value(value: &Value) -> String {
     match value {
         Value::String(s) => s.clone(),
-        Value::Number(n) => n
-            .as_f64()
-            .map_or_else(|| n.to_string(), |f| format!("{f:?}")),
+        Value::Number(n) => n.as_f64().map_or_else(|| n.to_string(), java_double),
         Value::Object(map) => format!(
             "{{{}}}",
             map.iter()
@@ -195,48 +279,68 @@ fn java_value(value: &Value) -> String {
     }
 }
 
-/// `ObjectMapper.readValue`: `Ok(None)` for an empty body (Gson answers null), the object for a JSON object, else the
-/// exception Gson's parse failure becomes.
-fn read_value(body: &str) -> Result<Option<Value>, String> {
+/// `ObjectMapper.readValue`: `Ok(None)` for an empty body (Gson answers null), the JSON object read as the class `read`
+/// describes (`None` there is a field of a type the class cannot take), else the exception Gson's failure becomes.
+fn read_value<T>(body: &str, read: impl Fn(&Value) -> Option<T>) -> Result<Option<T>, String> {
     let failed = || format!("{CLIENT_EXCEPTION}: Failed to read value {body}");
     if body.trim().is_empty() {
         return Ok(None);
     }
     match serde_json::from_str::<Value>(body) {
         Ok(Value::Null) => Ok(None),
-        Ok(value @ Value::Object(_)) => Ok(Some(value)),
+        Ok(value @ Value::Object(_)) => read(&value).map(Some).ok_or_else(failed),
         _ => Err(failed()),
     }
 }
 
+/// `ErrorResponse.toString()` as Gson fills the record: its `String` fields take strings, booleans and numbers, `details`
+/// a `Map<String, Object>`.
+// shortcut: a number is printed as serde_json normalises it (`1.50` -> `1.5`, `100000000000000000000` -> `1e20`), Gson keeps the text as
+// written; the same for a numeric `publicKey` in `key_lists`. Mojang sends neither; upgrade with serde_json's
+// `arbitrary_precision` if it ever matters (a workspace-wide feature).
+fn error_response(body: &Value) -> Option<String> {
+    let text = |name: &str| match body.get(name) {
+        None | Some(Value::Null) => Some("null".to_owned()),
+        Some(Value::String(s)) => Some(s.clone()),
+        Some(Value::Bool(b)) => Some(b.to_string()),
+        Some(Value::Number(n)) => Some(n.to_string()),
+        Some(_) => None,
+    };
+    let details = match body.get("details") {
+        None | Some(Value::Null) => "null".to_owned(),
+        Some(map @ Value::Object(_)) => java_value(map),
+        Some(_) => return None,
+    };
+    Some(format!(
+        "ErrorResponse[path={}, error={}, errorMessage={}, details={details}]",
+        text("path")?,
+        text("error")?,
+        text("errorMessage")?
+    ))
+}
+
 /// `MinecraftClientHttpException.toString()` for an error answer (`MinecraftClient.buildHttpException` reads the body as an
-/// `ErrorResponse` unless it is an HTML page, which it logs); a body that is not an object fails the way `readValue` does.
+/// `ErrorResponse` unless it is an HTML page, which it logs); a body that is not one fails the way `readValue` does.
 fn http_exception(url: &str, status: u16, content_type: &str, body: &str) -> String {
     let response = if content_type.starts_with("text/html") {
         log::error!("Got an error with a html body connecting to {url}: {body}");
         "null".to_owned()
     } else {
-        match read_value(body) {
-            Ok(Some(fields)) => {
-                let field = |name: &str| fields.get(name).map_or("null".to_owned(), java_value);
-                format!(
-                    "ErrorResponse[path={}, error={}, errorMessage={}, details={}]",
-                    field("path"),
-                    field("error"),
-                    field("errorMessage"),
-                    field("details")
-                )
-            }
-            Ok(None) => "null".to_owned(),
+        match read_value(body, error_response) {
+            Ok(response) => response.unwrap_or_else(|| "null".to_owned()),
             Err(exception) => return exception,
         }
     };
     format!("MinecraftClientHttpException[type=HTTP_ERROR, status={status}, response={response}]")
 }
 
-/// `MinecraftClient.get`: the JSON object of the body (`None` for an empty one), or the first line of the exception
-/// vanilla would throw.
-fn get_json(client: &reqwest::blocking::Client, url: &str) -> Result<Option<Value>, String> {
+/// `MinecraftClient.get`: the JSON object of the body read by `read` (`None` for an empty one), or the first line of the
+/// exception vanilla would throw.
+fn get_json<T>(
+    client: &reqwest::blocking::Client,
+    url: &str,
+    read: impl Fn(&Value) -> Option<T>,
+) -> Result<Option<T>, String> {
     let response = client.get(url).send().map_err(|e| {
         format!(
             "{CLIENT_EXCEPTION}: Failed to read from {url} due to {}",
@@ -259,7 +363,7 @@ fn get_json(client: &reqwest::blocking::Client, url: &str) -> Result<Option<Valu
     if status >= 400 {
         return Err(http_exception(url, status, &content_type, &body));
     }
-    read_value(&body)
+    read_value(&body, read)
 }
 
 /// What `RetryableFetch` logs when the fetch throws.
@@ -288,67 +392,96 @@ fn fetch_key_set(client: &reqwest::blocking::Client, document: Option<&Value>) -
         log_fetch_failure(&unavailable);
         return None;
     };
-    let body = match get_json(client, keys_url) {
-        Ok(Some(body)) => body,
+    let lists = match get_json(client, keys_url, key_lists) {
+        Ok(Some(lists)) => lists,
         Ok(None) => return None,
         Err(exception) => {
             log::error!("Failed to request Minecraft Services public key\n{exception}");
             return None;
         }
     };
-    match parse_keys(&body) {
+    match parse_keys(lists) {
         Ok(keys) => Some(keys),
-        Err(_) => {
-            log::error!(
-                "Received malformed Minecraft Services public key data\njava.lang.IllegalArgumentException: Invalid Minecraft Services public key!"
-            );
-            None
-        }
-    }
-}
-
-/// The discovery document (`MinecraftServicesDiscoveryService.createDiscoverySupplier`), then the key set fetches in the
-/// order vanilla runs them on its one discovery thread.
-fn fetch(discovery_url: &str) -> Result<KeySet, String> {
-    let client = reqwest::blocking::Client::builder()
-        .connect_timeout(HTTP_TIMEOUT)
-        .timeout(HTTP_TIMEOUT * 2) // Java allows the connect and the read 5 s each
-        .build()
-        .map_err(|e| e.to_string())?;
-    let document = match get_json(&client, discovery_url) {
-        Ok(document) => document,
         Err(exception) => {
-            log_fetch_failure(&exception);
+            log::error!("Received malformed Minecraft Services public key data\n{exception}");
             None
         }
-    };
-    // the session service's fetch comes first and only logs; `Services.servicesKeySet` is the last one
-    let mut keys = None;
-    for _ in 0..KEY_SET_FETCHES {
-        keys = fetch_key_set(&client, document.as_ref());
     }
-    keys.ok_or_else(|| "no Minecraft Services public key".to_owned())
 }
 
-/// `KeySetResponse.playerCertificateKeys` through `MinecraftServicesKeyInfo.parse`: any malformed key fails the set.
-fn parse_keys(body: &Value) -> Result<KeySet, String> {
-    let mut keys = Vec::new();
-    for entry in body
-        .get("playerCertificateKeys")
-        .and_then(Value::as_array)
-        .into_iter()
-        .flatten()
-    {
-        let der = entry
-            .get("publicKey")
-            .and_then(Value::as_str)
-            .and_then(|b64| base64::engine::general_purpose::STANDARD.decode(b64).ok())
-            .ok_or("Invalid Minecraft Services public key!")?;
-        let key = RsaPublicKey::from_public_key_der(&der)
-            .map_err(|_| "Invalid Minecraft Services public key!")?;
-        keys.push(VerifyingKey::new(key));
+/// `Base64.getDecoder().decode`: the standard alphabet, padding optional but exact when present, no stray bits check.
+fn java_base64(text: &str) -> Option<Vec<u8>> {
+    const LENIENT: GeneralPurpose = GeneralPurpose::new(
+        &alphabet::STANDARD,
+        GeneralPurposeConfig::new()
+            .with_decode_padding_mode(DecodePaddingMode::RequireNone)
+            .with_decode_allow_trailing_bits(true),
+    );
+    let body = text.trim_end_matches('=');
+    let padding = text.len() - body.len();
+    let shaped = match padding {
+        0 => body.len() % 4 != 1,
+        1 | 2 => text.len().is_multiple_of(4),
+        _ => false,
+    };
+    if !shaped {
+        return None;
     }
-    Ok(KeySet(keys))
+    LENIENT.decode(body).ok()
+}
+
+/// The `KeyData` entries of the key lists as Gson reads them, `profilePropertyKeys` first: the decoded `publicKey`, or
+/// the null dereference `MinecraftServicesKeyInfo.parseList` throws for an entry that is `null` or has no key.
+type KeyLists = [Vec<Result<Vec<u8>, &'static str>>; 2];
+
+const NULL_ENTRY: &str =
+    "java.lang.NullPointerException: Cannot read field \"publicKey\" because \"data\" is null";
+const NULL_KEY: &str = "java.lang.NullPointerException: Cannot invoke \"java.nio.ByteBuffer.array()\" because \"data.publicKey\" is null";
+
+/// `KeySetResponse` through Gson: `None` when a list is not an array, an entry not an object, or a `publicKey` not
+/// base64 text (`ByteBufferTypeAdapter`: strings and numbers are read as text).
+fn key_lists(body: &Value) -> Option<KeyLists> {
+    let list = |name: &str| -> Option<Vec<Result<Vec<u8>, &'static str>>> {
+        let entries = match body.get(name) {
+            None | Some(Value::Null) => return Some(Vec::new()),
+            Some(Value::Array(entries)) => entries,
+            Some(_) => return None,
+        };
+        entries
+            .iter()
+            .map(|entry| match entry {
+                Value::Null => Some(Err(NULL_ENTRY)),
+                Value::Object(fields) => match fields.get("publicKey") {
+                    None | Some(Value::Null) => Some(Err(NULL_KEY)),
+                    Some(Value::String(text)) => java_base64(text).map(Ok),
+                    Some(Value::Number(number)) => java_base64(&number.to_string()).map(Ok),
+                    Some(_) => None,
+                },
+                _ => None,
+            })
+            .collect()
+    };
+    Some([list("profilePropertyKeys")?, list("playerCertificateKeys")?])
+}
+
+/// `MinecraftServicesKeyInfo.parseList` of both lists, the first malformed key throwing the exception whose first line
+/// is returned. Only the certificate keys are kept: nothing here validates profile properties.
+fn parse_keys(lists: KeyLists) -> Result<KeySet, String> {
+    let mut certificate_keys = Vec::new();
+    for (index, list) in lists.into_iter().enumerate() {
+        for entry in list {
+            let key = entry.map_err(str::to_owned).and_then(|der| {
+                RsaPublicKey::from_public_key_der(&der).map_err(|_| {
+                    "java.lang.IllegalArgumentException: Invalid Minecraft Services public key!"
+                        .to_owned()
+                })
+            })?;
+            if index == 1 {
+                certificate_keys.push(VerifyingKey::new(key));
+            }
+        }
+    }
+    Ok(KeySet(certificate_keys))
 }
 
 #[cfg(test)]
@@ -499,14 +632,108 @@ mod tests {
 
     #[test]
     fn bodies_read_like_gson_into_a_class() {
-        assert_eq!(read_value("  "), Ok(None));
-        assert_eq!(read_value("null"), Ok(None));
+        let any = |v: &Value| Some(v.clone());
+        assert_eq!(read_value("  ", any), Ok(None));
+        assert_eq!(read_value("null", any), Ok(None));
         assert_eq!(
-            read_value(r#"{"a":1}"#),
+            read_value(r#"{"a":1}"#, any),
             Ok(Some(serde_json::json!({"a": 1})))
         );
-        assert!(read_value("[1]").is_err());
-        assert!(read_value("{").is_err());
+        assert!(read_value("[1]", any).is_err());
+        assert!(read_value("{", any).is_err());
+        assert!(read_value(r#"{"a":1}"#, |_| None::<()>).is_err());
+    }
+
+    #[test]
+    fn doubles_print_like_java() {
+        for (value, text) in [
+            (1.0, "1.0"),
+            (1.5, "1.5"),
+            (100.0, "100.0"),
+            (9_999_999.0, "9999999.0"),
+            (1e7, "1.0E7"),
+            (12_345_678.9, "1.23456789E7"),
+            (0.001, "0.001"),
+            (0.000_1, "1.0E-4"),
+            (1.5e-7, "1.5E-7"),
+            (1e21, "1.0E21"),
+            (-2.5, "-2.5"),
+            (0.0, "0.0"),
+            (123_456.789, "123456.789"),
+            (0.5, "0.5"),
+            (0.02, "0.02"),
+            (5e-324, "4.9E-324"),
+        ] {
+            assert_eq!(java_double(value), text);
+        }
+    }
+
+    #[test]
+    fn error_fields_take_what_gson_gives_a_record() {
+        let read = |body: &str| read_value(body, error_response);
+        assert_eq!(
+            read(r#"{"path":5,"error":true,"errorMessage":1.5}"#),
+            Ok(Some(
+                "ErrorResponse[path=5, error=true, errorMessage=1.5, details=null]".to_owned()
+            ))
+        );
+        assert!(read(r#"{"path":{}}"#).is_err());
+        assert!(read(r#"{"error":[]}"#).is_err());
+        assert!(read(r#"{"details":"text"}"#).is_err());
+        assert!(
+            read(r#"{"details":{"a":[1,{"b":null}]}}"#)
+                .expect("read")
+                .expect("a record")
+                .ends_with("details={a=[1.0, {b=null}]}]")
+        );
+    }
+
+    #[test]
+    fn key_lists_fail_where_gson_does() {
+        let lists = |body: Value| key_lists(&body);
+        let key = "AAAA";
+        assert!(lists(serde_json::json!({"playerCertificateKeys": "k"})).is_none());
+        assert!(lists(serde_json::json!({"playerCertificateKeys": {"publicKey": key}})).is_none());
+        assert!(lists(serde_json::json!({"playerCertificateKeys": [5]})).is_none());
+        assert!(lists(serde_json::json!({"profilePropertyKeys": "k"})).is_none());
+        for bad in [
+            serde_json::json!("!!!"),
+            serde_json::json!("A"),
+            serde_json::json!("AAAAA"),
+            serde_json::json!("A==="),
+            serde_json::json!(12345),
+            serde_json::json!(true),
+            serde_json::json!({}),
+            serde_json::json!([]),
+        ] {
+            assert!(
+                lists(serde_json::json!({"playerCertificateKeys": [{"publicKey": bad}]})).is_none(),
+                "{bad}"
+            );
+        }
+        let [profile, certificate] = lists(serde_json::json!({
+            "playerCertificateKeys": [null, {}, {"publicKey": "AAA"}, {"publicKey": "AA=="}],
+        }))
+        .expect("a key set");
+        assert!(profile.is_empty());
+        assert_eq!(
+            certificate,
+            [Err(NULL_ENTRY), Err(NULL_KEY), Ok(vec![0, 0]), Ok(vec![0])]
+        );
+        assert!(lists(serde_json::json!({"playerCertificateKeys": null})).is_some());
+    }
+
+    #[test]
+    fn the_first_malformed_key_names_the_failure_and_profile_keys_count_too() {
+        let certificate =
+            |entry: Result<Vec<u8>, &'static str>| parse_keys([Vec::new(), vec![entry]]);
+        assert_eq!(certificate(Err(NULL_KEY)).err().as_deref(), Some(NULL_KEY));
+        assert!(
+            certificate(Ok(vec![0, 0]))
+                .err()
+                .is_some_and(|e| e.ends_with("Invalid Minecraft Services public key!"))
+        );
+        assert!(parse_keys([vec![Ok(vec![1])], Vec::new()]).is_err());
     }
 
     #[test]

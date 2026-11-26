@@ -36,7 +36,11 @@ fn parse(log: &str) -> Vec<String> {
 
 /// The thread's records once `expected` are in the log.
 fn records(server: &Server, expected: usize) -> Vec<String> {
-    let deadline = Instant::now() + Duration::from_secs(30);
+    records_within(server, expected, 30)
+}
+
+fn records_within(server: &Server, expected: usize, seconds: u64) -> Vec<String> {
+    let deadline = Instant::now() + Duration::from_secs(seconds);
     while parse(&server.log()).len() < expected && Instant::now() < deadline {
         std::thread::sleep(Duration::from_millis(100));
     }
@@ -53,7 +57,7 @@ fn start(builder: Builder, url: &str) -> Server {
 }
 
 /// Vanilla first, then ours, against the same discovery document; both must log the same records.
-fn dual(url: &str, expected: usize) {
+fn check(url: &str, expected: usize) -> Result<(), String> {
     let vanilla = start(harness::vanilla(7, "survival", &[]), url);
     let theirs = records(&vanilla, expected);
     vanilla.stop();
@@ -61,13 +65,34 @@ fn dual(url: &str, expected: usize) {
     let ours = start(ours(7, "survival", &[]), url);
     let mine = records(&ours, expected);
     println!("== {url}\n{}", theirs.join("\n"));
-    assert_eq!(
-        theirs.len(),
-        expected,
-        "vanilla logged\n{}",
-        theirs.join("\n")
-    );
-    assert_eq!(theirs, mine, "records: vanilla (left) vs ours (right)");
+    if theirs.len() != expected {
+        return Err(format!("vanilla logged\n{}", theirs.join("\n")));
+    }
+    if theirs != mine {
+        return Err(format!(
+            "records: vanilla\n{}\nours\n{}",
+            theirs.join("\n"),
+            mine.join("\n")
+        ));
+    }
+    Ok(())
+}
+
+fn dual(url: &str, expected: usize) {
+    check(url, expected).unwrap_or_else(|e| panic!("{e}"));
+}
+
+/// [`dual`] for each body the service at `path` answers with `status`; every difference is reported, not the first.
+fn dual_each(mock: &MockMojang, path: &str, status: u16, bodies: Vec<serde_json::Value>) {
+    let mut failures = Vec::new();
+    for body in bodies {
+        println!("== {body}");
+        mock.respond(path, status, body.clone());
+        if let Err(e) = check(&mock.discovery_url(), 2) {
+            failures.push(format!("{body}: {e}"));
+        }
+    }
+    assert!(failures.is_empty(), "{}", failures.join("\n\n"));
 }
 
 #[test]
@@ -134,6 +159,96 @@ fn malformed_service_keys_log_alike() {
         json!({"playerCertificateKeys": [{"publicKey": "AAAA"}]}),
     );
     dual(&mock.discovery_url(), 2);
+}
+
+#[test]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
+fn key_sets_of_every_shape_log_alike() {
+    let mock = MockMojang::start().expect("start the mock");
+    let key = "AAAA";
+    let bodies = vec![
+        json!({"playerCertificateKeys": "keys"}),
+        json!({"playerCertificateKeys": {"publicKey": key}}),
+        json!({"playerCertificateKeys": [5]}),
+        json!({"playerCertificateKeys": ["keys"]}),
+        json!({"playerCertificateKeys": [[]]}),
+        json!({"playerCertificateKeys": [{"publicKey": "!!!"}]}),
+        json!({"playerCertificateKeys": [{"publicKey": "AAA"}]}),
+        json!({"playerCertificateKeys": [{"publicKey": 12345}]}),
+        json!({"playerCertificateKeys": [{"publicKey": true}]}),
+        json!({"playerCertificateKeys": [{"publicKey": {}}]}),
+        json!({"playerCertificateKeys": [{"publicKey": []}]}),
+        json!({"playerCertificateKeys": [{"publicKey": null}]}),
+        json!({"playerCertificateKeys": [{}]}),
+        json!({"playerCertificateKeys": [null]}),
+        json!({"profilePropertyKeys": [{"publicKey": key}]}),
+        json!({"profilePropertyKeys": "keys"}),
+        json!({"profilePropertyKeys": [{"publicKey": "!!!"}], "playerCertificateKeys": []}),
+        json!({"playerCertificateKeys": [{"publicKey": key, "other": 1}, {"publicKey": key}]}),
+        json!([]),
+        json!("keys"),
+    ];
+    dual_each(&mock, "/publickeys", 200, bodies);
+}
+
+#[test]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
+fn error_bodies_of_every_type_log_alike() {
+    let mock = MockMojang::start().expect("start the mock");
+    let bodies = vec![
+        json!({"path": 5, "error": true, "errorMessage": 1.5}),
+        json!({"path": 100000000, "error": 12345678901234567890u64, "errorMessage": 0.0000001}),
+        json!({"path": {}}),
+        json!({"error": []}),
+        json!({"errorMessage": {"a": 1}}),
+        json!({"details": "text"}),
+        json!({"details": [1]}),
+        json!({"details": null, "path": null}),
+        json!({"details": {"a": [1, {"b": null, "c": true}], "d": 1e10, "e": 0.0001, "f": 1.5e-7, "g": "x"}}),
+        json!({"details": {"n": 100, "m": 12345678.9, "k": 1e7, "j": 9999999.0, "i": 1e21}}),
+        json!({"errorMessage": "multi\nline", "path": "tab\t"}),
+        json!([1, 2]),
+        json!(7),
+        json!(true),
+    ];
+    dual_each(&mock, "/publickeys", 500, bodies);
+}
+
+/// Both servers at once against `url`: `first` records after the first attempt, `after` once the retry five minutes later
+/// has run too.
+fn retried(url: &str, first: usize, after: usize) {
+    let vanilla = start(harness::vanilla(7, "survival", &[]), url);
+    let ours = start(ours(7, "survival", &[]), url);
+    let (theirs, mine) = (records(&vanilla, first), records(&ours, first));
+    assert_eq!(theirs.len(), first, "vanilla logged\n{}", theirs.join("\n"));
+    assert_eq!(
+        theirs, mine,
+        "first attempt: vanilla (left) vs ours (right)"
+    );
+    let (theirs, mine) = (
+        records_within(&vanilla, after, 330),
+        records_within(&ours, after, 330),
+    );
+    println!("== {url} retried\n{}", theirs.join("\n"));
+    assert_eq!(theirs.len(), after, "vanilla logged\n{}", theirs.join("\n"));
+    assert_eq!(theirs, mine, "retry: vanilla (left) vs ours (right)");
+}
+
+#[test]
+#[ignore = "oracle: five minutes, starts the vanilla server and the mc-server binary"]
+fn a_failed_key_fetch_is_retried_alike() {
+    let mock = MockMojang::start().expect("start the mock");
+    mock.respond("/publickeys", 500, json!({"errorMessage": "nope"}));
+    retried(&mock.discovery_url(), 2, 4);
+}
+
+#[test]
+#[ignore = "oracle: five minutes, starts the vanilla server and the mc-server binary"]
+fn a_failed_discovery_fetch_is_retried_alike() {
+    let mock = MockMojang::start().expect("start the mock");
+    mock.respond("/minecraft/client", 500, json!({"errorMessage": "down"}));
+    // the document's fetch again after 1 and 3 minutes, then both key sets after 5
+    retried(&mock.discovery_url(), 5, 11);
 }
 
 #[test]
