@@ -229,7 +229,8 @@ fn chest_type_opposite(t: ChestType) -> ChestType {
 
 fn no_property(what: &str, state: BlockState) -> UpgradeError {
     UpgradeError(format!(
-        "java.lang.IllegalArgumentException: {what} on {state}"
+        "java.lang.IllegalArgumentException: {what} on {}",
+        state.serialize()
     ))
 }
 

@@ -3,7 +3,6 @@
 //! numbers, defaults omitted). The `block_state_provider` and `block_transformer` registries, the providers inside
 //! enchantment effects and the transformers share them.
 
-use mc_data::block::BlockState;
 use mc_nbt::Tag;
 use serde_json::Value;
 
@@ -72,20 +71,13 @@ fn provider_type_id(v: &Value) -> Option<String> {
 
 /// `XorCodec`'s error when both alternatives read: it prints both results (`Pair.toString`: the value and the input).
 fn both_alternatives(v: &Value, ctx: &RegistryDecodeContext) -> String {
-    let state = parse_full_state(v).map(state_string).unwrap_or_default();
+    let state = parse_full_state(v)
+        .map(|s| s.to_string())
+        .unwrap_or_default();
     format!(
         "Both alternatives read successfully, can not pick the correct one; first: (Left[{state}], {v}) second: (Right[{}], {v})",
         provider_string(v, ctx)
     )
-}
-
-/// `StateHolder.toString`: `Block{minecraft:oak_stairs}[facing=north,half=top,...]`.
-fn state_string(state: BlockState) -> String {
-    let text = state.to_string();
-    match text.split_once('[') {
-        Some((name, properties)) => format!("Block{{{name}}}[{properties}"),
-        None => format!("Block{{{text}}}"),
-    }
 }
 
 /// Java's `toString` of the provider an (already validated) typed provider JSON decodes to. Classes that are not records
@@ -95,10 +87,7 @@ fn state_string(state: BlockState) -> String {
 fn provider_string(v: &Value, ctx: &RegistryDecodeContext) -> String {
     const PACKAGE: &str = "net.minecraft.world.level.levelgen.feature.stateproviders";
     let inline = |v: &Value| match parse_full_state(v) {
-        Ok(state) => format!(
-            "Direct{{SimpleStateProvider[state={}]}}",
-            state_string(state)
-        ),
+        Ok(state) => format!("Direct{{SimpleStateProvider[state={state}]}}"),
         Err(_) => format!("Direct{{{}}}", provider_string(v, ctx)),
     };
     let holder = |v: Option<&Value>| match v {
@@ -113,7 +102,7 @@ fn provider_string(v: &Value, ctx: &RegistryDecodeContext) -> String {
     match provider_type_id(v).as_deref() {
         Some("minecraft:simple") => {
             let state = v.get("state").map(parse_block_state_json);
-            let state = state.and_then(Result::ok).map(state_string);
+            let state = state.and_then(Result::ok).map(|s| s.to_string());
             format!("SimpleStateProvider[state={}]", state.unwrap_or_default())
         }
         Some("minecraft:random_block") => {

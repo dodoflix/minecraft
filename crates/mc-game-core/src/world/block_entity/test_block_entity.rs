@@ -15,6 +15,12 @@ use mc_data::props;
 use mc_nbt::CompoundTag;
 use mc_protocol::packets::play::ClientboundBlockEntityDataPacket;
 
+/// `String.isBlank()`: every code point is `Character.isWhitespace` (no NBSP or U+0085, but U+001C..U+001F).
+fn java_is_blank(s: &str) -> bool {
+    s.chars()
+        .all(|c| u16::try_from(c).is_ok_and(mc_brigadier::utf16::is_java_whitespace))
+}
+
 pub struct TestBlockEntity {
     base: BlockEntityData,
     mode: TestBlockMode,
@@ -60,7 +66,7 @@ impl TestBlockEntity {
 
     /// `log()`.
     pub fn log(&self) {
-        if !self.message.trim().is_empty() {
+        if !java_is_blank(&self.message) {
             log::info!(
                 "Test {} (at {}): {}",
                 self.mode.serialized_name().unwrap_or_default(),
@@ -152,5 +158,20 @@ pub fn set_mode(level: &mut ServerLevel, pos: BlockPos, mode: TestBlockMode) {
     let block_state = level.get_block_state(pos);
     if block_state.is_block(Block::TEST_BLOCK) {
         level.set_block(pos, block_state.set(props::TEST_BLOCK_MODE, mode), 2, 512);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::java_is_blank;
+
+    #[test]
+    fn blank_follows_character_is_whitespace() {
+        assert!(java_is_blank(""));
+        assert!(java_is_blank(" \t\u{1c}\u{3000}"));
+        // not whitespace in Java: NBSP, narrow NBSP, figure space, NEL
+        for c in ['\u{a0}', '\u{202f}', '\u{2007}', '\u{85}', '\u{1f600}'] {
+            assert!(!java_is_blank(&c.to_string()), "{c:?}");
+        }
     }
 }

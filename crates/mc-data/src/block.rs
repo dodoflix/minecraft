@@ -507,20 +507,33 @@ impl BlockState {
     }
 }
 
-impl fmt::Display for BlockState {
-    /// Vanilla `BlockState.toString()` form: `minecraft:oak_stairs[facing=north,half=top,...]`.
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self.block().name())?;
+impl BlockState {
+    /// `BlockStateParser.serialize(state)`: `minecraft:oak_stairs[facing=north,half=top,...]`.
+    pub fn serialize(&self) -> String {
+        let mut out = self.block().name().to_owned();
         let mut first = true;
         for (def, i) in self.values() {
-            f.write_str(if first { "[" } else { "," })?;
+            out.push(if first { '[' } else { ',' });
             first = false;
-            write!(f, "{}={}", def.name, def.values[i])?;
+            out.push_str(def.name);
+            out.push('=');
+            out.push_str(def.values[i]);
         }
         if !first {
-            f.write_str("]")?;
+            out.push(']');
         }
-        Ok(())
+        out
+    }
+}
+
+impl fmt::Display for BlockState {
+    /// Vanilla `BlockState.toString()`: `Block{minecraft:oak_stairs}[facing=north,half=top,...]`.
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let text = self.serialize();
+        match text.split_once('[') {
+            Some((name, props)) => write!(f, "Block{{{name}}}[{props}"),
+            None => write!(f, "Block{{{text}}}"),
+        }
     }
 }
 

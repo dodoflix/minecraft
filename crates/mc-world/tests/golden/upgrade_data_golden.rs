@@ -121,10 +121,11 @@ impl UpgradeChunk for Mock {
     ) -> bool {
         assert_eq!(update_limit, 512);
         self.events.push(format!(
-            "setBlock({},{},{},{state},{flags})",
+            "setBlock({},{},{},{},{flags})",
             pos.x(),
             pos.y(),
-            pos.z()
+            pos.z(),
+            state.serialize()
         ));
         self.states.insert(*pos, state);
         true
@@ -242,9 +243,9 @@ fn chest_and_stem_fixers_match_vanilla() {
                         &npos,
                         &mut leaves,
                     );
-                    let key = (state.to_string(), d.get_name().to_string(), nb.to_string());
+                    let key = (state.serialize(), d.get_name().to_string(), nb.serialize());
                     let actual = match &res {
-                        Ok(s) => (s.to_string(), mock.events.join(";")),
+                        Ok(s) => (s.serialize(), mock.events.join(";")),
                         Err(_) => (
                             "EXC:java.lang.IllegalArgumentException".to_string(),
                             String::new(),
@@ -257,7 +258,7 @@ fn chest_and_stem_fixers_match_vanilla() {
                         }
                         None => assert_eq!(
                             actual,
-                            (state.to_string(), String::new()),
+                            (state.serialize(), String::new()),
                             "unlisted combination must be a no-op: {key:?}"
                         ),
                     }
@@ -359,7 +360,10 @@ fn upgrade_inside_decodes_indices_and_updates_or_destroys() {
     assert_eq!(m.events.len(), 3);
     assert_eq!(
         m.events[0],
-        format!("setBlock(-16,16,48,{},18)", Block::DIRT.default_state())
+        format!(
+            "setBlock(-16,16,48,{},18)",
+            Block::DIRT.default_state().serialize()
+        )
     );
 
     // new state is air: destroyBlock(pos, true, null, 512)
@@ -469,7 +473,7 @@ fn leaves_fixer_queues_changed_shapes_and_propagates_distance() {
         m.events[0],
         format!(
             "setBlock(0,0,0,{},18)",
-            leaves.set(mc_data::props::DISTANCE, 3)
+            leaves.set(mc_data::props::DISTANCE, 3).serialize()
         )
     );
     assert!(

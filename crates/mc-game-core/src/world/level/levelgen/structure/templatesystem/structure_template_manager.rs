@@ -148,7 +148,7 @@ impl StructureTemplateManager {
             Ok(saved) => saved,
             Err(e) => {
                 log::warn!(
-                    "Failed to save structure file {id} to {}: {e}",
+                    "Failed to save structure file {id} to {}\n{e}",
                     file.display()
                 );
                 false

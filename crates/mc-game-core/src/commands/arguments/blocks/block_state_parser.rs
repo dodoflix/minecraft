@@ -631,19 +631,5 @@ fn add_property_suggestions(builder: &mut SuggestionsBuilder, property: &Propert
 
 /// `BlockStateParser.serialize(state)`.
 pub fn serialize(state: BlockState) -> String {
-    let mut result = state.block().name().to_owned();
-    let values: Vec<_> = state.values().collect();
-    if !values.is_empty() {
-        result.push('[');
-        for (i, (property, index)) in values.iter().enumerate() {
-            if i > 0 {
-                result.push(',');
-            }
-            result.push_str(property.name);
-            result.push('=');
-            result.push_str(property.values[*index]);
-        }
-        result.push(']');
-    }
-    result
+    state.serialize()
 }

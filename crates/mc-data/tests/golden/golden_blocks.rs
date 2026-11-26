@@ -29,15 +29,7 @@ fn state_data_matches_vanilla() {
         let ctx = format!("state {id} {s}");
         assert_eq!(s.block().id() as u64, e["block"].as_u64().unwrap(), "{ctx}");
         // toString(): Block{minecraft:x}[props]
-        let ours = s.to_string();
-        let (name, props) = ours
-            .split_once('[')
-            .map_or((ours.as_str(), None), |(n, p)| (n, Some(p)));
-        let want = match props {
-            Some(p) => format!("Block{{{name}}}[{p}"),
-            None => format!("Block{{{name}}}"),
-        };
-        assert_eq!(want, e["string"].as_str().unwrap());
+        assert_eq!(s.to_string(), e["string"].as_str().unwrap());
 
         assert_eq!(
             s.get_light_emission() as u64,
@@ -273,7 +265,7 @@ fn typed_property_semantics() {
     assert_eq!(s.get(props::HALF), Half::Top);
     assert!(s.get(props::WATERLOGGED));
     assert_eq!(
-        s.to_string(),
+        s.serialize(),
         "minecraft:oak_stairs[facing=east,half=top,shape=straight,waterlogged=true]"
     );
     assert_eq!(s.try_get(props::AXIS), None);

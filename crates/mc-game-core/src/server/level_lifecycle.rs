@@ -730,10 +730,11 @@ impl MinecraftServer {
             .tick(self.player_list.players(), |p| {
                 self.player_list.is_op(&p.name_and_id())
             });
-        pop_push("server gui refresh");
         if self.tick_rate_manager.runs_normally() {
+            pop_push("gameTests");
             crate::gametest::game_test_ticker::tick(self);
         }
+        pop_push("server gui refresh");
         self.run_tickables();
         pop_push("send chunks");
         crate::server::network::game_listener::send_next_chunks_all(self);
