@@ -309,8 +309,14 @@ impl ItemStack {
 
     /// `ItemStack.CODEC` (`MAP_CODEC.codec()`): `{id, count, components}`.
     pub fn codec() -> Codec<ItemStack> {
-        static C: LazyLock<Codec<ItemStack>> = LazyLock::new(|| Codec::lazy(build_codec));
+        static C: LazyLock<Codec<ItemStack>> =
+            LazyLock::new(|| Codec::lazy(|| build_map_codec().codec()));
         C.clone()
+    }
+
+    /// `ItemStack.MAP_CODEC`: the fields of [`ItemStack::codec`] inside a surrounding record.
+    pub fn map_codec() -> mc_dfu::MapCodec<ItemStack> {
+        build_map_codec()
     }
 
     /// `ItemStack.OPTIONAL_CODEC`: `{}` is the empty stack.
@@ -422,7 +428,7 @@ impl ItemStack {
     }
 }
 
-fn build_codec() -> Codec<ItemStack> {
+fn build_map_codec() -> mc_dfu::MapCodec<ItemStack> {
     #[derive(Clone)]
     struct Raw {
         id: Item,
@@ -446,7 +452,6 @@ fn build_codec() -> Codec<ItemStack> {
         components: DataComponentPatch::codec()
             .optional_field_of_default("components", DataComponentPatch::empty()),
     })
-    .codec()
     .xmap(
         |r: Raw| ItemStack::with_patch(r.id, r.count, &r.components),
         |s: &ItemStack| Raw {

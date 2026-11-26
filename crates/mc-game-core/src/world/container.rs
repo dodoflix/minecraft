@@ -508,19 +508,43 @@ pub fn save_slots<'a>(stacks: impl Iterator<Item = (usize, &'a ItemStack)>) -> L
     list
 }
 
+/// `ItemStackWithSlot.CODEC`.
+fn item_stack_with_slot_codec() -> &'static mc_dfu::Codec<(i32, ItemStack)> {
+    #[derive(Clone)]
+    struct WithSlot {
+        slot: i32,
+        stack: ItemStack,
+    }
+    static CODEC: LazyLock<mc_dfu::Codec<(i32, ItemStack)>> = LazyLock::new(|| {
+        mc_dfu::record!(WithSlot {
+            slot: mc_dfu::extra::optional_always_present_field_of(
+                &mc_dfu::extra::UNSIGNED_BYTE,
+                "Slot",
+                0
+            ),
+            stack: ItemStack::map_codec(),
+        })
+        .codec()
+        .xmap(
+            |r: WithSlot| (r.slot, r.stack),
+            |(slot, stack): &(i32, ItemStack)| WithSlot {
+                slot: *slot,
+                stack: stack.clone(),
+            },
+        )
+    });
+    &CODEC
+}
+
 /// `ItemStackWithSlot.CODEC` list decode (`ValueInput.listOrEmpty(key, codec)`): the partial value of an entry that fails
 /// to decode counts and the failure is reported to the open problem scope (`DecodeFromListFailedProblem`), a missing
 /// `Slot` is 0 (`optionalAlwaysPresentFieldOf(UNSIGNED_BYTE, "Slot", 0)`). The slot is NOT bounds-checked here
 /// (`isValidInContainer`).
-///
-/// shortcut: an entry that is not a compound is dropped without a report and a wrong-typed `Slot` is not reported,
-/// extend when a corpus needs them.
 pub fn load_slots(list: &ListTag, key: &str) -> Vec<(usize, ItemStack)> {
     list.iter()
         .enumerate()
         .filter_map(|(index, element)| {
-            let slot = element.as_compound()?.get_byte_or("Slot", 0) as u8 as usize;
-            let decoded = ItemStack::from_tag(element);
+            let decoded = mc_dfu::parse_nbt(item_stack_with_slot_codec(), element);
             if let Some(error) = decoded.error_message() {
                 crate::world::block_entity::problem_reporter::report(|| {
                     format!(
@@ -528,7 +552,9 @@ pub fn load_slots(list: &ListTag, key: &str) -> Vec<(usize, ItemStack)> {
                     )
                 });
             }
-            decoded.result_or_partial().map(|stack| (slot, stack))
+            decoded
+                .result_or_partial()
+                .map(|(slot, stack)| (slot as usize, stack))
         })
         .collect()
 }

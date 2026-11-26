@@ -326,3 +326,149 @@ async fn player_side_file_problems_match_vanilla() {
     }
     assert_eq!(logs[0], logs[1], "vanilla / ours");
 }
+
+/// Item list entries that do not decode, in every place that loads them: the inventory and ender chest of a player, a
+/// container block entity and a chested horse of a chunk, and the `Item` of item entities. The entries are not
+/// compounds, have a `Slot` of the wrong type, a stack that fails to decode, an unknown item or a bad count. The item
+/// entities keep a partial stack: one without any item is discarded by the load and the real server still tracks it (a
+/// `Fetching packet for removed entity` warning that mc-server does not log), so none is part of this test.
+#[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
+async fn item_list_decode_problems_match_vanilla() {
+    use mc_core::ident::Identifier;
+    use mc_core::pos::chunk_pos::ChunkPos;
+    use mc_world::region::{RegionFileStorage, RegionStorageInfo};
+
+    let version = mc_world::region::entity_storage::CURRENT_DATA_VERSION;
+    let entries = r#"[
+        5,
+        "text",
+        [1,2],
+        {Slot:"x",id:"minecraft:stone",count:1},
+        {Slot:2b,id:"minecraft:wither_spawn_egg",count:1,components:{"minecraft:entity_data":{id:"Pig"}}},
+        {Slot:300,id:"minecraft:stone",count:1},
+        {Slot:3b,id:"minecraft:no_such_item",count:1},
+        {Slot:4b,id:"minecraft:stone",count:"x"},
+        {Slot:5b,id:"minecraft:stone",count:0},
+        {Slot:6b},
+        {id:"minecraft:dirt",count:2},
+        {Slot:7b,id:"minecraft:stone",count:1,components:{"minecraft:damage":"x"}}
+    ]"#;
+    let bad_item = r#"{id:"minecraft:wither_spawn_egg",count:1,components:{"minecraft:entity_data":{id:"Pig"}}}"#;
+    let chest = snbt::parse_compound(&format!(
+        r#"{{id:"minecraft:chest",x:0,y:-64,z:0,Items:{entries}}}"#
+    ))
+    .expect("chest");
+    let entity = |id: &str, extra: &str, uuid: i32| {
+        snbt::parse_compound(&format!(
+            r#"{{id:"{id}",Pos:[8.5d,-60.0d,8.5d],Motion:[0.0d,0.0d,0.0d],Rotation:[0.0f,0.0f],UUID:[I;{uuid},2,3,4],{extra}}}"#
+        ))
+        .expect("entity")
+    };
+    let entities = [
+        entity("minecraft:item", &format!("Item:{bad_item}"), 1),
+        entity(
+            "minecraft:item",
+            r#"Item:{id:"minecraft:stone",count:"x"}"#,
+            4,
+        ),
+        entity(
+            "minecraft:donkey",
+            &format!("ChestedHorse:1b,Items:{entries}"),
+            5,
+        ),
+    ];
+    let mut seed = snbt::parse_compound(&format!("{{Inventory:{entries},EnderItems:{entries}}}"))
+        .expect("seed");
+    seed.put_int("DataVersion", version);
+
+    let props = ["level-type=minecraft:flat", "generate-structures=false"];
+    // the base world: a flat world the real server saved, so both servers load the same chunks
+    let base = vanilla(12345, "survival", &props).start().expect("base");
+    assert!(base.stop());
+    let staging = tempfile::tempdir().expect("staging");
+    let world = staging.path().join("world");
+    crate::world_start::copy_dir(&base.dir().join("world"), &world);
+    let dimension = world.join("dimensions/minecraft/overworld");
+    let edit = |folder: &str, edit: &dyn Fn(Option<CompoundTag>) -> CompoundTag| {
+        let info = RegionStorageInfo::new("t", Identifier::parse("overworld").unwrap(), "chunk");
+        let mut storage = RegionFileStorage::new(info, dimension.join(folder), false);
+        let pos = ChunkPos::new(0, 0);
+        let chunk = edit(storage.read(&pos).expect("read"));
+        storage.write(&pos, Some(&chunk)).expect("write");
+        storage.close().expect("close");
+    };
+    edit("region", &|chunk| {
+        let mut chunk = chunk.expect("the chunk of the spawn");
+        let mut states = snbt::parse_compound(r#"{palette:["minecraft:air","minecraft:chest"]}"#)
+            .expect("palette");
+        // 4 bits per block: the chest is the first block of the lowest section
+        let mut data = vec![0_i64; 256];
+        data[0] = 1;
+        states.put_long_array("data", data);
+        let section = chunk
+            .get_list_mut("sections")
+            .and_then(|l| l.iter_mut().next())
+            .and_then(|s| s.as_compound_mut())
+            .expect("lowest section");
+        section.put("block_states", states);
+        let mut list = ListTag::new();
+        list.push(chest.clone());
+        chunk.put("block_entities", list);
+        chunk
+    });
+    edit("entities", &|_| {
+        let mut chunk = CompoundTag::new();
+        chunk.put_int("DataVersion", version);
+        chunk.put_int_array("Position", vec![0, 0]);
+        let mut list = ListTag::new();
+        for e in &entities {
+            list.push(e.clone());
+        }
+        chunk.put("Entities", list);
+        chunk
+    });
+
+    let mut logs = Vec::new();
+    for vanilla_side in [true, false] {
+        let seed = seed.clone();
+        let world = world.clone();
+        let builder = if vanilla_side {
+            vanilla(12345, "survival", &props)
+        } else {
+            ours(12345, "survival", &props)
+        };
+        let server = builder
+            .prepare(move |dir| {
+                crate::world_start::copy_dir(&world, &dir.join("world"));
+                write_seed(dir, &seed);
+            })
+            .start()
+            .expect("server");
+        // a fresh player is put at a random point of the respawn radius, and the report names the position
+        server.cmd("gamerule respawn_radius 0");
+        server
+            .wait_log("respawn_radius", 30)
+            .expect("the gamerule is set");
+        let bot = join("127.0.0.1", server.port, "Bot").await;
+        bot.disconnect().await;
+        let log = server.log();
+        server.stop();
+        let mut records = crate::world_start::log_records(&log);
+        // chunks load on worker threads: the order of the records of the chunk, the entities and the player is not fixed
+        records.sort();
+        logs.push(records);
+    }
+    let text = logs[0].join("\n");
+    for expected in [
+        "from field 'Items' at index",
+        "from field 'Inventory' at index",
+        "from field 'EnderItems' at index",
+    ] {
+        assert!(
+            text.contains(expected),
+            "the real server did not log {expected}:\n{text}"
+        );
+    }
+    assert_eq!(logs[0], logs[1], "vanilla / ours");
+}
