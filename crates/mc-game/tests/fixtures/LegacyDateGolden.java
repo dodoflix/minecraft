@@ -9,6 +9,7 @@ import java.util.*;
  *                               the format is one shared object, as in vanilla, so a parsed zone name stays
  *   fmt    epoch ms, offset     the format of the instant in the zone GMT+offset (offset in seconds)
  *   zseq   operations on one format (p<text hex> parse, f<epoch ms> format, joined by ;), then their results
+ *   dseq   default zone id, then the operations of zseq on one format in that default zone, then their results
  *   zfmt   zone name, then the format of six instants at the ends of the `long` range in the zone a parse of that name left
  * Pinned to Temurin 25.0.5.1 (tzdata 2026f): run it with that JDK first on PATH; regenerate together with `java_zone_rules.tsv.gz`
  * and `java_zone_strings.tsv` when the tzdata of the JDK changes.
@@ -204,6 +205,36 @@ public class LegacyDateGolden {
             line.append('\t').append(parse(f, s)).append('|').append(f.format(new Date(0))).append('|').append(f.format(new Date(1_700_000_000_000L)));
          }
          out.append(line).append('\n');
+      }
+
+      // the rule cache of a default zone: the format keeps the zone object, so dates at the ends of the `long` range make
+      // the cached range of a southern zone cover almost every later date
+      String[][] defaults = {
+         {"Australia/Sydney", "Sydney (+0)"}, {"America/New_York", "New York (+0)"}, {"America/Santiago", "Santiago (+0)"},
+         {"Asia/Tokyo", "Tokyo (+0)"}, {"Europe/Berlin", "Kyiv (+1)"}
+      };
+      for (String[] d : defaults) {
+         TimeZone.setDefault(TimeZone.getTimeZone(d[0]));
+         String zone = d[1];
+         String[][] scripts = {
+            {"f9223372036854775807", "f5695927200000", "f4108692600000", "f1700000000000"},
+            {"f1700000000000", "p2013-02-03 04:05:06 +0100", "f9223372036854775807", "f5695927200000", "f4108692600000"},
+            {"p292278994-01-01 00:00:00 " + zone, "f5695927200000", "f4108692600000", "f1700000000000"},
+            {"f9223372036854775807", "p2150-07-01 12:00:00 " + zone, "f5695927200000", "p2013-02-03 04:05:06 +0100", "f4108692600000"},
+            {"f9223372036854775807", "p2013-02-03 04:05:06 Tokyo (+1)", "f5695927200000", "p2013-02-03 04:05:06 " + zone, "f5695927200000", "f1700000000000"},
+            {"f-9223372036854775808", "f-8000000000000000", "f0", "p2013-07-03 04:05:06 " + zone, "f-8000000000000000", "f1700000000000"}
+         };
+         for (String[] script : scripts) {
+            SimpleDateFormat f = fresh();
+            StringBuilder ops = new StringBuilder("dseq\t").append(d[0]).append('\t');
+            StringBuilder results = new StringBuilder();
+            for (int i = 0; i < script.length; i++) {
+               String op = script[i];
+               ops.append(i > 0 ? ";" : "").append(op.charAt(0)).append(op.charAt(0) == 'p' ? hex(op.substring(1)) : op.substring(1));
+               results.append('\t').append(op.charAt(0) == 'p' ? parse(f, op.substring(1)) : f.format(new Date(Long.parseLong(op.substring(1)))));
+            }
+            out.append(ops).append(results).append('\n');
+         }
       }
 
       long[] instants = {0, 1_700_000_000_000L, -1, 86_399_999, -62_135_596_800_000L, -62_135_596_800_001L, -62_167_219_200_000L, -62_167_219_200_001L,

@@ -784,11 +784,22 @@ pub struct DateFormat {
 struct FormatZone {
     /// The id of the zone a parsed name left in the format (the default zone when `None`).
     named: Option<&'static str>,
-    /// The rule cache of that zone's `TimeZone` object.
-    ///
-    /// shortcut: the default zone has no cache here (its offsets come from the C library), so a date it looks up
-    /// never changes the answer for the next one.
+    /// The rule cache of that zone's `TimeZone` object (the default zone's while `named` is `None`).
     cache: Option<RuleCache>,
+}
+
+/// The default time zone of a [`DateFormat::format_in_default_zone`].
+#[derive(Clone, Copy)]
+pub enum DefaultOffset<'a> {
+    /// A fixed offset from UTC in seconds (a `SimpleTimeZone`).
+    Fixed(i32),
+    /// The id of a zone of the JDK.
+    Zone(&'a str),
+    /// A zone only the C library knows (for example a POSIX `TZ` string).
+    ///
+    /// shortcut: its offsets come from `localtime_r` and it has no rule cache, so a date it looks up never changes the
+    /// answer for the next one.
+    Libc,
 }
 
 /// `BanListEntry.DATE_FORMAT`, shared by every ban list.
@@ -818,29 +829,37 @@ impl DateFormat {
         if let Some(named) = parsed.named {
             state.named = named;
         }
-        if state.named.is_none() {
-            state.cache = None;
-        }
         Some(Date::from_millis(parsed.millis))
     }
 
     /// `format(date)` in the default time zone (the zone of a parsed name after one was parsed).
     pub fn format(&self, date: &Date) -> String {
-        self.format_in_default_zone(
-            date,
-            super::player_list::local_offset_seconds(date.millis().div_euclid(1000)),
-        )
+        let id = default_zone_id();
+        let default = match id.as_deref() {
+            Some(id) if zone_info(id).is_some() => DefaultOffset::Zone(id),
+            _ => DefaultOffset::Libc,
+        };
+        self.format_in_default_zone(date, default)
     }
 
-    /// [`format`](Self::format) when the default time zone is `default_offset_seconds` from UTC.
-    pub fn format_in_default_zone(&self, date: &Date, default_offset_seconds: i32) -> String {
+    /// [`format`](Self::format) when the default time zone is `default`.
+    pub fn format_in_default_zone(&self, date: &Date, default: DefaultOffset) -> String {
         let mut state = self.zone.lock().unwrap_or_else(|e| e.into_inner());
-        let offset = match state.named.and_then(zone_info) {
-            Some(zone) => {
+        let state = &mut *state;
+        let zone = match (state.named, default) {
+            (Some(named), _) => zone_info(named),
+            (None, DefaultOffset::Zone(id)) => zone_info(id),
+            _ => None,
+        };
+        let offset = match (zone, default) {
+            (Some(zone), _) => {
                 let (raw, dst) = zone.offsets_at_utc(date.millis(), &mut state.cache);
                 raw + dst
             }
-            None => default_offset_seconds * 1000,
+            (None, DefaultOffset::Fixed(seconds)) => seconds * 1000,
+            (None, _) => {
+                super::player_list::local_offset_seconds(date.millis().div_euclid(1000)) * 1000
+            }
         };
         let (year, month, day, hour, minute, second) = calendar_fields(date.millis(), offset);
         // `Z`: whole minutes, truncated toward zero

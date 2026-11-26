@@ -2,7 +2,7 @@
 //! (`fixtures/LegacyDateGolden.java`): parsing of valid, overflowing, odd and trailing-text inputs, the zone left by a
 //! parsed zone name, and formatting in several zones (the Julian calendar before 1582 included).
 
-use mc_game::server::players::ban_date_format::DateFormat;
+use mc_game::server::players::ban_date_format::{DateFormat, DefaultOffset};
 use mc_game::server::players::ban_list_entry::Date;
 use std::sync::LazyLock;
 
@@ -48,14 +48,17 @@ fn parse_matches_java() {
 
 #[test]
 fn zone_of_the_shared_format_matches_java() {
-    // the default zone of the golden is Europe/Berlin: +01:00 at both instants
-    const BERLIN: i32 = 3600;
     let mut n = 0;
     for line in GOLDEN.lines().filter_map(|l| l.strip_prefix("seq\t")) {
         let mut fields = line.split('\t');
         let inputs = fields.next().unwrap();
         let format = DateFormat::new();
-        let at = |epoch: i64| format.format_in_default_zone(&Date::from_millis(epoch), BERLIN);
+        let at = |epoch: i64| {
+            format.format_in_default_zone(
+                &Date::from_millis(epoch),
+                DefaultOffset::Zone("Europe/Berlin"),
+            )
+        };
         let expected_start = fields.next().unwrap();
         assert_eq!(
             format!("{}|{}", at(0), at(1_700_000_000_000)),
@@ -86,7 +89,8 @@ fn format_matches_java() {
         let offset: i32 = fields.next().unwrap().parse().unwrap();
         let want = fields.next().unwrap();
         assert_eq!(
-            DateFormat::new().format_in_default_zone(&Date::from_millis(epoch), offset),
+            DateFormat::new()
+                .format_in_default_zone(&Date::from_millis(epoch), DefaultOffset::Fixed(offset)),
             want,
             "{epoch} at {offset}"
         );
@@ -115,7 +119,8 @@ fn ends_of_the_long_range_in_a_named_zone_match_java() {
             .unwrap();
         for (epoch, want) in INSTANTS.iter().zip(fields) {
             assert_eq!(
-                format.format_in_default_zone(&Date::from_millis(*epoch), 0),
+                format
+                    .format_in_default_zone(&Date::from_millis(*epoch), DefaultOffset::Zone("UTC")),
                 want,
                 "{epoch} in {zone}"
             );
@@ -138,13 +143,39 @@ fn rule_cache_of_the_zone_matches_java() {
                     let parsed = format.parse_in_default_zone(&text(input), Some("UTC"));
                     parsed.map_or("null".to_owned(), |d| d.millis().to_string())
                 }
-                (_, epoch) => {
-                    format.format_in_default_zone(&Date::from_millis(epoch.parse().unwrap()), 0)
-                }
+                (_, epoch) => format.format_in_default_zone(
+                    &Date::from_millis(epoch.parse().unwrap()),
+                    DefaultOffset::Zone("UTC"),
+                ),
             };
             assert_eq!(got, want, "{line}: {op}");
             n += 1;
         }
     }
     assert!(n >= 100, "{n}");
+}
+
+#[test]
+fn rule_cache_of_the_default_zone_matches_java() {
+    let mut n = 0;
+    for line in GOLDEN.lines().filter_map(|l| l.strip_prefix("dseq\t")) {
+        let mut fields = line.split('\t');
+        let zone = fields.next().unwrap();
+        let format = DateFormat::new();
+        for (op, want) in fields.next().unwrap().split(';').zip(fields) {
+            let got = match op.split_at(1) {
+                ("p", input) => {
+                    let parsed = format.parse_in_default_zone(&text(input), Some(zone));
+                    parsed.map_or("null".to_owned(), |d| d.millis().to_string())
+                }
+                (_, epoch) => format.format_in_default_zone(
+                    &Date::from_millis(epoch.parse().unwrap()),
+                    DefaultOffset::Zone(zone),
+                ),
+            };
+            assert_eq!(got, want, "{line}: {op}");
+            n += 1;
+        }
+    }
+    assert!(n >= 80, "{n}");
 }
