@@ -29,8 +29,11 @@
 //!   dropped (the lines of a `Serialization errors:` report kept); a run of `Failed to fetch mob spawner entity` errors
 //!   (logged from concurrent worker threads) is sorted ([`log_records`]). Both servers use the mock of the Mojang
 //!   services, so the key fetch thread logs nothing.
-//! * A world on which the two servers differ is run again on the real server, up to [`VANILLA_RETRIES`] more times
-//!   (`mc-server` runs once): its first tick is a race.
+//! * The real server runs twice on every world; a world on which the servers differ is run again, up to [`VANILLA_RETRIES`]
+//!   more times (`mc-server` runs once): its first tick is a race. A chunk the servers generated while running that the two
+//!   real runs generate identically is compared in full (blocks, fluid ticks, post processing, entity ids), the other
+//!   generated chunks leave out [`GENERATED_CHUNK_RACES`]. `mc-server` writes its worldgen scheduler trace
+//!   (`MC_WORLDGEN_SCHED_TRACE`), which has to follow the rules of the real executor ([`crate::sched_check`]).
 
 use std::collections::BTreeSet;
 use std::fs;
@@ -61,6 +64,9 @@ const LOADED: i32 = 8;
 /// The first data version that has the world height of 1.18 (`has_increased_height_already`): older worlds stop at y = 0.
 const NORMAL_WORLD_BELOW_ZERO: i32 = 2825;
 
+/// The scheduler trace `mc-server` writes into its directory (`MC_WORLDGEN_SCHED_TRACE`, checked by [`crate::sched_check`]).
+pub(crate) const SCHED_TRACE_FILE: &str = "sched-trace.log";
+
 /// Entries of the server directory that are not part of the comparison (the output of the server process itself).
 pub(crate) const SERVER_FILES: &[&str] = &[
     "logs/",
@@ -68,6 +74,7 @@ pub(crate) const SERVER_FILES: &[&str] = &[
     "versions/",
     "cache/",
     "stderr.log",
+    SCHED_TRACE_FILE,
     "vanilla-under-test.jar",
     "eula.txt",
     "server.properties",
@@ -433,6 +440,12 @@ pub(crate) fn run_limited(
     file_size_limit: Option<u64>,
 ) -> Run {
     let mut builder = side.builder().dir(dir).prepare(prepare);
+    if side == Side::Ours {
+        builder = builder.env(
+            "MC_WORLDGEN_SCHED_TRACE",
+            &dir.join(SCHED_TRACE_FILE).to_string_lossy(),
+        );
+    }
     if let Some(bytes) = file_size_limit {
         builder = builder.file_size_limit(bytes);
     }
@@ -642,7 +655,26 @@ fn chunks_below_full(
 
 /// Differences between two finished runs, as printable findings (empty: equal under the normalisation above).
 pub(crate) fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
+    compare_with(vanilla, ours, None)
+}
+
+/// [`compare`]; `stable_with` is a second run of the real server on the same world: a generated chunk below status full
+/// that equals itself in both real runs (blocks, ticks, post processing included) is compared in full, the others leave
+/// out [`GENERATED_CHUNK_RACES`]. `mc-server` also has to have followed a schedule the real executor can produce
+/// ([`crate::sched_check`]).
+pub(crate) fn compare_with(vanilla: &Run, ours: &Run, stable_with: Option<&Run>) -> Vec<String> {
     let mut findings = Vec::new();
+    if let Ok(trace) = fs::read_to_string(ours.dir.join(SCHED_TRACE_FILE)) {
+        let report = crate::sched_check::check(&trace);
+        println!(
+            "SCHEDULE {}: {} polls, {} slices, {} violation(s)",
+            ours.dir.display(),
+            report.polls,
+            report.slices,
+            report.violations.len()
+        );
+        findings.extend(report.violations.into_iter().take(10));
+    }
     if (vanilla.started, vanilla.exit) != (ours.started, ours.exit) {
         findings.push(format!(
             "outcome: vanilla started={} exit={:?}, ours started={} exit={:?}",
@@ -738,9 +770,18 @@ pub(crate) fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
             .source
             .as_deref()
             .map(|source| stored_chunks(source, dim));
+        let other = stable_with.map(|run| run.dir.join("world"));
+        let (mut generated_chunks, mut stable_chunks) = (0, 0);
         for (x, z) in chunks_below_full(&v, &o, dim, inner) {
             let generated = stored.as_ref().is_some_and(|s| !s.contains(&(x, z)));
-            let races = if generated {
+            let stable = generated
+                && other.as_ref().is_some_and(|w| {
+                    let skip = [PARTIAL_CHUNK_LIGHT, below_zero].concat();
+                    compare_dimension(&v, w, dim, &exact((x, z, x, z), &skip)).is_clean()
+                });
+            generated_chunks += usize::from(generated);
+            stable_chunks += usize::from(stable);
+            let races = if generated && !stable {
                 GENERATED_CHUNK_RACES
             } else {
                 &[]
@@ -748,6 +789,9 @@ pub(crate) fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
             let skip = [PARTIAL_CHUNK_LIGHT, races, below_zero].concat();
             reports.push(compare_dimension(&v, &o, dim, &exact((x, z, x, z), &skip)));
         }
+        println!(
+            "GENERATED CHUNKS {dim}: {generated_chunks} below full, {stable_chunks} equal in both real runs (compared in full)"
+        );
         // the POI files of the loaded chunks are still exact (the exact mode with the other storages left out)
         let chunk_storages = ["region/", "**/region/", "entities/", "**/entities/"];
         reports.push(compare_dimension(
@@ -833,20 +877,27 @@ fn dual(case: Case) {
         let ours_dir = tempfile::tempdir().expect("temp dir");
         let ours = run_on(Side::Ours, ours_dir.path(), &source, &[]);
         let mut vanilla_dirs = Vec::new();
-        let (mut vanilla, mut findings);
-        loop {
-            vanilla_dirs.push(tempfile::tempdir().expect("temp dir"));
-            vanilla = run_on(
+        let run_vanilla = |dirs: &mut Vec<tempfile::TempDir>| {
+            dirs.push(tempfile::tempdir().expect("temp dir"));
+            let mut run = run_on(
                 Side::Vanilla,
-                vanilla_dirs.last().expect("dir").path(),
+                dirs.last().expect("dir").path(),
                 &source,
                 &[],
             );
-            vanilla.below_zero = world.below_zero && matches!(case, Case::Normal);
-            findings = compare(&vanilla, &ours);
-            if findings.is_empty() || vanilla_dirs.len() > VANILLA_RETRIES {
+            run.below_zero = world.below_zero && matches!(case, Case::Normal);
+            run
+        };
+        // two real runs are the base: what they agree on in a generated chunk is compared in full ([`compare_with`])
+        let mut previous = run_vanilla(&mut vanilla_dirs);
+        let (mut vanilla, mut findings);
+        loop {
+            vanilla = run_vanilla(&mut vanilla_dirs);
+            findings = compare_with(&vanilla, &ours, Some(&previous));
+            if findings.is_empty() || vanilla_dirs.len() > VANILLA_RETRIES + 1 {
                 break;
             }
+            previous = vanilla;
         }
         keep(case, &world, &vanilla, &ours);
         println!(

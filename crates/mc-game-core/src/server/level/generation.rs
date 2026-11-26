@@ -7,6 +7,7 @@ use super::chunk_io::WorkerMessage;
 use super::chunk_map::{ChunkMap, ChunkMapEvent, MainTask};
 use super::chunk_status_tasks::{
     BatchResult, GenBatch, GenJob, runs_on_background_executor, runs_on_worldgen_thread,
+    sched_trace,
 };
 use super::world_gen::{GenChunk, LightEvent, OldChunk};
 use crate::world::level::chunk::status::{
@@ -149,7 +150,7 @@ impl ChunkMap {
             if !self.background_batches.is_empty() && self.worldgen.single_background_worker() {
                 return;
             }
-            let Some((_, tasks)) = self.worldgen_queue.pop() else {
+            let Some((popped, tasks)) = self.worldgen_queue.pop() else {
                 // the worker has nothing queued: the light update gets its turn (an inline worldgen thread, the oracle's
                 // direct executors, runs light once per poll in `poll_main_task` instead)
                 if !self.worldgen.is_inline() && self.light.has_pending_work() {
@@ -161,6 +162,10 @@ impl ChunkMap {
                 }
                 return;
             };
+            sched_trace(&self.dimension, || {
+                let c = ChunkPos::unpack(popped);
+                format!("POP {},{}", c.x, c.z)
+            });
             for id in tasks {
                 self.run_generation_task_slice(id);
             }
@@ -174,11 +179,27 @@ impl ChunkMap {
 
     /// One `runUntilWait()` of a task (a worldgen executor slice).
     pub(crate) fn run_generation_task_slice(&mut self, id: u64) {
-        if !self.tasks.contains_key(&id) {
+        let Some(task) = self.tasks.get(&id) else {
             return;
-        }
+        };
+        let slice_center = ChunkPos::unpack(task.center_key());
         let waiting_for = self.run_until_wait(id);
         let (inline_result, continues) = self.flush_batch(id, waiting_for);
+        sched_trace(&self.dimension, || match waiting_for {
+            Some((key, status)) => {
+                let awaited = ChunkPos::unpack(key);
+                format!(
+                    "W {},{} {},{} {} cont={}",
+                    slice_center.x,
+                    slice_center.z,
+                    awaited.x,
+                    awaited.z,
+                    status.name(),
+                    u8::from(continues)
+                )
+            }
+            None => format!("E {},{}", slice_center.x, slice_center.z),
+        });
         if !continues
             && let Some((key, status)) = waiting_for
             && let Some(h) = self.holders.holder_mut(key)

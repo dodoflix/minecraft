@@ -8,6 +8,7 @@
 use super::world_gen::{GenChunk, LightEvent, OldChunk, WorldGenContext, WorldGenRegion};
 use crate::crash_report::CrashReport;
 use crate::world::entity::ai::village::poi::PoiTypeHolder;
+use crate::world::level::DimensionKey;
 use crate::world::level::chunk::status::{ChunkStatusTask, ChunkStep};
 use mc_core::pos::ChunkPos;
 use mc_world::blending_data::BlendingData;
@@ -76,6 +77,16 @@ pub fn run_batch(ctx: &WorldGenContext, batch: GenBatch) -> Result<BatchResult, 
     let mut start_updates = Vec::new();
     for job in &jobs {
         let step = &job.step;
+        if !runs_on_background_executor(step.task) {
+            sched_trace(&ctx.dimension, || {
+                format!(
+                    "S {} {},{}",
+                    step.target_status.name(),
+                    job.pos.x,
+                    job.pos.z
+                )
+            });
+        }
         let mut region = WorldGenRegion::new(
             job.pos,
             step.direct_dependencies.get_radius(),
@@ -306,4 +317,28 @@ pub fn runs_on_background_executor(task: ChunkStatusTask) -> bool {
         task,
         ChunkStatusTask::GenerateBiomes | ChunkStatusTask::BuildTerrain
     )
+}
+
+/// Environment variable naming a file that receives the worldgen scheduler's decisions (see [`sched_trace`]).
+pub const SCHED_TRACE_VARIABLE: &str = "MC_WORLDGEN_SCHED_TRACE";
+
+/// Appends one line of the scheduler trace, prefixed with the dimension whose queue it belongs to, to the file named by
+/// [`SCHED_TRACE_VARIABLE`]; the line is only built when the variable is set. Lines: `DSUB x,z Lq` (task queued at level
+/// q), `RESORT x,z old->new`, `POP x,z`, `W slice awaited status cont=n` (a slice that ends waiting; cont=1: it goes on
+/// with its own batch), `E x,z` (a slice that ends with its task), `S status x,z` (a step on the worldgen thread).
+pub(crate) fn sched_trace(dimension: &DimensionKey, line: impl FnOnce() -> String) {
+    use std::io::Write;
+    static SINK: std::sync::LazyLock<Option<std::sync::Mutex<std::fs::File>>> =
+        std::sync::LazyLock::new(|| {
+            std::env::var_os(SCHED_TRACE_VARIABLE)
+                .and_then(|path| std::fs::File::create(path).ok())
+                .map(std::sync::Mutex::new)
+        });
+    let sink = &*SINK;
+    if let Some(file) = sink {
+        let mut file = file
+            .lock()
+            .unwrap_or_else(std::sync::PoisonError::into_inner);
+        let _ = writeln!(file, "{dimension} {}", line());
+    }
 }

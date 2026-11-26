@@ -11,6 +11,7 @@ use super::chunk_holder::{
 };
 use super::chunk_io::{RegionIo, ResultSender, WorkerMessage, WorkerPool, WorldgenThread};
 use super::chunk_level;
+use super::chunk_status_tasks::sched_trace;
 use super::chunk_task_queue::ChunkTaskPriorityQueue;
 use super::chunk_tracking_view::ChunkTrackingView;
 use super::distance_manager::{DistanceHost, DistanceManager, DistanceTask};
@@ -673,6 +674,10 @@ impl ChunkMap {
         holder.set_old_ticket_level(ticket_level);
         // `onLevelChange` -> `worldgenTaskDispatcher.onLevelChange(pos, oldLevel, newLevel, setQueueLevel)`.
         holder.set_queue_level(ticket_level);
+        sched_trace(&self.dimension, || {
+            let c = ChunkPos::unpack(key);
+            format!("RESORT {},{} {old_queue}->{ticket_level}", c.x, c.z)
+        });
         self.worldgen_queue
             .resort_chunk_tasks(old_queue, key, ticket_level);
         self.check_unload_ready(key);
@@ -1011,6 +1016,10 @@ impl ChunkMap {
             .holders
             .holder(center)
             .map_or(chunk_level::max_level() + 1, ChunkHolder::get_queue_level);
+        sched_trace(&self.dimension, || {
+            let c = ChunkPos::unpack(center);
+            format!("DSUB {},{} L{level}", c.x, c.z)
+        });
         self.worldgen_queue.submit(id, center, level);
     }
 
