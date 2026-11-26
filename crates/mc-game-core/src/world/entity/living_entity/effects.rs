@@ -375,10 +375,11 @@ pub fn refresh_dirty_attributes(entity: &mut dyn Entity, level: &mut ServerLevel
 }
 
 /// `LivingEntity.onAttributeUpdated(attribute)`: the waypoint range attributes queue the update that
-/// `ServerLevel::process_waypoint_state` applies.
+/// `ServerLevel::process_waypoint_state` applies. `Mob.onAttributeUpdated`: a new follow or tempt range
+/// resizes the navigation's node budget.
 pub fn on_attribute_updated(
     entity: &mut dyn Entity,
-    _level: &mut ServerLevel,
+    level: &mut ServerLevel,
     attribute: Attribute,
 ) {
     if attribute == Attribute::MAX_HEALTH {
@@ -400,6 +401,13 @@ pub fn on_attribute_updated(
         entity.base_mut().waypoint_attribute_updates.push(attribute);
     } else if attribute == Attribute::SCALE {
         entity.refresh_dimensions();
+    }
+    if (attribute == Attribute::FOLLOW_RANGE || attribute == Attribute::TEMPT_RANGE)
+        && entity.mob().is_some()
+    {
+        crate::world::entity::mob::navigation::with_navigation(entity, level, |nav, mob, _| {
+            nav.update_pathfinder_max_visited_nodes(mob)
+        });
     }
 }
 

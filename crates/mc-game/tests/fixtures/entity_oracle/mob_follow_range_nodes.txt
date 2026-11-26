@@ -1,0 +1,58 @@
+PATHQ Z 0.5,-60.0,12.5 found=true
+PATH Z next=0 count=6 reached=0 target=0,-60,12 dist=7.0
+PN Z 0 pos=0,-60,0 type=WALKABLE malus=0.0 walked=0.0
+PN Z 1 pos=0,-60,1 type=WALKABLE malus=0.0 walked=1.0
+PN Z 2 pos=0,-60,2 type=WALKABLE malus=0.0 walked=2.0
+PN Z 3 pos=0,-60,3 type=WALKABLE malus=0.0 walked=3.0
+PN Z 4 pos=0,-60,4 type=WALKABLE malus=0.0 walked=4.0
+PN Z 5 pos=0,-60,5 type=WALKABLE malus=0.0 walked=5.0
+CF msg The base value for attribute Mob Follow Range for entity Zombie set to 40.0
+CF result success 1
+PATHQ Z 0.5,-60.0,12.5 found=true
+PATH Z next=0 count=6 reached=0 target=0,-60,12 dist=7.0
+PN Z 0 pos=0,-60,0 type=WALKABLE malus=0.0 walked=0.0
+PN Z 1 pos=0,-60,1 type=WALKABLE malus=0.0 walked=1.0
+PN Z 2 pos=0,-60,2 type=WALKABLE malus=0.0 walked=2.0
+PN Z 3 pos=0,-60,3 type=WALKABLE malus=0.0 walked=3.0
+PN Z 4 pos=0,-60,4 type=WALKABLE malus=0.0 walked=4.0
+PN Z 5 pos=0,-60,5 type=WALKABLE malus=0.0 walked=5.0
+CF msg The base value for attribute Mob Follow Range for entity Zombie set to 50.0
+CF result success 1
+PATHQ Z 0.5,-60.0,12.5 found=true
+PATH Z next=0 count=26 reached=1 target=0,-60,12 dist=1.0
+PN Z 0 pos=0,-60,0 type=WALKABLE malus=0.0 walked=0.0
+PN Z 1 pos=-1,-60,1 type=WALKABLE malus=0.0 walked=10.0
+PN Z 2 pos=-2,-60,1 type=WALKABLE malus=0.0 walked=12.414213
+PN Z 3 pos=-3,-60,1 type=WALKABLE malus=0.0 walked=14.828426
+PN Z 4 pos=-4,-60,1 type=WALKABLE malus=0.0 walked=17.24264
+PN Z 5 pos=-5,-60,1 type=WALKABLE malus=0.0 walked=19.656853
+PN Z 6 pos=-6,-60,1 type=WALKABLE malus=0.0 walked=22.071066
+PN Z 7 pos=-7,-60,1 type=WALKABLE malus=0.0 walked=24.48528
+PN Z 8 pos=-8,-60,1 type=WALKABLE malus=0.0 walked=26.899492
+PN Z 9 pos=-9,-60,2 type=WALKABLE malus=0.0 walked=28.313705
+PN Z 10 pos=-10,-60,3 type=WALKABLE malus=0.0 walked=29.727919
+PN Z 11 pos=-11,-60,4 type=WALKABLE malus=0.0 walked=31.142132
+PN Z 12 pos=-12,-60,5 type=WALKABLE malus=0.0 walked=32.556347
+PN Z 13 pos=-12,-60,6 type=WALKABLE malus=0.0 walked=33.556347
+PN Z 14 pos=-12,-60,7 type=WALKABLE malus=0.0 walked=34.556347
+PN Z 15 pos=-11,-60,8 type=WALKABLE malus=0.0 walked=35.970562
+PN Z 16 pos=-10,-60,9 type=WALKABLE malus=0.0 walked=37.384777
+PN Z 17 pos=-9,-60,9 type=WALKABLE malus=0.0 walked=38.384777
+PN Z 18 pos=-8,-60,10 type=WALKABLE malus=0.0 walked=39.798992
+PN Z 19 pos=-7,-60,10 type=WALKABLE malus=0.0 walked=40.798992
+PN Z 20 pos=-6,-60,10 type=WALKABLE malus=0.0 walked=41.798992
+PN Z 21 pos=-5,-60,11 type=WALKABLE malus=0.0 walked=43.213207
+PN Z 22 pos=-4,-60,11 type=WALKABLE malus=0.0 walked=44.213207
+PN Z 23 pos=-3,-60,11 type=WALKABLE malus=0.0 walked=45.213207
+PN Z 24 pos=-2,-60,11 type=WALKABLE malus=0.0 walked=46.213207
+PN Z 25 pos=-1,-60,12 type=WALKABLE malus=0.0 walked=47.627422
+CF msg The base value for attribute Mob Follow Range for entity Zombie set to 35.0
+CF result success 1
+PATHQ Z 0.5,-60.0,12.5 found=true
+PATH Z next=0 count=6 reached=0 target=0,-60,12 dist=7.0
+PN Z 0 pos=0,-60,0 type=WALKABLE malus=0.0 walked=0.0
+PN Z 1 pos=0,-60,1 type=WALKABLE malus=0.0 walked=1.0
+PN Z 2 pos=0,-60,2 type=WALKABLE malus=0.0 walked=2.0
+PN Z 3 pos=0,-60,3 type=WALKABLE malus=0.0 walked=3.0
+PN Z 4 pos=0,-60,4 type=WALKABLE malus=0.0 walked=4.0
+PN Z 5 pos=0,-60,5 type=WALKABLE malus=0.0 walked=5.0

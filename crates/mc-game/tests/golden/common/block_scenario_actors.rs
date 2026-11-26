@@ -1112,6 +1112,7 @@ impl Scenario {
                     "fire" => e.set_remaining_fire_ticks(v.parse().unwrap()),
                     "fall_distance" => e.base_mut().fall_distance = num(&v),
                     "portal_cooldown" => e.base_mut().portal_cooldown = v.parse().unwrap(),
+                    "on_ground" => e.base_mut().set_on_ground_raw(v == "true"),
                     "seen_credits" => {
                         e.as_any_mut()
                             .downcast_mut::<ServerPlayer>()

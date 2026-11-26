@@ -20,3 +20,9 @@ fn tp_stops_nav_matches_vanilla() {
 fn path_matrix_matches_vanilla() {
     check("mob_path_matrix");
 }
+
+/// A new follow range resizes the node budget of the path search.
+#[test]
+fn follow_range_resizes_the_path_node_budget() {
+    check("mob_follow_range_nodes");
+}
