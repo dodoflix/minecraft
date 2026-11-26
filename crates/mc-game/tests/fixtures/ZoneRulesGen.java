@@ -11,7 +11,9 @@ import java.util.zip.GZIPOutputStream;
  * table, the `transitions` (`utc millis << 12 | dst index << 4 | offset index`), the parameters of the `SimpleTimeZone`
  * that runs after the last transition (`-` for none). A zone with the same rules as an earlier one is `id` and `=` and
  * that zone's id.
- * Run with the JDK the vanilla server runs on first on PATH; the class is read by reflection.
+ * Pinned to Temurin 25.0.5.1 (tzdata 2026f; the nightly oracle runs Temurin 25): run it with that JDK first on PATH, and
+ * regenerate this file, `java_zone_strings.tsv` and `legacy_date_golden.txt.gz` together when the tzdata of the JDK changes.
+ * The class is read by reflection.
  * Usage: java --add-opens java.base/sun.util.calendar=ALL-UNNAMED crates/mc-game/tests/fixtures/ZoneRulesGen.java crates/mc-game-core/src/server/players/java_zone_rules.tsv.gz
  * Output: crates/mc-game-core/src/server/players/java_zone_rules.tsv.gz (gzip)
  */

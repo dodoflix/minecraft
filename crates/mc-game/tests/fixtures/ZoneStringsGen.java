@@ -6,7 +6,8 @@ import java.util.*;
  * The zone strings `SimpleDateFormat(.., Locale.ROOT)` matches a parsed zone name against: for each zone of
  * `DateFormatSymbols.getInstance(Locale.ROOT).getZoneStrings()`, in that order, `id`, long and short standard name,
  * long and short daylight name, tab separated.
- * Run with the JDK the vanilla server runs on first on PATH.
+ * Pinned to Temurin 25.0.5.1 (tzdata 2026f): run it with that JDK first on PATH; regenerate together with `java_zone_rules.tsv.gz`
+ * and `legacy_date_golden.txt.gz` when the tzdata of the JDK changes.
  * Usage: java crates/mc-game/tests/fixtures/ZoneStringsGen.java crates/mc-game-core/src/server/players/java_zone_strings.tsv
  * Output: crates/mc-game-core/src/server/players/java_zone_strings.tsv
  */

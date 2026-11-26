@@ -10,7 +10,8 @@ import java.util.*;
  *   fmt    epoch ms, offset     the format of the instant in the zone GMT+offset (offset in seconds)
  *   zseq   operations on one format (p<text hex> parse, f<epoch ms> format, joined by ;), then their results
  *   zfmt   zone name, then the format of six instants at the ends of the `long` range in the zone a parse of that name left
- * Run with the JDK the vanilla server runs on first on PATH.
+ * Pinned to Temurin 25.0.5.1 (tzdata 2026f): run it with that JDK first on PATH; regenerate together with `java_zone_rules.tsv.gz`
+ * and `legacy_date_golden.txt.gz` when the tzdata of the JDK changes.
  * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/legacy_date_golden.txt.gz crates/mc-game/tests/fixtures/LegacyDateGolden.java
  * Output: crates/mc-game/tests/fixtures/legacy_date_golden.txt.gz
  */
@@ -140,7 +141,6 @@ public class LegacyDateGolden {
       }
 
       // One shared format, as vanilla's DATE_FORMAT: the zone of a parsed name stays.
-      TimeZone.setDefault(TimeZone.getTimeZone("Europe/Berlin"));
       String[][] sequences = {
          {"2013-02-03 04:05:06 +0100"},
          {"2013-02-03 04:05:06 UTC"},
@@ -193,6 +193,8 @@ public class LegacyDateGolden {
             out.append(ops).append(results).append('\n');
          }
       }
+      // the seq lines: the default zone is Europe/Berlin (the zfmt and zseq lines above use UTC)
+      TimeZone.setDefault(TimeZone.getTimeZone("Europe/Berlin"));
       for (String[] seq : sequences) {
          SimpleDateFormat f = fresh();
          StringBuilder line = new StringBuilder("seq\t");

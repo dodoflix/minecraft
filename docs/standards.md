@@ -183,6 +183,9 @@ Generators (scripts that write fixtures or goldens):
 
 - Start with a `Usage:` line and an `Output: <path>` line in the header comment, and live beside the fixtures they
   write. Enforced: `scripts/check.sh` fails on a generator without both headers.
+- Time-zone fixtures follow the tzdata of the JDK that wrote them (Temurin 25.0.5.1, tzdata 2026f): `java_zone_rules.tsv.gz`,
+  `java_zone_strings.tsv` and `legacy_date_golden.txt.gz` are regenerated together (`ZoneRulesGen.java`,
+  `ZoneStringsGen.java`, `LegacyDateGolden.java`) when the JDK's tzdata changes.
 
 ## 10. Comments and docs
 

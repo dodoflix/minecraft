@@ -134,7 +134,7 @@ fn rule_cache_of_the_zone_matches_java() {
         for (op, want) in fields.next().unwrap().split(';').zip(fields) {
             let got = match op.split_at(1) {
                 ("p", input) => {
-                    // the default zone of the golden is UTC
+                    // the default zone of these golden lines is UTC
                     let parsed = format.parse_in_default_zone(&text(input), Some("UTC"));
                     parsed.map_or("null".to_owned(), |d| d.millis().to_string())
                 }
