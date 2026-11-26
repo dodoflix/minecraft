@@ -456,15 +456,18 @@ impl Builder {
         self
     }
 
-    /// Points the server's Mojang services at `mock`: the discovery property for the vanilla jar (session server, profile
-    /// keys, profile lookups), `MINECRAFT_API_DISCOVERY_HOST` for our own server (profile keys and lookups only: its
-    /// `hasJoined` request still goes to the fixed session server URL).
+    /// Points the server's Mojang services at `mock`, see [`Self::discovery_url`].
     pub fn mojang(self, mock: &MockMojang) -> Self {
+        self.discovery_url(&mock.discovery_url())
+    }
+
+    /// Points the server's Mojang services at the discovery document `url`: the discovery property for the vanilla jar
+    /// (session server, profile keys, profile lookups), `MINECRAFT_API_DISCOVERY_HOST` for our own server (profile keys
+    /// and lookups only: its `hasJoined` request still goes to the fixed session server URL).
+    pub fn discovery_url(self, url: &str) -> Self {
         match self.program {
-            Program::Vanilla => {
-                self.java_property("minecraft.api.discovery.host", &mock.discovery_url())
-            }
-            Program::Ours(_) => self.env("MINECRAFT_API_DISCOVERY_HOST", &mock.discovery_url()),
+            Program::Vanilla => self.java_property("minecraft.api.discovery.host", url),
+            Program::Ours(_) => self.env("MINECRAFT_API_DISCOVERY_HOST", url),
         }
     }
 

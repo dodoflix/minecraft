@@ -90,6 +90,8 @@ struct State {
     /// Lower-case player name to the name as spelled and the profile id.
     profiles: HashMap<String, (String, Uuid)>,
     certificates: HashMap<Uuid, Certificate>,
+    /// Answers that replace a route's own: path to status and JSON body.
+    overrides: HashMap<String, (u16, Value)>,
 }
 
 struct Shared {
@@ -183,6 +185,35 @@ impl MockMojang {
             .insert(name.to_lowercase(), (name.to_owned(), id));
     }
 
+    /// Makes `path` (for example `/minecraft/client` or `/publickeys`) answer `status` with the JSON `body` from now on,
+    /// whatever the route would have said: a service that is up but failing.
+    pub fn respond(&self, path: &str, status: u16, body: Value) {
+        lock(&self.shared.state)
+            .overrides
+            .insert(path.to_owned(), (status, body));
+    }
+
+    /// Re-issues the certificate of `profile_id` (same key pair) to expire at `expires_at_millis` and signs it again; the
+    /// next `POST /player/certificates` of that profile serves it. An expiry in the past gives a key vanilla rejects.
+    pub fn set_certificate_expiry(
+        &self,
+        profile_id: Uuid,
+        expires_at_millis: i64,
+    ) -> io::Result<Certificate> {
+        let mut cert = certificate(&self.shared, profile_id)?;
+        cert.expires_at_millis = expires_at_millis;
+        cert.signature = sign_certificate(
+            &self.shared.key,
+            profile_id,
+            expires_at_millis,
+            &cert.public_key_der,
+        );
+        lock(&self.shared.state)
+            .certificates
+            .insert(profile_id, cert.clone());
+        Ok(cert)
+    }
+
     /// The certificate served to `profile_id` (generated on first use, the same one afterwards).
     pub fn certificate(&self, profile_id: Uuid) -> io::Result<Certificate> {
         certificate(&self.shared, profile_id)
@@ -258,6 +289,19 @@ fn pem(label: &str, der: &[u8]) -> String {
     )
 }
 
+/// `publicKeySignatureV2`: the services key's SHA1withRSA over profile id, expiry (milliseconds) and the player's key.
+fn sign_certificate(
+    key: &SigningKey<Sha1>,
+    profile_id: Uuid,
+    expires_at_millis: i64,
+    public_key_der: &[u8],
+) -> Vec<u8> {
+    let mut payload = profile_id.as_bytes().to_vec();
+    payload.extend_from_slice(&expires_at_millis.to_be_bytes());
+    payload.extend_from_slice(public_key_der);
+    key.sign(&payload).to_vec()
+}
+
 fn certificate(shared: &Shared, profile_id: Uuid) -> io::Result<Certificate> {
     if let Some(c) = lock(&shared.state).certificates.get(&profile_id) {
         return Ok(c.clone());
@@ -267,9 +311,7 @@ fn certificate(shared: &Shared, profile_id: Uuid) -> io::Result<Certificate> {
         .map_err(|e| io::Error::other(format!("generate a player key: {e}")))?;
     let public_key_der = spki_der(&private)?;
     let expires_at_millis = now_millis() / 1000 * 1000 + CERTIFICATE_LIFETIME_MS;
-    let mut payload = profile_id.as_bytes().to_vec();
-    payload.extend_from_slice(&expires_at_millis.to_be_bytes());
-    payload.extend_from_slice(&public_key_der);
+    let signature = sign_certificate(&shared.key, profile_id, expires_at_millis, &public_key_der);
     let made = Certificate {
         profile_id,
         private_key_der: private
@@ -279,7 +321,7 @@ fn certificate(shared: &Shared, profile_id: Uuid) -> io::Result<Certificate> {
             .to_vec(),
         public_key_der,
         expires_at_millis,
-        signature: shared.key.sign(&payload).to_vec(),
+        signature,
     };
     Ok(lock(&shared.state)
         .certificates
@@ -427,6 +469,12 @@ fn route(shared: &Shared, request: &Request) -> Response {
             .find(|(k, _)| percent_decode(k) == key)
             .map(|(_, v)| percent_decode(v))
     };
+    if let Some((status, body)) = lock(&shared.state).overrides.get(path).cloned() {
+        return Response {
+            status,
+            body: Some(body),
+        };
+    }
     let base = &shared.base;
     match (request.method.as_str(), path) {
         ("GET", "/minecraft/client") => Response::json(discovery(base)),
@@ -825,6 +873,43 @@ mod tests {
             serde_json::from_str(std::fs::read_to_string(&log).unwrap().trim()).unwrap();
         assert_eq!(line["method"], "GET");
         assert_eq!(line["target"], "/nope?x=1");
+    }
+
+    #[test]
+    fn a_certificate_can_be_reissued_with_another_expiry() {
+        let mock = MockMojang::start().unwrap();
+        let id = offline_uuid("Steve");
+        let first = mock.certificate(id).unwrap();
+        let past = now_millis() - 3_600_000;
+        let second = mock.set_certificate_expiry(id, past).unwrap();
+        assert_eq!(second.public_key_der, first.public_key_der);
+        assert_ne!(second.signature, first.signature);
+        let served = json_of(&mock, "POST", "/player/certificates", Some("Steve"));
+        assert_eq!(served["expiresAt"], iso_instant(past));
+        let signature = B64
+            .decode(served["publicKeySignatureV2"].as_str().unwrap())
+            .unwrap();
+        let mut payload = id.as_bytes().to_vec();
+        payload.extend_from_slice(&past.to_be_bytes());
+        payload.extend_from_slice(&second.public_key_der);
+        let services = RsaPublicKey::from_public_key_der(mock.services_public_key_der()).unwrap();
+        VerifyingKey::<Sha1>::new(services)
+            .verify(
+                &payload,
+                &Signature::try_from(signature.as_slice()).unwrap(),
+            )
+            .expect("signature over the new expiry");
+    }
+
+    #[test]
+    fn a_route_can_be_made_to_fail() {
+        let mock = MockMojang::start().unwrap();
+        mock.respond("/publickeys", 500, json!({"errorMessage": "down"}));
+        let (status, body) = http(&mock, "GET", "/publickeys", None, "");
+        assert_eq!(status, 500);
+        assert!(body.contains("down"), "{body}");
+        // the other routes are untouched
+        assert_eq!(http(&mock, "GET", "/minecraft/client", None, "").0, 200);
     }
 
     #[test]
