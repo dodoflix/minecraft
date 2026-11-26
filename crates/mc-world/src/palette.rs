@@ -897,17 +897,25 @@ impl<T: PaletteValue> PalettedContainer<T> {
         let Some(Tag::List(palette_tag)) = compound.get("palette") else {
             return err("No key palette in MapLike[...]");
         };
-        let mut problems = Vec::new();
+        // `orElsePartial` on each element; the list codec joins the failed elements into one message
+        let mut failed = Vec::new();
         let mut entries = Vec::with_capacity(palette_tag.len());
         for element in palette_tag {
             match element_codec.decode(element) {
                 Ok(v) => entries.push(v),
                 Err(msg) => {
-                    problems.push(format!("(({msg}) -> using default)"));
+                    failed.push(format!("({msg} -> using default)"));
                     entries.push(default_value);
                 }
             }
         }
+        let problems = if failed.is_empty() {
+            Vec::new()
+        } else {
+            // the merged message of the list codec names the last failed element first
+            failed.reverse();
+            vec![failed.join("; ")]
+        };
         // lenientOptionalFieldOf("data"): an undecodable value counts as absent
         let storage = compound.get("data").and_then(decode_long_stream);
         let container = Self::unpack(
@@ -948,19 +956,39 @@ pub struct BlockStateCodec;
 impl ElementCodec<BlockState> for BlockStateCodec {
     fn decode(&self, tag: &Tag) -> Result<BlockState, String> {
         use mc_data::block::Block;
-        let by_name = |name: &str| -> Result<Block, String> {
-            mc_core::ident::Identifier::parse(name)
-                .ok()
-                .and_then(|id| Block::by_name(&id.to_string()))
-                .ok_or_else(|| format!("Unknown registry key in minecraft:block: {name}"))
+        // `BuiltInRegistries.BLOCK.byNameCodec()` on a tag
+        let by_tag = |tag: &Tag| -> Result<Block, String> {
+            let Tag::String(name) = tag else {
+                return Err("Not a string".into());
+            };
+            let id = mc_core::ident::Identifier::read(&name.to_utf8_string())?;
+            Block::by_name(&id.to_string()).ok_or_else(|| {
+                format!(
+                    "Unknown registry key in ResourceKey[minecraft:root / minecraft:block]: {id}"
+                )
+            })
+        };
+        // `Codec.either(blockCodec, FULL_CODEC)`: the second alternative is only tried when the first failed
+        let either = |first: String, second: String| {
+            format!("Failed to parse either. First: {first}; Second: {second}")
         };
         match tag {
-            Tag::String(name) => by_name(&name.to_utf8_string()).map(Block::default_state),
+            Tag::String(_) => match by_tag(tag) {
+                Ok(block) => Ok(block.default_state()),
+                Err(first) => Err(either(first, format!("Not a map: {tag}"))),
+            },
             Tag::Compound(c) => {
-                let Some(Tag::String(name)) = c.get("id") else {
-                    return Err("No key id in MapLike[...]".into());
+                let second = match c.get("id") {
+                    None => Err(format!(
+                        "No key id in MapLike[{}]",
+                        mc_nbt::snbt::print_compact(tag).as_lossy_str()
+                    )),
+                    Some(id) => by_tag(id),
                 };
-                let block = by_name(&name.to_utf8_string())?;
+                let block = match second {
+                    Ok(block) => block,
+                    Err(second) => return Err(either("Not a string".into(), second)),
+                };
                 let mut state = block.default_state();
                 // lenientOptionalFieldOf("properties") + per-property orElseGet(default)
                 if let Some(Tag::Compound(props)) = c.get("properties") {
@@ -974,7 +1002,7 @@ impl ElementCodec<BlockState> for BlockStateCodec {
                 }
                 Ok(state)
             }
-            _ => Err("Not a string or map".into()),
+            _ => Err(either("Not a string".into(), format!("Not a map: {tag}"))),
         }
     }
 

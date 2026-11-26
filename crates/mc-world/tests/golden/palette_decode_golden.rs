@@ -56,3 +56,24 @@ fn container_decoding_matches_vanilla() {
     }
     assert_eq!(n, 31);
 }
+
+/// The palette codec joins the failed elements of the list in one message, the last element first (observed on the real
+/// server: the palette `[bedrock, dirt, grass_block, air]` of a section written as legacy `Name` entries).
+#[test]
+fn failed_palette_entries_are_reported_last_first() {
+    // three entries take four bits per block (the minimum for block states): 256 longs
+    let data = ["0L"; 256].join(",");
+    let tag = snbt::parse(&format!(
+        r#"{{palette:[{{Name:"minecraft:air"}},5,{{Name:"minecraft:dirt"}}],data:[L;{data}]}}"#
+    ))
+    .unwrap();
+    let unpacked = chunk_common::factory().block_states_from_nbt(&tag).unwrap();
+    assert_eq!(
+        unpacked.problems,
+        [concat!(
+            r#"(Failed to parse either. First: Not a string; Second: No key id in MapLike[{Name:"minecraft:dirt"}] -> using default); "#,
+            r#"(Failed to parse either. First: Not a string; Second: Not a map: 5 -> using default)"#,
+            r#"; (Failed to parse either. First: Not a string; Second: No key id in MapLike[{Name:"minecraft:air"}] -> using default)"#,
+        )]
+    );
+}
