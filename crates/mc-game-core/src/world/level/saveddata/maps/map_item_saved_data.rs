@@ -324,7 +324,7 @@ impl MapItemSavedData {
                 && frame.entity_id != existing.entity_id
                 && self.frame_markers.contains_key(&existing.get_id())
             {
-                self.remove_decoration(&frame_key(existing.entity_id));
+                self.remove_decoration(frame_key(existing.entity_id));
             }
             let map_frame = MapFrame {
                 pos,
@@ -334,7 +334,7 @@ impl MapItemSavedData {
             self.add_decoration(
                 by_name("frame"),
                 Some(env.game_time),
-                &frame_key(frame.entity_id),
+                frame_key(frame.entity_id),
                 f64::from(pos.x()),
                 f64::from(pos.z()),
                 f64::from(frame.direction_2d * 90),
@@ -655,7 +655,7 @@ impl MapItemSavedData {
             .collect();
         for expected in gone {
             self.banner_markers.remove(&expected.get_id());
-            self.remove_decoration(&expected.get_id());
+            self.remove_decoration(expected.get_id());
             self.set_dirty();
         }
     }
@@ -666,7 +666,7 @@ impl MapItemSavedData {
 
     /// `removedFromFrame(pos, entityID)`.
     pub fn removed_from_frame(&mut self, pos: BlockPos, entity_id: i32) {
-        self.remove_decoration(&frame_key(entity_id));
+        self.remove_decoration(frame_key(entity_id));
         self.frame_markers.remove(&MapFrame::frame_id(pos));
         self.set_dirty();
     }
@@ -765,7 +765,7 @@ impl MapItemSavedData {
             data.add_decoration(
                 banner.get_decoration(),
                 None,
-                &banner.get_id(),
+                banner.get_id(),
                 f64::from(banner.pos.x()),
                 f64::from(banner.pos.z()),
                 180.0,
@@ -777,7 +777,7 @@ impl MapItemSavedData {
             data.add_decoration(
                 by_name("frame"),
                 None,
-                &frame_key(frame.entity_id),
+                frame_key(frame.entity_id),
                 f64::from(frame.pos.x()),
                 f64::from(frame.pos.z()),
                 f64::from(frame.rotation),
