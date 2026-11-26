@@ -1,0 +1,26 @@
+CF msg Summoned new Tadpole
+CF result success 1
+ED T1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:40c00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:8:00 17:8:00
+ED T2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:40c00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:8:00 17:8:00
+ED tadpole#1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:40c00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:8:00 17:8:00
+N T1 {AbsorptionAmount:0.0f,Age:2,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,FromBucket:1b,Health:6.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,-4.999999999999996E-4d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[30.5d,-57.989999999999995d,0.5d],Rotation:[0.0f,0.0f],attributes:[{base:1.0d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+N T2 {AbsorptionAmount:0.0f,Age:2,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,FromBucket:1b,Health:6.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,-4.999999999999996E-4d,0.0d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[32.5d,-57.989999999999995d,2.5d],Rotation:[0.0f,0.0f],attributes:[{base:1.0d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+PKT Steve minecraft:add_entity 01ca658442b4ad6d844be68491a112006908d28601403e800000000000c04d0000000000003fe00000000000000000000000
+PKT Steve minecraft:set_entity_data 65ca65090340c00000ff
+PKT Steve minecraft:add_entity 01cb65e6d8b3a6bf9b48e3be9aff809bd1656b86014040400000000000c04d00000000000040040000000000000000000000
+PKT Steve minecraft:set_entity_data 65cb65090340c00000ff
+PKT Steve minecraft:add_entity 01cc65d7b921570f38495182ebc2cbce7701458601403c800000000000c04d000000000000c0040000000000000000000000
+PKT Steve minecraft:set_entity_data 65cc65090340c00000ff
+PKT Steve minecraft:set_entity_data 65cc65090340c00000ff
+PKT Steve minecraft:set_entity_data 65ca65090340c00000ff
+PKT Steve minecraft:set_entity_data 65c9650101aa02ff
+PKT Steve minecraft:set_entity_data 65cb65090340c00000ff
+PKT Steve minecraft:set_entity_data 65c9650101a902ff
+CF msg Modified entity data of Tadpole
+CF result success 1
+ED T1 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:40c00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:8:00 17:8:00
+ED T2 0:0:00 1:1:ac02 2:6:00 3:8:00 4:8:00 5:8:00 6:20:00 7:1:00 8:0:00 9:3:40c00000 10:17:00 11:8:00 12:1:00 13:1:00 14:11:00 15:0:00 16:8:00 17:8:00
+N T1 {AbsorptionAmount:0.0f,Age:4,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,FromBucket:1b,Health:6.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[-0.0015387089341172774d,-5.237286539566816E-4d,0.008217092793954201d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[30.497422313606d,-57.98006135882206d,0.5140540582682491d],Rotation:[20.0f,0.30356267f],attributes:[{base:1.0d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+N T2 {AbsorptionAmount:0.0f,Age:4,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,FromBucket:1b,Health:6.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,-0.0012812279586219494d,0.008404932275014388d],OnGround:0b,PersistenceRequired:0b,PortalCooldown:0,Pos:[32.50086519984131d,-57.98130370364404d,2.514244077913858d],Rotation:[360.0f,10.0f],attributes:[{base:1.0d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}
+PKT Steve minecraft:set_entity_data 65c9650101a802ff
+PKT Steve minecraft:set_entity_data 65c9650101a702ff

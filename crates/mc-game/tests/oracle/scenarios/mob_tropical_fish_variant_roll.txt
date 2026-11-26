@@ -1,0 +1,17 @@
+# TropicalFish.finalizeSpawn compares random.nextFloat() with the double 0.9: a roll of exactly 0.9f (the sixth draw of seed 15837110, after the
+# follow range bonus and the left-handed roll) still counts as common and starts a school; the next seed's roll is the same without the edge.
+level flat
+preload 4
+difficulty normal
+entity_counter 13100
+level_seed 13101
+fill 20 -61 -10 40 -50 10 minecraft:stone
+fill 21 -60 -9 39 -52 9 minecraft:water[level=0]
+spawn_player Steve survival 25.5 -52 0.5 0 0
+tick 3
+level_seed 15837110
+mobspawn F1 minecraft:tropical_fish 30.5 -58 0.5 0 0 {PersistenceRequired:1b}
+level_seed 15837111
+mobspawn F2 minecraft:tropical_fish 32.5 -58 2.5 0 0 {PersistenceRequired:1b}
+tick 1
+dump mobs edata:F1 edata:F2 nbt:F1 nbt:F2

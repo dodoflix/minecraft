@@ -128,3 +128,8 @@ fn legacy_string_owner_is_converted() {
 fn data_without_a_leash_removes_the_leash() {
     check("mob_leash_data_remove");
 }
+
+#[test]
+fn collar_color_that_is_not_a_number_is_red() {
+    check("mob_collar_color_load");
+}

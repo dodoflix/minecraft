@@ -1,0 +1,16 @@
+# A tamed wolf or cat loaded with a CollarColor that is not a number (or is missing) falls back to the red default collar; a number is
+# read as the legacy dye id.
+level flat
+preload 4
+difficulty normal
+entity_counter 13200
+level_seed 13201
+spawn_player Steve survival 0.5 -60 0.5 0 0
+mobspawn W1 minecraft:wolf 4.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,CollarColor:"blue"}
+mobspawn W2 minecraft:wolf 6.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,CollarColor:3b}
+mobspawn W3 minecraft:wolf 8.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b}
+mobspawn C1 minecraft:cat 4.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,CollarColor:"blue"}
+mobspawn C2 minecraft:cat 6.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b,CollarColor:3b}
+mobspawn C3 minecraft:cat 8.5 -60 4.5 0 0 nofinalize {PersistenceRequired:1b}
+tick 1
+dump edata:W1 edata:W2 edata:W3 edata:C1 edata:C2 edata:C3 nbt:W1 nbt:W2 nbt:W3 nbt:C1 nbt:C2 nbt:C3

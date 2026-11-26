@@ -79,3 +79,13 @@ fn dolphin_elder_guardian_matches_vanilla() {
 fn bucket_all_matches_vanilla() {
     block_scenario::check("mob_bucket_all");
 }
+
+#[test]
+fn dolphin_feeding_ignores_the_use_remainder() {
+    block_scenario::check("mob_dolphin_feed_remainder");
+}
+
+#[test]
+fn tropical_fish_roll_of_exactly_point_nine_is_common() {
+    block_scenario::check("mob_tropical_fish_variant_roll");
+}

@@ -47,3 +47,8 @@ fn target_owner() {
 fn target_unseen_memory() {
     check("mob_target_unseen_memory");
 }
+
+#[test]
+fn creative_player_target_is_ignored_by_leap_and_ocelot_goals() {
+    check("mob_creative_target_goals");
+}

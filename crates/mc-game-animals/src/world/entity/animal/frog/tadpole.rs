@@ -295,7 +295,6 @@ impl Entity for Tadpole {
 
     fn read_additional_save_data(&mut self, level: Option<&ServerLevel>, input: &CompoundTag) {
         mob::nbt::read_additional_save_data(self, level, input);
-        abstract_fish::set_from_bucket(self, input.get_boolean_or("FromBucket", false));
         self.set_age_raw(input.get_int_or("Age", 0));
         self.set_age_locked(input.get_boolean_or("AgeLocked", false));
     }

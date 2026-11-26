@@ -1,0 +1,21 @@
+# A tadpole is always "from a bucket" and ignores the saved flag (Tadpole.setFromBucket does nothing): the synched flag stays false for a
+# tadpole loaded with FromBucket, and the saved data always says true.
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 13000
+level_seed 13001
+fill 20 -61 -10 40 -50 10 minecraft:stone
+fill 21 -60 -9 39 -52 9 minecraft:water[level=0]
+spawn_player Steve survival 25.5 -52 0.5 0 0
+tick 3
+dump packets:Steve:none
+mobspawn T1 minecraft:tadpole 30.5 -58 0.5 0 0 nofinalize {FromBucket:1b}
+mobspawn T2 minecraft:tadpole 32.5 -58 2.5 0 0 nofinalize {FromBucket:0b}
+cmd summon minecraft:tadpole 28.5 -58 -2.5 {FromBucket:1b}
+tick 2
+dump edata:T1 edata:T2 edata:tadpole#1 nbt:T1 nbt:T2 packets:Steve:add_entity,set_entity_data
+cmd data merge entity @e[type=minecraft:tadpole,limit=1,sort=nearest] {FromBucket:1b,Age:5}
+tick 2
+dump edata:T1 edata:T2 nbt:T1 nbt:T2 packets:Steve:set_entity_data

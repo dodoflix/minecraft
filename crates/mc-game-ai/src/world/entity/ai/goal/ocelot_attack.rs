@@ -3,6 +3,7 @@
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags};
 use mc_game_core::world::entity::mob::navigation;
+use mc_game_core::world::entity::mob::tick;
 use mc_game_core::world::entity::mob::{self, combat};
 use mc_game_core::world::entity::{Entity, EntityId};
 
@@ -27,8 +28,8 @@ impl OcelotAttackGoal {
 }
 
 impl Goal for OcelotAttackGoal {
-    fn can_use(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) -> bool {
-        match mob.get_target() {
+    fn can_use(&mut self, mob: &mut dyn Entity, level: &mut ServerLevel) -> bool {
+        match tick::get_target_checked(mob, level) {
             None => false,
             Some(best_target) => {
                 self.target = Some(best_target);

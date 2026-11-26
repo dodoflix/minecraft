@@ -1,0 +1,23 @@
+# Feeding a dolphin consumes one fish (ItemStack.consume) and never applies the use remainder of the fish: a stack of cod with a stick as
+# remainder just shrinks, for the adult (it gets the fish) and for the baby (it ages up).
+level flat
+difficulty normal
+entity_counter 0
+fill -4 -60 -4 60 -40 40 minecraft:air
+fill 4 -61 -10 30 -50 10 minecraft:stone
+fill 5 -60 -9 29 -52 9 minecraft:water[level=0]
+spawn_player Steve survival 12.5 -57 0.5 0 0
+give Steve mainhand minecraft:cod[use_remainder={id:"minecraft:stick",count:1}] 3
+mobspawn Dolphin minecraft:dolphin 13.5 -57 0.5 0 0 {PersistenceRequired:1b}
+entity_seed Dolphin 24021
+mobspawn Baby minecraft:dolphin 14.5 -57 1.5 0 0 {PersistenceRequired:1b,Age:-24000}
+entity_seed Baby 24022
+level_seed 2422
+tick 3
+interact Steve Dolphin
+dump player:Steve inventory:Steve
+tick 40
+interact Steve Baby
+dump player:Steve inventory:Steve
+tick 5
+dump mobs

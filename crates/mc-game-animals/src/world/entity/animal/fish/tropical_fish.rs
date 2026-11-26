@@ -388,7 +388,7 @@ impl Entity for TropicalFish {
             .map(|g| g.variant);
         let variant = if let Some(variant) = existing {
             variant
-        } else if random.next_float() < 0.9 {
+        } else if f64::from(random.next_float()) < 0.9 {
             let variant =
                 COMMON_VARIANTS[random.next_int_bounded(COMMON_VARIANTS.len() as i32) as usize];
             // `new TropicalFishGroupData(this, variant)`: this fish becomes the leader of the group

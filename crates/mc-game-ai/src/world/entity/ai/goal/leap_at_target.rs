@@ -4,6 +4,7 @@ use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::ai::goal::{Flag, Goal, GoalFlags, reduced_tick_delay};
+use mc_game_core::world::entity::mob::tick;
 use mc_game_core::world::entity::{Entity, EntityId};
 
 pub struct LeapAtTargetGoal {
@@ -22,7 +23,7 @@ impl Goal for LeapAtTargetGoal {
         if mob.has_controlling_passenger() {
             return false;
         }
-        self.target = mob.get_target();
+        self.target = tick::get_target_checked(mob, level);
         let Some(target) = self
             .target
             .and_then(|t| level.get_entity_or_remote_target(t))

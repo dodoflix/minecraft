@@ -1,0 +1,18 @@
+# A baby sheep standing in a snow layer on a snowy grass block eats the grass: the level event of the broken block carries the default
+# grass block state (not the snowy one) and the block below turns into dirt.
+level flat
+preload 4
+entity_counter 7500
+level_seed 7501
+difficulty normal
+gamerule mob_griefing true
+spawn_player Steve creative 0.5 -60 14.5 0 0
+fill -1 -60 9 3 -59 11 minecraft:stone
+fill 0 -60 10 0 -59 10 minecraft:air
+block 0 -60 10 minecraft:snow[layers=1]
+mobspawn S0 minecraft:sheep 0.5 -60 10.5 0 0 nofinalize {PersistenceRequired:1b,Age:-24000}
+entity_seed S0 41
+tick 2
+dump mobs blocks:-1,-61,9,3,-60,11
+tick 150
+dump mobs blocks:-1,-61,9,3,-60,11 events

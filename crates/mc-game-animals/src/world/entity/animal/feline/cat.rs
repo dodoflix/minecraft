@@ -852,11 +852,9 @@ impl Entity for Cat {
         self.pending_sound_variant = input
             .get_string("sound_variant")
             .and_then(Identifier::try_parse);
-        let collar = if input.contains("CollarColor") {
-            dye_color::by_id(i32::from(input.get_byte_or("CollarColor", 0)))
-        } else {
-            DEFAULT_COLLAR_COLOR
-        };
+        let collar = input
+            .get_byte("CollarColor")
+            .map_or(DEFAULT_COLLAR_COLOR, |b| dye_color::by_id(i32::from(b)));
         self.set_collar_color(collar);
     }
 

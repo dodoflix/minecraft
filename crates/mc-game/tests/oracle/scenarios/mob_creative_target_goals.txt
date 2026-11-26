@@ -1,0 +1,27 @@
+# A creative player set as the target of a spider and an ocelot is no valid target (Mob.getTarget): the spider's leap goal and the ocelot's
+# attack goal read the target through it and stay idle, a survival player in the same place is leapt at and stalked.
+level flat
+difficulty normal
+preload 4
+entity_counter 13300
+level_seed 13301
+time 6000
+spawn_player Cre creative 0.5 -60 0.5 0 0
+spawn_player Sur survival 40.5 -60 0.5 0 0
+mobspawn Sp1 minecraft:spider 0.5 -60 3.5 180 0 nofinalize {PersistenceRequired:1b}
+mobspawn Oc1 minecraft:ocelot 4.5 -60 3.5 180 0 nofinalize {PersistenceRequired:1b}
+mobspawn Sp2 minecraft:spider 40.5 -60 3.5 180 0 nofinalize {PersistenceRequired:1b}
+mobspawn Oc2 minecraft:ocelot 44.5 -60 3.5 180 0 nofinalize {PersistenceRequired:1b}
+entity_seed Sp1 61
+entity_seed Oc1 62
+entity_seed Sp2 63
+entity_seed Oc2 64
+tick 2
+target Sp1 Cre
+target Oc1 Cre
+target Sp2 Sur
+target Oc2 Sur
+watch mob:Sp1 mob:Oc1 mob:Sp2 mob:Oc2
+tick 12
+watch off
+dump goals:Sp1 goals:Oc1 goals:Sp2 goals:Oc2

@@ -74,7 +74,8 @@ impl Goal for EatBlockGoal {
                 let state = level.get_block_state(below);
                 if state.block() == Block::GRASS_BLOCK {
                     if level.mob_griefing() {
-                        level.level_event_impl(None, 2001, below, state.id() as i32);
+                        let grass_id = Block::GRASS_BLOCK.default_state().id() as i32;
+                        level.level_event_impl(None, 2001, below, grass_id);
                         level.set_block_flags(below, Block::DIRT.default_state(), 2);
                     }
                     mob.ate(level);

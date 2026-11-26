@@ -56,3 +56,8 @@ fn amphibian_bucket_matches_vanilla() {
 fn amphibian_predicate_matches_vanilla() {
     check("mob_amphibian_predicate");
 }
+
+#[test]
+fn tadpole_ignores_the_saved_from_bucket_flag() {
+    check("mob_tadpole_from_bucket");
+}

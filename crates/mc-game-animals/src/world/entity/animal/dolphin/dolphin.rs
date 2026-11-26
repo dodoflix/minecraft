@@ -41,7 +41,7 @@ use mc_game_core::world::entity::mob::spawn::AgeableMobGroupData;
 use mc_game_core::world::entity::mob::{self, MobData, MobKind, ageable, navigation};
 use mc_game_core::world::entity::spawn_group_data::SpawnGroupData;
 use mc_game_core::world::entity::{Entity, EntityId, MoverType, ServerPlayer};
-use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack};
+use mc_game_core::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt as _};
 use mc_game_core::world::level::LevelAccessor;
 use mc_game_core::world::level::block::state::BlockStateExt;
 use mc_game_core::world::level::level_access::BlockGetter as _;
@@ -396,13 +396,14 @@ impl Entity for Dolphin {
             && mc_data::tags::get::<Item>("fishes").is_some_and(|t| t.contains(item_stack.item()))
         {
             self.play_sound(level, SoundEvent::ENTITY_DOLPHIN_EAT, 1.0, 1.0);
+            let infinite = player.player.abilities.instabuild;
             if ageable::can_age_up(self) {
-                mob::interact::use_player_item(level, player, hand);
+                mob::interact::with_hand_stack(player, hand, |stack, _| stack.consume(1, infinite));
                 let seconds = ageable::get_speed_up_seconds_when_feeding(-ageable::get_age(self));
                 ageable::age_up(self, level, seconds, true);
             } else {
                 self.set_got_fish(true);
-                mob::interact::use_player_item(level, player, hand);
+                mob::interact::with_hand_stack(player, hand, |stack, _| stack.consume(1, infinite));
             }
             InteractionResult::SUCCESS
         } else {

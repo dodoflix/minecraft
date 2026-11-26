@@ -84,3 +84,9 @@ fn mob_chicken_jockey() {
 fn mob_variant_predicate() {
     check("mob_variant_predicate");
 }
+
+/// A baby sheep on a snowy grass block eats it: the level event carries the default grass state.
+#[test]
+fn mob_sheep_eat_snowy_grass() {
+    check("mob_sheep_eat_snowy_grass");
+}
