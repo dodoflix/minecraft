@@ -7,9 +7,11 @@ use crate::world::entity::{Entity, EntityId};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::{Item, SoundEvent};
+use mc_dfu::{Codec, Either};
 use mc_nbt::{CompoundTag, Tag};
 use mc_protocol::packets::play::ClientboundSetEntityLinkPacket;
 use mc_protocol::packets::play::level::SoundSource;
+use std::sync::LazyLock;
 use uuid::Uuid;
 
 /// What a leash needs to know about its holder entity.
@@ -254,24 +256,29 @@ pub fn set_delayed_leash_holder_id(e: &mut dyn Entity, level: &mut ServerLevel, 
     drop_leash_impl(e, level, false, false);
 }
 
-/// `LeashData.CODEC` (`xor(UUID field, BlockPos)`) as the `leash` tag; `None` when it does not decode.
-fn read_leash_tag(tag: &Tag) -> Option<LeashData> {
-    match tag {
-        Tag::Compound(c) => {
-            let uuid = crate::world::entity::entity::read_uuid(c.get("UUID"))?;
-            Some(LeashData::of_delayed(DelayedLeashInfo::Entity(uuid)))
-        }
-        Tag::IntArray(_) | Tag::List(_) => {
-            let pos = crate::world::entity::living::read_block_pos(Some(tag))?;
-            Some(LeashData::of_delayed(DelayedLeashInfo::Knot(pos)))
-        }
-        _ => None,
-    }
-}
+/// `LeashData.CODEC` (`xor(UUID field, BlockPos)`).
+static LEASH: LazyLock<Codec<DelayedLeashInfo>> = LazyLock::new(|| {
+    mc_protocol::components::common::uuid_codec()
+        .field_of("UUID")
+        .codec()
+        .xor(&mc_protocol::components::block_pos_codec())
+        .xmap(
+            |either| match either {
+                Either::Left(uuid) => DelayedLeashInfo::Entity(uuid),
+                Either::Right(pos) => DelayedLeashInfo::Knot(pos),
+            },
+            |info| match *info {
+                DelayedLeashInfo::Entity(uuid) => Either::Left(uuid),
+                DelayedLeashInfo::Knot(pos) => Either::Right(pos),
+            },
+        )
+});
 
 /// `readLeashData(input)`; the level effects of the `removeLeash()` it does are left to [`finish_leash_load`].
 pub fn read_leash_data(e: &mut dyn Entity, input: &CompoundTag) {
-    let new_data = input.get("leash").and_then(read_leash_tag);
+    // `input.read("leash", LeashData.CODEC)`: a failed decode is reported to the open problem scope
+    let new_data =
+        crate::world::block_entity::read_codec(input, "leash", &LEASH).map(LeashData::of_delayed);
     if new_data.is_none()
         && let Some(holder) = data(e).and_then(|d| d.leash_holder)
     {

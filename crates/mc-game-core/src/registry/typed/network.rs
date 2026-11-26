@@ -6,7 +6,7 @@ use mc_core::ident::Identifier;
 use mc_nbt::{CompoundTag, Tag};
 use serde_json::Value;
 
-use crate::registry::codec::{Field, Schema, default, opt, req};
+use crate::registry::codec::{Field, Schema, default, int_value, opt, req};
 use crate::registry::keys;
 
 pub(super) fn sound_event() -> Schema {
@@ -227,12 +227,18 @@ fn timeline() -> Schema {
 /// `Timeline.validateInternal` over a timeline that decoded: with a `period_ticks`, every time marker lies in
 /// `[0; period)` and every keyframe tick in `[0; period]`.
 fn validate_period(v: &Value) -> Result<(), String> {
-    let Some(period) = v.get("period_ticks").and_then(Value::as_i64) else {
+    // an int codec truncates a fractional number
+    let int = |v: Option<&Value>| v.and_then(Value::as_number).map_or(0, int_value);
+    let Some(period) = v
+        .get("period_ticks")
+        .and_then(Value::as_number)
+        .map(int_value)
+    else {
         return Ok(());
     };
     let markers = v.get("time_markers").and_then(Value::as_object);
     for (key, marker) in markers.into_iter().flatten() {
-        let ticks = marker.get("ticks").unwrap_or(marker).as_i64().unwrap_or(0);
+        let ticks = int(Some(marker.get("ticks").unwrap_or(marker)));
         if ticks < 0 || ticks >= period {
             let id = Identifier::read(key)?;
             return Err(format!(
@@ -244,7 +250,7 @@ fn validate_period(v: &Value) -> Result<(), String> {
     for track in tracks.into_iter().flatten().map(|(_, t)| t) {
         let keyframes = track.get("keyframes").and_then(Value::as_array);
         for keyframe in keyframes.into_iter().flatten() {
-            let ticks = keyframe.get("ticks").and_then(Value::as_i64).unwrap_or(0);
+            let ticks = int(keyframe.get("ticks"));
             if ticks < 0 || ticks > period {
                 return Err(format!(
                     "Keyframe at tick {ticks} must be in range [0; {period}]"

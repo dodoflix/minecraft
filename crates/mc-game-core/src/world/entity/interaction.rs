@@ -13,8 +13,10 @@ use linkme::distributed_slice;
 use mc_core::phys::{AABB, Vec3};
 use mc_data::EntityType;
 use mc_data::enums::{Pose, PushReaction};
+use mc_dfu::Codec;
 use mc_nbt::{CompoundTag, Tag};
 use std::any::Any;
+use std::sync::LazyLock;
 use uuid::Uuid;
 
 define_accessor!(DATA_WIDTH_ID: Float = Interaction);
@@ -28,14 +30,19 @@ struct PlayerAction {
     timestamp: i64,
 }
 
+/// `PlayerAction.CODEC`.
+static PLAYER_ACTION: LazyLock<Codec<PlayerAction>> = LazyLock::new(|| {
+    mc_dfu::record!(PlayerAction {
+        player: mc_protocol::components::common::uuid_codec().field_of("player"),
+        timestamp: mc_dfu::LONG.field_of("timestamp"),
+    })
+    .codec()
+});
+
 impl PlayerAction {
-    /// `PlayerAction.CODEC` (decode): `None` when a field is missing or malformed.
+    /// `input.read(name, PlayerAction.CODEC)`: a failed decode is reported to the open problem scope.
     fn read(input: &CompoundTag, name: &str) -> Option<Self> {
-        let tag = input.get_compound(name)?;
-        Some(Self {
-            player: entity::read_uuid(tag.get("player"))?,
-            timestamp: tag.get("timestamp")?.as_number()?.long_value(),
-        })
+        crate::world::block_entity::read_codec(input, name, &PLAYER_ACTION)
     }
 
     /// `PlayerAction.CODEC` (encode).

@@ -227,6 +227,35 @@ fn regen_number_fixtures() {
     });
 }
 
+/// Records the worlds of custom timelines: `timelines` (loads) and `broken_timelines` (refused, as a plain log).
+/// Regenerate: `MC_UPDATE_FIXTURES=1 cargo test -p mc-game --test oracle -- --ignored regen_timeline_fixtures`.
+#[test]
+#[ignore = "oracle: starts the vanilla server (only with MC_UPDATE_FIXTURES=1)"]
+fn regen_timeline_fixtures() {
+    if !std::env::var("MC_UPDATE_FIXTURES").is_ok_and(|v| v == "1") {
+        return;
+    }
+    let dir = fixture_dir();
+    let rt = tokio::runtime::Builder::new_multi_thread()
+        .enable_all()
+        .build()
+        .unwrap();
+    rt.block_on(async {
+        write_fixture(
+            &dir,
+            "timelines",
+            &run_vanilla(test_packs::write_timeline_packs, true).await,
+            true,
+        );
+        let broken = run_vanilla(test_packs::write_broken_timeline_packs, false).await;
+        std::fs::write(
+            dir.join("broken_timelines.server-log.txt"),
+            plain_log(&broken.log).join("\n") + "\n",
+        )
+        .unwrap();
+    });
+}
+
 /// The log of a refused start without what differs between two runs: the time and thread of a line become `00:00:00`
 /// and `Main`; stack frames, their `... N more` tails and the jar unpacking lines are dropped.
 fn plain_log(log: &[String]) -> Vec<String> {

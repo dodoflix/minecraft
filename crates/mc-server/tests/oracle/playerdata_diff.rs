@@ -617,6 +617,23 @@ async fn owner_decode_problems_match_vanilla() {
             21,
         ),
         entity("minecraft:fox", "Trusted:[[I;1,2],[I;1,2,3,4],5]", 22),
+        entity(
+            "minecraft:interaction",
+            "attack:{player:[I;1,2],timestamp:5L},interaction:{player:5,timestamp:7L}",
+            24,
+        ),
+        entity(
+            "minecraft:interaction",
+            r#"attack:{player:[I;1,2,3,4,5],timestamp:5L},interaction:{player:[I;1,2,3,4],timestamp:"x"}"#,
+            25,
+        ),
+        entity("minecraft:cow", "leash:{UUID:[I;1,2]}", 26),
+        entity("minecraft:cow", "leash:{UUID:5}", 27),
+        entity("minecraft:cow", r#"leash:[I;1,2]"#, 28),
+        entity("minecraft:cow", r#"leash:"x""#, 29),
+        entity("minecraft:cow", "leash:{UUID:[I;1,2,3,4]}", 30),
+        entity("minecraft:cow", "leash:{UUID:[I;1,2,3,4,5]}", 31),
+        entity("minecraft:cow", "leash:[I;1,2,3,4]", 32),
     ];
     let mut bad_uuid = entity("minecraft:cow", "Age:0", 23);
     bad_uuid.put_string("UUID", "not-an-array");

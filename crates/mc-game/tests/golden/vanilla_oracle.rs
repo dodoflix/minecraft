@@ -389,6 +389,23 @@ fn number_edges_load_like_vanilla() {
     compare_scenario("numbers", common::test_packs::write_number_edge_packs);
 }
 
+/// Timelines whose whole-number fields are fractions load with the truncated values vanilla sends.
+#[test]
+fn custom_timelines_load_like_vanilla() {
+    compare_scenario("timelines", common::test_packs::write_timeline_packs);
+}
+
+/// The period bounds of a timeline are checked on the truncated ints.
+#[test]
+fn broken_timelines_fail_like_vanilla() {
+    compare_load_failure(
+        "broken_timelines",
+        common::test_packs::write_broken_timeline_packs,
+        "broken_timelines",
+        3,
+    );
+}
+
 /// References that are no plain identifier string (`RegistryFixedCodec`: `Not a string: 5`) and flags that are no JSON boolean
 /// (`Not a boolean: 3`) fail like vanilla's codecs; a missing element is an unbound value of the root registry.
 #[test]

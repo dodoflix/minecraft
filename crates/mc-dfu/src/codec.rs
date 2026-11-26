@@ -499,6 +499,34 @@ impl<A: 'static> Codec<A> {
         )
     }
 
+    /// `Codec.xor(this, other)` (`XorCodec`): exactly one alternative may decode. When both fail the messages join second
+    /// first and a partial result survives only if both alternatives have one.
+    ///
+    /// shortcut: the error of two alternatives that both decode leaves out the two values (Java prints their `toString`),
+    /// upgrade when an input can be read by both.
+    pub fn xor<B: 'static>(&self, second: &Codec<B>) -> Codec<Either<A, B>> {
+        let (f1, s1, f2, s2) = (self.clone(), second.clone(), self.clone(), second.clone());
+        Codec::from_fns(
+            move |ops, input: &Either<A, B>, prefix| match input {
+                Either::Left(a) => f1.encode(ops, a, prefix),
+                Either::Right(b) => s1.encode(ops, b, prefix),
+            },
+            move |ops, input| {
+                let first = f2.decode(ops, input).map(|(a, r)| (Either::Left(a), r));
+                let second = s2.decode(ops, input).map(|(b, r)| (Either::Right(b), r));
+                match (first.is_success(), second.is_success()) {
+                    (true, true) => DataResult::error_partial(
+                        || "Both alternatives read successfully, can not pick the correct one",
+                        first.result().expect("success"),
+                    ),
+                    (true, false) => first,
+                    (false, true) => second,
+                    (false, false) => first.apply2(second, |_, s| s),
+                }
+            },
+        )
+    }
+
     /// `withAlternative(alternative)`: tries `self`, then `alternative` (same value type); encodes with `self`.
     pub fn with_alternative(&self, alternative: &Codec<A>) -> Codec<A> {
         let (e, d, alt) = (self.clone(), self.clone(), alternative.clone());

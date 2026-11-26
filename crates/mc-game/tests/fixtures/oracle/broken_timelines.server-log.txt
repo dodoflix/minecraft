@@ -1,0 +1,18 @@
+[00:00:00] [Main/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[00:00:00] [Main/INFO]: Found new data pack file/broken_timelines, loading it automatically
+[00:00:00] [Main/ERROR]: Registry loading errors:
+> Errors in registry minecraft:timeline:
+>> Errors in element test:keyframe_after_period:
+java.lang.IllegalStateException: Failed to parse test:keyframe_after_period from pack file/broken_timelines
+Caused by: java.lang.IllegalStateException: Keyframe at tick 101 must be in range [0; 100]
+>> Errors in element test:marker_on_period:
+java.lang.IllegalStateException: Failed to parse test:marker_on_period from pack file/broken_timelines
+Caused by: java.lang.IllegalStateException: Time Marker ResourceKey[minecraft:clock_time_marker / test:m] must be in range [0; 100)
+>> Errors in element test:marker_on_whole_period:
+java.lang.IllegalStateException: Failed to parse test:marker_on_whole_period from pack file/broken_timelines
+Caused by: java.lang.IllegalStateException: Time Marker ResourceKey[minecraft:clock_time_marker / test:m] must be in range [0; 100)
+
+[00:00:00] [Main/WARN]: Failed to load datapacks, can't proceed with server load. You can either fix your datapacks or reset to vanilla with --safeMode
+java.util.concurrent.ExecutionException: net.minecraft.ReportedException: Registry Loading
+Caused by: net.minecraft.ReportedException: Registry Loading
+Caused by: java.lang.IllegalStateException: Failed to load registries due to errors

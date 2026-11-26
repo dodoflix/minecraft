@@ -333,6 +333,65 @@ pub fn write_number_edge_packs(world: &Path) {
     }
 }
 
+/// Timelines that load: whole-number fields written as fractions (an int codec truncates them), a timeline without a period
+/// and one without tracks or markers.
+pub fn write_timeline_packs(world: &Path) {
+    let dp = world.join("datapacks");
+    write(
+        dp.join("timelines/pack.mcmeta"),
+        r##"{"pack": {"description": "timelines", "min_format": 121, "max_format": 121}}"##,
+    );
+    for (name, json) in [
+        (
+            "fractional",
+            r#"{"clock": "minecraft:overworld", "period_ticks": 100.9,
+                "time_markers": {"test:bare": 99.7, "test:shown": {"ticks": 50.5, "show_in_commands": true}, "test:hidden": {"ticks": 0.2}},
+                "tracks": {"minecraft:gameplay/cat_waking_up_gift_chance": {"ease": "constant", "modifier": "maximum",
+                    "keyframes": [{"ticks": 0.5, "value": 0.1}, {"ticks": 100.9, "value": 0.9}]}}}"#,
+        ),
+        (
+            "no_period",
+            r#"{"clock": "minecraft:overworld", "time_markers": {"test:late": 2000000000, "test:early": {"ticks": 0, "show_in_commands": false}},
+                "tracks": {"minecraft:gameplay/cat_waking_up_gift_chance": {"keyframes": [{"ticks": 5, "value": 0.5}, {"ticks": 70000, "value": 0.25}]}}}"#,
+        ),
+        ("empty", r#"{"clock": "minecraft:overworld"}"#),
+    ] {
+        write(
+            dp.join(format!("timelines/data/test/timeline/{name}.json")),
+            json,
+        );
+    }
+}
+
+/// Timelines that fail the period check after their fractional numbers are truncated to ints.
+pub fn write_broken_timeline_packs(world: &Path) {
+    let dp = world.join("datapacks");
+    write(
+        dp.join("broken_timelines/pack.mcmeta"),
+        r##"{"pack": {"description": "broken timelines", "min_format": 121, "max_format": 121}}"##,
+    );
+    for (name, json) in [
+        (
+            "marker_on_period",
+            r#"{"clock": "minecraft:overworld", "period_ticks": 100.9, "time_markers": {"test:m": 100.2}}"#,
+        ),
+        (
+            "keyframe_after_period",
+            r#"{"clock": "minecraft:overworld", "period_ticks": 100.9,
+                "tracks": {"minecraft:gameplay/cat_waking_up_gift_chance": {"keyframes": [{"ticks": 101.5, "value": 0.5}]}}}"#,
+        ),
+        (
+            "marker_on_whole_period",
+            r#"{"clock": "minecraft:overworld", "period_ticks": 100, "time_markers": {"test:m": 100}}"#,
+        ),
+    ] {
+        write(
+            dp.join(format!("broken_timelines/data/test/timeline/{name}.json")),
+            json,
+        );
+    }
+}
+
 /// Number spellings an int or double field cannot take: every entry fails (some with `NumberFormatException`).
 pub fn write_broken_number_packs(world: &Path) {
     let dp = world.join("datapacks");
