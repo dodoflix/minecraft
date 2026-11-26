@@ -450,7 +450,7 @@ fn definition_types(ty: &str) -> Option<Schema> {
     Some(S::Record(match ty {
         "minecraft:all_of" => vec![req("definitions", S::List(Box::new(holder_schema())))],
         "minecraft:clock_time" => vec![
-            req("clock", S::Holder(keys::WORLD_CLOCK)),
+            req("clock", S::HolderFixed(keys::WORLD_CLOCK)),
             req("time", non_negative_int_schema()),
         ],
         "minecraft:difficulty" => vec![req(
@@ -467,7 +467,7 @@ fn definition_types(ty: &str) -> Option<Schema> {
         )],
         "minecraft:timeline_attributes" => vec![req(
             "timelines",
-            S::List(Box::new(S::Holder(keys::TIMELINE))),
+            S::List(Box::new(S::HolderFixed(keys::TIMELINE))),
         )],
         "minecraft:weather" => vec![req("weather", S::Enum(&["clear", "rain", "thunder"]))],
         _ => return None,

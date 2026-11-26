@@ -167,7 +167,7 @@ fn record() -> Schema {
                 always_list: false,
             },
         ),
-        opt("default_clock", Schema::Holder(keys::WORLD_CLOCK)),
+        opt("default_clock", Schema::HolderFixed(keys::WORLD_CLOCK)),
     ])
 }
 

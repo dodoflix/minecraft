@@ -258,9 +258,9 @@ fn optional<'a, T>(
 }
 
 fn boolean(value: &Value) -> Result<bool, String> {
+    // `JsonOps.getBooleanValue`: a JSON number is no boolean
     match value {
         Value::Bool(b) => Ok(*b),
-        Value::Number(n) => Ok(n.as_i64().unwrap_or(0) as i8 != 0),
         _ => Err(format!("Not a boolean: {value}")),
     }
 }
@@ -447,6 +447,17 @@ mod tests {
         fn tag_exists(&self, _registry: &str, _tag: &Identifier) -> Lookup {
             Lookup::Yes
         }
+    }
+
+    #[test]
+    fn a_json_number_is_not_a_boolean() {
+        assert_eq!(boolean(&json!(true)), Ok(true));
+        assert_eq!(boolean(&json!(3)), Err("Not a boolean: 3".to_owned()));
+        assert_eq!(boolean(&json!(0)), Err("Not a boolean: 0".to_owned()));
+        assert_eq!(
+            boolean(&json!("yes")),
+            Err("Not a boolean: \"yes\"".to_owned())
+        );
     }
 
     #[test]

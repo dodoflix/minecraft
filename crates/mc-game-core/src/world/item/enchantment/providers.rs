@@ -57,7 +57,7 @@ fn schema(ty: &str) -> Option<Schema> {
             ]
         }
         "minecraft:single" => vec![
-            req("enchantment", Schema::Holder(keys::ENCHANTMENT)),
+            req("enchantment", Schema::HolderFixed(keys::ENCHANTMENT)),
             req("level", Schema::Raw),
         ],
         _ => return None,

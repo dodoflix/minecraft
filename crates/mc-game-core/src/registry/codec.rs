@@ -462,6 +462,8 @@ pub enum Schema {
     StaticRegistry(&'static str),
     /// `RegistryFileCodec` reference to an entry of `registry`.
     Holder(&'static str),
+    /// `RegistryFixedCodec` reference (`RegistryCodecs.holder`): the id string only, never an inline definition.
+    HolderFixed(&'static str),
     /// `RegistryCodecs.homogeneousList` / `holderSet`; `always_list` is `HolderSetCodec`'s `alwaysUseList`.
     HolderSet {
         registry: &'static str,
@@ -768,6 +770,12 @@ impl Schema {
                         "Unknown registry key in ResourceKey[minecraft:root / {registry}]: ResourceKey[{registry} / {id}]"
                     )),
                 }
+            }
+            Schema::HolderFixed(registry) => {
+                let s = v.as_str().ok_or_else(|| ctx.not_a("string", "string", v))?;
+                let id = Identifier::read(s)?;
+                ctx.check_holder(registry, &id)?;
+                Ok(Tag::String(id.to_string().into()))
             }
             Schema::Holder(registry) => match v {
                 Value::String(s) => {
