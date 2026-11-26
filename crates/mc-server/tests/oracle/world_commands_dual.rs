@@ -37,20 +37,48 @@ fn watched_since(bot: &Bot, from: usize) -> (usize, Vec<String>) {
     (lines.len(), out)
 }
 
-/// Timing dependent reports: every run of digits becomes one `#` (`9.5` and `10.5` are the same report).
+/// Timing dependent reports: only the measured arguments become `#` (the busy time and the percentiles of `tick query`, the
+/// rate and the busy time of a sprint report); the configured tick rate, the target time and the sample count stay compared.
 fn mask(line: &str) -> String {
-    if !(line.contains("commands.tick.query") || line.contains("commands.tick.sprint.report")) {
+    let (name, measured): (&str, &[usize]) = if line.contains("commands.tick.query.rate.running") {
+        ("commands.tick.query.rate.running", &[1])
+    } else if line.contains("commands.tick.query.percentiles") {
+        ("commands.tick.query.percentiles", &[0, 1, 2])
+    } else if line.contains("commands.tick.sprint.report") {
+        ("commands.tick.sprint.report", &[0, 1])
+    } else {
         return line.to_string();
-    }
-    let mut out = String::new();
-    for c in line.chars() {
-        if !c.is_ascii_digit() {
-            out.push(c);
-        } else if !out.ends_with('#') {
-            out.push('#');
+    };
+    let from = line.find(name).expect("report key");
+    let key = from
+        + line[from..]
+            .find("args: [")
+            .expect("a translatable report has args")
+        + "args: [".len();
+    let (mut out, mut rest) = (line[..key].to_string(), &line[key..]);
+    for index in 0.. {
+        let end = if rest.starts_with("String(\"") {
+            rest.find("\")").expect("string argument") + 2
+        } else if rest.starts_with("Number(Int(") {
+            rest.find("))").expect("number argument") + 2
+        } else {
+            break;
+        };
+        out.push_str(if measured.contains(&index) {
+            "#"
+        } else {
+            &rest[..end]
+        });
+        rest = &rest[end..];
+        match rest.strip_prefix(", ") {
+            Some(next) => {
+                out.push_str(", ");
+                rest = next;
+            }
+            None => break,
         }
     }
-    out
+    out + rest
 }
 
 const SCRIPT: &[(&str, u64)] = &[
