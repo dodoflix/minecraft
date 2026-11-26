@@ -1977,6 +1977,14 @@ fn decode_compound_list(key: &Type, element: &Type, ops: &Ops, input: &Dyn) -> D
         let vr = element.decode(ops, v).map(|(a, _)| a);
         let entry = kr.apply2(vr, Value::pair);
         if entry.is_error() {
+            // `JsonOps.getMapEntries` hands a JSON null out as Java null, which the `ImmutableMap.Builder` of the failed
+            // entries refuses
+            if ops.is_json() && v.is_empty_value() {
+                mc_dfu::throw_null_pointer(&format!(
+                    "null value in entry: {}=null",
+                    ops.show(k).as_lossy_str()
+                ));
+            }
             Dyn::map_put(&mut failed, k.clone(), v.clone());
         }
         result = result.apply2(entry, |_, e| read.push(e));

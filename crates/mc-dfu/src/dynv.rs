@@ -97,6 +97,13 @@ pub fn throw_number_format(message: &str) -> ! {
     )))
 }
 
+/// Throws a `NullPointerException` out of a codec, like [`throw_number_format`].
+pub fn throw_null_pointer(message: &str) -> ! {
+    std::panic::resume_unwind(Box::new(format!(
+        "java.lang.NullPointerException: {message}"
+    )))
+}
+
 impl JNum {
     /// `Number.intValue()`.
     pub fn int_value(&self) -> i32 {

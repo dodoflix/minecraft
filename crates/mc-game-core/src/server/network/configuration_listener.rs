@@ -369,7 +369,7 @@ impl ServerConfigurationPacketListenerImpl {
                 Ok(Flow::EnterPlay)
             }
             Err(e) => {
-                log::error!("Couldn't place player in world: {e}");
+                log::error!("Couldn't place player in world\n{e}");
                 self.disconnect(disconnect_reason_invalid_data());
                 Ok(Flow::Continue)
             }

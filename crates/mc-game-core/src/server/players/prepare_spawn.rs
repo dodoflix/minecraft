@@ -346,14 +346,22 @@ impl PrepareSpawn for PrepareSpawnTask {
                         profile,
                         pending.cookie.client_information.clone(),
                     );
-                    // the `ServerPlayer` constructor: the statistics and advancement files load before the player file
-                    player.stats = server.player_list.get_player_stats(id, &name);
+                    // the `ServerPlayer` constructor: the statistics and advancement files load before the player file;
+                    // an exception of the data fixer (a JSON null entry) leaves the constructor and the player is not placed
                     let manager = server
                         .resources
                         .managers
                         .listener::<crate::advancements::ServerAdvancementManager>()
                         .expect("advancement manager is registered");
-                    player.advancements = server.player_list.get_player_advancements(id, manager);
+                    let files = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+                        let stats = server.player_list.get_player_stats(id, &name);
+                        (
+                            stats,
+                            server.player_list.get_player_advancements(id, manager),
+                        )
+                    }));
+                    (player.stats, player.advancements) = files
+                        .map_err(|payload| crate::crash_report::exception_text(payload.as_ref()))?;
                     *root.borrow_mut() = entity_to_string(&player, &level_name);
                     if server.is_demo {
                         player.use_demo_mode();

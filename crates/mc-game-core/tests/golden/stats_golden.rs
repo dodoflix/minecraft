@@ -127,3 +127,20 @@ fn matches_vanilla() {
     }
     assert!(cases >= 25, "{cases}");
 }
+
+/// A JSON null entry of a stats file the data fixer decodes (`1452..5011`) throws out of `CompoundListCodec.decode`
+/// (`ImmutableMap.Builder.put` refuses the null of the failed entry); nothing catches it in the loaders. The text is the
+/// one the real fixer's exception has.
+#[test]
+fn a_null_stat_entry_throws_out_of_the_data_fixer() {
+    let file = r#"{"stats":{"minecraft:custom":{"minecraft:jump":null,"minecraft:play_time":5}},"DataVersion":4325}"#;
+    let mut counter = ServerStatsCounter::detached();
+    let payload = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        counter.parse(&mc_core::gson::parse_strict_json_parser(file).unwrap());
+    }))
+    .expect_err("the fixer throws");
+    assert_eq!(
+        payload.downcast_ref::<String>().map(String::as_str),
+        Some("java.lang.NullPointerException: null value in entry: \"minecraft:jump\"=null")
+    );
+}

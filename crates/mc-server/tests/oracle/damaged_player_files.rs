@@ -82,6 +82,28 @@ fn cases() -> Vec<(&'static str, &'static str, String)> {
         ),
         ("stats", "number_edges_current", number_edges(VERSION)),
         ("stats", "number_edges_1343", number_edges("1343")),
+        // a JSON null entry makes the data fixer throw while it reads a stats file of 1452..5011 or the criteria of a typed
+        // advancement of up to 4768: the exception leaves the player's constructor, the player is kicked and not placed
+        (
+            "stats",
+            "null_entry_4325",
+            r#"{"stats":{"minecraft:custom":{"minecraft:jump":null,"minecraft:play_time":5}},"DataVersion":4325}"#.to_owned(),
+        ),
+        (
+            "stats",
+            "null_entry_5012",
+            r#"{"stats":{"minecraft:custom":{"minecraft:jump":null,"minecraft:play_time":5}},"DataVersion":5012}"#.to_owned(),
+        ),
+        (
+            "advancements",
+            "null_criterion_4189",
+            r#"{"minecraft:adventure/adventuring_time":{"criteria":{"minecraft:deep_dark":null},"done":false},"DataVersion":4189}"#.to_owned(),
+        ),
+        (
+            "advancements",
+            "null_criterion_4769",
+            r#"{"minecraft:adventure/adventuring_time":{"criteria":{"minecraft:deep_dark":null},"done":false},"DataVersion":4769}"#.to_owned(),
+        ),
         ("advancements", "bom", format!("\u{feff}{PROGRESS}")),
         ("advancements", "empty_file", String::new()),
         ("advancements", "truncated", cut(PROGRESS)),
@@ -160,13 +182,18 @@ fn run_with_bots(side: Side, dir: &Path, cases: Vec<(&'static str, &'static str,
         ask(&server, "tick freeze");
         let runtime = tokio::runtime::Runtime::new().expect("runtime");
         for index in 0..names {
-            let bot = runtime.block_on(crate::common::join(
-                "127.0.0.1",
-                server.port,
-                &player_name(index),
-            ));
+            // a player whose file makes the server refuse the join (`Invalid player data`) never gets as far as playing
+            let bot = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+                runtime.block_on(crate::common::join(
+                    "127.0.0.1",
+                    server.port,
+                    &player_name(index),
+                ))
+            }));
             std::thread::sleep(Duration::from_secs(1));
-            runtime.block_on(bot.disconnect());
+            if let Ok(bot) = bot {
+                runtime.block_on(bot.disconnect());
+            }
         }
         ask(&server, "save-all flush");
         server.cmd("stop");
