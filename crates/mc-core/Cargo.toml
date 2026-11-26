@@ -12,11 +12,11 @@ publish.workspace = true
 libm = { workspace = true }
 md-5 = { workspace = true }
 serde = { workspace = true }
+serde_json = { workspace = true }
 uuid = { workspace = true }
 
 [dev-dependencies]
 mc-testkit = { path = "../mc-testkit" }
-serde_json = { workspace = true }
 
 [lints]
 workspace = true

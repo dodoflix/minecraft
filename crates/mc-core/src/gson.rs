@@ -1564,6 +1564,47 @@ fn attach(container: &mut JsonElement, name: Option<JavaString>, value: JsonElem
     }
 }
 
+/// Key of the one-member object that stands for a JSON number `serde_json` cannot hold (`1e400`) in the lossy
+/// `serde_json::Value` copy of a Gson tree; the member is the number's source text.
+const LAZY_NUMBER_KEY: &str = "\0lazy_number";
+
+/// The `serde_json` stand-in for the number `text` (see [`LAZY_NUMBER_KEY`]).
+pub fn lazy_number_value(text: &str) -> serde_json::Value {
+    let mut object = serde_json::Map::new();
+    object.insert(LAZY_NUMBER_KEY.to_owned(), text.into());
+    serde_json::Value::Object(object)
+}
+
+/// The source text of the number `v` stands for when it is a [`lazy_number_value`].
+pub fn lazy_number_text(v: &serde_json::Value) -> Option<&str> {
+    match v {
+        serde_json::Value::Object(o) if o.len() == 1 => o.get(LAZY_NUMBER_KEY)?.as_str(),
+        _ => None,
+    }
+}
+
+/// `v` as compact JSON, a [`lazy_number_value`] as its source text.
+pub fn value_to_string(v: &serde_json::Value) -> String {
+    use serde_json::Value;
+    match v {
+        Value::Array(items) => {
+            let items: Vec<String> = items.iter().map(value_to_string).collect();
+            format!("[{}]", items.join(","))
+        }
+        Value::Object(members) => match lazy_number_text(v) {
+            Some(text) => text.to_owned(),
+            None => {
+                let members: Vec<String> = members
+                    .iter()
+                    .map(|(k, v)| format!("{}:{}", Value::from(k.as_str()), value_to_string(v)))
+                    .collect();
+                format!("{{{}}}", members.join(","))
+            }
+        },
+        other => other.to_string(),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

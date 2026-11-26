@@ -9,7 +9,7 @@ use mc_core::random::RandomSource;
 use super::weighted::WeightedList;
 use super::{dispatch_type, unknown_type};
 use crate::data::LoadError;
-use crate::densityfunction::codec::{LoadResult, parse_f32, parse_int};
+use crate::densityfunction::codec::{LoadResult, is_number, parse_f32, parse_int};
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum IntProvider {
@@ -192,7 +192,7 @@ impl IntProvider {
 
     /// `IntProviders.CODEC`: a number is a constant, an object is dispatched on its `type`.
     pub fn from_json(value: &Value) -> LoadResult<IntProvider> {
-        if let Value::Number(_) = value {
+        if is_number(value) {
             return Ok(IntProvider::Constant(parse_int(value)?));
         }
         // Either's right branch: its error replaces the (number) left error like DFU's "Failed to parse either".

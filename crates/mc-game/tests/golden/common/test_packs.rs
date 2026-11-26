@@ -359,6 +359,189 @@ pub fn write_broken_number_packs(world: &Path) {
     }
 }
 
+/// A JSON number spelled `text` (`1e400`) inside a tree built with `json!`: `serde_json` cannot hold one, so it is a
+/// marker string that [`write_with_numbers`] turns into the bare text.
+fn number(text: &str) -> serde_json::Value {
+    serde_json::Value::String(format!("@@{text}@@"))
+}
+
+/// Writes `value` with every [`number`] marker replaced by its bare text.
+fn write_with_numbers(path: impl AsRef<Path>, value: &serde_json::Value) {
+    let mut text = value.to_string();
+    while let Some(start) = text.find("\"@@") {
+        let end = start + 3 + text[start + 3..].find("@@\"").unwrap();
+        let bare = text[start + 3..end].to_owned();
+        text.replace_range(start..end + 3, &bare);
+    }
+    write(path, &text);
+}
+
+type DimensionTypeEdit = Box<dyn FnOnce(&mut serde_json::Value)>;
+
+/// `dimension_type` entries from the overworld's with `edit` applied.
+fn write_dimension_types(root: &Path, cases: Vec<(&str, DimensionTypeEdit)>) {
+    for (name, edit) in cases {
+        let mut dim = vanilla_json("dimension_type/overworld.json");
+        edit(&mut dim);
+        write_with_numbers(root.join(format!("dimension_type/{name}.json")), &dim);
+    }
+}
+
+/// Jukebox songs `(name, length_in_seconds, comparator_output)` and instruments `(name, use_duration, range,
+/// durability_damage)` with the given numbers.
+fn songs_and_instruments(
+    songs: Vec<(&str, serde_json::Value, serde_json::Value)>,
+    instruments: Vec<(
+        &str,
+        serde_json::Value,
+        serde_json::Value,
+        serde_json::Value,
+    )>,
+    root: &Path,
+) {
+    use serde_json::json;
+    for (name, length, comparator) in songs {
+        write_with_numbers(
+            root.join(format!("jukebox_song/{name}.json")),
+            &json!({"sound_event": "minecraft:music_disc.13", "description": {"text": "d"},
+                "length_in_seconds": length, "comparator_output": comparator}),
+        );
+    }
+    for (name, use_duration, range, durability_damage) in instruments {
+        write_with_numbers(
+            root.join(format!("instrument/{name}.json")),
+            &json!({"sound_event": "minecraft:item.goat_horn.sound.0", "description": {"text": "d"},
+                "use_duration": use_duration, "range": range, "durability_damage": durability_damage}),
+        );
+    }
+}
+
+/// Numbers beyond `f64` (`1e400`) and integers spelled with an exponent (`1e10`) in the fields the hand-written readers
+/// and the custom number codecs take (int providers, attributes, the dimension type, biome climate, jukebox songs and
+/// instruments): entries that load.
+pub fn write_number_field_packs(world: &Path) {
+    use serde_json::json;
+    let dp = world.join("datapacks");
+    write(
+        dp.join("number_fields/pack.mcmeta"),
+        r##"{"pack": {"description": "number fields", "min_format": 121, "max_format": 121}}"##,
+    );
+    let root = dp.join("number_fields/data/test");
+    write_dimension_types(
+        &root,
+        vec![
+            (
+                "light_constant",
+                Box::new(|d| d["monster_spawn_light_level"] = number("1e400")),
+            ),
+            (
+                "light_uniform",
+                Box::new(|d| {
+                    d["monster_spawn_light_level"] = json!({"type": "minecraft:uniform",
+                        "min_inclusive": number("1e-400"), "max_inclusive": number("1e400")});
+                }),
+            ),
+            (
+                "attributes",
+                Box::new(|d| {
+                    let a = &mut d["attributes"];
+                    a["minecraft:visual/fog_end_distance"] = number("1e400");
+                    a["minecraft:audio/background_music"]["default"] = json!({"sound": "minecraft:music.game",
+                        "min_delay": number("1e400"), "max_delay": number("1e10")});
+                    a["minecraft:audio/ambient_sounds"]["mood"] = json!({"sound": "minecraft:ambient.cave",
+                        "tick_delay": number("1e400"), "block_search_extent": number("1e10"), "offset": number("1e400")});
+                }),
+            ),
+            (
+                "fields",
+                Box::new(|d| {
+                    d["min_y"] = number("1e400");
+                    d["logical_height"] = number("1e400");
+                    d["monster_spawn_block_light_limit"] = number("1e400");
+                }),
+            ),
+        ],
+    );
+    let mut biome = vanilla_json("worldgen/biome/plains.json");
+    biome["temperature"] = number("1e400");
+    biome["downfall"] = number("1e-400");
+    biome["attributes"]["minecraft:visual/fog_end_distance"] = number("1e400");
+    write_with_numbers(root.join("worldgen/biome/numbers.json"), &biome);
+    songs_and_instruments(
+        vec![("big", number("1e10"), number("1e400"))],
+        vec![("big", number("1e10"), number("1e10"), number("1e400"))],
+        &root,
+    );
+}
+
+/// Numbers the codecs of the fields above refuse: every entry fails (some with `NumberFormatException`).
+pub fn write_broken_number_field_packs(world: &Path) {
+    use serde_json::json;
+    let dp = world.join("datapacks");
+    write(
+        dp.join("broken_number_fields/pack.mcmeta"),
+        r##"{"pack": {"description": "broken number fields", "min_format": 121, "max_format": 121}}"##,
+    );
+    let root = dp.join("broken_number_fields/data/test");
+    write_dimension_types(
+        &root,
+        vec![
+            (
+                "coordinate_scale",
+                Box::new(|d| d["coordinate_scale"] = number("1e400")),
+            ),
+            ("height", Box::new(|d| d["height"] = number("1e400"))),
+            (
+                "light_wrapped",
+                Box::new(|d| {
+                    d["monster_spawn_light_level"] = json!({"type": "minecraft:uniform",
+                        "min_inclusive": number("10000000000.0"), "max_inclusive": number("10000000000.0")});
+                }),
+            ),
+            (
+                "light_too_large",
+                Box::new(|d| d["monster_spawn_light_level"] = number("1e10000")),
+            ),
+            (
+                "light_limit",
+                Box::new(|d| d["monster_spawn_block_light_limit"] = number("10000000000.0")),
+            ),
+        ],
+    );
+    songs_and_instruments(
+        vec![
+            ("length_infinite", number("1e400"), 1.into()),
+            ("length_tiny", number("1e-400"), 1.into()),
+            ("comparator_wrapped", 1.into(), number("10000000000.0")),
+            ("length_too_large", number("1e10000"), 1.into()),
+        ],
+        vec![
+            ("use_infinite", number("1e400"), 1.into(), 0.into()),
+            ("use_negative", number("-1e400"), 1.into(), 0.into()),
+            ("range_infinite", 1.into(), number("1e400"), 0.into()),
+            ("range_tiny", 1.into(), number("1e-400"), 0.into()),
+            (
+                "damage_wrapped",
+                1.into(),
+                1.into(),
+                number("-10000000000.0"),
+            ),
+            ("damage_negative", 1.into(), 1.into(), (-3).into()),
+        ],
+        &root,
+    );
+    write_with_numbers(
+        root.join("enchantment_provider/cost_zero.json"),
+        &json!({"type": "minecraft:by_cost_with_difficulty", "enchantments": "minecraft:sharpness",
+            "min_cost": 0, "max_cost_span": 5}),
+    );
+    write_with_numbers(
+        root.join("enchantment_provider/span_wrapped.json"),
+        &json!({"type": "minecraft:by_cost_with_difficulty", "enchantments": "minecraft:sharpness",
+            "min_cost": 1, "max_cost_span": number("10000000000.0")}),
+    );
+}
+
 /// A world whose only pack contains entries that must fail the load.
 pub fn write_broken_packs(world: &Path) {
     let dp = world.join("datapacks");
@@ -1027,12 +1210,40 @@ pub fn write_dimension_pack(world: &Path) {
 /// the dimension stage reports each entry's error. Every entry is the synthetic settings with some edits (`(JSON pointer
 /// into the settings, new value)`; no value removes the key).
 pub fn write_broken_dimension_packs(world: &Path) {
+    write_dimension_cases(
+        world,
+        "broken_dimensions",
+        "broken dimensions",
+        broken_dimension_cases(),
+    );
+}
+
+/// [`write_broken_dimension_packs`] for numbers beyond `f64` and integers spelled with an exponent in the codecs of the
+/// density function trees, noise parameters, vertical anchors and material rules.
+pub fn write_broken_dimension_number_packs(world: &Path) {
+    write_dimension_cases(
+        world,
+        "broken_dimension_numbers",
+        "broken dimension numbers",
+        broken_dimension_number_cases(),
+    );
+}
+
+/// Writes the `dimension` entries `cases` into the pack `pack` (a replacement may hold [`number`] markers).
+fn write_dimension_cases(
+    world: &Path,
+    pack: &str,
+    description: &str,
+    cases: Vec<(&'static str, Vec<DimensionEdit>)>,
+) {
     let dp = world.join("datapacks");
     write(
-        dp.join("broken_dimensions/pack.mcmeta"),
-        r##"{"pack": {"description": "broken dimensions", "min_format": 121, "max_format": 121}}"##,
+        dp.join(format!("{pack}/pack.mcmeta")),
+        &format!(
+            r#"{{"pack": {{"description": "{description}", "min_format": 121, "max_format": 121}}}}"#
+        ),
     );
-    for (name, edits) in broken_dimension_cases() {
+    for (name, edits) in cases {
         let mut value = stem("minecraft:overworld", synthetic_noise_settings());
         for (pointer, replacement) in edits {
             let (parent, key) = pointer.rsplit_once('/').unwrap_or(("", ""));
@@ -1054,9 +1265,9 @@ pub fn write_broken_dimension_packs(world: &Path) {
                 }
             }
         }
-        write(
-            dp.join(format!("broken_dimensions/data/test/dimension/{name}.json")),
-            &value.to_string(),
+        write_with_numbers(
+            dp.join(format!("{pack}/data/test/dimension/{name}.json")),
+            &value,
         );
     }
 }
@@ -1141,6 +1352,95 @@ pub fn write_broken_clock_packs(world: &Path) {
         dp.join("broken_clocks/data/test/enchantment_provider/single_number.json"),
         r#"{"type": "minecraft:single", "enchantment": 5, "level": 1}"#,
     );
+}
+
+/// `(entry name, edits)` of numbers spelled `1e400` (beyond `f64`) or `1e10` (an int by its decimal value); the
+/// pointers are relative to `/generator/settings`.
+fn broken_dimension_number_cases() -> Vec<(&'static str, Vec<DimensionEdit>)> {
+    let at = |name: &'static str, pointer: &str, json: &'static str| {
+        (
+            name,
+            vec![(format!("/generator/settings{pointer}"), Some(json))],
+        )
+    };
+    let density =
+        |name: &'static str, json: &'static str| at(name, "/noise_router/final_density", json);
+    vec![
+        density(
+            "density_constant_big",
+            r#"{"type": "minecraft:constant", "value": "@@1e400@@"}"#,
+        ),
+        density("density_bare_big", r#""@@1e400@@""#),
+        density("density_bare_small", r#""@@-1e400@@""#),
+        density(
+            "density_clamp_big",
+            r#"{"type": "minecraft:clamp", "input": 0, "min": "@@-1e400@@", "max": "@@1e400@@"}"#,
+        ),
+        density(
+            "density_gradient_equal_zero",
+            r#"{"type": "minecraft:gradient", "axis": "y", "from_coordinate": "@@1e400@@", "to_coordinate": 0, "from_value": 0, "to_value": 1}"#,
+        ),
+        density(
+            "density_find_top_wrapped",
+            r#"{"type": "minecraft:find_top_surface", "density": 0, "upper_bound": 320, "lower_bound": "@@10000000000.0@@", "cell_height": 4}"#,
+        ),
+        density(
+            "density_find_top_too_large",
+            r#"{"type": "minecraft:find_top_surface", "density": 0, "upper_bound": 320, "lower_bound": "@@1e10000@@", "cell_height": 4}"#,
+        ),
+        density(
+            "density_range_choice_big",
+            r#"{"type": "minecraft:range_choice", "input": 0, "min_inclusive": "@@-1e400@@", "max_exclusive": "@@1e400@@", "when_in_range": 1, "when_out_of_range": 2}"#,
+        ),
+        at(
+            "spawn_target_big",
+            "/spawn_target/0/minecraft:y/0",
+            r#""@@1e400@@""#,
+        ),
+        at("sea_level_big", "/sea_level", r#""@@1e400@@""#),
+        at("sea_level_wrapped", "/sea_level", r#""@@10000000000.0@@""#),
+        at("noise_height_big", "/noise/height", r#""@@1e400@@""#),
+        at(
+            "noise_parameters_big",
+            "/noise_router/chunk_surface_level/left/noise",
+            r#"{"firstOctave": "@@1e400@@", "amplitudes": ["@@1e400@@", 1]}"#,
+        ),
+        at(
+            "noise_octave_wrapped",
+            "/noise_router/chunk_surface_level/left/noise",
+            r#"{"firstOctave": "@@10000000000.0@@", "amplitudes": [1]}"#,
+        ),
+        at(
+            "anchor_wrapped",
+            "/material_rule/sequence/2/if_true/true_at_and_below",
+            r#"{"absolute": "@@10000000000.0@@"}"#,
+        ),
+        at(
+            "anchor_big",
+            "/material_rule/sequence/2/if_true/true_at_and_below",
+            r#"{"absolute": "@@1e400@@"}"#,
+        ),
+        at(
+            "depth_multiplier_wrapped",
+            "/material_rule/sequence/4/if_true/surface_depth_multiplier",
+            r#""@@10000000000.0@@""#,
+        ),
+        at(
+            "depth_multiplier_big",
+            "/material_rule/sequence/4/if_true/surface_depth_multiplier",
+            r#""@@1e400@@""#,
+        ),
+        at(
+            "threshold_big",
+            "/material_rule/sequence/6/if_true/min_threshold",
+            r#""@@1e400@@""#,
+        ),
+        at(
+            "ore_chance_big",
+            "/material_rule/sequence/14/raw_ore_chance",
+            r#""@@1e400@@""#,
+        ),
+    ]
 }
 
 type DimensionEdit = (String, Option<&'static str>);

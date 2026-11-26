@@ -95,6 +95,8 @@ fn compare_scenario(name: &str, setup: impl FnOnce(&Path)) -> Vec<String> {
         keys::DAMAGE_TYPE,
         keys::CHAT_TYPE,
         keys::ENCHANTMENT,
+        keys::INSTRUMENT,
+        keys::JUKEBOX_SONG,
         keys::BLOCK_TRANSFORMER,
         keys::BLOCK_STATE_PROVIDER,
         keys::TEST_ENVIRONMENT,
@@ -440,6 +442,39 @@ fn recursive_loot_table_fails_the_start_like_vanilla() {
         .flat_map(|entry| entry.lines().map(str::to_owned))
         .collect();
     assert_eq!(ours, vanilla_warnings(&read_log("recursive_loot")));
+}
+
+/// Numbers beyond `f64` and exponent spellings of ints in int providers, attributes, the dimension type, biome climate,
+/// jukebox songs and instruments (hand-written readers and custom number codecs): the entries that load.
+#[test]
+fn number_fields_load_like_vanilla() {
+    compare_scenario(
+        "number_fields",
+        common::test_packs::write_number_field_packs,
+    );
+}
+
+/// The same fields with numbers their codecs refuse: the entries that fail, with every cause line, are vanilla's.
+#[test]
+fn broken_number_fields_fail_like_vanilla() {
+    compare_load_failure(
+        "broken_number_fields",
+        common::test_packs::write_broken_number_field_packs,
+        "broken_number_fields",
+        17,
+    );
+}
+
+/// Numbers beyond `f64` and exponent spellings of ints in density functions, noise parameters, vertical anchors, material
+/// rules and spawn targets of inline noise settings.
+#[test]
+fn broken_dimension_numbers_fail_like_vanilla() {
+    compare_load_failure(
+        "broken_dimension_numbers",
+        common::test_packs::write_broken_dimension_number_packs,
+        "broken_dimension_numbers",
+        14,
+    );
 }
 
 /// Whether `ours` writes every compound's keys in the order they arrived in from vanilla (`vanilla` was read from the

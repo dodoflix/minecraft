@@ -52,8 +52,8 @@ fn schema(ty: &str) -> Option<Schema> {
         "minecraft:by_cost_with_difficulty" => {
             vec![
                 req("enchantments", holder_set_schema()),
-                req("min_cost", Schema::IntRange(1, 10000)),
-                req("max_cost_span", Schema::IntRange(0, 10000)),
+                req("min_cost", Schema::ExtraIntRange(1, 10000)),
+                req("max_cost_span", Schema::ExtraIntRange(0, 10000)),
             ]
         }
         "minecraft:single" => vec![

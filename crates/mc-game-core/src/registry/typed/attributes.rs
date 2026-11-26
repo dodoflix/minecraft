@@ -11,7 +11,9 @@ use mc_nbt::{CompoundTag, Tag};
 use serde_json::Value;
 
 use crate::registry::codec::lenient;
-use crate::registry::codec::{Lookup, RegistryDecodeContext, Schema, default, opt, req};
+use crate::registry::codec::{
+    Failure, Lookup, RegistryDecodeContext, Schema, as_map, default, json_number, opt, req,
+};
 
 /// `AttributeTypes` (the value type of an attribute).
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -326,12 +328,7 @@ impl EnvironmentAttributeMap {
         positional_only: bool,
         network: bool,
     ) -> Result<(EnvironmentAttributeMap, CompoundTag), String> {
-        let object = json.as_object().ok_or_else(|| {
-            format!(
-                "Not a map: {}",
-                serde_json::to_string(json).unwrap_or_default()
-            )
-        })?;
+        let object = as_map(json).ok_or_else(|| ctx.not_a_map(json))?;
         let mut entries = IndexMap::new();
         let mut nbt = CompoundTag::new();
         let mut not_positional = Vec::new();
@@ -382,23 +379,24 @@ fn parse_entry(
     ctx: &RegistryDecodeContext,
 ) -> Result<(String, Value, Tag), String> {
     let value_schema = value_schema(def.kind);
-    let first = value_schema
-        .convert(value, ctx)
-        .and_then(|tag| validate_range(def, value, tag));
+    let first = match value_schema.decode(value, ctx) {
+        Ok(tag) => validate_range(def, value, tag).map_err(Failure::from),
+        Err(failure) => Err(failure),
+    };
     match first {
         Ok(tag) => Ok(("override".to_owned(), value.clone(), tag)),
-        Err(left_error) => {
+        Err(left) => {
+            let left_partial = left.partial.is_some();
+            let left_error = left.message;
             let right = (|| {
-                let o = value.as_object().ok_or_else(|| {
-                    format!(
-                        "Not a map: {}",
-                        serde_json::to_string(value).unwrap_or_default()
-                    )
-                })?;
+                let o = value
+                    .as_object()
+                    .filter(|_| mc_core::gson::lazy_number_text(value).is_none())
+                    .ok_or_else(|| ctx.not_a_map(value))?;
                 let modifier = o.get("modifier").and_then(Value::as_str).ok_or_else(|| {
                     format!(
                         "No key modifier in MapLike[{}]",
-                        serde_json::to_string(value).unwrap_or_default()
+                        mc_core::gson::value_to_string(value)
                     )
                 })?;
                 let allowed = modifiers_of(def.kind);
@@ -408,7 +406,7 @@ fn parse_entry(
                 let argument = o.get("argument").ok_or_else(|| {
                     format!(
                         "No key argument in MapLike[{}]",
-                        serde_json::to_string(value).unwrap_or_default()
+                        mc_core::gson::value_to_string(value)
                     )
                 })?;
                 let arg_tag = if modifier == "override" {
@@ -425,8 +423,13 @@ fn parse_entry(
                 c.put("argument", arg_tag);
                 Ok((modifier.to_owned(), argument.clone(), Tag::Compound(c)))
             })();
+            // `EitherCodec`: the second alternative is tried first; a partial result of the first is reported alone
             right.map_err(|right_error: String| {
-                format!("Failed to parse either. First: {left_error}; Second: {right_error}")
+                if left_partial {
+                    left_error
+                } else {
+                    format!("Failed to parse either. First: {left_error}; Second: {right_error}")
+                }
             })
         }
     }
@@ -533,8 +536,8 @@ fn sound_event() -> Schema {
 fn music() -> Schema {
     Schema::Record(vec![
         req("sound", sound_event()),
-        req("min_delay", Schema::IntRange(0, i32::MAX)),
-        req("max_delay", Schema::IntRange(0, i32::MAX)),
+        req("min_delay", non_negative_int()),
+        req("max_delay", non_negative_int()),
         default("replace_current_music", Schema::Bool, Value::Bool(false)),
     ])
 }
@@ -773,14 +776,10 @@ fn color(digits: usize) -> Schema {
             }
             u32::from_str_radix(rest, 16).map_err(|_| format!("Invalid color value: {s}"))
         };
-        let argb: u32 = match v {
-            Value::String(s) => hex(s)?,
-            Value::Number(n) => n
-                .as_i64()
-                .map(|i| i as i32 as u32)
-                .or_else(|| n.as_f64().map(|f| f as i32 as u32))
-                .ok_or("Not a number")?,
-            Value::Array(list)
+        let argb: u32 = match (v, json_number(v)) {
+            (Value::String(s), _) => hex(s)?,
+            (_, Some(n)) => n.int_value() as u32,
+            (Value::Array(list), _)
                 if list.len() == digits / 2
                     || (digits == 6 && list.len() == 3)
                     || (digits == 8 && list.len() == 4) =>
@@ -788,9 +787,9 @@ fn color(digits: usize) -> Schema {
                 let f: Vec<f32> = list
                     .iter()
                     .map(|x| {
-                        x.as_f64()
-                            .map(|d| d as f32)
-                            .ok_or_else(|| format!("Not a number: {x}"))
+                        json_number(x).map(|n| n.float_value()).ok_or_else(|| {
+                            format!("Not a number: {}", mc_core::gson::value_to_string(x))
+                        })
                     })
                     .collect::<Result<_, _>>()?;
                 let ch = |x: f32| ((x * 255.0).floor() as i32).clamp(0, 255) as u32; // ARGB.as8BitChannel
@@ -800,7 +799,7 @@ fn color(digits: usize) -> Schema {
                     (ch(f[3]) << 24) | (ch(f[0]) << 16) | (ch(f[1]) << 8) | ch(f[2])
                 }
             }
-            other => return Err(format!("Not a string: {other}")),
+            (other, _) => return Err(format!("Not a string: {other}")),
         };
         Ok(Tag::String(
             if digits == 6 {

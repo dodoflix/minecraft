@@ -25,23 +25,18 @@ pub(super) fn positive_float() -> Schema {
     Schema::custom(|v, ctx| {
         let t = Schema::Float.convert(v, ctx)?;
         match t {
-            mc_nbt::Tag::Float(f) if f > 0.0 => Ok(mc_nbt::Tag::Float(f)),
+            // `Float.compareTo` ordering: `0.0` and `Float.MAX_VALUE` bound the range
+            mc_nbt::Tag::Float(f)
+                if f.total_cmp(&0.0).is_gt() && f.total_cmp(&f32::MAX).is_le() =>
+            {
+                Ok(mc_nbt::Tag::Float(f))
+            }
             mc_nbt::Tag::Float(f) => Err(format!(
                 "Value must be positive: {}",
                 mc_core::math::java::java_float_to_string(f)
             )),
             other => Ok(other),
         }
-    })
-}
-
-fn non_negative_float() -> Schema {
-    Schema::custom(|v, ctx| match Schema::Float.convert(v, ctx)? {
-        mc_nbt::Tag::Float(f) if f < 0.0 => Err(format!(
-            "Value must be non-negative: {}",
-            mc_core::math::java::java_float_to_string(f)
-        )),
-        other => Ok(other),
     })
 }
 
@@ -119,23 +114,6 @@ pub fn network_schema(registry: &str) -> Option<Schema> {
             req("asset_id", Schema::Identifier),
             opt("title", Schema::Text),
             opt("author", Schema::Text),
-        ]),
-        keys::JUKEBOX_SONG => Schema::Record(vec![
-            req("sound_event", sound_event()),
-            req("description", Schema::Text),
-            req("length_in_seconds", positive_float()),
-            req("comparator_output", Schema::ExtraIntRange(0, 15)),
-        ]),
-        keys::INSTRUMENT => Schema::Record(vec![
-            req("sound_event", sound_event()),
-            req("use_duration", non_negative_float()),
-            req("range", positive_float()),
-            default(
-                "durability_damage",
-                Schema::IntRange(0, i32::MAX),
-                Value::from(0),
-            ),
-            req("description", Schema::Text),
         ]),
         keys::SULFUR_CUBE_ARCHETYPE => Schema::Record(vec![
             req(

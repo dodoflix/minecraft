@@ -8,7 +8,7 @@
 
 use std::cell::RefCell;
 
-use mc_core::gson::JsonElement;
+use mc_core::gson::{JsonElement, lazy_number_text};
 use mc_core::ident::Identifier;
 use mc_core::math::java::{java_double_to_string, java_float_to_string};
 use mc_dfu::{Dyn, JNum};
@@ -146,19 +146,6 @@ impl<'a> RegistryDecodeContext<'a> {
                 Ok(Dyn::from_json_element(element))
             }
             _ => Dyn::from_json_str(&json.to_string()),
-        }
-    }
-
-    /// The text of the JSON number `v` stands for when `serde_json` could not hold it (`1e400`: `v` is `null`), read
-    /// from the Gson tree the entry was loaded from. `None` for any other value.
-    pub fn lazy_number(&self, v: &Value) -> Option<&'a str> {
-        let (root, element) = self.exact?;
-        if !v.is_null() {
-            return None;
-        }
-        match exact_element(root, element, v)? {
-            JsonElement::Number(text) => Some(text),
-            _ => None,
         }
     }
 
@@ -507,54 +494,58 @@ pub enum Schema {
 }
 
 fn compact(v: &Value) -> String {
-    serde_json::to_string(v).unwrap_or_default()
-}
-
-/// The node of the Gson tree `element` that `target` (a node of `value`, the lossy copy of the tree) was made from.
-fn exact_element<'a>(
-    value: &Value,
-    element: &'a JsonElement,
-    target: &Value,
-) -> Option<&'a JsonElement> {
-    if std::ptr::eq(value, target) {
-        return Some(element);
-    }
-    match (value, element) {
-        (Value::Array(values), JsonElement::Array(elements)) => values
-            .iter()
-            .zip(elements)
-            .find_map(|(v, e)| exact_element(v, e, target)),
-        // keys that collide once lossy (two lone surrogates) shift the members: no match then
-        (Value::Object(values), JsonElement::Object(members)) if values.len() == members.len() => {
-            values
-                .values()
-                .zip(members.iter().map(|(_, e)| e))
-                .find_map(|(v, e)| exact_element(v, e, target))
-        }
-        _ => None,
-    }
+    mc_core::gson::value_to_string(v)
 }
 
 /// The number `v` holds as a Gson `Number` (`LazilyParsedNumber` for one `serde_json` cannot hold, such as `1e400`).
-fn number(v: &Value, ctx: &RegistryDecodeContext) -> Result<JNum, String> {
+pub(crate) fn json_number(v: &Value) -> Option<JNum> {
     match v {
-        Value::Number(n) => Ok(jnum(n)),
-        _ => ctx
-            .lazy_number(v)
-            .map(|text| JNum::Lazy(text.to_owned()))
-            .ok_or_else(|| ctx.not_a("number", "number", v)),
+        Value::Number(n) => Some(jnum(n)),
+        _ => lazy_number_text(v).map(|text| JNum::Lazy(text.to_owned())),
     }
 }
 
-/// A `serde_json` number as the JSON reader typed it: an integer, else a double.
+fn number(v: &Value, ctx: &RegistryDecodeContext) -> Result<JNum, String> {
+    match v {
+        // `NbtOps` hands over a `Double` whose `intValue()` saturates
+        Value::Number(n) if ctx.numeric_booleans && n.as_i64().is_none() => {
+            Ok(JNum::Double(n.as_f64().unwrap_or(0.0)))
+        }
+        _ => json_number(v).ok_or_else(|| ctx.not_a("number", "number", v)),
+    }
+}
+
+/// The members of the JSON object `v` (a number beyond `f64` is no object).
+pub(crate) fn as_map(v: &Value) -> Option<&serde_json::Map<String, Value>> {
+    v.as_object().filter(|_| lazy_number_text(v).is_none())
+}
+
+/// A `serde_json` number as the JSON reader typed it: a `long` that fits, else its text (`LazilyParsedNumber`: `1e10`
+/// narrows to an int by its decimal value, not by saturating).
 pub(crate) fn jnum(n: &serde_json::Number) -> JNum {
     n.as_i64()
-        .map_or_else(|| JNum::Double(n.as_f64().unwrap_or(0.0)), JNum::Long)
+        .map_or_else(|| JNum::Lazy(n.to_string()), JNum::Long)
 }
 
 /// `Number.intValue()`.
 pub fn int_value(n: &serde_json::Number) -> i32 {
     jnum(n).int_value()
+}
+
+/// Throws the `NumberFormatException` a number beyond Gson's limits (`1e10000`) causes in `JsonOps.convertTo`.
+fn check_number_limits(v: &Value) {
+    match v {
+        Value::Array(items) => items.iter().for_each(check_number_limits),
+        Value::Object(members) => match lazy_number_text(v) {
+            Some(text) => {
+                if let Err(e) = mc_core::gson::lazily_parsed_int_value(text) {
+                    mc_dfu::throw_number_format(&e);
+                }
+            }
+            None => members.values().for_each(check_number_limits),
+        },
+        _ => {}
+    }
 }
 
 /// `JsonOps.convertTo(NbtOps.INSTANCE, json)`.
@@ -586,6 +577,18 @@ pub fn json_to_nbt(v: &Value) -> Tag {
             }
             Tag::List(out)
         }
+        Value::Object(_) if lazy_number_text(v).is_some() => {
+            let text = lazy_number_text(v).unwrap_or_default();
+            if let Some(l) = mc_core::gson::decimal_long_exact(text) {
+                return narrow_long(l);
+            }
+            let d: f64 = text.parse().unwrap_or(0.0);
+            if (d as f32) as f64 == d {
+                Tag::Float(d as f32)
+            } else {
+                Tag::Double(d)
+            }
+        }
         Value::Object(map) => {
             let mut out = CompoundTag::new();
             for (k, item) in map {
@@ -613,23 +616,6 @@ fn range_error<T: std::fmt::Display>(v: T, min: T, max: T) -> String {
 }
 
 impl Schema {
-    /// Whether this schema reads a JSON number.
-    fn is_number(&self) -> bool {
-        matches!(
-            self,
-            Schema::Byte
-                | Schema::Short
-                | Schema::Int
-                | Schema::Long
-                | Schema::Float
-                | Schema::Double
-                | Schema::IntRange(..)
-                | Schema::ExtraIntRange(..)
-                | Schema::FloatRange(..)
-                | Schema::DoubleRange(..)
-        )
-    }
-
     pub fn custom(
         f: impl Fn(&Value, &RegistryDecodeContext) -> Result<Tag, String> + Send + Sync + 'static,
     ) -> Schema {
@@ -660,7 +646,7 @@ impl Schema {
     /// [`Schema::Dispatch`].
     pub fn dispatch(registry: &'static str, resolve: fn(&str) -> Option<Schema>) -> Schema {
         Schema::custom_partial(move |v, ctx| {
-            if !v.is_object() {
+            if as_map(v).is_none() {
                 return Err(Failure::from(ctx.not_a_map(v)));
             }
             let unknown = v
@@ -692,8 +678,8 @@ impl Schema {
             Schema::Bool => match v {
                 Value::Bool(b) => Ok(Tag::Byte(*b as i8)),
                 // `JsonOps` has no numeric booleans; `NbtOps` (stored data converted to JSON) does
-                Value::Number(n) if ctx.numeric_booleans => {
-                    Ok(Tag::Byte((int_value(n) as i8 != 0) as i8))
+                Value::Number(_) if ctx.numeric_booleans => {
+                    Ok(Tag::Byte((number(v, ctx)?.byte_value() != 0) as i8))
                 }
                 _ => Err(format!("Not a boolean: {}", compact(v))),
             },
@@ -811,7 +797,10 @@ impl Schema {
                 .map_err(|e| e.to_string())?
                 .to_nbt()
                 .map_err(|e| e.to_string()),
-            Schema::Raw => Ok(json_to_nbt(v)),
+            Schema::Raw => {
+                check_number_limits(v);
+                Ok(json_to_nbt(v))
+            }
         }
     }
 
@@ -839,7 +828,7 @@ impl Schema {
             Schema::Map(key, value) => decode_map(key, value, v, ctx),
             // `KeyDispatchCodec.decode`: the failure of the selected codec keeps its partial result
             Schema::Dispatch { key, resolve } => {
-                let o = v.as_object().ok_or_else(|| ctx.not_a_map(v))?;
+                let o = as_map(v).ok_or_else(|| ctx.not_a_map(v))?;
                 let type_value = o
                     .get(*key)
                     .filter(|t| !t.is_null())
@@ -959,9 +948,7 @@ fn decode_map(
     v: &Value,
     ctx: &RegistryDecodeContext,
 ) -> Result<Tag, Failure> {
-    let o = v
-        .as_object()
-        .ok_or_else(|| Failure::from(ctx.not_a_map(v)))?;
+    let o = as_map(v).ok_or_else(|| Failure::from(ctx.not_a_map(v)))?;
     let mut out = CompoundTag::new();
     let mut errors: Vec<String> = Vec::new();
     let mut failed = serde_json::Map::new();
@@ -1061,19 +1048,14 @@ fn decode_record(
     v: &Value,
     ctx: &RegistryDecodeContext,
 ) -> Result<CompoundTag, Failure> {
-    let o = v
-        .as_object()
-        .ok_or_else(|| Failure::from(ctx.not_a_map(v)))?;
+    let o = as_map(v).ok_or_else(|| Failure::from(ctx.not_a_map(v)))?;
     let mut out = CompoundTag::new();
     let mut errors: Vec<String> = Vec::new();
     let mut has_partial = true;
     for field in fields {
-        // `JsonOps` hands a JSON `null` to `MapLike.get` as absent (a number beyond `f64` is a `null` here, but present
-        // for a numeric field)
+        // `JsonOps` hands a JSON `null` to `MapLike.get` as absent
         match (
-            o.get(field.name).filter(|value| {
-                !value.is_null() || (field.schema.is_number() && ctx.lazy_number(value).is_some())
-            }),
+            o.get(field.name).filter(|value| !value.is_null()),
             &field.kind,
         ) {
             (None, FieldKind::Required) => {
@@ -1159,6 +1141,21 @@ mod tests {
     fn conv(schema: &Schema, v: Value) -> Result<Tag, String> {
         let l = Lookups;
         schema.convert(&v, &RegistryDecodeContext::new(&l))
+    }
+
+    #[test]
+    fn stored_doubles_saturate_in_numeric_booleans_and_ints() {
+        let l = Lookups;
+        let mut ctx = RegistryDecodeContext::new(&l);
+        ctx.numeric_booleans = true;
+        // `NbtOps` boxes a `DoubleTag` as `Double`: `intValue()` saturates, `byteValue()` of that is -1 (true)
+        let stored = json!(3.0e9);
+        assert_eq!(Schema::Bool.convert(&stored, &ctx), Ok(Tag::Byte(1)));
+        assert_eq!(Schema::Int.convert(&stored, &ctx), Ok(Tag::Int(i32::MAX)));
+        assert_eq!(
+            Schema::Int.convert(&stored, &RegistryDecodeContext::new(&l)),
+            Ok(Tag::Int(-1_294_967_296))
+        );
     }
 
     #[test]

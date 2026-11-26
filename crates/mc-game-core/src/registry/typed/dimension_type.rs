@@ -8,6 +8,7 @@ use super::attributes::EnvironmentAttributeMap;
 use super::int_provider::{self, IntProvider};
 use super::{HolderSetRef, get_bool, get_f32, get_f64, get_i32, get_str};
 use crate::registry::codec::{RegistryDecodeContext, Schema, default, opt, req, split_thrown};
+use crate::registry::data_loader::NUMBER_FORMAT;
 use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
 use crate::registry::keys;
 
@@ -213,9 +214,9 @@ fn decode_checked(
             None => EnvironmentAttributeMap::default(),
         };
         let (min_y, height, logical_height) = (
-            get_i32(json, "min_y", ctx).unwrap_or(0),
-            get_i32(json, "height", ctx).unwrap_or(0),
-            get_i32(json, "logical_height", ctx).unwrap_or(0),
+            get_i32(json, "min_y").unwrap_or(0),
+            get_i32(json, "height").unwrap_or(0),
+            get_i32(json, "logical_height").unwrap_or(0),
         );
         check(height, min_y, logical_height)?;
         let dim = DimensionType {
@@ -223,7 +224,7 @@ fn decode_checked(
             has_sky_light: get_bool(json, "has_skylight").unwrap_or(false),
             has_ceiling: get_bool(json, "has_ceiling").unwrap_or(false),
             has_ender_dragon_fight: get_bool(json, "has_ender_dragon_fight").unwrap_or(false),
-            coordinate_scale: get_f64(json, "coordinate_scale", ctx).unwrap_or(1.0),
+            coordinate_scale: get_f64(json, "coordinate_scale").unwrap_or(1.0),
             min_y,
             height,
             logical_height,
@@ -231,12 +232,12 @@ fn decode_checked(
                 .get("infiniburn")
                 .and_then(HolderSetRef::from_json)
                 .ok_or("Missing infiniburn")?,
-            ambient_light: get_f32(json, "ambient_light", ctx).unwrap_or(0.0),
+            ambient_light: get_f32(json, "ambient_light").unwrap_or(0.0),
             monster_spawn_light_test: json
                 .get("monster_spawn_light_level")
                 .and_then(IntProvider::from_json)
                 .ok_or("Missing monster_spawn_light_level")?,
-            monster_spawn_block_light_limit: get_i32(json, "monster_spawn_block_light_limit", ctx)
+            monster_spawn_block_light_limit: get_i32(json, "monster_spawn_block_light_limit")
                 .unwrap_or(0),
             skybox: match get_str(json, "skybox") {
                 Some("none") => Skybox::None,
@@ -257,19 +258,35 @@ fn decode_checked(
         };
         Ok((dim, Tag::Compound(nbt)))
     };
-    // `ExtraCodecs.catchDecoderException` turns the constructor's `IllegalStateException` and an
-    // `IllegalArgumentException` of a nested codec (weights adding up too far) into a `DataResult` error
-    inner().map_err(|e| {
-        let message = match split_thrown(&e) {
-            Some((_, message)) => message,
-            None if is_constructor_error(&e) => &e,
-            None => return e,
-        };
+    // `ExtraCodecs.catchDecoderException` turns the constructor's `IllegalStateException`, an
+    // `IllegalArgumentException` of a nested codec (weights adding up too far) and the `NumberFormatException` of a
+    // number past Gson's limits into a `DataResult` error
+    let caught = |message: &str| {
         format!(
             "Caught exception decoding {}: {message}",
-            serde_json::to_string(json).unwrap_or_default()
+            mc_core::gson::value_to_string(json)
         )
-    })
+    };
+    match std::panic::catch_unwind(std::panic::AssertUnwindSafe(inner)) {
+        Ok(result) => result.map_err(|e| {
+            let message = match split_thrown(&e) {
+                Some((_, message)) => message,
+                None if is_constructor_error(&e) => &e,
+                None => return e,
+            };
+            caught(message)
+        }),
+        Err(payload) => {
+            let message = payload
+                .downcast_ref::<String>()
+                .and_then(|m| m.strip_prefix(NUMBER_FORMAT))
+                .map(str::to_owned);
+            match message {
+                Some(message) => Err(caught(&message)),
+                None => std::panic::resume_unwind(payload),
+            }
+        }
+    }
 }
 
 fn is_constructor_error(e: &str) -> bool {

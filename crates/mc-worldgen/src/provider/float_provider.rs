@@ -8,7 +8,7 @@ use mc_core::random::RandomSource;
 
 use super::{dispatch_type, unknown_type};
 use crate::data::LoadError;
-use crate::densityfunction::codec::{LoadResult, parse_f32};
+use crate::densityfunction::codec::{LoadResult, is_number, parse_f32};
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum FloatProvider {
@@ -86,7 +86,7 @@ impl FloatProvider {
 
     /// `FloatProviders.CODEC`: a number is a constant, an object is dispatched on its `type`.
     pub fn from_json(value: &Value) -> LoadResult<FloatProvider> {
-        if let Value::Number(_) = value {
+        if is_number(value) {
             return Ok(FloatProvider::constant(parse_f32(value)?));
         }
         let (ty, f) = dispatch_type(value).map_err(|e| {

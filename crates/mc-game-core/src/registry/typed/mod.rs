@@ -17,10 +17,9 @@ pub mod painting_variant;
 pub mod state_provider;
 pub mod worldgen;
 
-use mc_dfu::JNum;
 use serde_json::Value;
 
-use super::codec::{RegistryDecodeContext, jnum};
+use super::codec::json_number;
 
 /// `HolderSet<E>` as decoded: a `#tag` reference or a direct list of element ids.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -64,25 +63,16 @@ pub(crate) fn get_bool(o: &Value, key: &str) -> Option<bool> {
     }
 }
 
-/// The number at `key` as the codec reads it (also one beyond `f64`, which `serde_json` holds as `null`).
-fn get_number(o: &Value, key: &str, ctx: &RegistryDecodeContext) -> Option<JNum> {
-    let v = o.get(key)?;
-    match v {
-        Value::Number(n) => Some(jnum(n)),
-        _ => ctx.lazy_number(v).map(|t| JNum::Lazy(t.to_owned())),
-    }
+pub(crate) fn get_i32(o: &Value, key: &str) -> Option<i32> {
+    json_number(o.get(key)?).map(|n| n.int_value())
 }
 
-pub(crate) fn get_i32(o: &Value, key: &str, ctx: &RegistryDecodeContext) -> Option<i32> {
-    get_number(o, key, ctx).map(|n| n.int_value())
+pub(crate) fn get_f64(o: &Value, key: &str) -> Option<f64> {
+    json_number(o.get(key)?).map(|n| n.double_value())
 }
 
-pub(crate) fn get_f64(o: &Value, key: &str, ctx: &RegistryDecodeContext) -> Option<f64> {
-    get_number(o, key, ctx).map(|n| n.double_value())
-}
-
-pub(crate) fn get_f32(o: &Value, key: &str, ctx: &RegistryDecodeContext) -> Option<f32> {
-    get_number(o, key, ctx).map(|n| n.float_value())
+pub(crate) fn get_f32(o: &Value, key: &str) -> Option<f32> {
+    json_number(o.get(key)?).map(|n| n.float_value())
 }
 
 pub(crate) fn get_str<'a>(o: &'a Value, key: &str) -> Option<&'a str> {

@@ -183,7 +183,12 @@ pub fn parse_long(value: &Value) -> LoadResult<i64> {
                 })
             })
             .ok_or_else(|| LoadError::new("number out of range")),
-        _ => Err(LoadError::new("expected number")),
+        // a number beyond `f64` (`LazilyParsedNumber`); one past Gson's limits throws out of the codec
+        _ => match mc_core::gson::lazy_number_text(value) {
+            Some(text) => mc_core::gson::lazily_parsed_long_value(text)
+                .map_err(|e| LoadError::new(format!("java.lang.NumberFormatException: {e}"))),
+            None => Err(LoadError::new("expected number")),
+        },
     }
 }
 

@@ -46,8 +46,8 @@ fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, Str
             .and_then(|v| Component::from_json(&mc_text::json::element_from_value(v)).ok())
     };
     let value = PaintingVariant {
-        width: get_i32(json, "width", ctx).unwrap_or(1),
-        height: get_i32(json, "height", ctx).unwrap_or(1),
+        width: get_i32(json, "width").unwrap_or(1),
+        height: get_i32(json, "height").unwrap_or(1),
         asset_id: json
             .get("asset_id")
             .and_then(Value::as_str)

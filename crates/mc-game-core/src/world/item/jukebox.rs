@@ -14,7 +14,7 @@ use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::{GameEvent, ParticleType};
-use mc_dfu::JSON;
+use mc_dfu::{JSON, NBT};
 use mc_protocol::components::{Holder, JUKEBOX_PLAYABLE, JukeboxSong};
 use mc_protocol::packets::play::ParticleOptions;
 use mc_protocol::registry_context::with_scoped_lookup;
@@ -26,7 +26,12 @@ fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, Str
         JukeboxSong::direct_codec().parse(&JSON, &input)
     })
     .into_result()?;
-    Ok(DecodedEntry::new(song))
+    let network = with_scoped_lookup(&StageLookup(ctx), || {
+        JukeboxSong::direct_codec().encode_start(&NBT, &song)
+    })
+    .into_result()?
+    .to_tag()?;
+    Ok(DecodedEntry::with_network(song, network))
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]

@@ -2,6 +2,8 @@
 //! `DensityFunctions.DIRECT_CODEC` (constant | `type`-dispatched object), each type's `MapCodec` and
 //! `CubicSpline.codec`. Primitive parsers mirror DFU's `Codec.INT`/`FLOAT`/`DOUBLE`/`xxxRange`.
 
+use mc_core::gson::{lazily_parsed_int_value, lazy_number_text};
+use mc_core::math::java::{java_double_to_string, java_float_to_string};
 use serde_json::{Map, Value};
 
 use mc_core::ident::Identifier;
@@ -30,12 +32,21 @@ const MAX_REASONABLE_NOISE_VALUE: f32 = 1000000.0;
 
 // ---- primitive codecs -----------------------------------------------------------------------------
 
+/// Whether `value` is a JSON number (also one beyond `f64`, which the lossy tree holds as a stand-in object).
+pub fn is_number(value: &Value) -> bool {
+    value.is_number() || lazy_number_text(value).is_some()
+}
+
 pub fn parse_f64(value: &Value) -> LoadResult<f64> {
     match value {
         Value::Number(n) => n
             .as_f64()
             .ok_or_else(|| LoadError::new("number out of range")),
-        _ => Err(LoadError::new("expected number")),
+        // `Number.doubleValue()` of a number beyond `f64`: `Double.parseDouble` of its text
+        _ => match lazy_number_text(value) {
+            Some(text) => Ok(text.parse().unwrap_or(0.0)),
+            None => Err(LoadError::new("expected number")),
+        },
     }
 }
 
@@ -51,7 +62,10 @@ pub fn parse_double_range(value: &Value, min: f64, max: f64) -> LoadResult<f64> 
         Ok(v)
     } else {
         Err(LoadError::new(format!(
-            "Value {v} outside of range [{min}:{max}]"
+            "Value {} outside of range [{}:{}]",
+            java_double_to_string(v),
+            java_double_to_string(min),
+            java_double_to_string(max)
         )))
     }
 }
@@ -63,7 +77,8 @@ pub fn parse_noise_value(value: &Value) -> LoadResult<f32> {
         Ok(v)
     } else {
         Err(LoadError::new(format!(
-            "Value {v} outside of range [-1000000.0:1000000.0]"
+            "Value {} outside of range [-1000000.0:1000000.0]",
+            java_float_to_string(v)
         )))
     }
 }
@@ -77,7 +92,12 @@ pub fn parse_int(value: &Value) -> LoadResult<i32> {
             .map(|v| v as i32)
             .or_else(|| n.as_f64().map(f64_int_value))
             .ok_or_else(|| LoadError::new("number out of range")),
-        _ => Err(LoadError::new("expected number")),
+        // a number beyond `f64` (`LazilyParsedNumber`); one past Gson's limits throws out of the codec
+        _ => match lazy_number_text(value) {
+            Some(text) => lazily_parsed_int_value(text)
+                .map_err(|e| LoadError::new(format!("java.lang.NumberFormatException: {e}"))),
+            None => Err(LoadError::new("expected number")),
+        },
     }
 }
 
@@ -177,6 +197,7 @@ impl<'a> Fields<'a> {
     pub fn new(value: &'a Value) -> LoadResult<Fields<'a>> {
         value
             .as_object()
+            .filter(|_| lazy_number_text(value).is_none())
             .map(|map| Fields { map })
             .ok_or_else(|| LoadError::new("expected object"))
     }
@@ -230,7 +251,9 @@ pub fn density_function_from_json(
                 function,
             })))
         }
-        Value::Number(_) | Value::Object(_) => density_function_direct_from_json(value, registries),
+        _ if is_number(value) || value.is_object() => {
+            density_function_direct_from_json(value, registries)
+        }
         _ => Err(LoadError::new("expected number, string or object")),
     }
 }
@@ -241,7 +264,7 @@ pub fn density_function_direct_from_json(
     registries: &WorldgenRegistries,
 ) -> LoadResult<DensityFunction> {
     match value {
-        Value::Number(_) => Ok(DensityFunction::constant(parse_noise_value(value)?)),
+        _ if is_number(value) => Ok(DensityFunction::constant(parse_noise_value(value)?)),
         Value::Object(_) => {
             let fields = Fields::new(value)?;
             let ty = fields.required("type", parse_identifier)?;
@@ -499,7 +522,7 @@ fn spline_from_json(
     registries: &WorldgenRegistries,
 ) -> LoadResult<CubicSpline<DensityFunction>> {
     match value {
-        Value::Number(_) => Ok(CubicSpline::Constant(parse_f32(value)?)),
+        _ if is_number(value) => Ok(CubicSpline::Constant(parse_f32(value)?)),
         Value::Object(_) => {
             let fields = Fields::new(value)?;
             let coordinate = fields.df("coordinate", registries)?;

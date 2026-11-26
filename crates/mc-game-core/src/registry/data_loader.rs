@@ -151,7 +151,7 @@ impl fmt::Display for RegistryLoadFailure {
 impl std::error::Error for RegistryLoadFailure {}
 
 /// Prefix of the panic text `mc_dfu` raises for a `NumberFormatException`.
-const NUMBER_FORMAT: &str = "java.lang.NumberFormatException: ";
+pub(crate) const NUMBER_FORMAT: &str = "java.lang.NumberFormatException: ";
 
 struct ParsedElement {
     id: Identifier,
@@ -603,9 +603,10 @@ fn validate_feature_layer(stage: &RegistryAccess) -> Result<(), RegistryLoadFail
 /// has compact forms (constants / references for density functions and context providers, lists for block transformers,
 /// item modifiers and predicates).
 fn generic_validate(registry: &str, json: &Value) -> Result<(), String> {
+    // a number beyond `f64` is a stand-in object in the lossy tree
     let allowed = match json {
-        Value::Object(_) => true,
-        Value::Number(_) => matches!(
+        Value::Object(_) if mc_core::gson::lazy_number_text(json).is_none() => true,
+        Value::Number(_) | Value::Object(_) => matches!(
             registry,
             keys::DENSITY_FUNCTION | keys::CONTEXT_FLOAT_PROVIDER | keys::CONTEXT_INT_PROVIDER
         ),
@@ -621,7 +622,7 @@ fn generic_validate(registry: &str, json: &Value) -> Result<(), String> {
     } else {
         Err(format!(
             "Not a JSON object: {}",
-            serde_json::to_string(json).unwrap_or_default()
+            mc_core::gson::value_to_string(json)
         ))
     }
 }

@@ -285,6 +285,42 @@ fn regen_refused_start_fixtures() {
     });
 }
 
+/// Records the worlds of number spellings in the fields the hand-written readers and the custom number codecs take:
+/// `number_fields` (loads), `broken_number_fields` and `broken_dimension_numbers` (fail).
+/// Regenerate: `MC_UPDATE_FIXTURES=1 cargo test -p mc-game --test oracle -- --ignored regen_number_field_fixtures`.
+#[test]
+#[ignore = "oracle: starts the vanilla server (only with MC_UPDATE_FIXTURES=1)"]
+fn regen_number_field_fixtures() {
+    if !std::env::var("MC_UPDATE_FIXTURES").is_ok_and(|v| v == "1") {
+        return;
+    }
+    let dir = fixture_dir();
+    let rt = tokio::runtime::Builder::new_multi_thread()
+        .enable_all()
+        .build()
+        .unwrap();
+    rt.block_on(async {
+        write_fixture(
+            &dir,
+            "number_fields",
+            &run_vanilla(test_packs::write_number_field_packs, true).await,
+            true,
+        );
+        write_fixture(
+            &dir,
+            "broken_number_fields",
+            &run_vanilla(test_packs::write_broken_number_field_packs, false).await,
+            false,
+        );
+        write_fixture(
+            &dir,
+            "broken_dimension_numbers",
+            &run_vanilla(test_packs::write_broken_dimension_number_packs, false).await,
+            false,
+        );
+    });
+}
+
 /// Starts the vanilla server on a new world created from the `test:custom` world preset (dimensions with inline noise
 /// settings), stops it so that it saves, and stores the saved `world_gen_settings.dat` as `world_gen_settings.dat`.
 /// Regenerate: `MC_UPDATE_FIXTURES=1 cargo test -p mc-game --test oracle -- --ignored regen_world_gen_settings_fixture`.

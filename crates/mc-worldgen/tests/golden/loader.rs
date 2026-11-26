@@ -338,7 +338,7 @@ fn rejects_malformed_functions() {
         (
             json!({"type": "old_blended_noise", "xz_scale": 0.0001, "y_scale": 1, "xz_factor": 1, "y_factor": 1,
                 "smear_scale_multiplier": 2}),
-            "xz_scale: Value 0.0001 outside of range [0.001:1000]",
+            "xz_scale: Value 1.0E-4 outside of range [0.001:1000.0]",
         ),
         (
             json!({"type": "interval_select", "input": 0, "thresholds": [0.0, 1.0], "functions": [1, 2]}),
@@ -480,7 +480,7 @@ fn noise_parameters_codec() {
         ),
         (
             "amplitude_range",
-            "base_amplitude: Value 0 outside of range",
+            "base_amplitude: Value 0.0 outside of range",
         ),
         (
             "bad_normalize",
@@ -492,7 +492,7 @@ fn noise_parameters_codec() {
         ),
         (
             "modifier_range",
-            "amplitude_modifiers[0]: Value -1 outside of range [0:1000000]",
+            "amplitude_modifiers[0]: Value -1.0 outside of range [0.0:1000000.0]",
         ),
     ];
     for (name, message) in expected {

@@ -9,7 +9,7 @@ use serde_json::Value;
 
 use crate::data::LoadError;
 use crate::densityfunction::SharedSampler;
-use crate::densityfunction::codec::{Fields, LoadResult, parse_f32, parse_list};
+use crate::densityfunction::codec::{Fields, LoadResult, is_number, parse_f32, parse_list};
 use crate::random_state::{BoundSampler, DensitySamplerSet};
 use mc_core::pos::quart_pos;
 
@@ -169,7 +169,7 @@ impl Parameter {
             }
         }
         match value {
-            Value::Number(_) => {
+            _ if is_number(value) => {
                 let v = point(value)?;
                 make(v, v)
             }

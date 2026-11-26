@@ -14,7 +14,7 @@ use crate::world::entity::{Entity, ServerPlayer};
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
 use mc_data::GameEvent;
-use mc_dfu::JSON;
+use mc_dfu::{JSON, NBT};
 use mc_protocol::components::{Holder, INSTRUMENT, Instrument, ItemUseAnimation};
 use mc_protocol::packets::play::SoundSource;
 use mc_protocol::registry_context::{ScopedLookup, with_scoped_lookup};
@@ -45,7 +45,13 @@ fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, Str
         Instrument::direct_codec().parse(&JSON, &input)
     })
     .into_result()?;
-    Ok(DecodedEntry::new(instrument))
+    // `registry_data` carries the codec's own encoding (floats as floats), not the raw JSON narrowed
+    let network = with_scoped_lookup(&StageLookup(ctx), || {
+        Instrument::direct_codec().encode_start(&NBT, &instrument)
+    })
+    .into_result()?
+    .to_tag()?;
+    Ok(DecodedEntry::with_network(instrument, network))
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]

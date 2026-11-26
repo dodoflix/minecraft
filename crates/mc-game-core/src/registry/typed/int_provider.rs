@@ -6,7 +6,9 @@ use mc_core::random::RandomSource;
 use mc_nbt::Tag;
 use serde_json::{Map, Value};
 
-use crate::registry::codec::{Failure, Field, RegistryDecodeContext, Schema, validate};
+use crate::registry::codec::{
+    Failure, Field, RegistryDecodeContext, Schema, json_number, validate,
+};
 use crate::server::world_dimensions::nbt_to_json;
 
 /// An `IntProvider` read from data.
@@ -79,9 +81,7 @@ impl IntProvider {
 }
 
 fn int(v: &Value) -> Option<i32> {
-    v.as_i64()
-        .map(|i| i as i32)
-        .or_else(|| v.as_f64().map(|f| f as i32))
+    json_number(v).map(|n| n.int_value())
 }
 
 /// `(minInclusive, maxInclusive)` of a provider object.
@@ -250,7 +250,7 @@ fn check_range(provider: &IntProvider, min_value: i32, max_value: i32) -> Result
 /// `IntProviders.codec(minValue, maxValue)`: a constant (bare number) or a typed provider whose bounds lie in the range.
 pub fn schema(min_value: i32, max_value: i32) -> Schema {
     Schema::custom_partial(move |v, ctx: &RegistryDecodeContext| {
-        let tag = if v.is_number() {
+        let tag = if json_number(v).is_some() {
             Schema::Int.convert(v, ctx)?
         } else {
             // `Codec.either(Codec.INT, dispatch)`: a failure with a partial result is reported alone
