@@ -212,7 +212,7 @@ impl ServerLevel {
             dimension: params.dimension,
             entity_manager,
             players: Vec::new(),
-            entity_tracker: Default::default(),
+            entity_tracker: super::EntityTracker::new(params.level_data.get_level_name().into()),
             debug_synchronizers: Some(Default::default()),
             server_state: Default::default(),
             dead_players: Default::default(),

@@ -87,10 +87,16 @@ pub struct ServerEntity {
     was_riding: bool,
     was_on_ground: bool,
     tracked_data_values: Option<Vec<DataValue>>,
+    level_name: std::sync::Arc<str>,
 }
 
 impl ServerEntity {
-    pub fn new(entity: &dyn Entity, update_interval: UpdateInterval, track_delta: bool) -> Self {
+    pub fn new(
+        entity: &dyn Entity,
+        update_interval: UpdateInterval,
+        track_delta: bool,
+        level_name: std::sync::Arc<str>,
+    ) -> Self {
         let mut position_codec = VecDeltaCodec::default();
         position_codec.set_base(entity.tracking_position());
         Self {
@@ -107,6 +113,7 @@ impl ServerEntity {
             was_riding: false,
             was_on_ground: entity.base().on_ground(),
             tracked_data_values: entity.base().entity_data.get_non_default_values(),
+            level_name,
         }
     }
 
@@ -514,10 +521,8 @@ impl ServerEntity {
         entity.update_data_before_sync();
         if entity.is_removed() {
             log::warn!(
-                "Fetching packet for removed entity {}['{}'/{}]",
-                entity.get_type().data().name,
-                entity.get_type().data().name,
-                entity.id()
+                "Fetching packet for removed entity {}",
+                crate::commands::host::entity_to_string(entity, &self.level_name)
             );
         }
         let mut out = Vec::new();

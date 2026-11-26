@@ -417,6 +417,8 @@ impl FlatWorld {
                 .wait_log("respawn_radius", 30)
                 .expect("the gamerule is set");
             let bot = join("127.0.0.1", server.port, "Bot").await;
+            // the tracker pairs the entities with the player once his chunks are sent
+            tokio::time::sleep(Duration::from_secs(2)).await;
             bot.disconnect().await;
             let log = server.log();
             server.stop();
@@ -566,6 +568,37 @@ async fn owner_decode_problems_match_vanilla() {
     assert!(
         text.contains("from field 'Owner'"),
         "the real server did not report the owner:\n{text}"
+    );
+    assert_same_records(&logs);
+}
+
+/// An item entity whose `Item` decodes to no stack discards itself while it loads. The level still adds and tracks it
+/// (the discard happened before it had a level callback), so the player who comes near gets the warning about the
+/// packet of a removed entity, with the entity's description in it.
+#[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
+async fn discarded_item_entities_are_tracked_like_vanilla() {
+    let entity = |item: &str, uuid: i32| {
+        snbt::parse_compound(&format!(
+            r#"{{id:"minecraft:item",Pos:[8.5d,-60.0d,8.5d],Motion:[0.0d,0.0d,0.0d],Rotation:[0.0f,0.0f],UUID:[I;{uuid},2,3,4],Item:{item}}}"#
+        ))
+        .expect("entity")
+    };
+    let entities = [
+        entity("5", 1),
+        entity(r#"{id:"minecraft:no_such_item",count:1}"#, 2),
+        entity(r#"{id:"minecraft:stone",count:0}"#, 3),
+    ];
+    let mut seed = snbt::parse_compound("{Inventory:[]}").expect("seed");
+    seed.put_int(
+        "DataVersion",
+        mc_world::region::entity_storage::CURRENT_DATA_VERSION,
+    );
+    let logs = FlatWorld::new(None, &entities).records(&seed).await;
+    let text = logs[0].join("\n");
+    assert!(
+        text.contains("Fetching packet for removed entity ItemEntity['Air'/"),
+        "the real server did not warn about the removed entity:\n{text}"
     );
     assert_same_records(&logs);
 }

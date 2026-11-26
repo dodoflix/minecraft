@@ -53,6 +53,9 @@ struct EntitySlot {
     section_key: i64,
     /// `isAlwaysTicking()` (fixed per entity; cached so it is answerable while the entity is taken out).
     always_ticking: bool,
+    /// The entity was removed before it was added (an entity that discards itself while it loads): vanilla gives it its
+    /// level callback only on the add, so that earlier removal never reaches the level and the entity stays in it.
+    removed_on_add: bool,
 }
 
 fn effective_status(always_ticking: bool, status: Visibility) -> Visibility {
@@ -192,6 +195,7 @@ impl PersistentEntitySectionManager {
         section.add(id);
         let section_status = section.status();
         let always_ticking = entity.is_always_ticking();
+        let removed_on_add = entity.is_removed();
         let mut entity = entity;
         entity.base_mut().moved_since_sync = false;
         self.entities.insert(
@@ -200,6 +204,7 @@ impl PersistentEntitySectionManager {
                 entity: Some(entity),
                 section_key,
                 always_ticking,
+                removed_on_add,
             },
         );
         if !loaded {
@@ -689,7 +694,9 @@ impl PersistentEntitySectionManager {
             return;
         };
         if let Some(reason) = entity.base().removal_reason() {
-            self.finish_removal(id, reason);
+            if !slot.removed_on_add {
+                self.finish_removal(id, reason);
+            }
             return;
         }
         if entity.base().moved_since_sync {
@@ -1256,6 +1263,23 @@ mod tests {
                 && ev.contains(&EntityLevelEvent::TrackingEnd(1))
         );
         assert!(m.get_removed(1).is_some());
+    }
+
+    #[test]
+    fn entity_removed_before_the_add_stays_tracked() {
+        let mut m = PersistentEntitySectionManager::new(None);
+        m.update_chunk_status(ChunkPos::new(0, 0), Visibility::Ticking);
+        let mut e = pig(1, 1.0, 64.0, 1.0);
+        e.discard();
+        m.add_new_entity(e).ok().unwrap();
+        let e = m.take(1).unwrap();
+        m.put_back(1, e);
+        assert!(m.get_any(1).is_some_and(|e| e.is_removed()) && m.count() == 1);
+        let ev = m.take_events();
+        assert!(
+            ev.contains(&EntityLevelEvent::TrackingStart(1))
+                && !ev.contains(&EntityLevelEvent::Destroyed(1))
+        );
     }
 
     #[test]

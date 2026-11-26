@@ -275,17 +275,24 @@ impl TrackedEntity {
 /// `ChunkMap.entityMap` (`Int2ObjectOpenHashMap`: the iteration order of `tick`/`move` is fastutil's).
 pub struct EntityTracker {
     entity_map: LongOpenHashMap<TrackedEntity>,
+    /// The level's name, as `ServerLevel.toString()` shows it in the descriptions of tracked entities.
+    level_name: std::sync::Arc<str>,
 }
 
 impl Default for EntityTracker {
     fn default() -> Self {
-        Self {
-            entity_map: LongOpenHashMap::new_int(),
-        }
+        Self::new("".into())
     }
 }
 
 impl EntityTracker {
+    pub fn new(level_name: std::sync::Arc<str>) -> Self {
+        Self {
+            entity_map: LongOpenHashMap::new_int(),
+            level_name,
+        }
+    }
+
     pub fn has_entity_with_id(&self, id: EntityId) -> bool {
         self.entity_map.contains_key(i64::from(id))
     }
@@ -324,7 +331,12 @@ impl EntityTracker {
             .downcast_ref::<ServerPlayer>()
             .map(PlayerRecord::of);
         let mut tracked = TrackedEntity {
-            server_entity: ServerEntity::new(entity, interval, ty.data().track_deltas),
+            server_entity: ServerEntity::new(
+                entity,
+                interval,
+                ty.data().track_deltas,
+                self.level_name.clone(),
+            ),
             entity_id,
             uuid: entity.uuid(),
             is_player: player.is_some(),
