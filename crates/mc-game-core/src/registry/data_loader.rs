@@ -336,7 +336,15 @@ pub fn load(
             ctx.exact = Some((&element.json, &element.exact));
             // a number Gson cannot narrow throws `NumberFormatException` out of the codec: the entry fails to load
             let decoded = catch_unwind(AssertUnwindSafe(|| match decoder {
-                Some(d) => (d.decode)(&element.json, &ctx).map(Some),
+                Some(d) => (d.decode)(&element.json, &ctx).and_then(|mut entry| {
+                    // a typed decoder without its own network encoding: the modelled network codec supplies the NBT
+                    if entry.network.is_none()
+                        && let Some(schema) = super::typed::network::network_schema(data.key)
+                    {
+                        entry.network = Some(schema.convert(&element.json, &ctx)?);
+                    }
+                    Ok(Some(entry))
+                }),
                 None => generic_validate(data.key, &element.json).and_then(|()| {
                     match super::typed::network::network_schema(data.key) {
                         // no typed value, but the network codec is modelled: validate and keep its NBT

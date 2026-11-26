@@ -43,6 +43,47 @@ fn non_negative_float() -> Schema {
     })
 }
 
+/// `FloatProviders.CODEC` as the network form of a value that was already validated: a constant is the bare float,
+/// the other types are their record with the `type` id.
+fn float_provider() -> Schema {
+    Schema::custom(|v, ctx| {
+        if v.is_number() {
+            return Schema::Float.convert(v, ctx);
+        }
+        let body = Schema::Dispatch {
+            key: "type",
+            resolve: |ty| {
+                let float = |name| req(name, Schema::Float);
+                Some(Schema::Record(
+                    match ty.strip_prefix("minecraft:").unwrap_or(ty) {
+                        "constant" => vec![float("value")],
+                        "uniform" => vec![float("min_inclusive"), float("max_exclusive")],
+                        "clamped_normal" => {
+                            vec![
+                                float("mean"),
+                                float("deviation"),
+                                float("min"),
+                                float("max"),
+                            ]
+                        }
+                        "trapezoid" => vec![float("min"), float("max"), float("plateau")],
+                        _ => return None,
+                    },
+                ))
+            },
+        }
+        .convert(v, ctx)?;
+        match (&body, v.get("type").and_then(Value::as_str)) {
+            (mc_nbt::Tag::Compound(c), Some(ty))
+                if ty.strip_prefix("minecraft:").unwrap_or(ty) == "constant" =>
+            {
+                Ok(c.get("value").cloned().unwrap_or(body.clone()))
+            }
+            _ => Ok(body),
+        }
+    })
+}
+
 /// `ModelAndTexture.codec(...)` + `baby_asset_id` (pig, cow, chicken); the asset ids are plain strings in the data.
 fn animal_variant(baby: bool) -> Vec<Field> {
     let mut f = vec![opt("asset_id", Schema::Raw), opt("model", Schema::Raw)];
@@ -93,6 +134,61 @@ pub fn network_schema(registry: &str) -> Option<Schema> {
                 Value::from(0),
             ),
             req("description", Schema::Text),
+        ]),
+        keys::SULFUR_CUBE_ARCHETYPE => Schema::Record(vec![
+            req(
+                "items",
+                Schema::HolderSet {
+                    registry: keys::ITEM,
+                    always_list: false,
+                },
+            ),
+            req(
+                "attribute_modifiers",
+                Schema::list_of(Schema::Record(vec![
+                    // the typed decoder already resolved the attribute
+                    req("attribute", Schema::Identifier),
+                    req("id", Schema::Identifier),
+                    req("amount", Schema::Double),
+                    req(
+                        "operation",
+                        Schema::Enum(&["add_value", "add_multiplied_base", "add_multiplied_total"]),
+                    ),
+                ])),
+            ),
+            default("buoyant", Schema::Bool, Value::from(false)),
+            opt(
+                "explosion",
+                Schema::Record(vec![
+                    req("power", Schema::ExtraIntRange(0, i32::MAX)),
+                    req("causes_fire", Schema::Bool),
+                    req("fuse", Schema::ExtraIntRange(1, i32::MAX)),
+                ]),
+            ),
+            opt(
+                "contact_damage",
+                Schema::Record(vec![
+                    req("damage_type", Schema::Holder(keys::DAMAGE_TYPE)),
+                    req("amount", float_provider()),
+                    req("attribute_to_source", Schema::Bool),
+                ]),
+            ),
+            req(
+                "knockback_modifiers",
+                Schema::Record(vec![
+                    req("horizontal_power", Schema::Float),
+                    req("vertical_power", Schema::Float),
+                ]),
+            ),
+            req(
+                "sound_settings",
+                Schema::Record(vec![
+                    req("hit_sound", sound_event()),
+                    req("push_sound", sound_event()),
+                    req("push_sound_impulse_threshold", Schema::Float),
+                    req("push_sound_cooldown", Schema::Float),
+                ]),
+            ),
         ]),
         _ => return None,
     })
