@@ -311,24 +311,17 @@ fn compare_load_failure(scenario: &str, write: fn(&Path), pack: &str, count: usi
     );
     let mut differing = Vec::new();
     for (o, v) in ours.iter().zip(&expected) {
-        if o.1.ends_with("bad_syntax") {
-            assert!(
-                o.2[0].starts_with("com.google.gson.JsonSyntaxException: ")
-                    && v.2[0].starts_with("com.google.gson.JsonSyntaxException: ")
-            );
-        } else {
-            // the entry of `minecraft:root` (an unbound reference) has no cause
-            let first = |e: &(String, String, Vec<String>)| {
-                e.2.first().map(|cause| mask_identity_hashes(cause))
-            };
-            if first(o) != first(v) {
-                differing.push(format!(
-                    "{}\n  ours:    {:?}\n  vanilla: {:?}",
-                    o.1,
-                    first(o),
-                    first(v)
-                ));
-            }
+        // the entry of `minecraft:root` (an unbound reference) has no cause
+        let first = |e: &(String, String, Vec<String>)| {
+            e.2.first().map(|cause| mask_identity_hashes(cause))
+        };
+        if first(o) != first(v) {
+            differing.push(format!(
+                "{}\n  ours:    {:?}\n  vanilla: {:?}",
+                o.1,
+                first(o),
+                first(v)
+            ));
         }
     }
     assert!(

@@ -8,6 +8,7 @@
 
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fmt;
+use std::panic::{AssertUnwindSafe, catch_unwind, resume_unwind};
 use std::sync::Arc;
 
 use mc_core::gson::JsonElement;
@@ -131,6 +132,9 @@ impl fmt::Display for RegistryLoadFailure {
 }
 
 impl std::error::Error for RegistryLoadFailure {}
+
+/// Prefix of the panic text `mc_dfu` raises for a `NumberFormatException`.
+const NUMBER_FORMAT: &str = "java.lang.NumberFormatException: ";
 
 struct ParsedElement {
     id: Identifier,
@@ -313,7 +317,8 @@ pub fn load(
             ctx.worldgen = Some(&worldgen);
             ctx.entry = Some(element.id.clone());
             ctx.exact = Some((&element.json, &element.exact));
-            let decoded: Result<Option<DecodedEntry>, String> = match decoder {
+            // a number Gson cannot narrow throws `NumberFormatException` out of the codec: the entry fails to load
+            let decoded = catch_unwind(AssertUnwindSafe(|| match decoder {
                 Some(d) => (d.decode)(&element.json, &ctx).map(Some),
                 None => generic_validate(data.key, &element.json).and_then(|()| {
                     match super::typed::network::network_schema(data.key) {
@@ -327,7 +332,11 @@ pub fn load(
                         None => Ok(None),
                     }
                 }),
-            };
+            }))
+            .unwrap_or_else(|payload| match payload.downcast_ref::<String>() {
+                Some(m) if m.starts_with(NUMBER_FORMAT) => Err(m.clone()),
+                _ => resume_unwind(payload),
+            });
             unbound_values.extend(ctx.unbound_values.take());
             unbound_tags.extend(ctx.unbound_tags.take());
             match decoded {
@@ -364,7 +373,10 @@ pub fn load(
                     });
                 }
                 Err(message) => {
-                    let thrown = split_thrown(&message).map(|(c, m)| (c, m.to_owned()));
+                    let thrown = match message.strip_prefix(NUMBER_FORMAT) {
+                        Some(m) => Some(("java.lang.NumberFormatException", m.to_owned())),
+                        None => split_thrown(&message).map(|(c, m)| (c, m.to_owned())),
+                    };
                     let (class, message) =
                         thrown.unwrap_or(("java.lang.IllegalStateException", message));
                     errors.insert(

@@ -30,7 +30,7 @@ impl ScopedLookup for StageLookup<'_, '_> {
 }
 
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
-    let input = mc_protocol::components::common::serde_to_dyn(json);
+    let input = ctx.json_dyn(json)?;
     let dialog = with_scoped_lookup(&StageLookup(ctx), || {
         Dialog::direct_codec().parse(&JSON, &input)
     })

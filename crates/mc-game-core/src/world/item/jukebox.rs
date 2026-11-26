@@ -15,14 +15,13 @@ use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::{GameEvent, ParticleType};
 use mc_dfu::JSON;
-use mc_protocol::components::common::serde_to_dyn;
 use mc_protocol::components::{Holder, JUKEBOX_PLAYABLE, JukeboxSong};
 use mc_protocol::packets::play::ParticleOptions;
 use mc_protocol::registry_context::with_scoped_lookup;
 use serde_json::Value;
 
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
-    let input = serde_to_dyn(json);
+    let input = ctx.json_dyn(json)?;
     let song = with_scoped_lookup(&StageLookup(ctx), || {
         JukeboxSong::direct_codec().parse(&JSON, &input)
     })

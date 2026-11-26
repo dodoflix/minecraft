@@ -47,10 +47,14 @@ thread_local! {
 
 /// Runs `f` with the answers of `tag_exists` for the item tags `tags` installed for [`Ingredient::codec`].
 pub fn with_item_tag_lookup<R>(tags: HashMap<Identifier, bool>, f: impl FnOnce() -> R) -> R {
-    let previous = TAG_EXISTS.with(|t| t.replace(Some(tags)));
-    let result = f();
-    TAG_EXISTS.with(|t| *t.borrow_mut() = previous);
-    result
+    struct Restore(Option<HashMap<Identifier, bool>>);
+    impl Drop for Restore {
+        fn drop(&mut self) {
+            TAG_EXISTS.with(|t| *t.borrow_mut() = self.0.take());
+        }
+    }
+    let _restore = Restore(TAG_EXISTS.with(|t| t.replace(Some(tags))));
+    f()
 }
 
 fn item_tag_exists(tag: &Identifier) -> bool {

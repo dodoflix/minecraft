@@ -15,7 +15,6 @@ use mc_core::ident::Identifier;
 use mc_core::math::mth;
 use mc_data::GameEvent;
 use mc_dfu::JSON;
-use mc_protocol::components::common::serde_to_dyn;
 use mc_protocol::components::{Holder, INSTRUMENT, Instrument, ItemUseAnimation};
 use mc_protocol::packets::play::SoundSource;
 use mc_protocol::registry_context::{ScopedLookup, with_scoped_lookup};
@@ -41,7 +40,7 @@ impl ScopedLookup for StageLookup<'_, '_> {
 }
 
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
-    let input = serde_to_dyn(json);
+    let input = ctx.json_dyn(json)?;
     let instrument = with_scoped_lookup(&StageLookup(ctx), || {
         Instrument::direct_codec().parse(&JSON, &input)
     })
