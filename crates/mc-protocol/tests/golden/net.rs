@@ -235,6 +235,16 @@ fn frame_length_zero() {
 }
 
 #[test]
+fn empty_payload_is_no_packet() {
+    // With compression a frame `01 00` is an empty payload: nothing to decode, the next frame follows.
+    let mut d = FrameDecoder::new();
+    d.set_compression(256, true);
+    d.push(&[1, 0, 3, 0, 7, 8]);
+    assert_eq!(d.next_frame().unwrap().as_deref(), Some(&[7, 8][..]));
+    assert_eq!(d.next_frame().unwrap(), None);
+}
+
+#[test]
 fn max_frame_length_is_accepted() {
     let mut d = FrameDecoder::new();
     d.push(&[0xFF, 0xFF, 0x7F]);

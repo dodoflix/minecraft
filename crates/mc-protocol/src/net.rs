@@ -253,8 +253,18 @@ impl FrameDecoder {
         }
     }
 
-    /// The next complete frame's decompressed payload, or `None` if more bytes are needed.
+    /// The next complete frame's decompressed payload, or `None` if more bytes are needed. An empty payload is no
+    /// packet (`PacketDecoder` reads nothing from it) and is skipped.
     pub fn next_frame(&mut self) -> Result<Option<Vec<u8>>, NetError> {
+        loop {
+            match self.next_frame_raw()? {
+                Some(payload) if payload.is_empty() => {}
+                other => return Ok(other),
+            }
+        }
+    }
+
+    fn next_frame_raw(&mut self) -> Result<Option<Vec<u8>>, NetError> {
         let avail = &self.buf[self.pos..];
         let mut length = 0usize;
         let mut header = 0;
