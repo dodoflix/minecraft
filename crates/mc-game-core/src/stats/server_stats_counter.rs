@@ -187,7 +187,9 @@ impl ServerStatsCounter {
 
     /// `toJson()`.
     pub fn to_json(&self) -> Value {
-        let ordered = self.counter.iter_fast_order();
+        // `entrySet().stream()` walks the table upwards (fastutil's spliterator), unlike the iterator `markAllDirty` uses
+        let mut ordered = self.counter.iter_fast_order();
+        ordered.reverse();
         let mut stats = Map::new();
         for ty in StatType::iter() {
             let of_type: Vec<&(Stat, i32)> =

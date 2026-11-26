@@ -47,15 +47,6 @@ fn canonical(json: &Value) -> Value {
     )
 }
 
-/// Like [`canonical`] with the entries of every type sorted.
-fn canonical_sorted(json: &Value) -> Value {
-    let mut v = canonical(json);
-    for t in v.as_array_mut().unwrap() {
-        t[1].as_array_mut().unwrap().sort_by_key(|e| e.to_string());
-    }
-    v
-}
-
 #[test]
 fn matches_vanilla() {
     let text = include_str!("../../../mc-game/tests/fixtures/stats_golden.txt");
@@ -105,18 +96,12 @@ fn matches_vanilla() {
         }
         let expected: Value = serde_json::from_str(out).unwrap();
         let actual = c.to_json();
-        // The key order inside a stat type follows the bucket order of vanilla's HashMap; entries that collide in a bucket
-        // appear in the (fastutil) insertion order, which is only reproduced exactly for files that fit the default tables.
-        // Content is always compared as a set; the order strictly with STATS_STRICT_ORDER=1.
-        if std::env::var_os("STATS_STRICT_ORDER").is_some() {
-            assert_eq!(
-                canonical(&actual),
-                canonical(&expected),
-                "{header}: file content\ninput {input}"
-            );
-        } else if canonical_sorted(&actual) != canonical_sorted(&expected) {
-            panic!("{header}: file content\ninput {input}");
-        }
+        // the entries inside a stat type compare in file order; only the order of the stat types is random per vanilla run
+        assert_eq!(
+            canonical(&actual),
+            canonical(&expected),
+            "{header}: file content\ninput {input}"
+        );
         assert_eq!(actual["DataVersion"], expected["DataVersion"]);
         assert_eq!(
             packet_line(&mut c),
