@@ -71,11 +71,11 @@ class RustIndex:
             for m in re.finditer(r"^([ \t]*(?:(?:///[^\n]*|#\[[^\n]*\])\n[ \t]*)*)(pub(?:\([a-z]+\))?\s+)?(?:struct|enum|trait|type|union)\s+([A-Za-z_]\w*)", text, re.M):
                 doc, public, item = m.groups()
                 # a private type counts only when its doc comment starts with its own name in backticks
-                first = re.search(r"///\s*`([^`]+)`", doc)
-                named = re.split(r"[.:]+", re.sub(r"\(.*?\)", "", first.group(1))) if first else []
-                if first and item not in named:
+                first = re.match(r"\s*(?:#\[[^\n]*\]\s*)*///\s*`([^`]+)`", doc)
+                named = re.split(r"[.:]+", re.match(r"[\w.:]*", first.group(1)).group(0)) if first else []
+                if len(named) > 1 and item not in named:
                     continue  # documented as a different vanilla type (`Outer.Inner`), not as this one
-                if public or (first and named[0] == item):
+                if public or (named and named[0] == item):
                     self.items[item].add(rel)
             for m in re.finditer(r"\bregister_\w+!\(\s*\"([A-Za-z_]\w*)\"", text):
                 self.registered[m.group(1)].add(rel)
