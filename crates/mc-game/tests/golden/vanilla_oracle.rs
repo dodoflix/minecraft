@@ -383,6 +383,61 @@ fn number_edges_load_like_vanilla() {
     compare_scenario("numbers", common::test_packs::write_number_edge_packs);
 }
 
+/// References that are no plain identifier string (`RegistryFixedCodec`: `Not a string: 5`) and flags that are no JSON boolean
+/// (`Not a boolean: 3`) fail like vanilla's codecs; a missing element is an unbound value of the root registry.
+#[test]
+fn broken_clock_references_fail_like_vanilla() {
+    compare_load_failure(
+        "broken_clocks",
+        common::test_packs::write_broken_clock_packs,
+        "broken_clocks",
+        11,
+    );
+}
+
+/// The lines of the WARN entries of a recorded vanilla log: an entry starts at a `[time] [thread/LEVEL]: text` line and
+/// runs over the lines that follow; `Caused by` lines are not compared (ours prints no stack traces).
+fn vanilla_warnings(log: &[String]) -> Vec<String> {
+    let mut out = Vec::new();
+    let mut warn = false;
+    for line in log {
+        if let Some((thread_level, text)) = line
+            .split_once("] [")
+            .and_then(|(_, rest)| rest.split_once("]: "))
+        {
+            warn = thread_level.ends_with("/WARN");
+            if warn {
+                out.push(format!("WARN: {text}"));
+            }
+        } else if warn && !line.starts_with("Caused by: ") {
+            out.push(line.clone());
+        }
+    }
+    out
+}
+
+/// A loot table that references itself: the registries load, then the loot table validation throws. Every problem is
+/// logged, then the start fails with the `IllegalStateException` of the validation.
+#[test]
+fn recursive_loot_table_fails_the_start_like_vanilla() {
+    let _serial = common::SERIAL.lock().unwrap_or_else(|e| e.into_inner());
+    common::init_logger();
+    let _ = common::take_logs();
+    let dir = tempfile::tempdir().unwrap();
+    let world = dir.path().join("world");
+    common::test_packs::write_recursive_loot_packs(&world);
+    let Err(err) = common::load_world(&world, WorldDataConfiguration::DEFAULT, true) else {
+        panic!("vanilla refuses this world, so must we");
+    };
+    err.log();
+    let ours: Vec<String> = common::take_logs()
+        .iter()
+        .filter(|entry| entry.starts_with("WARN: "))
+        .flat_map(|entry| entry.lines().map(str::to_owned))
+        .collect();
+    assert_eq!(ours, vanilla_warnings(&read_log("recursive_loot")));
+}
+
 /// Whether `ours` writes every compound's keys in the order they arrived in from vanilla (`vanilla` was read from the
 /// wire, so its entries are in the order the server wrote them).
 fn same_key_order(ours: &Tag, vanilla: &Tag) -> bool {

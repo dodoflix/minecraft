@@ -1,0 +1,7 @@
+[00:00:00] [Main/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[00:00:00] [Main/INFO]: Found new data pack file/recursive_loot, loading it automatically
+[00:00:00] [Main/INFO]: No existing world data, creating new world
+[00:00:00] [Main/WARN]: Found loot table element validation problem in {test:recursive@minecraft:loot_table}.pools[0].entries[0].value[0]: test:recursive of type minecraft:loot_table is recursively called
+[00:00:00] [Main/WARN]: Failed to load datapacks, can't proceed with server load. You can either fix your datapacks or reset to vanilla with --safeMode
+java.util.concurrent.ExecutionException: java.lang.IllegalStateException: Found loot table validation problems
+Caused by: java.lang.IllegalStateException: Found loot table validation problems

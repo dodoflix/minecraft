@@ -1,0 +1,44 @@
+[00:00:00] [Main/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[00:00:00] [Main/INFO]: Found new data pack file/broken_clocks, loading it automatically
+[00:00:00] [Main/ERROR]: Registry loading errors:
+> Errors in registry minecraft:dimension_type:
+>> Errors in element test:default_clock_number:
+java.lang.IllegalStateException: Failed to parse test:default_clock_number from pack file/broken_clocks
+Caused by: java.lang.IllegalStateException: Not a string: 5
+>> Errors in element test:default_clock_object:
+java.lang.IllegalStateException: Failed to parse test:default_clock_object from pack file/broken_clocks
+Caused by: java.lang.IllegalStateException: Not a string: {"id":"minecraft:overworld"}
+> Errors in registry minecraft:enchantment_provider:
+>> Errors in element test:single_number:
+java.lang.IllegalStateException: Failed to parse test:single_number from pack file/broken_clocks
+Caused by: java.lang.IllegalStateException: Not a string: 5
+> Errors in registry minecraft:root:
+>> Errors in element minecraft:timeline:
+java.lang.IllegalStateException: Unbound values in registry ResourceKey[minecraft:root / minecraft:timeline]: [test:nope]
+>> Errors in element minecraft:world_clock:
+java.lang.IllegalStateException: Unbound values in registry ResourceKey[minecraft:root / minecraft:world_clock]: [test:nope]
+> Errors in registry minecraft:test_environment:
+>> Errors in element test:clock_number:
+java.lang.IllegalStateException: Failed to parse test:clock_number from pack file/broken_clocks
+Caused by: java.lang.IllegalStateException: Not a string: 5
+>> Errors in element test:clock_object:
+java.lang.IllegalStateException: Failed to parse test:clock_object from pack file/broken_clocks
+Caused by: java.lang.IllegalStateException: Not a string: {"id":"minecraft:overworld"}
+>> Errors in element test:timelines_number:
+java.lang.IllegalStateException: Failed to parse test:timelines_number from pack file/broken_clocks
+Caused by: java.lang.IllegalStateException: Not a string: 5
+> Errors in registry minecraft:test_instance:
+>> Errors in element test:manual_only_string:
+java.lang.IllegalStateException: Failed to parse test:manual_only_string from pack file/broken_clocks
+Caused by: java.lang.IllegalStateException: Not a boolean: "yes"
+>> Errors in element test:required_number:
+java.lang.IllegalStateException: Failed to parse test:required_number from pack file/broken_clocks
+Caused by: java.lang.IllegalStateException: Not a boolean: 3
+>> Errors in element test:sky_access_number:
+java.lang.IllegalStateException: Failed to parse test:sky_access_number from pack file/broken_clocks
+Caused by: java.lang.IllegalStateException: Not a boolean: 1
+
+[00:00:00] [Main/WARN]: Failed to load datapacks, can't proceed with server load. You can either fix your datapacks or reset to vanilla with --safeMode
+java.util.concurrent.ExecutionException: net.minecraft.ReportedException: Registry Loading
+Caused by: net.minecraft.ReportedException: Registry Loading
+Caused by: java.lang.IllegalStateException: Failed to load registries due to errors

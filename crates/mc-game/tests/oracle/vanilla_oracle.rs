@@ -227,6 +227,64 @@ fn regen_number_fixtures() {
     });
 }
 
+/// The log of a refused start without what differs between two runs: the time and thread of a line become `00:00:00`
+/// and `Main`; stack frames, their `... N more` tails and the jar unpacking lines are dropped.
+fn plain_log(log: &[String]) -> Vec<String> {
+    log.iter()
+        .filter(|l| {
+            !l.starts_with("Unpacking ")
+                && !l.starts_with("Starting ")
+                && !l.starts_with("\tat ")
+                && !l.starts_with("\t... ")
+        })
+        .map(|l| {
+            match l
+                .split_once("] [")
+                .and_then(|(_, rest)| rest.split_once("]: "))
+            {
+                Some((thread_level, text)) => {
+                    format!(
+                        "[00:00:00] [Main/{}]: {text}",
+                        thread_level.rsplit_once('/').unwrap().1
+                    )
+                }
+                None => l.clone(),
+            }
+        })
+        .collect()
+}
+
+/// Records the worlds the vanilla server refuses to start on because of loot table validation and codec reference errors
+/// (`broken_clocks`, `recursive_loot`) as plain logs. Record twice and diff before committing.
+/// Regenerate: `MC_UPDATE_FIXTURES=1 cargo test -p mc-game --test oracle -- --ignored regen_refused_start_fixtures`.
+#[test]
+#[ignore = "oracle: starts the vanilla server (only with MC_UPDATE_FIXTURES=1)"]
+fn regen_refused_start_fixtures() {
+    if !std::env::var("MC_UPDATE_FIXTURES").is_ok_and(|v| v == "1") {
+        return;
+    }
+    let rt = tokio::runtime::Builder::new_multi_thread()
+        .enable_all()
+        .build()
+        .unwrap();
+    rt.block_on(async {
+        for (name, setup) in [
+            (
+                "broken_clocks",
+                test_packs::write_broken_clock_packs as fn(&Path),
+            ),
+            ("recursive_loot", test_packs::write_recursive_loot_packs),
+        ] {
+            let captured = run_vanilla(setup, false).await;
+            std::fs::write(
+                fixture_dir().join(format!("{name}.server-log.txt")),
+                plain_log(&captured.log).join("\n") + "\n",
+            )
+            .unwrap();
+        }
+    });
+}
+
 /// Starts the vanilla server on a new world created from the `test:custom` world preset (dimensions with inline noise
 /// settings), stops it so that it saves, and stores the saved `world_gen_settings.dat` as `world_gen_settings.dat`.
 /// Regenerate: `MC_UPDATE_FIXTURES=1 cargo test -p mc-game --test oracle -- --ignored regen_world_gen_settings_fixture`.

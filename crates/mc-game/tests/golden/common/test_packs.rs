@@ -1061,6 +1061,88 @@ pub fn write_broken_dimension_packs(world: &Path) {
     }
 }
 
+/// A world whose pack holds a loot table that references itself: the registries load, the loot table validation throws.
+pub fn write_recursive_loot_packs(world: &Path) {
+    let dp = world.join("datapacks");
+    write(
+        dp.join("recursive_loot/pack.mcmeta"),
+        r##"{"pack": {"description": "recursive loot", "min_format": 121, "max_format": 121}}"##,
+    );
+    write(
+        dp.join("recursive_loot/data/test/loot_table/recursive.json"),
+        r#"{"type": "minecraft:generic", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:loot_table", "value": "test:recursive"}]}]}"#,
+    );
+}
+
+/// A world whose pack holds dimension types, test environments, test instances and an enchantment provider with references that are not plain
+/// identifier strings (`RegistryFixedCodec`: `Not a string: 5`, not an inline definition) or with non-boolean flags.
+pub fn write_broken_clock_packs(world: &Path) {
+    let dp = world.join("datapacks");
+    write(
+        dp.join("broken_clocks/pack.mcmeta"),
+        r##"{"pack": {"description": "broken clocks", "min_format": 121, "max_format": 121}}"##,
+    );
+    for (name, clock) in [
+        ("default_clock_number", "5"),
+        ("default_clock_object", r#"{"id": "minecraft:overworld"}"#),
+        ("default_clock_missing", r#""test:nope""#),
+    ] {
+        let mut dim = vanilla_json("dimension_type/overworld.json");
+        dim["default_clock"] = serde_json::from_str(clock).unwrap();
+        write(
+            dp.join(format!(
+                "broken_clocks/data/test/dimension_type/{name}.json"
+            )),
+            &dim.to_string(),
+        );
+    }
+    for (name, json) in [
+        (
+            "clock_number",
+            r#"{"type": "minecraft:clock_time", "clock": 5, "time": 0}"#,
+        ),
+        (
+            "clock_object",
+            r#"{"type": "minecraft:clock_time", "clock": {"id": "minecraft:overworld"}, "time": 0}"#,
+        ),
+        (
+            "clock_missing",
+            r#"{"type": "minecraft:clock_time", "clock": "test:nope", "time": 0}"#,
+        ),
+        (
+            "timelines_number",
+            r#"{"type": "minecraft:timeline_attributes", "timelines": [5]}"#,
+        ),
+        (
+            "timelines_missing",
+            r#"{"type": "minecraft:timeline_attributes", "timelines": ["test:nope"]}"#,
+        ),
+    ] {
+        write(
+            dp.join(format!(
+                "broken_clocks/data/test/test_environment/{name}.json"
+            )),
+            json,
+        );
+    }
+    for (name, flag) in [
+        ("required_number", r#""required": 3"#),
+        ("manual_only_string", r#""manual_only": "yes""#),
+        ("sky_access_number", r#""sky_access": 1"#),
+    ] {
+        write(
+            dp.join(format!("broken_clocks/data/test/test_instance/{name}.json")),
+            &format!(
+                r#"{{"type": "minecraft:block_based", "environment": "minecraft:default", "structure": "test:s", "max_ticks": 20, {flag}}}"#
+            ),
+        );
+    }
+    write(
+        dp.join("broken_clocks/data/test/enchantment_provider/single_number.json"),
+        r#"{"type": "minecraft:single", "enchantment": 5, "level": 1}"#,
+    );
+}
+
 type DimensionEdit = (String, Option<&'static str>);
 
 /// `(entry name, edits)`; pointers of the settings are relative to `/generator/settings`.

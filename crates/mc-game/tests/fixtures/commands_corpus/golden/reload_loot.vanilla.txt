@@ -1,0 +1,23 @@
+### [reload_loot.txt:5] reload
+log| System chat: Reloading!
+log| WARN: Found loot table element validation problem in {gtbadloot:recursive@minecraft:loot_table}.pools[0].entries[0].value[0]: gtbadloot:recursive of type minecraft:loot_table is recursively called
+log| WARN: Failed to execute reload
+log| java.util.concurrent.CompletionException: java.lang.IllegalStateException: Found loot table validation problems
+log| System chat: Reload failed; keeping old data
+Bot| [system_chat] [Server: Reloading!]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.reload.success"}],"color":"gray","italic":true}
+### [reload_loot.txt:6] datapack enable "file/gtbadloot"
+log| System chat: Enabling data pack [file/gtbadloot (world)]
+log| WARN: Found loot table element validation problem in {gtbadloot:recursive@minecraft:loot_table}.pools[0].entries[0].value[0]: gtbadloot:recursive of type minecraft:loot_table is recursively called
+log| WARN: Failed to execute reload
+log| java.util.concurrent.CompletionException: java.lang.IllegalStateException: Found loot table validation problems
+log| System chat: Reload failed; keeping old data
+Bot| [system_chat] [Server: Enabling data pack [file/gtbadloot (world)]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.datapack.modify.enable","with":[{"translate":"chat.square_brackets","with":[{"translate":"pack.nameAndSource","with":["file/gtbadloot",{"translate":"pack.source.world"}],"color":"gray"}],"color":"green","hover_event":{"value":{"text":"","extra":["gtbadloot","\n","game test corpus pack with a recursive loot table"]},"action":"show_text"},"insertion":"\"file/gtbadloot\""}]}],"color":"gray","italic":true}
+### [reload_loot.txt:7] datapack list enabled
+log| System chat: There are 1 data pack(s) enabled: [vanilla (built-in)]
+### [reload_loot.txt:8] @bot loot give @s loot gtbadloot:recursive
+Bot| [system_chat] Can't find element 'gtbadloot:recursive' in registry 'minecraft:loot_table'
+Bot|   json {"text":"","extra":[{"translate":"argument.resource_or_id.no_such_element","with":["gtbadloot:recursive","minecraft:loot_table"]}],"color":"red"}
+Bot| [system_chat] ...:recursive<--[HERE]
+Bot|   json {"text":"","extra":[{"text":"","extra":["...",":recursive",{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/loot give @s loot gtbadloot:recursive","action":"suggest_command"}}],"color":"red"}

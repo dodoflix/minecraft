@@ -1,0 +1,8 @@
+# A data pack with a recursive loot table added to a RUNNING server: the reloadable registries load, then the loot table
+# validation throws and the reload keeps the old data (`/reload` and `datapack enable` print the failure).
+#   scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/reload_loot.txt
+!addpack gametest/gtbadloot
+reload
+datapack enable "file/gtbadloot"
+datapack list enabled
+@bot loot give @s loot gtbadloot:recursive
