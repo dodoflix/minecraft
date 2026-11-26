@@ -4,8 +4,8 @@
 # the layout of `<universe>/gametestworld` and the `--report` XML.
 #
 #   scripts/gametest-diff.sh [--record DIR | --golden DIR] [--ours-bin PATH] [--no-build] [--keep] [CASE...]
-#   cases: pass abbrev ambiguous double_dash dup_tests lone_dash repeat3 repeat_bad single_dash verify verify_bad packs
-#   missing verify_alone help (default: every case but verify, which runs 400 tests)
+#   cases: pass abbrev ambiguous cluster cluster_missing cluster_plain double_dash dup_tests lone_dash repeat3 repeat_bad
+#   single_dash verify verify_bad packs missing verify_alone help (default: every case but verify, which runs 400 tests)
 #
 # --record DIR  vanilla side only; writes DIR/<case>.vanilla.txt (the committed recordings live in
 #               crates/mc-server/tests/fixtures/gametest_main; record twice and diff before committing)
@@ -16,7 +16,7 @@
 # NORMALISATION (only what vanilla does non-deterministically; two recordings of every case differ in exactly these, except
 # the stack frames, which are a JVM artifact of vanilla's uncaught exceptions that this port does not print)
 #   - the `[HH:MM:SS] [thread/LEVEL]: ` log prefix (a non-INFO level is kept), `Worker-Main-<n>` thread numbers (the advancement
-#     load logs from a worker thread there), the bundler's `Unpacking` lines and the JVM's own warnings, "Can't keep up", the
+#     load logs from a worker thread), the bundler's `Unpacking` lines and the JVM's own warnings, "Can't keep up", the
 #     `at ...` and `... N more` frame lines of an uncaught exception
 #   - the random start position (`at position <POS>!`, `BlockPos{<POS>}` and `(x, y, z)` in test logs and failure messages),
 #     elapsed times, the working directory
@@ -49,7 +49,7 @@ while (($#)); do
     *) CASES+=("$1"); shift;;
   esac
 done
-((${#CASES[@]})) || CASES=(pass abbrev ambiguous double_dash dup_tests lone_dash repeat3 repeat_bad single_dash verify_bad packs missing verify_alone help)
+((${#CASES[@]})) || CASES=(pass abbrev ambiguous cluster cluster_missing cluster_plain double_dash dup_tests lone_dash repeat3 repeat_bad single_dash verify_bad packs missing verify_alone help)
 TARGET="${CARGO_TARGET_DIR:-$ROOT/target}"
 if [ "$MODE" != record ]; then
   if ((BUILD)); then
@@ -63,10 +63,13 @@ mkdir -p "$WORK/vanilla" "$WORK/ours" "$WORK/packs-gt"
 if ((KEEP)); then echo "gametest-diff: scratch directory $WORK" >&2; else trap 'rm -rf "$WORK"' EXIT; fi
 cp -r "$ROOT/crates/mc-game/tests/fixtures/commands_corpus/gametest/gtpack" "$WORK/packs-gt/gtpack"
 
-# The command line of a case (--universe and --report are added per side).
+# The command line of a case (--universe and --report are added per side unless the case names `u-<case>` itself).
 case_args() {
   case "$1" in
     pass) echo "--tests minecraft:always_pass" ;;
+    cluster) echo "-tminecraft:always_pass -uu-cluster --report rep-cluster.xml" ;;
+    cluster_missing) echo "--universe u-cluster_missing -tminecraft:always_pass -hv" ;;
+    cluster_plain) echo "-hx -tminecraft:always_pass" ;;
     abbrev) echo "--tes minecraft:always_pass --repeatC 2" ;;
     ambiguous) echo "--tests minecraft:always_pass --re 3" ;;
     double_dash) echo "--tests minecraft:always_pass -- --repeatCount 3" ;;
@@ -93,7 +96,6 @@ normalise_log() {
     -e 's/^\[[0-9:]{8}\] \[([^]\/]*)\/([A-Z]+)\]: /\2: [\1] /' \
     -e "/^WARN: \[Server thread\] Can't keep up!/d" \
     -e 's/Worker-Main-[0-9]+/Worker-Main-N/' \
-    -e 's/^\[ServerMain\] (Loaded [0-9]+ advancements)/[Worker-Main-N] \1/' \
     -e 's/(at position )-?[0-9]+, 4, -?[0-9]+!/\1<POS>!/' \
     -e 's/BlockPos\{x=-?[0-9]+, y=-?[0-9]+, z=-?[0-9]+\}/BlockPos{<POS>}/g' \
     -e 's/(COMPLETE IN ).* =+/\1<TIME> ======/' \
@@ -225,7 +227,7 @@ run_side() {
   # shellcheck disable=SC2046
   set -- $(case_args "$case")
   args=("$@")
-  [ "$case" = help ] || args+=(--universe "u-$case" --report "rep-$case.xml")
+  [ "$case" = help ] || [[ "$*" == *"u-$case"* ]] || args+=(--universe "u-$case" --report "rep-$case.xml")
   (
     cd "$dir"
     if [ "$side" = vanilla ]; then
@@ -243,6 +245,10 @@ run_side() {
     if [ "$case" = help ]; then
       echo "== help"
       grep -v '^WARNING: ' "$dir/err-$case.txt" || true
+    fi
+    if [ -d "$dir/u-$case" ]; then
+      echo "== universe"
+      ls -A "$dir/u-$case"
     fi
     if [ -d "$dir/u-$case/gametestworld" ]; then
       echo "== layout"

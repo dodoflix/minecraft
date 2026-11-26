@@ -198,7 +198,8 @@ fn load_with_resources<D, R>(
         .map_err(WorldLoadError::Thrown)?;
         let resources_load_context = initial_layers.replace_from(RegistryLayer::World, vec![loaded_world_registries, world_data_and_registries.final_dimensions]);
         let enabled: FeatureFlagSet = world_data_configuration.enabled_features;
-        let mut managers = ReloadableServerResources::load_resources(&resources, &resources_load_context, static_layer_tags, enabled, function_compilation_permissions)?;
+        // vanilla applies the reload on `Util.backgroundExecutor()`: its log lines come from a `Worker-Main-N` thread
+        let mut managers = crate::server::dedicated::logging::with_thread_name("Worker-Main-1", || ReloadableServerResources::load_resources(&resources, &resources_load_context, static_layer_tags, enabled, function_compilation_permissions))?;
         managers.update_components_and_static_registry_tags();
         let layers = managers.registry_layers().clone();
         Ok((managers, layers, world_data_and_registries.cookie))

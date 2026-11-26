@@ -37,7 +37,6 @@ use mc_game::server::level::ServerLevel;
 use mc_game::server::level::level_rules::LiveRules;
 use mc_game::server::network::{ConnectionSender, Outbound};
 use mc_game::server::permissions::{LevelBasedPermissionSet, PermissionLevel};
-use mc_game::server::players::name_resolver::UserNameToIdResolver as _;
 use mc_game::server::players::{NameAndId, PlayerHandle};
 use mc_game::world::clock::ClockInstance as _;
 use mc_game::world::entity::Entity;

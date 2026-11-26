@@ -12,7 +12,7 @@ use super::level_load_listener::LevelLoadListener;
 use super::notifications::NotificationManager;
 use super::packs::{MultiPackResourceManager, PackRepository};
 use super::players::PlayerList;
-use super::players::name_resolver::CachedUserNameToIdResolver;
+use super::players::name_resolver::UserNameToIdResolver;
 use super::registry_layer::RegistryLayer;
 use super::reloadable_resources::ReloadableServerResources;
 use super::server_state::SavedDataTypes;
@@ -73,7 +73,7 @@ pub struct ServerInit {
     pub registries: LayeredRegistryAccess<RegistryLayer>,
     pub dedicated: DedicatedServer,
     pub notification_manager: Arc<NotificationManager>,
-    pub name_to_id_cache: Arc<CachedUserNameToIdResolver>,
+    pub name_to_id_cache: Arc<dyn UserNameToIdResolver>,
     /// `Services.profileResolver()`.
     pub profile_resolver: Arc<dyn crate::server::players::ProfileResolver>,
     pub level_load_listener: Box<dyn LevelLoadListener>,
@@ -153,7 +153,7 @@ pub struct MinecraftServer {
     pub detached_players:
         std::collections::HashMap<uuid::Uuid, Box<crate::world::entity::ServerPlayer>>,
     pub notification_manager: Arc<NotificationManager>,
-    pub name_to_id_cache: Arc<CachedUserNameToIdResolver>,
+    pub name_to_id_cache: Arc<dyn UserNameToIdResolver>,
     /// `services().profileResolver()`.
     pub profile_resolver: Arc<dyn crate::server::players::ProfileResolver>,
     pub dedicated: DedicatedServer,

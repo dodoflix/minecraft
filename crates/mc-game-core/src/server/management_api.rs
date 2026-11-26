@@ -223,7 +223,6 @@ impl ManagementApi for ServerManagementApi {
         })
     }
     fn cached_user_by_id(&self, id: Uuid) -> Option<NameAndId> {
-        use super::players::UserNameToIdResolver;
         self.with(move |s| s.name_to_id_cache.get_by_id(id))
     }
     fn fetch_user_by_id(&self, _id: Uuid) -> Option<NameAndId> {
@@ -231,7 +230,6 @@ impl ManagementApi for ServerManagementApi {
         None
     }
     fn fetch_user_by_name(&self, name: &str) -> Option<NameAndId> {
-        use super::players::UserNameToIdResolver;
         let name = name.to_owned();
         self.with(move |s| s.name_to_id_cache.get_by_name(&name))
     }

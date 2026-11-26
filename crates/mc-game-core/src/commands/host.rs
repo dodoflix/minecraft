@@ -462,7 +462,6 @@ pub fn name_to_id(
     server: &MinecraftServer,
     name: &str,
 ) -> Option<crate::server::players::NameAndId> {
-    use crate::server::players::name_resolver::UserNameToIdResolver;
     server.name_to_id_cache.get_by_name(name)
 }
 

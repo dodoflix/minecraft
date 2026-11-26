@@ -40,6 +40,9 @@ macro_rules! cases {
 cases!(
     abbrev,
     ambiguous,
+    cluster,
+    cluster_missing,
+    cluster_plain,
     double_dash,
     dup_tests,
     help,

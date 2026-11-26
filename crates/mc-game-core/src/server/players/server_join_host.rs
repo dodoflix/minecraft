@@ -212,12 +212,10 @@ impl JoinHost for ServerJoinHost<'_> {
     }
 
     fn name_cache_get(&self, id: &Uuid) -> Option<String> {
-        use super::UserNameToIdResolver;
         self.server.name_to_id_cache.get_by_id(*id).map(|n| n.name)
     }
 
     fn name_cache_add(&mut self, name_and_id: &NameAndId) {
-        use super::UserNameToIdResolver;
         self.server.name_to_id_cache.add(name_and_id.clone());
     }
 

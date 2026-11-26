@@ -10,7 +10,6 @@ use crate::server::MinecraftServer;
 use crate::server::minecraft_server::VANILLA_BRAND;
 use crate::server::notifications::NotificationService;
 use crate::server::permissions::LevelBasedPermissionSet;
-use crate::server::players::UserNameToIdResolver;
 use crate::server::players::name_resolver::ProfileLookup;
 use crate::server::rcon::{QueryServerInfo, QueryThreadGs4, RconThread};
 use crate::server::server_links::{ServerLink, ServerLinks};

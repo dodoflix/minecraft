@@ -26,8 +26,9 @@ use crate::server::minecraft_server::{ReloadableResources, SERVER_THREAD_NAME, S
 use crate::server::notifications::NotificationManager;
 use crate::server::packs::ServerPacksSource;
 use crate::server::permissions::LevelBasedPermissionSet;
+use crate::server::players::NameAndId;
 use crate::server::players::name_resolver::{
-    CachedProfileResolver, CachedUserNameToIdResolver, NoProfileLookup,
+    NoProfileLookup, ProfileResolver, UserNameToIdResolver,
 };
 use crate::server::services_keys::ServicesKeys;
 use crate::server::shared::ServerShared;
@@ -37,16 +38,19 @@ use crate::world::level::DimensionKey;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_core::rotation::Rotation;
+use mc_protocol::codec::GameProfile;
 use mc_world::level_storage::{
     DataPackConfig, DifficultySettings, FeatureFlagSet, GameType, LevelResource, LevelSettings,
     LevelStorageSource, PrimaryLevelData, RespawnData, WorldDataConfiguration, WorldGenSettings,
     WorldOptions,
 };
+use parking_lot::Mutex;
 use std::cell::RefCell;
 use std::path::Path;
 use std::rc::Rc;
 use std::sync::Arc;
 use std::time::Instant;
+use uuid::Uuid;
 
 /// `ENABLED_FEATURES`: every feature flag but `REDSTONE_EXPERIMENTS` and `MINECART_IMPROVEMENTS`.
 const ENABLED_FEATURES: FeatureFlagSet =
@@ -189,14 +193,8 @@ pub fn spin(universe: &Path, config: impl FnOnce() -> Option<GameTestConfig>) ->
         }
     };
     let lookup = Arc::new(NoProfileLookup);
-    let name_to_id_cache = Arc::new(CachedUserNameToIdResolver::new(
-        lookup.clone(),
-        universe.join("usercache.json"),
-    ));
-    let profile_resolver = Arc::new(CachedProfileResolver::new(
-        lookup.clone(),
-        name_to_id_cache.clone(),
-    ));
+    let name_to_id_cache = Arc::new(MockUserNameToIdResolver::default());
+    let profile_resolver = Arc::new(MockProfileResolver);
     let mut dedicated = match DedicatedServer::new(
         DedicatedServerSettings::detached(),
         ConsoleInputQueue::new(),
@@ -246,6 +244,48 @@ pub fn spin(universe: &Path, config: impl FnOnce() -> Option<GameTestConfig>) ->
         Ok(Ok(())) => 0,
         _ => 1,
     }
+}
+
+/// `GameTestServer.MockProfileResolver`: no profile is ever found.
+struct MockProfileResolver;
+
+impl ProfileResolver for MockProfileResolver {
+    fn fetch_by_name(&self, _name: &str) -> Option<GameProfile> {
+        None
+    }
+
+    fn fetch_by_id(&self, _id: Uuid) -> Option<GameProfile> {
+        None
+    }
+}
+
+/// `GameTestServer.MockUserNameToIdResolver`: remembers what is added, answers an unknown name with its offline id and
+/// never writes `usercache.json`.
+#[derive(Default)]
+struct MockUserNameToIdResolver {
+    saved: Mutex<Vec<NameAndId>>,
+}
+
+impl UserNameToIdResolver for MockUserNameToIdResolver {
+    fn add(&self, name_and_id: NameAndId) {
+        let mut saved = self.saved.lock();
+        if !saved.contains(&name_and_id) {
+            saved.push(name_and_id);
+        }
+    }
+
+    fn get_by_name(&self, name: &str) -> Option<NameAndId> {
+        let found = self.saved.lock().iter().find(|e| e.name == name).cloned();
+        found.or_else(|| Some(NameAndId::create_offline(name)))
+    }
+
+    fn get_by_id(&self, id: Uuid) -> Option<NameAndId> {
+        self.saved.lock().iter().find(|e| e.id == id).cloned()
+    }
+
+    fn resolve_offline_users(&self, _value: bool) {}
+
+    fn save(&self) {}
 }
 
 /// `System.exit(code)`: the log lines are on disk and in the console first.

@@ -42,11 +42,31 @@ fn level_name(level: log::Level) -> &'static str {
     }
 }
 
+thread_local! {
+    static NAME_OVERRIDE: std::cell::Cell<Option<&'static str>> = const { std::cell::Cell::new(None) };
+}
+
+/// Runs `f` with its log lines carrying `name` as the thread: work that vanilla runs on a pool thread (`Worker-Main-N`)
+/// runs inline here, and the golden tests read their log lines per calling thread.
+pub fn with_thread_name<R>(name: &'static str, f: impl FnOnce() -> R) -> R {
+    struct Restore(Option<&'static str>);
+    impl Drop for Restore {
+        fn drop(&mut self) {
+            NAME_OVERRIDE.with(|n| n.set(self.0));
+        }
+    }
+    let _restore = Restore(NAME_OVERRIDE.with(|n| n.replace(Some(name))));
+    f()
+}
+
 /// Java gives unnamed threads `Thread-N`.
 fn current_thread_name() -> String {
     static NEXT: AtomicUsize = AtomicUsize::new(0);
     thread_local! {
         static UNNAMED: usize = NEXT.fetch_add(1, Ordering::Relaxed);
+    }
+    if let Some(name) = NAME_OVERRIDE.with(std::cell::Cell::get) {
+        return name.to_owned();
     }
     match std::thread::current().name() {
         Some(name) => name.to_owned(),
@@ -179,6 +199,16 @@ mod tests {
     use super::*;
     use chrono::TimeZone;
     use std::io::Read;
+
+    #[test]
+    fn a_scoped_thread_name_replaces_the_real_one_and_is_restored() {
+        let real = current_thread_name();
+        assert_eq!(
+            with_thread_name("Worker-Main-1", current_thread_name),
+            "Worker-Main-1"
+        );
+        assert_eq!(current_thread_name(), real);
+    }
 
     #[test]
     fn line_format() {

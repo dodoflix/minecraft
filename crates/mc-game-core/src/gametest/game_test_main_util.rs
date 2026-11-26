@@ -81,8 +81,49 @@ const NAMES: [&str; 7] = [
     "verify",
 ];
 
-/// `parser.parse(args)` with `allowsUnrecognizedOptions()`: `--name value`, `--name=value` and unique abbreviations; a
-/// token that names no option (an ambiguous abbreviation too) is a plain argument; `--` ends the options.
+/// jopt-simple's `isRecognized`: the full name or a unique abbreviation.
+fn resolve(name: &str) -> Option<&'static str> {
+    let mut candidates = NAMES.iter().copied().filter(|n| n.starts_with(name));
+    match (
+        NAMES.iter().copied().find(|n| *n == name),
+        candidates.next(),
+        candidates.next(),
+    ) {
+        (Some(exact), ..) => Some(exact),
+        (None, Some(only), None) => Some(only),
+        _ => None,
+    }
+}
+
+/// `handleShortOptionCluster`: `-tVALUE`, `-hu DIR`: single-letter options, the first one that takes an argument takes the
+/// rest of the token (or the next argument). A character that names no option makes the whole token a plain argument.
+fn short_cluster(body: &str) -> Option<Vec<(&'static str, Option<String>)>> {
+    let chars: Vec<char> = body.chars().collect();
+    let options: Vec<&str> = chars
+        .iter()
+        .scan(false, |done, c| {
+            (!*done).then(|| {
+                let full = resolve(&c.to_string());
+                *done = full != Some("help");
+                full
+            })
+        })
+        .collect::<Option<_>>()?;
+    let mut actions = Vec::new();
+    for (i, full) in options.into_iter().enumerate() {
+        if full == "help" {
+            actions.push((full, None));
+        } else {
+            let rest = chars[i + 1..].iter().collect::<String>();
+            actions.push((full, (!rest.is_empty()).then_some(rest)));
+        }
+    }
+    Some(actions)
+}
+
+/// `parser.parse(args)` with `allowsUnrecognizedOptions()`: `--name value`, `--name=value`, `-name value` and unique
+/// abbreviations, short-option clusters; a token that names no option (an ambiguous abbreviation too) is a plain argument;
+/// `--` ends the options.
 fn parse(args: &[String]) -> Result<Options, Exception> {
     let mut options = Options::default();
     let mut args = args.iter();
@@ -90,35 +131,35 @@ fn parse(args: &[String]) -> Result<Options, Exception> {
         if arg == "--" {
             break;
         }
-        let Some(body) = arg
-            .strip_prefix("--")
-            .or_else(|| arg.strip_prefix('-'))
-            .filter(|b| !b.is_empty())
-        else {
-            continue;
+        let (long, body) = match arg.strip_prefix("--") {
+            Some(body) => (true, body),
+            None => (false, arg.strip_prefix('-').unwrap_or_default()),
         };
+        if body.is_empty() {
+            continue;
+        }
         let (name, inline) = match body.split_once('=') {
             Some((name, value)) => (name, Some(value.to_owned())),
             None => (body, None),
         };
-        let exact = NAMES.iter().copied().find(|n| *n == name);
-        let mut candidates = NAMES.iter().copied().filter(|n| n.starts_with(name));
-        let full = match (exact, candidates.next(), candidates.next()) {
-            (Some(exact), ..) => exact,
-            (None, Some(only), None) => only,
-            _ => continue,
+        let actions = match resolve(name) {
+            Some(full) => Some(vec![(full, inline)]),
+            None if long => None,
+            None => short_cluster(body),
         };
-        if full == "help" {
-            options.help = true;
-            continue;
+        for (full, inline) in actions.into_iter().flatten() {
+            if full == "help" {
+                options.help = true;
+                continue;
+            }
+            let Some(value) = inline.or_else(|| args.next().cloned()) else {
+                return Err(Exception::new(
+                    "joptsimple.OptionMissingRequiredArgumentException",
+                    format!("Option {full} requires an argument"),
+                ));
+            };
+            options.values.push((full, value));
         }
-        let Some(value) = inline.or_else(|| args.next().cloned()) else {
-            return Err(Exception::new(
-                "joptsimple.OptionMissingRequiredArgumentException",
-                format!("Option {full} requires an argument"),
-            ));
-        };
-        options.values.push((full, value));
     }
     Ok(options)
 }
@@ -145,10 +186,20 @@ pub fn run_game_test_server(args: &[String]) -> i32 {
 
 #[expect(
     clippy::print_stderr,
-    reason = "the help text goes to stderr, as in vanilla"
+    reason = "the help text and the parser's exception go to stderr, as in vanilla"
 )]
 fn run(args: &[String]) -> Result<i32, Exception> {
-    let options = parse(args)?;
+    // the parser runs before the console log exists: its exception goes to the process's own stderr
+    let options = match parse(args) {
+        Ok(options) => options,
+        Err(exception) => {
+            eprintln!(
+                "Exception in thread \"ServerMain\" {}: {}",
+                exception.class, exception.message
+            );
+            return Ok(0);
+        }
+    };
     if options.help {
         eprint!("{HELP}");
         return Ok(0);
@@ -298,5 +349,33 @@ mod tests {
         let options = parse(&args(&["--tests", "a", "--tests", "b"])).unwrap();
         assert!(options.has("tests"));
         assert!(options.value_of("tests").is_err());
+    }
+
+    /// The results of jopt-simple 5.0.4 for the same option set and `allowsUnrecognizedOptions()`.
+    #[test]
+    fn short_options_form_clusters_like_jopt_simple() {
+        let value = |list: &[&str], name: &str| {
+            parse(&args(list))
+                .unwrap()
+                .value_of(name)
+                .unwrap()
+                .map(str::to_owned)
+        };
+        assert_eq!(value(&["-tfoo"], "tests").as_deref(), Some("foo"));
+        assert_eq!(value(&["-t", "foo"], "tests").as_deref(), Some("foo"));
+        assert_eq!(value(&["-ufoo"], "universe").as_deref(), Some("foo"));
+        assert_eq!(value(&["-tab=c"], "tests").as_deref(), Some("ab=c"));
+        assert_eq!(value(&["-t=a"], "tests").as_deref(), Some("a"));
+        assert_eq!(value(&["-vu"], "verify").as_deref(), Some("u"));
+        // `-h` takes no argument, so `u` after it is the next option, which takes the next argument
+        let options = parse(&args(&["-hu", "dir"])).unwrap();
+        assert!(options.help);
+        assert_eq!(options.value_of("universe").unwrap(), Some("dir"));
+        // a character that names no option (`x`, the ambiguous `r`) makes the whole token a plain argument
+        for plain in ["-hx", "-rx", "-5", "-rep=x"] {
+            let options = parse(&args(&[plain])).unwrap();
+            assert!(!options.help && options.values.is_empty(), "{plain}");
+        }
+        assert!(parse(&args(&["-hv"])).is_err());
     }
 }
