@@ -279,6 +279,8 @@ pub struct ChunkMap {
     pub events: Vec<ChunkMapEvent>,
     pub(crate) next_batch_id: u64,
     pub(crate) in_flight_batch: Option<u64>,
+    /// Serial batch id -> the task whose slice sent it and goes on when the result is applied.
+    pub(crate) slice_continuations: HashMap<u64, u64>,
     /// Batches (biomes, terrain) running on the background pool; each lends only its own chunk.
     pub(crate) background_batches: std::collections::HashSet<u64>,
     /// Chunks whose EMPTY load is waiting for the pool/IO.
@@ -410,6 +412,7 @@ impl ChunkMap {
             events: Vec::new(),
             next_batch_id: 1,
             in_flight_batch: None,
+            slice_continuations: HashMap::new(),
             background_batches: std::collections::HashSet::new(),
             loading: LongOpenHashSet::new(),
             light_barrier_pending: std::collections::HashSet::new(),

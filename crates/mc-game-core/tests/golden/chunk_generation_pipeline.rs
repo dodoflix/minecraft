@@ -167,6 +167,8 @@ struct Hooks {
     fail_features_at: Option<ChunkPos>,
     /// A raw section write (an ore vein) of `applyBiomeDecoration` of the chunk.
     section_write: Option<(ChunkPos, BlockPos, BlockState)>,
+    /// `createStructures` of this chunk takes 100 ms, so every other task is ready when the batch it belongs to is done.
+    slow_starts_at: Vec<ChunkPos>,
 }
 
 impl Hooks {
@@ -180,6 +182,9 @@ impl Hooks {
 
 impl WorldGenHooks for Hooks {
     fn create_structures(&self, _ctx: &WorldGenContext, chunk: &mut ProtoChunk) {
+        if self.slow_starts_at.contains(&chunk.pos()) {
+            std::thread::sleep(Duration::from_millis(100));
+        }
         self.record(Stage::Starts, chunk.pos());
     }
     fn create_references(&self, _ctx: &WorldGenContext, region: &mut WorldGenRegion) {
@@ -219,9 +224,13 @@ fn open(
     fail_features_at: Option<ChunkPos>,
     legacy: bool,
 ) -> ServerLevel {
-    open_with(dir, log, fail_features_at, legacy, None, None, 0)
+    open_with(dir, log, fail_features_at, legacy, None, None, 0, &[])
 }
 
+#[allow(
+    clippy::too_many_arguments,
+    reason = "one knob per scenario of this file"
+)]
 fn open_with(
     dir: &std::path::Path,
     log: &Log,
@@ -230,6 +239,7 @@ fn open_with(
     overlap: Option<Arc<Overlap>>,
     section_write: Option<(ChunkPos, BlockPos, BlockState)>,
     jitter: u64,
+    slow_starts_at: &[ChunkPos],
 ) -> ServerLevel {
     let (shared, _rx) = ServerShared::new();
     ServerLevel::new(ServerLevelParams {
@@ -260,6 +270,7 @@ fn open_with(
             log: log.clone(),
             fail_features_at,
             section_write,
+            slow_starts_at: slow_starts_at.to_vec(),
         }),
         seed: 0,
         is_known_structure: Arc::new(|_| false),
@@ -294,7 +305,7 @@ fn terrain_of_different_chunks_runs_at_the_same_time() {
     let _ = std::fs::remove_dir_all(&dir);
     let log: Log = Arc::default();
     let overlap = Arc::new(Overlap::default());
-    let mut level = open_with(&dir, &log, None, false, Some(overlap.clone()), None, 0);
+    let mut level = open_with(&dir, &log, None, false, Some(overlap.clone()), None, 0, &[]);
     assert!(
         level
             .proto_chunk_blocking(0, 0, ChunkStatus::Spawn, true)
@@ -320,7 +331,7 @@ fn the_serial_steps_run_in_the_same_order_whatever_the_speed_of_the_workers() {
         ));
         let _ = std::fs::remove_dir_all(&dir);
         let log: Log = Arc::default();
-        let mut level = open_with(&dir, &log, None, false, None, None, jitter);
+        let mut level = open_with(&dir, &log, None, false, None, None, jitter, &[]);
         for (x, z) in [(0, 0), (1, 0), (2, 1)] {
             assert!(
                 level
@@ -353,6 +364,40 @@ fn the_serial_steps_run_in_the_same_order_whatever_the_speed_of_the_workers() {
     for jitter in 1..=4 {
         assert_eq!(serial_order(jitter), reference, "jitter {jitter}");
     }
+}
+
+/// One `runUntilWait()` slice goes on through every layer whose steps finish inside the call: the structure starts and the
+/// references of a task run one after the other on the worker, however many other tasks are ready (the steps' futures are
+/// complete when the loop checks them, so the slice is never queued behind another chunk's task in between).
+#[test]
+fn a_slice_runs_the_starts_and_references_layers_without_another_task_in_between() {
+    let dir = std::env::temp_dir().join(format!("mc-pipeline-slice-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&dir);
+    let log: Log = Arc::default();
+    // two chunks too far apart to share a step; the first step of each region holds the worker while the other task is ready
+    let (west, east) = (ChunkPos::new(0, 0), ChunkPos::new(60, 0));
+    let mut level = open_with(&dir, &log, None, false, None, None, 0, &[west, east]);
+    let futures = [west, east].map(|c| {
+        level
+            .chunk_source
+            .get_chunk_future_main_thread(c.x, c.z, ChunkStatus::Spawn, true)
+    });
+    level.apply_chunk_events();
+    level.block_on_chunks(|chunks| futures.iter().all(|f| chunks.future_result(*f).is_some()));
+    level.close();
+    let _ = std::fs::remove_dir_all(&dir);
+    let log = log.lock().unwrap();
+    // the region of each task, in the order the worker ran the starts and references steps
+    let regions: Vec<bool> = log
+        .iter()
+        .filter(|(stage, _, _)| matches!(stage, Stage::Starts | Stage::References { .. }))
+        .map(|(_, pos, _)| pos.x > 30)
+        .collect();
+    let switches = regions.windows(2).filter(|w| w[0] != w[1]).count();
+    assert_eq!(
+        switches, 1,
+        "the starts/references steps of the two tasks interleave: {regions:?}"
+    );
 }
 
 #[test]
@@ -543,6 +588,7 @@ fn ore_writes_into_a_full_neighbour_land_in_the_real_chunk() {
         None,
         Some((ChunkPos::new(1, 0), pos, ore)),
         0,
+        &[],
     );
     assert!(
         level

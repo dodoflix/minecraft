@@ -173,8 +173,9 @@ impl ChunkMap {
             return;
         }
         let waiting_for = self.run_until_wait(id);
-        let inline_result = self.flush_batch(id);
-        if let Some((key, status)) = waiting_for
+        let (inline_result, continues) = self.flush_batch(id, waiting_for);
+        if !continues
+            && let Some((key, status)) = waiting_for
             && let Some(h) = self.holders.holder_mut(key)
         {
             h.add_waiter(status, Waiter::Task(id));
@@ -544,10 +545,17 @@ impl ChunkMap {
     /// Send the collected worldgen steps of a task's layer to the executors: the steps vanilla runs on
     /// `Util.backgroundExecutor()` (biomes, terrain) as one background batch per chunk, the others to the worldgen thread;
     /// the result of an inline batch comes back.
-    fn flush_batch(&mut self, id: u64) -> Option<WorkerMessage> {
-        let task = self.tasks.get_mut(&id)?;
+    /// The second result tells whether the calling slice goes on when the batch is done (`slice_continuations`).
+    fn flush_batch(
+        &mut self,
+        id: u64,
+        awaiting: Option<(i64, ChunkStatus)>,
+    ) -> (Option<WorkerMessage>, bool) {
+        let Some(task) = self.tasks.get_mut(&id) else {
+            return (None, false);
+        };
         if task.batch_jobs.is_empty() {
-            return None;
+            return (None, false);
         }
         let jobs = std::mem::take(&mut task.batch_jobs);
         let (background, jobs): (Vec<GenJob>, Vec<GenJob>) = if self.worldgen.runs_in_parallel() {
@@ -560,8 +568,16 @@ impl ChunkMap {
             self.submit_background_job(job);
         }
         if jobs.is_empty() {
-            return None;
+            return (None, false);
         }
+        // the slice waits on a step of this very batch: vanilla runs those steps inside the slice (their futures are complete
+        // when `runUntilWait` checks them), so the slice goes on when the batch is done instead of queueing behind other
+        // chunks' tasks
+        let continues = !self.worldgen.is_inline()
+            && awaiting.is_some_and(|(key, status)| {
+                jobs.iter()
+                    .any(|job| job.pos.pack() == key && job.step.target_status == status)
+            });
         let mut chunks: HashMap<i64, GenChunk> = HashMap::new();
         let mut structure_views: HashMap<i64, Arc<StructureData>> = HashMap::new();
         for job in &jobs {
@@ -606,13 +622,16 @@ impl ChunkMap {
         self.next_batch_id += 1;
         self.in_flight_batch = Some(batch_id);
         self.worldgen_busy = true;
+        if continues {
+            self.slice_continuations.insert(batch_id, id);
+        }
         // an inline batch comes back as the return value, not as a worker message
         let seq = if self.worldgen.is_inline() {
             0
         } else {
             self.next_result_seq()
         };
-        self.worldgen.submit(
+        let inline_result = self.worldgen.submit(
             self.gen_context.clone(),
             GenBatch {
                 id: batch_id,
@@ -622,7 +641,8 @@ impl ChunkMap {
                 old_chunks,
             },
             seq,
-        )
+        );
+        (inline_result, continues)
     }
 
     /// `ChunkStatusTasks.generateBiomes` / `buildTerrain`: the chunk goes to the background pool alone. Its neighbours are
@@ -913,6 +933,10 @@ impl ChunkMap {
             self.complete_step(key, status);
         }
         self.process_ready();
+        // the slice that sent this batch goes on with its next layer, as vanilla's `runUntilWait` loop does
+        if let Some(task) = self.slice_continuations.remove(&result.id) {
+            self.run_generation_task_slice(task);
+        }
     }
 }
 
