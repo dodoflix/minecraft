@@ -10,7 +10,7 @@ pub fn reload_packs(selected_packs: &[String], source: &CommandSourceStack) {
             "Failed to execute reload\n{}",
             mc_game_core::server::packs::throwable(
                 "java.util.concurrent.CompletionException",
-                &e.to_string()
+                &e.thrown_text()
             )
         );
         source.send_failure(translatable!("commands.reload.failure"));

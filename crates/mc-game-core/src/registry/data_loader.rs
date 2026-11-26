@@ -105,6 +105,15 @@ impl RegistryLoadFailure {
             .collect()
     }
 
+    /// `Throwable.toString()` of what a failed load ends in: the `ReportedException` of the crash report (its message is the
+    /// report's title), or the exception thrown out of the load itself.
+    pub fn thrown_text(&self) -> String {
+        match &self.thrown {
+            Some(thrown) => thrown.print(),
+            None => "net.minecraft.ReportedException: Registry Loading".to_owned(),
+        }
+    }
+
     /// Log like `RegistryDataLoader.logErrors`.
     pub fn log(&self) {
         log::error!("Registry loading errors:\n{}", self.full_details());

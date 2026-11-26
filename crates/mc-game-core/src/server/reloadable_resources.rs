@@ -72,6 +72,16 @@ pub enum ReloadError {
     Listener { name: &'static str, message: String },
 }
 
+impl ReloadError {
+    /// `Throwable.toString()` of the exception the reload future fails with.
+    pub fn thrown_text(&self) -> String {
+        match self {
+            ReloadError::Registries(e) => e.thrown_text(),
+            ReloadError::Listener { .. } => self.to_string(),
+        }
+    }
+}
+
 impl std::fmt::Display for ReloadError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {

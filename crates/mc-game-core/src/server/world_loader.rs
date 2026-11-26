@@ -101,16 +101,8 @@ impl WorldLoadError {
             crate::server::packs::throwable(
                 "java.util.concurrent.ExecutionException",
                 &match self {
-                    // an exception thrown out of the load replaces the report
                     WorldLoadError::Registries(e)
-                    | WorldLoadError::Reload(ReloadError::Registries(e))
-                        if e.thrown.is_some() =>
-                        e.to_string(),
-                    WorldLoadError::Registries(e)
-                    | WorldLoadError::Reload(ReloadError::Registries(e)) => format!(
-                        "net.minecraft.ReportedException: Failed to load registries due to errors{}",
-                        e.brief()
-                    ),
+                    | WorldLoadError::Reload(ReloadError::Registries(e)) => e.thrown_text(),
                     WorldLoadError::Reload(e) => format!(
                         "net.minecraft.ReportedException: Failed to load registries due to errors: {e}"
                     ),
