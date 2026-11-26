@@ -39,7 +39,6 @@ bullet links to the `parity` issue that tracks the category, and known differenc
 
 - **Commands, advancements and loot:** each of the 87 commands has scenarios that compare its feedback with vanilla recordings, as do selectors, advancement triggers and rewards, loot tables and statistics; commands and selectors that cross dimensions are replayed with several levels. Not compared: outputs that carry elapsed time, file paths or network lookups (`perf stop`, `debug stop`, profile lookups by id or name in `fetchprofile`), which only the nightly dual-server corpora cover, and seven hand-driven test files that run no commands. Text with selector, score or NBT contents in `set_name`/`set_lore` is resolved only where the roll has a server (commands, not mob deaths or block breaks), a bad inline `/place feature` config reports only the first error of vanilla's DFU wording, and the `/gamerule` literals sit in a different order in the command tree than vanilla's. ([#22](https://github.com/dodoflix/minecraft/issues/22))
 - **Floating point:** Java's `Math.sin`/`Math.cos` (HotSpot intrinsics) differ from the port in the last bit for about 0.15% of inputs, which can shift guardian, fox, ravager, TNT and random-position motion by one ulp. ([#32](https://github.com/dodoflix/minecraft/issues/32))
-- **Server features:** the moderation text filter service (`text-filtering-config`) is not ported; chat and sign text pass through unfiltered, as on a vanilla server without that setting. ([#21](https://github.com/dodoflix/minecraft/issues/21))
 
 ## Prerequisites
 
