@@ -1,0 +1,11 @@
+# Offline join in a seeded flat world, stay 20 s of game time: screens, chunk count, packet types, registries, tags,
+# features, brand and the client log (also covers the registry sync and the brand/secure-chat rows).
+server seed=12345
+client join
+wait_screen null 120
+# 117 = the chunks of view distance 4 (the runner default)
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+wait_state ticks_in_level >= 400 60
+snapshot joined
+client disconnect
+wait_screen TitleScreen 30

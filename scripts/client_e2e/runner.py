@@ -10,6 +10,9 @@ Artifacts per side in OUT/LABEL: side.json, client.log, latest.log, server.log, 
 reports/. OUT/report.json and OUT/diff.txt hold the comparison of the first two sides (the first is the baseline).
 Exit 0 iff there is no difference that tests/e2e/client/known-differences.txt does not list.
 """
+import hashlib
+import http.server
+import io
 import json
 import os
 import re
@@ -19,7 +22,9 @@ import socket
 import subprocess
 import sys
 import tempfile
+import threading
 import time
+import zipfile
 
 from client_e2e import compare, scenario, shotdiff
 
@@ -33,7 +38,7 @@ USER = "Steve"
 # One world setup for every side; a scenario's `server` lines and a side's overrides come after it.
 DEFAULT_PROPS = {
     "level-type": "minecraft:flat", "difficulty": "normal", "gamemode": "survival", "force-gamemode": "true",
-    "spawn-monsters": "false", "spawn-animals": "false", "spawn-npcs": "false", "generate-structures": "false",
+    "generate-structures": "false",
     "enforce-secure-profile": "false", "spawn-protection": "0", "view-distance": "4", "simulation-distance": "4",
     "online-mode": "false", "white-list": "false", "max-tick-time": "-1", "motd": "e2e",
     "pause-when-empty-seconds": "-1",  # a paused server would not run console commands before the client joins
@@ -93,6 +98,74 @@ def read(path):
             return f.read()
     except FileNotFoundError:
         return ""
+
+# ---- files served over HTTP -------------------------------------------------------------------------------------------
+
+def blob(src):
+    """The bytes a `serve` entry answers with: a file as it is, a directory as a zip with fixed timestamps (equal sha1 on every side)."""
+    if not os.path.isdir(src):
+        return read_bytes(src)
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        for dirpath, dirs, names in os.walk(src):
+            dirs.sort()
+            for n in sorted(names):
+                full = os.path.join(dirpath, n)
+                info = zipfile.ZipInfo(os.path.relpath(full, src).replace(os.sep, "/"), date_time=(2020, 1, 1, 0, 0, 0))
+                info.compress_type = zipfile.ZIP_DEFLATED
+                z.writestr(info, read_bytes(full))
+    return buf.getvalue()
+
+
+def read_bytes(path):
+    try:
+        with open(path, "rb") as f:
+            return f.read()
+    except OSError as e:
+        raise StepError(f"serve source {path}: {e.strerror}") from None
+
+
+class Files:
+    """The scenario's `serve PATH SRC` entries on 127.0.0.1; every other path answers 404. `.base`/`.sha1(PATH)` feed `expand`."""
+
+    def __init__(self, serves):
+        self.blobs = {"/" + p: blob(src) for p, src in serves}
+        blobs = self.blobs
+
+        class Handler(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):
+                body = blobs.get(self.path.split("?")[0])
+                self.send_response(200 if body is not None else 404)
+                self.send_header("Content-Length", str(len(body or b"")))
+                self.end_headers()
+                self.wfile.write(body or b"")
+
+            def log_message(self, *args):
+                pass
+
+        self.httpd = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        self.base = f"http://127.0.0.1:{self.httpd.server_address[1]}"
+        threading.Thread(target=self.httpd.serve_forever, daemon=True).start()
+
+    def sha1(self, path):
+        try:
+            return hashlib.sha1(self.blobs[path]).hexdigest()
+        except KeyError:
+            raise StepError(f"{{sha1:{path}}}: nothing is served at {path}") from None
+
+    def stop(self):
+        self.httpd.shutdown()
+        self.httpd.server_close()
+
+
+def expand(text, port, files):
+    """Fills `{port}` (the server's), `{http}` (the base URL of `serve`) and `{sha1:/PATH}` (the sha1 of a served file)."""
+    return re.sub(
+        r"\{(port|http|sha1:[^}]*)\}",
+        lambda m: str(port) if m.group(1) == "port" else files.base if m.group(1) == "http" else files.sha1(m.group(1)[5:]),
+        text,
+    )
+
 
 
 # ---- the services mock ----------------------------------------------------------------------------------------------
@@ -235,6 +308,8 @@ class Client:
         self.last_screen = self.last_reason = None
         display = ["--display", self.display] if self.display else []
         self.real("start", self.name, user, addr, "--mojang", mojang_url, *display, *[x for o in options for x in ("--option", o)], timeout=180)
+        # the JVM may queue for a machine-wide client slot: a step's own timeout starts once the client prints its first state
+        self.wait(lambda: bool(self.state), 900, "the client to start")
 
     def alive(self):
         try:
@@ -309,7 +384,7 @@ def run_steps(sc, ctx):
     for line_no, op, a in sc.steps:
         try:
             if op == "console":
-                server.cmd(a["text"])
+                server.cmd(expand(a["text"], ctx["port"], ctx["files"]))
             elif op == "client":
                 if a["action"] == "join":
                     server_from = len(server.log_text())
@@ -338,7 +413,7 @@ def run_steps(sc, ctx):
                         raise StepError(f"timeout after {a['timeout']:g}s waiting for server log /{a['regex']}/")
                     time.sleep(0.2)
             elif op == "ctl":
-                client.ctl(a["json"])
+                client.ctl(json.loads(expand(json.dumps(a["json"]), ctx["port"], ctx["files"])))
             elif op == "snapshot":
                 path = os.path.join(out, "snapshots", a["label"] + ".json")
                 os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -396,10 +471,11 @@ def run_side(sc, kind, label, overrides, out, opts):
     shutil.rmtree(out, ignore_errors=True)
     os.makedirs(out)
     scn = os.path.splitext(os.path.basename(sc.path))[0]
-    props = {**DEFAULT_PROPS, "level-seed": str(opts["seed"]), **sc.props, **overrides}
     port = free_port()
-    errors, mojang, server, client = [], None, None, None
+    errors, mojang, server, client, files = [], None, None, None, None
     try:
+        files = Files(sc.serves)
+        props = {k: expand(v, port, files) for k, v in {**DEFAULT_PROPS, "level-seed": str(opts["seed"]), **sc.props, **overrides}.items()}
         mojang = Mojang(os.path.join(out, "mojang.jsonl"))
         name = f"e2e-{scn}-{label}"
         if kind == "vanilla":
@@ -409,7 +485,7 @@ def run_side(sc, kind, label, overrides, out, opts):
         server.start()
         run_commands(server, SETUP_COMMANDS)
         client = Client(name, opts["display"])
-        run_steps(sc, {"client": client, "server": server, "dir": out, "port": port, "mojang": mojang})
+        run_steps(sc, {"client": client, "server": server, "dir": out, "port": port, "mojang": mojang, "files": files})
     except (StepError, OSError) as e:
         errors.append(str(e))
     finally:
@@ -422,8 +498,12 @@ def run_side(sc, kind, label, overrides, out, opts):
                 if server is not None:
                     save_server(server, out)
             finally:
-                if mojang is not None:
-                    mojang.stop()
+                try:
+                    if mojang is not None:
+                        mojang.stop()
+                finally:
+                    if files is not None:
+                        files.stop()
     meta = {
         "kind": kind, "label": label, "errors": errors,
         "screens": client.screens if client else [], "disconnects": client.disconnects if client else [],

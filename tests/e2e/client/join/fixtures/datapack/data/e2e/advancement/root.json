@@ -1,0 +1,1 @@
+{"criteria": {"never": {"trigger": "minecraft:impossible"}}, "display": {"icon": {"id": "minecraft:stone"}, "title": "E2E", "description": "root", "background": "minecraft:gui/advancements/backgrounds/stone", "announce_to_chat": false}}

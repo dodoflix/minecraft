@@ -1,0 +1,1 @@
+{"parent": "e2e:root", "criteria": {"never": {"trigger": "minecraft:impossible"}}, "display": {"icon": {"id": "minecraft:dirt"}, "title": "E2E child", "description": "child", "announce_to_chat": false}}

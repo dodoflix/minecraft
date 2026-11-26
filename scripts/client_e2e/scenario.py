@@ -4,6 +4,9 @@ Server setup (applied before the server starts, the same for every side):
     server KEY=VALUE...           server.properties entries (`seed=N` is `level-seed`)
     file PATH SRC                 copy SRC (relative to the scenario file) to PATH in the server directory
     datapack DIR                  copy DIR (relative to the scenario file) to world/datapacks/<name>
+    serve /PATH SRC               answer GET /PATH over HTTP on 127.0.0.1 with the file SRC (a directory is served as a zip)
+Placeholders in `server` values, `console` text and `ctl` JSON: `{port}` (the server's port), `{http}` (base URL of the
+`serve` entries), `{sha1:/PATH}` (the sha1 of a served entry).
 Comparison settings:
     tolerate GLOB N               numeric snapshot values at paths matching GLOB (dotted, `*` wildcard) may differ by N
 Steps, run in order after the server is up:
@@ -103,6 +106,7 @@ class Scenario:
         self.props = {}  # server.properties entries, in order
         self.files = []  # (destination, source path)
         self.datapacks = []  # source directories
+        self.serves = []  # (URL path without the slash, source file or directory)
         self.tolerances = []  # (glob, tolerance)
         self.steps = []  # (line number, op, args dict)
 
@@ -160,6 +164,9 @@ def parse(text, path=""):
         elif op == "datapack":
             _need(len(tokens) == 1, line_no, "datapack needs DIR")
             sc.datapacks.append(os.path.join(base, tokens[0]))
+        elif op == "serve":
+            _need(len(tokens) == 2 and tokens[0].startswith("/"), line_no, "serve needs /PATH SRC")
+            sc.serves.append((tokens[0][1:], os.path.join(base, tokens[1])))
         elif op == "tolerate":
             _need(len(tokens) == 2, line_no, "tolerate needs GLOB N")
             try:

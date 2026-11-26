@@ -1,5 +1,8 @@
 """Scenario grammar, side parsing and the comparer on synthetic artifacts: python3 tests/e2e/client/test_runner.py"""
+import hashlib
 import json
+import urllib.error
+import urllib.request
 import os
 import sys
 import tempfile
@@ -112,6 +115,36 @@ class PumpTest(unittest.TestCase):
             self.assertEqual(client.state["ticks_in_level"], 0)
             self.assertEqual(client.screens, ["ConnectScreen", None, "DisconnectedScreen", "ConnectScreen", None])
             self.assertEqual(client.disconnects, ["Kicked"])
+
+
+class ServeTest(unittest.TestCase):
+    def test_files_are_served_and_placeholders_filled(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            pack = os.path.join(tmp, "pack")
+            os.makedirs(os.path.join(pack, "assets"))
+            for name in ("pack.mcmeta", os.path.join("assets", "a.json")):
+                with open(os.path.join(pack, name), "w") as f:
+                    f.write("{}")
+            self.assertEqual(runner.blob(pack), runner.blob(pack))  # fixed timestamps: the sha1 is stable
+            files = runner.Files([("pack.zip", pack)])
+            self.addCleanup(files.stop)
+            with urllib.request.urlopen(files.base + "/pack.zip") as r:
+                body = r.read()
+            self.assertEqual(body, runner.blob(pack))
+            with self.assertRaises(urllib.error.HTTPError) as missing:
+                urllib.request.urlopen(files.base + "/other.zip")
+            self.assertEqual(missing.exception.code, 404)
+            text = runner.expand("{http}/pack.zip {sha1:/pack.zip} {port} {\"a\": 1}", 25565, files)
+            self.assertEqual(text, f"{files.base}/pack.zip {hashlib.sha1(body).hexdigest()} 25565 {{\"a\": 1}}")
+            with self.assertRaises(runner.StepError):
+                runner.expand("{sha1:/nope}", 1, files)
+
+    def test_serve_parses(self):
+        sc = scenario.parse("serve /pack.zip fixtures/pack\nserver resource-pack={http}/pack.zip\n", "/x/y.cscn")
+        self.assertEqual(sc.serves, [("pack.zip", "/x/fixtures/pack")])
+        self.assertEqual(sc.props["resource-pack"], "{http}/pack.zip")
+        with self.assertRaises(scenario.ScenarioError):
+            scenario.parse("serve pack.zip x")
 
 
 class ErrorKeyTest(unittest.TestCase):

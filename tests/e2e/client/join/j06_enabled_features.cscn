@@ -1,0 +1,9 @@
+# Experimental feature packs through initial-enabled-packs: the enabled feature flags reach the client.
+server initial-enabled-packs=vanilla,minecart_improvements,trade_rebalance,redstone_experiments
+client join
+wait_screen null 120
+# 117 = the chunks of view distance 4 (the runner default)
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+snapshot joined
+client disconnect
+wait_screen TitleScreen 30

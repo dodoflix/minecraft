@@ -1,0 +1,10 @@
+# A data pack that adds a recipe, advancements, a loot table and dimension_type, damage_type, painting_variant and dialog entries.
+server initial-enabled-packs=vanilla,file/datapack
+datapack fixtures/datapack
+client join
+wait_screen null 120
+# 117 = the chunks of view distance 4 (the runner default)
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+snapshot joined
+client disconnect
+wait_screen TitleScreen 30
