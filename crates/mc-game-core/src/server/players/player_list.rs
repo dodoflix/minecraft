@@ -660,6 +660,19 @@ impl PlayerList {
         }
     }
 
+    /// `DedicatedServer.sendLowDiskSpaceWarning`: the warning packet goes to every player with the admin permission.
+    pub fn send_low_disk_space_warning_to_admins(&mut self) {
+        for player in self.get_players() {
+            let permissions = self.get_profile_permissions(&player.name_and_id());
+            if permissions.has_permission(&crate::server::permissions::permissions::COMMANDS_ADMIN)
+            {
+                player
+                    .connection
+                    .send(&mc_protocol::packets::play::ClientboundLowDiskSpaceWarningPacket);
+            }
+        }
+    }
+
     /// `broadcastAll(new ClientboundPlayerInfoRemovePacket(List.of(uuid)))` of `remove`.
     pub fn broadcast_player_info_remove(&self, uuid: Uuid) {
         self.broadcast_all(&ClientboundPlayerInfoRemovePacket {
@@ -1001,6 +1014,38 @@ mod tests {
         list.add_player(b.clone());
         list.broadcast_player_info_remove(b.uuid);
         assert_eq!(wb.ids(), [id_of::<Remove>()]);
+    }
+
+    #[test]
+    fn low_disk_space_warning_goes_to_admins_only() {
+        use mc_protocol::packets::play::ClientboundLowDiskSpaceWarningPacket as LowDisk;
+        let dir = tempfile::tempdir().unwrap();
+        let mut list = list(dir.path());
+        let mut writers = Vec::new();
+        for (n, level) in [
+            (1, Some(PermissionLevel::Moderators)),
+            (2, Some(PermissionLevel::Gamemasters)),
+            (3, Some(PermissionLevel::Admins)),
+            (4, Some(PermissionLevel::Owners)),
+            (5, None),
+        ] {
+            let (player, writer) = handle(n, &format!("P{n}"), "minecraft:overworld");
+            if let Some(level) = level {
+                list.op_entry(
+                    player.name_and_id(),
+                    Some(LevelBasedPermissionSet::for_level(level)),
+                    None,
+                );
+            }
+            list.add_player(player);
+            writers.push(writer);
+        }
+        list.send_low_disk_space_warning_to_admins();
+        let got: Vec<bool> = writers
+            .iter_mut()
+            .map(|w| w.ids() == [id_of::<LowDisk>()])
+            .collect();
+        assert_eq!(got, [false, false, true, true, false]);
     }
 
     #[test]

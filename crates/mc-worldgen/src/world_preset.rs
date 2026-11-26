@@ -294,6 +294,16 @@ pub enum Lifecycle {
     Experimental,
 }
 
+impl std::fmt::Display for Lifecycle {
+    /// DFU `Lifecycle.toString()`.
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(match self {
+            Lifecycle::Stable => "Stable",
+            Lifecycle::Experimental => "Experimental",
+        })
+    }
+}
+
 impl Lifecycle {
     /// `Lifecycle.add`.
     pub fn add(self, other: Lifecycle) -> Lifecycle {

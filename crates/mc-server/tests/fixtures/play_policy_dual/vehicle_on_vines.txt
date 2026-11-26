@@ -1,0 +1,22 @@
+> join Bot
+> console fill 5 -60 6 5 0 6 minecraft:stone
+> console fill 5 -60 5 5 0 5 minecraft:vine[south=true]
+> console summon minecraft:pig 5.5 -20 5.5 {Tags:["rider"],NoAI:1b,Silent:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+> console give Bot minecraft:carrot_on_a_stick
+> console ride Bot mount @e[tag=rider,limit=1]
+  log: [Server thread/INFO] System chat: Bot joined the game
+  log: [Server thread/INFO] System chat: Successfully filled 61 block(s)
+  log: [Server thread/INFO] System chat: Successfully filled 61 block(s)
+  log: [Server thread/INFO] System chat: Summoned new Pig
+  log: [Server thread/INFO] System chat: Gave 1 [Carrot on a Stick] to Bot
+  log: [Server thread/INFO] System chat: Bot started riding Pig
+> move the vehicle to y -23
+> console data get entity @e[tag=rider,limit=1] fall_distance
+> console data get entity @e[tag=rider,limit=1] Pos
+  log: [Server thread/INFO] System chat: Pig has the following entity data: 3.0d
+  log: [Server thread/INFO] System chat: Pig has the following entity data: [5.5d, -23.0d, 5.5d]
+> move the vehicle to y -23.2
+> console data get entity @e[tag=rider,limit=1] fall_distance
+> console data get entity @e[tag=rider,limit=1] Pos
+  log: [Server thread/INFO] System chat: Pig has the following entity data: 0.20000000298023224d
+  log: [Server thread/INFO] System chat: Pig has the following entity data: [5.5d, -23.2d, 5.5d]

@@ -35,11 +35,11 @@ pub trait PlayerSystems: Sync {
     fn on_climbable(&self, ctx: &mut PlayCtx) -> bool {
         false
     }
-    /// `Entity.onClimbable()` for a controlled vehicle that is a `LivingEntity` (then `resetFallDistance`).
+    /// `vehicle instanceof LivingEntity && vehicle.onClimbable()` (then `resetFallDistance`).
     fn vehicle_on_climbable(
         &self,
         ctx: &mut PlayCtx,
-        vehicle: &dyn crate::world::entity::Entity,
+        vehicle: &mut dyn crate::world::entity::Entity,
     ) -> bool {
         false
     }

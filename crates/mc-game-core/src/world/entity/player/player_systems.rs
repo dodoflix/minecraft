@@ -19,6 +19,16 @@ impl PlayerSystems for ServerPlayerSystems {
         crate::world::entity::living_entity::travel::climbable(&mut *ctx.player, &*ctx.level)
     }
 
+    /// `vehicle instanceof LivingEntity livingVehicle && livingVehicle.onClimbable()` (records `lastClimbablePos`).
+    fn vehicle_on_climbable(
+        &self,
+        ctx: &mut PlayCtx,
+        vehicle: &mut dyn crate::world::entity::Entity,
+    ) -> bool {
+        vehicle.living().is_some()
+            && crate::world::entity::living_entity::travel::climbable(vehicle, &*ctx.level)
+    }
+
     /// `handlePaddleBoat`: `player.getControlledVehicle() instanceof AbstractBoat boat` -> `boat.setPaddleState(left, right)`.
     fn set_controlled_boat_paddle_state(&self, ctx: &mut PlayCtx, left: bool, right: bool) {
         use crate::world::entity::Entity;

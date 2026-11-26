@@ -413,7 +413,7 @@ impl PlayCtx<'_> {
         y_dist = target_y - ly;
         z_dist = target_z - lz;
         let vehicle_rests_on_something = vehicle.base().vertical_collision_below;
-        if self.sys().vehicle_on_climbable(self, &*vehicle) {
+        if self.sys().vehicle_on_climbable(self, &mut *vehicle) {
             vehicle.reset_fall_distance(&mut *self.level);
         }
 

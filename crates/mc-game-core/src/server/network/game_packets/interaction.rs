@@ -118,7 +118,7 @@ impl PlayCtx<'_> {
                     max_y,
                     under_spawn_protection,
                 );
-                self.ack_block_changes("ServerboundPlayerActionPacket", packet.sequence);
+                self.ack_block_changes("minecraft:player_action", packet.sequence);
             }
         }
     }
@@ -128,7 +128,7 @@ impl PlayCtx<'_> {
         if !self.has_client_loaded() {
             return;
         }
-        if !self.ack_block_changes("ServerboundUseItemOnPacket", packet.sequence) {
+        if !self.ack_block_changes("minecraft:use_item_on", packet.sequence) {
             return;
         }
         let hand = hand_of(packet.hand);
@@ -252,7 +252,7 @@ impl PlayCtx<'_> {
         if !self.has_client_loaded() {
             return;
         }
-        if !self.ack_block_changes("ServerboundUseItemPacket", packet.sequence) {
+        if !self.ack_block_changes("minecraft:use_item", packet.sequence) {
             return;
         }
         let hand = hand_of(packet.hand);

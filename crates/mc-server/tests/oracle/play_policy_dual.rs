@@ -52,6 +52,7 @@ const CASES: &[Case] = &[
     ),
     case!(floating, &["difficulty=peaceful"]),
     case!(moved_too_quickly, &["difficulty=peaceful"]),
+    case!(vehicle_on_vines, &["difficulty=peaceful"]),
     case!(
         spawn_protection,
         &["spawn-protection=16", "difficulty=peaceful"],
@@ -218,6 +219,50 @@ async fn moved_too_quickly(s: &Server) -> Vec<String> {
             &["<- play/player_position", "<- play/disconnect"],
             None,
         ));
+        r.log();
+    }
+    r.out
+}
+
+/// A player steers a saddled pig (carrot on a stick) with move packets: one that drops three blocks down a vine shaft
+/// (vines climb like ladders but have no collision shape for the pig to bump into), then one that moves a little
+/// further. A living vehicle on a climbable block gets its fall distance reset before each move, so the second answer
+/// is the small step and not the whole fall. The `fall_distance` and position of the pig are asked after each packet.
+async fn vehicle_on_vines(s: &Server) -> Vec<String> {
+    use mc_core::phys::Vec3;
+    use mc_protocol::packets::play::{PositionAndRotation, ServerboundMoveVehiclePacket};
+
+    let mut r = Rec::new(s);
+    r.ordered = true;
+    let bot = r.join("Bot").await;
+    for command in [
+        "fill 5 -60 6 5 0 6 minecraft:stone",
+        "fill 5 -60 5 5 0 5 minecraft:vine[south=true]",
+        "summon minecraft:pig 5.5 -20 5.5 {Tags:[\"rider\"],NoAI:1b,Silent:1b,equipment:{saddle:{id:\"minecraft:saddle\",count:1}}}",
+        "give Bot minecraft:carrot_on_a_stick",
+    ] {
+        r.console(command);
+    }
+    tokio::time::sleep(SETTLE).await;
+    r.console("ride Bot mount @e[tag=rider,limit=1]");
+    tokio::time::sleep(SETTLE).await;
+    r.log();
+    for y in [-23.0, -23.2] {
+        r.step(&format!("move the vehicle to y {y}"));
+        bot.bot.send(ServerboundPlayPacket::MoveVehicle(
+            ServerboundMoveVehiclePacket {
+                moving_to: PositionAndRotation {
+                    position: Vec3::new(5.5, y, 5.5),
+                    y_rot: 0.0,
+                    x_rot: 0.0,
+                },
+                on_ground: false,
+            },
+        ));
+        tokio::time::sleep(SETTLE).await;
+        r.console("data get entity @e[tag=rider,limit=1] fall_distance");
+        r.console("data get entity @e[tag=rider,limit=1] Pos");
+        tokio::time::sleep(SETTLE).await;
         r.log();
     }
     r.out

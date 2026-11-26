@@ -48,8 +48,10 @@ impl PlayHandlers for MenuCoreHandlers {
                     .disconnect(translatable!("multiplayer.disconnect.generic"));
             }
             // vanilla: `validateEffects` throws a NullPointerException, the packet processor logs and suppresses it
-            None => log::error!(
-                "Failed to handle packet ServerboundSetBeaconPacket, suppressing error: secondary effect of pyramid level 1-3 without a primary one"
+            None => ctx.on_packet_error(
+                "minecraft:set_beacon",
+                "java.lang.NullPointerException",
+                "Cannot invoke \"net.minecraft.core.Holder.equals(Object)\" because \"primary\" is null".to_owned(),
             ),
         }
     }

@@ -318,18 +318,24 @@ impl PlayCtx<'_> {
         }
     }
 
-    /// `ServerPacketListener.onPacketError`: logs the error and keeps the player; a handler exception (here also a
-    /// caught panic) drops the packet, never the connection.
-    fn on_packet_error(&mut self, packet_name: &str, error: String) {
-        log::error!("Failed to handle packet {packet_name}, suppressing error: {error}");
+    /// `ServerCommonPacketListenerImpl.onPacketError`: logs the error, feeds the suppressed exceptions of the system
+    /// report under `packet/serverbound/<packet type>` and keeps the player; a handler exception (here also a caught
+    /// panic) drops the packet, never the connection. `exception` is the Java class of the throwable.
+    pub(crate) fn on_packet_error(&mut self, packet_type: &str, exception: &str, error: String) {
+        log::error!("Failed to handle packet {packet_type}, suppressing error: {error}");
+        self.server.shared.suppressed_exceptions.add_entry(
+            &format!("packet/serverbound/{packet_type}"),
+            exception,
+            &error,
+        );
     }
 
     /// `ackBlockChangesUpTo`; `false` after reporting a negative sequence as a packet error (the handler stops).
-    fn ack_block_changes(&mut self, packet_name: &str, sequence: i32) -> bool {
+    fn ack_block_changes(&mut self, packet_type: &str, sequence: i32) -> bool {
         match self.lis().ack_block_changes_up_to(sequence) {
             Ok(()) => true,
             Err(error) => {
-                self.on_packet_error(packet_name, error);
+                self.on_packet_error(packet_type, "java.lang.IllegalArgumentException", error);
                 false
             }
         }
@@ -407,7 +413,7 @@ impl PlayCtx<'_> {
                     "Internal Exception: {message}"
                 )));
             } else {
-                self.on_packet_error(name, message);
+                self.on_packet_error(name, "java.lang.RuntimeException", message);
             }
         }
     }

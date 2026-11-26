@@ -895,7 +895,7 @@ impl MinecraftServer {
     /// `warnOnLowDiskSpace` runs on the reporting thread); the operators' connections belong to this thread.
     pub(super) fn notify_ops_of_reported_low_disk_space(&mut self) {
         if self.shared.chunk_io_reporter.take_ops_warning() {
-            self.notify_ops_of_low_disk_space();
+            self.player_list.send_low_disk_space_warning_to_admins();
         }
     }
 
@@ -906,20 +906,10 @@ impl MinecraftServer {
         }
     }
 
-    /// `sendLowDiskSpaceWarning` (`DedicatedServer`: also tells every operator).
+    /// `sendLowDiskSpaceWarning` (`DedicatedServer`: also tells every admin).
     fn send_low_disk_space_warning(&mut self) {
         log::warn!("Low disk space! Might not be able to save the world.");
-        self.notify_ops_of_low_disk_space();
-    }
-
-    fn notify_ops_of_low_disk_space(&mut self) {
-        for player in self.player_list.get_players() {
-            if self.player_list.is_op(&player.name_and_id()) {
-                player
-                    .connection
-                    .send(&mc_protocol::packets::play::ClientboundLowDiskSpaceWarningPacket);
-            }
-        }
+        self.player_list.send_low_disk_space_warning_to_admins();
     }
 
     // ------------------------------------------------------------------ stopServer

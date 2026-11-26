@@ -29,6 +29,7 @@ mod light_packets_dual;
 mod network_vanilla_diff;
 mod ours_play;
 mod packet_error;
+mod perf_dual;
 mod persistence;
 mod play_policy_dual;
 mod play_scenario;

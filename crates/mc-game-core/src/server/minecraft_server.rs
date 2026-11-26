@@ -67,6 +67,7 @@ pub struct ServerInit {
     pub player_data_storage: PlayerDataStorage,
     pub world_data: PrimaryLevelData,
     pub world_gen_settings: WorldGenSettings,
+    pub world_gen_settings_lifecycle: mc_worldgen::world_preset::Lifecycle,
     pub pack_repository: PackRepository,
     pub resources: ReloadableResources,
     pub registries: LayeredRegistryAccess<RegistryLayer>,
@@ -116,6 +117,8 @@ pub struct MinecraftServer {
     /// `WorldData` (the `PrimaryLevelData` of `level.dat`), shared with the levels' `ServerLevelData` views.
     pub world_data: SharedWorldData,
     pub world_gen_settings: WorldGenSettings,
+    /// `worldData.worldGenSettingsLifecycle()`.
+    world_gen_settings_lifecycle: mc_worldgen::world_preset::Lifecycle,
     /// `world_gen_settings.dat` still has to be written (vanilla: the saved data is dirty after `set`).
     pub(super) world_gen_settings_dirty: bool,
     /// `savedDataStorage`: the root `data/` folder (game rules, weather, clocks, random sequences, ...).
@@ -316,6 +319,7 @@ impl MinecraftServer {
             player_data_storage: init.player_data_storage,
             world_data: Arc::new(Mutex::new(init.world_data)),
             world_gen_settings: init.world_gen_settings,
+            world_gen_settings_lifecycle: init.world_gen_settings_lifecycle,
             world_gen_settings_dirty: true,
             saved_data,
             command_storage:
@@ -1143,11 +1147,15 @@ impl MinecraftServer {
                 .collect::<Vec<_>>()
                 .join(", "),
         );
+        report.set_detail("World Generation", self.world_gen_settings_lifecycle);
         report.set_detail("World Seed", self.world_gen_settings.options.seed);
         report.set_detail(
             "Suppressed Exceptions",
             self.shared.suppressed_exceptions.dump(),
         );
+        if let Some(server_id) = &self.server_id {
+            report.set_detail("Server Id", server_id);
+        }
         self.fill_system_report_details(report);
     }
 

@@ -33,6 +33,7 @@ tempfile = { workspace = true }
 tokio = { workspace = true, features = ["io-util", "net", "rt", "macros", "time", "sync", "rt-multi-thread"] }
 tokio-tungstenite = { workspace = true }
 uuid = { workspace = true }
+zip = { workspace = true, features = ["deflate-flate2"] }
 worldcmp = { path = "../../tools/worldcmp" }
 
 [lints]

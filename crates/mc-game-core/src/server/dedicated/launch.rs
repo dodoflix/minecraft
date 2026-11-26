@@ -31,6 +31,7 @@ use mc_world::level_storage::{
     PrimaryLevelData, WorldDataConfiguration, WorldGenSettings, WorldOptions,
 };
 use mc_worldgen::flat::FlatLevelGeneratorSettings;
+use mc_worldgen::world_preset::Lifecycle;
 use serde_json::Value;
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -65,6 +66,8 @@ fn fatal(error: impl std::fmt::Display) {
 pub struct WorldDataAndGenSettings {
     pub data: PrimaryLevelData,
     pub gen_settings: WorldGenSettings,
+    /// `PrimaryLevelData.worldGenSettingsLifecycle`.
+    pub lifecycle: Lifecycle,
 }
 
 /// `Main.main` from the `Services.create` line on, plus `MinecraftServer.spin` and the shutdown hook. Returns the
@@ -248,7 +251,11 @@ fn prepare(
         registries,
         world_data,
     } = world_stem;
-    let WorldDataAndGenSettings { data, gen_settings } = world_data;
+    let WorldDataAndGenSettings {
+        data,
+        gen_settings,
+        lifecycle,
+    } = world_data;
     // `saveDataTag` logs a failure to save (`Failed to save level`) and the start goes on
     let _ = access.save_data_tag(&data, None);
     let player_data_storage = access.create_player_storage().map_err(|e| e.to_string())?;
@@ -274,6 +281,7 @@ fn prepare(
         player_data_storage,
         world_data: data,
         world_gen_settings: gen_settings,
+        world_gen_settings_lifecycle: lifecycle,
         pack_repository,
         resources: ReloadableResources {
             resource_manager,
@@ -418,7 +426,13 @@ fn world_data_supplier(
     let mut data = data;
     data.special_world_property = complete.special_world_property;
     Ok(DataLoadOutput {
-        cookie: WorldDataAndGenSettings { data, gen_settings },
+        cookie: WorldDataAndGenSettings {
+            data,
+            gen_settings,
+            lifecycle: complete
+                .lifecycle
+                .add(context.datapack_world_registries.all_registries_lifecycle()),
+        },
         final_dimensions: complete.dimensions,
     })
 }

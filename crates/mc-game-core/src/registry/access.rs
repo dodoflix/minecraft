@@ -224,6 +224,19 @@ impl RegistryAccess {
             .unwrap_or_else(|| panic!("Missing registry: ResourceKey[minecraft:root / {key}]"))
     }
 
+    /// `HolderLookup.Provider.allRegistriesLifecycle`: experimental once any entry is not from the vanilla pack.
+    pub fn all_registries_lifecycle(&self) -> mc_worldgen::world_preset::Lifecycle {
+        use mc_worldgen::world_preset::Lifecycle;
+        let stable = self
+            .registries()
+            .all(|r| r.entries().iter().all(|e| e.info.stable));
+        if stable {
+            Lifecycle::Stable
+        } else {
+            Lifecycle::Experimental
+        }
+    }
+
     /// `registries()`.
     pub fn registries(&self) -> impl Iterator<Item = &Arc<Registry>> {
         self.registries.values()
