@@ -484,11 +484,15 @@ fn the_view_copies_a_file_on_its_first_write_and_leaves_the_world_alone() {
     tree.rename(Path::new("d/e"), Path::new("x/y/e")).unwrap();
     assert!(!tree.exists(Path::new("d/e")) && tree.is_file(Path::new("x/y/e/b.dat")));
     assert!(tree.exists(Path::new("../../x/./y")));
-    let e = tree.rename(Path::new("x"), Path::new("x/y/z")).unwrap_err();
-    assert!(
-        cow_message(&e).ends_with("can't move a directory into itself"),
-        "{e}"
-    );
+    // moved below itself, a directory leaves the tree (vanilla links it into its own subtree)
+    tree.create_dir_all(Path::new("w/v")).unwrap();
+    tree.rename(Path::new("w"), Path::new("w/v/z")).unwrap();
+    assert!(!tree.exists(Path::new("w")));
+    // a file in the way is `NoSuchFile` below it, `NotDirectory` at the path of the file
+    let e = tree.create_dir_all(Path::new("d/a.dat/f/g")).unwrap_err();
+    assert_eq!(cow_message(&e), "/d/a.dat was a file, expected directory");
+    let e = tree.list(Path::new("d/a.dat/f")).unwrap_err();
+    assert_eq!(e.kind(), io::ErrorKind::NotFound);
     let e = tree
         .rename(Path::new("d/a.dat"), Path::new("x/y"))
         .unwrap_err();

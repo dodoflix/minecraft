@@ -292,20 +292,23 @@ impl CowTree {
         dir_of(&self.root, parents)?.get(name)
     }
 
-    /// The directory at `names`: a missing path is `NoSuchFile`, a file `NotDirectory`.
+    /// The directory at `names` (`directoryByPath`): a missing path, or a file below its first directories, is
+    /// `NoSuchFile`; a file at the path itself `NotDirectory`.
     fn dir_mut(&mut self, names: &[String], shown_path: &Path) -> io::Result<&mut Children> {
         let mut dir = &mut self.root;
-        for name in names {
+        for (index, name) in names.iter().enumerate() {
             match dir.get_mut(name) {
                 Some(Node::Dir(children)) => dir = children,
-                Some(Node::File { .. }) => {
+                Some(Node::File { .. }) if index + 1 == names.len() => {
                     return Err(CowFsError::NotDirectory(format!(
                         "{} was a file, expected directory",
                         shown(shown_path)
                     ))
                     .into());
                 }
-                None => return Err(CowFsError::NoSuchFile(shown(shown_path)).into()),
+                Some(Node::File { .. }) | None => {
+                    return Err(CowFsError::NoSuchFile(shown(shown_path)).into());
+                }
             }
         }
         Ok(dir)
@@ -357,22 +360,32 @@ impl CowTree {
         Ok(())
     }
 
-    /// `Files.createDirectories`: missing directories are created, an existing file in the way is an error.
+    /// `Files.createDirectories`: tries the directory itself, then creates every directory below the deepest ancestor
+    /// that exists (a file in the way fails the `createDirectory` of what is below it).
     pub fn create_dir_all(&mut self, path: &Path) -> io::Result<()> {
+        match self.create_dir_checked(path) {
+            Ok(()) => return Ok(()),
+            Err(e) if e.kind() == io::ErrorKind::AlreadyExists => return Err(e),
+            Err(_) => {}
+        }
         let names = names(path);
-        let mut dir = &mut self.root;
-        for name in &names {
-            if !dir.contains_key(name) {
-                dir.insert(name.clone(), Node::Dir(new_children()));
-            }
-            match dir.get_mut(name).expect("inserted above") {
-                Node::Dir(children) => dir = children,
-                Node::File { .. } => {
-                    return Err(CowFsError::FileAlreadyExists(shown(path)).into());
-                }
-            }
+        let prefix = |count: usize| names[..count].iter().collect::<PathBuf>();
+        let mut existing = names.len() - 1;
+        while !self.exists(&prefix(existing)) {
+            existing -= 1;
+        }
+        for count in existing + 1..=names.len() {
+            self.create_dir_checked(&prefix(count))?;
         }
         Ok(())
+    }
+
+    /// `createAndCheckIsDirectory`: an existing directory is not an error.
+    fn create_dir_checked(&mut self, path: &Path) -> io::Result<()> {
+        match self.create_dir(path) {
+            Err(e) if e.kind() == io::ErrorKind::AlreadyExists && self.is_dir(path) => Ok(()),
+            result => result,
+        }
     }
 
     /// `Files.delete`: a file, or a directory that is empty.
@@ -438,13 +451,6 @@ impl CowTree {
         {
             return Ok(());
         }
-        if to_names.starts_with(&from_names) {
-            return Err(CowFsError::FileSystem(format!(
-                "{}: can't move a directory into itself",
-                shown(from)
-            ))
-            .into());
-        }
         let target =
             dir_of(&self.root, &to_names).ok_or_else(|| CowFsError::NoSuchFile(shown(to)))?;
         if target.contains_key(&to_name) {
@@ -455,7 +461,10 @@ impl CowTree {
             .dir_mut(from_parents, from)?
             .remove(from_name)
             .expect("checked above");
-        self.dir_mut(&to_names, to)?.insert(to_name, node);
+        // vanilla links a directory moved below itself into its own subtree, which no longer hangs from the root
+        if !to_names.starts_with(&from_names) {
+            self.dir_mut(&to_names, to)?.insert(to_name, node);
+        }
         Ok(())
     }
 
