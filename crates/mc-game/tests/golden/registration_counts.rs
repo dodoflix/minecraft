@@ -331,7 +331,7 @@ fn rust_registry_counts_match_the_vanilla_report() {
     for name in &skipped {
         if guarded.contains(name) {
             problems.push(format!("{name}: both guarded and skipped"));
-        } else if vanilla(*name).is_none() {
+        } else if vanilla(name).is_none() {
             problems.push(format!("{name}: skipped but not in the report"));
         }
     }

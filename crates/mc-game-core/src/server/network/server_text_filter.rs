@@ -286,10 +286,16 @@ impl ServerTextFilter {
         }
     }
 
-    /// `createWorkerPool`.
-    pub fn create_worker_pool(max_concurrent_requests: i32) -> Arc<WorkerPool> {
-        // `newFixedThreadPool(0)` throws: the config error surfaces like in vanilla
-        WorkerPool::new(max_concurrent_requests.max(0) as usize)
+    /// `createWorkerPool`: `Executors.newFixedThreadPool(n)` throws for `n <= 0`.
+    pub fn create_worker_pool(
+        max_concurrent_requests: i32,
+    ) -> Result<Arc<WorkerPool>, FilterError> {
+        match usize::try_from(max_concurrent_requests) {
+            Ok(max) if max > 0 => Ok(WorkerPool::new(max)),
+            _ => Err(JavaException::without_message(
+                "java.lang.IllegalArgumentException",
+            )),
+        }
     }
 
     /// `createFromConfig`: `Ok(None)` for a blank config, an unsupported version or a config that makes no filter;

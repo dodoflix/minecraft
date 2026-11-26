@@ -186,8 +186,12 @@ impl MessageArgument {
                 let signed = signed.with_unsigned_content(formatted);
                 let services = sender.get_chat_services();
                 // `filterPlainText`: only a message the sender signed is asked of the text filter
+                let player = sender
+                    .get_player()
+                    .and_then(|p| p.player.as_ref())
+                    .map(|p| p.uuid);
                 let future = match services {
-                    Some(s) if signed.has_signature_from(s.sender) => {
+                    Some(s) if player.is_some_and(|uuid| signed.has_signature_from(uuid)) => {
                         s.filter.process_stream_message(signed.signed_content())
                     }
                     _ => Completion::completed(FilteredText::pass_through(signed.signed_content())),

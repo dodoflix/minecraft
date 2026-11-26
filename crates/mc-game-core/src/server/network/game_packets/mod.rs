@@ -39,6 +39,7 @@ use crate::world::entity::ServerPlayer;
 use mc_protocol::packet::Packet;
 use mc_protocol::packets::play::ServerboundPlayPacket;
 use mc_text::Component;
+use std::sync::Arc;
 use uuid::Uuid;
 
 /// The transient borrow in which a packet or a tick of one player is handled: vanilla's `this.server`,
@@ -74,9 +75,15 @@ impl PlayCtx<'_> {
                     return;
                 };
                 let uuid = crate::world::entity::Entity::uuid(&*self.player);
+                // the connection that asked: a later login of the same player is not served its answer
+                let chain = self.lis().chat_message_chain.clone();
                 future.then(move |value| {
                     shared.execute(move |server| {
-                        with_player(server, uuid, |ctx| task(ctx, value));
+                        with_player(server, uuid, |ctx| {
+                            if Arc::ptr_eq(&ctx.lis().chat_message_chain, &chain) {
+                                task(ctx, value);
+                            }
+                        });
                     });
                 });
             }

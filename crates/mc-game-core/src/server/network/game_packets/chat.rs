@@ -251,7 +251,6 @@ impl PlayCtx<'_> {
         };
         let context = CommandSigningContext::Signed(Arc::new(signed));
         let services = crate::commands::command_signing_context::ChatServices {
-            sender: crate::world::entity::Entity::uuid(&*self.player),
             filter: self.lis().text_filter.clone(),
             chain: self.lis().chat_message_chain.clone(),
         };

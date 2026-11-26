@@ -117,7 +117,7 @@ impl LegacyTextFilter {
             })
         };
         let strategy = IgnoreStrategy::select(hashes_to_drop);
-        let pool = ServerTextFilter::create_worker_pool(max_concurrent_requests);
+        let pool = ServerTextFilter::create_worker_pool(max_concurrent_requests)?;
         // `key.getBytes(US_ASCII)`: a character outside ASCII becomes `?`
         let ascii: Vec<u8> = key
             .chars()
@@ -377,6 +377,7 @@ mod tests {
             r#"{"apiServer":"http://x"}"#,
             r#"{"apiServer":"http://x","apiKey":""}"#,
             r#"{"apiServer":"http://x","apiKey":"k","hashesToDrop":"x"}"#,
+            r#"{"apiServer":"http://x","apiKey":"k","maxConcurrentRequests":0}"#,
         ] {
             assert!(
                 LegacyTextFilter::create_text_filter_from_config(config).is_none(),

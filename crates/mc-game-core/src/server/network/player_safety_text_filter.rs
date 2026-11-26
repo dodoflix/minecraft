@@ -85,7 +85,7 @@ pub fn create_text_filter_from_config(
         object
     });
     let strategy = IgnoreStrategy::select(hashes_to_drop);
-    let pool = ServerTextFilter::create_worker_pool(max_concurrent_requests);
+    let pool = ServerTextFilter::create_worker_pool(max_concurrent_requests)?;
 
     let Some(certificate) = load_certificate(&certificate_path, &certificate_password) else {
         log::warn!("Failed to open certificate file");
@@ -229,10 +229,10 @@ impl ConfidentialClient {
     /// `join()` throws.
     fn access_token(&self) -> Result<String, FilterError> {
         let mut state = self.state.lock();
-        if let Some((token, renew_at)) = &state.token {
-            if Instant::now() < *renew_at {
-                return Ok(token.clone());
-            }
+        if let Some((token, renew_at)) = &state.token
+            && Instant::now() < *renew_at
+        {
+            return Ok(token.clone());
         }
         let (token, lifetime) = self.request_token(&mut state).map_err(|cause| {
             JavaException::unchecked(
@@ -640,23 +640,23 @@ mod tests {
         let mut buffer = [0u8; 4096];
         let mut needed = None;
         loop {
-            if let Some((head_end, length)) = needed {
-                if data.len() >= head_end + length {
-                    break;
-                }
+            if let Some((head_end, length)) = needed
+                && data.len() >= head_end + length
+            {
+                break;
             }
             let read = stream.read(&mut buffer).expect("read");
             assert!(read > 0, "the request ended early");
             data.extend_from_slice(&buffer[..read]);
-            if needed.is_none() {
-                if let Some(at) = data.windows(4).position(|w| w == b"\r\n\r\n") {
-                    let head = String::from_utf8_lossy(&data[..at]).to_lowercase();
-                    let length = head
-                        .lines()
-                        .find_map(|l| l.strip_prefix("content-length:"))
-                        .map_or(0, |v| v.trim().parse().expect("a length"));
-                    needed = Some((at + 4, length));
-                }
+            if needed.is_none()
+                && let Some(at) = data.windows(4).position(|w| w == b"\r\n\r\n")
+            {
+                let head = String::from_utf8_lossy(&data[..at]).to_lowercase();
+                let length = head
+                    .lines()
+                    .find_map(|l| l.strip_prefix("content-length:"))
+                    .map_or(0, |v| v.trim().parse().expect("a length"));
+                needed = Some((at + 4, length));
             }
         }
         let text = String::from_utf8_lossy(&data).into_owned();

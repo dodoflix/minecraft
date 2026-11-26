@@ -164,11 +164,11 @@ fn filterable_from_outgoing(
     text_filtering_enabled: bool,
 ) -> Filterable<JavaString> {
     if text_filtering_enabled {
-        Filterable::pass_through(text.filtered_or_empty().into())
+        Filterable::pass_through(text.filtered_or_empty())
     } else {
         Filterable {
             raw: text.raw.clone().into(),
-            filtered: text.is_filtered().then(|| text.filtered_or_empty().into()),
+            filtered: text.is_filtered().then(|| text.filtered_or_empty()),
         }
     }
 }
