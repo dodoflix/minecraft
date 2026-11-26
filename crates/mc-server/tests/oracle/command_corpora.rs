@@ -37,6 +37,7 @@ corpora!(
     entity_commands,
     execute,
     functions,
+    gametest_bad,
     gametest_cmd,
     gametest_multi,
     gametest_pack,

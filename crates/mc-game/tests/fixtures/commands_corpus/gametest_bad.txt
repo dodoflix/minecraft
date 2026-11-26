@@ -1,0 +1,31 @@
+# Data packs with invalid test instances added to a RUNNING server (`!addpack`, then `reload` / `datapack enable`), and a pack with an
+# invalid predicate. A pack present at start is loaded with the dynamic registries, and a broken entry there stops the server from
+# starting (the start-up error texts are recorded in the registry oracle). Test instances and test environments cannot be added
+# at run time: `/reload` reloads only the reloadable registries, so the instances of gtbad are never looked at and `test` still
+# finds no `gtbad:*` afterwards. A broken reloadable entry (gtbadpredicate) fails the reload and keeps the old data.
+#   scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/gametest_bad.txt
+# The run time of a test (`passed! (3ms / 0gameticks)`) is the only non-deterministic output.
+!datapack gametest/gtpack
+!ignore passed! \(
+!mask (\d+)ms
+test run gtbad:valid
+test locate gtbad:*
+datapack list available
+!addpack gametest/gtbad
+datapack list available
+reload
+datapack list available
+datapack enable "file/gtbad"
+datapack list enabled
+test run gtbad:valid
+test locate gtbad:*
+test run gtbad:*
+test run gt:pass
+!ticks 40 show
+!addpack gametest/gtbadpredicate
+reload
+datapack enable "file/gtbadpredicate"
+datapack list enabled
+execute if predicate gtbadpredicate:broken
+test run gt:pass
+!ticks 40 show
