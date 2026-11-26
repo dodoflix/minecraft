@@ -162,6 +162,26 @@ impl ChunkStatus {
         Self::decode_str(tag.as_string()?)
     }
 
+    /// `tag.read("Status", ChunkStatus.CODEC).orElse(ChunkStatus.EMPTY)`: a value that does not decode is logged by
+    /// `CompoundTag.read`.
+    pub fn read_status(tag: &mc_nbt::CompoundTag) -> ChunkStatus {
+        let Some(value) = tag.get("Status") else {
+            return ChunkStatus::Empty;
+        };
+        let decoded = match value.as_string() {
+            None => Err("Not a string".to_owned()),
+            Some(key) => Identifier::read(key).and_then(|id| {
+                Self::decode_str(key).ok_or_else(|| {
+                    format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:chunk_status]: {id}")
+                })
+            }),
+        };
+        decoded.unwrap_or_else(|error| {
+            log::error!("Failed to read field (Status={value}): {error}");
+            ChunkStatus::Empty
+        })
+    }
+
     /// `ChunkStatus.byName(key)`: unparsable or unknown keys give the registry default `EMPTY`.
     pub fn by_name(key: &str) -> ChunkStatus {
         Self::decode_str(key).unwrap_or(ChunkStatus::Empty)

@@ -95,6 +95,19 @@ type Damage = fn(&mut CompoundTag);
 const CASES: &[(&str, &str, Damage)] = &[
     ("chunk_sections_int", "region", |t| t.put_int("sections", 1)),
     ("chunk_status_int", "region", |t| t.put_int("Status", 3)),
+    ("chunk_status_unknown", "region", |t| {
+        t.put_string("Status", "minecraft:zzz")
+    }),
+    ("chunk_xpos_mismatch", "region", |t| t.put_int("xPos", 99)),
+    ("chunk_data_version_string", "region", |t| {
+        t.put_string("DataVersion", "x")
+    }),
+    ("chunk_no_data_version", "region", |t| {
+        t.remove("DataVersion");
+    }),
+    ("chunk_old_data_version", "region", |t| {
+        t.put_int("DataVersion", 2000)
+    }),
     ("chunk_block_entities_int", "region", |t| {
         t.put_int("block_entities", 1)
     }),
@@ -162,6 +175,15 @@ fn damaged_chunk_files() {
             fs::create_dir_all(&base).expect("keep folder");
             copy_dir(&vanilla.dir, &base.join("vanilla"));
             copy_dir(&ours.dir, &base.join("ours"));
+        }
+        // a misplaced chunk saves its report as `debug/chunk-world-<second>-server.txt`: the number of files follows the
+        // run time, so only their presence is compared
+        if *name == "chunk_xpos_mismatch" {
+            for run in [&vanilla, &ours] {
+                let debug = run.dir.join("debug");
+                assert!(debug.is_dir(), "{}: no chunk report", debug.display());
+                fs::remove_dir_all(debug).expect("remove the reports");
+            }
         }
         let mut findings = Vec::new();
         if (vanilla.started, vanilla.exit) != (ours.started, ours.exit) {

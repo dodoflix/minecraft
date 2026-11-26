@@ -120,10 +120,7 @@ impl SerializableChunkData {
         );
         let last_update_time = chunk_data.get_long_or("LastUpdate", 0);
         let inhabited_time = chunk_data.get_long_or("InhabitedTime", 0);
-        let chunk_status = chunk_data
-            .get("Status")
-            .and_then(ChunkStatus::decode)
-            .unwrap_or(ChunkStatus::Empty);
+        let chunk_status = ChunkStatus::read_status(chunk_data);
         let upgrade_data = match chunk_data.get_compound("UpgradeData") {
             Some(tag) => UpgradeData::parse(
                 tag,
@@ -361,9 +358,7 @@ impl SerializableChunkData {
 
     /// `getChunkStatusFromTag`.
     pub fn get_chunk_status_from_tag(tag: Option<&CompoundTag>) -> ChunkStatus {
-        tag.and_then(|t| t.get("Status"))
-            .and_then(ChunkStatus::decode)
-            .unwrap_or(ChunkStatus::Empty)
+        tag.map_or(ChunkStatus::Empty, ChunkStatus::read_status)
     }
 
     /// `copyOf(level, chunk)` for the shared state. `light(section_y)` yields the sky/block layers of the light
