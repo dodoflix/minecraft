@@ -172,6 +172,7 @@ const PKT_TYPES: &[&str] = &[
     "minecraft:update_mob_effect",
     "minecraft:remove_mob_effect",
     "minecraft:take_item_entity",
+    "minecraft:sound",
 ];
 
 fn hex(bytes: &[u8]) -> String {
@@ -1028,19 +1029,53 @@ fn with_sorted_effect_removals(mut lines: Vec<String>) -> Vec<String> {
     lines
 }
 
-/// The fixture without the `PKT` lines of types the replay does not produce.
-fn check(name: &str) {
+/// A `sound` packet ends in the seed of the sound (`Level.playSound` draws it from the level's clock-seeded random): the
+/// 8 seed bytes are the one part of the packet that differs between runs of the real server, so they are masked on both sides.
+fn with_masked_sound_seeds(lines: Vec<String>) -> Vec<String> {
+    lines
+        .into_iter()
+        .map(|l| {
+            let mut it = l.split(' ');
+            match (it.next(), it.nth(1), it.next()) {
+                (Some("PKT"), Some("minecraft:sound"), Some(hex)) if hex.len() > 16 => {
+                    format!("{} <seed>", &l[..l.len() - 16])
+                }
+                _ => l,
+            }
+        })
+        .collect()
+}
+
+/// The fixture without the `PKT` lines of types the replay does not produce, against the replay; `sounds` false leaves the
+/// `sound` packets out of both sides.
+fn compared(name: &str, sounds: bool) -> Result<(), String> {
     let mut fixture = Fixture::load(name);
     fixture.lines.retain(|l| {
         let mut it = l.split_whitespace();
         it.next() != Some("PKT") || PKT_TYPES.contains(&it.nth(1).unwrap_or(""))
     });
-    fixture.lines = with_sorted_effect_removals(fixture.lines);
+    let mut actual = replay(name);
+    if !sounds {
+        let sound = |l: &String| l.starts_with("PKT ") && l.contains(" minecraft:sound ");
+        fixture.lines.retain(|l| !sound(l));
+        actual.retain(|l| !sound(l));
+    }
     let opts = Options {
         ignore_kinds: vec!["#", "CF"],
         ..Default::default()
     };
-    fixture.assert_matches(&with_sorted_effect_removals(replay(name)), &opts);
+    compare(
+        &with_sorted_effect_removals(with_masked_sound_seeds(fixture.lines)),
+        &with_sorted_effect_removals(with_masked_sound_seeds(actual)),
+        &opts,
+    )
+    .map_err(|report| format!("entity oracle fixture `{name}` differs:\n{report}"))
+}
+
+fn check(name: &str) {
+    if let Err(report) = compared(name, true) {
+        panic!("{report}");
+    }
 }
 
 #[test]
@@ -1068,9 +1103,22 @@ fn enchantment_protections() {
     check("damage_enchant");
 }
 
+/// Everything but the `sound` packets matches. The vanilla fixture has a hostile sound at the position of the attacking zombie
+/// that the replay does not produce (not yet explained); `shield_sounds_still_differ` fails as soon as the sounds agree, and
+/// then `shield_blocking` compares them like the other scenarios.
 #[test]
 fn shield_blocking() {
-    check("damage_shield");
+    if let Err(report) = compared("damage_shield", false) {
+        panic!("{report}");
+    }
+}
+
+#[test]
+fn shield_sounds_still_differ() {
+    assert!(
+        compared("damage_shield", true).is_err(),
+        "the sounds of damage_shield match: compare them in shield_blocking"
+    );
 }
 
 #[test]
