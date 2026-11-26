@@ -4,8 +4,9 @@
 //! `op`, `setViewDistance`, ...) are free functions over `&mut MinecraftServer`, because a method cannot borrow
 //! `server.player_list` and `server` at once (ARCHITECTURE: tier 2).
 
-use super::ban_date_format::calendar_fields;
+use super::ban_date_format::{calendar_fields, default_zone};
 use super::ban_list_entry::Date;
+use super::java_time_zone::RuleCache;
 use super::name_and_id::NameAndId;
 use super::player_files::locate_stats_file;
 use super::player_handle::PlayerHandle;
@@ -29,7 +30,7 @@ use mc_world::level_storage::PlayerDataStorage;
 use std::collections::HashMap;
 use std::net::SocketAddr;
 use std::path::PathBuf;
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 use uuid::Uuid;
 
 /// `PlayerList.USERBANLIST_FILE` and friends (relative to the working directory, like vanilla's `new File(..)`).
@@ -441,8 +442,28 @@ impl PlayerList {
     }
 }
 
-/// `BAN_DATE_FORMAT`: `yyyy-MM-dd 'at' HH:mm:ss z` in the default time zone (`z`: see `short_zone_name`).
+/// The `TimeZone` object `BAN_DATE_FORMAT` keeps: its rule cache moves with every date formatted (zone id, cache).
+static BAN_DATE_ZONE_CACHE: Mutex<(Option<&'static str>, Option<RuleCache>)> =
+    Mutex::new((None, None));
+
+/// `BAN_DATE_FORMAT`: `yyyy-MM-dd 'at' HH:mm:ss z` in the default time zone. A zone of the JDK is read from its history
+/// (`java_time_zone`); `z` is then the zone's root-locale short name, else (shortcut: a zone only the C library knows,
+/// for example a POSIX `TZ` string) see `short_zone_name`.
 pub fn format_ban_date(date: &Date) -> String {
+    if let Some(zone) = default_zone() {
+        let mut state = BAN_DATE_ZONE_CACHE
+            .lock()
+            .unwrap_or_else(|e| e.into_inner());
+        if state.0 != Some(zone.id) {
+            *state = (Some(zone.id), None);
+        }
+        let (raw, dst) = zone.rules.offsets_at_utc(date.millis(), &mut state.1);
+        let (year, month, day, hour, minute, second) = calendar_fields(date.millis(), raw + dst);
+        return format!(
+            "{year:04}-{month:02}-{day:02} at {hour:02}:{minute:02}:{second:02} {}",
+            zone.short_name(dst != 0)
+        );
+    }
     let Some(tm) = local_time(date.millis().div_euclid(1000)) else {
         // shortcut: `localtime_r` failed (a year beyond its `int`): printed in UTC
         let (year, month, day, hour, minute, second) = calendar_fields(date.millis(), 0);

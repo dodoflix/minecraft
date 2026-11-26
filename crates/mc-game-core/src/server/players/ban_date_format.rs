@@ -312,6 +312,31 @@ fn default_zone_id() -> Option<String> {
     link.rsplit_once("zoneinfo/").map(|(_, id)| id.to_owned())
 }
 
+/// The default time zone when its id is a zone of the JDK: its history and the short names `z` prints.
+pub(super) struct DefaultZone {
+    pub id: &'static str,
+    pub rules: Arc<ZoneInfo>,
+    /// `getDisplayName(false, SHORT, Locale.ROOT)` and `getDisplayName(true, SHORT, Locale.ROOT)`.
+    short_names: [String; 2],
+}
+
+impl DefaultZone {
+    pub fn short_name(&self, daylight: bool) -> &str {
+        &self.short_names[usize::from(daylight)]
+    }
+}
+
+/// `TimeZone.getDefault()`, `None` when the process zone is not a named JDK zone (then only the C library knows it).
+pub(super) fn default_zone() -> Option<DefaultZone> {
+    let id = default_zone_id()?;
+    let strings = ZONE_STRINGS.iter().find(|z| z.id == id)?;
+    Some(DefaultZone {
+        id: strings.id,
+        rules: zone_info(strings.id)?,
+        short_names: [1, 3].map(|i| String::from_utf16_lossy(&strings.names[i])),
+    })
+}
+
 /// A zone named in the text: the zone, and the offsets `subParseZoneString` sets in the calendar
 /// (`None` leaves the zone to decide).
 struct NamedZone {

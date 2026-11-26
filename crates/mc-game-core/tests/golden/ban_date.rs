@@ -1,5 +1,6 @@
-//! `PlayerList.BAN_DATE_FORMAT` (`yyyy-MM-dd 'at' HH:mm:ss z`) against `SimpleDateFormat(.., Locale.ROOT)` in several
-//! default time zones (`fixtures/BanDateGolden.java`). One test function: it changes the process time zone.
+//! `PlayerList.BAN_DATE_FORMAT` (`yyyy-MM-dd 'at' HH:mm:ss z`) against `SimpleDateFormat(.., Locale.ROOT)` in 21 default
+//! time zones over dates from year 29720 BC to AD 31690 (`fixtures/BanDateGolden.java`): the JDK's zone history, not the
+//! C library's. One test function: it changes the process time zone.
 
 use mc_game::server::players::ban_list_entry::Date;
 use mc_game::server::players::player_list::format_ban_date;
@@ -14,10 +15,6 @@ fn ban_date_format_matches_java_in_every_zone() {
             parts.next().unwrap(),
             parts.next().unwrap(),
         );
-        // Java's tz data names the zero-offset-but-+1h London of 1970 "GMT"; glibc knows it as BST (+01:00)
-        if zone == "Europe/London" && epoch == "0" {
-            continue;
-        }
         // SAFETY: this binary has a single test function and starts no other threads, so nothing reads the
         // environment concurrently with `set_var`.
         unsafe {
@@ -28,7 +25,7 @@ fn ban_date_format_matches_java_in_every_zone() {
         assert_eq!(format_ban_date(&date), expected, "{zone} {epoch}");
         checked += 1;
     }
-    assert!(checked > 40);
+    assert!(checked > 900);
 }
 
 unsafe extern "C" {
