@@ -436,12 +436,13 @@ impl LevelTickEnv for Env {
         &mut self,
         level: &mut ServerLevel,
         source: mc_game::commands::CommandSourceStack,
-        command: &str,
+        command: &mc_core::java_string::JavaString,
     ) {
         // `command_env` scenarios run the command through the installed server like `LevelTickEnv` does
         assert!(
             mc_game::commands::server_access::has_server(),
-            "block_scenario: command execution from a ticking level (command blocks) needs the `command_env` verb: `{command}`"
+            "block_scenario: command execution from a ticking level (command blocks) needs the `command_env` verb: `{}`",
+            command.as_lossy_str()
         );
         mc_game::commands::server_access::with_server(|server| {
             let commands = server.commands.clone();
@@ -545,7 +546,7 @@ impl LevelTickEnv for ServerBackedEnv<'_> {
         &mut self,
         level: &mut ServerLevel,
         source: mc_game::commands::CommandSourceStack,
-        command: &str,
+        command: &mc_core::java_string::JavaString,
     ) {
         self.0.perform_prefixed_command(level, source, command)
     }
@@ -2024,8 +2025,9 @@ pub fn state_string(state: BlockState) -> String {
 }
 
 /// `CompoundTag.toString()` (sorted keys).
+/// The text as the oracle writes it: `String.getBytes` turns an unpaired surrogate into `?`.
 pub fn snbt(tag: CompoundTag) -> String {
-    mc_nbt::snbt::print_compact(&Tag::Compound(tag)).into_string_lossy()
+    mc_nbt::snbt::print_compact(&Tag::Compound(tag)).into_utf8_string()
 }
 
 fn sound_source_name(s: SoundSource) -> &'static str {

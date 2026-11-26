@@ -11,6 +11,7 @@ use crate::string_reader::{ImmutableStringReader, StringReader};
 use crate::suggestion::{Suggestions, SuggestionsBuilder};
 use crate::tree::CommandNode;
 use crate::utf16::{len16, substring};
+use mc_core::java_string::JavaString;
 
 pub const ARGUMENT_SEPARATOR: &str = " ";
 pub const ARGUMENT_SEPARATOR_CHAR: char = ' ';
@@ -135,7 +136,7 @@ impl<S: Clone + 'static> CommandDispatcher<S> {
         }
     }
 
-    pub fn parse(&self, command: &str, source: S) -> ParseResults<S> {
+    pub fn parse(&self, command: impl Into<JavaString>, source: S) -> ParseResults<S> {
         self.parse_reader(StringReader::new(command), source)
     }
 

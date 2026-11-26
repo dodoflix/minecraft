@@ -301,8 +301,12 @@ impl Commands {
         )
     }
 
-    pub fn trim_optional_prefix(command: &str) -> &str {
-        command.strip_prefix('/').unwrap_or(command)
+    pub fn trim_optional_prefix(command: &JavaString) -> JavaString {
+        if command.encode_utf16().next() == Some(u16::from(b'/')) {
+            command.substring(1, command.utf16_len())
+        } else {
+            command.clone()
+        }
     }
 
     /// `performPrefixedCommand(sender, command)`.
@@ -310,12 +314,12 @@ impl Commands {
         &self,
         server: &mut MinecraftServer,
         sender: CommandSourceStack,
-        command: &str,
+        command: impl Into<JavaString>,
     ) {
-        let command = Self::trim_optional_prefix(command);
+        let command = Self::trim_optional_prefix(&command.into());
         super::server_access::enter_server(server, || {
-            let parse = self.dispatcher.parse(command, sender);
-            self.perform_command_in_server(parse, command);
+            let parse = self.dispatcher.parse(&command, sender);
+            self.perform_command_in_server(parse, &command);
         });
     }
 
@@ -327,14 +331,14 @@ impl Commands {
         command_string: &str,
     ) {
         super::server_access::enter_server(server, || {
-            self.perform_command_in_server(parse, command_string)
+            self.perform_command_in_server(parse, &JavaString::from(command_string))
         });
     }
 
     fn perform_command_in_server(
         &self,
         parse: ParseResults<CommandSourceStack>,
-        command_string: &str,
+        command_string: &JavaString,
     ) {
         let sender = parse.get_context().get_source().clone();
         let command_chain = Self::finish_parsing(&parse, command_string, &sender);
@@ -344,7 +348,7 @@ impl Commands {
         let result = catch_unwind(AssertUnwindSafe(|| {
             Self::execute_command_in_context(&sender, |execution_context| {
                 execution_context.queue_initial_command_execution(
-                    command_string,
+                    command_string.as_lossy_str(),
                     command_chain,
                     sender.clone(),
                     CommandResultCallback::EMPTY,
@@ -359,7 +363,11 @@ impl Commands {
                 .unwrap_or_else(|| "java.lang.RuntimeException".to_owned());
             // vanilla logs the exception only with debug logging (or the verbose command error flags, off in release)
             if log::log_enabled!(log::Level::Debug) {
-                log::error!("Command exception: /{}: {}", command_string, message);
+                log::error!(
+                    "Command exception: /{}: {}",
+                    command_string.as_lossy_str(),
+                    message
+                );
             }
             let hover = Component::literal(message);
             sender.send_failure(
@@ -372,18 +380,17 @@ impl Commands {
 
     fn finish_parsing(
         command: &ParseResults<CommandSourceStack>,
-        command_string: &str,
+        command_string: &JavaString,
         sender: &CommandSourceStack,
     ) -> Option<ContextChain<CommandSourceStack>> {
         let result = (|| {
             Self::validate_parse_results(command)?;
-            ContextChain::try_flatten(&command.get_context().build(command_string)).ok_or_else(
-                || {
+            ContextChain::try_flatten(&command.get_context().build(command_string.as_lossy_str()))
+                .ok_or_else(|| {
                     CommandSyntaxException::built_in_exceptions()
                         .dispatcher_unknown_command()
                         .create_with_context(command.get_reader())
-                },
-            )
+                })
         })();
         match result {
             Ok(chain) => Some(chain),
@@ -393,7 +400,7 @@ impl Commands {
                     let length = input.utf16_len();
                     let cursor = cursor.min(length);
                     let mut command_text = JavaString::from("/");
-                    command_text.push_str(command_string);
+                    command_text.push_java(command_string);
                     let mut context = Component::empty()
                         .with_format(ChatFormatting::Gray)
                         .with_style_fn(|s| {

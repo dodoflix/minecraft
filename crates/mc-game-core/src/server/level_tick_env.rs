@@ -78,7 +78,7 @@ impl LevelTickEnv for ServerTickEnv<'_> {
         &mut self,
         level: &mut ServerLevel,
         source: crate::commands::CommandSourceStack,
-        command: &str,
+        command: &mc_core::java_string::JavaString,
     ) {
         let commands = self.server.commands.clone();
         self.server.with_lent_level(level, |server| {

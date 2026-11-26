@@ -64,7 +64,7 @@ pub trait LevelTickEnv {
         &mut self,
         level: &mut ServerLevel,
         source: crate::commands::CommandSourceStack,
-        command: &str,
+        command: &mc_core::java_string::JavaString,
     );
     /// Runs the advancement reward functions queued on `level` (`MinecraftServer::run_pending_functions`; the ticking level
     /// is lent back to the server meanwhile).

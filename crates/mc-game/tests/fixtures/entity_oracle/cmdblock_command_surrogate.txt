@@ -1,0 +1,16 @@
+# the block runs once when powered; the message carries the unpaired units
+CF msg Changed the block at 2, -60, 0
+CF result success 1
+PKT A minecraft:disguised_chat 2108000ceda0802061eda0bd20edb880050800014000
+BE 2 -60 0 {Command:"say ? a? ?",LastExecution:3L,SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:2,y:-60,z:0}
+CF msg 2, -60, 0 has the following block data: "say ? a? ?"
+CF result success 10
+CF msg Modified block data of 2, -60, 0
+CF result success 1
+CF msg 2, -60, 0 has the following block data: "say ?"
+CF result success 5
+# the same text with U+FFFD is a different command
+CF msg Changed the block at 5, -60, 0
+CF result success 1
+PKT A minecraft:disguised_chat 2108000cefbfbd2061efbfbd20efbfbd050800014000
+BE 5 -60 0 {Command:"say � a� �",LastExecution:6L,SuccessCount:1,TrackOutput:1b,UpdateLastExecution:1b,auto:0b,components:{},conditionMet:1b,id:"minecraft:command_block",powered:1b,x:5,y:-60,z:0}

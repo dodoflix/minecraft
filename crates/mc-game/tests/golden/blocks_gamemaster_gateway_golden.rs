@@ -14,6 +14,11 @@ fn command_block_placement_and_editor_match_vanilla() {
 }
 
 #[test]
+fn command_block_command_with_lone_surrogates_matches_vanilla() {
+    check("cmdblock_command_surrogate");
+}
+
+#[test]
 fn structure_block_matches_vanilla() {
     check("blk_structure_block");
 }

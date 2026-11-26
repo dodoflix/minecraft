@@ -10,6 +10,7 @@
 use crate::commands::{CommandResultCallback, CommandSource, CommandSourceStack, null_source};
 use crate::server::level::ServerLevel;
 use crate::server::level::level_rules::LiveRules;
+use mc_core::java_string::JavaString;
 use mc_nbt::{CompoundTag, Tag};
 use mc_text::Component;
 use parking_lot::Mutex;
@@ -44,7 +45,7 @@ pub struct BaseCommandBlock {
     update_last_execution: bool,
     shared: Arc<Shared>,
     track_output: bool,
-    command: String,
+    command: JavaString,
     custom_name: Option<Component>,
 }
 
@@ -59,7 +60,7 @@ impl Default for BaseCommandBlock {
                 updated: AtomicBool::new(false),
             }),
             track_output: true,
-            command: String::new(),
+            command: JavaString::default(),
             custom_name: None,
         }
     }
@@ -99,14 +100,14 @@ impl CommandSource for CloseableCommandBlockSource {
 /// A command ready to run (the part of `performCommand` that needs the level and the server).
 pub struct PendingCommand {
     stack: CommandSourceStack,
-    command: String,
+    command: JavaString,
     source: Option<Arc<CloseableCommandBlockSource>>,
 }
 
 impl PendingCommand {
     /// `performPrefixedCommand` and the close of the command source.
     pub fn run(self, level: &mut ServerLevel) {
-        level.perform_prefixed_command(self.stack, &self.command);
+        level.perform_prefixed_command(self.stack, self.command);
         if let Some(source) = self.source {
             source.closed.store(true, Ordering::Relaxed);
         }
@@ -169,7 +170,7 @@ impl BaseCommandBlock {
 
     /// `load(input)`.
     pub fn load(&mut self, tag: &CompoundTag) {
-        self.command = tag.get_string_or("Command", "").to_owned();
+        self.command = tag.get_java_string("Command").cloned().unwrap_or_default();
         self.set_success_count(tag.get_int_or("SuccessCount", 0));
         self.set_custom_name(parse_custom_name_safe(tag, "CustomName"));
         self.track_output = tag.get_boolean_or("TrackOutput", true);
@@ -188,13 +189,13 @@ impl BaseCommandBlock {
     }
 
     /// `setCommand(command)` (the block entity's override adds `setChanged()`).
-    pub fn set_command(&mut self, command: &str) {
-        self.command = command.to_owned();
+    pub fn set_command(&mut self, command: impl Into<JavaString>) {
+        self.command = command.into();
         self.set_success_count(0);
     }
 
     pub fn get_command(&self) -> &str {
-        &self.command
+        self.command.as_lossy_str()
     }
 
     /// `getName()`.
@@ -236,13 +237,13 @@ impl BaseCommandBlock {
         if game_time == self.last_execution {
             return Begin::Done(false);
         }
-        if self.command.eq_ignore_ascii_case("Searge") {
+        if self.get_command().eq_ignore_ascii_case("Searge") {
             *self.shared.last_output.lock() = Some(Component::literal("#itzlipofutzli"));
             self.set_success_count(1);
             return Begin::Done(true);
         }
         self.set_success_count(0);
-        if level.command_blocks_work() && !self.command.is_empty() {
+        if level.command_blocks_work() && !self.get_command().is_empty() {
             *self.shared.last_output.lock() = None;
             let source = self.track_output.then(|| {
                 Arc::new(CloseableCommandBlockSource {

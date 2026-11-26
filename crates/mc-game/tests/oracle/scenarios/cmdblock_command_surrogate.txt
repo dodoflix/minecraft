@@ -1,0 +1,23 @@
+# The `Command` of a command block can hold a lone UTF-16 surrogate (an SNBT `\ud800` escape): the command runs with the unpaired unit in
+# its text and the block entity keeps it, never U+FFFD.
+command_env
+level flat
+preload 2
+entity_counter 3600
+spawn_player A survival 0.5 -60 0.5 0 0
+op A
+tick 2
+dump packets:A:none
+note the block runs once when powered; the message carries the unpaired units
+cmd setblock 2 -60 0 minecraft:command_block{Command:"say \ud800 a\ud83d \ude00"}
+block 3 -60 0 minecraft:redstone_block
+tick 3
+dump packets:A:system_chat,disguised_chat be:2,-60,0
+cmd data get block 2 -60 0 Command
+cmd data modify block 2 -60 0 Command set value "say \ud83d"
+cmd data get block 2 -60 0 Command
+note the same text with U+FFFD is a different command
+cmd setblock 5 -60 0 minecraft:command_block{Command:"say \ufffd a\ufffd \ufffd"}
+block 6 -60 0 minecraft:redstone_block
+tick 3
+dump packets:A:system_chat,disguised_chat be:5,-60,0

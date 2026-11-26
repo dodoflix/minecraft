@@ -10,6 +10,7 @@ use super::level_tick::LevelTickEnv;
 use crate::commands::CommandSourceStack;
 use crate::world::entity::EntityId;
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_core::phys::{Vec2, Vec3};
 use std::panic::{self, AssertUnwindSafe};
 use std::ptr::NonNull;
@@ -97,7 +98,11 @@ impl ServerLevel {
 
     /// `server.getCommands().performPrefixedCommand(source, command)` for a source located in this level. Panics when
     /// this level is not inside a server's tick (levels of tests without a server cannot run commands).
-    pub fn perform_prefixed_command(&mut self, source: CommandSourceStack, command: &str) {
+    pub fn perform_prefixed_command(
+        &mut self,
+        source: CommandSourceStack,
+        command: impl Into<JavaString>,
+    ) {
         let mut env = self
             .tick_state
             .command_env
@@ -105,7 +110,7 @@ impl ServerLevel {
             .expect("commands can only run while a server ticks the level");
         // SAFETY: see `with_command_env`: the pointer was made from the live `&mut` of the tick environment and was taken out
         // above, so this is the only access to it until it is put back.
-        unsafe { env.0.as_mut() }.perform_prefixed_command(self, source, command);
+        unsafe { env.0.as_mut() }.perform_prefixed_command(self, source, &command.into());
         self.tick_state.command_env = Some(env);
     }
 
