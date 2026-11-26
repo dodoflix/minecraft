@@ -5303,17 +5303,18 @@ pub fn read_uuid(tag: Option<&Tag>) -> Option<Uuid> {
     Some(mc_core::uuid_util::uuid_from_int_array(arr))
 }
 
-/// `EntityReference.readWithOldOwnerConversion`: a UUID, or a legacy player name.
+/// `EntityReference.readWithOldOwnerConversion`: a UUID (a failed decode is reported), or a legacy player name.
 pub fn read_owner_with_old_conversion(
     level: Option<&ServerLevel>,
-    tag: Option<&Tag>,
+    input: &CompoundTag,
+    key: &str,
 ) -> Option<Uuid> {
-    if let Some(uuid) = read_uuid(tag) {
+    static UUID: std::sync::LazyLock<mc_dfu::Codec<Uuid>> =
+        std::sync::LazyLock::new(mc_protocol::components::common::uuid_codec);
+    if let Some(uuid) = read_codec(input, key, &UUID) {
         return Some(uuid);
     }
-    let Some(Tag::String(name)) = tag else {
-        return None;
-    };
+    let name = crate::world::block_entity::read_string(input, key)?;
     level?.convert_old_owner(name.as_lossy_str())
 }
 

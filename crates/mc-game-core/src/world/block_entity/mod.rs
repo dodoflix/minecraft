@@ -574,6 +574,25 @@ pub fn read_map_codec<A: 'static>(tag: &CompoundTag, codec: &mc_dfu::MapCodec<A>
     result.result_or_partial()
 }
 
+/// `ValueInput.getString(key)`: the string at `key`; a value of another type is reported to the open [`problem_reporter`] scope
+/// (`UnexpectedTypeProblem`) and reads as absent.
+pub fn read_string<'a>(
+    tag: &'a CompoundTag,
+    key: &str,
+) -> Option<&'a mc_core::java_string::JavaString> {
+    let value = tag.get(key)?;
+    if let mc_nbt::Tag::String(s) = value {
+        return Some(s);
+    }
+    problem_reporter::report(|| {
+        format!(
+            "Expected field '{key}' to contain value of type STRING, but got {}",
+            mc_nbt::Tag::type_name(value.id())
+        )
+    });
+    None
+}
+
 /// `ValueInput.listOrEmpty(key, codec)`'s lookup: the list at `key`, empty when it is absent or not a list (`UnexpectedTypeProblem`,
 /// reported to the open [`problem_reporter`] scope).
 ///

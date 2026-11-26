@@ -172,8 +172,7 @@ pub fn read_additional_save_data(
     level: Option<&ServerLevel>,
     input: &CompoundTag,
 ) {
-    let owner =
-        crate::world::entity::entity::read_owner_with_old_conversion(level, input.get("Owner"));
+    let owner = crate::world::entity::entity::read_owner_with_old_conversion(level, input, "Owner");
     match owner {
         Some(owner) => {
             set_owner_reference(e, Some(owner));
