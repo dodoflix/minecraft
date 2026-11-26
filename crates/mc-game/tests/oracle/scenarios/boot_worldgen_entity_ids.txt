@@ -1,0 +1,10 @@
+# A seeded structure world booted with `preload 2`: the entity ids handed out while the boot generates (the chest minecarts of mineshaft corridors
+# take an id when their structure piece is placed and again when their chunk is promoted) depend on the order the chunks generate in. The real
+# server searches the world spawn first, which generates the chunks around the origin before the preload's chunks, so the replay does the same.
+level normal
+structures true
+seed 4242
+world_spawn
+preload 2
+difficulty normal
+dump counter

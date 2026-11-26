@@ -535,6 +535,44 @@ fn entity_attributes_compare_in_any_order() {
     );
     assert!(!d.is_empty());
 }
+#[test]
+fn only_a_shulker_yaw_is_ignored() {
+    let ent = |id: &str, yaw: f32, pitch: f32| {
+        let mut c = CompoundTag::new();
+        c.put_string("id", id);
+        c.put(
+            "Pos",
+            Tag::List(vec![Tag::Double(1.0), Tag::Double(64.0), Tag::Double(2.5)].into()),
+        );
+        c.put(
+            "Rotation",
+            Tag::List(vec![Tag::Float(yaw), Tag::Float(pitch)].into()),
+        );
+        let mut w = CompoundTag::new();
+        w.put("Entities", Tag::List(vec![Tag::Compound(c)].into()));
+        w
+    };
+    let mut d = ChunkDiff::new(10);
+    compare_entity_chunks(
+        Some(&ent("minecraft:shulker", 1.0, 0.0)),
+        Some(&ent("minecraft:shulker", 2.0, 0.0)),
+        &mut d,
+    );
+    assert!(d.is_empty());
+    compare_entity_chunks(
+        Some(&ent("minecraft:shulker", 1.0, 0.0)),
+        Some(&ent("minecraft:shulker", 1.0, 3.0)),
+        &mut d,
+    );
+    assert!(!d.is_empty());
+    let mut d = ChunkDiff::new(10);
+    compare_entity_chunks(
+        Some(&ent("minecraft:cow", 1.0, 0.0)),
+        Some(&ent("minecraft:cow", 2.0, 0.0)),
+        &mut d,
+    );
+    assert!(!d.is_empty());
+}
 
 #[test]
 fn sample_cap_does_not_cap_count() {

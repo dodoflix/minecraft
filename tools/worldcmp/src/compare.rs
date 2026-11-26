@@ -2,7 +2,7 @@
 //!
 //! Everything is compared semantically (palette-independent blocks/biomes, order-insensitive lists where vanilla's order
 //! is not observable) and reported as short human-readable messages. Ignored: `LastUpdate`, `InhabitedTime`, light data
-//! (`sections[].BlockLight/SkyLight`), entity `UUID`s and `EggLayTime` (own-RNG fields, see `NONDETERMINISTIC_ENTITY_FIELDS`), and the order of an entity's `attributes`.
+//! (`sections[].BlockLight/SkyLight`), entity `UUID`s and `EggLayTime` (own-RNG fields, see `NONDETERMINISTIC_ENTITY_FIELDS`), a shulker's yaw, and the order of an entity's `attributes`.
 
 use std::collections::{BTreeMap, BTreeSet};
 
@@ -573,7 +573,18 @@ pub fn normalize_entity(t: &Tag) -> Tag {
     t
 }
 
+/// A shulker an end city places has no yaw of its own: its `Rotation[0]` stays the `random.nextFloat() * 2π` the living entity
+/// constructor drew from the entity's own unseeded RandomSource (two vanilla runs of one end area differ in it for every shulker).
+fn normalize_shulker_yaw(c: &mut CompoundTag) {
+    if c.get_string_or("id", "") == "minecraft:shulker"
+        && let Some(yaw) = c.get_list_mut("Rotation").and_then(|r| r.get_mut(0))
+    {
+        *yaw = Tag::Float(0.0);
+    }
+}
+
 fn normalize_entity_compound(c: &mut CompoundTag) {
+    normalize_shulker_yaw(c);
     for k in NONDETERMINISTIC_ENTITY_FIELDS {
         c.remove(k);
     }

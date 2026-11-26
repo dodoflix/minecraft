@@ -288,6 +288,12 @@ fn mob_spawner_cat_hut() {
     block_scenario::check("mob_spawner_cat_hut");
 }
 
+/// Entity ids handed out while a seeded structure world boots with `preload 2` and the spawn search: the chunks around the origin generate first.
+#[test]
+fn boot_worldgen_entity_ids() {
+    block_scenario::check("boot_worldgen_entity_ids");
+}
+
 /// `PatrolSpawner`: the daylight, one in five, village, spectator, rule and enemy gates and the groups by difficulty (block replay).
 #[test]
 fn mob_spawner_patrol() {
