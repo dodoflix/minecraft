@@ -245,6 +245,27 @@ fn empty_payload_is_no_packet() {
 }
 
 #[test]
+fn decode_failure_texts_match_vanilla() {
+    use mc_protocol::packet::Packet;
+    use mc_protocol::packets::configuration::{
+        ServerboundConfigurationPacket, ServerboundFinishConfigurationPacket,
+    };
+    use mc_protocol::packets::play::ServerboundPlayPacket;
+    let trailing = [ServerboundFinishConfigurationPacket::ID as u8, 9];
+    assert_eq!(
+        ServerboundConfigurationPacket::decode_payload(&trailing)
+            .unwrap_err()
+            .to_string(),
+        "Packet configuration/serverbound/minecraft:finish_configuration (ServerboundFinishConfigurationPacket) was larger than I expected, found 1 bytes extra whilst reading packet serverbound/minecraft:finish_configuration"
+    );
+    // the nested vanilla classes keep their simple names
+    let mut payload = vec![mc_protocol::packets::play::ServerboundMovePlayerPosPacket::ID as u8];
+    payload.extend([0u8; 25]);
+    let pos = ServerboundPlayPacket::decode_payload(&payload).unwrap();
+    assert_eq!(pos.class_name(), "Pos");
+}
+
+#[test]
 fn max_frame_length_is_accepted() {
     let mut d = FrameDecoder::new();
     d.push(&[0xFF, 0xFF, 0x7F]);

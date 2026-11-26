@@ -98,6 +98,15 @@ pub fn encode_packet<P: Packet>(packet: &P) -> Result<Vec<u8>, PacketEncodeError
     }
 }
 
+/// Simple name of the vanilla class of a packet struct: the Rust structs carry the class names, except the four
+/// nested `ServerboundMovePlayerPacket` subclasses (`Pos`, `PosRot`, `Rot`, `StatusOnly`).
+pub fn vanilla_class_name(type_name: &'static str) -> &'static str {
+    let name = type_name.rsplit("::").next().unwrap_or(type_name);
+    name.strip_prefix("ServerboundMovePlayer")
+        .and_then(|n| n.strip_suffix("Packet"))
+        .unwrap_or(name)
+}
+
 /// Every `(id, resource name)` of a state/direction, sorted by id.
 pub fn packet_names(state: ConnectionState, flow: PacketFlow) -> &'static [(i32, &'static str)] {
     use crate::ids;
@@ -194,12 +203,18 @@ macro_rules! packet_enum {
                 let packet = Self::decode_body(id, &mut payload)?;
                 if !payload.is_empty() {
                     return ::std::result::Result::Err($crate::codec::DecodeError::Message(::std::format!(
-                        "Packet {}/{}/{} was larger than I expected, found {} bytes extra whilst reading packet {}",
+                        "Packet {}/{}/{} ({}) was larger than I expected, found {} bytes extra whilst reading packet {}/{}",
                         packet.state().id(),
-                        packet.flow().id(), packet.name(), payload.len(), packet.name()
+                        packet.flow().id(), packet.name(), packet.class_name(), payload.len(),
+                        packet.flow().id(), packet.name()
                     )));
                 }
                 Ok(packet)
+            }
+
+            /// `getClass().getSimpleName()` of the vanilla packet class.
+            pub fn class_name(&self) -> &'static str {
+                match self { $(Self::$variant(_) => $crate::packet::vanilla_class_name(::std::any::type_name::<$ty>())),* }
             }
         }
 
