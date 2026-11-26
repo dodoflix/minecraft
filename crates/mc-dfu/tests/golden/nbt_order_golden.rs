@@ -104,9 +104,9 @@ fn compound_tag_key_order_matches_vanilla() {
 static IN_PLACE: LazyLock<String> =
     LazyLock::new(|| mc_testkit::include_gz!("../fixtures/nbt_order/in_place.txt.gz"));
 
-/// Sequences of `put` and `remove` on one `CompoundTag` that is never copied, so the table keeps its growth, its tree bins and
-/// the shape earlier removes left (a remove outside a tree bin, a second remove from a tree bin, puts into a tree bin after
-/// a remove, a table that grew with keys that are gone).
+/// Sequences of `put`, `remove` and `shallow_copy` / `copy` on one `CompoundTag`, so the table keeps its growth, its tree bins
+/// and the shape earlier removes left (a remove outside a tree bin, a second remove from a tree bin, puts into a tree bin
+/// after a remove, a table that grew with keys that are gone, edits after a copy).
 #[test]
 fn compound_tag_edited_in_place_matches_vanilla() {
     let mut n = 0;
@@ -123,6 +123,8 @@ fn compound_tag_edited_in_place_matches_vanilla() {
                 ("-", key) => {
                     tag.remove(key);
                 }
+                ("~", _) => tag = tag.shallow_copy(),
+                ("=", _) => tag = tag.copy(),
                 _ => panic!("operation {op}"),
             }
         }

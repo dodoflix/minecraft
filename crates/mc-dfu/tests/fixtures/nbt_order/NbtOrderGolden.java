@@ -10,8 +10,8 @@ import net.minecraft.nbt.*;
  * strings that share the low bits of their spread hash, in numbers that make `HashMap` resize small tables and treeify
  * bins (9 or more keys in a bin of a table of 64 or more).
  * Line: initial keys (US-separated) TAB operations (US-separated: "+key" set, "-key" remove) TAB resulting key order (US-separated).
- * A second file lists sequences run IN PLACE on one `new CompoundTag()` (`putInt` and `remove`, no copy in between), so a
- * table keeps its growth, its tree bins and the shapes earlier removes left; same line format.
+ * A second file lists sequences run IN PLACE on one `new CompoundTag()` (`putInt` and `remove`, now and then `shallowCopy()` "~" or
+ * `copy()` "="), so a table keeps its growth, its tree bins and the shapes earlier removes left; same line format.
  * Usage: crates/mc-dfu/tests/fixtures/nbt_order/gen.sh
  * Output: crates/mc-dfu/tests/fixtures/nbt_order/golden.txt.gz, in_place.txt.gz
  */
@@ -68,6 +68,13 @@ public class NbtOrderGolden {
       return NbtOps.INSTANCE.createMap(pairs.stream());
    }
 
+   /** `CompoundTag.shallowCopy()` is package private. */
+   static CompoundTag shallowCopy(CompoundTag tag) throws Exception {
+      var method = CompoundTag.class.getDeclaredMethod("shallowCopy");
+      method.setAccessible(true);
+      return (CompoundTag) method.invoke(tag);
+   }
+
    static String order(Tag t) {
       return join(new ArrayList<>(((CompoundTag) t).keySet()));
    }
@@ -91,8 +98,8 @@ public class NbtOrderGolden {
       return new ArrayList<>(new LinkedHashSet<>(pool));
    }
 
-   /** Sequences of `putInt` and `remove` on one `CompoundTag`, never copied: the order of `keySet()` at the end. */
-   static String inPlace() {
+   /** Sequences of `putInt`, `remove` and copies of one `CompoundTag`: the order of `keySet()` at the end. */
+   static String inPlace() throws Exception {
       StringBuilder out = new StringBuilder();
       Random r = new Random(20261126);
       for (int round = 0; round < 1500; round++) {
@@ -104,6 +111,16 @@ public class NbtOrderGolden {
          int nOps = 1 + r.nextInt(round % 3 == 0 ? 120 : 40);
          int removeShare = new int[] {30, 45, 60}[r.nextInt(3)];
          for (int i = 0; i < nOps; i++) {
+            int copy = r.nextInt(100);
+            if (copy < 4) {
+               tag = shallowCopy(tag);
+               ops.add("~");
+               continue;
+            } else if (copy < 8) {
+               tag = tag.copy();
+               ops.add("=");
+               continue;
+            }
             String k = pool.get(r.nextInt(pool.size()));
             if (r.nextInt(100) >= removeShare) {
                tag.putInt(k, 1000 + i);

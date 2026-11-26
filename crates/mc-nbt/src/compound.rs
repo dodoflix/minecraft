@@ -32,7 +32,7 @@ pub struct CompoundTag {
     /// The entries are in the iteration order of a map whose history is unknown (`from_hash_order`): no replay.
     frozen: bool,
     /// Puts and removes since the compound first held 9 keys (see the module docs).
-    history: Option<History>,
+    history: Option<Box<History>>,
 }
 
 /// What a replay needs of a compound that held 9 keys at once: its puts and removes in order. A tick is one put of a
@@ -48,12 +48,12 @@ struct History {
 
 impl History {
     /// The `n` keys of `tags`, put in this order on the table the compound started with.
-    fn of_puts(n: usize) -> History {
-        History {
+    fn of_puts(n: usize) -> Box<History> {
+        Box::new(History {
             clock: n as u32,
             stamps: (0..n as u32).collect(),
             removed: Vec::new(),
-        }
+        })
     }
 }
 
@@ -91,6 +91,20 @@ fn organic_cap(len: usize) -> u32 {
         cap *= 2;
     }
     cap
+}
+
+/// Do 9 of `keys` share a bucket of a table of `first_cap` buckets? A tree bin in a later table needs that (tables only
+/// grow).
+fn has_bin_of_nine<'a>(keys: impl Iterator<Item = &'a JavaString>, first_cap: usize) -> bool {
+    let mut counts = vec![0u32; first_cap];
+    for k in keys {
+        let bucket = java_hash(k) as usize & (first_cap - 1);
+        counts[bucket] += 1;
+        if counts[bucket] == 9 {
+            return true;
+        }
+    }
+    false
 }
 
 impl CompoundTag {
@@ -153,7 +167,19 @@ impl CompoundTag {
             return Vec::new();
         }
         if let Some(history) = &self.history {
-            return self.replay(history);
+            let first_cap = if self.init_cap == 0 {
+                16
+            } else {
+                self.init_cap as usize
+            };
+            let keys = self
+                .tags
+                .keys()
+                .chain(history.removed.iter().map(|(key, ..)| key));
+            // a tree needs 9 live keys in one bucket; without that the table grew with the key count and the sort is exact
+            if has_bin_of_nine(keys, first_cap) {
+                return self.replay(history);
+            }
         }
         let mask = self.cap - 1;
         let mut order: Vec<usize> = (0..self.tags.len()).collect();
@@ -164,23 +190,6 @@ impl CompoundTag {
                 .map_or(0, |(k, _)| java_hash(k) & mask)
         });
         order
-    }
-
-    /// Do 9 keys share a bucket of the first table? A tree bin in a later table needs that (tables only grow).
-    fn has_bin_of_nine(&self) -> bool {
-        const FIRST_CAP: usize = 16;
-        if self.tags.len() < 9 {
-            return false;
-        }
-        let mut counts = [0u32; FIRST_CAP];
-        for k in self.tags.keys() {
-            let bucket = java_hash(k) as usize & (FIRST_CAP - 1);
-            counts[bucket] += 1;
-            if counts[bucket] == 9 {
-                return true;
-            }
-        }
-        false
     }
 
     /// The iteration order (indices into `tags`) after every put and remove of `history` on the model of the table.
@@ -521,8 +530,8 @@ impl Clone for CompoundTag {
         let cap = organic_cap(len);
         // no remove since the history began and no bin of 9: the table is the organic one and no bin was ever a tree
         let plain = self.history.as_ref().is_none_or(|h| h.removed.is_empty());
-        if cap == self.cap && !self.frozen && self.init_cap == 0 && plain && !self.has_bin_of_nine()
-        {
+        let bin_of_nine = len >= 9 && has_bin_of_nine(self.tags.keys(), 16);
+        if cap == self.cap && !self.frozen && self.init_cap == 0 && plain && !bin_of_nine {
             // Same table size: Java's re-insertion keeps every bucket's relative order.
             return CompoundTag {
                 tags: self.tags.clone(),
