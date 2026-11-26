@@ -247,6 +247,7 @@ async fn player_load_problems_match_vanilla() {
             ours(12345, "survival", &props)
         };
         let server = builder
+            .mojang(crate::common::mojang())
             .prepare(move |dir| write_seed(dir, &seed))
             .start()
             .expect("server");
@@ -290,6 +291,7 @@ async fn player_side_file_problems_match_vanilla() {
             ours(12345, "survival", &props)
         };
         let server = builder
+            .mojang(crate::common::mojang())
             .prepare(move |dir| {
                 write_seed(dir, &seed);
                 let players = dir.join("world/players");
@@ -396,6 +398,7 @@ impl FlatWorld {
                 ours(12345, "survival", &FLAT_PROPS)
             };
             let server = builder
+                .mojang(crate::common::mojang())
                 .prepare(move |dir| {
                     crate::world_start::copy_dir(&world, &dir.join("world"));
                     write_seed(dir, &seed);

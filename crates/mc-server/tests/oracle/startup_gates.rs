@@ -356,14 +356,6 @@ pub(crate) fn gate_log(run: &Run) -> Vec<String> {
         let level = head
             .rsplit_once(" [")
             .map_or("", |(_, tl)| tl.rsplit('/').next().unwrap_or(""));
-        // the request to the Mojang services fails with the network and its WARN lands at any record of the start (vanilla:
-        // `Failed to connect`, ours: the same text plus `Services are unavailable...`), whichever side's request ends first
-        if message.starts_with("Failed to request Minecraft Services public key")
-            || head.ends_with("[Minecraft Services Discovery/WARN")
-        {
-            after_record = false;
-            continue;
-        }
         let keep = matches!(level, "WARN" | "ERROR" | "FATAL")
             || INTEREST.iter().any(|i| message.starts_with(i))
             || message.starts_with("Attempting to use fallback");

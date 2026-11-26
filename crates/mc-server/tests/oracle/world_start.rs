@@ -26,9 +26,9 @@
 //! * `game_rules.dat` as a set of entries: the real server writes the rules in the order of an identity-hashed map, so even
 //!   two runs of it disagree on the key order of the file ([`game_rules_difference`]).
 //! * The log: warnings, errors and the lines of [`INTEREST`] in order, the time and the thread removed, stack traces
-//!   dropped (the lines of a `Serialization errors:` report kept), the failed request for the services' public keys and
-//!   the discovery thread's warning left out; a run of `Failed to fetch mob spawner entity` errors (logged from
-//!   concurrent worker threads) is sorted ([`log_records`]).
+//!   dropped (the lines of a `Serialization errors:` report kept); a run of `Failed to fetch mob spawner entity` errors
+//!   (logged from concurrent worker threads) is sorted ([`log_records`]). Both servers use the mock of the Mojang
+//!   services, so the key fetch thread logs nothing.
 //! * A world on which the two servers differ is run again on the real server, up to [`VANILLA_RETRIES`] more times
 //!   (`mc-server` runs once): its first tick is a race.
 
@@ -393,6 +393,7 @@ impl Side {
         // the zone is part of how dates print
         .env("TZ", "UTC")
         .properties(PROPERTIES)
+        .mojang(crate::common::mojang())
     }
 }
 
@@ -505,15 +506,6 @@ pub(crate) fn log_records(log: &str) -> Vec<String> {
             continue;
         };
         let level = thread_level.rsplit('/').next().unwrap_or("");
-        // a request to the Mojang services: it fails (or not) with the network, and with a different text in each server.
-        // The discovery thread logs the failure of its request whenever the request ends, so the WARN lands at any record
-        // of the start: runs of ours on the same world logged it at record 9 where the real server's run logged none (the
-        // real server logs it too: a run of it under a debugger did)
-        if message.starts_with("Failed to request Minecraft Services public key")
-            || thread_level == "Minecraft Services Discovery/WARN"
-        {
-            continue;
-        }
         let interesting = matches!(level, "WARN" | "ERROR" | "FATAL")
             || INTEREST.iter().any(|i| message.starts_with(i));
         if interesting {

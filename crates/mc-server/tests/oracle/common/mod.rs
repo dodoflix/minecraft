@@ -25,6 +25,16 @@ pub fn dump_path(name: &str) -> std::path::PathBuf {
     dir.join(name)
 }
 
+/// The mock of the Mojang services the whole test process shares: a server started with `.mojang(mojang())` finds its
+/// key set, so the key fetch thread logs nothing (against a dead or absent network its warnings land at any record of
+/// a start, and the servers fail the request in different texts).
+pub fn mojang() -> &'static mc_testkit::MockMojang {
+    static MOCK: std::sync::LazyLock<mc_testkit::MockMojang> = std::sync::LazyLock::new(|| {
+        mc_testkit::MockMojang::start().expect("start the mock Mojang")
+    });
+    &MOCK
+}
+
 /// OUR server (`mc-server`, offline, peaceful, view/simulation distance 4) for `seed` and `gamemode`; counterpart of
 /// `mc_testbot::harness::vanilla`, `props` replace the defaults of the same key. Start it with `.start()`.
 pub fn ours(seed: i64, gamemode: &str, props: &[&str]) -> mc_testkit::Builder {
