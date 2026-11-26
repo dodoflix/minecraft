@@ -82,3 +82,61 @@
 777 the_end -848 -896 5 minecraft:end_city
 777 the_end -848 -896 4 minecraft:chorus_plant
 777 the_end 0 0 4 minecraft:main_island
+
+# World types. Case lines may end in options for their own run (--level-type, --generator-settings, --datapack); such a case runs in
+# run/wgdiff/<seed>-<dim>-<x>,<z>-<label>. Areas lie away from the spawn.
+12345 overworld 2400 2400 4 large_biomes --level-type minecraft:large_biomes
+12345 overworld 2400 2400 4 amplified --level-type minecraft:amplified
+12345 overworld 2400 2400 4 single_biome --level-type minecraft:single_biome_surface
+1 overworld 2400 2400 4 large_biomes --level-type minecraft:large_biomes
+1 overworld 2400 2400 4 amplified --level-type minecraft:amplified
+1 overworld 2400 2400 4 single_biome --level-type minecraft:single_biome_surface
+777 overworld 2400 2400 4 large_biomes --level-type minecraft:large_biomes
+777 overworld 2400 2400 4 amplified --level-type minecraft:amplified
+777 overworld 2400 2400 4 single_biome --level-type minecraft:single_biome_surface
+12345 overworld 0 0 4 debug_all_block_states --level-type minecraft:debug_all_block_states
+12345 overworld 1600 1600 4 debug_all_block_states_far --level-type minecraft:debug_all_block_states
+12345 overworld 160 880 4 flat_bottomless_pit --level-type minecraft:flat --generator-settings {"biome":"minecraft:plains","features":false,"lakes":false,"layers":[{"block":"minecraft:cobblestone","height":2},{"block":"minecraft:dirt","height":3},{"block":"minecraft:grass_block","height":1}],"structure_overrides":"minecraft:villages"}
+12345 overworld 160 880 4 flat_classic_flat --level-type minecraft:flat --generator-settings {"biome":"minecraft:plains","features":false,"lakes":false,"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:grass_block","height":1}],"structure_overrides":"minecraft:villages"}
+12345 overworld 160 880 4 flat_desert --level-type minecraft:flat --generator-settings {"biome":"minecraft:desert","features":true,"lakes":false,"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:stone","height":3},{"block":"minecraft:sandstone","height":52},{"block":"minecraft:sand","height":8}],"structure_overrides":["minecraft:villages","minecraft:desert_pyramids","minecraft:mineshafts","minecraft:strongholds"]}
+12345 overworld 160 880 4 flat_overworld --level-type minecraft:flat --generator-settings {"biome":"minecraft:plains","features":true,"lakes":true,"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:stone","height":59},{"block":"minecraft:dirt","height":3},{"block":"minecraft:grass_block","height":1}],"structure_overrides":["minecraft:villages","minecraft:mineshafts","minecraft:pillager_outposts","minecraft:ruined_portals","minecraft:strongholds"]}
+12345 overworld 160 880 4 flat_redstone_ready --level-type minecraft:flat --generator-settings {"biome":"minecraft:desert","features":false,"lakes":false,"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:stone","height":3},{"block":"minecraft:sandstone","height":116}],"structure_overrides":[]}
+12345 overworld 160 880 4 flat_snowy_kingdom --level-type minecraft:flat --generator-settings {"biome":"minecraft:snowy_plains","features":false,"lakes":false,"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:stone","height":59},{"block":"minecraft:dirt","height":3},{"block":"minecraft:grass_block","height":1},{"block":"minecraft:snow","height":1}],"structure_overrides":["minecraft:villages","minecraft:igloos"]}
+12345 overworld 160 880 4 flat_the_void --level-type minecraft:flat --generator-settings {"biome":"minecraft:the_void","features":true,"lakes":false,"layers":[{"block":"minecraft:air","height":1}],"structure_overrides":[]}
+12345 overworld 160 880 4 flat_tunnelers_dream --level-type minecraft:flat --generator-settings {"biome":"minecraft:windswept_hills","features":true,"lakes":false,"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:stone","height":230},{"block":"minecraft:dirt","height":5},{"block":"minecraft:grass_block","height":1}],"structure_overrides":["minecraft:mineshafts","minecraft:strongholds"]}
+12345 overworld 160 880 4 flat_water_world --level-type minecraft:flat --generator-settings {"biome":"minecraft:deep_ocean","features":false,"lakes":false,"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:deepslate","height":64},{"block":"minecraft:stone","height":5},{"block":"minecraft:dirt","height":5},{"block":"minecraft:gravel","height":5},{"block":"minecraft:water","height":90}],"structure_overrides":["minecraft:ocean_ruins","minecraft:shipwrecks","minecraft:ocean_monuments"]}
+
+# Custom data pack (scripts/worldgen-diff-packs/wgpack): dimension wgtest:wild = overworld generator with sea level 40, a lava
+# sea and the legacy random source; wgtest:isles = the floating islands noise settings.
+12345 wgtest:wild 2400 2400 4 pack_wild --datapack scripts/worldgen-diff-packs/wgpack
+12345 wgtest:isles 2400 2400 4 pack_isles --datapack scripts/worldgen-diff-packs/wgpack
+1 wgtest:wild 2400 2400 4 pack_wild --datapack scripts/worldgen-diff-packs/wgpack
+1 wgtest:isles 2400 2400 4 pack_isles --datapack scripts/worldgen-diff-packs/wgpack
+777 wgtest:wild 2400 2400 4 pack_wild --datapack scripts/worldgen-diff-packs/wgpack
+777 wgtest:isles 2400 2400 4 pack_isles --datapack scripts/worldgen-diff-packs/wgpack
+
+# Negative and large seeds, every dimension: a control at the origin and an area away from the spawn.
+-1 overworld 0 0 4 control
+-1 overworld 2400 2400 4 far
+-1 the_nether 0 0 4 control
+-1 the_nether 2400 2400 4 far
+-1 the_end 0 0 4 control
+-1 the_end 2400 2400 4 far
+9223372036854775807 overworld 0 0 4 control
+9223372036854775807 overworld 2400 2400 4 far
+9223372036854775807 the_nether 0 0 4 control
+9223372036854775807 the_nether 2400 2400 4 far
+9223372036854775807 the_end 0 0 4 control
+9223372036854775807 the_end 2400 2400 4 far
+-9223372036854775808 overworld 0 0 4 control
+-9223372036854775808 overworld 2400 2400 4 far
+-9223372036854775808 the_nether 0 0 4 control
+-9223372036854775808 the_nether 2400 2400 4 far
+-9223372036854775808 the_end 0 0 4 control
+-9223372036854775808 the_end 2400 2400 4 far
+-4172144997902289642 overworld 0 0 4 control
+-4172144997902289642 overworld 2400 2400 4 far
+-4172144997902289642 the_nether 0 0 4 control
+-4172144997902289642 the_nether 2400 2400 4 far
+-4172144997902289642 the_end 0 0 4 control
+-4172144997902289642 the_end 2400 2400 4 far
