@@ -62,6 +62,11 @@ impl ScoreboardNameProvider for ContextScoreboardNameProvider {
     }
 }
 
+/// Size of the vanilla `loot_score_provider_type` registry as modelled here.
+pub fn score_provider_type_count() -> usize {
+    TYPES.entry_count()
+}
+
 static TYPES: LazyLock<Arc<TypeTable<dyn ScoreboardNameProvider>>> = LazyLock::new(|| {
     TypeTable::new(
         "minecraft:loot_score_provider_type",

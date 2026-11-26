@@ -231,6 +231,16 @@ provider_codecs!(
     "float"
 );
 
+/// Size of the vanilla `context_int_provider_type` registry as modelled here.
+pub fn int_provider_type_count() -> usize {
+    INT_TABLE.entry_count()
+}
+
+/// Size of the vanilla `context_float_provider_type` registry as modelled here.
+pub fn float_provider_type_count() -> usize {
+    FLOAT_TABLE.entry_count()
+}
+
 /// `ContextIntProviders.exactly(value)`.
 pub fn int_exactly(value: i32) -> IntHolder {
     Holder::Direct(Arc::new(IntConstant { value }))

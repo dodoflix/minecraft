@@ -131,6 +131,11 @@ impl NbtProvider for ContextNbtProvider {
     }
 }
 
+/// Size of the vanilla `loot_nbt_provider_type` registry as modelled here.
+pub fn nbt_provider_type_count() -> usize {
+    TYPES.entry_count()
+}
+
 static TYPES: LazyLock<Arc<TypeTable<dyn NbtProvider>>> = LazyLock::new(|| {
     TypeTable::new(
         "minecraft:loot_nbt_provider_type",

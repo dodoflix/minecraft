@@ -56,6 +56,11 @@ pub type ConditionRef = Arc<dyn LootItemCondition>;
 pub type ConditionHolder = Holder<dyn LootItemCondition>;
 pub type ConditionHolderSet = HolderSet<dyn LootItemCondition>;
 
+/// Size of the vanilla `loot_condition_type` registry as modelled here.
+pub fn condition_type_count() -> usize {
+    TYPES.entry_count()
+}
+
 static TYPES: LazyLock<Arc<TypeTable<dyn LootItemCondition>>> =
     LazyLock::new(conditions::type_table);
 

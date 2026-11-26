@@ -262,6 +262,11 @@ impl<T: ?Sized + 'static> TypeTable<T> {
         Arc::new(TypeTable { registry, entries })
     }
 
+    /// Number of registered types: the size of the vanilla type registry this table models.
+    pub fn entry_count(&self) -> usize {
+        self.entries.len()
+    }
+
     /// The dispatch codec; `type_name` is the element's registered type name.
     pub fn codec(self: &Arc<Self>, type_name: fn(&T) -> &'static str) -> Codec<Arc<T>> {
         let (t1, t2) = (self.clone(), self.clone());

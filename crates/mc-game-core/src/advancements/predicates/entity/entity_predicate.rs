@@ -95,6 +95,11 @@ entity_sub_predicates! {
     Sheep("type_specific/sheep", SheepPredicate),
 }
 
+/// Size of the vanilla `entity_sub_predicate_type` registry as modelled here.
+pub fn entity_sub_predicate_type_count() -> usize {
+    VALUE_CODECS.len()
+}
+
 impl EntitySubPredicate {
     /// `PREDICATE_TYPE_ORDER`: the entity type first, then the cheap tests, then the ones that recurse into other
     /// entities, the NBT comparison last.

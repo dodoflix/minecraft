@@ -548,6 +548,11 @@ fn entry<S: SlotSource + Clone + 'static>(codec: MapCodec<S>) -> MapCodec<SlotSo
     )
 }
 
+/// Size of the vanilla `slot_source_type` registry as modelled here.
+pub fn slot_source_type_count() -> usize {
+    TYPES.entry_count()
+}
+
 static TYPES: LazyLock<Arc<TypeTable<dyn SlotSource>>> = LazyLock::new(|| {
     let holder = slot_source_holder_codec;
     let transformed = |codec: MapCodec<Transform>| {

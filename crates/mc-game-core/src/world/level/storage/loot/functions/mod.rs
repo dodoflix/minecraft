@@ -104,6 +104,11 @@ pub fn decorate<'s>(
     }
 }
 
+/// Size of the vanilla `loot_function_type` registry as modelled here.
+pub fn function_type_count() -> usize {
+    TYPES.entry_count()
+}
+
 static TYPES: LazyLock<Arc<TypeTable<dyn LootItemFunction>>> = LazyLock::new(|| {
     let mut entries = Vec::new();
     basic::register(&mut entries);
