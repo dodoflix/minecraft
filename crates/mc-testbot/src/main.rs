@@ -21,7 +21,7 @@ use mc_testbot::log::{DiffOptions, Dir, PacketLog, diff_logs, read_jsonl};
 
 fn usage() -> ! {
     eprintln!(
-        "usage:\n  mc-testbot run HOST[:PORT] SCENARIO.scn [--name N] [--log F] [--obs F]\n  mc-testbot status HOST[:PORT]\n  mc-testbot join HOST[:PORT] [--name N] [--seconds S] [--walk] [--chat T] [--command C]... [--log F] [--text]\n  \
+        "usage:\n  mc-testbot run HOST[:PORT] SCENARIO.scn [--name N] [--log F] [--obs F]\n  mc-testbot status HOST[:PORT]\n  mc-testbot join HOST[:PORT] [--name N] [--seconds S] [--walk] [--chat T] [--command C]... [--mojang DISCOVERY_URL] [--log F] [--text]\n  \
          mc-testbot diff A.jsonl B.jsonl [--ignore NAME]... [--state S] [--dir in|out] [--all-fields] [--field NAME=F1,F2]...\n  mc-testbot text F.jsonl"
     );
     std::process::exit(2)
@@ -79,7 +79,7 @@ async fn join(args: &[String]) -> i32 {
     let (host, port) = host_port(target);
     let (mut name, mut seconds, mut walk, mut chat, mut log, mut text) =
         ("Bot".to_string(), 30u64, false, None, None, false);
-    let mut commands = Vec::new();
+    let (mut commands, mut mojang) = (Vec::new(), None);
     let mut it = args[1..].iter();
     while let Some(a) = it.next() {
         let mut val = || it.next().cloned().unwrap_or_else(|| usage());
@@ -90,11 +90,15 @@ async fn join(args: &[String]) -> i32 {
             "--chat" => chat = Some(val()),
             "--command" => commands.push(val()),
             "--log" => log = Some(val()),
+            "--mojang" => mojang = Some(val()),
             "--text" => text = true,
             _ => usage(),
         }
     }
-    let opts = BotOptions::new(host, port, name);
+    let mut opts = BotOptions::new(host, port, name.clone());
+    if let Some(discovery_url) = mojang {
+        opts = opts.session(discovery_url, name);
+    }
     let bot = Bot::connect(opts)
         .await
         .unwrap_or_else(|e| fatal(&e.to_string()));

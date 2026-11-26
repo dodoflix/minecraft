@@ -6,7 +6,9 @@ use std::time::{Duration, Instant};
 use mc_core::ident::Identifier;
 use mc_nbt::Tag;
 use mc_protocol::PROTOCOL_VERSION;
-use mc_protocol::auth::{encrypt_with_public_key, generate_secret};
+use mc_protocol::auth::{
+    SessionClient, digest_server_id, encrypt_with_public_key, generate_secret,
+};
 use mc_protocol::packets::common::{ClientInformation, CustomPayload, ResourcePackAction};
 use mc_protocol::packets::configuration::{self as cfg, *};
 use mc_protocol::packets::handshake::*;
@@ -17,6 +19,14 @@ use uuid::Uuid;
 
 use crate::conn::{Conn, SharedLog};
 use crate::error::{BotError, Result};
+
+/// The Mojang account of a bot in an online-mode server: `joinServer` goes to the session endpoint named by the
+/// discovery document at `discovery_url`, authorised by `access_token`.
+#[derive(Debug, Clone)]
+pub struct Session {
+    pub discovery_url: String,
+    pub access_token: String,
+}
 
 /// What to do with resource pack pushes.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -48,6 +58,8 @@ pub struct BotOptions {
     pub record_raw: bool,
     /// Declares `minecraft:core` as known pack (the real client does) so the server may omit known registry entries.
     pub known_packs: bool,
+    /// Without a session the bot refuses an online-mode server.
+    pub session: Option<Session>,
 }
 
 impl BotOptions {
@@ -67,7 +79,21 @@ impl BotOptions {
             timeout: Duration::from_secs(60),
             record_raw: false,
             known_packs: true,
+            session: None,
         }
+    }
+
+    /// Log in with the account `access_token` against the services at `discovery_url` (online-mode servers).
+    pub fn session(
+        mut self,
+        discovery_url: impl Into<String>,
+        access_token: impl Into<String>,
+    ) -> Self {
+        self.session = Some(Session {
+            discovery_url: discovery_url.into(),
+            access_token: access_token.into(),
+        });
+        self
     }
 
     pub fn profile_uuid(&self) -> Uuid {
@@ -191,12 +217,22 @@ pub async fn login(conn: &mut Conn, opts: &BotOptions) -> Result<Configured> {
                 out.compression_threshold = p.compression_threshold;
             }
             ClientboundLoginPacket::Hello(h) => {
-                if h.should_authenticate {
-                    return Err(BotError::Protocol(
-                        "server is in online mode and requires session authentication (not supported by the testbot)".into(),
-                    ));
-                }
                 let secret = generate_secret();
+                if h.should_authenticate {
+                    let session = opts.session.as_ref().ok_or_else(|| {
+                        BotError::Protocol(
+                            "server is in online mode and the bot has no session (BotOptions::session)".into(),
+                        )
+                    })?;
+                    SessionClient::from_discovery(&session.discovery_url)
+                        .join_server(
+                            opts.profile_uuid(),
+                            &session.access_token,
+                            &digest_server_id(&h.server_id, &secret, &h.public_key),
+                        )
+                        .await
+                        .map_err(|e| BotError::Protocol(format!("joinServer: {e}")))?;
+                }
                 let key = ServerboundKeyPacket {
                     keybytes: encrypt_with_public_key(&h.public_key, &secret)
                         .map_err(|e| BotError::Protocol(format!("encrypt secret: {e}")))?,
