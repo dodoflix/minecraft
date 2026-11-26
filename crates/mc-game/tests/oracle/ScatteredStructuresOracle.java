@@ -44,7 +44,8 @@ import net.minecraft.world.level.storage.LevelStorageSource;
  * piece, then per placement {@code PLACE cx cz featureIndex} + {@code D <dump line>} (block lines folded to a {@code B* cx cz count fnv} digest
  * unless fullBlockLines) + {@code END}. Mobs spawned by pieces (drowned, witch, cat) are created through a fake ServerLevel and
  * finalized with the region's random, so the region random line carries their draws; their unseeded Entity.random and UUID are not
- * reproducible, and the entity lines carry the tag without the keys {@code VOLATILE} lists (those and the finalized equipment/flags).
+ * reproducible, and the entity lines carry the tag without the keys {@code VOLATILE} lists (ten vanilla runs under different JVM flags
+ * differ in nothing else for the swamp hut, igloo and ocean ruins).
  */
 public class ScatteredStructuresOracle {
     public static class FakeLevel extends net.minecraft.server.level.ServerLevel {
@@ -93,8 +94,8 @@ public class ScatteredStructuresOracle {
         return level;
     }
 
-    /** Keys of a mob tag that finalizeSpawn / the unseeded entity random / the UUID decide. */
-    static final String[] VOLATILE = {"UUID", "attributes", "LeftHanded", "CanPickUpLoot", "CanBreakDoors", "IsBaby", "equipment", "drop_chances", "variant", "sound_variant", "Age", "ForcedAge", "EggLayTime"};
+    /** Keys of a mob tag that the unseeded entity random decides: the UUID, the zombie reinforcement/knockback attribute draws, the egg timer. */
+    static final String[] VOLATILE = {"UUID", "attributes", "EggLayTime"};
 
     /**
      * The entities of the igloo templates (villager, zombie villager) are loaded and saved by their real classes (data fixer

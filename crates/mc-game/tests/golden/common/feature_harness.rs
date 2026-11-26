@@ -624,6 +624,8 @@ impl SynthRegion {
             super::block_scenario::real_registries(),
             Arc::new(super::block_scenario::load_dimension_type("overworld")),
         );
+        // the oracles' empty attribute system answers every attribute with its default: a full moon
+        live.publish(mc_world::level_storage::Difficulty::Normal, true, 0, 1.0);
         self.level().with_live_state(live)
     }
 }

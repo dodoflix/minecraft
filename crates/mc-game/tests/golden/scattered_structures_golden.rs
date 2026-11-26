@@ -127,22 +127,8 @@ fn fold(lines: Vec<String>) -> Vec<String> {
     out
 }
 
-/// Keys of a mob tag that `finalizeSpawn`, the unseeded `Entity.random` and the UUID decide (mirror of the oracle's `VOLATILE`).
-const VOLATILE: [&str; 13] = [
-    "UUID",
-    "attributes",
-    "LeftHanded",
-    "CanPickUpLoot",
-    "CanBreakDoors",
-    "IsBaby",
-    "equipment",
-    "drop_chances",
-    "variant",
-    "sound_variant",
-    "Age",
-    "ForcedAge",
-    "EggLayTime",
-];
+/// Keys of a mob tag that the unseeded `Entity.random` decides (mirror of the oracle's `VOLATILE`).
+const VOLATILE: [&str; 3] = ["UUID", "attributes", "EggLayTime"];
 
 /// Mirror of `ScatteredStructuresOracle.TEMPLATE_ENTITY_KEYS`.
 const TEMPLATE_ENTITY_KEYS: [&str; 3] = ["id", "Pos", "Rotation"];

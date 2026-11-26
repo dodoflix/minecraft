@@ -48,8 +48,8 @@ D H 1223 517 OCEAN_FLOOR_WG 19b7050b19bbea60
 D H 1223 517 WORLD_SURFACE e141c0cd208ba904
 D H 1223 517 WORLD_SURFACE_WG e8e764b6b404527e
 D P 1223 517 8 546,1827,273,277
-D N 1223 517 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[19570.5d,65.0d,8277.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 1223 517 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[19570.5d,65.0d,8277.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 1223 517 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[19570.5d,65.0d,8277.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 1223 517 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[19570.5d,65.0d,8277.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:jellie"}
 D C 1223 518 minecraft:terrain
 D T 1223 518 9a93470ea15a41d0 98304
 D M 1223 518 a7f0fdd1a5076405 1536
@@ -138,8 +138,8 @@ D H 1299 -1536 OCEAN_FLOOR_WG b088ceb30f3a6ed6
 D H 1299 -1536 WORLD_SURFACE a0fe86b8007a61c8
 D H 1299 -1536 WORLD_SURFACE_WG 6f00d3c798ea5e89
 D P 1299 -1536 8 546,807,273,1297
-D N 1299 -1536 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[20789.5d,65.0d,-24573.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 1299 -1536 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[20789.5d,65.0d,-24573.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 1299 -1536 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[20789.5d,65.0d,-24573.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 1299 -1536 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:1b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[20789.5d,65.0d,-24573.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:jellie"}
 D C 1299 -1535 minecraft:terrain
 D T 1299 -1535 b742ec507c62fb3b 98304
 D M 1299 -1535 2ec244630fcaca5 1536
@@ -228,8 +228,8 @@ D H -338 1775 OCEAN_FLOOR_WG bd7c3e8753d3c954
 D H -338 1775 WORLD_SURFACE 410be4cf9873f8d9
 D H -338 1775 WORLD_SURFACE_WG 61841dacf82c07dd
 D P -338 1775 8 550,801,279,1303
-D N -338 1775 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-5404.5d,65.0d,28402.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -338 1775 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-5404.5d,65.0d,28402.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -338 1775 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-5404.5d,65.0d,28402.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -338 1775 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-5404.5d,65.0d,28402.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:calico"}
 D C -338 1776 minecraft:terrain
 D T -338 1776 c6ab71d18714fde9 98304
 D M -338 1776 cc7a1ac7265b7885 1536
@@ -318,8 +318,8 @@ D H -933 724 OCEAN_FLOOR_WG 6e21f295bbb4516f
 D H -933 724 WORLD_SURFACE 6429a8f7defd0876
 D H -933 724 WORLD_SURFACE_WG aeea9097ddab3714
 D P -933 724 8 1570,291,1809,1813
-D N -933 724 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-14925.5d,65.0d,11587.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -933 724 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-14925.5d,65.0d,11587.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -933 724 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-14925.5d,65.0d,11587.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -933 724 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-14925.5d,65.0d,11587.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:ragdoll"}
 D C -933 725 minecraft:terrain
 D T -933 725 139414e1b939adfc 98304
 D M -933 725 7dfe34eb3d748405 1536
@@ -408,8 +408,8 @@ D H 1977 632 OCEAN_FLOOR_WG 7239a2c31b511e27
 D H 1977 632 WORLD_SURFACE 6daad94adc246adb
 D H 1977 632 WORLD_SURFACE_WG 83e03275e263522e
 D P 1977 632 8 550,801,279,1303
-D N 1977 632 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[31635.5d,65.0d,10114.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 1977 632 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[31635.5d,65.0d,10114.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 1977 632 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[31635.5d,65.0d,10114.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 1977 632 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[31635.5d,65.0d,10114.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:all_black"}
 D C 1977 633 minecraft:terrain
 D T 1977 633 2754b38cf76aac3b 98304
 D M 1977 633 e6616aed1f4e36e5 1536
@@ -498,8 +498,8 @@ D H 1346 1398 OCEAN_FLOOR_WG e739264f59f30dfc
 D H 1346 1398 WORLD_SURFACE 1cf96af291be5826
 D H 1346 1398 WORLD_SURFACE_WG 25dd5aa145ccc4a0
 D P 1346 1398 8 1650,371,1889,1893
-D N 1346 1398 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[21538.5d,70.0d,22371.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 1346 1398 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[21538.5d,70.0d,22371.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 1346 1398 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[21538.5d,70.0d,22371.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 1346 1398 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:1b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[21538.5d,70.0d,22371.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:white"}
 D C 1346 1399 minecraft:terrain
 D T 1346 1399 23acce770354a799 98304
 D M 1346 1399 b3499b15373d2a85 1536
@@ -588,8 +588,8 @@ D H 1481 1579 OCEAN_FLOOR_WG 313ea84e7bd986bf
 D H 1481 1579 WORLD_SURFACE 6068a5deb71155e8
 D H 1481 1579 WORLD_SURFACE_WG 604a22e0fad3f14f
 D P 1481 1579 8 1602,323,1841,1845
-D N 1481 1579 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[23698.5d,67.0d,25267.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 1481 1579 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[23698.5d,67.0d,25267.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 1481 1579 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[23698.5d,67.0d,25267.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 1481 1579 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[23698.5d,67.0d,25267.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:jellie"}
 D C 1481 1580 minecraft:terrain
 D T 1481 1580 821e813f2e00f694 98304
 D M 1481 1580 4213fef85c6d5dc5 1536
@@ -678,8 +678,8 @@ D H 952 -1099 OCEAN_FLOOR_WG b982cdb729261bb1
 D H 952 -1099 WORLD_SURFACE 882ea5b40808e459
 D H 952 -1099 WORLD_SURFACE_WG 811d18414062e3a0
 D P 952 -1099 8 1570,291,1809,1813
-D N 952 -1099 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[15234.5d,65.0d,-17580.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 952 -1099 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[15234.5d,65.0d,-17580.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 952 -1099 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[15234.5d,65.0d,-17580.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 952 -1099 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[15234.5d,65.0d,-17580.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:ragdoll"}
 D C 952 -1098 minecraft:terrain
 D T 952 -1098 7766590c052528a5 98304
 D M 952 -1098 b8d878d6c899b1b5 1536
@@ -768,8 +768,8 @@ D H -573 1696 OCEAN_FLOOR_WG ac7f128b976e7eaf
 D H -573 1696 WORLD_SURFACE 2c8f41311d12095f
 D H -573 1696 WORLD_SURFACE_WG cd8b7c7de4e8f780
 D P -573 1696 8 550,801,279,1303
-D N -573 1696 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-9164.5d,65.0d,27138.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -573 1696 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-9164.5d,65.0d,27138.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -573 1696 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-9164.5d,65.0d,27138.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -573 1696 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-9164.5d,65.0d,27138.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:tabby"}
 D C -573 1697 minecraft:terrain
 D T -573 1697 d66d0153240103b0 98304
 D M -573 1697 a7847185dac59ff5 1536
@@ -858,8 +858,8 @@ D H -231 -1585 OCEAN_FLOOR_WG f3ff7a056d4d5659
 D H -231 -1585 WORLD_SURFACE e84fc8e43a7fdd22
 D H -231 -1585 WORLD_SURFACE_WG c1cdcfa44f0adc6b
 D P -231 -1585 8 1570,291,1809,1813
-D N -231 -1585 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-3693.5d,65.0d,-25356.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -231 -1585 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-3693.5d,65.0d,-25356.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -231 -1585 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-3693.5d,65.0d,-25356.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -231 -1585 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-3693.5d,65.0d,-25356.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:red"}
 D C -231 -1584 minecraft:terrain
 D T -231 -1584 ada1a2d77488c56b 98304
 D M -231 -1584 1411eef87a8ace25 1536
@@ -948,8 +948,8 @@ D H -323 -88 OCEAN_FLOOR_WG 291a9cc2ec8d7016
 D H -323 -88 WORLD_SURFACE 906457587ecf3099
 D H -323 -88 WORLD_SURFACE_WG 93fda33a4e305fe7
 D P -323 -88 8 578,1859,305,309
-D N -323 -88 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-5165.5d,67.0d,-1402.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -323 -88 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-5165.5d,67.0d,-1402.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -323 -88 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-5165.5d,67.0d,-1402.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -323 -88 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-5165.5d,67.0d,-1402.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:siamese"}
 D C -323 -87 minecraft:terrain
 D T -323 -87 58424484d9310f75 98304
 D M -323 -87 b97cdd7950b3b2f5 1536
@@ -1038,8 +1038,8 @@ D H -1710 -1723 OCEAN_FLOOR_WG 3a49c7e33fa1a9f0
 D H -1710 -1723 WORLD_SURFACE db69233fdcb177f5
 D H -1710 -1723 WORLD_SURFACE_WG 45b9a80a7d2253b6
 D P -1710 -1723 8 546,1827,273,277
-D N -1710 -1723 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-27357.5d,65.0d,-27562.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -1710 -1723 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-27357.5d,65.0d,-27562.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -1710 -1723 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-27357.5d,65.0d,-27562.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -1710 -1723 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-27357.5d,65.0d,-27562.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:persian"}
 D C -1710 -1722 minecraft:terrain
 D T -1710 -1722 26d7fc2464346b1a 98304
 D M -1710 -1722 3375ec642184d675 1536
@@ -1128,8 +1128,8 @@ D H 799 1497 OCEAN_FLOOR_WG 1f90c33540f0254c
 D H 799 1497 WORLD_SURFACE c30d7657380cf432
 D H 799 1497 WORLD_SURFACE_WG dc1f5d4fa964e2c1
 D P 799 1497 8 546,1827,273,277
-D N 799 1497 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[12786.5d,65.0d,23957.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 799 1497 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[12786.5d,65.0d,23957.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 799 1497 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[12786.5d,65.0d,23957.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 799 1497 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[12786.5d,65.0d,23957.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:tabby"}
 D C 799 1498 minecraft:terrain
 D T 799 1498 9d31874888cb3ef2 98304
 D M 799 1498 732ccf1c5b3dcd05 1536
@@ -1218,8 +1218,8 @@ D H 1770 -1647 OCEAN_FLOOR_WG b5262aedc8af2430
 D H 1770 -1647 WORLD_SURFACE a7ef0f15954ca42f
 D H 1770 -1647 WORLD_SURFACE_WG 1ae2fc33a37fb9ce
 D P 1770 -1647 8 594,855,321,1345
-D N 1770 -1647 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[28325.5d,68.0d,-26349.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 1770 -1647 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[28325.5d,68.0d,-26349.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 1770 -1647 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[28325.5d,68.0d,-26349.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 1770 -1647 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[28325.5d,68.0d,-26349.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:tabby"}
 D C 1770 -1646 minecraft:terrain
 D T 1770 -1646 839962c9f1541eed 98304
 D M 1770 -1646 9c17324ad92d2c25 1536
@@ -1308,8 +1308,8 @@ D H -832 -1345 OCEAN_FLOOR_WG f2bd24c36db66ceb
 D H -832 -1345 WORLD_SURFACE 7af4c3e860ec222d
 D H -832 -1345 WORLD_SURFACE_WG 56ae3813cc90e055
 D P -832 -1345 8 566,817,295,1319
-D N -832 -1345 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13308.5d,66.0d,-21517.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -832 -1345 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13308.5d,66.0d,-21517.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -832 -1345 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13308.5d,66.0d,-21517.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -832 -1345 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13308.5d,66.0d,-21517.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:red"}
 D C -832 -1344 minecraft:terrain
 D T -832 -1344 ed8fa4d1487a8bc3 98304
 D M -832 -1344 1c403a2cd4387a65 1536
@@ -1398,8 +1398,8 @@ D H -434 -1802 OCEAN_FLOOR_WG 1efbf4cadbb1ebe5
 D H -434 -1802 WORLD_SURFACE 67d74dd6c8e5aa59
 D H -434 -1802 WORLD_SURFACE_WG f5781169a8ec52c
 D P -434 -1802 8 546,807,273,1297
-D N -434 -1802 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-6938.5d,65.0d,-28829.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -434 -1802 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-6938.5d,65.0d,-28829.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -434 -1802 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-6938.5d,65.0d,-28829.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -434 -1802 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-6938.5d,65.0d,-28829.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:black"}
 D C -434 -1801 minecraft:terrain
 D T -434 -1801 b592d3d80d834a88 98304
 D M -434 -1801 2b38a8c8bc4e6f45 1536
@@ -1488,8 +1488,8 @@ D H -1172 648 OCEAN_FLOOR_WG 36750ccbe10774ff
 D H -1172 648 WORLD_SURFACE 29da3016d0dd6c60
 D H -1172 648 WORLD_SURFACE_WG 9ca0e4dfbd3dbcaa
 D P -1172 648 8 626,887,353,1377
-D N -1172 648 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-18746.5d,70.0d,10370.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -1172 648 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-18746.5d,70.0d,10370.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -1172 648 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-18746.5d,70.0d,10370.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -1172 648 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-18746.5d,70.0d,10370.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:jellie"}
 D C -1172 649 minecraft:terrain
 D T -1172 649 9d42841ea64779a 98304
 D M -1172 649 fad313b3bded0975 1536
@@ -1578,8 +1578,8 @@ D H -1798 -511 OCEAN_FLOOR_WG dc45bdfdbbd50f86
 D H -1798 -511 WORLD_SURFACE 78a18f8e0cccb562
 D H -1798 -511 WORLD_SURFACE_WG 53902fcf64f1282e
 D P -1798 -511 8 550,801,279,1303
-D N -1798 -511 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-28764.5d,65.0d,-8173.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -1798 -511 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-28764.5d,65.0d,-8173.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -1798 -511 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-28764.5d,65.0d,-8173.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -1798 -511 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-28764.5d,65.0d,-8173.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:jellie"}
 D C -1798 -510 minecraft:terrain
 D T -1798 -510 5a826f1112557206 98304
 D M -1798 -510 cda8da0f9c8a4b75 1536
@@ -1668,8 +1668,8 @@ D H -1115 -863 OCEAN_FLOOR_WG 580a84bce9d2880f
 D H -1115 -863 WORLD_SURFACE 408f44a621bed6d5
 D H -1115 -863 WORLD_SURFACE_WG fa215edc9f50d3dc
 D P -1115 -863 8 546,1827,273,277
-D N -1115 -863 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-17837.5d,65.0d,-13802.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -1115 -863 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-17837.5d,65.0d,-13802.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -1115 -863 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-17837.5d,65.0d,-13802.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -1115 -863 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-17837.5d,65.0d,-13802.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:white"}
 D C -1115 -862 minecraft:terrain
 D T -1115 -862 be912d588e3ee6e1 98304
 D M -1115 -862 21d2befd84e25c85 1536
@@ -1758,8 +1758,8 @@ D H -630 917 OCEAN_FLOOR_WG eb218b935788bcec
 D H -630 917 WORLD_SURFACE bcc2ac588136552c
 D H -630 917 WORLD_SURFACE_WG d47884e01e04f50
 D P -630 917 8 546,807,273,1297
-D N -630 917 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-10074.5d,65.0d,14674.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -630 917 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-10074.5d,65.0d,14674.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -630 917 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-10074.5d,65.0d,14674.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -630 917 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-10074.5d,65.0d,14674.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:ragdoll"}
 D C -630 918 minecraft:terrain
 D T -630 918 1b36451619c055d1 98304
 D M -630 918 d21a27e8a13b75c5 1536
@@ -1848,8 +1848,8 @@ D H -1050 -1315 OCEAN_FLOOR_WG 4eec66f8f685b80f
 D H -1050 -1315 WORLD_SURFACE 491a9e514833608a
 D H -1050 -1315 WORLD_SURFACE_WG 68a2224d05eb8cf3
 D P -1050 -1315 8 578,839,305,1329
-D N -1050 -1315 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-16794.5d,67.0d,-21037.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -1050 -1315 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-16794.5d,67.0d,-21037.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -1050 -1315 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-16794.5d,67.0d,-21037.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -1050 -1315 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-16794.5d,67.0d,-21037.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:british_shorthair"}
 D C -1050 -1314 minecraft:terrain
 D T -1050 -1314 1a6be068cbf64c1e 98304
 D M -1050 -1314 1cc9853ece723545 1536
@@ -1938,8 +1938,8 @@ D H 559 -734 OCEAN_FLOOR_WG e86164a89519c58a
 D H 559 -734 WORLD_SURFACE f28331a53e6088a8
 D H 559 -734 WORLD_SURFACE_WG 266b17f5e7a5cf91
 D P 559 -734 8 1570,291,1809,1813
-D N 559 -734 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[8946.5d,65.0d,-11740.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 559 -734 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[8946.5d,65.0d,-11740.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 559 -734 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[8946.5d,65.0d,-11740.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 559 -734 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[8946.5d,65.0d,-11740.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:siamese"}
 D C 559 -733 minecraft:terrain
 D T 559 -733 467f1279079142d7 98304
 D M 559 -733 c48ea1cafa62f095 1536
@@ -2028,8 +2028,8 @@ D H -833 1070 OCEAN_FLOOR_WG 782bbf96cdacd445
 D H -833 1070 WORLD_SURFACE d5a1b93727d03b03
 D H -833 1070 WORLD_SURFACE_WG 7f8a5cfa3f2f673b
 D P -833 1070 8 566,817,295,1319
-D N -833 1070 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13324.5d,66.0d,17122.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -833 1070 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13324.5d,66.0d,17122.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -833 1070 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13324.5d,66.0d,17122.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -833 1070 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13324.5d,66.0d,17122.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:siamese"}
 D C -833 1071 minecraft:terrain
 D T -833 1071 5600d64a9a9e09e8 98304
 D M -833 1071 e02d4b09ed30c325 1536
@@ -2118,8 +2118,8 @@ D H -1200 715 OCEAN_FLOOR_WG e1e2cab900f090f8
 D H -1200 715 WORLD_SURFACE 9d03df9067ac8c3
 D H -1200 715 WORLD_SURFACE_WG 8f51d1222b6d15f3
 D P -1200 715 8 1650,371,1889,1893
-D N -1200 715 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-19197.5d,70.0d,11443.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -1200 715 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-19197.5d,70.0d,11443.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -1200 715 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-19197.5d,70.0d,11443.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -1200 715 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-19197.5d,70.0d,11443.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:jellie"}
 D C -1200 716 minecraft:terrain
 D T -1200 716 da38dd8baa2a988e 98304
 D M -1200 716 42650cfcdcc493e5 1536
@@ -2208,8 +2208,8 @@ D H -805 1107 OCEAN_FLOOR_WG 66903c80bd29825b
 D H -805 1107 WORLD_SURFACE b993008cf624b7c1
 D H -805 1107 WORLD_SURFACE_WG 407d0525e256eedc
 D P -805 1107 8 546,807,273,1297
-D N -805 1107 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-12874.5d,65.0d,17714.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -805 1107 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-12874.5d,65.0d,17714.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -805 1107 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-12874.5d,65.0d,17714.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -805 1107 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-12874.5d,65.0d,17714.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:ragdoll"}
 D C -805 1108 minecraft:terrain
 D T -805 1108 a744e7b9c12ad9ba 98304
 D M -805 1108 d5ac01a57d37ad85 1536
@@ -2298,8 +2298,8 @@ D H 1714 244 OCEAN_FLOOR_WG 61336394831b1709
 D H 1714 244 WORLD_SURFACE baef5d0fe1ae2e1f
 D H 1714 244 WORLD_SURFACE_WG a0c403399a7962a7
 D P 1714 244 8 562,823,289,1313
-D N 1714 244 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[27429.5d,66.0d,3906.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 1714 244 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[27429.5d,66.0d,3906.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 1714 244 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[27429.5d,66.0d,3906.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 1714 244 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:1b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[27429.5d,66.0d,3906.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:british_shorthair"}
 D C 1714 245 minecraft:terrain
 D T 1714 245 fdada889ce7300ce 98304
 D M 1714 245 71ed8cd14a1316f5 1536
@@ -2388,8 +2388,8 @@ D H -360 389 OCEAN_FLOOR_WG 472634edb902a81f
 D H -360 389 WORLD_SURFACE 70b31ea4f2a23d49
 D H -360 389 WORLD_SURFACE_WG b2f8812212132eeb
 D P -360 389 8 1570,291,1809,1813
-D N -360 389 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-5757.5d,65.0d,6227.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -360 389 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-5757.5d,65.0d,6227.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -360 389 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-5757.5d,65.0d,6227.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -360 389 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-5757.5d,65.0d,6227.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:siamese"}
 D C -360 390 minecraft:terrain
 D T -360 390 10d58e03daabdeab 98304
 D M -360 390 5d9a46f84b241d5 1536
@@ -2478,8 +2478,8 @@ D H -942 -93 OCEAN_FLOOR_WG c80679727c61fc19
 D H -942 -93 WORLD_SURFACE 686a9c0d217bb03c
 D H -942 -93 WORLD_SURFACE_WG f6ef5bdb333fc92f
 D P -942 -93 8 546,1827,273,277
-D N -942 -93 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-15069.5d,65.0d,-1482.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -942 -93 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-15069.5d,65.0d,-1482.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -942 -93 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-15069.5d,65.0d,-1482.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -942 -93 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-15069.5d,65.0d,-1482.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:ragdoll"}
 D C -942 -92 minecraft:terrain
 D T -942 -92 7772d12f5aa0f78d 98304
 D M -942 -92 6a6a66b7984e4305 1536
@@ -2568,8 +2568,8 @@ D H -1129 1172 OCEAN_FLOOR_WG f560bc39e7b5d8c7
 D H -1129 1172 WORLD_SURFACE 43600f42bcf79c65
 D H -1129 1172 WORLD_SURFACE_WG 43183bf35751a323
 D P -1129 1172 8 578,839,305,1329
-D N -1129 1172 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-18058.5d,67.0d,18754.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -1129 1172 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-18058.5d,67.0d,18754.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -1129 1172 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-18058.5d,67.0d,18754.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -1129 1172 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-18058.5d,67.0d,18754.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:ragdoll"}
 D C -1129 1173 minecraft:terrain
 D T -1129 1173 af96e8dd83780921 98304
 D M -1129 1173 e83419ab40a0b945 1536
@@ -2658,8 +2658,8 @@ D H 728 1590 OCEAN_FLOOR_WG 78336ebda5676dc8
 D H 728 1590 WORLD_SURFACE 9819fc3a4ad0bc97
 D H 728 1590 WORLD_SURFACE_WG 27e6383d8e584067
 D P 728 1590 8 546,807,273,1297
-D N 728 1590 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[11653.5d,65.0d,25442.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 728 1590 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[11653.5d,65.0d,25442.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 728 1590 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[11653.5d,65.0d,25442.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 728 1590 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:1b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[11653.5d,65.0d,25442.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:ragdoll"}
 D C 728 1591 minecraft:terrain
 D T 728 1591 11b41d196fb27f79 98304
 D M 728 1591 8ff8f94f0f627e15 1536
@@ -2748,8 +2748,8 @@ D H 1350 -1987 OCEAN_FLOOR_WG 34d01aadd21d63cf
 D H 1350 -1987 WORLD_SURFACE 7e8c813bba1d1b65
 D H 1350 -1987 WORLD_SURFACE_WG 4dca1ac7acf41e09
 D P 1350 -1987 8 546,1827,273,277
-D N 1350 -1987 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[21602.5d,65.0d,-31786.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 1350 -1987 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[21602.5d,65.0d,-31786.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 1350 -1987 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[21602.5d,65.0d,-31786.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 1350 -1987 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[21602.5d,65.0d,-31786.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:black"}
 D C 1350 -1986 minecraft:terrain
 D T 1350 -1986 6b6b5c773c7e6c06 98304
 D M 1350 -1986 ba1bc608c421ee5 1536
@@ -2838,8 +2838,8 @@ D H -1424 692 OCEAN_FLOOR_WG 581efda230f27b3b
 D H -1424 692 WORLD_SURFACE ea250dc11134260c
 D H -1424 692 WORLD_SURFACE_WG abbd48b4912df241
 D P -1424 692 8 546,1827,273,277
-D N -1424 692 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-22781.5d,65.0d,11077.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -1424 692 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-22781.5d,65.0d,11077.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -1424 692 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-22781.5d,65.0d,11077.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -1424 692 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-22781.5d,65.0d,11077.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:black"}
 D C -1424 693 minecraft:terrain
 D T -1424 693 1e73393821a59f05 98304
 D M -1424 693 fac18a255e3308a5 1536
@@ -2928,8 +2928,8 @@ D H -793 -1522 OCEAN_FLOOR_WG 78a3aaef36fe7de
 D H -793 -1522 WORLD_SURFACE 8c6d81de07c096aa
 D H -793 -1522 WORLD_SURFACE_WG 2df70d1ad2954ea4
 D P -793 -1522 8 562,1843,289,293
-D N -793 -1522 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-12685.5d,66.0d,-24346.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -793 -1522 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-12685.5d,66.0d,-24346.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -793 -1522 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-12685.5d,66.0d,-24346.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -793 -1522 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-12685.5d,66.0d,-24346.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:jellie"}
 D C -793 -1521 minecraft:terrain
 D T -793 -1521 a072abdbeae6c106 98304
 D M -793 -1521 7814c02221387555 1536
@@ -3018,8 +3018,8 @@ D H -1451 884 OCEAN_FLOOR_WG c62197023fd5fab5
 D H -1451 884 WORLD_SURFACE ed2e02ac5751a291
 D H -1451 884 WORLD_SURFACE_WG 596df804264a064d
 D P -1451 884 8 566,817,295,1319
-D N -1451 884 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-23212.5d,66.0d,14146.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -1451 884 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-23212.5d,66.0d,14146.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -1451 884 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-23212.5d,66.0d,14146.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -1451 884 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-23212.5d,66.0d,14146.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:all_black"}
 D C -1451 885 minecraft:terrain
 D T -1451 885 d266e7b99e0307f 98304
 D M -1451 885 3f006473c2458025 1536
@@ -3108,8 +3108,8 @@ D H 407 -424 OCEAN_FLOOR_WG c53a0c9432433807
 D H 407 -424 WORLD_SURFACE 53d0004ae58b25af
 D H 407 -424 WORLD_SURFACE_WG 5f92c2aaac6492e2
 D P 407 -424 8 546,807,273,1297
-D N 407 -424 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[6517.5d,65.0d,-6781.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 407 -424 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[6517.5d,65.0d,-6781.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 407 -424 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[6517.5d,65.0d,-6781.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 407 -424 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[6517.5d,65.0d,-6781.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:calico"}
 D C 407 -423 minecraft:terrain
 D T 407 -423 2dd067a157d57049 98304
 D M 407 -423 666231424d913275 1536
@@ -3198,8 +3198,8 @@ D H 519 777 OCEAN_FLOOR_WG 25d698d9f76e8d98
 D H 519 777 WORLD_SURFACE d6d49fe349ca540d
 D H 519 777 WORLD_SURFACE_WG cc6b4778481e3f40
 D P 519 777 8 578,1859,305,309
-D N 519 777 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[8306.5d,67.0d,12437.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 519 777 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[8306.5d,67.0d,12437.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 519 777 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[8306.5d,67.0d,12437.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 519 777 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[8306.5d,67.0d,12437.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:black"}
 D C 519 778 minecraft:terrain
 D T 519 778 2a8b14f818824f85 98304
 D M 519 778 98bd8247d1362085 1536
@@ -3288,8 +3288,8 @@ D H 410 -1742 OCEAN_FLOOR_WG d42121188dc7678b
 D H 410 -1742 WORLD_SURFACE eedc04ddb8d73e72
 D H 410 -1742 WORLD_SURFACE_WG 6f2c5240772182fb
 D P 410 -1742 8 550,801,279,1303
-D N 410 -1742 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[6563.5d,65.0d,-27869.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 410 -1742 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[6563.5d,65.0d,-27869.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 410 -1742 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[6563.5d,65.0d,-27869.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 410 -1742 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[6563.5d,65.0d,-27869.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:calico"}
 D C 410 -1741 minecraft:terrain
 D T 410 -1741 aeae26baf54d09f 98304
 D M 410 -1741 2a592f6d56051dd5 1536
@@ -3378,8 +3378,8 @@ D H 646 266 OCEAN_FLOOR_WG 2f66a6a724096bb4
 D H 646 266 WORLD_SURFACE ff0a1ce4ea402199
 D H 646 266 WORLD_SURFACE_WG 4f8ef760a28d7008
 D P 646 266 8 546,807,273,1297
-D N 646 266 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[10341.5d,65.0d,4258.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 646 266 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[10341.5d,65.0d,4258.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 646 266 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[10341.5d,65.0d,4258.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 646 266 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[10341.5d,65.0d,4258.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:jellie"}
 D C 646 267 minecraft:terrain
 D T 646 267 803e1ede22efe0ef 98304
 D M 646 267 c45820396c0a0395 1536
@@ -3468,8 +3468,8 @@ D H 985 1787 OCEAN_FLOOR_WG 3c3684a4a4e4a9a1
 D H 985 1787 WORLD_SURFACE e89bed709976398c
 D H 985 1787 WORLD_SURFACE_WG da56012fd49e79b0
 D P 985 1787 8 642,1923,369,373
-D N 985 1787 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[15762.5d,71.0d,28597.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 985 1787 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[15762.5d,71.0d,28597.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 985 1787 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:1b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[15762.5d,71.0d,28597.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 985 1787 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:1b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[15762.5d,71.0d,28597.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:ragdoll"}
 D C 985 1788 minecraft:terrain
 D T 985 1788 df4da39e455e8d76 98304
 D M 985 1788 18e3c057f56b5465 1536
@@ -3558,8 +3558,8 @@ D H -541 -680 OCEAN_FLOOR_WG a707f8bc79247472
 D H -541 -680 WORLD_SURFACE 4af00ed2a7c11ebe
 D H -541 -680 WORLD_SURFACE_WG 3752f1cce2c9620b
 D P -541 -680 8 1586,307,1825,1829
-D N -541 -680 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-8653.5d,66.0d,-10876.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -541 -680 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-8653.5d,66.0d,-10876.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -541 -680 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-8653.5d,66.0d,-10876.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -541 -680 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-8653.5d,66.0d,-10876.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:all_black"}
 D C -541 -679 minecraft:terrain
 D T -541 -679 54674df4f7eade6c 98304
 D M -541 -679 4ddca932f66076d5 1536
@@ -3648,8 +3648,8 @@ D H -498 1738 OCEAN_FLOOR_WG f43dae7498f82f1e
 D H -498 1738 WORLD_SURFACE 9d7d5203f45e0de6
 D H -498 1738 WORLD_SURFACE_WG 87b8014663531e10
 D P -498 1738 8 546,807,273,1297
-D N -498 1738 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-7962.5d,65.0d,27810.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -498 1738 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-7962.5d,65.0d,27810.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -498 1738 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-7962.5d,65.0d,27810.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -498 1738 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-7962.5d,65.0d,27810.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:persian"}
 D C -498 1739 minecraft:terrain
 D T -498 1739 cc063d1b2bfe065 98304
 D M -498 1739 6788daa2bda44435 1536
@@ -3738,8 +3738,8 @@ D H -448 -1284 OCEAN_FLOOR_WG 2238517da2d3c1ec
 D H -448 -1284 WORLD_SURFACE 662ab3f9e3bc6801
 D H -448 -1284 WORLD_SURFACE_WG f5be80ba24aece64
 D P -448 -1284 8 546,807,273,1297
-D N -448 -1284 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-7162.5d,65.0d,-20541.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -448 -1284 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-7162.5d,65.0d,-20541.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -448 -1284 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-7162.5d,65.0d,-20541.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -448 -1284 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-7162.5d,65.0d,-20541.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:red"}
 D C -448 -1283 minecraft:terrain
 D T -448 -1283 6c7a7c554aff5a11 98304
 D M -448 -1283 60f9b402b79ddf95 1536
@@ -3828,8 +3828,8 @@ D H 176 370 OCEAN_FLOOR_WG 17f84714367f79be
 D H 176 370 WORLD_SURFACE a81946babd37f68b
 D H 176 370 WORLD_SURFACE_WG 1a9c261cc30002c6
 D P 176 370 8 562,823,289,1313
-D N 176 370 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2821.5d,66.0d,5922.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 176 370 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2821.5d,66.0d,5922.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 176 370 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2821.5d,66.0d,5922.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 176 370 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2821.5d,66.0d,5922.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:white"}
 D C 176 371 minecraft:terrain
 D T 176 371 33fdb2bea755248f 98304
 D M 176 371 cbe7fa618d88db15 1536
@@ -3918,8 +3918,8 @@ D H 1119 -96 OCEAN_FLOOR_WG 83c36d6929221ad4
 D H 1119 -96 WORLD_SURFACE fd34e234365f4946
 D H 1119 -96 WORLD_SURFACE_WG 8556e9e543ab75ba
 D P 1119 -96 8 550,801,279,1303
-D N 1119 -96 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[17907.5d,65.0d,-1533.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 1119 -96 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[17907.5d,65.0d,-1533.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 1119 -96 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[17907.5d,65.0d,-1533.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 1119 -96 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[17907.5d,65.0d,-1533.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:calico"}
 D C 1119 -95 minecraft:terrain
 D T 1119 -95 2e04f1750424924c 98304
 D M 1119 -95 19806134ebb383a5 1536
@@ -4008,8 +4008,8 @@ D H -1151 -948 OCEAN_FLOOR_WG b1359df3e69bd05c
 D H -1151 -948 WORLD_SURFACE 18fcd8f0d7266e3f
 D H -1151 -948 WORLD_SURFACE_WG dad1aa92ca0f2d9d
 D P -1151 -948 8 550,801,279,1303
-D N -1151 -948 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-18412.5d,65.0d,-15165.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -1151 -948 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-18412.5d,65.0d,-15165.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -1151 -948 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-18412.5d,65.0d,-15165.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -1151 -948 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-18412.5d,65.0d,-15165.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:black"}
 D C -1151 -947 minecraft:terrain
 D T -1151 -947 222ff9c77044c89d 98304
 D M -1151 -947 3b67b5e708102905 1536
@@ -4098,8 +4098,8 @@ D H 1344 -599 OCEAN_FLOOR_WG ffbcd2a659f624b7
 D H 1344 -599 WORLD_SURFACE 6ea2ba5a98d8ccf6
 D H 1344 -599 WORLD_SURFACE_WG b2f7e39a675dd503
 D P 1344 -599 8 550,801,279,1303
-D N 1344 -599 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[21507.5d,65.0d,-9581.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 1344 -599 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[21507.5d,65.0d,-9581.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 1344 -599 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[21507.5d,65.0d,-9581.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 1344 -599 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[21507.5d,65.0d,-9581.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:red"}
 D C 1344 -598 minecraft:terrain
 D T 1344 -598 f610c70dd076443b 98304
 D M 1344 -598 f99a3905caf97a45 1536
@@ -4188,8 +4188,8 @@ D H -937 687 OCEAN_FLOOR_WG 3731e1776abe51d5
 D H -937 687 WORLD_SURFACE 9db476505673842e
 D H -937 687 WORLD_SURFACE_WG 6f10d264240a068a
 D P -937 687 8 546,1827,273,277
-D N -937 687 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-14989.5d,65.0d,10997.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -937 687 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-14989.5d,65.0d,10997.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -937 687 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-14989.5d,65.0d,10997.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -937 687 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-14989.5d,65.0d,10997.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:siamese"}
 D C -937 688 minecraft:terrain
 D T -937 688 aae17da5536cc546 98304
 D M -937 688 282152ef31402e55 1536
@@ -4278,8 +4278,8 @@ D H -753 1610 OCEAN_FLOOR_WG b218daa106c77474
 D H -753 1610 WORLD_SURFACE 84c4b108c04ee252
 D H -753 1610 WORLD_SURFACE_WG 745b68a056a8a0e2
 D P -753 1610 8 578,839,305,1329
-D N -753 1610 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-12042.5d,67.0d,25762.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -753 1610 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-12042.5d,67.0d,25762.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -753 1610 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-12042.5d,67.0d,25762.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -753 1610 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-12042.5d,67.0d,25762.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:black"}
 D C -753 1611 minecraft:terrain
 D T -753 1611 afec0db4de586231 98304
 D M -753 1611 ca90f0f4901fe495 1536
@@ -4368,8 +4368,8 @@ D H -867 219 OCEAN_FLOOR_WG 99fafd8d722f0b67
 D H -867 219 WORLD_SURFACE 477186d28aa0ae05
 D H -867 219 WORLD_SURFACE_WG 8fd1e9eaf86ee9ff
 D P -867 219 8 1570,291,1809,1813
-D N -867 219 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13869.5d,65.0d,3507.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -867 219 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13869.5d,65.0d,3507.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -867 219 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13869.5d,65.0d,3507.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -867 219 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13869.5d,65.0d,3507.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:black"}
 D C -867 220 minecraft:terrain
 D T -867 220 559c43d189a1a565 98304
 D M -867 220 7750aa5461f37185 1536
@@ -4458,8 +4458,8 @@ D H -713 -197 OCEAN_FLOOR_WG f46d5563bb01230f
 D H -713 -197 WORLD_SURFACE 231427cc21a27533
 D H -713 -197 WORLD_SURFACE_WG fdf0239ed38b0315
 D P -713 -197 8 546,807,273,1297
-D N -713 -197 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-11402.5d,65.0d,-3149.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -713 -197 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-11402.5d,65.0d,-3149.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -713 -197 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-11402.5d,65.0d,-3149.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -713 -197 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-11402.5d,65.0d,-3149.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:siamese"}
 D C -713 -196 minecraft:terrain
 D T -713 -196 2e1dc626975dd6e 98304
 D M -713 -196 3ff133d217485cf5 1536
@@ -4548,8 +4548,8 @@ D H 836 292 OCEAN_FLOOR_WG 12943cb8469e171c
 D H 836 292 WORLD_SURFACE ed704303562c3ab0
 D H 836 292 WORLD_SURFACE_WG d16320374d4e4ffd
 D P 836 292 8 1602,323,1841,1845
-D N 836 292 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[13378.5d,67.0d,4675.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 836 292 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[13378.5d,67.0d,4675.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 836 292 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[13378.5d,67.0d,4675.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 836 292 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[13378.5d,67.0d,4675.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:black"}
 D C 836 293 minecraft:terrain
 D T 836 293 7da0f6cb70cf0de9 98304
 D M 836 293 dce7213455451bd5 1536
@@ -4638,8 +4638,8 @@ D H 133 -1108 OCEAN_FLOOR_WG 92f8242c16b569b1
 D H 133 -1108 WORLD_SURFACE 247bb98e3a4ad8a2
 D H 133 -1108 WORLD_SURFACE_WG 746fb95aefa9fcc3
 D P 133 -1108 8 1570,291,1809,1813
-D N 133 -1108 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2130.5d,65.0d,-17724.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 133 -1108 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2130.5d,65.0d,-17724.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 133 -1108 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2130.5d,65.0d,-17724.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 133 -1108 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[2130.5d,65.0d,-17724.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:british_shorthair"}
 D C 133 -1107 minecraft:terrain
 D T 133 -1107 df41a70f9194bea9 98304
 D M 133 -1107 e889a452a60a1a45 1536
@@ -4728,8 +4728,8 @@ D H -1104 -1866 OCEAN_FLOOR_WG 19319af53470baeb
 D H -1104 -1866 WORLD_SURFACE a797bdb829341341
 D H -1104 -1866 WORLD_SURFACE_WG 4cbc45caddd7785b
 D P -1104 -1866 8 550,801,279,1303
-D N -1104 -1866 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-17660.5d,65.0d,-29853.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -1104 -1866 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-17660.5d,65.0d,-29853.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -1104 -1866 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-17660.5d,65.0d,-29853.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -1104 -1866 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-17660.5d,65.0d,-29853.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:white"}
 D C -1104 -1865 minecraft:terrain
 D T -1104 -1865 74c0404543148a29 98304
 D M -1104 -1865 b440cb70da41b1b5 1536
@@ -4818,8 +4818,8 @@ D H 299 1906 OCEAN_FLOOR_WG b40a6a1ce452600e
 D H 299 1906 WORLD_SURFACE 300c9dbcbd92cf7a
 D H 299 1906 WORLD_SURFACE_WG 2471e8818cc32df
 D P 299 1906 8 562,1843,289,293
-D N 299 1906 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[4786.5d,66.0d,30501.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 299 1906 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[4786.5d,66.0d,30501.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 299 1906 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[4786.5d,66.0d,30501.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 299 1906 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[4786.5d,66.0d,30501.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:tabby"}
 D C 299 1907 minecraft:terrain
 D T 299 1907 7dcfccc821d0c325 98304
 D M 299 1907 5261f0d63eeeccb5 1536
@@ -4908,8 +4908,8 @@ D H -599 16 OCEAN_FLOOR_WG 5b73a1c49b54d8cc
 D H -599 16 WORLD_SURFACE 4d1676dba47146b9
 D H -599 16 WORLD_SURFACE_WG abcf163e42219dac
 D P -599 16 8 1586,307,1825,1829
-D N -599 16 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-9581.5d,66.0d,259.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -599 16 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-9581.5d,66.0d,259.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -599 16 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-9581.5d,66.0d,259.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -599 16 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-9581.5d,66.0d,259.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:british_shorthair"}
 D C -599 17 minecraft:terrain
 D T -599 17 506dfe0fbc755439 98304
 D M -599 17 18c22c0395df66c5 1536
@@ -4998,8 +4998,8 @@ D H -1070 1181 OCEAN_FLOOR_WG 21f3c3213dfe47a3
 D H -1070 1181 WORLD_SURFACE aae5e04eafefca2c
 D H -1070 1181 WORLD_SURFACE_WG 98fc461aa95fcbc7
 D P -1070 1181 8 582,833,311,1335
-D N -1070 1181 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-17116.5d,67.0d,18898.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -1070 1181 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-17116.5d,67.0d,18898.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -1070 1181 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-17116.5d,67.0d,18898.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -1070 1181 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-17116.5d,67.0d,18898.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:siamese"}
 D C -1070 1182 minecraft:terrain
 D T -1070 1182 9d091c793f0ccd3b 98304
 D M -1070 1182 c7320dc4e89e0105 1536
@@ -5088,8 +5088,8 @@ D H -849 1126 OCEAN_FLOOR_WG f60113b6d5887686
 D H -849 1126 WORLD_SURFACE 4ab6ac3685616613
 D H -849 1126 WORLD_SURFACE_WG 55bfb89c445e835f
 D P -849 1126 8 550,801,279,1303
-D N -849 1126 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13580.5d,65.0d,18018.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -849 1126 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13580.5d,65.0d,18018.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -849 1126 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13580.5d,65.0d,18018.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -849 1126 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-13580.5d,65.0d,18018.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:red"}
 D C -849 1127 minecraft:terrain
 D T -849 1127 9e2e504fbc971994 98304
 D M -849 1127 c173d191868644c5 1536
@@ -5178,8 +5178,8 @@ D H 1412 1988 OCEAN_FLOOR_WG 66cca73e2dedffb4
 D H 1412 1988 WORLD_SURFACE ddd2e5aed1855491
 D H 1412 1988 WORLD_SURFACE_WG 2c5c02f417192603
 D P 1412 1988 8 1586,307,1825,1829
-D N 1412 1988 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[22594.5d,66.0d,31811.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 1412 1988 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[22594.5d,66.0d,31811.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 1412 1988 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[22594.5d,66.0d,31811.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 1412 1988 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[22594.5d,66.0d,31811.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:royal",variant:"minecraft:siamese"}
 D C 1412 1989 minecraft:terrain
 D T 1412 1989 338fa5a083086c31 98304
 D M 1412 1989 5b05149f2ae83d45 1536
@@ -5268,8 +5268,8 @@ D H -465 -1813 OCEAN_FLOOR_WG a555d8cb59dd54ff
 D H -465 -1813 WORLD_SURFACE 905a7f0b1d140a5b
 D H -465 -1813 WORLD_SURFACE_WG 1ce596f59db0326d
 D P -465 -1813 8 1570,291,1809,1813
-D N -465 -1813 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-7437.5d,65.0d,-29004.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N -465 -1813 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-7437.5d,65.0d,-29004.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N -465 -1813 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-7437.5d,65.0d,-29004.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N -465 -1813 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[-7437.5d,65.0d,-29004.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:tabby"}
 D C -465 -1812 minecraft:terrain
 D T -465 -1812 e0174255b8255e72 98304
 D M -465 -1812 33596404499a8b15 1536
@@ -5358,8 +5358,8 @@ D H 1728 1528 OCEAN_FLOOR_WG cb00eb3ee9b71a1c
 D H 1728 1528 WORLD_SURFACE ed24043127d0154c
 D H 1728 1528 WORLD_SURFACE_WG d815f9047d54c14b
 D P 1728 1528 8 1586,307,1825,1829
-D N 1728 1528 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[27650.5d,66.0d,24451.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
-D N 1728 1528 {AbsorptionAmount:0.0f,AgeLocked:0b,Air:300s,Brain:{memories:{}},CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[27650.5d,66.0d,24451.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat"}
+D N 1728 1528 {AbsorptionAmount:0.0f,Air:300s,Brain:{memories:{}},CanJoinRaid:1b,CanPickUpLoot:0b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:26.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PatrolLeader:0b,Patrolling:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[27650.5d,66.0d,24451.5d],Rotation:[0.0f,0.0f],Wave:0,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:witch"}
+D N 1728 1528 {AbsorptionAmount:0.0f,Age:0,AgeLocked:0b,Air:300s,Brain:{memories:{}},CanPickUpLoot:0b,CollarColor:14b,DeathTime:0s,FallFlying:0b,Fire:0s,ForcedAge:0,Health:10.0f,HurtTime:0s,InLove:0,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[27650.5d,66.0d,24451.5d],Rotation:[0.0f,0.0f],Sitting:0b,current_impulse_context_reset_grace_time:0,fall_distance:0.0d,id:"minecraft:cat",sound_variant:"minecraft:classic",variant:"minecraft:red"}
 D C 1728 1529 minecraft:terrain
 D T 1728 1529 180fcf7609f0496b 98304
 D M 1728 1529 f900f03dd59e1155 1536
