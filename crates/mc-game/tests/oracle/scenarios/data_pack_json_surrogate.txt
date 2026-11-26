@@ -1,0 +1,27 @@
+# Lone UTF-16 surrogates written as `\ud800` escapes in data pack JSON (Gson reads them; the strings keep the unpaired unit): loot table
+# and item modifier functions, and the display of an advancement as the client receives it.
+datapack json_surrogate
+command_env
+level flat
+preload 2
+entity_counter 3500
+spawn_player A survival 0.5 -60 0.5 0 0
+op A
+tick 1
+dump logs
+dump packets:A:none
+note loot table
+cmd loot give A loot js:named
+cmd data get entity A Inventory
+cmd clear A
+cmd loot give A loot js:plain
+cmd data get entity A Inventory
+cmd clear A
+cmd give A stick
+cmd item modify entity A container.0 js:name
+cmd data get entity A Inventory
+note advancement display
+cmd advancement grant A only js:title
+tick 2
+dump packets:A:system_chat,update_advancements
+dump logs

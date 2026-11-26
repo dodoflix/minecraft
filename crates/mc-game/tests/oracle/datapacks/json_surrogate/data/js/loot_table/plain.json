@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:generic",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick",
+          "modifier": {
+            "type": "minecraft:sequence",
+            "functions": [
+              { "type": "minecraft:set_name", "name": "\ufffd", "target": "custom_name" },
+              { "type": "minecraft:set_lore", "lore": ["a\ufffd"], "mode": "append" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

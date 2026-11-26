@@ -6,7 +6,7 @@ use std::collections::HashMap;
 use std::sync::Arc;
 
 use mc_core::ident::Identifier;
-use mc_dfu::{DataResult, Dyn, JSON};
+use mc_dfu::{DataResult, JSON};
 use serde_json::Value;
 
 use super::advancement::{Advancement, AdvancementHolder};
@@ -111,8 +111,9 @@ static ADVANCEMENT_MANAGER: ReloadListenerRegistration = ReloadListenerRegistrat
 };
 
 fn decode_advancement(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
-    let dyn_value =
-        Dyn::from_json_str(&json.to_string()).map_err(|e| format!("Failed to parse JSON: {e}"))?;
+    let dyn_value = ctx
+        .json_dyn(json)
+        .map_err(|e| format!("Failed to parse JSON: {e}"))?;
     match with_decode_context(ctx, || Advancement::codec().parse(&JSON, &dyn_value)) {
         DataResult::Success(v) => Ok(DecodedEntry::new(Arc::new(v))),
         DataResult::Error { message, .. } => Err(message.get()),

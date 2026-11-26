@@ -4,7 +4,7 @@ use std::sync::Arc;
 
 use mc_core::ident::Identifier;
 use mc_dfu::extra::IDENTIFIER;
-use mc_dfu::{BOOL, Dyn, JSON, record};
+use mc_dfu::{BOOL, JSON, record};
 use mc_protocol::components::{HolderSet, NoDirect};
 use serde_json::Value;
 
@@ -52,7 +52,7 @@ impl TradeSet {
 }
 
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
-    let input = Dyn::from_json_str(&json.to_string())?;
+    let input = ctx.json_dyn(json)?;
     let set = with_decode_context(ctx, || {
         with_scoped_context(ctx, || TradeSet::codec().parse(&JSON, &input))
     })

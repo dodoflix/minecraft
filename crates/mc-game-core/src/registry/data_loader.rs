@@ -10,6 +10,7 @@ use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fmt;
 use std::sync::Arc;
 
+use mc_core::gson::JsonElement;
 use mc_core::ident::Identifier;
 use mc_worldgen::data::{
     DENSITY_FUNCTION_REGISTRY, NOISE_REGISTRY, NOISE_SETTINGS_REGISTRY, WorldgenDataSource,
@@ -134,6 +135,8 @@ impl std::error::Error for RegistryLoadFailure {}
 struct ParsedElement {
     id: Identifier,
     json: Arc<Value>,
+    /// The Gson tree `json` was made from: strings keep their lone surrogates.
+    exact: JsonElement,
     source_pack: String,
     info: RegistrationInfo,
 }
@@ -251,13 +254,14 @@ pub fn load(
                 .read_all_as_string()
                 .map_err(|e| ("java.io.IOException", e.to_string()))
                 .and_then(|text| {
-                    serde_json::from_str::<Value>(&text)
-                        .map_err(|e| ("com.google.gson.JsonSyntaxException", e.to_string()))
+                    mc_core::gson::parse_strict_json_parser(&text)
+                        .map_err(|e| ("com.google.gson.JsonSyntaxException", e.0))
                 });
             match json {
-                Ok(json) => elements.push(ParsedElement {
+                Ok(exact) => elements.push(ParsedElement {
                     id,
-                    json: Arc::new(json),
+                    json: Arc::new(mc_text::json::value_from_element(&exact)),
+                    exact,
                     source_pack: pack,
                     info,
                 }),
@@ -308,6 +312,7 @@ pub fn load(
             let mut ctx = RegistryDecodeContext::new(&lookup);
             ctx.worldgen = Some(&worldgen);
             ctx.entry = Some(element.id.clone());
+            ctx.exact = Some((&element.json, &element.exact));
             let decoded: Result<Option<DecodedEntry>, String> = match decoder {
                 Some(d) => (d.decode)(&element.json, &ctx).map(Some),
                 None => generic_validate(data.key, &element.json).and_then(|()| {

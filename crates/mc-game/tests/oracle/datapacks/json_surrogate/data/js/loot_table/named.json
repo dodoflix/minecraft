@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:generic",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick",
+          "modifier": {
+            "type": "minecraft:sequence",
+            "functions": [
+              { "type": "minecraft:set_name", "name": "\ud800", "target": "custom_name" },
+              { "type": "minecraft:set_lore", "lore": ["a\ud83d", "\ude00", "\ud83d\ude00"], "mode": "append" },
+              { "type": "minecraft:set_components", "components": { "minecraft:custom_model_data": { "strings": ["\ud800", "b\ud83d"] } } }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

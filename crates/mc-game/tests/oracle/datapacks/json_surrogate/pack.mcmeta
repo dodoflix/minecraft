@@ -1,0 +1,7 @@
+{
+  "pack": {
+    "description": "lone surrogate escapes in data pack JSON",
+    "min_format": 121,
+    "max_format": 121
+  }
+}

@@ -1,0 +1,23 @@
+# loot table
+CF msg Dropped 1 [?]
+CF result success 1
+CF msg A has the following entity data: [{components: {"minecraft:custom_model_data": {strings: ["?", "b?"]}, "minecraft:lore": ["a?", "?", "😀"], "minecraft:custom_name": "?"}, count: 1, Slot: 0b, id: "minecraft:stick"}]
+CF result success 1
+CF msg Removed 1 item(s) from player A
+CF result success 1
+CF msg Dropped 1 [�]
+CF result success 1
+CF msg A has the following entity data: [{components: {"minecraft:lore": ["a�"], "minecraft:custom_name": "�"}, count: 1, Slot: 0b, id: "minecraft:stick"}]
+CF result success 1
+CF msg Removed 1 item(s) from player A
+CF result success 1
+CF msg Gave 1 [Stick] to A
+CF result success 1
+CF msg Modified 1 slot(s) on A
+CF result success 1
+CF msg A has the following entity data: [{components: {"minecraft:item_name": {extra: ["?"], text: "?"}}, count: 1, Slot: 0b, id: "minecraft:stick"}]
+CF result success 1
+# advancement display
+CF msg Granted the advancement [?] to A
+CF result success 1
+PKT A minecraft:update_advancements -

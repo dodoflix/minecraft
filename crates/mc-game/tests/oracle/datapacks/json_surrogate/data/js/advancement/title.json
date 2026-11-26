@@ -1,0 +1,11 @@
+{
+  "display": {
+    "icon": { "id": "minecraft:stick" },
+    "title": "\ud800",
+    "description": { "text": "a\ud83d", "extra": ["\ude00"] },
+    "background": "minecraft:gui/advancements/backgrounds/stone",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": { "c": { "trigger": "minecraft:impossible" } }
+}

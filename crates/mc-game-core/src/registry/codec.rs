@@ -8,8 +8,10 @@
 
 use std::cell::RefCell;
 
+use mc_core::gson::JsonElement;
 use mc_core::ident::Identifier;
 use mc_core::math::java::{java_double_to_string, java_float_to_string};
+use mc_dfu::Dyn;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use serde_json::Value;
 
@@ -37,6 +39,8 @@ pub struct RegistryDecodeContext<'a> {
     pub worldgen: Option<&'a mc_worldgen::data::WorldgenRegistries>,
     /// Id of the entry being decoded.
     pub entry: Option<Identifier>,
+    /// The lossy `Value` being decoded with the Gson tree it was made from (lone surrogates kept).
+    pub exact: Option<(&'a Value, &'a JsonElement)>,
     /// The JSON was converted from NBT: a number is a valid boolean (`NbtOps.getBooleanValue`).
     pub numeric_booleans: bool,
     /// The JSON converted from NBT and the tag it came from: a failure message prints a value of it as the tag.
@@ -53,6 +57,7 @@ impl<'a> RegistryDecodeContext<'a> {
             lookup,
             worldgen: None,
             entry: None,
+            exact: None,
             numeric_booleans: false,
             typed_source: None,
             quiet: std::cell::Cell::new(false),
@@ -131,6 +136,16 @@ impl<'a> RegistryDecodeContext<'a> {
             format!("Not a list: {}", self.input_text(v))
         } else {
             format!("Not a {nbt}")
+        }
+    }
+
+    /// `json` as a `Dyn` tree: from the Gson tree when `json` is the value `exact` was made from, else from its text.
+    pub fn json_dyn(&self, json: &Value) -> Result<Dyn, String> {
+        match self.exact {
+            Some((value, element)) if std::ptr::eq(value, json) => {
+                Ok(Dyn::from_json_element(element))
+            }
+            _ => Dyn::from_json_str(&json.to_string()),
         }
     }
 

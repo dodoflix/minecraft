@@ -61,6 +61,11 @@ fn reload_of_an_edited_pack_matches_vanilla() {
 }
 
 #[test]
+fn data_pack_json_with_lone_surrogate_escapes_matches_vanilla() {
+    common::block_scenario::check("data_pack_json_surrogate");
+}
+
+#[test]
 fn functions_interplay_with_execute_store_schedule_and_reload_match_vanilla() {
     common::block_scenario::check("cmd_function_interplay");
 }

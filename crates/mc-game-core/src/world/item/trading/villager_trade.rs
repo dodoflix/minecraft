@@ -2,7 +2,7 @@
 
 use std::sync::{Arc, LazyLock};
 
-use mc_dfu::{Dyn, JSON, record};
+use mc_dfu::{JSON, record};
 use mc_protocol::components::values::basic::{ADDITIONAL_TRADE_COST, STORED_ENCHANTMENTS};
 use mc_protocol::components::values::predicates::data_driven_set_codec;
 use mc_protocol::components::{HolderSet, ItemStackTemplate, NoDirect};
@@ -165,7 +165,7 @@ impl Validatable for VillagerTrade {
 }
 
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
-    let input = Dyn::from_json_str(&json.to_string())?;
+    let input = ctx.json_dyn(json)?;
     // the `double_trade_price_enchantments` set resolves enchantment tags through the registry being loaded
     let trade = with_scoped_lookup(&StageLookup(ctx), || {
         with_decode_context(ctx, || VillagerTrade::codec().parse(&JSON, &input))

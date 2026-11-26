@@ -32,7 +32,7 @@ use std::sync::{Arc, LazyLock};
 
 use mc_core::ident::Identifier;
 use mc_core::random::RandomSource;
-use mc_dfu::{Codec, DataResult, Dyn, INT, JSON, NBT, record};
+use mc_dfu::{Codec, DataResult, INT, JSON, NBT, record};
 use mc_nbt::CompoundTag;
 use mc_protocol::components::values::predicates::Doubles;
 use mc_protocol::components::{Holder, HolderSet, NoDirect, SoundEvent as ComponentSoundEvent};
@@ -470,7 +470,7 @@ pub fn decode_variant<T: Clone + Send + Sync + 'static>(
     json: &Value,
     ctx: &RegistryDecodeContext,
 ) -> Result<DecodedEntry, String> {
-    let input = Dyn::from_json_str(&json.to_string())?;
+    let input = ctx.json_dyn(json)?;
     let value = with_decode_context(ctx, || {
         with_scoped_context(ctx, || direct.parse(&JSON, &input))
     })

@@ -4,7 +4,7 @@
 
 use std::sync::Arc;
 
-use mc_dfu::{Codec, DataResult, Dyn, JSON};
+use mc_dfu::{Codec, DataResult, JSON};
 use serde_json::Value;
 
 use super::functions::{LootItemFunctionRef, function_codec};
@@ -26,8 +26,9 @@ fn parse<A: Clone + Send + Sync + 'static>(
     json: &Value,
     ctx: &RegistryDecodeContext,
 ) -> Result<DecodedEntry, String> {
-    let dyn_value =
-        Dyn::from_json_str(&json.to_string()).map_err(|e| format!("Failed to parse JSON: {e}"))?;
+    let dyn_value = ctx
+        .json_dyn(json)
+        .map_err(|e| format!("Failed to parse JSON: {e}"))?;
     match with_decode_context(ctx, || codec.parse(&JSON, &dyn_value)) {
         DataResult::Success(v) => Ok(DecodedEntry::new(v)),
         DataResult::Error { message, .. } => Err(message.get()),

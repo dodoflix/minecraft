@@ -3,7 +3,7 @@
 use mc_core::ident::Identifier;
 use mc_data::EntityType;
 use mc_dfu::extra::{IDENTIFIER, NON_NEGATIVE_INT};
-use mc_dfu::{Codec, DataResult, Dyn, Either, float_range, int_range, record};
+use mc_dfu::{Codec, DataResult, Either, float_range, int_range, record};
 use mc_game_core::registry::keys;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::util::weighted_list::{Weighted, WeightedList};
@@ -263,10 +263,11 @@ impl FullConfig {
 /// The `trial_spawner` registry decoder: entries are `TrialSpawnerConfig.DIRECT_CODEC` JSON.
 fn decode_entry(
     json: &Value,
-    _ctx: &mc_game_core::registry::codec::RegistryDecodeContext,
+    ctx: &mc_game_core::registry::codec::RegistryDecodeContext,
 ) -> Result<mc_game_core::registry::decoders::DecodedEntry, String> {
-    let value =
-        Dyn::from_json_str(&json.to_string()).map_err(|e| format!("Failed to parse JSON: {e}"))?;
+    let value = ctx
+        .json_dyn(json)
+        .map_err(|e| format!("Failed to parse JSON: {e}"))?;
     match TrialSpawnerConfig::direct_codec().parse(&mc_dfu::JSON, &value) {
         DataResult::Success(config) => {
             Ok(mc_game_core::registry::decoders::DecodedEntry::new(config))
