@@ -111,6 +111,27 @@ fn a_banner_block_entity_on_air_fails_in_its_constructor_cast() {
 }
 
 #[test]
+fn a_banner_block_entity_reports_the_class_of_the_block_it_sits_on() {
+    for (block, class) in [
+        ("chest", "net.minecraft.world.level.block.ChestBlock"),
+        (
+            "piston",
+            "net.minecraft.world.level.block.piston.PistonBaseBlock",
+        ),
+    ] {
+        let (failed, logs) = create_logs(BlockEntityType::BANNER, block, BlockPos::new(1, 2, 3));
+        assert!(failed);
+        let exception = logs[0].lines().nth(1).expect("exception line");
+        assert_eq!(
+            exception,
+            format!(
+                "java.lang.ClassCastException: class {class} cannot be cast to class net.minecraft.world.level.block.AbstractBannerBlock ({class} and net.minecraft.world.level.block.AbstractBannerBlock are in unnamed module of loader java.net.URLClassLoader @0)"
+            )
+        );
+    }
+}
+
+#[test]
 fn no_block_entity_type_panics_on_a_block_that_is_not_its_own() {
     for ty in BlockEntityType::iter() {
         let (failed, _) = create_logs(ty, "air", BlockPos::new(0, 0, 0));

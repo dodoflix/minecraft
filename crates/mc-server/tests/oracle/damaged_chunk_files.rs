@@ -84,6 +84,11 @@ fn mask_hashes(record: &str) -> String {
     out
 }
 
+/// Gives every block entity of a chunk the type `id`.
+fn set_block_entity_ids(chunk: &mut CompoundTag, id: &str) {
+    map_list(chunk, &["block_entities"], &|e| e.put_string("id", id));
+}
+
 type Damage = fn(&mut CompoundTag);
 
 /// `(case, folder, damage)`.
@@ -98,6 +103,20 @@ const CASES: &[(&str, &str, Damage)] = &[
     }),
     ("chunk_blockstates_wrong", "region", |t| {
         map_list(t, &["sections"], &|s| s.put_string("block_states", "x"))
+    }),
+    // every block entity of the world becomes a type that does not fit its block (sign, hanging sign and skull accept
+    // more than one block, the banner constructor casts the block, a chest only accepts chests)
+    ("chunk_block_entity_id_banner", "region", |t| {
+        set_block_entity_ids(t, "minecraft:banner")
+    }),
+    ("chunk_block_entity_id_chest", "region", |t| {
+        set_block_entity_ids(t, "minecraft:chest")
+    }),
+    ("chunk_block_entity_id_hanging_sign", "region", |t| {
+        set_block_entity_ids(t, "minecraft:hanging_sign")
+    }),
+    ("chunk_block_entity_id_skull", "region", |t| {
+        set_block_entity_ids(t, "minecraft:skull")
     }),
     ("chunk_unknown_keys", "region", |t| {
         t.put_int("zzUnknown", 1)

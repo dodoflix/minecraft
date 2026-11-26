@@ -652,10 +652,18 @@ pub fn create_block_entity_for_load(
     let pos_text = format!("BlockPos{{x={}, y={}, z={}}}", pos.x(), pos.y(), pos.z());
     // `BannerBlockEntity(pos, state)` casts the block before its `super` call
     let exception = if ty.name() == "minecraft:banner" {
-        // shortcut: only air gets its own class name, every other block that is no banner reports the plain `Block` class
-        let class = if state.is_air() { "AirBlock" } else { "Block" };
+        // the runtime class of the block; only the piston blocks live outside `net.minecraft.world.level.block`
+        let class = state.block().data().class;
+        let package = if matches!(
+            class,
+            "MovingPistonBlock" | "PistonBaseBlock" | "PistonHeadBlock"
+        ) {
+            "net.minecraft.world.level.block.piston"
+        } else {
+            "net.minecraft.world.level.block"
+        };
         format!(
-            "java.lang.ClassCastException: class net.minecraft.world.level.block.{class} cannot be cast to class net.minecraft.world.level.block.AbstractBannerBlock (net.minecraft.world.level.block.{class} and net.minecraft.world.level.block.AbstractBannerBlock are in unnamed module of loader java.net.URLClassLoader @0)"
+            "java.lang.ClassCastException: class {package}.{class} cannot be cast to class net.minecraft.world.level.block.AbstractBannerBlock ({package}.{class} and net.minecraft.world.level.block.AbstractBannerBlock are in unnamed module of loader java.net.URLClassLoader @0)"
         )
     } else {
         format!(
