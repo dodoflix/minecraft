@@ -2,6 +2,8 @@
 //! the exact `registry_data` NBT (numeric tag types, dropped server-only fields such as `spawn_conditions`) without a decoder.
 //! A registry with a typed decoder (`DYNAMIC_REGISTRY_DECODERS`) takes precedence.
 
+use mc_core::ident::Identifier;
+use mc_nbt::{CompoundTag, Tag};
 use serde_json::Value;
 
 use crate::registry::codec::{Field, Schema, default, opt, req};
@@ -190,6 +192,87 @@ pub fn network_schema(registry: &str) -> Option<Schema> {
                 ]),
             ),
         ]),
+        keys::TIMELINE => timeline(),
         _ => return None,
     })
+}
+
+/// `Timeline.NETWORK_CODEC`: `DIRECT_CODEC` (`period_ticks` bounds the markers and keyframes) without the tracks of
+/// attributes that are not synced. Empty `tracks` and `time_markers` are omitted, a marker that is not shown in
+/// commands is its bare ticks.
+fn timeline() -> Schema {
+    use super::attributes::{attribute, non_negative_int, track_schema};
+    let marker = Schema::custom(|v, ctx| {
+        let full = Schema::Record(vec![
+            req("ticks", non_negative_int()),
+            default("show_in_commands", Schema::Bool, Value::from(false)),
+        ]);
+        match Schema::either(non_negative_int(), full).convert(v, ctx)? {
+            Tag::Compound(c) if c.get("show_in_commands").is_none() => {
+                Ok(c.get("ticks").cloned().unwrap_or(Tag::Compound(c)))
+            }
+            other => Ok(other),
+        }
+    });
+    let tracks = Schema::custom(|v, ctx| {
+        let object = v.as_object().ok_or_else(|| ctx.not_a_map(v))?;
+        let mut out = CompoundTag::new();
+        for (key, value) in object {
+            let id = Identifier::read(key)?;
+            let def = attribute(&id).ok_or_else(|| {
+                format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:environment_attribute]: ResourceKey[minecraft:environment_attribute / {id}]")
+            })?;
+            let track = track_schema(def).convert(value, ctx)?;
+            if def.syncable {
+                out.put(id.to_string(), track);
+            }
+        }
+        Ok(Tag::Compound(out))
+    });
+    let record = Schema::Record(vec![
+        req("clock", Schema::HolderFixed(keys::WORLD_CLOCK)),
+        opt("period_ticks", Schema::ExtraIntRange(1, i32::MAX)),
+        default("tracks", tracks, serde_json::json!({})),
+        default(
+            "time_markers",
+            Schema::map_of(Schema::Identifier, marker),
+            serde_json::json!({}),
+        ),
+    ]);
+    Schema::custom(move |v, ctx| {
+        let tag = record.convert(v, ctx)?;
+        validate_period(v)?;
+        Ok(tag)
+    })
+}
+
+/// `Timeline.validateInternal` over a timeline that decoded: with a `period_ticks`, every time marker lies in
+/// `[0; period)` and every keyframe tick in `[0; period]`.
+fn validate_period(v: &Value) -> Result<(), String> {
+    let Some(period) = v.get("period_ticks").and_then(Value::as_i64) else {
+        return Ok(());
+    };
+    let markers = v.get("time_markers").and_then(Value::as_object);
+    for (key, marker) in markers.into_iter().flatten() {
+        let ticks = marker.get("ticks").unwrap_or(marker).as_i64().unwrap_or(0);
+        if ticks < 0 || ticks >= period {
+            let id = Identifier::read(key)?;
+            return Err(format!(
+                "Time Marker ResourceKey[minecraft:clock_time_marker / {id}] must be in range [0; {period})"
+            ));
+        }
+    }
+    let tracks = v.get("tracks").and_then(Value::as_object);
+    for track in tracks.into_iter().flatten().map(|(_, t)| t) {
+        let keyframes = track.get("keyframes").and_then(Value::as_array);
+        for keyframe in keyframes.into_iter().flatten() {
+            let ticks = keyframe.get("ticks").and_then(Value::as_i64).unwrap_or(0);
+            if ticks < 0 || ticks > period {
+                return Err(format!(
+                    "Keyframe at tick {ticks} must be in range [0; {period}]"
+                ));
+            }
+        }
+    }
+    Ok(())
 }

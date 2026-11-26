@@ -102,6 +102,7 @@ fn compare_scenario(name: &str, setup: impl FnOnce(&Path)) -> Vec<String> {
         keys::INSTRUMENT,
         keys::JUKEBOX_SONG,
         keys::SULFUR_CUBE_ARCHETYPE,
+        keys::TIMELINE,
     ];
     // registries whose compounds are also compared in the order the server writes their keys (the hash order of the
     // compound, which depends on the order the codec inserted the keys in)

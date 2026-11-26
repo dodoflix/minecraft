@@ -561,10 +561,147 @@ fn promote_partial(prefix: &'static str, schema: Schema) -> Schema {
 }
 
 /// `ExtraCodecs.NON_NEGATIVE_INT`.
-fn non_negative_int() -> Schema {
+pub(super) fn non_negative_int() -> Schema {
     Schema::custom(|v, ctx| match Schema::Int.convert(v, ctx)? {
         Tag::Int(n) if n < 0 => Err(format!("Value must be non-negative: {n}")),
         other => Ok(other),
+    })
+}
+
+/// `AttributeModifier.OperationId.CODEC` names.
+const OPERATION_IDS: &[&str] = &[
+    "override",
+    "alpha_blend",
+    "add",
+    "subtract",
+    "multiply",
+    "blend_to_gray",
+    "minimum",
+    "maximum",
+    "and",
+    "nand",
+    "or",
+    "nor",
+    "xor",
+    "xnor",
+    "append",
+    "overlay",
+];
+
+/// `EasingType.CODEC`: a simple name or `{cubic_bezier: [x1, y1, x2, y2]}` (the x controls in `[0; 1]`).
+fn easing_schema() -> Schema {
+    let simple = Schema::custom(|v, _| match v {
+        Value::String(s) if crate::world::attribute::EasingType::is_simple_name(s) => {
+            Ok(Tag::String(s.clone().into()))
+        }
+        Value::String(s) => Err(format!("Unknown element id: {s}")),
+        _ => Err(format!("Not a string: {v}")),
+    });
+    let bezier = Schema::Record(vec![req(
+        "cubic_bezier",
+        Schema::custom(|v, ctx| {
+            let list = Schema::sized_list(Schema::Float, 4, 4).convert(v, ctx)?;
+            if let Tag::List(controls) = &list {
+                let at = |i: usize| match controls.get(i) {
+                    Some(Tag::Float(f)) => *f,
+                    _ => 0.0,
+                };
+                for (name, value) in [("x1", at(0)), ("x2", at(2))] {
+                    if !(0.0..=1.0).contains(&value) {
+                        return Err(format!("{name} must be in range [0; 1]"));
+                    }
+                }
+            }
+            Ok(list)
+        }),
+    )]);
+    Schema::either(simple, bezier)
+}
+
+/// `KeyframeTrack.validateKeyframes` over the (already decoded) ticks of the keyframes.
+fn validate_keyframes(ticks: &[i32]) -> Result<(), String> {
+    if ticks.is_empty() {
+        return Err("Keyframes must not be empty".to_owned());
+    }
+    if ticks.windows(2).any(|w| w[0] > w[1]) {
+        return Err("Keyframes must be ordered by ticks field".to_owned());
+    }
+    if ticks.len() > 1 {
+        let mut repeat = 0;
+        let mut last = ticks[ticks.len() - 1];
+        for &t in ticks {
+            if t == last {
+                repeat += 1;
+                if repeat > 2 {
+                    return Err(format!("More than 2 keyframes on same tick: {t}"));
+                }
+            } else {
+                repeat = 0;
+            }
+            last = t;
+        }
+    }
+    Ok(())
+}
+
+/// `AttributeTrack.createCodec(attribute)`: the optional `modifier` (omitted for `override`), then the `keyframes` (each
+/// `ticks` + the modifier's argument as `value`) and the `ease` of `KeyframeTrack.mapCodec`.
+pub(super) fn track_schema(def: &'static AttributeDef) -> Schema {
+    Schema::custom(move |v, ctx| {
+        let object = v.as_object().ok_or_else(|| ctx.not_a_map(v))?;
+        let modifier = match object.get("modifier") {
+            None => "override",
+            Some(Value::String(m))
+                if m == "override" || modifiers_of(def.kind).contains(&m.as_str()) =>
+            {
+                m.as_str()
+            }
+            Some(Value::String(m)) if OPERATION_IDS.contains(&m.as_str()) => {
+                return Err(format!("Unknown element id: {}", m.to_ascii_uppercase()));
+            }
+            Some(Value::String(m)) => return Err(format!("Unknown element name:{m}")),
+            Some(other) => return Err(format!("Not a string: {other}")),
+        };
+        let argument = if modifier == "override" {
+            let value = value_schema(def.kind);
+            Schema::custom(move |v, ctx| {
+                let tag = value.convert(v, ctx)?;
+                validate_range(def, v, tag)
+            })
+        } else {
+            argument_schema(def.kind, modifier)
+        };
+        let keyframe = Schema::Record(vec![
+            req("ticks", non_negative_int()),
+            req("value", argument),
+        ]);
+        let keyframes = Schema::custom(move |v, ctx| {
+            let list = Schema::list_of(keyframe.clone()).convert(v, ctx)?;
+            let Tag::List(items) = &list else {
+                return Ok(list);
+            };
+            let ticks: Vec<i32> = items
+                .iter()
+                .filter_map(|k| k.as_compound()?.get_int("ticks"))
+                .collect();
+            validate_keyframes(&ticks)?;
+            Ok(list)
+        });
+        let body = Schema::Record(vec![
+            req("keyframes", keyframes),
+            default("ease", easing_schema(), Value::from("linear")),
+        ])
+        .convert(v, ctx)?;
+        let mut out = CompoundTag::new();
+        if modifier != "override" {
+            out.put("modifier", Tag::String(modifier.to_owned().into()));
+        }
+        if let Tag::Compound(body) = body {
+            for (key, value) in body.iter() {
+                out.put(key.clone(), value.clone());
+            }
+        }
+        Ok(Tag::Compound(out))
     })
 }
 

@@ -255,6 +255,11 @@ const SIMPLE: &[(&str, EaseFn)] = &[
 impl EasingType {
     pub const LINEAR: EasingType = EasingType::Named(|x| x, "linear");
 
+    /// Whether `name` is a registered simple curve (`EasingType.SIMPLE_REGISTRY`).
+    pub fn is_simple_name(name: &str) -> bool {
+        SIMPLE.iter().any(|(n, _)| *n == name)
+    }
+
     /// `EasingType.CODEC`: a simple name or `{"cubic_bezier": [x1, y1, x2, y2]}`.
     pub fn from_json(value: &Value) -> Option<EasingType> {
         match value {
