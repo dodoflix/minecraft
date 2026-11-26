@@ -110,7 +110,7 @@ impl AbstractHorse for ZombieHorse {
         Some(SoundEvent::ENTITY_ZOMBIE_HORSE_ANGRY)
     }
     fn is_mob_controlled(&self) -> bool {
-        self.horse.first_passenger_is_mob
+        self.mob.first_passenger_is_mob
     }
     fn randomize_attributes(&mut self, random: &mut dyn RandomSource) {
         let jump = generate_zombie_horse_jump_strength(|| random.next_double());
@@ -309,14 +309,15 @@ impl Entity for ZombieHorse {
                 EquipmentSlot::MainHand,
                 ItemStack::new(Item::IRON_SPEAR),
             );
-            mc_game_core::world::entity::monster::zombie::start_riding_fresh_vehicle(
+            if mc_game_core::world::entity::monster::zombie::start_riding_fresh_vehicle(
                 zombie.as_mut(),
                 self,
                 false,
                 false,
                 level,
-            );
-            level.add_fresh_entity_with_passengers(zombie);
+            ) {
+                self.mob.pending_passengers.push(zombie);
+            }
         }
         let group_data = abstract_horse::finalize_spawn_prepare(self, level, group_data);
         mob::spawn::finalize_spawn(self, level, difficulty, reason, group_data)

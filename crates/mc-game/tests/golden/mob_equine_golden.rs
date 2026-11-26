@@ -62,3 +62,18 @@ fn zombie_horse_matches_vanilla() {
 fn feeding_a_foal_and_a_cria_draws_the_particle_position() {
     check("mob_equine_baby_feed");
 }
+
+#[test]
+fn zombie_horse_and_camel_husk_keep_their_mob_rider_after_loading() {
+    check("mob_horse_mob_rider_load");
+}
+
+#[test]
+fn horse_dismount_sets_the_rider_pose() {
+    check("mob_horse_dismount_pose");
+}
+
+#[test]
+fn zombie_horse_jockey_joins_after_its_horse() {
+    check("mob_zombie_horse_jockey_order");
+}

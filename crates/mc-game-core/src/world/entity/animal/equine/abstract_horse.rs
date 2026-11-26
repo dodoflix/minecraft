@@ -113,9 +113,9 @@ pub struct AbstractHorseData {
     pub gallop_sound_counter: i32,
     /// `owner` (`EntityReference<LivingEntity>`).
     pub owner: Option<Uuid>,
-    /// `getFirstPassenger() instanceof Player` / `instanceof Mob` (kept by `add_passenger` / `on_passenger_removed`).
+    /// `getFirstPassenger() instanceof Player` (kept by `add_passenger` / `on_passenger_removed`; the `Mob` class of the
+    /// first passenger lives in `MobData`, which the chunk loader keeps too).
     pub first_passenger_is_player: bool,
-    pub first_passenger_is_mob: bool,
     /// Bumped by `createInventory()` (`MountInventory::inventory_epoch`).
     pub inventory_epoch: u32,
     /// The mount screens built on the live container.
@@ -148,7 +148,6 @@ impl AbstractHorseData {
             gallop_sound_counter: 0,
             owner: None,
             first_passenger_is_player: false,
-            first_passenger_is_mob: false,
             inventory_epoch: 0,
             retired_inventories: Vec::new(),
             inventory_viewers: 0,
@@ -1394,8 +1393,7 @@ pub fn get_controlling_passenger(e: &(impl AbstractHorse + ?Sized)) -> Option<En
     if is_saddled(e) && e.horse().first_passenger_is_player {
         Some(first)
     } else {
-        (e.horse().first_passenger_is_mob && !e.mob().is_some_and(|m| m.is_no_ai()))
-            .then_some(first)
+        mob::controlling_passenger(e.as_dyn())
     }
 }
 
@@ -1416,9 +1414,12 @@ pub fn add_passenger(
         passengers.push(id);
     }
     if becomes_first {
-        let h = e.horse_mut();
-        h.first_passenger_is_player = is_player;
-        h.first_passenger_is_mob = is_mob;
+        e.horse_mut().first_passenger_is_player = is_player;
+        let controls = is_mob && passenger.can_control_vehicle();
+        if let Some(m) = e.mob_mut() {
+            m.first_passenger_is_mob = is_mob;
+            m.first_passenger_controls = controls;
+        }
     }
 }
 
@@ -1430,10 +1431,18 @@ pub fn on_passenger_removed(e: &mut (impl AbstractHorse + ?Sized), level: &Serve
         .first()
         .copied()
         .and_then(|id| level.get_entity(id));
-    let (is_player, is_mob) = first.map_or((false, false), |p| (p.is_player(), p.mob().is_some()));
-    let h = e.horse_mut();
-    h.first_passenger_is_player = is_player;
-    h.first_passenger_is_mob = is_mob;
+    let is_player = first.is_some_and(|p| p.is_player());
+    e.horse_mut().first_passenger_is_player = is_player;
+    let (is_mob, controls) = first.map_or((false, false), |p| {
+        (
+            p.mob().is_some(),
+            p.mob().is_some() && p.can_control_vehicle(),
+        )
+    });
+    if let Some(m) = e.mob_mut() {
+        m.first_passenger_is_mob = is_mob;
+        m.first_passenger_controls = controls;
+    }
 }
 
 /// `addPassenger(passenger)`: `passenger.absSnapRotationTo(getViewYRot(0), getViewXRot(0))`.
@@ -1600,39 +1609,63 @@ fn can_dismount_to(level: &ServerLevel, bb: &mc_core::phys::AABB) -> bool {
         && level.world_border().is_within_bounds_aabb(bb)
 }
 
-/// `Entity.getDismountLocationForPassenger` of `AbstractHorse`.
+/// `Entity.getDismountLocationForPassenger` of `AbstractHorse` (the rider's pose is not changed).
 pub fn get_dismount_location_for_passenger(
     e: &(impl AbstractHorse + ?Sized),
     level: &ServerLevel,
     passenger: &dyn Entity,
 ) -> Vec3 {
+    dismount_location_and_pose(e, level, passenger).0
+}
+
+/// `getDismountLocationForPassenger` as `LivingEntity.dismountVehicle` calls it: the pose the search chose is set on the rider.
+pub fn get_dismount_location_for_passenger_setting_pose(
+    e: &(impl AbstractHorse + ?Sized),
+    level: &ServerLevel,
+    passenger: &mut dyn Entity,
+) -> Vec3 {
+    let (location, pose) = dismount_location_and_pose(e, level, &*passenger);
+    if let Some(pose) = pose {
+        passenger.set_pose(pose);
+    }
+    location
+}
+
+/// The dismount spot of the horse and the pose of the rider that fits there (`None` when the search found no spot).
+fn dismount_location_and_pose(
+    e: &(impl AbstractHorse + ?Sized),
+    level: &ServerLevel,
+    passenger: &dyn Entity,
+) -> (Vec3, Option<mc_data::enums::Pose>) {
     let main_right = main_arm_is_right(passenger);
     let main_hand_direction = get_collision_horizontal_escape_vector(
         e.base().get_bb_width(),
         passenger.base().get_bb_width(),
         e.base().y_rot() + if main_right { 90.0 } else { -90.0 },
     );
-    if let Some(location) =
+    if let Some((location, pose)) =
         get_dismount_location_in_direction(e, level, main_hand_direction, passenger)
     {
-        return location;
+        return (location, Some(pose));
     }
     let off_hand_direction = get_collision_horizontal_escape_vector(
         e.base().get_bb_width(),
         passenger.base().get_bb_width(),
         e.base().y_rot() + if main_right { -90.0 } else { 90.0 },
     );
-    get_dismount_location_in_direction(e, level, off_hand_direction, passenger)
-        .unwrap_or_else(|| e.position())
+    get_dismount_location_in_direction(e, level, off_hand_direction, passenger).map_or_else(
+        || (e.position(), None),
+        |(location, pose)| (location, Some(pose)),
+    )
 }
 
-/// `getDismountLocationInDirection(direction, passenger)` (the rider's pose is not changed here).
+/// `getDismountLocationInDirection(direction, passenger)`: the spot and the dismount pose that fits there.
 fn get_dismount_location_in_direction(
     e: &(impl AbstractHorse + ?Sized),
     level: &ServerLevel,
     direction: Vec3,
     passenger: &dyn Entity,
-) -> Option<Vec3> {
+) -> Option<(Vec3, mc_data::enums::Pose)> {
     use crate::world::entity::dismount_helper;
     use crate::world::level::collision::BlockGetterExt as _;
     let target_x = e.base().x() + direction.x;
@@ -1656,7 +1689,7 @@ fn get_dismount_location_in_direction(
                     target_z,
                 );
                 if can_dismount_to(level, &pose_collision_box.move_vec(location)) {
-                    return Some(location);
+                    return Some((location, dismount_pose));
                 }
             }
             target_block_pos = target_block_pos.above();
@@ -1763,7 +1796,7 @@ macro_rules! abstract_horse_entity {
             $crate::world::entity::animal::equine::abstract_horse::get_dismount_location_for_passenger(self, level, passenger)
         }
         fn get_dismount_location_for_passenger_setting_pose(&self, level: &$crate::server::level::ServerLevel, passenger: &mut dyn $crate::world::entity::Entity) -> ::mc_core::phys::Vec3 {
-            $crate::world::entity::animal::equine::abstract_horse::get_dismount_location_for_passenger(self, level, &*passenger)
+            $crate::world::entity::animal::equine::abstract_horse::get_dismount_location_for_passenger_setting_pose(self, level, passenger)
         }
         fn open_custom_inventory_screen(&mut self, level: &mut $crate::server::level::ServerLevel, player: &mut $crate::world::entity::ServerPlayer) {
             $crate::world::entity::animal::equine::abstract_horse::AbstractHorse::horse_open_custom_inventory_screen(self, level, player);

@@ -1,0 +1,31 @@
+CF msg Set minecraft:overworld to 6000 tick(s)
+CF result success 6000
+PKT Steve minecraft:set_entity_data 65c10c090341a00000ff
+PKT Steve minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
+PKT Steve minecraft:update_advancements -
+PKT Steve minecraft:set_health 6a41a000001440a00000
+PKT Steve minecraft:set_experience 69000000000000
+PKT Steve minecraft:chunk_batch_start 0c
+PKT Steve minecraft:level_chunk_with_light chunk=0,0/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=-1,0/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=0,1/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=0,-1/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=1,0/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=1,1/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=1,-1/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=-1,-1/len=7260
+PKT Steve minecraft:level_chunk_with_light chunk=-1,1/len=7260
+PKT Steve minecraft:chunk_batch_finished 0b09
+E Z1 minecraft:zombie_horse pos=6.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=25.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:fall_damage_multiplier:0.5;minecraft:follow_range:16.889275314222466;minecraft:jump_strength:0.5525415647529766;minecraft:max_health:25.0;minecraft:movement_speed:0.2558494847308789;minecraft:safe_fall_distance:6.0;minecraft:step_height:1.0 age=0 baby=0 forcedage=0 love=0 lovecause=- owner=- temper=0 eatc=0 mouthc=0 standc=0 tailc=0 sprintc=0 jscale=0.0 slide=0 gallopc=0
+E zombie#1 minecraft:zombie pos=6.5,-59.38124996423721,2.5 delta=0.0,-0.0784000015258789,0.0 rot=30.0,1.0870358 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=- target=Steve hurtby=- aggr=1 noai=0 left=0 persist=0 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=33.26779 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=2:SpearUseGoal:MOVE+LOOK tgoals=2:NearestAttackableTargetGoal:TARGET acts=core;idle mem=- equip=mainhand:minecraft:iron_spear*1 attrs=minecraft:armor:2.0;minecraft:attack_damage:5.0;minecraft:follow_range:34.14978905827921;minecraft:knockback_resistance:0.012156733824692602;minecraft:movement_speed:0.23000000417232513;minecraft:spawn_reinforcements:0.04178515101967738
+E Z1 minecraft:zombie_horse pos=6.5,-60.0,2.5 delta=0.0,-0.0784000015258789,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=25.0 abs=0.0 hurt=0/0 death=0 fx=-
+E zombie#1 minecraft:zombie pos=6.5,-59.38124996423721,2.5 delta=0.0,-0.0784000015258789,0.0 rot=30.0,1.0870358 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=20.0 abs=0.0 hurt=0/0 death=0 fx=-
+PKT Steve minecraft:add_entity 01c20c61b9ed50c64345358a2d6d34c4ed2da79b01401a000000000000c04e00000000000040040000000000000000000000
+PKT Steve minecraft:set_entity_data 65c20c090341c80000ff
+PKT Steve minecraft:set_passengers 6dc20c01c30c
+PKT Steve minecraft:add_entity 01c30ca75a2305585d49bba4550ab7ed433af69a01401a000000000000c04e00000000000040040000000000000000000200
+PKT Steve minecraft:set_entity_data 65c30c090341a00000ff
+PKT Steve minecraft:set_passengers 6dc20c01c30c
+PKT Steve minecraft:set_passengers 6dc20c01c30c
+PKT Steve minecraft:set_entity_data 65c20c090341c80000ff
+PKT Steve minecraft:set_entity_data 65c30c090341a00000ff

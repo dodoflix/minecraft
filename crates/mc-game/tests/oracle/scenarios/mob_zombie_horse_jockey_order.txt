@@ -1,0 +1,14 @@
+# A naturally spawned zombie horse joins the level before its zombie jockey: the player is told about the horse, then the jockey, then
+# which entity rides which.
+level flat
+difficulty hard
+preload 4
+entity_counter 1600
+level_seed 1601
+time 6000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+tick 1
+dump packets:Steve
+mobspawn Z1 minecraft:zombie_horse 6.5 -60 2.5 0 0 reason=NATURAL {PersistenceRequired:1b}
+tick 1
+dump mobs entities packets:Steve:add_entity,set_passengers,set_entity_data

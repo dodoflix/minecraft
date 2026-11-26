@@ -1,0 +1,20 @@
+# A zombie horse and a camel husk that load with a mob rider from saved passengers stay mob controlled: neither runs around like crazy
+# (the zombie horse), both let the rider steer and the zombie horse keeps its lead off.
+command_env
+level flat
+preload 4
+difficulty hard
+entity_counter 9630
+level_seed 9631
+time 18000
+spawn_player Steve survival 0.5 -60 0.5 0 0
+cmd summon minecraft:zombie_horse 8.5 -60 8.5 {PersistenceRequired:1b,Passengers:[{id:"minecraft:zombie",PersistenceRequired:1b}]}
+cmd summon minecraft:camel_husk 16.5 -60 8.5 {PersistenceRequired:1b,Passengers:[{id:"minecraft:husk",PersistenceRequired:1b}]}
+tick 1
+dump mobs
+tick 100
+dump mobs
+give Steve mainhand minecraft:lead
+interact Steve zombie_horse#1 main
+interact Steve camel_husk#1 main
+dump mobs events

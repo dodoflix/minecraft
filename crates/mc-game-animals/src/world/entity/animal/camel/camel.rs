@@ -142,7 +142,7 @@ impl Camel {
 
     /// `isMobControlled()`: only the husk is driven by the mob that rides it.
     pub fn is_mob_controlled(&self) -> bool {
-        self.is_husk() && self.horse.first_passenger_is_mob
+        self.is_husk() && self.mob.first_passenger_is_mob
     }
 
     /// `isDashing()`.

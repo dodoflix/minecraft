@@ -1,0 +1,33 @@
+# A rider that is dismounted (/ride dismount) from a saddled horse: with the blocks beside the horse free the rider lands standing, with
+# a top slab and a block above the spot beside the horse (1.5 blocks of room) the rider lands in the crouching pose the dismount search picked
+# (dumped before the tick that recomputes the pose).
+command_env
+level flat
+preload 4
+difficulty normal
+entity_counter 1950
+level_seed 5
+spawn_player P survival 0.5 -60 0.5 0 0
+mobspawn horse minecraft:horse 0.5 -60 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Tame:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+entity_seed horse 95
+tick 2
+ride P horse
+accept_teleport P
+tick 2
+dump player:P mob:horse
+cmd ride P dismount
+dump player:P mob:horse
+tick 2
+dump player:P mob:horse
+note back on the horse, with a top slab over the spot beside it on both sides
+ride P horse
+accept_teleport P
+tick 2
+block 1 -59 2 minecraft:stone_slab[type=top]
+block -1 -59 2 minecraft:stone_slab[type=top]
+fill -1 -58 2 -1 -58 2 minecraft:stone
+fill 1 -58 2 1 -58 2 minecraft:stone
+cmd ride P dismount
+dump player:P mob:horse
+tick 2
+dump player:P mob:horse
