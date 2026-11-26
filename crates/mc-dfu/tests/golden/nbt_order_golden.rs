@@ -100,3 +100,47 @@ fn compound_tag_key_order_matches_vanilla() {
     }
     assert!(n >= 900, "{n}");
 }
+
+static IN_PLACE: LazyLock<String> =
+    LazyLock::new(|| mc_testkit::include_gz!("../fixtures/nbt_order/in_place.txt.gz"));
+
+/// Sequences of `put` and `remove` on one `CompoundTag` that is never copied, so the table keeps its growth, its tree bins and
+/// the shape earlier removes left (a remove outside a tree bin, a second remove from a tree bin, puts into a tree bin after
+/// a remove, a table that grew with keys that are gone).
+#[test]
+fn compound_tag_edited_in_place_matches_vanilla() {
+    let mut n = 0;
+    for line in IN_PLACE.lines() {
+        let f: Vec<&str> = line.split('\t').collect();
+        let (initial, ops, want) = (split(f[0]), split(f[1]), split(f[2]));
+        let mut tag = CompoundTag::new();
+        for (i, k) in initial.iter().enumerate() {
+            tag.put_int(*k, i as i32);
+        }
+        for (i, op) in ops.iter().enumerate() {
+            match op.split_at(1) {
+                ("+", key) => tag.put_int(key, 1000 + i as i32),
+                ("-", key) => {
+                    tag.remove(key);
+                }
+                _ => panic!("operation {op}"),
+            }
+        }
+        let got: Vec<String> = tag
+            .iter_java_order()
+            .into_iter()
+            .map(|(k, _)| k.as_lossy_str().to_owned())
+            .collect();
+        assert_eq!(got, want, "initial {initial:?} operations {ops:?}");
+        // `share()` keeps every table: the same order, and later edits of the copy go on from the same table
+        let shared: Vec<String> = tag
+            .share()
+            .iter_java_order()
+            .into_iter()
+            .map(|(k, _)| k.as_lossy_str().to_owned())
+            .collect();
+        assert_eq!(shared, want, "share of {initial:?} operations {ops:?}");
+        n += 1;
+    }
+    assert!(n >= 1500, "{n}");
+}
