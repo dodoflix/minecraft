@@ -3,13 +3,16 @@
 
 Usage: scripts/mc-client-status.py RUN_DIR
 
-Fields: running, connecting, in_level, joined, joined_ever, screen, screen_title, game_time, chunks_loaded, disconnected,
-disconnect_reason, decode_errors[], errors[], egress[], crashed, crash_report, screenshots[], log.
+Fields: running, connecting, in_level, joined, joined_ever, screen, screen_title, game_time, chunks_loaded, packets_in,
+packets_out, disconnected, disconnect_reason, decode_errors[], errors[], ctl_replies, ctl_failed[], egress[], crashed,
+crash_report, screenshots[], log.
 `in_level` = client has a level + player right now; `joined` = in_level and no screen is open, i.e. the world is visible
 (the level exists already while the loading screen is up); `joined_ever` = `joined` held at any "[E2E]" sample.
-game_time = client level game time (ticks); chunks_loaded = chunks received. All come from the "[E2E]" lines printed by
-E2eMain. `egress[]` = names the client tried to resolve (E2eResolver refused them) and non-loopback sockets
-(net-watch.py); any entry means the run was not isolated.
+game_time = client level game time (ticks); chunks_loaded = chunks received; packets_in/out = packets seen by the packet tap
+(every protocol phase). All come from the "[E2E]" lines printed by E2eProbe. `ctl_replies` counts the control channel replies
+("[E2E-CTL]"), `ctl_failed` lists the ones with ok=false. `decode_errors` also holds the DEBUG lines of game/latest.log where
+the client reports a packet it could not decode or send. `egress[]` = names the client tried to resolve (E2eResolver refused
+them) and non-loopback sockets (net-watch.py); any entry means the run was not isolated.
 """
 import glob, json, os, re, sys
 
@@ -29,8 +32,8 @@ try:
 except (OSError, ValueError):
     pid = None
 
-# Last state line printed by scripts/e2e/E2eMain.java (the stock client logs neither join nor login-phase kicks).
-e2e, joined_ever, egress = {}, False, []
+# Last state line printed by scripts/e2e/E2eProbe.java (the stock client logs neither join nor login-phase kicks).
+e2e, joined_ever, egress, ctl_replies, ctl_failed = {}, False, [], 0, []
 for ln in lines:
     # the client redirects System.out through log4j, so the line has a "[time] [thread/INFO]: [STDOUT]: " prefix
     if "[E2E] {" in ln:
@@ -39,6 +42,14 @@ for ln in lines:
         except ValueError:
             continue
         joined_ever |= bool(e2e.get("in_level")) and e2e.get("screen") is None
+    elif "[E2E-CTL] {" in ln:
+        try:
+            reply = json.loads(ln.split("[E2E-CTL] ", 1)[1])
+        except ValueError:
+            continue
+        ctl_replies += 1
+        if not reply.get("ok"):
+            ctl_failed.append(reply)
     elif "[E2E-NET] {" in ln:
         try:
             host = json.loads(ln.split("[E2E-NET] ", 1)[1])["blocked"]
@@ -63,7 +74,7 @@ IGNORE = re.compile(
     rf"|Services are unavailable, unable to fetch uri for {SERVICES}"
     r"|Failed to fetch user properties \| com\.mojang\.authlib\.exceptions\.AuthenticationUnavailableException"
     rf"|Couldn't look up profile properties for [0-9a-f-]+ \| {OFFLINE}"
-    r"|Failed to fetch Realms feature flags \| com\.mojang\.realmsclient\.exception\.RealmsServiceException: "
+    r"|(?:Failed to fetch Realms feature flags|Couldn't connect to realms) \| com\.mojang\.realmsclient\.exception\.RealmsServiceException: "
     r"Realms service error \(\d+\) with message 'Could not connect to Realms: (localhost:8080|Connection refused \(connect failed\))'"
     r"|Ignoring chat session from \w+ due to missing Services public key"
     r"|Error while loading the narrator \| com\.mojang\.text2speech\.Narrator\$InitializeException: Failed to load library flite"
@@ -88,6 +99,15 @@ for i, ln in enumerate(lines):
         if not IGNORE.search(entry):
             (decode if DECODE.search(entry) else errors).append(entry)
 
+# The client reports a packet it failed to decode or send only at DEBUG; game/latest.log (scripts/client-log4j2.xml) keeps it.
+DEBUG_DECODE = re.compile(r"/DEBUG\] \[[^\]]*\]: (Skipping packet due to errors|Failed to sent packet)")
+latest = os.path.join(d, "game/latest.log")
+if os.path.exists(latest):
+    dl = open(latest, errors="replace").read().splitlines()
+    for i, ln in enumerate(dl):
+        if DEBUG_DECODE.search(ln):
+            cause = next((x.strip() for x in dl[i + 1:i + 4] if not x.startswith("[")), "")
+            decode.append((ln + (" | " + cause if cause else "")).strip())
 if disc and PROTO_REASON.search(disc):
     decode.insert(0, "disconnect screen: " + disc)
 crash = glob.glob(os.path.join(d, "game/crash-reports/*.txt"))
@@ -101,10 +121,14 @@ print(json.dumps({
     "screen_title": e2e.get("screen_title"),
     "game_time": e2e.get("game_time"),
     "chunks_loaded": e2e.get("chunks"),
+    "packets_in": e2e.get("packets_in"),
+    "packets_out": e2e.get("packets_out"),
     "disconnected": disc is not None,
     "disconnect_reason": disc,
     "decode_errors": decode,
     "errors": [e for e in errors if "disconnected with reason" not in e],
+    "ctl_replies": ctl_replies,
+    "ctl_failed": ctl_failed,
     "egress": egress,
     "crashed": "Game crashed!" in text or bool(crash),
     "crash_report": crash[0] if crash else None,

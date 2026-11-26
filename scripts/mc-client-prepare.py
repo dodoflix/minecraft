@@ -3,13 +3,36 @@
 and print the launch classpath (one line) on stdout. Idempotent; verifies sha1.
 
 Usage: scripts/mc-client-prepare.py CACHE_DIR [--all-assets]
+       scripts/mc-client-prepare.py --servers-dat OUT NAME=HOST:PORT...
 Sound objects (minecraft/sounds/*.ogg) are skipped unless --all-assets: the harness runs without audio.
+--servers-dat writes a server list (the client's servers.dat, plain NBT) with those entries in that order, then exits.
 """
-import hashlib, json, os, sys, urllib.request
+import hashlib, json, os, struct, sys, urllib.request
 from concurrent.futures import ThreadPoolExecutor
 
 if sys.argv[1:2] in (["-h"], ["--help"]):
     print(__doc__)
+    sys.exit(0)
+
+def servers_dat(out, entries):
+    def string(tag_name, value):
+        n, v = tag_name.encode(), value.encode()
+        return b"\x08" + struct.pack(">H", len(n)) + n + struct.pack(">H", len(v)) + v
+
+    items = b""
+    for e in entries:
+        name, _, ip = e.partition("=")
+        if not ip:
+            sys.exit(f"--servers-dat: expected NAME=HOST:PORT, got {e!r}")
+        items += string("ip", ip) + string("name", name) + b"\x00"
+    nbt = b"\x0a\x00\x00" + b"\x09" + struct.pack(">H", 7) + b"servers" + b"\x0a" + struct.pack(">i", len(entries)) + items + b"\x00"
+    os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
+    with open(out, "wb") as f:
+        f.write(nbt)
+
+
+if sys.argv[1:2] == ["--servers-dat"]:
+    servers_dat(sys.argv[2], sys.argv[3:])
     sys.exit(0)
 
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

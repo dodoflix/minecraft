@@ -12,7 +12,7 @@
 #   egress[], crashed, crash_report, screenshot, log, elapsed_seconds, host, port.
 # Exit code 0 only if joined, still connected at the end, no disconnect, no decode errors, no other client WARN/ERROR
 # line, no attempt to reach a non-local host (egress), no crash.
-# client_game_time_ticks / chunks_loaded come from scripts/e2e/E2eMain.java (state probe inside the stock client).
+# client_game_time_ticks / chunks_loaded come from scripts/e2e/E2eProbe.java (state probe inside the stock client).
 # Needs: python3 and the prerequisites of scripts/real-client.sh.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"

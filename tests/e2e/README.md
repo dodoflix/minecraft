@@ -11,7 +11,8 @@ desktop's `DISPLAY`/`WAYLAND_DISPLAY` are never used: the client renders on the 
 | `scripts/real-client.sh` | Run the real client: `prepare` (downloads jar/libs/assets into `run/client-cache`, sha1-verified, ~1 min first time, sound files skipped), `start NAME USER HOST:PORT`, `status`, `screenshot NAME [out.png]`, `key NAME KEYSYM…`, `wait NAME REGEX`, `log`, `stop`. |
 | `scripts/e2e-join-check.sh` | One-shot: client joins `HOST PORT`, stays N seconds, screenshots, stops; prints a JSON verdict, exit 0 iff OK. Point it at our server to check that a real client can join. |
 | `scripts/e2e/E2eResolver.java`, `scripts/e2e/net-watch.py` | The isolation of the client (below): a resolver that refuses every name but loopback and the game server's own, and a socket watcher that records connections to non-loopback addresses. |
-| `scripts/e2e/E2eMain.java` | Tiny wrapper around the stock `Main` (compiled automatically into `run/client-cache/e2e-shim`). A daemon thread prints `[E2E] {json}` state lines (current screen, in-level, disconnect-screen text, client game time, chunks received). Needed because the stock client logs *nothing* for a login/config-phase kick, for "joined", or for the tick count. Read-only. |
+| `scripts/e2e/E2e{Main,Probe,Snapshot,Control}.java` | Tiny wrapper around the stock `Main` (compiled automatically into `run/client-cache/e2e-shim`). `E2eProbe` prints `[E2E] {json}` state lines (screen, in-level, disconnect-screen text, game time, chunks, packet totals) and counts every packet by protocol phase and type; `E2eSnapshot` dumps the full client state as JSON on request; `E2eControl` executes JSON-line commands (chat, command, screens, clicks, keys, connect, screenshot, ...) on the render thread. Formats: `tests/e2e/client/PROTOCOL.md`. |
+| `scripts/client-ctl.sh` | `client-ctl.sh NAME JSON` sends one control command to a running client and prints its reply; `client-ctl.sh NAME snapshot [OUT.json]` dumps the state snapshot. |
 | `scripts/mc-client-status.py` | Parses `run/clients/NAME/client.out` (+ crash reports) into the JSON used above. |
 
 ## Usage
@@ -57,9 +58,14 @@ Verdict JSON (also `DIR/verdict.json`; artifacts `DIR/{screenshot.png,client.log
 854x480 window, render distance 4, simulation 5, all sound categories 0 and OpenAL on its `null` backend
 (`ALSOFT_DRIVERS=null`), `pauseOnLostFocus:false`, onboarding/multiplayer warnings skipped, 30 fps cap, Mojang
 services pointed at a closed local port (see below),
-`nice -n 10`, `-XX:ActiveProcessorCount=4`. Joins via `--quickPlayMultiplayer HOST:PORT`, username offline (`--accessToken 0`,
+`nice -n 10`, `-XX:ActiveProcessorCount=4`. Joins via `--quickPlayMultiplayer HOST:PORT`, username offline (`--accessToken <username>`,
 UUID = vanilla offline UUID `OfflinePlayer:<name>`). Extra `options.txt` lines: `--option key:value`.
-Game dir `run/clients/NAME/game`; log `run/clients/NAME/client.out` (JVM stdout+stderr, includes gamescope chatter).
+The options are a fixed profile (no clouds, minimal particles, no entity shadows, GUI scale 2, gamma 0.5, `en_us`, no view
+bobbing or screen effects) so frames repeat; `--keep-options` keeps an existing `options.txt`. `--server NAME=HOST:PORT`
+(repeatable) writes the server list and `HOST:PORT` `none` starts at the title screen; `--display xvfb` runs on Xvfb with
+software GL instead of gamescope. The client log4j configuration (`scripts/client-log4j2.xml`) adds `game/latest.log`, which
+also holds DEBUG lines of the network packages (the only place a failed packet decode shows at log level).
+Game dir `run/clients/NAME/game`; log `run/clients/NAME/client.out` (JVM stdout+stderr, includes gamescope chatter); control FIFO `run/clients/NAME/ctl`.
 Startup to in-world takes ~10–20 s; first run also downloads ~220 MB.
 
 ## Isolation from Mojang's services
@@ -70,7 +76,7 @@ certificate URL comes from the discovery document, and the other `-Dminecraft.ap
 `real-client.sh start` therefore:
 
 - points the discovery URL at `http://127.0.0.1:9/minecraft/client`, a closed port, so the services are offline
-  (`--discovery URL` serves a local mock instead);
+  (`--mojang URL` serves a local mock instead);
 - sets `-Drealms.environment=local` (Realms at `localhost:8080`) and takes patchy off the classpath, whose block list
   fetch of `https://sessionserver.mojang.com/blockedservers` is hard-coded;
 - installs `E2eResolver`, which refuses every name but loopback, the machine's own and the game server's;
