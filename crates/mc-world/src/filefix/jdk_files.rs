@@ -88,8 +88,8 @@ pub(super) fn delete_tree(path: &Path) -> io::Result<()> {
     delete_if_exists(path).map(drop)
 }
 
-/// `Files.copy(source, target, COPY_ATTRIBUTES)` of a regular file to a name that is free: a failure names the file
-/// the operation failed on.
+/// `Files.copy(source, target, COPY_ATTRIBUTES)` of a regular file to a name that is free. A failure to stat, open or
+/// create names the file it failed on; one while the data is transferred is a plain `IOException(strerror)` without a path.
 pub(super) fn copy_file(source: &Path, target: &Path) -> io::Result<()> {
     let metadata = fs::metadata(source).map_err(|e| failed(e, source))?;
     if fs::symlink_metadata(target).is_ok() {

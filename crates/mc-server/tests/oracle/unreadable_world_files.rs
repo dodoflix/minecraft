@@ -145,10 +145,18 @@ fn file_size_limit(case: &str) -> Option<u64> {
 
 const READ_FAILED: &str = "WARN Failed to read chunk [";
 
-/// The second `Failed to read chunk` record of a folder that cannot be read: a worker of the I/O pool of vanilla logs it
-/// while the main thread already fails the upgrade and stops the server, so a run of the real server may end without it
-/// (12 of 13 runs on the unreadable region logged it, one did not; the first record always came out). `mc-world` always
-/// logs it, so when the real log has no second record, ours is compared without the records after its first.
+/// The `Failed to read chunk` records `mc-world` logs for a case: it always logs all of them.
+fn ours_reads(case: &str) -> usize {
+    match case {
+        "region_unreadable" | "region_copy_fails" => 2,
+        _ => 0,
+    }
+}
+
+/// The records after the first `Failed to read chunk` of a folder that cannot be read: a worker of the I/O pool of
+/// vanilla logs them while the main thread already fails the upgrade and stops the server, so a run of the real server
+/// may end without them (12 of 13 runs on the unreadable region logged the second, one did not; the first record always
+/// came out). The comparison drops them from ours when the real log has fewer records than ours.
 fn without_late_reads(log: Vec<String>) -> Vec<String> {
     let mut reads = 0;
     let mut skipping = false;
@@ -212,12 +220,16 @@ fn unreadable_world_files() {
             ));
         }
         let (vanilla, mut ours) = (gate_log(&runs[0]), gate_log(&runs[1]));
-        if vanilla
-            .iter()
-            .filter(|l| l.starts_with(READ_FAILED))
-            .count()
-            < 2
-        {
+        let reads = |log: &[String]| log.iter().filter(|l| l.starts_with(READ_FAILED)).count();
+        // ours is deterministic: its count of records is exact, and only the real log may lack the late ones
+        if reads(&ours) != ours_reads(name) {
+            findings.push(format!(
+                "ours logged {} `Failed to read chunk` records, expected {}",
+                reads(&ours),
+                ours_reads(name)
+            ));
+        }
+        if reads(&vanilla) < reads(&ours) {
             ours = without_late_reads(ours);
         }
         println!("UNREADABLE {name}: vanilla log: {vanilla:#?}");

@@ -96,7 +96,7 @@ pub fn spawn_in_group(mut cmd: Command) -> io::Result<Child> {
     cmd.process_group(0);
     #[cfg(target_os = "linux")]
     {
-        // SAFETY: the closure only calls `prctl`, which is async-signal-safe.
+        // SAFETY: between fork and exec the closure only makes the `prctl` system call: no allocation, no lock.
         unsafe {
             cmd.pre_exec(|| {
                 if libc::prctl(libc::PR_SET_PDEATHSIG, libc::SIGKILL) == -1 {
@@ -610,7 +610,8 @@ impl Builder {
         cmd.args(&self.args);
         cmd.envs(self.envs.iter().map(|(k, v)| (k, v)));
         if let Some(bytes) = self.file_size_limit {
-            // SAFETY: the closure only calls `setrlimit` and `signal`, which are async-signal-safe.
+            // SAFETY: between fork and exec the closure only calls `setrlimit` (a plain system call without allocation or
+            // lock) and `signal` (async-signal-safe).
             unsafe {
                 cmd.pre_exec(move || {
                     let limit = libc::rlimit {
