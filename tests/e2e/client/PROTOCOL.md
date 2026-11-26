@@ -8,7 +8,7 @@ newlines (they are escaped).
 
 | Line | Meaning |
 |---|---|
-| `[E2E] {...}` | State heartbeat: on change and once per second while in a level. Fields: `screen` (class simple name or null), `screen_title`, `in_level` (level and player exist), `joined_ever`, `disconnect_reason` (text of the disconnect screen), `game_time` (client level game time, -1 outside a level), `chunks` (chunks received), `packets_in`, `packets_out` (play-phase and earlier packet totals of this JVM). |
+| `[E2E] {...}` | State heartbeat: on change and once per second while in a level. Fields: `screen` (class simple name or null), `screen_title`, `in_level` (level and player exist), `joined_ever`, `disconnect_reason` (text of the disconnect screen), `servers_pinged` (on the multiplayer screen: every listed server has answered its status ping or failed to; else null), `game_time` (client level game time, -1 outside a level), `chunks` (chunks received), `packets_in`, `packets_out` (play-phase and earlier packet totals of this JVM). |
 | `[E2E-CTL] {...}` | Reply to one control command: `{"id": ID, "ok": true, "result": {...}}` or `{"id": ID, "ok": false, "error": "text"}`. |
 | `[E2E-NET] {"blocked": HOST}` | A name the client tried to resolve and the resolver refused (the run is not isolated). |
 
@@ -29,10 +29,10 @@ missing), `cmd`, and the arguments below. Unknown commands, missing arguments an
 | `snapshot` | `path` (default `game/e2e/snapshot-ID.json`) | Writes the state snapshot (below); `result` = `{"path": ABSOLUTE_PATH}` |
 | `chat` | `text` | Sends `text` as a chat message (a leading `/` is not a command here) |
 | `command` | `text` (without the slash) | Sends the command as the client would from the chat box |
-| `setScreen` | `screen`: `null`, `inventory`, `pause`, `chat`, `advancements`, `social`, `creative` | Opens or closes a screen. Closing a container screen sends `ContainerClose` |
+| `setScreen` | `screen`: `null`, `inventory`, `pause`, `chat`, `advancements`, `multiplayer`, `social`, `creative` | Opens or closes a screen (`multiplayer` = the server list over the title screen). Closing a container screen sends `ContainerClose` |
 | `closeScreen` | | `player.closeContainer()` when in a level, else `setScreen(null)` |
 | `click` | `slot`, `button` (0), `type`: `PICKUP`, `QUICK_MOVE`, `SWAP`, `CLONE`, `THROW`, `QUICK_CRAFT`, `PICKUP_ALL` | Container click on the open menu (`containerId` of the menu), as the screen would send it |
-| `widgetClick` | `index` (position in the snapshot's `screen.widgets`) | Left-clicks the centre of that widget of the open screen; `ok:false` when the widget did not take the click |
+| `widgetClick` | `key` (translation key of the widget message, shown as `key` in the snapshot widgets: `gui.proceed`) or `class` (simple class name) with `ordinal` (default 0), never a position | Left-clicks the centre of that widget of the open screen; `ok:false` when the widget did not take the click |
 | `key` | `key` (`key.keyboard.e`, `key.mouse.left`, ... or a GLFW name such as `e`, `escape`), `action`: `tap` (default), `press`, `release` | Delivers the key to the client's keyboard or mouse handler |
 | `look` | `yaw`, `pitch` | Sets the local player's rotation |
 | `use` | | What the right mouse button does: the client's own use-item step (block, entity, held item, both hands) |
@@ -54,7 +54,9 @@ format, screen, menu, player, inventory, level, entities, registries, tags, feat
 commands, chat, scoreboard, tab_list, boss_bars, titles, packs, server, packets
 ```
 
-* `screen`: null or `{class, title, widgets: [{class, message, x, y, width, height, active, visible}]}`.
+* `screen`: null or `{class, title, widgets: [{class, message, key, x, y, width, height, active, visible}]}` (`key`: the translation key of the message, null for literal text); the multiplayer screen
+  adds `servers: [{name, ip, state, status, motd, version, protocol, ping, players: {online, max}, player_list, icon_sha1}]`, its server
+  list with what the status pings filled in (`state` is `INITIAL`, `PINGING`, `UNREACHABLE`, `INCOMPATIBLE` or `SUCCESSFUL`).
 * `menu`: the player's current menu `{class, id, state_id, carried, slots: [{index, item}]}`; with no container open it is
   the player inventory menu (id 0). Null outside a level. Items are the full item-stack JSON of the client's codec (`{"id","count","components"}`), `{}` when empty.
 * `player`: name, uuid, pos, rot, motion, health, food, saturation, xp, gamemode, abilities, effects, attributes, hotbar slot.

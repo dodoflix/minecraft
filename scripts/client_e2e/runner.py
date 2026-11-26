@@ -34,6 +34,7 @@ KNOWN = os.path.join(ROOT, "tests", "e2e", "client", "known-differences.txt")
 ALLOW = os.path.join(ROOT, "tests", "e2e", "client", "client-log-noise.txt")
 SERVER_ALLOW = os.path.join(ROOT, "tests", "e2e", "client", "server-log-noise.txt")
 USER = "Steve"
+SCREEN_MIN_MS = 60  # a screen shown for less than this (one client tick is 50 ms) is not part of the compared screen sequence
 
 # One world setup for every side; a scenario's `server` lines and a side's overrides come after it.
 DEFAULT_PROPS = {
@@ -289,25 +290,28 @@ class OursServer:
 class Client:
     """One real-client process of a side and the state read from its log."""
 
-    def __init__(self, name, display):
-        self.name, self.display = name, display
+    def __init__(self, name, display, tag=None):
+        self.name, self.display, self.tag = name, display, tag
+        self.client_from = self.disc_from = 0  # where wait_log and expect_disconnect start reading: set by join and rejoin
         self.dir = os.path.join(ROOT, "run", "clients", name)
         self.offset = 0
         self.state = {}
         self.base_ticks = None
-        self.screens, self.disconnects = [], []
+        self.seen, self.pending, self.disconnects = [], None, []  # screens: see the property
         self.user = None
         self.last_screen = self.last_reason = None  # of the state lines read so far, kept when a rejoin clears `state`
 
     def real(self, *args, **kw):
         return sh(os.path.join(SCRIPTS, "real-client.sh"), *args, **kw)
 
-    def start(self, user, addr, mojang_url, options):
+    def start(self, user, addr, mojang_url, options, servers=()):
+        """`addr` None = the title screen; `servers` (`NAME=HOST:PORT`) go into the client's server list."""
         self.user = user
         self.offset, self.state, self.base_ticks = 0, {}, None
         self.last_screen = self.last_reason = None
         display = ["--display", self.display] if self.display else []
-        self.real("start", self.name, user, addr, "--mojang", mojang_url, *display, *[x for o in options for x in ("--option", o)], timeout=180)
+        self.real("start", self.name, user, addr or "none", "--mojang", mojang_url, *display, *[x for o in options for x in ("--option", o)],
+                  *[x for s in servers for x in ("--server", s)], timeout=180)
         # the JVM may queue for a machine-wide client slot: a step's own timeout starts once the client prints its first state
         self.wait(lambda: bool(self.state), 900, "the client to start")
 
@@ -318,6 +322,23 @@ class Client:
             return True
         except (OSError, ValueError):
             return False
+
+    @property
+    def screens(self):
+        """The screens the client showed, in order: those that stayed at least SCREEN_MIN_MS, and the current one."""
+        if self.pending and (not self.seen or self.seen[-1] != self.pending[0]):
+            return self.seen + [self.pending[0]]
+        return list(self.seen)
+
+    def settle(self, now):
+        """Closes the current screen at time `now` (ms): a screen that stayed less than SCREEN_MIN_MS is dropped.
+        One that lives for a frame or a tick (the parent of a prompt after it disconnects, a progress screen while
+        connecting) is seen by the poll or not depending on timing, and no player could read it either."""
+        if not self.pending:
+            return
+        name, since = self.pending
+        if (now is None or since is None or now - since >= SCREEN_MIN_MS) and (not self.seen or self.seen[-1] != name):
+            self.seen.append(name)
 
     def pump(self):
         """Reads the new part of the client log and applies the `[E2E]` state lines."""
@@ -337,14 +358,16 @@ class Client:
             except ValueError:
                 continue
             # the first line, printed while the client starts, may or may not come before its first screen
-            if state.get("screen") != self.last_screen and (self.screens or state.get("screen")):
-                self.screens.append(state.get("screen"))
-            self.last_screen = state.get("screen")
+            screen = state.get("screen")
+            if screen != self.last_screen and (self.seen or self.pending or screen):
+                self.settle(state.get("t"))
+                self.pending = (screen, state.get("t"))
+            self.last_screen = screen
             reason = state.get("disconnect_reason")
             if reason and reason != self.last_reason:
                 self.disconnects.append(reason)
             self.last_reason = reason
-            if state.get("in_level") and self.base_ticks is None and isinstance(state.get("game_time"), (int, float)):
+            if state.get("in_level") and self.base_ticks is None and isinstance(state.get("game_time"), (int, float)) and state["game_time"] > 0:
                 self.base_ticks = state["game_time"]
             self.state = state
             self.state["ticks_in_level"] = None if self.base_ticks is None else state.get("game_time", 0) - self.base_ticks
@@ -377,22 +400,32 @@ class Client:
 # ---- one side ---------------------------------------------------------------------------------------------------------
 
 def run_steps(sc, ctx):
-    client, server, out = ctx["client"], ctx["server"], ctx["dir"]
+    server, out, clients = ctx["server"], ctx["dir"], ctx["clients"]
     # wait_log and wait_server read what was logged since the last join or rejoin: a line that repeats per connection
     # (`joined the game`) must not satisfy the wait of the next one
-    server_from = client_from = disc_from = 0
+    server_from = 0
     for line_no, op, a in sc.steps:
         try:
+            tag = a.get("client")
+            client = clients.get(tag)
+            if client is None:
+                client = clients[tag] = Client(f"{ctx['name']}-{tag}", ctx["display"], tag)
+            prefix = "" if tag is None else f"{tag}."  # labels of a second client's snapshots, shots and chat logs
             if op == "console":
                 server.cmd(expand(a["text"], ctx["port"], ctx["files"]))
             elif op == "client":
-                if a["action"] == "join":
+                address = f"127.0.0.1:{ctx['port']}"
+                if a["action"] in ("join", "title"):
                     server_from = len(server.log_text())
-                    client.start(a["user"] or USER, f"127.0.0.1:{ctx['port']}", ctx["mojang"].url, a["options"])
-                    client_from, disc_from = 0, len(client.disconnects)
+                    user = a["user"] or (USER if tag is None else f"{USER}_{tag}")
+                    if a["action"] == "join":
+                        client.start(user, address, ctx["mojang"].url, a["options"])
+                    else:
+                        client.start(user, None, ctx["mojang"].url, a["options"], servers=[f"e2e={address}"])
+                    client.client_from, client.disc_from = 0, len(client.disconnects)
                 elif a["action"] == "rejoin":
-                    server_from, client_from, disc_from = len(server.log_text()), len(client.log_text()), len(client.disconnects)
-                    client.ctl({"cmd": "connect", "address": f"127.0.0.1:{ctx['port']}"})
+                    server_from, client.client_from, client.disc_from = len(server.log_text()), len(client.log_text()), len(client.disconnects)
+                    client.ctl({"cmd": "connect", "address": address})
                     # the state of the old connection stays until the client prints a state line of the new one
                     client.pump()
                     client.state, client.base_ticks = {}, None
@@ -405,7 +438,7 @@ def run_steps(sc, ctx):
                 fn = scenario.compile_expr(a["expr"])
                 client.wait(lambda: bool(fn(client.state)), a["timeout"], a["expr"])
             elif op == "wait_log":
-                client.wait(lambda: re.search(a["regex"], client.log_text()[client_from:], re.M), a["timeout"], f"client log /{a['regex']}/")
+                client.wait(lambda: re.search(a["regex"], client.log_text()[client.client_from:], re.M), a["timeout"], f"client log /{a['regex']}/")
             elif op == "wait_server":
                 deadline = time.time() + a["timeout"]
                 while not re.search(a["regex"], server.log_text()[server_from:], re.M):
@@ -415,46 +448,61 @@ def run_steps(sc, ctx):
             elif op == "ctl":
                 client.ctl(json.loads(expand(json.dumps(a["json"]), ctx["port"], ctx["files"])))
             elif op == "snapshot":
-                path = os.path.join(out, "snapshots", a["label"] + ".json")
+                path = os.path.join(out, "snapshots", prefix + a["label"] + ".json")
                 os.makedirs(os.path.dirname(path), exist_ok=True)
                 client.ctl({"cmd": "snapshot", "path": path})
                 if not os.path.exists(path):
                     raise StepError(f"the client reported the snapshot but {path} does not exist")
             elif op == "shot":
-                path = os.path.join(out, "shots", a["label"] + ".png")
+                path = os.path.join(out, "shots", prefix + a["label"] + ".png")
                 os.makedirs(os.path.dirname(path), exist_ok=True)
                 client.ctl({"cmd": "screenshot", "path": path})
                 if a["crop"]:
                     shotdiff.crop_file(path, a["crop"])
             elif op == "chat_log":
-                path = os.path.join(out, "chat", a["label"] + ".txt")
+                path = os.path.join(out, "chat", prefix + a["label"] + ".txt")
                 os.makedirs(os.path.dirname(path), exist_ok=True)
                 client.pump()
                 with open(path, "w", encoding="utf-8") as f:
                     f.writelines(m.group(1) + "\n" for m in re.finditer(r"\[CHAT\] (.*)$", client.log_text(), re.M))
             elif op == "expect_disconnect":
-                client.wait(lambda: any(re.search(a["regex"], d) for d in client.disconnects[disc_from:]), a["timeout"], f"disconnect /{a['regex']}/")
+                client.wait(lambda: any(re.search(a["regex"], d) for d in client.disconnects[client.disc_from:]), a["timeout"], f"disconnect /{a['regex']}/")
         except (StepError, ValueError, TypeError, ZeroDivisionError, OSError) as e:
-            raise StepError(f"line {line_no} ({op}): {e}") from None
+            raise StepError(f"line {line_no} ({op}{'' if tag is None else ' @' + tag}): {e}") from None
 
 
 def save_client(client, out):
     if client.user is None:  # never started: run/clients/NAME still holds the files of an earlier run
         return
+    suffix = "" if client.tag is None else f"-{client.tag}"
     client.pump()
     client.stop()
     log = os.path.join(client.dir, "client.out")
     if os.path.exists(log):
-        shutil.copyfile(log, os.path.join(out, "client.log"))
+        shutil.copyfile(log, os.path.join(out, f"client{suffix}.log"))
     for game_log in ("latest.log", os.path.join("logs", "latest.log")):
         p = os.path.join(client.dir, "game", game_log)
         if os.path.exists(p):
-            shutil.copyfile(p, os.path.join(out, "latest.log"))
+            shutil.copyfile(p, os.path.join(out, f"latest{suffix}.log"))
             break
     for sub in ("crash-reports", "debug"):
         p = os.path.join(client.dir, "game", sub)
         if os.path.isdir(p) and os.listdir(p):
-            shutil.copytree(p, os.path.join(out, "reports", sub), dirs_exist_ok=True)
+            shutil.copytree(p, os.path.join(out, "reports", sub + suffix), dirs_exist_ok=True)
+
+
+def save_clients(clients, out):
+    """Saves every client; each one is stopped even when saving an earlier one raises."""
+    pending = list(clients.values())
+    try:
+        while pending:
+            save_client(pending.pop(0), out)
+    finally:
+        for c in pending:
+            try:
+                save_client(c, out)
+            except (StepError, OSError):
+                pass
 
 
 def save_server(server, out):
@@ -472,7 +520,7 @@ def run_side(sc, kind, label, overrides, out, opts):
     os.makedirs(out)
     scn = os.path.splitext(os.path.basename(sc.path))[0]
     port = free_port()
-    errors, mojang, server, client, files = [], None, None, None, None
+    errors, mojang, server, clients, files = [], None, None, {}, None
     try:
         files = Files(sc.serves)
         props = {k: expand(v, port, files) for k, v in {**DEFAULT_PROPS, "level-seed": str(opts["seed"]), **sc.props, **overrides}.items()}
@@ -484,15 +532,14 @@ def run_side(sc, kind, label, overrides, out, opts):
             server = OursServer(os.path.join(out, "server"), props, port, mojang.url, sc)
         server.start()
         run_commands(server, SETUP_COMMANDS)
-        client = Client(name, opts["display"])
-        run_steps(sc, {"client": client, "server": server, "dir": out, "port": port, "mojang": mojang, "files": files})
+        clients[None] = Client(name, opts["display"])
+        run_steps(sc, {"clients": clients, "name": name, "display": opts["display"], "server": server, "dir": out, "port": port, "mojang": mojang, "files": files})
     except (StepError, OSError) as e:
         errors.append(str(e))
     finally:
         # each stop runs even when an earlier one raises: no server, client or mock is left behind
         try:
-            if client is not None:
-                save_client(client, out)
+            save_clients(clients, out)
         finally:
             try:
                 if server is not None:
@@ -504,9 +551,11 @@ def run_side(sc, kind, label, overrides, out, opts):
                 finally:
                     if files is not None:
                         files.stop()
+    client = clients.get(None)
     meta = {
         "kind": kind, "label": label, "errors": errors,
         "screens": client.screens if client else [], "disconnects": client.disconnects if client else [],
+        "extra": {t: {"screens": c.screens, "disconnects": c.disconnects} for t, c in clients.items() if t is not None},
     }
     with open(os.path.join(out, "side.json"), "w", encoding="utf-8") as f:
         json.dump(meta, f, indent=2)
@@ -561,8 +610,9 @@ def single_side_diffs(out, allow, server_allow):
 
     meta = json.loads(read(os.path.join(out, "side.json")) or "{}")
     diffs = compare.error_diffs(meta.get("label"), meta.get("errors", []))
-    found, _ = gate.findings(gate.parse(compare.client_log_text(out)), allow)
-    diffs += [(f"client-log:{meta.get('label')}:{f}", f) for f in found]
+    for tag in [None, *sorted(meta.get("extra", {}))]:
+        found, _ = gate.findings(gate.parse(compare.client_log_text(out, tag)), allow)
+        diffs += [(f"client-log{'' if tag is None else '@' + tag}:{meta.get('label')}:{f}", f) for f in found]
     diffs += [(f"server-log:{meta.get('label')}:{f}", f) for f in normalise.server_findings(read(os.path.join(out, "server.log"))) if f not in server_allow]
     diffs += [(f"client-report:{meta.get('label')}:{os.path.basename(f)}", f) for f in gate.extra_files([os.path.join(out, "reports")])]
     return diffs

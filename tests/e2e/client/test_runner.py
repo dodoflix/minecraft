@@ -79,6 +79,13 @@ class ScenarioTest(unittest.TestCase):
                 scenario.parse(text)
             self.assertIn(fragment, str(raised.exception), text)
 
+    def test_a_step_can_address_a_second_client(self):
+        sc = scenario.parse("client join\n@b client join --user Alex\n@b wait_screen null 5\n@b snapshot x\nconsole say hi\n")
+        self.assertEqual([(op, a.get("client")) for _, op, a in sc.steps], [("client", None), ("client", "b"), ("wait_screen", "b"), ("snapshot", "b"), ("console", None)])
+        for text in ("@b console say hi", "@b server x=1", "@ client join"):
+            with self.assertRaises(scenario.ScenarioError, msg=text):
+                scenario.parse(text)
+
     def test_expressions(self):
         ev = lambda text, **state: scenario.compile_expr(text)(state)  # noqa: E731
         self.assertTrue(ev("in_level and game_time >= 10", in_level=True, game_time=12))
@@ -115,6 +122,24 @@ class PumpTest(unittest.TestCase):
             self.assertEqual(client.state["ticks_in_level"], 0)
             self.assertEqual(client.screens, ["ConnectScreen", None, "DisconnectedScreen", "ConnectScreen", None])
             self.assertEqual(client.disconnects, ["Kicked"])
+
+    def test_a_screen_shown_for_less_than_a_moment_is_not_in_the_sequence(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            client = runner.Client("t", None)
+            client.dir = tmp
+
+            def feed(t, screen):
+                with open(os.path.join(tmp, "client.out"), "a", encoding="utf-8") as f:
+                    f.write(f"[12:00:00] [e2e-watch/INFO]: [STDOUT]: [E2E] {json.dumps({'screen': screen, 't': t})}\n")
+                client.pump()
+
+            feed(1000, "PackConfirmScreen")
+            feed(2000, "ConnectScreen")  # the parent of the prompt: one client tick
+            feed(2030, "DisconnectedScreen")
+            self.assertEqual(client.screens, ["PackConfirmScreen", "DisconnectedScreen"])
+            feed(3000, "ProgressScreen")
+            feed(3010, "PackConfirmScreen")  # a blip, then the screen again
+            self.assertEqual(client.screens, ["PackConfirmScreen", "DisconnectedScreen", "PackConfirmScreen"])
 
 
 class ServeTest(unittest.TestCase):
@@ -240,6 +265,22 @@ class CompareTest(unittest.TestCase):
         self.assertIn("client-log:extra:1x INFO: nothing", keys)
         self.assertIn("server-log:vanilla:ERROR: boom", keys)
         self.assertIn("server-log:missing:INFO: Steve joined the game", keys)
+
+    def test_a_second_client_is_compared_on_its_own_screens_and_log(self):
+        a, b = self.sides(snapshot(1, 1, 1), snapshot(1, 1, 1))
+        for d, screens, log in ((a, [None], ""), (b, [None, "DisconnectedScreen"], "[12:00:00] [Render thread/WARN]: odd\n")):
+            path = os.path.join(d, "side.json")
+            with open(path) as f:
+                meta = json.load(f)
+            meta["extra"] = {"b": {"screens": screens, "disconnects": []}}
+            with open(path, "w") as f:
+                json.dump(meta, f)
+            with open(os.path.join(d, "client-b.log"), "w") as f:
+                f.write(log)
+        keys = [k for k, _ in compare.compare_sides(a, b)]
+        self.assertIn("screens@b", keys)
+        self.assertEqual([k for k in keys if k.startswith("client-log@b:")], ["client-log@b:ours:WARN: odd", "client-log@b:extra:1x WARN: odd"])
+        self.assertNotIn("screens", keys)
 
     def test_known_differences_hide_listed_keys_and_report_stale_ones(self):
         diffs = [("snapshot:joined:level.chunks_loaded", "x"), ("screens", "y")]

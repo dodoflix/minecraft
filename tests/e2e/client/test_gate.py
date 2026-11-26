@@ -51,9 +51,9 @@ class GateTest(unittest.TestCase):
                 "Realms authentication error with message 'java.lang.RuntimeException: Failed to parse into SignedJWT: 0'",
             ],
         )
-        # the two Realms lines of the isolated harness are not in this older, unisolated recording
-        self.assertEqual(len(unused), 2, unused)
-        self.assertTrue(all('realms' in u.lower() for u in unused))
+        # the two Realms lines of the isolated harness and the lines some scenarios add are not in this older recording
+        self.assertEqual(len(unused), 11, unused)
+        self.assertTrue(all(any(s in u for s in ("realms", "Realms", "disconnected with reason", "Existing file", "Failed to download", "Mismatched hash")) for u in unused))
 
     def test_allow_list_is_exact(self):
         entries = gate.parse("[12:00:00] [Render thread/WARN]: Requested post effect does not exist: minecraft:end_of_frame2")

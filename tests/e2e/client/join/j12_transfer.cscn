@@ -1,0 +1,12 @@
+# accepts-transfers=true: /transfer sends the client to the same server, which it joins a second time.
+server accepts-transfers=true
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console transfer 127.0.0.1 {port} Steve
+wait_server "(?s)joined the game.*joined the game" 60
+wait_screen null 120
+wait_state in_level and chunks >= 117 60
+snapshot after
+client disconnect
+wait_screen TitleScreen 30

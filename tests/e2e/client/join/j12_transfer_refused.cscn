@@ -1,0 +1,7 @@
+# accepts-transfers=false: the target refuses the transferred login.
+server accepts-transfers=false
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console transfer 127.0.0.1 {port} Steve
+wait_screen DisconnectedScreen 60

@@ -122,9 +122,11 @@ def _json(path):
     return None if text is None else json.loads(text)
 
 
-def client_log_text(side_dir):
-    """The richest client log of a side: game/latest.log (DEBUG of the network packages) when it was saved, else the console capture."""
-    return _read(os.path.join(side_dir, "latest.log")) or _read(os.path.join(side_dir, "client.log"))
+def client_log_text(side_dir, tag=None):
+    """The richest client log of a side: game/latest.log (DEBUG of the network packages) when it was saved, else the console capture.
+    `tag` names a second client (files `latest-TAG.log`, `client-TAG.log`)."""
+    suffix = "" if tag is None else f"-{tag}"
+    return _read(os.path.join(side_dir, f"latest{suffix}.log")) or _read(os.path.join(side_dir, f"client{suffix}.log"))
 
 
 def _labels(side_dir, sub, ext):
@@ -149,6 +151,11 @@ def compare_sides(a_dir, b_dir, tolerances=(), allow=(), shot_options=None, serv
         diffs.append(("screens", f"{label['a']}: {meta['a'].get('screens')}  {label['b']}: {meta['b'].get('screens')}"))
     if meta["a"].get("disconnects") != meta["b"].get("disconnects"):
         diffs.append(("disconnect", f"{label['a']}: {meta['a'].get('disconnects')}  {label['b']}: {meta['b'].get('disconnects')}"))
+    for tag in sorted(set(meta["a"].get("extra", {})) | set(meta["b"].get("extra", {}))):
+        xa, xb = (meta[s].get("extra", {}).get(tag, {}) for s in ("a", "b"))
+        for field, key in (("screens", "screens"), ("disconnects", "disconnect")):
+            if xa.get(field) != xb.get(field):
+                diffs.append((f"{key}@{tag}", f"{label['a']}: {xa.get(field)}  {label['b']}: {xb.get(field)}"))
     for name in sorted(set(_labels(a_dir, "snapshots", ".json")) | set(_labels(b_dir, "snapshots", ".json"))):
         sa, sb = (_json(os.path.join(d, "snapshots", name + ".json")) for d in (a_dir, b_dir))
         if sa is None or sb is None:
@@ -160,13 +167,15 @@ def compare_sides(a_dir, b_dir, tolerances=(), allow=(), shot_options=None, serv
         ca, cb = (_read(os.path.join(d, "chat", name + ".txt"), None) for d in (a_dir, b_dir))
         if ca != cb:
             diffs.append((f"chat:{name}", f"{label['a']}: {ca!r}  {label['b']}: {cb!r}"))
-    texts = {s: client_log_text(d) for s, d in (("a", a_dir), ("b", b_dir))}
-    for s in ("a", "b"):
-        found, _ = gate.findings(gate.parse(texts[s]), allow)
-        diffs += [(f"client-log:{label[s]}:{f}", f) for f in found]
-    parity = gate.parity(gate.parse(texts["b"]), gate.parse(texts["a"]))
-    diffs += [(f"client-log:missing:{line}", line) for line in parity["missing"]]
-    diffs += [(f"client-log:extra:{line}", line) for line in parity["extra"]]
+    for tag in [None, *sorted(set(meta["a"].get("extra", {})) | set(meta["b"].get("extra", {})))]:
+        kind = "client-log" if tag is None else f"client-log@{tag}"  # a second client's findings carry its name
+        texts = {s: client_log_text(d, tag) for s, d in (("a", a_dir), ("b", b_dir))}
+        for s in ("a", "b"):
+            found, _ = gate.findings(gate.parse(texts[s]), allow)
+            diffs += [(f"{kind}:{label[s]}:{f}", f) for f in found]
+        parity = gate.parity(gate.parse(texts["b"]), gate.parse(texts["a"]))
+        diffs += [(f"{kind}:missing:{line}", line) for line in parity["missing"]]
+        diffs += [(f"{kind}:extra:{line}", line) for line in parity["extra"]]
     for s, d in (("a", a_dir), ("b", b_dir)):
         diffs += [(f"client-report:{label[s]}:{os.path.basename(f)}", f) for f in gate.extra_files([os.path.join(d, "reports")])]
     servers = {s: _read(os.path.join(d, "server.log")) for s, d in (("a", a_dir), ("b", b_dir))}

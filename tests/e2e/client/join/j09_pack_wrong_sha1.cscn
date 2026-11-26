@@ -1,0 +1,11 @@
+# A required pack whose sha1 does not match the download: the client logs the failure and still joins.
+server resource-pack={http}/pack.zip resource-pack-sha1=0000000000000000000000000000000000000000 resource-pack-id=11111111-2222-3333-4444-555555555555 require-resource-pack=true
+serve /pack.zip fixtures/resourcepack
+client join
+wait_screen PackConfirmScreen 120
+ctl {"cmd": "widgetClick", "key": "gui.proceed"}
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+snapshot after
+client disconnect
+wait_screen TitleScreen 30

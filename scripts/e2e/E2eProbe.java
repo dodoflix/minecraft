@@ -7,7 +7,9 @@ import java.util.concurrent.atomic.LongAdder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.DisconnectedScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ServerData;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LogEvent;
@@ -72,6 +74,16 @@ final class E2eProbe {
         return o;
     }
 
+    /** On the multiplayer screen: whether every listed server has answered its status ping (or failed to); else null. */
+    static Boolean serversPinged(Screen screen) {
+        if (!(screen instanceof JoinMultiplayerScreen jm)) return null;
+        for (int i = 0; i < jm.getServers().size(); i++) {
+            ServerData.State s = jm.getServers().get(i).state();
+            if (s == ServerData.State.INITIAL || s == ServerData.State.PINGING) return false;
+        }
+        return true;
+    }
+
     /** Text of the disconnect screen, which has no public accessor. */
     static String disconnectReason(Screen screen) throws ReflectiveOperationException {
         if (!(screen instanceof DisconnectedScreen)) return null;
@@ -89,7 +101,8 @@ final class E2eProbe {
         long lastBeat = 0;
         while (true) {
             try {
-                Thread.sleep(200);
+                // a screen that lives for one client tick (a prompt's parent after Disconnect) must not slip between two samples
+                Thread.sleep(5);
                 Minecraft mc = Minecraft.getInstance();
                 if (mc == null || mc.gui == null) continue;
                 Screen screen = mc.gui.screen();
@@ -102,7 +115,9 @@ final class E2eProbe {
                 o.addProperty("in_level", inLevel);
                 o.addProperty("joined_ever", joinedEver);
                 o.addProperty("disconnect_reason", disconnectReason(screen));
+                o.addProperty("servers_pinged", serversPinged(screen));
                 String state = o.toString();
+                o.addProperty("t", System.currentTimeMillis());
                 o.addProperty("game_time", inLevel ? level.getLevelData().getGameTime() : -1);
                 o.addProperty("chunks", inLevel ? level.getChunkSource().getLoadedChunksCount() : 0);
                 o.addProperty("packets_in", total(IN));

@@ -24,6 +24,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.advancements.AdvancementsScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.gui.screens.social.SocialInteractionsScreen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
@@ -159,8 +160,18 @@ final class E2eControl {
             case "widgetClick" -> {
                 Screen s = mc.gui.screen();
                 if (s == null) throw new IllegalStateException("no screen open");
-                int index = num(c, "index", null);
-                AbstractWidget w = E2eSnapshot.widgets(s).get(index);
+                // by the translation key of the widget's message (`gui.proceed`), or by class and ordinal (`class`, `ordinal` 0 = the
+                // first of that class): never by position, which changes with the language, window size and GUI scale
+                String key = c.has("key") ? str(c, "key") : null;
+                String cls = c.has("class") ? str(c, "class") : null;
+                if ((key == null) == (cls == null)) throw new IllegalArgumentException("widgetClick needs exactly one of key and class");
+                java.util.List<AbstractWidget> found = new java.util.ArrayList<>();
+                for (AbstractWidget candidate : E2eSnapshot.widgets(s)) {
+                    if (key != null ? key.equals(E2eSnapshot.messageKey(candidate)) : cls.equals(candidate.getClass().getSimpleName())) found.add(candidate);
+                }
+                int ordinal = num(c, "ordinal", 0);
+                if (ordinal < 0 || ordinal >= found.size()) throw new IllegalStateException("no widget " + (key != null ? key : cls) + " #" + ordinal + " on " + s.getClass().getSimpleName());
+                AbstractWidget w = found.get(ordinal);
                 MouseButtonEvent e = new MouseButtonEvent(w.getX() + w.getWidth() / 2.0, w.getY() + w.getHeight() / 2.0,
                         new MouseButtonInfo(1, 0)); // 1 = left button in this client's input codes
                 if (!w.mouseClicked(e, false)) throw new IllegalStateException("the widget did not take the click: " + w.getMessage().getString());
@@ -228,6 +239,7 @@ final class E2eControl {
             case "creative" -> new CreativeModeInventoryScreen(needPlayer(p), needPlayer(p).connection.enabledFeatures(), true);
             case "chat" -> new ChatScreen("", false);
             case "advancements" -> new AdvancementsScreen(needPlayer(p).connection.getAdvancements());
+            case "multiplayer" -> new JoinMultiplayerScreen(new TitleScreen());
             case "social" -> new SocialInteractionsScreen();
             default -> throw new IllegalArgumentException("unknown screen: " + name);
         };

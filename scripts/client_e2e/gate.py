@@ -47,7 +47,7 @@ class Entry:
     def line(self):
         """`LEVEL: message`, plus ` | ` and the exception line under it when the entry has one (the allow-list form)."""
         cause = self.extra[0].strip() if self.extra and not self.extra[0].lstrip().startswith("at ") else ""
-        return f"{self.level}: {self.message}" + (f" | {cause}" if cause else "")
+        return f"{self.level}: {normalise.log_message(self.message)}" + (f" | {normalise.log_message(cause)}" if cause else "")
 
     def is_finding(self):
         return self.level in ("WARN", "ERROR", "FATAL") or bool(SUSPECT.search(self.text))

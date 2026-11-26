@@ -1,0 +1,7 @@
+# enable-code-of-conduct: the client declines and is disconnected.
+server enable-code-of-conduct=true
+file codeofconduct/en_us.txt fixtures/codeofconduct/en_us.txt
+client join
+wait_screen CodeOfConductScreen 120
+ctl {"cmd": "widgetClick", "key": "menu.disconnect"}
+wait_screen DisconnectedScreen 60

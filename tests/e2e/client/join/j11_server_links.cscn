@@ -1,0 +1,12 @@
+# bug-report-link: the client receives a server link and lists it in its pause menu.
+server bug-report-link=https://example.com/bugs
+client join
+wait_screen null 120
+# 117 = the chunks of view distance 4 (the runner default)
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+ctl {"cmd": "setScreen", "screen": "pause"}
+wait_screen PauseScreen 30
+snapshot pause
+ctl {"cmd": "closeScreen"}
+client disconnect
+wait_screen TitleScreen 30

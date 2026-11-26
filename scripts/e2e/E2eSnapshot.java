@@ -7,6 +7,8 @@ import com.mojang.brigadier.tree.CommandNode;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.mojang.serialization.JsonOps;
 import java.lang.reflect.Field;
+import java.security.MessageDigest;
+import java.util.HexFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -19,6 +21,8 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
+import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
@@ -58,7 +62,12 @@ final class E2eSnapshot {
         return new E2eSnapshot(mc).snapshot();
     }
 
-    /** The clickable-or-not widgets of a screen, in the order the snapshot lists them (and widgetClick indexes them). */
+    /** The translation key of a widget's message (`gui.proceed`), null for literal text. */
+    static String messageKey(AbstractWidget w) {
+        return w.getMessage().getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t ? t.getKey() : null;
+    }
+
+    /** The clickable-or-not widgets of a screen, in the order the snapshot lists them. */
     static List<AbstractWidget> widgets(Screen screen) {
         List<AbstractWidget> out = new ArrayList<>();
         for (GuiEventListener l : screen.children()) {
@@ -158,7 +167,7 @@ final class E2eSnapshot {
 
     // ---- sections ----
 
-    private JsonElement screen() {
+    private JsonElement screen() throws Exception {
         Screen s = mc.gui.screen();
         if (s == null) return null;
         JsonObject o = new JsonObject();
@@ -169,6 +178,7 @@ final class E2eSnapshot {
             JsonObject j = new JsonObject();
             j.addProperty("class", w.getClass().getSimpleName());
             j.addProperty("message", text(w.getMessage()));
+            j.addProperty("key", messageKey(w));
             j.addProperty("x", w.getX());
             j.addProperty("y", w.getY());
             j.addProperty("width", w.getWidth());
@@ -178,7 +188,38 @@ final class E2eSnapshot {
             ws.add(j);
         }
         o.add("widgets", ws);
+        if (s instanceof JoinMultiplayerScreen jm) o.add("servers", servers(jm));
         return o;
+    }
+
+    /** The server list of the multiplayer screen with what the status pings filled in. */
+    private static JsonElement servers(JoinMultiplayerScreen screen) throws Exception {
+        JsonArray out = new JsonArray();
+        for (int i = 0; i < screen.getServers().size(); i++) {
+            ServerData d = screen.getServers().get(i);
+            JsonObject j = new JsonObject();
+            j.addProperty("name", d.name);
+            j.addProperty("ip", d.ip);
+            j.addProperty("state", d.state().name());
+            j.addProperty("status", text(d.status));
+            j.addProperty("motd", text(d.motd));
+            j.addProperty("version", text(d.version));
+            j.addProperty("protocol", d.protocol);
+            j.addProperty("ping", d.ping);
+            if (d.players != null) {
+                JsonObject p = new JsonObject();
+                p.addProperty("online", d.players.online());
+                p.addProperty("max", d.players.max());
+                j.add("players", p);
+            }
+            JsonArray sample = new JsonArray();
+            d.playerList.forEach(c -> sample.add(text(c)));
+            j.add("player_list", sample);
+            byte[] icon = d.getIconBytes();
+            j.addProperty("icon_sha1", icon == null ? null : HexFormat.of().formatHex(MessageDigest.getInstance("SHA-1").digest(icon)));
+            out.add(j);
+        }
+        return out;
     }
 
     private JsonElement menu(AbstractContainerMenu m) {

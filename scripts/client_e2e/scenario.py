@@ -9,9 +9,12 @@ Placeholders in `server` values, `console` text and `ctl` JSON: `{port}` (the se
 `serve` entries), `{sha1:/PATH}` (the sha1 of a served entry).
 Comparison settings:
     tolerate GLOB N               numeric snapshot values at paths matching GLOB (dotted, `*` wildcard) may differ by N
-Steps, run in order after the server is up:
+Steps, run in order after the server is up. A step that talks to a client may start with `@NAME ` to address the client
+NAME (a second JVM, started by its own `client join`/`client title`, named like its log and snapshot files); without
+a prefix the step addresses the first client. Snapshots, shots and chat logs of NAME are labelled `NAME.LABEL`.
     console CMD...                server console command
     client join [--user U] [--option k:v]...   start the client and join (quick play); options go to options.txt
+    client title [--user U] [--option k:v]...  start the client on the title screen with this side's server in its server list
     client rejoin                 reconnect through the control channel
     client disconnect             leave the world (control channel)
     wait_screen NAME|null [S]     wait for the screen class; `null` also needs a level (the world is visible)
@@ -125,6 +128,14 @@ def _timeout(tokens, line_no, index):
         raise ScenarioError(f"line {line_no}: {tokens[index]!r} is not a number of seconds") from None
 
 
+def _tag(sc, before, who, line_no, op):
+    """Records the `@NAME` of a line on the step it produced; only steps that address a client take one."""
+    if who is None:
+        return
+    _need(len(sc.steps) > before and op not in ("console", "wait_server"), line_no, f"@{who} does not apply to {op}")
+    sc.steps[-1][2]["client"] = who
+
+
 def parse(text, path=""):
     """Parses scenario text; `path` anchors relative `file`/`datapack` sources. Raises ScenarioError with the line number."""
     base = os.path.dirname(os.path.abspath(path)) if path else os.getcwd()
@@ -133,6 +144,11 @@ def parse(text, path=""):
         line = raw.strip()
         if not line or line.startswith("#"):
             continue
+        who = None
+        m = re.match(r"@([A-Za-z0-9_]+)\s+(\S.*)$", line)
+        if m:
+            who, line = m.groups()
+        before = len(sc.steps)
         op, _, rest = line.partition(" ")
         rest = rest.strip()
         if op in ("console", "ctl"):  # the rest of the line is taken verbatim
@@ -146,6 +162,7 @@ def parse(text, path=""):
                 sc.steps.append((line_no, "ctl", {"json": obj}))
             else:
                 sc.steps.append((line_no, "console", {"text": rest}))
+            _tag(sc, before, who, line_no, op)
             continue
         try:
             tokens = rest.split() if op == "wait_state" else shlex.split(rest)
@@ -174,11 +191,11 @@ def parse(text, path=""):
             except ValueError:
                 raise ScenarioError(f"line {line_no}: {tokens[1]!r} is not a number") from None
         elif op == "client":
-            _need(tokens and tokens[0] in ("join", "rejoin", "disconnect"), line_no, "client needs join, rejoin or disconnect")
+            _need(tokens and tokens[0] in ("join", "title", "rejoin", "disconnect"), line_no, "client needs join, title, rejoin or disconnect")
             args = {"action": tokens[0], "user": None, "options": []}
             it = iter(tokens[1:])
             for t in it:
-                _need(tokens[0] == "join" and t in ("--user", "--option"), line_no, f"unexpected {t!r}")
+                _need(tokens[0] in ("join", "title") and t in ("--user", "--option"), line_no, f"unexpected {t!r}")
                 value = next(it, None)
                 _need(value is not None, line_no, f"{t} needs a value")
                 if t == "--user":
@@ -228,6 +245,7 @@ def parse(text, path=""):
             sc.steps.append((line_no, "expect_disconnect", {"regex": tokens[1], "timeout": _timeout(tokens, line_no, 2)}))
         else:
             raise ScenarioError(f"line {line_no}: unknown command {op!r}")
+        _tag(sc, before, who, line_no, op)
     return sc
 
 

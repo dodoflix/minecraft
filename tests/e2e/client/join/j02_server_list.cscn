@@ -1,0 +1,12 @@
+# The multiplayer screen with this side's server in its list: after the status ping the entry shows the motd, version,
+# protocol, player count and ping state.
+server motd=e2e-list
+client title
+wait_screen TitleScreen 120
+ctl {"cmd": "setScreen", "screen": "multiplayer"}
+wait_screen JoinMultiplayerScreen 30
+wait_state servers_pinged == True 60
+# the ping time itself varies from run to run
+tolerate screen.servers.*.ping 2000
+snapshot list
+# no screenshot: the panorama behind the list fades in at its own pace and its brightness differs from run to run

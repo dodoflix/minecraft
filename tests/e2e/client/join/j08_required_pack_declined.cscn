@@ -1,0 +1,9 @@
+# A required pack: the client offers Proceed or Disconnect, we disconnect.
+server resource-pack={http}/pack.zip resource-pack-sha1={sha1:/pack.zip} resource-pack-id=11111111-2222-3333-4444-555555555555
+serve /pack.zip fixtures/resourcepack
+server require-resource-pack=true
+client join
+wait_screen PackConfirmScreen 120
+snapshot prompt
+ctl {"cmd": "widgetClick", "key": "menu.disconnect"}
+wait_screen DisconnectedScreen 60

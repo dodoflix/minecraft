@@ -29,6 +29,7 @@ REWRITES = (
     (ADDRESS, r"\1:<port>"),
     (re.compile(r"took \d+ milliseconds"), "took <n> milliseconds"),
     (re.compile(r"\b\d{4}-\d\d-\d\d_\d\d\.\d\d\.\d\d(_\d+)?\.png"), "<time>.png"),
+    (re.compile(r"\S*/run/clients/[^/\s]+"), "<client dir>"),
 )
 
 
@@ -55,6 +56,9 @@ SERVER_PLAYER = re.compile(r"joined the game|left the game|UUID of player|logged
 SERVER_REWRITES = (
     (re.compile(r"/?\d{1,3}(\.\d{1,3}){3}:\d+"), "<addr>"),
     (re.compile(r"entity id \d+"), "entity id <id>"),
+    # after a kick the vanilla server logs the kick reason or `Disconnected`, depending on whether its tick or the network
+    # thread gets to the connection first; the client's disconnect text is compared on its own
+    (re.compile(r"(lost connection): .*"), r"\1: <reason>"),
 )
 
 

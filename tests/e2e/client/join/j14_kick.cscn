@@ -1,0 +1,8 @@
+# A console kick with a reason: the disconnect screen text.
+server seed=12345
+client join
+wait_screen null 120
+# 117 = the chunks of view distance 4 (the runner default)
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console kick Steve Please come back later
+expect disconnect "Please come back later" 30

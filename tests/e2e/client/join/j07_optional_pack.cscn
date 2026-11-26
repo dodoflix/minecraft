@@ -1,0 +1,13 @@
+# An optional server resource pack with a prompt: the client asks, we say Yes, it downloads and applies the pack.
+server resource-pack={http}/pack.zip resource-pack-sha1={sha1:/pack.zip} resource-pack-id=11111111-2222-3333-4444-555555555555
+serve /pack.zip fixtures/resourcepack
+server "resource-pack-prompt={\"text\":\"Use the e2e pack?\"}"
+client join
+wait_screen PackConfirmScreen 120
+snapshot prompt
+ctl {"cmd": "widgetClick", "key": "gui.yes"}
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+snapshot joined
+client disconnect
+wait_screen TitleScreen 30

@@ -5,3 +5,19 @@ WARN: Requested post effect does not exist: minecraft:end_of_frame
 ERROR: Error while loading the narrator | com.mojang.text2speech.Narrator$InitializeException: Failed to load library flite
 ERROR: Failed to fetch Realms feature flags | com.mojang.realmsclient.exception.RealmsServiceException: Realms service error (500) with message 'Could not connect to Realms: Connection refused (connect failed)'
 ERROR: Couldn't connect to realms | com.mojang.realmsclient.exception.RealmsServiceException: Realms service error (500) with message 'Could not connect to Realms: Connection refused (connect failed)'
+# the client logs the text of a server kick (join/j14_kick.cscn)
+WARN: Client disconnected with reason: Please come back later
+# the first download of a server pack finds no cached file (join/j07_optional_pack.cscn; the client directory is normalised)
+WARN: Existing file <client dir>/game/downloads/11111111-2222-3333-4444-555555555555/b2aff02d869d397a31d028edf34d489f16b899c4 not found or had mismatched hash
+# the client logs the reason of a disconnect (join/j08_required_pack_declined.cscn)
+WARN: Client disconnected with reason: This server requires a custom resource pack
+# a required pack that cannot be downloaded (join/j09_pack_not_found.cscn): logged, the client still joins
+WARN: Existing file <client dir>/game/downloads/11111111-2222-3333-4444-555555555555/0000000000000000000000000000000000000000 not found or had mismatched hash
+ERROR: Failed to download http://127.0.0.1:<port>/missing.zip | java.lang.IllegalStateException: Failed to download file http://127.0.0.1:<port>/missing.zip
+# the client logs the reason of a disconnect (join/j10_code_of_conduct_decline.cscn)
+WARN: Client disconnected with reason: Server requires accepting the Code of Conduct
+# the client logs the reason of a disconnect (join/j12_transfer.cscn, j12_transfer_refused.cscn)
+WARN: Client disconnected with reason: Transferred to another server
+# a required pack whose download does not match its sha1 (join/j09_pack_wrong_sha1.cscn): logged, the client still joins
+WARN: Mismatched hash of file <client dir>/game/downloads/11111111-2222-3333-4444-555555555555/0000000000000000000000000000000000000000, expected 0000000000000000000000000000000000000000 but found b2aff02d869d397a31d028edf34d489f16b899c4
+ERROR: Failed to download http://127.0.0.1:<port>/pack.zip | java.lang.IllegalStateException: Failed to download file http://127.0.0.1:<port>/pack.zip
