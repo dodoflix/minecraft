@@ -28,12 +28,14 @@ use tempfile::TempDir;
 
 mod deflate;
 mod fixture;
+mod mock_mojang;
 mod permit;
 mod query;
 mod units;
 mod worldref;
 pub use deflate::{Corrupt, Deflate};
 pub use fixture::{gunzip, read_gz};
+pub use mock_mojang::{Certificate, Join, MockMojang, Request, offline_uuid};
 pub use query::{Answer, QueryClient};
 pub use units::{hex, rows, unesc_units, unhex};
 pub use worldref::worldref;
@@ -378,6 +380,7 @@ pub struct Builder {
     args: Vec<String>,
     props: Vec<(String, String)>,
     envs: Vec<(String, String)>,
+    java_properties: Vec<(String, String)>,
     dir: Option<PathBuf>,
     prepare: Option<Prepare>,
     xmx: String,
@@ -393,6 +396,7 @@ impl Builder {
             program,
             props: Vec::new(),
             envs: Vec::new(),
+            java_properties: Vec::new(),
             dir: None,
             prepare: None,
             xmx: "1G".into(),
@@ -444,6 +448,23 @@ impl Builder {
     pub fn env(mut self, key: &str, value: &str) -> Self {
         self.envs.push((key.into(), value.into()));
         self
+    }
+
+    /// A JVM system property (`-Dkey=value`) of the vanilla server. Vanilla only.
+    pub fn java_property(mut self, key: &str, value: &str) -> Self {
+        self.java_properties.push((key.into(), value.into()));
+        self
+    }
+
+    /// Points the server's Mojang services (session server, profile keys) at `mock`: the discovery property for the
+    /// vanilla jar, `MINECRAFT_API_DISCOVERY_HOST` for our own server.
+    pub fn mojang(self, mock: &MockMojang) -> Self {
+        match self.program {
+            Program::Vanilla => {
+                self.java_property("minecraft.api.discovery.host", &mock.discovery_url())
+            }
+            Program::Ours(_) => self.env("MINECRAFT_API_DISCOVERY_HOST", &mock.discovery_url()),
+        }
     }
 
     /// JVM heap (`-Xmx`) of the vanilla server; default `1G`.
@@ -589,6 +610,11 @@ impl Builder {
                 };
                 let mut cmd = Command::new(&java);
                 cmd.arg(format!("-Xmx{}", self.xmx));
+                cmd.args(
+                    self.java_properties
+                        .iter()
+                        .map(|(k, v)| format!("-D{k}={v}")),
+                );
                 if self.file_size_limit.is_some() && self.jar.is_none() {
                     // the bundler extracts its libraries into the server directory, files the limit would cut
                     cmd.arg("-cp")

@@ -105,6 +105,13 @@ crate can use it as a dev-dependency.
   executable (releases up to 1.16.5 need JDK 8) instead of `ref/server.jar` and the `java` on `PATH`.
 - `Builder::env("MINECRAFT_API_DISCOVERY_HOST", url)` sets an environment variable of the server process (here: the Mojang
   Services discovery URL, read like authlib's `minecraft.api.discovery.host`, so a test can serve its own keys).
+- `mc_testkit::MockMojang` is a local stand-in for the Mojang web services (session join/`hasJoined`, profile keys,
+  player certificates signed by its own key, attributes, block list), served from one discovery document.
+  `Builder::mojang(&mock)` points a server at it (`-Dminecraft.api.discovery.host` for the vanilla jar,
+  `MINECRAFT_API_DISCOVERY_HOST` for `mc-server`); `Builder::java_property(key, value)` sets any other JVM property of the
+  vanilla server. The `mock-mojang` binary (`cargo run -p mc-testkit --bin mock-mojang`) prints the discovery URL and
+  serves until killed, for the real client's `--mojang URL`. The bearer token of a request names the profile: a UUID, else a
+  player name with its offline UUID. `mc-protocol/tests/oracle/mock_mojang.rs` shows an online-mode login against vanilla.
 - Each server runs in its own temporary directory (or one the test passes with `.dir(..)`), never in `run/servers/<name>`.
 - A missing `java`, `ref/server.jar` or `MC_ACCEPT_EULA=1` makes `start()` return an error that names the fix; tests
   `expect` it and fail.

@@ -3,5 +3,6 @@
 
 mod auth;
 mod common;
+mod mock_mojang;
 mod vanilla_play;
 mod vanilla_smoke;
