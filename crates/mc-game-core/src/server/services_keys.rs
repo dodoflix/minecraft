@@ -293,6 +293,35 @@ fn read_value<T>(body: &str, read: impl Fn(&Value) -> Option<T>) -> Result<Optio
     }
 }
 
+/// Gson reads a JSON array into a `Map<String, Object>` as `[key, value]` pairs (`MapTypeAdapterFactory`): exactly two
+/// elements each and a scalar key; a repeated key fails unless the value it replaces is null (`put` returned null), and
+/// then keeps its first position.
+// shortcut: a null key fails like any other bad key; Gson's `LinkedTreeMap.put` throws a NullPointerException instead.
+fn pairs_as_map(pairs: &[Value]) -> Option<String> {
+    let mut entries: Vec<(String, &Value)> = Vec::with_capacity(pairs.len());
+    for pair in pairs {
+        let [key, value] = pair.as_array()?.as_slice() else {
+            return None;
+        };
+        let key = match key {
+            Value::String(s) => s.clone(),
+            Value::Number(n) => n.to_string(),
+            Value::Bool(b) => b.to_string(),
+            _ => return None,
+        };
+        match entries.iter_mut().find(|(k, _)| *k == key) {
+            Some((_, old)) if !old.is_null() => return None,
+            Some((_, old)) => *old = value,
+            None => entries.push((key, value)),
+        }
+    }
+    let items: Vec<String> = entries
+        .iter()
+        .map(|(k, v)| format!("{k}={}", java_value(v)))
+        .collect();
+    Some(format!("{{{}}}", items.join(", ")))
+}
+
 /// `ErrorResponse.toString()` as Gson fills the record: its `String` fields take strings, booleans and numbers, `details`
 /// a `Map<String, Object>`.
 // shortcut: a number is printed as serde_json normalises it (`1.50` -> `1.5`, `100000000000000000000` -> `1e20`), Gson keeps the text as
@@ -309,6 +338,7 @@ fn error_response(body: &Value) -> Option<String> {
     let details = match body.get("details") {
         None | Some(Value::Null) => "null".to_owned(),
         Some(map @ Value::Object(_)) => java_value(map),
+        Some(Value::Array(pairs)) => pairs_as_map(pairs)?,
         Some(_) => return None,
     };
     Some(format!(
