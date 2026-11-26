@@ -5,13 +5,14 @@
 //! capacity a Java `HashMap` would have, so that [`CompoundTag::iter_java_order`] (used for binary
 //! output) reproduces vanilla's byte-exact key order.
 //!
-//! A bin of 9 or more keys is a red-black tree in Java whose iteration order is not the insertion order:
-//! when that can happen, the order comes from replaying the `put`s on [`mc_core::hash_bins::Bins`].
+//! A bin of 9 or more keys is a red-black tree in Java whose iteration order is not the insertion order, and
+//! where a tree forms depends on how the table grew. A compound that held 9 keys at once therefore keeps a
+//! [`History`] (the tick of every put, the removed keys with their put and remove tick) and its order is the replay of
+//! all of it on [`mc_core::hash_bins::Bins`]. Below 9 keys no bin can be a tree and the order is the stable sort by
+//! bucket.
 //!
-//! shortcut: the replay knows the keys present now, put in their order, on the table a fresh or copied map starts
-//! with; the puts and removes that came and went before are forgotten, and after a `remove` that changed a tree bin
-//! the entries keep that order as it stands (`frozen`) while later puts only move to their bucket. Upgrade when a
-//! compound that was edited in place after such a remove has to be byte-identical.
+//! shortcut: the history of a compound grows with every put of a new key and every remove for as long as it lives, and
+//! every `iter_java_order` replays it all. Upgrade when such compounds are edited so often that this shows.
 
 use crate::ListTag;
 use crate::tag::{Number, Tag};
@@ -28,8 +29,32 @@ pub struct CompoundTag {
     cap: u32,
     /// The table size the first `resize` made for a map built by `new HashMap<>(map)` (0 = a fresh map: 16).
     init_cap: u32,
-    /// The entries are in the iteration order of a tree-bin map (see the module shortcut): no replay.
+    /// The entries are in the iteration order of a map whose history is unknown (`from_hash_order`): no replay.
     frozen: bool,
+    /// Puts and removes since the compound first held 9 keys (see the module docs).
+    history: Option<History>,
+}
+
+/// What a replay needs of a compound that held 9 keys at once: its puts and removes in order. A tick is one put of a
+/// new key or one remove.
+#[derive(Clone, Debug)]
+struct History {
+    clock: u32,
+    /// Tick of the put of each key of `tags`, in `tags` order.
+    stamps: Vec<u32>,
+    /// Removed keys: (key, tick of its put, tick of its remove).
+    removed: Vec<(JavaString, u32, u32)>,
+}
+
+impl History {
+    /// The `n` keys of `tags`, put in this order on the table the compound started with.
+    fn of_puts(n: usize) -> History {
+        History {
+            clock: n as u32,
+            stamps: (0..n as u32).collect(),
+            removed: Vec::new(),
+        }
+    }
 }
 
 static EMPTY_COMPOUND: LazyLock<CompoundTag> = LazyLock::new(CompoundTag::new);
@@ -127,10 +152,8 @@ impl CompoundTag {
         if self.cap == 0 {
             return Vec::new();
         }
-        if !self.frozen
-            && let Some((order, _)) = self.tree_order(None)
-        {
-            return order;
+        if let Some(history) = &self.history {
+            return self.replay(history);
         }
         let mask = self.cap - 1;
         let mut order: Vec<usize> = (0..self.tags.len()).collect();
@@ -143,23 +166,15 @@ impl CompoundTag {
         order
     }
 
-    /// The table size of the first `resize`.
-    fn first_cap(&self) -> usize {
-        if self.init_cap == 0 {
-            16
-        } else {
-            self.init_cap as usize
-        }
-    }
-
     /// Do 9 keys share a bucket of the first table? A tree bin in a later table needs that (tables only grow).
-    fn has_bin_of_nine(&self, first_cap: usize) -> bool {
+    fn has_bin_of_nine(&self) -> bool {
+        const FIRST_CAP: usize = 16;
         if self.tags.len() < 9 {
             return false;
         }
-        let mut counts = vec![0u32; first_cap];
+        let mut counts = [0u32; FIRST_CAP];
         for k in self.tags.keys() {
-            let bucket = java_hash(k) as usize & (first_cap - 1);
+            let bucket = java_hash(k) as usize & (FIRST_CAP - 1);
             counts[bucket] += 1;
             if counts[bucket] == 9 {
                 return true;
@@ -168,24 +183,51 @@ impl CompoundTag {
         false
     }
 
-    /// The iteration order (indices into `tags`) of the map after the `put` of every key in order, then the `remove` of
-    /// index `removed`; `None` when no bin can have 9 keys, where sorting by bucket is exact.
-    fn tree_order(&self, removed: Option<usize>) -> Option<(Vec<usize>, usize)> {
-        let first_cap = self.first_cap();
-        if !self.has_bin_of_nine(first_cap) {
-            return None;
-        }
-        let keys: Vec<&JavaString> = self.tags.keys().collect();
+    /// The iteration order (indices into `tags`) after every put and remove of `history` on the model of the table.
+    fn replay(&self, history: &History) -> Vec<usize> {
+        let present = self.tags.len();
+        let keys: Vec<&JavaString> = self
+            .tags
+            .keys()
+            .chain(history.removed.iter().map(|(key, ..)| key))
+            .collect();
         let hashes = keys.iter().map(|k| k.java_hash_code()).collect();
         let compare = |a: usize, b: usize| keys[a].java_cmp(keys[b]);
+        // (tick, is a put, index into `keys`)
+        let mut events: Vec<(u32, bool, usize)> = history
+            .stamps
+            .iter()
+            .enumerate()
+            .map(|(i, &tick)| (tick, true, i))
+            .collect();
+        for (j, &(_, put, remove)) in history.removed.iter().enumerate() {
+            events.push((put, true, present + j));
+            events.push((remove, false, present + j));
+        }
+        events.sort_unstable_by_key(|e| e.0);
         let mut bins = Bins::new(hashes, &compare, self.init_cap as usize);
-        for key in 0..keys.len() {
-            bins.put(key);
+        for (_, put, key) in events {
+            if put {
+                bins.put(key);
+            } else {
+                bins.remove(key);
+            }
         }
-        if let Some(key) = removed {
-            bins.remove(key);
+        bins.order().into_iter().filter(|&i| i < present).collect()
+    }
+
+    /// Records the put of the new key that was just added to `tags`.
+    fn record_put(&mut self) {
+        let len = self.tags.len();
+        match &mut self.history {
+            Some(history) => {
+                history.stamps.push(history.clock);
+                history.clock += 1;
+            }
+            // the first 8 keys never made a tree, and the table they sit on is the one the compound started with
+            None if len == 9 && !self.frozen => self.history = Some(History::of_puts(9)),
+            None => {}
         }
-        Some((bins.order(), bins.capacity()))
     }
 
     /// A compound whose `HashMap` iterates `entries` in exactly this order (the entries are the iteration order of a
@@ -220,6 +262,7 @@ impl CompoundTag {
             init_cap: 0,
             // the given order may be a tree bin's: replaying the keys would reorder it
             frozen: true,
+            history: None,
         }
     }
 
@@ -233,6 +276,7 @@ impl CompoundTag {
             if self.tags.len() > (self.cap as usize) * 3 / 4 {
                 self.cap *= 2;
             }
+            self.record_put();
         }
         old
     }
@@ -385,22 +429,13 @@ impl CompoundTag {
 
     /// `remove(name)`, preserving the order of the remaining entries.
     pub fn remove(&mut self, name: &str) -> Option<Tag> {
-        if !self.frozen
-            && let Some(index) = self.tags.get_index_of(&Name(name))
-            && let Some((order, cap)) = self.tree_order(Some(index))
-        {
-            // removing from a tree bin reshapes the tree: keep the entries in the order the map now iterates them
-            let mut slots: Vec<Option<(JavaString, Tag)>> = std::mem::take(&mut self.tags)
-                .into_iter()
-                .map(Some)
-                .collect();
-            let removed = slots[index].take().map(|(_, tag)| tag);
-            self.tags = order.into_iter().filter_map(|i| slots[i].take()).collect();
-            self.cap = cap as u32; // a bin of 9 keys may have doubled the table
-            self.frozen = true;
-            return removed;
+        let (index, key, tag) = self.tags.shift_remove_full(&Name(name))?;
+        if let Some(history) = &mut self.history {
+            let put = history.stamps.remove(index);
+            history.removed.push((key, put, history.clock));
+            history.clock += 1;
         }
-        self.tags.shift_remove(&Name(name))
+        Some(tag)
     }
 
     /// `copy()`: deep copy, reproducing the key order of a Java copy (entries re-inserted in the
@@ -422,6 +457,7 @@ impl CompoundTag {
             cap: self.cap,
             init_cap: self.init_cap,
             frozen: self.frozen,
+            history: self.history.clone(),
         }
     }
 
@@ -438,6 +474,7 @@ impl CompoundTag {
         for (k, v) in self.iter_java_order() {
             out.tags.insert(k.clone(), v.clone());
         }
+        out.history = (n >= 9).then(|| History::of_puts(n));
         out
     }
 
@@ -458,6 +495,7 @@ impl CompoundTag {
             cap,
             init_cap: cap,
             frozen: false,
+            history: (n >= 9).then(|| History::of_puts(n)),
             tags: order.into_iter().filter_map(|i| slots[i].take()).collect(),
         }
     }
@@ -479,14 +517,19 @@ impl CompoundTag {
 impl Clone for CompoundTag {
     /// Vanilla `copy()` semantics (see [`CompoundTag::copy`]).
     fn clone(&self) -> Self {
-        let cap = organic_cap(self.tags.len());
-        if cap == self.cap && !self.frozen && self.init_cap == 0 && !self.has_bin_of_nine(16) {
+        let len = self.tags.len();
+        let cap = organic_cap(len);
+        // no remove since the history began and no bin of 9: the table is the organic one and no bin was ever a tree
+        let plain = self.history.as_ref().is_none_or(|h| h.removed.is_empty());
+        if cap == self.cap && !self.frozen && self.init_cap == 0 && plain && !self.has_bin_of_nine()
+        {
             // Same table size: Java's re-insertion keeps every bucket's relative order.
             return CompoundTag {
                 tags: self.tags.clone(),
                 cap,
                 init_cap: 0,
                 frozen: false,
+                history: (len >= 9).then(|| History::of_puts(len)),
             };
         }
         let mut out = CompoundTag::new();
