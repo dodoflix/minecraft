@@ -5,8 +5,8 @@
 gamerule advance_time false
 gamerule advance_weather false
 
-# the TCP-level wording of a closed connection differs from vanilla in ours ("End of stream" vs "Disconnected") and
-# its timing is asynchronous: only the player-visible effects are compared
+# the log lines of a closed connection are asynchronous (they land on another tick than vanilla's): only the player-visible
+# effects are compared
 !ignore lost connection:
 !ignore handleDisconnection
 # vanilla's kick/ban run `handleDisconnection` synchronously (`server.executeBlocking`), so the leave message lands in the

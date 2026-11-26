@@ -316,7 +316,7 @@ async fn configuration_sequence_and_hand_off() {
     .unwrap();
     match event {
         mc_game::server::network::InboundPacket::Disconnected(d) => {
-            assert_eq!(d.reason.get_string(), "End of stream")
+            assert_eq!(d.reason.get_string(), "Disconnected")
         }
         _ => panic!("expected the disconnect event"),
     }

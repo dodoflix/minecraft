@@ -170,9 +170,10 @@ impl ConnectionContext {
     pub(super) fn fault(&mut self, error: ReadError) {
         match error {
             ReadError::Eof => {
-                // `channelInactive`: `disconnect(Component.translatable("disconnect.endOfStream"))`.
-                self.sender
-                    .close_with(Component::translatable("disconnect.endOfStream", vec![]));
+                // `channelInactive`: the channel is already closed, so `disconnect(disconnect.endOfStream)` records no
+                // reason and `handleDisconnection` reports `multiplayer.disconnect.generic` ("Disconnected").
+                self.handle.set_read_only();
+                self.sender.close();
             }
             ReadError::Timeout => {
                 log::debug!("Timeout");
