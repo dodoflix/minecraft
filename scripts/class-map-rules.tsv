@@ -1,0 +1,93 @@
+# Name rules for vanilla classes without a Rust unit of the same name (scripts/class-map.py; first match wins).
+# regex	status	rust files	reason
+^net/minecraft/data/.*	n/a		separate data-generator program (net.minecraft.data.Main: --server, --reports); not the server entry point, its output is the vendored data the Rust server loads
+^net/minecraft/gizmos/.*	n/a		debug drawing: the only server-side use installs GizmoCollector.NOOP, no server code emits a gizmo
+^net/minecraft/server/gui/.*	n/a		Swing server window, not part of a headless dedicated server
+^net/minecraft/util/monitoring/jmx/.*	n/a		JMX management bean, JVM-only
+^net/minecraft/server/chase/.*	n/a		chase debug client/server, enabled only by the developer flag DEBUG_CHASE_COMMAND
+^net/minecraft/server/commands/(Chase|DebugConfig|DebugMobSpawning|DebugPath|Raid|ServerPack|SpawnArmorTrims|WardenSpawnTracker)Command(\$.*)?	n/a		developer command, registered only when a developer flag or IS_RUNNING_IN_IDE is set
+^net/minecraft/util/profiling/jfr/.*	folded	crates/mc-game-core/src/util/profiling/jfr.rs	JFR events, reader and statistics: the Rust server records the same event types through its own recorder
+^net/minecraft/util/profiling/.*	folded	crates/mc-game-core/src/util/profiling/mod.rs	profiler, metrics and tick sampling: the Rust server has its own profiler and sample logger
+^net/minecraft/util/debugchart/.*	folded	crates/mc-game-core/src/util/debugchart/remote_sample_logger.rs	remote debug sample logging
+^net/minecraft/util/eventlog/.*	n/a		JSON event log used by the client and the debug profiler only
+^net/minecraft/server/jsonrpc/.*	folded	crates/mc-game-core/src/server/jsonrpc/mod.rs	management protocol: services, schema and methods live in the jsonrpc module
+^net/minecraft/network/protocol/.*(PacketListener|PacketTypes|Protocols|ProtocolInfoBuilder|UnboundProtocol|CodecModifier|ProtocolCodecBuilder|PacketUtils|BundlerInfo|BundlePacket|BundleDelimiterPacket|MovementPacket|QueryPayload|QueryAnswerPayload)(\$.*)?	folded	crates/mc-protocol/src/packet.rs	protocol tables and packet-listener interfaces: packet ids and handlers are generated per state in mc-protocol and the server listeners
+^net/minecraft/network/protocol/login/custom/.*	folded	crates/mc-protocol/src/packets/login.rs	custom query payloads of the login state
+^net/minecraft/network/(BandwidthDebugMonitor|CipherBase|CipherEncoder|CipherDecoder|HiddenByteBuf|LocalFrame.*|MonitoredLocalFrameDecoder|PacketBundlePacker|PacketBundleUnpacker|ProtocolSwapHandler|UnconfiguredPipelineHandler|PacketSendListener|TickablePacketListener|PacketListener|ClientboundPacketListener|ServerboundPacketListener|ProtocolInfo)(\$.*)?	folded	crates/mc-protocol/src/net.rs	netty pipeline stages (framing, cipher, bundling, bandwidth monitor): the Rust connection code frames, encrypts and bundles in net.rs
+^net/minecraft/network/codec/Stream(Decoder|Encoder|MemberEncoder)(\$.*)?	folded	crates/mc-protocol/src/codec/mod.rs	functional interfaces of the stream codec: Rust codec traits
+^net/minecraft/network/syncher/(EntityDataSerializer|SyncedDataHolder)(\$.*)?	folded	crates/mc-protocol/src/packets/play/entity_data/mod.rs	entity data serializers are the typed entity-data values of the protocol crate
+^net/minecraft/network/chat/(FormattedText|SubStringSource)(\$.*)?	folded	crates/mc-text/src/lib.rs	text flattening and visitors are part of the text crate
+^net/minecraft/network/chat/contents/data/.*	folded	crates/mc-text/src/lib.rs	nbt data sources (entity, storage) of the nbt text component
+^net/minecraft/commands/synchronization/brigadier/.*	folded	crates/mc-protocol/src/command_tree_diff.rs	argument-type serializers of the command-tree packet
+^net/minecraft/commands/ArgumentVisitor(\$.*)?	folded	crates/mc-brigadier/src/lib.rs	visitor over a command node tree: the Rust dispatcher walks nodes directly
+^net/minecraft/(core/(registries|component)/.*|core/(HolderGetter|HolderOwner|RegistrySetBuilder|WritableRegistry|DefaultedMappedRegistry|TypedInstance|Cloner|BlockBox|BlockMath)|resources/(DelegatingOps|DependantName|NetworkRegistryLoadTask))(\$.*)?	folded	crates/mc-game-core/src/registry/mod.rs	registry plumbing (holders, bootstrap, patched registries, network load): one registry layer in Rust, content is the vendored data
+^net/minecraft/references/.*	folded	crates/mc-data/src/ids.rs	resource-key constants for blocks and items: generated ids
+^net/minecraft/tags/.*	folded	crates/mc-data/src/tags.rs	tag-key constants of each registry: tag contents are the vendored data, keys are strings or generated ids
+^net/minecraft/sounds/Musics(\$.*)?	folded	crates/mc-data/src/registry.rs	music constants: client-side selection
+^net/minecraft/world/entity/(animal/\w+/\w+(Sound)?Variants|decoration/painting/PaintingVariants|variant/SpawnConditions)(\$.*)?	folded	crates/mc-game-core/src/registry/mod.rs	variant registry bootstraps: the variants are vendored registry data, spawn conditions are evaluated from that data
+^net/minecraft/world/entity/(AbstractInterpolationHandler|LinearInterpolationHandler|SteppedInterpolationHandler|ElytraAnimationState|WalkAnimationState)(\$.*)?	n/a		client-side interpolation or animation state, never read by server logic
+^net/minecraft/world/entity/(EntityProcessor|ItemOwner|EntityTypeIds)(\$.*)?	folded	crates/mc-game-core/src/world/entity/entity.rs	small interfaces and id constants folded into the entity module
+^net/minecraft/world/entity/npc/ClientSideMerchant(\$.*)?	n/a		merchant stand-in used by the client trading screen only
+^net/minecraft/world/entity/projectile/ItemSupplier(\$.*)?	folded	crates/mc-game-core/src/world/entity/projectile/mod.rs	interface of throwable-item projectiles
+^net/minecraft/world/entity/boss/enderdragon/phases/Abstract.*	folded	crates/mc-game-core/src/world/entity/boss/ender_dragon/phases/mod.rs	phase base classes: the Rust phases share the phase trait
+^net/minecraft/world/entity/vehicle/minecart/MinecartBehavior(\$.*)?	folded	crates/mc-game-core/src/world/entity/vehicle/minecart/abstract_minecart.rs	behaviour interface of the legacy and new minecart physics
+^net/minecraft/world/flag/.*	folded	crates/mc-data/src/enums.rs	feature flags: the vendored data already carries the enabled features of each entry
+^net/minecraft/world/food/Foods(\$.*)?	folded	crates/mc-data/src/item.rs	food property constants: item component data
+^net/minecraft/world/inventory/StackedContentsCompatible(\$.*)?	folded	crates/mc-game-core/src/world/inventory/crafting.rs	recipe-matching interface
+^net/minecraft/world/item/(CreativeModeTabs|DiscFragmentItem|Instruments|JukeboxSongs|ToolMaterial|TooltipFlag|ItemStackLinkedSet|SmithingTemplateItem|alchemy/PotionIds|equipment/.*|component/(BlockTransformers|BookContent|Consumables|ContainerComponent|GrowableMutableContainer|SimpleMutableContainer|TooltipProvider)|consume_effects/ClearAllStatusEffectsConsumeEffect)(\$.*)?	folded	crates/mc-game-core/src/world/item/mod.rs	item constants, materials and component helpers: values are vendored data or component codecs; creative tabs and tooltips are client-side
+^net/minecraft/world/item/crafting/.*	folded	crates/mc-game-core/src/world/item/crafting/mod.rs	recipe classes, serializers, books and displays: the crafting module and the vendored recipes
+^net/minecraft/world/item/enchantment/(effects|providers)/.*	folded	crates/mc-game-core/src/world/item/enchantment/providers.rs	enchantment effect components and providers
+^net/minecraft/world/item/slot/.*	folded	crates/mc-game-core/src/world/item/crafting/display.rs	slot sources of slot displays and the item command
+^net/minecraft/world/attribute/.*	folded	crates/mc-game-core/src/world/attribute/mod.rs	environment attribute reading, modifiers and interpolation
+^net/minecraft/world/clock/.*	folded	crates/mc-game-core/src/world/clock/mod.rs	world clocks
+^net/minecraft/world/timeline/.*	folded	crates/mc-game-core/src/world/clock/mod.rs	timeline tracks of the world clocks
+^net/minecraft/world/waypoints/.*	folded	crates/mc-game-core/src/world/waypoints.rs	waypoint tracking
+^net/minecraft/world/level/(ColorMapColorUtil|ColorResolver|DryFoliageColor|FoliageColor|GrassColor)(\$.*)?	n/a		rendering colour lookup, client-side
+^net/minecraft/world/level/(BlockAndLightGetter|CommonLevelAccessor|EmptyStructureManager|ItemLike|LevelSimulatedReader|LevelWriter)(\$.*)?	folded	crates/mc-game-core/src/server/level/mod.rs	level access interfaces: one ServerLevel type implements all of them
+^net/minecraft/world/level/biome/.*	folded	crates/mc-worldgen/src/biome/multi_noise.rs	biome source tables and parameter lists
+^net/minecraft/world/level/block/(ColorCollection|HangingSignBlock|PlainSignBlock)	folded	crates/mc-game-core/src/world/block_entity/sign_block_entity.rs	sign family bases
+^net/minecraft/world/level/block/entity/(BannerPatterns|BlockEntityTypeIds|BlockEntityTypes|BlockEntityType)(\$.*)?	folded	crates/mc-game-core/src/world/block_entity/mod.rs	block entity type registry and ids
+^net/minecraft/world/level/block/entity/(BlockEntityTicker|TickingBlockEntity)(\$.*)?	folded	crates/mc-game-core/src/server/level/level_tick_state.rs	block entity ticking
+^net/minecraft/world/level/block/entity/(BoundingBoxRenderable|LidBlockEntity|vault/VaultClientData)(\$.*)?	n/a		client rendering or animation interface
+^net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfigs(\$.*)?	folded	crates/mc-data/src/registry_data.rs	trial spawner configs are vendored registry data
+^net/minecraft/world/level/block/sounds/.*	n/a		client-side ambient sound players
+^net/minecraft/world/level/block/state/SolidDebugger(\$.*)?	n/a		client debug overlay
+^net/minecraft/world/level/blockscan/.*	folded	crates/mc-game-core/src/world/level/mod.rs	block scanning helpers of the block-search callers
+^net/minecraft/world/level/chunk/(ChunkGenerators|PalettedContainerRO|StructureAccess)(\$.*)?	folded	crates/mc-world/src/lib.rs	chunk generator codec registry, read-only palette view, structure access
+^net/minecraft/world/level/dimension/BuiltinDimensionTypes(\$.*)?	folded	crates/mc-data/src/registry_data.rs	dimension type keys: vendored registry data
+^net/minecraft/world/level/entity/.*	folded	crates/mc-game-core/src/world/level/entity/manager.rs	entity section manager, lookup and persistent storage
+^net/minecraft/world/level/gameevent/GameEventListenerRegistry(\$.*)?	folded	crates/mc-game-core/src/world/level/gameevent/mod.rs	game event listener registry
+^net/minecraft/world/level/levelgen/(NoiseRouterData|OverworldFunctionSet|synth/NoiseUtils|densityfunction/DensityBuffer.*)(\$.*)?	folded	crates/mc-worldgen/src/generator/noise_based.rs	noise router bootstrap and density function buffers: the worldgen crate builds the router from the vendored settings
+^net/minecraft/world/level/levelgen/(carver/WorldCarverTypes|feature/FeatureTypes|feature/\w+/\w+Type|feature/stateproviders/BlockStateProviderTypes|placement/PlacementModifierTypes|structure/templatesystem/\w+Type|structure/templatesystem/\w+Types|structure/templatesystem/rule/blockentity/\w+Type|structure/BuiltinStructureSets|structure/BuiltinStructures|structure/PostPlacementProcessor|feature/FeatureCountTracker)(\$.*)?	folded	crates/mc-game-core/src/registry/mod.rs	type registries and key constants of worldgen codecs: the Rust registry layer maps each type id to its decoder
+^net/minecraft/world/level/levelgen/heightproviders/.*	folded	crates/mc-game-levelgen/src/world/level/levelgen/placement/height_range_placement.rs	height provider implementations
+^net/minecraft/world/level/levelgen/material/condition/.*	folded	crates/mc-worldgen/src/generator/noise_based.rs	surface rule conditions of the noise generator
+^net/minecraft/world/level/lighting/SpatialLongSet(\$.*)?	folded	crates/mc-light/src/lib.rs	light engine set type
+^net/minecraft/world/level/material/(FluidIds|FogType)(\$.*)?	folded	crates/mc-data/src/fluid.rs	fluid id constants; fog type is client rendering
+^net/minecraft/world/level/redstone/InstantNeighborUpdater(\$.*)?	folded	crates/mc-game-core/src/server/level/level_mutation.rs	neighbour updater implementation
+^net/minecraft/world/level/storage/(TagValueInput|TagValueOutput|ValueInputContextHelper)(\$.*)?	folded	crates/mc-game-core/src/world/container.rs	value input and output over nbt: saved data is read and written as nbt
+^net/minecraft/world/level/storage/loot/.*	folded	crates/mc-game-core/src/world/level/storage/loot/mod.rs	loot entries, number providers and builders: the loot module
+^net/minecraft/world/phys/shapes/IdenticalMerger(\$.*)?	folded	crates/mc-data/src/voxel.rs	voxel shape merger
+^net/minecraft/world/ticks/WorldGenTickAccess(\$.*)?	folded	crates/mc-game-core/src/server/level/level_tick_state.rs	tick access of chunks that are still generating
+^net/minecraft/advancements/predicates/SingleComponentItemPredicate(\$.*)?	folded	crates/mc-game-core/src/world/item/crafting/ingredient.rs	item predicate base class
+^net/minecraft/server/dialog/.*	folded	crates/mc-protocol/src/dialog/mod.rs	dialog definitions and type registries
+^net/minecraft/server/level/(BlockDestructionProgress|ChunkResult|ServerEntityGetter|progress/ChunkLoadStatusView)(\$.*)?	folded	crates/mc-game-core/src/server/level/mod.rs	small level helpers and interfaces
+^net/minecraft/server/network/(EventLoopGroupHolder|MemoryServerHandshakePacketListenerImpl|ServerPlayerConnection)(\$.*)?	folded	crates/mc-game-core/src/server/network/connection.rs	netty event loop, in-process connection and connection interface
+^net/minecraft/server/network/(LegacyTextFilter|PlayerSafetyServiceTextFilter)(\$.*)?	folded	crates/mc-game-core/src/server/network/text_filter.rs	the two text filter versions
+^net/minecraft/server/packs/linkfs/.*	n/a		in-memory file system used to expose packs as paths, Rust reads them through std paths
+^net/minecraft/server/packs/(DownloadCacheCleaner|DownloadQueue)(\$.*)?	folded	crates/mc-game-core/src/server/packs/mod.rs	resource pack download cache (client side of pack downloading is the client)
+^net/minecraft/server/packs/(metadata|resources)/.*	folded	crates/mc-game-core/src/server/packs/resource_manager.rs	pack metadata and reload listeners: the reload steps of the server
+^net/minecraft/server/permissions/.*	folded	crates/mc-game-core/src/server/permissions	permission checks and sets
+^net/minecraft/server/(ChainedJsonException|ConsoleInput|DebugLoggedPrintStream|LoggedPrintStream|RunningOnDifferentThreadException)(\$.*)?	folded	crates/mc-game-core/src/server/dedicated/mod.rs	console input, stdout/stderr logging and thread-hop exception: the dedicated server loop
+^net/minecraft/util/filefix/(access|virtualfilesystem)/.*	folded	crates/mc-world/src/filefix/mod.rs	file fixer access layer and copy-on-write file system
+^net/minecraft/util/parsing/packrat/.*	folded	crates/mc-nbt/src/snbt/packrat.rs	packrat parser state
+^net/minecraft/util/thread/.*	folded	crates/mc-game-core/src/server/event_loop.rs	executors and queues: the server event loop
+^net/minecraft/util/valueproviders/SampledFloat(\$.*)?	folded	crates/mc-core/src/random/mod.rs	float provider sampling
+^net/minecraft/util/debug/DebugValueAccess(\$.*)?	n/a		debug subscription value access, developer feature
+^net/minecraft/util/(FormattedCharSequence|FormattedCharSink|BinaryAnimator|SmoothDouble|ParticleUtils|Keyframe|KeyframeTrack|NativeModuleLister|ModCheck|MemoryReserve|HttpUtil|DummyFileAttributes|FileSystemUtil|CsvOutput|ThreadingDetector)	n/a		client rendering or JVM/OS plumbing without server-visible behaviour
+^net/minecraft/util/(AbortableIterationConsumer|AbstractListBuilder|ArrayListDeque|BoundedFloatFunction|ToFloatFunction|ListAndDeque|DelegateDataOutput|FutureChain|TaskChainer|EncoderCache|ExceptionCollector|SingleKeyCache|StaticCache2D|TimeSource|ProgressListener|RegistryContextSwapper|PlaceholderLookupProvider|NullOps|ClassTreeIdRegistry)(\$.*)?	folded	crates/mc-core/src/java_collections.rs	Java collection, functional-interface and executor helpers: replaced by std and the Java-compatible collections of mc-core
+^net/minecraft/(WorldVersion|DetectedVersion|SharedConstants)(\$.*)?	folded	crates/mc-world/src/level_storage/version.rs	version constants and detected version
+^net/minecraft/(CharPredicate|Optionull|TracingExecutor|DefaultUncaughtExceptionHandler|DefaultUncaughtExceptionHandlerWithName)(\$.*)?	n/a		Java helper types: functional interface, null helper, JVM uncaught-exception hook, tracing executor wrapper
+^net/minecraft/nbt/(PrimitiveTag|TagVisitor)(\$.*)?	folded	crates/mc-nbt/src/lib.rs	nbt tag base interface and visitor: the Rust tag enum
+^com/mojang/math/(Divisor|Quadrant)(\$.*)?	folded	crates/mc-core/src/math	integer divisor and rotation helpers
+^net/minecraft/gametest/framework/(GameTestEntityBuilder|GameTestEnvironments|GameTestInstances|GameTestMainUtil|GameTestMobBuilder)(\$.*)?	folded	crates/mc-game-core/src/gametest/mod.rs	game test builders, built-in environments and instances
+^net/minecraft/server/commands/InCommandFunction(\$.*)?	folded	crates/mc-game-cmds/src/server/commands/function_command.rs	functional interface of command functions
