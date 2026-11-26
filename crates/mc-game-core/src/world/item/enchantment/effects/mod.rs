@@ -165,7 +165,7 @@ pub enum EnchantmentLocationBasedEffect {
     AllOf(Vec<EnchantmentLocationBasedEffect>),
     Attribute(EnchantmentAttributeEffect),
     /// Never `EnchantmentEntityEffect::AllOf` (that is [`EnchantmentLocationBasedEffect::AllOf`]).
-    Entity(EnchantmentEntityEffect),
+    Entity(Box<EnchantmentEntityEffect>),
 }
 
 impl EnchantmentEntityEffect {
@@ -471,10 +471,13 @@ fn location_arm(ty: &str) -> MapCodec<EnchantmentLocationBasedEffect> {
                 _ => unreachable!("dispatched by type"),
             })
         }
-        _ => entity_leaf(ty).xmap(L::Entity, |e: &L| match e {
-            L::Entity(x) => x.clone(),
-            _ => unreachable!("dispatched by type"),
-        }),
+        _ => entity_leaf(ty).xmap(
+            |e| L::Entity(Box::new(e)),
+            |e: &L| match e {
+                L::Entity(x) => (**x).clone(),
+                _ => unreachable!("dispatched by type"),
+            },
+        ),
     }
 }
 
