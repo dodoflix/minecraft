@@ -2,8 +2,8 @@
 //! (`fixtures/LegacyDateGolden.java`): parsing of valid, overflowing, odd and trailing-text inputs, the zone left by a
 //! parsed zone name, and formatting in several zones (the Julian calendar before 1582 included).
 
-use chrono::DateTime;
 use mc_game::server::players::ban_date_format::DateFormat;
+use mc_game::server::players::ban_list_entry::Date;
 use std::sync::LazyLock;
 
 static GOLDEN: LazyLock<String> = LazyLock::new(|| {
@@ -19,11 +19,9 @@ fn text(hex: &str) -> String {
     String::from_utf16(&units).unwrap()
 }
 
-/// What our parse gives for the Java result: a date that `chrono` cannot hold is none.
-fn expected(result: &str) -> Option<DateTime<chrono::Utc>> {
-    (result != "null")
-        .then(|| DateTime::from_timestamp_millis(result.parse().unwrap()))
-        .flatten()
+/// What our parse gives for the Java result.
+fn expected(result: &str) -> Option<Date> {
+    (result != "null").then(|| Date::from_millis(result.parse().unwrap()))
 }
 
 #[test]
@@ -57,9 +55,7 @@ fn zone_of_the_shared_format_matches_java() {
         let mut fields = line.split('\t');
         let inputs = fields.next().unwrap();
         let format = DateFormat::new();
-        let at = |epoch: i64| {
-            format.format_in_default_zone(&DateTime::from_timestamp_millis(epoch).unwrap(), BERLIN)
-        };
+        let at = |epoch: i64| format.format_in_default_zone(&Date::from_millis(epoch), BERLIN);
         let expected_start = fields.next().unwrap();
         assert_eq!(
             format!("{}|{}", at(0), at(1_700_000_000_000)),
@@ -89,16 +85,66 @@ fn format_matches_java() {
         let epoch: i64 = fields.next().unwrap().parse().unwrap();
         let offset: i32 = fields.next().unwrap().parse().unwrap();
         let want = fields.next().unwrap();
-        // out of the range of `chrono`: not representable
-        let Some(date) = DateTime::from_timestamp_millis(epoch) else {
-            continue;
-        };
         assert_eq!(
-            DateFormat::new().format_in_default_zone(&date, offset),
+            DateFormat::new().format_in_default_zone(&Date::from_millis(epoch), offset),
             want,
             "{epoch} at {offset}"
         );
         n += 1;
     }
     assert!(n > 150, "{n}");
+}
+
+#[test]
+fn ends_of_the_long_range_in_a_named_zone_match_java() {
+    const INSTANTS: [i64; 6] = [
+        i64::MAX,
+        i64::MIN,
+        i64::MAX - 86_400_000 * 120,
+        i64::MAX - 86_400_000 * 300,
+        i64::MIN + 86_400_000 * 120,
+        8_210_266_876_800_000,
+    ];
+    let mut n = 0;
+    for line in GOLDEN.lines().filter_map(|l| l.strip_prefix("zfmt\t")) {
+        let mut fields = line.split('\t');
+        let zone = text(fields.next().unwrap());
+        let format = DateFormat::new();
+        format
+            .parse_in_default_zone(&format!("2013-02-03 04:05:06 {zone}"), Some("UTC"))
+            .unwrap();
+        for (epoch, want) in INSTANTS.iter().zip(fields) {
+            assert_eq!(
+                format.format_in_default_zone(&Date::from_millis(*epoch), 0),
+                want,
+                "{epoch} in {zone}"
+            );
+            n += 1;
+        }
+    }
+    assert!(n >= 24, "{n}");
+}
+
+#[test]
+fn rule_cache_of_the_zone_matches_java() {
+    let mut n = 0;
+    for line in GOLDEN.lines().filter_map(|l| l.strip_prefix("zseq\t")) {
+        let mut fields = line.split('\t');
+        let format = DateFormat::new();
+        for (op, want) in fields.next().unwrap().split(';').zip(fields) {
+            let got = match op.split_at(1) {
+                ("p", input) => {
+                    // the default zone of the golden is UTC
+                    let parsed = format.parse_in_default_zone(&text(input), Some("UTC"));
+                    parsed.map_or("null".to_owned(), |d| d.millis().to_string())
+                }
+                (_, epoch) => {
+                    format.format_in_default_zone(&Date::from_millis(epoch.parse().unwrap()), 0)
+                }
+            };
+            assert_eq!(got, want, "{line}: {op}");
+            n += 1;
+        }
+    }
+    assert!(n >= 100, "{n}");
 }

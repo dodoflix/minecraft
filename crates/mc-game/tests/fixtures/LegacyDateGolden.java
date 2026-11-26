@@ -8,7 +8,9 @@ import java.util.*;
  *   seq    inputs (joined by ;) formatted epoch 0 and 1.7e12 before and after each input, default zone Europe/Berlin:
  *                               the format is one shared object, as in vanilla, so a parsed zone name stays
  *   fmt    epoch ms, offset     the format of the instant in the zone GMT+offset (offset in seconds)
- * Run with JDK 25 (the version the vanilla server runs on) first on PATH.
+ *   zseq   operations on one format (p<text hex> parse, f<epoch ms> format, joined by ;), then their results
+ *   zfmt   zone name, then the format of six instants at the ends of the `long` range in the zone a parse of that name left
+ * Run with the JDK the vanilla server runs on first on PATH.
  * Usage: scripts/vanilla-java.sh -o crates/mc-game/tests/fixtures/legacy_date_golden.txt.gz crates/mc-game/tests/fixtures/LegacyDateGolden.java
  * Output: crates/mc-game/tests/fixtures/legacy_date_golden.txt.gz
  */
@@ -115,6 +117,22 @@ public class LegacyDateGolden {
             + (r.nextInt(8) == 0 ? pick(r, SEPARATORS_TIME) : ":") + se + (r.nextInt(6) == 0 ? pick(r, SEPARATORS_SPACE) : " ") + z + pick(r, TRAILING);
          inputs.add(s);
       }
+      // names of zones with a history: two of the names of every zone at dates over that history
+      String[] zoneDates = {"1850-06-15 12:00:00", "1900-01-01 00:00:00", "1945-08-15 03:30:00", "1970-01-01 00:00:00", "1987-07-01 12:00:00", "2007-03-11 02:30:00",
+         "2011-11-06 01:30:00", "2024-03-31 02:30:00", "2024-10-27 01:30:00", "2040-07-01 12:00:00", "2040-11-04 01:30:00", "2100-03-14 02:30:00"};
+      String[][] zoneStrings = DateFormatSymbols.getInstance(Locale.ROOT).getZoneStrings();
+      for (int i = 0; i < zoneStrings.length; i++) {
+         for (int k = 0; k < 2; k++) {
+            for (String d : zoneDates) inputs.add(d + " " + zoneStrings[i][1 + (i + 2 * k) % 4]);
+         }
+      }
+      // the ends of the `long` range in zones with daylight rules (the rule's transitions overflow there)
+      for (String zone : new String[] {"New York (+0)", "New York (+1)", "Sydney (+0)", "Sydney (+1)", "Kyiv (+0)", "Tokyo (+0)"}) {
+         for (String d : new String[] {"292278994-01-01 00:00:00", "292278994-08-17 07:00:00", "292278994-08-17 07:12:55", "292278994-12-31 23:59:59", "-292275055-05-16 16:47:04",
+            "-292275055-01-01 00:00:00", "262143-07-01 12:00:00", "300000-03-15 02:30:00"}) {
+            inputs.add(d + " " + zone);
+         }
+      }
       Set<String> seen = new LinkedHashSet<>();
       for (String s : inputs) {
          if (!seen.add(s) || !valid(s)) continue;
@@ -132,8 +150,49 @@ public class LegacyDateGolden {
          {"2013-02-03 04:05:06 GMT+02:00", "2013-02-03 04:05:06 utc"},
          {"2013-02-03 04:05:06 UTCx", "2013-02-03 04:05:06 +0100", "bad", "2013-02-03 04:05:06 Zulu"},
          {"2013-02-03 04:05:06  GMT+02:00"},
-         {"2013-02-03 04:05:06 UT", "2013-02-03 04:05:06 UTC"}
+         {"2013-02-03 04:05:06 UT", "2013-02-03 04:05:06 UTC"},
+         {"2013-02-03 04:05:06 EST"},
+         {"2013-07-03 04:05:06 EDT"},
+         {"1900-01-01 00:00:00 EST", "2013-07-03 04:05:06 +0100"},
+         {"2013-07-03 04:05:06 PST", "2013-07-03 04:05:06 PDT"},
+         {"2013-07-03 04:05:06 CET", "2013-07-03 04:05:06 CEST", "2013-02-03 04:05:06 EET"},
+         {"2013-02-03 04:05:06 JST", "2013-02-03 04:05:06 UTC"},
+         {"2013-02-03 04:05:06 Tokyo (+0)", "2013-07-03 04:05:06 Kyiv (+1)"},
+         {"2013-07-03 04:05:06 London (+1)", "2013-02-03 04:05:06 London (+0)"},
+         {"2013-07-03 04:05:06 Belize (+0)", "2013-07-03 04:05:06 GMT+02:00"}
       };
+      // the instants at the ends of the `long` range, printed in the zone a parsed name left
+      for (String zone : new String[] {"New York (+0)", "Sydney (+1)", "Kyiv (+0)", "Tokyo (+0)"}) {
+         SimpleDateFormat f = fresh();
+         parse(f, "2013-02-03 04:05:06 " + zone);
+         StringBuilder line = new StringBuilder("zfmt\t").append(hex(zone));
+         for (long e : new long[] {Long.MAX_VALUE, Long.MIN_VALUE, Long.MAX_VALUE - 86_400_000L * 120, Long.MAX_VALUE - 86_400_000L * 300, Long.MIN_VALUE + 86_400_000L * 120, 8_210_266_876_800_000L}) {
+            line.append('\t').append(f.format(new Date(e)));
+         }
+         out.append(line).append('\n');
+      }
+      // one format, the rule cache of its zone: a date at the end of the `long` range makes the cached range of a
+      // southern zone cover almost every later date
+      for (String zone : new String[] {"Sydney (+0)", "Auckland (+1)", "New York (+0)", "Santiago (+0)", "Tokyo (+0)"}) {
+         String[][] scripts = {
+            {"p292278994-01-01 00:00:00 " + zone, "p2150-07-01 12:00:00 " + zone, "f5695927200000", "f4108692600000", "f1700000000000", "p2013-02-03 04:05:06 " + zone},
+            {"p2013-02-03 04:05:06 " + zone, "f9223372036854775807", "p2150-07-01 12:00:00 " + zone, "f5695927200000", "f4108692600000"},
+            {"p292278994-01-01 00:00:00 " + zone, "p2013-02-03 04:05:06 +0100", "p2150-07-01 12:00:00 " + zone, "f5695927200000"},
+            {"p292278994-01-01 00:00:00 " + zone, "p2013-02-03 04:05:06 Tokyo (+1)", "p2150-07-01 12:00:00 " + zone, "f5695927200000"},
+            {"p292278994-08-17 07:12:55 " + zone, "f5695927200000", "p2150-07-01 12:00:00 " + zone, "p2150-01-01 12:00:00 " + zone}
+         };
+         for (String[] script : scripts) {
+            SimpleDateFormat f = fresh();
+            StringBuilder ops = new StringBuilder("zseq\t");
+            StringBuilder results = new StringBuilder();
+            for (int i = 0; i < script.length; i++) {
+               String op = script[i];
+               ops.append(i > 0 ? ";" : "").append(op.charAt(0)).append(op.charAt(0) == 'p' ? hex(op.substring(1)) : op.substring(1));
+               results.append('\t').append(op.charAt(0) == 'p' ? parse(f, op.substring(1)) : f.format(new Date(Long.parseLong(op.substring(1)))));
+            }
+            out.append(ops).append(results).append('\n');
+         }
+      }
       for (String[] seq : sequences) {
          SimpleDateFormat f = fresh();
          StringBuilder line = new StringBuilder("seq\t");
@@ -148,7 +207,8 @@ public class LegacyDateGolden {
       long[] instants = {0, 1_700_000_000_000L, -1, 86_399_999, -62_135_596_800_000L, -62_135_596_800_001L, -62_167_219_200_000L, -62_167_219_200_001L,
          -12_219_292_800_000L, -12_219_292_800_001L, -12_219_292_799_999L, -12_220_156_800_000L, -12_219_379_200_000L, -12_219_379_200_001L, -30_610_224_000_000L,
          -30_610_224_000_001L, 951_782_400_000L, 4_107_542_400_000L, 253_402_300_799_000L, 253_402_300_800_000L, 8_210_266_876_799_999L, 8_210_266_876_800_000L,
-         -377_705_116_800_000L, -377_705_116_800_001L, -62_198_755_200_000L, -62_198_755_200_001L, -100_000_000_000_000L, -8_000_000_000_000_000L};
+         -377_705_116_800_000L, -377_705_116_800_001L, -62_198_755_200_000L, -62_198_755_200_001L, -100_000_000_000_000L, -8_000_000_000_000_000L,
+         Long.MAX_VALUE, Long.MIN_VALUE, Long.MAX_VALUE - 3_600_000L, Long.MIN_VALUE + 3_600_000L, 9_000_000_000_000_000_000L, -9_000_000_000_000_000_000L};
       int[] offsets = {0, 3600, -18000, 19800, 45000, -12600, 86399 - 3600 * 24 + 3600};
       for (long e : instants) {
          for (int off : offsets) {

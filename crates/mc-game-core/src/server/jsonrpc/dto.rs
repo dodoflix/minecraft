@@ -12,6 +12,12 @@ use crate::server::players::NameAndId;
 use crate::server::players::ServerOpListEntry;
 use crate::server::players::StoredUserEntry;
 use crate::server::players::ban_list_entry::{Date, IpBanListEntry, UserBanListEntry};
+
+/// `java.time.Instant` of the management DTOs.
+///
+/// shortcut: a ban date outside the range of `chrono` (a legacy ban list can hold one) has no `Instant` here and reads
+/// as no expiry; an `Instant` that far is not parsed either.
+pub type Instant = DateTime<Utc>;
 use crate::server::players::gson::{JsonElement, JsonObject};
 
 /// A decoding failure (`DataResult` error message).
@@ -104,7 +110,7 @@ fn decode_uuid(e: &JsonElement) -> Decoded<Uuid> {
         .map_err(|m| DecodeError(format!("Invalid UUID {s}: {m}")))
 }
 
-fn decode_instant(e: &JsonElement) -> Decoded<Date> {
+fn decode_instant(e: &JsonElement) -> Decoded<Instant> {
     let s = decode_string(e)?;
     DateTime::parse_from_rfc3339(&s)
         .map(|d| d.with_timezone(&Utc))
@@ -112,7 +118,7 @@ fn decode_instant(e: &JsonElement) -> Decoded<Date> {
 }
 
 /// `DateTimeFormatter.ISO_INSTANT.format`: seconds precision, a 3/6/9 digit fraction only when non-zero.
-pub fn encode_instant(d: &Date) -> JsonElement {
+pub fn encode_instant(d: &Instant) -> JsonElement {
     let format = match d.timestamp_subsec_nanos() {
         0 => SecondsFormat::Secs,
         n if n % 1_000_000 == 0 => SecondsFormat::Millis,
@@ -221,7 +227,7 @@ pub struct UserBanDto {
     pub player: PlayerDto,
     pub reason: Option<String>,
     pub source: Option<String>,
-    pub expires: Option<Date>,
+    pub expires: Option<Instant>,
 }
 
 impl UserBanDto {
@@ -250,7 +256,7 @@ impl UserBanDto {
             player: PlayerDto::from_name_and_id(user),
             reason: entry.reason.clone(),
             source: Some(entry.source.clone()),
-            expires: entry.expires,
+            expires: entry.expires.and_then(Date::to_utc),
         })
     }
 }
@@ -261,7 +267,7 @@ pub struct UserBan {
     pub player: NameAndId,
     pub reason: Option<String>,
     pub source: String,
-    pub expires: Option<Date>,
+    pub expires: Option<Instant>,
 }
 
 impl UserBan {
@@ -270,7 +276,7 @@ impl UserBan {
             player: entry.user()?.clone(),
             reason: entry.reason.clone(),
             source: entry.source.clone(),
-            expires: entry.expires,
+            expires: entry.expires.and_then(Date::to_utc),
         })
     }
 
@@ -288,7 +294,7 @@ impl UserBan {
             Some(self.player.clone()),
             None,
             Some(&self.source),
-            self.expires,
+            self.expires.map(Date::from),
             self.reason.as_deref(),
         )
     }
@@ -300,7 +306,7 @@ pub struct IpBanDto {
     pub ip: String,
     pub reason: Option<String>,
     pub source: Option<String>,
-    pub expires: Option<Date>,
+    pub expires: Option<Instant>,
 }
 
 impl IpBanDto {
@@ -328,7 +334,7 @@ impl IpBanDto {
             ip: entry.user()?.clone(),
             reason: entry.reason.clone(),
             source: Some(entry.source.clone()),
-            expires: entry.expires,
+            expires: entry.expires.and_then(Date::to_utc),
         })
     }
 }
@@ -339,7 +345,7 @@ pub struct IpBan {
     pub ip: String,
     pub reason: Option<String>,
     pub source: String,
-    pub expires: Option<Date>,
+    pub expires: Option<Instant>,
 }
 
 impl IpBan {
@@ -348,7 +354,7 @@ impl IpBan {
             ip: entry.user()?.clone(),
             reason: entry.reason.clone(),
             source: entry.source.clone(),
-            expires: entry.expires,
+            expires: entry.expires.and_then(Date::to_utc),
         })
     }
 
@@ -366,7 +372,7 @@ impl IpBan {
             Some(self.ip.clone()),
             None,
             Some(&self.source),
-            self.expires,
+            self.expires.map(Date::from),
             self.reason.as_deref(),
         )
     }
@@ -379,7 +385,7 @@ pub struct IncomingIpBanDto {
     pub ip: Option<String>,
     pub reason: Option<String>,
     pub source: Option<String>,
-    pub expires: Option<Date>,
+    pub expires: Option<Instant>,
 }
 
 impl IncomingIpBanDto {
@@ -611,7 +617,7 @@ mod tests {
         );
     }
 
-    fn parse_instant(s: &str) -> Date {
+    fn parse_instant(s: &str) -> Instant {
         decode_instant(&JsonElement::String(s.into())).unwrap()
     }
 

@@ -4,6 +4,8 @@
 //! `op`, `setViewDistance`, ...) are free functions over `&mut MinecraftServer`, because a method cannot borrow
 //! `server.player_list` and `server` at once (ARCHITECTURE: tier 2).
 
+use super::ban_date_format::calendar_fields;
+use super::ban_list_entry::Date;
 use super::name_and_id::NameAndId;
 use super::player_files::locate_stats_file;
 use super::player_handle::PlayerHandle;
@@ -440,9 +442,11 @@ impl PlayerList {
 }
 
 /// `BAN_DATE_FORMAT`: `yyyy-MM-dd 'at' HH:mm:ss z` in the default time zone (`z`: see `short_zone_name`).
-pub fn format_ban_date(date: &chrono::DateTime<chrono::Utc>) -> String {
-    let Some(tm) = local_time(date.timestamp()) else {
-        return date.format("%Y-%m-%d at %H:%M:%S UTC").to_string();
+pub fn format_ban_date(date: &Date) -> String {
+    let Some(tm) = local_time(date.millis().div_euclid(1000)) else {
+        // shortcut: `localtime_r` failed (a year beyond its `int`): printed in UTC
+        let (year, month, day, hour, minute, second) = calendar_fields(date.millis(), 0);
+        return format!("{year:04}-{month:02}-{day:02} at {hour:02}:{minute:02}:{second:02} UTC");
     };
     let offset = tm.tm_gmtoff;
     let zone = short_zone_name(offset, &tm);
@@ -854,11 +858,11 @@ mod tests {
 
     #[test]
     fn expiring_ban_appends_the_date() {
-        use super::super::ban_list_entry::UserBanListEntry;
+        use super::super::ban_list_entry::{UserBanListEntry, now};
         let dir = tempfile::tempdir().unwrap();
         let mut list = list(dir.path());
         let steve = NameAndId::create_offline("Steve");
-        let expires = chrono::Utc::now() + chrono::Duration::days(1);
+        let expires = Date::from_millis(now().millis() + 86_400_000);
         list.bans.add(UserBanListEntry::new(
             Some(steve.clone()),
             None,

@@ -1,6 +1,6 @@
 //! `BanListEntry`, `UserBanListEntry`, `IpBanListEntry`.
 
-use chrono::{DateTime, SubsecRound, Utc};
+use chrono::{DateTime, Utc};
 use mc_text::Component;
 
 use super::ban_date_format::DATE_FORMAT;
@@ -8,13 +8,36 @@ use super::gson::{JsonElement, JsonError, JsonObject};
 use super::name_and_id::NameAndId;
 use super::stored_user_list::StoredUserEntry;
 
-pub type Date = DateTime<Utc>;
+/// `java.util.Date`: epoch milliseconds of any `long`, which `chrono::DateTime` (years up to 262142) cannot hold.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct Date(i64);
+
+impl Date {
+    pub const fn from_millis(millis: i64) -> Date {
+        Date(millis)
+    }
+
+    pub const fn millis(self) -> i64 {
+        self.0
+    }
+
+    /// The date as a `chrono` value, `None` outside its range.
+    pub fn to_utc(self) -> Option<DateTime<Utc>> {
+        DateTime::from_timestamp_millis(self.0)
+    }
+}
+
+impl From<DateTime<Utc>> for Date {
+    fn from(date: DateTime<Utc>) -> Date {
+        Date(date.timestamp_millis())
+    }
+}
 
 pub const EXPIRES_NEVER: &str = "forever";
 
 /// `new Date()` (millisecond precision like `java.util.Date`).
 pub fn now() -> Date {
-    Utc::now().trunc_subsecs(3)
+    Date(Utc::now().timestamp_millis())
 }
 
 /// The user type of a ban list (`NameAndId` or an ip `String`).

@@ -14,7 +14,7 @@ use parking_lot::Mutex;
 use uuid::Uuid;
 
 use super::ban_date_format::DateFormat;
-use super::ban_list_entry::Date;
+use super::ban_list_entry::{Date, now};
 use super::gson::{self, JsonElement, JsonObject};
 use super::name_and_id::NameAndId;
 
@@ -168,10 +168,12 @@ impl CachedUserNameToIdResolver {
     }
 
     fn add_internal(&self, profile: NameAndId) -> Arc<GameProfileInfo> {
-        let expiration = Local::now()
-            .checked_add_months(Months::new(1))
-            .unwrap_or_else(Local::now)
-            .to_utc();
+        let expiration = Date::from(
+            Local::now()
+                .checked_add_months(Months::new(1))
+                .unwrap_or_else(Local::now)
+                .to_utc(),
+        );
         let info = self.safe_add(GameProfileInfo {
             name_and_id: profile,
             expiration_date: expiration,
@@ -242,7 +244,7 @@ impl UserNameToIdResolver for CachedUserNameToIdResolver {
         let mut needs_save = false;
         let mut cached = self.state.lock().by_name.get(&user_name).cloned();
         if let Some(info) = &cached
-            && Date::from(std::time::SystemTime::now()) >= info.expiration_date
+            && now() >= info.expiration_date
         {
             let mut state = self.state.lock();
             state.by_uuid.remove(&info.name_and_id.id);

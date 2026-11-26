@@ -6,20 +6,16 @@
 //! Julian calendar before 1582-10-15) and a zone is `+hhmm`, `GMT`, `GMT+hh:mm` or a name of the zone table. Formatting
 //! writes the date of the same calendar.
 //!
-//! The format object of vanilla is one shared static ([`DATE_FORMAT`]): parsing a zone name that is a zero-offset UTC
-//! zone changes its time zone for every later format, which [`DateFormat`] keeps.
-//!
-//! shortcut: a zone name stands for the current raw offset (plus the DST saving for a daylight name) of its zone, which
-//! is what the JDK uses for a date after the zone's last change of offset; the history of a zone (and so a named zone
-//! other than a UTC one for an older date, and the zone it leaves in the shared format) is not in the table.
+//! The format object of vanilla is one shared static ([`DATE_FORMAT`]): parsing a zone name makes that zone the time
+//! zone of the format for every later parse and format, which [`DateFormat`] keeps. A zone name is placed in the zone's
+//! history (`java_time_zone`), as `GregorianCalendar` does for the zone of the format.
 
-use std::sync::LazyLock;
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::{Arc, LazyLock, Mutex};
 
-use chrono::DateTime;
 use mc_core::java_case::region_matches_ignore_case;
 
 use super::ban_list_entry::Date;
+use super::java_time_zone::{RuleCache, ZoneInfo, zone_info};
 
 /// `GregorianCalendar.EPOCH_OFFSET`: the fixed date of 1970-01-01.
 const EPOCH_OFFSET: i64 = 719_163;
@@ -284,16 +280,11 @@ fn parse_int(text: &[u16], position: usize) -> Option<(i32, usize)> {
     Some((value, end))
 }
 
-/// The short standard name `UTC` of the zones that are UTC.
-const UTC_NAME: [u16; 3] = [0x55, 0x54, 0x43];
-
 /// A zone of `DateFormatSymbols.getZoneStrings()` of the root locale.
 struct ZoneStrings {
     id: &'static str,
     /// Long and short standard name, long and short daylight name.
     names: [Vec<u16>; 4],
-    raw_offset: i32,
-    dst_savings: i32,
 }
 
 static ZONE_STRINGS: LazyLock<Vec<ZoneStrings>> = LazyLock::new(|| {
@@ -305,8 +296,6 @@ static ZONE_STRINGS: LazyLock<Vec<ZoneStrings>> = LazyLock::new(|| {
             ZoneStrings {
                 id: f[0],
                 names: [names(1), names(2), names(3), names(4)],
-                raw_offset: f[5].parse().expect("raw offset"),
-                dst_savings: f[6].parse().expect("DST saving"),
             }
         })
         .collect()
@@ -323,36 +312,53 @@ fn default_zone_id() -> Option<String> {
     link.rsplit_once("zoneinfo/").map(|(_, id)| id.to_owned())
 }
 
-/// The zone whose name is at `start` of `text` (`SimpleDateFormat.subParseZoneString`): the position after the name,
-/// the offset and whether the shared format's zone becomes a UTC zone.
+/// A zone named in the text: the zone, and the offsets `subParseZoneString` sets in the calendar
+/// (`None` leaves the zone to decide).
+struct NamedZone {
+    zone: Arc<ZoneInfo>,
+    id: &'static str,
+    zone_offset: Option<i32>,
+    dst_offset: Option<i32>,
+}
+
+/// The zone whose name is at `start` of `text` (`SimpleDateFormat.subParseZoneString`): the zone of the format first,
+/// then the default zone, then every zone of the table in its order.
 fn parse_zone_name(
     text: &[u16],
     start: usize,
     default_zone: Option<&str>,
-    in_utc: bool,
-) -> Option<(usize, i32, bool)> {
+    current: Option<&str>,
+) -> Option<NamedZone> {
     let zones = &*ZONE_STRINGS;
     let match_zone = |zone: &ZoneStrings| {
         (0..4).find(|&i| {
             region_matches_ignore_case(text, start, &zone.names[i], 0, zone.names[i].len())
         })
     };
-    // the zone of the format first (a UTC one, once a UTC name was parsed), then the default zone, then the table
-    let current = zones.iter().find(|z| in_utc && z.names[1] == UTC_NAME);
-    let default = default_zone.and_then(|id| zones.iter().find(|z| z.id == id));
+    let by_id = |id: &str| zones.iter().find(|z| z.id == id);
     let (zone, index) = current
+        .and_then(by_id)
         .into_iter()
-        .chain(default)
+        .chain(default_zone.and_then(by_id))
         .chain(zones.iter())
         .find_map(|zone| Some((zone, match_zone(zone)?)))?;
+    let tz = zone_info(zone.id)?;
     // names 0 and 1 are the long and short standard names, 2 and 3 the daylight ones
-    let daylight_saving = if index >= 2 { zone.dst_savings } else { 0 };
-    let utc_zone = zone.names[1] == UTC_NAME;
-    Some((
-        start + zone.names[index].len(),
-        zone.raw_offset + daylight_saving,
-        utc_zone,
-    ))
+    let daylight = index >= 2;
+    let use_same_name = !daylight && {
+        let (standard, daylight) = (&zone.names[index], &zone.names[index + 2]);
+        standard.len() == daylight.len()
+            && region_matches_ignore_case(standard, 0, daylight, 0, standard.len())
+    };
+    let dst_amount = if daylight { tz.dst_savings } else { 0 };
+    // the name of both standard and daylight time, or a daylight name of a zone without DST: the zone decides
+    let zone_decides = use_same_name || (daylight && dst_amount == 0);
+    Some(NamedZone {
+        zone: tz,
+        id: zone.id,
+        zone_offset: None,
+        dst_offset: (!zone_decides).then_some(dst_amount),
+    })
 }
 
 /// `SimpleDateFormat.subParseNumericZone`: `hh:mm` (colon required) or `hhmm`; returns the end and the offset.
@@ -423,8 +429,10 @@ struct Fields {
     hour: i32,
     minute: i32,
     second: i32,
-    zone_offset: i32,
-    dst_offset: i32,
+    /// The zone offset and DST offset the text set, `None` for the zone of the calendar to give.
+    zone_offset: Option<i32>,
+    dst_offset: Option<i32>,
+    zone: Option<Arc<ZoneInfo>>,
 }
 
 /// A field `subParse` reads as a number: skips spaces and tabs, then reads an integer.
@@ -440,8 +448,21 @@ fn parse_field(text: &[u16], start: usize) -> Option<(i32, usize)> {
     parse_int(text, pos)
 }
 
-/// `SimpleDateFormat.parse(text, new ParsePosition(0))` of the pattern, as epoch milliseconds.
-fn parse_millis(text: &[u16], default_zone: Option<&str>, in_utc: bool) -> Option<(i64, bool)> {
+/// What a parse leaves behind: the epoch milliseconds, and the zone a name in the text made the zone of the format
+/// (`Some(None)` for the default zone itself).
+struct Parsed {
+    millis: i64,
+    named: Option<Option<&'static str>>,
+}
+
+/// `SimpleDateFormat.parse(text, new ParsePosition(0))` of the pattern, as epoch milliseconds. `current` is the id of
+/// the named zone the format is in (the default zone when `None`).
+fn parse_millis(
+    text: &[u16],
+    default_zone: Option<&str>,
+    current: Option<&str>,
+    cache: &mut Option<RuleCache>,
+) -> Option<Parsed> {
     let mut start = 0;
     let mut numbers = [0i32; 6];
     // yyyy-MM-dd HH:mm:ss Z: each number is followed by its literal
@@ -458,7 +479,14 @@ fn parse_millis(text: &[u16], default_zone: Option<&str>, in_utc: bool) -> Optio
         }
         start += 1;
     }
-    let zone = parse_zone(text, start, default_zone, in_utc)?;
+    let zone = parse_zone(text, start, default_zone, current)?;
+    // a zone other than the format's own is a new `TimeZone` object, with an empty rule cache
+    if zone
+        .id
+        .is_some_and(|id| Some(id) != current.or(default_zone))
+    {
+        *cache = None;
+    }
     let fields = Fields {
         year: numbers[0],
         month: numbers[1].wrapping_sub(1),
@@ -466,19 +494,45 @@ fn parse_millis(text: &[u16], default_zone: Option<&str>, in_utc: bool) -> Optio
         hour: numbers[3],
         minute: numbers[4],
         second: numbers[5],
-        zone_offset: zone.0,
-        dst_offset: 0,
+        zone_offset: zone.zone_offset,
+        dst_offset: zone.dst_offset,
+        zone: zone.zone,
     };
-    Some((compute_millis(&fields), zone.1))
+    Some(Parsed {
+        millis: compute_millis(&fields, cache),
+        named: zone.named,
+    })
 }
 
-/// The `Z` field: the zone offset in milliseconds and whether it is a UTC zone name.
+/// The `Z` field: the offsets it sets in the calendar, and the zone it names.
+struct ParsedZone {
+    zone_offset: Option<i32>,
+    dst_offset: Option<i32>,
+    zone: Option<Arc<ZoneInfo>>,
+    /// The id of the zone the text names.
+    id: Option<&'static str>,
+    named: Option<Option<&'static str>>,
+}
+
+impl ParsedZone {
+    /// A numeric zone: both offsets are set.
+    fn fixed(offset: i32) -> ParsedZone {
+        ParsedZone {
+            zone_offset: Some(offset),
+            dst_offset: Some(0),
+            zone: None,
+            id: None,
+            named: None,
+        }
+    }
+}
+
 fn parse_zone(
     text: &[u16],
     start: usize,
     default_zone: Option<&str>,
-    in_utc: bool,
-) -> Option<(i32, bool)> {
+    current: Option<&str>,
+) -> Option<ParsedZone> {
     // `subParse` skips the spaces and tabs first; the `GMT` check looks at `start`, the name at the skipped position
     let mut pos = start;
     loop {
@@ -495,7 +549,8 @@ fn parse_zone(
         _ => 0,
     };
     if sign != 0 {
-        return parse_numeric_zone(text, pos + 1, sign, false).map(|(_, offset)| (offset, false));
+        return parse_numeric_zone(text, pos + 1, sign, false)
+            .map(|(_, offset)| ParsedZone::fixed(offset));
     }
     let gmt = [0x47u16, 0x4D, 0x54];
     if (c == 0x47 || c == 0x67)
@@ -506,11 +561,20 @@ fn parse_zone(
         let sign = match text.get(after) {
             Some(0x2B) => 1,
             Some(0x2D) => -1,
-            _ => return Some((0, false)),
+            _ => return Some(ParsedZone::fixed(0)),
         };
-        return parse_numeric_zone(text, after + 1, sign, true).map(|(_, offset)| (offset, false));
+        return parse_numeric_zone(text, after + 1, sign, true)
+            .map(|(_, offset)| ParsedZone::fixed(offset));
     }
-    parse_zone_name(text, pos, default_zone, in_utc).map(|(_, offset, utc)| (offset, utc))
+    let named = parse_zone_name(text, pos, default_zone, current)?;
+    Some(ParsedZone {
+        zone_offset: named.zone_offset,
+        dst_offset: named.dst_offset,
+        // `setTimeZone` of the matched zone, which is the default zone itself when the default zone matched
+        named: Some((Some(named.id) != default_zone).then_some(named.id)),
+        zone: Some(named.zone),
+        id: Some(named.id),
+    })
 }
 
 /// `floorDiv` and `floorMod` for the month roll-over.
@@ -519,7 +583,7 @@ fn floor_div_mod(a: i32, b: i32) -> (i32, i32) {
 }
 
 /// `BaseCalendar.getFixedDate` (Gregorian): the fixed date of `month` (1 to 12) `day` of `year`.
-fn gregorian_fixed_date(year: i32, month: i32, day: i64) -> i64 {
+pub(super) fn gregorian_fixed_date(year: i32, month: i32, day: i64) -> i64 {
     let prev = i64::from(year) - 1;
     let mut days = day + 365 * prev + prev.div_euclid(4) - prev.div_euclid(100)
         + prev.div_euclid(400)
@@ -530,12 +594,22 @@ fn gregorian_fixed_date(year: i32, month: i32, day: i64) -> i64 {
     days
 }
 
+/// The normalized year of a Julian fixed date.
+pub(super) fn julian_year(fixed: i64) -> i32 {
+    julian_date(fixed).0 as i32
+}
+
+/// The year of a Gregorian fixed date.
+pub(super) fn gregorian_year(fixed: i64) -> i32 {
+    civil_from_days(fixed - EPOCH_OFFSET).0 as i32
+}
+
 fn is_gregorian_leap_year(year: i32) -> bool {
     year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
 }
 
 /// `JulianCalendar.getFixedDate`.
-fn julian_fixed_date(year: i32, month: i32, day: i64) -> i64 {
+pub(super) fn julian_fixed_date(year: i32, month: i32, day: i64) -> i64 {
     let y = i64::from(year);
     let mut days = JULIAN_EPOCH - 1 + 365 * (y - 1) + day;
     days += (y - 1).div_euclid(4);
@@ -567,7 +641,7 @@ fn calendar_fixed_date(julian: bool, year: i32, month: i32, day: i32) -> i64 {
 
 /// `GregorianCalendar.computeTime` in lenient mode for year, month, day, hour of day, minute, second, zone offset
 /// and DST offset.
-fn compute_millis(f: &Fields) -> i64 {
+fn compute_millis(f: &Fields, cache: &mut Option<RuleCache>) -> i64 {
     let mut time_of_day = i64::from(f.hour);
     time_of_day = time_of_day * 60 + i64::from(f.minute);
     time_of_day = time_of_day * 60 + i64::from(f.second);
@@ -598,16 +672,34 @@ fn compute_millis(f: &Fields) -> i64 {
             in_calendar(true)
         }
     };
-    ((fixed_date - EPOCH_OFFSET).wrapping_mul(ONE_DAY))
-        .wrapping_add(time_of_day)
-        .wrapping_sub(i64::from(f.zone_offset) + i64::from(f.dst_offset))
+    // local wall-clock milliseconds, then the offsets set by the text, the zone giving the others for that wall time
+    let wall = (fixed_date - EPOCH_OFFSET)
+        .wrapping_mul(ONE_DAY)
+        .wrapping_add(time_of_day);
+    let (zone_offset, dst_offset) = match (f.zone_offset, f.dst_offset, &f.zone) {
+        (Some(zone_offset), Some(dst_offset), _) => (zone_offset, dst_offset),
+        (zone_offset, dst_offset, Some(zone)) => {
+            let (raw, dst) = zone.offsets_at_wall(wall, cache);
+            (zone_offset.unwrap_or(raw), dst_offset.unwrap_or(dst))
+        }
+        // a numeric zone sets both offsets
+        (zone_offset, dst_offset, None) => (zone_offset.unwrap_or(0), dst_offset.unwrap_or(0)),
+    };
+    let millis = wall.wrapping_sub(i64::from(zone_offset) + i64::from(dst_offset));
+    if let (None, Some(zone)) = (f.zone_offset.zip(f.dst_offset), &f.zone) {
+        // `computeFields` of the parsed time asks the zone again, which moves the rule cache
+        zone.offsets_at_utc(millis, cache);
+    }
+    millis
 }
 
-/// The calendar fields of `time` milliseconds (`GregorianCalendar.computeFields`): the era-relative year, month
+/// The calendar fields of `time` milliseconds in a zone `offset` milliseconds from UTC (`GregorianCalendar.computeFields`
+/// adds the day count of the offset to that of the time, so the sum cannot overflow): the era-relative year, month
 /// (1 to 12), day, hour, minute and second.
-fn calendar_fields(local_millis: i64) -> (i64, u32, u32, u32, u32, u32) {
-    let days = local_millis.div_euclid(ONE_DAY);
-    let time = local_millis.rem_euclid(ONE_DAY);
+pub(super) fn calendar_fields(time: i64, offset: i32) -> (i64, u32, u32, u32, u32, u32) {
+    let local = i128::from(time) + i128::from(offset);
+    let days = local.div_euclid(i128::from(ONE_DAY)) as i64;
+    let time = local.rem_euclid(i128::from(ONE_DAY)) as i64;
     let fixed = days + EPOCH_OFFSET;
     let (year, month, day) = if fixed >= CUTOVER_FIXED_DATE {
         civil_from_days(days)
@@ -658,9 +750,20 @@ fn julian_date(fixed: i64) -> (i64, u32, u32) {
     (i64::from(year), month as u32, day)
 }
 
-/// A `SimpleDateFormat` of the pattern with its time zone: the default zone until a UTC zone name was parsed.
+/// A `SimpleDateFormat` of the pattern with its time zone: the default zone until a zone name was parsed.
 pub struct DateFormat {
-    in_utc: AtomicBool,
+    zone: Mutex<FormatZone>,
+}
+
+/// The time zone of a format after a zone name was parsed.
+struct FormatZone {
+    /// The id of the zone a parsed name left in the format (the default zone when `None`).
+    named: Option<&'static str>,
+    /// The rule cache of that zone's `TimeZone` object.
+    ///
+    /// shortcut: the default zone has no cache here (its offsets come from the C library), so a date it looks up
+    /// never changes the answer for the next one.
+    cache: Option<RuleCache>,
 }
 
 /// `BanListEntry.DATE_FORMAT`, shared by every ban list.
@@ -669,12 +772,14 @@ pub static DATE_FORMAT: DateFormat = DateFormat::new();
 impl DateFormat {
     pub const fn new() -> Self {
         Self {
-            in_utc: AtomicBool::new(false),
+            zone: Mutex::new(FormatZone {
+                named: None,
+                cache: None,
+            }),
         }
     }
 
-    /// `parse(text)`: the date, `None` when the text does not start with a date. A date outside the range of
-    /// `chrono::DateTime` is none too.
+    /// `parse(text)`: the date, `None` when the text does not start with a date.
     pub fn parse(&self, text: &str) -> Option<Date> {
         self.parse_in_default_zone(text, default_zone_id().as_deref())
     }
@@ -682,40 +787,44 @@ impl DateFormat {
     /// [`parse`](Self::parse) when the id of the default time zone is `default_zone`.
     pub fn parse_in_default_zone(&self, text: &str, default_zone: Option<&str>) -> Option<Date> {
         let units: Vec<u16> = text.encode_utf16().collect();
-        let (millis, utc_zone) =
-            parse_millis(&units, default_zone, self.in_utc.load(Ordering::Relaxed))?;
-        if utc_zone {
-            self.in_utc.store(true, Ordering::Relaxed);
+        let mut state = self.zone.lock().unwrap_or_else(|e| e.into_inner());
+        let state = &mut *state;
+        let parsed = parse_millis(&units, default_zone, state.named, &mut state.cache)?;
+        if let Some(named) = parsed.named {
+            state.named = named;
         }
-        DateTime::from_timestamp_millis(millis)
+        if state.named.is_none() {
+            state.cache = None;
+        }
+        Some(Date::from_millis(parsed.millis))
     }
 
-    /// `format(date)` in the default time zone (UTC after a UTC zone name was parsed).
+    /// `format(date)` in the default time zone (the zone of a parsed name after one was parsed).
     pub fn format(&self, date: &Date) -> String {
         self.format_in_default_zone(
             date,
-            super::player_list::local_offset_seconds(date.timestamp()),
+            super::player_list::local_offset_seconds(date.millis().div_euclid(1000)),
         )
     }
 
     /// [`format`](Self::format) when the default time zone is `default_offset_seconds` from UTC.
     pub fn format_in_default_zone(&self, date: &Date, default_offset_seconds: i32) -> String {
-        let offset = if self.in_utc.load(Ordering::Relaxed) {
-            0
-        } else {
-            default_offset_seconds
+        let mut state = self.zone.lock().unwrap_or_else(|e| e.into_inner());
+        let offset = match state.named.and_then(zone_info) {
+            Some(zone) => {
+                let (raw, dst) = zone.offsets_at_utc(date.millis(), &mut state.cache);
+                raw + dst
+            }
+            None => default_offset_seconds * 1000,
         };
-        let local = date.timestamp_millis() + i64::from(offset) * 1000;
-        let (year, month, day, hour, minute, second) = calendar_fields(local);
-        let (sign, abs) = if offset < 0 {
-            ('-', -offset)
-        } else {
-            ('+', offset)
-        };
+        let (year, month, day, hour, minute, second) = calendar_fields(date.millis(), offset);
+        // `Z`: whole minutes, truncated toward zero
+        let minutes = offset / 60_000;
+        let sign = if minutes >= 0 { '+' } else { '-' };
         format!(
             "{year:04}-{month:02}-{day:02} {hour:02}:{minute:02}:{second:02} {sign}{:02}{:02}",
-            abs / 3600,
-            abs % 3600 / 60
+            minutes.abs() / 60,
+            minutes.abs() % 60
         )
     }
 }

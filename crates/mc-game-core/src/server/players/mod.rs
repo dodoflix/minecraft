@@ -9,6 +9,7 @@ pub mod dimension_change;
 pub mod end_credits;
 pub mod ender_pearl_ticket;
 pub mod java_hash_map;
+mod java_time_zone;
 pub mod join;
 pub mod mojang_profile_lookup;
 pub mod name_and_id;

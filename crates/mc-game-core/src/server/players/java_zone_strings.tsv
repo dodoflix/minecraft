@@ -1,613 +1,613 @@
-Africa/Casablanca	Casablanca (+0)	GMT	Casablanca (+1)	GMT+01:00	0	0
-UTC	GMT	UTC	GMT	UTC	0	0
-IET	GMT-05:00	EST	GMT-04:00	EDT	-18000000	3600000
-UCT	GMT	UTC	GMT	UTC	0	0
-Zulu	GMT	UTC	GMT	UTC	0	0
-Etc/UCT	GMT	UTC	GMT	UTC	0	0
-Etc/UTC	GMT	UTC	GMT	UTC	0	0
-Etc/Zulu	GMT	UTC	GMT	UTC	0	0
-Etc/GMT+1	GMT-01:00	GMT-01:00	GMT-01:00	GMT-01:00	-3600000	0
-Etc/GMT+2	GMT-02:00	GMT-02:00	GMT-02:00	GMT-02:00	-7200000	0
-Etc/GMT+3	GMT-03:00	GMT-03:00	GMT-03:00	GMT-03:00	-10800000	0
-Etc/GMT+4	GMT-04:00	GMT-04:00	GMT-04:00	GMT-04:00	-14400000	0
-Etc/GMT+5	GMT-05:00	GMT-05:00	GMT-05:00	GMT-05:00	-18000000	0
-Etc/GMT+6	GMT-06:00	GMT-06:00	GMT-06:00	GMT-06:00	-21600000	0
-Etc/GMT+7	GMT-07:00	GMT-07:00	GMT-07:00	GMT-07:00	-25200000	0
-Etc/GMT+8	GMT-08:00	GMT-08:00	GMT-08:00	GMT-08:00	-28800000	0
-Etc/GMT+9	GMT-09:00	GMT-09:00	GMT-09:00	GMT-09:00	-32400000	0
-Etc/GMT-1	GMT+01:00	GMT+01:00	GMT+01:00	GMT+01:00	3600000	0
-Etc/GMT-2	GMT+02:00	GMT+02:00	GMT+02:00	GMT+02:00	7200000	0
-Etc/GMT-3	GMT+03:00	GMT+03:00	GMT+03:00	GMT+03:00	10800000	0
-Etc/GMT-4	GMT+04:00	GMT+04:00	GMT+04:00	GMT+04:00	14400000	0
-Etc/GMT-5	GMT+05:00	GMT+05:00	GMT+05:00	GMT+05:00	18000000	0
-Etc/GMT-6	GMT+06:00	GMT+06:00	GMT+06:00	GMT+06:00	21600000	0
-Etc/GMT-7	GMT+07:00	GMT+07:00	GMT+07:00	GMT+07:00	25200000	0
-Etc/GMT-8	GMT+08:00	GMT+08:00	GMT+08:00	GMT+08:00	28800000	0
-Etc/GMT-9	GMT+09:00	GMT+09:00	GMT+09:00	GMT+09:00	32400000	0
-Universal	GMT	UTC	GMT	UTC	0	0
-Asia/Amman	Amman (+0)	GMT+03:00	Amman (+1)	GMT+04:00	10800000	0
-Asia/Tomsk	Tomsk (+0)	GMT+07:00	Tomsk (+1)	GMT+08:00	25200000	0
-Etc/GMT+10	GMT-10:00	GMT-10:00	GMT-10:00	GMT-10:00	-36000000	0
-Etc/GMT+11	GMT-11:00	GMT-11:00	GMT-11:00	GMT-11:00	-39600000	0
-Etc/GMT+12	GMT-12:00	GMT-12:00	GMT-12:00	GMT-12:00	-43200000	0
-Etc/GMT-10	GMT+10:00	GMT+10:00	GMT+10:00	GMT+10:00	36000000	0
-Etc/GMT-11	GMT+11:00	GMT+11:00	GMT+11:00	GMT+11:00	39600000	0
-Etc/GMT-12	GMT+12:00	GMT+12:00	GMT+12:00	GMT+12:00	43200000	0
-Etc/GMT-13	GMT+13:00	GMT+13:00	GMT+13:00	GMT+13:00	46800000	0
-Etc/GMT-14	GMT+14:00	GMT+14:00	GMT+14:00	GMT+14:00	50400000	0
-Europe/Kyiv	Kyiv (+0)	EET	Kyiv (+1)	EEST	7200000	3600000
-Asia/Barnaul	Barnaul (+0)	GMT+07:00	Barnaul (+1)	GMT+08:00	25200000	0
-Europe/Kirov	Kirov (+0)	MSK	Kirov (+1)	MSK	10800000	0
-Asia/Damascus	Damascus (+0)	GMT+03:00	Damascus (+1)	GMT+04:00	10800000	0
-Etc/Universal	GMT	UTC	GMT	UTC	0	0
-Asia/Famagusta	Famagusta (+0)	EET	Famagusta (+1)	EEST	7200000	3600000
-Europe/Saratov	Saratov (+0)	GMT+04:00	Saratov (+1)	GMT+05:00	14400000	0
-Africa/El_Aaiun	El Aaiun (+0)	GMT	El Aaiun (+1)	GMT+01:00	0	0
-Europe/Astrakhan	Astrakhan (+0)	GMT+04:00	Astrakhan (+1)	GMT+05:00	14400000	0
-Europe/Ulyanovsk	Ulyanovsk (+0)	GMT+04:00	Ulyanovsk (+1)	GMT+05:00	14400000	0
-America/Coyhaique	Coyhaique (+0)	GMT-03:00	Coyhaique (+1)	GMT-02:00	-10800000	0
-Antarctica/Palmer	Palmer (+0)	GMT-03:00	Palmer (+1)	GMT-02:00	-10800000	0
-Asia/Srednekolymsk	Srednekolymsk (+0)	GMT+11:00	Srednekolymsk (+1)	GMT+12:00	39600000	0
-America/Punta_Arenas	Punta Arenas (+0)	GMT-03:00	Punta Arenas (+1)	GMT-02:00	-10800000	0
-Pacific/Bougainville	Bougainville (+0)	GMT+11:00	Bougainville (+1)	GMT+11:00	39600000	0
-America/Indiana/Indianapolis	Indianapolis (+0)	EST	Indianapolis (+1)	EDT	-18000000	3600000
-Asia/Aden	Aden (+0)	GMT+03:00	Aden (+1)	GMT+03:00	10800000	0
-America/Cuiaba	Cuiaba (+0)	GMT-04:00	Cuiaba (+1)	GMT-03:00	-14400000	0
-Africa/Nairobi	Nairobi (+0)	GMT+03:00	Nairobi (+1)	GMT+03:00	10800000	0
-America/Marigot	Marigot (+0)	GMT-04:00	Marigot (+1)	GMT-03:00	-14400000	0
-Asia/Aqtau	Aqtau (+0)	GMT+05:00	Aqtau (+1)	GMT+06:00	18000000	0
-Pacific/Kwajalein	Kwajalein (+0)	GMT+12:00	Kwajalein (+1)	GMT+12:00	43200000	0
-America/El_Salvador	El Salvador (+0)	GMT-06:00	El Salvador (+1)	GMT-05:00	-21600000	0
-Asia/Pontianak	Pontianak (+0)	GMT+07:00	Pontianak (+1)	GMT+07:00	25200000	0
-Africa/Cairo	Cairo (+0)	GMT+02:00	Cairo (+1)	GMT+03:00	7200000	3600000
-Pacific/Pago_Pago	Pago Pago (+0)	GMT-11:00	Pago Pago (+1)	GMT-11:00	-39600000	0
-Africa/Mbabane	Mbabane (+0)	GMT+02:00	Mbabane (+1)	GMT+03:00	7200000	0
-Asia/Kuching	Kuching (+0)	GMT+08:00	Kuching (+1)	GMT+08:20	28800000	0
-Pacific/Honolulu	Honolulu (+0)	GMT-10:00	Honolulu (+1)	GMT-09:00	-36000000	0
-Pacific/Rarotonga	Rarotonga (+0)	GMT-10:00	Rarotonga (+1)	GMT-09:30	-36000000	0
-America/Guatemala	Guatemala (+0)	GMT-06:00	Guatemala (+1)	GMT-05:00	-21600000	0
-Australia/Hobart	Hobart (+0)	GMT+10:00	Hobart (+1)	GMT+11:00	36000000	3600000
-Europe/London	London (+0)	GMT	London (+1)	GMT+01:00	0	3600000
-America/Belize	Belize (+0)	GMT-06:00	Belize (+1)	GMT-05:00	-21600000	0
-America/Panama	Panama (+0)	GMT-05:00	Panama (+1)	GMT-05:00	-18000000	0
-Asia/Chungking	Shanghai (+0)	GMT+08:00	Shanghai (+1)	GMT+09:00	28800000	0
-America/Managua	Managua (+0)	GMT-06:00	Managua (+1)	GMT-05:00	-21600000	0
-America/Indiana/Petersburg	Petersburg, Indiana (+0)	GMT-05:00	Petersburg, Indiana (+1)	GMT-04:00	-18000000	3600000
-Asia/Yerevan	Yerevan (+0)	GMT+04:00	Yerevan (+1)	GMT+05:00	14400000	0
-Europe/Brussels	Brussels (+0)	GMT+01:00	Brussels (+1)	GMT+02:00	3600000	3600000
-JST	GMT+09:00	GMT+09:00	GMT+10:00	GMT+10:00	32400000	0
-Europe/Warsaw	Warsaw (+0)	GMT+01:00	Warsaw (+1)	GMT+02:00	3600000	3600000
-America/Chicago	Chicago (+0)	GMT-06:00	Chicago (+1)	GMT-05:00	-21600000	3600000
-Asia/Kashgar	Urumqi (+0)	GMT+06:00	Urumqi (+1)	GMT+06:00	21600000	0
-Chile/Continental	Santiago (+0)	GMT-04:00	Santiago (+1)	GMT-03:00	-14400000	3600000
-Pacific/Yap	Chuuk (+0)	GMT+10:00	Chuuk (+1)	GMT+10:00	36000000	0
-CET	Brussels (+0)	GMT+01:00	Brussels (+1)	GMT+02:00	3600000	3600000
-Europe/Jersey	Jersey (+0)	GMT	Jersey (+1)	GMT+01:00	0	3600000
-America/Tegucigalpa	Tegucigalpa (+0)	GMT-06:00	Tegucigalpa (+1)	GMT-05:00	-21600000	0
-Europe/Istanbul	Istanbul (+0)	GMT+03:00	Istanbul (+1)	GMT+04:00	10800000	0
-America/Eirunepe	Eirunepe (+0)	GMT-05:00	Eirunepe (+1)	GMT-04:00	-18000000	0
-America/Miquelon	Miquelon (+0)	GMT-03:00	Miquelon (+1)	GMT-02:00	-10800000	3600000
-Europe/Luxembourg	Luxembourg (+0)	GMT+01:00	Luxembourg (+1)	GMT+02:00	3600000	3600000
-America/Argentina/Catamarca	Catamarca (+0)	GMT-03:00	Catamarca (+1)	GMT-02:00	-10800000	0
-Europe/Zaporozhye	Kyiv (+0)	GMT+02:00	Kyiv (+1)	GMT+03:00	7200000	3600000
-Canada/Yukon	Whitehorse (+0)	GMT-07:00	Whitehorse (+1)	GMT-06:00	-25200000	0
-Canada/Atlantic	Halifax (+0)	GMT-04:00	Halifax (+1)	GMT-03:00	-14400000	3600000
-Atlantic/St_Helena	St. Helena (+0)	GMT	St. Helena (+1)	GMT	0	0
-Australia/Tasmania	Hobart (+0)	GMT+10:00	Hobart (+1)	GMT+11:00	36000000	3600000
-Libya	Tripoli (+0)	GMT+02:00	Tripoli (+1)	GMT+03:00	7200000	0
-Europe/Guernsey	Guernsey (+0)	GMT	Guernsey (+1)	GMT+01:00	0	3600000
-America/Grand_Turk	Grand Turk (+0)	GMT-05:00	Grand Turk (+1)	GMT-04:00	-18000000	3600000
-Asia/Samarkand	Samarkand (+0)	GMT+05:00	Samarkand (+1)	GMT+06:00	18000000	0
-America/Argentina/Cordoba	Cordoba (+0)	GMT-03:00	Cordoba (+1)	GMT-02:00	-10800000	0
-Asia/Phnom_Penh	Phnom Penh (+0)	GMT+07:00	Phnom Penh (+1)	GMT+07:00	25200000	0
-IST	GMT+05:30	GMT+05:30	GMT+06:30	GMT+06:30	19800000	0
-Africa/Kigali	Kigali (+0)	GMT+02:00	Kigali (+1)	GMT+02:00	7200000	0
-Asia/Almaty	Almaty (+0)	GMT+05:00	Almaty (+1)	GMT+06:00	18000000	0
-US/Alaska	Anchorage (+0)	GMT-09:00	Anchorage (+1)	GMT-08:00	-32400000	3600000
-Asia/Dubai	Dubai (+0)	GMT+04:00	Dubai (+1)	GMT+04:00	14400000	0
-Europe/Isle_of_Man	Isle of Man (+0)	GMT	Isle of Man (+1)	GMT+01:00	0	3600000
-BET	GMT-03:00	GMT-03:00	GMT-02:00	GMT-02:00	-10800000	0
-America/Araguaina	Araguaina (+0)	GMT-03:00	Araguaina (+1)	GMT-02:00	-10800000	0
-Cuba	Havana (+0)	GMT-05:00	Havana (+1)	GMT-04:00	-18000000	3600000
-ACT	GMT+09:30	GMT+09:30	GMT+10:30	GMT+10:30	34200000	0
-Asia/Novosibirsk	Novosibirsk (+0)	GMT+07:00	Novosibirsk (+1)	GMT+08:00	25200000	0
-America/Argentina/Salta	Salta (+0)	GMT-03:00	Salta (+1)	GMT-02:00	-10800000	0
-Africa/Tunis	Tunis (+0)	GMT+01:00	Tunis (+1)	GMT+02:00	3600000	0
-Pacific/Fakaofo	Fakaofo (+0)	GMT+13:00	Fakaofo (+1)	GMT+13:00	46800000	0
-Africa/Tripoli	Tripoli (+0)	GMT+02:00	Tripoli (+1)	GMT+03:00	7200000	0
-Israel	Jerusalem (+0)	GMT+02:00	Jerusalem (+1)	GMT+03:00	7200000	3600000
-Africa/Banjul	Banjul (+0)	GMT	Banjul (+1)	GMT	0	0
-Indian/Comoro	Comoro (+0)	GMT+03:00	Comoro (+1)	GMT+03:00	10800000	0
-Pacific/Port_Moresby	Port Moresby (+0)	GMT+10:00	Port Moresby (+1)	GMT+10:00	36000000	0
-US/Arizona	Phoenix (+0)	GMT-07:00	Phoenix (+1)	GMT-06:00	-25200000	0
-Antarctica/Syowa	Syowa (+0)	GMT+03:00	Syowa (+1)	GMT+03:00	10800000	0
-Indian/Reunion	Réunion (+0)	GMT+04:00	Réunion (+1)	GMT+04:00	14400000	0
-Pacific/Palau	Palau (+0)	GMT+09:00	Palau (+1)	GMT+09:00	32400000	0
-Europe/Kaliningrad	Kaliningrad (+0)	GMT+02:00	Kaliningrad (+1)	GMT+03:00	7200000	0
-America/Montevideo	Montevideo (+0)	GMT-03:00	Montevideo (+1)	GMT-02:00	-10800000	0
-Africa/Windhoek	Windhoek (+0)	GMT+01:00	Windhoek (+1)	GMT+02:00	3600000	0
-Asia/Karachi	Karachi (+0)	GMT+05:00	Karachi (+1)	GMT+06:00	18000000	0
-Africa/Mogadishu	Mogadishu (+0)	GMT+03:00	Mogadishu (+1)	GMT+03:00	10800000	0
-Australia/Perth	Perth (+0)	GMT+08:00	Perth (+1)	GMT+09:00	28800000	0
-Brazil/East	Sao Paulo (+0)	GMT-03:00	Sao Paulo (+1)	GMT-02:00	-10800000	0
-Asia/Chita	Chita (+0)	GMT+09:00	Chita (+1)	GMT+10:00	32400000	0
-Pacific/Easter	Easter (+0)	GMT-06:00	Easter (+1)	GMT-05:00	-21600000	3600000
-Antarctica/Davis	Davis (+0)	GMT+07:00	Davis (+1)	GMT+07:00	25200000	0
-Antarctica/McMurdo	McMurdo (+0)	GMT+12:00	McMurdo (+1)	GMT+13:00	43200000	3600000
-Asia/Macao	Macao (+0)	GMT+08:00	Macao (+1)	GMT+09:00	28800000	0
-America/Manaus	Manaus (+0)	GMT-04:00	Manaus (+1)	GMT-03:00	-14400000	0
-Africa/Freetown	Freetown (+0)	GMT	Freetown (+1)	GMT	0	0
-Europe/Bucharest	Bucharest (+0)	GMT+02:00	Bucharest (+1)	GMT+03:00	7200000	3600000
-America/Argentina/Mendoza	Mendoza (+0)	GMT-03:00	Mendoza (+1)	GMT-02:00	-10800000	0
-Asia/Macau	Macao (+0)	GMT+08:00	Macao (+1)	GMT+09:00	28800000	0
-Europe/Malta	Malta (+0)	GMT+01:00	Malta (+1)	GMT+02:00	3600000	3600000
-Mexico/BajaSur	Mazatlan (+0)	GMT-07:00	Mazatlan (+1)	GMT-06:00	-25200000	0
-Pacific/Tahiti	Tahiti (+0)	GMT-10:00	Tahiti (+1)	GMT-10:00	-36000000	0
-HST	Honolulu (+0)	GMT-10:00	Honolulu (+1)	GMT-09:00	-36000000	0
-Africa/Asmera	Asmara (+0)	GMT+03:00	Asmara (+1)	GMT+03:00	10800000	0
-Europe/Busingen	Busingen (+0)	GMT+01:00	Busingen (+1)	GMT+02:00	3600000	3600000
-AET	GMT+10:00	GMT+10:00	GMT+11:00	GMT+11:00	36000000	3600000
-America/Argentina/Rio_Gallegos	Rio Gallegos (+0)	GMT-03:00	Rio Gallegos (+1)	GMT-02:00	-10800000	0
-Africa/Malabo	Malabo (+0)	GMT+01:00	Malabo (+1)	GMT+01:00	3600000	0
-Europe/Skopje	Skopje (+0)	GMT+01:00	Skopje (+1)	GMT+02:00	3600000	3600000
-America/Catamarca	Catamarca (+0)	GMT-03:00	Catamarca (+1)	GMT-02:00	-10800000	0
-America/Godthab	Nuuk (+0)	GMT-02:00	Nuuk (+1)	GMT-01:00	-7200000	3600000
-Europe/Sarajevo	Sarajevo (+0)	GMT+01:00	Sarajevo (+1)	GMT+02:00	3600000	3600000
-Australia/ACT	Sydney (+0)	GMT+10:00	Sydney (+1)	GMT+11:00	36000000	3600000
-GB-Eire	London (+0)	GMT	London (+1)	GMT+01:00	0	3600000
-Africa/Lagos	Lagos (+0)	GMT+01:00	Lagos (+1)	GMT+01:00	3600000	0
-America/Cordoba	Cordoba (+0)	GMT-03:00	Cordoba (+1)	GMT-02:00	-10800000	0
-Europe/Rome	Rome (+0)	GMT+01:00	Rome (+1)	GMT+02:00	3600000	3600000
-Asia/Dacca	Dhaka (+0)	GMT+06:00	Dhaka (+1)	GMT+07:00	21600000	0
-Indian/Mauritius	Mauritius (+0)	GMT+04:00	Mauritius (+1)	GMT+05:00	14400000	0
-Pacific/Samoa	Pago Pago (+0)	GMT-11:00	Pago Pago (+1)	GMT-11:00	-39600000	0
-America/Regina	Regina (+0)	GMT-06:00	Regina (+1)	GMT-05:00	-21600000	0
-America/Fort_Wayne	Indianapolis (+0)	GMT-05:00	Indianapolis (+1)	GMT-04:00	-18000000	3600000
-America/Dawson_Creek	Dawson Creek (+0)	GMT-07:00	Dawson Creek (+1)	GMT-06:00	-25200000	0
-Africa/Algiers	Algiers (+0)	GMT+01:00	Algiers (+1)	GMT+02:00	3600000	0
-Europe/Mariehamn	Mariehamn (+0)	GMT+02:00	Mariehamn (+1)	GMT+03:00	7200000	3600000
-America/St_Johns	St. John’s (+0)	GMT-03:30	St. John’s (+1)	GMT-02:30	-12600000	3600000
-America/St_Thomas	St. Thomas (+0)	GMT-04:00	St. Thomas (+1)	GMT-03:00	-14400000	0
-Europe/Zurich	Zurich (+0)	GMT+01:00	Zurich (+1)	GMT+02:00	3600000	3600000
-America/Anguilla	Anguilla (+0)	GMT-04:00	Anguilla (+1)	GMT-03:00	-14400000	0
-Asia/Dili	Dili (+0)	GMT+09:00	Dili (+1)	GMT+09:00	32400000	0
-America/Denver	Denver (+0)	GMT-07:00	Denver (+1)	GMT-06:00	-25200000	3600000
-Africa/Bamako	Bamako (+0)	GMT	Bamako (+1)	GMT	0	0
-GB	London (+0)	GMT	London (+1)	GMT+01:00	0	3600000
-Mexico/General	Mexico City (+0)	GMT-06:00	Mexico City (+1)	GMT-05:00	-21600000	0
-Pacific/Wallis	Wallis (+0)	GMT+12:00	Wallis (+1)	GMT+12:00	43200000	0
-Europe/Gibraltar	Gibraltar (+0)	GMT+01:00	Gibraltar (+1)	GMT+02:00	3600000	3600000
-Africa/Conakry	Conakry (+0)	GMT	Conakry (+1)	GMT	0	0
-Africa/Lubumbashi	Lubumbashi (+0)	GMT+02:00	Lubumbashi (+1)	GMT+02:00	7200000	0
-Asia/Istanbul	Istanbul (+0)	GMT+03:00	Istanbul (+1)	GMT+04:00	10800000	0
-America/Havana	Havana (+0)	GMT-05:00	Havana (+1)	GMT-04:00	-18000000	3600000
-NZ-CHAT	Chatham (+0)	GMT+12:45	Chatham (+1)	GMT+13:45	45900000	3600000
-Asia/Choibalsan	Ulaanbaatar (+0)	GMT+08:00	Ulaanbaatar (+1)	GMT+09:00	28800000	0
-America/Porto_Acre	Rio Branco (+0)	GMT-05:00	Rio Branco (+1)	GMT-04:00	-18000000	0
-Asia/Omsk	Omsk (+0)	GMT+06:00	Omsk (+1)	GMT+07:00	21600000	0
-AGT	GMT-03:00	GMT-03:00	GMT-02:00	GMT-02:00	-10800000	0
-Europe/Vaduz	Vaduz (+0)	GMT+01:00	Vaduz (+1)	GMT+02:00	3600000	3600000
-US/Michigan	Detroit (+0)	GMT-05:00	Detroit (+1)	GMT-04:00	-18000000	3600000
-Asia/Dhaka	Dhaka (+0)	GMT+06:00	Dhaka (+1)	GMT+07:00	21600000	0
-America/Barbados	Barbados (+0)	GMT-04:00	Barbados (+1)	GMT-03:00	-14400000	0
-Europe/Tiraspol	Chisinau (+0)	GMT+02:00	Chisinau (+1)	GMT+03:00	7200000	3600000
-Atlantic/Cape_Verde	Cape Verde (+0)	GMT-01:00	Cape Verde (+1)	GMT	-3600000	0
-Asia/Yekaterinburg	Yekaterinburg (+0)	GMT+05:00	Yekaterinburg (+1)	GMT+06:00	18000000	0
-America/Louisville	Louisville (+0)	GMT-05:00	Louisville (+1)	GMT-04:00	-18000000	3600000
-Pacific/Johnston	Honolulu (+0)	GMT-10:00	Honolulu (+1)	GMT-09:00	-36000000	0
-Pacific/Chatham	Chatham (+0)	GMT+12:45	Chatham (+1)	GMT+13:45	45900000	3600000
-Europe/Ljubljana	Ljubljana (+0)	GMT+01:00	Ljubljana (+1)	GMT+02:00	3600000	3600000
-America/Sao_Paulo	Sao Paulo (+0)	GMT-03:00	Sao Paulo (+1)	GMT-02:00	-10800000	0
-Asia/Jayapura	Jayapura (+0)	GMT+09:00	Jayapura (+1)	GMT+09:00	32400000	0
-America/Curacao	Curaçao (+0)	GMT-04:00	Curaçao (+1)	GMT-03:00	-14400000	0
-Asia/Dushanbe	Dushanbe (+0)	GMT+05:00	Dushanbe (+1)	GMT+06:00	18000000	0
-America/Guyana	Guyana (+0)	GMT-04:00	Guyana (+1)	GMT-04:00	-14400000	0
-America/Guayaquil	Guayaquil (+0)	GMT-05:00	Guayaquil (+1)	GMT-04:00	-18000000	0
-America/Martinique	Martinique (+0)	GMT-04:00	Martinique (+1)	GMT-03:00	-14400000	0
-Portugal	Lisbon (+0)	GMT	Lisbon (+1)	GMT+01:00	0	3600000
-Europe/Berlin	Berlin (+0)	GMT+01:00	Berlin (+1)	GMT+02:00	3600000	3600000
-Europe/Moscow	Moscow (+0)	GMT+03:00	Moscow (+1)	GMT+04:00	10800000	0
-Europe/Chisinau	Chisinau (+0)	GMT+02:00	Chisinau (+1)	GMT+03:00	7200000	3600000
-America/Puerto_Rico	Puerto Rico (+0)	GMT-04:00	Puerto Rico (+1)	GMT-03:00	-14400000	0
-America/Rankin_Inlet	Rankin Inlet (+0)	GMT-06:00	Rankin Inlet (+1)	GMT-05:00	-21600000	3600000
-Pacific/Ponape	Pohnpei (+0)	GMT+11:00	Pohnpei (+1)	GMT+11:00	39600000	0
-Europe/Stockholm	Stockholm (+0)	GMT+01:00	Stockholm (+1)	GMT+02:00	3600000	3600000
-Europe/Budapest	Budapest (+0)	GMT+01:00	Budapest (+1)	GMT+02:00	3600000	3600000
-America/Argentina/Jujuy	Jujuy (+0)	GMT-03:00	Jujuy (+1)	GMT-02:00	-10800000	0
-Australia/Eucla	Eucla (+0)	GMT+08:45	Eucla (+1)	GMT+09:45	31500000	0
-Asia/Shanghai	Shanghai (+0)	GMT+08:00	Shanghai (+1)	GMT+09:00	28800000	0
-Europe/Zagreb	Zagreb (+0)	GMT+01:00	Zagreb (+1)	GMT+02:00	3600000	3600000
-America/Port_of_Spain	Port of Spain (+0)	GMT-04:00	Port of Spain (+1)	GMT-03:00	-14400000	0
-Europe/Helsinki	Helsinki (+0)	GMT+02:00	Helsinki (+1)	GMT+03:00	7200000	3600000
-Asia/Beirut	Beirut (+0)	GMT+02:00	Beirut (+1)	GMT+03:00	7200000	3600000
-Asia/Tel_Aviv	Jerusalem (+0)	GMT+02:00	Jerusalem (+1)	GMT+03:00	7200000	3600000
-US/Central	Chicago (+0)	GMT-06:00	Chicago (+1)	GMT-05:00	-21600000	3600000
-Africa/Sao_Tome	São Tomé (+0)	GMT	São Tomé (+1)	GMT	0	0
-Indian/Chagos	Chagos (+0)	GMT+06:00	Chagos (+1)	GMT+06:00	21600000	0
-America/Cayenne	Cayenne (+0)	GMT-03:00	Cayenne (+1)	GMT-03:00	-10800000	0
-Asia/Yakutsk	Yakutsk (+0)	GMT+09:00	Yakutsk (+1)	GMT+10:00	32400000	0
-Pacific/Galapagos	Galapagos (+0)	GMT-06:00	Galapagos (+1)	GMT-05:00	-21600000	0
-Australia/North	Darwin (+0)	GMT+09:30	Darwin (+1)	GMT+10:30	34200000	0
-VST	GMT+07:00	GMT+07:00	GMT+07:00	GMT+07:00	25200000	0
-Europe/Paris	Paris (+0)	GMT+01:00	Paris (+1)	GMT+02:00	3600000	3600000
-Africa/Ndjamena	Ndjamena (+0)	GMT+01:00	Ndjamena (+1)	GMT+02:00	3600000	0
-Pacific/Fiji	Fiji (+0)	GMT+12:00	Fiji (+1)	GMT+13:00	43200000	0
-America/Rainy_River	Winnipeg (+0)	GMT-06:00	Winnipeg (+1)	GMT-05:00	-21600000	3600000
-Indian/Maldives	Maldives (+0)	GMT+05:00	Maldives (+1)	GMT+05:00	18000000	0
-Australia/Yancowinna	Broken Hill (+0)	GMT+09:30	Broken Hill (+1)	GMT+10:30	34200000	3600000
-Asia/Oral	Oral (+0)	GMT+05:00	Oral (+1)	GMT+06:00	18000000	0
-America/Yellowknife	Edmonton (+0)	GMT-07:00	Edmonton (+1)	GMT-06:00	-25200000	3600000
-Pacific/Enderbury	Enderbury (+0)	GMT+13:00	Enderbury (+1)	GMT+13:00	46800000	0
-America/Juneau	Juneau (+0)	GMT-09:00	Juneau (+1)	GMT-08:00	-32400000	3600000
-Australia/Victoria	Melbourne (+0)	GMT+10:00	Melbourne (+1)	GMT+11:00	36000000	3600000
-CNT	GMT-03:30	GMT-03:30	GMT-02:30	GMT-02:30	-12600000	3600000
-America/Indiana/Vevay	Vevay, Indiana (+0)	GMT-05:00	Vevay, Indiana (+1)	GMT-04:00	-18000000	3600000
-Asia/Tashkent	Tashkent (+0)	GMT+05:00	Tashkent (+1)	GMT+06:00	18000000	0
-Asia/Jakarta	Jakarta (+0)	GMT+07:00	Jakarta (+1)	GMT+07:00	25200000	0
-Africa/Ceuta	Ceuta (+0)	GMT+01:00	Ceuta (+1)	GMT+02:00	3600000	3600000
-America/Recife	Recife (+0)	GMT-03:00	Recife (+1)	GMT-02:00	-10800000	0
-America/Buenos_Aires	Buenos Aires (+0)	GMT-03:00	Buenos Aires (+1)	GMT-02:00	-10800000	0
-America/Noronha	Fernando de Noronha (+0)	GMT-02:00	Fernando de Noronha (+1)	GMT-01:00	-7200000	0
-America/Swift_Current	Swift Current (+0)	GMT-06:00	Swift Current (+1)	GMT-05:00	-21600000	0
-Australia/Adelaide	Adelaide (+0)	GMT+09:30	Adelaide (+1)	GMT+10:30	34200000	3600000
-America/Metlakatla	Metlakatla (+0)	GMT-09:00	Metlakatla (+1)	GMT-08:00	-32400000	3600000
-Africa/Djibouti	Djibouti (+0)	GMT+03:00	Djibouti (+1)	GMT+03:00	10800000	0
-America/Paramaribo	Paramaribo (+0)	GMT-03:00	Paramaribo (+1)	GMT-03:00	-10800000	0
-EST	Panama (+0)	GMT-05:00	Panama (+1)	GMT-05:00	-18000000	0
-Asia/Qostanay	Qostanay (+0)	GMT+05:00	Qostanay (+1)	GMT+06:00	18000000	0
-Europe/Simferopol	Simferopol (+0)	GMT+03:00	Simferopol (+1)	GMT+04:00	10800000	0
-Europe/Sofia	Sofia (+0)	GMT+02:00	Sofia (+1)	GMT+03:00	7200000	3600000
-Africa/Nouakchott	Nouakchott (+0)	GMT	Nouakchott (+1)	GMT	0	0
-Europe/Prague	Prague (+0)	GMT+01:00	Prague (+1)	GMT+02:00	3600000	3600000
-America/Indiana/Vincennes	Vincennes, Indiana (+0)	GMT-05:00	Vincennes, Indiana (+1)	GMT-04:00	-18000000	3600000
-Antarctica/Mawson	Mawson (+0)	GMT+05:00	Mawson (+1)	GMT+05:00	18000000	0
-America/Kralendijk	Kralendijk (+0)	GMT-04:00	Kralendijk (+1)	GMT-03:00	-14400000	0
-Antarctica/Troll	Troll (+0)	GMT	Troll (+1)	GMT+02:00	0	7200000
-Europe/Samara	Samara (+0)	GMT+04:00	Samara (+1)	GMT+05:00	14400000	0
-Indian/Christmas	Christmas (+0)	GMT+07:00	Christmas (+1)	GMT+07:00	25200000	0
-America/Antigua	Antigua (+0)	GMT-04:00	Antigua (+1)	GMT-03:00	-14400000	0
-NET	GMT+04:00	GMT+04:00	GMT+05:00	GMT+05:00	14400000	0
-Pacific/Gambier	Gambier (+0)	GMT-09:00	Gambier (+1)	GMT-09:00	-32400000	0
-America/Indianapolis	Indianapolis (+0)	GMT-05:00	Indianapolis (+1)	GMT-04:00	-18000000	3600000
-America/Inuvik	Inuvik (+0)	GMT-07:00	Inuvik (+1)	GMT-06:00	-25200000	3600000
-America/Iqaluit	Iqaluit (+0)	GMT-05:00	Iqaluit (+1)	GMT-04:00	-18000000	3600000
-Pacific/Funafuti	Funafuti (+0)	GMT+12:00	Funafuti (+1)	GMT+12:00	43200000	0
-Antarctica/Macquarie	Macquarie (+0)	GMT+10:00	Macquarie (+1)	GMT+11:00	36000000	3600000
-Canada/Pacific	Vancouver (+0)	GMT-08:00	Vancouver (+1)	GMT-07:00	-28800000	3600000
-America/Moncton	Moncton (+0)	GMT-04:00	Moncton (+1)	GMT-03:00	-14400000	3600000
-Africa/Gaborone	Gaborone (+0)	GMT+02:00	Gaborone (+1)	GMT+02:00	7200000	0
-Pacific/Chuuk	Chuuk (+0)	GMT+10:00	Chuuk (+1)	GMT+10:00	36000000	0
-Asia/Pyongyang	Pyongyang (+0)	GMT+09:00	Pyongyang (+1)	GMT+09:00	32400000	0
-America/St_Vincent	St. Vincent (+0)	GMT-04:00	St. Vincent (+1)	GMT-03:00	-14400000	0
-Asia/Gaza	Gaza (+0)	GMT+02:00	Gaza (+1)	GMT+03:00	7200000	3600000
-PST8PDT	Los Angeles (+0)	GMT-08:00	Los Angeles (+1)	GMT-07:00	-28800000	3600000
-Atlantic/Faeroe	Faroe (+0)	GMT	Faroe (+1)	GMT+01:00	0	3600000
-Asia/Qyzylorda	Qyzylorda (+0)	GMT+05:00	Qyzylorda (+1)	GMT+06:00	18000000	0
-Canada/Newfoundland	St. John’s (+0)	GMT-03:30	St. John’s (+1)	GMT-02:30	-12600000	3600000
-America/Kentucky/Louisville	Louisville (+0)	GMT-05:00	Louisville (+1)	GMT-04:00	-18000000	3600000
-America/Yakutat	Yakutat (+0)	GMT-09:00	Yakutat (+1)	GMT-08:00	-32400000	3600000
-America/Ciudad_Juarez	Ciudad Juárez (+0)	GMT-07:00	Ciudad Juárez (+1)	GMT-06:00	-25200000	3600000
-Asia/Ho_Chi_Minh	Ho Chi Minh (+0)	GMT+07:00	Ho Chi Minh (+1)	GMT+07:00	25200000	0
-Antarctica/Casey	Casey (+0)	GMT+08:00	Casey (+1)	GMT+08:00	28800000	0
-Europe/Copenhagen	Copenhagen (+0)	GMT+01:00	Copenhagen (+1)	GMT+02:00	3600000	3600000
-Africa/Asmara	Asmara (+0)	GMT+03:00	Asmara (+1)	GMT+03:00	10800000	0
-Atlantic/Azores	Azores (+0)	GMT-01:00	Azores (+1)	GMT	-3600000	3600000
-Europe/Vienna	Vienna (+0)	GMT+01:00	Vienna (+1)	GMT+02:00	3600000	3600000
-ROK	Seoul (+0)	GMT+09:00	Seoul (+1)	GMT+10:00	32400000	0
-Pacific/Pitcairn	Pitcairn (+0)	GMT-08:00	Pitcairn (+1)	GMT-08:00	-28800000	0
-America/Mazatlan	Mazatlan (+0)	GMT-07:00	Mazatlan (+1)	GMT-06:00	-25200000	0
-Australia/Queensland	Brisbane (+0)	GMT+10:00	Brisbane (+1)	GMT+11:00	36000000	0
-Pacific/Nauru	Nauru (+0)	GMT+12:00	Nauru (+1)	GMT+12:00	43200000	0
-Europe/Tirane	Tirane (+0)	GMT+01:00	Tirane (+1)	GMT+02:00	3600000	3600000
-Asia/Kolkata	Kolkata (+0)	GMT+05:30	Kolkata (+1)	GMT+06:30	19800000	0
-Australia/Canberra	Sydney (+0)	GMT+10:00	Sydney (+1)	GMT+11:00	36000000	3600000
-MET	Brussels (+0)	GMT+01:00	Brussels (+1)	GMT+02:00	3600000	3600000
-Australia/Broken_Hill	Broken Hill (+0)	GMT+09:30	Broken Hill (+1)	GMT+10:30	34200000	3600000
-Europe/Riga	Riga (+0)	GMT+02:00	Riga (+1)	GMT+03:00	7200000	3600000
-America/Dominica	Dominica (+0)	GMT-04:00	Dominica (+1)	GMT-03:00	-14400000	0
-Africa/Abidjan	Abidjan (+0)	GMT	Abidjan (+1)	GMT	0	0
-America/Mendoza	Mendoza (+0)	GMT-03:00	Mendoza (+1)	GMT-02:00	-10800000	0
-America/Santarem	Santarem (+0)	GMT-03:00	Santarem (+1)	GMT-02:00	-10800000	0
-Kwajalein	Kwajalein (+0)	GMT+12:00	Kwajalein (+1)	GMT+12:00	43200000	0
-America/Asuncion	Asunción (+0)	GMT-03:00	Asunción (+1)	GMT-02:00	-10800000	0
-Asia/Ulan_Bator	Ulaanbaatar (+0)	GMT+08:00	Ulaanbaatar (+1)	GMT+09:00	28800000	0
-NZ	Auckland (+0)	GMT+12:00	Auckland (+1)	GMT+13:00	43200000	3600000
-America/Boise	Boise (+0)	GMT-07:00	Boise (+1)	GMT-06:00	-25200000	3600000
-Australia/Currie	Hobart (+0)	GMT+10:00	Hobart (+1)	GMT+11:00	36000000	3600000
-EST5EDT	New York (+0)	GMT-05:00	New York (+1)	GMT-04:00	-18000000	3600000
-Pacific/Guam	Guam (+0)	GMT+10:00	Guam (+1)	GMT+11:00	36000000	0
-Pacific/Wake	Wake (+0)	GMT+12:00	Wake (+1)	GMT+12:00	43200000	0
-Atlantic/Bermuda	Bermuda (+0)	GMT-04:00	Bermuda (+1)	GMT-03:00	-14400000	3600000
-America/Costa_Rica	Costa Rica (+0)	GMT-06:00	Costa Rica (+1)	GMT-05:00	-21600000	0
-America/Dawson	Dawson (+0)	GMT-07:00	Dawson (+1)	GMT-06:00	-25200000	0
-Asia/Chongqing	Shanghai (+0)	GMT+08:00	Shanghai (+1)	GMT+09:00	28800000	0
-Eire	Dublin (+0)	GMT	Dublin (+1)	GMT+01:00	0	3600000
-Europe/Amsterdam	Amsterdam (+0)	GMT+01:00	Amsterdam (+1)	GMT+02:00	3600000	3600000
-America/Indiana/Knox	Knox, Indiana (+0)	GMT-06:00	Knox, Indiana (+1)	GMT-05:00	-21600000	3600000
-PLT	GMT+05:00	GMT+05:00	GMT+06:00	GMT+06:00	18000000	0
-America/North_Dakota/Beulah	Beulah, North Dakota (+0)	GMT-06:00	Beulah, North Dakota (+1)	GMT-05:00	-21600000	3600000
-Africa/Accra	Accra (+0)	GMT	Accra (+1)	GMT	0	0
-Atlantic/Faroe	Faroe (+0)	GMT	Faroe (+1)	GMT+01:00	0	3600000
-Mexico/BajaNorte	Tijuana (+0)	GMT-08:00	Tijuana (+1)	GMT-07:00	-28800000	3600000
-America/Maceio	Maceio (+0)	GMT-03:00	Maceio (+1)	GMT-02:00	-10800000	0
-Pacific/Apia	Apia (+0)	GMT+13:00	Apia (+1)	GMT+14:00	46800000	0
-America/Atka	Adak (+0)	GMT-10:00	Adak (+1)	GMT-09:00	-36000000	3600000
-Pacific/Niue	Niue (+0)	GMT-11:00	Niue (+1)	GMT-11:00	-39600000	0
-CST	GMT-06:00	GMT-06:00	GMT-05:00	GMT-05:00	-21600000	3600000
-Australia/Lord_Howe	Lord Howe (+0)	GMT+10:30	Lord Howe (+1)	GMT+11:00	37800000	1800000
-Europe/Dublin	Dublin (+0)	GMT	Dublin (+1)	GMT+01:00	0	3600000
-Pacific/Truk	Chuuk (+0)	GMT+10:00	Chuuk (+1)	GMT+10:00	36000000	0
-MST7MDT	Denver (+0)	GMT-07:00	Denver (+1)	GMT-06:00	-25200000	3600000
-America/Monterrey	Monterrey (+0)	GMT-06:00	Monterrey (+1)	GMT-05:00	-21600000	0
-America/Nassau	Nassau (+0)	GMT-05:00	Nassau (+1)	GMT-04:00	-18000000	3600000
-SST	GMT+11:00	GMT+11:00	GMT+11:00	GMT+11:00	39600000	0
-America/Jamaica	Jamaica (+0)	GMT-05:00	Jamaica (+1)	GMT-04:00	-18000000	0
-Asia/Bishkek	Bishkek (+0)	GMT+06:00	Bishkek (+1)	GMT+07:00	21600000	0
-America/Atikokan	Atikokan (+0)	GMT-05:00	Atikokan (+1)	GMT-05:00	-18000000	0
-Atlantic/Stanley	Stanley (+0)	GMT-03:00	Stanley (+1)	GMT-02:00	-10800000	0
-Australia/NSW	Sydney (+0)	GMT+10:00	Sydney (+1)	GMT+11:00	36000000	3600000
-US/Hawaii	Honolulu (+0)	GMT-10:00	Honolulu (+1)	GMT-09:00	-36000000	0
-Indian/Mahe	Mahe (+0)	GMT+04:00	Mahe (+1)	GMT+04:00	14400000	0
-Asia/Aqtobe	Aqtobe (+0)	GMT+05:00	Aqtobe (+1)	GMT+06:00	18000000	0
-CTT	GMT+08:00	GMT+08:00	GMT+09:00	GMT+09:00	28800000	0
-America/Sitka	Sitka (+0)	GMT-09:00	Sitka (+1)	GMT-08:00	-32400000	3600000
-Asia/Vladivostok	Vladivostok (+0)	GMT+10:00	Vladivostok (+1)	GMT+11:00	36000000	0
-Africa/Libreville	Libreville (+0)	GMT+01:00	Libreville (+1)	GMT+01:00	3600000	0
-Africa/Maputo	Maputo (+0)	GMT+02:00	Maputo (+1)	GMT+02:00	7200000	0
-America/Kentucky/Monticello	Monticello, Kentucky (+0)	GMT-05:00	Monticello, Kentucky (+1)	GMT-04:00	-18000000	3600000
-Africa/Ouagadougou	Ouagadougou (+0)	GMT	Ouagadougou (+1)	GMT	0	0
-America/Coral_Harbour	Atikokan (+0)	GMT-05:00	Atikokan (+1)	GMT-05:00	-18000000	0
-Pacific/Marquesas	Marquesas (+0)	GMT-09:30	Marquesas (+1)	GMT-09:30	-34200000	0
-Brazil/West	Manaus (+0)	GMT-04:00	Manaus (+1)	GMT-03:00	-14400000	0
-America/Aruba	Aruba (+0)	GMT-04:00	Aruba (+1)	GMT-03:00	-14400000	0
-America/North_Dakota/Center	Center, North Dakota (+0)	GMT-06:00	Center, North Dakota (+1)	GMT-05:00	-21600000	3600000
-PNT	GMT-07:00	GMT-07:00	GMT-06:00	GMT-06:00	-25200000	0
-America/Cayman	Cayman (+0)	GMT-05:00	Cayman (+1)	GMT-05:00	-18000000	0
-Asia/Ulaanbaatar	Ulaanbaatar (+0)	GMT+08:00	Ulaanbaatar (+1)	GMT+09:00	28800000	0
-Asia/Baghdad	Baghdad (+0)	GMT+03:00	Baghdad (+1)	GMT+04:00	10800000	0
-Europe/San_Marino	San Marino (+0)	GMT+01:00	San Marino (+1)	GMT+02:00	3600000	3600000
-America/Indiana/Tell_City	Tell City, Indiana (+0)	GMT-06:00	Tell City, Indiana (+1)	GMT-05:00	-21600000	3600000
-BST	GMT+06:00	GMT+06:00	GMT+07:00	GMT+07:00	21600000	0
-America/Tijuana	Tijuana (+0)	GMT-08:00	Tijuana (+1)	GMT-07:00	-28800000	3600000
-Pacific/Saipan	Saipan (+0)	GMT+10:00	Saipan (+1)	GMT+11:00	36000000	0
-Africa/Douala	Douala (+0)	GMT+01:00	Douala (+1)	GMT+01:00	3600000	0
-America/Chihuahua	Chihuahua (+0)	GMT-06:00	Chihuahua (+1)	GMT-05:00	-21600000	0
-America/Ojinaga	Ojinaga (+0)	GMT-06:00	Ojinaga (+1)	GMT-05:00	-21600000	3600000
-Asia/Hovd	Hovd (+0)	GMT+07:00	Hovd (+1)	GMT+08:00	25200000	0
-America/Anchorage	Anchorage (+0)	GMT-09:00	Anchorage (+1)	GMT-08:00	-32400000	3600000
-Chile/EasterIsland	Easter (+0)	GMT-06:00	Easter (+1)	GMT-05:00	-21600000	3600000
-America/Halifax	Halifax (+0)	GMT-04:00	Halifax (+1)	GMT-03:00	-14400000	3600000
-Antarctica/Rothera	Rothera (+0)	GMT-03:00	Rothera (+1)	GMT-03:00	-10800000	0
-US/Mountain	Denver (+0)	GMT-07:00	Denver (+1)	GMT-06:00	-25200000	3600000
-MIT	GMT+13:00	GMT+13:00	GMT+14:00	GMT+14:00	46800000	0
-America/Argentina/San_Luis	San Luis (+0)	GMT-03:00	San Luis (+1)	GMT-02:00	-10800000	0
-America/Santiago	Santiago (+0)	GMT-04:00	Santiago (+1)	GMT-03:00	-14400000	3600000
-Asia/Baku	Baku (+0)	GMT+04:00	Baku (+1)	GMT+05:00	14400000	0
-ART	GMT+02:00	GMT+02:00	GMT+03:00	GMT+03:00	7200000	3600000
-America/Argentina/Ushuaia	Ushuaia (+0)	GMT-03:00	Ushuaia (+1)	GMT-02:00	-10800000	0
-Atlantic/Reykjavik	Reykjavik (+0)	GMT	Reykjavik (+1)	GMT	0	0
-Africa/Brazzaville	Brazzaville (+0)	GMT+01:00	Brazzaville (+1)	GMT+01:00	3600000	0
-Africa/Porto-Novo	Porto-Novo (+0)	GMT+01:00	Porto-Novo (+1)	GMT+01:00	3600000	0
-America/La_Paz	La Paz (+0)	GMT-04:00	La Paz (+1)	GMT-03:00	-14400000	0
-Antarctica/DumontDUrville	Dumont-d’Urville (+0)	GMT+10:00	Dumont-d’Urville (+1)	GMT+10:00	36000000	0
-Asia/Taipei	Taipei (+0)	GMT+08:00	Taipei (+1)	GMT+09:00	28800000	0
-Antarctica/South_Pole	Auckland (+0)	GMT+12:00	Auckland (+1)	GMT+13:00	43200000	3600000
-Asia/Manila	Manila (+0)	GMT+08:00	Manila (+1)	GMT+09:00	28800000	0
-Asia/Bangkok	Bangkok (+0)	GMT+07:00	Bangkok (+1)	GMT+07:00	25200000	0
-Africa/Dar_es_Salaam	Dar es Salaam (+0)	GMT+03:00	Dar es Salaam (+1)	GMT+03:00	10800000	0
-Poland	Warsaw (+0)	GMT+01:00	Warsaw (+1)	GMT+02:00	3600000	3600000
-Atlantic/Madeira	Madeira (+0)	GMT	Madeira (+1)	GMT+01:00	0	3600000
-America/Thunder_Bay	Toronto (+0)	GMT-05:00	Toronto (+1)	GMT-04:00	-18000000	3600000
-Africa/Addis_Ababa	Addis Ababa (+0)	GMT+03:00	Addis Ababa (+1)	GMT+03:00	10800000	0
-AST	GMT-09:00	GMT-09:00	GMT-08:00	GMT-08:00	-32400000	3600000
-Asia/Yangon	Yangon (+0)	GMT+06:30	Yangon (+1)	GMT+06:30	23400000	0
-Europe/Uzhgorod	Kyiv (+0)	GMT+02:00	Kyiv (+1)	GMT+03:00	7200000	3600000
-Brazil/DeNoronha	Fernando de Noronha (+0)	GMT-02:00	Fernando de Noronha (+1)	GMT-01:00	-7200000	0
-Asia/Ashkhabad	Ashgabat (+0)	GMT+05:00	Ashgabat (+1)	GMT+06:00	18000000	0
-America/Indiana/Marengo	Marengo, Indiana (+0)	GMT-05:00	Marengo, Indiana (+1)	GMT-04:00	-18000000	3600000
-America/Creston	Creston (+0)	GMT-07:00	Creston (+1)	GMT-06:00	-25200000	0
-America/Mexico_City	Mexico City (+0)	GMT-06:00	Mexico City (+1)	GMT-05:00	-21600000	0
-Antarctica/Vostok	Vostok (+0)	GMT+05:00	Vostok (+1)	GMT+05:00	18000000	0
-Asia/Jerusalem	Jerusalem (+0)	GMT+02:00	Jerusalem (+1)	GMT+03:00	7200000	3600000
-Europe/Andorra	Andorra (+0)	GMT+01:00	Andorra (+1)	GMT+02:00	3600000	3600000
-US/Samoa	Pago Pago (+0)	GMT-11:00	Pago Pago (+1)	GMT-11:00	-39600000	0
-PRC	Shanghai (+0)	GMT+08:00	Shanghai (+1)	GMT+09:00	28800000	0
-Asia/Vientiane	Vientiane (+0)	GMT+07:00	Vientiane (+1)	GMT+07:00	25200000	0
-Pacific/Kiritimati	Kiritimati (+0)	GMT+14:00	Kiritimati (+1)	GMT+14:00	50400000	0
-America/Matamoros	Matamoros (+0)	GMT-06:00	Matamoros (+1)	GMT-05:00	-21600000	3600000
-America/Blanc-Sablon	Blanc-Sablon (+0)	GMT-04:00	Blanc-Sablon (+1)	GMT-03:00	-14400000	0
-Asia/Riyadh	Riyadh (+0)	GMT+03:00	Riyadh (+1)	GMT+03:00	10800000	0
-Iceland	Reykjavik (+0)	GMT	Reykjavik (+1)	GMT	0	0
-Pacific/Pohnpei	Pohnpei (+0)	GMT+11:00	Pohnpei (+1)	GMT+11:00	39600000	0
-Asia/Ujung_Pandang	Makassar (+0)	GMT+08:00	Makassar (+1)	GMT+08:00	28800000	0
-Atlantic/South_Georgia	South Georgia (+0)	GMT-02:00	South Georgia (+1)	GMT-02:00	-7200000	0
-Europe/Lisbon	Lisbon (+0)	GMT	Lisbon (+1)	GMT+01:00	0	3600000
-Asia/Harbin	Shanghai (+0)	GMT+08:00	Shanghai (+1)	GMT+09:00	28800000	0
-PRT	GMT-04:00	GMT-04:00	GMT-03:00	GMT-03:00	-14400000	0
-Europe/Oslo	Oslo (+0)	GMT+01:00	Oslo (+1)	GMT+02:00	3600000	3600000
-Asia/Novokuznetsk	Novokuznetsk (+0)	GMT+07:00	Novokuznetsk (+1)	GMT+08:00	25200000	0
-CST6CDT	Chicago (+0)	GMT-06:00	Chicago (+1)	GMT-05:00	-21600000	3600000
-Atlantic/Canary	Canary (+0)	GMT	Canary (+1)	GMT+01:00	0	3600000
-America/Knox_IN	Knox, Indiana (+0)	GMT-06:00	Knox, Indiana (+1)	GMT-05:00	-21600000	3600000
-Asia/Kuwait	Kuwait (+0)	GMT+03:00	Kuwait (+1)	GMT+03:00	10800000	0
-Pacific/Efate	Efate (+0)	GMT+11:00	Efate (+1)	GMT+12:00	39600000	0
-Africa/Lome	Lome (+0)	GMT	Lome (+1)	GMT	0	0
-America/Bogota	Bogota (+0)	GMT-05:00	Bogota (+1)	GMT-04:00	-18000000	0
-America/Menominee	Menominee (+0)	GMT-06:00	Menominee (+1)	GMT-05:00	-21600000	3600000
-America/Adak	Adak (+0)	GMT-10:00	Adak (+1)	GMT-09:00	-36000000	3600000
-Pacific/Norfolk	Norfolk (+0)	GMT+11:00	Norfolk (+1)	GMT+12:00	39600000	3600000
-America/Resolute	Resolute (+0)	GMT-06:00	Resolute (+1)	GMT-05:00	-21600000	3600000
-Pacific/Kanton	Enderbury (+0)	GMT+13:00	Enderbury (+1)	GMT+13:00	46800000	0
-Pacific/Tarawa	Tarawa (+0)	GMT+12:00	Tarawa (+1)	GMT+12:00	43200000	0
-Africa/Kampala	Kampala (+0)	GMT+03:00	Kampala (+1)	GMT+03:00	10800000	0
-Asia/Krasnoyarsk	Krasnoyarsk (+0)	GMT+07:00	Krasnoyarsk (+1)	GMT+08:00	25200000	0
-Greenwich	GMT	GMT	GMT	GMT	0	0
-PST	GMT-08:00	GMT-08:00	GMT-07:00	GMT-07:00	-28800000	3600000
-America/Edmonton	Edmonton (+0)	GMT-07:00	Edmonton (+1)	GMT-06:00	-25200000	3600000
-Europe/Podgorica	Podgorica (+0)	GMT+01:00	Podgorica (+1)	GMT+02:00	3600000	3600000
-Australia/South	Adelaide (+0)	GMT+09:30	Adelaide (+1)	GMT+10:30	34200000	3600000
-Canada/Central	Winnipeg (+0)	GMT-06:00	Winnipeg (+1)	GMT-05:00	-21600000	3600000
-Africa/Bujumbura	Bujumbura (+0)	GMT+02:00	Bujumbura (+1)	GMT+02:00	7200000	0
-America/Santo_Domingo	Santo Domingo (+0)	GMT-04:00	Santo Domingo (+1)	GMT-03:30	-14400000	0
-US/Eastern	New York (+0)	GMT-05:00	New York (+1)	GMT-04:00	-18000000	3600000
-Europe/Minsk	Minsk (+0)	GMT+03:00	Minsk (+1)	GMT+04:00	10800000	0
-Pacific/Auckland	Auckland (+0)	GMT+12:00	Auckland (+1)	GMT+13:00	43200000	3600000
-America/Glace_Bay	Glace Bay (+0)	GMT-04:00	Glace Bay (+1)	GMT-03:00	-14400000	3600000
-Canada/Eastern	Toronto (+0)	GMT-05:00	Toronto (+1)	GMT-04:00	-18000000	3600000
-Asia/Qatar	Qatar (+0)	GMT+03:00	Qatar (+1)	GMT+03:00	10800000	0
-Europe/Kiev	Kyiv (+0)	GMT+02:00	Kyiv (+1)	GMT+03:00	7200000	3600000
-Singapore	Singapore (+0)	GMT+08:00	Singapore (+1)	GMT+08:20	28800000	0
-Asia/Magadan	Magadan (+0)	GMT+11:00	Magadan (+1)	GMT+12:00	39600000	0
-America/Port-au-Prince	Port-au-Prince (+0)	GMT-05:00	Port-au-Prince (+1)	GMT-04:00	-18000000	3600000
-Europe/Belfast	London (+0)	GMT	London (+1)	GMT+01:00	0	3600000
-America/St_Barthelemy	St. Barthélemy (+0)	GMT-04:00	St. Barthélemy (+1)	GMT-03:00	-14400000	0
-Asia/Ashgabat	Ashgabat (+0)	GMT+05:00	Ashgabat (+1)	GMT+06:00	18000000	0
-Africa/Luanda	Luanda (+0)	GMT+01:00	Luanda (+1)	GMT+01:00	3600000	0
-America/Nipigon	Toronto (+0)	GMT-05:00	Toronto (+1)	GMT-04:00	-18000000	3600000
-Atlantic/Jan_Mayen	Longyearbyen (+0)	GMT+01:00	Longyearbyen (+1)	GMT+02:00	3600000	3600000
-Brazil/Acre	Rio Branco (+0)	GMT-05:00	Rio Branco (+1)	GMT-04:00	-18000000	0
-Asia/Muscat	Muscat (+0)	GMT+04:00	Muscat (+1)	GMT+04:00	14400000	0
-Asia/Bahrain	Bahrain (+0)	GMT+03:00	Bahrain (+1)	GMT+03:00	10800000	0
-Europe/Vilnius	Vilnius (+0)	GMT+02:00	Vilnius (+1)	GMT+03:00	7200000	3600000
-America/Fortaleza	Fortaleza (+0)	GMT-03:00	Fortaleza (+1)	GMT-02:00	-10800000	0
-US/East-Indiana	Indianapolis (+0)	GMT-05:00	Indianapolis (+1)	GMT-04:00	-18000000	3600000
-America/Hermosillo	Hermosillo (+0)	GMT-07:00	Hermosillo (+1)	GMT-06:00	-25200000	0
-America/Cancun	Cancún (+0)	GMT-05:00	Cancún (+1)	GMT-04:00	-18000000	0
-Africa/Maseru	Maseru (+0)	GMT+02:00	Maseru (+1)	GMT+03:00	7200000	0
-Pacific/Kosrae	Kosrae (+0)	GMT+11:00	Kosrae (+1)	GMT+11:00	39600000	0
-Africa/Kinshasa	Kinshasa (+0)	GMT+01:00	Kinshasa (+1)	GMT+01:00	3600000	0
-Asia/Kathmandu	Kathmandu (+0)	GMT+05:45	Kathmandu (+1)	GMT+05:45	20700000	0
-Asia/Seoul	Seoul (+0)	GMT+09:00	Seoul (+1)	GMT+10:00	32400000	0
-Australia/Sydney	Sydney (+0)	GMT+10:00	Sydney (+1)	GMT+11:00	36000000	3600000
-America/Lima	Lima (+0)	GMT-05:00	Lima (+1)	GMT-04:00	-18000000	0
-Australia/LHI	Lord Howe (+0)	GMT+10:30	Lord Howe (+1)	GMT+11:00	37800000	1800000
-America/St_Lucia	St. Lucia (+0)	GMT-04:00	St. Lucia (+1)	GMT-03:00	-14400000	0
-Europe/Madrid	Madrid (+0)	GMT+01:00	Madrid (+1)	GMT+02:00	3600000	3600000
-America/Bahia_Banderas	Bahía de Banderas (+0)	GMT-06:00	Bahía de Banderas (+1)	GMT-05:00	-21600000	0
-America/Montserrat	Montserrat (+0)	GMT-04:00	Montserrat (+1)	GMT-03:00	-14400000	0
-Asia/Brunei	Brunei (+0)	GMT+08:00	Brunei (+1)	GMT+08:20	28800000	0
-America/Santa_Isabel	Tijuana (+0)	GMT-08:00	Tijuana (+1)	GMT-07:00	-28800000	3600000
-Canada/Mountain	Edmonton (+0)	GMT-07:00	Edmonton (+1)	GMT-06:00	-25200000	3600000
-America/Cambridge_Bay	Cambridge Bay (+0)	GMT-07:00	Cambridge Bay (+1)	GMT-06:00	-25200000	3600000
-Asia/Colombo	Colombo (+0)	GMT+05:30	Colombo (+1)	GMT+06:30	19800000	0
-Australia/West	Perth (+0)	GMT+08:00	Perth (+1)	GMT+09:00	28800000	0
-Indian/Antananarivo	Antananarivo (+0)	GMT+03:00	Antananarivo (+1)	GMT+03:00	10800000	0
-Australia/Brisbane	Brisbane (+0)	GMT+10:00	Brisbane (+1)	GMT+11:00	36000000	0
-Indian/Mayotte	Mayotte (+0)	GMT+03:00	Mayotte (+1)	GMT+03:00	10800000	0
-US/Indiana-Starke	Knox, Indiana (+0)	GMT-06:00	Knox, Indiana (+1)	GMT-05:00	-21600000	3600000
-Asia/Urumqi	Urumqi (+0)	GMT+06:00	Urumqi (+1)	GMT+06:00	21600000	0
-US/Aleutian	Adak (+0)	GMT-10:00	Adak (+1)	GMT-09:00	-36000000	3600000
-Europe/Volgograd	Volgograd (+0)	GMT+03:00	Volgograd (+1)	GMT+04:00	10800000	0
-America/Lower_Princes	Lower Prince’s Quarter (+0)	GMT-04:00	Lower Prince’s Quarter (+1)	GMT-03:00	-14400000	0
-America/Vancouver	Vancouver (+0)	GMT-08:00	Vancouver (+1)	GMT-07:00	-28800000	3600000
-Africa/Blantyre	Blantyre (+0)	GMT+02:00	Blantyre (+1)	GMT+02:00	7200000	0
-America/Rio_Branco	Rio Branco (+0)	GMT-05:00	Rio Branco (+1)	GMT-04:00	-18000000	0
-America/Danmarkshavn	Danmarkshavn (+0)	GMT	Danmarkshavn (+1)	GMT+01:00	0	0
-America/Detroit	Detroit (+0)	GMT-05:00	Detroit (+1)	GMT-04:00	-18000000	3600000
-America/Thule	Thule (+0)	GMT-04:00	Thule (+1)	GMT-03:00	-14400000	3600000
-Africa/Lusaka	Lusaka (+0)	GMT+02:00	Lusaka (+1)	GMT+02:00	7200000	0
-Asia/Hong_Kong	Hong Kong (+0)	GMT+08:00	Hong Kong (+1)	GMT+09:00	28800000	0
-Iran	Tehran (+0)	GMT+03:30	Tehran (+1)	GMT+04:30	12600000	0
-America/Argentina/La_Rioja	La Rioja (+0)	GMT-03:00	La Rioja (+1)	GMT-02:00	-10800000	0
-Africa/Dakar	Dakar (+0)	GMT	Dakar (+1)	GMT	0	0
-America/Tortola	Tortola (+0)	GMT-04:00	Tortola (+1)	GMT-03:00	-14400000	0
-America/Porto_Velho	Porto Velho (+0)	GMT-04:00	Porto Velho (+1)	GMT-03:00	-14400000	0
-Asia/Sakhalin	Sakhalin (+0)	GMT+11:00	Sakhalin (+1)	GMT+12:00	39600000	0
-America/Scoresbysund	Ittoqqortoormiit (+0)	GMT-02:00	Ittoqqortoormiit (+1)	GMT-01:00	-7200000	3600000
-Asia/Kamchatka	Kamchatka (+0)	GMT+12:00	Kamchatka (+1)	GMT+13:00	43200000	0
-Asia/Thimbu	Thimphu (+0)	GMT+06:00	Thimphu (+1)	GMT+06:00	21600000	0
-Africa/Harare	Harare (+0)	GMT+02:00	Harare (+1)	GMT+02:00	7200000	0
-Navajo	Denver (+0)	GMT-07:00	Denver (+1)	GMT-06:00	-25200000	3600000
-America/Nome	Nome (+0)	GMT-09:00	Nome (+1)	GMT-08:00	-32400000	3600000
-NST	GMT+12:00	GMT+12:00	GMT+13:00	GMT+13:00	43200000	3600000
-Europe/Tallinn	Tallinn (+0)	GMT+02:00	Tallinn (+1)	GMT+03:00	7200000	3600000
-Turkey	Istanbul (+0)	GMT+03:00	Istanbul (+1)	GMT+04:00	10800000	0
-Africa/Khartoum	Khartoum (+0)	GMT+02:00	Khartoum (+1)	GMT+03:00	7200000	0
-Africa/Johannesburg	Johannesburg (+0)	GMT+02:00	Johannesburg (+1)	GMT+03:00	7200000	0
-EAT	GMT+03:00	GMT+03:00	GMT+03:00	GMT+03:00	10800000	0
-Africa/Bangui	Bangui (+0)	GMT+01:00	Bangui (+1)	GMT+01:00	3600000	0
-Europe/Belgrade	Belgrade (+0)	GMT+01:00	Belgrade (+1)	GMT+02:00	3600000	3600000
-Jamaica	Jamaica (+0)	GMT-05:00	Jamaica (+1)	GMT-04:00	-18000000	0
-Africa/Bissau	Bissau (+0)	GMT	Bissau (+1)	GMT	0	0
-Asia/Tehran	Tehran (+0)	GMT+03:30	Tehran (+1)	GMT+04:30	12600000	0
-WET	Lisbon (+0)	GMT	Lisbon (+1)	GMT+01:00	0	3600000
-Africa/Juba	Juba (+0)	GMT+02:00	Juba (+1)	GMT+03:00	7200000	0
-America/Campo_Grande	Campo Grande (+0)	GMT-04:00	Campo Grande (+1)	GMT-03:00	-14400000	0
-America/Belem	Belem (+0)	GMT-03:00	Belem (+1)	GMT-02:00	-10800000	0
-Etc/Greenwich	GMT	GMT	GMT	GMT	0	0
-Asia/Saigon	Ho Chi Minh (+0)	GMT+07:00	Ho Chi Minh (+1)	GMT+07:00	25200000	0
-America/Ensenada	Tijuana (+0)	GMT-08:00	Tijuana (+1)	GMT-07:00	-28800000	3600000
-Pacific/Midway	Midway (+0)	GMT-11:00	Midway (+1)	GMT-11:00	-39600000	0
-America/Jujuy	Jujuy (+0)	GMT-03:00	Jujuy (+1)	GMT-02:00	-10800000	0
-Africa/Timbuktu	Bamako (+0)	GMT	Bamako (+1)	GMT	0	0
-America/Bahia	Bahia (+0)	GMT-03:00	Bahia (+1)	GMT-02:00	-10800000	0
-America/Goose_Bay	Goose Bay (+0)	GMT-04:00	Goose Bay (+1)	GMT-03:00	-14400000	3600000
-America/Virgin	St. Thomas (+0)	GMT-04:00	St. Thomas (+1)	GMT-03:00	-14400000	0
-America/Pangnirtung	Iqaluit (+0)	GMT-05:00	Iqaluit (+1)	GMT-04:00	-18000000	3600000
-Asia/Katmandu	Kathmandu (+0)	GMT+05:45	Kathmandu (+1)	GMT+05:45	20700000	0
-America/Phoenix	Phoenix (+0)	GMT-07:00	Phoenix (+1)	GMT-06:00	-25200000	0
-MST	Phoenix (+0)	GMT-07:00	Phoenix (+1)	GMT-06:00	-25200000	0
-Africa/Niamey	Niamey (+0)	GMT+01:00	Niamey (+1)	GMT+01:00	3600000	0
-America/Whitehorse	Whitehorse (+0)	GMT-07:00	Whitehorse (+1)	GMT-06:00	-25200000	0
-Pacific/Noumea	Noumea (+0)	GMT+11:00	Noumea (+1)	GMT+12:00	39600000	0
-Asia/Tbilisi	Tbilisi (+0)	GMT+04:00	Tbilisi (+1)	GMT+05:00	14400000	0
-ECT	GMT+01:00	GMT+01:00	GMT+02:00	GMT+02:00	3600000	3600000
-America/Montreal	Toronto (+0)	GMT-05:00	Toronto (+1)	GMT-04:00	-18000000	3600000
-Asia/Makassar	Makassar (+0)	GMT+08:00	Makassar (+1)	GMT+08:00	28800000	0
-America/Argentina/San_Juan	San Juan (+0)	GMT-03:00	San Juan (+1)	GMT-02:00	-10800000	0
-Hongkong	Hong Kong (+0)	GMT+08:00	Hong Kong (+1)	GMT+09:00	28800000	0
-Asia/Nicosia	Nicosia (+0)	GMT+02:00	Nicosia (+1)	GMT+03:00	7200000	3600000
-America/Indiana/Winamac	Winamac, Indiana (+0)	GMT-05:00	Winamac, Indiana (+1)	GMT-04:00	-18000000	3600000
-America/Argentina/ComodRivadavia	Catamarca (+0)	GMT-03:00	Catamarca (+1)	GMT-02:00	-10800000	0
-America/Boa_Vista	Boa Vista (+0)	GMT-04:00	Boa Vista (+1)	GMT-03:00	-14400000	0
-America/Grenada	Grenada (+0)	GMT-04:00	Grenada (+1)	GMT-03:00	-14400000	0
-Asia/Atyrau	Atyrau (+0)	GMT+05:00	Atyrau (+1)	GMT+06:00	18000000	0
-Australia/Darwin	Darwin (+0)	GMT+09:30	Darwin (+1)	GMT+10:30	34200000	0
-Asia/Khandyga	Khandyga (+0)	GMT+09:00	Khandyga (+1)	GMT+10:00	32400000	0
-Asia/Kuala_Lumpur	Kuala Lumpur (+0)	GMT+08:00	Kuala Lumpur (+1)	GMT+08:20	28800000	0
-Asia/Thimphu	Thimphu (+0)	GMT+06:00	Thimphu (+1)	GMT+06:00	21600000	0
-Asia/Rangoon	Yangon (+0)	GMT+06:30	Yangon (+1)	GMT+06:30	23400000	0
-Europe/Bratislava	Bratislava (+0)	GMT+01:00	Bratislava (+1)	GMT+02:00	3600000	3600000
-Asia/Calcutta	Kolkata (+0)	GMT+05:30	Kolkata (+1)	GMT+06:30	19800000	0
-America/Argentina/Tucuman	Tucuman (+0)	GMT-03:00	Tucuman (+1)	GMT-02:00	-10800000	0
-Asia/Kabul	Kabul (+0)	GMT+04:30	Kabul (+1)	GMT+04:30	16200000	0
-Indian/Cocos	Cocos (+0)	GMT+06:30	Cocos (+1)	GMT+06:30	23400000	0
-Japan	Tokyo (+0)	GMT+09:00	Tokyo (+1)	GMT+10:00	32400000	0
-Pacific/Tongatapu	Tongatapu (+0)	GMT+13:00	Tongatapu (+1)	GMT+14:00	46800000	0
-America/New_York	New York (+0)	GMT-05:00	New York (+1)	GMT-04:00	-18000000	3600000
-America/Nuuk	Nuuk (+0)	GMT-02:00	Nuuk (+1)	GMT-01:00	-7200000	3600000
-W-SU	Moscow (+0)	GMT+03:00	Moscow (+1)	GMT+04:00	10800000	0
-America/Merida	Mérida (+0)	GMT-06:00	Mérida (+1)	GMT-05:00	-21600000	0
-EET	Athens (+0)	GMT+02:00	Athens (+1)	GMT+03:00	7200000	3600000
-CAT	GMT+02:00	GMT+02:00	GMT+02:00	GMT+02:00	7200000	0
-America/Rosario	Cordoba (+0)	GMT-03:00	Cordoba (+1)	GMT-02:00	-10800000	0
-Canada/Saskatchewan	Regina (+0)	GMT-06:00	Regina (+1)	GMT-05:00	-21600000	0
-America/St_Kitts	St. Kitts (+0)	GMT-04:00	St. Kitts (+1)	GMT-03:00	-14400000	0
-Arctic/Longyearbyen	Longyearbyen (+0)	GMT+01:00	Longyearbyen (+1)	GMT+02:00	3600000	3600000
-America/Fort_Nelson	Fort Nelson (+0)	GMT-07:00	Fort Nelson (+1)	GMT-06:00	-25200000	0
-America/Caracas	Caracas (+0)	GMT-04:00	Caracas (+1)	GMT-04:00	-14400000	0
-America/Guadeloupe	Guadeloupe (+0)	GMT-04:00	Guadeloupe (+1)	GMT-03:00	-14400000	0
-Asia/Hebron	Hebron (+0)	GMT+02:00	Hebron (+1)	GMT+03:00	7200000	3600000
-Indian/Kerguelen	Kerguelen (+0)	GMT+05:00	Kerguelen (+1)	GMT+05:00	18000000	0
-Africa/Monrovia	Monrovia (+0)	GMT	Monrovia (+1)	GMT	0	0
-Asia/Ust-Nera	Ust-Nera (+0)	GMT+10:00	Ust-Nera (+1)	GMT+11:00	36000000	0
-Egypt	Cairo (+0)	GMT+02:00	Cairo (+1)	GMT+03:00	7200000	3600000
-America/North_Dakota/New_Salem	New Salem, North Dakota (+0)	GMT-06:00	New Salem, North Dakota (+1)	GMT-05:00	-21600000	3600000
-Asia/Anadyr	Anadyr (+0)	GMT+12:00	Anadyr (+1)	GMT+13:00	43200000	0
-Australia/Melbourne	Melbourne (+0)	GMT+10:00	Melbourne (+1)	GMT+11:00	36000000	3600000
-Asia/Irkutsk	Irkutsk (+0)	GMT+08:00	Irkutsk (+1)	GMT+09:00	28800000	0
-America/Shiprock	Denver (+0)	GMT-07:00	Denver (+1)	GMT-06:00	-25200000	3600000
-America/Winnipeg	Winnipeg (+0)	GMT-06:00	Winnipeg (+1)	GMT-05:00	-21600000	3600000
-Europe/Vatican	Vatican (+0)	GMT+01:00	Vatican (+1)	GMT+02:00	3600000	3600000
-Asia/Tokyo	Tokyo (+0)	GMT+09:00	Tokyo (+1)	GMT+10:00	32400000	0
-America/Toronto	Toronto (+0)	GMT-05:00	Toronto (+1)	GMT-04:00	-18000000	3600000
-Asia/Singapore	Singapore (+0)	GMT+08:00	Singapore (+1)	GMT+08:20	28800000	0
-Australia/Lindeman	Lindeman (+0)	GMT+10:00	Lindeman (+1)	GMT+11:00	36000000	0
-America/Los_Angeles	Los Angeles (+0)	GMT-08:00	Los Angeles (+1)	GMT-07:00	-28800000	3600000
-Pacific/Majuro	Majuro (+0)	GMT+12:00	Majuro (+1)	GMT+12:00	43200000	0
-America/Argentina/Buenos_Aires	Buenos Aires (+0)	GMT-03:00	Buenos Aires (+1)	GMT-02:00	-10800000	0
-Europe/Nicosia	Nicosia (+0)	GMT+02:00	Nicosia (+1)	GMT+03:00	7200000	3600000
-Pacific/Guadalcanal	Guadalcanal (+0)	GMT+11:00	Guadalcanal (+1)	GMT+11:00	39600000	0
-Europe/Athens	Athens (+0)	GMT+02:00	Athens (+1)	GMT+03:00	7200000	3600000
-US/Pacific	Los Angeles (+0)	GMT-08:00	Los Angeles (+1)	GMT-07:00	-28800000	3600000
-Europe/Monaco	Monaco (+0)	GMT+01:00	Monaco (+1)	GMT+02:00	3600000	3600000
+UTC	GMT	UTC	GMT	UTC
+IET	GMT-05:00	EST	GMT-04:00	EDT
+UCT	GMT	UTC	GMT	UTC
+Zulu	GMT	UTC	GMT	UTC
+Etc/UCT	GMT	UTC	GMT	UTC
+Etc/UTC	GMT	UTC	GMT	UTC
+Etc/Zulu	GMT	UTC	GMT	UTC
+Etc/GMT+1	GMT-01:00	GMT-01:00	GMT-01:00	GMT-01:00
+Etc/GMT+2	GMT-02:00	GMT-02:00	GMT-02:00	GMT-02:00
+Etc/GMT+3	GMT-03:00	GMT-03:00	GMT-03:00	GMT-03:00
+Etc/GMT+4	GMT-04:00	GMT-04:00	GMT-04:00	GMT-04:00
+Etc/GMT+5	GMT-05:00	GMT-05:00	GMT-05:00	GMT-05:00
+Etc/GMT+6	GMT-06:00	GMT-06:00	GMT-06:00	GMT-06:00
+Etc/GMT+7	GMT-07:00	GMT-07:00	GMT-07:00	GMT-07:00
+Etc/GMT+8	GMT-08:00	GMT-08:00	GMT-08:00	GMT-08:00
+Etc/GMT+9	GMT-09:00	GMT-09:00	GMT-09:00	GMT-09:00
+Etc/GMT-1	GMT+01:00	GMT+01:00	GMT+01:00	GMT+01:00
+Etc/GMT-2	GMT+02:00	GMT+02:00	GMT+02:00	GMT+02:00
+Etc/GMT-3	GMT+03:00	GMT+03:00	GMT+03:00	GMT+03:00
+Etc/GMT-4	GMT+04:00	GMT+04:00	GMT+04:00	GMT+04:00
+Etc/GMT-5	GMT+05:00	GMT+05:00	GMT+05:00	GMT+05:00
+Etc/GMT-6	GMT+06:00	GMT+06:00	GMT+06:00	GMT+06:00
+Etc/GMT-7	GMT+07:00	GMT+07:00	GMT+07:00	GMT+07:00
+Etc/GMT-8	GMT+08:00	GMT+08:00	GMT+08:00	GMT+08:00
+Etc/GMT-9	GMT+09:00	GMT+09:00	GMT+09:00	GMT+09:00
+Universal	GMT	UTC	GMT	UTC
+Asia/Amman	Amman (+0)	GMT+03:00	Amman (+1)	GMT+04:00
+Etc/GMT+10	GMT-10:00	GMT-10:00	GMT-10:00	GMT-10:00
+Etc/GMT+11	GMT-11:00	GMT-11:00	GMT-11:00	GMT-11:00
+Etc/GMT+12	GMT-12:00	GMT-12:00	GMT-12:00	GMT-12:00
+Etc/GMT-10	GMT+10:00	GMT+10:00	GMT+10:00	GMT+10:00
+Etc/GMT-11	GMT+11:00	GMT+11:00	GMT+11:00	GMT+11:00
+Etc/GMT-12	GMT+12:00	GMT+12:00	GMT+12:00	GMT+12:00
+Etc/GMT-13	GMT+13:00	GMT+13:00	GMT+13:00	GMT+13:00
+Etc/GMT-14	GMT+14:00	GMT+14:00	GMT+14:00	GMT+14:00
+Europe/Kyiv	Kyiv (+0)	EET	Kyiv (+1)	EEST
+Asia/Damascus	Damascus (+0)	GMT+03:00	Damascus (+1)	GMT+04:00
+Etc/Universal	GMT	UTC	GMT	UTC
+America/Coyhaique	Coyhaique (+0)	GMT-03:00	Coyhaique (+1)	GMT-02:00
+Antarctica/Palmer	Palmer (+0)	GMT-03:00	Palmer (+1)	GMT-02:00
+America/Punta_Arenas	Punta Arenas (+0)	GMT-03:00	Punta Arenas (+1)	GMT-02:00
+Pacific/Bougainville	Bougainville (+0)	GMT+11:00	Bougainville (+1)	GMT+11:00
+America/Indiana/Indianapolis	Indianapolis (+0)	EST	Indianapolis (+1)	EDT
+Asia/Aden	Aden (+0)	GMT+03:00	Aden (+1)	GMT+03:00
+America/Cuiaba	Cuiabá (+0)	GMT-04:00	Cuiabá (+1)	GMT-03:00
+Africa/Nairobi	Nairobi (+0)	GMT+03:00	Nairobi (+1)	GMT+03:00
+America/Marigot	Marigot (+0)	GMT-04:00	Marigot (+1)	GMT-03:00
+Asia/Aqtau	Aqtau (+0)	GMT+05:00	Aqtau (+1)	GMT+06:00
+Pacific/Kwajalein	Kwajalein (+0)	GMT+12:00	Kwajalein (+1)	GMT+12:00
+America/El_Salvador	El Salvador (+0)	GMT-06:00	El Salvador (+1)	GMT-05:00
+Asia/Pontianak	Pontianak (+0)	GMT+07:00	Pontianak (+1)	GMT+07:00
+Africa/Cairo	Cairo (+0)	GMT+02:00	Cairo (+1)	GMT+03:00
+Pacific/Pago_Pago	Pago Pago (+0)	GMT-11:00	Pago Pago (+1)	GMT-11:00
+Africa/Mbabane	Mbabane (+0)	GMT+02:00	Mbabane (+1)	GMT+03:00
+Asia/Kuching	Kuching (+0)	GMT+08:00	Kuching (+1)	GMT+08:20
+Pacific/Honolulu	Honolulu (+0)	GMT-10:00	Honolulu (+1)	GMT-09:00
+Pacific/Rarotonga	Rarotonga (+0)	GMT-10:00	Rarotonga (+1)	GMT-09:30
+America/Guatemala	Guatemala (+0)	GMT-06:00	Guatemala (+1)	GMT-05:00
+Australia/Hobart	Hobart (+0)	GMT+10:00	Hobart (+1)	GMT+11:00
+Europe/London	London (+0)	GMT	London (+1)	GMT+01:00
+America/Belize	Belize (+0)	GMT-06:00	Belize (+1)	GMT-05:00
+America/Panama	Panama (+0)	GMT-05:00	Panama (+1)	GMT-05:00
+Asia/Chungking	Shanghai (+0)	GMT+08:00	Shanghai (+1)	GMT+09:00
+America/Managua	Managua (+0)	GMT-06:00	Managua (+1)	GMT-05:00
+America/Indiana/Petersburg	Petersburg, Indiana (+0)	GMT-05:00	Petersburg, Indiana (+1)	GMT-04:00
+Asia/Yerevan	Yerevan (+0)	GMT+04:00	Yerevan (+1)	GMT+05:00
+Europe/Brussels	Brussels (+0)	GMT+01:00	Brussels (+1)	GMT+02:00
+JST	GMT+09:00	GMT+09:00	GMT+10:00	GMT+10:00
+Europe/Warsaw	Warsaw (+0)	GMT+01:00	Warsaw (+1)	GMT+02:00
+America/Chicago	Chicago (+0)	GMT-06:00	Chicago (+1)	GMT-05:00
+Asia/Kashgar	Ürümqi (+0)	GMT+06:00	Ürümqi (+1)	GMT+06:00
+Chile/Continental	Santiago (+0)	GMT-04:00	Santiago (+1)	GMT-03:00
+Pacific/Yap	Chuuk (+0)	GMT+10:00	Chuuk (+1)	GMT+10:00
+CET	Brussels (+0)	GMT+01:00	Brussels (+1)	GMT+02:00
+Europe/Jersey	Jersey (+0)	GMT	Jersey (+1)	GMT+01:00
+America/Tegucigalpa	Tegucigalpa (+0)	GMT-06:00	Tegucigalpa (+1)	GMT-05:00
+Europe/Istanbul	Istanbul (+0)	GMT+03:00	Istanbul (+1)	GMT+04:00
+America/Eirunepe	Eirunepé (+0)	GMT-05:00	Eirunepé (+1)	GMT-04:00
+America/Miquelon	Saint-Pierre (+0)	GMT-03:00	Saint-Pierre (+1)	GMT-02:00
+Europe/Luxembourg	Luxembourg (+0)	GMT+01:00	Luxembourg (+1)	GMT+02:00
+America/Argentina/Catamarca	Catamarca (+0)	GMT-03:00	Catamarca (+1)	GMT-02:00
+Europe/Zaporozhye	Kyiv (+0)	GMT+02:00	Kyiv (+1)	GMT+03:00
+Canada/Yukon	Whitehorse (+0)	GMT-07:00	Whitehorse (+1)	GMT-06:00
+Canada/Atlantic	Halifax (+0)	GMT-04:00	Halifax (+1)	GMT-03:00
+Atlantic/St_Helena	St. Helena (+0)	GMT	St. Helena (+1)	GMT
+Australia/Tasmania	Hobart (+0)	GMT+10:00	Hobart (+1)	GMT+11:00
+Libya	Tripoli (+0)	GMT+02:00	Tripoli (+1)	GMT+03:00
+Europe/Guernsey	Guernsey (+0)	GMT	Guernsey (+1)	GMT+01:00
+America/Grand_Turk	Grand Turk (+0)	GMT-05:00	Grand Turk (+1)	GMT-04:00
+Asia/Samarkand	Samarkand (+0)	GMT+05:00	Samarkand (+1)	GMT+06:00
+America/Argentina/Cordoba	Córdoba (+0)	GMT-03:00	Córdoba (+1)	GMT-02:00
+Asia/Phnom_Penh	Phnom Penh (+0)	GMT+07:00	Phnom Penh (+1)	GMT+07:00
+IST	GMT+05:30	GMT+05:30	GMT+06:30	GMT+06:30
+Africa/Kigali	Kigali (+0)	GMT+02:00	Kigali (+1)	GMT+02:00
+Asia/Almaty	Almaty (+0)	GMT+05:00	Almaty (+1)	GMT+06:00
+US/Alaska	Anchorage (+0)	GMT-09:00	Anchorage (+1)	GMT-08:00
+Asia/Dubai	Dubai (+0)	GMT+04:00	Dubai (+1)	GMT+04:00
+Europe/Isle_of_Man	Isle of Man (+0)	GMT	Isle of Man (+1)	GMT+01:00
+BET	GMT-03:00	GMT-03:00	GMT-02:00	GMT-02:00
+America/Araguaina	Araguaína (+0)	GMT-03:00	Araguaína (+1)	GMT-02:00
+Cuba	Havana (+0)	GMT-05:00	Havana (+1)	GMT-04:00
+ACT	GMT+09:30	GMT+09:30	GMT+10:30	GMT+10:30
+Asia/Novosibirsk	Novosibirsk (+0)	GMT+07:00	Novosibirsk (+1)	GMT+08:00
+America/Argentina/Salta	Salta (+0)	GMT-03:00	Salta (+1)	GMT-02:00
+Africa/Tunis	Tunis (+0)	GMT+01:00	Tunis (+1)	GMT+02:00
+Pacific/Fakaofo	Fakaofo (+0)	GMT+13:00	Fakaofo (+1)	GMT+13:00
+Africa/Tripoli	Tripoli (+0)	GMT+02:00	Tripoli (+1)	GMT+03:00
+Israel	Jerusalem (+0)	GMT+02:00	Jerusalem (+1)	GMT+03:00
+Africa/Banjul	Banjul (+0)	GMT	Banjul (+1)	GMT
+Indian/Comoro	Comores (+0)	GMT+03:00	Comores (+1)	GMT+03:00
+Pacific/Port_Moresby	Port Moresby (+0)	GMT+10:00	Port Moresby (+1)	GMT+10:00
+US/Arizona	Phoenix (+0)	GMT-07:00	Phoenix (+1)	GMT-06:00
+Antarctica/Syowa	Showa (+0)	GMT+03:00	Showa (+1)	GMT+03:00
+Indian/Reunion	Réunion (+0)	GMT+04:00	Réunion (+1)	GMT+04:00
+Pacific/Palau	Palau (+0)	GMT+09:00	Palau (+1)	GMT+09:00
+Europe/Kaliningrad	Kaliningrad (+0)	GMT+02:00	Kaliningrad (+1)	GMT+03:00
+America/Montevideo	Montevideo (+0)	GMT-03:00	Montevideo (+1)	GMT-02:00
+Africa/Windhoek	Windhoek (+0)	GMT+01:00	Windhoek (+1)	GMT+02:00
+Asia/Karachi	Karachi (+0)	GMT+05:00	Karachi (+1)	GMT+06:00
+Africa/Mogadishu	Mogadishu (+0)	GMT+03:00	Mogadishu (+1)	GMT+03:00
+Australia/Perth	Perth (+0)	GMT+08:00	Perth (+1)	GMT+09:00
+Brazil/East	São Paulo (+0)	GMT-03:00	São Paulo (+1)	GMT-02:00
+Asia/Chita	Chita (+0)	GMT+09:00	Chita (+1)	GMT+10:00
+Pacific/Easter	Easter (+0)	GMT-06:00	Easter (+1)	GMT-05:00
+Antarctica/Davis	Davis (+0)	GMT+07:00	Davis (+1)	GMT+07:00
+Antarctica/McMurdo	McMurdo (+0)	GMT+12:00	McMurdo (+1)	GMT+13:00
+Asia/Macao	Macao (+0)	GMT+08:00	Macao (+1)	GMT+09:00
+America/Manaus	Manaus (+0)	GMT-04:00	Manaus (+1)	GMT-03:00
+Africa/Freetown	Freetown (+0)	GMT	Freetown (+1)	GMT
+Europe/Bucharest	Bucharest (+0)	GMT+02:00	Bucharest (+1)	GMT+03:00
+Asia/Tomsk	Tomsk (+0)	GMT+07:00	Tomsk (+1)	GMT+08:00
+America/Argentina/Mendoza	Mendoza (+0)	GMT-03:00	Mendoza (+1)	GMT-02:00
+Asia/Macau	Macao (+0)	GMT+08:00	Macao (+1)	GMT+09:00
+Europe/Malta	Malta (+0)	GMT+01:00	Malta (+1)	GMT+02:00
+Mexico/BajaSur	Mazatlán (+0)	GMT-07:00	Mazatlán (+1)	GMT-06:00
+Pacific/Tahiti	Tahiti (+0)	GMT-10:00	Tahiti (+1)	GMT-10:00
+HST	Honolulu (+0)	GMT-10:00	Honolulu (+1)	GMT-09:00
+Africa/Asmera	Asmara (+0)	GMT+03:00	Asmara (+1)	GMT+03:00
+Europe/Busingen	Büsingen (+0)	GMT+01:00	Büsingen (+1)	GMT+02:00
+AET	GMT+10:00	GMT+10:00	GMT+11:00	GMT+11:00
+America/Argentina/Rio_Gallegos	Río Gallegos (+0)	GMT-03:00	Río Gallegos (+1)	GMT-02:00
+Africa/Malabo	Malabo (+0)	GMT+01:00	Malabo (+1)	GMT+01:00
+Europe/Skopje	Skopje (+0)	GMT+01:00	Skopje (+1)	GMT+02:00
+America/Catamarca	Catamarca (+0)	GMT-03:00	Catamarca (+1)	GMT-02:00
+America/Godthab	Nuuk (+0)	GMT-02:00	Nuuk (+1)	GMT-01:00
+Europe/Sarajevo	Sarajevo (+0)	GMT+01:00	Sarajevo (+1)	GMT+02:00
+Australia/ACT	Sydney (+0)	GMT+10:00	Sydney (+1)	GMT+11:00
+GB-Eire	London (+0)	GMT	London (+1)	GMT+01:00
+Africa/Lagos	Lagos (+0)	GMT+01:00	Lagos (+1)	GMT+01:00
+America/Cordoba	Córdoba (+0)	GMT-03:00	Córdoba (+1)	GMT-02:00
+Europe/Rome	Rome (+0)	GMT+01:00	Rome (+1)	GMT+02:00
+Asia/Dacca	Dhaka (+0)	GMT+06:00	Dhaka (+1)	GMT+07:00
+Indian/Mauritius	Mauritius (+0)	GMT+04:00	Mauritius (+1)	GMT+05:00
+Pacific/Samoa	Pago Pago (+0)	GMT-11:00	Pago Pago (+1)	GMT-11:00
+America/Regina	Regina (+0)	GMT-06:00	Regina (+1)	GMT-05:00
+America/Fort_Wayne	Indianapolis (+0)	GMT-05:00	Indianapolis (+1)	GMT-04:00
+America/Dawson_Creek	Dawson Creek (+0)	GMT-07:00	Dawson Creek (+1)	GMT-06:00
+Africa/Algiers	Algiers (+0)	GMT+01:00	Algiers (+1)	GMT+02:00
+Europe/Mariehamn	Mariehamn (+0)	GMT+02:00	Mariehamn (+1)	GMT+03:00
+America/St_Johns	St. John’s (+0)	GMT-03:30	St. John’s (+1)	GMT-02:30
+America/St_Thomas	St. Thomas (+0)	GMT-04:00	St. Thomas (+1)	GMT-03:00
+Europe/Zurich	Zurich (+0)	GMT+01:00	Zurich (+1)	GMT+02:00
+America/Anguilla	Anguilla (+0)	GMT-04:00	Anguilla (+1)	GMT-03:00
+Asia/Dili	Dili (+0)	GMT+09:00	Dili (+1)	GMT+09:00
+America/Denver	Denver (+0)	GMT-07:00	Denver (+1)	GMT-06:00
+Africa/Bamako	Bamako (+0)	GMT	Bamako (+1)	GMT
+Europe/Saratov	Saratov (+0)	GMT+04:00	Saratov (+1)	GMT+05:00
+GB	London (+0)	GMT	London (+1)	GMT+01:00
+Mexico/General	Ciudad de México (+0)	GMT-06:00	Ciudad de México (+1)	GMT-05:00
+Pacific/Wallis	Wallis & Futuna (+0)	GMT+12:00	Wallis & Futuna (+1)	GMT+12:00
+Europe/Gibraltar	Gibraltar (+0)	GMT+01:00	Gibraltar (+1)	GMT+02:00
+Africa/Conakry	Conakry (+0)	GMT	Conakry (+1)	GMT
+Africa/Lubumbashi	Lubumbashi (+0)	GMT+02:00	Lubumbashi (+1)	GMT+02:00
+Asia/Istanbul	Istanbul (+0)	GMT+03:00	Istanbul (+1)	GMT+04:00
+America/Havana	Havana (+0)	GMT-05:00	Havana (+1)	GMT-04:00
+NZ-CHAT	Chatham (+0)	GMT+12:45	Chatham (+1)	GMT+13:45
+Asia/Choibalsan	Ulaanbaatar (+0)	GMT+08:00	Ulaanbaatar (+1)	GMT+09:00
+America/Porto_Acre	Rio Branco (+0)	GMT-05:00	Rio Branco (+1)	GMT-04:00
+Asia/Omsk	Omsk (+0)	GMT+06:00	Omsk (+1)	GMT+07:00
+AGT	GMT-03:00	GMT-03:00	GMT-02:00	GMT-02:00
+Europe/Vaduz	Vaduz (+0)	GMT+01:00	Vaduz (+1)	GMT+02:00
+US/Michigan	Detroit (+0)	GMT-05:00	Detroit (+1)	GMT-04:00
+Asia/Dhaka	Dhaka (+0)	GMT+06:00	Dhaka (+1)	GMT+07:00
+America/Barbados	Barbados (+0)	GMT-04:00	Barbados (+1)	GMT-03:00
+Europe/Tiraspol	Chișinău (+0)	GMT+02:00	Chișinău (+1)	GMT+03:00
+Atlantic/Cape_Verde	Cape Verde (+0)	GMT-01:00	Cape Verde (+1)	GMT
+Asia/Yekaterinburg	Yekaterinburg (+0)	GMT+05:00	Yekaterinburg (+1)	GMT+06:00
+America/Louisville	Louisville (+0)	GMT-05:00	Louisville (+1)	GMT-04:00
+Pacific/Johnston	Honolulu (+0)	GMT-10:00	Honolulu (+1)	GMT-09:00
+Pacific/Chatham	Chatham (+0)	GMT+12:45	Chatham (+1)	GMT+13:45
+Europe/Ljubljana	Ljubljana (+0)	GMT+01:00	Ljubljana (+1)	GMT+02:00
+America/Sao_Paulo	São Paulo (+0)	GMT-03:00	São Paulo (+1)	GMT-02:00
+Asia/Jayapura	Jayapura (+0)	GMT+09:00	Jayapura (+1)	GMT+09:00
+America/Curacao	Curaçao (+0)	GMT-04:00	Curaçao (+1)	GMT-03:00
+Asia/Dushanbe	Dushanbe (+0)	GMT+05:00	Dushanbe (+1)	GMT+06:00
+America/Guyana	Guyana (+0)	GMT-04:00	Guyana (+1)	GMT-04:00
+America/Guayaquil	Guayaquil (+0)	GMT-05:00	Guayaquil (+1)	GMT-04:00
+America/Martinique	Martinique (+0)	GMT-04:00	Martinique (+1)	GMT-03:00
+Portugal	Lisbon (+0)	GMT	Lisbon (+1)	GMT+01:00
+Europe/Berlin	Berlin (+0)	GMT+01:00	Berlin (+1)	GMT+02:00
+Europe/Moscow	Moscow (+0)	GMT+03:00	Moscow (+1)	GMT+04:00
+Europe/Chisinau	Chișinău (+0)	GMT+02:00	Chișinău (+1)	GMT+03:00
+America/Puerto_Rico	Puerto Rico (+0)	GMT-04:00	Puerto Rico (+1)	GMT-03:00
+America/Rankin_Inlet	Rankin Inlet (+0)	GMT-06:00	Rankin Inlet (+1)	GMT-05:00
+Pacific/Ponape	Pohnpei (+0)	GMT+11:00	Pohnpei (+1)	GMT+11:00
+Europe/Stockholm	Stockholm (+0)	GMT+01:00	Stockholm (+1)	GMT+02:00
+Europe/Budapest	Budapest (+0)	GMT+01:00	Budapest (+1)	GMT+02:00
+America/Argentina/Jujuy	Jujuy (+0)	GMT-03:00	Jujuy (+1)	GMT-02:00
+Australia/Eucla	Eucla (+0)	GMT+08:45	Eucla (+1)	GMT+09:45
+Asia/Shanghai	Shanghai (+0)	GMT+08:00	Shanghai (+1)	GMT+09:00
+Europe/Zagreb	Zagreb (+0)	GMT+01:00	Zagreb (+1)	GMT+02:00
+America/Port_of_Spain	Port of Spain (+0)	GMT-04:00	Port of Spain (+1)	GMT-03:00
+Europe/Helsinki	Helsinki (+0)	GMT+02:00	Helsinki (+1)	GMT+03:00
+Asia/Beirut	Beirut (+0)	GMT+02:00	Beirut (+1)	GMT+03:00
+Asia/Tel_Aviv	Jerusalem (+0)	GMT+02:00	Jerusalem (+1)	GMT+03:00
+US/Central	Chicago (+0)	GMT-06:00	Chicago (+1)	GMT-05:00
+Africa/Sao_Tome	São Tomé (+0)	GMT	São Tomé (+1)	GMT
+Indian/Chagos	Chagos (+0)	GMT+06:00	Chagos (+1)	GMT+06:00
+America/Cayenne	Cayenne (+0)	GMT-03:00	Cayenne (+1)	GMT-03:00
+Asia/Yakutsk	Yakutsk (+0)	GMT+09:00	Yakutsk (+1)	GMT+10:00
+Pacific/Galapagos	Galápagos (+0)	GMT-06:00	Galápagos (+1)	GMT-05:00
+Australia/North	Darwin (+0)	GMT+09:30	Darwin (+1)	GMT+10:30
+VST	GMT+07:00	GMT+07:00	GMT+07:00	GMT+07:00
+Europe/Paris	Paris (+0)	GMT+01:00	Paris (+1)	GMT+02:00
+Africa/Ndjamena	N’Djamena (+0)	GMT+01:00	N’Djamena (+1)	GMT+02:00
+Pacific/Fiji	Fiji (+0)	GMT+12:00	Fiji (+1)	GMT+13:00
+America/Rainy_River	Winnipeg (+0)	GMT-05:00	Winnipeg (+1)	GMT-04:00
+Indian/Maldives	Maldives (+0)	GMT+05:00	Maldives (+1)	GMT+05:00
+Australia/Yancowinna	Broken Hill (+0)	GMT+09:30	Broken Hill (+1)	GMT+10:30
+Asia/Oral	Oral (+0)	GMT+05:00	Oral (+1)	GMT+06:00
+America/Yellowknife	Edmonton (+0)	GMT-06:00	Edmonton (+1)	GMT-05:00
+Pacific/Enderbury	Canton (+0)	GMT+13:00	Canton (+1)	GMT+13:00
+America/Juneau	Juneau (+0)	GMT-09:00	Juneau (+1)	GMT-08:00
+Australia/Victoria	Melbourne (+0)	GMT+10:00	Melbourne (+1)	GMT+11:00
+CNT	GMT-03:30	GMT-03:30	GMT-02:30	GMT-02:30
+America/Indiana/Vevay	Vevay, Indiana (+0)	GMT-05:00	Vevay, Indiana (+1)	GMT-04:00
+Asia/Tashkent	Tashkent (+0)	GMT+05:00	Tashkent (+1)	GMT+06:00
+Asia/Jakarta	Jakarta (+0)	GMT+07:00	Jakarta (+1)	GMT+07:00
+Africa/Ceuta	Ceuta (+0)	GMT+01:00	Ceuta (+1)	GMT+02:00
+Asia/Barnaul	Barnaul (+0)	GMT+07:00	Barnaul (+1)	GMT+08:00
+America/Recife	Recife (+0)	GMT-03:00	Recife (+1)	GMT-02:00
+America/Buenos_Aires	Buenos Aires (+0)	GMT-03:00	Buenos Aires (+1)	GMT-02:00
+America/Noronha	Fernando de Noronha (+0)	GMT-02:00	Fernando de Noronha (+1)	GMT-01:00
+America/Swift_Current	Swift Current (+0)	GMT-06:00	Swift Current (+1)	GMT-05:00
+Australia/Adelaide	Adelaide (+0)	GMT+09:30	Adelaide (+1)	GMT+10:30
+America/Metlakatla	Metlakatla (+0)	GMT-09:00	Metlakatla (+1)	GMT-08:00
+Africa/Djibouti	Djibouti (+0)	GMT+03:00	Djibouti (+1)	GMT+03:00
+America/Paramaribo	Paramaribo (+0)	GMT-03:00	Paramaribo (+1)	GMT-03:00
+EST	Panama (+0)	GMT-05:00	Panama (+1)	GMT-05:00
+Asia/Qostanay	Qostanay (+0)	GMT+05:00	Qostanay (+1)	GMT+06:00
+Europe/Simferopol	Simferopol (+0)	GMT+03:00	Simferopol (+1)	GMT+04:00
+Europe/Sofia	Sofia (+0)	GMT+02:00	Sofia (+1)	GMT+03:00
+Africa/Nouakchott	Nouakchott (+0)	GMT	Nouakchott (+1)	GMT
+Europe/Prague	Prague (+0)	GMT+01:00	Prague (+1)	GMT+02:00
+America/Indiana/Vincennes	Vincennes, Indiana (+0)	GMT-05:00	Vincennes, Indiana (+1)	GMT-04:00
+Antarctica/Mawson	Mawson (+0)	GMT+05:00	Mawson (+1)	GMT+05:00
+America/Kralendijk	Kralendijk (+0)	GMT-04:00	Kralendijk (+1)	GMT-03:00
+Antarctica/Troll	Troll (+0)	GMT	Troll (+1)	GMT+02:00
+Europe/Samara	Samara (+0)	GMT+04:00	Samara (+1)	GMT+05:00
+Indian/Christmas	Christmas (+0)	GMT+07:00	Christmas (+1)	GMT+07:00
+America/Antigua	Antigua (+0)	GMT-04:00	Antigua (+1)	GMT-03:00
+NET	GMT+04:00	GMT+04:00	GMT+05:00	GMT+05:00
+Pacific/Gambier	Gambier (+0)	GMT-09:00	Gambier (+1)	GMT-09:00
+America/Indianapolis	Indianapolis (+0)	GMT-05:00	Indianapolis (+1)	GMT-04:00
+America/Inuvik	Inuvik (+0)	GMT-06:00	Inuvik (+1)	GMT-05:00
+America/Iqaluit	Iqaluit (+0)	GMT-05:00	Iqaluit (+1)	GMT-04:00
+Pacific/Funafuti	Funafuti (+0)	GMT+12:00	Funafuti (+1)	GMT+12:00
+Antarctica/Macquarie	Macquarie (+0)	GMT+10:00	Macquarie (+1)	GMT+11:00
+Canada/Pacific	Vancouver (+0)	GMT-07:00	Vancouver (+1)	GMT-06:00
+America/Moncton	Moncton (+0)	GMT-04:00	Moncton (+1)	GMT-03:00
+Africa/Gaborone	Gaborone (+0)	GMT+02:00	Gaborone (+1)	GMT+02:00
+Pacific/Chuuk	Chuuk (+0)	GMT+10:00	Chuuk (+1)	GMT+10:00
+Asia/Pyongyang	Pyongyang (+0)	GMT+09:00	Pyongyang (+1)	GMT+09:00
+America/St_Vincent	St. Vincent (+0)	GMT-04:00	St. Vincent (+1)	GMT-03:00
+Asia/Gaza	Gaza (+0)	GMT+02:00	Gaza (+1)	GMT+03:00
+PST8PDT	GMT-08:00	GMT-08:00	GMT-07:00	GMT-07:00
+Atlantic/Faeroe	Faroe (+0)	GMT	Faroe (+1)	GMT+01:00
+Asia/Qyzylorda	Qyzylorda (+0)	GMT+05:00	Qyzylorda (+1)	GMT+06:00
+Canada/Newfoundland	St. John’s (+0)	GMT-03:30	St. John’s (+1)	GMT-02:30
+America/Kentucky/Louisville	Louisville (+0)	GMT-05:00	Louisville (+1)	GMT-04:00
+America/Yakutat	Yakutat (+0)	GMT-09:00	Yakutat (+1)	GMT-08:00
+America/Ciudad_Juarez	Ciudad Juárez (+0)	GMT-07:00	Ciudad Juárez (+1)	GMT-06:00
+Asia/Ho_Chi_Minh	Ho Chi Minh (+0)	GMT+07:00	Ho Chi Minh (+1)	GMT+07:00
+Antarctica/Casey	Casey (+0)	GMT+08:00	Casey (+1)	GMT+08:00
+Europe/Copenhagen	Copenhagen (+0)	GMT+01:00	Copenhagen (+1)	GMT+02:00
+Africa/Asmara	Asmara (+0)	GMT+03:00	Asmara (+1)	GMT+03:00
+Atlantic/Azores	Azores (+0)	GMT-01:00	Azores (+1)	GMT
+Europe/Vienna	Vienna (+0)	GMT+01:00	Vienna (+1)	GMT+02:00
+ROK	Seoul (+0)	GMT+09:00	Seoul (+1)	GMT+10:00
+Pacific/Pitcairn	Pitcairn (+0)	GMT-08:00	Pitcairn (+1)	GMT-08:00
+America/Mazatlan	Mazatlán (+0)	GMT-07:00	Mazatlán (+1)	GMT-06:00
+Australia/Queensland	Brisbane (+0)	GMT+10:00	Brisbane (+1)	GMT+11:00
+Pacific/Nauru	Nauru (+0)	GMT+12:00	Nauru (+1)	GMT+12:00
+Europe/Tirane	Tirana (+0)	GMT+01:00	Tirana (+1)	GMT+02:00
+Asia/Kolkata	Kolkata (+0)	GMT+05:30	Kolkata (+1)	GMT+06:30
+Australia/Canberra	Sydney (+0)	GMT+10:00	Sydney (+1)	GMT+11:00
+MET	Brussels (+0)	GMT+01:00	Brussels (+1)	GMT+02:00
+Australia/Broken_Hill	Broken Hill (+0)	GMT+09:30	Broken Hill (+1)	GMT+10:30
+Europe/Riga	Riga (+0)	GMT+02:00	Riga (+1)	GMT+03:00
+America/Dominica	Dominica (+0)	GMT-04:00	Dominica (+1)	GMT-03:00
+Africa/Abidjan	Abidjan (+0)	GMT	Abidjan (+1)	GMT
+America/Mendoza	Mendoza (+0)	GMT-03:00	Mendoza (+1)	GMT-02:00
+America/Santarem	Santarém (+0)	GMT-03:00	Santarém (+1)	GMT-02:00
+Kwajalein	Kwajalein (+0)	GMT+12:00	Kwajalein (+1)	GMT+12:00
+America/Asuncion	Asunción (+0)	GMT-03:00	Asunción (+1)	GMT-02:00
+Asia/Ulan_Bator	Ulaanbaatar (+0)	GMT+08:00	Ulaanbaatar (+1)	GMT+09:00
+NZ	Auckland (+0)	GMT+12:00	Auckland (+1)	GMT+13:00
+America/Boise	Boise (+0)	GMT-07:00	Boise (+1)	GMT-06:00
+Australia/Currie	Hobart (+0)	GMT+10:00	Hobart (+1)	GMT+11:00
+EST5EDT	GMT-05:00	GMT-05:00	GMT-04:00	GMT-04:00
+Pacific/Guam	Guam (+0)	GMT+10:00	Guam (+1)	GMT+11:00
+Pacific/Wake	Wake (+0)	GMT+12:00	Wake (+1)	GMT+12:00
+Atlantic/Bermuda	Bermuda (+0)	GMT-04:00	Bermuda (+1)	GMT-03:00
+America/Costa_Rica	Costa Rica (+0)	GMT-06:00	Costa Rica (+1)	GMT-05:00
+America/Dawson	Dawson (+0)	GMT-07:00	Dawson (+1)	GMT-06:00
+Asia/Chongqing	Shanghai (+0)	GMT+08:00	Shanghai (+1)	GMT+09:00
+Eire	Dublin (+0)	GMT	Dublin (+1)	GMT+01:00
+Europe/Amsterdam	Amsterdam (+0)	GMT+01:00	Amsterdam (+1)	GMT+02:00
+America/Indiana/Knox	Knox, Indiana (+0)	GMT-06:00	Knox, Indiana (+1)	GMT-05:00
+PLT	GMT+05:00	GMT+05:00	GMT+06:00	GMT+06:00
+America/North_Dakota/Beulah	Beulah, North Dakota (+0)	GMT-06:00	Beulah, North Dakota (+1)	GMT-05:00
+Africa/Accra	Accra (+0)	GMT	Accra (+1)	GMT
+Atlantic/Faroe	Faroe (+0)	GMT	Faroe (+1)	GMT+01:00
+Mexico/BajaNorte	Tijuana (+0)	GMT-08:00	Tijuana (+1)	GMT-07:00
+America/Maceio	Maceió (+0)	GMT-03:00	Maceió (+1)	GMT-02:00
+Pacific/Apia	Apia (+0)	GMT+13:00	Apia (+1)	GMT+14:00
+America/Atka	Adak (+0)	GMT-10:00	Adak (+1)	GMT-09:00
+Pacific/Niue	Niue (+0)	GMT-11:00	Niue (+1)	GMT-11:00
+CST	GMT-06:00	GMT-06:00	GMT-05:00	GMT-05:00
+Australia/Lord_Howe	Lord Howe (+0)	GMT+10:30	Lord Howe (+1)	GMT+11:00
+Europe/Dublin	Dublin (+0)	GMT	Dublin (+1)	GMT+01:00
+Pacific/Truk	Chuuk (+0)	GMT+10:00	Chuuk (+1)	GMT+10:00
+MST7MDT	GMT-07:00	GMT-07:00	GMT-06:00	GMT-06:00
+America/Monterrey	Monterrey (+0)	GMT-06:00	Monterrey (+1)	GMT-05:00
+America/Nassau	Nassau (+0)	GMT-05:00	Nassau (+1)	GMT-04:00
+SST	GMT+11:00	GMT+11:00	GMT+11:00	GMT+11:00
+America/Jamaica	Jamaica (+0)	GMT-05:00	Jamaica (+1)	GMT-04:00
+Asia/Bishkek	Bishkek (+0)	GMT+06:00	Bishkek (+1)	GMT+07:00
+America/Atikokan	Atikokan (+0)	GMT-05:00	Atikokan (+1)	GMT-05:00
+Atlantic/Stanley	Stanley (+0)	GMT-03:00	Stanley (+1)	GMT-02:00
+Australia/NSW	Sydney (+0)	GMT+10:00	Sydney (+1)	GMT+11:00
+US/Hawaii	Honolulu (+0)	GMT-10:00	Honolulu (+1)	GMT-09:00
+Indian/Mahe	Mahé (+0)	GMT+04:00	Mahé (+1)	GMT+04:00
+Asia/Aqtobe	Aqtobe (+0)	GMT+05:00	Aqtobe (+1)	GMT+06:00
+CTT	GMT+08:00	GMT+08:00	GMT+09:00	GMT+09:00
+America/Sitka	Sitka (+0)	GMT-09:00	Sitka (+1)	GMT-08:00
+Asia/Vladivostok	Vladivostok (+0)	GMT+10:00	Vladivostok (+1)	GMT+11:00
+Africa/Libreville	Libreville (+0)	GMT+01:00	Libreville (+1)	GMT+01:00
+Africa/Maputo	Maputo (+0)	GMT+02:00	Maputo (+1)	GMT+02:00
+America/Kentucky/Monticello	Monticello, Kentucky (+0)	GMT-05:00	Monticello, Kentucky (+1)	GMT-04:00
+Africa/El_Aaiun	El Aaiún (+0)	GMT	El Aaiún (+1)	GMT+01:00
+Africa/Ouagadougou	Ouagadougou (+0)	GMT	Ouagadougou (+1)	GMT
+America/Coral_Harbour	Atikokan (+0)	GMT-05:00	Atikokan (+1)	GMT-05:00
+Pacific/Marquesas	Marquesas (+0)	GMT-09:30	Marquesas (+1)	GMT-09:30
+Brazil/West	Manaus (+0)	GMT-04:00	Manaus (+1)	GMT-03:00
+America/Aruba	Aruba (+0)	GMT-04:00	Aruba (+1)	GMT-03:00
+America/North_Dakota/Center	Center, North Dakota (+0)	GMT-06:00	Center, North Dakota (+1)	GMT-05:00
+PNT	GMT-07:00	GMT-07:00	GMT-06:00	GMT-06:00
+America/Cayman	Cayman (+0)	GMT-05:00	Cayman (+1)	GMT-05:00
+Asia/Ulaanbaatar	Ulaanbaatar (+0)	GMT+08:00	Ulaanbaatar (+1)	GMT+09:00
+Asia/Baghdad	Baghdad (+0)	GMT+03:00	Baghdad (+1)	GMT+04:00
+Europe/San_Marino	San Marino (+0)	GMT+01:00	San Marino (+1)	GMT+02:00
+America/Indiana/Tell_City	Tell City, Indiana (+0)	GMT-06:00	Tell City, Indiana (+1)	GMT-05:00
+BST	GMT+06:00	GMT+06:00	GMT+07:00	GMT+07:00
+America/Tijuana	Tijuana (+0)	GMT-08:00	Tijuana (+1)	GMT-07:00
+Pacific/Saipan	Saipan (+0)	GMT+10:00	Saipan (+1)	GMT+11:00
+Africa/Douala	Douala (+0)	GMT+01:00	Douala (+1)	GMT+01:00
+America/Chihuahua	Chihuahua (+0)	GMT-06:00	Chihuahua (+1)	GMT-05:00
+America/Ojinaga	Ojinaga (+0)	GMT-06:00	Ojinaga (+1)	GMT-05:00
+Asia/Hovd	Khovd (+0)	GMT+07:00	Khovd (+1)	GMT+08:00
+America/Anchorage	Anchorage (+0)	GMT-09:00	Anchorage (+1)	GMT-08:00
+Chile/EasterIsland	Easter (+0)	GMT-06:00	Easter (+1)	GMT-05:00
+America/Halifax	Halifax (+0)	GMT-04:00	Halifax (+1)	GMT-03:00
+Antarctica/Rothera	Rothera (+0)	GMT-03:00	Rothera (+1)	GMT-03:00
+US/Mountain	Denver (+0)	GMT-07:00	Denver (+1)	GMT-06:00
+MIT	GMT+13:00	GMT+13:00	GMT+14:00	GMT+14:00
+America/Argentina/San_Luis	San Luis (+0)	GMT-03:00	San Luis (+1)	GMT-02:00
+America/Santiago	Santiago (+0)	GMT-04:00	Santiago (+1)	GMT-03:00
+Asia/Baku	Baku (+0)	GMT+04:00	Baku (+1)	GMT+05:00
+ART	GMT+02:00	GMT+02:00	GMT+03:00	GMT+03:00
+America/Argentina/Ushuaia	Ushuaia (+0)	GMT-03:00	Ushuaia (+1)	GMT-02:00
+Atlantic/Reykjavik	Reykjavik (+0)	GMT	Reykjavik (+1)	GMT
+Africa/Brazzaville	Brazzaville (+0)	GMT+01:00	Brazzaville (+1)	GMT+01:00
+Africa/Porto-Novo	Porto-Novo (+0)	GMT+01:00	Porto-Novo (+1)	GMT+01:00
+America/La_Paz	La Paz (+0)	GMT-04:00	La Paz (+1)	GMT-03:00
+Antarctica/DumontDUrville	Dumont-d’Urville (+0)	GMT+10:00	Dumont-d’Urville (+1)	GMT+10:00
+Asia/Taipei	Taipei (+0)	GMT+08:00	Taipei (+1)	GMT+09:00
+Antarctica/South_Pole	McMurdo (+0)	GMT+12:00	McMurdo (+1)	GMT+13:00
+Asia/Manila	Manila (+0)	GMT+08:00	Manila (+1)	GMT+09:00
+Asia/Bangkok	Bangkok (+0)	GMT+07:00	Bangkok (+1)	GMT+07:00
+Africa/Dar_es_Salaam	Dar es Salaam (+0)	GMT+03:00	Dar es Salaam (+1)	GMT+03:00
+Poland	Warsaw (+0)	GMT+01:00	Warsaw (+1)	GMT+02:00
+Atlantic/Madeira	Madeira (+0)	GMT	Madeira (+1)	GMT+01:00
+America/Thunder_Bay	Toronto (+0)	GMT-05:00	Toronto (+1)	GMT-04:00
+Africa/Addis_Ababa	Addis Ababa (+0)	GMT+03:00	Addis Ababa (+1)	GMT+03:00
+AST	GMT-09:00	GMT-09:00	GMT-08:00	GMT-08:00
+Asia/Yangon	Yangon (+0)	GMT+06:30	Yangon (+1)	GMT+06:30
+Europe/Uzhgorod	Kyiv (+0)	GMT+02:00	Kyiv (+1)	GMT+03:00
+Brazil/DeNoronha	Fernando de Noronha (+0)	GMT-02:00	Fernando de Noronha (+1)	GMT-01:00
+Asia/Ashkhabad	Ashgabat (+0)	GMT+05:00	Ashgabat (+1)	GMT+06:00
+America/Indiana/Marengo	Marengo, Indiana (+0)	GMT-05:00	Marengo, Indiana (+1)	GMT-04:00
+America/Creston	Creston (+0)	GMT-07:00	Creston (+1)	GMT-06:00
+America/Mexico_City	Ciudad de México (+0)	GMT-06:00	Ciudad de México (+1)	GMT-05:00
+Antarctica/Vostok	Vostok (+0)	GMT+05:00	Vostok (+1)	GMT+05:00
+Asia/Jerusalem	Jerusalem (+0)	GMT+02:00	Jerusalem (+1)	GMT+03:00
+Europe/Andorra	Andorra (+0)	GMT+01:00	Andorra (+1)	GMT+02:00
+US/Samoa	Pago Pago (+0)	GMT-11:00	Pago Pago (+1)	GMT-11:00
+PRC	Shanghai (+0)	GMT+08:00	Shanghai (+1)	GMT+09:00
+Asia/Vientiane	Vientiane (+0)	GMT+07:00	Vientiane (+1)	GMT+07:00
+Pacific/Kiritimati	Kiritimati (+0)	GMT+14:00	Kiritimati (+1)	GMT+14:00
+America/Matamoros	Matamoros (+0)	GMT-06:00	Matamoros (+1)	GMT-05:00
+America/Blanc-Sablon	Blanc-Sablon (+0)	GMT-04:00	Blanc-Sablon (+1)	GMT-03:00
+Asia/Riyadh	Riyadh (+0)	GMT+03:00	Riyadh (+1)	GMT+03:00
+Iceland	Reykjavik (+0)	GMT	Reykjavik (+1)	GMT
+Pacific/Pohnpei	Pohnpei (+0)	GMT+11:00	Pohnpei (+1)	GMT+11:00
+Asia/Ujung_Pandang	Makassar (+0)	GMT+08:00	Makassar (+1)	GMT+08:00
+Atlantic/South_Georgia	South Georgia (+0)	GMT-02:00	South Georgia (+1)	GMT-02:00
+Europe/Lisbon	Lisbon (+0)	GMT	Lisbon (+1)	GMT+01:00
+Asia/Harbin	Shanghai (+0)	GMT+08:00	Shanghai (+1)	GMT+09:00
+PRT	GMT-04:00	GMT-04:00	GMT-03:00	GMT-03:00
+Europe/Oslo	Oslo (+0)	GMT+01:00	Oslo (+1)	GMT+02:00
+Asia/Novokuznetsk	Novokuznetsk (+0)	GMT+07:00	Novokuznetsk (+1)	GMT+08:00
+CST6CDT	GMT-06:00	GMT-06:00	GMT-05:00	GMT-05:00
+Atlantic/Canary	Canarias (+0)	GMT	Canarias (+1)	GMT+01:00
+America/Knox_IN	Knox, Indiana (+0)	GMT-06:00	Knox, Indiana (+1)	GMT-05:00
+Asia/Kuwait	Kuwait (+0)	GMT+03:00	Kuwait (+1)	GMT+03:00
+Pacific/Efate	Efate (+0)	GMT+11:00	Efate (+1)	GMT+12:00
+Africa/Lome	Lomé (+0)	GMT	Lomé (+1)	GMT
+America/Bogota	Bogotá (+0)	GMT-05:00	Bogotá (+1)	GMT-04:00
+America/Menominee	Menominee (+0)	GMT-06:00	Menominee (+1)	GMT-05:00
+America/Adak	Adak (+0)	GMT-10:00	Adak (+1)	GMT-09:00
+Pacific/Norfolk	Norfolk (+0)	GMT+11:00	Norfolk (+1)	GMT+12:00
+Europe/Kirov	Kirov (+0)	GMT+03:00	Kirov (+1)	GMT+04:00
+America/Resolute	Resolute (+0)	GMT-06:00	Resolute (+1)	GMT-05:00
+Pacific/Kanton	Canton (+0)	GMT+13:00	Canton (+1)	GMT+13:00
+Pacific/Tarawa	Tarawa (+0)	GMT+12:00	Tarawa (+1)	GMT+12:00
+Africa/Kampala	Kampala (+0)	GMT+03:00	Kampala (+1)	GMT+03:00
+Asia/Krasnoyarsk	Krasnoyarsk (+0)	GMT+07:00	Krasnoyarsk (+1)	GMT+08:00
+Greenwich	GMT	GMT	GMT	GMT
+PST	GMT-08:00	GMT-08:00	GMT-07:00	GMT-07:00
+America/Edmonton	Edmonton (+0)	GMT-06:00	Edmonton (+1)	GMT-05:00
+Europe/Podgorica	Podgorica (+0)	GMT+01:00	Podgorica (+1)	GMT+02:00
+Australia/South	Adelaide (+0)	GMT+09:30	Adelaide (+1)	GMT+10:30
+Canada/Central	Winnipeg (+0)	GMT-05:00	Winnipeg (+1)	GMT-04:00
+Africa/Bujumbura	Bujumbura (+0)	GMT+02:00	Bujumbura (+1)	GMT+02:00
+America/Santo_Domingo	Santo Domingo (+0)	GMT-04:00	Santo Domingo (+1)	GMT-03:30
+US/Eastern	New York (+0)	GMT-05:00	New York (+1)	GMT-04:00
+Europe/Minsk	Minsk (+0)	GMT+03:00	Minsk (+1)	GMT+04:00
+Pacific/Auckland	Auckland (+0)	GMT+12:00	Auckland (+1)	GMT+13:00
+Africa/Casablanca	Casablanca (+0)	GMT	Casablanca (+1)	GMT+01:00
+America/Glace_Bay	Glace Bay (+0)	GMT-04:00	Glace Bay (+1)	GMT-03:00
+Canada/Eastern	Toronto (+0)	GMT-05:00	Toronto (+1)	GMT-04:00
+Asia/Qatar	Qatar (+0)	GMT+03:00	Qatar (+1)	GMT+03:00
+Europe/Kiev	Kyiv (+0)	GMT+02:00	Kyiv (+1)	GMT+03:00
+Singapore	Singapore (+0)	GMT+08:00	Singapore (+1)	GMT+08:20
+Asia/Magadan	Magadan (+0)	GMT+11:00	Magadan (+1)	GMT+12:00
+America/Port-au-Prince	Port-au-Prince (+0)	GMT-05:00	Port-au-Prince (+1)	GMT-04:00
+Europe/Belfast	London (+0)	GMT	London (+1)	GMT+01:00
+America/St_Barthelemy	St. Barthélemy (+0)	GMT-04:00	St. Barthélemy (+1)	GMT-03:00
+Asia/Ashgabat	Ashgabat (+0)	GMT+05:00	Ashgabat (+1)	GMT+06:00
+Africa/Luanda	Luanda (+0)	GMT+01:00	Luanda (+1)	GMT+01:00
+America/Nipigon	Toronto (+0)	GMT-05:00	Toronto (+1)	GMT-04:00
+Atlantic/Jan_Mayen	Longyearbyen (+0)	GMT+01:00	Longyearbyen (+1)	GMT+02:00
+Brazil/Acre	Rio Branco (+0)	GMT-05:00	Rio Branco (+1)	GMT-04:00
+Asia/Muscat	Muscat (+0)	GMT+04:00	Muscat (+1)	GMT+04:00
+Asia/Bahrain	Bahrain (+0)	GMT+03:00	Bahrain (+1)	GMT+03:00
+Europe/Vilnius	Vilnius (+0)	GMT+02:00	Vilnius (+1)	GMT+03:00
+America/Fortaleza	Fortaleza (+0)	GMT-03:00	Fortaleza (+1)	GMT-02:00
+US/East-Indiana	Indianapolis (+0)	GMT-05:00	Indianapolis (+1)	GMT-04:00
+America/Hermosillo	Hermosillo (+0)	GMT-07:00	Hermosillo (+1)	GMT-06:00
+America/Cancun	Cancún (+0)	GMT-05:00	Cancún (+1)	GMT-04:00
+Africa/Maseru	Maseru (+0)	GMT+02:00	Maseru (+1)	GMT+03:00
+Pacific/Kosrae	Kosrae (+0)	GMT+11:00	Kosrae (+1)	GMT+11:00
+Africa/Kinshasa	Kinshasa (+0)	GMT+01:00	Kinshasa (+1)	GMT+01:00
+Asia/Kathmandu	Kathmandu (+0)	GMT+05:45	Kathmandu (+1)	GMT+05:45
+Asia/Seoul	Seoul (+0)	GMT+09:00	Seoul (+1)	GMT+10:00
+Australia/Sydney	Sydney (+0)	GMT+10:00	Sydney (+1)	GMT+11:00
+America/Lima	Lima (+0)	GMT-05:00	Lima (+1)	GMT-04:00
+Australia/LHI	Lord Howe (+0)	GMT+10:30	Lord Howe (+1)	GMT+11:00
+America/St_Lucia	St. Lucia (+0)	GMT-04:00	St. Lucia (+1)	GMT-03:00
+Europe/Madrid	Madrid (+0)	GMT+01:00	Madrid (+1)	GMT+02:00
+America/Bahia_Banderas	Bahía de Banderas (+0)	GMT-06:00	Bahía de Banderas (+1)	GMT-05:00
+America/Montserrat	Montserrat (+0)	GMT-04:00	Montserrat (+1)	GMT-03:00
+Asia/Brunei	Brunei (+0)	GMT+08:00	Brunei (+1)	GMT+08:20
+America/Santa_Isabel	Tijuana (+0)	GMT-08:00	Tijuana (+1)	GMT-07:00
+Canada/Mountain	Edmonton (+0)	GMT-06:00	Edmonton (+1)	GMT-05:00
+America/Cambridge_Bay	Cambridge Bay (+0)	GMT-07:00	Cambridge Bay (+1)	GMT-06:00
+Asia/Colombo	Colombo (+0)	GMT+05:30	Colombo (+1)	GMT+06:30
+Australia/West	Perth (+0)	GMT+08:00	Perth (+1)	GMT+09:00
+Indian/Antananarivo	Antananarivo (+0)	GMT+03:00	Antananarivo (+1)	GMT+03:00
+Australia/Brisbane	Brisbane (+0)	GMT+10:00	Brisbane (+1)	GMT+11:00
+Indian/Mayotte	Mayotte (+0)	GMT+03:00	Mayotte (+1)	GMT+03:00
+US/Indiana-Starke	Knox, Indiana (+0)	GMT-06:00	Knox, Indiana (+1)	GMT-05:00
+Asia/Urumqi	Ürümqi (+0)	GMT+06:00	Ürümqi (+1)	GMT+06:00
+US/Aleutian	Adak (+0)	GMT-10:00	Adak (+1)	GMT-09:00
+Europe/Volgograd	Volgograd (+0)	GMT+03:00	Volgograd (+1)	GMT+04:00
+America/Lower_Princes	Lower Prince’s Quarter (+0)	GMT-04:00	Lower Prince’s Quarter (+1)	GMT-03:00
+America/Vancouver	Vancouver (+0)	GMT-07:00	Vancouver (+1)	GMT-06:00
+Africa/Blantyre	Blantyre (+0)	GMT+02:00	Blantyre (+1)	GMT+02:00
+America/Rio_Branco	Rio Branco (+0)	GMT-05:00	Rio Branco (+1)	GMT-04:00
+America/Danmarkshavn	Danmarkshavn (+0)	GMT	Danmarkshavn (+1)	GMT+01:00
+America/Detroit	Detroit (+0)	GMT-05:00	Detroit (+1)	GMT-04:00
+America/Thule	Thule (+0)	GMT-04:00	Thule (+1)	GMT-03:00
+Africa/Lusaka	Lusaka (+0)	GMT+02:00	Lusaka (+1)	GMT+02:00
+Asia/Hong_Kong	Hong Kong (+0)	GMT+08:00	Hong Kong (+1)	GMT+09:00
+Iran	Tehran (+0)	GMT+03:30	Tehran (+1)	GMT+04:30
+America/Argentina/La_Rioja	La Rioja (+0)	GMT-03:00	La Rioja (+1)	GMT-02:00
+Africa/Dakar	Dakar (+0)	GMT	Dakar (+1)	GMT
+America/Tortola	Tortola (+0)	GMT-04:00	Tortola (+1)	GMT-03:00
+America/Porto_Velho	Porto Velho (+0)	GMT-04:00	Porto Velho (+1)	GMT-03:00
+Asia/Sakhalin	Sakhalin (+0)	GMT+11:00	Sakhalin (+1)	GMT+12:00
+America/Scoresbysund	Ittoqqortoormiit (+0)	GMT-02:00	Ittoqqortoormiit (+1)	GMT-01:00
+Asia/Kamchatka	Kamchatka (+0)	GMT+12:00	Kamchatka (+1)	GMT+13:00
+Asia/Thimbu	Thimphu (+0)	GMT+06:00	Thimphu (+1)	GMT+06:00
+Africa/Harare	Harare (+0)	GMT+02:00	Harare (+1)	GMT+02:00
+Navajo	Denver (+0)	GMT-07:00	Denver (+1)	GMT-06:00
+America/Nome	Nome (+0)	GMT-09:00	Nome (+1)	GMT-08:00
+NST	GMT+12:00	GMT+12:00	GMT+13:00	GMT+13:00
+Europe/Tallinn	Tallinn (+0)	GMT+02:00	Tallinn (+1)	GMT+03:00
+Turkey	Istanbul (+0)	GMT+03:00	Istanbul (+1)	GMT+04:00
+Africa/Khartoum	Khartoum (+0)	GMT+02:00	Khartoum (+1)	GMT+03:00
+Africa/Johannesburg	Johannesburg (+0)	GMT+02:00	Johannesburg (+1)	GMT+03:00
+EAT	GMT+03:00	GMT+03:00	GMT+03:00	GMT+03:00
+Africa/Bangui	Bangui (+0)	GMT+01:00	Bangui (+1)	GMT+01:00
+Europe/Belgrade	Belgrade (+0)	GMT+01:00	Belgrade (+1)	GMT+02:00
+Jamaica	Jamaica (+0)	GMT-05:00	Jamaica (+1)	GMT-04:00
+Africa/Bissau	Bissau (+0)	GMT	Bissau (+1)	GMT
+Asia/Tehran	Tehran (+0)	GMT+03:30	Tehran (+1)	GMT+04:30
+WET	Lisbon (+0)	GMT	Lisbon (+1)	GMT+01:00
+Europe/Astrakhan	Astrakhan (+0)	GMT+04:00	Astrakhan (+1)	GMT+05:00
+Africa/Juba	Juba (+0)	GMT+02:00	Juba (+1)	GMT+03:00
+America/Campo_Grande	Campo Grande (+0)	GMT-04:00	Campo Grande (+1)	GMT-03:00
+America/Belem	Belém (+0)	GMT-03:00	Belém (+1)	GMT-02:00
+Etc/Greenwich	GMT	GMT	GMT	GMT
+Asia/Saigon	Ho Chi Minh (+0)	GMT+07:00	Ho Chi Minh (+1)	GMT+07:00
+America/Ensenada	Tijuana (+0)	GMT-08:00	Tijuana (+1)	GMT-07:00
+Pacific/Midway	Midway (+0)	GMT-11:00	Midway (+1)	GMT-11:00
+America/Jujuy	Jujuy (+0)	GMT-03:00	Jujuy (+1)	GMT-02:00
+Africa/Timbuktu	Bamako (+0)	GMT	Bamako (+1)	GMT
+America/Bahia	Bahia (+0)	GMT-03:00	Bahia (+1)	GMT-02:00
+America/Goose_Bay	Goose Bay (+0)	GMT-04:00	Goose Bay (+1)	GMT-03:00
+America/Virgin	St. Thomas (+0)	GMT-04:00	St. Thomas (+1)	GMT-03:00
+America/Pangnirtung	Iqaluit (+0)	GMT-05:00	Iqaluit (+1)	GMT-04:00
+Asia/Katmandu	Kathmandu (+0)	GMT+05:45	Kathmandu (+1)	GMT+05:45
+America/Phoenix	Phoenix (+0)	GMT-07:00	Phoenix (+1)	GMT-06:00
+MST	Phoenix (+0)	GMT-07:00	Phoenix (+1)	GMT-06:00
+Africa/Niamey	Niamey (+0)	GMT+01:00	Niamey (+1)	GMT+01:00
+America/Whitehorse	Whitehorse (+0)	GMT-07:00	Whitehorse (+1)	GMT-06:00
+Pacific/Noumea	Nouméa (+0)	GMT+11:00	Nouméa (+1)	GMT+12:00
+Asia/Tbilisi	Tbilisi (+0)	GMT+04:00	Tbilisi (+1)	GMT+05:00
+ECT	GMT+01:00	GMT+01:00	GMT+02:00	GMT+02:00
+America/Montreal	Toronto (+0)	GMT-05:00	Toronto (+1)	GMT-04:00
+Asia/Makassar	Makassar (+0)	GMT+08:00	Makassar (+1)	GMT+08:00
+America/Argentina/San_Juan	San Juan (+0)	GMT-03:00	San Juan (+1)	GMT-02:00
+Hongkong	Hong Kong (+0)	GMT+08:00	Hong Kong (+1)	GMT+09:00
+Asia/Nicosia	Nicosia (+0)	GMT+02:00	Nicosia (+1)	GMT+03:00
+America/Indiana/Winamac	Winamac, Indiana (+0)	GMT-05:00	Winamac, Indiana (+1)	GMT-04:00
+America/Argentina/ComodRivadavia	Catamarca (+0)	GMT-03:00	Catamarca (+1)	GMT-02:00
+America/Boa_Vista	Boa Vista (+0)	GMT-04:00	Boa Vista (+1)	GMT-03:00
+America/Grenada	Grenada (+0)	GMT-04:00	Grenada (+1)	GMT-03:00
+Asia/Atyrau	Atyrau (+0)	GMT+05:00	Atyrau (+1)	GMT+06:00
+Australia/Darwin	Darwin (+0)	GMT+09:30	Darwin (+1)	GMT+10:30
+Asia/Khandyga	Khandyga (+0)	GMT+09:00	Khandyga (+1)	GMT+10:00
+Asia/Kuala_Lumpur	Kuala Lumpur (+0)	GMT+08:00	Kuala Lumpur (+1)	GMT+08:20
+Asia/Famagusta	Famagusta (+0)	GMT+02:00	Famagusta (+1)	GMT+03:00
+Asia/Thimphu	Thimphu (+0)	GMT+06:00	Thimphu (+1)	GMT+06:00
+Asia/Rangoon	Yangon (+0)	GMT+06:30	Yangon (+1)	GMT+06:30
+Europe/Bratislava	Bratislava (+0)	GMT+01:00	Bratislava (+1)	GMT+02:00
+Asia/Calcutta	Kolkata (+0)	GMT+05:30	Kolkata (+1)	GMT+06:30
+America/Argentina/Tucuman	Tucumán (+0)	GMT-03:00	Tucumán (+1)	GMT-02:00
+Asia/Kabul	Kabul (+0)	GMT+04:30	Kabul (+1)	GMT+04:30
+Indian/Cocos	Cocos (+0)	GMT+06:30	Cocos (+1)	GMT+06:30
+Japan	Tokyo (+0)	GMT+09:00	Tokyo (+1)	GMT+10:00
+Pacific/Tongatapu	Tongatapu (+0)	GMT+13:00	Tongatapu (+1)	GMT+14:00
+America/New_York	New York (+0)	GMT-05:00	New York (+1)	GMT-04:00
+America/Nuuk	Nuuk (+0)	GMT-02:00	Nuuk (+1)	GMT-01:00
+Europe/Ulyanovsk	Ulyanovsk (+0)	GMT+04:00	Ulyanovsk (+1)	GMT+05:00
+W-SU	Moscow (+0)	GMT+03:00	Moscow (+1)	GMT+04:00
+America/Merida	Mérida (+0)	GMT-06:00	Mérida (+1)	GMT-05:00
+EET	Athens (+0)	GMT+02:00	Athens (+1)	GMT+03:00
+CAT	GMT+02:00	GMT+02:00	GMT+02:00	GMT+02:00
+America/Rosario	Córdoba (+0)	GMT-03:00	Córdoba (+1)	GMT-02:00
+Canada/Saskatchewan	Regina (+0)	GMT-06:00	Regina (+1)	GMT-05:00
+America/St_Kitts	St. Kitts (+0)	GMT-04:00	St. Kitts (+1)	GMT-03:00
+Arctic/Longyearbyen	Longyearbyen (+0)	GMT+01:00	Longyearbyen (+1)	GMT+02:00
+America/Fort_Nelson	Fort Nelson (+0)	GMT-07:00	Fort Nelson (+1)	GMT-06:00
+America/Caracas	Caracas (+0)	GMT-04:00	Caracas (+1)	GMT-04:00
+America/Guadeloupe	Guadeloupe (+0)	GMT-04:00	Guadeloupe (+1)	GMT-03:00
+Asia/Hebron	Hebron (+0)	GMT+02:00	Hebron (+1)	GMT+03:00
+Indian/Kerguelen	Kerguelen (+0)	GMT+05:00	Kerguelen (+1)	GMT+05:00
+Africa/Monrovia	Monrovia (+0)	GMT	Monrovia (+1)	GMT
+Asia/Ust-Nera	Ust-Nera (+0)	GMT+10:00	Ust-Nera (+1)	GMT+11:00
+Egypt	Cairo (+0)	GMT+02:00	Cairo (+1)	GMT+03:00
+Asia/Srednekolymsk	Srednekolymsk (+0)	GMT+11:00	Srednekolymsk (+1)	GMT+12:00
+America/North_Dakota/New_Salem	New Salem, North Dakota (+0)	GMT-06:00	New Salem, North Dakota (+1)	GMT-05:00
+Asia/Anadyr	Anadyr (+0)	GMT+12:00	Anadyr (+1)	GMT+13:00
+Australia/Melbourne	Melbourne (+0)	GMT+10:00	Melbourne (+1)	GMT+11:00
+Asia/Irkutsk	Irkutsk (+0)	GMT+08:00	Irkutsk (+1)	GMT+09:00
+America/Shiprock	Denver (+0)	GMT-07:00	Denver (+1)	GMT-06:00
+America/Winnipeg	Winnipeg (+0)	GMT-05:00	Winnipeg (+1)	GMT-04:00
+Europe/Vatican	Vatican (+0)	GMT+01:00	Vatican (+1)	GMT+02:00
+Asia/Tokyo	Tokyo (+0)	GMT+09:00	Tokyo (+1)	GMT+10:00
+America/Toronto	Toronto (+0)	GMT-05:00	Toronto (+1)	GMT-04:00
+Asia/Singapore	Singapore (+0)	GMT+08:00	Singapore (+1)	GMT+08:20
+Australia/Lindeman	Lindeman (+0)	GMT+10:00	Lindeman (+1)	GMT+11:00
+America/Los_Angeles	Los Angeles (+0)	GMT-08:00	Los Angeles (+1)	GMT-07:00
+Pacific/Majuro	Majuro (+0)	GMT+12:00	Majuro (+1)	GMT+12:00
+America/Argentina/Buenos_Aires	Buenos Aires (+0)	GMT-03:00	Buenos Aires (+1)	GMT-02:00
+Europe/Nicosia	Nicosia (+0)	GMT+02:00	Nicosia (+1)	GMT+03:00
+Pacific/Guadalcanal	Guadalcanal (+0)	GMT+11:00	Guadalcanal (+1)	GMT+11:00
+Europe/Athens	Athens (+0)	GMT+02:00	Athens (+1)	GMT+03:00
+US/Pacific	Los Angeles (+0)	GMT-08:00	Los Angeles (+1)	GMT-07:00
+Europe/Monaco	Monaco (+0)	GMT+01:00	Monaco (+1)	GMT+02:00

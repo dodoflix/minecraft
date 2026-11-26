@@ -463,6 +463,137 @@ fn a_utc_zone_name_changes_the_zone_of_the_written_dates() {
     );
 }
 
+/// A zone NAME places the local time by the history of the zone (New York was five hours behind in 1900, 1945 and 2040
+/// alike, the daylight name of a zone adds the saving of the zone, which is none before it had daylight time), and the
+/// zone stays in the shared format: every date it writes afterwards is in that zone, in its offset at that date. The
+/// names are the ones of the `ROOT` locale (`New York (+0)`, `Kyiv (+1)`, `EET`).
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn a_named_zone_changes_the_zone_of_the_written_dates() {
+    dual_case(
+        &[
+            (
+                "banned-players.txt",
+                b"Alex_B|2013-07-03 04:05:06 New York (+0)|Server|2013-07-03 04:05:06 New York (+1)|r\n\
+                  Steve|1900-01-01 00:00:00 +0100|C|1945-08-15 03:30:00 +0100|r\n\
+                  Notch|2040-07-01 12:00:00 +0000|C|2040-11-04 01:30:00 +0000|r\n\
+                  Dan|2013-02-03 04:05:06 Los Angeles (+0)|C|2007-03-11 02:30:00 Los Angeles (+1)|r\n\
+                  Eve|1987-07-01 12:00:00 Belize (+0)|C|2013-07-03 04:05:06 Berlin (+0)|r\n\
+                  Fay|2013-07-03 04:05:06 Berlin (+1)|C|2013-02-03 04:05:06 Tokyo (+0)|r\n\
+                  Gus|2024-10-27 01:30:00 London (+1)|C|2024-03-31 02:30:00 Kyiv (+1)|r\n\
+                  Hal|2024-10-27 01:30:00 EET|C|2024-03-31 02:30:00 EEST|r\n\
+                  Ian|1850-06-15 12:00:00 Winnipeg (+1)|C|2100-03-14 02:30:00 Winnipeg (+0)|r\n",
+            ),
+            (
+                "banned-ips.txt",
+                b"10.0.0.1|2013-02-03 04:05:06 +0100|S|2013-07-03 04:05:06 +0100|r\n",
+            ),
+        ],
+        &["Steve.dat"],
+        Expect::Converts { fails: false },
+        &[],
+    );
+}
+
+/// The zone left by the last parse is the one the later lists write in; the lists are converted in the order user bans,
+/// ip bans, so the ip bans are written in the zone of the last user ban.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn the_last_zone_name_decides_the_zone_of_the_next_list() {
+    dual_case(
+        &[
+            (
+                "banned-players.txt",
+                b"Alex_B|2013-07-03 04:05:06 Tokyo (+0)|Server|2013-07-03 04:05:06 Tokyo (+1)|r\n\
+                  Steve|2013-07-03 04:05:06 Chicago (+1)|C|2013-02-03 04:05:06 Chicago (+0)|r\n",
+            ),
+            (
+                "banned-ips.txt",
+                b"10.0.0.1|2013-02-03 04:05:06 +0100|S|2013-07-03 04:05:06 +0100|r\n\
+                  10.0.0.2|2013-02-03 04:05:06 +0100|S|forever|r\n",
+            ),
+        ],
+        &["Steve.dat"],
+        Expect::Converts { fails: false },
+        &[],
+    );
+}
+
+/// A date past the range a `Date` has in `java.time` stays a `long` of milliseconds: a year of nine digits, a year that
+/// wraps the millisecond count, and a negative one are all written back.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn dates_beyond_the_range_of_a_calendar_library() {
+    dual_case(
+        &[
+            (
+                "banned-players.txt",
+                b"Alex_B|300000-01-01 00:00:00 +0000|Server|-300000-01-01 00:00:00 +0000|r\n\
+                  Steve|292278994-08-17 07:12:55 +0000|C|292278995-01-01 00:00:00 +0000|r\n\
+                  Notch|999999999-12-31 23:59:59 +0100|C|2147483647-01-01 00:00:00 +0000|r\n\
+                  Dan|9223372036854775807-01-01 00:00:00 +0000|C|1E12-01-01 00:00:00 +0000|r\n\
+                  Eve|-292275055-05-16 16:47:04 +0000|C|-1E9-01-01 00:00:00 +0000|r\n",
+            ),
+            (
+                "banned-ips.txt",
+                b"10.0.0.1|262143-01-01 00:00:00 +0100|S|262142-12-31 23:59:59 -0500|r\n",
+            ),
+        ],
+        &["Steve.dat"],
+        Expect::Converts { fails: false },
+        &[],
+    );
+}
+
+/// The same dates through the rules of a zone with daylight time: the transitions of the last year of the `long` range
+/// wrap, and the dates the zone leaves in the shared format are written back in it.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn dates_beyond_the_range_in_a_named_zone() {
+    dual_case(
+        &[
+            (
+                "banned-players.txt",
+                b"Alex_B|292278994-01-01 00:00:00 New York (+0)|Server|292278994-08-17 07:00:00 New York (+1)|r\n\
+                  Steve|-292275055-05-16 16:47:04 Sydney (+0)|C|292278994-12-31 23:59:59 Sydney (+1)|r\n\
+                  Notch|262143-07-01 12:00:00 Kyiv (+0)|C|300000-03-15 02:30:00 Kyiv (+1)|r\n\
+                  Dan|292278994-08-17 07:12:55 +0000|C|-292275055-01-01 00:00:00 +0000|r\n",
+            ),
+            (
+                "banned-ips.txt",
+                b"10.0.0.1|292278994-08-17 07:12:55 +0000|S|-292275055-05-16 16:47:04 +0000|r\n",
+            ),
+        ],
+        &["Steve.dat"],
+        Expect::Converts { fails: false },
+        &[],
+    );
+}
+
+/// A zone keeps the transitions it computed last (`SimpleTimeZone`'s cache): a date in the last year of the `long`
+/// range makes the cached range of a southern zone cover almost every date after it, so a later date of that zone is
+/// read and written in daylight time although it is in winter.
+#[test]
+#[ignore = "oracle: spawns vanilla server"]
+fn a_date_at_the_end_of_the_range_changes_later_dates_of_the_zone() {
+    dual_case(
+        &[
+            (
+                "banned-players.txt",
+                b"Steve|292278994-01-01 00:00:00 Sydney (+0)|C|2150-07-01 12:00:00 Sydney (+0)|r\n\
+                  Alex_B|292278994-08-17 07:12:55 Auckland (+1)|Server|2150-07-01 12:00:00 Auckland (+0)|r\n",
+            ),
+            (
+                "banned-ips.txt",
+                b"10.0.0.1|292278994-01-01 00:00:00 +0000|S|2150-07-01 12:00:00 +0000|r\n",
+            ),
+        ],
+        &["Steve.dat"],
+        Expect::Converts { fails: false },
+        &[],
+    );
+}
+
 /// Before 1582-10-15 the calendar is the Julian one: 1500-01-01 is ten days later than the Gregorian date of the same
 /// instant, the ten days after 1582-10-04 do not exist (the later date is kept), and 1000-02-29 is a leap day.
 #[test]

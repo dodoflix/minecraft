@@ -1,6 +1,7 @@
 //! `PlayerList.BAN_DATE_FORMAT` (`yyyy-MM-dd 'at' HH:mm:ss z`) against `SimpleDateFormat(.., Locale.ROOT)` in several
 //! default time zones (`fixtures/BanDateGolden.java`). One test function: it changes the process time zone.
 
+use mc_game::server::players::ban_list_entry::Date;
 use mc_game::server::players::player_list::format_ban_date;
 
 #[test]
@@ -23,7 +24,7 @@ fn ban_date_format_matches_java_in_every_zone() {
             std::env::set_var("TZ", zone);
             libc_tzset();
         }
-        let date = chrono::DateTime::from_timestamp_millis(epoch.parse().unwrap()).unwrap();
+        let date = Date::from_millis(epoch.parse().unwrap());
         assert_eq!(format_ban_date(&date), expected, "{zone} {epoch}");
         checked += 1;
     }

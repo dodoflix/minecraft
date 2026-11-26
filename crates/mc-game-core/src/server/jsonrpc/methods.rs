@@ -14,7 +14,6 @@ use uuid::Uuid;
 use super::api::{ClientInfo, ManagementApi, ManagementPlayer, SettingKey, SettingValue};
 use super::dto::*;
 use crate::server::permissions::PermissionLevel;
-use crate::server::players::ban_list_entry::Date;
 use crate::server::players::gson::{self, JsonElement, JsonObject};
 use crate::server::players::{NameAndId, UserWhiteListEntry};
 use mc_world::level_storage::{Difficulty, GameType};
@@ -165,7 +164,7 @@ fn string_hash(s: Option<&str>) -> i32 {
 }
 
 /// `Optional<Instant>.hashCode()` of an expiry: `(int) (seconds ^ seconds >>> 32) + 51 * nanos`.
-fn expires_hash(expires: &Option<Date>) -> i32 {
+fn expires_hash(expires: &Option<Instant>) -> i32 {
     expires.map_or(0, |date| {
         let seconds = date.timestamp();
         let nanos = date.timestamp_subsec_nanos() as i32;
