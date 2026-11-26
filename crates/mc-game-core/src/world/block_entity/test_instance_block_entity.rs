@@ -2,6 +2,7 @@
 //! of one game test). Vanilla's methods that need the level or registries are free functions here taking the server
 //! (the level is a separate object that is taken out of its chunk while the block entity runs).
 
+use super::structure_block_entity::StructureBlockEntity;
 use super::{
     BLOCK_ENTITY_TYPES, BlockEntity, BlockEntityData, BlockEntityRegistration, read_codec,
 };
@@ -693,32 +694,18 @@ pub fn save_test(
         return None;
     };
     if let Some(level) = server.level_mut(dimension) {
-        save_structure(
+        StructureBlockEntity::save_structure(
             level,
             &identifier,
             view.get_structure_pos(),
             view.get_size(),
+            view.ignore_entities(),
+            "",
+            true,
+            &[Block::AIR],
         );
     }
     Some(identifier)
-}
-
-/// `StructureBlockEntity.saveStructure(level, id, pos, size, ignoreEntities, "", true, [AIR])`: fills a fresh template from the
-/// world and saves it. Entities are not collected (`StructureBlockEntity.saveStructure` collects them), so saved test
-/// structures carry blocks only.
-fn save_structure(
-    level: &mut crate::server::level::ServerLevel,
-    id: &Identifier,
-    pos: BlockPos,
-    size: Vec3i,
-) -> bool {
-    use crate::world::level::levelgen::structure::templatesystem::structure_template::StructureTemplate;
-    let mut template = StructureTemplate::new();
-    template.fill_from_world(&*level, pos, size, None, &[Block::AIR]);
-    template.set_author("");
-    let manager = level.structure_template_manager().clone();
-    manager.put(id, std::sync::Arc::new(template));
-    manager.save(id)
 }
 
 /// `exportTest(feedbackOutput)`: `true` when it failed.

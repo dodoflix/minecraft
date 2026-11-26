@@ -1,0 +1,143 @@
+# The two packets of the test instance block screen and the test block screen (`!send`), after `/setblock` places the blocks: who
+# may send them (non-op, op in survival, wrong block, creative op), INIT / QUERY answers (known test, unknown test, test without a
+# structure), SET, RESET, SAVE of a box that holds a block, a `structure_void` and an armor stand with and without
+# `ignore_entities` (the saved file is compared), EXPORT, RUN (no test, no structure, ok) and the test block modes.
+#   scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/gametest_gui.txt
+gamerule advance_time false
+gamerule advance_weather false
+!datapack gametest/gtpack
+!datapack gametest/guipack
+!ignore passed! \(
+!mask (\d+)ms
+!ignore ^Bot\| .*(Game Test complete! |All required tests passed|commands\.test\.summary)
+!packets test_instance_block_status
+
+# ---- the blocks: a test instance block (structure box x 10..12, y -59..-57, z 11..13), a second one, a stone block, a test block
+setblock 10 -60 10 minecraft:test_instance_block
+setblock 20 -60 10 minecraft:test_instance_block
+setblock 30 -60 10 minecraft:stone
+setblock 40 -60 10 minecraft:test_block
+data get block 10 -60 10
+data get block 20 -60 10
+
+# ---- permissions: a non-op, an op in survival and the wrong block change nothing and get no answer
+@bot0 !send test_instance_block_action 10 -60 10 init key=gt:pass
+@bot0 !send test_instance_block_action 10 -60 10 query key=gt:pass
+@bot0 !send test_instance_block_action 10 -60 10 set key=gt:fail size=1,2,3
+@bot0 !send test_instance_block_action 10 -60 10 run key=gt:pass
+@bot0 !send set_test_block 40 -60 10 fail "from bot0"
+!ticks 3 show
+data get block 10 -60 10
+data get block 40 -60 10
+gamemode survival Bot
+@bot !send test_instance_block_action 10 -60 10 init key=gt:pass
+@bot !send test_instance_block_action 10 -60 10 query key=gt:pass
+@bot !send test_instance_block_action 10 -60 10 set key=gt:fail size=1,2,3
+@bot !send set_test_block 40 -60 10 fail "from survival"
+!ticks 3 show
+data get block 10 -60 10
+data get block 40 -60 10
+gamemode creative Bot
+@bot !send test_instance_block_action 30 -60 10 init key=gt:pass
+@bot !send test_instance_block_action 30 -60 10 set key=gt:fail size=1,2,3
+@bot !send test_instance_block_action 31 -60 10 query key=gt:pass
+@bot !send set_test_block 30 -60 10 fail "stone"
+@bot !send set_test_block 41 -60 10 fail "air"
+!ticks 3 show
+data get block 30 -60 10
+
+# ---- INIT and QUERY answers
+@bot !send test_instance_block_action 10 -60 10 init key=gt:pass reply
+@bot !send test_instance_block_action 10 -60 10 init key=gt:flaky reply
+@bot !send test_instance_block_action 10 -60 10 init reply
+@bot !send test_instance_block_action 10 -60 10 init key=nobody:nothing reply
+@bot !send test_instance_block_action 10 -60 10 query key=gt:pass reply
+@bot !send test_instance_block_action 10 -60 10 query key=gt:rot reply
+@bot !send test_instance_block_action 10 -60 10 query key=gu:nostruct reply
+@bot !send test_instance_block_action 10 -60 10 query key=nobody:nothing reply
+@bot !send test_instance_block_action 10 -60 10 query reply
+
+# ---- SET: the data of the packet replaces the block entity's
+@bot !send test_instance_block_action 10 -60 10 set key=gt:pass size=3,3,3 rotation=clockwise_90 ignore=true status=finished
+!ticks 3 show
+data get block 10 -60 10
+@bot !send test_instance_block_action 10 -60 10 set key=gt:rot size=4,2,5 rotation=counterclockwise_90 ignore=false status=running
+!ticks 3 show
+data get block 10 -60 10
+@bot !send test_instance_block_action 10 -60 10 set size=3,3,3
+!ticks 3 show
+data get block 10 -60 10
+
+# ---- SAVE with entities, ignoring them, a rotation and an unknown test (the structure takes the test's id)
+setblock 11 -59 12 minecraft:stone
+setblock 12 -58 13 minecraft:structure_void
+setblock 12 -57 11 minecraft:chest{Items:[{Slot:0b,id:"minecraft:apple",count:3}]}
+summon minecraft:armor_stand 11.5 -59 11.5 {UUID:[I;1,2,3,4],NoGravity:1b,Rotation:[90f,0f],CustomName:"inside"}
+!ticks 5
+@bot !send test_instance_block_action 10 -60 10 save key=foo:one size=3,3,3 ignore=false
+!ticks 3 show
+!file world/generated/foo/structure/one.nbt
+@bot !send test_instance_block_action 10 -60 10 save key=foo:two size=3,3,3 ignore=true
+!ticks 3 show
+!file world/generated/foo/structure/two.nbt
+@bot !send test_instance_block_action 10 -60 10 save key=foo:rotated size=3,2,4 rotation=clockwise_90 ignore=false
+!ticks 3 show
+!file world/generated/foo/structure/rotated.nbt
+@bot !send test_instance_block_action 10 -60 10 save key=foo:small size=1,1,1 ignore=false
+!ticks 3 show
+!file world/generated/foo/structure/small.nbt
+@bot !send test_instance_block_action 10 -60 10 save size=3,3,3
+!ticks 3 show
+@bot !send test_instance_block_action 10 -60 10 save key=gt:pass size=3,3,3 ignore=false
+!ticks 3 show
+!file world/generated/gt/structure/pass.nbt
+
+# ---- EXPORT: exporting is disabled on a dedicated server, after the save it just did
+@bot !send test_instance_block_action 10 -60 10 export key=foo:one size=3,3,3
+!ticks 3 show
+@bot !send test_instance_block_action 10 -60 10 export
+!ticks 3 show
+@bot !send test_instance_block_action 10 -60 10 export key=nobody:nothing size=2,2,2
+!ticks 3 show
+
+# ---- RESET and RUN
+@bot !send test_instance_block_action 20 -60 10 reset key=gu:nostruct size=2,2,2
+!ticks 3 show
+@bot !send test_instance_block_action 20 -60 10 reset key=nobody:nothing size=2,2,2
+!ticks 3 show
+@bot !send test_instance_block_action 20 -60 10 run
+!ticks 3 show
+@bot !send test_instance_block_action 20 -60 10 run key=nobody:nothing
+!ticks 3 show
+@bot !send test_instance_block_action 20 -60 10 run key=gu:nostruct size=2,2,2
+!ticks 3 show
+@bot !send test_instance_block_action 20 -60 10 reset key=gt:pass size=3,3,3 rotation=none
+!ticks 3 show
+data get block 20 -60 10
+@bot !send test_instance_block_action 20 -60 10 reset key=gt:rot size=3,3,3 rotation=clockwise_90
+!ticks 3 show
+data get block 20 -60 10
+@bot !send test_instance_block_action 20 -60 10 run key=gt:pass size=3,3,3
+!ticks 40 show
+data get block 20 -60 10
+@bot !send test_instance_block_action 20 -60 10 run key=gt:fail size=3,3,3
+!ticks 40 show
+data get block 20 -60 10
+test clearall
+
+# ---- the test block: every mode and message
+@bot !send set_test_block 40 -60 10 start "go"
+!ticks 3 show
+data get block 40 -60 10
+@bot !send set_test_block 40 -60 10 log "a log message"
+!ticks 3 show
+data get block 40 -60 10
+@bot !send set_test_block 40 -60 10 fail "a failure"
+!ticks 3 show
+data get block 40 -60 10
+@bot !send set_test_block 40 -60 10 accept ""
+!ticks 3 show
+data get block 40 -60 10
+@bot !send set_test_block 40 -60 10 log "   "
+!ticks 3 show
+data get block 40 -60 10

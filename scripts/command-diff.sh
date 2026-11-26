@@ -54,6 +54,8 @@
 #                      `set_test_block X Y Z start|log|fail|accept "message"` and
 #                      `test_instance_block_action X Y Z init|query|set|reset|save|export|run [key=<test id>] [size=X,Y,Z]
 #                      [rotation=none|clockwise_90|180|counterclockwise_90] [ignore=<bool>] [status=cleared|running|finished]`
+#                      A trailing `reply` waits for the `test_instance_block_status` answer of `init`/`query` before the marker (a
+#                      main-thread packet is answered in the tick after the marker's, so the answer would land in a random segment).
 #   !suggest <text>    a `command_suggestion` request as Bot (`@bot0 !suggest ...`; text as the client sends it, a "quoted" text
 #                      keeps trailing blanks), waits for the answer with that request id; record it with `!packets command_suggestions`
 #   !file <path>       the gzip NBT file `<path>` of the server directory as pretty SNBT, one `file| ` line per line (`(missing)`

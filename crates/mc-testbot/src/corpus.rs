@@ -56,6 +56,9 @@ enum Item {
     World(String, bool),
     /// `!send <packet> ...`: a serverbound play packet sent as the bot (`@bot0 !send ...` as Bot0).
     Send(usize, Box<ServerboundPlayPacket>),
+    /// `!send <packet> reply`: the same, then waits for the `test_instance_block_status` answer (a main-thread handler answers
+    /// in the tick after the marker's, so without the wait the answer lands in a random segment).
+    SendReply(usize, Box<ServerboundPlayPacket>),
     /// `!suggest <text>`: a `command_suggestion` request as the bot (`@bot0 !suggest ...` as Bot0).
     Suggest(usize, String),
     /// `!file <path>`: the gzip NBT file at `path` (relative to the server directory) as pretty SNBT.
@@ -204,6 +207,7 @@ fn parse_corpus(file: &str, text: &str) -> Res<Vec<Line>> {
                     | Item::Join(_)
                     | Item::Leave(_)
                     | Item::Send(..)
+                    | Item::SendReply(..)
                     | Item::Suggest(..)
                     | Item::File(_)
             )
@@ -227,7 +231,10 @@ fn parse_corpus(file: &str, text: &str) -> Res<Vec<Line>> {
 /// `!send` and `!suggest`, which a bot prefix (`@bot0 !send ...`) may address to another bot.
 fn parse_bot_directive(word: &str, arg: &str, bot: usize) -> Result<Item, String> {
     match word {
-        "send" => parse_send(arg).map(|p| Item::Send(bot, Box::new(p))),
+        "send" => match arg.strip_suffix(" reply") {
+            Some(arg) => parse_send(arg).map(|p| Item::SendReply(bot, Box::new(p))),
+            None => parse_send(arg).map(|p| Item::Send(bot, Box::new(p))),
+        },
         "suggest" if !arg.is_empty() => Ok(Item::Suggest(bot, unquote(arg))),
         "suggest" => Err("!suggest needs the text to complete".into()),
         _ => Err(format!("!{word} cannot follow a bot prefix")),
@@ -987,6 +994,18 @@ impl Side {
                 .issue_packet(*i, (**packet).clone(), None, header)
                 .await
                 .map(Some),
+            Item::SendReply(i, packet) => self
+                .issue_packet(
+                    *i,
+                    (**packet).clone(),
+                    Some((
+                        "test_instance_block_status",
+                        "TestInstanceBlockStatus(".into(),
+                    )),
+                    header,
+                )
+                .await
+                .map(Some),
             Item::Suggest(i, text) => {
                 self.suggest_id += 1;
                 let packet =
@@ -1580,6 +1599,7 @@ mod tests {
                  !send set_test_block 0 0 0 accept \"\"\n\
                  @bot0 !send test_instance_block_action 3 4 5 set key=gt:pass size=1,2,3 rotation=clockwise_90 ignore=true status=finished\n\
                  @bot !send test_instance_block_action -1 2 3 query\n\
+                 @bot !send test_instance_block_action 1 2 3 init key=gt:pass reply\n\
                  !suggest /test run a\n\
                  @bot0 !suggest \"test run \"\n\
                  !file world/generated/gt/structure/x.nbt\n";
@@ -1637,10 +1657,11 @@ mod tests {
         );
         assert_eq!(q.data.size, mc_core::pos::vec3i::Vec3i::ZERO);
         assert_eq!(q.data.test, None);
-        assert_eq!(items[4], Item::Suggest(0, "/test run a".into()));
-        assert_eq!(items[5], Item::Suggest(1, "test run ".into()));
+        assert!(matches!(&items[4], Item::SendReply(0, _)));
+        assert_eq!(items[5], Item::Suggest(0, "/test run a".into()));
+        assert_eq!(items[6], Item::Suggest(1, "test run ".into()));
         assert_eq!(
-            items[6],
+            items[7],
             Item::File("world/generated/gt/structure/x.nbt".into())
         );
         for bad in [

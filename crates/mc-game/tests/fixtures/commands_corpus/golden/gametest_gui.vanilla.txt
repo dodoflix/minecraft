@@ -1,0 +1,435 @@
+### [gametest_gui.txt:6] gamerule advance_time false
+log| System chat: Game rule advance_time is now set to false
+Bot| [system_chat] [Server: Game rule advance_time is now set to false]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["advance_time","false"]}],"color":"gray","italic":true}
+### [gametest_gui.txt:7] gamerule advance_weather false
+log| System chat: Game rule advance_weather is now set to false
+Bot| [system_chat] [Server: Game rule advance_weather is now set to false]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["advance_weather","false"]}],"color":"gray","italic":true}
+### [gametest_gui.txt:16] setblock 10 -60 10 minecraft:test_instance_block
+log| System chat: Changed the block at 10, -60, 10
+Bot| [system_chat] [Server: Changed the block at 10, -60, 10]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[10,-60,10]}],"color":"gray","italic":true}
+### [gametest_gui.txt:17] setblock 20 -60 10 minecraft:test_instance_block
+log| System chat: Changed the block at 20, -60, 10
+Bot| [system_chat] [Server: Changed the block at 20, -60, 10]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[20,-60,10]}],"color":"gray","italic":true}
+### [gametest_gui.txt:18] setblock 30 -60 10 minecraft:stone
+log| System chat: Changed the block at 30, -60, 10
+Bot| [system_chat] [Server: Changed the block at 30, -60, 10]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[30,-60,10]}],"color":"gray","italic":true}
+### [gametest_gui.txt:19] setblock 40 -60 10 minecraft:test_block
+log| System chat: Changed the block at 40, -60, 10
+Bot| [system_chat] [Server: Changed the block at 40, -60, 10]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[40,-60,10]}],"color":"gray","italic":true}
+### [gametest_gui.txt:20] data get block 10 -60 10
+log| System chat: 10, -60, 10 has the following block data: {components: {}, data: {size: [I; 0, 0, 0], ignore_entities: 0b, rotation: "none", status: "cleared"}, x: 10, y: -60, z: 10, id: "minecraft:test_instance_block"}
+### [gametest_gui.txt:21] data get block 20 -60 10
+log| System chat: 20, -60, 10 has the following block data: {components: {}, data: {size: [I; 0, 0, 0], ignore_entities: 0b, rotation: "none", status: "cleared"}, x: 20, y: -60, z: 10, id: "minecraft:test_instance_block"}
+### [gametest_gui.txt:24] @bot0 !send test_instance_block_action 10 -60 10 init key=gt:pass
+
+### [gametest_gui.txt:25] @bot0 !send test_instance_block_action 10 -60 10 query key=gt:pass
+
+### [gametest_gui.txt:26] @bot0 !send test_instance_block_action 10 -60 10 set key=gt:fail size=1,2,3
+
+### [gametest_gui.txt:27] @bot0 !send test_instance_block_action 10 -60 10 run key=gt:pass
+
+### [gametest_gui.txt:28] @bot0 !send set_test_block 40 -60 10 fail "from bot0"
+
+### [gametest_gui.txt:29] !ticks 3 show
+
+### [gametest_gui.txt:30] data get block 10 -60 10
+log| System chat: 10, -60, 10 has the following block data: {components: {}, data: {size: [I; 0, 0, 0], ignore_entities: 0b, rotation: "none", status: "cleared"}, x: 10, y: -60, z: 10, id: "minecraft:test_instance_block"}
+### [gametest_gui.txt:31] data get block 40 -60 10
+log| System chat: 40, -60, 10 has the following block data: {mode: "start", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: ""}
+### [gametest_gui.txt:32] gamemode survival Bot
+log| System chat: Set Bot's game mode to Survival Mode
+Bot| [system_chat] Your game mode has been updated to Survival Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.survival"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Survival Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.survival"}]}],"color":"gray","italic":true}
+### [gametest_gui.txt:33] @bot !send test_instance_block_action 10 -60 10 init key=gt:pass
+
+### [gametest_gui.txt:34] @bot !send test_instance_block_action 10 -60 10 query key=gt:pass
+
+### [gametest_gui.txt:35] @bot !send test_instance_block_action 10 -60 10 set key=gt:fail size=1,2,3
+
+### [gametest_gui.txt:36] @bot !send set_test_block 40 -60 10 fail "from survival"
+
+### [gametest_gui.txt:37] !ticks 3 show
+
+### [gametest_gui.txt:38] data get block 10 -60 10
+log| System chat: 10, -60, 10 has the following block data: {components: {}, data: {size: [I; 0, 0, 0], ignore_entities: 0b, rotation: "none", status: "cleared"}, x: 10, y: -60, z: 10, id: "minecraft:test_instance_block"}
+### [gametest_gui.txt:39] data get block 40 -60 10
+log| System chat: 40, -60, 10 has the following block data: {mode: "start", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: ""}
+### [gametest_gui.txt:40] gamemode creative Bot
+log| System chat: Set Bot's game mode to Creative Mode
+Bot| [system_chat] Your game mode has been updated to Creative Mode
+Bot|   json {"translate":"gameMode.changed","with":[{"translate":"gameMode.creative"}]}
+Bot| [system_chat] [Server: Set Bot's game mode to Creative Mode]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamemode.success.other","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"gameMode.creative"}]}],"color":"gray","italic":true}
+### [gametest_gui.txt:41] @bot !send test_instance_block_action 30 -60 10 init key=gt:pass
+
+### [gametest_gui.txt:42] @bot !send test_instance_block_action 30 -60 10 set key=gt:fail size=1,2,3
+
+### [gametest_gui.txt:43] @bot !send test_instance_block_action 31 -60 10 query key=gt:pass
+
+### [gametest_gui.txt:44] @bot !send set_test_block 30 -60 10 fail "stone"
+
+### [gametest_gui.txt:45] @bot !send set_test_block 41 -60 10 fail "air"
+
+### [gametest_gui.txt:46] !ticks 3 show
+
+### [gametest_gui.txt:47] data get block 30 -60 10
+log| System chat: The target block is not a block entity
+### [gametest_gui.txt:50] @bot !send test_instance_block_action 10 -60 10 init key=gt:pass reply
+Bot| packet test_instance_block_status TestInstanceBlockStatus(ClientboundTestInstanceBlockStatus { status: Component { contents: Translatable(TranslatableContents { key: "test_instance.description.type", fallback: None, args: [Component(Component { contents: Translatable(TranslatableContents { key: "test_instance.type.block_based", fallback: None, args: [] }), siblings: [], style: Style { color: Some(TextColor { value: 5592575, name: Some("blue") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } })] }), siblings: [Component { contents: Literal("\n"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event…(+2639 chars)…or: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, size: None })
+### [gametest_gui.txt:51] @bot !send test_instance_block_action 10 -60 10 init key=gt:flaky reply
+Bot| packet test_instance_block_status TestInstanceBlockStatus(ClientboundTestInstanceBlockStatus { status: Component { contents: Translatable(TranslatableContents { key: "test_instance.description.type", fallback: None, args: [Component(Component { contents: Translatable(TranslatableContents { key: "test_instance.type.block_based", fallback: None, args: [] }), siblings: [], style: Style { color: Some(TextColor { value: 5592575, name: Some("blue") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } })] }), siblings: [Component { contents: Literal("\n"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event…(+2639 chars)…or: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, size: None })
+### [gametest_gui.txt:52] @bot !send test_instance_block_action 10 -60 10 init reply
+Bot| packet test_instance_block_status TestInstanceBlockStatus(ClientboundTestInstanceBlockStatus { status: Component { contents: Translatable(TranslatableContents { key: "test_instance.description.no_test", fallback: None, args: [] }), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, size: None })
+### [gametest_gui.txt:53] @bot !send test_instance_block_action 10 -60 10 init key=nobody:nothing reply
+Bot| packet test_instance_block_status TestInstanceBlockStatus(ClientboundTestInstanceBlockStatus { status: Component { contents: Translatable(TranslatableContents { key: "test_instance.description.no_test", fallback: None, args: [] }), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, size: None })
+### [gametest_gui.txt:54] @bot !send test_instance_block_action 10 -60 10 query key=gt:pass reply
+Bot| packet test_instance_block_status TestInstanceBlockStatus(ClientboundTestInstanceBlockStatus { status: Component { contents: Translatable(TranslatableContents { key: "test_instance.description.type", fallback: None, args: [Component(Component { contents: Translatable(TranslatableContents { key: "test_instance.type.block_based", fallback: None, args: [] }), siblings: [], style: Style { color: Some(TextColor { value: 5592575, name: Some("blue") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } })] }), siblings: [Component { contents: Literal("\n"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event…(+2661 chars)…: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, size: Some(Vec3i{x=3, y=1, z=1}) })
+### [gametest_gui.txt:55] @bot !send test_instance_block_action 10 -60 10 query key=gt:rot reply
+Bot| packet test_instance_block_status TestInstanceBlockStatus(ClientboundTestInstanceBlockStatus { status: Component { contents: Translatable(TranslatableContents { key: "test_instance.description.type", fallback: None, args: [Component(Component { contents: Translatable(TranslatableContents { key: "test_instance.type.block_based", fallback: None, args: [] }), siblings: [], style: Style { color: Some(TextColor { value: 5592575, name: Some("blue") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } })] }), siblings: [Component { contents: Literal("\n"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event…(+2660 chars)…: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, size: Some(Vec3i{x=3, y=2, z=4}) })
+### [gametest_gui.txt:56] @bot !send test_instance_block_action 10 -60 10 query key=gu:nostruct reply
+Bot| packet test_instance_block_status TestInstanceBlockStatus(ClientboundTestInstanceBlockStatus { status: Component { contents: Translatable(TranslatableContents { key: "test_instance.description.type", fallback: None, args: [Component(Component { contents: Translatable(TranslatableContents { key: "test_instance.type.block_based", fallback: None, args: [] }), siblings: [], style: Style { color: Some(TextColor { value: 5592575, name: Some("blue") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } })] }), siblings: [Component { contents: Literal("\n"), siblings: [], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event…(+2642 chars)…or: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }], style: Style { color: None, shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, size: None })
+### [gametest_gui.txt:57] @bot !send test_instance_block_action 10 -60 10 query key=nobody:nothing reply
+Bot| packet test_instance_block_status TestInstanceBlockStatus(ClientboundTestInstanceBlockStatus { status: Component { contents: Translatable(TranslatableContents { key: "test_instance.description.no_test", fallback: None, args: [] }), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, size: None })
+### [gametest_gui.txt:58] @bot !send test_instance_block_action 10 -60 10 query reply
+Bot| packet test_instance_block_status TestInstanceBlockStatus(ClientboundTestInstanceBlockStatus { status: Component { contents: Translatable(TranslatableContents { key: "test_instance.description.no_test", fallback: None, args: [] }), siblings: [], style: Style { color: Some(TextColor { value: 16733525, name: Some("red") }), shadow_color: None, bold: None, italic: None, underlined: None, strikethrough: None, obfuscated: None, click_event: None, hover_event: None, insertion: None, font: None } }, size: None })
+### [gametest_gui.txt:61] @bot !send test_instance_block_action 10 -60 10 set key=gt:pass size=3,3,3 rotation=clockwise_90 ignore=true status=finished
+
+### [gametest_gui.txt:62] !ticks 3 show
+
+### [gametest_gui.txt:63] data get block 10 -60 10
+log| System chat: 10, -60, 10 has the following block data: {components: {}, data: {test: "gt:pass", size: [I; 3, 3, 3], ignore_entities: 1b, rotation: "clockwise_90", status: "finished"}, x: 10, y: -60, z: 10, id: "minecraft:test_instance_block"}
+### [gametest_gui.txt:64] @bot !send test_instance_block_action 10 -60 10 set key=gt:rot size=4,2,5 rotation=counterclockwise_90 ignore=false status=running
+
+### [gametest_gui.txt:65] !ticks 3 show
+
+### [gametest_gui.txt:66] data get block 10 -60 10
+log| System chat: 10, -60, 10 has the following block data: {components: {}, data: {test: "gt:rot", size: [I; 4, 2, 5], ignore_entities: 0b, rotation: "counterclockwise_90", status: "running"}, x: 10, y: -60, z: 10, id: "minecraft:test_instance_block"}
+### [gametest_gui.txt:67] @bot !send test_instance_block_action 10 -60 10 set size=3,3,3
+
+### [gametest_gui.txt:68] !ticks 3 show
+
+### [gametest_gui.txt:69] data get block 10 -60 10
+log| System chat: 10, -60, 10 has the following block data: {components: {}, data: {size: [I; 3, 3, 3], ignore_entities: 0b, rotation: "none", status: "cleared"}, x: 10, y: -60, z: 10, id: "minecraft:test_instance_block"}
+### [gametest_gui.txt:72] setblock 11 -59 12 minecraft:stone
+log| System chat: Changed the block at 11, -59, 12
+Bot| [system_chat] [Server: Changed the block at 11, -59, 12]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[11,-59,12]}],"color":"gray","italic":true}
+### [gametest_gui.txt:73] setblock 12 -58 13 minecraft:structure_void
+log| System chat: Changed the block at 12, -58, 13
+Bot| [system_chat] [Server: Changed the block at 12, -58, 13]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[12,-58,13]}],"color":"gray","italic":true}
+### [gametest_gui.txt:74] setblock 12 -57 11 minecraft:chest{Items:[{Slot:0b,id:"minecraft:apple",count:3}]}
+log| System chat: Changed the block at 12, -57, 11
+Bot| [system_chat] [Server: Changed the block at 12, -57, 11]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[12,-57,11]}],"color":"gray","italic":true}
+### [gametest_gui.txt:75] summon minecraft:armor_stand 11.5 -59 11.5 {UUID:[I;1,2,3,4],NoGravity:1b,Rotation:[90f,0f],CustomName:"inside"}
+log| System chat: Summoned new inside
+Bot| [system_chat] [Server: Summoned new inside]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"text":"inside","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"inside","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [gametest_gui.txt:77] @bot !send test_instance_block_action 10 -60 10 save key=foo:one size=3,3,3 ignore=false
+
+### [gametest_gui.txt:78] !ticks 3 show
+
+### [gametest_gui.txt:79] !file world/generated/foo/structure/one.nbt
+file| {
+file|     DataVersion: 5023,
+file|     size: [3, 3, 3],
+file|     entities: [
+file|         {blockPos: [1, 0, 0], pos: [1.5d, 0.0d, 0.5d], nbt: {AbsorptionAmount: 0.0f, Air: 300s, Brain: {memories: {}}, CustomName: "inside", DeathTime: 0s, DisabledSlots: 0, FallFlying: 0b, Fire: 0s, Health: 20.0f, HurtTime: 0s, Invisible: 0b, Invulnerable: 0b, Motion: [0.0d, 0.0d, 0.0d], NoBasePlate: 0b, NoGravity: 1b, OnGround: 0b, PortalCooldown: 0, Pos: [11.5d, -59.0d, 11.5d], Pose: {}, Rotation: [90.0f, 0.0f], ShowArms: 0b, Small: 0b, UUID: [I; 1, 2, 3, 4], attributes: [{base: 0.7d, id: "minecraft:movement_speed"}], current_impulse_context_reset_grace_time: 0, fall_distance: 0.0d, id: "minecraft:armor_stand"}}
+file|     ],
+file|     palette: [
+file|         {id: "minecraft:stone"},
+file|         {id: "minecraft:chest", properties: {facing: "north", type: "single", waterlogged: "false"}}
+file|     ],
+file|     blocks: [
+file|         {
+file|             pos: [
+file|                 1,
+file|                 0,
+file|                 1
+file|             ],
+file|             state: 0
+file|         },
+file|         {
+file|             nbt: {
+file|                 Items: [
+file|                     {
+file|                         Slot: 0b,
+file|                         count: 3,
+file|                         id: "minecraft:apple"
+file|                     }
+file|                 ],
+file|                 components: {},
+file|                 id: "minecraft:chest"
+file|             },
+file|             pos: [
+file|                 2,
+file|                 2,
+file|                 0
+file|             ],
+file|             state: 1
+file|         }
+file|     ]
+file| }
+### [gametest_gui.txt:80] @bot !send test_instance_block_action 10 -60 10 save key=foo:two size=3,3,3 ignore=true
+
+### [gametest_gui.txt:81] !ticks 3 show
+
+### [gametest_gui.txt:82] !file world/generated/foo/structure/two.nbt
+file| {
+file|     DataVersion: 5023,
+file|     size: [3, 3, 3],
+file|     entities: [],
+file|     palette: [
+file|         {id: "minecraft:stone"},
+file|         {id: "minecraft:chest", properties: {facing: "north", type: "single", waterlogged: "false"}}
+file|     ],
+file|     blocks: [
+file|         {
+file|             pos: [
+file|                 1,
+file|                 0,
+file|                 1
+file|             ],
+file|             state: 0
+file|         },
+file|         {
+file|             nbt: {
+file|                 Items: [
+file|                     {
+file|                         Slot: 0b,
+file|                         count: 3,
+file|                         id: "minecraft:apple"
+file|                     }
+file|                 ],
+file|                 components: {},
+file|                 id: "minecraft:chest"
+file|             },
+file|             pos: [
+file|                 2,
+file|                 2,
+file|                 0
+file|             ],
+file|             state: 1
+file|         }
+file|     ]
+file| }
+### [gametest_gui.txt:83] @bot !send test_instance_block_action 10 -60 10 save key=foo:rotated size=3,2,4 rotation=clockwise_90 ignore=false
+
+### [gametest_gui.txt:84] !ticks 3 show
+
+### [gametest_gui.txt:85] !file world/generated/foo/structure/rotated.nbt
+file| {
+file|     DataVersion: 5023,
+file|     size: [3, 2, 4],
+file|     entities: [
+file|         {blockPos: [1, 0, 0], pos: [1.5d, 0.0d, 0.5d], nbt: {AbsorptionAmount: 0.0f, Air: 300s, Brain: {memories: {}}, CustomName: "inside", DeathTime: 0s, DisabledSlots: 0, FallFlying: 0b, Fire: 0s, Health: 20.0f, HurtTime: 0s, Invisible: 0b, Invulnerable: 0b, Motion: [0.0d, 0.0d, 0.0d], NoBasePlate: 0b, NoGravity: 1b, OnGround: 0b, PortalCooldown: 0, Pos: [11.5d, -59.0d, 11.5d], Pose: {}, Rotation: [90.0f, 0.0f], ShowArms: 0b, Small: 0b, UUID: [I; 1, 2, 3, 4], attributes: [{base: 0.7d, id: "minecraft:movement_speed"}], current_impulse_context_reset_grace_time: 0, fall_distance: 0.0d, id: "minecraft:armor_stand"}}
+file|     ],
+file|     palette: [
+file|         {id: "minecraft:stone"}
+file|     ],
+file|     blocks: [
+file|         {
+file|             pos: [
+file|                 1,
+file|                 0,
+file|                 1
+file|             ],
+file|             state: 0
+file|         }
+file|     ]
+file| }
+### [gametest_gui.txt:86] @bot !send test_instance_block_action 10 -60 10 save key=foo:small size=1,1,1 ignore=false
+
+### [gametest_gui.txt:87] !ticks 3 show
+
+### [gametest_gui.txt:88] !file world/generated/foo/structure/small.nbt
+file| {
+file|     DataVersion: 5023,
+file|     size: [1, 1, 1],
+file|     entities: [],
+file|     palette: [],
+file|     blocks: []
+file| }
+### [gametest_gui.txt:89] @bot !send test_instance_block_action 10 -60 10 save size=3,3,3
+
+### [gametest_gui.txt:90] !ticks 3 show
+Bot| [system_chat] Unable to save test structure template for test instance at 10, -60, 10
+Bot|   json {"translate":"test_instance_block.error.unable_to_save","with":[10,-60,10],"color":"red"}
+### [gametest_gui.txt:91] @bot !send test_instance_block_action 10 -60 10 save key=gt:pass size=3,3,3 ignore=false
+
+### [gametest_gui.txt:92] !ticks 3 show
+
+### [gametest_gui.txt:93] !file world/generated/gt/structure/pass.nbt
+file| {
+file|     DataVersion: 5023,
+file|     size: [3, 3, 3],
+file|     entities: [
+file|         {blockPos: [1, 0, 0], pos: [1.5d, 0.0d, 0.5d], nbt: {AbsorptionAmount: 0.0f, Air: 300s, Brain: {memories: {}}, CustomName: "inside", DeathTime: 0s, DisabledSlots: 0, FallFlying: 0b, Fire: 0s, Health: 20.0f, HurtTime: 0s, Invisible: 0b, Invulnerable: 0b, Motion: [0.0d, 0.0d, 0.0d], NoBasePlate: 0b, NoGravity: 1b, OnGround: 0b, PortalCooldown: 0, Pos: [11.5d, -59.0d, 11.5d], Pose: {}, Rotation: [90.0f, 0.0f], ShowArms: 0b, Small: 0b, UUID: [I; 1, 2, 3, 4], attributes: [{base: 0.7d, id: "minecraft:movement_speed"}], current_impulse_context_reset_grace_time: 0, fall_distance: 0.0d, id: "minecraft:armor_stand"}}
+file|     ],
+file|     palette: [
+file|         {id: "minecraft:stone"},
+file|         {id: "minecraft:chest", properties: {facing: "north", type: "single", waterlogged: "false"}}
+file|     ],
+file|     blocks: [
+file|         {
+file|             pos: [
+file|                 1,
+file|                 0,
+file|                 1
+file|             ],
+file|             state: 0
+file|         },
+file|         {
+file|             nbt: {
+file|                 Items: [
+file|                     {
+file|                         Slot: 0b,
+file|                         count: 3,
+file|                         id: "minecraft:apple"
+file|                     }
+file|                 ],
+file|                 components: {},
+file|                 id: "minecraft:chest"
+file|             },
+file|             pos: [
+file|                 2,
+file|                 2,
+file|                 0
+file|             ],
+file|             state: 1
+file|         }
+file|     ]
+file| }
+### [gametest_gui.txt:96] @bot !send test_instance_block_action 10 -60 10 export key=foo:one size=3,3,3
+
+### [gametest_gui.txt:97] !ticks 3 show
+Bot| [system_chat] Test structure exporting is disabled
+Bot|   json {"text":"Test structure exporting is disabled","color":"red"}
+### [gametest_gui.txt:98] @bot !send test_instance_block_action 10 -60 10 export
+
+### [gametest_gui.txt:99] !ticks 3 show
+Bot| [system_chat] Unable to save test structure template for test instance at 10, -60, 10
+Bot|   json {"translate":"test_instance_block.error.unable_to_save","with":[10,-60,10],"color":"red"}
+### [gametest_gui.txt:100] @bot !send test_instance_block_action 10 -60 10 export key=nobody:nothing size=2,2,2
+
+### [gametest_gui.txt:101] !ticks 3 show
+Bot| [system_chat] Test structure exporting is disabled
+Bot|   json {"text":"Test structure exporting is disabled","color":"red"}
+### [gametest_gui.txt:104] @bot !send test_instance_block_action 20 -60 10 reset key=gu:nostruct size=2,2,2
+
+### [gametest_gui.txt:105] !ticks 3 show
+
+### [gametest_gui.txt:106] @bot !send test_instance_block_action 20 -60 10 reset key=nobody:nothing size=2,2,2
+
+### [gametest_gui.txt:107] !ticks 3 show
+
+### [gametest_gui.txt:108] @bot !send test_instance_block_action 20 -60 10 run
+
+### [gametest_gui.txt:109] !ticks 3 show
+Bot| [system_chat] Unable to run test instance at 20, -60, 10 since it has an undefined test
+Bot|   json {"translate":"test_instance_block.error.no_test","with":[20,-60,10],"color":"red"}
+### [gametest_gui.txt:110] @bot !send test_instance_block_action 20 -60 10 run key=nobody:nothing
+
+### [gametest_gui.txt:111] !ticks 3 show
+Bot| [system_chat] Unable to run test instance at 20, -60, 10 since it has an undefined test
+Bot|   json {"translate":"test_instance_block.error.no_test","with":[20,-60,10],"color":"red"}
+### [gametest_gui.txt:112] @bot !send test_instance_block_action 20 -60 10 run key=gu:nostruct size=2,2,2
+
+### [gametest_gui.txt:113] !ticks 3 show
+Bot| [system_chat] Unable to run test instance at 20, -60, 10 since it has no test structure
+Bot|   json {"translate":"test_instance_block.error.no_test_structure","with":[20,-60,10],"color":"red"}
+### [gametest_gui.txt:114] @bot !send test_instance_block_action 20 -60 10 reset key=gt:pass size=3,3,3 rotation=none
+
+### [gametest_gui.txt:115] !ticks 3 show
+Bot| [system_chat] Reset succeeded for test: gt:pass
+Bot|   json {"translate":"test_instance_block.reset_success","with":["gt:pass"],"color":"green"}
+### [gametest_gui.txt:116] data get block 20 -60 10
+log| System chat: 20, -60, 10 has the following block data: {components: {}, data: {test: "gt:pass", size: [I; 3, 3, 3], ignore_entities: 0b, rotation: "none", status: "cleared"}, x: 20, y: -60, z: 10, id: "minecraft:test_instance_block"}
+### [gametest_gui.txt:117] @bot !send test_instance_block_action 20 -60 10 reset key=gt:rot size=3,3,3 rotation=clockwise_90
+
+### [gametest_gui.txt:118] !ticks 3 show
+Bot| [system_chat] Reset succeeded for test: gt:rot
+Bot|   json {"translate":"test_instance_block.reset_success","with":["gt:rot"],"color":"green"}
+### [gametest_gui.txt:119] data get block 20 -60 10
+log| System chat: 20, -60, 10 has the following block data: {components: {}, data: {test: "gt:rot", size: [I; 3, 3, 3], ignore_entities: 0b, rotation: "clockwise_90", status: "cleared"}, x: 20, y: -60, z: 10, id: "minecraft:test_instance_block"}
+### [gametest_gui.txt:120] @bot !send test_instance_block_action 20 -60 10 run key=gt:pass size=3,3,3
+
+### [gametest_gui.txt:121] !ticks 40 show
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+log| ERROR: gt:pass failed at 20, -60, 10! Test structure missing Start block on tick 0
+log| System chat: Game Test complete! 1 test(s) were run
+log| System chat: 1 required test(s) failed :(
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] Starting test gt:pass
+Bot|   json {"translate":"test_instance_block.starting","with":["gt:pass"]}
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+Bot| [system_chat] gt:pass failed! Test structure missing Start block on tick 0
+Bot|   json {"text":"gt:pass failed! Test structure missing Start block on tick 0","color":"red"}
+Bot0| [system_chat] gt:pass failed! Test structure missing Start block on tick 0
+Bot0|   json {"text":"gt:pass failed! Test structure missing Start block on tick 0","color":"red"}
+### [gametest_gui.txt:122] data get block 20 -60 10
+log| System chat: 20, -60, 10 has the following block data: {components: {}, data: {error_message: {with: [{with: [{translate: "test_block.mode.start"}], translate: "test_block.error.missing"}, 0], translate: "test.error.tick"}, test: "gt:pass", size: [I; 3, 3, 3], ignore_entities: 0b, rotation: "none", status: "finished"}, x: 20, y: -60, z: 10, id: "minecraft:test_instance_block"}
+### [gametest_gui.txt:123] @bot !send test_instance_block_action 20 -60 10 run key=gt:fail size=3,3,3
+
+### [gametest_gui.txt:124] !ticks 40 show
+log| Running test environment 'minecraft:default' batch 0 (1 tests)...
+log| System chat: Starting environment minecraft:default batch 0
+log| ERROR: gt:fail failed at 20, -60, 10! boom on tick 1
+log| System chat: Game Test complete! 1 test(s) were run
+log| System chat: 1 required test(s) failed :(
+log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] Starting test gt:fail
+Bot|   json {"translate":"test_instance_block.starting","with":["gt:fail"]}
+Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
+Bot| [system_chat] gt:fail failed! boom on tick 1
+Bot|   json {"text":"gt:fail failed! boom on tick 1","color":"red"}
+Bot0| [system_chat] gt:fail failed! boom on tick 1
+Bot0|   json {"text":"gt:fail failed! boom on tick 1","color":"red"}
+### [gametest_gui.txt:125] data get block 20 -60 10
+log| System chat: 20, -60, 10 has the following block data: {components: {}, data: {error_message: {with: ["boom", 1], translate: "test.error.tick"}, test: "gt:fail", size: [I; 4, 1, 1], ignore_entities: 0b, rotation: "none", status: "finished"}, x: 20, y: -60, z: 10, id: "minecraft:test_instance_block"}
+### [gametest_gui.txt:126] test clearall
+log| System chat: Cleared 2 structure(s)
+Bot| [system_chat] [Server: Cleared 2 structure(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.clear.success","with":[2]}],"color":"gray","italic":true}
+### [gametest_gui.txt:129] @bot !send set_test_block 40 -60 10 start "go"
+
+### [gametest_gui.txt:130] !ticks 3 show
+
+### [gametest_gui.txt:131] data get block 40 -60 10
+log| System chat: 40, -60, 10 has the following block data: {mode: "start", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: "go"}
+### [gametest_gui.txt:132] @bot !send set_test_block 40 -60 10 log "a log message"
+
+### [gametest_gui.txt:133] !ticks 3 show
+
+### [gametest_gui.txt:134] data get block 40 -60 10
+log| System chat: 40, -60, 10 has the following block data: {mode: "log", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: "a log message"}
+### [gametest_gui.txt:135] @bot !send set_test_block 40 -60 10 fail "a failure"
+
+### [gametest_gui.txt:136] !ticks 3 show
+
+### [gametest_gui.txt:137] data get block 40 -60 10
+log| System chat: 40, -60, 10 has the following block data: {mode: "fail", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: "a failure"}
+### [gametest_gui.txt:138] @bot !send set_test_block 40 -60 10 accept ""
+
+### [gametest_gui.txt:139] !ticks 3 show
+
+### [gametest_gui.txt:140] data get block 40 -60 10
+log| System chat: 40, -60, 10 has the following block data: {mode: "accept", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: ""}
+### [gametest_gui.txt:141] @bot !send set_test_block 40 -60 10 log "   "
+
+### [gametest_gui.txt:142] !ticks 3 show
+
+### [gametest_gui.txt:143] data get block 40 -60 10
+log| System chat: 40, -60, 10 has the following block data: {mode: "log", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: "   "}

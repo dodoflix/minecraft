@@ -1,0 +1,115 @@
+# /test run semantics on data pack tests: retries and `requireAll`, optional tests, `runfailed` (with and without optional tests),
+# the instance block's data after each outcome, `test stop`, a run started while another one is going, and re-running placed tests.
+# Every test runs alone (see gametest_pack for why several environments or dimensions in one run are not compared).
+#   scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/gametest_run.txt
+!datapack gametest/gtpack
+!ignore passed! \(
+!mask (\d+)ms
+# the summary lines the bots receive are not compared (see gametest_pack); the console copy of every summary stays compared
+!ignore ^Bot\| .*(Game Test complete! |All required tests passed|commands\.test\.summary)
+!ignore ^Bot0?\| .*(Test structure missing Start block|Too many Start blocks)
+
+# ---- the instance block after each outcome
+test run gt:pass
+!ticks 40 show
+data get block 0 -60 0
+test clearall
+test run gt:fail
+!ticks 40 show
+data get block 0 -60 0
+test clearall
+test run gt:timeout
+!ticks 40 show
+data get block 0 -60 0
+test clearall
+test run gt:optional_fail
+!ticks 40 show
+data get block 0 -60 0
+test clearall
+
+# ---- retries: `numberOfTimes` and `requireAll`
+test run gt:fail 3
+!ticks 100 show
+test clearall
+test run gt:fail 3 true
+!ticks 100 show
+test clearall
+test run gt:optional_fail 2
+!ticks 100 show
+test clearall
+test run gt:flaky 2
+!ticks 100 show
+test clearall
+test run gt:flaky 2 true
+!ticks 100 show
+test clearall
+test run gt:timeout 2
+!ticks 100 show
+test clearall
+test run gt:pass 2 true
+!ticks 100 show
+test clearall
+
+# ---- runfailed: everything that failed since the last run (the failed list is forgotten by a new run), required tests only, repeated
+test runfailed
+test run gt:fail
+!ticks 40 show
+test runfailed
+!ticks 40 show
+test runfailed true
+!ticks 40 show
+test runfailed false 2
+!ticks 100 show
+test runfailed true 2 true
+!ticks 100 show
+test clearall
+test run gt:optional_fail
+!ticks 40 show
+test runfailed
+!ticks 40 show
+test runfailed true
+!ticks 40 show
+test clearall
+test run gt:pass
+!ticks 40 show
+test runfailed
+test clearall
+
+# ---- stop and restart
+test run gt:timeout
+test stop
+!ticks 40 show
+test locate gt:*
+test clearall
+test run gt:timeout
+test run gt:pass
+!ticks 40 show
+test locate gt:*
+test clearall
+
+# ---- re-running placed tests
+test run gt:fail
+!ticks 40 show
+test resetthese
+!ticks 5 show
+data get block 0 -60 0
+test runthese
+!ticks 40 show
+test runthat
+test runclosest
+!ticks 40 show
+test resetclosest
+data get block 0 -60 0
+test clearall
+test runthese
+test runclosest
+
+# ---- permissions
+@bot0 test run gt:pass
+@bot0 test runfailed
+@bot0 test stop
+@bot test run gt:pass
+!ticks 40 show
+@bot test runfailed
+!ticks 40 show
+@bot test clearall
