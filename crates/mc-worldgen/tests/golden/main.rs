@@ -1,5 +1,8 @@
 //! Golden tests (T0/T1): replays of vanilla recordings and hermetic checks; one module per topic.
 
+// links the game crate: it registers the checks an inline biome's `attributes` go through
+use mc_game_core as _;
+
 mod beardifier;
 mod biome_codec;
 mod biome_params;

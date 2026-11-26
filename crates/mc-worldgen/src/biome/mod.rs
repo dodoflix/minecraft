@@ -17,8 +17,8 @@ pub use multi_noise::{
     MultiNoiseBiomeSource, MultiNoiseBiomeSourceParameterList, PARAMETER_LIST_REGISTRY, Preset,
 };
 pub use registry::{
-    BIOME_INFO_NOISE, BIOME_REGISTRY, Biome, BiomeGenerationSettings, BiomeRegistry,
-    ClimateSettings, FROZEN_TEMPERATURE_NOISE, PlacedFeatureRef, Precipitation,
+    BIOME_ATTRIBUTE_VALIDATORS, BIOME_INFO_NOISE, BIOME_REGISTRY, Biome, BiomeGenerationSettings,
+    BiomeRegistry, ClimateSettings, FROZEN_TEMPERATURE_NOISE, PlacedFeatureRef, Precipitation,
     TemperatureModifier,
 };
 pub use source::{BiomeSearchResult, BiomeSource, biome_source_from_json, distinct_biomes};

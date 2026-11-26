@@ -745,7 +745,7 @@ pub fn play_sound_codec() -> Codec<Vec<Holder<SoundEvent>>> {
 
 // ---- BlockPredicate / BlockStateProvider ----------------------------------------------------------------------------------
 
-struct StaticLookup;
+pub(crate) struct StaticLookup;
 
 impl RegistryLookup for StaticLookup {
     fn contains(&self, registry: &str, id: &Identifier) -> Lookup {

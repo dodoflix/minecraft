@@ -318,6 +318,11 @@ fn inline_placed_feature_fails(value: &Value, source: &dyn WorldgenDataSource) -
         }
 }
 
+/// Checks of the `attributes` of a biome (`EnvironmentAttributeMap.CODEC_ONLY_POSITIONAL`), whose codecs live in the game
+/// crates that depend on this one: they register themselves here. Without one every `attributes` value is accepted.
+#[linkme::distributed_slice]
+pub static BIOME_ATTRIBUTE_VALIDATORS: [fn(&Value) -> Result<(), String>];
+
 /// `Biome`.
 #[derive(Clone, Debug)]
 pub struct Biome {
@@ -349,7 +354,12 @@ impl Biome {
     ) -> LoadResult<Biome> {
         let fields = Fields::new(value)?;
         let climate = ClimateSettings::from_json(value)?;
-        let attributes = fields.optional("attributes", |v| Ok(v.clone()))?;
+        let attributes = fields.optional("attributes", |v| {
+            for validate in BIOME_ATTRIBUTE_VALIDATORS {
+                validate(v).map_err(LoadError::new)?;
+            }
+            Ok(v.clone())
+        })?;
         let effects = fields.required("effects", |v| Ok(v.clone()))?;
         let generation_settings = generation_settings(value)?;
         Ok(Biome {

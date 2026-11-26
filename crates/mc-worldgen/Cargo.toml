@@ -12,11 +12,13 @@ publish.workspace = true
 mc-core = { path = "../mc-core" }
 mc-data = { path = "../mc-data" }
 mc-world = { path = "../mc-world" }
+linkme = { workspace = true }
 serde_json = { workspace = true }
 log = { workspace = true }
 
 [dev-dependencies]
 flate2 = { workspace = true }
+mc-game-core = { path = "../mc-game-core" }
 mc-nbt = { path = "../mc-nbt" }
 mc-testkit = { path = "../mc-testkit" }
 

@@ -253,3 +253,14 @@ static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder {
     registry: keys::BIOME,
     decode,
 };
+
+/// The `attributes` check of an inline biome decoded by `mc_worldgen`: `CODEC_ONLY_POSITIONAL` against the static registries.
+fn validate_attributes(attributes: &Value) -> Result<(), String> {
+    let lookup = crate::world::item::enchantment::value_codecs::StaticLookup;
+    let ctx = RegistryDecodeContext::new(&lookup);
+    ctx.quietly(|| EnvironmentAttributeMap::parse(attributes, &ctx, true, false))
+        .map(|_| ())
+}
+
+#[linkme::distributed_slice(mc_worldgen::biome::BIOME_ATTRIBUTE_VALIDATORS)]
+static ATTRIBUTES: fn(&Value) -> Result<(), String> = validate_attributes;

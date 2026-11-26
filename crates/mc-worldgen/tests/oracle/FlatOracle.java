@@ -306,6 +306,16 @@ public class FlatOracle {
       badSpawners.add("spawners", new JsonArray());
       badSpawners.addProperty("creature_spawn_probability", 5);
       cases.add(flatWith(badSpawners.toString(), ""));
+      // `attributes` is `EnvironmentAttributeMap.CODEC_ONLY_POSITIONAL`: a value that does not decode (or names an attribute
+      // that is not positional) fails the inline biome, so the lenient field falls back to plains
+      for (String attributes : new String[] {
+         "\"x\"", "5", "[]", "null", "{}", "{\"minecraft:nope\":1}", "{\"minecraft:visual/fog_color\":5}",
+         "{\"minecraft:visual/fog_color\":\"#c0d8ff\"}", "{\"minecraft:visual/fog_color\":{\"modifier\":\"nope\",\"argument\":1}}",
+         "{\"minecraft:gameplay/respawn_anchor_works\":true}", "{\"minecraft:gameplay/fast_lava\":true}"}) {
+         JsonObject b = plains.deepCopy();
+         b.add("attributes", JsonParser.parseString(attributes));
+         cases.add(flatWith(b.toString(), ""));
+      }
       return cases;
    }
 
