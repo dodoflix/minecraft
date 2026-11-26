@@ -10,7 +10,7 @@ use std::os::unix::fs::PermissionsExt;
 use std::path::Path;
 
 use crate::startup_gates::gate_log;
-use crate::world_start::{Run, Side, cache_dir, copy_dir, first_log_difference, run};
+use crate::world_start::{Run, Side, cache_dir, copy_dir, first_log_difference, run_limited};
 
 /// The old-layout world the cases start from (`scripts/datafix-worlds.sh 1.12.2`).
 fn old_world() -> std::path::PathBuf {
@@ -52,7 +52,7 @@ fn journal(world: &Path, bytes: &[u8], mode: u32) {
 /// A case: what is wrong with the files of the copy of the old world.
 type Damage = fn(&Path);
 
-const CASES: [(&str, Damage); 35] = [
+const CASES: [(&str, Damage); 36] = [
     ("saved_data_unreadable", |w| {
         chmod(w, "data/Mineshaft.dat", 0o200)
     }),
@@ -70,6 +70,7 @@ const CASES: [(&str, Damage); 35] = [
     ("saved_data_folder_is_a_file", |w| {
         fs::write(w.join("data/minecraft"), b"x").expect("file")
     }),
+    ("region_copy_fails", |_| {}),
     ("region_folder_unlistable", |w| chmod(w, "region", 0o300)),
     ("dimension_folder_unlistable", |w| chmod(w, "DIM-1", 0o300)),
     ("journal_unreadable", |w| journal(w, b"{}", 0o200)),
@@ -136,6 +137,12 @@ const CASES: [(&str, Damage); 35] = [
     }),
 ];
 
+/// The cases that cap the size of the files the server writes: a copy of the 561 KB and 3 MB region files into the
+/// temporary directory fails.
+fn file_size_limit(case: &str) -> Option<u64> {
+    (case == "region_copy_fails").then_some(256 * 1024)
+}
+
 const READ_FAILED: &str = "WARN Failed to read chunk [";
 
 /// The second `Failed to read chunk` record of a folder that cannot be read: a worker of the I/O pool of vanilla logs it
@@ -161,9 +168,9 @@ fn without_late_reads(log: Vec<String>) -> Vec<String> {
         .collect()
 }
 
-fn upgrade(side: Side, dir: &Path, damage: Damage) -> Run {
+fn upgrade(side: Side, dir: &Path, case: &str, damage: Damage) -> Run {
     let world = old_world();
-    run(
+    run_limited(
         side,
         dir,
         move |d| {
@@ -172,6 +179,7 @@ fn upgrade(side: Side, dir: &Path, damage: Damage) -> Run {
             damage(&d.join("world"));
         },
         &[],
+        file_size_limit(case),
     )
 }
 
@@ -191,7 +199,7 @@ fn unreadable_world_files() {
         let runs: Vec<Run> = [Side::Vanilla, Side::Ours]
             .into_iter()
             .zip(&dirs)
-            .map(|(side, dir)| upgrade(side, dir.path(), damage))
+            .map(|(side, dir)| upgrade(side, dir.path(), name, damage))
             .collect();
         for dir in &dirs {
             restore(dir.path());

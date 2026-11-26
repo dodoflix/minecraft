@@ -264,7 +264,7 @@ impl ChunkNbt {
         ty: DataFixTypes,
         target_version: i32,
     ) -> io::Result<ChunkNbt> {
-        let stage = tree.create_temporary_file_path();
+        let stage = tree.create_staging_path();
         create_directory(&stage)?;
         Ok(ChunkNbt {
             folder,
@@ -280,7 +280,7 @@ impl ChunkNbt {
     }
 
     /// Copies the region file of `pos` (and, once, the external chunk files) into the staging folder.
-    fn stage(&mut self, tree: &CowTree, pos: &ChunkPos) -> io::Result<()> {
+    fn stage(&mut self, tree: &mut CowTree, pos: &ChunkPos) -> io::Result<()> {
         if !self.staged_external {
             self.staged_external = true;
             if let Ok(names) = tree.list(&self.folder) {
@@ -301,7 +301,10 @@ impl ChunkNbt {
         }
         let virtual_path = self.folder.join(&name);
         if tree.is_file(&virtual_path) {
-            copy_file(tree.file_for_read(&virtual_path)?, &self.stage.join(&name))?;
+            // opening the region file copies it into the temporary directory (`FileNode.ensureCopy`): the copy is the
+            // file the storage works on, and goes back to its `tmp_N` on close
+            let copy = tree.file_for_write(&virtual_path, false)?;
+            move_staged(&copy, &self.stage.join(&name))?;
             self.staged_regions.insert(name);
         }
         Ok(())
@@ -309,7 +312,11 @@ impl ChunkNbt {
 
     /// The stored tag of the chunk at `pos`: the region file is opened (copied) by the read, whose failure the `IOWorker`
     /// logs.
-    fn read_chunk(&mut self, tree: &CowTree, pos: &ChunkPos) -> io::Result<Option<CompoundTag>> {
+    fn read_chunk(
+        &mut self,
+        tree: &mut CowTree,
+        pos: &ChunkPos,
+    ) -> io::Result<Option<CompoundTag>> {
         let stored = self
             .stage(tree, pos)
             .and_then(|()| self.storage.read(pos))
@@ -325,7 +332,7 @@ impl ChunkNbt {
 
     /// A read of the chunk at `pos` whose result nothing uses: one that was queued before the fix stopped (its failure
     /// is logged).
-    pub fn read_ahead(&mut self, tree: &CowTree, pos: &ChunkPos) {
+    pub fn read_ahead(&mut self, tree: &mut CowTree, pos: &ChunkPos) {
         let _ = self.read_chunk(tree, pos);
     }
 
@@ -333,7 +340,7 @@ impl ChunkNbt {
     /// `__context`), passed through `fixer` and written back; a chunk that is not stored is left alone.
     pub fn update_chunk(
         &mut self,
-        tree: &CowTree,
+        tree: &mut CowTree,
         pos: &ChunkPos,
         data_fix_context: Option<&CompoundTag>,
         fixer: impl FnOnce(CompoundTag) -> CompoundTag,
@@ -354,10 +361,8 @@ impl ChunkNbt {
         self.closed = true;
         self.storage.close()?;
         for name in &self.staged_regions {
-            let staged = self.stage.join(name);
-            let tmp = tree.create_temporary_file_path();
-            move_staged(&staged, &tmp)?;
-            tree.adopt_file(&self.folder.join(name), tmp)?;
+            let copy = tree.file_for_write(&self.folder.join(name), false)?;
+            move_staged(&self.stage.join(name), &copy)?;
         }
         if self.staged_external {
             let mut kept = BTreeSet::new();

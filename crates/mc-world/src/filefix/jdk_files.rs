@@ -108,22 +108,27 @@ pub(super) fn copy_file(source: &Path, target: &Path) -> io::Result<()> {
         std::os::unix::fs::PermissionsExt::mode(&metadata.permissions()),
     );
     let mut output = options.open(target).map_err(|e| failed(e, target))?;
-    // the mode is set exactly (the umask applies to the creation) and the times are copied, `COPY_ATTRIBUTES`
+    // the data goes through a channel transfer, whose failure is a plain `IOException(strerror)` without a path
     let result = io::copy(&mut input, &mut output)
-        .and_then(|_| output.set_permissions(metadata.permissions()))
-        .and_then(|()| {
-            let mut times = fs::FileTimes::new();
-            if let Ok(accessed) = metadata.accessed() {
-                times = times.set_accessed(accessed);
-            }
-            if let Ok(modified) = metadata.modified() {
-                times = times.set_modified(modified);
-            }
-            output.set_times(times)
+        .map_err(|e| JavaException::read_failure(&e).into_io(e.kind()))
+        // the mode is set exactly (the umask applies to the creation) and the times are copied, `COPY_ATTRIBUTES`
+        .and_then(|_| {
+            output
+                .set_permissions(metadata.permissions())
+                .and_then(|()| {
+                    let mut times = fs::FileTimes::new();
+                    if let Ok(accessed) = metadata.accessed() {
+                        times = times.set_accessed(accessed);
+                    }
+                    if let Ok(modified) = metadata.modified() {
+                        times = times.set_modified(modified);
+                    }
+                    output.set_times(times)
+                })
+                .map_err(|e| JavaException::from_file_pair_error(e, source, Some(target)))
         });
-    result.map_err(|e| {
+    result.inspect_err(|_| {
         let _ = fs::remove_file(target);
-        JavaException::from_file_pair_error(e, source, Some(target))
     })
 }
 

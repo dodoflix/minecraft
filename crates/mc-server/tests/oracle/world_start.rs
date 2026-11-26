@@ -420,7 +420,21 @@ pub(crate) fn run(
     prepare: impl FnOnce(&Path) + 'static,
     args: &[&str],
 ) -> Run {
+    run_limited(side, dir, prepare, args, None)
+}
+
+/// [`run`] with the size of the files the server may write capped at `file_size_limit` bytes.
+pub(crate) fn run_limited(
+    side: Side,
+    dir: &Path,
+    prepare: impl FnOnce(&Path) + 'static,
+    args: &[&str],
+    file_size_limit: Option<u64>,
+) -> Run {
     let mut builder = side.builder().dir(dir).prepare(prepare);
+    if let Some(bytes) = file_size_limit {
+        builder = builder.file_size_limit(bytes);
+    }
     for arg in args {
         builder = builder.arg(arg);
     }

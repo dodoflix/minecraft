@@ -383,6 +383,7 @@ pub struct Builder {
     xmx: String,
     jar: Option<PathBuf>,
     java: Option<PathBuf>,
+    file_size_limit: Option<u64>,
 }
 
 impl Builder {
@@ -397,6 +398,7 @@ impl Builder {
             xmx: "1G".into(),
             jar: None,
             java: None,
+            file_size_limit: None,
         }
     }
 
@@ -460,6 +462,13 @@ impl Builder {
     /// JDK 8). Vanilla only.
     pub fn java(mut self, java: impl Into<PathBuf>) -> Self {
         self.java = Some(java.into());
+        self
+    }
+
+    /// Caps the size of any file the server process writes (`RLIMIT_FSIZE`; the write that passes it fails with
+    /// `File too large`). The vanilla jar then runs unbundled (its bundler would extract the libraries under the limit).
+    pub fn file_size_limit(mut self, bytes: u64) -> Self {
+        self.file_size_limit = Some(bytes);
         self
     }
 
@@ -579,10 +588,16 @@ impl Builder {
                     None => PathBuf::from("java"),
                 };
                 let mut cmd = Command::new(&java);
-                cmd.arg(format!("-Xmx{}", self.xmx))
-                    .arg("-jar")
-                    .arg(link)
-                    .arg("nogui");
+                cmd.arg(format!("-Xmx{}", self.xmx));
+                if self.file_size_limit.is_some() && self.jar.is_none() {
+                    // the bundler extracts its libraries into the server directory, files the limit would cut
+                    cmd.arg("-cp")
+                        .arg(unbundled_classpath()?)
+                        .arg("net.minecraft.server.Main");
+                } else {
+                    cmd.arg("-jar").arg(link);
+                }
+                cmd.arg("nogui");
                 (java.display().to_string(), cmd)
             }
             Program::Ours(bin) => {
@@ -594,6 +609,24 @@ impl Builder {
         let mut cmd = cmd;
         cmd.args(&self.args);
         cmd.envs(self.envs.iter().map(|(k, v)| (k, v)));
+        if let Some(bytes) = self.file_size_limit {
+            // SAFETY: the closure only calls `setrlimit` and `signal`, which are async-signal-safe.
+            unsafe {
+                cmd.pre_exec(move || {
+                    let limit = libc::rlimit {
+                        rlim_cur: bytes as libc::rlim_t,
+                        rlim_max: bytes as libc::rlim_t,
+                    };
+                    // the write fails with `EFBIG` instead of the process dying of `SIGXFSZ`
+                    if libc::setrlimit(libc::RLIMIT_FSIZE, &limit) == -1
+                        || libc::signal(libc::SIGXFSZ, libc::SIG_IGN) == libc::SIG_ERR
+                    {
+                        return Err(io::Error::last_os_error());
+                    }
+                    Ok(())
+                });
+            }
+        }
         let proc = Proc::start(cmd, dir).map_err(|e| match (e.kind(), &self.program) {
             (io::ErrorKind::NotFound, Program::Vanilla) if self.java.is_none() => Error(
                 "java was not found on PATH: install JDK 25 (scripts/setup-ref.sh needs it too)"
@@ -613,6 +646,37 @@ impl Builder {
             _permit: None,
         })
     }
+}
+
+/// The classpath of the unbundled vanilla server (`scripts/vanilla-cp.sh`).
+fn unbundled_classpath() -> Result<std::ffi::OsString> {
+    fn jars(dir: &Path, out: &mut Vec<PathBuf>) -> io::Result<()> {
+        for entry in fs::read_dir(dir)? {
+            let path = entry?.path();
+            if path.is_dir() {
+                jars(&path, out)?;
+            } else if path.extension().is_some_and(|e| e == "jar") {
+                out.push(path);
+            }
+        }
+        Ok(())
+    }
+    let bundle = repo_root().join("ref/bundle/META-INF");
+    let mut all = Vec::new();
+    for part in ["versions", "libraries"] {
+        jars(&bundle.join(part), &mut all).map_err(|e| {
+            Error(format!(
+                "{}: {e} (run scripts/setup-ref.sh)",
+                bundle.display()
+            ))
+        })?;
+    }
+    all.sort();
+    std::env::join_paths(
+        all.iter()
+            .map(|p| p.canonicalize().unwrap_or_else(|_| p.clone())),
+    )
+    .map_err(|e| Error(format!("classpath: {e}")))
 }
 
 /// `Ok` only for `MC_ACCEPT_EULA=1`.

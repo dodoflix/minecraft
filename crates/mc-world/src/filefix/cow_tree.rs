@@ -138,6 +138,8 @@ pub struct CowTree {
     tmp_directory: PathBuf,
     root: Children,
     tmp_file_index: u32,
+    /// Numbers the staging folders, apart from `tmp_file_index`: vanilla has none, so they must not shift the `tmp_N`.
+    stage_index: u32,
 }
 
 /// `Files.isWritable`.
@@ -263,6 +265,7 @@ impl CowTree {
             tmp_directory: tmp_directory.to_path_buf(),
             root: build(entries.unwrap_or_default(), &skipped)?,
             tmp_file_index: 0,
+            stage_index: 0,
         };
         create_directory(tmp_directory)?;
         Ok(tree)
@@ -285,6 +288,13 @@ impl CowTree {
         self.tmp_file_index += 1;
         self.tmp_directory
             .join(format!("tmp_{}", self.tmp_file_index))
+    }
+
+    /// The next unused `stage_N` of the temporary directory: where a region folder is edited as real files.
+    pub fn create_staging_path(&mut self) -> PathBuf {
+        self.stage_index += 1;
+        self.tmp_directory
+            .join(format!("stage_{}", self.stage_index))
     }
 
     fn node(&self, names: &[String]) -> Option<&Node> {

@@ -1602,7 +1602,7 @@ fn an_oversized_chunk_of_a_region_file_is_updated_through_its_external_file() {
     )
     .unwrap();
     chunks
-        .update_chunk(&tree, &chunk_pos(), None, |mut tag| {
+        .update_chunk(&mut tree, &chunk_pos(), None, |mut tag| {
             tag.put_int("touched", 1);
             tag
         })
@@ -1619,6 +1619,19 @@ fn an_oversized_chunk_of_a_region_file_is_updated_through_its_external_file() {
         moves.copied_files.len(),
         2,
         "the region file and its external file"
+    );
+    let first = moves
+        .copied_files
+        .iter()
+        .find(|m| m.from == tmp.path().join("cow/tmp_1"))
+        .expect("the copy of the region file is the first temporary file, as in vanilla");
+    assert!(
+        first
+            .to
+            .file_name()
+            .unwrap()
+            .to_string_lossy()
+            .starts_with("r.")
     );
     fs::create_dir_all(tmp.path().join("out/region")).unwrap();
     move_files_for_test(&moves);
