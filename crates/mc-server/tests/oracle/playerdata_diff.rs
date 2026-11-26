@@ -224,13 +224,10 @@ fn serialization_reports(log: &str) -> Vec<String> {
         .collect()
 }
 
-/// A player file whose `Pos` is not a list and whose `Inventory` is not a list: the join logs the decode problems of the
-/// position (read twice, before the player exists and by `Entity.load`) and of the inventory, with the paths of the
-/// reports.
-#[tokio::test(flavor = "multi_thread")]
-#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
-async fn player_load_problems_match_vanilla() {
-    let mut seed = snbt::parse_compound(r#"{Pos:"x",Inventory:5,Rotation:[1.0f]}"#).expect("seed");
+/// The `Serialization errors` reports of a join of a player whose file is `seed_snbt` (plus the current data version), on
+/// the real server and on ours.
+async fn player_load_reports(seed_snbt: &str) -> [Vec<String>; 2] {
+    let mut seed = snbt::parse_compound(seed_snbt).expect("seed");
     seed.put_int(
         "DataVersion",
         mc_world::region::entity_storage::CURRENT_DATA_VERSION,
@@ -261,8 +258,33 @@ async fn player_load_problems_match_vanilla() {
         server.stop();
         reports.push(serialization_reports(&log));
     }
-    assert!(!reports[0].is_empty(), "the real server logged nothing");
-    assert_eq!(reports[0], reports[1], "vanilla / ours");
+    let ours = reports.pop().expect("ours");
+    let vanilla = reports.pop().expect("vanilla");
+    [vanilla, ours]
+}
+
+/// A player file whose `Pos` is not a list and whose `Inventory` is not a list: the join logs the decode problems of the
+/// position (read twice, before the player exists and by `Entity.load`) and of the inventory, with the paths of the
+/// reports.
+#[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
+async fn player_load_problems_match_vanilla() {
+    let [vanilla, ours] = player_load_reports(r#"{Pos:"x",Inventory:5,Rotation:[1.0f]}"#).await;
+    assert!(!vanilla.is_empty(), "the real server logged nothing");
+    assert_eq!(vanilla, ours, "vanilla / ours");
+}
+
+/// A player file whose health, food level, abilities, game mode, attributes, effects and UUID are of the wrong type: each
+/// field is reported once, in the order the `ServerPlayer` load reads them.
+#[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
+async fn player_field_problems_match_vanilla() {
+    let [vanilla, ours] = player_load_reports(
+        r#"{Health:"x",foodLevel:"y",abilities:[],playerGameType:"z",attributes:"y",active_effects:2,UUID:"not-a-uuid",XpLevel:"q",EnderItems:5,locator_bar_icon:"q"}"#,
+    )
+    .await;
+    assert!(!vanilla.is_empty(), "the real server logged nothing");
+    assert_eq!(vanilla, ours, "vanilla / ours");
 }
 
 /// A joining player whose stats file is cut, whose advancement file names an advancement that does not exist and whose

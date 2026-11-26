@@ -7,6 +7,7 @@ use super::equipment::EntityEquipment;
 use super::synched_data::SynchedEntityDataBuilder;
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
+use crate::world::block_entity::{Shape, check_number, check_shape};
 use indexmap::IndexMap;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
@@ -367,16 +368,13 @@ pub fn read_additional_save_data(
     _level: Option<&ServerLevel>,
     input: &CompoundTag,
 ) -> (f32, EntityEquipment) {
+    check_number(input, "AbsorptionAmount");
     let absorption = input.get_float_or("AbsorptionAmount", 0.0);
+    check_shape(input, "attributes", Shape::List);
     if let Some(list) = input.get_list("attributes") {
         living.attributes.apply(list);
     }
-    living.locator_bar_icon = crate::world::block_entity::read_codec(
-        input,
-        "locator_bar_icon",
-        &crate::world::waypoints::Icon::codec(),
-    )
-    .unwrap_or_default();
+    check_shape(input, "active_effects", Shape::List);
     living.active_effects.clear();
     if let Some(list) = input.get_list("active_effects") {
         for tag in list.iter() {
@@ -387,10 +385,14 @@ pub fn read_additional_save_data(
         }
     }
     let max_health = living.get_max_health();
+    check_number(input, "Health");
     let health = input.get_float_or("Health", max_health);
     living.set_health(health);
+    check_number(input, "HurtTime");
     living.hurt_time = i32::from(input.get_short_or("HurtTime", 0));
+    check_number(input, "DeathTime");
     living.death_time = i32::from(input.get_short_or("DeathTime", 0));
+    check_number(input, "FallFlying");
     living
         .entity
         .set_shared_flag(FLAG_FALL_FLYING, input.get_boolean_or("FallFlying", false));
@@ -403,12 +405,21 @@ pub fn read_additional_save_data(
     }
     // `this.brain = this.makeBrain(packed)` needs the whole entity: `ai::brain::read_brain` (called by the mob chain)
     living.last_hurt_by_player = super::entity::read_uuid_field(input, "last_hurt_by_player");
+    check_number(input, "last_hurt_by_player_memory_time");
     living.last_hurt_by_player_memory_time = input.get_int_or("last_hurt_by_player_memory_time", 0);
     living.last_hurt_by_mob = super::entity::read_uuid_field(input, "last_hurt_by_mob");
+    check_number(input, "ticks_since_last_hurt_by_mob");
     living.last_hurt_by_mob_timestamp = living
         .entity
         .tick_count
         .wrapping_sub(input.get_int_or("ticks_since_last_hurt_by_mob", 0));
+    living.locator_bar_icon = crate::world::block_entity::read_codec(
+        input,
+        "locator_bar_icon",
+        &crate::world::waypoints::Icon::codec(),
+    )
+    .unwrap_or_default();
+    check_number(input, "current_impulse_context_reset_grace_time");
     living.current_impulse_context_reset_grace_time =
         input.get_int_or("current_impulse_context_reset_grace_time", 0);
     living.current_impulse_impact_pos =

@@ -3,7 +3,7 @@
 use super::PlayerData;
 use crate::server::level::ServerLevel;
 use crate::server::network::ConnectionSender;
-use crate::world::block_entity::list_or_empty;
+use crate::world::block_entity::{Shape, check_number, check_shape, list_or_empty};
 use crate::world::entity::entity::{self, Entity, EntityData, EntityLookupFn};
 use crate::world::entity::living::{self, LivingEntityData};
 use crate::world::entity::respawn::RespawnConfig;
@@ -1332,10 +1332,44 @@ impl Entity for ServerPlayer {
         self.player
             .inventory
             .load(list_or_empty(input, "Inventory"), "Inventory");
+        check_number(input, "SelectedItemSlot");
         let _ = self
             .player
             .inventory
             .set_selected_slot(input.get_int_or("SelectedItemSlot", 0));
+        let uuid = self.player.game_profile.id;
+        self.player.living.entity.uuid = uuid;
+        check_number(input, "SleepTimer");
+        self.player.sleep_counter = i32::from(input.get_short_or("SleepTimer", 0));
+        check_number(input, "XpP");
+        self.player.experience_progress = input.get_float_or("XpP", 0.0);
+        check_number(input, "XpLevel");
+        self.player.experience_level = input.get_int_or("XpLevel", 0);
+        check_number(input, "XpTotal");
+        self.player.total_experience = input.get_int_or("XpTotal", 0);
+        check_number(input, "XpSeed");
+        self.player.enchantment_seed = input.get_int_or("XpSeed", 0);
+        if self.player.enchantment_seed == 0 {
+            use mc_core::random::RandomSource;
+            self.player.enchantment_seed = self.player.living.entity.random.next_int();
+        }
+        check_number(input, "Score");
+        self.player.set_score(input.get_int_or("Score", 0));
+        self.player.internal_set_absorption_amount(absorption);
+        self.player.food_data.read_additional_save_data(input);
+        check_shape(input, "abilities", Shape::Map);
+        if let Some(a) = input.get_compound("abilities") {
+            self.player.abilities.apply(a);
+        }
+        let walk = f64::from(self.player.abilities.get_walking_speed());
+        if let Some(i) = self
+            .player
+            .living
+            .attributes
+            .get_instance(mc_data::Attribute::MOVEMENT_SPEED)
+        {
+            i.set_base_value(walk);
+        }
         {
             use crate::world::container::Container;
             let chest = &mut self.player.ender_chest;
@@ -1348,32 +1382,6 @@ impl Entity for ServerPlayer {
                     chest.set_item(slot, stack);
                 }
             }
-        }
-        let uuid = self.player.game_profile.id;
-        self.player.living.entity.uuid = uuid;
-        self.player.sleep_counter = i32::from(input.get_short_or("SleepTimer", 0));
-        self.player.experience_progress = input.get_float_or("XpP", 0.0);
-        self.player.experience_level = input.get_int_or("XpLevel", 0);
-        self.player.total_experience = input.get_int_or("XpTotal", 0);
-        self.player.enchantment_seed = input.get_int_or("XpSeed", 0);
-        if self.player.enchantment_seed == 0 {
-            use mc_core::random::RandomSource;
-            self.player.enchantment_seed = self.player.living.entity.random.next_int();
-        }
-        self.player.set_score(input.get_int_or("Score", 0));
-        self.player.internal_set_absorption_amount(absorption);
-        self.player.food_data.read_additional_save_data(input);
-        if let Some(a) = input.get_compound("abilities") {
-            self.player.abilities.apply(a);
-        }
-        let walk = f64::from(self.player.abilities.get_walking_speed());
-        if let Some(i) = self
-            .player
-            .living
-            .attributes
-            .get_instance(mc_data::Attribute::MOVEMENT_SPEED)
-        {
-            i.set_base_value(walk);
         }
         self.player.last_death_location = input.get_compound("LastDeathLocation").and_then(|g| {
             let dimension = Identifier::parse(g.get_string("dimension")?).ok()?;
@@ -1392,6 +1400,7 @@ impl Entity for ServerPlayer {
         self.entered_nether_position = entity::read_vec3(input.get("entered_nether_pos"));
         self.current_explosion_impact_pos =
             entity::read_vec3(input.get("last_explosion_impact_pos"));
+        check_number(input, "seenCredits");
         self.seen_credits = input.get_boolean_or("seenCredits", false);
         // validated against the recipe manager at join (`ServerRecipeBook::retain_known`)
         if let Some(book) = input.get("recipeBook") {
@@ -1400,13 +1409,16 @@ impl Entity for ServerPlayer {
         self.respawn_config = input
             .get("respawn")
             .and_then(|t| RespawnConfig::decode(t).ok());
+        check_number(input, "spawn_extra_particles_on_fall");
         self.spawn_extra_particles_on_fall =
             input.get_boolean_or("spawn_extra_particles_on_fall", false);
         self.raid_omen_position = living::read_block_pos(input.get("raid_omen_position"));
+        check_shape(input, "playerGameType", Shape::Number);
         let current = input
             .get("playerGameType")
             .and_then(|t| t.as_number())
             .map(|n| game_type_by_id(n.int_value()));
+        check_shape(input, "previousPlayerGameType", Shape::Number);
         let previous = input
             .get("previousPlayerGameType")
             .and_then(|t| t.as_number())

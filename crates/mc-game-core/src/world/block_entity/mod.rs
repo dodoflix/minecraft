@@ -593,6 +593,45 @@ pub fn read_string<'a>(
     None
 }
 
+/// `ValueInput.getIntOr` and the other numeric getters on a value that is not a number (`UnexpectedNonNumberProblem`): the
+/// problem is reported to the open [`problem_reporter`] scope; the plain getter then reads the default, like vanilla.
+pub fn check_number(tag: &CompoundTag, key: &str) {
+    if let Some(value) = tag.get(key)
+        && value.as_number().is_none()
+    {
+        problem_reporter::report(|| {
+            format!(
+                "Expected field '{key}' to contain number, but got {}",
+                mc_nbt::Tag::type_name(value.id())
+            )
+        });
+    }
+}
+
+/// What a codec read by [`check_shape`] needs of the tag it decodes.
+pub enum Shape {
+    Map,
+    List,
+    Number,
+}
+
+/// `ValueInput.read(key, codec)` of a codec for a map, list or number on a value of another type
+/// (`DecodeFromFieldFailedProblem` with the text of the data result). The decode of the elements is not checked.
+///
+/// shortcut: only a field of the wrong type is reported, not the failed entries inside a list or map; extend when a corpus needs them.
+pub fn check_shape(tag: &CompoundTag, key: &str, shape: Shape) {
+    let Some(value) = tag.get(key) else { return };
+    let error = match shape {
+        Shape::Map if value.as_compound().is_none() => format!("Not a map: {value}"),
+        Shape::List if value.as_list().is_none() => format!("Not a list: {value}"),
+        Shape::Number if value.as_number().is_none() => "Not a number".to_owned(),
+        _ => return,
+    };
+    problem_reporter::report(|| {
+        format!("Failed to decode value '{value}' from field '{key}': {error}")
+    });
+}
+
 /// `ValueInput.listOrEmpty(key, codec)`'s lookup: the list at `key`, empty when it is absent or not a list (`UnexpectedTypeProblem`,
 /// reported to the open [`problem_reporter`] scope).
 ///

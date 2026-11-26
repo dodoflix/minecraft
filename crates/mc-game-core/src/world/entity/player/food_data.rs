@@ -1,4 +1,5 @@
 //! `net.minecraft.world.food.FoodData` (state, NBT and the food tick; the player side effects are in `food.rs`).
+use crate::world::block_entity::check_number;
 use mc_core::math::{java, mth};
 use mc_nbt::CompoundTag;
 use mc_world::level_storage::Difficulty;
@@ -71,9 +72,13 @@ impl FoodData {
     }
 
     pub fn read_additional_save_data(&mut self, input: &CompoundTag) {
+        check_number(input, "foodLevel");
         self.food_level = input.get_int_or("foodLevel", 20);
+        check_number(input, "foodTickTimer");
         self.tick_timer = input.get_int_or("foodTickTimer", 0);
+        check_number(input, "foodSaturationLevel");
         self.saturation_level = input.get_float_or("foodSaturationLevel", 5.0);
+        check_number(input, "foodExhaustionLevel");
         self.exhaustion_level = input.get_float_or("foodExhaustionLevel", 0.0);
     }
 
