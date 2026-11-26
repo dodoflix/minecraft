@@ -400,12 +400,10 @@ impl PlayCtx<'_> {
     /// report under `packet/serverbound/<packet type>` and keeps the player; a handler exception (here also a caught
     /// panic) drops the packet, never the connection. `exception` is the Java class of the throwable.
     pub(crate) fn on_packet_error(&mut self, packet_type: &str, exception: &str, error: String) {
-        log::error!("Failed to handle packet {packet_type}, suppressing error: {error}");
-        self.server.shared.suppressed_exceptions.add_entry(
-            &format!("packet/serverbound/{packet_type}"),
-            exception,
-            &error,
-        );
+        self.server
+            .shared
+            .suppressed_exceptions
+            .report_packet_error(packet_type, exception, &error);
     }
 
     /// `ackBlockChangesUpTo`; `false` after reporting a negative sequence as a packet error (the handler stops).

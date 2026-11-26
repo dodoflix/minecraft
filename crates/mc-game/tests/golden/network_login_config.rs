@@ -340,11 +340,25 @@ async fn wrong_answers_in_configuration_are_rejected() {
     for _ in 0..3 {
         read_config(&mut c).await;
     }
-    // Finish before the registry negotiation completed: "Unexpected request for task finish".
+    // Finish before the registry negotiation completed: the handler error runs on the main thread, is logged and
+    // suppressed, the connection stays.
     write_payload(
         &mut c,
         &config_payload(ServerboundConfigurationPacket::FinishConfiguration(
             ServerboundFinishConfigurationPacket,
+        )),
+    )
+    .await;
+    assert!(
+        tokio::time::timeout(std::time::Duration::from_millis(400), c.read_payload())
+            .await
+            .is_err()
+    );
+    // The code-of-conduct answer has no main-thread hop: its error reaches `exceptionCaught`.
+    write_payload(
+        &mut c,
+        &config_payload(ServerboundConfigurationPacket::AcceptCodeOfConduct(
+            ServerboundAcceptCodeOfConductPacket,
         )),
     )
     .await;
@@ -353,7 +367,7 @@ async fn wrong_answers_in_configuration_are_rejected() {
     };
     assert_eq!(
         d.reason.get_string(),
-        "Internal Exception: java.lang.IllegalStateException: Unexpected request for task finish, current task: synchronize_registries, requested: join_world"
+        "Internal Exception: java.lang.IllegalStateException: Unexpected request for task finish, current task: synchronize_registries, requested: server_code_of_conduct"
     );
 }
 

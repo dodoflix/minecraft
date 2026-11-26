@@ -34,6 +34,20 @@ fn current_time_ms() -> i64 {
 }
 
 impl SuppressedExceptionCollector {
+    /// `ServerPacketListener.onPacketError` + `reportPacketHandlingException`: logs a serverbound handler exception
+    /// that ran on the main thread (the exception is the line below the message) and feeds the entry
+    /// `packet/serverbound/<packet type>`.
+    pub fn report_packet_error(&self, packet_type: &str, exception: &str, error: &str) {
+        log::error!(
+            "Failed to handle packet {packet_type}, suppressing error\n{exception}: {error}"
+        );
+        self.add_entry(
+            &format!("packet/serverbound/{packet_type}"),
+            exception,
+            error,
+        );
+    }
+
     /// `addEntry(location, throwable)`: `class` is the throwable's Java class name, `message` its `getMessage()`.
     pub fn add_entry(&self, location: &str, class: &str, message: &str) {
         let mut entries = self.entries.lock();

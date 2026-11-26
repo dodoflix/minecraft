@@ -255,8 +255,35 @@ impl ServerConfigurationPacketListenerImpl {
         Ok(())
     }
 
-    /// Dispatch of the serverbound configuration packets. `Err` carries the Java exception text for `exceptionCaught`.
+    /// `Packet.handle` as run by the connection: an exception of a handler that hops to the main thread
+    /// (`ensureRunningOnSameThread`) goes to `PacketProcessor`/`onPacketError`: logged and suppressed, the connection
+    /// stays. The code-of-conduct handler has no such hop: its exception reaches `exceptionCaught` (`Err`, a kick).
     pub(super) fn handle_packet(
+        &mut self,
+        server: &mut dyn ServerHandle,
+        packet: ServerboundConfigurationPacket,
+    ) -> Result<Flow, String> {
+        let name = packet.name();
+        let on_netty_thread = matches!(
+            packet,
+            ServerboundConfigurationPacket::AcceptCodeOfConduct(_)
+        );
+        match self.dispatch_packet(server, packet) {
+            Err(error) if !on_netty_thread => {
+                let (exception, message) = error.split_once(": ").unwrap_or((&error, ""));
+                if let Some(s) = server.minecraft_server() {
+                    s.shared
+                        .suppressed_exceptions
+                        .report_packet_error(name, exception, message);
+                }
+                Ok(Flow::Continue)
+            }
+            result => result,
+        }
+    }
+
+    /// Dispatch of the serverbound configuration packets. `Err` carries the Java exception text.
+    fn dispatch_packet(
         &mut self,
         server: &mut dyn ServerHandle,
         packet: ServerboundConfigurationPacket,
