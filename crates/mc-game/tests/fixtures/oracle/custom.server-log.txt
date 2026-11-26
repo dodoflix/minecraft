@@ -39,11 +39,11 @@ Unpacking org/joml/joml/1.10.9/joml-1.10.9.jar (libraries:org.joml:joml:1.10.9) 
 Unpacking org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar (libraries:org.jspecify:jspecify:1.0.0) to libraries/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar
 Unpacking org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar (libraries:org.slf4j:slf4j-api:2.0.17) to libraries/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
 Starting net.minecraft.server.Main
-[01:29:35] [ServerMain/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
-[01:29:35] [ServerMain/INFO]: Found non-pack entry './world/datapacks/notes.txt', ignoring
-[01:29:35] [ServerMain/INFO]: Found non-pack entry './world/datapacks/plain', ignoring
-[01:29:35] [ServerMain/WARN]: Missing metadata in pack file/nopack
-[01:29:35] [ServerMain/WARN]: Error reading pack metadata, attempting fallback type
+[16:56:10] [ServerMain/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[16:56:10] [ServerMain/INFO]: Found non-pack entry './world/datapacks/notes.txt', ignoring
+[16:56:10] [ServerMain/INFO]: Found non-pack entry './world/datapacks/plain', ignoring
+[16:56:10] [ServerMain/WARN]: Missing metadata in pack file/nopack
+[16:56:10] [ServerMain/WARN]: Error reading pack metadata, attempting fallback type
 com.google.gson.JsonParseException: No key description in MapLike[{"pack_format":48}]
 	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
 	at net.minecraft.server.packs.resources.ResourceMetadata$2.getSection(ResourceMetadata.java:40)
@@ -63,7 +63,7 @@ com.google.gson.JsonParseException: No key description in MapLike[{"pack_format"
 	at net.minecraft.server.Main.main(Main.java:177)
 	at net.minecraft.bundler.Main.lambda$run$0(Main.java:54)
 	at java.base/java.lang.Thread.run(Thread.java:1527)
-[01:29:35] [ServerMain/WARN]: Failed to read pack file/nodesc metadata
+[16:56:10] [ServerMain/WARN]: Failed to read pack file/nodesc metadata
 com.google.gson.JsonParseException: No key description in MapLike[{"pack_format":48}]
 	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
 	at net.minecraft.server.packs.resources.ResourceMetadata$2.getSection(ResourceMetadata.java:40)
@@ -83,7 +83,7 @@ com.google.gson.JsonParseException: No key description in MapLike[{"pack_format"
 	at net.minecraft.server.Main.main(Main.java:177)
 	at net.minecraft.bundler.Main.lambda$run$0(Main.java:54)
 	at java.base/java.lang.Thread.run(Thread.java:1527)
-[01:29:35] [ServerMain/WARN]: Error reading pack metadata, attempting fallback type
+[16:56:10] [ServerMain/WARN]: Error reading pack metadata, attempting fallback type
 com.google.gson.JsonParseException: Pack declares support for version newer than 81, but is missing mandatory fields min_format and max_format
 	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
 	at net.minecraft.server.packs.resources.ResourceMetadata$2.getSection(ResourceMetadata.java:40)
@@ -103,7 +103,7 @@ com.google.gson.JsonParseException: Pack declares support for version newer than
 	at net.minecraft.server.Main.main(Main.java:177)
 	at net.minecraft.bundler.Main.lambda$run$0(Main.java:54)
 	at java.base/java.lang.Thread.run(Thread.java:1527)
-[01:29:35] [ServerMain/WARN]: Error reading pack metadata, attempting fallback type
+[16:56:10] [ServerMain/WARN]: Error reading pack metadata, attempting fallback type
 com.google.gson.JsonParseException: com.google.gson.stream.MalformedJsonException: Use JsonReader.setStrictness(Strictness.LENIENT) to accept malformed JSON at line 1 column 4 path $.
 See https://github.com/google/gson/blob/main/Troubleshooting.md#malformed-json
 	at net.minecraft.util.GsonHelper.fromJson(GsonHelper.java:522)
@@ -137,7 +137,7 @@ See https://github.com/google/gson/blob/main/Troubleshooting.md#malformed-json
 	at com.google.gson.internal.bind.TypeAdapters$33$1.read(TypeAdapters.java:1060)
 	at net.minecraft.util.GsonHelper.fromJson(GsonHelper.java:516)
 	... 19 more
-[01:29:35] [ServerMain/WARN]: Failed to read pack file/badmeta metadata
+[16:56:10] [ServerMain/WARN]: Failed to read pack file/badmeta metadata
 com.google.gson.JsonParseException: com.google.gson.stream.MalformedJsonException: Use JsonReader.setStrictness(Strictness.LENIENT) to accept malformed JSON at line 1 column 4 path $.
 See https://github.com/google/gson/blob/main/Troubleshooting.md#malformed-json
 	at net.minecraft.util.GsonHelper.fromJson(GsonHelper.java:522)
@@ -171,36 +171,36 @@ See https://github.com/google/gson/blob/main/Troubleshooting.md#malformed-json
 	at com.google.gson.internal.bind.TypeAdapters$33$1.read(TypeAdapters.java:1060)
 	at net.minecraft.util.GsonHelper.fromJson(GsonHelper.java:516)
 	... 19 more
-[01:29:35] [ServerMain/INFO]: Found new data pack file/badformat, loading it automatically
-[01:29:35] [ServerMain/INFO]: Found new data pack file/good, loading it automatically
-[01:29:35] [ServerMain/INFO]: Found new data pack file/oldformat, loading it automatically
-[01:29:35] [ServerMain/INFO]: Found new data pack file/zipped.zip, loading it automatically
-[01:29:35] [Worker-Main-31/ERROR]: Spawn data: No key weight in MapLike[{"count":4}]; No key type in MapLike[{"count":4}]
-[01:29:35] [Worker-Main-31/ERROR]: Spawn data: No key weight in MapLike[{"type":"minecraft:chicken","count":2}]; Failed to parse either. First: Not a number: "x"; Second: Not a JSON object: "x"; Unknown registry key in ResourceKey[minecraft:root / minecraft:entity_type]: minecraft:nope
-[01:29:35] [Worker-Main-31/ERROR]: Spawn data: Not a JSON object: 7
-[01:29:35] [Worker-Main-4/INFO]: No existing world data, creating new world
-[01:29:36] [Worker-Main-31/INFO]: Loaded 1866 advancements
-[01:29:36] [Server thread/INFO]: Starting minecraft server version 26.3
-[01:29:36] [Server thread/INFO]: Loading properties
-[01:29:36] [Server thread/INFO]: Default game type: SURVIVAL
-[01:29:36] [Server thread/INFO]: Generating keypair
-[01:29:36] [Server thread/INFO]: Starting Minecraft server on 127.0.0.1:45639
-[01:29:36] [Server thread/WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
-[01:29:36] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.
-[01:29:36] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
-[01:29:36] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
-[01:29:36] [Server thread/INFO]: Preparing level "world"
-[01:29:36] [Server thread/INFO]: Selecting global world spawn...
-[01:29:38] [Server thread/INFO]: Loading 0 persistent chunks...
-[01:29:38] [Server thread/INFO]: Preparing spawn area: 100%
-[01:29:38] [Server thread/INFO]: Time elapsed: 1502 ms
-[01:29:38] [Server thread/INFO]: Done (1.629s)! For help, type "help"
-[01:29:38] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
-[01:29:38] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/test:large_biomes
-[01:29:38] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/test:amplified
-[01:29:38] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/test:nether_expanded
-[01:29:38] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/test:caves
-[01:29:38] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
-[01:29:38] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/test:synthetic
-[01:29:38] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
-[01:29:38] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/test:floating_islands
+[16:56:10] [ServerMain/INFO]: Found new data pack file/badformat, loading it automatically
+[16:56:10] [ServerMain/INFO]: Found new data pack file/good, loading it automatically
+[16:56:10] [ServerMain/INFO]: Found new data pack file/oldformat, loading it automatically
+[16:56:10] [ServerMain/INFO]: Found new data pack file/zipped.zip, loading it automatically
+[16:56:10] [Worker-Main-3/ERROR]: Spawn data: No key weight in MapLike[{"count":4}]; No key type in MapLike[{"count":4}]
+[16:56:10] [Worker-Main-3/ERROR]: Spawn data: No key weight in MapLike[{"type":"minecraft:chicken","count":2}]; Failed to parse either. First: Not a number: "x"; Second: Not a JSON object: "x"; Unknown registry key in ResourceKey[minecraft:root / minecraft:entity_type]: minecraft:nope
+[16:56:10] [Worker-Main-3/ERROR]: Spawn data: Not a JSON object: 7
+[16:56:10] [Worker-Main-16/INFO]: No existing world data, creating new world
+[16:56:11] [Worker-Main-27/INFO]: Loaded 1866 advancements
+[16:56:11] [Server thread/INFO]: Starting minecraft server version 26.3
+[16:56:11] [Server thread/INFO]: Loading properties
+[16:56:11] [Server thread/INFO]: Default game type: SURVIVAL
+[16:56:11] [Server thread/INFO]: Generating keypair
+[16:56:11] [Server thread/INFO]: Starting Minecraft server on 127.0.0.1:45157
+[16:56:12] [Server thread/WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[16:56:12] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.
+[16:56:12] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[16:56:12] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+[16:56:12] [Server thread/INFO]: Preparing level "world"
+[16:56:12] [Server thread/INFO]: Selecting global world spawn...
+[16:56:14] [Server thread/INFO]: Loading 0 persistent chunks...
+[16:56:14] [Server thread/INFO]: Preparing spawn area: 100%
+[16:56:14] [Server thread/INFO]: Time elapsed: 1863 ms
+[16:56:14] [Server thread/INFO]: Done (2.074s)! For help, type "help"
+[16:56:14] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[16:56:14] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/test:caves
+[16:56:14] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/test:nether_expanded
+[16:56:14] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/test:amplified
+[16:56:14] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/test:floating_islands
+[16:56:14] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[16:56:14] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/test:large_biomes
+[16:56:14] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/test:synthetic
+[16:56:14] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether

@@ -39,9 +39,9 @@ Unpacking org/joml/joml/1.10.9/joml-1.10.9.jar (libraries:org.joml:joml:1.10.9) 
 Unpacking org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar (libraries:org.jspecify:jspecify:1.0.0) to libraries/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar
 Unpacking org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar (libraries:org.slf4j:slf4j-api:2.0.17) to libraries/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
 Starting net.minecraft.server.Main
-[01:29:43] [ServerMain/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
-[01:29:43] [ServerMain/INFO]: Found new data pack file/broken, loading it automatically
-[01:29:43] [Worker-Main-7/ERROR]: Registry loading errors:
+[16:56:22] [ServerMain/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[16:56:22] [ServerMain/INFO]: Found new data pack file/broken, loading it automatically
+[16:56:23] [Worker-Main-27/ERROR]: Registry loading errors:
 > Errors in registry minecraft:block_transformer:
 >> Errors in element test:bad_and_good_element:
 java.lang.IllegalStateException: Failed to parse test:bad_and_good_element from pack file/broken
@@ -841,6 +841,69 @@ Caused by: java.lang.IllegalArgumentException: Sum of weights must be <= 2147483
 	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
 	... 9 more
 > Errors in registry minecraft:root:
+>> Errors in element minecraft:test_environment:
+java.lang.IllegalStateException: Unbound values in registry ResourceKey[minecraft:root / minecraft:test_environment]: [test:missing]
+	at net.minecraft.core.MappedRegistry.freeze(MappedRegistry.java:300)
+	at net.minecraft.resources.RegistryLoadTask.freezeRegistry(RegistryLoadTask.java:83)
+	at net.minecraft.resources.RegistryDataLoader.lambda$load$3(RegistryDataLoader.java:261)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:196)
+	at java.base/java.util.AbstractList$RandomAccessSpliterator.forEachRemaining(AbstractList.java:722)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:570)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:560)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:635)
+	at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:291)
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:652)
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:658)
+	at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:663)
+	at net.minecraft.resources.RegistryDataLoader.lambda$load$2(RegistryDataLoader.java:261)
+	at java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:667)
+	at java.base/java.util.concurrent.CompletableFuture$Completion.exec(CompletableFuture.java:504)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+>> Errors in element minecraft:timeline:
+java.lang.IllegalStateException: Unbound values in registry ResourceKey[minecraft:root / minecraft:timeline]: [test:nope]
+	at net.minecraft.core.MappedRegistry.freeze(MappedRegistry.java:300)
+	at net.minecraft.resources.RegistryLoadTask.freezeRegistry(RegistryLoadTask.java:83)
+	at net.minecraft.resources.RegistryDataLoader.lambda$load$3(RegistryDataLoader.java:261)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:196)
+	at java.base/java.util.AbstractList$RandomAccessSpliterator.forEachRemaining(AbstractList.java:722)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:570)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:560)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:635)
+	at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:291)
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:652)
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:658)
+	at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:663)
+	at net.minecraft.resources.RegistryDataLoader.lambda$load$2(RegistryDataLoader.java:261)
+	at java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:667)
+	at java.base/java.util.concurrent.CompletableFuture$Completion.exec(CompletableFuture.java:504)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+>> Errors in element minecraft:world_clock:
+java.lang.IllegalStateException: Unbound values in registry ResourceKey[minecraft:root / minecraft:world_clock]: [minecraft:nope]
+	at net.minecraft.core.MappedRegistry.freeze(MappedRegistry.java:300)
+	at net.minecraft.resources.RegistryLoadTask.freezeRegistry(RegistryLoadTask.java:83)
+	at net.minecraft.resources.RegistryDataLoader.lambda$load$3(RegistryDataLoader.java:261)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:196)
+	at java.base/java.util.AbstractList$RandomAccessSpliterator.forEachRemaining(AbstractList.java:722)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:570)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:560)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:635)
+	at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:291)
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:652)
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:658)
+	at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:663)
+	at net.minecraft.resources.RegistryDataLoader.lambda$load$2(RegistryDataLoader.java:261)
+	at java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:667)
+	at java.base/java.util.concurrent.CompletableFuture$Completion.exec(CompletableFuture.java:504)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
 >> Errors in element minecraft:worldgen/block_state_provider:
 java.lang.IllegalStateException: Unbound values in registry ResourceKey[minecraft:root / minecraft:worldgen/block_state_provider]: [test:missing]
 	at net.minecraft.core.MappedRegistry.freeze(MappedRegistry.java:300)
@@ -862,6 +925,399 @@ java.lang.IllegalStateException: Unbound values in registry ResourceKey[minecraf
 	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
 	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
 	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+> Errors in registry minecraft:test_environment:
+>> Errors in element test:env_bad_difficulty:
+java.lang.IllegalStateException: Failed to parse test:env_bad_difficulty from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Unknown element name:impossible
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:env_bad_function:
+java.lang.IllegalStateException: Failed to parse test:env_bad_function from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Not a valid resource location: Not Valid Non [a-z0-9/._-] character in path of location: minecraft:Not Valid
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:env_bad_rules:
+java.lang.IllegalStateException: Failed to parse test:env_bad_rules from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Not a boolean: 3; Unknown registry key in ResourceKey[minecraft:root / minecraft:game_rule]: minecraft:nope; Unknown registry key in ResourceKey[minecraft:root / minecraft:game_rule]: minecraft:nope missed input: {"minecraft:nope":true,"minecraft:pvp":3}
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:env_bad_weather:
+java.lang.IllegalStateException: Failed to parse test:env_bad_weather from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Unknown element name:hail
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:env_missing_definitions:
+java.lang.IllegalStateException: Failed to parse test:env_missing_definitions from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: No key definitions in MapLike[{"type":"minecraft:all_of"}]
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:env_negative_time:
+java.lang.IllegalStateException: Failed to parse test:env_negative_time from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Value must be non-negative: -1
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:env_nested_unknown_type:
+java.lang.IllegalStateException: Failed to parse test:env_nested_unknown_type from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Unknown registry key in ResourceKey[minecraft:root / minecraft:test_environment_definition_type]: minecraft:nope
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:env_no_type:
+java.lang.IllegalStateException: Failed to parse test:env_no_type from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: No key type in MapLike[{"definitions":[]}]
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:env_rules_not_a_map:
+java.lang.IllegalStateException: Failed to parse test:env_rules_not_a_map from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Not a JSON object: []
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:env_unknown_type:
+java.lang.IllegalStateException: Failed to parse test:env_unknown_type from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Unknown registry key in ResourceKey[minecraft:root / minecraft:test_environment_definition_type]: minecraft:nope
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+> Errors in registry minecraft:test_instance:
+>> Errors in element test:inst_bad_dimension:
+java.lang.IllegalStateException: Failed to parse test:inst_bad_dimension from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Not a string: 5
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:inst_bad_required:
+java.lang.IllegalStateException: Failed to parse test:inst_bad_required from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Not a boolean: "yes"
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:inst_bad_rotation:
+java.lang.IllegalStateException: Failed to parse test:inst_bad_rotation from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Unknown element name:sideways
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:inst_bad_structure:
+java.lang.IllegalStateException: Failed to parse test:inst_bad_structure from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Not a valid resource location: Not Valid Non [a-z0-9/._-] character in path of location: minecraft:Not Valid
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:inst_big_padding:
+java.lang.IllegalStateException: Failed to parse test:inst_big_padding from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Value must be within range [0;128]: 129
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:inst_empty:
+java.lang.IllegalStateException: Failed to parse test:inst_empty from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: No key max_ticks in MapLike[{"type":"minecraft:block_based"}]; No key structure in MapLike[{"type":"minecraft:block_based"}]; No key environment in MapLike[{"type":"minecraft:block_based"}]
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:inst_function_missing_function:
+java.lang.IllegalStateException: Failed to parse test:inst_function_missing_function from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: No key function in MapLike[{"type":"minecraft:function","environment":"minecraft:default","structure":"minecraft:empty","max_ticks":1}]
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:inst_negative_setup:
+java.lang.IllegalStateException: Failed to parse test:inst_negative_setup from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Value must be non-negative: -1
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:inst_no_type:
+java.lang.IllegalStateException: Failed to parse test:inst_no_type from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: No key type in MapLike[{"structure":"minecraft:empty"}]
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:inst_unknown_type:
+java.lang.IllegalStateException: Failed to parse test:inst_unknown_type from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Unknown registry key in ResourceKey[minecraft:root / minecraft:test_instance_type]: minecraft:nope
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:inst_zero_attempts:
+java.lang.IllegalStateException: Failed to parse test:inst_zero_attempts from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Value must be positive: 0
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:inst_zero_successes:
+java.lang.IllegalStateException: Failed to parse test:inst_zero_successes from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Value must be positive: 0
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
+>> Errors in element test:inst_zero_ticks:
+java.lang.IllegalStateException: Failed to parse test:inst_zero_ticks from pack file/broken
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:111)
+	at net.minecraft.resources.ResourceManagerRegistryLoadTask.lambda$load$2(ResourceManagerRegistryLoadTask.java:46)
+	at net.minecraft.util.thread.ParallelMapTransform$Container.applyOperation(ParallelMapTransform.java:89)
+	at net.minecraft.util.thread.ParallelMapTransform$SingleTaskSplitter.lambda$scheduleBatch$0(ParallelMapTransform.java:160)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1825)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1817)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+Caused by: java.lang.IllegalStateException: Value must be positive: 0
+	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
+	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
+	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
+	... 9 more
 > Errors in registry minecraft:worldgen/block_state_provider:
 >> Errors in element test:amplitude_bad_element:
 java.lang.IllegalStateException: Failed to parse test:amplitude_bad_element from pack file/broken
@@ -1147,7 +1603,7 @@ java.lang.IllegalStateException: Failed to parse test:both_dual_noise from pack 
 	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
 	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
 	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
-Caused by: java.lang.IllegalStateException: Both alternatives read successfully, can not pick the correct one; first: (Left[Block{minecraft:stone}], {"variety":2,"slow_noise":{"base_octave":-4},"slow_scale":1.0,"seed":1,"noise":{"base_octave":-2},"scale":1.0,"states":[{"id":"minecraft:stone"}],"type":"minecraft:dual_noise","id":"minecraft:stone"}) second: (Right[net.minecraft.world.level.levelgen.feature.stateproviders.DualNoiseProvider@558b9e7c], {"variety":2,"slow_noise":{"base_octave":-4},"slow_scale":1.0,"seed":1,"noise":{"base_octave":-2},"scale":1.0,"states":[{"id":"minecraft:stone"}],"type":"minecraft:dual_noise","id":"minecraft:stone"})
+Caused by: java.lang.IllegalStateException: Both alternatives read successfully, can not pick the correct one; first: (Left[Block{minecraft:stone}], {"variety":2,"slow_noise":{"base_octave":-4},"slow_scale":1.0,"seed":1,"noise":{"base_octave":-2},"scale":1.0,"states":[{"id":"minecraft:stone"}],"type":"minecraft:dual_noise","id":"minecraft:stone"}) second: (Right[net.minecraft.world.level.levelgen.feature.stateproviders.DualNoiseProvider@14ea21fc], {"variety":2,"slow_noise":{"base_octave":-4},"slow_scale":1.0,"seed":1,"noise":{"base_octave":-2},"scale":1.0,"states":[{"id":"minecraft:stone"}],"type":"minecraft:dual_noise","id":"minecraft:stone"})
 	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
 	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
 	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
@@ -1164,7 +1620,7 @@ java.lang.IllegalStateException: Failed to parse test:both_noise from pack file/
 	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
 	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
 	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
-Caused by: java.lang.IllegalStateException: Both alternatives read successfully, can not pick the correct one; first: (Left[Block{minecraft:stone}], {"seed":1,"noise":{"base_octave":-2},"scale":1.0,"states":[{"id":"minecraft:stone"}],"type":"minecraft:noise","id":"minecraft:stone"}) second: (Right[net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider@44693f48], {"seed":1,"noise":{"base_octave":-2},"scale":1.0,"states":[{"id":"minecraft:stone"}],"type":"minecraft:noise","id":"minecraft:stone"})
+Caused by: java.lang.IllegalStateException: Both alternatives read successfully, can not pick the correct one; first: (Left[Block{minecraft:stone}], {"seed":1,"noise":{"base_octave":-2},"scale":1.0,"states":[{"id":"minecraft:stone"}],"type":"minecraft:noise","id":"minecraft:stone"}) second: (Right[net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider@1fe22e], {"seed":1,"noise":{"base_octave":-2},"scale":1.0,"states":[{"id":"minecraft:stone"}],"type":"minecraft:noise","id":"minecraft:stone"})
 	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
 	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
 	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
@@ -1181,7 +1637,7 @@ java.lang.IllegalStateException: Failed to parse test:both_noise_threshold from 
 	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
 	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
 	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
-Caused by: java.lang.IllegalStateException: Both alternatives read successfully, can not pick the correct one; first: (Left[Block{minecraft:stone}], {"seed":1,"noise":{"base_octave":-2},"scale":1.0,"threshold":0.5,"high_chance":0.5,"default_state":{"id":"minecraft:stone"},"low_states":[{"id":"minecraft:stone"}],"high_states":[{"id":"minecraft:stone"}],"type":"minecraft:noise_threshold","id":"minecraft:stone"}) second: (Right[net.minecraft.world.level.levelgen.feature.stateproviders.NoiseThresholdProvider@5760b1f6], {"seed":1,"noise":{"base_octave":-2},"scale":1.0,"threshold":0.5,"high_chance":0.5,"default_state":{"id":"minecraft:stone"},"low_states":[{"id":"minecraft:stone"}],"high_states":[{"id":"minecraft:stone"}],"type":"minecraft:noise_threshold","id":"minecraft:stone"})
+Caused by: java.lang.IllegalStateException: Both alternatives read successfully, can not pick the correct one; first: (Left[Block{minecraft:stone}], {"seed":1,"noise":{"base_octave":-2},"scale":1.0,"threshold":0.5,"high_chance":0.5,"default_state":{"id":"minecraft:stone"},"low_states":[{"id":"minecraft:stone"}],"high_states":[{"id":"minecraft:stone"}],"type":"minecraft:noise_threshold","id":"minecraft:stone"}) second: (Right[net.minecraft.world.level.levelgen.feature.stateproviders.NoiseThresholdProvider@344cb7a3], {"seed":1,"noise":{"base_octave":-2},"scale":1.0,"threshold":0.5,"high_chance":0.5,"default_state":{"id":"minecraft:stone"},"low_states":[{"id":"minecraft:stone"}],"high_states":[{"id":"minecraft:stone"}],"type":"minecraft:noise_threshold","id":"minecraft:stone"})
 	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
 	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
 	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
@@ -1215,7 +1671,7 @@ java.lang.IllegalStateException: Failed to parse test:both_randomized_int from p
 	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
 	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
 	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
-Caused by: java.lang.IllegalStateException: Both alternatives read successfully, can not pick the correct one; first: (Left[Block{minecraft:stone}], {"source":{"id":"minecraft:stone"},"property":"age","values":1,"type":"minecraft:randomized_int","id":"minecraft:stone"}) second: (Right[net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntStateProvider@3c9808f9], {"source":{"id":"minecraft:stone"},"property":"age","values":1,"type":"minecraft:randomized_int","id":"minecraft:stone"})
+Caused by: java.lang.IllegalStateException: Both alternatives read successfully, can not pick the correct one; first: (Left[Block{minecraft:stone}], {"source":{"id":"minecraft:stone"},"property":"age","values":1,"type":"minecraft:randomized_int","id":"minecraft:stone"}) second: (Right[net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntStateProvider@8f00cbb], {"source":{"id":"minecraft:stone"},"property":"age","values":1,"type":"minecraft:randomized_int","id":"minecraft:stone"})
 	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
 	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
 	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
@@ -1283,7 +1739,7 @@ java.lang.IllegalStateException: Failed to parse test:both_rule_based_inline_the
 	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
 	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
 	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
-Caused by: java.lang.IllegalStateException: Both alternatives read successfully, can not pick the correct one; first: (Left[Block{minecraft:stone}], {"rules":[{"if_true":{"type":"minecraft:solid"},"then":{"type":"minecraft:rotated","state":{"id":"minecraft:stone"}}}],"type":"minecraft:rule_based","id":"minecraft:stone"}) second: (Right[RuleBasedStateProvider[fallback=null, rules=[Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.SolidPredicate@6220f1fc, then=Direct{RotatedBlockProvider[state=Direct{SimpleStateProvider[state=Block{minecraft:stone}]}, direction=Optional.empty]}]]]], {"rules":[{"if_true":{"type":"minecraft:solid"},"then":{"type":"minecraft:rotated","state":{"id":"minecraft:stone"}}}],"type":"minecraft:rule_based","id":"minecraft:stone"})
+Caused by: java.lang.IllegalStateException: Both alternatives read successfully, can not pick the correct one; first: (Left[Block{minecraft:stone}], {"rules":[{"if_true":{"type":"minecraft:solid"},"then":{"type":"minecraft:rotated","state":{"id":"minecraft:stone"}}}],"type":"minecraft:rule_based","id":"minecraft:stone"}) second: (Right[RuleBasedStateProvider[fallback=null, rules=[Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.SolidPredicate@6b97a2f2, then=Direct{RotatedBlockProvider[state=Direct{SimpleStateProvider[state=Block{minecraft:stone}]}, direction=Optional.empty]}]]]], {"rules":[{"if_true":{"type":"minecraft:solid"},"then":{"type":"minecraft:rotated","state":{"id":"minecraft:stone"}}}],"type":"minecraft:rule_based","id":"minecraft:stone"})
 	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
 	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
 	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
@@ -1300,7 +1756,7 @@ java.lang.IllegalStateException: Failed to parse test:both_rule_based_predicates
 	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1450)
 	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2019)
 	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
-Caused by: java.lang.IllegalStateException: Both alternatives read successfully, can not pick the correct one; first: (Left[Block{minecraft:stone}], {"rules":[{"if_true":{"type":"minecraft:all_of","predicates":[{"type":"minecraft:true"}]},"then":"test:good_target"},{"if_true":{"type":"minecraft:any_of","predicates":[]},"then":"test:good_target"},{"if_true":{"type":"minecraft:not","predicate":{"type":"minecraft:true"}},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_blocks","blocks":"minecraft:stone"},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_fluids","fluids":["minecraft:water"]},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_block_tag","tag":"minecraft:logs","offset":[0,1,0]},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_biomes","biomes":"minecraft:plains"},"then":"test:good_target"},{"if_true":{"type":"minecraft:has_sturdy_face","direction":"up"},"then":"test:good_target"},{"if_true":{"type":"minecraft:solid"},"then":"test:good_target"},{"if_true":{"type":"minecraft:replaceable","offset":[1,2,3]},"then":"test:good_target"},{"if_true":{"type":"minecraft:inside_world_bounds"},"then":"test:good_target"},{"if_true":{"type":"minecraft:would_survive","state":{"id":"minecraft:stone"}},"then":"test:good_target"},{"if_true":{"type":"minecraft:unobstructed","offset":[4,5,6]},"then":"test:good_target"},{"if_true":{"type":"minecraft:height_range","min_inclusive":{"absolute":1},"max_inclusive":{"below_top":2}},"then":"test:good_target"},{"if_true":{"type":"minecraft:volume_match","min":[-1,-2,-3],"max":[3,2,1],"match":{"type":"minecraft:solid"}},"then":"test:good_target"}],"type":"minecraft:rule_based","id":"minecraft:stone"}) second: (Right[RuleBasedStateProvider[fallback=null, rules=[Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.AllOfPredicate@6b51ebba, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.AnyOfPredicate@664f1ae7, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.NotPredicate@3472f8d9, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.MatchingBlocksPredicate@513850ba, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.MatchingFluidsPredicate@35506d1c, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.MatchingBlockTagPredicate@2bd6d173, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.MatchingBiomesPredicate@84150e0, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.HasSturdyFacePredicate@1b6f6cd2, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.SolidPredicate@2de1ca2e, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.ReplaceablePredicate@3021dba8, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.InsideWorldBoundsPredicate@32e55b1c, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.WouldSurvivePredicate@520cb86e, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=UnobstructedPredicate[offset=Vec3i{x=4, y=5, z=6}], then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=HeightRangePredicate[minInclusive=1 absolute, maxInclusive=2 below top], then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=VolumeMatchPredicate[min=Vec3i{x=-1, y=-2, z=-3}, max=Vec3i{x=3, y=2, z=1}, match=net.minecraft.world.level.levelgen.blockpredicates.SolidPredicate@315237e6], then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}]]]], {"rules":[{"if_true":{"type":"minecraft:all_of","predicates":[{"type":"minecraft:true"}]},"then":"test:good_target"},{"if_true":{"type":"minecraft:any_of","predicates":[]},"then":"test:good_target"},{"if_true":{"type":"minecraft:not","predicate":{"type":"minecraft:true"}},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_blocks","blocks":"minecraft:stone"},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_fluids","fluids":["minecraft:water"]},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_block_tag","tag":"minecraft:logs","offset":[0,1,0]},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_biomes","biomes":"minecraft:plains"},"then":"test:good_target"},{"if_true":{"type":"minecraft:has_sturdy_face","direction":"up"},"then":"test:good_target"},{"if_true":{"type":"minecraft:solid"},"then":"test:good_target"},{"if_true":{"type":"minecraft:replaceable","offset":[1,2,3]},"then":"test:good_target"},{"if_true":{"type":"minecraft:inside_world_bounds"},"then":"test:good_target"},{"if_true":{"type":"minecraft:would_survive","state":{"id":"minecraft:stone"}},"then":"test:good_target"},{"if_true":{"type":"minecraft:unobstructed","offset":[4,5,6]},"then":"test:good_target"},{"if_true":{"type":"minecraft:height_range","min_inclusive":{"absolute":1},"max_inclusive":{"below_top":2}},"then":"test:good_target"},{"if_true":{"type":"minecraft:volume_match","min":[-1,-2,-3],"max":[3,2,1],"match":{"type":"minecraft:solid"}},"then":"test:good_target"}],"type":"minecraft:rule_based","id":"minecraft:stone"})
+Caused by: java.lang.IllegalStateException: Both alternatives read successfully, can not pick the correct one; first: (Left[Block{minecraft:stone}], {"rules":[{"if_true":{"type":"minecraft:all_of","predicates":[{"type":"minecraft:true"}]},"then":"test:good_target"},{"if_true":{"type":"minecraft:any_of","predicates":[]},"then":"test:good_target"},{"if_true":{"type":"minecraft:not","predicate":{"type":"minecraft:true"}},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_blocks","blocks":"minecraft:stone"},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_fluids","fluids":["minecraft:water"]},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_block_tag","tag":"minecraft:logs","offset":[0,1,0]},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_biomes","biomes":"minecraft:plains"},"then":"test:good_target"},{"if_true":{"type":"minecraft:has_sturdy_face","direction":"up"},"then":"test:good_target"},{"if_true":{"type":"minecraft:solid"},"then":"test:good_target"},{"if_true":{"type":"minecraft:replaceable","offset":[1,2,3]},"then":"test:good_target"},{"if_true":{"type":"minecraft:inside_world_bounds"},"then":"test:good_target"},{"if_true":{"type":"minecraft:would_survive","state":{"id":"minecraft:stone"}},"then":"test:good_target"},{"if_true":{"type":"minecraft:unobstructed","offset":[4,5,6]},"then":"test:good_target"},{"if_true":{"type":"minecraft:height_range","min_inclusive":{"absolute":1},"max_inclusive":{"below_top":2}},"then":"test:good_target"},{"if_true":{"type":"minecraft:volume_match","min":[-1,-2,-3],"max":[3,2,1],"match":{"type":"minecraft:solid"}},"then":"test:good_target"}],"type":"minecraft:rule_based","id":"minecraft:stone"}) second: (Right[RuleBasedStateProvider[fallback=null, rules=[Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.AllOfPredicate@55bec727, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.AnyOfPredicate@109ee9ad, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.NotPredicate@6f6f6702, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.MatchingBlocksPredicate@39b9d82f, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.MatchingFluidsPredicate@1a9da7c0, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.MatchingBlockTagPredicate@7d29e6bf, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.MatchingBiomesPredicate@696ad96f, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.HasSturdyFacePredicate@1ee51ccd, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.SolidPredicate@69311b76, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.ReplaceablePredicate@5b9f14f1, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.InsideWorldBoundsPredicate@64810f4c, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=net.minecraft.world.level.levelgen.blockpredicates.WouldSurvivePredicate@52b47465, then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=UnobstructedPredicate[offset=Vec3i{x=4, y=5, z=6}], then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=HeightRangePredicate[minInclusive=1 absolute, maxInclusive=2 below top], then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}], Rule[ifTrue=VolumeMatchPredicate[min=Vec3i{x=-1, y=-2, z=-3}, max=Vec3i{x=3, y=2, z=1}, match=net.minecraft.world.level.levelgen.blockpredicates.SolidPredicate@73a0bf45], then=Reference{ResourceKey[minecraft:worldgen/block_state_provider / test:good_target]=null}]]]], {"rules":[{"if_true":{"type":"minecraft:all_of","predicates":[{"type":"minecraft:true"}]},"then":"test:good_target"},{"if_true":{"type":"minecraft:any_of","predicates":[]},"then":"test:good_target"},{"if_true":{"type":"minecraft:not","predicate":{"type":"minecraft:true"}},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_blocks","blocks":"minecraft:stone"},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_fluids","fluids":["minecraft:water"]},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_block_tag","tag":"minecraft:logs","offset":[0,1,0]},"then":"test:good_target"},{"if_true":{"type":"minecraft:matching_biomes","biomes":"minecraft:plains"},"then":"test:good_target"},{"if_true":{"type":"minecraft:has_sturdy_face","direction":"up"},"then":"test:good_target"},{"if_true":{"type":"minecraft:solid"},"then":"test:good_target"},{"if_true":{"type":"minecraft:replaceable","offset":[1,2,3]},"then":"test:good_target"},{"if_true":{"type":"minecraft:inside_world_bounds"},"then":"test:good_target"},{"if_true":{"type":"minecraft:would_survive","state":{"id":"minecraft:stone"}},"then":"test:good_target"},{"if_true":{"type":"minecraft:unobstructed","offset":[4,5,6]},"then":"test:good_target"},{"if_true":{"type":"minecraft:height_range","min_inclusive":{"absolute":1},"max_inclusive":{"below_top":2}},"then":"test:good_target"},{"if_true":{"type":"minecraft:volume_match","min":[-1,-2,-3],"max":[3,2,1],"match":{"type":"minecraft:solid"}},"then":"test:good_target"}],"type":"minecraft:rule_based","id":"minecraft:stone"})
 	at com.mojang.serialization.DataResult$Error.getOrThrow(DataResult.java:287)
 	at com.mojang.serialization.DataResult.getOrThrow(DataResult.java:81)
 	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
@@ -2250,7 +2706,7 @@ Caused by: java.lang.IllegalStateException: Weighted list must contain at least 
 	at net.minecraft.resources.RegistryLoadTask$PendingRegistration.loadFromResource(RegistryLoadTask.java:109)
 	... 9 more
 
-[01:29:43] [ServerMain/WARN]: Failed to load datapacks, can't proceed with server load. You can either fix your datapacks or reset to vanilla with --safeMode
+[16:56:23] [ServerMain/WARN]: Failed to load datapacks, can't proceed with server load. You can either fix your datapacks or reset to vanilla with --safeMode
 java.util.concurrent.ExecutionException: net.minecraft.ReportedException: Registry Loading
 	at java.base/java.util.concurrent.CompletableFuture.wrapInExecutionException(CompletableFuture.java:345)
 	at java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:440)

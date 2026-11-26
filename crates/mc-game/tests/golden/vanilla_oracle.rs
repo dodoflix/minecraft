@@ -97,6 +97,8 @@ fn compare_scenario(name: &str, setup: impl FnOnce(&Path)) -> Vec<String> {
         keys::ENCHANTMENT,
         keys::BLOCK_TRANSFORMER,
         keys::BLOCK_STATE_PROVIDER,
+        keys::TEST_ENVIRONMENT,
+        keys::TEST_INSTANCE,
     ];
     // registries whose compounds are also compared in the order the server writes their keys (the hash order of the
     // compound, which depends on the order the codec inserted the keys in)
@@ -104,6 +106,8 @@ fn compare_scenario(name: &str, setup: impl FnOnce(&Path)) -> Vec<String> {
         keys::ENCHANTMENT,
         keys::BLOCK_TRANSFORMER,
         keys::BLOCK_STATE_PROVIDER,
+        keys::TEST_ENVIRONMENT,
+        keys::TEST_INSTANCE,
     ];
     let mut approx: Vec<String> = Vec::new();
     for ((key, entries), (vkey, ventries)) in packed.iter().zip(&vanilla_registries) {
@@ -342,7 +346,7 @@ fn broken_pack_fails_like_vanilla() {
         "broken",
         common::test_packs::write_broken_packs,
         "broken",
-        112,
+        138,
     );
 }
 

@@ -101,6 +101,7 @@ pub fn write_custom_packs(world: &Path) {
         r#"{"values": ["test:custom"]}"#,
     );
     write_state_data(&dp.join("good/data/test"));
+    write_game_test_data(&dp.join("good/data/test"));
     // zip pack
     {
         let file = fs::File::create(dp.join("zipped.zip")).unwrap();
@@ -235,6 +236,75 @@ fn write_state_data(root: &Path) {
     );
 }
 
+/// Test environments and test instances: every environment type, references and inline definitions, defaults written out
+/// and left out.
+fn write_game_test_data(root: &Path) {
+    use serde_json::json;
+    let environments = [
+        (
+            "all_types",
+            json!({"type": "minecraft:all_of", "definitions": [
+                "minecraft:default",
+                {"type": "minecraft:clock_time", "clock": "minecraft:overworld", "time": 6000},
+                {"type": "minecraft:difficulty", "difficulty": "hard"},
+                {"type": "minecraft:function", "setup": "test:setup", "teardown": "test:teardown"},
+                {"type": "minecraft:game_rules", "rules": {"minecraft:pvp": false, "minecraft:max_entity_cramming": 5}},
+                {"type": "minecraft:timeline_attributes", "timelines": ["minecraft:day", "minecraft:moon"]},
+                {"type": "minecraft:weather", "weather": "thunder"},
+                {"type": "minecraft:all_of", "definitions": []}
+            ]}),
+        ),
+        ("function_empty", json!({"type": "minecraft:function"})),
+        (
+            "function_setup",
+            json!({"type": "minecraft:function", "setup": "test:setup"}),
+        ),
+        (
+            "rules_empty",
+            json!({"type": "minecraft:game_rules", "rules": {}}),
+        ),
+    ];
+    for (name, definition) in environments {
+        write(
+            root.join(format!("test_environment/{name}.json")),
+            &definition.to_string(),
+        );
+    }
+    let instances = [
+        (
+            "defaults",
+            json!({"type": "minecraft:function", "function": "minecraft:always_pass", "environment": "minecraft:default",
+                "structure": "minecraft:empty", "max_ticks": 100}),
+        ),
+        (
+            "written_defaults",
+            json!({"type": "minecraft:block_based", "environment": "test:all_types", "dimension": "minecraft:overworld",
+                "structure": "test:written", "max_ticks": 20, "setup_ticks": 0, "required": true, "rotation": "none",
+                "manual_only": false, "max_attempts": 1, "required_successes": 1, "sky_access": false, "padding": 0}),
+        ),
+        (
+            "everything",
+            json!({"type": "minecraft:function", "function": "test:everything",
+                "environment": {"type": "minecraft:all_of", "definitions": [
+                    {"type": "minecraft:weather", "weather": "clear"}, "test:function_setup"]},
+                "dimension": "minecraft:the_nether", "structure": "test:everything", "max_ticks": 400, "setup_ticks": 7,
+                "required": false, "rotation": "counterclockwise_90", "manual_only": true, "max_attempts": 5,
+                "required_successes": 3, "sky_access": true, "padding": 128}),
+        ),
+        (
+            "rotated",
+            json!({"type": "minecraft:block_based", "environment": "test:function_empty", "structure": "test:rotated",
+                "max_ticks": 1, "rotation": "180"}),
+        ),
+    ];
+    for (name, instance) in instances {
+        write(
+            root.join(format!("test_instance/{name}.json")),
+            &instance.to_string(),
+        );
+    }
+}
+
 /// A world whose only pack contains entries that must fail the load.
 pub fn write_broken_packs(world: &Path) {
     let dp = world.join("datapacks");
@@ -287,7 +357,105 @@ pub fn write_broken_packs(world: &Path) {
         r#"{"type": "minecraft:noise_threshold", "seed": 1, "noise": {"base_octave": -2}, "scale": 1.0, "threshold": 0.5, "high_chance": 0.5, "default_state": "minecraft:nope", "low_states": [{"id": "minecraft:stone", "properties": 3}], "high_states": []}"#,
     );
     write_broken_state_data(&dp.join("broken/data/test"));
+    write_broken_game_test_data(&dp.join("broken/data/test"));
     write_broken_light_levels(&dp.join("broken/data/test"));
+}
+
+/// Test environments and test instances that must fail the load.
+fn write_broken_game_test_data(root: &Path) {
+    use serde_json::json;
+    let valid = json!({"type": "minecraft:block_based", "environment": "minecraft:default", "structure": "minecraft:empty",
+        "max_ticks": 10});
+    let environments = [
+        ("env_unknown_type", json!({"type": "minecraft:nope"})),
+        ("env_no_type", json!({"definitions": []})),
+        (
+            "env_missing_definitions",
+            json!({"type": "minecraft:all_of"}),
+        ),
+        (
+            "env_missing_reference",
+            json!({"type": "minecraft:all_of", "definitions": ["test:missing"]}),
+        ),
+        (
+            "env_nested_unknown_type",
+            json!({"type": "minecraft:all_of", "definitions": [{"type": "minecraft:nope"}]}),
+        ),
+        (
+            "env_bad_clock",
+            json!({"type": "minecraft:clock_time", "clock": "minecraft:nope", "time": 1}),
+        ),
+        (
+            "env_negative_time",
+            json!({"type": "minecraft:clock_time", "clock": "minecraft:overworld", "time": -1}),
+        ),
+        (
+            "env_bad_difficulty",
+            json!({"type": "minecraft:difficulty", "difficulty": "impossible"}),
+        ),
+        (
+            "env_bad_function",
+            json!({"type": "minecraft:function", "setup": "Not Valid"}),
+        ),
+        (
+            "env_bad_rules",
+            json!({"type": "minecraft:game_rules", "rules": {"minecraft:nope": true, "minecraft:pvp": 3}}),
+        ),
+        (
+            "env_rules_not_a_map",
+            json!({"type": "minecraft:game_rules", "rules": []}),
+        ),
+        (
+            "env_bad_timeline",
+            json!({"type": "minecraft:timeline_attributes", "timelines": ["minecraft:day", "test:nope"]}),
+        ),
+        (
+            "env_bad_weather",
+            json!({"type": "minecraft:weather", "weather": "hail"}),
+        ),
+    ];
+    for (name, definition) in environments {
+        write(
+            root.join(format!("test_environment/{name}.json")),
+            &definition.to_string(),
+        );
+    }
+    let mut instances = vec![
+        ("inst_unknown_type", json!({"type": "minecraft:nope"})),
+        ("inst_no_type", json!({"structure": "minecraft:empty"})),
+        (
+            "inst_function_missing_function",
+            json!({"type": "minecraft:function", "environment": "minecraft:default", "structure": "minecraft:empty", "max_ticks": 1}),
+        ),
+        ("inst_empty", json!({"type": "minecraft:block_based"})),
+    ];
+    for (name, field, value) in [
+        ("inst_zero_ticks", "max_ticks", json!(0)),
+        ("inst_negative_setup", "setup_ticks", json!(-1)),
+        ("inst_zero_attempts", "max_attempts", json!(0)),
+        ("inst_zero_successes", "required_successes", json!(0)),
+        ("inst_big_padding", "padding", json!(129)),
+        ("inst_bad_rotation", "rotation", json!("sideways")),
+        ("inst_bad_required", "required", json!("yes")),
+        ("inst_bad_structure", "structure", json!("Not Valid")),
+        ("inst_bad_dimension", "dimension", json!(5)),
+        (
+            "inst_missing_environment",
+            "environment",
+            json!("test:missing"),
+        ),
+        ("inst_fractional_ticks", "max_ticks", json!(2.5)),
+    ] {
+        let mut instance = valid.clone();
+        instance[field] = value;
+        instances.push((name, instance));
+    }
+    for (name, instance) in instances {
+        write(
+            root.join(format!("test_instance/{name}.json")),
+            &instance.to_string(),
+        );
+    }
 }
 
 /// Dimension types whose `monster_spawn_light_level` provider fails with a partial result: the range check of
