@@ -3,14 +3,17 @@
 
 use super::game_test_exception::GameTestException;
 use super::game_test_helper::GameTestHelper;
-use super::test_environment_definition::{EnvironmentRef, decode_environment_ref};
-use crate::registry::codec::RegistryDecodeContext;
+use super::test_environment_definition::{EnvironmentRef, decode_environment_ref, holder_schema};
+use crate::registry::codec::{RegistryDecodeContext, Schema, default, int_value, req};
 use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
+use crate::registry::typed::noise_settings::positive_int as positive_int_schema;
+use crate::registry::typed::state_provider::non_negative_int as non_negative_int_schema;
 use crate::registry::{RegistryAccess, keys};
 use crate::translatable;
 use crate::world::level::DimensionKey;
 use mc_core::ident::Identifier;
 use mc_core::rotation::Rotation;
+use mc_nbt::Tag;
 use mc_text::{ChatFormatting, Component};
 use serde_json::Value;
 use std::sync::Arc;
@@ -225,10 +228,16 @@ fn description_row(key: &str, value: Component) -> Component {
 
 // ---- codec ----
 
+/// `Codec.INT`: `Number.intValue()` of a JSON number.
+fn int(value: &Value) -> Result<i32, String> {
+    match value {
+        Value::Number(n) => Ok(int_value(n)),
+        _ => Err(format!("Not a number: {value}")),
+    }
+}
+
 fn positive_int(value: &Value) -> Result<i32, String> {
-    let n = value
-        .as_f64()
-        .ok_or_else(|| format!("Not a number: {value}"))? as i32;
+    let n = int(value)?;
     if n >= 1 {
         Ok(n)
     } else {
@@ -242,7 +251,7 @@ fn optional<'a, T>(
     default: T,
     read: impl FnOnce(&'a Value) -> Result<T, String>,
 ) -> Result<T, String> {
-    match json.get(key) {
+    match json.get(key).filter(|v| !v.is_null()) {
         None => Ok(default),
         Some(v) => read(v),
     }
@@ -283,7 +292,7 @@ fn decode_test_data(
             .ok_or_else(|| format!("No key max_ticks in MapLike[{json}]"))?,
     )?;
     let setup_ticks = optional(json, "setup_ticks", 0, |v| {
-        let n = v.as_f64().ok_or_else(|| format!("Not a number: {v}"))? as i32;
+        let n = int(v)?;
         if n >= 0 {
             Ok(n)
         } else {
@@ -300,7 +309,7 @@ fn decode_test_data(
     let required_successes = optional(json, "required_successes", 1, positive_int)?;
     let sky_access = optional(json, "sky_access", false, boolean)?;
     let padding = optional(json, "padding", 0, |v| {
-        let n = v.as_f64().ok_or_else(|| format!("Not a number: {v}"))? as i32;
+        let n = int(v)?;
         if (0..=128).contains(&n) {
             Ok(n)
         } else {
@@ -359,8 +368,62 @@ pub fn decode_instance(
     })
 }
 
+/// `ExtraCodecs.intRange(0, 128)`.
+fn padding() -> Schema {
+    Schema::custom(|v, ctx| match Schema::Int.convert(v, ctx)? {
+        Tag::Int(n) if !(0..=128).contains(&n) => {
+            Err(format!("Value must be within range [0;128]: {n}"))
+        }
+        other => Ok(other),
+    })
+}
+
+/// `TestData.CODEC` fields (a `MapCodec`: they sit next to the instance's own); defaults are omitted when encoded.
+fn test_data_fields() -> Vec<crate::registry::codec::Field> {
+    use Schema as S;
+    vec![
+        req("environment", holder_schema()),
+        default(
+            "dimension",
+            S::Identifier,
+            Value::from("minecraft:overworld"),
+        ),
+        req("structure", S::Identifier),
+        req("max_ticks", positive_int_schema()),
+        default("setup_ticks", non_negative_int_schema(), Value::from(0)),
+        default("required", S::Bool, Value::from(true)),
+        default(
+            "rotation",
+            S::Enum(&["none", "clockwise_90", "180", "counterclockwise_90"]),
+            Value::from("none"),
+        ),
+        default("manual_only", S::Bool, Value::from(false)),
+        default("max_attempts", positive_int_schema(), Value::from(1)),
+        default("required_successes", positive_int_schema(), Value::from(1)),
+        default("sky_access", S::Bool, Value::from(false)),
+        default("padding", padding(), Value::from(0)),
+    ]
+}
+
+/// `GameTestInstance.DIRECT_CODEC`: dispatch on `type` through `TEST_INSTANCE_TYPE`.
+fn direct_schema() -> Schema {
+    Schema::dispatch("test_instance_type", |ty| {
+        let mut fields = match ty {
+            "minecraft:block_based" => vec![],
+            "minecraft:function" => vec![req("function", Schema::Identifier)],
+            _ => return None,
+        };
+        fields.extend(test_data_fields());
+        Some(Schema::Record(fields))
+    })
+}
+
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
-    Ok(DecodedEntry::new(decode_instance(json, ctx)?))
+    let network = direct_schema().convert(json, ctx)?;
+    Ok(DecodedEntry::with_network(
+        decode_instance(json, ctx)?,
+        network,
+    ))
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]

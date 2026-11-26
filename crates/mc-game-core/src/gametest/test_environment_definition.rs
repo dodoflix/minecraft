@@ -1,14 +1,16 @@
 //! `TestEnvironmentDefinition` (`test_environment` registry): `all_of`, `clock_time`, `difficulty`, `function`,
 //! `game_rules`, `timeline_attributes` and `weather`, with `setup` / `teardown` (`Activation`).
 
-use crate::registry::codec::{RegistryDecodeContext, json_to_nbt};
+use crate::registry::codec::{Failure, RegistryDecodeContext, Schema, int_value, opt, req};
 use crate::registry::decoders::{DYNAMIC_REGISTRY_DECODERS, DecodedEntry, DynamicRegistryDecoder};
+use crate::registry::typed::state_provider::non_negative_int as non_negative_int_schema;
 use crate::registry::{RegistryAccess, keys};
 use crate::server::MinecraftServer;
 use crate::server::level_tick_env::ServerTickEnv;
 use crate::world::clock::ClockInstance;
 use crate::world::level::DimensionKey;
 use crate::world::level::gamerules::GameRuleMap;
+use crate::world::level::saveddata::encode_codec;
 use mc_core::ident::Identifier;
 use mc_world::level_storage::Difficulty;
 use serde_json::Value;
@@ -317,10 +319,10 @@ fn required<'a>(object: &'a Value, key: &str) -> Result<&'a Value, String> {
 }
 
 fn non_negative_int(value: &Value) -> Result<i32, String> {
-    let n = value
-        .as_f64()
-        .ok_or_else(|| format!("Not a number: {value}"))?;
-    let n = n as i32;
+    let n = match value {
+        Value::Number(n) => int_value(n),
+        _ => return Err(format!("Not a number: {value}")),
+    };
     if n < 0 {
         Err(format!("Value must be non-negative: {n}"))
     } else {
@@ -378,7 +380,7 @@ pub fn decode_definition(
         }
         "minecraft:function" => {
             let read = |key: &str| -> Result<Option<Identifier>, String> {
-                match object.get(key) {
+                match object.get(key).filter(|v| !v.is_null()) {
                     None => Ok(None),
                     Some(v) => {
                         Identifier::read(v.as_str().ok_or_else(|| format!("Not a string: {key}"))?)
@@ -393,10 +395,7 @@ pub fn decode_definition(
         }
         "minecraft:game_rules" => {
             let rules = required(json, "rules")?;
-            if !rules.is_object() {
-                return Err(format!("Not a map: {rules}"));
-            }
-            let map = GameRuleMap::decode(&json_to_nbt(rules)).map_err(|p| p.error)?;
+            let map = parse_game_rules(rules).map_err(|f| f.message)?;
             TestEnvironmentDefinition::SetGameRules(Box::new(map))
         }
         "minecraft:timeline_attributes" => {
@@ -427,8 +426,68 @@ pub fn decode_definition(
     })
 }
 
+/// `TestEnvironmentDefinition.CODEC` (`RegistryCodecs.holder(TEST_ENVIRONMENT, DIRECT_CODEC)`): a reference or an inline
+/// definition.
+pub fn holder_schema() -> Schema {
+    Schema::HolderOrDirect {
+        registry: keys::TEST_ENVIRONMENT,
+        direct: encode_direct,
+    }
+}
+
+/// `DIRECT_CODEC` `parse` + `encodeStart` (the inline holder form).
+fn encode_direct(json: &Value, ctx: &RegistryDecodeContext) -> Result<mc_nbt::Tag, Failure> {
+    direct_schema().decode(json, ctx)
+}
+
+/// `DIRECT_CODEC`: dispatch on `type` through `TEST_ENVIRONMENT_DEFINITION_TYPE`.
+fn direct_schema() -> Schema {
+    Schema::dispatch("test_environment_definition_type", definition_types)
+}
+
+fn definition_types(ty: &str) -> Option<Schema> {
+    use Schema as S;
+    Some(S::Record(match ty {
+        "minecraft:all_of" => vec![req("definitions", S::List(Box::new(holder_schema())))],
+        "minecraft:clock_time" => vec![
+            req("clock", S::Holder(keys::WORLD_CLOCK)),
+            req("time", non_negative_int_schema()),
+        ],
+        "minecraft:difficulty" => vec![req(
+            "difficulty",
+            S::Enum(&["peaceful", "easy", "normal", "hard"]),
+        )],
+        "minecraft:function" => vec![opt("setup", S::Identifier), opt("teardown", S::Identifier)],
+        "minecraft:game_rules" => vec![req(
+            "rules",
+            S::custom_partial(|v, _| {
+                let map = parse_game_rules(v)?;
+                encode_codec(&GameRuleMap::codec(), &map).map_err(Failure::from)
+            }),
+        )],
+        "minecraft:timeline_attributes" => vec![req(
+            "timelines",
+            S::List(Box::new(S::Holder(keys::TIMELINE))),
+        )],
+        "minecraft:weather" => vec![req("weather", S::Enum(&["clear", "rain", "thunder"]))],
+        _ => return None,
+    }))
+}
+
+/// `GameRuleMap.CODEC` over JSON, not over the NBT `json_to_nbt` makes of it (`Not a boolean: 3`, `Not a JSON object: []`).
+fn parse_game_rules(rules: &Value) -> Result<GameRuleMap, Failure> {
+    match mc_dfu::parse_json(&GameRuleMap::codec(), &rules.to_string()) {
+        mc_dfu::DataResult::Success(map) => Ok(map),
+        mc_dfu::DataResult::Error { message, .. } => Err(Failure::from(message.get())),
+    }
+}
+
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
-    Ok(DecodedEntry::new(decode_definition(json, ctx)?))
+    let network = direct_schema().convert(json, ctx)?;
+    Ok(DecodedEntry::with_network(
+        decode_definition(json, ctx)?,
+        network,
+    ))
 }
 
 #[linkme::distributed_slice(DYNAMIC_REGISTRY_DECODERS)]

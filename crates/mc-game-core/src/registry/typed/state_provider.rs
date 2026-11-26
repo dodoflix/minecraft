@@ -317,7 +317,7 @@ fn noise_fields() -> Vec<Field> {
 }
 
 /// `ExtraCodecs.NON_NEGATIVE_INT`.
-fn non_negative_int() -> Schema {
+pub(crate) fn non_negative_int() -> Schema {
     Schema::custom(|v, ctx| match Schema::Int.convert(v, ctx)? {
         Tag::Int(n) if n < 0 => Err(format!("Value must be non-negative: {n}")),
         other => Ok(other),

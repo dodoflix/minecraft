@@ -143,7 +143,7 @@ fn noise_value() -> Schema {
 }
 
 /// `ExtraCodecs.POSITIVE_INT`.
-fn positive_int() -> Schema {
+pub(crate) fn positive_int() -> Schema {
     Schema::custom(|v, ctx| match Schema::Int.convert(v, ctx)? {
         Tag::Int(n) if n < 1 => Err(format!("Value must be positive: {n}")),
         other => Ok(other),
