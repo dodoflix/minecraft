@@ -39,6 +39,14 @@ pub fn generate_structure(
     valid_biome: &dyn Fn(BiomeId) -> bool,
 ) -> StructureStart {
     let structure = selected.value();
+    let profiled = crate::util::profiling::jfr::instance().on_structure_generate(
+        source_chunk_pos.x,
+        source_chunk_pos.z,
+        &env.dimension.to_string(),
+        &selected
+            .id()
+            .map_or_else(|| "[unregistered]".to_owned(), ToString::to_string),
+    );
     let mut context =
         GenerationContext::new(env, seed, source_chunk_pos, height_accessor, valid_biome);
     if let Some(stub) = structure.find_valid_generation_point(&mut context) {
@@ -50,8 +58,14 @@ pub fn generate_structure(
             builder.build(),
         );
         if test_start.is_valid() {
+            if let Some(profiled) = profiled {
+                profiled.finish(true);
+            }
             return test_start;
         }
+    }
+    if let Some(profiled) = profiled {
+        profiled.finish(false);
     }
     StructureStart::invalid()
 }

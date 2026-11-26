@@ -51,6 +51,10 @@ fn run() -> ExitCode {
     {
         return report(format!("java.io.UncheckedIOException: {e}"));
     }
+    if options.jfr_profile {
+        let jfr = mc_game::util::profiling::jfr::instance();
+        jfr.start(mc_game::util::profiling::jfr::ENVIRONMENT_DESCRIPTION);
+    }
 
     let settings_file = Path::new("server.properties");
     let settings = match DedicatedServerSettings::new(settings_file) {

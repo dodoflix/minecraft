@@ -101,9 +101,13 @@ impl MinecraftServer {
     pub(super) fn load_level(&mut self) {
         let brand = self.get_server_mod_name();
         self.world_data.lock().set_modded_info(brand, false);
+        let profiled_duration = crate::util::profiling::jfr::instance().on_world_loaded_started();
         self.create_levels();
         self.force_difficulty();
         self.prepare_levels();
+        if let Some(profiled_duration) = profiled_duration {
+            profiled_duration.finish(true);
+        }
     }
 
     fn level_factory(&self) -> LevelFactory {

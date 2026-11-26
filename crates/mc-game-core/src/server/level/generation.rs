@@ -416,6 +416,20 @@ impl ChunkMap {
             holder.has_chunk_unchecked(target.parent()),
             "Parent chunk missing"
         );
+        if holder
+            .get_persisted_status()
+            .is_none_or(|status| status.is_before(target))
+        {
+            let pos = ChunkPos::unpack(key);
+            if let Some(profiled) = crate::util::profiling::jfr::instance().on_chunk_generate(
+                pos.x,
+                pos.z,
+                &self.dimension.to_string(),
+                &target.name(),
+            ) {
+                self.profiled_steps.insert((key, target), profiled);
+            }
+        }
         match step.task {
             ChunkStatusTask::PassThrough => self.complete_step(key, target),
             ChunkStatusTask::LoadStructureStarts => {
@@ -481,6 +495,9 @@ impl ChunkMap {
 
     /// `completeFuture(status, chunk)` (+ `completeChunkGeneration`'s status bump).
     pub(crate) fn complete_step(&mut self, key: i64, status: ChunkStatus) {
+        if let Some(profiled) = self.profiled_steps.remove(&(key, status)) {
+            profiled.finish(true);
+        }
         let Some(holder) = self.holders.holder_mut(key) else {
             return;
         };

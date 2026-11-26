@@ -8,6 +8,7 @@ pub mod region_bitmap;
 pub mod region_file;
 pub mod region_file_storage;
 pub mod region_file_version;
+pub mod region_io_listener;
 pub mod region_storage_info;
 pub mod simple_region_storage;
 pub mod upgrade;

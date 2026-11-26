@@ -296,6 +296,9 @@ pub struct ChunkMap {
     pub(crate) active_chunk_writes: Arc<AtomicI32>,
     /// Save jobs (NBT encoding on the pool) not finished yet.
     pub(crate) encoding_chunks: Arc<AtomicI32>,
+    /// The `ProfiledDuration` of each chunk step that is running (`ChunkStep.apply` to `completeChunkGeneration`).
+    pub(crate) profiled_steps:
+        HashMap<(i64, ChunkStatus), crate::util::profiling::jfr::ProfiledDuration>,
     /// `poiManager`.
     pub poi_manager: PoiManager,
 
@@ -417,6 +420,7 @@ impl ChunkMap {
             unload_wanted: HashMap::new(),
             active_chunk_writes: Arc::new(AtomicI32::new(0)),
             encoding_chunks: Arc::new(AtomicI32::new(0)),
+            profiled_steps: HashMap::new(),
             poi_manager,
             player_map: PlayerMap::new(),
             players: IndexMap::new(),

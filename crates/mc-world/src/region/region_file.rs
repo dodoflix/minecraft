@@ -26,7 +26,6 @@ const EXTERNAL_STREAM_FLAG: u8 = 128;
 const EXTERNAL_CHUNK_THRESHOLD: usize = 256;
 
 pub struct RegionFile {
-    #[expect(dead_code, reason = "mirrors vanilla's RegionFile.info")]
     info: RegionStorageInfo,
     path: PathBuf,
     file: File,
@@ -290,6 +289,14 @@ impl RegionFile {
             log::error!("Declared size {} of chunk {} is negative", length, pos);
             Ok(None)
         } else {
+            if let Some(listener) = super::region_io_listener::listener() {
+                listener.on_region_file_read(
+                    &self.info,
+                    pos,
+                    self.version.get_id(),
+                    stream_length as i32,
+                );
+            }
             let payload =
                 buffer[CHUNK_HEADER_SIZE..CHUNK_HEADER_SIZE + stream_length as usize].to_vec();
             Self::create_chunk_input_stream(pos, version_id, payload)
@@ -392,6 +399,9 @@ impl RegionFile {
         data.extend_from_slice(&compressed);
         // ChunkBuffer.close(): streamLength = count - 5 + 1
         let stream_length = (data.len() - CHUNK_HEADER_SIZE + 1) as i32;
+        if let Some(listener) = super::region_io_listener::listener() {
+            listener.on_region_file_write(&self.info, pos, self.version.get_id(), stream_length);
+        }
         data[..4].copy_from_slice(&stream_length.to_be_bytes());
         self.write(pos, &data)
     }
