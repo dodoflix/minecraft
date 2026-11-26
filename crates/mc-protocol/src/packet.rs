@@ -107,6 +107,14 @@ pub fn vanilla_class_name(type_name: &'static str) -> &'static str {
         .unwrap_or(name)
 }
 
+/// The error of a payload that ends inside its packet id VarInt: netty's `IndexOutOfBoundsException` for the next
+/// byte, wrapped by `PacketDecoder` (`len` is the payload length, the buffer is exactly that long).
+pub fn truncated_id_error(len: usize) -> crate::codec::DecodeError {
+    crate::codec::DecodeError::Message(format!(
+        "java.lang.IndexOutOfBoundsException: readerIndex({len}) + length(1) exceeds writerIndex({len}): AdaptivePoolingAllocator$AdaptiveByteBuf(ridx: {len}, widx: {len}, cap: {len})"
+    ))
+}
+
 /// Every `(id, resource name)` of a state/direction, sorted by id.
 pub fn packet_names(state: ConnectionState, flow: PacketFlow) -> &'static [(i32, &'static str)] {
     use crate::ids;
@@ -199,7 +207,11 @@ macro_rules! packet_enum {
 
             /// Decode a full payload (`VarInt id` + body), rejecting trailing bytes like vanilla's `PacketDecoder`.
             pub fn decode_payload(mut payload: &[u8]) -> ::std::result::Result<Self, $crate::codec::DecodeError> {
-                let id = $crate::codec::read_varint(&mut payload)?;
+                let total = payload.len();
+                let id = $crate::codec::read_varint(&mut payload).map_err(|e| match e {
+                    $crate::codec::DecodeError::Eof { .. } => $crate::packet::truncated_id_error(total),
+                    other => other,
+                })?;
                 let packet = Self::decode_body(id, &mut payload)?;
                 if !payload.is_empty() {
                     return ::std::result::Result::Err($crate::codec::DecodeError::Message(::std::format!(

@@ -258,6 +258,12 @@ fn decode_failure_texts_match_vanilla() {
             .to_string(),
         "Packet configuration/serverbound/minecraft:finish_configuration (ServerboundFinishConfigurationPacket) was larger than I expected, found 1 bytes extra whilst reading packet serverbound/minecraft:finish_configuration"
     );
+    assert_eq!(
+        ServerboundConfigurationPacket::decode_payload(&[0x80])
+            .unwrap_err()
+            .to_string(),
+        "java.lang.IndexOutOfBoundsException: readerIndex(1) + length(1) exceeds writerIndex(1): AdaptivePoolingAllocator$AdaptiveByteBuf(ridx: 1, widx: 1, cap: 1)"
+    );
     // the nested vanilla classes keep their simple names
     let mut payload = vec![mc_protocol::packets::play::ServerboundMovePlayerPosPacket::ID as u8];
     payload.extend([0u8; 25]);
