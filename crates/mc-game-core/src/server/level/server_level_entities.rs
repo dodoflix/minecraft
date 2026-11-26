@@ -165,11 +165,11 @@ impl ServerLevel {
         self.entity_id_counter = Some(counter);
     }
 
-    /// `getNextEntityId()`.
+    /// `getNextEntityId()`: skips the ids of the tracked entities only (`chunkSource.hasEntityWithId`).
     pub fn next_entity_id(&self) -> EntityId {
         let counter = self.entity_id_counter.as_deref().unwrap_or(&ENTITY_COUNTER);
         let mut id = 0;
-        while id == 0 || self.entity_manager.has_entity_with_id(id) {
+        while id == 0 || self.entity_tracker.has_entity_with_id(id) {
             id = counter.fetch_add(1, Ordering::Relaxed).wrapping_add(1);
         }
         id
@@ -1560,6 +1560,45 @@ mod tests {
     use super::*;
     use crate::world::entity::factory::{self, EntitySpawnRequest};
     use mc_data::enums::EntitySpawnReason;
+
+    /// Ids come from one increasing counter, so a held entity's id comes up again only when the counter is set back (or
+    /// wraps): vanilla then skips the tracked ones and hands out the id of an untracked entity again.
+    #[test]
+    fn the_next_entity_id_skips_tracked_entities_only() {
+        let mut level = ServerLevel::detached(
+            mc_core::ident::Identifier::parse("minecraft:overworld").unwrap(),
+        );
+        level.use_private_entity_counter(100);
+        let chunk = mc_core::pos::chunk_pos::ChunkPos::new(0, 0);
+        level
+            .entity_manager
+            .update_chunk_status(chunk, crate::world::level::entity::Visibility::Ticking);
+        let request = EntitySpawnRequest {
+            reason: EntitySpawnReason::Command,
+            ignore_checks: true,
+        };
+        let spawn = |level: &mut ServerLevel| {
+            let entity = factory::create(EntityType::ENDER_DRAGON, level, request).unwrap();
+            let id = entity.id();
+            assert!(level.add_fresh_entity(entity));
+            id
+        };
+        let tracked = spawn(&mut level);
+        assert!(level.entity_tracker.has_entity_with_id(tracked));
+        let untracked = {
+            let id = spawn(&mut level);
+            level.handle_entity_event(EntityLevelEvent::TrackingEnd(id));
+            id
+        };
+        assert!(!level.entity_tracker.has_entity_with_id(untracked));
+        assert!(level.entity_manager.has_entity_with_id(untracked));
+
+        let counter = level.entity_id_counter.clone().unwrap();
+        counter.store(untracked - 1, Ordering::Relaxed);
+        assert_eq!(level.next_entity_id(), untracked);
+        counter.store(tracked - 1, Ordering::Relaxed);
+        assert_ne!(level.next_entity_id(), tracked);
+    }
 
     #[test]
     fn a_dragon_that_stops_being_tracked_keeps_its_parts_and_their_places() {
