@@ -621,6 +621,23 @@ pub fn read_block_state(tag: &mc_nbt::CompoundTag, key: &str) -> Option<BlockSta
     crate::world::block_entity::read_codec(
         tag,
         key,
-        &crate::world::item::enchantment::value_codecs::block_state_codec(),
+        &mc_protocol::packets::play::block_state_codec(),
     )
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Each property decodes on its own: a value of the wrong type resets only that property.
+    #[test]
+    fn read_block_state_keeps_the_valid_properties() {
+        let tag = mc_nbt::snbt::parse_compound(
+            r#"{s:{id:"minecraft:furnace",properties:{facing:"east",lit:1b}}}"#,
+        )
+        .unwrap();
+        let state = read_block_state(&tag, "s").unwrap();
+        assert_eq!(state.get_property_str("facing"), Some("east"));
+        assert_eq!(state.get_property_str("lit"), Some("false"));
+    }
 }

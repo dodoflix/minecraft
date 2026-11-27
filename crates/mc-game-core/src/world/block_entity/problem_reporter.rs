@@ -4,9 +4,8 @@
 //! (`DecodeFromMapFailedProblem`) and [`super::list_or_empty`] (`UnexpectedTypeProblem`) while a scope is open are logged
 //! as `Serialization errors:` when it closes, grouped by path element ([`with_child`]).
 //!
-//! shortcut: the type-mismatch problems of the scalar getters, the failed decodes of list elements and of an entity's `id`
-//! are not reported, and the index of an entity in `.Entities[i]` skips non-compound elements; extend when a corpus needs
-//! them.
+//! shortcut: the failed decodes of list elements and of the entries inside a list or map field are not reported, and the
+//! index of an entity in `.Entities[i]` skips non-compound elements; extend when a corpus needs them.
 
 use std::cell::RefCell;
 
