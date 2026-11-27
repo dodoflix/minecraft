@@ -49,13 +49,23 @@ thread_local! {
 /// Runs `f` with its log lines carrying `name` as the thread: work that vanilla runs on a pool thread (`Worker-Main-N`)
 /// runs inline here, and the golden tests read their log lines per calling thread.
 pub fn with_thread_name<R>(name: &'static str, f: impl FnOnce() -> R) -> R {
+    scoped_thread_name(Some(name), f)
+}
+
+/// Runs `f` with the real thread name again inside a [`with_thread_name`] scope: the step vanilla hands back to the
+/// main thread (the apply stage of a reload) runs inline in the pool thread's scope here.
+pub fn with_real_thread_name<R>(f: impl FnOnce() -> R) -> R {
+    scoped_thread_name(None, f)
+}
+
+fn scoped_thread_name<R>(name: Option<&'static str>, f: impl FnOnce() -> R) -> R {
     struct Restore(Option<&'static str>);
     impl Drop for Restore {
         fn drop(&mut self) {
             NAME_OVERRIDE.with(|n| n.set(self.0));
         }
     }
-    let _restore = Restore(NAME_OVERRIDE.with(|n| n.replace(Some(name))));
+    let _restore = Restore(NAME_OVERRIDE.with(|n| n.replace(name)));
     f()
 }
 
@@ -208,6 +218,18 @@ mod tests {
             "Worker-Main-1"
         );
         assert_eq!(current_thread_name(), real);
+    }
+
+    #[test]
+    fn the_real_thread_name_returns_inside_a_scoped_one() {
+        let real = current_thread_name();
+        let inner = with_thread_name("Worker-Main-1", || {
+            (
+                current_thread_name(),
+                with_real_thread_name(current_thread_name),
+            )
+        });
+        assert_eq!(inner, ("Worker-Main-1".to_owned(), real));
     }
 
     #[test]

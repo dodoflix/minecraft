@@ -1,6 +1,7 @@
 //! `net.minecraft.server.ServerFunctionLibrary`: every `data/<ns>/function/**.mcfunction` of the selected packs, compiled
 //! against the command dispatcher of the reload, plus the `tags/function` tags over them.
 
+use super::dedicated::logging::with_real_thread_name;
 use super::packs::{FileToIdConverter, ResourceManager};
 use super::reloadable_resources::{
     ORDER_FUNCTION_LIBRARY, RELOAD_LISTENERS, ReloadContext, ReloadListener,
@@ -100,17 +101,20 @@ impl ServerFunctionLibrary {
             };
             compiled.insert(id, result);
         }
+        // vanilla logs the failures in the apply stage, which runs on the main thread, not on the pool thread of the prepare
         let mut functions: HashMap<Identifier, Arc<dyn CommandFunction>> = HashMap::new();
-        for (id, result) in compiled.into_entries() {
-            match result {
-                Ok(function) => {
-                    functions.insert(id, function);
+        with_real_thread_name(|| {
+            for (id, result) in compiled.into_entries() {
+                match result {
+                    Ok(function) => {
+                        functions.insert(id, function);
+                    }
+                    Err(error) => log::error!(
+                        "Failed to load function {id}\njava.util.concurrent.CompletionException: {error}"
+                    ),
                 }
-                Err(error) => log::error!(
-                    "Failed to load function {id}\njava.util.concurrent.CompletionException: {error}"
-                ),
             }
-        }
+        });
 
         // Tags resolve their elements against the functions that just loaded: element ids are positions in `ordered`.
         let mut ordered: Vec<Arc<dyn CommandFunction>> = Vec::with_capacity(functions.len());
@@ -125,19 +129,21 @@ impl ServerFunctionLibrary {
         };
         let mut loader = TagLoader::new(&mut lookup, &keys::tags_dir_path(FUNCTION_REGISTRY_KEY));
         let builders = loader.load(manager);
-        let tags = loader
-            .build(&builders)
-            .into_iter()
-            .map(|(id, values)| {
-                (
-                    id,
-                    values
-                        .into_iter()
-                        .map(|v| ordered[v as usize].clone())
-                        .collect(),
-                )
-            })
-            .collect();
+        let tags = with_real_thread_name(|| {
+            loader
+                .build(&builders)
+                .into_iter()
+                .map(|(id, values)| {
+                    (
+                        id,
+                        values
+                            .into_iter()
+                            .map(|v| ordered[v as usize].clone())
+                            .collect(),
+                    )
+                })
+                .collect()
+        });
         FunctionLibraryData { functions, tags }
     }
 }

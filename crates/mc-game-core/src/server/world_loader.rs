@@ -182,7 +182,8 @@ fn load_with_resources<D, R>(
     ) -> R,
 ) -> Result<R, WorldLoadError> {
     // vanilla runs everything from the tag load up to the reload on `Util.backgroundExecutor()`, so those log lines come
-    // from a `Worker-Main-N` thread; only the pack selection before and the result factory after run on the main thread
+    // from a `Worker-Main-N` thread; the pack selection before, the apply stages of the reload listeners and the result
+    // factory after run on the main thread
     let attempt = crate::server::dedicated::logging::with_thread_name(
         "Worker-Main-1",
         || -> Result<(ReloadableServerResources, D), WorldLoadError> {

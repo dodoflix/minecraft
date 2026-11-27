@@ -153,6 +153,45 @@ async fn startup_log_equals_vanilla() {
     }
 }
 
+/// A data pack with a function that does not compile and a function tag that names a missing function.
+fn broken_function_pack(server_dir: &Path) {
+    let pack = server_dir.join("world/datapacks/broken");
+    let function = pack.join("data/broken/function");
+    let tags = pack.join("data/broken/tags/function");
+    std::fs::create_dir_all(&function).expect("function directory");
+    std::fs::create_dir_all(&tags).expect("tag directory");
+    std::fs::write(
+        pack.join("pack.mcmeta"),
+        r#"{"pack":{"description":"broken","min_format":121,"max_format":121}}"#,
+    )
+    .expect("pack.mcmeta");
+    std::fs::write(function.join("bad.mcfunction"), "not a command\n").expect("bad function");
+    std::fs::write(function.join("good.mcfunction"), "say hi\n").expect("good function");
+    std::fs::write(
+        tags.join("tagged.json"),
+        r#"{"values":["broken:good","broken:missing"]}"#,
+    )
+    .expect("function tag");
+}
+
+/// The apply stage of the function reload logs from the main thread, not from the `Worker-Main-N` thread of the
+/// prepare stage.
+#[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
+async fn failed_functions_are_logged_from_the_main_thread_like_vanilla() {
+    on_both(&[], broken_function_pack, async |server, _| {
+        let lines = startup(server);
+        assert!(
+            lines
+                .iter()
+                .any(|l| l.ends_with("ERROR: Failed to load function broken:bad")),
+            "no failure line in {lines:?}"
+        );
+        lines
+    })
+    .await;
+}
+
 /// The lines the query and RCON listeners print once the world is loaded (their threads race: sorted).
 fn listener_lines(server: &Server) -> Vec<String> {
     for what in ["Query running on", "RCON running on"] {
