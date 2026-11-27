@@ -18,6 +18,8 @@ server seed=7 level-type=minecraft:flat
 file config/x.txt data/x.txt
 datapack pack
 tolerate level.chunks_loaded 5
+ignore entities.*
+unordered
 console op Steve
 client join --user Alex --option lang:en_us
 wait_screen null 90
@@ -43,6 +45,8 @@ class ScenarioTest(unittest.TestCase):
         self.assertEqual(sc.files, [("config/x.txt", "/s/data/x.txt")])
         self.assertEqual(sc.datapacks, ["/s/pack"])
         self.assertEqual(sc.tolerances, [("level.chunks_loaded", 5.0)])
+        self.assertEqual(sc.ignores, ["entities.*"])
+        self.assertTrue(sc.unordered)
         steps = {op: a for _, op, a in sc.steps}
         self.assertEqual(steps["client"]["action"], "disconnect")
         self.assertEqual([a for _, op, a in sc.steps if op == "client"][0], {"action": "join", "user": "Alex", "options": ["lang:en_us"]})
@@ -74,6 +78,8 @@ class ScenarioTest(unittest.TestCase):
             ("shot a --crop 1,2", "--crop X,Y,W,H"),
             ("snapshot bad/label", "LABEL"),
             ("tolerate x y", "not a number"),
+            ("ignore", "ignore needs GLOB"),
+            ("unordered now", "takes no arguments"),
         ]:
             with self.assertRaises(scenario.ScenarioError, msg=text) as raised:
                 scenario.parse(text)
@@ -256,6 +262,19 @@ class CompareTest(unittest.TestCase):
         a["level"]["day_time"], b["level"]["day_time"] = 6000, 6001
         self.assertEqual(compare.diff_snapshots(a, b), [])
         self.assertEqual([p for p, _, _ in compare.diff_snapshots(a, b, tolerances=[("level.day_time", 0)])], ["level.day_time"])
+
+    def test_an_ignored_path_is_not_compared(self):
+        a, b = snapshot(1, 1, 1), snapshot(1, 1, 1)
+        a["entities"], b["entities"] = [{"type": "minecraft:item"}], []
+        self.assertTrue(compare.diff_snapshots(a, b))
+        self.assertEqual(compare.diff_snapshots(a, b, ignore=("entities*",)), [])
+
+    def test_unordered_entities_compare_as_a_set(self):
+        a, b = snapshot(1, 1, 1), snapshot(1, 1, 1)
+        crystals = [{"id": 5, "type": "minecraft:end_crystal", "pos": [1.0, 2.0, 3.0]}, {"id": 9, "type": "minecraft:end_crystal", "pos": [7.0, 2.0, 3.0]}]
+        a["entities"], b["entities"] = crystals, crystals[::-1]
+        self.assertTrue(compare.diff_snapshots(a, b))
+        self.assertEqual(compare.diff_snapshots(a, b, unordered=True), [])
 
     def test_a_value_difference_is_named_by_its_path(self):
         a, b = self.sides(snapshot(100, 5, 40), snapshot(25, 5, 40))

@@ -47,14 +47,17 @@ def _rewrite_strings(value):
     return value
 
 
-def normalise_snapshot(snap):
+def normalise_snapshot(snap, unordered=False):
     """A copy with entity ids renumbered in level order (ids come from a per-server counter), the random UUIDs of non-player
-    entities blanked, the random ids of boss bars blanked and the ports of loopback addresses replaced."""
+    entities blanked, the random ids of boss bars blanked and the ports of loopback addresses replaced. `unordered` first
+    sorts the entities other than players by type and position: parallel world generation creates them in a random order."""
     snap = _rewrite_strings(copy.deepcopy(snap))
     for bar in snap.get("boss_bars") or []:  # `bossbar add` draws a random id
         if isinstance(bar, dict):
             bar["uuid"] = "<uuid>"
     entities = snap.get("entities")
+    if unordered and isinstance(entities, list):
+        entities.sort(key=lambda e: (e.get("type") != PLAYER_TYPE, e.get("type"), *[round(v, 1) for v in e.get("pos", ())]))
     if isinstance(entities, list):
         ids = {e["id"]: n for n, e in enumerate(entities) if isinstance(e, dict) and "id" in e}
         for n, e in enumerate(entities):
@@ -95,9 +98,9 @@ def _path_order(path):
     return [(0, int(t), "") if t.isdigit() else (1, 0, t) for t in path.split(".")]
 
 
-def diff_snapshots(a, b, tolerances=(), ignore=DEFAULT_IGNORE):
+def diff_snapshots(a, b, tolerances=(), ignore=DEFAULT_IGNORE, unordered=False):
     """[(path, value in a, value in b)] over the normalised snapshots, minus ignored paths and values within tolerance."""
-    fa, fb = flatten(normalise_snapshot(a)), flatten(normalise_snapshot(b))
+    fa, fb = flatten(normalise_snapshot(a, unordered)), flatten(normalise_snapshot(b, unordered))
     missing = object()
     out = []
     for path in sorted(set(fa) | set(fb), key=_path_order):
@@ -145,7 +148,7 @@ def error_diffs(label, errors):
     return [(f"error:{label}:{(re.match(r'line \d+ \(\w+\)', e) or re.match(r'[^:\n]*', e)).group(0)}", e) for e in errors]
 
 
-def compare_sides(a_dir, b_dir, tolerances=(), allow=(), shot_options=None, server_allow=()):
+def compare_sides(a_dir, b_dir, tolerances=(), allow=(), shot_options=None, server_allow=(), ignore=(), unordered=False):
     """Differences between side A (the baseline, normally vanilla) and side B as [(key, detail)]."""
     diffs = []
     meta = {s: _json(os.path.join(d, "side.json")) or {} for s, d in (("a", a_dir), ("b", b_dir))}
@@ -166,7 +169,7 @@ def compare_sides(a_dir, b_dir, tolerances=(), allow=(), shot_options=None, serv
         if sa is None or sb is None:
             diffs.append((f"snapshot:{name}:missing", f"only {label['b' if sa is None else 'a']} has the snapshot"))
             continue
-        for path, va, vb in diff_snapshots(sa, sb, tolerances):
+        for path, va, vb in diff_snapshots(sa, sb, tolerances, DEFAULT_IGNORE + tuple(ignore), unordered):
             diffs.append((f"snapshot:{name}:{path}", f"{label['a']}={json.dumps(va)} {label['b']}={json.dumps(vb)}"))
     for name in sorted(set(_labels(a_dir, "chat", ".txt")) | set(_labels(b_dir, "chat", ".txt"))):
         ca, cb = (_read(os.path.join(d, "chat", name + ".txt"), None) for d in (a_dir, b_dir))

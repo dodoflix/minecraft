@@ -650,7 +650,7 @@ def main(argv):
         for e in meta["errors"]:
             sys.stdout.write(f"   {label}: {e}\n")
     if len(sides) >= 2:
-        diffs = compare.compare_sides(os.path.join(out, sides[0][1]), os.path.join(out, sides[1][1]), sc.tolerances, allow, server_allow=server_allow)
+        diffs = compare.compare_sides(os.path.join(out, sides[0][1]), os.path.join(out, sides[1][1]), sc.tolerances, allow, server_allow=server_allow, ignore=sc.ignores, unordered=sc.unordered)
     else:
         diffs = single_side_diffs(os.path.join(out, sides[0][1]), allow, server_allow)
     unexpected, listed, stale = compare.apply_known(name, diffs, compare.load_known(opts["known"]))

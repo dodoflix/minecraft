@@ -9,6 +9,8 @@ Placeholders in `server` values, `console` text and `ctl` JSON: `{port}` (the se
 `serve` entries), `{sha1:/PATH}` (the sha1 of a served entry).
 Comparison settings:
     tolerate GLOB N               numeric snapshot values at paths matching GLOB (dotted, `*` wildcard) may differ by N
+    unordered                     compare the entities of a snapshot sorted by type and position, not in creation order
+    ignore GLOB                   snapshot paths matching GLOB are not compared (for values vanilla itself varies run to run)
 Steps, run in order after the server is up. A step that talks to a client may start with `@NAME ` to address the client
 NAME (a second JVM, started by its own `client join`/`client title`, named like its log and snapshot files); without
 a prefix the step addresses the first client. Snapshots, shots and chat logs of NAME are labelled `NAME.LABEL`.
@@ -111,6 +113,8 @@ class Scenario:
         self.datapacks = []  # source directories
         self.serves = []  # (URL path without the slash, source file or directory)
         self.tolerances = []  # (glob, tolerance)
+        self.ignores = []  # globs
+        self.unordered = False
         self.steps = []  # (line number, op, args dict)
 
 
@@ -190,6 +194,12 @@ def parse(text, path=""):
                 sc.tolerances.append((tokens[0], float(tokens[1])))
             except ValueError:
                 raise ScenarioError(f"line {line_no}: {tokens[1]!r} is not a number") from None
+        elif op == "unordered":
+            _need(not tokens, line_no, "unordered takes no arguments")
+            sc.unordered = True
+        elif op == "ignore":
+            _need(len(tokens) == 1, line_no, "ignore needs GLOB")
+            sc.ignores.append(tokens[0])
         elif op == "client":
             _need(tokens and tokens[0] in ("join", "title", "rejoin", "disconnect"), line_no, "client needs join, title, rejoin or disconnect")
             args = {"action": tokens[0], "user": None, "options": []}
