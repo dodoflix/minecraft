@@ -1,10 +1,10 @@
-### [gametest_multi.txt:13] test run gt:f*
+### [gametest_multi.txt:10] test run gt:f*
 log| System chat: Running 3 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (3 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_multi.txt:14] !ticks 100 show
+### [gametest_multi.txt:11] !ticks 100 show
 log| ERROR: gt:fail failed at 0, -60, 3! boom on tick 1
 log| Starting re-run of tests: gt:flaky_pass, gt:flaky
 log| Running test environment 'minecraft:default' batch 0 (2 tests)...
@@ -41,7 +41,7 @@ Bot0| [system_chat] Flaky test gt:flaky failed, attempt: 2/3, successes: 0 (2 re
 Bot0|   json {"text":"Flaky test gt:flaky failed, attempt: 2/3, successes: 0 (2 required)","color":"yellow"}
 Bot0| [system_chat] gt:flaky failed! Not enough successes: 0 out of 2 attempts. Required successes: 2. max attempts: 3. cause: boom on tick 1
 Bot0|   json {"text":"gt:flaky failed! Not enough successes: 0 out of 2 attempts. Required successes: 2. max attempts: 3. cause: boom on tick 1","color":"red"}
-### [gametest_multi.txt:15] test locate gt:*
+### [gametest_multi.txt:12] test locate gt:*
 log| System chat: Started locating test structures. This might take a while...
 log| System chat: Found structure at: [9, -60, 3 ->[overworld]] (distance: 9)
 log| System chat: Found structure at: [0, -60, 3 ->[overworld]] (distance: 3)
@@ -49,17 +49,17 @@ log| System chat: Found structure at: [18, -60, 3 ->[overworld]] (distance: 18)
 log| System chat: Finished locating: found 3 structure(s)
 Bot| [system_chat] [Server: Finished locating: found 3 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.locate.done","with":[3]}],"color":"gray","italic":true}
-### [gametest_multi.txt:16] test clearall
+### [gametest_multi.txt:13] test clearall
 log| System chat: Cleared 3 structure(s)
 Bot| [system_chat] [Server: Cleared 3 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.clear.success","with":[3]}],"color":"gray","italic":true}
-### [gametest_multi.txt:17] test run gt:?o* 1 false 0 2
+### [gametest_multi.txt:14] test run gt:?o* 1 false 0 2
 log| System chat: Running 4 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (4 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_multi.txt:18] !ticks 100 show
+### [gametest_multi.txt:15] !ticks 100 show
 log| Test log (at BlockPos{x=0, y=-59, z=4}): hello log
 log| Test log (at BlockPos{x=9, y=-59, z=4}): no accept
 log| ERROR: gt:no_accept failed at 8, -60, 3! Test structure missing Accept block on tick 1
@@ -67,9 +67,25 @@ log| ERROR: gt:no_start failed at 0, -60, 11! Test structure missing Start block
 log| System chat: Game Test complete! 4 test(s) were run
 log| System chat: 2 required test(s) failed :(
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] gt:log passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:log passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:rot passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:rot passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:no_accept failed! Test structure missing Accept block on tick 1
+Bot|   json {"text":"gt:no_accept failed! Test structure missing Accept block on tick 1","color":"red"}
+Bot| [system_chat] gt:no_start failed! Test structure missing Start block on tick 0
+Bot|   json {"text":"gt:no_start failed! Test structure missing Start block on tick 0","color":"red"}
 Bot| [system_chat] [Server: Game Test complete! 4 test(s) were run]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[4],"color":"white"}],"color":"gray","italic":true}
-### [gametest_multi.txt:19] test locate gt:*
+Bot0| [system_chat] gt:log passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:log passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:rot passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:rot passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:no_accept failed! Test structure missing Accept block on tick 1
+Bot0|   json {"text":"gt:no_accept failed! Test structure missing Accept block on tick 1","color":"red"}
+Bot0| [system_chat] gt:no_start failed! Test structure missing Start block on tick 0
+Bot0|   json {"text":"gt:no_start failed! Test structure missing Start block on tick 0","color":"red"}
+### [gametest_multi.txt:16] test locate gt:*
 log| System chat: Started locating test structures. This might take a while...
 log| System chat: Found structure at: [8, -60, 3 ->[overworld]] (distance: 8)
 log| System chat: Found structure at: [0, -60, 11 ->[overworld]] (distance: 11)
@@ -78,17 +94,17 @@ log| System chat: Found structure at: [0, -60, 3 ->[overworld]] (distance: 3)
 log| System chat: Finished locating: found 4 structure(s)
 Bot| [system_chat] [Server: Finished locating: found 4 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.locate.done","with":[4]}],"color":"gray","italic":true}
-### [gametest_multi.txt:20] test clearall
+### [gametest_multi.txt:17] test clearall
 log| System chat: Cleared 4 structure(s)
 Bot| [system_chat] [Server: Cleared 4 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.clear.success","with":[4]}],"color":"gray","italic":true}
-### [gametest_multi.txt:21] test run gt:pass 3 false 0 2
+### [gametest_multi.txt:18] test run gt:pass 3 false 0 2
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_multi.txt:22] !ticks 100 show
+### [gametest_multi.txt:19] !ticks 100 show
 log| Starting re-run of tests: gt:pass
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
@@ -118,27 +134,47 @@ Bot0| [system_chat] [Run:    2, Ok:    2, Fail:    0, Left:    1]        gt:pass
 Bot0|   json {"text":"[Run:    2, Ok:    2, Fail:    0, Left:    1]        gt:pass passed! <masked>ms","color":"green"}
 Bot0| [system_chat] [Run:    3, Ok:    3, Fail:    0, Left:    0]        gt:pass passed! <masked>ms
 Bot0|   json {"text":"[Run:    3, Ok:    3, Fail:    0, Left:    0]        gt:pass passed! <masked>ms","color":"green"}
-### [gametest_multi.txt:23] test runmultiple gt:pass 5
+### [gametest_multi.txt:20] test runmultiple gt:pass 5
 log| System chat: Running 5 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (5 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_multi.txt:24] !ticks 100 show
+### [gametest_multi.txt:21] !ticks 100 show
 log| System chat: Game Test complete! 5 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
 Bot| [system_chat] [Server: Game Test complete! 5 test(s) were run]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[5],"color":"white"}],"color":"gray","italic":true}
 Bot| [system_chat] [Server: All required tests passed :)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
-### [gametest_multi.txt:25] test run gt:fail 1 false 1
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+### [gametest_multi.txt:22] test run gt:fail 1 false 1
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_multi.txt:26] !ticks 100 show
+### [gametest_multi.txt:23] !ticks 100 show
 log| ERROR: gt:fail failed at 0, -60, 3! boom on tick 1
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: 1 required test(s) failed :(
@@ -149,34 +185,50 @@ Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
 Bot0| [system_chat] gt:fail failed! boom on tick 1
 Bot0|   json {"text":"gt:fail failed! boom on tick 1","color":"red"}
-### [gametest_multi.txt:27] test runthese
+### [gametest_multi.txt:24] test runthese
 log| System chat: Running 5 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (5 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_multi.txt:28] !ticks 100 show
+### [gametest_multi.txt:25] !ticks 100 show
 log| ERROR: gt:fail failed at 0, -60, 3! boom on tick 1
 log| System chat: Game Test complete! 5 test(s) were run
 log| System chat: 1 required test(s) failed :(
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
 Bot| [system_chat] gt:fail failed! boom on tick 1
 Bot|   json {"text":"gt:fail failed! boom on tick 1","color":"red"}
 Bot| [system_chat] [Server: Game Test complete! 5 test(s) were run]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[5],"color":"white"}],"color":"gray","italic":true}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
 Bot0| [system_chat] gt:fail failed! boom on tick 1
 Bot0|   json {"text":"gt:fail failed! boom on tick 1","color":"red"}
-### [gametest_multi.txt:29] test clearall
+### [gametest_multi.txt:26] test clearall
 log| System chat: Cleared 5 structure(s)
 Bot| [system_chat] [Server: Cleared 5 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.clear.success","with":[5]}],"color":"gray","italic":true}
-### [gametest_multi.txt:31] test runmultiple gt:pass 120
+### [gametest_multi.txt:28] test runmultiple gt:pass 120
 log| System chat: Running 120 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (50 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_multi.txt:32] !ticks 400 show
+### [gametest_multi.txt:29] !ticks 400 show
 log| Running test environment 'minecraft:default' batch 1 (50 tests)...
 log| System chat: Starting environment minecraft:default batch 1
 log| Running test environment 'minecraft:default' batch 2 (20 tests)...
@@ -184,15 +236,495 @@ log| System chat: Starting environment minecraft:default batch 2
 log| System chat: Game Test complete! 120 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 1]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",1]}],"color":"gray","italic":true}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 2]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",2]}],"color":"gray","italic":true}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
 Bot| [system_chat] [Server: Game Test complete! 120 test(s) were run]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[120],"color":"white"}],"color":"gray","italic":true}
 Bot| [system_chat] [Server: All required tests passed :)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
-### [gametest_multi.txt:33] test locate gt:pass
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+### [gametest_multi.txt:30] test locate gt:pass
 log| System chat: Started locating test structures. This might take a while...
 log| System chat: Found structure at: [8, -60, 3 ->[overworld]] (distance: 8)
 log| System chat: Found structure at: [0, -60, 11 ->[overworld]] (distance: 11)
@@ -317,7 +849,7 @@ log| System chat: Found structure at: [48, -60, 115 ->[overworld]] (distance: 12
 log| System chat: Finished locating: found 120 structure(s)
 Bot| [system_chat] [Server: Finished locating: found 120 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.locate.done","with":[120]}],"color":"gray","italic":true}
-### [gametest_multi.txt:34] test clearall
+### [gametest_multi.txt:31] test clearall
 log| System chat: Cleared 120 structure(s)
 Bot| [system_chat] [Server: Cleared 120 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.clear.success","with":[120]}],"color":"gray","italic":true}

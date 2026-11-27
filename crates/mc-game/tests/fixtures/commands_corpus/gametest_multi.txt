@@ -6,10 +6,7 @@
 # between runs of vanilla itself (three recordings of `test run gt:*` (overworld and nether) started the batches in two different
 # orders, and so did `test run ge:*`); those runs are covered one test at a time in gametest_pack.
 !datapack gametest/gtpack
-!ignore passed! \(
 !mask (\d+)ms
-# the bots sometimes miss the failure of a test on its first tick (see gametest_pack)
-!ignore ^Bot0?\| .*(Test structure missing (Start|Accept) block|Too many Start blocks)
 test run gt:f*
 !ticks 100 show
 test locate gt:*
