@@ -12,6 +12,8 @@ pub const EOF_EXCEPTION: &str = "java.io.EOFException";
 pub const IO_EXCEPTION: &str = "java.io.IOException";
 /// `java.util.zip.ZipException`.
 pub const ZIP_EXCEPTION: &str = "java.util.zip.ZipException";
+/// `java.io.FileNotFoundException`.
+pub const FILE_NOT_FOUND_EXCEPTION: &str = "java.io.FileNotFoundException";
 /// `java.nio.file.FileAlreadyExistsException`.
 pub const FILE_ALREADY_EXISTS_EXCEPTION: &str = "java.nio.file.FileAlreadyExistsException";
 /// `java.nio.file.DirectoryNotEmptyException`.
@@ -81,6 +83,15 @@ impl JavaException {
     /// The `IOException(strerror)` a failed read of an open file throws (reading a directory: `Is a directory`).
     pub fn read_failure(e: &io::Error) -> JavaException {
         JavaException::new(IO_EXCEPTION, strerror(e))
+    }
+
+    /// The `FileNotFoundException("<path> (<strerror>)")` of `new FileOutputStream(file)`, whatever the reason it
+    /// cannot open the file (a directory in its place, no permission, a missing parent).
+    pub fn file_output_stream_failure(e: &io::Error, path: &Path) -> JavaException {
+        JavaException::new(
+            FILE_NOT_FOUND_EXCEPTION,
+            format!("{} ({})", path.display(), strerror(e)),
+        )
     }
 
     /// The `MalformedInputException` of a strict reader (`InputStreamReader`) that meets `bytes` that are not UTF-8:
@@ -223,6 +234,10 @@ mod tests {
             "java.nio.file.FileSystemException: /w/level.dat: Not a directory"
         );
         let directory = io::Error::from_raw_os_error(21);
+        assert_eq!(
+            JavaException::file_output_stream_failure(&directory, path).to_string(),
+            "java.io.FileNotFoundException: /w/level.dat (Is a directory)"
+        );
         assert_eq!(
             JavaException::of_io(&directory).to_string(),
             "java.io.IOException: Is a directory"

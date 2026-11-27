@@ -6,6 +6,8 @@ use super::template_source::{TemplateSource, load_from_bytes};
 use crate::server::packs::FileToIdConverter;
 use crate::world::level::levelgen::structure::templatesystem::structure_template::StructureTemplate;
 use mc_core::ident::Identifier;
+use mc_core::java_exception::JavaException;
+use std::io::Read;
 use std::path::{Path, PathBuf};
 
 pub struct DirectoryTemplateSource {
@@ -22,6 +24,16 @@ impl DirectoryTemplateSource {
     }
 }
 
+impl DirectoryTemplateSource {
+    /// `LOGGER.error("Couldn't load structure from {}:{}", sourceDir, id, e)`: the message, then the throwable.
+    fn log_failure(&self, id: &Identifier, exception: impl std::fmt::Display) {
+        log::error!(
+            "Couldn't load structure from {}:{id}\n{exception}",
+            self.source_dir.display()
+        );
+    }
+}
+
 impl TemplateSource for DirectoryTemplateSource {
     fn load(&self, id: &Identifier) -> Option<StructureTemplate> {
         if !self.source_dir.is_dir() {
@@ -30,23 +42,20 @@ impl TemplateSource for DirectoryTemplateSource {
         let path = TemplatePathFactory::new(&self.source_dir)
             .create_and_validate_path_to_structure(&self.file_to_id_converter.id_to_file(id))
             .ok()?;
-        let bytes = match std::fs::read(&path) {
-            Ok(bytes) => bytes,
+        let mut file = match std::fs::File::open(&path) {
+            Ok(file) => file,
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => return None,
             Err(e) => {
-                log::error!(
-                    "Couldn't load structure from {}:{id}: {e}",
-                    self.source_dir.display()
-                );
+                self.log_failure(id, JavaException::translate_file_error(&e, &path));
                 return None;
             }
         };
-        load_from_bytes(&bytes, |e| {
-            log::error!(
-                "Couldn't load structure from {}:{id}: {e}",
-                self.source_dir.display()
-            )
-        })
+        let mut bytes = Vec::new();
+        if let Err(e) = file.read_to_end(&mut bytes) {
+            self.log_failure(id, JavaException::read_failure(&e));
+            return None;
+        }
+        load_from_bytes(&bytes, |e| self.log_failure(id, e))
     }
 
     fn list(&self) -> Vec<Identifier> {

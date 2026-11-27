@@ -309,61 +309,80 @@ file|             state: 1
 file|         }
 file|     ]
 file| }
-### [gametest_gui.txt:95] @bot !send test_instance_block_action 10 -60 10 export key=foo:one size=3,3,3
+### [gametest_gui.txt:94] @bot !send test_instance_block_action 10 -60 10 save key=foo:dir.nbt/inner size=1,1,1 ignore=false
 
-### [gametest_gui.txt:96] !ticks 3 show
+### [gametest_gui.txt:95] !ticks 3 show
+
+### [gametest_gui.txt:96] @bot !send test_instance_block_action 10 -60 10 save key=foo:dir size=1,1,1 ignore=false
+
+### [gametest_gui.txt:97] !ticks 3 show
+log| ERROR: Couldn't load structure from world/generated:foo:dir
+log| java.io.IOException: Is a directory
+log| WARN: Failed to save structure file foo:dir to world/generated/foo/structure/dir.nbt
+log| java.io.FileNotFoundException: world/generated/foo/structure/dir.nbt (Is a directory)
+### [gametest_gui.txt:98] !file world/generated/foo/structure/dir.nbt/inner.nbt
+file| {
+file|     DataVersion: 5023,
+file|     size: [1, 1, 1],
+file|     entities: [],
+file|     palette: [],
+file|     blocks: []
+file| }
+### [gametest_gui.txt:101] @bot !send test_instance_block_action 10 -60 10 export key=foo:one size=3,3,3
+
+### [gametest_gui.txt:102] !ticks 3 show
 Bot| [system_chat] Test structure exporting is disabled
 Bot|   json {"text":"Test structure exporting is disabled","color":"red"}
-### [gametest_gui.txt:97] @bot !send test_instance_block_action 10 -60 10 export
-
-### [gametest_gui.txt:98] !ticks 3 show
-Bot| [system_chat] Unable to save test structure template for test instance at 10, -60, 10
-Bot|   json {"translate":"test_instance_block.error.unable_to_save","with":[10,-60,10],"color":"red"}
-### [gametest_gui.txt:99] @bot !send test_instance_block_action 10 -60 10 export key=nobody:nothing size=2,2,2
-
-### [gametest_gui.txt:100] !ticks 3 show
-Bot| [system_chat] Test structure exporting is disabled
-Bot|   json {"text":"Test structure exporting is disabled","color":"red"}
-### [gametest_gui.txt:103] @bot !send test_instance_block_action 20 -60 10 reset key=gu:nostruct size=2,2,2
+### [gametest_gui.txt:103] @bot !send test_instance_block_action 10 -60 10 export
 
 ### [gametest_gui.txt:104] !ticks 3 show
-
-### [gametest_gui.txt:105] @bot !send test_instance_block_action 20 -60 10 reset key=nobody:nothing size=2,2,2
+Bot| [system_chat] Unable to save test structure template for test instance at 10, -60, 10
+Bot|   json {"translate":"test_instance_block.error.unable_to_save","with":[10,-60,10],"color":"red"}
+### [gametest_gui.txt:105] @bot !send test_instance_block_action 10 -60 10 export key=nobody:nothing size=2,2,2
 
 ### [gametest_gui.txt:106] !ticks 3 show
-
-### [gametest_gui.txt:107] @bot !send test_instance_block_action 20 -60 10 run
-
-### [gametest_gui.txt:108] !ticks 3 show
-Bot| [system_chat] Unable to run test instance at 20, -60, 10 since it has an undefined test
-Bot|   json {"translate":"test_instance_block.error.no_test","with":[20,-60,10],"color":"red"}
-### [gametest_gui.txt:109] @bot !send test_instance_block_action 20 -60 10 run key=nobody:nothing
+Bot| [system_chat] Test structure exporting is disabled
+Bot|   json {"text":"Test structure exporting is disabled","color":"red"}
+### [gametest_gui.txt:109] @bot !send test_instance_block_action 20 -60 10 reset key=gu:nostruct size=2,2,2
 
 ### [gametest_gui.txt:110] !ticks 3 show
-Bot| [system_chat] Unable to run test instance at 20, -60, 10 since it has an undefined test
-Bot|   json {"translate":"test_instance_block.error.no_test","with":[20,-60,10],"color":"red"}
-### [gametest_gui.txt:111] @bot !send test_instance_block_action 20 -60 10 run key=gu:nostruct size=2,2,2
+
+### [gametest_gui.txt:111] @bot !send test_instance_block_action 20 -60 10 reset key=nobody:nothing size=2,2,2
 
 ### [gametest_gui.txt:112] !ticks 3 show
-Bot| [system_chat] Unable to run test instance at 20, -60, 10 since it has no test structure
-Bot|   json {"translate":"test_instance_block.error.no_test_structure","with":[20,-60,10],"color":"red"}
-### [gametest_gui.txt:113] @bot !send test_instance_block_action 20 -60 10 reset key=gt:pass size=3,3,3 rotation=none
+
+### [gametest_gui.txt:113] @bot !send test_instance_block_action 20 -60 10 run
 
 ### [gametest_gui.txt:114] !ticks 3 show
+Bot| [system_chat] Unable to run test instance at 20, -60, 10 since it has an undefined test
+Bot|   json {"translate":"test_instance_block.error.no_test","with":[20,-60,10],"color":"red"}
+### [gametest_gui.txt:115] @bot !send test_instance_block_action 20 -60 10 run key=nobody:nothing
+
+### [gametest_gui.txt:116] !ticks 3 show
+Bot| [system_chat] Unable to run test instance at 20, -60, 10 since it has an undefined test
+Bot|   json {"translate":"test_instance_block.error.no_test","with":[20,-60,10],"color":"red"}
+### [gametest_gui.txt:117] @bot !send test_instance_block_action 20 -60 10 run key=gu:nostruct size=2,2,2
+
+### [gametest_gui.txt:118] !ticks 3 show
+Bot| [system_chat] Unable to run test instance at 20, -60, 10 since it has no test structure
+Bot|   json {"translate":"test_instance_block.error.no_test_structure","with":[20,-60,10],"color":"red"}
+### [gametest_gui.txt:119] @bot !send test_instance_block_action 20 -60 10 reset key=gt:pass size=3,3,3 rotation=none
+
+### [gametest_gui.txt:120] !ticks 3 show
 Bot| [system_chat] Reset succeeded for test: gt:pass
 Bot|   json {"translate":"test_instance_block.reset_success","with":["gt:pass"],"color":"green"}
-### [gametest_gui.txt:115] data get block 20 -60 10
+### [gametest_gui.txt:121] data get block 20 -60 10
 log| System chat: 20, -60, 10 has the following block data: {components: {}, data: {test: "gt:pass", size: [I; 3, 3, 3], ignore_entities: 0b, rotation: "none", status: "cleared"}, x: 20, y: -60, z: 10, id: "minecraft:test_instance_block"}
-### [gametest_gui.txt:116] @bot !send test_instance_block_action 20 -60 10 reset key=gt:rot size=3,3,3 rotation=clockwise_90
+### [gametest_gui.txt:122] @bot !send test_instance_block_action 20 -60 10 reset key=gt:rot size=3,3,3 rotation=clockwise_90
 
-### [gametest_gui.txt:117] !ticks 3 show
+### [gametest_gui.txt:123] !ticks 3 show
 Bot| [system_chat] Reset succeeded for test: gt:rot
 Bot|   json {"translate":"test_instance_block.reset_success","with":["gt:rot"],"color":"green"}
-### [gametest_gui.txt:118] data get block 20 -60 10
+### [gametest_gui.txt:124] data get block 20 -60 10
 log| System chat: 20, -60, 10 has the following block data: {components: {}, data: {test: "gt:rot", size: [I; 3, 3, 3], ignore_entities: 0b, rotation: "clockwise_90", status: "cleared"}, x: 20, y: -60, z: 10, id: "minecraft:test_instance_block"}
-### [gametest_gui.txt:119] @bot !send test_instance_block_action 20 -60 10 run key=gt:pass size=3,3,3
+### [gametest_gui.txt:125] @bot !send test_instance_block_action 20 -60 10 run key=gt:pass size=3,3,3
 
-### [gametest_gui.txt:120] !ticks 40 show
+### [gametest_gui.txt:126] !ticks 40 show
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 log| ERROR: gt:pass failed at 20, -60, 10! Test structure missing Start block on tick 0
@@ -378,11 +397,11 @@ Bot| [system_chat] gt:pass failed! Test structure missing Start block on tick 0
 Bot|   json {"text":"gt:pass failed! Test structure missing Start block on tick 0","color":"red"}
 Bot0| [system_chat] gt:pass failed! Test structure missing Start block on tick 0
 Bot0|   json {"text":"gt:pass failed! Test structure missing Start block on tick 0","color":"red"}
-### [gametest_gui.txt:121] data get block 20 -60 10
+### [gametest_gui.txt:127] data get block 20 -60 10
 log| System chat: 20, -60, 10 has the following block data: {components: {}, data: {error_message: {with: [{with: [{translate: "test_block.mode.start"}], translate: "test_block.error.missing"}, 0], translate: "test.error.tick"}, test: "gt:pass", size: [I; 3, 3, 3], ignore_entities: 0b, rotation: "none", status: "finished"}, x: 20, y: -60, z: 10, id: "minecraft:test_instance_block"}
-### [gametest_gui.txt:122] @bot !send test_instance_block_action 20 -60 10 run key=gt:fail size=3,3,3
+### [gametest_gui.txt:128] @bot !send test_instance_block_action 20 -60 10 run key=gt:fail size=3,3,3
 
-### [gametest_gui.txt:123] !ticks 40 show
+### [gametest_gui.txt:129] !ticks 40 show
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 log| ERROR: gt:fail failed at 20, -60, 10! boom on tick 1
@@ -397,39 +416,39 @@ Bot| [system_chat] gt:fail failed! boom on tick 1
 Bot|   json {"text":"gt:fail failed! boom on tick 1","color":"red"}
 Bot0| [system_chat] gt:fail failed! boom on tick 1
 Bot0|   json {"text":"gt:fail failed! boom on tick 1","color":"red"}
-### [gametest_gui.txt:124] data get block 20 -60 10
+### [gametest_gui.txt:130] data get block 20 -60 10
 log| System chat: 20, -60, 10 has the following block data: {components: {}, data: {error_message: {with: ["boom", 1], translate: "test.error.tick"}, test: "gt:fail", size: [I; 4, 1, 1], ignore_entities: 0b, rotation: "none", status: "finished"}, x: 20, y: -60, z: 10, id: "minecraft:test_instance_block"}
-### [gametest_gui.txt:125] test clearall
+### [gametest_gui.txt:131] test clearall
 log| System chat: Cleared 2 structure(s)
 Bot| [system_chat] [Server: Cleared 2 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.clear.success","with":[2]}],"color":"gray","italic":true}
-### [gametest_gui.txt:128] @bot !send set_test_block 40 -60 10 start "go"
-
-### [gametest_gui.txt:129] !ticks 3 show
-
-### [gametest_gui.txt:130] data get block 40 -60 10
-log| System chat: 40, -60, 10 has the following block data: {mode: "start", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: "go"}
-### [gametest_gui.txt:131] @bot !send set_test_block 40 -60 10 log "a log message"
-
-### [gametest_gui.txt:132] !ticks 3 show
-
-### [gametest_gui.txt:133] data get block 40 -60 10
-log| System chat: 40, -60, 10 has the following block data: {mode: "log", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: "a log message"}
-### [gametest_gui.txt:134] @bot !send set_test_block 40 -60 10 fail "a failure"
+### [gametest_gui.txt:134] @bot !send set_test_block 40 -60 10 start "go"
 
 ### [gametest_gui.txt:135] !ticks 3 show
 
 ### [gametest_gui.txt:136] data get block 40 -60 10
-log| System chat: 40, -60, 10 has the following block data: {mode: "fail", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: "a failure"}
-### [gametest_gui.txt:137] @bot !send set_test_block 40 -60 10 accept ""
+log| System chat: 40, -60, 10 has the following block data: {mode: "start", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: "go"}
+### [gametest_gui.txt:137] @bot !send set_test_block 40 -60 10 log "a log message"
 
 ### [gametest_gui.txt:138] !ticks 3 show
 
 ### [gametest_gui.txt:139] data get block 40 -60 10
-log| System chat: 40, -60, 10 has the following block data: {mode: "accept", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: ""}
-### [gametest_gui.txt:140] @bot !send set_test_block 40 -60 10 log "   "
+log| System chat: 40, -60, 10 has the following block data: {mode: "log", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: "a log message"}
+### [gametest_gui.txt:140] @bot !send set_test_block 40 -60 10 fail "a failure"
 
 ### [gametest_gui.txt:141] !ticks 3 show
 
 ### [gametest_gui.txt:142] data get block 40 -60 10
+log| System chat: 40, -60, 10 has the following block data: {mode: "fail", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: "a failure"}
+### [gametest_gui.txt:143] @bot !send set_test_block 40 -60 10 accept ""
+
+### [gametest_gui.txt:144] !ticks 3 show
+
+### [gametest_gui.txt:145] data get block 40 -60 10
+log| System chat: 40, -60, 10 has the following block data: {mode: "accept", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: ""}
+### [gametest_gui.txt:146] @bot !send set_test_block 40 -60 10 log "   "
+
+### [gametest_gui.txt:147] !ticks 3 show
+
+### [gametest_gui.txt:148] data get block 40 -60 10
 log| System chat: 40, -60, 10 has the following block data: {mode: "log", components: {}, powered: 0b, x: 40, y: -60, z: 10, id: "minecraft:test_block", message: "   "}

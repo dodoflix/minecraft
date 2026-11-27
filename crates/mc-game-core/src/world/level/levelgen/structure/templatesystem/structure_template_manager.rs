@@ -11,9 +11,11 @@ use super::loader::{
 use super::structure_template::StructureTemplate;
 use crate::server::packs::{FileToIdConverter, ResourceManager};
 use mc_core::ident::Identifier;
+use mc_core::java_exception::JavaException;
 use mc_nbt::CompoundTag;
 use std::collections::HashMap;
-use std::path::{Path, PathBuf};
+use std::io::Write;
+use std::path::{Component, Path, PathBuf};
 use std::sync::{Arc, Mutex, OnceLock};
 
 pub const STRUCTURE_DIRECTORY_NAME: &str = "structure";
@@ -43,6 +45,7 @@ impl StructureTemplateManager {
         generated_dir: impl Into<PathBuf>,
     ) -> StructureTemplateManager {
         let generated_dir: PathBuf = generated_dir.into();
+        let generated_dir = normalize(&generated_dir);
         let resource_manager_source = Arc::new(ResourceManagerTemplateSource::new(
             resource_manager,
             structure_lister(),
@@ -169,13 +172,54 @@ impl StructureTemplateManager {
     }
 }
 
-/// `StructureTemplateManager.save(file, template, asText = false)`.
+/// `StructureTemplateManager.save(file, template, asText = false)`; the error is the throwable vanilla logs.
 pub fn save_to(file: &Path, template: &StructureTemplate) -> Result<bool, String> {
     let Some(parent) = file.parent() else {
         return Ok(false);
     };
-    std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
-    let tag = template.save(CompoundTag::new());
-    mc_nbt::nbt_io::write_compressed_file(&tag, file).map_err(|e| e.to_string())?;
+    std::fs::create_dir_all(parent)
+        .map_err(|e| JavaException::translate_file_error(&e, parent).to_string())?;
+    let bytes = mc_nbt::nbt_io::write_compressed(&template.save(CompoundTag::new()));
+    // `new FileOutputStream(file)`
+    let mut output = std::fs::File::create(file)
+        .map_err(|e| JavaException::file_output_stream_failure(&e, file).to_string())?;
+    output
+        .write_all(&bytes)
+        .map_err(|e| JavaException::of_io(&e).to_string())?;
     Ok(true)
+}
+
+/// `Path.normalize()`: `.` and `name/..` steps removed.
+fn normalize(path: &Path) -> PathBuf {
+    let mut normalized = PathBuf::new();
+    for component in path.components() {
+        match component {
+            Component::CurDir => {}
+            Component::ParentDir
+                if matches!(
+                    normalized.components().next_back(),
+                    Some(Component::Normal(_))
+                ) =>
+            {
+                normalized.pop();
+            }
+            other => normalized.push(other),
+        }
+    }
+    normalized
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn normalize_drops_current_and_resolved_parent_steps() {
+        let normalized = |p: &str| normalize(Path::new(p)).display().to_string();
+        assert_eq!(normalized("./world/generated"), "world/generated");
+        assert_eq!(normalized("world/./a/../generated"), "world/generated");
+        assert_eq!(normalized("../world/generated"), "../world/generated");
+        assert_eq!(normalized("/srv/./world/generated"), "/srv/world/generated");
+        assert_eq!(normalized("a/.."), "");
+    }
 }

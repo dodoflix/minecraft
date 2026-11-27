@@ -90,6 +90,12 @@ summon minecraft:armor_stand 11.5 -59 11.5 {UUID:[I;1,2,3,4],NoGravity:1b,Rotati
 @bot !send test_instance_block_action 10 -60 10 save key=gt:pass size=3,3,3 ignore=false
 !ticks 3 show
 !file world/generated/gt/structure/pass.nbt
+# the save of `foo:dir.nbt/inner` makes `dir.nbt` a directory, so the save of `foo:dir` cannot write its file
+@bot !send test_instance_block_action 10 -60 10 save key=foo:dir.nbt/inner size=1,1,1 ignore=false
+!ticks 3 show
+@bot !send test_instance_block_action 10 -60 10 save key=foo:dir size=1,1,1 ignore=false
+!ticks 3 show
+!file world/generated/foo/structure/dir.nbt/inner.nbt
 
 # ---- EXPORT: exporting is disabled on a dedicated server, after the save it just did
 @bot !send test_instance_block_action 10 -60 10 export key=foo:one size=3,3,3
