@@ -11,9 +11,9 @@ gamerule advance_weather false
 
 # The first disconnect a vanilla server makes (here a kick) differs from every later one: `disconnect` queues the kick
 # packet to netty and then runs `handleDisconnection` inline, which only does anything once netty has closed the channel.
-# Recorded twice per kind, the first one finds it closed (the leave lands in the kick's own segment and the connection
-# tick later logs `handleDisconnection() called twice`; probably the first call is slow on the server thread) and every
-# later one does not (the leave lands one tick later, no warning). Take that one disconnect here, with its leave lines
+# The first one finds it closed (the leave lands in the kick's own segment and the connection tick later logs
+# `handleDisconnection() called twice`; probably the first call is slow on the server thread), every later one, kick or
+# ban, does not (the leave lands one tick later, no warning). Take that one disconnect here, with its leave lines
 # ignored; every later disconnect is compared.
 !ignore lost connection:
 !ignore handleDisconnection
