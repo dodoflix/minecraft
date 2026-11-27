@@ -10,7 +10,7 @@ import unittest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(HERE))), "scripts"))
-from client_e2e import compare, runner, scenario  # noqa: E402
+from client_e2e import compare, reaper, runner, scenario  # noqa: E402
 
 FULL = """
 # comment
@@ -320,6 +320,38 @@ class CompareTest(unittest.TestCase):
         with open(path, "w") as f:
             f.write("# c\n\njoin screens\njoin client-log:missing:INFO: Loaded 2 advancements\n")
         self.assertEqual(compare.load_known(path), {("join", "screens"), ("join", "client-log:missing:INFO: Loaded 2 advancements")})
+
+
+class ReaperTest(unittest.TestCase):
+    """What the runner started is stopped when the runner dies without its cleanup."""
+
+    def test_a_dead_runner_has_its_registered_processes_stopped(self):
+        import signal
+        import subprocess
+
+        with tempfile.TemporaryDirectory() as tmp:
+            journal = reaper.Journal(os.path.join(tmp, "journal"))
+            server = subprocess.Popen(["sleep", "300"], cwd=tmp, start_new_session=True)
+            stray = subprocess.Popen(["sleep", "300"], cwd=tmp, start_new_session=True)
+            marker = os.path.join(tmp, "stopped")
+            journal.add("client:c", stop=["touch", marker])
+            journal.add("server:s", pid=server.pid, cwd=tmp)
+            journal.add("server:gone", pid=stray.pid, cwd=tmp)
+            journal.drop("server:gone")  # stopped by the runner itself
+            journal.add("server:reused", pid=stray.pid, cwd="/")  # a pid that now belongs to something else
+            try:
+                done = subprocess.run([sys.executable, "-m", "client_e2e.reaper", "2147483646", "1", "2147483646", journal.path], timeout=60,
+                                      env=dict(os.environ, PYTHONPATH=os.path.join(HERE, "..", "..", "..", "scripts")))
+                self.assertEqual(done.returncode, 0)
+                self.assertEqual(server.wait(10), -signal.SIGTERM)
+                self.assertTrue(os.path.exists(marker))
+                self.assertIsNone(stray.poll())
+                self.assertFalse(os.path.exists(journal.path))
+            finally:
+                for p in (server, stray):
+                    if p.poll() is None:
+                        p.kill()
+                    p.wait()
 
 
 if __name__ == "__main__":

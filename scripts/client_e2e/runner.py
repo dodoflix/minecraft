@@ -26,7 +26,7 @@ import threading
 import time
 import zipfile
 
-from client_e2e import compare, scenario, shotdiff
+from client_e2e import compare, reaper, scenario, shotdiff
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SCRIPTS = os.path.join(ROOT, "scripts")
@@ -55,6 +55,21 @@ SETUP_COMMANDS = (
 
 class StepError(Exception):
     pass
+
+
+# Journal of the processes this run started (client_e2e.reaper): set by main(); a runner that dies without its cleanup (SIGKILL)
+# still has them stopped.
+GUARD = None
+
+
+def guard_add(key, **entry):
+    if GUARD is not None:
+        GUARD.add(key, **entry)
+
+
+def guard_drop(key):
+    if GUARD is not None:
+        GUARD.drop(key)
 
 
 def run_commands(server, commands):
@@ -178,6 +193,8 @@ class Mojang:
         if not os.access(binary, os.X_OK):
             raise StepError(f"no mock-mojang binary at {binary}: cargo build --locked -p mc-testkit --bin mock-mojang")
         self.proc = subprocess.Popen([binary, "--log", log], stdout=subprocess.PIPE, text=True, start_new_session=True)
+        self.key = f"mojang:{self.proc.pid}"
+        guard_add(self.key, pid=self.proc.pid, cwd=os.getcwd())
         self.url = (self.proc.stdout.readline() or "").strip()
         if not self.url.startswith("http://"):
             self.stop()
@@ -191,6 +208,7 @@ class Mojang:
             except subprocess.TimeoutExpired:
                 self.proc.kill()
         self.proc.stdout.close()
+        guard_drop(self.key)
 
 
 # ---- servers ----------------------------------------------------------------------------------------------------------
@@ -220,6 +238,7 @@ class VanillaServer:
         prepare_dir(self.sc, self.dir)
         env = dict(os.environ, VANILLA_JVM_OPTS=f"-Dminecraft.api.discovery.host={self.mojang_url}")
         extras = [f"{k}={v}" for k, v in self.props.items()]
+        guard_add(f"server:{self.name}", stop=[os.path.join(SCRIPTS, "vanilla-server.sh"), "stop", self.name])  # before the start: it may time out half way
         sh(os.path.join(SCRIPTS, "vanilla-server.sh"), "start", self.name, "--port", str(self.port), "--xmx", "1G", *extras, env=env, timeout=400)
 
     def cmd(self, text):
@@ -230,6 +249,7 @@ class VanillaServer:
 
     def stop(self):
         sh(os.path.join(SCRIPTS, "vanilla-server.sh"), "stop", self.name, check=False, timeout=120)
+        guard_drop(f"server:{self.name}")
 
 
 class OursServer:
@@ -253,6 +273,7 @@ class OursServer:
         env = dict(os.environ, MINECRAFT_API_DISCOVERY_HOST=self.mojang_url)
         self.proc = subprocess.Popen([binary, "nogui"], cwd=self.dir, stdin=subprocess.PIPE, stdout=log, stderr=subprocess.STDOUT, env=env, start_new_session=True)
         log.close()
+        guard_add(f"server:{self.dir}", pid=self.proc.pid, cwd=self.dir)
         deadline = time.time() + 240
         while time.time() < deadline:
             if "Done (" in self.log_text():
@@ -273,17 +294,19 @@ class OursServer:
         return read(self.log_path)
 
     def stop(self):
-        if self.proc is None or self.proc.poll() is not None:
+        if self.proc is None:
             return
-        try:
-            self.cmd("stop")
-            self.proc.stdin.close()
-            self.proc.wait(60)
-        except (subprocess.TimeoutExpired, StepError, OSError):
-            pass
         if self.proc.poll() is None:
-            os.killpg(self.proc.pid, signal.SIGKILL)
-            self.proc.wait()
+            try:
+                self.cmd("stop")
+                self.proc.stdin.close()
+                self.proc.wait(60)
+            except (subprocess.TimeoutExpired, StepError, OSError):
+                pass
+            if self.proc.poll() is None:
+                os.killpg(self.proc.pid, signal.SIGKILL)
+                self.proc.wait()
+        guard_drop(f"server:{self.dir}")
 
 
 # ---- the client -------------------------------------------------------------------------------------------------------
@@ -311,6 +334,7 @@ class Client:
         self.offset, self.state, self.base_ticks = 0, {}, None
         self.last_screen = self.last_reason = None
         display = ["--display", self.display] if self.display else []
+        guard_add(f"client:{self.name}", stop=[os.path.join(SCRIPTS, "real-client.sh"), "stop", self.name])
         self.real("start", self.name, user, addr or "none", "--mojang", mojang_url, *display, *[x for o in options for x in ("--option", o)],
                   *[x for s in servers for x in ("--server", s)], timeout=180)
         # the JVM may queue for a machine-wide client slot: a step's own timeout starts once the client prints its first state
@@ -396,6 +420,7 @@ class Client:
 
     def stop(self):
         self.real("stop", self.name, check=False, timeout=60)
+        guard_drop(f"client:{self.name}")
 
 
 # ---- one side ---------------------------------------------------------------------------------------------------------
@@ -636,6 +661,10 @@ def main(argv):
         sys.stderr.write(f"client-e2e: {e}\n")
         return 2
     # the `finally` of a side still stops its processes (and so releases the JVM slots)
+    global GUARD
+    out_root = os.path.join(ROOT, "run", "client-e2e")
+    os.makedirs(out_root, exist_ok=True)
+    GUARD = reaper.spawn(os.path.join(out_root, f".journal-{os.getpid()}"), SCRIPTS)
     signal.signal(signal.SIGTERM, lambda *_: sys.exit(143))
     signal.signal(signal.SIGINT, lambda *_: sys.exit(130))
     name = os.path.splitext(os.path.basename(path))[0]

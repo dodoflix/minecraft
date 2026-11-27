@@ -12,6 +12,9 @@
 # tests/e2e/client/known-differences.txt (`SCENARIO KEY` per line); entries that no longer occur are reported.
 # Needs: ref/server.jar, java, the real client (scripts/real-client.sh) and target/debug/{mc-server,mock-mojang}
 # (cargo build --locked -p mc-server -p mc-testkit --bin mock-mojang; MC_SERVER_BIN / MC_MOCK_MOJANG_BIN override).
+# Cleanup: a side runs at most MC_E2E_SIDE_TIMEOUT seconds (1800); on that limit, on INT/TERM and on a normal end the runner
+# stops the side's server, clients and mock. A runner that dies without cleanup (SIGKILL) has them stopped by a watcher
+# process (scripts/client_e2e/reaper.py) that outlives it.
 # MC_ACCEPT_EULA=1 is required (both servers).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
