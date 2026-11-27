@@ -1,0 +1,14 @@
+# The world spawn moved by command: spawn position at the client, and a compass in the hotbar.
+server seed=12345
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console give Steve minecraft:compass
+console setworldspawn 120 70 -80 45 10
+wait_state ticks_in_level >= 200 60
+snapshot moved
+console setworldspawn
+wait_state ticks_in_level >= 260 60
+snapshot here
+client disconnect
+wait_screen TitleScreen 30

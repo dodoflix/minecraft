@@ -1,0 +1,21 @@
+# Rain, thunder and the day clock set by commands: rain and thunder level, day time, and the clock after each step.
+server seed=12345
+tolerate level.day_time 0
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console time set 18000
+wait_state ticks_in_level >= 140 60
+snapshot night
+console weather rain
+wait_state ticks_in_level >= 400 60
+snapshot rain
+console weather thunder
+wait_state ticks_in_level >= 700 60
+snapshot thunder
+console time add 1000
+console weather clear
+wait_state ticks_in_level >= 1000 60
+snapshot clear
+client disconnect
+wait_screen TitleScreen 30

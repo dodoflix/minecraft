@@ -1,0 +1,22 @@
+# Death and respawn: the death screen, its respawn button, health after, then the same with an immediate respawn.
+server seed=12345
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console kill Steve
+wait_screen DeathScreen 30
+snapshot dead
+chat_log dead
+# the respawn button takes clicks after 20 ticks
+wait_state ticks_in_level >= 180 60
+ctl {"cmd": "widgetClick", "key": "deathScreen.respawn"}
+wait_screen null 30
+wait_state ticks_in_level >= 300 60
+snapshot respawned
+console gamerule immediate_respawn true
+console kill Steve
+wait_state ticks_in_level >= 440 60
+snapshot immediate
+chat_log immediate
+client disconnect
+wait_screen TitleScreen 30

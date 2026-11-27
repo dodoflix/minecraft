@@ -1,0 +1,21 @@
+# The player rides a boat, then a saddled pig, then dismounts: passengers of each vehicle and the player's position.
+server seed=12345
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console tp Steve 0 -60 0
+console summon minecraft:oak_boat 4 -60 0 {Rotation:[90f,0f]}
+console summon minecraft:pig 8 -60 0 {NoAI:1b,Silent:1b,equipment:{saddle:{id:"minecraft:saddle"}}}
+wait_state ticks_in_level >= 160 60
+console ride Steve mount @e[type=minecraft:oak_boat,limit=1]
+wait_state ticks_in_level >= 220 60
+snapshot boat
+console ride Steve dismount
+console ride Steve mount @e[type=minecraft:pig,limit=1]
+wait_state ticks_in_level >= 300 60
+snapshot pig
+console ride Steve dismount
+wait_state ticks_in_level >= 360 60
+snapshot off
+client disconnect
+wait_screen TitleScreen 30
