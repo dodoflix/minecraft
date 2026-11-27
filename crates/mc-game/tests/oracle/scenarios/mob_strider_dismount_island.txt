@@ -1,0 +1,31 @@
+# A rider steps off a strider that stands on a lava lake with the only shore directly beside it: Strider.getDismountLocationForPassenger scans the
+# five directions around the rider's yaw only (here north) and does not run Animal's search, so the rider is put on top of the strider, not on the shore.
+# A strider holding a stick in its saddle slot is not saddled (the item has to be equippable there): a click does not mount it.
+level flat
+preload 4
+entity_counter 7100
+level_seed 7101
+difficulty normal
+spawn_player Steve survival 0.5 -60 8.5 180 0 sim
+tick 30
+fill -4 -61 -4 4 -61 4 minecraft:lava
+block 1 -61 0 minecraft:grass_block
+mobspawn S minecraft:strider 0.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,equipment:{saddle:{id:"minecraft:saddle",count:1}}}
+mobspawn T minecraft:strider 0.5 -60 12.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,equipment:{saddle:{id:"minecraft:stick",count:1}}}
+entity_seed S 51
+entity_seed T 52
+tick 3
+interact Steve T main
+tick 1
+dump player:Steve mob:T
+tp Steve 0.5 -60 4.5 180 0
+tick 2
+interact Steve S main
+accept_teleport Steve
+tick 2
+dump player:Steve mob:S
+input Steve sneak
+tick 1
+dump player:Steve mob:S
+tick 3
+dump player:Steve mob:S

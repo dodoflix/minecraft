@@ -1,0 +1,62 @@
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF msg Game rule mob_drops is now set to false
+CF result success 0
+E S2 minecraft:shulker pos=11.5,-56.0,0.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.03548485121389;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=11.0,-56.0,0.0,12.0,-55.0,1.0
+B 14 -57 2 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+T 33
+E S2 minecraft:shulker pos=6.5,-54.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.03548485121389;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=6.0,-54.0,-2.0,7.0,-53.0,-1.0
+EV sound at=11.5,-56.0,0.5 r=16.0 ex=0 event=minecraft:entity.shulker.teleport source=hostile vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=2016 pos=11,-56,0 data=199174 global=0
+B 14 -57 2 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+B 7 -57 -3 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+T 34
+E S2 minecraft:shulker pos=6.5,-54.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.03548485121389;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=6.0,-54.0,-2.0,7.0,-53.0,-1.0
+PKT A minecraft:level_particles 303a000000038000002fc70300004027000000000000c04bc000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+PKT A minecraft:level_particles 303a00000001ffffffdfc70500004027000000000000c04bc000000000003fe00000000000000000000000000000000000000000000000000000000000000100
+B 14 -57 2 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+B 7 -57 -3 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+T 35
+E S2 minecraft:shulker pos=6.5,-54.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.03548485121389;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=6.0,-54.0,-2.0,7.0,-53.0,-1.0
+B 14 -57 2 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+B 7 -57 -3 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+T 36
+E S2 minecraft:shulker pos=6.5,-54.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.03548485121389;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=6.0,-54.0,-2.0,7.0,-53.0,-1.0
+EV sound at=14.5,-56.5,2.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.9779881
+B 14 -57 2 minecraft:sculk_sensor[power=8,sculk_sensor_phase=active,waterlogged=false]
+B 7 -57 -3 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+T 37
+E S2 minecraft:shulker pos=6.5,-54.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.03548485121389;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=6.0,-54.0,-2.0,7.0,-53.0,-1.0
+B 14 -57 2 minecraft:sculk_sensor[power=8,sculk_sensor_phase=active,waterlogged=false]
+B 7 -57 -3 minecraft:sculk_sensor[power=0,sculk_sensor_phase=inactive,waterlogged=false]
+T 38
+E S2 minecraft:shulker pos=6.5,-54.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.03548485121389;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=6.0,-54.0,-2.0,7.0,-53.0,-1.0
+EV sound at=7.5,-56.5,-2.5 r=16.0 ex=0 event=minecraft:block.sculk_sensor.clicking source=block vol=1.0 pitch=0.83569175
+B 14 -57 2 minecraft:sculk_sensor[power=8,sculk_sensor_phase=active,waterlogged=false]
+B 7 -57 -3 minecraft:sculk_sensor[power=6,sculk_sensor_phase=active,waterlogged=false]
+T 39
+E S2 minecraft:shulker pos=6.5,-54.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.03548485121389;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=6.0,-54.0,-2.0,7.0,-53.0,-1.0
+B 14 -57 2 minecraft:sculk_sensor[power=8,sculk_sensor_phase=active,waterlogged=false]
+B 7 -57 -3 minecraft:sculk_sensor[power=6,sculk_sensor_phase=active,waterlogged=false]
+T 40
+E S2 minecraft:shulker pos=6.5,-54.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.03548485121389;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=6.0,-54.0,-2.0,7.0,-53.0,-1.0
+B 14 -57 2 minecraft:sculk_sensor[power=8,sculk_sensor_phase=active,waterlogged=false]
+B 7 -57 -3 minecraft:sculk_sensor[power=6,sculk_sensor_phase=active,waterlogged=false]
+T 41
+E S2 minecraft:shulker pos=6.5,-54.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.03548485121389;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=6.0,-54.0,-2.0,7.0,-53.0,-1.0
+B 14 -57 2 minecraft:sculk_sensor[power=8,sculk_sensor_phase=active,waterlogged=false]
+B 7 -57 -3 minecraft:sculk_sensor[power=6,sculk_sensor_phase=active,waterlogged=false]
+T 42
+E S2 minecraft:shulker pos=6.5,-54.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.03548485121389;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=6.0,-54.0,-2.0,7.0,-53.0,-1.0
+B 14 -57 2 minecraft:sculk_sensor[power=8,sculk_sensor_phase=active,waterlogged=false]
+B 7 -57 -3 minecraft:sculk_sensor[power=6,sculk_sensor_phase=active,waterlogged=false]
+T 43
+E S2 minecraft:shulker pos=6.5,-54.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.03548485121389;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=6.0,-54.0,-2.0,7.0,-53.0,-1.0
+B 14 -57 2 minecraft:sculk_sensor[power=8,sculk_sensor_phase=active,waterlogged=false]
+B 7 -57 -3 minecraft:sculk_sensor[power=6,sculk_sensor_phase=active,waterlogged=false]
+T 44
+E S2 minecraft:shulker pos=6.5,-54.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.03548485121389;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=6.0,-54.0,-2.0,7.0,-53.0,-1.0
+B 14 -57 2 minecraft:sculk_sensor[power=8,sculk_sensor_phase=active,waterlogged=false]
+B 7 -57 -3 minecraft:sculk_sensor[power=6,sculk_sensor_phase=active,waterlogged=false]
+E S2 minecraft:shulker pos=6.5,-54.0,-1.5 delta=0.0,0.0,0.0 rot=0.0,0.0 og=0 fall=0.0 fire=0 air=300 alive=1 pose=standing hp=30.0 abs=0.0 hurt=0/0 death=0 fx=- target=- hurtby=- aggr=0 noai=0 left=0 persist=1 canpickup=0 home=- leash=- speed=0.0 zza=0.0 xxa=0.0 yya=0.0 head=0.0 body=0.0 nav=done stuck=0 navspeed=0.0 ntarget=- path=- nodes=- goals=- tgoals=- acts=core;idle mem=- equip=- attrs=minecraft:follow_range:16.03548485121389;minecraft:max_health:30.0 face=down peek=0 cpeek=0.0 color=16 bb=6.0,-54.0,-2.0,7.0,-53.0,-1.0
+N S2 {AbsorptionAmount:0.0f,Air:300s,AttachFace:0b,Brain:{memories:{}},CanPickUpLoot:0b,Color:16b,DeathTime:0s,FallFlying:0b,Fire:0s,Health:30.0f,HurtTime:0s,Invulnerable:0b,LeftHanded:0b,Motion:[0.0d,0.0d,0.0d],OnGround:0b,Peek:0b,PersistenceRequired:1b,PortalCooldown:0,Pos:[6.5d,-54.0d,-1.5d],Rotation:[0.0f,0.0f],attributes:[{base:16.0d,id:"minecraft:follow_range",modifiers:[{amount:0.0022178032008680747d,id:"minecraft:random_spawn_bonus",operation:"add_multiplied_base"}]},{base:0.7d,id:"minecraft:movement_speed"}],current_impulse_context_reset_grace_time:0,fall_distance:0.0d}

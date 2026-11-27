@@ -188,9 +188,10 @@ impl Strider {
         self.mob.living.entity.entity_data.get(DATA_SUFFOCATING)
     }
 
-    /// `isSaddled()`.
+    /// `isSaddled()`: `hasValidEquippableItemForSlot(SADDLE)`.
     pub fn is_saddled(&self) -> bool {
-        !self.get_item_by_slot(EquipmentSlot::Saddle).is_empty()
+        let saddle = self.get_item_by_slot(EquipmentSlot::Saddle);
+        !saddle.is_empty() && self.is_equippable_in_slot(&saddle, EquipmentSlot::Saddle)
     }
 
     /// `isBeingTempted()`.
@@ -253,8 +254,12 @@ impl Strider {
         Some(Box::new(AgeableMobGroupData::with_chance(0.0)))
     }
 
-    /// `Strider.getDismountLocationForPassenger` up to the fallback to `super`.
-    fn find_dismount_location(&self, level: &ServerLevel, passenger: &dyn Entity) -> Option<Vec3> {
+    /// `Strider.getDismountLocationForPassenger` up to the spot above the strider: the location and the pose the passenger takes.
+    fn find_dismount_location(
+        &self,
+        level: &ServerLevel,
+        passenger: &dyn Entity,
+    ) -> Option<(Vec3, Pose)> {
         let (bb_width, passenger_width, y_rot) = (
             self.base().get_bb_width(),
             passenger.base().get_bb_width(),
@@ -319,7 +324,7 @@ impl Strider {
                             passenger,
                             &pose_collision_box.move_vec(location),
                         ) {
-                            return Some(location);
+                            return Some((location, *dismount_pose));
                         }
                     }
                 }
@@ -415,18 +420,22 @@ impl Entity for Strider {
         passenger: &dyn Entity,
     ) -> Vec3 {
         self.find_dismount_location(level, passenger)
-            .unwrap_or_else(|| self.above_dismount_location())
+            .map_or_else(|| self.above_dismount_location(), |(location, _)| location)
     }
 
-    /// The dismount spot of the strider's own search, then `Animal`'s (which also sets the pose), then the spot above it.
+    /// The dismount spot of the strider's own search (it sets the passenger's pose), else the spot above it; `Animal`'s search is not run.
     fn get_dismount_location_for_passenger_setting_pose(
         &self,
         level: &ServerLevel,
         passenger: &mut dyn Entity,
     ) -> Vec3 {
-        self.find_dismount_location(level, &*passenger)
-            .or_else(|| self.animal_dismount_location(level, passenger))
-            .unwrap_or_else(|| self.above_dismount_location())
+        match self.find_dismount_location(level, &*passenger) {
+            Some((location, pose)) => {
+                passenger.set_pose(pose);
+                location
+            }
+            None => self.above_dismount_location(),
+        }
     }
 
     fn tick_ridden(&mut self, level: &mut ServerLevel, controller: EntityId, _ridden_input: Vec3) {

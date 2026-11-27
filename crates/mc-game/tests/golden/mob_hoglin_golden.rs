@@ -38,3 +38,9 @@ fn strider_lava() {
 fn strider_ride() {
     check("mob_strider_ride");
 }
+
+/// A rider leaves a strider on a lava lake whose only shore lies beside it, and a stick in the saddle slot saddles nothing.
+#[test]
+fn strider_dismount_island() {
+    check("mob_strider_dismount_island");
+}

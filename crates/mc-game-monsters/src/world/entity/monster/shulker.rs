@@ -399,11 +399,7 @@ impl Shulker {
                 level.game_event_from_entity_ref(
                     &*self,
                     GameEvent::TELEPORT,
-                    Vec3::new(
-                        f64::from(old_pos.x()),
-                        f64::from(old_pos.y()),
-                        f64::from(old_pos.z()),
-                    ),
+                    Vec3::at_center_of(&old_pos),
                 );
                 let packed_diff = mc_game_core::util::block_util::pack_difference_in_position(
                     old_pos,

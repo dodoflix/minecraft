@@ -36,3 +36,9 @@ fn shulker_colour_from_spawn_egg_component_and_saved_data() {
 fn placed_end_city_creates_its_shulkers_and_item_frame() {
     block_scenario::check("mob_shulker_end_city");
 }
+
+/// A teleporting shulker posts the teleport game event at the centre of the block it left: the sculk sensor vibration starts there.
+#[test]
+fn shulker_teleport_vibration() {
+    block_scenario::check("mob_shulker_teleport_vibration");
+}

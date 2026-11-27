@@ -1,0 +1,27 @@
+# A shulker that teleports posts the TELEPORT game event at the centre of the block it left (Level.gameEvent with a BlockPos): the vibration particle
+# a sculk sensor next to it causes starts there, and the sensors' phases are dumped.
+command_env
+level flat
+preload 6
+entity_counter 5600
+level_seed 5601
+difficulty normal
+gamerule mob_drops false
+spawn_player A creative 14.5 -60 6.5 0 0
+fill -12 -58 -12 40 -58 12 minecraft:stone
+fill -12 -55 -12 40 -55 12 minecraft:stone
+fill -12 -52 -12 40 -52 12 minecraft:stone
+fill 11 -57 0 11 -57 0 minecraft:stone
+fill 11 -55 0 11 -55 0 minecraft:air
+block 14 -57 2 minecraft:sculk_sensor
+block 7 -57 -3 minecraft:sculk_sensor
+tick 30
+mobspawn S2 minecraft:shulker 11.5 -56 0.5 0 0 {PersistenceRequired:1b}
+entity_seed S2 52
+tick 2
+dump mob:S2 blocks:14,-57,2,14,-57,2
+watch mob:S2 events packets:A:level_particles blocks:14,-57,2,14,-57,2 blocks:7,-57,-3,7,-57,-3
+block 11 -57 0 minecraft:air
+tick 12
+watch off
+dump mob:S2 nbt:S2 events
