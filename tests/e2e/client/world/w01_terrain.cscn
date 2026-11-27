@@ -1,13 +1,12 @@
-# Overworld terrain of a seeded default world at two spots: chunk count, block columns and biomes.
-# Loose items (kelp, moss carpet) and falling blocks appear in proportion to the ticks the server ran before the join, which
-# differs from run to run on vanilla itself, so random ticks are off and entities and their packets are not compared. There is
-# no screenshot: two vanilla servers place the leaves of border trees differently.
+# Overworld terrain of a seeded default world at two spots: chunk count, block columns, biomes and the entities the world holds.
+# Both servers run the same 1200 ticks with random ticks off before the join. Two vanilla servers still differ in the loose
+# item entities of the second spot (items dropped by blocks that generation leaves unsupported: their number and the random
+# spread of each drop), so item entities are left out; every other entity, entity packet and falling block is compared.
+# There is no screenshot: two vanilla servers place the leaves of border trees differently.
 server seed=12345 level-type=minecraft:normal
 console gamerule random_tick_speed 0
-ignore entities*
-ignore packets.in.play:*entit*
-ignore packets.in.play:clientbound/minecraft:add_transient_block
-ignore packets.in.play:clientbound/minecraft:bundle_delimiter
+console tick sprint 1200
+ignore entities[minecraft:item]
 client join
 wait_screen null 120
 wait_state chunks >= 117 and ticks_in_level >= 100 60

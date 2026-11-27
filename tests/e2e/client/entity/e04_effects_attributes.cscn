@@ -1,0 +1,22 @@
+# Effects and attribute changes by command: the client's effect list and attribute values, and the HUD.
+server seed=12345
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console effect give Steve minecraft:speed infinite 1 true
+console effect give Steve minecraft:night_vision infinite 0 false
+console effect give Steve minecraft:absorption infinite 2 true
+console effect give Steve minecraft:glowing infinite 0 true
+console attribute Steve minecraft:scale base set 1.5
+console attribute Steve minecraft:max_health modifier add e2e:bonus 10 add_value
+console attribute Steve minecraft:movement_speed modifier add e2e:slow -0.1 add_multiplied_base
+console attribute Steve minecraft:block_interaction_range base set 7
+wait_state ticks_in_level >= 240 60
+snapshot effects
+shot effects
+console effect clear Steve minecraft:speed
+console attribute Steve minecraft:max_health modifier remove e2e:bonus
+wait_state ticks_in_level >= 300 60
+snapshot cleared
+client disconnect
+wait_screen TitleScreen 30

@@ -80,6 +80,8 @@ class ScenarioTest(unittest.TestCase):
             ("tolerate x y", "not a number"),
             ("ignore", "ignore needs GLOB"),
             ("unordered now", "takes no arguments"),
+            ("sleep", "sleep needs S"),
+            ("sleep soon", "not a number"),
         ]:
             with self.assertRaises(scenario.ScenarioError, msg=text) as raised:
                 scenario.parse(text)
@@ -268,6 +270,28 @@ class CompareTest(unittest.TestCase):
         a["entities"], b["entities"] = [{"type": "minecraft:item"}], []
         self.assertTrue(compare.diff_snapshots(a, b))
         self.assertEqual(compare.diff_snapshots(a, b, ignore=("entities*",)), [])
+
+    def test_an_ignored_entity_type_leaves_only_that_type_out(self):
+        a, b = snapshot(1, 1, 1), snapshot(1, 1, 1)
+        player = {"id": 1, "type": "minecraft:player", "pos": [0.0, 1.0, 0.0]}
+        a["entities"] = [player, {"id": 2, "type": "minecraft:item", "pos": [1.0, 2.0, 3.0]}, {"id": 3, "type": "minecraft:cow", "pos": [5.0, 2.0, 3.0]}]
+        b["entities"] = [player, {"id": 7, "type": "minecraft:item", "pos": [4.0, 2.0, 3.0]}, {"id": 8, "type": "minecraft:item", "pos": [4.0, 2.0, 3.0]},
+                         {"id": 9, "type": "minecraft:cow", "pos": [5.0, 2.0, 3.0]}]
+        self.assertTrue(compare.diff_snapshots(a, b))
+        self.assertEqual(compare.diff_snapshots(a, b, ignore=("entities[minecraft:item]",)), [])
+        b["entities"][3]["pos"] = [6.0, 2.0, 3.0]
+        self.assertEqual([p for p, _, _ in compare.diff_snapshots(a, b, ignore=("entities[minecraft:item]",))], ["entities.1.pos.0"])
+
+    def test_waypoints_of_mobs_compare_by_content_not_by_random_id(self):
+        a, b = snapshot(1, 1, 1), snapshot(1, 1, 1)
+        cows = [{"id": 1, "uuid": "u1", "type": "minecraft:cow"}, {"id": 2, "uuid": "u2", "type": "minecraft:cow"}]
+        near, far = {"kind": "Vec3iWaypoint", "vector": "x=5"}, {"kind": "Vec3iWaypoint", "vector": "x=20"}
+        a["entities"], b["entities"] = cows, [{**c, "uuid": "v" + c["uuid"][1:]} for c in cows]
+        a["waypoints"] = [{"id": "u1", **near}, {"id": "u2", **far}]
+        b["waypoints"] = [{"id": "v2", **far}, {"id": "v1", **near}]
+        self.assertEqual(compare.diff_snapshots(a, b), [])
+        b["waypoints"][0]["vector"] = "x=21"
+        self.assertTrue(compare.diff_snapshots(a, b))
 
     def test_unordered_entities_compare_as_a_set(self):
         a, b = snapshot(1, 1, 1), snapshot(1, 1, 1)

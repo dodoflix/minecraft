@@ -1,0 +1,39 @@
+# Boss bar, title, scoreboard sidebar, team and tab list name set by commands: what the client holds for each, and the HUD.
+server seed=12345
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console bossbar add e2e:boss {"text":"The Boss","color":"gold"}
+console bossbar set e2e:boss players Steve
+console bossbar set e2e:boss color red
+console bossbar set e2e:boss style notched_10
+console bossbar set e2e:boss max 200
+console bossbar set e2e:boss value 50
+console bossbar set e2e:boss visible true
+console title Steve times 0 4000 0
+console title Steve subtitle {"text":"the subtitle","color":"green"}
+console title Steve title {"text":"The Title","bold":true}
+console title Steve actionbar {"text":"action"}
+console scoreboard objectives add kills dummy {"text":"Kills"}
+console scoreboard objectives setdisplay sidebar kills
+console scoreboard players set Steve kills 3
+console scoreboard players set Alex kills 7
+console scoreboard objectives add hp health {"text":"Health"}
+console scoreboard objectives setdisplay list hp
+console scoreboard objectives setdisplay below_name hp
+console team add red {"text":"Red Team"}
+console team modify red color red
+console team modify red prefix {"text":"[R] "}
+console team modify red friendlyFire false
+console team join red Steve
+wait_state ticks_in_level >= 260 60
+snapshot hud
+shot hud
+console bossbar set e2e:boss visible false
+console title Steve clear
+console scoreboard objectives remove kills
+console team leave Steve
+wait_state ticks_in_level >= 320 60
+snapshot cleared
+client disconnect
+wait_screen TitleScreen 30

@@ -471,6 +471,8 @@ def run_steps(sc, ctx):
                     if time.time() > deadline:
                         raise StepError(f"timeout after {a['timeout']:g}s waiting for server log /{a['regex']}/")
                     time.sleep(0.2)
+            elif op == "sleep":
+                time.sleep(a["seconds"])
             elif op == "ctl":
                 client.ctl(json.loads(expand(json.dumps(a["json"]), ctx["port"], ctx["files"])))
             elif op == "snapshot":

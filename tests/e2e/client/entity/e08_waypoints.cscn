@@ -1,0 +1,26 @@
+# Waypoints of the locator bar: mobs given a transmit range show up with the style and colour set by command, then reset.
+server seed=12345
+tolerate level.day_time 0
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console time set 18000
+console tp Steve 0 -60 0 0 0
+console summon minecraft:zombie 5 -60 5 {NoAI:1b,Silent:1b,PersistenceRequired:1b,Tags:["w1"]}
+console summon minecraft:cow 20 -60 -10 {NoAI:1b,Silent:1b,PersistenceRequired:1b,Tags:["w2"]}
+console attribute @e[tag=w1,limit=1] minecraft:waypoint_transmit_range base set 100
+console attribute @e[tag=w2,limit=1] minecraft:waypoint_transmit_range base set 100
+wait_state ticks_in_level >= 180 60
+snapshot plain
+console waypoint modify @e[tag=w1,limit=1] color red
+console waypoint modify @e[tag=w1,limit=1] style set minecraft:bowtie
+console waypoint modify @e[tag=w2,limit=1] color hex 336699
+wait_state ticks_in_level >= 260 60
+snapshot styled
+console waypoint modify @e[tag=w1,limit=1] color reset
+console waypoint modify @e[tag=w1,limit=1] style reset
+console attribute @e[tag=w2,limit=1] minecraft:waypoint_transmit_range base set 0
+wait_state ticks_in_level >= 340 60
+snapshot reset
+client disconnect
+wait_screen TitleScreen 30

@@ -34,6 +34,7 @@ DEFAULT_IGNORE = ("level.game_time", "level.day_time", "packets.*:*/minecraft:ke
 # scenario pins a counter with `tolerate GLOB N` (N = 0 for an exact count)
 PRESENCE_ONLY = ("packets.*",)
 PLAYER_TYPE = "minecraft:player"
+ENTITY_TYPE_IGNORE = re.compile(r"entities\[([^\]]+)\]")
 
 
 def _rewrite_strings(value):
@@ -47,17 +48,27 @@ def _rewrite_strings(value):
     return value
 
 
-def normalise_snapshot(snap, unordered=False):
+def normalise_snapshot(snap, unordered=False, drop_types=()):
     """A copy with entity ids renumbered in level order (ids come from a per-server counter), the random UUIDs of non-player
     entities blanked, the random ids of boss bars blanked and the ports of loopback addresses replaced. `unordered` first
-    sorts the entities other than players by type and position: parallel world generation creates them in a random order."""
+    sorts the entities other than players by type and position: parallel world generation creates them in a random order.
+    `drop_types` removes the entities of those types (an `ignore entities[TYPE]` of the scenario)."""
     snap = _rewrite_strings(copy.deepcopy(snap))
     for bar in snap.get("boss_bars") or []:  # `bossbar add` draws a random id
         if isinstance(bar, dict):
             bar["uuid"] = "<uuid>"
     entities = snap.get("entities")
+    if drop_types and isinstance(entities, list):
+        entities = snap["entities"] = [e for e in entities if not (isinstance(e, dict) and e.get("type") in drop_types)]
     if unordered and isinstance(entities, list):
         entities.sort(key=lambda e: (e.get("type") != PLAYER_TYPE, e.get("type"), *[round(v, 1) for v in e.get("pos", ())]))
+    waypoints = snap.get("waypoints")
+    if isinstance(waypoints, list):  # the shim sorts them by id, which is the random UUID of the tracked mob
+        mobs = {e.get("uuid") for e in entities or [] if isinstance(e, dict) and e.get("type") != PLAYER_TYPE}
+        for w in waypoints:
+            if isinstance(w, dict) and w.get("id") in mobs:
+                w["id"] = "<uuid>"
+        waypoints.sort(key=lambda w: json.dumps(w, sort_keys=True))
     if isinstance(entities, list):
         ids = {e["id"]: n for n, e in enumerate(entities) if isinstance(e, dict) and "id" in e}
         for n, e in enumerate(entities):
@@ -99,8 +110,11 @@ def _path_order(path):
 
 
 def diff_snapshots(a, b, tolerances=(), ignore=DEFAULT_IGNORE, unordered=False):
-    """[(path, value in a, value in b)] over the normalised snapshots, minus ignored paths and values within tolerance."""
-    fa, fb = flatten(normalise_snapshot(a, unordered)), flatten(normalise_snapshot(b, unordered))
+    """[(path, value in a, value in b)] over the normalised snapshots, minus ignored paths and values within tolerance.
+    An ignore entry `entities[TYPE]` leaves out the entities of that type instead of a path."""
+    by_type = [m.group(1) for g in ignore if (m := ENTITY_TYPE_IGNORE.fullmatch(g))]
+    ignore = [g for g in ignore if not ENTITY_TYPE_IGNORE.fullmatch(g)]
+    fa, fb = (flatten(normalise_snapshot(s, unordered, by_type)) for s in (a, b))
     missing = object()
     out = []
     for path in sorted(set(fa) | set(fb), key=_path_order):

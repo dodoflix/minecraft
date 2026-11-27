@@ -1,0 +1,24 @@
+# Two vanilla servers differ by up to 0.021 in the motion of the hit zombie (knockback decays with the ticks between the hit and the snapshot), hence the tolerance.
+# Damage and knockback by command and by a hit: health, hurt chat lines and the client's view of a mob that was hit.
+server seed=12345
+tolerate level.day_time 0
+tolerate entities.*.motion.* 0.05
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console time set 18000
+console tp Steve 0 -60 0 0 0
+console summon minecraft:zombie 0 -60 2 {NoAI:1b,Silent:1b,PersistenceRequired:1b}
+console effect give Steve minecraft:resistance infinite 0 true
+wait_state ticks_in_level >= 160 60
+snapshot before
+ctl {"cmd": "attack"}
+wait_state ticks_in_level >= 200 60
+snapshot hit
+console damage Steve 4 minecraft:generic
+console damage @e[type=minecraft:zombie,limit=1] 3 minecraft:player_attack by Steve
+wait_state ticks_in_level >= 260 60
+snapshot damaged
+chat_log damaged
+client disconnect
+wait_screen TitleScreen 30

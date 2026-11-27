@@ -11,6 +11,7 @@ Comparison settings:
     tolerate GLOB N               numeric snapshot values at paths matching GLOB (dotted, `*` wildcard) may differ by N
     unordered                     compare the entities of a snapshot sorted by type and position, not in creation order
     ignore GLOB                   snapshot paths matching GLOB are not compared (for values vanilla itself varies run to run)
+                                  `entities[TYPE]` leaves the entities of that type out instead
 Steps, run in order after the server is up. A step that talks to a client may start with `@NAME ` to address the client
 NAME (a second JVM, started by its own `client join`/`client title`, named like its log and snapshot files); without
 a prefix the step addresses the first client. Snapshots, shots and chat logs of NAME are labelled `NAME.LABEL`.
@@ -23,6 +24,7 @@ a prefix the step addresses the first client. Snapshots, shots and chat logs of 
     wait_state EXPR [S]           wait until EXPR holds on the latest client state (see below)
     wait_log REGEX [S]            wait for a line in the client log since the last `client join`/`rejoin` (quote a REGEX with spaces)
     wait_server REGEX [S]         wait for a line in the server log since the last `client join`/`rejoin` (or the start)
+    sleep S                       wait S seconds of wall time (lets packets of a frozen server arrive before a snapshot)
     ctl JSON                      control channel command (tests/e2e/client/PROTOCOL.md)
     snapshot LABEL                write the state snapshot into the artifacts
     shot LABEL [--crop X,Y,W,H]   save a screenshot (a frame with the crop applied is compared)
@@ -229,6 +231,9 @@ def parse(text, path=""):
             except ValueError as e:
                 raise ScenarioError(f"line {line_no}: {e}") from None
             sc.steps.append((line_no, "wait_state", {"expr": expr, "timeout": timeout}))
+        elif op == "sleep":
+            _need(len(tokens) == 1, line_no, "sleep needs S")
+            sc.steps.append((line_no, "sleep", {"seconds": _timeout(tokens, line_no, 0)}))
         elif op in ("wait_log", "wait_server"):
             _need(1 <= len(tokens) <= 2, line_no, f"{op} needs REGEX [S]")
             try:
