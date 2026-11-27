@@ -104,7 +104,8 @@ fn tick_entities(level: &mut ServerLevel, ids: &[EntityId]) {
 }
 
 fn vec3(a: f64, b: f64, c: f64) -> String {
-    format!("{a:?},{b:?},{c:?}")
+    use mc_core::math::java::java_double_to_string as jd;
+    format!("{},{},{}", jd(a), jd(b), jd(c))
 }
 
 /// The `E` line of the oracle driver for an item entity.
@@ -114,13 +115,13 @@ fn describe_item(name: &str, e: &ItemEntity) -> String {
     let d = b.delta_movement();
     let item = e.get_item();
     format!(
-        "E {name} minecraft:item pos={} delta={} rot={:?},{:?} og={} fall={:?} fire={} air={} alive={} pose=standing item={}*{} age={} pickup={} health={} owner={} thrower={}",
+        "E {name} minecraft:item pos={} delta={} rot={},{} og={} fall={} fire={} air={} alive={} pose=standing item={}*{} age={} pickup={} health={} owner={} thrower={}",
         vec3(p.x, p.y, p.z),
         vec3(d.x, d.y, d.z),
-        b.y_rot(),
-        b.x_rot(),
+        mc_core::math::java::java_float_to_string(b.y_rot()),
+        mc_core::math::java::java_float_to_string(b.x_rot()),
         i32::from(b.on_ground()),
-        b.fall_distance,
+        mc_core::math::java::java_double_to_string(b.fall_distance),
         b.remaining_fire_ticks,
         b.get_air_supply(),
         i32::from(e.is_alive()),

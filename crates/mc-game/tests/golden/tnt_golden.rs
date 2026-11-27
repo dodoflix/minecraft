@@ -44,20 +44,21 @@ fn serialize(state: BlockState) -> String {
 }
 
 fn describe(name: &str, e: &PrimedTnt) -> String {
+    use mc_core::math::java::{java_double_to_string as jd, java_float_to_string as jf};
     let b = e.base();
     let (p, d) = (b.position(), b.delta_movement());
     format!(
-        "E {name} minecraft:tnt pos={:?},{:?},{:?} delta={:?},{:?},{:?} rot={:?},{:?} og={} fall={:?} fire={} air={} alive={} pose=standing fuse={}",
-        p.x,
-        p.y,
-        p.z,
-        d.x,
-        d.y,
-        d.z,
-        b.y_rot(),
-        b.x_rot(),
+        "E {name} minecraft:tnt pos={},{},{} delta={},{},{} rot={},{} og={} fall={} fire={} air={} alive={} pose=standing fuse={}",
+        jd(p.x),
+        jd(p.y),
+        jd(p.z),
+        jd(d.x),
+        jd(d.y),
+        jd(d.z),
+        jf(b.y_rot()),
+        jf(b.x_rot()),
         i32::from(b.on_ground()),
-        b.fall_distance,
+        jd(b.fall_distance),
         b.remaining_fire_ticks,
         b.get_air_supply(),
         i32::from(e.is_alive()),

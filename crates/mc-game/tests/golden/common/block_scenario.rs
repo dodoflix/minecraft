@@ -2048,7 +2048,8 @@ fn sound_source_name(s: SoundSource) -> &'static str {
 
 /// The `EV ...` line of a recorded broadcast (twin of `VanillaLevel.RecordingPlayerList`).
 pub fn format_broadcast(r: &BroadcastRecord) -> String {
-    let head = format!("r={:?} ex={}", r.range, i32::from(r.except));
+    use mc_core::math::java::{java_double_to_string as jd, java_float_to_string as jf};
+    let head = format!("r={} ex={}", jd(r.range), i32::from(r.except));
     let mut body: &[u8] = &r.payload;
     let id = read_varint(&mut body).expect("packet id");
     if id == ClientboundSoundPacket::ID {
@@ -2058,13 +2059,13 @@ pub fn format_broadcast(r: &BroadcastRecord) -> String {
             SoundEventHolder::Direct(_) => "[unregistered]".to_string(),
         };
         format!(
-            "EV sound at={:?},{:?},{:?} {head} event={event} source={} vol={:?} pitch={:?}",
-            r.x,
-            r.y,
-            r.z,
+            "EV sound at={},{},{} {head} event={event} source={} vol={} pitch={}",
+            jd(r.x),
+            jd(r.y),
+            jd(r.z),
             sound_source_name(p.source),
-            p.volume,
-            p.pitch
+            jf(p.volume),
+            jf(p.pitch)
         )
     } else if id == ClientboundLevelEventPacket::ID {
         let p = ClientboundLevelEventPacket::decode(&mut body).expect("level event packet");
@@ -2096,8 +2097,10 @@ pub fn format_broadcast(r: &BroadcastRecord) -> String {
         )
         .unwrap_or("?");
         format!(
-            "EV packet at={:?},{:?},{:?} {head} id={name}",
-            r.x, r.y, r.z
+            "EV packet at={},{},{} {head} id={name}",
+            jd(r.x),
+            jd(r.y),
+            jd(r.z)
         )
     }
 }

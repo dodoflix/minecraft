@@ -36,26 +36,21 @@ fn fall_fixture_is_a_vanilla_fall_with_damage() {
 }
 
 #[test]
-fn comparator_is_token_exact_for_numbers_and_reports_diffs() {
+fn comparator_is_exact_text_and_reports_diffs() {
     let o = Options::default();
-    // Java and Rust spell the same double differently; the value is what counts
     assert!(lines_match(
-        "P a pos=1.0E-5,2.0,-0.0",
-        "P a pos=0.00001,2,-0",
+        "P a pos=1.0,2.0,-0.0",
+        "P a pos=1.0,2.0,-0.0",
         &o
     ));
+    assert!(!lines_match("P a pos=1.0", "P a pos=1", &o));
+    assert!(!lines_match("P a pos=1.0E-5", "P a pos=0.00001", &o));
+    assert!(!lines_match("P a pos=-0.0", "P a pos=0.0", &o));
+    assert!(!lines_match("P a pos=1,2", "P a pos=1;2", &o));
     assert!(!lines_match(
         "P a pos=0.1",
         "P a pos=0.10000000000000002",
         &o
-    ));
-    assert!(lines_match(
-        "P a pos=0.1",
-        "P a pos=0.10000000000000002",
-        &Options {
-            float_tolerance: Some(1e-12),
-            ..Default::default()
-        }
     ));
     assert!(!lines_match("P a og=0", "P a og=1", &o));
     let err = compare(

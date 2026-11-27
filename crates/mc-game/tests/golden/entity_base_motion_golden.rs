@@ -35,7 +35,8 @@ fn parse_state(text: &str) -> BlockState {
 }
 
 fn fmt_vec(x: f64, y: f64, z: f64) -> String {
-    format!("{x:?},{y:?},{z:?}")
+    use mc_core::math::java::java_double_to_string as jd;
+    format!("{},{},{}", jd(x), jd(y), jd(z))
 }
 
 fn registries() -> mc_game::registry::RegistryAccess {
@@ -162,12 +163,12 @@ fn replay(scenario: &str) -> Vec<String> {
                         let b = e.base();
                         let age = e.as_any().downcast_ref::<ItemEntity>().map_or(0, |i| i.age);
                         out.push(format!(
-                            "E {name} {} pos={} delta={} og={} fall={:?} fire={} air={} alive={} age={age}",
+                            "E {name} {} pos={} delta={} og={} fall={} fire={} air={} alive={} age={age}",
                             e.get_type().data().name,
                             fmt_vec(b.x(), b.y(), b.z()),
                             fmt_vec(b.delta_movement().x, b.delta_movement().y, b.delta_movement().z),
                             i32::from(b.on_ground()),
-                            b.fall_distance,
+                            mc_core::math::java::java_double_to_string(b.fall_distance),
                             b.remaining_fire_ticks,
                             b.get_air_supply(),
                             i32::from(e.is_alive()),

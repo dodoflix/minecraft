@@ -914,16 +914,17 @@ static ENDER_DRAGON_DUMP: ScenarioDumpExtra = ScenarioDumpExtra {
     order: 22,
     applies: |e| e.as_any().is::<EnderDragon>(),
     fields: |e, _level, _ctx| {
+        use mc_core::math::java::java_float_to_string as jf;
         let dragon = e.as_any().downcast_ref::<EnderDragon>().expect("applies");
         vec![
             ("dphase".into(), dragon.phase.id().to_string()),
             (
                 "flap".into(),
-                format!("{}/{}", dragon.o_flap_time, dragon.flap_time),
+                format!("{}/{}", jf(dragon.o_flap_time), jf(dragon.flap_time)),
             ),
             ("inwall".into(), u8::from(dragon.in_wall).to_string()),
             ("dtime".into(), dragon.dragon_death_time.to_string()),
-            ("sitdmg".into(), dragon.sitting_damage_received.to_string()),
+            ("sitdmg".into(), jf(dragon.sitting_damage_received)),
         ]
     },
 };

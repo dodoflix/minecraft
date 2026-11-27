@@ -203,27 +203,28 @@ impl Replay {
 }
 
 fn describe(name: &str, e: &dyn Entity) -> String {
+    use mc_core::math::java::{java_double_to_string as jd, java_float_to_string as jf};
     let b = e.base();
     let (p, d) = (b.position(), b.delta_movement());
     let boat = e.as_any().downcast_ref::<AbstractBoat>().expect("a boat");
     let mut s = format!(
-        "E {name} {} pos={:?},{:?},{:?} delta={:?},{:?},{:?} rot={:?},{:?} og={} fall={:?} fire={} air={} alive={} pose=standing status={} dmg={:?} hurt={}/{} bubble={}/{} paddle={}{} pass={}",
+        "E {name} {} pos={},{},{} delta={},{},{} rot={},{} og={} fall={} fire={} air={} alive={} pose=standing status={} dmg={} hurt={}/{} bubble={}/{} paddle={}{} pass={}",
         e.get_type().identifier(),
-        p.x,
-        p.y,
-        p.z,
-        d.x,
-        d.y,
-        d.z,
-        b.y_rot(),
-        b.x_rot(),
+        jd(p.x),
+        jd(p.y),
+        jd(p.z),
+        jd(d.x),
+        jd(d.y),
+        jd(d.z),
+        jf(b.y_rot()),
+        jf(b.x_rot()),
         i32::from(b.on_ground()),
-        b.fall_distance,
+        jd(b.fall_distance),
         b.remaining_fire_ticks,
         b.get_air_supply(),
         i32::from(e.is_alive()),
         status_name(boat.get_status_value()),
-        vehicle_entity::get_damage(b),
+        jf(vehicle_entity::get_damage(b)),
         vehicle_entity::get_hurt_time(b),
         vehicle_entity::get_hurt_dir(b),
         boat.is_above_bubble_column(),

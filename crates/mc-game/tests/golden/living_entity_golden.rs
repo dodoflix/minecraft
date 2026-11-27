@@ -12,6 +12,7 @@ use crate::common;
 
 use crate::common::entity_oracle::*;
 use mc_core::ident::Identifier;
+use mc_core::math::java::{java_double_to_string as jd, java_float_to_string as jf};
 use mc_core::pos::BlockPos;
 use mc_core::random::LegacyRandomSource;
 use mc_data::block::{Block, BlockState};
@@ -345,16 +346,16 @@ impl Replay {
             let (pos, dm) = (b.position(), b.delta_movement());
             let line = format!(
                 "P {name} minecraft:player pos={},{},{} delta={},{},{} rot={},{} og={} fall={} air={} pose={}",
-                pos.x,
-                pos.y,
-                pos.z,
-                dm.x,
-                dm.y,
-                dm.z,
-                b.y_rot(),
-                b.x_rot(),
+                jd(pos.x),
+                jd(pos.y),
+                jd(pos.z),
+                jd(dm.x),
+                jd(dm.y),
+                jd(dm.z),
+                jf(b.y_rot()),
+                jf(b.x_rot()),
                 u8::from(b.on_ground()),
-                b.fall_distance,
+                jd(b.fall_distance),
                 b.get_air_supply(),
                 pose_name(b.get_pose())
             );

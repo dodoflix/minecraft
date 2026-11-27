@@ -118,12 +118,13 @@ fn replay(name: &str) -> Vec<String> {
                     tick += 1;
                     out.push(format!("T {tick}"));
                     let f = &p.player.food_data;
+                    use mc_core::math::java::java_float_to_string as jf;
                     out.push(format!(
                         "P Steve minecraft:player hp={} food={} sat={} exh={}",
-                        p.player.living.get_health(),
+                        jf(p.player.living.get_health()),
                         f.food_level,
-                        f.saturation_level,
-                        f.exhaustion_level
+                        jf(f.saturation_level),
+                        jf(f.exhaustion_level)
                     ));
                 }
             }

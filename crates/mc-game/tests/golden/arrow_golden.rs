@@ -53,7 +53,12 @@ fn registries() -> mc_game::registry::RegistryAccess {
 }
 
 fn vec3(x: f64, y: f64, z: f64) -> String {
-    format!("{x:?},{y:?},{z:?}")
+    format!(
+        "{},{},{}",
+        mc_core::math::java::java_double_to_string(x),
+        mc_core::math::java::java_double_to_string(y),
+        mc_core::math::java::java_double_to_string(z)
+    )
 }
 
 /// The arrow suffix of the `E` line (`ground= crit= pierce= pickup= shake= life= dmg=`).
@@ -70,14 +75,14 @@ fn arrow_fields(e: &dyn Entity) -> String {
     };
     let d = a.arrow_data();
     format!(
-        " ground={} crit={} pierce={} pickup={} shake={} life={} dmg={:?}",
+        " ground={} crit={} pierce={} pickup={} shake={} life={} dmg={}",
         i32::from(a.is_in_ground()),
         i32::from(a.is_crit_arrow()),
         a.pierce_level(),
         d.pickup.ordinal(),
         d.shake_time,
         d.life,
-        d.base_damage
+        mc_core::math::java::java_double_to_string(d.base_damage)
     )
 }
 
@@ -208,14 +213,14 @@ fn replay(scenario: &str) -> Vec<String> {
                         };
                         let b = e.base();
                         out.push(format!(
-                            "E {name} {} pos={} delta={} rot={},{} og={} fall={:?} fire={} air={} alive={} pose=standing{}",
+                            "E {name} {} pos={} delta={} rot={},{} og={} fall={} fire={} air={} alive={} pose=standing{}",
                             e.get_type().data().name,
                             vec3(b.x(), b.y(), b.z()),
                             vec3(b.delta_movement().x, b.delta_movement().y, b.delta_movement().z),
-                            b.y_rot(),
-                            b.x_rot(),
+                            mc_core::math::java::java_float_to_string(b.y_rot()),
+                            mc_core::math::java::java_float_to_string(b.x_rot()),
                             i32::from(b.on_ground()),
-                            b.fall_distance,
+                            mc_core::math::java::java_double_to_string(b.fall_distance),
                             b.remaining_fire_ticks,
                             b.get_air_supply(),
                             i32::from(e.is_alive()),

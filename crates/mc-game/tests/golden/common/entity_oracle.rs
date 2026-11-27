@@ -8,18 +8,16 @@
 //! let fixture = Fixture::load("fall");                      // tests/fixtures/entity_oracle/fall.txt
 //! let mut actual = Vec::new();
 //! /* replay the same scenario with the Rust code under test; after every tick push the lines the Java driver would print:
-//!    actual.push("T 1".into()); actual.push(format!("P Steve minecraft:player pos={},{},{} ...", x, y, z)); */
+//!    actual.push("T 1".into()); actual.push(format!("P Steve minecraft:player pos={},{},{} ...", jd(x), jd(y), jd(z))); */
 //! fixture.assert_matches(&actual, &Options::default());     // panics with the first differences + context
 //! // or just the ticks / a single entity:
 //! let steve: Vec<Line> = fixture.entity_lines("Steve");
 //! ```
 //! Line grammar (see the driver header): `T n`, `P name type k=v ...`, `E name type k=v ...`, `I player slot item`,
 //! `PKT player type hex`, `B x y z state`, `C text`, `HURT ...`, `DIG ...`, `EFFECT ...`, `# note`.
-//! Comparison is token based: a line is split at whitespace and at `, = ; / * :`; two tokens match when they are equal text, or
-//! both parse as `f64` (Java `Double/Float.toString`, Rust `{}`/`{:?}` of f32/f64 both parse) and are bit identical
-//! (`NaN` equals `NaN`, `-0.0 != 0.0`) or, with [`Options::float_tolerance`], within that absolute difference.
-//! Write `f32` fields with `{}` of the f32 (shortest round trip), `f64` with `{}`/`{:?}` of the f64, exactly as the driver prints
-//! the Java `float`/`double`.
+//! Comparison is exact text equality of the lines (after dropping the ignored fields): `3` is not `3.0`, `,` is not `;`.
+//! Write `f32` fields with `java_float_to_string` and `f64` fields with `java_double_to_string` (`mc_core::math::java`), the
+//! Java `Float.toString` / `Double.toString` the driver prints: Rust's `{}` and `{:?}` differ (`1` / `1.0E-4` vs `0.0001`).
 use std::collections::BTreeMap;
 use std::path::PathBuf;
 
@@ -35,8 +33,6 @@ pub fn scenario_dir() -> PathBuf {
 
 #[derive(Debug, Clone, Default)]
 pub struct Options {
-    /// Allowed absolute difference of numeric tokens (None = bit exact, the default).
-    pub float_tolerance: Option<f64>,
     /// Line kinds (first token, e.g. `"PKT"`, `"C"`, `"#"`) skipped on both sides before comparing.
     pub ignore_kinds: Vec<&'static str>,
     /// Field keys (`"fire"`, `"hurt"`, ...) of `P`/`E` lines ignored on both sides (for fields the Rust side does not model yet).
@@ -204,43 +200,13 @@ fn normalize(line: &str, opts: &Options) -> String {
         .join(" ")
 }
 
-fn tokens(line: &str) -> Vec<&str> {
-    line.split(|c: char| c.is_whitespace() || ",=;/*:".contains(c))
-        .filter(|t| !t.is_empty())
-        .collect()
-}
-
-fn token_eq(a: &str, b: &str, tol: Option<f64>) -> bool {
-    if a == b {
-        return true;
-    }
-    match (a.parse::<f64>(), b.parse::<f64>()) {
-        (Ok(x), Ok(y)) => {
-            if x.is_nan() && y.is_nan() {
-                return true;
-            }
-            match tol {
-                Some(t) => (x - y).abs() <= t,
-                None => x.to_bits() == y.to_bits(),
-            }
-        }
-        _ => false,
-    }
-}
-
-/// Do two fixture lines match under `opts` (token based, see the module doc)?
+/// Do two fixture lines match under `opts`? Exact text equality; the ignored fields are dropped first, except in command
+/// feedback (`CF` lines), which is free text.
 pub fn lines_match(expected: &str, actual: &str, opts: &Options) -> bool {
-    // command feedback (`CF` lines) is text: no number or separator normalisation (`10.5` is not `10.500000`)
     if expected.starts_with("CF ") || actual.starts_with("CF ") {
         return expected == actual;
     }
-    let (e, a) = (normalize(expected, opts), normalize(actual, opts));
-    let (te, ta) = (tokens(&e), tokens(&a));
-    te.len() == ta.len()
-        && te
-            .iter()
-            .zip(&ta)
-            .all(|(x, y)| token_eq(x, y, opts.float_tolerance))
+    normalize(expected, opts) == normalize(actual, opts)
 }
 
 /// The differing middle of two lines (common prefix and suffix cut away, 40 characters of context kept).
