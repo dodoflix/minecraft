@@ -351,17 +351,31 @@ fn error_response(body: &Value) -> Result<String, Unread> {
         Some(Value::Number(n)) => Ok(n.to_string()),
         Some(_) => Err(Unread::Malformed),
     };
-    let details = match body.get("details") {
-        None | Some(Value::Null) => "null".to_owned(),
-        Some(map @ Value::Object(_)) => java_value(map),
-        Some(Value::Array(pairs)) => pairs_as_map(pairs)?,
-        Some(_) => return Err(Unread::Malformed),
+    let details = || match body.get("details") {
+        None | Some(Value::Null) => Ok("null".to_owned()),
+        Some(map @ Value::Object(_)) => Ok(java_value(map)),
+        Some(Value::Array(pairs)) => pairs_as_map(pairs),
+        Some(_) => Err(Unread::Malformed),
     };
+    // Gson fills the fields in the order the JSON lists them, so the first one that cannot be read decides which exception
+    // is thrown
+    for name in body
+        .as_object()
+        .into_iter()
+        .flat_map(|fields| fields.keys())
+    {
+        match name.as_str() {
+            "path" | "error" | "errorMessage" => drop(text(name)?),
+            "details" => drop(details()?),
+            _ => {}
+        }
+    }
     Ok(format!(
-        "ErrorResponse[path={}, error={}, errorMessage={}, details={details}]",
+        "ErrorResponse[path={}, error={}, errorMessage={}, details={}]",
         text("path")?,
         text("error")?,
-        text("errorMessage")?
+        text("errorMessage")?,
+        details()?
     ))
 }
 
@@ -738,6 +752,12 @@ mod tests {
             Err(NULL_MAP_KEY.to_owned())
         );
         assert!(read(r#"{"details":[[null]]}"#).is_err_and(|e| e != NULL_MAP_KEY));
+        // the first field that cannot be read decides which exception is thrown
+        assert!(read(r#"{"path":{},"details":[[null,1]]}"#).is_err_and(|e| e != NULL_MAP_KEY));
+        assert_eq!(
+            read(r#"{"details":[[null,1]],"path":{}}"#),
+            Err(NULL_MAP_KEY.to_owned())
+        );
         assert!(
             read(r#"{"details":{"a":[1,{"b":null}]}}"#)
                 .expect("read")

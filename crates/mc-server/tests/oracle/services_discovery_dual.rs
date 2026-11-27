@@ -212,6 +212,8 @@ fn error_bodies_of_every_type_log_alike() {
         json!({"details": [["a", null], ["a", 2], ["b", 3]]}),
         json!({"details": [[[], 1]]}),
         json!({"details": [[null, 1]]}),
+        json!({"path": {}, "details": [[null, 1]]}),
+        json!({"details": [[null, 1]], "path": {}}),
         json!({"details": null, "path": null}),
         json!({"details": {"a": [1, {"b": null, "c": true}], "d": 1e10, "e": 0.0001, "f": 1.5e-7, "g": "x"}}),
         json!({"details": {"n": 100, "m": 12345678.9, "k": 1e7, "j": 9999999.0, "i": 1e21}}),

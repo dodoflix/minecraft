@@ -147,6 +147,7 @@ final class E2eControl {
             case "probe" -> {
                 // `spec` is kept and read into the `probe` section of every later snapshot (see E2eSnapshot.probe)
                 conn(mc);
+                if (!c.has("spec")) throw new IllegalArgumentException("missing argument: spec");
                 E2eSnapshot.probeSpec = c.getAsJsonObject("spec");
             }
             case "chat" -> conn(mc).sendChat(str(c, "text"));

@@ -49,8 +49,11 @@ def _rewrite_strings(value):
 
 def normalise_snapshot(snap):
     """A copy with entity ids renumbered in level order (ids come from a per-server counter), the random UUIDs of non-player
-    entities blanked and the ports of loopback addresses replaced."""
+    entities blanked, the random ids of boss bars blanked and the ports of loopback addresses replaced."""
     snap = _rewrite_strings(copy.deepcopy(snap))
+    for bar in snap.get("boss_bars") or []:  # `bossbar add` draws a random id
+        if isinstance(bar, dict):
+            bar["uuid"] = "<uuid>"
     entities = snap.get("entities")
     if isinstance(entities, list):
         ids = {e["id"]: n for n, e in enumerate(entities) if isinstance(e, dict) and "id" in e}
