@@ -405,17 +405,27 @@ fn test_data_fields() -> Vec<crate::registry::codec::Field> {
     ]
 }
 
+/// The `test_instance_type` registry as dispatched by [`decode_instance`] and [`direct_schema`], in vanilla order.
+pub const TEST_INSTANCE_TYPES: &[&str] = &["block_based", "function"];
+
+/// Size of the vanilla `test_instance_type` registry as modelled here.
+pub fn test_instance_type_count() -> usize {
+    TEST_INSTANCE_TYPES.len()
+}
+
 /// `GameTestInstance.DIRECT_CODEC`: dispatch on `type` through `TEST_INSTANCE_TYPE`.
 fn direct_schema() -> Schema {
-    Schema::dispatch("test_instance_type", |ty| {
-        let mut fields = match ty {
-            "minecraft:block_based" => vec![],
-            "minecraft:function" => vec![req("function", Schema::Identifier)],
-            _ => return None,
-        };
-        fields.extend(test_data_fields());
-        Some(Schema::Record(fields))
-    })
+    Schema::dispatch("test_instance_type", instance_schema)
+}
+
+fn instance_schema(ty: &str) -> Option<Schema> {
+    let mut fields = match ty {
+        "minecraft:block_based" => vec![],
+        "minecraft:function" => vec![req("function", Schema::Identifier)],
+        _ => return None,
+    };
+    fields.extend(test_data_fields());
+    Some(Schema::Record(fields))
 }
 
 fn decode(json: &Value, ctx: &RegistryDecodeContext) -> Result<DecodedEntry, String> {
@@ -506,5 +516,19 @@ mod tests {
                 .unwrap()
                 .contains("test_instance_type")
         );
+    }
+
+    #[test]
+    fn every_listed_type_is_decoded() {
+        let ctx = RegistryDecodeContext::new(&All);
+        for name in TEST_INSTANCE_TYPES {
+            let ty = format!("minecraft:{name}");
+            assert!(instance_schema(&ty).is_some(), "{name}: no schema");
+            let error = decode_instance(&json!({ "type": ty }), &ctx).err();
+            assert!(
+                !error.unwrap_or_default().contains("Unknown registry key"),
+                "{name}: not decoded"
+            );
+        }
     }
 }

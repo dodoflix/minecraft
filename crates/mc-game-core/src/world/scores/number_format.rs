@@ -54,32 +54,47 @@ impl NumberFormat {
     /// `NumberFormatTypes.CODEC`: the registered type under `type`, the fields of the format beside it.
     pub fn codec() -> Codec<NumberFormat> {
         let kind = IDENTIFIER.flat_xmap(
-            |id| match id.to_string().as_str() {
-                "minecraft:blank" | "minecraft:fixed" | "minecraft:styled" => DataResult::success(id),
-                _ => DataResult::error(move || {
-                    format!(
-                        "Unknown registry key in ResourceKey[minecraft:root / minecraft:number_format_type]: {id}"
-                    )
-                }),
+            |id| {
+                if id.namespace() == "minecraft" && NUMBER_FORMAT_TYPES.iter().any(|n| *n == id.path()) {
+                    DataResult::success(id)
+                } else {
+                    DataResult::error(move || {
+                        format!(
+                            "Unknown registry key in ResourceKey[minecraft:root / minecraft:number_format_type]: {id}"
+                        )
+                    })
+                }
             },
             |id: &Identifier| DataResult::success(id.clone()),
         );
         kind.dispatch_map(
             "type",
             |format: &NumberFormat| Identifier::parse(format.type_id()).expect("static id"),
-            |kind| match kind.path() {
-                "blank" => MapCodec::unit(NumberFormat::Blank),
-                "fixed" => component_codec().field_of("value").xmap(
-                    NumberFormat::Fixed,
-                    |format: &NumberFormat| match format {
-                        NumberFormat::Fixed(value) => value.clone(),
-                        _ => Component::empty(),
-                    },
-                ),
-                _ => styled_codec(),
-            },
+            |kind| variant_codec(kind.path()),
         )
         .codec()
+    }
+}
+
+/// The `number_format_type` entries, in registry order; `variant_codec` has one arm per name.
+pub const NUMBER_FORMAT_TYPES: &[&str] = &["blank", "styled", "fixed"];
+
+pub fn number_format_type_count() -> usize {
+    NUMBER_FORMAT_TYPES.len()
+}
+
+fn variant_codec(path: &str) -> MapCodec<NumberFormat> {
+    match path {
+        "blank" => MapCodec::unit(NumberFormat::Blank),
+        "fixed" => component_codec().field_of("value").xmap(
+            NumberFormat::Fixed,
+            |format: &NumberFormat| match format {
+                NumberFormat::Fixed(value) => value.clone(),
+                _ => Component::empty(),
+            },
+        ),
+        "styled" => styled_codec(),
+        other => unreachable!("not a number format type: {other}"),
     }
 }
 
@@ -174,5 +189,12 @@ mod tests {
             )
             .is_error()
         );
+    }
+
+    #[test]
+    fn every_listed_type_reaches_an_arm() {
+        for name in NUMBER_FORMAT_TYPES {
+            variant_codec(name);
+        }
     }
 }

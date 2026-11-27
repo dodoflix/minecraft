@@ -50,6 +50,15 @@ use mc_game::world::level::storage::loot::providers::number::{
     float_provider_type_count, int_provider_type_count,
 };
 use mc_game::world::level::storage::loot::providers::score::score_provider_type_count;
+use mc_data::block::BLOCK_DATA;
+use mc_data::item::ITEM_DATA;
+use mc_data::misc::{GAME_RULE_DATA, POI_TYPES};
+use mc_data::registry_data::{
+    ATTRIBUTE_DATA, GAME_EVENT_DATA, MENU_TYPE_DATA, MOB_EFFECT_DATA, PARTICLE_TYPE_DATA,
+    POTION_DATA, SOUND_EVENT_DATA,
+};
+use mc_game::registry::typed::attributes::{ATTRIBUTES, attribute_type_count};
+use mc_game::world::item::enchantment::{effects, level_based_value, providers, value_codecs};
 use mc_world::status::ChunkStatus;
 use std::collections::BTreeSet;
 use std::path::Path;
@@ -165,69 +174,16 @@ CUSTOM_SPAWNERS=5\n\
 /// Registries without a countable Rust table, with the reason; together with the guarded ones in
 /// [`rust_registry_counts`] they are every registry of the vanilla report.
 const SKIPPED: &[(&str, &str)] = &[
-    ("attribute", NAMES_ONLY),
-    ("attribute_type", NAMES_ONLY),
-    ("block", NAMES_ONLY),
-    ("consume_effect_type", BY_MATCH),
     ("creative_mode_tab", NAMES_ONLY),
-    ("custom_stat", NAMES_ONLY),
-    ("data_component_predicate_type", BY_MATCH),
-    ("debug_subscription", NAMES_ONLY),
-    ("dialog_action_type", BY_MATCH),
-    ("dialog_body_type", BY_MATCH),
-    ("dialog_type", BY_MATCH),
-    ("enchantment_entity_effect_type", BY_MATCH),
-    ("enchantment_level_based_value_type", BY_MATCH),
-    ("enchantment_location_based_effect_type", BY_MATCH),
-    ("enchantment_provider_type", BY_MATCH),
-    ("enchantment_value_effect_type", BY_MATCH),
-    ("environment_attribute", NAMES_ONLY),
-    ("float_provider_type", BY_MATCH),
-    ("game_event", NAMES_ONLY),
-    ("game_rule", NAMES_ONLY),
-    ("height_provider_type", BY_MATCH),
-    ("incoming_rpc_methods", NAMES_ONLY),
-    ("input_control_type", NAMES_ONLY),
-    ("int_provider_type", BY_MATCH),
-    ("item", NAMES_ONLY),
-    ("loot_pool_entry_type", BY_MATCH),
+    (
+        "debug_subscription",
+        "the codec table has 15 entries: `dedicated_server_tick_time` has no value codec and is not a variant",
+    ),
     ("map_decoration_type", NAMES_ONLY),
-    ("menu", NAMES_ONLY),
-    ("mob_effect", NAMES_ONLY),
-    ("number_format_type", BY_MATCH),
-    ("outgoing_rpc_methods", NAMES_ONLY),
-    ("particle_type", BY_MATCH),
-    ("permission_check_type", NAMES_ONLY),
-    ("permission_type", NAMES_ONLY),
-    ("point_of_interest_type", NAMES_ONLY),
-    ("position_source_type", BY_MATCH),
-    ("potion", NAMES_ONLY),
-    ("recipe_book_category", NAMES_ONLY),
-    ("recipe_display", BY_MATCH),
-    ("recipe_serializer", BY_MATCH),
-    ("recipe_type", BY_MATCH),
-    ("slot_display", BY_MATCH),
-    ("sound_event", NAMES_ONLY),
-    ("spawn_condition_type", LOCAL_TABLE),
-    ("stat_type", NAMES_ONLY),
-    ("test_environment_definition_type", BY_MATCH),
-    ("test_instance_type", BY_MATCH),
-    ("villager_profession", NAMES_ONLY),
     ("villager_type", NAMES_ONLY),
-    ("worldgen/biome_source", BY_MATCH),
-    ("worldgen/carver_type", BY_MATCH),
-    ("worldgen/chunk_generator", BY_MATCH),
-    ("worldgen/density_function_type", BY_MATCH),
-    ("worldgen/material_condition_type", BY_MATCH),
-    ("worldgen/material_rule_type", BY_MATCH),
-    ("worldgen/pool_alias_binding", BY_MATCH),
-    ("worldgen/structure_placement", BY_MATCH),
 ];
 
 const NAMES_ONLY: &str = "only the generated name table of mc-data (its report test pins the size); Rust has no table of its own";
-const BY_MATCH: &str = "implemented by a `match` over the type name or an enum without a variant list; no table to count";
-const LOCAL_TABLE: &str =
-    "the type table is local to its codec function and cannot be counted from outside";
 
 /// `(registry, entries on the Rust side)` for every registry that has a countable table; `minecraft:` is implied.
 fn rust_registry_counts() -> Vec<(&'static str, usize)> {
@@ -296,6 +252,161 @@ fn rust_registry_counts() -> Vec<(&'static str, usize)> {
             mc_protocol::components::registry::defined().count(),
         ),
         ("context_key_set", LootContextParamSets::ALL.len()),
+        ("attribute", ATTRIBUTE_DATA.len()),
+        ("attribute_type", attribute_type_count()),
+        ("block", BLOCK_DATA.len()),
+        ("consume_effect_type", mc_protocol::components::consume_effect_type_count()),
+        ("custom_stat", mc_game::stats::stats::custom_stat_count()),
+        (
+            "data_component_predicate_type",
+            mc_protocol::components::data_component_predicate_type_count(),
+        ),
+        ("dialog_action_type", mc_protocol::dialog::action::dialog_action_type_count()),
+        ("dialog_body_type", mc_protocol::dialog::body::dialog_body_type_count()),
+        ("dialog_type", mc_protocol::dialog::dialog_type_count()),
+        (
+            "enchantment_entity_effect_type",
+            effects::enchantment_entity_effect_type_count(),
+        ),
+        (
+            "enchantment_level_based_value_type",
+            level_based_value::enchantment_level_based_value_type_count(),
+        ),
+        (
+            "enchantment_location_based_effect_type",
+            effects::enchantment_location_based_effect_type_count(),
+        ),
+        (
+            "enchantment_provider_type",
+            providers::enchantment_provider_type_count(),
+        ),
+        (
+            "enchantment_value_effect_type",
+            effects::enchantment_value_effect_type_count(),
+        ),
+        ("environment_attribute", ATTRIBUTES.len()),
+        ("float_provider_type", value_codecs::float_provider_type_count()),
+        ("game_event", GAME_EVENT_DATA.len()),
+        ("game_rule", GAME_RULE_DATA.len()),
+        (
+            "height_provider_type",
+            mc_worldgen::provider::height_provider::height_provider_type_count(),
+        ),
+        (
+            "incoming_rpc_methods",
+            mc_game::server::jsonrpc::methods::incoming_rpc_methods_count(),
+        ),
+        (
+            "input_control_type",
+            mc_protocol::dialog::input::input_control_type_count(),
+        ),
+        (
+            "int_provider_type",
+            mc_game::registry::typed::int_provider::int_provider_type_count(),
+        ),
+        ("item", ITEM_DATA.len()),
+        (
+            "loot_pool_entry_type",
+            mc_game::world::level::storage::loot::entries::loot_pool_entry_type_count(),
+        ),
+        ("menu", MENU_TYPE_DATA.len()),
+        ("mob_effect", MOB_EFFECT_DATA.len()),
+        (
+            "number_format_type",
+            mc_game::world::scores::number_format::number_format_type_count(),
+        ),
+        (
+            "outgoing_rpc_methods",
+            mc_game::server::jsonrpc::notifications::outgoing_rpc_methods_count(),
+        ),
+        ("particle_type", PARTICLE_TYPE_DATA.len()),
+        (
+            "permission_check_type",
+            mc_game::server::permissions::permission_check_type_count(),
+        ),
+        (
+            "permission_type",
+            mc_game::server::permissions::permission_type_count(),
+        ),
+        ("point_of_interest_type", POI_TYPES.len()),
+        (
+            "position_source_type",
+            value_codecs::position_source_type_count(),
+        ),
+        ("potion", POTION_DATA.len()),
+        (
+            "recipe_book_category",
+            mc_game::world::item::crafting::recipe_book_category_count(),
+        ),
+        (
+            "recipe_display",
+            mc_protocol::packets::play::inventory::recipe_display_count(),
+        ),
+        (
+            "recipe_serializer",
+            mc_game::world::item::crafting::recipe_serializer_count(),
+        ),
+        (
+            "recipe_type",
+            mc_game::world::item::crafting::recipe_type_count(),
+        ),
+        (
+            "slot_display",
+            mc_protocol::packets::play::inventory::slot_display_count(),
+        ),
+        ("sound_event", SOUND_EVENT_DATA.len()),
+        (
+            "spawn_condition_type",
+            mc_game::world::entity::variant::spawn_condition_type_count(),
+        ),
+        (
+            "stat_type",
+            mc_game::world::scores::objective_criteria::stat_type_count(),
+        ),
+        (
+            "test_environment_definition_type",
+            mc_game::gametest::test_environment_definition::test_environment_definition_type_count(),
+        ),
+        (
+            "test_instance_type",
+            mc_game::gametest::game_test_instance::test_instance_type_count(),
+        ),
+        (
+            "villager_profession",
+            mc_game::world::entity::npc::villager::villager_profession::villager_profession_count(),
+        ),
+        (
+            "worldgen/biome_source",
+            mc_worldgen::biome::biome_source_count(),
+        ),
+        (
+            "worldgen/carver_type",
+            mc_worldgen::carver::carver_type_count(),
+        ),
+        (
+            "worldgen/chunk_generator",
+            mc_game::registry::typed::level_stem::chunk_generator_count(),
+        ),
+        (
+            "worldgen/density_function_type",
+            mc_worldgen::densityfunction::codec::density_function_type_count(),
+        ),
+        (
+            "worldgen/material_condition_type",
+            mc_worldgen::material::material_condition_type_count(),
+        ),
+        (
+            "worldgen/material_rule_type",
+            mc_worldgen::material::material_rule_type_count(),
+        ),
+        (
+            "worldgen/pool_alias_binding",
+            mc_game::world::level::levelgen::structure::pools::alias::pool_alias_binding::pool_alias_binding_count(),
+        ),
+        (
+            "worldgen/structure_placement",
+            mc_worldgen::structure_placement::structure_placement_count(),
+        ),
     ]
 }
 

@@ -445,6 +445,23 @@ fn direct_schema() -> Schema {
     Schema::dispatch("test_environment_definition_type", definition_types)
 }
 
+/// The `test_environment_definition_type` registry as dispatched by [`decode_definition`] and [`direct_schema`], in
+/// vanilla order.
+pub const TEST_ENVIRONMENT_DEFINITION_TYPES: &[&str] = &[
+    "all_of",
+    "clock_time",
+    "difficulty",
+    "function",
+    "game_rules",
+    "timeline_attributes",
+    "weather",
+];
+
+/// Size of the vanilla `test_environment_definition_type` registry as modelled here.
+pub fn test_environment_definition_type_count() -> usize {
+    TEST_ENVIRONMENT_DEFINITION_TYPES.len()
+}
+
 fn definition_types(ty: &str) -> Option<Schema> {
     use Schema as S;
     Some(S::Record(match ty {
@@ -563,5 +580,19 @@ mod tests {
         assert!(
             decode_definition(&json!({"type":"minecraft:weather","weather":"hail"}), &ctx).is_err()
         );
+    }
+
+    #[test]
+    fn every_listed_type_is_decoded() {
+        let ctx = RegistryDecodeContext::new(&All);
+        for name in TEST_ENVIRONMENT_DEFINITION_TYPES {
+            let ty = format!("minecraft:{name}");
+            assert!(definition_types(&ty).is_some(), "{name}: no schema");
+            let error = decode_definition(&json!({ "type": ty }), &ctx).err();
+            assert!(
+                !error.unwrap_or_default().contains("Unknown registry key"),
+                "{name}: not decoded"
+            );
+        }
     }
 }

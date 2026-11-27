@@ -18,7 +18,8 @@ pub use locate::{
 };
 pub use placement::{
     ConcentricRingsStructurePlacement, ExclusionZone, FrequencyReductionMethod,
-    RandomSpreadStructurePlacement, RandomSpreadType, SpreadingPlacement, StructurePlacement,
+    RandomSpreadStructurePlacement, RandomSpreadType, STRUCTURE_PLACEMENT_TYPES,
+    SpreadingPlacement, StructurePlacement, structure_placement_count,
 };
 pub use state::ChunkGeneratorStructureState;
 pub use structure_set::{

@@ -251,6 +251,20 @@ fn arm(ty: &str) -> MapCodec<LevelBasedValue> {
     }
 }
 
+/// The `enchantment_level_based_value_type` entries `arm` decodes, in registry order.
+pub const ENCHANTMENT_LEVEL_BASED_VALUE_TYPES: &[&str] = &[
+    "clamped",
+    "fraction",
+    "levels_squared",
+    "linear",
+    "exponent",
+    "lookup",
+];
+
+pub fn enchantment_level_based_value_type_count() -> usize {
+    ENCHANTMENT_LEVEL_BASED_VALUE_TYPES.len()
+}
+
 fn build() -> Codec<LevelBasedValue> {
     let constant = FLOAT.xmap(LevelBasedValue::Constant, |v: &LevelBasedValue| match v {
         LevelBasedValue::Constant(c) => *c,
@@ -304,5 +318,12 @@ mod tests {
             denominator: Box::new(LevelBasedValue::Constant(0.0)),
         };
         assert_eq!(frac.calculate(1), 0.0);
+    }
+
+    #[test]
+    fn every_listed_type_reaches_an_arm() {
+        for name in ENCHANTMENT_LEVEL_BASED_VALUE_TYPES {
+            arm(&format!("minecraft:{name}"));
+        }
     }
 }

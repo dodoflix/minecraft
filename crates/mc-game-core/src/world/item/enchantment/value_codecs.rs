@@ -235,6 +235,13 @@ fn float_provider_dispatch_arm(ty: &str) -> MapCodec<FloatProvider> {
     }
 }
 
+/// The `float_provider_type` entries `float_provider_dispatch_arm` decodes, in registry order.
+pub const FLOAT_PROVIDER_TYPES: &[&str] = &["constant", "uniform", "clamped_normal", "trapezoid"];
+
+pub fn float_provider_type_count() -> usize {
+    FLOAT_PROVIDER_TYPES.len()
+}
+
 /// `FloatProviders.CODEC`.
 fn float_provider_base_codec() -> Codec<FloatProvider> {
     static CODEC: LazyLock<Codec<FloatProvider>> = LazyLock::new(|| {
@@ -627,40 +634,52 @@ fn particle_arm(t: ParticleType) -> MapCodec<ParticleOptions> {
     }
 }
 
-/// `VibrationParticleOption.SAFE_POSITION_SOURCE_CODEC`: `PositionSource.CODEC` minus entity sources.
-fn safe_position_source_codec() -> Codec<ParticlePositionSource> {
+/// The `position_source_type` entries `safe_position_source_arm` handles, in registry order.
+pub const POSITION_SOURCE_TYPES: &[&str] = &["block", "entity"];
+
+pub fn position_source_type_count() -> usize {
+    POSITION_SOURCE_TYPES.len()
+}
+
+fn safe_position_source_arm(ty: &str) -> MapCodec<ParticlePositionSource> {
     struct BlockPos {
         pos: mc_core::pos::BlockPos,
     }
-    let block = record!(BlockPos {
-        pos: mc_dfu::INT_STREAM
-            .comap_flat_map(
-                |l| mc_dfu::extra::fixed_size(l, 3)
-                    .map(|v| mc_core::pos::BlockPos::new(v[0], v[1], v[2])),
-                |p: &mc_core::pos::BlockPos| vec![p.x(), p.y(), p.z()],
-            )
-            .field_of("pos"),
-    });
+    match ty {
+        "minecraft:block" => record!(BlockPos {
+            pos: mc_dfu::INT_STREAM
+                .comap_flat_map(
+                    |l| mc_dfu::extra::fixed_size(l, 3)
+                        .map(|v| mc_core::pos::BlockPos::new(v[0], v[1], v[2])),
+                    |p: &mc_core::pos::BlockPos| vec![p.x(), p.y(), p.z()],
+                )
+                .field_of("pos"),
+        })
+        .xmap(
+            |b| ParticlePositionSource::Block(b.pos),
+            |p: &ParticlePositionSource| match p {
+                ParticlePositionSource::Block(pos) => BlockPos { pos: *pos },
+                _ => unreachable!("dispatched by type"),
+            },
+        ),
+        "minecraft:entity" => MapCodec::from_fns(
+            |_, _: &ParticlePositionSource, _| {},
+            |_, _| DataResult::error_str("Entity position sources are not allowed"),
+            Vec::new,
+        ),
+        other => unreachable!("not a position source type: {other}"),
+    }
+}
+
+/// `VibrationParticleOption.SAFE_POSITION_SOURCE_CODEC`: `PositionSource.CODEC` minus entity sources.
+fn safe_position_source_codec() -> Codec<ParticlePositionSource> {
     type_codec("minecraft:position_source_type").dispatch(
         "type",
         |p: &ParticlePositionSource| match p {
             ParticlePositionSource::Block(_) => "minecraft:block",
             ParticlePositionSource::Entity { .. } => "minecraft:entity",
         },
-        move |ty: &&'static str| match *ty {
-            "minecraft:block" => block.clone().xmap(
-                |b| ParticlePositionSource::Block(b.pos),
-                |p: &ParticlePositionSource| match p {
-                    ParticlePositionSource::Block(pos) => BlockPos { pos: *pos },
-                    _ => unreachable!("dispatched by type"),
-                },
-            ),
-            _ => MapCodec::from_fns(
-                |_, _: &ParticlePositionSource, _| {},
-                |_, _| DataResult::error_str("Entity position sources are not allowed"),
-                Vec::new,
-            ),
-        },
+        |ty: &&'static str| safe_position_source_arm(ty),
     )
 }
 
@@ -1146,4 +1165,23 @@ pub fn resolve_block_state_provider(
         .registry("minecraft:worldgen/block_state_provider")?
         .entry_by_key(id)?;
     with_gen_ctx(|ctx| stateproviders::decode_direct(&entry.json, ctx)).ok()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn every_listed_float_provider_type_reaches_an_arm() {
+        for name in FLOAT_PROVIDER_TYPES {
+            float_provider_dispatch_arm(&format!("minecraft:{name}"));
+        }
+    }
+
+    #[test]
+    fn every_listed_position_source_type_reaches_an_arm() {
+        for name in POSITION_SOURCE_TYPES {
+            safe_position_source_arm(&format!("minecraft:{name}"));
+        }
+    }
 }

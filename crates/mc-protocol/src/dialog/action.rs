@@ -204,3 +204,31 @@ struct CustomAllFields {
     id: Identifier,
     additions: Option<CompoundTag>,
 }
+
+/// The `dialog_action_type` registry as dispatched by [`Action::codec`], in vanilla order.
+pub const DIALOG_ACTION_TYPES: &[&str] = &[
+    "open_url",
+    "run_command",
+    "suggest_command",
+    "show_dialog",
+    "change_page",
+    "copy_to_clipboard",
+    "custom",
+    "dynamic/run_command",
+    "dynamic/custom",
+];
+
+/// Size of the vanilla `dialog_action_type` registry as modelled here.
+pub fn dialog_action_type_count() -> usize {
+    DIALOG_ACTION_TYPES.len()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn every_dialog_action_type_is_dispatched() {
+        super::super::assert_dispatches(&Action::codec(), DIALOG_ACTION_TYPES);
+    }
+}

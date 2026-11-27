@@ -39,7 +39,9 @@ pub use place_recipe::{
 };
 pub use recipe::{
     CommonInfo, CookingBookCategory, CookingBookInfo, CraftingBookCategory, CraftingBookInfo,
-    Recipe, RecipeKind, SmithingIngredients, default_crafting_reminder,
+    RECIPE_BOOK_CATEGORIES, RECIPE_SERIALIZERS, RECIPE_TYPES, Recipe, RecipeKind,
+    SmithingIngredients, default_crafting_reminder, recipe_book_category_count,
+    recipe_serializer_count, recipe_type_count,
 };
 pub use recipe_book::{RecipeBookSettings, ServerRecipeBook};
 pub use recipe_manager::{

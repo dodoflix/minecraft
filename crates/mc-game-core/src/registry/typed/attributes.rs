@@ -35,6 +35,32 @@ pub enum AttributeKind {
     MobSpawnSettings,
 }
 
+impl AttributeKind {
+    /// Every `AttributeTypes` entry.
+    pub const ALL: [AttributeKind; 15] = [
+        Self::Boolean,
+        Self::TriState,
+        Self::Float,
+        Self::AngleDegrees,
+        Self::RgbColor,
+        Self::ArgbColor,
+        Self::Integer,
+        Self::MoonPhase,
+        Self::Activity,
+        Self::BedRule,
+        Self::Particle,
+        Self::AmbientParticles,
+        Self::BackgroundMusic,
+        Self::AmbientSounds,
+        Self::MobSpawnSettings,
+    ];
+}
+
+/// Number of `AttributeTypes` entries (the `attribute_type` registry).
+pub fn attribute_type_count() -> usize {
+    AttributeKind::ALL.len()
+}
+
 /// `AttributeRange`.
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum AttributeRange {

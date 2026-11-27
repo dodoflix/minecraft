@@ -306,7 +306,8 @@ impl Dialog {
                     DialogType::SERVER_LINKS => Dialog::server_links_codec(),
                     DialogType::DIALOG_LIST => Dialog::dialog_list_codec(),
                     DialogType::MULTI_ACTION => Dialog::multi_action_codec(),
-                    _ => Dialog::confirmation_codec(),
+                    DialogType::CONFIRMATION => Dialog::confirmation_codec(),
+                    _ => unreachable!("every registered dialog type is covered"),
                 },
             )
         });
@@ -478,5 +479,41 @@ impl Dialog {
     /// registry references inside the dialog are written as the referenced elements.
     pub fn encode_context_free(&self, out: &mut Vec<u8>) -> crate::codec::EncodeResult<()> {
         self.encode_with(true, out)
+    }
+}
+
+/// The `dialog_type` registry as dispatched by [`Dialog::direct_codec`], in vanilla order.
+pub const DIALOG_TYPES: &[&str] = &[
+    "notice",
+    "server_links",
+    "dialog_list",
+    "multi_action",
+    "confirmation",
+];
+
+/// Size of the vanilla `dialog_type` registry as modelled here.
+pub fn dialog_type_count() -> usize {
+    DIALOG_TYPES.len()
+}
+
+/// Every listed type must be routed by the dispatcher: an unlisted arm panics, an unknown name is rejected.
+#[cfg(test)]
+fn assert_dispatches<A: 'static>(codec: &Codec<A>, names: &[&str]) {
+    for name in names {
+        let mut tag = mc_nbt::CompoundTag::new();
+        tag.put_string("type", format!("minecraft:{name}"));
+        let result = mc_dfu::parse_nbt(codec, &mc_nbt::Tag::Compound(tag));
+        let error = result.error_message().unwrap_or_default();
+        assert!(!error.contains("Unknown registry key"), "{name}: {error}");
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn every_dialog_type_is_dispatched() {
+        assert_dispatches(&Dialog::direct_codec(), DIALOG_TYPES);
     }
 }

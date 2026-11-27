@@ -72,7 +72,23 @@ pub enum Permission {
     HasCommandLevel(PermissionLevel),
 }
 
+/// The `permission_type` registry, in vanilla order; one entry per [`Permission`] variant.
+pub const PERMISSION_TYPES: &[&str] = &["atom", "command_level"];
+
+/// Size of the vanilla `permission_type` registry as modelled here.
+pub fn permission_type_count() -> usize {
+    PERMISSION_TYPES.len()
+}
+
 impl Permission {
+    /// The registry name of this permission's type.
+    pub fn type_name(&self) -> &'static str {
+        match self {
+            Permission::Atom(_) => PERMISSION_TYPES[0],
+            Permission::HasCommandLevel(_) => PERMISSION_TYPES[1],
+        }
+    }
+
     /// `Permission.Atom.create(String)` (default namespace).
     pub fn atom(name: &str) -> Permission {
         Permission::Atom(Identifier::with_default_namespace(name).expect("valid permission atom"))
@@ -222,7 +238,23 @@ pub enum PermissionCheck {
     Require(Permission),
 }
 
+/// The `permission_check_type` registry, in vanilla order; one entry per [`PermissionCheck`] variant.
+pub const PERMISSION_CHECK_TYPES: &[&str] = &["always_pass", "require"];
+
+/// Size of the vanilla `permission_check_type` registry as modelled here.
+pub fn permission_check_type_count() -> usize {
+    PERMISSION_CHECK_TYPES.len()
+}
+
 impl PermissionCheck {
+    /// The registry name of this check's type.
+    pub fn type_name(&self) -> &'static str {
+        match self {
+            PermissionCheck::AlwaysPass => PERMISSION_CHECK_TYPES[0],
+            PermissionCheck::Require(_) => PERMISSION_CHECK_TYPES[1],
+        }
+    }
+
     pub fn check(&self, source: &PermissionSet) -> bool {
         match self {
             PermissionCheck::AlwaysPass => true,
@@ -273,5 +305,21 @@ mod tests {
         assert!(u2.has_permission(&permissions::CHAT_SEND_MESSAGES));
         let u3 = u.union(&admin);
         assert!(matches!(&u3, PermissionSet::Union(v) if v.len() == 2));
+    }
+
+    #[test]
+    fn type_tables_follow_the_variants() {
+        let permissions = [
+            Permission::atom("a"),
+            Permission::HasCommandLevel(PermissionLevel::All),
+        ];
+        let names: Vec<_> = permissions.iter().map(Permission::type_name).collect();
+        assert_eq!(names, PERMISSION_TYPES);
+        let checks = [
+            PermissionCheck::AlwaysPass,
+            PermissionCheck::Require(Permission::atom("a")),
+        ];
+        let names: Vec<_> = checks.iter().map(PermissionCheck::type_name).collect();
+        assert_eq!(names, PERMISSION_CHECK_TYPES);
     }
 }

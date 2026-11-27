@@ -29,6 +29,13 @@ pub enum CraftingBookCategory {
 }
 
 impl CraftingBookCategory {
+    pub const ALL: [CraftingBookCategory; 4] = [
+        CraftingBookCategory::Building,
+        CraftingBookCategory::Redstone,
+        CraftingBookCategory::Equipment,
+        CraftingBookCategory::Misc,
+    ];
+
     pub fn codec() -> Codec<CraftingBookCategory> {
         string_enum_codec(&[
             (CraftingBookCategory::Building, "building"),
@@ -48,6 +55,12 @@ pub enum CookingBookCategory {
 }
 
 impl CookingBookCategory {
+    pub const ALL: [CookingBookCategory; 3] = [
+        CookingBookCategory::Food,
+        CookingBookCategory::Blocks,
+        CookingBookCategory::Misc,
+    ];
+
     pub fn codec() -> Codec<CookingBookCategory> {
         string_enum_codec(&[
             (CookingBookCategory::Food, "food"),
@@ -545,5 +558,137 @@ fn serializer_codec(serializer: RecipeSerializer) -> MapCodec<RecipeKind> {
         })
     } else {
         unreachable!("every recipe serializer of vanilla is handled")
+    }
+}
+
+/// The `recipe_serializer` registry across [`RecipeKind`], [`CustomRecipe`] and [`CookingKind`], in vanilla order.
+pub const RECIPE_SERIALIZERS: &[&str] = &[
+    "crafting_shaped",
+    "crafting_shapeless",
+    "crafting_dye",
+    "crafting_imbue",
+    "crafting_transmute",
+    "crafting_decorated_pot",
+    "crafting_special_bookcloning",
+    "crafting_special_mapextending",
+    "crafting_special_firework_rocket",
+    "crafting_special_firework_star",
+    "crafting_special_firework_star_fade",
+    "crafting_special_bannerduplicate",
+    "crafting_special_shielddecoration",
+    "crafting_special_repairitem",
+    "smelting",
+    "blasting",
+    "smoking",
+    "campfire_cooking",
+    "stonecutting",
+    "smithing_transform",
+    "brewing",
+    "smithing_trim",
+];
+
+/// The `recipe_type` registry as returned by [`Recipe::recipe_type`], in vanilla order.
+pub const RECIPE_TYPES: &[&str] = &[
+    "crafting",
+    "smelting",
+    "blasting",
+    "smoking",
+    "campfire_cooking",
+    "stonecutting",
+    "smithing",
+    "brewing",
+];
+
+/// The `recipe_book_category` registry as returned by [`Recipe::recipe_book_category`], in vanilla order.
+pub const RECIPE_BOOK_CATEGORIES: &[&str] = &[
+    "crafting_building_blocks",
+    "crafting_redstone",
+    "crafting_equipment",
+    "crafting_misc",
+    "furnace_food",
+    "furnace_blocks",
+    "furnace_misc",
+    "blast_furnace_blocks",
+    "blast_furnace_misc",
+    "smoker_food",
+    "stonecutter",
+    "smithing",
+    "campfire",
+];
+
+/// Size of the vanilla `recipe_serializer` registry as modelled here.
+pub fn recipe_serializer_count() -> usize {
+    RECIPE_SERIALIZERS.len()
+}
+
+/// Size of the vanilla `recipe_type` registry as modelled here.
+pub fn recipe_type_count() -> usize {
+    RECIPE_TYPES.len()
+}
+
+/// Size of the vanilla `recipe_book_category` registry as modelled here.
+pub fn recipe_book_category_count() -> usize {
+    RECIPE_BOOK_CATEGORIES.len()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::super::single_item_recipes::CookingKind;
+    use super::*;
+    use std::collections::BTreeSet;
+
+    fn bare(name: &str) -> &str {
+        name.strip_prefix("minecraft:").unwrap_or(name)
+    }
+
+    #[test]
+    fn every_recipe_serializer_is_dispatched() {
+        for name in RECIPE_SERIALIZERS {
+            let mut tag = mc_nbt::CompoundTag::new();
+            tag.put_string("type", format!("minecraft:{name}"));
+            // a missing arm panics in `serializer_codec`; fields are absent, so decoding itself may fail
+            let result = mc_dfu::parse_nbt(&Recipe::codec(), &mc_nbt::Tag::Compound(tag));
+            let error = result.error_message().unwrap_or_default();
+            assert!(!error.contains("Unknown registry key"), "{name}: {error}");
+        }
+    }
+
+    #[test]
+    fn every_recipe_type_is_reachable() {
+        let reached: BTreeSet<&str> = [
+            RecipeType::CRAFTING,
+            RecipeType::STONECUTTING,
+            RecipeType::SMITHING,
+            RecipeType::BREWING,
+        ]
+        .into_iter()
+        .chain(CookingKind::ALL.into_iter().map(CookingKind::recipe_type))
+        .map(|t| bare(t.name()))
+        .collect();
+        assert_eq!(
+            reached,
+            RECIPE_TYPES.iter().copied().collect::<BTreeSet<_>>()
+        );
+    }
+
+    #[test]
+    fn every_recipe_book_category_is_reachable() {
+        let cooking = CookingKind::ALL.into_iter().flat_map(|kind| {
+            CookingBookCategory::ALL
+                .into_iter()
+                .map(move |category| kind.book_category(category))
+        });
+        let reached: BTreeSet<&str> = CraftingBookCategory::ALL
+            .into_iter()
+            .map(crafting_category)
+            .chain(cooking)
+            .chain([
+                RecipeBookCategory::STONECUTTER,
+                RecipeBookCategory::SMITHING,
+            ])
+            .map(|c| bare(c.name()))
+            .collect();
+        let listed: BTreeSet<_> = RECIPE_BOOK_CATEGORIES.iter().copied().collect();
+        assert_eq!(reached, listed);
     }
 }

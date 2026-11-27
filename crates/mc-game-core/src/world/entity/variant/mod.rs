@@ -166,8 +166,8 @@ impl SpawnCondition {
         }
     }
 
-    /// `SpawnCondition.CODEC`.
-    pub fn codec() -> Codec<SpawnCondition> {
+    /// The `spawn_condition_type` registry as a codec table.
+    fn types() -> &'static Arc<TypeTable<SpawnCondition>> {
         static TYPES: LazyLock<Arc<TypeTable<SpawnCondition>>> = LazyLock::new(|| {
             fn as_structure(c: &SpawnCondition) -> Option<&StructureCheck> {
                 if let SpawnCondition::Structure(s) = c {
@@ -228,14 +228,24 @@ impl SpawnCondition {
                 ],
             )
         });
+        &TYPES
+    }
+
+    /// `SpawnCondition.CODEC`.
+    pub fn codec() -> Codec<SpawnCondition> {
         static C: LazyLock<Codec<SpawnCondition>> = LazyLock::new(|| {
-            TYPES.codec(|c| c.type_name()).xmap(
+            SpawnCondition::types().codec(|c| c.type_name()).xmap(
                 |a: Arc<SpawnCondition>| (*a).clone(),
                 |c: &SpawnCondition| Arc::new(c.clone()),
             )
         });
         C.clone()
     }
+}
+
+/// Number of `spawn_condition_type` entries the codec dispatches (the size of its type table).
+pub fn spawn_condition_type_count() -> usize {
+    SpawnCondition::types().entry_count()
 }
 
 // ---- PriorityProvider / selectors -------------------------------------------------------------------------------------

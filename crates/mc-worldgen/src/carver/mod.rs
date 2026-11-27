@@ -27,6 +27,14 @@ pub use cave::CaveWorldCarver;
 
 pub const CARVER_REGISTRY: &str = "worldgen/carver";
 
+/// The `worldgen/carver_type` registry entries (`WorldCarver.bootstrap`), the types [`carver_from_json`] decodes.
+pub const CARVER_TYPES: &[&str] = &["canyon", "cave"];
+
+/// Number of `worldgen/carver_type` registry entries.
+pub fn carver_type_count() -> usize {
+    CARVER_TYPES.len()
+}
+
 /// `WorldCarver.CarveSkipChecker.shouldSkip(xd, yd, zd, y)`.
 pub type CarveSkipChecker<'a> = dyn Fn(f64, f64, f64, i32) -> bool + 'a;
 
@@ -154,5 +162,25 @@ impl WorldgenRegistries {
     /// `Registries.CARVER` lookup, see [`load_carver`].
     pub fn carver(&self, id: &Identifier) -> LoadResult<Arc<dyn WorldCarver>> {
         load_carver(self, id)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use serde_json::json;
+
+    use super::*;
+
+    #[test]
+    fn every_listed_type_reaches_its_decoder() {
+        let is_unknown = |ty: &str| {
+            carver_from_json(&json!({ "type": format!("minecraft:{ty}") }))
+                .err()
+                .is_some_and(|e| e.message().starts_with("Unknown registry key"))
+        };
+        assert!(is_unknown("nope"));
+        for ty in CARVER_TYPES {
+            assert!(!is_unknown(ty), "{ty} is not decoded");
+        }
     }
 }

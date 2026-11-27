@@ -14,6 +14,21 @@ use crate::densityfunction::codec::{LoadResult, parse_int, parse_int_range};
 use crate::vertical_anchor::VerticalAnchor;
 use crate::world_generation_context::WorldGenerationContext;
 
+/// The `height_provider_type` registry entries (`HeightProviderType`), the types [`HeightProvider::from_json`] decodes.
+pub const HEIGHT_PROVIDER_TYPES: &[&str] = &[
+    "biased_to_bottom",
+    "constant",
+    "trapezoid",
+    "uniform",
+    "very_biased_to_bottom",
+    "weighted_list",
+];
+
+/// Number of `height_provider_type` registry entries.
+pub fn height_provider_type_count() -> usize {
+    HEIGHT_PROVIDER_TYPES.len()
+}
+
 #[derive(Clone, Debug, PartialEq)]
 pub enum HeightProvider {
     Constant(VerticalAnchor),
@@ -188,5 +203,25 @@ impl From<VerticalAnchor> for HeightProvider {
     /// `ConstantHeight.of(anchor)`.
     fn from(anchor: VerticalAnchor) -> HeightProvider {
         HeightProvider::Constant(anchor)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use serde_json::json;
+
+    use super::*;
+
+    #[test]
+    fn every_listed_type_reaches_its_decoder() {
+        let is_unknown = |ty: &str| {
+            HeightProvider::from_json(&json!({ "type": format!("minecraft:{ty}") }))
+                .err()
+                .is_some_and(|e| e.message().starts_with("Unknown registry key"))
+        };
+        assert!(is_unknown("nope"));
+        for ty in HEIGHT_PROVIDER_TYPES {
+            assert!(!is_unknown(ty), "{ty} is not decoded");
+        }
     }
 }

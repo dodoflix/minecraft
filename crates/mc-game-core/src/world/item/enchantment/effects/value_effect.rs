@@ -200,6 +200,20 @@ fn arm(ty: &str) -> MapCodec<EnchantmentValueEffect> {
     }
 }
 
+/// The `enchantment_value_effect_type` entries `arm` decodes, in registry order.
+pub const ENCHANTMENT_VALUE_EFFECT_TYPES: &[&str] = &[
+    "add",
+    "all_of",
+    "multiply",
+    "remove_binomial",
+    "exponential",
+    "set",
+];
+
+pub fn enchantment_value_effect_type_count() -> usize {
+    ENCHANTMENT_VALUE_EFFECT_TYPES.len()
+}
+
 fn build() -> Codec<EnchantmentValueEffect> {
     type_codec(REGISTRY).dispatch(
         "type",
@@ -213,4 +227,16 @@ fn build() -> Codec<EnchantmentValueEffect> {
         },
         |ty: &&'static str| arm(ty),
     )
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn every_listed_type_reaches_an_arm() {
+        for name in ENCHANTMENT_VALUE_EFFECT_TYPES {
+            arm(&format!("minecraft:{name}"));
+        }
+    }
 }

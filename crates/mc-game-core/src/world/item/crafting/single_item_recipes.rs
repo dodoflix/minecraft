@@ -21,15 +21,32 @@ pub enum CookingKind {
 }
 
 impl CookingKind {
+    pub const ALL: [CookingKind; 4] = [
+        CookingKind::Smelting,
+        CookingKind::Blasting,
+        CookingKind::Smoking,
+        CookingKind::CampfireCooking,
+    ];
+
     pub fn of_serializer(serializer: RecipeSerializer) -> Option<CookingKind> {
-        [
-            CookingKind::Smelting,
-            CookingKind::Blasting,
-            CookingKind::Smoking,
-            CookingKind::CampfireCooking,
-        ]
-        .into_iter()
-        .find(|k| k.serializer() == serializer)
+        Self::ALL.into_iter().find(|k| k.serializer() == serializer)
+    }
+
+    /// `AbstractCookingRecipe.recipeBookCategory()` of a recipe of this kind.
+    pub(super) fn book_category(self, category: CookingBookCategory) -> RecipeBookCategory {
+        match (self, category) {
+            (CookingKind::Smelting, CookingBookCategory::Blocks) => {
+                RecipeBookCategory::FURNACE_BLOCKS
+            }
+            (CookingKind::Smelting, CookingBookCategory::Food) => RecipeBookCategory::FURNACE_FOOD,
+            (CookingKind::Smelting, CookingBookCategory::Misc) => RecipeBookCategory::FURNACE_MISC,
+            (CookingKind::Blasting, CookingBookCategory::Blocks) => {
+                RecipeBookCategory::BLAST_FURNACE_BLOCKS
+            }
+            (CookingKind::Blasting, _) => RecipeBookCategory::BLAST_FURNACE_MISC,
+            (CookingKind::Smoking, _) => RecipeBookCategory::SMOKER_FOOD,
+            (CookingKind::CampfireCooking, _) => RecipeBookCategory::CAMPFIRE,
+        }
     }
 
     pub fn serializer(self) -> RecipeSerializer {
@@ -157,19 +174,7 @@ impl CookingRecipe {
 
     /// `recipeBookCategory()`.
     pub(super) fn recipe_book_category(&self) -> RecipeBookCategory {
-        match (self.kind, self.book.category) {
-            (CookingKind::Smelting, CookingBookCategory::Blocks) => {
-                RecipeBookCategory::FURNACE_BLOCKS
-            }
-            (CookingKind::Smelting, CookingBookCategory::Food) => RecipeBookCategory::FURNACE_FOOD,
-            (CookingKind::Smelting, CookingBookCategory::Misc) => RecipeBookCategory::FURNACE_MISC,
-            (CookingKind::Blasting, CookingBookCategory::Blocks) => {
-                RecipeBookCategory::BLAST_FURNACE_BLOCKS
-            }
-            (CookingKind::Blasting, _) => RecipeBookCategory::BLAST_FURNACE_MISC,
-            (CookingKind::Smoking, _) => RecipeBookCategory::SMOKER_FOOD,
-            (CookingKind::CampfireCooking, _) => RecipeBookCategory::CAMPFIRE,
-        }
+        self.kind.book_category(self.book.category)
     }
 }
 

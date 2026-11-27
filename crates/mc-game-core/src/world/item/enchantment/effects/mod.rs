@@ -8,7 +8,9 @@ mod impulse;
 mod value_effect;
 
 pub use attribute_effect::EnchantmentAttributeEffect;
-pub use value_effect::EnchantmentValueEffect;
+pub use value_effect::{
+    ENCHANTMENT_VALUE_EFFECT_TYPES, EnchantmentValueEffect, enchantment_value_effect_type_count,
+};
 
 use mc_core::ident::Identifier;
 use mc_core::phys::Vec3;
@@ -481,6 +483,54 @@ fn location_arm(ty: &str) -> MapCodec<EnchantmentLocationBasedEffect> {
     }
 }
 
+/// The `enchantment_entity_effect_type` entries `entity_arm` decodes, in registry order.
+pub const ENCHANTMENT_ENTITY_EFFECT_TYPES: &[&str] = &[
+    "all_of",
+    "apply_mob_effect",
+    "change_item_damage",
+    "damage_entity",
+    "explode",
+    "ignite",
+    "apply_impulse",
+    "apply_exhaustion",
+    "play_sound",
+    "replace_block",
+    "replace_disk",
+    "run_function",
+    "set_block_properties",
+    "spawn_particles",
+    "summon_entity",
+];
+
+/// The `enchantment_location_based_effect_type` entries `location_arm` decodes (its own `all_of` and `attribute`, every
+/// other entry through `entity_leaf`), in registry order.
+pub const ENCHANTMENT_LOCATION_BASED_EFFECT_TYPES: &[&str] = &[
+    "all_of",
+    "apply_mob_effect",
+    "attribute",
+    "change_item_damage",
+    "damage_entity",
+    "explode",
+    "ignite",
+    "apply_impulse",
+    "apply_exhaustion",
+    "play_sound",
+    "replace_block",
+    "replace_disk",
+    "run_function",
+    "set_block_properties",
+    "spawn_particles",
+    "summon_entity",
+];
+
+pub fn enchantment_entity_effect_type_count() -> usize {
+    ENCHANTMENT_ENTITY_EFFECT_TYPES.len()
+}
+
+pub fn enchantment_location_based_effect_type_count() -> usize {
+    ENCHANTMENT_LOCATION_BASED_EFFECT_TYPES.len()
+}
+
 impl PositionSource {
     /// `PositionSource.CODEC` (a `MapCodec`).
     pub fn codec() -> MapCodec<PositionSource> {
@@ -543,5 +593,24 @@ impl VelocitySource {
         random: &mut dyn mc_core::random::RandomSource,
     ) -> f64 {
         movement * f64::from(self.movement_scale) + f64::from(self.base.sample(random))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn every_listed_entity_type_reaches_an_arm() {
+        for name in ENCHANTMENT_ENTITY_EFFECT_TYPES {
+            entity_arm(&format!("minecraft:{name}"));
+        }
+    }
+
+    #[test]
+    fn every_listed_location_type_reaches_an_arm() {
+        for name in ENCHANTMENT_LOCATION_BASED_EFFECT_TYPES {
+            location_arm(&format!("minecraft:{name}"));
+        }
     }
 }

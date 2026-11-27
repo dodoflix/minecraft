@@ -6,6 +6,7 @@ use std::sync::LazyLock;
 use mc_core::ident::Identifier;
 use mc_core::math::mth;
 use mc_data::Item;
+use mc_dfu::extra::IDENTIFIER;
 use mc_dfu::{BOOL, Codec, INT, MapCodec, record};
 use mc_protocol::components::{ItemStack, RegistrySet};
 
@@ -426,21 +427,26 @@ pub fn entry_codec() -> Codec<LootPoolEntryContainer> {
     })
 }
 
+/// The `loot_pool_entry_type` entries, in registry order; `entry_arm` has one arm per name.
+pub const LOOT_POOL_ENTRY_TYPES: &[&str] = &[
+    "empty",
+    "item",
+    "loot_table",
+    "dynamic",
+    "tag",
+    "slots",
+    "alternatives",
+    "sequence",
+    "group",
+];
+
+pub fn loot_pool_entry_type_count() -> usize {
+    LOOT_POOL_ENTRY_TYPES.len()
+}
+
 fn build_entry_codec() -> Codec<LootPoolEntryContainer> {
-    use mc_dfu::extra::IDENTIFIER;
-    let names = [
-        "empty",
-        "item",
-        "loot_table",
-        "dynamic",
-        "tag",
-        "slots",
-        "alternatives",
-        "sequence",
-        "group",
-    ];
     let type_codec: Codec<&'static str> = IDENTIFIER.flat_xmap(
-        move |id: Identifier| match (id.namespace() == "minecraft").then(|| names.iter().find(|n| **n == id.path())).flatten() {
+        move |id: Identifier| match (id.namespace() == "minecraft").then(|| LOOT_POOL_ENTRY_TYPES.iter().find(|n| **n == id.path())).flatten() {
             Some(n) => mc_dfu::DataResult::success(*n),
             None => mc_dfu::DataResult::error(move || format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:loot_pool_entry_type]: {id}")),
         },
@@ -449,136 +455,153 @@ fn build_entry_codec() -> Codec<LootPoolEntryContainer> {
     type_codec.dispatch(
         "type",
         |c: &LootPoolEntryContainer| type_name(&c.kind),
-        |name: &&'static str| match *name {
-            "empty" => uniform_entry(
-                MapCodec::unit(()),
-                |_, u| EntryKind::Empty(u),
-                |k| {
-                    if let EntryKind::Empty(u) = k {
-                        Some(((), *u))
-                    } else {
-                        None
-                    }
-                },
-            ),
-            "item" => uniform_entry(
-                mc_protocol::components::holder::registry_by_name_codec::<Item>()
-                    .validate(|item| {
-                        if item == Item::AIR {
-                            mc_dfu::DataResult::error_str("Item must not be minecraft:air")
-                        } else {
-                            mc_dfu::DataResult::success(item)
-                        }
-                    })
-                    .field_of("name"),
-                EntryKind::Item,
-                |k| {
-                    if let EntryKind::Item(i, u) = k {
-                        Some((*i, *u))
-                    } else {
-                        None
-                    }
-                },
-            ),
-            "loot_table" => {
-                let codec = expandable_fields(table_list_codec().field_of("value"));
-                uniform_entry(
-                    codec,
-                    |(value, expand), uniform| EntryKind::LootTable {
-                        value,
-                        expand,
-                        uniform,
-                    },
-                    |k| {
-                        if let EntryKind::LootTable {
-                            value,
-                            expand,
-                            uniform,
-                        } = k
-                        {
-                            Some(((value.clone(), *expand), *uniform))
-                        } else {
-                            None
-                        }
-                    },
-                )
-            }
-            "dynamic" => uniform_entry(IDENTIFIER.field_of("name"), EntryKind::Dynamic, |k| {
-                if let EntryKind::Dynamic(n, u) = k {
-                    Some((n.clone(), *u))
+        |name: &&'static str| entry_arm(name),
+    )
+}
+
+fn entry_arm(name: &str) -> MapCodec<LootPoolEntryContainer> {
+    match name {
+        "empty" => uniform_entry(
+            MapCodec::unit(()),
+            |_, u| EntryKind::Empty(u),
+            |k| {
+                if let EntryKind::Empty(u) = k {
+                    Some(((), *u))
                 } else {
                     None
                 }
-            }),
-            "tag" => {
-                let codec = expandable_fields(RegistrySet::<Item>::codec().field_of("items"));
-                uniform_entry(
-                    codec,
-                    |(items, expand), uniform| EntryKind::Tag {
+            },
+        ),
+        "item" => uniform_entry(
+            mc_protocol::components::holder::registry_by_name_codec::<Item>()
+                .validate(|item| {
+                    if item == Item::AIR {
+                        mc_dfu::DataResult::error_str("Item must not be minecraft:air")
+                    } else {
+                        mc_dfu::DataResult::success(item)
+                    }
+                })
+                .field_of("name"),
+            EntryKind::Item,
+            |k| {
+                if let EntryKind::Item(i, u) = k {
+                    Some((*i, *u))
+                } else {
+                    None
+                }
+            },
+        ),
+        "loot_table" => {
+            let codec = expandable_fields(table_list_codec().field_of("value"));
+            uniform_entry(
+                codec,
+                |(value, expand), uniform| EntryKind::LootTable {
+                    value,
+                    expand,
+                    uniform,
+                },
+                |k| {
+                    if let EntryKind::LootTable {
+                        value,
+                        expand,
+                        uniform,
+                    } = k
+                    {
+                        Some(((value.clone(), *expand), *uniform))
+                    } else {
+                        None
+                    }
+                },
+            )
+        }
+        "dynamic" => uniform_entry(IDENTIFIER.field_of("name"), EntryKind::Dynamic, |k| {
+            if let EntryKind::Dynamic(n, u) = k {
+                Some((n.clone(), *u))
+            } else {
+                None
+            }
+        }),
+        "tag" => {
+            let codec = expandable_fields(RegistrySet::<Item>::codec().field_of("items"));
+            uniform_entry(
+                codec,
+                |(items, expand), uniform| EntryKind::Tag {
+                    items,
+                    expand,
+                    uniform,
+                },
+                |k| {
+                    if let EntryKind::Tag {
                         items,
                         expand,
                         uniform,
-                    },
-                    |k| {
-                        if let EntryKind::Tag {
-                            items,
-                            expand,
-                            uniform,
-                        } = k
-                        {
-                            Some(((items.clone(), *expand), *uniform))
-                        } else {
-                            None
-                        }
-                    },
-                )
-            }
-            "slots" => uniform_entry(
-                slot_source_holder_codec().field_of("slot_source"),
-                EntryKind::Slots,
-                |k| {
-                    if let EntryKind::Slots(s, u) = k {
-                        Some((s.clone(), *u))
+                    } = k
+                    {
+                        Some(((items.clone(), *expand), *uniform))
                     } else {
                         None
                     }
                 },
-            ),
-            "alternatives" => composite_entry(
-                |k| {
-                    if let EntryKind::Alternatives(c) = k {
-                        Some(c)
-                    } else {
-                        None
-                    }
-                },
-                EntryKind::Alternatives,
-            ),
-            "sequence" => composite_entry(
-                |k| {
-                    if let EntryKind::Sequence(c) = k {
-                        Some(c)
-                    } else {
-                        None
-                    }
-                },
-                EntryKind::Sequence,
-            ),
-            _ => composite_entry(
-                |k| {
-                    if let EntryKind::Group(c) = k {
-                        Some(c)
-                    } else {
-                        None
-                    }
-                },
-                EntryKind::Group,
-            ),
-        },
-    )
+            )
+        }
+        "slots" => uniform_entry(
+            slot_source_holder_codec().field_of("slot_source"),
+            EntryKind::Slots,
+            |k| {
+                if let EntryKind::Slots(s, u) = k {
+                    Some((s.clone(), *u))
+                } else {
+                    None
+                }
+            },
+        ),
+        "alternatives" => composite_entry(
+            |k| {
+                if let EntryKind::Alternatives(c) = k {
+                    Some(c)
+                } else {
+                    None
+                }
+            },
+            EntryKind::Alternatives,
+        ),
+        "sequence" => composite_entry(
+            |k| {
+                if let EntryKind::Sequence(c) = k {
+                    Some(c)
+                } else {
+                    None
+                }
+            },
+            EntryKind::Sequence,
+        ),
+        "group" => composite_entry(
+            |k| {
+                if let EntryKind::Group(c) = k {
+                    Some(c)
+                } else {
+                    None
+                }
+            },
+            EntryKind::Group,
+        ),
+        other => unreachable!("not a loot pool entry type: {other}"),
+    }
 }
 
 /// `LootTable.LIST_CODEC`.
 fn table_list_codec() -> Codec<HolderSet<LootTable>> {
     holder_set_codec(keys::LOOT_TABLE, super::table::loot_table_direct_codec())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn every_listed_type_reaches_an_arm() {
+        for name in LOOT_POOL_ENTRY_TYPES {
+            entry_arm(name);
+        }
+    }
 }

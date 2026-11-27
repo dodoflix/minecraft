@@ -646,53 +646,67 @@ impl ConsumeEffect {
         registry_by_name_codec::<ConsumeEffectType>().dispatch(
             "type",
             |e: &ConsumeEffect| e.kind(),
-            |t| {
-                if *t == ConsumeEffectType::APPLY_EFFECTS {
-                    mc_dfu::record!(ApplyStatusEffectsConsumeEffect {
-                        effects: MobEffectInstance::codec().list_of().field_of("effects"),
-                        probability: float_field_default(
-                            &float_range(0.0, 1.0),
-                            "probability",
-                            1.0
-                        ),
-                    })
-                    .xmap(Self::ApplyStatusEffects, |e: &Self| match e {
-                        Self::ApplyStatusEffects(x) => x.clone(),
-                        _ => unreachable!("dispatched by type"),
-                    })
-                } else if *t == ConsumeEffectType::REMOVE_EFFECTS {
-                    mc_dfu::record!(RemoveStatusEffectsConsumeEffect {
-                        effects: RegistrySet::<MobEffect>::codec().field_of("effects")
-                    })
-                    .xmap(Self::RemoveStatusEffects, |e: &Self| match e {
-                        Self::RemoveStatusEffects(x) => x.clone(),
-                        _ => unreachable!("dispatched by type"),
-                    })
-                } else if *t == ConsumeEffectType::TELEPORT_RANDOMLY {
-                    mc_dfu::record!(TeleportRandomlyConsumeEffect {
-                        diameter: float_field_default(&POSITIVE_FLOAT, "diameter", 16.0),
-                        directional_particles: BOOL
-                            .optional_field_of_default("directional_particles", true),
-                    })
-                    .xmap(Self::TeleportRandomly, |e: &Self| match e {
-                        Self::TeleportRandomly(x) => x.clone(),
-                        _ => unreachable!("dispatched by type"),
-                    })
-                } else if *t == ConsumeEffectType::PLAY_SOUND {
-                    mc_dfu::record!(PlaySoundConsumeEffect {
-                        sound: SoundEvent::holder_codec().field_of("sound")
-                    })
-                    .xmap(Self::PlaySound, |e: &Self| match e {
-                        Self::PlaySound(x) => x.clone(),
-                        _ => unreachable!("dispatched by type"),
-                    })
-                } else {
-                    MapCodec::unit(Self::ClearAllStatusEffects)
-                }
-            },
+            Self::variant_codec,
         )
     }
+
+    fn variant_codec(t: &ConsumeEffectType) -> MapCodec<ConsumeEffect> {
+        if *t == ConsumeEffectType::APPLY_EFFECTS {
+            mc_dfu::record!(ApplyStatusEffectsConsumeEffect {
+                effects: MobEffectInstance::codec().list_of().field_of("effects"),
+                probability: float_field_default(&float_range(0.0, 1.0), "probability", 1.0),
+            })
+            .xmap(Self::ApplyStatusEffects, |e: &Self| match e {
+                Self::ApplyStatusEffects(x) => x.clone(),
+                _ => unreachable!("dispatched by type"),
+            })
+        } else if *t == ConsumeEffectType::REMOVE_EFFECTS {
+            mc_dfu::record!(RemoveStatusEffectsConsumeEffect {
+                effects: RegistrySet::<MobEffect>::codec().field_of("effects")
+            })
+            .xmap(Self::RemoveStatusEffects, |e: &Self| match e {
+                Self::RemoveStatusEffects(x) => x.clone(),
+                _ => unreachable!("dispatched by type"),
+            })
+        } else if *t == ConsumeEffectType::TELEPORT_RANDOMLY {
+            mc_dfu::record!(TeleportRandomlyConsumeEffect {
+                diameter: float_field_default(&POSITIVE_FLOAT, "diameter", 16.0),
+                directional_particles: BOOL
+                    .optional_field_of_default("directional_particles", true),
+            })
+            .xmap(Self::TeleportRandomly, |e: &Self| match e {
+                Self::TeleportRandomly(x) => x.clone(),
+                _ => unreachable!("dispatched by type"),
+            })
+        } else if *t == ConsumeEffectType::PLAY_SOUND {
+            mc_dfu::record!(PlaySoundConsumeEffect {
+                sound: SoundEvent::holder_codec().field_of("sound")
+            })
+            .xmap(Self::PlaySound, |e: &Self| match e {
+                Self::PlaySound(x) => x.clone(),
+                _ => unreachable!("dispatched by type"),
+            })
+        } else if *t == ConsumeEffectType::CLEAR_ALL_EFFECTS {
+            MapCodec::unit(Self::ClearAllStatusEffects)
+        } else {
+            unreachable!("consume effect type missing from CONSUME_EFFECT_TYPES")
+        }
+    }
 }
+
+/// Every `consume_effect_type` entry `ConsumeEffect::codec` dispatches, in registry order.
+pub const CONSUME_EFFECT_TYPES: &[ConsumeEffectType] = &[
+    ConsumeEffectType::APPLY_EFFECTS,
+    ConsumeEffectType::REMOVE_EFFECTS,
+    ConsumeEffectType::CLEAR_ALL_EFFECTS,
+    ConsumeEffectType::TELEPORT_RANDOMLY,
+    ConsumeEffectType::PLAY_SOUND,
+];
+
+pub fn consume_effect_type_count() -> usize {
+    CONSUME_EFFECT_TYPES.len()
+}
+
 impl Encode for ConsumeEffect {
     fn encode(&self, out: &mut Vec<u8>) -> EncodeResult<()> {
         write_varint(out, self.kind().id() as i32);
@@ -995,4 +1009,17 @@ pub(crate) fn defs(out: &mut Vec<ComponentDef>) {
             .network_synchronized()
             .build(),
     );
+}
+
+#[cfg(test)]
+mod consume_effect_type_tests {
+    use super::*;
+
+    #[test]
+    fn every_listed_type_reaches_a_decoder() {
+        // variant_codec panics on a type it has no arm for
+        for t in CONSUME_EFFECT_TYPES {
+            ConsumeEffect::variant_codec(t);
+        }
+    }
 }

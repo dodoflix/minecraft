@@ -426,6 +426,16 @@ impl ConcentricRingsStructurePlacement {
     }
 }
 
+/// The `worldgen/structure_placement` registry entries (`StructurePlacementType`), the types
+/// [`StructurePlacement::from_json`] decodes.
+pub const STRUCTURE_PLACEMENT_TYPES: &[&str] =
+    &["concentric_rings", "dimension_origin", "random_spread"];
+
+/// Number of `worldgen/structure_placement` registry entries.
+pub fn structure_placement_count() -> usize {
+    STRUCTURE_PLACEMENT_TYPES.len()
+}
+
 /// `StructurePlacement`, the registered implementations (`StructurePlacements.bootstrap`).
 #[derive(Clone, Debug, PartialEq)]
 pub enum StructurePlacement {
@@ -521,5 +531,31 @@ impl StructurePlacement {
     pub fn get_locate_pos(&self, chunk_pos: ChunkPos) -> BlockPos {
         BlockPos::new(chunk_pos.get_min_block_x(), 0, chunk_pos.get_min_block_z())
             .offset_vec(&self.locate_offset())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::sync::Arc;
+
+    use serde_json::json;
+
+    use super::*;
+    use crate::data::{ClosureDataSource, WorldgenRegistries};
+
+    #[test]
+    fn every_listed_type_reaches_its_decoder() {
+        let source = Arc::new(ClosureDataSource::new(|_, _| None));
+        let registries = WorldgenRegistries::new(source);
+        let biomes = BiomeRegistry::load(&registries).unwrap();
+        let is_unknown = |ty: &str| {
+            StructurePlacement::from_json(&json!({ "type": format!("minecraft:{ty}") }), &biomes)
+                .err()
+                .is_some_and(|e| e.message().starts_with("Unknown registry key"))
+        };
+        assert!(is_unknown("nope"));
+        for ty in STRUCTURE_PLACEMENT_TYPES {
+            assert!(!is_unknown(ty), "{ty} is not decoded");
+        }
     }
 }

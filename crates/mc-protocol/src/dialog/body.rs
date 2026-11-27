@@ -98,8 +98,10 @@ impl DialogBody {
                 move |t| {
                     if *t == DialogBodyType::ITEM {
                         item.clone()
-                    } else {
+                    } else if *t == DialogBodyType::PLAIN_MESSAGE {
                         message.clone()
+                    } else {
+                        unreachable!("every registered dialog body type is covered")
                     }
                 },
             )
@@ -110,5 +112,23 @@ impl DialogBody {
     /// `DialogBody.COMPACT_LIST_CODEC`.
     pub fn compact_list_codec() -> Codec<Vec<DialogBody>> {
         mc_dfu::extra::compact_list_codec(&Self::codec())
+    }
+}
+
+/// The `dialog_body_type` registry as dispatched by [`DialogBody::codec`], in vanilla order.
+pub const DIALOG_BODY_TYPES: &[&str] = &["item", "plain_message"];
+
+/// Size of the vanilla `dialog_body_type` registry as modelled here.
+pub fn dialog_body_type_count() -> usize {
+    DIALOG_BODY_TYPES.len()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn every_dialog_body_type_is_dispatched() {
+        super::super::assert_dispatches(&DialogBody::codec(), DIALOG_BODY_TYPES);
     }
 }

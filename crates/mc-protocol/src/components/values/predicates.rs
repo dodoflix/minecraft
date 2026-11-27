@@ -25,7 +25,10 @@ pub use block::BlockPredicate;
 pub use bounds::{BoundNumber, Bounds, Doubles, FloatDegrees, Ints};
 pub use collection::{CollectionPredicate, CountEntry};
 pub use component_predicates::*;
-pub use matchers::{DataComponentMatchers, DataComponentPredicate, PredicateMap, PredicateType};
+pub use matchers::{
+    DataComponentMatchers, DataComponentPredicate, PredicateMap, PredicateType,
+    data_component_predicate_type_count,
+};
 pub use matching::{AdventureBlockEntities, holder_set_contains};
 pub use state::{NbtPredicate, PropertyMatcher, StatePropertiesPredicate, ValueMatcher};
 

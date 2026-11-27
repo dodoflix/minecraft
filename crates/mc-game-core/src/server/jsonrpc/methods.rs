@@ -1136,6 +1136,11 @@ pub fn incoming_method_names() -> Vec<&'static str> {
     METHODS.keys().map(String::as_str).collect()
 }
 
+/// Size of the vanilla `incoming_rpc_methods` registry as modelled here (`rpc.discover` included, as in vanilla).
+pub fn incoming_rpc_methods_count() -> usize {
+    METHODS.len()
+}
+
 // ---- request handling (Connection) ----------------------------------------------------------------------------------------
 
 /// What to do after handling one websocket text message.

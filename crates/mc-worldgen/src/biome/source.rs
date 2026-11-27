@@ -215,6 +215,14 @@ pub fn distinct_biomes(biomes: impl IntoIterator<Item = BiomeId>) -> Vec<BiomeId
     biomes.into_iter().filter(|b| seen.insert(*b)).collect()
 }
 
+/// The `worldgen/biome_source` registry entries (`BiomeSources.bootstrap`), the types [`biome_source_from_json`] decodes.
+pub const BIOME_SOURCE_TYPES: &[&str] = &["checkerboard", "fixed", "multi_noise", "the_end"];
+
+/// Number of `worldgen/biome_source` registry entries.
+pub fn biome_source_count() -> usize {
+    BIOME_SOURCE_TYPES.len()
+}
+
 /// `BiomeSource.CODEC`: `type`-dispatched (`fixed`, `multi_noise`, `checkerboard`, `the_end`).
 pub fn biome_source_from_json(
     value: &Value,
@@ -249,5 +257,32 @@ impl dyn BiomeSource {
         biomes: &BiomeRegistry,
     ) -> LoadResult<Arc<dyn BiomeSource>> {
         biome_source_from_json(value, registries, biomes)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use serde_json::json;
+
+    use super::*;
+    use crate::data::ClosureDataSource;
+
+    #[test]
+    fn every_listed_type_reaches_its_decoder() {
+        let registries = WorldgenRegistries::new(Arc::new(ClosureDataSource::new(|_, _| None)));
+        let biomes = BiomeRegistry::load(&registries).unwrap();
+        let is_unknown = |ty: &str| {
+            let json = json!({ "type": format!("minecraft:{ty}") });
+            biome_source_from_json(&json, &registries, &biomes)
+                .err()
+                .is_some_and(|e| {
+                    e.message()
+                        .starts_with("Unknown registry key in biome_source")
+                })
+        };
+        assert!(is_unknown("nope"));
+        for ty in BIOME_SOURCE_TYPES {
+            assert!(!is_unknown(ty), "{ty} is not decoded");
+        }
     }
 }

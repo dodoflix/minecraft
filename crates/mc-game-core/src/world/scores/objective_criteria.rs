@@ -56,15 +56,30 @@ impl std::hash::Hash for ObjectiveCriteria {
     }
 }
 
+/// Every `StatType` (registry name) with the registry its entries come from, in registration order.
+pub const STAT_TYPES: &[(&str, &str)] = &[
+    ("mined", "minecraft:block"),
+    ("crafted", "minecraft:item"),
+    ("used", "minecraft:item"),
+    ("broken", "minecraft:item"),
+    ("picked_up", "minecraft:item"),
+    ("dropped", "minecraft:item"),
+    ("killed", "minecraft:entity_type"),
+    ("killed_by", "minecraft:entity_type"),
+    ("custom", "minecraft:custom_stat"),
+];
+
+/// Number of stat types (the `stat_type` registry).
+pub fn stat_type_count() -> usize {
+    STAT_TYPES.len()
+}
+
 /// `StatType.getRegistry()` of each stat type: the registry whose entries the stat is about.
 pub fn stat_type_registry(stat_type: &str) -> Option<&'static str> {
-    Some(match stat_type {
-        "mined" => "minecraft:block",
-        "crafted" | "used" | "broken" | "picked_up" | "dropped" => "minecraft:item",
-        "killed" | "killed_by" => "minecraft:entity_type",
-        "custom" => "minecraft:custom_stat",
-        _ => return None,
-    })
+    STAT_TYPES
+        .iter()
+        .find(|(name, _)| *name == stat_type)
+        .map(|(_, registry)| *registry)
 }
 
 impl ObjectiveCriteria {

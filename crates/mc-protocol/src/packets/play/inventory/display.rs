@@ -131,6 +131,26 @@ pub enum SlotDisplay {
     Composite { contents: Vec<SlotDisplay> },
 }
 
+/// The `slot_display` registry in the id order of [`SlotDisplay`]'s codec (vanilla order).
+pub const SLOT_DISPLAY_TYPES: &[&str] = &[
+    "empty",
+    "any_fuel",
+    "with_any_potion",
+    "only_with_component",
+    "item",
+    "item_stack",
+    "tag",
+    "dyed",
+    "smithing_trim",
+    "with_remainder",
+    "composite",
+];
+
+/// Size of the vanilla `slot_display` registry as modelled here.
+pub fn slot_display_count() -> usize {
+    SLOT_DISPLAY_TYPES.len()
+}
+
 /// `ShapelessCraftingRecipeDisplay`
 #[derive(Debug, Clone, PartialEq, Encode, Decode)]
 pub struct ShapelessCraftingRecipeDisplay {
@@ -214,6 +234,20 @@ pub enum RecipeDisplay {
     Furnace(FurnaceRecipeDisplay),
     Stonecutter(StonecutterRecipeDisplay),
     Smithing(SmithingRecipeDisplay),
+}
+
+/// The `recipe_display` registry in the id order of [`RecipeDisplay`]'s codec (vanilla order).
+pub const RECIPE_DISPLAY_TYPES: &[&str] = &[
+    "crafting_shapeless",
+    "crafting_shaped",
+    "furnace",
+    "stonecutter",
+    "smithing",
+];
+
+/// Size of the vanilla `recipe_display` registry as modelled here.
+pub fn recipe_display_count() -> usize {
+    RECIPE_DISPLAY_TYPES.len()
 }
 
 /// `RecipeDisplayEntry.STREAM_CODEC`
@@ -336,5 +370,29 @@ mod item_sets {
             ));
         }
         Ok(crate::codec::collapse_map(sets))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Ids the codec accepts: the first id it reports as unregistered ends the registry.
+    fn registered_ids<T: Decode>() -> usize {
+        (0u8..=63)
+            .take_while(|id| {
+                !matches!(T::decode(&mut &[*id][..]),
+                    Err(DecodeError::Message(m)) if m.starts_with("No value with id"))
+            })
+            .count()
+    }
+
+    #[test]
+    fn display_tables_cover_every_codec_id() {
+        assert_eq!(registered_ids::<SlotDisplay>(), SLOT_DISPLAY_TYPES.len());
+        assert_eq!(
+            registered_ids::<RecipeDisplay>(),
+            RECIPE_DISPLAY_TYPES.len()
+        );
     }
 }

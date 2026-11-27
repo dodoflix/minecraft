@@ -64,6 +64,11 @@ impl DataComponentPredicate {
     }
 }
 
+/// Number of `data_component_predicate_type` entries with a codec (`AnyValue` is not a registry entry).
+pub fn data_component_predicate_type_count() -> usize {
+    PredicateType::concrete_codecs().len()
+}
+
 impl PredicateType {
     /// `DataComponentPredicate.Type.CODEC`: a predicate type name, else a component type name.
     pub fn codec() -> Codec<PredicateType> {
@@ -81,8 +86,8 @@ impl PredicateType {
             )
     }
 
-    /// The codec of this type's predicate (`Type.codec()`).
-    pub fn value_codec(self) -> Codec<DataComponentPredicate> {
+    /// The codecs of the registered predicate types, indexed by registry id.
+    fn concrete_codecs() -> &'static [Codec<DataComponentPredicate>] {
         static CODECS: LazyLock<Vec<Codec<DataComponentPredicate>>> = LazyLock::new(|| {
             use DataComponentPredicate as P;
             // registry order of `DataComponentPredicates`
@@ -208,8 +213,13 @@ impl PredicateType {
             );
             codecs.into_iter().map(|(_, c)| c).collect()
         });
+        &CODECS
+    }
+
+    /// The codec of this type's predicate (`Type.codec()`).
+    pub fn value_codec(self) -> Codec<DataComponentPredicate> {
         match self {
-            PredicateType::Concrete(t) => CODECS[t.id() as usize].clone(),
+            PredicateType::Concrete(t) => Self::concrete_codecs()[t.id() as usize].clone(),
             // `MapCodec.unitCodec(AnyValue)`
             PredicateType::AnyValue(c) => Codec::unit(DataComponentPredicate::AnyValue(c)),
         }

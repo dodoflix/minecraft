@@ -462,6 +462,8 @@ mod tests {
     use super::*;
     use crate::registry::codec::{Failure, Lookup, RegistryLookup};
     use mc_core::ident::Identifier;
+    use mc_worldgen::densityfunction::codec::DENSITY_FUNCTION_TYPES;
+    use mc_worldgen::material::{MATERIAL_CONDITION_TYPES, MATERIAL_RULE_TYPES};
     use serde_json::json;
 
     struct Everything;
@@ -512,5 +514,17 @@ mod tests {
                 .message,
             "Failed to parse either. First: Not a number: {\"type\":\"minecraft:nope\"}; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:worldgen/density_function_type]: minecraft:nope"
         );
+    }
+
+    #[test]
+    fn every_decoded_type_has_a_schema() {
+        let has = |types: &[&str], schema: fn(&str) -> Option<Schema>| {
+            types
+                .iter()
+                .all(|ty| schema(&format!("minecraft:{ty}")).is_some())
+        };
+        assert!(has(DENSITY_FUNCTION_TYPES, density_type));
+        assert!(has(MATERIAL_CONDITION_TYPES, condition_type));
+        assert!(has(MATERIAL_RULE_TYPES, rule_type));
     }
 }

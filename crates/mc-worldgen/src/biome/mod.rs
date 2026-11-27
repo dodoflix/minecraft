@@ -22,6 +22,9 @@ pub use registry::{
     INLINE_PLACED_FEATURE_DECODERS, InlineCarver, InlineFeature, InlinePlacedFeatureDecoder,
     PlacedFeatureRef, Precipitation, TemperatureModifier,
 };
-pub use source::{BiomeSearchResult, BiomeSource, biome_source_from_json, distinct_biomes};
+pub use source::{
+    BIOME_SOURCE_TYPES, BiomeSearchResult, BiomeSource, biome_source_count, biome_source_from_json,
+    distinct_biomes,
+};
 pub use sources::{CheckerboardColumnBiomeSource, FixedBiomeSource, TheEndBiomeSource};
 pub use spawn::{NoiseSpawnFinder, SpawnTargetPoint};

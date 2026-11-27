@@ -262,7 +262,8 @@ impl InputControl {
                     InputControlType::BOOLEAN => boolean.clone(),
                     InputControlType::NUMBER_RANGE => number_range.clone(),
                     InputControlType::SINGLE_OPTION => single_option.clone(),
-                    _ => text.clone(),
+                    InputControlType::TEXT => text.clone(),
+                    _ => unreachable!("every registered input control type is covered"),
                 },
             )
         });
@@ -284,5 +285,23 @@ impl Input {
             control: InputControl::map_codec(),
         })
         .codec()
+    }
+}
+
+/// The `input_control_type` registry as dispatched by [`InputControl::map_codec`], in vanilla order.
+pub const INPUT_CONTROL_TYPES: &[&str] = &["boolean", "number_range", "single_option", "text"];
+
+/// Size of the vanilla `input_control_type` registry as modelled here.
+pub fn input_control_type_count() -> usize {
+    INPUT_CONTROL_TYPES.len()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn every_input_control_type_is_dispatched() {
+        super::super::assert_dispatches(&InputControl::map_codec().codec(), INPUT_CONTROL_TYPES);
     }
 }

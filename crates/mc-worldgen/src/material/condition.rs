@@ -18,6 +18,27 @@ use crate::densityfunction::codec::{
 use crate::vertical_anchor::VerticalAnchor;
 use mc_world::palette::BiomeId;
 
+/// The `worldgen/material_condition_type` registry entries (`MaterialConditions.bootstrap`), the types
+/// [`MaterialCondition::direct_from_json`] decodes.
+pub const MATERIAL_CONDITION_TYPES: &[&str] = &[
+    "above_preliminary_surface",
+    "biome",
+    "hole",
+    "noise_threshold",
+    "not",
+    "steep",
+    "stone_depth",
+    "temperature",
+    "vertical_gradient",
+    "water",
+    "y_above",
+];
+
+/// Number of `worldgen/material_condition_type` registry entries.
+pub fn material_condition_type_count() -> usize {
+    MATERIAL_CONDITION_TYPES.len()
+}
+
 /// `MaterialCondition`: `HolderHolder` is [`MaterialCondition::Reference`].
 #[derive(Clone, Debug)]
 pub enum MaterialCondition {
@@ -477,4 +498,29 @@ fn map(value: f64, from_min: f64, from_max: f64, to_min: f64, to_max: f64) -> f6
         to_min,
         to_max,
     )
+}
+
+#[cfg(test)]
+mod tests {
+    use serde_json::json;
+
+    use super::*;
+    use crate::biome::BiomeRegistry;
+    use crate::data::{ClosureDataSource, WorldgenRegistries};
+
+    #[test]
+    fn every_listed_type_reaches_its_decoder() {
+        let registries = WorldgenRegistries::new(Arc::new(ClosureDataSource::new(|_, _| None)));
+        let biomes = BiomeRegistry::load(&registries).unwrap();
+        let is_unknown = |ty: &str| {
+            let json = json!({ "type": format!("minecraft:{ty}") });
+            MaterialCondition::direct_from_json(&json, &registries, &biomes)
+                .err()
+                .is_some_and(|e| e.message().starts_with("Unknown registry key"))
+        };
+        assert!(is_unknown("nope"));
+        for ty in MATERIAL_CONDITION_TYPES {
+            assert!(!is_unknown(ty), "{ty} is not decoded");
+        }
+    }
 }

@@ -258,6 +258,60 @@ pub fn density_function_from_json(
     }
 }
 
+/// The `worldgen/density_function_type` registry entries (`DensityFunctions.bootstrap`), the types
+/// [`density_function_direct_from_json`] decodes.
+pub const DENSITY_FUNCTION_TYPES: &[&str] = &[
+    "abs",
+    "add",
+    "beardifier",
+    "blend_alpha",
+    "blend_density",
+    "blend_offset",
+    "cache",
+    "ceil",
+    "clamp",
+    "constant",
+    "cube",
+    "distance_to_point",
+    "div",
+    "end_outer_islands",
+    "find_top_surface",
+    "floor",
+    "gradient",
+    "half_negative",
+    "interpolated",
+    "interval_select",
+    "lerp",
+    "log",
+    "max",
+    "min",
+    "mul",
+    "negate",
+    "noise",
+    "old_blended_noise",
+    "pow",
+    "quarter_negative",
+    "range_choice",
+    "reciprocal",
+    "round",
+    "shift",
+    "shift_a",
+    "shift_b",
+    "sign",
+    "slice",
+    "spline",
+    "sqrt",
+    "square",
+    "squeeze",
+    "sub",
+    "truncate",
+];
+
+/// Number of `worldgen/density_function_type` registry entries.
+pub fn density_function_type_count() -> usize {
+    DENSITY_FUNCTION_TYPES.len()
+}
+
 /// `DensityFunctions.DIRECT_CODEC`: a number is a constant, an object is dispatched on its `type`.
 pub fn density_function_direct_from_json(
     value: &Value,
@@ -564,4 +618,29 @@ fn point_from_json(
         fields.required("value", |v| spline_from_json(v, registries))?,
         fields.required("derivative", parse_f32)?,
     ))
+}
+
+#[cfg(test)]
+mod tests {
+    use std::sync::Arc;
+
+    use serde_json::json;
+
+    use super::*;
+    use crate::data::ClosureDataSource;
+
+    #[test]
+    fn every_listed_type_reaches_its_decoder() {
+        let registries = WorldgenRegistries::new(Arc::new(ClosureDataSource::new(|_, _| None)));
+        let is_unknown = |ty: &str| {
+            let json = json!({ "type": format!("minecraft:{ty}") });
+            density_function_direct_from_json(&json, &registries)
+                .err()
+                .is_some_and(|e| e.message().starts_with("Unknown registry key"))
+        };
+        assert!(is_unknown("nope"));
+        for ty in DENSITY_FUNCTION_TYPES {
+            assert!(!is_unknown(ty), "{ty} is not decoded");
+        }
+    }
 }

@@ -143,6 +143,14 @@ fn flat_settings(
     Ok(Tag::Compound(out))
 }
 
+/// The `worldgen/chunk_generator` registry entries (`ChunkGenerators.bootstrap`), the types [`generator_types`] accepts.
+pub const CHUNK_GENERATOR_TYPES: &[&str] = &["debug", "flat", "noise"];
+
+/// Number of `worldgen/chunk_generator` registry entries.
+pub fn chunk_generator_count() -> usize {
+    CHUNK_GENERATOR_TYPES.len()
+}
+
 fn generator_types(ty: &str) -> Option<Schema> {
     use Schema as S;
     Some(match ty {
@@ -236,3 +244,27 @@ static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder {
     registry: keys::LEVEL_STEM,
     decode,
 };
+
+#[cfg(test)]
+mod tests {
+    use mc_worldgen::biome::BIOME_SOURCE_TYPES;
+
+    use super::*;
+
+    #[test]
+    fn every_listed_type_has_a_schema() {
+        for ty in CHUNK_GENERATOR_TYPES {
+            assert!(
+                generator_types(&format!("minecraft:{ty}")).is_some(),
+                "{ty}"
+            );
+        }
+        for ty in BIOME_SOURCE_TYPES {
+            assert!(
+                biome_source_types(&format!("minecraft:{ty}")).is_some(),
+                "{ty}"
+            );
+        }
+        assert!(generator_types("minecraft:nope").is_none());
+    }
+}

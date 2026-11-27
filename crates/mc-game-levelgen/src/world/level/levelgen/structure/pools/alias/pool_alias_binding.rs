@@ -27,6 +27,15 @@ pub enum PoolAliasBinding {
     },
 }
 
+/// The `worldgen/pool_alias_binding` registry entries (`PoolAliasBindings.bootstrap`), the types
+/// [`PoolAliasBinding::from_json`] decodes.
+pub const POOL_ALIAS_BINDING_TYPES: &[&str] = &["direct", "random", "random_group"];
+
+/// Number of `worldgen/pool_alias_binding` registry entries.
+pub fn pool_alias_binding_count() -> usize {
+    POOL_ALIAS_BINDING_TYPES.len()
+}
+
 /// `ResourceKey.codec(Registries.TEMPLATE_POOL)`: an identifier string.
 fn parse_pool_key(value: &Value) -> LoadResult<Identifier> {
     parse_identifier(value)
@@ -96,6 +105,26 @@ impl PoolAliasBinding {
                 .flat_map(|w| w.value.iter())
                 .flat_map(PoolAliasBinding::all_targets)
                 .collect(),
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use serde_json::json;
+
+    use super::*;
+
+    #[test]
+    fn every_listed_type_reaches_its_decoder() {
+        let is_unknown = |ty: &str| {
+            PoolAliasBinding::from_json(&json!({ "type": format!("minecraft:{ty}") }))
+                .err()
+                .is_some_and(|e| e.message().starts_with("Unknown registry key"))
+        };
+        assert!(is_unknown("nope"));
+        for ty in POOL_ALIAS_BINDING_TYPES {
+            assert!(!is_unknown(ty), "{ty} is not decoded");
         }
     }
 }

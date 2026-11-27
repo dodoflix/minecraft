@@ -233,6 +233,22 @@ fn provider_types(ty: &str) -> Option<Schema> {
     })
 }
 
+/// The `int_provider_type` entries `provider_types` resolves, in registry order.
+pub const INT_PROVIDER_TYPES: &[&str] = &[
+    "constant",
+    "uniform",
+    "biased_to_bottom",
+    "very_biased_to_bottom",
+    "clamped",
+    "weighted_list",
+    "clamped_normal",
+    "trapezoid",
+];
+
+pub fn int_provider_type_count() -> usize {
+    INT_PROVIDER_TYPES.len()
+}
+
 /// `IntProviders.validate(minValue, maxValue, provider)`.
 fn check_range(provider: &IntProvider, min_value: i32, max_value: i32) -> Result<(), String> {
     let (min, max) = (provider.min_inclusive(), provider.max_inclusive());
@@ -416,5 +432,15 @@ mod tests {
             (c.get_int("min_inclusive"), c.get_int("max_inclusive")),
             (Some(7), Some(7))
         );
+    }
+
+    #[test]
+    fn every_listed_type_resolves_a_schema() {
+        for name in INT_PROVIDER_TYPES {
+            assert!(
+                provider_types(&format!("minecraft:{name}")).is_some(),
+                "{name}"
+            );
+        }
     }
 }

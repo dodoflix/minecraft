@@ -21,9 +21,9 @@ use mc_core::ident::Identifier;
 use serde_json::Value;
 
 pub use cave_surface::CaveSurface;
-pub use condition::MaterialCondition;
+pub use condition::{MATERIAL_CONDITION_TYPES, MaterialCondition, material_condition_type_count};
 pub use context::MaterialRuleContext;
-pub use rule::{MaterialRule, OreVeinRule};
+pub use rule::{MATERIAL_RULE_TYPES, MaterialRule, OreVeinRule, material_rule_type_count};
 pub use system::MaterialSystem;
 
 use crate::biome::BiomeRegistry;

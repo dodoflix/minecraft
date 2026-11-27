@@ -11,6 +11,9 @@ macro_rules! custom_stats {
         impl Stats {
             $(pub const $name: Stat = Stat::Custom(CustomStat::$name);)*
 
+            /// Every custom stat that has a registered formatter.
+            pub const CUSTOM_STATS: &'static [CustomStat] = &[$(CustomStat::$name,)*];
+
             /// The formatter `makeCustomStat(id, formatter)` registered the custom stat with.
             pub fn formatter(stat: CustomStat) -> StatFormatter {
                 match stat {
@@ -20,6 +23,11 @@ macro_rules! custom_stats {
             }
         }
     };
+}
+
+/// Number of custom stats `Stats` registers (the `custom_stat` registry).
+pub fn custom_stat_count() -> usize {
+    Stats::CUSTOM_STATS.len()
 }
 
 custom_stats! {
@@ -125,5 +133,6 @@ mod tests {
         );
         assert_eq!(Stats::formatter(CustomStat::JUMP), StatFormatter::Default);
         assert_eq!(CustomStat::iter().count(), 78);
+        assert_eq!(custom_stat_count(), CustomStat::iter().count());
     }
 }

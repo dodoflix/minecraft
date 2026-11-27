@@ -129,26 +129,36 @@ static WEAPONSMITH: VillagerProfessionData = VillagerProfessionData::job(
     SoundEvent::ENTITY_VILLAGER_WORK_WEAPONSMITH,
 );
 
+/// Every built-in profession with its record, in registration order.
+static PROFESSIONS: [(VillagerProfession, &VillagerProfessionData); 15] = [
+    (VillagerProfession::NONE, &NONE),
+    (VillagerProfession::ARMORER, &ARMORER),
+    (VillagerProfession::BUTCHER, &BUTCHER),
+    (VillagerProfession::CARTOGRAPHER, &CARTOGRAPHER),
+    (VillagerProfession::CLERIC, &CLERIC),
+    (VillagerProfession::FARMER, &FARMER),
+    (VillagerProfession::FISHERMAN, &FISHERMAN),
+    (VillagerProfession::FLETCHER, &FLETCHER),
+    (VillagerProfession::LEATHERWORKER, &LEATHERWORKER),
+    (VillagerProfession::LIBRARIAN, &LIBRARIAN),
+    (VillagerProfession::MASON, &MASON),
+    (VillagerProfession::NITWIT, &NITWIT),
+    (VillagerProfession::SHEPHERD, &SHEPHERD),
+    (VillagerProfession::TOOLSMITH, &TOOLSMITH),
+    (VillagerProfession::WEAPONSMITH, &WEAPONSMITH),
+];
+
+/// Number of built-in professions with a record.
+pub fn villager_profession_count() -> usize {
+    PROFESSIONS.len()
+}
+
 /// The record of a built-in profession.
 pub fn data(profession: VillagerProfession) -> &'static VillagerProfessionData {
-    match profession {
-        VillagerProfession::NONE => &NONE,
-        VillagerProfession::ARMORER => &ARMORER,
-        VillagerProfession::BUTCHER => &BUTCHER,
-        VillagerProfession::CARTOGRAPHER => &CARTOGRAPHER,
-        VillagerProfession::CLERIC => &CLERIC,
-        VillagerProfession::FARMER => &FARMER,
-        VillagerProfession::FISHERMAN => &FISHERMAN,
-        VillagerProfession::FLETCHER => &FLETCHER,
-        VillagerProfession::LEATHERWORKER => &LEATHERWORKER,
-        VillagerProfession::LIBRARIAN => &LIBRARIAN,
-        VillagerProfession::MASON => &MASON,
-        VillagerProfession::NITWIT => &NITWIT,
-        VillagerProfession::SHEPHERD => &SHEPHERD,
-        VillagerProfession::TOOLSMITH => &TOOLSMITH,
-        VillagerProfession::WEAPONSMITH => &WEAPONSMITH,
-        _ => &NITWIT,
-    }
+    PROFESSIONS
+        .iter()
+        .find(|(p, _)| *p == profession)
+        .map_or(&NITWIT, |(_, d)| d)
 }
 
 /// `profession.getTrades(level)`: the trade set key of that level (`None` for professions without trades).

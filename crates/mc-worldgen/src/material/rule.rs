@@ -17,6 +17,16 @@ use crate::densityfunction::codec::{
 };
 use crate::noise_settings::BlockStateSpec;
 
+/// The `worldgen/material_rule_type` registry entries (`MaterialRules.bootstrap`), the types
+/// [`MaterialRule::direct_from_json`] decodes.
+pub const MATERIAL_RULE_TYPES: &[&str] =
+    &["bandlands", "block", "condition", "ore_vein", "sequence"];
+
+/// Number of `worldgen/material_rule_type` registry entries.
+pub fn material_rule_type_count() -> usize {
+    MATERIAL_RULE_TYPES.len()
+}
+
 /// `OreVeinRule`.
 #[derive(Clone, Debug)]
 pub struct OreVeinRule {
@@ -257,6 +267,31 @@ impl RuleEvaluator<'_> {
                 }
             }
             RuleEvaluator::OreVein(rule) => rule.try_apply(ctx, block_x, block_y, block_z),
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use serde_json::json;
+
+    use super::*;
+    use crate::biome::BiomeRegistry;
+    use crate::data::{ClosureDataSource, WorldgenRegistries};
+
+    #[test]
+    fn every_listed_type_reaches_its_decoder() {
+        let registries = WorldgenRegistries::new(Arc::new(ClosureDataSource::new(|_, _| None)));
+        let biomes = BiomeRegistry::load(&registries).unwrap();
+        let is_unknown = |ty: &str| {
+            let json = json!({ "type": format!("minecraft:{ty}") });
+            MaterialRule::direct_from_json(&json, &registries, &biomes)
+                .err()
+                .is_some_and(|e| e.message().starts_with("Unknown registry key"))
+        };
+        assert!(is_unknown("nope"));
+        for ty in MATERIAL_RULE_TYPES {
+            assert!(!is_unknown(ty), "{ty} is not decoded");
         }
     }
 }

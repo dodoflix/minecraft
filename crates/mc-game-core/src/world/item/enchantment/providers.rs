@@ -64,6 +64,13 @@ fn schema(ty: &str) -> Option<Schema> {
     }))
 }
 
+/// The `enchantment_provider_type` entries `from_json` decodes, in registry order.
+pub const ENCHANTMENT_PROVIDER_TYPES: &[&str] = &["by_cost", "by_cost_with_difficulty", "single"];
+
+pub fn enchantment_provider_type_count() -> usize {
+    ENCHANTMENT_PROVIDER_TYPES.len()
+}
+
 fn holder_set_of(v: &Value) -> Option<HolderSet<NoDirect>> {
     use crate::registry::typed::HolderSetRef;
     Some(match HolderSetRef::from_json(v)? {
@@ -99,13 +106,14 @@ impl EnchantmentProvider {
                 min_cost: json["min_cost"].as_i64().unwrap_or(1) as i32,
                 max_cost_span: json["max_cost_span"].as_i64().unwrap_or(0) as i32,
             },
-            _ => EnchantmentProvider::Single {
+            "minecraft:single" => EnchantmentProvider::Single {
                 enchantment: json["enchantment"]
                     .as_str()
                     .and_then(Identifier::try_parse)
                     .ok_or("invalid enchantment")?,
                 level: int_provider("level")?,
             },
+            other => unreachable!("schema rejected unknown type {other}"),
         })
     }
 
@@ -181,3 +189,15 @@ static DECODER: DynamicRegistryDecoder = DynamicRegistryDecoder {
     registry: keys::ENCHANTMENT_PROVIDER,
     decode,
 };
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn every_listed_type_has_a_schema() {
+        for name in ENCHANTMENT_PROVIDER_TYPES {
+            assert!(schema(&format!("minecraft:{name}")).is_some(), "{name}");
+        }
+    }
+}
