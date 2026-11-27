@@ -1,0 +1,19 @@
+# A saved Brain boolean memory is read by the boolean codec of NbtOps: any numeric tag whose double value is not 0.0 is true (a double 0.5
+# is true, 0.0 and -0.0 are false, an int 256 is true), a non-number drops the memory.
+level flat
+preload 4
+entity_counter 7300
+level_seed 7301
+difficulty normal
+time 1000
+spawn_player Steve creative 0.5 -60 8.5 180 0
+fill -8 -60 -8 8 -52 8 minecraft:air
+fill -6 -61 -6 6 -61 6 minecraft:grass_block
+tick 30
+mobspawn V minecraft:villager 0.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:1},Brain:{memories:{"minecraft:golem_detected_recently":{ttl:500L,value:0.5d},"minecraft:is_panicking":{ttl:500L,value:256},"minecraft:danger_detected_recently":{ttl:500L,value:-0.0d}}}}
+entity_seed V 83
+mobspawn W minecraft:villager 3.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:1},Brain:{memories:{"minecraft:golem_detected_recently":{ttl:500L,value:0.0d},"minecraft:is_panicking":{ttl:500L,value:"yes"},"minecraft:danger_detected_recently":{ttl:500L,value:1.0E-300d}}}}
+entity_seed W 84
+dump brain:V brain:W nbt:V nbt:W
+tick 3
+dump brain:V brain:W

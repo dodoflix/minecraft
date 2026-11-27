@@ -901,7 +901,7 @@ impl Entity for SulfurCube {
         self.has_body_item()
     }
     fn can_freeze(&self) -> bool {
-        !self.has_body_item()
+        !self.has_body_item() && mc_game_core::world::entity::entity::can_freeze_default(self)
     }
     fn is_invulnerable_to_piercing_weapon(&self) -> bool {
         self.is_invulnerable() && !self.is_primed()

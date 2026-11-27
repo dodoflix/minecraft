@@ -1,0 +1,29 @@
+# A farmer that plants seeds again plays the crop sound at the corner of the block (HarvestFarmland passes the integer block coordinates as
+# doubles, no +0.5); the sound events of the work day are dumped.
+level flat
+preload 4
+fill -8 -60 -8 8 -52 8 minecraft:air
+fill -8 -61 -8 8 -61 8 minecraft:grass_block
+entity_counter 7620
+level_seed 7621
+difficulty normal
+gamerule random_tick_speed 0
+fill 1 -61 1 5 -61 5 minecraft:farmland[moisture=7]
+fill 1 -60 1 5 -60 5 minecraft:wheat[age=7]
+block 3 -61 3 minecraft:grass_block
+block 3 -60 3 minecraft:composter
+time 2000
+spawn_player Steve survival 0.5 -60 12.5 180 0
+tick 30
+mobspawn V minecraft:villager 3.5 -60 0.5 0 0 {PersistenceRequired:1b,Inventory:[{id:"minecraft:wheat_seeds",count:8}],VillagerData:{type:"minecraft:plains",profession:"minecraft:farmer",level:1}}
+entity_seed V 31
+memory V minecraft:job_site {value:{dimension:"minecraft:overworld",pos:[I;3,-60,3]}}
+dump events
+tick 60
+dump events
+tick 60
+dump events packets:Steve:sound
+tick 60
+dump events packets:Steve:sound
+tick 100
+dump events packets:Steve:sound blocks:1,-61,1,5,-60,5

@@ -15,6 +15,12 @@ fn mob_attrs_all() {
     block_scenario::check("mob_attrs_all");
 }
 
+/// A saved boolean memory is true for any number whose double value is not 0.0 (0.5d, 256) and dropped for a non-number.
+#[test]
+fn mob_brain_bool_codec() {
+    block_scenario::check("mob_brain_bool_codec");
+}
+
 /// Brain memories with time to live of a villager and a piglin after 200 ticks, their saved `Brain` tag, and the tag loaded back.
 #[test]
 fn mob_brain_nbt() {

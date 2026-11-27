@@ -193,6 +193,7 @@ impl Entity for AbstractSkeleton {
 
     fn can_freeze(&self) -> bool {
         !matches!(self.kind, SkeletonKind::Skeleton(_))
+            && mc_game_core::world::entity::entity::can_freeze_default(self)
     }
 
     fn get_ambient_sound(&self) -> Option<SoundEvent> {

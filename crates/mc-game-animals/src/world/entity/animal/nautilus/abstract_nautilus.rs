@@ -300,7 +300,7 @@ pub fn execute_riders_jump(
         DASH_MOMENTUM_ON_LAND
     };
     let speed = l(e.as_dyn()).get_attribute_value(Attribute::MOVEMENT_SPEED);
-    let factor = e.get_block_speed_factor(level);
+    let factor = e.modify_block_speed_factor(e.get_block_speed_factor(level));
     let impulse = f64::from(momentum * amount) * speed * f64::from(factor);
     e.base_mut().add_delta_movement(look.scale(impulse));
     e.nautilus_mut().dash_cooldown = DASH_COOLDOWN_TICKS;

@@ -1468,8 +1468,9 @@ pub trait Entity: Any {
         self.base().get_ticks_frozen() > 0
     }
 
+    /// `canFreeze()`, see [`can_freeze_default`].
     fn can_freeze(&self) -> bool {
-        true
+        can_freeze_default(self.as_dyn())
     }
 
     // ---- removal -------------------------------------------------------------------------------------------
@@ -5069,6 +5070,27 @@ pub trait Entity: Any {
         _action: crate::world::level::gameevent::DynamicListenerAction,
     ) {
     }
+}
+
+/// `canFreeze()` (the `super` call of overriding classes): `LivingEntity` refuses spectators and wearers of a
+/// `freeze_immune_wearables` item in an armor slot, `Entity` the `freeze_immune_entity_types`.
+pub fn can_freeze_default(entity: &dyn Entity) -> bool {
+    if entity.living().is_some() {
+        if entity.is_spectator() {
+            return false;
+        }
+        if let Some(wearables) = mc_data::tags::get::<mc_data::Item>("freeze_immune_wearables")
+            && super::equipment::EquipmentSlot::VALUES
+                .into_iter()
+                .any(|slot| {
+                    slot.is_armor() && wearables.contains(entity.get_item_by_slot(slot).item())
+                })
+        {
+            return false;
+        }
+    }
+    !mc_data::tags::get::<EntityType>("freeze_immune_entity_types")
+        .is_some_and(|t| t.contains(entity.get_type()))
 }
 
 /// `Entity.checkFallDamage(ya, onGround, onState, pos)` (the `super` call of overriding classes).

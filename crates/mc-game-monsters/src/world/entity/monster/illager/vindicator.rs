@@ -261,6 +261,7 @@ impl Entity for Vindicator {
         die,
         hurt_server,
         can_join_patrol,
+        pick_up_item,
         remove_when_far_away,
         requires_custom_persistence,
         after_loaded

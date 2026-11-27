@@ -136,7 +136,7 @@ pub fn add_behaviour_goals(zombie: &mut Zombie) {
             sel.add_goal(
                 5,
                 Box::new(DrownedGoToBeachGoal {
-                    mtb: MoveToBlockData::new(1.0, 8),
+                    mtb: MoveToBlockData::with_vertical(1.0, 8, 2),
                 }),
             );
             sel.add_goal(6, Box::new(DrownedSwimUpGoal::new(1.0)));

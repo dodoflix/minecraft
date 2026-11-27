@@ -1,0 +1,23 @@
+# A tadpole bucket whose saved Age is 24000 or more releases a frog: Tadpole.loadFromBucketTag runs setAge, which converts the tadpole at
+# once (the frog stands at the placement position, the tadpole is already removed); a younger one stays a tadpole.
+level flat
+preload 2
+difficulty normal
+entity_counter 0
+level_seed 2701
+spawn_player Steve survival 0.5 -60 0.5 0 90
+tick 1
+dump events
+note an old bucket
+give Steve mainhand minecraft:tadpole_bucket[bucket_entity_data={Age:24500}] 1
+use Steve main 1
+dump mobs inventory:Steve blocks:0,-61,0,0,-60,0 events
+tick 3
+dump mobs events
+note a young bucket
+tp Steve 8.5 -60 0.5 0 90
+give Steve mainhand minecraft:tadpole_bucket[bucket_entity_data={Age:100}] 1
+use Steve main 2
+dump mobs inventory:Steve events
+tick 3
+dump mobs events

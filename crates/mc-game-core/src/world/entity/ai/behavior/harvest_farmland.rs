@@ -163,9 +163,11 @@ impl Behavior for HarvestFarmland {
                             ok = true;
                         }
                         if ok {
-                            level.play_sound(
+                            level.play_sound_at(
                                 None,
-                                pos,
+                                f64::from(pos.x()),
+                                f64::from(pos.y()),
+                                f64::from(pos.z()),
                                 SoundEvent::ITEM_CROP_PLANT,
                                 SoundSource::Blocks,
                                 1.0,

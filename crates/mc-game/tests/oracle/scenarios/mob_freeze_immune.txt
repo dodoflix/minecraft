@@ -1,0 +1,44 @@
+# Mobs in powder snow: the freeze_immune_entity_types (stray, polar bear, snow golem, wither) and a mob wearing a freeze_immune_wearables item
+# (leather boots) never gain frozen ticks nor take freeze damage; a plain zombie, a skeleton (never freezes) and a wither skeleton act as
+# controls. Frozen ticks rise inside the block and the mob takes freeze damage every 40 ticks once fully frozen.
+level flat
+preload 4
+difficulty normal
+time 18000
+gamerule mob_griefing false
+entity_counter 8100
+level_seed 8101
+fill -2 -61 -2 60 -61 12 minecraft:stone
+fill 1 -60 1 3 -58 3 minecraft:powder_snow
+fill 7 -60 1 9 -58 3 minecraft:powder_snow
+fill 13 -60 1 15 -58 3 minecraft:powder_snow
+fill 19 -60 1 21 -58 3 minecraft:powder_snow
+fill 25 -60 1 27 -58 3 minecraft:powder_snow
+fill 31 -60 1 33 -58 3 minecraft:powder_snow
+fill 37 -60 1 39 -58 3 minecraft:powder_snow
+fill 43 -60 1 45 -58 3 minecraft:powder_snow
+fill 49 -60 1 51 -58 3 minecraft:powder_snow
+spawn_player Steve creative 2.5 -54 8.5 0 0
+tick 5
+mobspawn Z minecraft:zombie 2.5 -59.5 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Health:100.0f,attributes:[{id:"minecraft:max_health",base:100.0d}]}
+entity_seed Z 81001
+mobspawn ZB minecraft:zombie 8.5 -59.5 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Health:100.0f,attributes:[{id:"minecraft:max_health",base:100.0d}],equipment:{feet:{id:"minecraft:leather_boots",count:1}}}
+entity_seed ZB 81002
+mobspawn ST minecraft:stray 14.5 -59.5 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Health:100.0f,attributes:[{id:"minecraft:max_health",base:100.0d}]}
+entity_seed ST 81003
+mobspawn PB minecraft:polar_bear 20.5 -59.5 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Health:100.0f,attributes:[{id:"minecraft:max_health",base:100.0d}]}
+entity_seed PB 81004
+mobspawn SG minecraft:snow_golem 26.5 -59.5 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Health:100.0f,attributes:[{id:"minecraft:max_health",base:100.0d}]}
+entity_seed SG 81005
+mobspawn WS minecraft:wither_skeleton 32.5 -59.5 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Health:100.0f,attributes:[{id:"minecraft:max_health",base:100.0d}]}
+entity_seed WS 81006
+mobspawn SK minecraft:skeleton 38.5 -59.5 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Health:100.0f,attributes:[{id:"minecraft:max_health",base:100.0d}]}
+entity_seed SK 81007
+mobspawn CP minecraft:pig 44.5 -59.5 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Health:100.0f,attributes:[{id:"minecraft:max_health",base:100.0d}],equipment:{head:{id:"minecraft:leather_helmet",count:1}}}
+entity_seed CP 81008
+mobspawn SP minecraft:cow 50.5 -59.5 2.5 0 0 nofinalize {PersistenceRequired:1b,NoAI:1b,Health:100.0f,attributes:[{id:"minecraft:max_health",base:100.0d}]}
+entity_seed SP 81009
+tick 100
+dump mobs nbt:Z nbt:ZB nbt:ST nbt:PB nbt:SG nbt:WS nbt:SK nbt:CP nbt:SP
+tick 200
+dump mobs nbt:Z nbt:ZB nbt:ST nbt:PB nbt:SG nbt:WS nbt:SK nbt:CP nbt:SP events

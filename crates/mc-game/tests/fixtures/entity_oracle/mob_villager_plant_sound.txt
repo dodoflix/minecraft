@@ -1,0 +1,90 @@
+CF result failure 0
+CF fail The difficulty did not change; it is already set to Normal
+CF result failure 0
+CF fail Game rule random_tick_speed is already set to 0
+CF msg Set minecraft:overworld to 2000 tick(s)
+CF result success 2000
+EV level_event r=64.0 ex=0 type=2001 pos=3,-60,3 data=6874 global=0
+EV sound at=3.5,-60.0,1.237989370735012 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=1.0959218
+EV level_event r=64.0 ex=0 type=2001 pos=2,-60,2 data=6874 global=0
+EV sound at=2.89524530921943,-60.0625,2.0413697949414527 r=16.0 ex=0 event=minecraft:block.gravel.step source=neutral vol=0.15 pitch=1.0
+EV sound at=2.0,-60.0,2.0 r=16.0 ex=0 event=minecraft:item.crop.plant source=block vol=1.0 pitch=1.0
+EV level_event r=64.0 ex=0 type=2001 pos=3,-60,2 data=6874 global=0
+EV sound at=3.0,-60.0,2.0 r=16.0 ex=0 event=minecraft:item.crop.plant source=block vol=1.0 pitch=1.0
+EV sound at=2.948171955859671,-60.0625,2.217890855594336 r=16.0 ex=0 event=minecraft:block.gravel.step source=neutral vol=0.15 pitch=1.0
+EV level_event r=64.0 ex=0 type=2001 pos=4,-60,1 data=6874 global=0
+EV sound at=4.0,-60.0,1.0 r=16.0 ex=0 event=minecraft:item.crop.plant source=block vol=1.0 pitch=1.0
+EV sound at=4.264416864808441,-60.0625,1.7064385358361043 r=16.0 ex=0 event=minecraft:block.gravel.step source=neutral vol=0.15 pitch=1.0
+EV sound at=5.3293866315931036,-60.0,1.270767932873441 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+PKT Steve minecraft:sound 77a40d060000001cfffffe20000000093f8000003f8c472ae32d4fcf84a7860e
+PKT Steve minecraft:sound 7781060600000017fffffe20000000103e19999a3f8000003dace6703e05bff8
+PKT Steve minecraft:sound 77e4030400000010fffffe20000000103f8000003f8000006fd465a290351d3c
+PKT Steve minecraft:sound 77e4030400000018fffffe20000000103f8000003f8000004b970fd5e0db99e1
+PKT Steve minecraft:sound 7781060600000017fffffe20000000113e19999a3f800000e8168c54d2216418
+PKT Steve minecraft:sound 77e4030400000020fffffe20000000083f8000003f800000a3981763e0103683
+PKT Steve minecraft:sound 7781060600000022fffffe200000000d3e19999a3f800000a1a24ca263725fe3
+PKT Steve minecraft:sound 77fc05060000002afffffe200000000a3e19999a3f80000029a8e9b76b35b192
+EV sound at=5.87221289295827,-60.0,0.09253126538940441 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+PKT Steve minecraft:sound 77fc05060000002efffffe20000000003e19999a3f800000ec866a92984bf066
+EV sound at=7.063531498004434,-60.0,-0.3945945186983615 r=16.0 ex=0 event=minecraft:entity.villager.ambient source=neutral vol=1.0 pitch=0.89623505
+EV sound at=7.500459156752792,-60.0,-0.44083486481126205 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=8.96364293032076,-60.0,-1.0606386241357073 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=8.318649825659302,-60.0,-0.27608226083375026 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=7.045303200954203,-60.0,0.9620737230988666 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+EV sound at=6.393011360713755,-60.0,2.4281290314014887 r=16.0 ex=0 event=minecraft:block.grass.step source=neutral vol=0.15 pitch=1.0
+PKT Steve minecraft:sound 77a40d0600000038fffffe20fffffffd3f8000003f656fa95ac3b5cd447e2ff6
+PKT Steve minecraft:sound 77fc05060000003cfffffe20fffffffd3e19999a3f8000005ae586ec5969c658
+PKT Steve minecraft:sound 77fc050600000047fffffe20fffffff83e19999a3f800000d55fad91ece1d6ce
+PKT Steve minecraft:sound 77fc050600000042fffffe20fffffffe3e19999a3f800000d8bde3e82cd7dc02
+PKT Steve minecraft:sound 77fc050600000038fffffe20000000073e19999a3f8000003b8fbbb9f9feaeb8
+PKT Steve minecraft:sound 77fc050600000033fffffe20000000133e19999a3f800000dd1c412737275425
+B 1 -61 1 minecraft:farmland[moisture=7]
+B 1 -61 2 minecraft:farmland[moisture=7]
+B 1 -61 3 minecraft:farmland[moisture=7]
+B 1 -61 4 minecraft:farmland[moisture=7]
+B 1 -61 5 minecraft:farmland[moisture=7]
+B 1 -60 1 minecraft:wheat[age=7]
+B 1 -60 2 minecraft:wheat[age=7]
+B 1 -60 3 minecraft:wheat[age=7]
+B 1 -60 4 minecraft:wheat[age=7]
+B 1 -60 5 minecraft:wheat[age=7]
+B 2 -61 1 minecraft:farmland[moisture=7]
+B 2 -61 2 minecraft:farmland[moisture=7]
+B 2 -61 3 minecraft:farmland[moisture=7]
+B 2 -61 4 minecraft:farmland[moisture=7]
+B 2 -61 5 minecraft:farmland[moisture=7]
+B 2 -60 1 minecraft:wheat[age=7]
+B 2 -60 2 minecraft:wheat[age=0]
+B 2 -60 3 minecraft:wheat[age=7]
+B 2 -60 4 minecraft:wheat[age=7]
+B 2 -60 5 minecraft:wheat[age=7]
+B 3 -61 1 minecraft:farmland[moisture=7]
+B 3 -61 2 minecraft:farmland[moisture=7]
+B 3 -61 3 minecraft:grass_block[snowy=false]
+B 3 -61 4 minecraft:farmland[moisture=7]
+B 3 -61 5 minecraft:farmland[moisture=7]
+B 3 -60 1 minecraft:wheat[age=7]
+B 3 -60 2 minecraft:wheat[age=0]
+B 3 -60 3 minecraft:composter[level=0]
+B 3 -60 4 minecraft:wheat[age=7]
+B 3 -60 5 minecraft:wheat[age=7]
+B 4 -61 1 minecraft:farmland[moisture=7]
+B 4 -61 2 minecraft:farmland[moisture=7]
+B 4 -61 3 minecraft:farmland[moisture=7]
+B 4 -61 4 minecraft:farmland[moisture=7]
+B 4 -61 5 minecraft:farmland[moisture=7]
+B 4 -60 1 minecraft:wheat[age=0]
+B 4 -60 2 minecraft:wheat[age=7]
+B 4 -60 3 minecraft:wheat[age=7]
+B 4 -60 4 minecraft:wheat[age=7]
+B 4 -60 5 minecraft:wheat[age=7]
+B 5 -61 1 minecraft:farmland[moisture=7]
+B 5 -61 2 minecraft:farmland[moisture=7]
+B 5 -61 3 minecraft:farmland[moisture=7]
+B 5 -61 4 minecraft:farmland[moisture=7]
+B 5 -61 5 minecraft:farmland[moisture=7]
+B 5 -60 1 minecraft:wheat[age=7]
+B 5 -60 2 minecraft:wheat[age=7]
+B 5 -60 3 minecraft:wheat[age=7]
+B 5 -60 4 minecraft:wheat[age=7]
+B 5 -60 5 minecraft:wheat[age=7]

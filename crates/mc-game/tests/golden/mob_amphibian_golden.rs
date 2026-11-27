@@ -45,6 +45,12 @@ fn tadpole_load_age_matches_vanilla() {
     check("mob_tadpole_load_age");
 }
 
+/// A tadpole bucket saved with an Age of 24000 or more releases a frog.
+#[test]
+fn tadpole_bucket_old_age_matches_vanilla() {
+    check("mob_tadpole_bucket_old_age");
+}
+
 /// A water bucket on every axolotl variant, a baby and the tadpoles picks the mob up, the filled bucket releases it again.
 #[test]
 fn amphibian_bucket_matches_vanilla() {

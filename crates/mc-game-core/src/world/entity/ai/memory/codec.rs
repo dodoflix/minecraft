@@ -90,7 +90,7 @@ pub fn encode_value(codec: MemoryCodec, value: &MemoryValue) -> Option<Tag> {
 pub fn decode_value(codec: MemoryCodec, tag: &Tag) -> Option<MemoryValue> {
     Some(match codec {
         MemoryCodec::None => return None,
-        MemoryCodec::Bool => MemoryValue::Bool(tag.as_number()?.int_value() != 0),
+        MemoryCodec::Bool => MemoryValue::Bool(tag.as_number()?.double_value() != 0.0),
         MemoryCodec::Int => MemoryValue::Int(tag.as_number()?.int_value()),
         MemoryCodec::Long => MemoryValue::Long(tag.as_number()?.long_value()),
         // `MapCodec.unitCodec` ignores its input

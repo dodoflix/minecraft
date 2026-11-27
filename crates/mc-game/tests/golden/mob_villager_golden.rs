@@ -57,3 +57,9 @@ fn mob_villager_sleep() {
 fn mob_villager_work_farm() {
     block_scenario::check("mob_villager_work_farm");
 }
+
+/// A farmer plants seeds with the crop sound at the corner of the block.
+#[test]
+fn mob_villager_plant_sound() {
+    block_scenario::check("mob_villager_plant_sound");
+}

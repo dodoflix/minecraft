@@ -35,7 +35,8 @@ use mc_world::heightmap::HeightmapType;
 
 define_accessor!(pub ID_SIZE: Int = Phantom);
 
-pub const TICKS_PER_FLAP: i32 = 17;
+/// `Mth.ceil(24.166098F)`.
+pub const TICKS_PER_FLAP: i32 = 25;
 
 /// `Phantom.AttackPhase`.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]

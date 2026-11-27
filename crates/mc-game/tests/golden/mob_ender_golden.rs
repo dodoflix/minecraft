@@ -39,6 +39,12 @@ fn phantom_circle_swoop() {
     check("mob_phantom_circle_swoop");
 }
 
+/// A flying phantom flaps every 25 ticks: the sculk sensors below hear each FLAP game event.
+#[test]
+fn phantom_flap_vibration() {
+    check("mob_phantom_flap_vibration");
+}
+
 /// A mob angry at a player of another level walks to the player's coordinates and never hurts it (no line of sight across levels).
 #[test]
 fn anger_at_a_player_of_another_level_never_hurts() {

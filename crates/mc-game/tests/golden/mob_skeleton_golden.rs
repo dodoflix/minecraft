@@ -33,6 +33,11 @@ fn skeleton_in_powder_snow_freezes_into_a_stray() {
 }
 
 #[test]
+fn freeze_immune_types_and_wearables_never_freeze() {
+    check("mob_freeze_immune");
+}
+
+#[test]
 fn enchanted_bow_sets_arrows_on_fire_and_raises_their_damage() {
     check("mob_skeleton_flame_bow");
 }

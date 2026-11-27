@@ -442,6 +442,13 @@ impl LevelReader for GenLevel<'_> {
         0
     }
 
+    fn ambient_light(&self) -> f32 {
+        self.live
+            .as_ref()
+            .and_then(|l| l.dimension_type())
+            .map_or(0.0, |d| d.ambient_light)
+    }
+
     fn get_raw_brightness(&self, pos: BlockPos, sky_darkening: i32) -> i32 {
         self.light
             .as_ref()
