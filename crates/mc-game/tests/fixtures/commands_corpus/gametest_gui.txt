@@ -7,7 +7,6 @@ gamerule advance_time false
 gamerule advance_weather false
 !datapack gametest/gtpack
 !datapack gametest/guipack
-!ignore passed! \(
 !mask (\d+)ms
 !ignore ^Bot\| .*(Game Test complete! |All required tests passed|commands\.test\.summary)
 !packets test_instance_block_status

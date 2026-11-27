@@ -6,7 +6,6 @@
 #   scripts/command-diff.sh crates/mc-game/tests/fixtures/commands_corpus/gametest_bad.txt
 # The run time of a test (`passed! (3ms / 0gameticks)`) is the only non-deterministic output.
 !datapack gametest/gtpack
-!ignore passed! \(
 !mask (\d+)ms
 test run gtbad:valid
 test locate gtbad:*

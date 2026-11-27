@@ -1,48 +1,52 @@
-### [gametest_bad.txt:11] test run gtbad:valid
+### [gametest_bad.txt:10] test run gtbad:valid
 log| System chat: No matches for selector 'gtbad:valid' of type 'minecraft:test_instance'
 log| System chat: ...tbad:valid<--[HERE]
-### [gametest_bad.txt:12] test locate gtbad:*
+### [gametest_bad.txt:11] test locate gtbad:*
 log| System chat: No matches for selector 'gtbad:*' of type 'minecraft:test_instance'
 log| System chat: ...te gtbad:*<--[HERE]
-### [gametest_bad.txt:13] datapack list available
+### [gametest_bad.txt:12] datapack list available
 log| System chat: There are no more data packs available
-### [gametest_bad.txt:15] datapack list available
+### [gametest_bad.txt:14] datapack list available
 log| System chat: There are 1 data pack(s) available: [file/gtbad (world)]
-### [gametest_bad.txt:16] reload
+### [gametest_bad.txt:15] reload
 log| System chat: Reloading!
 log| Loaded 1866 advancements
 Bot| [system_chat] [Server: Reloading!]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.reload.success"}],"color":"gray","italic":true}
-### [gametest_bad.txt:17] datapack list available
+### [gametest_bad.txt:16] datapack list available
 log| System chat: There are no more data packs available
-### [gametest_bad.txt:18] datapack enable "file/gtbad"
+### [gametest_bad.txt:17] datapack enable "file/gtbad"
 log| System chat: Pack 'file/gtbad' is already enabled!
-### [gametest_bad.txt:19] datapack list enabled
+### [gametest_bad.txt:18] datapack list enabled
 log| System chat: There are 3 data pack(s) enabled: [vanilla (built-in)], [file/gtpack (world)], [file/gtbad (world)]
-### [gametest_bad.txt:20] test run gtbad:valid
+### [gametest_bad.txt:19] test run gtbad:valid
 log| System chat: No matches for selector 'gtbad:valid' of type 'minecraft:test_instance'
 log| System chat: ...tbad:valid<--[HERE]
-### [gametest_bad.txt:21] test locate gtbad:*
+### [gametest_bad.txt:20] test locate gtbad:*
 log| System chat: No matches for selector 'gtbad:*' of type 'minecraft:test_instance'
 log| System chat: ...te gtbad:*<--[HERE]
-### [gametest_bad.txt:22] test run gtbad:*
+### [gametest_bad.txt:21] test run gtbad:*
 log| System chat: No matches for selector 'gtbad:*' of type 'minecraft:test_instance'
 log| System chat: ...un gtbad:*<--[HERE]
-### [gametest_bad.txt:23] test run gt:pass
+### [gametest_bad.txt:22] test run gt:pass
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_bad.txt:24] !ticks 40 show
+### [gametest_bad.txt:23] !ticks 40 show
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
 Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
 Bot| [system_chat] [Server: All required tests passed :)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
-### [gametest_bad.txt:26] reload
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+### [gametest_bad.txt:25] reload
 log| System chat: Reloading!
 log| ERROR: Registry loading errors:
 log| > Errors in registry minecraft:predicate:
@@ -54,7 +58,7 @@ log| java.util.concurrent.CompletionException: net.minecraft.ReportedException: 
 log| System chat: Reload failed; keeping old data
 Bot| [system_chat] [Server: Reloading!]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.reload.success"}],"color":"gray","italic":true}
-### [gametest_bad.txt:27] datapack enable "file/gtbadpredicate"
+### [gametest_bad.txt:26] datapack enable "file/gtbadpredicate"
 log| System chat: Enabling data pack [file/gtbadpredicate (world)]
 log| ERROR: Registry loading errors:
 log| > Errors in registry minecraft:predicate:
@@ -66,22 +70,26 @@ log| java.util.concurrent.CompletionException: net.minecraft.ReportedException: 
 log| System chat: Reload failed; keeping old data
 Bot| [system_chat] [Server: Enabling data pack [file/gtbadpredicate (world)]]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.datapack.modify.enable","with":[{"translate":"chat.square_brackets","with":[{"translate":"pack.nameAndSource","with":["file/gtbadpredicate",{"translate":"pack.source.world"}],"color":"gray"}],"color":"green","hover_event":{"value":{"text":"","extra":["gtbadpredicate","\n","game test corpus pack with an invalid predicate"]},"action":"show_text"},"insertion":"\"file/gtbadpredicate\""}]}],"color":"gray","italic":true}
-### [gametest_bad.txt:28] datapack list enabled
+### [gametest_bad.txt:27] datapack list enabled
 log| System chat: There are 3 data pack(s) enabled: [vanilla (built-in)], [file/gtpack (world)], [file/gtbad (world)]
-### [gametest_bad.txt:29] execute if predicate gtbadpredicate:broken
+### [gametest_bad.txt:28] execute if predicate gtbadpredicate:broken
 log| System chat: Can't find element 'gtbadpredicate:broken' in registry 'minecraft:predicate'
 log| System chat: ...ate:broken<--[HERE]
-### [gametest_bad.txt:30] test run gt:pass
+### [gametest_bad.txt:29] test run gt:pass
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_bad.txt:31] !ticks 40 show
+### [gametest_bad.txt:30] !ticks 40 show
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
+Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
 Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
 Bot| [system_chat] [Server: All required tests passed :)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
+Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
+Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}

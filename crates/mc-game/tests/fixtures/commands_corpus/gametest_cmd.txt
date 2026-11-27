@@ -4,7 +4,6 @@
 # (`passed! (3ms / 2gameticks)`, `always_pass passed! 3ms`), which is masked below.
 gamerule advance_time false
 gamerule advance_weather false
-!ignore passed! \(
 !mask (\d+)ms
 
 # ---- syntax / permissions

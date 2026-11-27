@@ -6,7 +6,6 @@
 # one run out in a different order than vanilla, and vanilla starts several batches in an order that differs between runs.
 !datapack gametest/gtpack
 !datapack gametest/gepack
-!ignore passed! \(
 !mask (\d+)ms
 # the summary lines the bots receive are not compared for any test (vanilla's ops sometimes miss the summary of a passing test; the
 # console copy `log| System chat: ...` of every summary stays compared), and the bots sometimes miss the failure of a test on its first
