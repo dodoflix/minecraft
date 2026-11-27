@@ -366,12 +366,7 @@ impl Replay {
             f(b.x_rot()),
             u8::from(b.on_ground()),
             d(b.fall_distance),
-            // players report `-getFireImmuneTicks()` (-20) while not burning; the base tick of our players does not maintain that yet
-            if e.is_player() && !e.is_spectator() && b.remaining_fire_ticks == 0 {
-                -20
-            } else {
-                b.remaining_fire_ticks
-            },
+            b.remaining_fire_ticks,
             b.get_air_supply(),
             u8::from(e.is_alive()),
             pose_name(b.get_pose()),
