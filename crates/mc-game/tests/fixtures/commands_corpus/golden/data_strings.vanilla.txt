@@ -1,0 +1,1796 @@
+### [data_strings.txt:4] gamerule random_tick_speed 0
+log| System chat: Game rule random_tick_speed is now set to 0
+Bot| [system_chat] [Server: Game rule random_tick_speed is now set to 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["random_tick_speed","0"]}],"color":"gray","italic":true}
+### [data_strings.txt:5] gamerule spawn_mobs false
+log| System chat: Game rule spawn_mobs is now set to false
+Bot| [system_chat] [Server: Game rule spawn_mobs is now set to false]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["spawn_mobs","false"]}],"color":"gray","italic":true}
+### [data_strings.txt:8] setblock 0 -60 0 minecraft:chest{CustomName:"abcdefgh",Items:[{Slot:0b,id:"minecraft:stone",count:3}]}
+log| System chat: Changed the block at 0, -60, 0
+Bot| [system_chat] [Server: Changed the block at 0, -60, 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-60,0]}],"color":"gray","italic":true}
+### [data_strings.txt:9] setblock 0 -60 2 minecraft:chest{CustomName:"zz"}
+log| System chat: Changed the block at 0, -60, 2
+Bot| [system_chat] [Server: Changed the block at 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:10] setblock 0 -60 4 minecraft:oak_sign
+log| System chat: Changed the block at 0, -60, 4
+Bot| [system_chat] [Server: Changed the block at 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:11] summon minecraft:armor_stand 4 -60 4 {NoGravity:1b,Tags:["alphabet"],CustomName:"abcdefgh"}
+log| System chat: Summoned new abcdefgh
+Bot| [system_chat] [Server: Summoned new abcdefgh]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"text":"abcdefgh","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"abcdefgh","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:12] summon minecraft:armor_stand 6 -60 4 {NoGravity:1b,Tags:["c"],CustomName:"x"}
+log| System chat: Summoned new x
+Bot| [system_chat] [Server: Summoned new x]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"text":"x","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"x","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:13] data merge storage t:w {l:["a"],v:"q",c:{a:1}}
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:14] data merge storage t:s {s:"abcdefgh",c:{k:"v"}}
+log| System chat: Modified storage t:s
+Bot| [system_chat] [Server: Modified storage t:s]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:s"]}],"color":"gray","italic":true}
+### [data_strings.txt:17] data merge storage t:w {l:["a"],v:"q",c:{a:1}}
+log| System chat: Nothing changed. The specified properties already have these values
+### [data_strings.txt:18] data modify storage t:w v set string storage t:s s
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:19] data modify storage t:w v set string storage t:s s 1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:20] data modify storage t:w v set string storage t:s s 1 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:21] data modify storage t:w v set string storage t:s s 0 8
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:22] data modify storage t:w v set string storage t:s s 4 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:23] data modify storage t:w v set string storage t:s s 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:24] data modify storage t:w v set string storage t:s s 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:25] data modify storage t:w v set string storage t:s s 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:26] data modify storage t:w v set string storage t:s s -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:27] data modify storage t:w v set string storage t:s s 3 -1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:28] data modify storage t:w v set string entity @e[tag=alphabet,limit=1] Tags[0]
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:29] data modify storage t:w v set string entity @e[tag=alphabet,limit=1] Tags[0] 1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:30] data modify storage t:w v set string entity @e[tag=alphabet,limit=1] Tags[0] 1 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:31] data modify storage t:w v set string entity @e[tag=alphabet,limit=1] Tags[0] 0 8
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:32] data modify storage t:w v set string entity @e[tag=alphabet,limit=1] Tags[0] 4 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:33] data modify storage t:w v set string entity @e[tag=alphabet,limit=1] Tags[0] 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:34] data modify storage t:w v set string entity @e[tag=alphabet,limit=1] Tags[0] 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:35] data modify storage t:w v set string entity @e[tag=alphabet,limit=1] Tags[0] 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:36] data modify storage t:w v set string entity @e[tag=alphabet,limit=1] Tags[0] -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:37] data modify storage t:w v set string entity @e[tag=alphabet,limit=1] Tags[0] 3 -1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:38] data modify storage t:w v set string block 0 -60 0 CustomName
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:39] data modify storage t:w v set string block 0 -60 0 CustomName 1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:40] data modify storage t:w v set string block 0 -60 0 CustomName 1 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:41] data modify storage t:w v set string block 0 -60 0 CustomName 0 8
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:42] data modify storage t:w v set string block 0 -60 0 CustomName 4 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:43] data modify storage t:w v set string block 0 -60 0 CustomName 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:44] data modify storage t:w v set string block 0 -60 0 CustomName 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:45] data modify storage t:w v set string block 0 -60 0 CustomName 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:46] data modify storage t:w v set string block 0 -60 0 CustomName -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:47] data modify storage t:w v set string block 0 -60 0 CustomName 3 -1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:48] data modify storage t:w v set from block 9 9 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:49] data modify storage t:w v set string block 9 9 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:50] data modify storage t:w v set from block 0 -60 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:51] data modify storage t:w v set string block 0 -60 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:52] data modify storage t:w v set from entity @e[tag=none,limit=1]
+log| System chat: No entity was found
+### [data_strings.txt:53] data modify storage t:w v set string entity @e[tag=none,limit=1] 0 1
+log| System chat: No entity was found
+### [data_strings.txt:54] data modify storage t:w v set from storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...m storage T:Bad<--[HERE]
+### [data_strings.txt:55] data modify storage t:w v set string storage T:Bad 0 1
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...g storage T:Bad 0 1<--[HERE]
+### [data_strings.txt:56] data modify storage t:w v set from storage t:none
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:57] data modify storage t:w v set string storage t:none 0 1
+log| System chat: Found no elements matching 0
+### [data_strings.txt:58] data modify storage t:w v set from storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:59] data modify storage t:w v set string storage t:s nope 0 1
+log| System chat: Found no elements matching nope
+### [data_strings.txt:60] data get storage t:w v
+log| System chat: Storage t:w has the following contents: {}
+### [data_strings.txt:63] data merge storage t:w {l:["a"],v:"q",c:{a:1}}
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:64] data modify storage t:w l append string storage t:s s
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:65] data modify storage t:w l append string storage t:s s 1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:66] data modify storage t:w l append string storage t:s s 1 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:67] data modify storage t:w l append string storage t:s s 0 8
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:68] data modify storage t:w l append string storage t:s s 4 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:69] data modify storage t:w l append string storage t:s s 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:70] data modify storage t:w l append string storage t:s s 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:71] data modify storage t:w l append string storage t:s s 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:72] data modify storage t:w l append string storage t:s s -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:73] data modify storage t:w l append string storage t:s s 3 -1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:74] data modify storage t:w l append string entity @e[tag=alphabet,limit=1] Tags[0]
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:75] data modify storage t:w l append string entity @e[tag=alphabet,limit=1] Tags[0] 1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:76] data modify storage t:w l append string entity @e[tag=alphabet,limit=1] Tags[0] 1 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:77] data modify storage t:w l append string entity @e[tag=alphabet,limit=1] Tags[0] 0 8
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:78] data modify storage t:w l append string entity @e[tag=alphabet,limit=1] Tags[0] 4 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:79] data modify storage t:w l append string entity @e[tag=alphabet,limit=1] Tags[0] 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:80] data modify storage t:w l append string entity @e[tag=alphabet,limit=1] Tags[0] 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:81] data modify storage t:w l append string entity @e[tag=alphabet,limit=1] Tags[0] 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:82] data modify storage t:w l append string entity @e[tag=alphabet,limit=1] Tags[0] -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:83] data modify storage t:w l append string entity @e[tag=alphabet,limit=1] Tags[0] 3 -1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:84] data modify storage t:w l append string block 0 -60 0 CustomName
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:85] data modify storage t:w l append string block 0 -60 0 CustomName 1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:86] data modify storage t:w l append string block 0 -60 0 CustomName 1 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:87] data modify storage t:w l append string block 0 -60 0 CustomName 0 8
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:88] data modify storage t:w l append string block 0 -60 0 CustomName 4 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:89] data modify storage t:w l append string block 0 -60 0 CustomName 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:90] data modify storage t:w l append string block 0 -60 0 CustomName 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:91] data modify storage t:w l append string block 0 -60 0 CustomName 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:92] data modify storage t:w l append string block 0 -60 0 CustomName -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:93] data modify storage t:w l append string block 0 -60 0 CustomName 3 -1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:94] data modify storage t:w l append from block 9 9 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:95] data modify storage t:w l append string block 9 9 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:96] data modify storage t:w l append from block 0 -60 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:97] data modify storage t:w l append string block 0 -60 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:98] data modify storage t:w l append from entity @e[tag=none,limit=1]
+log| System chat: No entity was found
+### [data_strings.txt:99] data modify storage t:w l append string entity @e[tag=none,limit=1] 0 1
+log| System chat: No entity was found
+### [data_strings.txt:100] data modify storage t:w l append from storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...m storage T:Bad<--[HERE]
+### [data_strings.txt:101] data modify storage t:w l append string storage T:Bad 0 1
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...g storage T:Bad 0 1<--[HERE]
+### [data_strings.txt:102] data modify storage t:w l append from storage t:none
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:103] data modify storage t:w l append string storage t:none 0 1
+log| System chat: Found no elements matching 0
+### [data_strings.txt:104] data modify storage t:w l append from storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:105] data modify storage t:w l append string storage t:s nope 0 1
+log| System chat: Found no elements matching nope
+### [data_strings.txt:106] data get storage t:w l
+log| System chat: Storage t:w has the following contents: ["a", "abcdefgh", "bcdefgh", "bcd", "abcdefgh", "", "defg", "alphabet", "lphabet", "lph", "alphabet", "", "habe", "abcdefgh", "bcdefgh", "bcd", "abcdefgh", "", "defg", {}]
+### [data_strings.txt:109] data merge storage t:w {l:["a"],v:"q",c:{a:1}}
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:110] data modify storage t:w l prepend string storage t:s s
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:111] data modify storage t:w l prepend string storage t:s s 1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:112] data modify storage t:w l prepend string storage t:s s 1 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:113] data modify storage t:w l prepend string storage t:s s 0 8
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:114] data modify storage t:w l prepend string storage t:s s 4 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:115] data modify storage t:w l prepend string storage t:s s 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:116] data modify storage t:w l prepend string storage t:s s 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:117] data modify storage t:w l prepend string storage t:s s 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:118] data modify storage t:w l prepend string storage t:s s -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:119] data modify storage t:w l prepend string storage t:s s 3 -1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:120] data modify storage t:w l prepend string entity @e[tag=alphabet,limit=1] Tags[0]
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:121] data modify storage t:w l prepend string entity @e[tag=alphabet,limit=1] Tags[0] 1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:122] data modify storage t:w l prepend string entity @e[tag=alphabet,limit=1] Tags[0] 1 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:123] data modify storage t:w l prepend string entity @e[tag=alphabet,limit=1] Tags[0] 0 8
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:124] data modify storage t:w l prepend string entity @e[tag=alphabet,limit=1] Tags[0] 4 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:125] data modify storage t:w l prepend string entity @e[tag=alphabet,limit=1] Tags[0] 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:126] data modify storage t:w l prepend string entity @e[tag=alphabet,limit=1] Tags[0] 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:127] data modify storage t:w l prepend string entity @e[tag=alphabet,limit=1] Tags[0] 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:128] data modify storage t:w l prepend string entity @e[tag=alphabet,limit=1] Tags[0] -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:129] data modify storage t:w l prepend string entity @e[tag=alphabet,limit=1] Tags[0] 3 -1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:130] data modify storage t:w l prepend string block 0 -60 0 CustomName
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:131] data modify storage t:w l prepend string block 0 -60 0 CustomName 1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:132] data modify storage t:w l prepend string block 0 -60 0 CustomName 1 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:133] data modify storage t:w l prepend string block 0 -60 0 CustomName 0 8
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:134] data modify storage t:w l prepend string block 0 -60 0 CustomName 4 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:135] data modify storage t:w l prepend string block 0 -60 0 CustomName 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:136] data modify storage t:w l prepend string block 0 -60 0 CustomName 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:137] data modify storage t:w l prepend string block 0 -60 0 CustomName 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:138] data modify storage t:w l prepend string block 0 -60 0 CustomName -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:139] data modify storage t:w l prepend string block 0 -60 0 CustomName 3 -1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:140] data modify storage t:w l prepend from block 9 9 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:141] data modify storage t:w l prepend string block 9 9 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:142] data modify storage t:w l prepend from block 0 -60 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:143] data modify storage t:w l prepend string block 0 -60 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:144] data modify storage t:w l prepend from entity @e[tag=none,limit=1]
+log| System chat: No entity was found
+### [data_strings.txt:145] data modify storage t:w l prepend string entity @e[tag=none,limit=1] 0 1
+log| System chat: No entity was found
+### [data_strings.txt:146] data modify storage t:w l prepend from storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...m storage T:Bad<--[HERE]
+### [data_strings.txt:147] data modify storage t:w l prepend string storage T:Bad 0 1
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...g storage T:Bad 0 1<--[HERE]
+### [data_strings.txt:148] data modify storage t:w l prepend from storage t:none
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:149] data modify storage t:w l prepend string storage t:none 0 1
+log| System chat: Found no elements matching 0
+### [data_strings.txt:150] data modify storage t:w l prepend from storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:151] data modify storage t:w l prepend string storage t:s nope 0 1
+log| System chat: Found no elements matching nope
+### [data_strings.txt:152] data get storage t:w l
+log| System chat: Storage t:w has the following contents: [{}, "defg", "", "abcdefgh", "bcd", "bcdefgh", "abcdefgh", "habe", "", "alphabet", "lph", "lphabet", "alphabet", "defg", "", "abcdefgh", "bcd", "bcdefgh", "abcdefgh", "a"]
+### [data_strings.txt:155] data merge storage t:w {l:["a"],v:"q",c:{a:1}}
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:156] data modify storage t:w l insert 0 string storage t:s s
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:157] data modify storage t:w l insert 0 string storage t:s s 1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:158] data modify storage t:w l insert 0 string storage t:s s 1 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:159] data modify storage t:w l insert 0 string storage t:s s 0 8
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:160] data modify storage t:w l insert 0 string storage t:s s 4 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:161] data modify storage t:w l insert 0 string storage t:s s 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:162] data modify storage t:w l insert 0 string storage t:s s 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:163] data modify storage t:w l insert 0 string storage t:s s 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:164] data modify storage t:w l insert 0 string storage t:s s -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:165] data modify storage t:w l insert 0 string storage t:s s 3 -1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:166] data modify storage t:w l insert 0 string entity @e[tag=alphabet,limit=1] Tags[0]
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:167] data modify storage t:w l insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:168] data modify storage t:w l insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 1 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:169] data modify storage t:w l insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 0 8
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:170] data modify storage t:w l insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 4 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:171] data modify storage t:w l insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:172] data modify storage t:w l insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:173] data modify storage t:w l insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:174] data modify storage t:w l insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:175] data modify storage t:w l insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 3 -1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:176] data modify storage t:w l insert 0 string block 0 -60 0 CustomName
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:177] data modify storage t:w l insert 0 string block 0 -60 0 CustomName 1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:178] data modify storage t:w l insert 0 string block 0 -60 0 CustomName 1 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:179] data modify storage t:w l insert 0 string block 0 -60 0 CustomName 0 8
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:180] data modify storage t:w l insert 0 string block 0 -60 0 CustomName 4 4
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:181] data modify storage t:w l insert 0 string block 0 -60 0 CustomName 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:182] data modify storage t:w l insert 0 string block 0 -60 0 CustomName 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:183] data modify storage t:w l insert 0 string block 0 -60 0 CustomName 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:184] data modify storage t:w l insert 0 string block 0 -60 0 CustomName -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:185] data modify storage t:w l insert 0 string block 0 -60 0 CustomName 3 -1
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:186] data modify storage t:w l insert 0 from block 9 9 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:187] data modify storage t:w l insert 0 string block 9 9 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:188] data modify storage t:w l insert 0 from block 0 -60 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:189] data modify storage t:w l insert 0 string block 0 -60 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:190] data modify storage t:w l insert 0 from entity @e[tag=none,limit=1]
+log| System chat: No entity was found
+### [data_strings.txt:191] data modify storage t:w l insert 0 string entity @e[tag=none,limit=1] 0 1
+log| System chat: No entity was found
+### [data_strings.txt:192] data modify storage t:w l insert 0 from storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...m storage T:Bad<--[HERE]
+### [data_strings.txt:193] data modify storage t:w l insert 0 string storage T:Bad 0 1
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...g storage T:Bad 0 1<--[HERE]
+### [data_strings.txt:194] data modify storage t:w l insert 0 from storage t:none
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:195] data modify storage t:w l insert 0 string storage t:none 0 1
+log| System chat: Found no elements matching 0
+### [data_strings.txt:196] data modify storage t:w l insert 0 from storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:197] data modify storage t:w l insert 0 string storage t:s nope 0 1
+log| System chat: Found no elements matching nope
+### [data_strings.txt:198] data get storage t:w l
+log| System chat: Storage t:w has the following contents: [{}, "defg", "", "abcdefgh", "bcd", "bcdefgh", "abcdefgh", "habe", "", "alphabet", "lph", "lphabet", "alphabet", "defg", "", "abcdefgh", "bcd", "bcdefgh", "abcdefgh", "a"]
+### [data_strings.txt:201] data merge storage t:w {l:["a"],v:"q",c:{a:1}}
+log| System chat: Modified storage t:w
+Bot| [system_chat] [Server: Modified storage t:w]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.storage.modified","with":["t:w"]}],"color":"gray","italic":true}
+### [data_strings.txt:202] data modify entity @e[tag=c,limit=1] CustomName set string storage t:s s
+log| System chat: Modified entity data of abcdefgh
+Bot| [system_chat] [Server: Modified entity data of abcdefgh]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"abcdefgh","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"abcdefgh","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:203] data modify entity @e[tag=c,limit=1] CustomName set string storage t:s s 1
+log| System chat: Modified entity data of bcdefgh
+Bot| [system_chat] [Server: Modified entity data of bcdefgh]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"bcdefgh","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"bcdefgh","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:204] data modify entity @e[tag=c,limit=1] CustomName set string storage t:s s 1 4
+log| System chat: Modified entity data of bcd
+Bot| [system_chat] [Server: Modified entity data of bcd]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"bcd","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"bcd","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:205] data modify entity @e[tag=c,limit=1] CustomName set string storage t:s s 0 8
+log| System chat: Modified entity data of abcdefgh
+Bot| [system_chat] [Server: Modified entity data of abcdefgh]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"abcdefgh","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"abcdefgh","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:206] data modify entity @e[tag=c,limit=1] CustomName set string storage t:s s 4 4
+log| System chat: Modified entity data of
+Bot| [system_chat] [Server: Modified entity data of ]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:207] data modify entity @e[tag=c,limit=1] CustomName set string storage t:s s 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:208] data modify entity @e[tag=c,limit=1] CustomName set string storage t:s s 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:209] data modify entity @e[tag=c,limit=1] CustomName set string storage t:s s 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:210] data modify entity @e[tag=c,limit=1] CustomName set string storage t:s s -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:211] data modify entity @e[tag=c,limit=1] CustomName set string storage t:s s 3 -1
+log| System chat: Modified entity data of defg
+Bot| [system_chat] [Server: Modified entity data of defg]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"defg","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"defg","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:212] data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=alphabet,limit=1] Tags[0]
+log| System chat: Modified entity data of alphabet
+Bot| [system_chat] [Server: Modified entity data of alphabet]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"alphabet","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"alphabet","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:213] data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 1
+log| System chat: Modified entity data of lphabet
+Bot| [system_chat] [Server: Modified entity data of lphabet]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"lphabet","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"lphabet","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:214] data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 1 4
+log| System chat: Modified entity data of lph
+Bot| [system_chat] [Server: Modified entity data of lph]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"lph","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"lph","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:215] data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 0 8
+log| System chat: Modified entity data of alphabet
+Bot| [system_chat] [Server: Modified entity data of alphabet]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"alphabet","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"alphabet","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:216] data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 4 4
+log| System chat: Modified entity data of
+Bot| [system_chat] [Server: Modified entity data of ]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:217] data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:218] data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:219] data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:220] data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:221] data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 3 -1
+log| System chat: Modified entity data of habe
+Bot| [system_chat] [Server: Modified entity data of habe]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"habe","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"habe","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:222] data modify entity @e[tag=c,limit=1] CustomName set string block 0 -60 0 CustomName
+log| System chat: Modified entity data of abcdefgh
+Bot| [system_chat] [Server: Modified entity data of abcdefgh]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"abcdefgh","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"abcdefgh","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:223] data modify entity @e[tag=c,limit=1] CustomName set string block 0 -60 0 CustomName 1
+log| System chat: Modified entity data of bcdefgh
+Bot| [system_chat] [Server: Modified entity data of bcdefgh]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"bcdefgh","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"bcdefgh","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:224] data modify entity @e[tag=c,limit=1] CustomName set string block 0 -60 0 CustomName 1 4
+log| System chat: Modified entity data of bcd
+Bot| [system_chat] [Server: Modified entity data of bcd]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"bcd","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"bcd","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:225] data modify entity @e[tag=c,limit=1] CustomName set string block 0 -60 0 CustomName 0 8
+log| System chat: Modified entity data of abcdefgh
+Bot| [system_chat] [Server: Modified entity data of abcdefgh]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"abcdefgh","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"abcdefgh","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:226] data modify entity @e[tag=c,limit=1] CustomName set string block 0 -60 0 CustomName 4 4
+log| System chat: Modified entity data of
+Bot| [system_chat] [Server: Modified entity data of ]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:227] data modify entity @e[tag=c,limit=1] CustomName set string block 0 -60 0 CustomName 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:228] data modify entity @e[tag=c,limit=1] CustomName set string block 0 -60 0 CustomName 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:229] data modify entity @e[tag=c,limit=1] CustomName set string block 0 -60 0 CustomName 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:230] data modify entity @e[tag=c,limit=1] CustomName set string block 0 -60 0 CustomName -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:231] data modify entity @e[tag=c,limit=1] CustomName set string block 0 -60 0 CustomName 3 -1
+log| System chat: Modified entity data of defg
+Bot| [system_chat] [Server: Modified entity data of defg]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"text":"defg","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":"defg","action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:232] data modify entity @e[tag=c,limit=1] CustomName set from block 9 9 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:233] data modify entity @e[tag=c,limit=1] CustomName set string block 9 9 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:234] data modify entity @e[tag=c,limit=1] CustomName set from block 0 -60 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:235] data modify entity @e[tag=c,limit=1] CustomName set string block 0 -60 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:236] data modify entity @e[tag=c,limit=1] CustomName set from entity @e[tag=none,limit=1]
+log| System chat: No entity was found
+### [data_strings.txt:237] data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=none,limit=1] 0 1
+log| System chat: No entity was found
+### [data_strings.txt:238] data modify entity @e[tag=c,limit=1] CustomName set from storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...m storage T:Bad<--[HERE]
+### [data_strings.txt:239] data modify entity @e[tag=c,limit=1] CustomName set string storage T:Bad 0 1
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...g storage T:Bad 0 1<--[HERE]
+### [data_strings.txt:240] data modify entity @e[tag=c,limit=1] CustomName set from storage t:none
+log| WARN: [net.minecraft.server.commands.data.EntityDataAccessor] Serialization errors:
+log| ArmorStand['Armor Stand'/4, l='ServerLevel[world]', x=6.50, y=-60.00, z=4.50]: Failed to decode value '{}' from field 'CustomName': Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: {}; Second: No matching codec found
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:241] data modify entity @e[tag=c,limit=1] CustomName set string storage t:none 0 1
+log| System chat: Found no elements matching 0
+### [data_strings.txt:242] data modify entity @e[tag=c,limit=1] CustomName set from storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:243] data modify entity @e[tag=c,limit=1] CustomName set string storage t:s nope 0 1
+log| System chat: Found no elements matching nope
+### [data_strings.txt:244] data get entity @e[tag=c,limit=1] CustomName
+log| System chat: Found no elements matching CustomName
+### [data_strings.txt:247] data merge storage t:w {l:["a"],v:"q",c:{a:1}}
+log| System chat: Nothing changed. The specified properties already have these values
+### [data_strings.txt:248] data modify entity @e[tag=c,limit=1] Tags append string storage t:s s
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:249] data modify entity @e[tag=c,limit=1] Tags append string storage t:s s 1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:250] data modify entity @e[tag=c,limit=1] Tags append string storage t:s s 1 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:251] data modify entity @e[tag=c,limit=1] Tags append string storage t:s s 0 8
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:252] data modify entity @e[tag=c,limit=1] Tags append string storage t:s s 4 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:253] data modify entity @e[tag=c,limit=1] Tags append string storage t:s s 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:254] data modify entity @e[tag=c,limit=1] Tags append string storage t:s s 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:255] data modify entity @e[tag=c,limit=1] Tags append string storage t:s s 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:256] data modify entity @e[tag=c,limit=1] Tags append string storage t:s s -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:257] data modify entity @e[tag=c,limit=1] Tags append string storage t:s s 3 -1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:258] data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=alphabet,limit=1] Tags[0]
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:259] data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=alphabet,limit=1] Tags[0] 1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:260] data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=alphabet,limit=1] Tags[0] 1 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:261] data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=alphabet,limit=1] Tags[0] 0 8
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:262] data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=alphabet,limit=1] Tags[0] 4 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:263] data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=alphabet,limit=1] Tags[0] 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:264] data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=alphabet,limit=1] Tags[0] 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:265] data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=alphabet,limit=1] Tags[0] 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:266] data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=alphabet,limit=1] Tags[0] -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:267] data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=alphabet,limit=1] Tags[0] 3 -1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:268] data modify entity @e[tag=c,limit=1] Tags append string block 0 -60 0 CustomName
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:269] data modify entity @e[tag=c,limit=1] Tags append string block 0 -60 0 CustomName 1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:270] data modify entity @e[tag=c,limit=1] Tags append string block 0 -60 0 CustomName 1 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:271] data modify entity @e[tag=c,limit=1] Tags append string block 0 -60 0 CustomName 0 8
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:272] data modify entity @e[tag=c,limit=1] Tags append string block 0 -60 0 CustomName 4 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:273] data modify entity @e[tag=c,limit=1] Tags append string block 0 -60 0 CustomName 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:274] data modify entity @e[tag=c,limit=1] Tags append string block 0 -60 0 CustomName 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:275] data modify entity @e[tag=c,limit=1] Tags append string block 0 -60 0 CustomName 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:276] data modify entity @e[tag=c,limit=1] Tags append string block 0 -60 0 CustomName -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:277] data modify entity @e[tag=c,limit=1] Tags append string block 0 -60 0 CustomName 3 -1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:278] data modify entity @e[tag=c,limit=1] Tags append from block 9 9 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:279] data modify entity @e[tag=c,limit=1] Tags append string block 9 9 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:280] data modify entity @e[tag=c,limit=1] Tags append from block 0 -60 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:281] data modify entity @e[tag=c,limit=1] Tags append string block 0 -60 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:282] data modify entity @e[tag=c,limit=1] Tags append from entity @e[tag=none,limit=1]
+log| System chat: No entity was found
+### [data_strings.txt:283] data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=none,limit=1] 0 1
+log| System chat: No entity was found
+### [data_strings.txt:284] data modify entity @e[tag=c,limit=1] Tags append from storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...m storage T:Bad<--[HERE]
+### [data_strings.txt:285] data modify entity @e[tag=c,limit=1] Tags append string storage T:Bad 0 1
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...g storage T:Bad 0 1<--[HERE]
+### [data_strings.txt:286] data modify entity @e[tag=c,limit=1] Tags append from storage t:none
+log| WARN: [net.minecraft.server.commands.data.EntityDataAccessor] Serialization errors:
+log| ArmorStand['Armor Stand'/4, l='ServerLevel[world]', x=6.50, y=-60.00, z=4.50]: Failed to decode value '["","abcdefgh","bcd","lphabet","c","lph","bcdefgh","alphabet","defg","habe",{}]' from field 'Tags': Not a string
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:287] data modify entity @e[tag=c,limit=1] Tags append string storage t:none 0 1
+log| System chat: Found no elements matching 0
+### [data_strings.txt:288] data modify entity @e[tag=c,limit=1] Tags append from storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:289] data modify entity @e[tag=c,limit=1] Tags append string storage t:s nope 0 1
+log| System chat: Found no elements matching nope
+### [data_strings.txt:290] data get entity @e[tag=c,limit=1] Tags
+log| System chat: Armor Stand has the following entity data: ["", "abcdefgh", "bcd", "lphabet", "c", "lph", "bcdefgh", "alphabet", "defg", "habe"]
+### [data_strings.txt:293] data merge storage t:w {l:["a"],v:"q",c:{a:1}}
+log| System chat: Nothing changed. The specified properties already have these values
+### [data_strings.txt:294] data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s s
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:295] data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s s 1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:296] data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s s 1 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:297] data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s s 0 8
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:298] data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s s 4 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:299] data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s s 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:300] data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s s 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:301] data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s s 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:302] data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s s -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:303] data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s s 3 -1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:304] data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=alphabet,limit=1] Tags[0]
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:305] data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=alphabet,limit=1] Tags[0] 1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:306] data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=alphabet,limit=1] Tags[0] 1 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:307] data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=alphabet,limit=1] Tags[0] 0 8
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:308] data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=alphabet,limit=1] Tags[0] 4 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:309] data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=alphabet,limit=1] Tags[0] 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:310] data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=alphabet,limit=1] Tags[0] 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:311] data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=alphabet,limit=1] Tags[0] 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:312] data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=alphabet,limit=1] Tags[0] -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:313] data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=alphabet,limit=1] Tags[0] 3 -1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:314] data modify entity @e[tag=c,limit=1] Tags prepend string block 0 -60 0 CustomName
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:315] data modify entity @e[tag=c,limit=1] Tags prepend string block 0 -60 0 CustomName 1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:316] data modify entity @e[tag=c,limit=1] Tags prepend string block 0 -60 0 CustomName 1 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:317] data modify entity @e[tag=c,limit=1] Tags prepend string block 0 -60 0 CustomName 0 8
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:318] data modify entity @e[tag=c,limit=1] Tags prepend string block 0 -60 0 CustomName 4 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:319] data modify entity @e[tag=c,limit=1] Tags prepend string block 0 -60 0 CustomName 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:320] data modify entity @e[tag=c,limit=1] Tags prepend string block 0 -60 0 CustomName 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:321] data modify entity @e[tag=c,limit=1] Tags prepend string block 0 -60 0 CustomName 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:322] data modify entity @e[tag=c,limit=1] Tags prepend string block 0 -60 0 CustomName -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:323] data modify entity @e[tag=c,limit=1] Tags prepend string block 0 -60 0 CustomName 3 -1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:324] data modify entity @e[tag=c,limit=1] Tags prepend from block 9 9 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:325] data modify entity @e[tag=c,limit=1] Tags prepend string block 9 9 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:326] data modify entity @e[tag=c,limit=1] Tags prepend from block 0 -60 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:327] data modify entity @e[tag=c,limit=1] Tags prepend string block 0 -60 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:328] data modify entity @e[tag=c,limit=1] Tags prepend from entity @e[tag=none,limit=1]
+log| System chat: No entity was found
+### [data_strings.txt:329] data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=none,limit=1] 0 1
+log| System chat: No entity was found
+### [data_strings.txt:330] data modify entity @e[tag=c,limit=1] Tags prepend from storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...m storage T:Bad<--[HERE]
+### [data_strings.txt:331] data modify entity @e[tag=c,limit=1] Tags prepend string storage T:Bad 0 1
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...g storage T:Bad 0 1<--[HERE]
+### [data_strings.txt:332] data modify entity @e[tag=c,limit=1] Tags prepend from storage t:none
+log| WARN: [net.minecraft.server.commands.data.EntityDataAccessor] Serialization errors:
+log| ArmorStand['Armor Stand'/4, l='ServerLevel[world]', x=6.50, y=-60.00, z=4.50]: Failed to decode value '[{},"","abcdefgh","bcd","lphabet","c","lph","bcdefgh","alphabet","defg","habe"]' from field 'Tags': Not a string
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:333] data modify entity @e[tag=c,limit=1] Tags prepend string storage t:none 0 1
+log| System chat: Found no elements matching 0
+### [data_strings.txt:334] data modify entity @e[tag=c,limit=1] Tags prepend from storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:335] data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s nope 0 1
+log| System chat: Found no elements matching nope
+### [data_strings.txt:336] data get entity @e[tag=c,limit=1] Tags
+log| System chat: Armor Stand has the following entity data: ["", "abcdefgh", "bcd", "lphabet", "c", "lph", "bcdefgh", "alphabet", "defg", "habe"]
+### [data_strings.txt:339] data merge storage t:w {l:["a"],v:"q",c:{a:1}}
+log| System chat: Nothing changed. The specified properties already have these values
+### [data_strings.txt:340] data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s s
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:341] data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s s 1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:342] data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s s 1 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:343] data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s s 0 8
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:344] data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s s 4 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:345] data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s s 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:346] data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s s 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:347] data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s s 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:348] data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s s -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:349] data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s s 3 -1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:350] data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=alphabet,limit=1] Tags[0]
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:351] data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:352] data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 1 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:353] data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 0 8
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:354] data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 4 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:355] data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:356] data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:357] data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:358] data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:359] data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 3 -1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:360] data modify entity @e[tag=c,limit=1] Tags insert 0 string block 0 -60 0 CustomName
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:361] data modify entity @e[tag=c,limit=1] Tags insert 0 string block 0 -60 0 CustomName 1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:362] data modify entity @e[tag=c,limit=1] Tags insert 0 string block 0 -60 0 CustomName 1 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:363] data modify entity @e[tag=c,limit=1] Tags insert 0 string block 0 -60 0 CustomName 0 8
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:364] data modify entity @e[tag=c,limit=1] Tags insert 0 string block 0 -60 0 CustomName 4 4
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:365] data modify entity @e[tag=c,limit=1] Tags insert 0 string block 0 -60 0 CustomName 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:366] data modify entity @e[tag=c,limit=1] Tags insert 0 string block 0 -60 0 CustomName 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:367] data modify entity @e[tag=c,limit=1] Tags insert 0 string block 0 -60 0 CustomName 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:368] data modify entity @e[tag=c,limit=1] Tags insert 0 string block 0 -60 0 CustomName -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:369] data modify entity @e[tag=c,limit=1] Tags insert 0 string block 0 -60 0 CustomName 3 -1
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:370] data modify entity @e[tag=c,limit=1] Tags insert 0 from block 9 9 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:371] data modify entity @e[tag=c,limit=1] Tags insert 0 string block 9 9 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:372] data modify entity @e[tag=c,limit=1] Tags insert 0 from block 0 -60 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:373] data modify entity @e[tag=c,limit=1] Tags insert 0 string block 0 -60 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:374] data modify entity @e[tag=c,limit=1] Tags insert 0 from entity @e[tag=none,limit=1]
+log| System chat: No entity was found
+### [data_strings.txt:375] data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=none,limit=1] 0 1
+log| System chat: No entity was found
+### [data_strings.txt:376] data modify entity @e[tag=c,limit=1] Tags insert 0 from storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...m storage T:Bad<--[HERE]
+### [data_strings.txt:377] data modify entity @e[tag=c,limit=1] Tags insert 0 string storage T:Bad 0 1
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...g storage T:Bad 0 1<--[HERE]
+### [data_strings.txt:378] data modify entity @e[tag=c,limit=1] Tags insert 0 from storage t:none
+log| WARN: [net.minecraft.server.commands.data.EntityDataAccessor] Serialization errors:
+log| ArmorStand['Armor Stand'/4, l='ServerLevel[world]', x=6.50, y=-60.00, z=4.50]: Failed to decode value '[{},"","abcdefgh","bcd","lphabet","c","lph","bcdefgh","alphabet","defg","habe"]' from field 'Tags': Not a string
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:379] data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:none 0 1
+log| System chat: Found no elements matching 0
+### [data_strings.txt:380] data modify entity @e[tag=c,limit=1] Tags insert 0 from storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:381] data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s nope 0 1
+log| System chat: Found no elements matching nope
+### [data_strings.txt:382] data get entity @e[tag=c,limit=1] Tags
+log| System chat: Armor Stand has the following entity data: ["", "abcdefgh", "bcd", "lphabet", "c", "lph", "bcdefgh", "alphabet", "defg", "habe"]
+### [data_strings.txt:385] data merge storage t:w {l:["a"],v:"q",c:{a:1}}
+log| System chat: Nothing changed. The specified properties already have these values
+### [data_strings.txt:386] data modify block 0 -60 2 CustomName set string storage t:s s
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:387] data modify block 0 -60 2 CustomName set string storage t:s s 1
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:388] data modify block 0 -60 2 CustomName set string storage t:s s 1 4
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:389] data modify block 0 -60 2 CustomName set string storage t:s s 0 8
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:390] data modify block 0 -60 2 CustomName set string storage t:s s 4 4
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:391] data modify block 0 -60 2 CustomName set string storage t:s s 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:392] data modify block 0 -60 2 CustomName set string storage t:s s 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:393] data modify block 0 -60 2 CustomName set string storage t:s s 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:394] data modify block 0 -60 2 CustomName set string storage t:s s -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:395] data modify block 0 -60 2 CustomName set string storage t:s s 3 -1
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:396] data modify block 0 -60 2 CustomName set string entity @e[tag=alphabet,limit=1] Tags[0]
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:397] data modify block 0 -60 2 CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 1
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:398] data modify block 0 -60 2 CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 1 4
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:399] data modify block 0 -60 2 CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 0 8
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:400] data modify block 0 -60 2 CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 4 4
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:401] data modify block 0 -60 2 CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:402] data modify block 0 -60 2 CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:403] data modify block 0 -60 2 CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:404] data modify block 0 -60 2 CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:405] data modify block 0 -60 2 CustomName set string entity @e[tag=alphabet,limit=1] Tags[0] 3 -1
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:406] data modify block 0 -60 2 CustomName set string block 0 -60 0 CustomName
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:407] data modify block 0 -60 2 CustomName set string block 0 -60 0 CustomName 1
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:408] data modify block 0 -60 2 CustomName set string block 0 -60 0 CustomName 1 4
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:409] data modify block 0 -60 2 CustomName set string block 0 -60 0 CustomName 0 8
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:410] data modify block 0 -60 2 CustomName set string block 0 -60 0 CustomName 4 4
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:411] data modify block 0 -60 2 CustomName set string block 0 -60 0 CustomName 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:412] data modify block 0 -60 2 CustomName set string block 0 -60 0 CustomName 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:413] data modify block 0 -60 2 CustomName set string block 0 -60 0 CustomName 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:414] data modify block 0 -60 2 CustomName set string block 0 -60 0 CustomName -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:415] data modify block 0 -60 2 CustomName set string block 0 -60 0 CustomName 3 -1
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:416] data modify block 0 -60 2 CustomName set from block 9 9 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:417] data modify block 0 -60 2 CustomName set string block 9 9 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:418] data modify block 0 -60 2 CustomName set from block 0 -60 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:419] data modify block 0 -60 2 CustomName set string block 0 -60 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:420] data modify block 0 -60 2 CustomName set from entity @e[tag=none,limit=1]
+log| System chat: No entity was found
+### [data_strings.txt:421] data modify block 0 -60 2 CustomName set string entity @e[tag=none,limit=1] 0 1
+log| System chat: No entity was found
+### [data_strings.txt:422] data modify block 0 -60 2 CustomName set from storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...m storage T:Bad<--[HERE]
+### [data_strings.txt:423] data modify block 0 -60 2 CustomName set string storage T:Bad 0 1
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...g storage T:Bad 0 1<--[HERE]
+### [data_strings.txt:424] data modify block 0 -60 2 CustomName set from storage t:none
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:chest // net.minecraft.world.level.block.entity.ChestBlockEntity@BlockPos{x=0, y=-60, z=2}: Failed to decode value '{}' from field 'CustomName': Failed to parse either. First: Failed to parse either. First: Not a string; Second: Not a list: {}; Second: No matching codec found
+log| System chat: Modified block data of 0, -60, 2
+Bot| [system_chat] [Server: Modified block data of 0, -60, 2]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,2]}],"color":"gray","italic":true}
+### [data_strings.txt:425] data modify block 0 -60 2 CustomName set string storage t:none 0 1
+log| System chat: Found no elements matching 0
+### [data_strings.txt:426] data modify block 0 -60 2 CustomName set from storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:427] data modify block 0 -60 2 CustomName set string storage t:s nope 0 1
+log| System chat: Found no elements matching nope
+### [data_strings.txt:428] data get block 0 -60 2 CustomName
+log| System chat: Found no elements matching CustomName
+### [data_strings.txt:431] data merge storage t:w {l:["a"],v:"q",c:{a:1}}
+log| System chat: Nothing changed. The specified properties already have these values
+### [data_strings.txt:432] data modify block 0 -60 4 front_text.messages append string storage t:s s
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","","abcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:433] data modify block 0 -60 4 front_text.messages append string storage t:s s 1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","","bcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:434] data modify block 0 -60 4 front_text.messages append string storage t:s s 1 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","","bcd"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:435] data modify block 0 -60 4 front_text.messages append string storage t:s s 0 8
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","","abcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:436] data modify block 0 -60 4 front_text.messages append string storage t:s s 4 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","",""]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:437] data modify block 0 -60 4 front_text.messages append string storage t:s s 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:438] data modify block 0 -60 4 front_text.messages append string storage t:s s 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:439] data modify block 0 -60 4 front_text.messages append string storage t:s s 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:440] data modify block 0 -60 4 front_text.messages append string storage t:s s -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:441] data modify block 0 -60 4 front_text.messages append string storage t:s s 3 -1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","","defg"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:442] data modify block 0 -60 4 front_text.messages append string entity @e[tag=alphabet,limit=1] Tags[0]
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","","alphabet"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:443] data modify block 0 -60 4 front_text.messages append string entity @e[tag=alphabet,limit=1] Tags[0] 1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","","lphabet"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:444] data modify block 0 -60 4 front_text.messages append string entity @e[tag=alphabet,limit=1] Tags[0] 1 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","","lph"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:445] data modify block 0 -60 4 front_text.messages append string entity @e[tag=alphabet,limit=1] Tags[0] 0 8
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","","alphabet"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:446] data modify block 0 -60 4 front_text.messages append string entity @e[tag=alphabet,limit=1] Tags[0] 4 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","",""]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:447] data modify block 0 -60 4 front_text.messages append string entity @e[tag=alphabet,limit=1] Tags[0] 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:448] data modify block 0 -60 4 front_text.messages append string entity @e[tag=alphabet,limit=1] Tags[0] 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:449] data modify block 0 -60 4 front_text.messages append string entity @e[tag=alphabet,limit=1] Tags[0] 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:450] data modify block 0 -60 4 front_text.messages append string entity @e[tag=alphabet,limit=1] Tags[0] -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:451] data modify block 0 -60 4 front_text.messages append string entity @e[tag=alphabet,limit=1] Tags[0] 3 -1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","","habe"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:452] data modify block 0 -60 4 front_text.messages append string block 0 -60 0 CustomName
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","","abcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:453] data modify block 0 -60 4 front_text.messages append string block 0 -60 0 CustomName 1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","","bcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:454] data modify block 0 -60 4 front_text.messages append string block 0 -60 0 CustomName 1 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","","bcd"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:455] data modify block 0 -60 4 front_text.messages append string block 0 -60 0 CustomName 0 8
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","","abcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:456] data modify block 0 -60 4 front_text.messages append string block 0 -60 0 CustomName 4 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","",""]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:457] data modify block 0 -60 4 front_text.messages append string block 0 -60 0 CustomName 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:458] data modify block 0 -60 4 front_text.messages append string block 0 -60 0 CustomName 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:459] data modify block 0 -60 4 front_text.messages append string block 0 -60 0 CustomName 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:460] data modify block 0 -60 4 front_text.messages append string block 0 -60 0 CustomName -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:461] data modify block 0 -60 4 front_text.messages append string block 0 -60 0 CustomName 3 -1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","","defg"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:462] data modify block 0 -60 4 front_text.messages append from block 9 9 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:463] data modify block 0 -60 4 front_text.messages append string block 9 9 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:464] data modify block 0 -60 4 front_text.messages append from block 0 -60 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:465] data modify block 0 -60 4 front_text.messages append string block 0 -60 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:466] data modify block 0 -60 4 front_text.messages append from entity @e[tag=none,limit=1]
+log| System chat: No entity was found
+### [data_strings.txt:467] data modify block 0 -60 4 front_text.messages append string entity @e[tag=none,limit=1] 0 1
+log| System chat: No entity was found
+### [data_strings.txt:468] data modify block 0 -60 4 front_text.messages append from storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...m storage T:Bad<--[HERE]
+### [data_strings.txt:469] data modify block 0 -60 4 front_text.messages append string storage T:Bad 0 1
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...g storage T:Bad 0 1<--[HERE]
+### [data_strings.txt:470] data modify block 0 -60 4 front_text.messages append from storage t:none
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","","","",{}]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:471] data modify block 0 -60 4 front_text.messages append string storage t:none 0 1
+log| System chat: Found no elements matching 0
+### [data_strings.txt:472] data modify block 0 -60 4 front_text.messages append from storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:473] data modify block 0 -60 4 front_text.messages append string storage t:s nope 0 1
+log| System chat: Found no elements matching nope
+### [data_strings.txt:474] data get block 0 -60 4 front_text.messages
+log| System chat: 0, -60, 4 has the following block data: ["", "", "", ""]
+### [data_strings.txt:477] data merge storage t:w {l:["a"],v:"q",c:{a:1}}
+log| System chat: Nothing changed. The specified properties already have these values
+### [data_strings.txt:478] data modify block 0 -60 4 front_text.messages prepend string storage t:s s
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["abcdefgh","","","",""]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:479] data modify block 0 -60 4 front_text.messages prepend string storage t:s s 1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["bcdefgh","abcdefgh","","",""]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:480] data modify block 0 -60 4 front_text.messages prepend string storage t:s s 1 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["bcd","bcdefgh","abcdefgh","",""]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:481] data modify block 0 -60 4 front_text.messages prepend string storage t:s s 0 8
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["abcdefgh","bcd","bcdefgh","abcdefgh",""]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:482] data modify block 0 -60 4 front_text.messages prepend string storage t:s s 4 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","abcdefgh","bcd","bcdefgh","abcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:483] data modify block 0 -60 4 front_text.messages prepend string storage t:s s 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:484] data modify block 0 -60 4 front_text.messages prepend string storage t:s s 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:485] data modify block 0 -60 4 front_text.messages prepend string storage t:s s 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:486] data modify block 0 -60 4 front_text.messages prepend string storage t:s s -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:487] data modify block 0 -60 4 front_text.messages prepend string storage t:s s 3 -1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["defg","","abcdefgh","bcd","bcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:488] data modify block 0 -60 4 front_text.messages prepend string entity @e[tag=alphabet,limit=1] Tags[0]
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["alphabet","defg","","abcdefgh","bcd"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:489] data modify block 0 -60 4 front_text.messages prepend string entity @e[tag=alphabet,limit=1] Tags[0] 1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["lphabet","alphabet","defg","","abcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:490] data modify block 0 -60 4 front_text.messages prepend string entity @e[tag=alphabet,limit=1] Tags[0] 1 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["lph","lphabet","alphabet","defg",""]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:491] data modify block 0 -60 4 front_text.messages prepend string entity @e[tag=alphabet,limit=1] Tags[0] 0 8
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["alphabet","lph","lphabet","alphabet","defg"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:492] data modify block 0 -60 4 front_text.messages prepend string entity @e[tag=alphabet,limit=1] Tags[0] 4 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","alphabet","lph","lphabet","alphabet"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:493] data modify block 0 -60 4 front_text.messages prepend string entity @e[tag=alphabet,limit=1] Tags[0] 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:494] data modify block 0 -60 4 front_text.messages prepend string entity @e[tag=alphabet,limit=1] Tags[0] 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:495] data modify block 0 -60 4 front_text.messages prepend string entity @e[tag=alphabet,limit=1] Tags[0] 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:496] data modify block 0 -60 4 front_text.messages prepend string entity @e[tag=alphabet,limit=1] Tags[0] -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:497] data modify block 0 -60 4 front_text.messages prepend string entity @e[tag=alphabet,limit=1] Tags[0] 3 -1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["habe","","alphabet","lph","lphabet"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:498] data modify block 0 -60 4 front_text.messages prepend string block 0 -60 0 CustomName
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["abcdefgh","habe","","alphabet","lph"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:499] data modify block 0 -60 4 front_text.messages prepend string block 0 -60 0 CustomName 1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["bcdefgh","abcdefgh","habe","","alphabet"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:500] data modify block 0 -60 4 front_text.messages prepend string block 0 -60 0 CustomName 1 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["bcd","bcdefgh","abcdefgh","habe",""]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:501] data modify block 0 -60 4 front_text.messages prepend string block 0 -60 0 CustomName 0 8
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["abcdefgh","bcd","bcdefgh","abcdefgh","habe"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:502] data modify block 0 -60 4 front_text.messages prepend string block 0 -60 0 CustomName 4 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","abcdefgh","bcd","bcdefgh","abcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:503] data modify block 0 -60 4 front_text.messages prepend string block 0 -60 0 CustomName 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:504] data modify block 0 -60 4 front_text.messages prepend string block 0 -60 0 CustomName 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:505] data modify block 0 -60 4 front_text.messages prepend string block 0 -60 0 CustomName 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:506] data modify block 0 -60 4 front_text.messages prepend string block 0 -60 0 CustomName -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:507] data modify block 0 -60 4 front_text.messages prepend string block 0 -60 0 CustomName 3 -1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["defg","","abcdefgh","bcd","bcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:508] data modify block 0 -60 4 front_text.messages prepend from block 9 9 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:509] data modify block 0 -60 4 front_text.messages prepend string block 9 9 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:510] data modify block 0 -60 4 front_text.messages prepend from block 0 -60 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:511] data modify block 0 -60 4 front_text.messages prepend string block 0 -60 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:512] data modify block 0 -60 4 front_text.messages prepend from entity @e[tag=none,limit=1]
+log| System chat: No entity was found
+### [data_strings.txt:513] data modify block 0 -60 4 front_text.messages prepend string entity @e[tag=none,limit=1] 0 1
+log| System chat: No entity was found
+### [data_strings.txt:514] data modify block 0 -60 4 front_text.messages prepend from storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...m storage T:Bad<--[HERE]
+### [data_strings.txt:515] data modify block 0 -60 4 front_text.messages prepend string storage T:Bad 0 1
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...g storage T:Bad 0 1<--[HERE]
+### [data_strings.txt:516] data modify block 0 -60 4 front_text.messages prepend from storage t:none
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:[{},"defg","","abcdefgh","bcd"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:517] data modify block 0 -60 4 front_text.messages prepend string storage t:none 0 1
+log| System chat: Found no elements matching 0
+### [data_strings.txt:518] data modify block 0 -60 4 front_text.messages prepend from storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:519] data modify block 0 -60 4 front_text.messages prepend string storage t:s nope 0 1
+log| System chat: Found no elements matching nope
+### [data_strings.txt:520] data get block 0 -60 4 front_text.messages
+log| System chat: 0, -60, 4 has the following block data: ["defg", "", "abcdefgh", "bcd"]
+### [data_strings.txt:523] data merge storage t:w {l:["a"],v:"q",c:{a:1}}
+log| System chat: Nothing changed. The specified properties already have these values
+### [data_strings.txt:524] data modify block 0 -60 4 front_text.messages insert 0 string storage t:s s
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["abcdefgh","defg","","abcdefgh","bcd"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:525] data modify block 0 -60 4 front_text.messages insert 0 string storage t:s s 1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["bcdefgh","abcdefgh","defg","","abcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:526] data modify block 0 -60 4 front_text.messages insert 0 string storage t:s s 1 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["bcd","bcdefgh","abcdefgh","defg",""]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:527] data modify block 0 -60 4 front_text.messages insert 0 string storage t:s s 0 8
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["abcdefgh","bcd","bcdefgh","abcdefgh","defg"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:528] data modify block 0 -60 4 front_text.messages insert 0 string storage t:s s 4 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","abcdefgh","bcd","bcdefgh","abcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:529] data modify block 0 -60 4 front_text.messages insert 0 string storage t:s s 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:530] data modify block 0 -60 4 front_text.messages insert 0 string storage t:s s 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:531] data modify block 0 -60 4 front_text.messages insert 0 string storage t:s s 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:532] data modify block 0 -60 4 front_text.messages insert 0 string storage t:s s -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:533] data modify block 0 -60 4 front_text.messages insert 0 string storage t:s s 3 -1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["defg","","abcdefgh","bcd","bcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:534] data modify block 0 -60 4 front_text.messages insert 0 string entity @e[tag=alphabet,limit=1] Tags[0]
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["alphabet","defg","","abcdefgh","bcd"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:535] data modify block 0 -60 4 front_text.messages insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["lphabet","alphabet","defg","","abcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:536] data modify block 0 -60 4 front_text.messages insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 1 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["lph","lphabet","alphabet","defg",""]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:537] data modify block 0 -60 4 front_text.messages insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 0 8
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["alphabet","lph","lphabet","alphabet","defg"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:538] data modify block 0 -60 4 front_text.messages insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 4 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","alphabet","lph","lphabet","alphabet"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:539] data modify block 0 -60 4 front_text.messages insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:540] data modify block 0 -60 4 front_text.messages insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:541] data modify block 0 -60 4 front_text.messages insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:542] data modify block 0 -60 4 front_text.messages insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:543] data modify block 0 -60 4 front_text.messages insert 0 string entity @e[tag=alphabet,limit=1] Tags[0] 3 -1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["habe","","alphabet","lph","lphabet"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:544] data modify block 0 -60 4 front_text.messages insert 0 string block 0 -60 0 CustomName
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["abcdefgh","habe","","alphabet","lph"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:545] data modify block 0 -60 4 front_text.messages insert 0 string block 0 -60 0 CustomName 1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["bcdefgh","abcdefgh","habe","","alphabet"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:546] data modify block 0 -60 4 front_text.messages insert 0 string block 0 -60 0 CustomName 1 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["bcd","bcdefgh","abcdefgh","habe",""]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:547] data modify block 0 -60 4 front_text.messages insert 0 string block 0 -60 0 CustomName 0 8
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["abcdefgh","bcd","bcdefgh","abcdefgh","habe"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:548] data modify block 0 -60 4 front_text.messages insert 0 string block 0 -60 0 CustomName 4 4
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["","abcdefgh","bcd","bcdefgh","abcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:549] data modify block 0 -60 4 front_text.messages insert 0 string block 0 -60 0 CustomName 4 1
+log| System chat: Invalid substring indices: 4 to 1
+### [data_strings.txt:550] data modify block 0 -60 4 front_text.messages insert 0 string block 0 -60 0 CustomName 0 99
+log| System chat: Invalid substring indices: 0 to 99
+### [data_strings.txt:551] data modify block 0 -60 4 front_text.messages insert 0 string block 0 -60 0 CustomName 99 100
+log| System chat: Invalid substring indices: 99 to 100
+### [data_strings.txt:552] data modify block 0 -60 4 front_text.messages insert 0 string block 0 -60 0 CustomName -1 3
+log| System chat: Invalid substring indices: 7 to 3
+### [data_strings.txt:553] data modify block 0 -60 4 front_text.messages insert 0 string block 0 -60 0 CustomName 3 -1
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:["defg","","abcdefgh","bcd","bcdefgh"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:554] data modify block 0 -60 4 front_text.messages insert 0 from block 9 9 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:555] data modify block 0 -60 4 front_text.messages insert 0 string block 9 9 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:556] data modify block 0 -60 4 front_text.messages insert 0 from block 0 -60 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:557] data modify block 0 -60 4 front_text.messages insert 0 string block 0 -60 9 0 1
+log| System chat: The target block is not a block entity
+### [data_strings.txt:558] data modify block 0 -60 4 front_text.messages insert 0 from entity @e[tag=none,limit=1]
+log| System chat: No entity was found
+### [data_strings.txt:559] data modify block 0 -60 4 front_text.messages insert 0 string entity @e[tag=none,limit=1] 0 1
+log| System chat: No entity was found
+### [data_strings.txt:560] data modify block 0 -60 4 front_text.messages insert 0 from storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...m storage T:Bad<--[HERE]
+### [data_strings.txt:561] data modify block 0 -60 4 front_text.messages insert 0 string storage T:Bad 0 1
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...g storage T:Bad 0 1<--[HERE]
+### [data_strings.txt:562] data modify block 0 -60 4 front_text.messages insert 0 from storage t:none
+log| WARN: [net.minecraft.server.commands.data.BlockDataAccessor] Serialization errors:
+log| minecraft:sign // net.minecraft.world.level.block.entity.SignBlockEntity@BlockPos{x=0, y=-60, z=4}: Failed to decode value '{color:"black",has_glowing_text:0b,messages:[{},"defg","","abcdefgh","bcd"]}' from field 'front_text': List is too long: 5, expected range [4-4]
+log| System chat: Modified block data of 0, -60, 4
+Bot| [system_chat] [Server: Modified block data of 0, -60, 4]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.block.modified","with":[0,-60,4]}],"color":"gray","italic":true}
+### [data_strings.txt:563] data modify block 0 -60 4 front_text.messages insert 0 string storage t:none 0 1
+log| System chat: Found no elements matching 0
+### [data_strings.txt:564] data modify block 0 -60 4 front_text.messages insert 0 from storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:565] data modify block 0 -60 4 front_text.messages insert 0 string storage t:s nope 0 1
+log| System chat: Found no elements matching nope
+### [data_strings.txt:566] data get block 0 -60 4 front_text.messages
+log| System chat: 0, -60, 4 has the following block data: ["defg", "", "abcdefgh", "bcd"]
+### [data_strings.txt:569] data modify storage t:w c merge from block 9 9 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:570] data modify storage t:w c merge from block 0 -60 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:571] data modify storage t:w c merge from entity @e[tag=none,limit=1]
+log| System chat: No entity was found
+### [data_strings.txt:572] data modify storage t:w c merge from storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...m storage T:Bad<--[HERE]
+### [data_strings.txt:573] data modify storage t:w c merge from storage t:none
+log| System chat: Nothing changed. The specified properties already have these values
+### [data_strings.txt:574] data modify storage t:w c merge from storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:575] data modify storage t:w c merge string storage t:s s 0 1
+log| System chat: Expected an object: got "a"
+### [data_strings.txt:576] data modify storage t:w c merge string entity @e[tag=alphabet,limit=1] Tags[0] 0 1
+log| System chat: Expected an object: got "a"
+### [data_strings.txt:577] data modify storage t:w c merge string block 0 -60 0 CustomName 0 1
+log| System chat: Expected an object: got "a"
+### [data_strings.txt:578] data modify entity @e[tag=c,limit=1] Pose merge from block 9 9 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:579] data modify entity @e[tag=c,limit=1] Pose merge from block 0 -60 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:580] data modify entity @e[tag=c,limit=1] Pose merge from entity @e[tag=none,limit=1]
+log| System chat: No entity was found
+### [data_strings.txt:581] data modify entity @e[tag=c,limit=1] Pose merge from storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...m storage T:Bad<--[HERE]
+### [data_strings.txt:582] data modify entity @e[tag=c,limit=1] Pose merge from storage t:none
+log| System chat: Nothing changed. The specified properties already have these values
+### [data_strings.txt:583] data modify entity @e[tag=c,limit=1] Pose merge from storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:584] data modify entity @e[tag=c,limit=1] Pose merge string storage t:s s 0 1
+log| System chat: Expected an object: got "a"
+### [data_strings.txt:585] data modify entity @e[tag=c,limit=1] Pose merge string entity @e[tag=alphabet,limit=1] Tags[0] 0 1
+log| System chat: Expected an object: got "a"
+### [data_strings.txt:586] data modify entity @e[tag=c,limit=1] Pose merge string block 0 -60 0 CustomName 0 1
+log| System chat: Expected an object: got "a"
+### [data_strings.txt:587] data modify block 0 -60 2 front_text merge from block 9 9 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:588] data modify block 0 -60 2 front_text merge from block 0 -60 9
+log| System chat: The target block is not a block entity
+### [data_strings.txt:589] data modify block 0 -60 2 front_text merge from entity @e[tag=none,limit=1]
+log| System chat: No entity was found
+### [data_strings.txt:590] data modify block 0 -60 2 front_text merge from storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...m storage T:Bad<--[HERE]
+### [data_strings.txt:591] data modify block 0 -60 2 front_text merge from storage t:none
+log| System chat: Nothing changed. The specified properties already have these values
+### [data_strings.txt:592] data modify block 0 -60 2 front_text merge from storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:593] data modify block 0 -60 2 front_text merge string storage t:s s 0 1
+log| System chat: Expected an object: got "a"
+### [data_strings.txt:594] data modify block 0 -60 2 front_text merge string entity @e[tag=alphabet,limit=1] Tags[0] 0 1
+log| System chat: Expected an object: got "a"
+### [data_strings.txt:595] data modify block 0 -60 2 front_text merge string block 0 -60 0 CustomName 0 1
+log| System chat: Expected an object: got "a"
+### [data_strings.txt:598] data get storage t:none
+log| System chat: Storage t:none has the following contents: {}
+### [data_strings.txt:599] data get storage T:Bad
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: ...t storage T:Bad<--[HERE]
+### [data_strings.txt:600] data get storage t:none x
+log| System chat: Found no elements matching x
+### [data_strings.txt:601] data get storage t:s
+log| System chat: Storage t:s has the following contents: {s: "abcdefgh", c: {k: "v"}}
+### [data_strings.txt:602] data get storage t:s s
+log| System chat: Storage t:s has the following contents: "abcdefgh"
+### [data_strings.txt:603] data get storage t:s s 2
+log| System chat: Can't get s; only numeric tags are allowed
+### [data_strings.txt:604] data get storage t:s nope
+log| System chat: Found no elements matching nope
+### [data_strings.txt:607] data modify entity @e[tag=c,limit=1] Tags set value ["c","t1","t2","t3","t4","t5","t6","t7","t8","t9","t10","t11","t12","t13","t14","t15","t16","t17","t18","t19","t20","t21","t22","t23","t24","t25","t26","t27","t28","t29","t30","t31","t32","t33","t34","t35","t36","t37","t38","t39","t40","t41","t42","t43","t44","t45","t46","t47","t48","t49","t50","t51","t52","t53","t54","t55","t56","t57","t58","t59","t60","t61","t62","t63","t64","t65","t66","t67","t68","t69","t70","t71","t72","t73","t74","t75","t76","t77","t78","t79","t80","t81","t82","t83","t84","t85","t86","t87","t88","t89","t90","t91","t92","t93","t94","t95","t96","t97","t98","t99","t100","t101","t102","t103","t104","t105","t106","t107","t108","t109","t110","t111","t112","t113","t114","t115","t116","t117","t118","t119","t120","t121","t122","t123","t124","t125","t126","t127","t128","t129","t130","t131","t132","t133","t134","t135","t136","t137","t138","t139","t140","t141","t142","t143","t144","t145","t146","t147","t148","t149","t150","t151","t152","t153","t154","t155","t156","t157","t158","t159","t160","t161","t162","t163","t164","t165","t166","t167","t168","t169","t170","t171","t172","t173","t174","t175","t176","t177","t178","t179","t180","t181","t182","t183","t184","t185","t186","t187","t188","t189","t190","t191","t192","t193","t194","t195","t196","t197","t198","t199","t200","t201","t202","t203","t204","t205","t206","t207","t208","t209","t210","t211","t212","t213","t214","t215","t216","t217","t218","t219","t220","t221","t222","t223","t224","t225","t226","t227","t228","t229","t230","t231","t232","t233","t234","t235","t236","t237","t238","t239","t240","t241","t242","t243","t244","t245","t246","t247","t248","t249","t250","t251","t252","t253","t254","t255","t256","t257","t258","t259","t260","t261","t262","t263","t264","t265","t266","t267","t268","t269","t270","t271","t272","t273","t274","t275","t276","t277","t278","t279","t280","t281","t282","t283","t284","t285","t286","t287","t288","t289","t290","t291","t292","t293","t294","t295","t296","t297","t298","t299","t300","t301","t302","t303","t304","t305","t306","t307","t308","t309","t310","t311","t312","t313","t314","t315","t316","t317","t318","t319","t320","t321","t322","t323","t324","t325","t326","t327","t328","t329","t330","t331","t332","t333","t334","t335","t336","t337","t338","t339","t340","t341","t342","t343","t344","t345","t346","t347","t348","t349","t350","t351","t352","t353","t354","t355","t356","t357","t358","t359","t360","t361","t362","t363","t364","t365","t366","t367","t368","t369","t370","t371","t372","t373","t374","t375","t376","t377","t378","t379","t380","t381","t382","t383","t384","t385","t386","t387","t388","t389","t390","t391","t392","t393","t394","t395","t396","t397","t398","t399","t400","t401","t402","t403","t404","t405","t406","t407","t408","t409","t410","t411","t412","t413","t414","t415","t416","t417","t418","t419","t420","t421","t422","t423","t424","t425","t426","t427","t428","t429","t430","t431","t432","t433","t434","t435","t436","t437","t438","t439","t440","t441","t442","t443","t444","t445","t446","t447","t448","t449","t450","t451","t452","t453","t454","t455","t456","t457","t458","t459","t460","t461","t462","t463","t464","t465","t466","t467","t468","t469","t470","t471","t472","t473","t474","t475","t476","t477","t478","t479","t480","t481","t482","t483","t484","t485","t486","t487","t488","t489","t490","t491","t492","t493","t494","t495","t496","t497","t498","t499","t500","t501","t502","t503","t504","t505","t506","t507","t508","t509","t510","t511","t512","t513","t514","t515","t516","t517","t518","t519","t520","t521","t522","t523","t524","t525","t526","t527","t528","t529","t530","t531","t532","t533","t534","t535","t536","t537","t538","t539","t540","t541","t542","t543","t544","t545","t546","t547","t548","t549","t550","t551","t552","t553","t554","t555","t556","t557","t558","t559","t560","t561","t562","t563","t564","t565","t566","t567","t568","t569","t570","t571","t572","t573","t574","t575","t576","t577","t578","t579","t580","t581","t582","t583","t584","t585","t586","t587","t588","t589","t590","t591","t592","t593","t594","t595","t596","t597","t598","t599","t600","t601","t602","t603","t604","t605","t606","t607","t608","t609","t610","t611","t612","t613","t614","t615","t616","t617","t618","t619","t620","t621","t622","t623","t624","t625","t626","t627","t628","t629","t630","t631","t632","t633","t634","t635","t636","t637","t638","t639","t640","t641","t642","t643","t644","t645","t646","t647","t648","t649","t650","t651","t652","t653","t654","t655","t656","t657","t658","t659","t660","t661","t662","t663","t664","t665","t666","t667","t668","t669","t670","t671","t672","t673","t674","t675","t676","t677","t678","t679","t680","t681","t682","t683","t684","t685","t686","t687","t688","t689","t690","t691","t692","t693","t694","t695","t696","t697","t698","t699","t700","t701","t702","t703","t704","t705","t706","t707","t708","t709","t710","t711","t712","t713","t714","t715","t716","t717","t718","t719","t720","t721","t722","t723","t724","t725","t726","t727","t728","t729","t730","t731","t732","t733","t734","t735","t736","t737","t738","t739","t740","t741","t742","t743","t744","t745","t746","t747","t748","t749","t750","t751","t752","t753","t754","t755","t756","t757","t758","t759","t760","t761","t762","t763","t764","t765","t766","t767","t768","t769","t770","t771","t772","t773","t774","t775","t776","t777","t778","t779","t780","t781","t782","t783","t784","t785","t786","t787","t788","t789","t790","t791","t792","t793","t794","t795","t796","t797","t798","t799","t800","t801","t802","t803","t804","t805","t806","t807","t808","t809","t810","t811","t812","t813","t814","t815","t816","t817","t818","t819","t820","t821","t822","t823","t824","t825","t826","t827","t828","t829","t830","t831","t832","t833","t834","t835","t836","t837","t838","t839","t840","t841","t842","t843","t844","t845","t846","t847","t848","t849","t850","t851","t852","t853","t854","t855","t856","t857","t858","t859","t860","t861","t862","t863","t864","t865","t866","t867","t868","t869","t870","t871","t872","t873","t874","t875","t876","t877","t878","t879","t880","t881","t882","t883","t884","t885","t886","t887","t888","t889","t890","t891","t892","t893","t894","t895","t896","t897","t898","t899","t900","t901","t902","t903","t904","t905","t906","t907","t908","t909","t910","t911","t912","t913","t914","t915","t916","t917","t918","t919","t920","t921","t922","t923","t924","t925","t926","t927","t928","t929","t930","t931","t932","t933","t934","t935","t936","t937","t938","t939","t940","t941","t942","t943","t944","t945","t946","t947","t948","t949","t950","t951","t952","t953","t954","t955","t956","t957","t958","t959","t960","t961","t962","t963","t964","t965","t966","t967","t968","t969","t970","t971","t972","t973","t974","t975","t976","t977","t978","t979","t980","t981","t982","t983","t984","t985","t986","t987","t988","t989","t990","t991","t992","t993","t994","t995","t996","t997","t998","t999","t1000","t1001","t1002","t1003","t1004","t1005","t1006","t1007","t1008","t1009","t1010","t1011","t1012","t1013","t1014","t1015","t1016","t1017","t1018","t1019","t1020","t1021","t1022","t1023","t1024","t1025","t1026","t1027","t1028","t1029","t1030","t1031","t1032","t1033","t1034","t1035","t1036","t1037","t1038","t1039","t1040","t1041","t1042","t1043","t1044","t1045","t1046","t1047","t1048","t1049","t1050","t1051","t1052","t1053","t1054","t1055","t1056","t1057","t1058","t1059","t1060","t1061","t1062","t1063","t1064","t1065","t1066","t1067","t1068","t1069","t1070","t1071","t1072","t1073","t1074","t1075","t1076","t1077","t1078","t1079","t1080","t1081","t1082","t1083","t1084","t1085","t1086","t1087","t1088","t1089","t1090","t1091","t1092","t1093","t1094","t1095","t1096","t1097","t1098","t1099","t1100"]
+log| WARN: [net.minecraft.server.commands.data.EntityDataAccessor] Serialization errors:
+log| ArmorStand['Armor Stand'/4, l='ServerLevel[world]', x=6.50, y=-60.00, z=4.50]: Failed to decode value '["c","t1","t2","t3","t4","t5","t6","t7","t8","t9","t10","t11","t12","t13","t14","t15","t16","t17","t18","t19","t20","t21","t22","t23","t24","t25","t26","t27","t28","t29","t30","t31","t32","t33","t34","t35","t36","t37","t38","t39","t40","t41","t42","t43","t44","t45","t46","t47","t48","t49","t50","t51","t52","t53","t54","t55","t56","t57","t58","t59","t60","t61","t62","t63","t64","t65","t66","t67","t68","t69","t70","t71","t72","t73","t74","t75","t76","t77","t78","t79","t80","t81","t82","t83","t84","t85","t86","t87","t88","t89","t90","t91","t92","t93","t94","t95","t96","t97","t98","t99","t100","t101","t102","t103","t104","t105","t106","t107","t108","t109","t110","t111","t112","t113","t114","t115","t116","t117","t118","t119","t120","t121","t122","t123","t124","t125","t126","t127","t128","t129","t130","t131","t132","t133","t134","t135","t136","t137","t138","t139","t140","t141","t142","t143","t144","t145","t146","t147","t148","t149","t150","t151","t152","t153","t154","t155","t156","t157","t158","t159","t160","t161","t162","t163","t164","t165","t166","t167","t168","t169","t170","t171","t172","t173","t174","t175","t176","t177","t178","t179","t180","t181","t182","t183","t184","t185","t186","t187","t188","t189","t190","t191","t192","t193","t194","t195","t196","t197","t198","t199","t200","t201","t202","t203","t204","t205","t206","t207","t208","t209","t210","t211","t212","t213","t214","t215","t216","t217","t218","t219","t220","t221","t222","t223","t224","t225","t226","t227","t228","t229","t230","t231","t232","t233","t234","t235","t236","t237","t238","t239","t240","t241","t242","t243","t244","t245","t246","t247","t248","t249","t250","t251","t252","t253","t254","t255","t256","t257","t258","t259","t260","t261","t262","t263","t264","t265","t266","t267","t268","t269","t270","t271","t272","t273","t274","t275","t276","t277","t278","t279","t280","t281","t282","t283","t284","t285","t286","t287","t288","t289","t290","t291","t292","t293","t294","t295","t296","t297","t298","t299","t300","t301","t302","t303","t304","t305","t306","t307","t308","t309","t310","t311","t312","t313","t314","t315","t316","t317","t318","t319","t320","t321","t322","t323","t324","t325","t326","t327","t328","t329","t330","t331","t332","t333","t334","t335","t336","t337","t338","t339","t340","t341","t342","t343","t344","t345","t346","t347","t348","t349","t350","t351","t352","t353","t354","t355","t356","t357","t358","t359","t360","t361","t362","t363","t364","t365","t366","t367","t368","t369","t370","t371","t372","t373","t374","t375","t376","t377","t378","t379","t380","t381","t382","t383","t384","t385","t386","t387","t388","t389","t390","t391","t392","t393","t394","t395","t396","t397","t398","t399","t400","t401","t402","t403","t404","t405","t406","t407","t408","t409","t410","t411","t412","t413","t414","t415","t416","t417","t418","t419","t420","t421","t422","t423","t424","t425","t426","t427","t428","t429","t430","t431","t432","t433","t434","t435","t436","t437","t438","t439","t440","t441","t442","t443","t444","t445","t446","t447","t448","t449","t450","t451","t452","t453","t454","t455","t456","t457","t458","t459","t460","t461","t462","t463","t464","t465","t466","t467","t468","t469","t470","t471","t472","t473","t474","t475","t476","t477","t478","t479","t480","t481","t482","t483","t484","t485","t486","t487","t488","t489","t490","t491","t492","t493","t494","t495","t496","t497","t498","t499","t500","t501","t502","t503","t504","t505","t506","t507","t508","t509","t510","t511","t512","t513","t514","t515","t516","t517","t518","t519","t520","t521","t522","t523","t524","t525","t526","t527","t528","t529","t530","t531","t532","t533","t534","t535","t536","t537","t538","t539","t540","t541","t542","t543","t544","t545","t546","t547","t548","t549","t550","t551","t552","t553","t554","t555","t556","t557","t558","t559","t560","t561","t562","t563","t564","t565","t566","t567","t568","t569","t570","t571","t572","t573","t574","t575","t576","t577","t578","t579","t580","t581","t582","t583","t584","t585","t586","t587","t588","t589","t590","t591","t592","t593","t594","t595","t596","t597","t598","t599","t600","t601","t602","t603","t604","t605","t606","t607","t608","t609","t610","t611","t612","t613","t614","t615","t616","t617","t618","t619","t620","t621","t622","t623","t624","t625","t626","t627","t628","t629","t630","t631","t632","t633","t634","t635","t636","t637","t638","t639","t640","t641","t642","t643","t644","t645","t646","t647","t648","t649","t650","t651","t652","t653","t654","t655","t656","t657","t658","t659","t660","t661","t662","t663","t664","t665","t666","t667","t668","t669","t670","t671","t672","t673","t674","t675","t676","t677","t678","t679","t680","t681","t682","t683","t684","t685","t686","t687","t688","t689","t690","t691","t692","t693","t694","t695","t696","t697","t698","t699","t700","t701","t702","t703","t704","t705","t706","t707","t708","t709","t710","t711","t712","t713","t714","t715","t716","t717","t718","t719","t720","t721","t722","t723","t724","t725","t726","t727","t728","t729","t730","t731","t732","t733","t734","t735","t736","t737","t738","t739","t740","t741","t742","t743","t744","t745","t746","t747","t748","t749","t750","t751","t752","t753","t754","t755","t756","t757","t758","t759","t760","t761","t762","t763","t764","t765","t766","t767","t768","t769","t770","t771","t772","t773","t774","t775","t776","t777","t778","t779","t780","t781","t782","t783","t784","t785","t786","t787","t788","t789","t790","t791","t792","t793","t794","t795","t796","t797","t798","t799","t800","t801","t802","t803","t804","t805","t806","t807","t808","t809","t810","t811","t812","t813","t814","t815","t816","t817","t818","t819","t820","t821","t822","t823","t824","t825","t826","t827","t828","t829","t830","t831","t832","t833","t834","t835","t836","t837","t838","t839","t840","t841","t842","t843","t844","t845","t846","t847","t848","t849","t850","t851","t852","t853","t854","t855","t856","t857","t858","t859","t860","t861","t862","t863","t864","t865","t866","t867","t868","t869","t870","t871","t872","t873","t874","t875","t876","t877","t878","t879","t880","t881","t882","t883","t884","t885","t886","t887","t888","t889","t890","t891","t892","t893","t894","t895","t896","t897","t898","t899","t900","t901","t902","t903","t904","t905","t906","t907","t908","t909","t910","t911","t912","t913","t914","t915","t916","t917","t918","t919","t920","t921","t922","t923","t924","t925","t926","t927","t928","t929","t930","t931","t932","t933","t934","t935","t936","t937","t938","t939","t940","t941","t942","t943","t944","t945","t946","t947","t948","t949","t950","t951","t952","t953","t954","t955","t956","t957","t958","t959","t960","t961","t962","t963","t964","t965","t966","t967","t968","t969","t970","t971","t972","t973","t974","t975","t976","t977","t978","t979","t980","t981","t982","t983","t984","t985","t986","t987","t988","t989","t990","t991","t992","t993","t994","t995","t996","t997","t998","t999","t1000","t1001","t1002","t1003","t1004","t1005","t1006","t1007","t1008","t1009","t1010","t1011","t1012","t1013","t1014","t1015","t1016","t1017","t1018","t1019","t1020","t1021","t1022","t1023","t1024","t1025","t1026","t1027","t1028","t1029","t1030","t1031","t1032","t1033","t1034","t1035","t1036","t1037","t1038","t1039","t1040","t1041","t1042","t1043","t1044","t1045","t1046","t1047","t1048","t1049","t1050","t1051","t1052","t1053","t1054","t1055","t1056","t1057","t1058","t1059","t1060","t1061","t1062","t1063","t1064","t1065","t1066","t1067","t1068","t1069","t1070","t1071","t1072","t1073","t1074","t1075","t1076","t1077","t1078","t1079","t1080","t1081","t1082","t1083","t1084","t1085","t1086","t1087","t1088","t1089","t1090","t1091","t1092","t1093","t1094","t1095","t1096","t1097","t1098","t1099","t1100"]' from field 'Tags': List is too long: 1101, expected range [0-1024]
+log| System chat: Modified entity data of Armor Stand
+Bot| [system_chat] [Server: Modified entity data of Armor Stand]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.data.entity.modified","with":[{"translate":"entity.minecraft.armor_stand","hover_event":{"id":"minecraft:armor_stand","uuid":[<UUID>],"name":{"translate":"entity.minecraft.armor_stand"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [data_strings.txt:608] data get entity @e[tag=c,limit=1] Tags[0]
+log| System chat: Armor Stand has the following entity data: "t760"
+### [data_strings.txt:609] data get entity @e[tag=c,limit=1] Tags[1023]
+log| System chat: Armor Stand has the following entity data: "t729"
+### [data_strings.txt:610] data get entity @e[tag=c,limit=1] Tags[1024]
+log| System chat: Found no elements matching Tags[1024]
+### [data_strings.txt:611] data get entity @e[tag=c,limit=1] Tags[1100]
+log| System chat: Found no elements matching Tags[1100]
+### [data_strings.txt:612] execute if entity @e[tag=t1023]
+log| System chat: Test passed. Count: 1
+### [data_strings.txt:613] execute if entity @e[tag=t1024]
+log| System chat: Test failed
+### [data_strings.txt:614] execute if entity @e[tag=t1100]
+log| System chat: Test failed

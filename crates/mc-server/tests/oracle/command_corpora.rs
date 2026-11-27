@@ -37,6 +37,7 @@ corpora!(
     clone_matrix,
     command_forms,
     data_modify,
+    data_strings,
     entity_commands,
     execute,
     facing_angles,
