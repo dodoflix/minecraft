@@ -646,10 +646,12 @@ pub fn reset_test(
     pos: BlockPos,
     feedback: &mut dyn FnMut(Component),
 ) {
+    // the placed structure may clear the instance block itself; the block entity object (its name and data) lives on
+    let view = TestInstanceView::read(server, dimension, pos);
     remove_barriers(server, dimension, pos);
     clear_error_markers(server, dimension, pos);
     let placed = place_structure(server, dimension, pos);
-    if let Some(view) = TestInstanceView::read(server, dimension, pos) {
+    if let Some(view) = view {
         if placed {
             feedback(
                 translatable!("test_instance_block.reset_success", view.get_test_name())
