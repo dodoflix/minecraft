@@ -1,14 +1,15 @@
 //! `Math.sin`, `Math.cos`, `Math.log` and `Math.pow` of the JDK, independent of the platform's C library.
 //!
-//! The JVM computes these with its own routines and is correctly rounded for all but a tiny fraction of the inputs
-//! (measured against the oracle JDK: `log` never differed from the correctly rounded value in 10^5 samples, `pow` in about
-//! 0.05% of them, `sin` in about 0.14%); the C library's `sin`, `cos`, `log` and `pow` differ from the JVM more often and
-//! change between libc versions. These functions evaluate in double-double arithmetic (about 100 bits) and round once,
-//! so the result is the correctly rounded value except for inputs whose exact result lies within 2^-90 of a rounding
-//! boundary.
+//! The JVM computes these with its own routines and is correctly rounded for all but a tiny fraction of the inputs. Measured
+//! over 2^21 inputs per function on Java 25 HotSpot (Temurin 25.0.5.1), these functions differ from it in `sin` 0.160% of the
+//! inputs, `cos` 0.064%, `pow` 0.034%, `log` 3 inputs; the C library's `sin`, `cos`, `log` and `pow` differ more often
+//! (0.205%, 0.095%, 0.107%, 131 inputs) and change between libc versions. These functions evaluate in double-double
+//! arithmetic (about 100 bits) and round once, so the result is the correctly rounded value except for inputs whose exact
+//! result lies within 2^-90 of a rounding boundary. `pow` of exact results (integer powers with at most 128 significant
+//! bits) is rounded from the exact value, so ties go to even.
 //!
-//! shortcut: subnormal `pow` results are rounded from the high word only, and the rare hard-to-round inputs are not
-//! re-evaluated at higher precision; upgrade when a vanilla scenario depends on either.
+//! shortcut: the rare hard-to-round `pow` inputs (`0.9999999999999999^1.5`) are not re-evaluated at higher precision;
+//! upgrade when a vanilla scenario depends on one.
 //! `Math.log1p` is `StrictMath.log1p`: the fdlibm algorithm.
 use num_bigint::BigUint;
 use std::sync::LazyLock;
@@ -488,6 +489,81 @@ fn integer_parity(y: f64) -> i32 {
     }
 }
 
+/// `v * 2^n` rounded once to the nearest double, also in the subnormal range (where rounding `v.hi` first would round twice).
+fn scale_rounded(v: Dd, n: i32) -> f64 {
+    let exponent = (v.hi.to_bits() >> 52 & 0x7ff) as i32 - 1023 + n;
+    if exponent >= -1022 {
+        return libm::scalbn(v.hi, n);
+    }
+    // in units of the smallest subnormal the sum is below 2^53: `hi` is exact and `lo` only decides the rounding
+    let shift = n + 1074;
+    let t = libm::scalbn(v.hi, shift);
+    let whole = t.floor();
+    let mut fraction = (t - whole) + libm::scalbn(v.lo, shift);
+    let carry = fraction.floor();
+    let mut k = whole + carry;
+    fraction -= carry;
+    if fraction > 0.5 || (fraction == 0.5 && k % 2.0 != 0.0) {
+        k += 1.0;
+    }
+    libm::scalbn(k, -1074)
+}
+
+/// `x^n` for a positive integer `n >= 2` when it is exactly an integer below 2^128 times a power of two, correctly rounded
+/// (ties to even, subnormals included); `None` when the exact value does not fit. The double-double evaluation cannot tell
+/// an exact tie (`53.5^8`) from a value a hair above or below it.
+fn exact_integer_power(x: f64, y: f64) -> Option<f64> {
+    if y < 2.0 || y > f64::from(1u32 << 20) || y != y.trunc() {
+        return None;
+    }
+    let n = y as u32;
+    let bits = x.to_bits();
+    let biased = (bits >> 52 & 0x7ff) as i32;
+    let fraction = bits & 0xf_ffff_ffff_ffff;
+    let (mantissa, exponent) = if biased == 0 {
+        (fraction, -1074)
+    } else {
+        (fraction | 1 << 52, biased - 1075)
+    };
+    let shift = mantissa.trailing_zeros();
+    let odd = u128::from(mantissa >> shift);
+    let exponent = i64::from(exponent + shift as i32) * i64::from(n);
+    let mut power = 1u128;
+    for _ in 0..n {
+        if odd == 1 {
+            break;
+        }
+        power = power.checked_mul(odd)?;
+    }
+    Some(round_scaled(power, exponent))
+}
+
+/// `m * 2^e` rounded to the nearest double (ties to even); `m > 0`.
+fn round_scaled(m: u128, e: i64) -> f64 {
+    let length = i64::from(128 - m.leading_zeros());
+    let top = length - 1 + e;
+    if top > 1100 {
+        return f64::INFINITY;
+    }
+    let quantum = (top - 52).max(-1074);
+    let drop = quantum - e;
+    let mantissa = if drop <= 0 {
+        m << (-drop) as u32
+    } else if drop > 128 {
+        0
+    } else {
+        let kept = if drop == 128 { 0 } else { m >> drop };
+        let rest = if drop == 128 {
+            m
+        } else {
+            m & ((1u128 << drop) - 1)
+        };
+        let half = 1u128 << (drop - 1);
+        kept + u128::from(rest > half || (rest == half && kept & 1 == 1))
+    };
+    libm::scalbn(mantissa as f64, quantum as i32)
+}
+
 /// `Math.pow`.
 pub fn pow(x: f64, y: f64) -> f64 {
     if y == 0.0 {
@@ -516,10 +592,17 @@ pub fn pow(x: f64, y: f64) -> f64 {
     if x < 0.0 && parity < 0 {
         return f64::NAN;
     }
-    let magnitude = if x.abs() == 1.0 {
+    let ax = x.abs();
+    let magnitude = if ax == 1.0 {
         1.0
+    } else if y == -1.0 {
+        1.0 / ax
+    } else if y == 0.5 {
+        ax.sqrt()
+    } else if let Some(exact) = exact_integer_power(ax, y) {
+        exact
     } else {
-        let l = ln_dd(x.abs());
+        let l = ln_dd(ax);
         let approx = l.hi * y;
         if approx > 709.8 {
             f64::INFINITY
@@ -527,7 +610,7 @@ pub fn pow(x: f64, y: f64) -> f64 {
             0.0
         } else {
             let (v, n) = exp_dd(l.mul_f(y));
-            libm::scalbn(v.hi, n)
+            scale_rounded(v, n)
         }
     };
     if x < 0.0 && parity == 1 {
@@ -557,5 +640,26 @@ mod tests {
         assert_eq!(pow(0.0, -3.0), f64::INFINITY);
         assert_eq!(pow(-0.0, -3.0), f64::NEG_INFINITY);
         assert_eq!(pow(1.0e200, 2.0), f64::INFINITY);
+    }
+
+    #[test]
+    fn pow_rounds_exact_and_subnormal_results_once() {
+        // 53.5^8 is exactly half way between two doubles: the even one
+        assert_eq!(pow(53.5, 8.0).to_bits(), 0x42ce_8567_f888_ca30);
+        assert_eq!(pow(6.0, 34.0).to_bits(), 0x456d_9fe7_7988_1944);
+        // 1 / (0.5 - 2^-54) is just above a midpoint
+        assert_eq!(
+            pow(0.499_999_999_999_999_94, -1.0).to_bits(),
+            0x4000_0000_0000_0001
+        );
+        // subnormal results come from the whole double-double value
+        assert_eq!(
+            pow(1.658_547_250_439_473_5e-16, 19.5).to_bits(),
+            0x000d_d9c0_f2f2_6d8b
+        );
+        assert_eq!(pow(2.0, -1074.0).to_bits(), 1);
+        assert_eq!(pow(2.0, -1075.0).to_bits(), 0);
+        assert_eq!(pow(2.0, 1024.0), f64::INFINITY);
+        assert_eq!(pow(2.0, 1023.0), 2f64.powi(1023));
     }
 }
