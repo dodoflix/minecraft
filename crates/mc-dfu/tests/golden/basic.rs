@@ -66,3 +66,61 @@ fn hash_of_known_values() {
     assert_eq!(hash_dyn(&Dyn::Int(1)), crc32c(&[8, 1, 0, 0, 0]));
     assert_eq!(hash_dyn(&Dyn::Map(vec![])), crc32c(&[2, 3]));
 }
+
+/// A codec that decodes every input the same way: `Ok(value)` succeeds, `Err((message, partial))` fails.
+fn fixed<A: Clone + Send + Sync + 'static>(
+    outcome: Result<A, (&'static str, Option<A>)>,
+) -> Codec<A> {
+    Codec::from_fns(
+        |_, _, prefix| DataResult::Success(prefix),
+        move |_, input| match outcome.clone() {
+            Ok(a) => DataResult::Success((a, input.clone())),
+            Err((m, None)) => DataResult::error_str(m),
+            Err((m, Some(p))) => DataResult::error_partial(move || m, (p, input.clone())),
+        },
+    )
+}
+
+type Fail = Result<i32, (&'static str, Option<i32>)>;
+type FailS = Result<String, (&'static str, Option<String>)>;
+
+fn xor_read(first: Fail, second: FailS) -> DataResult<Either<i32, String>> {
+    parse_json(&fixed(first).xor(&fixed(second)), "0")
+}
+
+/// `XorCodec.decode`: both read -> error carrying the first value as partial; one reads -> that one.
+#[test]
+fn xor_with_one_or_two_successful_alternatives() {
+    let both = xor_read(Ok(7), Ok("s".into()));
+    assert!(
+        both.error_message()
+            .unwrap()
+            .starts_with("Both alternatives read successfully, can not pick the correct one")
+    );
+    assert_eq!(both.partial_ref(), Some(&Either::Left(7)));
+
+    let first = xor_read(Ok(7), Err(("m2", Some("p".into()))));
+    assert_eq!(first.into_result(), Ok(Either::Left(7)));
+    let second = xor_read(Err(("m1", Some(1))), Ok("s".into()));
+    assert_eq!(second.into_result(), Ok(Either::Right("s".into())));
+}
+
+/// Both fail: `firstRead.apply2((f, s) -> s, secondRead)`: messages second first, the partial result is the second's and
+/// survives only when both alternatives have one.
+#[test]
+fn xor_with_two_failing_alternatives() {
+    let neither = xor_read(Err(("m1", None)), Err(("m2", None)));
+    assert_eq!(neither.error_message().as_deref(), Some("m2; m1"));
+    assert_eq!(neither.partial_ref(), None);
+
+    let both = xor_read(Err(("m1", Some(1))), Err(("m2", Some("p".into()))));
+    assert_eq!(both.error_message().as_deref(), Some("m2; m1"));
+    assert_eq!(both.partial_ref(), Some(&Either::Right("p".into())));
+
+    let only_first = xor_read(Err(("m1", Some(1))), Err(("m2", None)));
+    assert_eq!(only_first.error_message().as_deref(), Some("m2; m1"));
+    assert_eq!(only_first.partial_ref(), None);
+    let only_second = xor_read(Err(("m1", None)), Err(("m2", Some("p".into()))));
+    assert_eq!(only_second.error_message().as_deref(), Some("m2; m1"));
+    assert_eq!(only_second.partial_ref(), None);
+}
