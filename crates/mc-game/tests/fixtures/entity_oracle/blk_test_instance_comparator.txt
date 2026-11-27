@@ -1,0 +1,16 @@
+# stale comparators
+B -1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=true]
+B 0 -60 -1 minecraft:comparator[facing=south,mode=compare,powered=true]
+B 0 -60 0 minecraft:test_instance_block
+# a set on the live entity tells the comparators, which turn themselves off two ticks later
+B -1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=true]
+B 0 -60 -1 minecraft:comparator[facing=south,mode=compare,powered=true]
+B 0 -60 0 minecraft:test_instance_block
+B -1 -60 0 minecraft:comparator[facing=east,mode=compare,powered=false]
+B 0 -60 -1 minecraft:comparator[facing=south,mode=compare,powered=false]
+B 0 -60 0 minecraft:test_instance_block
+# the reset clears the instance block through its structure
+B 0 -60 -1 minecraft:comparator[facing=south,mode=compare,powered=true]
+BE 0 -60 0 -
+B 0 -60 -1 minecraft:comparator[facing=south,mode=compare,powered=false]
+BE 0 -60 0 -

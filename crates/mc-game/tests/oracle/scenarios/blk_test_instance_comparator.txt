@@ -1,0 +1,29 @@
+# A test instance block entity's setChanged tells the comparators beside it (BlockEntity.setChanged -> updateNeighbourForOutputSignal): the
+# comparators below have a stale `powered`, so only a neighbour update makes them turn themselves off; a reset (which clears the instance block) does too.
+level flat
+preload 2
+datapack gt_run
+spawn_player Op creative 6.5 -60 4.5 0 0
+op Op
+tick 1
+block 0 -60 0 minecraft:test_instance_block
+block -1 -60 0 minecraft:comparator[facing=east,powered=true]
+block 0 -60 -1 minecraft:comparator[facing=south,powered=true]
+tick 3
+note stale comparators
+dump blocks:-3,-60,-3,3,-60,3
+note a set on the live entity tells the comparators, which turn themselves off two ticks later
+test_instance_action Op 0 -60 0 set test=gt:pass size=5,2,3
+tick 1
+dump blocks:-3,-60,-3,3,-60,3
+tick 3
+dump blocks:-3,-60,-3,3,-60,3
+note the reset clears the instance block through its structure
+block -1 -60 0 minecraft:comparator[facing=east,powered=true]
+block 0 -60 -1 minecraft:comparator[facing=south,powered=true]
+tick 3
+test_instance_action Op 0 -60 0 reset test=gt:log
+tick 1
+dump blocks:-3,-60,-3,3,-60,3 be:0,-60,0
+tick 3
+dump blocks:-3,-60,-3,3,-60,3 be:0,-60,0

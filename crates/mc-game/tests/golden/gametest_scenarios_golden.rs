@@ -17,3 +17,8 @@ fn test_instance_block_actions_set_reset_save_and_answer_queries() {
 fn block_based_tests_started_from_instance_blocks_pass_fail_and_log() {
     common::block_scenario::check("gt_block_based_run");
 }
+
+#[test]
+fn test_instance_block_changes_tell_the_comparators_beside_it() {
+    common::block_scenario::check("blk_test_instance_comparator");
+}

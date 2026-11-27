@@ -392,12 +392,18 @@ pub fn structure_pos_of(block_pos: BlockPos) -> BlockPos {
 // operations with side effects
 // ---------------------------------------------------------------------------------------------------------------
 
-/// `setChanged()`: marks the chunk dirty and sends the block entity update (`sendBlockUpdated(pos, AIR, state, 3)`).
+/// `setChanged()`: marks the chunk dirty, tells the comparators beside the entity and sends the block entity update
+/// (`sendBlockUpdated(pos, AIR, state, 3)`); the entity's own state is the one it was created with.
 pub fn changed(server: &mut MinecraftServer, dimension: &DimensionKey, pos: BlockPos) {
     if let Some(level) = server.level_mut(dimension) {
         level.block_entity_changed(pos);
-        let state = level.get_block_state(pos);
-        level.send_block_updated(pos, Block::AIR.default_state(), state, 3);
+        level.update_neighbour_for_output_signal(pos, Block::TEST_INSTANCE_BLOCK);
+        level.send_block_updated(
+            pos,
+            Block::AIR.default_state(),
+            Block::TEST_INSTANCE_BLOCK.default_state(),
+            3,
+        );
     }
 }
 
