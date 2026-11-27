@@ -28,7 +28,8 @@ import re
 from client_e2e import gate, normalise, shotdiff
 
 # values that depend on when the snapshot was taken, not on the server
-DEFAULT_IGNORE = ("level.game_time", "level.day_time")
+# keep-alives are sent every 15 s of wall time: whether one falls into a run is chance
+DEFAULT_IGNORE = ("level.game_time", "level.day_time", "packets.*:*/minecraft:keep_alive")
 # packet counters vary with timing (client ticks, entity traffic): only the set of packet types is compared, unless the
 # scenario pins a counter with `tolerate GLOB N` (N = 0 for an exact count)
 PRESENCE_ONLY = ("packets.*",)
@@ -97,7 +98,8 @@ def diff_snapshots(a, b, tolerances=(), ignore=DEFAULT_IGNORE):
     missing = object()
     out = []
     for path in sorted(set(fa) | set(fb), key=_path_order):
-        if any(fnmatch.fnmatchcase(path, g) for g in ignore):
+        # a scenario that freezes the clock pins `level.day_time` with `tolerate`, which compares it after all
+        if any(fnmatch.fnmatchcase(path, g) for g in ignore) and not any(fnmatch.fnmatchcase(path, g) for g, _ in tolerances):
             continue
         va, vb = fa.get(path, missing), fb.get(path, missing)
         if va is missing or vb is missing or va != vb:

@@ -37,8 +37,8 @@ class GateTest(unittest.TestCase):
         self.assertEqual(gate.parse("[gamescope] [Error]  vulkan: nothing\nplain text"), [])
 
     def test_the_noise_list_removes_exactly_its_lines_from_the_recorded_findings(self):
-        found, _ = gate.findings(gate.parse(self.vanilla))
-        self.assertEqual(len(found), 5, found)
+        before, _ = gate.findings(gate.parse(self.vanilla))
+        self.assertEqual(len(before), 5, before)
         noise = gate.load_allow(os.path.join(HERE, "client-log-noise.txt"))
         found, unused = gate.findings(gate.parse(self.vanilla), noise)
         # what the old, unisolated harness logged and the noise list rightly does not hide
@@ -51,9 +51,10 @@ class GateTest(unittest.TestCase):
                 "Realms authentication error with message 'java.lang.RuntimeException: Failed to parse into SignedJWT: 0'",
             ],
         )
-        # the two Realms lines of the isolated harness and the lines some scenarios add are not in this older recording
-        self.assertEqual(len(unused), 11, unused)
-        self.assertTrue(all(any(s in u for s in ("realms", "Realms", "disconnected with reason", "Existing file", "Failed to download", "Mismatched hash")) for u in unused))
+        # every noise line either removed a finding of this older recording or is unused (the lines of the isolated harness and
+        # of some scenarios are not in it)
+        removed = [f for f in before if f not in found]
+        self.assertEqual(sorted(removed + unused), sorted(noise))
 
     def test_allow_list_is_exact(self):
         entries = gate.parse("[12:00:00] [Render thread/WARN]: Requested post effect does not exist: minecraft:end_of_frame2")

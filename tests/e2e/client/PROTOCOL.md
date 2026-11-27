@@ -27,6 +27,7 @@ missing), `cmd`, and the arguments below. Unknown commands, missing arguments an
 | `cmd` | Arguments | Effect and `result` |
 |---|---|---|
 | `snapshot` | `path` (default `game/e2e/snapshot-ID.json`) | Writes the state snapshot (below); `result` = `{"path": ABSOLUTE_PATH}` |
+| `probe` | `spec`: object with `blocks` (boxes `[x1,y1,z1,x2,y2,z2]`), `light` and `biomes` (positions `[x,y,z]`) | Keeps the spec: every later snapshot has a `probe` section with the block states of the boxes (run-length lists, x fastest then y then z, with the block entity type and update tag), `block/sky` light levels and biome ids |
 | `chat` | `text` | Sends `text` as a chat message (a leading `/` is not a command here) |
 | `command` | `text` (without the slash) | Sends the command as the client would from the chat box |
 | `setScreen` | `screen`: `null`, `inventory`, `pause`, `chat`, `advancements`, `multiplayer`, `social`, `creative` | Opens or closes a screen (`multiplayer` = the server list over the title screen). Closing a container screen sends `ContainerClose` |
@@ -51,7 +52,7 @@ key. Every key is present in every snapshot (`null` when it does not apply).
 
 ```
 format, screen, menu, player, inventory, level, entities, registries, tags, features, recipes, advancements,
-commands, chat, scoreboard, tab_list, boss_bars, titles, packs, server, packets
+commands, chat, scoreboard, tab_list, boss_bars, titles, packs, server, waypoints, probe, packets
 ```
 
 * `screen`: null or `{class, title, widgets: [{class, message, key, x, y, width, height, active, visible}]}` (`key`: the translation key of the message, null for literal text); the multiplayer screen
@@ -65,6 +66,8 @@ commands, chat, scoreboard, tab_list, boss_bars, titles, packs, server, packets
 * `entities`: every entity of the client level in level iteration order (the order the client created them):
   `{id, uuid, type, pos, rot, motion, data: {accessor id: value}, equipment, passengers: [id], attributes}`.
 * `registries`: synchronised registry key to entry count; `tags`: registry key to tag count; `features`: enabled flag ids.
+* `waypoints`: the locator bar's tracked waypoints sorted by id: `{id, kind, style, color, ...}` plus the position fields of the kind (`vector`, `chunkPos`, `angle`).
+* `probe`: null until a `probe` control command gave a spec, then what the spec asks for.
 * `packets`: `{in: {"PROTOCOL:flow/type": count}, out: {...}}` counted over the whole JVM life, every protocol phase.
 
 Counts are the stable observable of a join: on a deterministic world (flat, peaceful, no mob spawning) two runs of the same

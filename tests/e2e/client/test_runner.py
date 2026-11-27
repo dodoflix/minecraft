@@ -251,6 +251,12 @@ class CompareTest(unittest.TestCase):
         self.assertEqual([p for p, _, _ in pinned], ["packets.in.extra", "packets.in.login"])
         self.assertEqual([p for p, _, _ in compare.diff_snapshots(a, b, tolerances=[("packets.in.login", 1)])], ["packets.in.extra"])
 
+    def test_a_pinned_clock_value_is_compared_after_all(self):
+        a, b = snapshot(1, 1, 1), snapshot(1, 1, 1)
+        a["level"]["day_time"], b["level"]["day_time"] = 6000, 6001
+        self.assertEqual(compare.diff_snapshots(a, b), [])
+        self.assertEqual([p for p, _, _ in compare.diff_snapshots(a, b, tolerances=[("level.day_time", 0)])], ["level.day_time"])
+
     def test_a_value_difference_is_named_by_its_path(self):
         a, b = self.sides(snapshot(100, 5, 40), snapshot(25, 5, 40))
         self.assertEqual([k for k, _ in compare.compare_sides(a, b)], ["snapshot:joined:level.chunks_loaded"])

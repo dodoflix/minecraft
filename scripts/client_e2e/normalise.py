@@ -49,8 +49,9 @@ def log_key(level, message):
 
 # ---- server log -----------------------------------------------------------------------------------------------
 
-# what the server log is gated on: errors and the vanilla message for a read of a chunk that is not generated yet
-SERVER_FINDING = re.compile(r"Exception|Detected unsafe terrain read")
+# what the server log is gated on: errors, the vanilla message for a read of a chunk that is not generated yet, and the
+# pointer a console command that did not parse prints (a scenario must not rely on a command that never ran)
+SERVER_FINDING = re.compile(r"Exception|Detected unsafe terrain read|<--\[HERE\]")
 # the lines of a player's session that both servers must print alike
 SERVER_PLAYER = re.compile(r"joined the game|left the game|UUID of player|logged in with entity id|lost connection|Disconnecting|was kicked")
 SERVER_REWRITES = (

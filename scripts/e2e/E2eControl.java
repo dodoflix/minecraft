@@ -144,6 +144,11 @@ final class E2eControl {
                 Files.writeString(p, E2eSnapshot.build(mc).toString() + "\n");
                 result = pathResult(p);
             }
+            case "probe" -> {
+                // `spec` is kept and read into the `probe` section of every later snapshot (see E2eSnapshot.probe)
+                conn(mc);
+                E2eSnapshot.probeSpec = c.getAsJsonObject("spec");
+            }
             case "chat" -> conn(mc).sendChat(str(c, "text"));
             case "command" -> conn(mc).sendCommand(str(c, "text"));
             case "setScreen" -> setScreen(mc, str(c, "screen"));
