@@ -8,6 +8,7 @@
 //! wait_ticks N                   N client ticks            wait SECONDS   real time
 //! wait_chat TEXT [SECONDS=10]    wait for a chat/system line containing TEXT
 //! look_at X Y Z                  walk X Z [sprint]         jump [TICKS=1]           sneak on|off      select N (hotbar 0-8)
+//! fly on|off                     creative flight (needs `may_fly`: creative or spectator); `walk` then flies level at the current height
 //! wait_entity TYPE [SECONDS=10]  wait for an entity of TYPE that did not exist before (the `add_entity` packet); TYPE = `zombie` or `minecraft:zombie`
 //! attack REF                     ServerboundAttackPacket   interact REF [main|off]  ServerboundInteractPacket (location 0,0.5,0 relative to the entity)
 //! use_item_on X Y Z FACE [main|off]    ServerboundUseItemOnPacket (FACE: down up north south west east, cursor = face centre)
@@ -113,6 +114,7 @@ pub async fn run(bot: &Bot, text: &str) -> Result<Vec<String>> {
             }
             "jump" => bot.jump(t.get(1).map_or(Ok(1.0), |s| num(s))? as u32),
             "sneak" => bot.set_sneaking(arg(1)? == "on"),
+            "fly" => bot.set_flying(arg(1)? == "on"),
             "select" => bot.select_hotbar(num(arg(1)?)? as u8),
             "wait_entity" => {
                 let ty =
