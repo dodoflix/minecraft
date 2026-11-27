@@ -30,7 +30,7 @@
 //!   (logged from concurrent worker threads) is sorted ([`log_records`]). Both servers use the mock of the Mojang
 //!   services, so the key fetch thread logs nothing.
 //! * The real server runs [`MIN_VANILLA_RUNS`] times on every world; a world on which the servers differ is run again, up
-//!   to [`VANILLA_RETRIES`] more times (`mc-server` runs once): its first tick is a race. Per chunk of the loaded area
+//!   to [`MAX_VANILLA_RUNS`] runs (`mc-server` runs once): its first tick is a race. Per chunk of the loaded area
 //!   and per chunk the servers generated while running, `mc-server` has to equal that chunk of one of the real runs
 //!   (blocks, fluid ticks, post processing, scheduled ticks, entity data; the entity UUIDs of a generated chunk are
 //!   left out, [`GENERATED_CHUNK_RACES`]; [`settle_races`]). `mc-server` writes its worldgen
@@ -180,6 +180,11 @@ pub(crate) const VANILLA_RETRIES: usize = 3;
 /// Real runs on every world before the comparison: a chunk the servers generate while running comes out in more than
 /// one way (worker thread order), and `mc-server` has to equal one of the ways the real server produced.
 const MIN_VANILLA_RUNS: usize = 3;
+
+/// Real runs on a world on which the servers still differ, at most. A chunk of the 1.16.5 normal world comes out in two
+/// to five ways (22 real runs: the leaf tick order of one ring chunk has 5 outcomes) and `mc-server` produces one of
+/// them; every chunk needs a run that equals it, so a world with many such chunks needs more than six runs now and then.
+const MAX_VANILLA_RUNS: usize = 9;
 
 /// Info lines that belong to the world loading and the file fixer (warnings and errors are always compared).
 pub(crate) const INTEREST: &[&str] = &[
@@ -943,7 +948,7 @@ fn dual(case: Case) {
             if equal {
                 findings.clear();
             }
-            if equal || runs.len() > VANILLA_RETRIES + MIN_VANILLA_RUNS - 1 {
+            if equal || runs.len() >= MAX_VANILLA_RUNS {
                 break;
             }
         }
