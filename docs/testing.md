@@ -483,3 +483,41 @@ every version of `versions.tsv`. A failure prints the first differing log line a
 miss installs JDK 8, 17, 21 and 25, runs `scripts/datafix-worlds.sh` for every listed version and saves the cache. The cold
 run takes hours, the later ones minutes. The nightly `oracle` job runs the T2 suites in four shards (section 9); the weekly
 run is the `--all` dual over every version. The jars are downloaded from Mojang on the runner; none is uploaded as an artifact.
+
+## 11. Game test, text filter and flight recording duals
+
+The rows below are T2 (section 1): `#[ignore]`d tests of the `oracle` target of `mc-server`, run by the nightly oracle job
+with `MC_ACCEPT_EULA=1`; unless noted they start the vanilla jar and `mc-server` side by side. The block scenarios are T0.
+Run one oracle test with
+
+```sh
+MC_ACCEPT_EULA=1 cargo test -p mc-server --test oracle -- --ignored <test name> --test-threads=1
+```
+
+| What | Test or script | Compares | Fixtures |
+|---|---|---|---|
+| `/test` corpora | `command_corpora::{gametest_cmd, gametest_run, gametest_gui, gametest_pack, gametest_multi, gametest_bad}`, runner `scripts/command-diff.sh` | the console and chat output of `/test` over data packs of test instances, test environments and structures: pass, fail, timeout, missing and duplicate start block, retries, rotation, old structures, other dimensions, bad packs. Runs our server only, against the vanilla transcript | `crates/mc-game/tests/fixtures/commands_corpus/gametest*.txt` (corpora), `.../gametest/*` (the packs; the structure files of `gtpack` come from `scripts/gametest-pack.sh`), `.../golden/gametest_*.vanilla.txt` (transcripts) |
+| test block packets and test instance blocks | `blk_test_block`, `blk_test_block_packet`, `blk_test_block_place`, `blk_test_instance_block`, `blk_test_instance_comparator`, `gt_block_based_run` block scenarios | ticks, neighbour updates, block entity data and the packets a client sees, replayed by the `mc-game` golden binary (T0, section 4) | `crates/mc-game/tests/fixtures/entity_oracle/<scenario>.txt` |
+| headless game test server | `gametest_main::<case>`, script `scripts/gametest-diff.sh` | the command line of vanilla's `net.minecraft.gametest.Main` (`--tests`, `--packs`, `--repeatCount`, `--verify`, `--report`, `--universe`, `--help`, abbreviated, repeated and malformed options) run through `mc-gametest`: exit code, console log, option parser errors on stderr, the layout of `<universe>/gametestworld` and the XML report. | `crates/mc-server/tests/fixtures/gametest_main/<case>.vanilla.txt` |
+| text filter, version 0 | `text_filter_dual::*` | the chat, join and leave requests each server sends to a mock moderation service (method, path, headers, body), what players see (filter mask, unsigned content, signs, books, anvil names) and what the server logs for every kind of answer and for unusable configurations | none (both servers run live) |
+| text filter, version 1 | `text_filter_v1_dual::v1_*` | the same, for the Player Safety service: instance discovery, OpenID metadata, token requests (the signed client assertion decoded), token reuse and renewal, refused tokens and the start-up failures. Needs `openssl` and `keytool`: a test CA signs the certificate that a CONNECT proxy shows the vanilla JVM | none |
+| flight recordings | `jfr_dual::recording_equals_vanilla` | `/jfr start` and `stop`: the `.jfr` file read by the JDK's `RecordingFile`, the `minecraft.*` event types (names, labels, descriptions, categories, settings, fields), which types have events, the summary JSON that vanilla's parser writes (key order, value kinds), file names and log lines | none |
+| `/perf` report | `perf_dual::*` | the entries of the report zip, the `system.txt` rows `fillSystemReport` writes, the metrics CSV headers and profile names, with a data pack and `--serverId` changing two rows | none |
+
+**Game test server dual.** `scripts/gametest-diff.sh [--record DIR | --golden DIR] [--ours-bin PATH] [--no-build] [--keep] [CASE...]`
+runs the real `net.minecraft.gametest.Main` (`ref/server.jar` with `-DbundlerMainClass`) and `mc-gametest` on the same command
+lines and diffs them; without `--record` or `--golden` both sides run live. `--golden DIR` runs our side only against the committed
+recordings, which is what the `gametest_main` tests do (the script still needs `java` on `PATH`). Vanilla is non-deterministic in a few places
+(the random start position, elapsed times, the order of test batches, thread numbers and a few more); the script masks those and its header
+lists every one. To re-record a case, record it twice, once into a scratch directory and once into
+`crates/mc-server/tests/fixtures/gametest_main` (`scripts/gametest-diff.sh --record DIR <case>`), and diff the two files before committing.
+Exit status 0 identical, 1 differences, 2 harness error. The case `verify` runs 400 tests and is left out by default.
+
+**Accepted differences.** `mc-gametest` does not print the stack frames of an uncaught exception (the script drops them on both
+sides). Flight recordings carry a CPU load event and a heap summary pair written from `/proc`, but no per-thread allocation, file
+read/write or collection events, and name no thread or stack trace (`jfr_dual` leaves `threadAllocation` and the `fileIO`
+contributors out of the shape comparison); the recording of `--jfrProfile` has no dual. The `GameTestHelper` methods for entities,
+items, containers and players are not ported: no test function of a stock server can call them.
+
+Perf and flight recording rows compare what is stable: sizes, durations and counters are the run's own, so the report tables and
+summaries compare shape with digits masked, while the `system.txt` rows and the event types are compared as text.

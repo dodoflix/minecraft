@@ -56,6 +56,16 @@ renaming tables of the fix classes) are committed and embedded in the build. The
 dumped from Mojang's server by scripts/datafix-oracle.sh --regen and are Mojang's, not
 relicensed here.
 
+The game test recordings are committed: the console, chat and report output of Mojang's
+server for the /test corpora (crates/mc-game/tests/fixtures/commands_corpus/golden/gametest_*.vanilla.txt,
+written by scripts/command-diff.sh --record), the output of Mojang's net.minecraft.gametest.Main
+for the command lines of scripts/gametest-diff.sh (crates/mc-server/tests/fixtures/gametest_main/*.vanilla.txt)
+and the recordings of the test block and test instance block scenarios
+(crates/mc-game/tests/fixtures/entity_oracle/blk_test_*.txt, gt_block_based_run.txt). They are
+Mojang's output, not relicensed here. The data packs and corpora they were recorded from
+(crates/mc-game/tests/fixtures/commands_corpus/gametest*) and the generator of their structure
+files (scripts/gametest-pack.sh) are MIT.
+
 One exception is committed in source form: the witty comments and profile report
 comments that Mojang's CrashReport prints (CRASH_NUGGETS and PROFILE_NUGGETS in
 crates/mc-game-core/src/crash_report.rs). They are kept so that crash and
