@@ -4,6 +4,7 @@
 use std::collections::HashMap;
 
 use chrono::{Datelike, Local, Offset, Timelike};
+use mc_core::java_string::JavaString;
 
 /// Platform `line.separator` as written by `BufferedWriter.newLine()`.
 const LINE_SEP: &str = if cfg!(windows) { "\r\n" } else { "\n" };
@@ -13,10 +14,11 @@ const LINE_SEP: &str = if cfg!(windows) { "\r\n" } else { "\n" };
 #[error("Malformed \\uxxxx encoding.")]
 pub struct MalformedUnicodeEscape;
 
-/// The key/value table of a `java.util.Properties` (string keys and values only).
+/// The key/value table of a `java.util.Properties` (string keys and values only; a `\uXXXX` escape can make a lone
+/// surrogate, which the table keeps).
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct Properties {
-    map: HashMap<String, String>,
+    map: HashMap<JavaString, JavaString>,
 }
 
 impl Properties {
@@ -24,8 +26,14 @@ impl Properties {
         Properties::default()
     }
 
+    /// The value as text, each lone surrogate shown as U+FFFD (what parsing a number or a name needs).
     pub fn get(&self, key: &str) -> Option<&str> {
-        self.map.get(key).map(String::as_str)
+        self.get_java(key).map(JavaString::as_lossy_str)
+    }
+
+    /// The exact value.
+    pub fn get_java(&self, key: &str) -> Option<&JavaString> {
+        self.map.get(&JavaString::from(key))
     }
 
     /// `getProperty(key, default)`.
@@ -33,12 +41,12 @@ impl Properties {
         self.get(key).unwrap_or(default)
     }
 
-    pub fn put(&mut self, key: impl Into<String>, value: impl Into<String>) {
+    pub fn put(&mut self, key: impl Into<JavaString>, value: impl Into<JavaString>) {
         self.map.insert(key.into(), value.into());
     }
 
-    pub fn remove(&mut self, key: &str) -> Option<String> {
-        self.map.remove(key)
+    pub fn remove(&mut self, key: &str) -> Option<JavaString> {
+        self.map.remove(&JavaString::from(key))
     }
 
     pub fn len(&self) -> usize {
@@ -50,13 +58,9 @@ impl Properties {
     }
 
     /// Entries in `String.compareTo` (UTF-16 code unit) key order, as `store` writes them.
-    pub fn sorted_entries(&self) -> Vec<(&str, &str)> {
-        let mut entries: Vec<(&str, &str)> = self
-            .map
-            .iter()
-            .map(|(k, v)| (k.as_str(), v.as_str()))
-            .collect();
-        entries.sort_by(|a, b| a.0.encode_utf16().cmp(b.0.encode_utf16()));
+    pub fn sorted_entries(&self) -> Vec<(&JavaString, &JavaString)> {
+        let mut entries: Vec<_> = self.map.iter().collect();
+        entries.sort_by(|a, b| a.0.java_cmp(b.0));
         entries
     }
 
@@ -112,33 +116,35 @@ impl Properties {
         Properties::load(&text)
     }
 
-    /// `Properties.store(Writer, comments)` (non-ASCII is written as is).
-    pub fn store(&self, comments: Option<&str>) -> String {
+    /// `Properties.store(Writer, comments)`: the UTF-16 units handed to the writer (non-ASCII is written as is, a lone
+    /// surrogate stays a lone surrogate).
+    pub fn store(&self, comments: Option<&str>) -> Vec<u16> {
         self.store0(comments, false)
     }
 
     /// `Properties.store(OutputStream, comments)` as ISO-8859-1 bytes (anything above `~` is `\uXXXX`-escaped).
     pub fn store_latin1(&self, comments: Option<&str>) -> Vec<u8> {
-        // every char of the output is <= 0xFF by construction (escUnicode), so this is lossless
+        // every unit of the output is <= 0xFF by construction (escUnicode), so this is lossless
         self.store0(comments, true)
-            .chars()
-            .map(|c| c as u32 as u8)
+            .into_iter()
+            .map(|u| u as u8)
             .collect()
     }
 
-    fn store0(&self, comments: Option<&str>, esc_unicode: bool) -> String {
-        let mut out = String::new();
+    fn store0(&self, comments: Option<&str>, esc_unicode: bool) -> Vec<u16> {
+        let mut text = String::new();
         if let Some(comments) = comments {
-            write_comments(&mut out, comments);
+            write_comments(&mut text, comments);
         }
-        out.push('#');
-        out.push_str(&java_date_string());
-        out.push_str(LINE_SEP);
+        text.push('#');
+        text.push_str(&java_date_string());
+        text.push_str(LINE_SEP);
+        let mut out: Vec<u16> = text.encode_utf16().collect();
         for (key, value) in self.sorted_entries() {
-            out.push_str(&save_convert(key, true, esc_unicode));
-            out.push('=');
-            out.push_str(&save_convert(value, false, esc_unicode));
-            out.push_str(LINE_SEP);
+            save_convert(key, true, esc_unicode, &mut out);
+            out.push(u16::from(b'='));
+            save_convert(value, false, esc_unicode, &mut out);
+            out.extend(LINE_SEP.encode_utf16());
         }
         out
     }
@@ -231,21 +237,13 @@ impl LineReader<'_> {
 }
 
 /// `Properties.loadConvert`: resolve backslash escapes.
-fn load_convert(input: &[char]) -> Result<String, MalformedUnicodeEscape> {
-    let mut out = String::with_capacity(input.len());
-    let mut units: Vec<u16> = Vec::new(); // pending UTF-16 units so \uD83D\uDE00 pairs decode like Java strings
-    let flush = |units: &mut Vec<u16>, out: &mut String| {
-        if !units.is_empty() {
-            out.push_str(&String::from_utf16_lossy(units));
-            units.clear();
-        }
-    };
+fn load_convert(input: &[char]) -> Result<JavaString, MalformedUnicodeEscape> {
+    let mut out = JavaString::new();
     let mut i = 0;
     while i < input.len() {
         let c = input[i];
         i += 1;
         if c != '\\' {
-            flush(&mut units, &mut out);
             out.push(c);
             continue;
         }
@@ -263,59 +261,62 @@ fn load_convert(input: &[char]) -> Result<String, MalformedUnicodeEscape> {
                     i += 1;
                     value = (value << 4) + digit;
                 }
-                units.push(value as u16);
+                out.push_utf16_unit(value as u16);
             }
-            't' | 'r' | 'n' | 'f' => {
-                flush(&mut units, &mut out);
-                out.push(match e {
-                    't' => '\t',
-                    'r' => '\r',
-                    'n' => '\n',
-                    _ => '\x0c',
-                });
-            }
-            other => {
-                flush(&mut units, &mut out);
-                out.push(other);
-            }
+            't' => out.push('\t'),
+            'r' => out.push('\r'),
+            'n' => out.push('\n'),
+            'f' => out.push('\x0c'),
+            other => out.push(other),
         }
     }
-    flush(&mut units, &mut out);
     Ok(out)
 }
 
-/// `Properties.saveConvert`.
-fn save_convert(s: &str, escape_space: bool, esc_unicode: bool) -> String {
-    let mut out = String::with_capacity(s.len() * 2);
+/// `Properties.saveConvert`, appended to `out`. A lone surrogate is `\uXXXX` with `esc_unicode`; otherwise it reaches the
+/// writer unchanged.
+fn save_convert(s: &JavaString, escape_space: bool, esc_unicode: bool, out: &mut Vec<u16>) {
     let mut first = true;
-    for c in s.chars() {
+    for unit in char::decode_utf16(s.encode_utf16()) {
+        let c = match unit {
+            Ok(c) => c,
+            Err(lone) => {
+                let lone = lone.unpaired_surrogate();
+                if esc_unicode {
+                    out.extend(format!("\\u{lone:04X}").encode_utf16());
+                } else {
+                    out.push(lone);
+                }
+                first = false;
+                continue;
+            }
+        };
         match c {
             ' ' => {
                 if first || escape_space {
-                    out.push('\\');
+                    out.push(u16::from(b'\\'));
                 }
-                out.push(' ');
+                out.push(u16::from(b' '));
             }
-            '\\' => out.push_str("\\\\"),
-            '\t' => out.push_str("\\t"),
-            '\n' => out.push_str("\\n"),
-            '\r' => out.push_str("\\r"),
-            '\x0c' => out.push_str("\\f"),
+            '\\' => out.extend("\\\\".encode_utf16()),
+            '\t' => out.extend("\\t".encode_utf16()),
+            '\n' => out.extend("\\n".encode_utf16()),
+            '\r' => out.extend("\\r".encode_utf16()),
+            '\x0c' => out.extend("\\f".encode_utf16()),
             '=' | ':' | '#' | '!' => {
-                out.push('\\');
-                out.push(c);
+                out.push(u16::from(b'\\'));
+                out.push(c as u16);
             }
             c if !(' '..='~').contains(&c) && esc_unicode => {
                 let mut buf = [0u16; 2];
                 for unit in c.encode_utf16(&mut buf) {
-                    out.push_str(&format!("\\u{unit:04X}"));
+                    out.extend(format!("\\u{unit:04X}").encode_utf16());
                 }
             }
-            c => out.push(c),
+            c => out.extend(c.encode_utf16(&mut [0u16; 2]).iter()),
         }
         first = false;
     }
-    out
 }
 
 /// `Properties.writeComments`.
@@ -425,7 +426,7 @@ mod tests {
         p.put("b", " lead=x:y#z!w\\ q\t");
         p.put("a b", "é😀");
         p.put("Z", "");
-        let text = p.store(Some("hello\nworld"));
+        let text = String::from_utf16(&p.store(Some("hello\nworld"))).unwrap();
         let lines: Vec<&str> = text.lines().collect();
         assert_eq!(lines[0], "#hello");
         assert_eq!(lines[1], "#world");

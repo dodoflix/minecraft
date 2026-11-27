@@ -14,6 +14,7 @@ use crate::server::players::name_resolver::ProfileLookup;
 use crate::server::rcon::{QueryServerInfo, QueryThreadGs4, RconThread};
 use crate::server::server_links::{ServerLink, ServerLinks};
 use crate::server::services_keys::ServicesKeys;
+use mc_core::java_string::JavaString;
 use mc_protocol::packets::common::KnownLinkType;
 use mc_world::level_storage::{Difficulty, GameType};
 use std::collections::HashMap;
@@ -359,14 +360,12 @@ impl MinecraftServer {
     }
 
     /// `getMotd`.
-    pub fn get_motd(&self) -> String {
+    pub fn get_motd(&self) -> JavaString {
         self.properties().motd.get().clone()
     }
 
-    pub fn set_motd(&mut self, motd: &str) {
-        self.dedicated
-            .settings
-            .update(|p| p.update(&p.motd, motd.to_owned()));
+    pub fn set_motd(&mut self, motd: JavaString) {
+        self.dedicated.settings.update(|p| p.update(&p.motd, motd));
     }
 
     pub fn get_max_players(&self) -> i32 {
@@ -918,14 +917,15 @@ impl MinecraftServer {
         );
         let motd = self.get_motd();
         let enforce = self.enforce_secure_profile();
-        crate::server::status::build_server_status(&motd, sample, self.status_icon(), enforce)
+        crate::server::status::build_server_status(motd, sample, self.status_icon(), enforce)
     }
 
     /// Publish the values off-thread readers (query, rcon, management API) see.
     pub(in crate::server) fn refresh_shared_info(&mut self) {
         let names = self.player_list.get_player_names_array();
         let snapshot = crate::server::shared::ServerInfoSnapshot {
-            motd: self.get_motd(),
+            // the query and legacy listeners encode it as text: a lone surrogate is U+FFFD or `?` there
+            motd: self.get_motd().into_string_lossy(),
             server_version: mc_world::level_storage::WORLD_VERSION_NAME.to_owned(),
             player_count: self.player_list.get_player_count(),
             max_players: self.get_max_players(),

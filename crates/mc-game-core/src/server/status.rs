@@ -1,5 +1,6 @@
 //! Server-list status: `MinecraftServer.buildServerStatus`/`buildPlayerStatus`, `loadStatusIcon` and `util.PngInfo`.
 
+use mc_core::java_string::JavaString;
 use mc_core::math::mth;
 use mc_core::random::RandomSource;
 use mc_protocol::packets::status::{Players, ServerStatus, Version};
@@ -68,7 +69,7 @@ pub fn build_player_status(
 
 /// `MinecraftServer.buildServerStatus`.
 pub fn build_server_status(
-    motd: &str,
+    motd: JavaString,
     players: Players,
     favicon: Option<&[u8]>,
     enforces_secure_chat: bool,

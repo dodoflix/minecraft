@@ -4,6 +4,8 @@
 use std::fs;
 use std::path::Path;
 
+use mc_core::java_string::JavaString;
+
 use super::java_properties::{MalformedUnicodeEscape, Properties};
 
 /// An exception vanilla lets escape from the settings constructors (the server then fails with
@@ -54,16 +56,106 @@ fn java_io_error(e: &std::io::Error, file: &Path) -> String {
     }
 }
 
-/// `Settings.store`: UTF-8, header comment `Minecraft server properties`.
+/// `Settings.store`: UTF-8, header comment `Minecraft server properties`. The writer reports a lone surrogate instead of
+/// replacing it, so a store that meets one fails (`Failed to store properties`) and leaves what the encoder had produced.
 pub fn store(properties: &Properties, output: &Path) {
-    if fs::write(
-        output,
-        properties.store(Some("Minecraft server properties")),
-    )
-    .is_err()
-    {
+    let (bytes, stored) =
+        utf8_buffered_writer_file(&properties.store(Some("Minecraft server properties")));
+    if fs::write(output, bytes).is_err() || !stored {
         log::error!("Failed to store properties to file: {}", output.display());
     }
+}
+
+/// `StreamEncoder` bytes held back until the buffer is full or the writer is flushed.
+struct Utf8StreamEncoder {
+    file: Vec<u8>,
+    pending: Vec<u8>,
+    /// A high surrogate that ended the last write, waiting for its pair.
+    leftover: Option<u16>,
+}
+
+impl Utf8StreamEncoder {
+    const BYTE_BUFFER: usize = 8192;
+
+    fn put(&mut self, bytes: &[u8]) {
+        if self.pending.len() + bytes.len() > Self::BYTE_BUFFER {
+            self.file.append(&mut self.pending);
+        }
+        self.pending.extend_from_slice(bytes);
+    }
+
+    fn put_pair(&mut self, high: u16, low: u16) {
+        let c = char::decode_utf16([high, low]).next().and_then(Result::ok);
+        let mut buf = [0u8; 4];
+        self.put(
+            c.expect("a surrogate pair")
+                .encode_utf8(&mut buf)
+                .as_bytes(),
+        );
+    }
+
+    /// `StreamEncoder.implWrite(char[])` with a REPORT encoder: `Err` at a malformed char, the bytes before it kept.
+    fn write(&mut self, chunk: &[u16]) -> Result<(), ()> {
+        let mut i = 0;
+        if let Some(high) = self.leftover {
+            let Some(&next) = chunk.first() else {
+                return Ok(());
+            };
+            i = 1;
+            if !(0xDC00..0xE000).contains(&next) {
+                return Err(());
+            }
+            self.put_pair(high, next);
+            self.leftover = None;
+        }
+        while i < chunk.len() {
+            let unit = chunk[i];
+            match unit {
+                0xD800..0xDC00 => match chunk.get(i + 1) {
+                    None => {
+                        self.leftover = Some(unit);
+                        return Ok(());
+                    }
+                    Some(&low) if (0xDC00..0xE000).contains(&low) => {
+                        self.put_pair(unit, low);
+                        i += 1;
+                    }
+                    Some(_) => return Err(()),
+                },
+                0xDC00..0xE000 => return Err(()),
+                _ => {
+                    let c = char::from_u32(u32::from(unit)).expect("not a surrogate");
+                    self.put(c.encode_utf8(&mut [0u8; 4]).as_bytes());
+                }
+            }
+            i += 1;
+        }
+        Ok(())
+    }
+}
+
+/// The file `Files.newBufferedWriter(path, UTF_8)` leaves for `Properties.store` of `units`, and whether the store
+/// succeeded. `BufferedWriter` hands its 8192-char buffer to the encoder when it is full; when that fails, `close` hands
+/// the same buffer over a second time, and only then are the encoder's pending bytes written (and lost when a high
+/// surrogate is still waiting for its pair).
+fn utf8_buffered_writer_file(units: &[u16]) -> (Vec<u8>, bool) {
+    let mut encoder = Utf8StreamEncoder {
+        file: Vec::new(),
+        pending: Vec::new(),
+        leftover: None,
+    };
+    for chunk in units.chunks(8192) {
+        if encoder.write(chunk).is_err() {
+            let _ = encoder.write(chunk);
+            if encoder.leftover.is_none() {
+                encoder.file.append(&mut encoder.pending);
+            }
+            return (encoder.file, false);
+        }
+    }
+    encoder.file.append(&mut encoder.pending);
+    let stored = encoder.leftover.is_none();
+    (encoder.file, stored)
 }
 
 /// `Settings.MutableValue<V>`: the current value plus how to serialize a replacement into the properties.
@@ -71,7 +163,7 @@ pub fn store(properties: &Properties, output: &Path) {
 pub struct MutableValue<V> {
     key: &'static str,
     value: V,
-    serializer: fn(&V) -> String,
+    serializer: fn(&V) -> JavaString,
 }
 
 impl<V> MutableValue<V> {
@@ -122,11 +214,11 @@ impl Settings {
 
     /// `get(key, deserializer, serializer, default)`: a `None` (Java `null`) from the deserializer, or a missing key,
     /// yields the default. `Err` is an exception escaping the deserializer.
-    pub fn get_with<V>(
+    pub fn get_with<V, S: Into<JavaString>>(
         &mut self,
         key: &str,
         deserializer: impl FnOnce(&str) -> Result<Option<V>, SettingsError>,
-        serializer: impl FnOnce(&V) -> String,
+        serializer: impl FnOnce(&V) -> S,
         default: V,
     ) -> Result<V, SettingsError> {
         let parsed = match self.properties.get(key) {
@@ -134,7 +226,7 @@ impl Settings {
             None => None,
         };
         let result = parsed.unwrap_or(default);
-        self.properties.put(key, serializer(&result));
+        self.properties.put(key, serializer(&result).into());
         Ok(result)
     }
 
@@ -142,7 +234,7 @@ impl Settings {
         &mut self,
         key: &'static str,
         deserializer: impl FnOnce(&str) -> Result<Option<V>, SettingsError>,
-        serializer: fn(&V) -> String,
+        serializer: fn(&V) -> JavaString,
         default: V,
     ) -> Result<MutableValue<V>, SettingsError> {
         let value = self.get_with(key, deserializer, serializer, default)?;
@@ -153,18 +245,31 @@ impl Settings {
         })
     }
 
+    /// The value as text, each lone surrogate shown as U+FFFD; the table keeps the exact value.
     pub fn get_string(&mut self, key: &str, default: &str) -> String {
-        let value = self.properties.get(key).unwrap_or(default).to_owned();
+        self.get_java_string(key, default).into_string_lossy()
+    }
+
+    pub fn get_java_string(&mut self, key: &str, default: &str) -> JavaString {
+        let value = self
+            .properties
+            .get_java(key)
+            .cloned()
+            .unwrap_or_else(|| default.into());
         self.properties.put(key, value.clone());
         value
     }
 
-    pub fn get_mutable_string(&mut self, key: &'static str, default: &str) -> MutableValue<String> {
-        let value = self.get_string(key, default);
+    pub fn get_mutable_java_string(
+        &mut self,
+        key: &'static str,
+        default: &str,
+    ) -> MutableValue<JavaString> {
+        let value = self.get_java_string(key, default);
         MutableValue {
             key,
             value,
-            serializer: String::clone,
+            serializer: JavaString::clone,
         }
     }
 
@@ -194,7 +299,7 @@ impl Settings {
         MutableValue {
             key,
             value,
-            serializer: |v| v.to_string(),
+            serializer: |v| v.to_string().into(),
         }
     }
 
@@ -219,7 +324,7 @@ impl Settings {
         MutableValue {
             key,
             value,
-            serializer: |v| v.to_string(),
+            serializer: |v| v.to_string().into(),
         }
     }
 }

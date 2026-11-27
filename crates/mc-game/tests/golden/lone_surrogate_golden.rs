@@ -12,6 +12,10 @@ use mc_game::commands::arguments::item::{
 use mc_game::commands::command_build_context::AccessRegistries;
 use mc_game::server::dedicated::java_properties::Properties;
 use mc_game::server::dedicated::properties::DedicatedServerProperties;
+use mc_game::server::network::hooks::LegacyServerInfo;
+use mc_game::server::network::legacy_query::{
+    create_legacy_disconnect_packet, create_version0_response, create_version1_response,
+};
 use mc_game::util::timer_queue::{FunctionHost, TimerQueue};
 use mc_game::world::item::ItemStackExt;
 use mc_protocol::codec::Encode;
@@ -186,6 +190,153 @@ fn scheduled_event_ids_match_vanilla() {
         n += 1;
     }
     assert_eq!(n, 4);
+}
+
+/// `server.properties` text that spells `units` with `\uXXXX` escapes only.
+fn escaped(units: &[u16]) -> String {
+    units.iter().map(|u| format!("\\u{u:04x}")).collect()
+}
+
+/// `motd` of `server.properties` set to a string with lone surrogates (`\uXXXX` escapes in the file): the status component,
+/// the legacy ping and the rewritten file.
+#[test]
+fn server_properties_motd_matches_vanilla() {
+    let mut n = 0;
+    for c in rows(GOLDEN, "props_motd") {
+        let units = unesc_units(c[1]);
+        let file = format!("motd={}\n", escaped(&units));
+        let props = DedicatedServerProperties::new(Properties::load(&file).unwrap()).unwrap();
+        let motd = props.motd.get().clone();
+        assert_eq!(motd, JavaString::from_utf16_units(&units), "motd {}", c[1]);
+
+        let status = mc_text::Component::literal(motd.clone());
+        let mut out = Vec::new();
+        mc_nbt::nbt_io::write_any_tag(&status.to_nbt().unwrap(), &mut out).unwrap();
+        assert_eq!(hex(&out), c[2], "status component of {}", c[1]);
+
+        assert_eq!(
+            stored_props_file(&escaped(&units)),
+            c[3],
+            "stored file of {}",
+            c[1]
+        );
+
+        let info = LegacyServerInfo {
+            motd: motd.into_string_lossy(),
+            player_count: 3,
+            max_players: 20,
+            server_version: "26.3".to_owned(),
+        };
+        let packets = format!(
+            "{}|{}",
+            hex(&create_legacy_disconnect_packet(&create_version0_response(
+                &info
+            ))),
+            hex(&create_legacy_disconnect_packet(&create_version1_response(
+                &info
+            )))
+        );
+        assert_eq!(packets, c[4], "legacy ping of {}", c[1]);
+        n += 1;
+    }
+    assert_eq!(n, 10);
+}
+
+/// The file `store` leaves for `motd=<value>`: its length and SHA-256 with the date line replaced and every run of `x`
+/// (the padding) replaced by its length plus the date's, as the recorded rows do.
+fn stored_props_file(value: &str) -> String {
+    use sha2::{Digest, Sha256};
+    // the secret is random unless the file pins it
+    let file = format!(
+        "motd={value}\nmanagement-server-secret={}\n",
+        "k".repeat(40)
+    );
+    let props = DedicatedServerProperties::new(Properties::load(&file).unwrap()).unwrap();
+    let dir = tempfile::tempdir().unwrap();
+    let path = dir.path().join("server.properties");
+    props.store(&path);
+    let text: String = std::fs::read(&path)
+        .unwrap()
+        .iter()
+        .map(|&b| b as char)
+        .collect();
+    let date = text
+        .split_once('\n')
+        .and_then(|(_, rest)| rest.split_once('\n'))
+        .map_or("", |(date, _)| date);
+    let text = if date.is_empty() {
+        text.clone()
+    } else {
+        text.replace(date, "<date>")
+    };
+    let mut normalized = String::new();
+    let mut run = 0;
+    for c in text.chars().chain(['\0']) {
+        if c == 'x' {
+            run += 1;
+            continue;
+        }
+        if run >= 20 {
+            normalized.push_str(&format!("x{{{}}}", run + date.len()));
+        } else {
+            normalized.extend(std::iter::repeat_n('x', run));
+        }
+        run = 0;
+        normalized.push(c);
+    }
+    normalized.pop();
+    let digest: Vec<u8> =
+        Sha256::digest(normalized.chars().map(|c| c as u8).collect::<Vec<_>>()).to_vec();
+    format!("{}:{}", normalized.chars().count(), hex(&digest))
+}
+
+/// The file `store` leaves when the lone surrogate sits near a boundary of the writer's 8192-char buffer.
+#[test]
+fn server_properties_store_at_buffer_boundaries_matches_vanilla() {
+    let plain = tempfile::tempdir().unwrap();
+    let path = plain.path().join("server.properties");
+    let props = DedicatedServerProperties::new(
+        Properties::load(&format!(
+            "motd=\nmanagement-server-secret={}\n",
+            "k".repeat(40)
+        ))
+        .unwrap(),
+    )
+    .unwrap();
+    props.store(&path);
+    let text = std::fs::read_to_string(&path).unwrap();
+    let offset = text.find("\nmotd=").unwrap() + 6;
+    let mut n = 0;
+    for c in rows(GOLDEN, "props_store_at") {
+        let (at, units) = c[1].split_once(':').unwrap();
+        let at: usize = at.parse().unwrap();
+        let value = format!(
+            "{}{}",
+            "x".repeat(at - offset),
+            escaped(&unesc_units(units))
+        );
+        assert_eq!(stored_props_file(&value), c[2], "store at {}", c[1]);
+        n += 1;
+    }
+    assert_eq!(n, 35);
+}
+
+/// `level-seed` with lone surrogates: the hash of the trimmed string.
+#[test]
+fn server_properties_level_seed_matches_vanilla() {
+    let mut n = 0;
+    for c in rows(GOLDEN, "props_seed") {
+        let file = format!("level-seed={}\n", escaped(&unesc_units(c[1])));
+        let props = DedicatedServerProperties::new(Properties::load(&file).unwrap()).unwrap();
+        assert_eq!(
+            props.world_options.seed.to_string(),
+            c[2],
+            "seed of {}",
+            c[1]
+        );
+        n += 1;
+    }
+    assert_eq!(n, 10);
 }
 
 /// `resource-pack-prompt` of `server.properties`: a prompt that decodes only partly is kept, one that does not parse is dropped.

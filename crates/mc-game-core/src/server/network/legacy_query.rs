@@ -139,7 +139,7 @@ impl Reader<'_> {
 }
 
 /// `createVersion0Response`: `motd§players§max`.
-fn create_version0_response(info: &LegacyServerInfo) -> String {
+pub fn create_version0_response(info: &LegacyServerInfo) -> String {
     format!(
         "{}\u{a7}{}\u{a7}{}",
         info.motd, info.player_count, info.max_players
@@ -147,7 +147,7 @@ fn create_version0_response(info: &LegacyServerInfo) -> String {
 }
 
 /// `createVersion1Response`: `§1\0127\0version\0motd\0players\0max`.
-fn create_version1_response(info: &LegacyServerInfo) -> String {
+pub fn create_version1_response(info: &LegacyServerInfo) -> String {
     format!(
         "\u{a7}1\0{FAKE_PROTOCOL_VERSION}\0{}\0{}\0{}\0{}",
         info.server_version, info.motd, info.player_count, info.max_players
@@ -155,7 +155,7 @@ fn create_version1_response(info: &LegacyServerInfo) -> String {
 }
 
 /// `createLegacyDisconnectPacket`: `0xFF` + `writeLegacyString` (UTF-16 unit count as a short, UTF-16BE chars).
-fn create_legacy_disconnect_packet(reason: &str) -> Vec<u8> {
+pub fn create_legacy_disconnect_packet(reason: &str) -> Vec<u8> {
     let units: Vec<u16> = reason.encode_utf16().collect();
     let mut out = Vec::with_capacity(3 + units.len() * 2);
     out.push(255);

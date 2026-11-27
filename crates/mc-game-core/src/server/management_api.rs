@@ -384,7 +384,7 @@ impl MinecraftServer {
             SettingKey::PlayerIdleTimeout => SettingValue::Int(*p.player_idle_timeout.get()),
             SettingKey::AllowFlight => SettingValue::Bool(*p.allow_flight.get()),
             SettingKey::SpawnProtectionRadius => SettingValue::Int(*p.spawn_protection.get()),
-            SettingKey::Motd => SettingValue::Str(p.motd.get().clone()),
+            SettingKey::Motd => SettingValue::Str(p.motd.get().as_lossy_str().to_owned()),
             SettingKey::ForceGameMode => SettingValue::Bool(*p.force_game_mode.get()),
             SettingKey::GameMode => SettingValue::GameType(*p.game_mode.get()),
             SettingKey::ViewDistance => SettingValue::Int(*p.view_distance.get()),
@@ -425,7 +425,7 @@ impl MinecraftServer {
             (SettingKey::SpawnProtectionRadius, SettingValue::Int(i)) => {
                 self.set_spawn_protection_radius(i)
             }
-            (SettingKey::Motd, SettingValue::Str(s)) => self.set_motd(&s),
+            (SettingKey::Motd, SettingValue::Str(s)) => self.set_motd(s.into()),
             (SettingKey::ForceGameMode, SettingValue::Bool(b)) => self.set_force_game_mode(b),
             (SettingKey::GameMode, SettingValue::GameType(g)) => self.set_game_mode_property(g),
             (SettingKey::ViewDistance, SettingValue::Int(i)) => self.set_view_distance(i),

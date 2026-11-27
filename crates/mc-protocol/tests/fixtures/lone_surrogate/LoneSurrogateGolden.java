@@ -6,8 +6,10 @@ import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.JsonOps;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
+import io.netty.buffer.UnpooledByteBufAllocator;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -46,8 +48,10 @@ import net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket;
 import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
 import net.minecraft.network.protocol.status.ServerStatus;
 import net.minecraft.server.dedicated.DedicatedServerProperties;
+import net.minecraft.server.ServerInfo;
 import net.minecraft.server.dialog.Dialog;
 import net.minecraft.server.network.Filterable;
+import net.minecraft.server.network.LegacyQueryHandler;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.WritableBookContent;
@@ -336,6 +340,57 @@ public class LoneSurrogateGolden {
          concat(componentCells(() -> new TextComponentTagVisitor("  ", TextComponentTagVisitor.PlainStyling.INSTANCE, true).visit(parseSnbt(text)))));
    }
 
+   /** Unicode escapes of every char of `s`, for a properties file. */
+   static String propsEscapes(String s) {
+      StringBuilder file = new StringBuilder();
+      for (int i = 0; i < s.length(); i++) file.append(String.format("\\u%04x", (int) s.charAt(i)));
+      return file.toString();
+   }
+
+   /**
+    * The file `DedicatedServerProperties.store` leaves for `motd=<value>`: the length and SHA-256 of its text with the date line
+    * replaced and every run of 'x' (the padding) replaced by its length plus the date's, so the result does not depend on the zone's name. The management secret is pinned, it is random otherwise.
+    * A failed store leaves whatever the writer's encoder had produced.
+    */
+   static String storedPropsFile(String value) throws Exception {
+      Path f = Files.createTempFile("props", ".properties");
+      try {
+         Files.writeString(f, "motd=" + value + "\nmanagement-server-secret=" + "k".repeat(40) + "\n");
+         var props = new DedicatedServerProperties(net.minecraft.server.dedicated.Settings.loadFromFile(f));
+         props.store(f);
+         String s = new String(Files.readAllBytes(f), StandardCharsets.ISO_8859_1);
+         int a = s.indexOf('\n') + 1;
+         int b = s.indexOf('\n', a);
+         String date = a > 0 && b > 0 ? s.substring(a, b) : "";
+         if (!date.isEmpty()) s = s.replace(date, "<date>");
+         var m = java.util.regex.Pattern.compile("x{20,}").matcher(s);
+         StringBuilder sb = new StringBuilder();
+         while (m.find()) m.appendReplacement(sb, "x{" + (m.group().length() + date.length()) + "}");
+         m.appendTail(sb);
+         return sb.length() + ":" + hex(java.security.MessageDigest.getInstance("SHA-256").digest(sb.toString().getBytes(StandardCharsets.ISO_8859_1)));
+      } finally {
+         Files.delete(f);
+      }
+   }
+
+   /** The store of a motd whose first unit of `units` lands at char `at` of the text the writer receives (comment lines included). */
+   static String storedPropsFileAt(int at, String units) throws Exception {
+      Path f = Files.createTempFile("props", ".properties");
+      int offset;
+      try {
+         Files.writeString(f, "motd=\nmanagement-server-secret=" + "k".repeat(40) + "\n");
+         propsStore(f);
+         offset = Files.readString(f, StandardCharsets.ISO_8859_1).indexOf("\nmotd=") + 6;
+      } finally {
+         Files.delete(f);
+      }
+      return storedPropsFile("x".repeat(at - offset) + propsEscapes(units));
+   }
+
+   static void propsStore(Path f) throws Exception {
+      new DedicatedServerProperties(net.minecraft.server.dedicated.Settings.loadFromFile(f)).store(f);
+   }
+
    public static void main(String[] args) throws Exception {
       access = extractor.Setup.bootstrap();
       nbtOps = access.createSerializationContext(NbtOps.INSTANCE);
@@ -549,6 +604,68 @@ public class LoneSurrogateGolden {
                return hex(nbtAny(ComponentSerialization.CODEC.encodeStart(nbtOps, Component.literal(type.createWithContext(r).getContext())).getOrThrow()));
             }));
       }
+
+      // server.properties values with lone surrogates (unicode escapes in the file): `motd` reaches the status component, the legacy ping
+      // text and the rewritten file, `level-seed` its hash
+      String[] propValues = {"\ud800", "a\udc00", "\ud83d\ude00", "\ud83d", "\ude00\ud83d", "x\ud83dy", "plain", "\ud800\ud800", "  \ud800  ", "-12\ud800"};
+      for (String s : propValues) {
+         StringBuilder file = new StringBuilder();
+         for (int i = 0; i < s.length(); i++) file.append(String.format("\\u%04x", (int) s.charAt(i)));
+         row("game.tsv", "props_motd", s,
+            cell(() -> {
+               Path f = Files.createTempFile("props", ".properties");
+               try {
+                  Files.writeString(f, "motd=" + file + "\n");
+                  var props = new DedicatedServerProperties(net.minecraft.server.dedicated.Settings.loadFromFile(f));
+                  return hex(nbtAny(ComponentSerialization.CODEC.encodeStart(nbtOps, Component.literal(props.motd.get())).getOrThrow()));
+               } finally {
+                  Files.delete(f);
+               }
+            }),
+            cell(() -> storedPropsFile(file.toString())),
+            cell(() -> {
+               Path f = Files.createTempFile("props", ".properties");
+               try {
+                  Files.writeString(f, "motd=" + file + "\n");
+                  var props = new DedicatedServerProperties(net.minecraft.server.dedicated.Settings.loadFromFile(f));
+                  ServerInfo info = (ServerInfo) java.lang.reflect.Proxy.newProxyInstance(ServerInfo.class.getClassLoader(), new Class<?>[] {ServerInfo.class}, (p, m, a) -> switch (m.getName()) {
+                     case "getMotd" -> props.motd.get();
+                     case "getPlayerCount" -> 3;
+                     case "getMaxPlayers" -> 20;
+                     case "getServerVersion" -> "26.3";
+                     default -> throw new UnsupportedOperationException(m.getName());
+                  });
+                  var out = new StringBuilder();
+                  for (String name : new String[] {"createVersion0Response", "createVersion1Response"}) {
+                     var m = LegacyQueryHandler.class.getDeclaredMethod(name, ServerInfo.class);
+                     m.setAccessible(true);
+                     var packet = LegacyQueryHandler.class.getDeclaredMethod("createLegacyDisconnectPacket", ByteBufAllocator.class, String.class);
+                     packet.setAccessible(true);
+                     ByteBuf b = (ByteBuf) packet.invoke(null, UnpooledByteBufAllocator.DEFAULT, (String) m.invoke(null, info));
+                     out.append(bytes(b)).append(name.equals("createVersion0Response") ? "|" : "");
+                  }
+                  return out.toString();
+               } finally {
+                  Files.delete(f);
+               }
+            }));
+         row("game.tsv", "props_seed", s,
+            cell(() -> {
+               Path f = Files.createTempFile("props", ".properties");
+               try {
+                  Files.writeString(f, "level-seed=" + file + "\n");
+                  var props = new DedicatedServerProperties(net.minecraft.server.dedicated.Settings.loadFromFile(f));
+                  return Long.toString(props.worldOptions.seed());
+               } finally {
+                  Files.delete(f);
+               }
+            }));
+      }
+
+      // the rewritten file when the lone surrogate sits near a boundary of the 8192-char buffer the writer fills
+      for (int at : new int[] {8190, 8191, 8192, 8193, 9000, 16383, 16384})
+         for (String units : new String[] {"\ud800", "\udc00", "\ud83d\ude00", "\ud83d\ude00\ud800", "\ud83d\ude00\udc00"})
+            row("game.tsv", "props_store_at", at + ":" + units, cell(() -> storedPropsFileAt(at, units)));
 
       Path outDir = Path.of(args[0]);
       for (Map.Entry<String, StringBuilder> e : FILES.entrySet()) Files.writeString(outDir.resolve(e.getKey()), e.getValue().toString());

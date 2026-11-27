@@ -4,6 +4,7 @@
 use std::path::{Path, PathBuf};
 
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_core::uuid_util;
 use mc_text::Component;
 use mc_world::level_storage::{DataPackConfig, Difficulty, GameType, WorldOptions};
@@ -123,7 +124,7 @@ pub struct DedicatedServerProperties {
     pub prevent_proxy_connections: bool,
     pub server_ip: String,
     pub allow_flight: MutableValue<bool>,
-    pub motd: MutableValue<String>,
+    pub motd: MutableValue<JavaString>,
     pub code_of_conduct: bool,
     pub bug_report_link: String,
     pub force_game_mode: MutableValue<bool>,
@@ -194,7 +195,7 @@ impl DedicatedServerProperties {
         let prevent_proxy_connections = s.get_boolean("prevent-proxy-connections", false);
         let server_ip = s.get_string("server-ip", "");
         let allow_flight = s.get_mutable_boolean("allow-flight", false);
-        let motd = s.get_mutable_string("motd", "A Minecraft Server");
+        let motd = s.get_mutable_java_string("motd", "A Minecraft Server");
         let code_of_conduct = s.get_boolean("enable-code-of-conduct", false);
         let bug_report_link = s.get_string("bug-report-link", "");
         let force_game_mode = s.get_mutable_boolean("force-gamemode", false);
@@ -202,13 +203,13 @@ impl DedicatedServerProperties {
         let difficulty = s.get_mutable_with(
             "difficulty",
             |v| Ok(number_or_string(v, Difficulty::by_id, Difficulty::by_name)),
-            |d| d.get_serialized_name().to_owned(),
+            |d| d.get_serialized_name().into(),
             Difficulty::Easy,
         )?;
         let game_mode = s.get_mutable_with(
             "gamemode",
             |v| Ok(number_or_string(v, GameType::by_id, game_type_by_name)),
-            |g| g.get_name().to_owned(),
+            |g| g.get_name().into(),
             GameType::Survival,
         )?;
         let level_name = s.get_string("level-name", "world");
@@ -236,7 +237,7 @@ impl DedicatedServerProperties {
         let op_permissions = s.get_mutable_with(
             "op-permission-level",
             |v| Ok(deserialize_permission(v)),
-            serialize_permission,
+            |p| serialize_permission(p).into(),
             LevelBasedPermissionSet::OWNER,
         )?;
         let function_permissions = s.get_with(
@@ -266,7 +267,7 @@ impl DedicatedServerProperties {
         let entity_broadcast_range_percentage = s.get_mutable_with(
             "entity-broadcast-range-percentage",
             |v| Ok(Some(clamp(parse_int_or_throw(v)?, 10, 1000))),
-            |v| v.to_string(),
+            |v| v.to_string().into(),
             100,
         )?;
         let text_filtering_config = s.get_string("text-filtering-config", "");
@@ -281,7 +282,7 @@ impl DedicatedServerProperties {
         let accepts_transfers = s.get_mutable_boolean("accepts-transfers", false);
 
         // constructor body
-        let level_seed = s.get_string("level-seed", "");
+        let level_seed = s.get_java_string("level-seed", "");
         let generate_structures = s.get_boolean("generate-structures", true);
         let seed = WorldOptions::parse_seed(&level_seed).unwrap_or_else(rand::random::<i64>);
         let world_options = WorldOptions::new(seed, generate_structures, false);

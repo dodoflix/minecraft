@@ -8,6 +8,7 @@ use std::sync::atomic::{AtomicBool, Ordering};
 
 use mc_core::ident::Identifier;
 use mc_core::java_exception::JavaException;
+use mc_core::java_string::JavaString;
 use mc_dfu::extra::{IDENTIFIER, optional_always_present_field_of};
 use mc_dfu::{BOOL, Codec, DataResult, Dyn, Dynamic, LONG, NBT, PASSTHROUGH, STRING};
 use mc_nbt::{CompoundTag, NbtAccounter, Tag};
@@ -44,15 +45,17 @@ impl WorldOptions {
         self.legacy_custom_options.is_some()
     }
 
-    /// `WorldOptions.parseSeed`: `None` for blank, the long when numeric, else `String.hashCode()`.
-    pub fn parse_seed(seed_string: &str) -> Option<i64> {
-        let trimmed = seed_string.trim_matches(|c: char| c <= ' ');
-        if trimmed.is_empty() {
-            return None;
-        }
+    /// `WorldOptions.parseSeed`: `None` for blank, the long when numeric, else `String.hashCode()` (of the trimmed string,
+    /// which may hold a lone surrogate).
+    pub fn parse_seed(seed_string: &JavaString) -> Option<i64> {
+        let units: Vec<u16> = seed_string.encode_utf16().collect();
+        // `String.trim`: every unit up to U+0020 at either end
+        let start = units.iter().position(|&u| u > 0x20)?;
+        let end = units.iter().rposition(|&u| u > 0x20)? + 1;
+        let trimmed = JavaString::from_utf16_units(&units[start..end]);
         Some(
-            java_parse_long(trimmed)
-                .unwrap_or_else(|| mc_core::math::java::java_string_hash(trimmed) as i64),
+            java_parse_long(trimmed.as_lossy_str())
+                .unwrap_or_else(|| i64::from(trimmed.java_hash_code())),
         )
     }
 }
@@ -316,16 +319,17 @@ mod tests {
 
     #[test]
     fn seed_parsing() {
-        assert_eq!(WorldOptions::parse_seed("  "), None);
-        assert_eq!(WorldOptions::parse_seed(" 12345 "), Some(12345));
+        let seed = |s: &str| WorldOptions::parse_seed(&s.into());
+        assert_eq!(seed("  "), None);
+        assert_eq!(seed(" 12345 "), Some(12345));
+        assert_eq!(seed("-9223372036854775808"), Some(i64::MIN));
+        assert_eq!(seed("hello"), Some(99162322));
         assert_eq!(
-            WorldOptions::parse_seed("-9223372036854775808"),
-            Some(i64::MIN)
-        );
-        assert_eq!(WorldOptions::parse_seed("hello"), Some(99162322));
-        assert_eq!(
-            WorldOptions::parse_seed("9223372036854775808"),
+            seed("9223372036854775808"),
             Some(mc_core::math::java::java_string_hash("9223372036854775808") as i64)
         );
+        // a lone surrogate hashes as its unit, the whitespace around it is trimmed
+        let lone = JavaString::from_utf16_units(&[0x20, 0xD800, 0x20]);
+        assert_eq!(WorldOptions::parse_seed(&lone), Some(0xD800));
     }
 }
