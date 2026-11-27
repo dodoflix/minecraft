@@ -632,6 +632,10 @@ impl Builder {
                 };
                 let mut cmd = Command::new(&java);
                 cmd.arg(format!("-Xmx{}", self.xmx));
+                // Extra JVM flags (for example `-javaagent:`), whitespace separated, for every vanilla server.
+                if let Ok(opts) = std::env::var("MC_VANILLA_JVM_OPTS") {
+                    cmd.args(opts.split_whitespace());
+                }
                 if self.java.is_none() {
                     let agent = coverage_agent_options()?;
                     cmd.args(&agent);

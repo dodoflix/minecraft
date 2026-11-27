@@ -325,7 +325,8 @@ pub const SCHED_TRACE_VARIABLE: &str = "MC_WORLDGEN_SCHED_TRACE";
 /// Appends one line of the scheduler trace, prefixed with the dimension whose queue it belongs to, to the file named by
 /// [`SCHED_TRACE_VARIABLE`]; the line is only built when the variable is set. Lines: `DSUB x,z Lq` (task queued at level
 /// q), `RESORT x,z old->new`, `POP x,z`, `W slice awaited status cont=n` (a slice that ends waiting; cont=1: it goes on
-/// with its own batch), `E x,z` (a slice that ends with its task), `S status x,z` (a step on the worldgen thread).
+/// with its own batch), `E x,z` (a slice that ends with its task), `S status x,z` (a step on the worldgen thread),
+/// `CLAIM status x,z by x,z` (the task whose `applyStep` starts the step).
 pub(crate) fn sched_trace(dimension: &DimensionKey, line: impl FnOnce() -> String) {
     use std::io::Write;
     static SINK: std::sync::LazyLock<Option<std::sync::Mutex<std::fs::File>>> =

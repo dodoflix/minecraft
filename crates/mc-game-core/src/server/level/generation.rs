@@ -423,6 +423,18 @@ impl ChunkMap {
         }
         if holder.acquire_status_bump(target) {
             holder.get_or_create_future(target);
+            sched_trace(&self.dimension, || {
+                let by = self.tasks[&id].pos;
+                let at = ChunkPos::unpack(key);
+                format!(
+                    "CLAIM {} {},{} by {},{}",
+                    target.name(),
+                    at.x,
+                    at.z,
+                    by.x,
+                    by.z
+                )
+            });
             self.start_step(id, key, step);
         }
         match self.holders.holder_mut(key) {

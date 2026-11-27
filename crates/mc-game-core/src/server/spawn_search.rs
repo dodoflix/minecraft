@@ -93,6 +93,21 @@ mod tests {
         assert!(cells.iter().all(|&(x, z)| x.abs() <= 5 && z.abs() <= 5));
     }
 
+    /// Candidate columns the real server logged for a spawn suggestion of (0, 0) and the default respawn radius 10.
+    #[test]
+    fn candidates_match_the_real_server() {
+        for (offset, expected) in [
+            (204, vec![(5, -1)]),
+            (156, vec![(-1, -3)]),
+            (28, vec![(-3, -9)]),
+            (152, vec![(-5, -3), (-9, -2), (8, -2)]),
+        ] {
+            let c = SpawnCandidates::new(10, offset);
+            let got: Vec<_> = (0..expected.len() as i32).map(|i| c.delta(i)).collect();
+            assert_eq!(got, expected, "offset {offset}");
+        }
+    }
+
     #[test]
     fn candidates_are_a_permutation() {
         for (radius, offset) in [(0, 0), (1, 5), (10, 77), (32, 1000)] {
