@@ -808,14 +808,16 @@ pub(crate) fn compare_with(vanilla: &Run, ours: &Run, stable_with: Option<&Run>)
     findings
 }
 
-fn keep(case: Case, world: &World, vanilla: &Run, ours: &Run) {
+fn keep(case: Case, world: &World, vanilla_dirs: &[tempfile::TempDir], ours: &Run) {
     let Some(root) = std::env::var_os("WORLD_UPGRADE_KEEP") else {
         return;
     };
     let base = PathBuf::from(root).join(case.name()).join(&world.name);
     let _ = fs::remove_dir_all(&base);
     fs::create_dir_all(&base).expect("keep directory");
-    copy_dir(&vanilla.dir, &base.join("vanilla"));
+    for (n, dir) in vanilla_dirs.iter().enumerate() {
+        copy_dir(dir.path(), &base.join(format!("vanilla{}", n + 1)));
+    }
     copy_dir(&ours.dir, &base.join("ours"));
 }
 
@@ -899,7 +901,7 @@ fn dual(case: Case) {
             }
             previous = vanilla;
         }
-        keep(case, &world, &vanilla, &ours);
+        keep(case, &world, &vanilla_dirs, &ours);
         println!(
             "WORLD START {} {}: {} (vanilla run {})",
             case.name(),
