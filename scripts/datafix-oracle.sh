@@ -26,6 +26,7 @@
 # `gen` reads the vocabulary target/datafix/vocab.txt (string literals of the datafix sources plus the registry ids of
 # ref/extracted), rebuilt when a datafix source is newer.
 # The Java sources in crates/mc-datafix/tests/oracle are compiled into target/datafix-oracle when they changed.
+# Env MC_VANILLA_AGENT: run the oracle JVM under the execution-coverage agent (scripts/vanilla-agent.sh).
 # Needs: java, javac, flock, sha256sum, grep, sort, ref/ (scripts/setup-ref.sh).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -95,7 +96,8 @@ regen_tables() {
 
 # -XX:hashCode=2 makes every identity hash 1: Dynamic.hashCode() includes ops.hashCode() (an identity hash), so the order of the
 # HashMap<Dynamic, Dynamic> behind Dynamic.updateMapValues would otherwise differ from run to run (recordings could not repeat).
-ORACLE=(java -XX:+UnlockExperimentalVMOptions -XX:hashCode=2 -XX:-OmitStackTraceInFastThrow -Dlog4j2.configurationFile="$SRC/log4j2-oracle.xml" -cp "$OUT:$CP")
+agent_opts datafix-oracle
+ORACLE=(java "${AGENT_OPTS[@]}" -XX:+UnlockExperimentalVMOptions -XX:hashCode=2 -XX:-OmitStackTraceInFastThrow -Dlog4j2.configurationFile="$SRC/log4j2-oracle.xml" -cp "$OUT:$CP")
 # -XX:-OmitStackTraceInFastThrow: HotSpot would reuse a message-less exception after many identical throws, so a record would depend on the JVM history
 # regen_filefix OUT_DIR WORLD...: OUT_DIR/<name of the world folder>.txt for each world folder; FILEFIX_ARGS are added
 # to each call.

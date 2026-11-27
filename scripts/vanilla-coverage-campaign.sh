@@ -2,7 +2,7 @@
 # Runs the vanilla-side oracle drivers one JVM at a time under the execution-coverage agent and merges what they executed.
 #
 # Usage:
-#   scripts/vanilla-coverage-campaign.sh [GROUP...]     GROUP: entity menu predicates goldens rust (default: all, in that order)
+#   scripts/vanilla-coverage-campaign.sh [GROUP...]     GROUP: entity menu predicates goldens javagolden rust (default: all, in that order)
 #
 # Env CAMPAIGN_DIR: working directory (default target/vanilla-coverage-campaign); a rerun skips the jobs already in runs.tsv.
 # Env CAMPAIGN_RUST_CRATES: crates whose `oracle` test target runs under the agent (default: every crate that has one).
@@ -133,8 +133,34 @@ group_rust() {
   done
 }
 
+# The standalone vanilla programs that record fixtures (crates/*/tests): each names its own command line in a `Usage:` comment
+# (`[VAR=value] scripts/vanilla-java.sh -o OUT PROGRAM ARGS...`). They run from the tree with OUT replaced by the scratch file, so no
+# fixture or source file is written.
+run_in_root() { (cd "$ROOT" && env "$@"); }
+
+group_javagolden() {
+  local f line tok toks cmd out i
+  while IFS= read -r f; do
+    line="$(grep -m1 -oE '([A-Z_]+=[^ ]+ )?scripts/vanilla-java\.sh -o [^ ]+( [^ ]+)*' "$ROOT/$f" || true)"
+    [ -n "$line" ] || continue
+    read -ra toks <<<"$line"
+    cmd=()
+    for tok in "${toks[@]}"; do
+      [[ $tok =~ ^[A-Za-z0-9_./=+:-]+$ ]] || break
+      cmd+=("$tok")
+    done
+    # the output path follows `-o`; everything equal to it goes to the scratch file
+    out=""
+    for ((i = 0; i < ${#cmd[@]}; i++)); do [ "${cmd[i]}" != -o ] || out="${cmd[i + 1]:-}"; done
+    [ -n "$out" ] || continue
+    cmd=("${cmd[@]//"$out"/$D/scratch/fixture}")
+    cmd=("${cmd[@]/#scripts\/vanilla-java.sh/$ROOT/scripts/vanilla-java.sh}")
+    job "java:$(basename "$f" .java)" javagolden run_in_root "${cmd[@]}"
+  done < <(cd "$ROOT" && git ls-files 'crates/*.java' | sort)
+}
+
 want=("$@")
-[ ${#want[@]} -gt 0 ] || want=(entity menu predicates goldens rust)
+[ ${#want[@]} -gt 0 ] || want=(entity menu predicates goldens javagolden rust)
 for g in "${want[@]}"; do
   log "group $g"
   case "$g" in
@@ -144,6 +170,7 @@ for g in "${want[@]}"; do
     goldens)
       group_scripts goldens args-golden.sh enchant-anvil-golden.sh golden-block-behaviour.sh golden-block-placement.sh golden-effects.sh \
         golden-loot-all.sh golden-loot.sh golden-menu.sh golden-recipes.sh golden-stats.sh golden-trades.sh golden-variants.sh ;;
+    javagolden) group_javagolden ;;
     rust) group_rust ;;
     *) die "unknown group $g" ;;
   esac
