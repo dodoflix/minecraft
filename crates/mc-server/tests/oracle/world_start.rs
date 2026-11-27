@@ -29,11 +29,13 @@
 //!   dropped (the lines of a `Serialization errors:` report kept); a run of `Failed to fetch mob spawner entity` errors
 //!   (logged from concurrent worker threads) is sorted ([`log_records`]). Both servers use the mock of the Mojang
 //!   services, so the key fetch thread logs nothing.
-//! * The real server runs twice on every world; a world on which the servers differ is run again, up to [`VANILLA_RETRIES`]
-//!   more times (`mc-server` runs once): its first tick is a race. A chunk the servers generated while running that the two
-//!   real runs generate identically is compared in full (blocks, fluid ticks, post processing, entity ids), the other
-//!   generated chunks leave out [`GENERATED_CHUNK_RACES`]. `mc-server` writes its worldgen scheduler trace
-//!   (`MC_WORLDGEN_SCHED_TRACE`), which has to follow the rules of the real executor ([`crate::sched_check`]).
+//! * The real server runs [`MIN_VANILLA_RUNS`] times on every world; a world on which the servers differ is run again, up
+//!   to [`VANILLA_RETRIES`] more times (`mc-server` runs once): its first tick is a race. Per chunk of the loaded area
+//!   and per chunk the servers generated while running, `mc-server` has to equal that chunk of one of the real runs
+//!   (blocks, fluid ticks, post processing, scheduled ticks, entity data; the entity UUIDs of a generated chunk are
+//!   left out, [`GENERATED_CHUNK_RACES`]; [`settle_races`]). `mc-server` writes its worldgen
+//!   scheduler trace (`MC_WORLDGEN_SCHED_TRACE`), which has to follow the rules of the real executor
+//!   ([`crate::sched_check`]).
 
 use std::collections::BTreeSet;
 use std::fs;
@@ -50,7 +52,7 @@ use mc_world::region::{RegionFileStorage, RegionStorageInfo};
 use worldcmp::compare::status_rank;
 use worldcmp::fields::{FieldSpec, Ignores};
 use worldcmp::tree::{self, TreeOptions, compare_trees};
-use worldcmp::world::{Filter, compare_dimension, dimension_dir, render_text};
+use worldcmp::world::{DimReport, Filter, compare_dimension, dimension_dir, render_text};
 
 use crate::common::world_diff::{read_dat, read_region};
 use crate::entity_persistence::ask;
@@ -102,20 +104,14 @@ const PARTIAL_CHUNK_LIGHT: &[&str] = &[
     "**/region/*.mca#sections.*.SkyLight",
 ];
 
-/// The fields of a chunk that the servers generated while running (the world has no such chunk) that two runs of the
-/// real server on the same world disagree on: which block a feature of a neighbour chunk places first depends on the
-/// order the worker threads finish in. Seen between two runs of the real server on the 1.16.5 and 1.17.1 corpus worlds:
-/// the blocks of a section (data and palette order, the age of vines), the fluid tick queue (nether), the post
-/// processing marks (overworld) and the UUID of an end crystal (end).
+/// The one field of a chunk that the servers generated while running (the world has no such chunk) that no real run
+/// repeats: the UUID of an end crystal, drawn from the unseeded random source of the entity. Everything else that two
+/// runs of the real server disagree on in such a chunk (block data and palette order, the age of vines, the nether fluid
+/// tick queue, the overworld post processing lists, the order of scheduled leaf ticks) depends on the order the worker
+/// threads finish in; `mc-server` has to equal one of the real runs there ([`MIN_VANILLA_RUNS`], [`compare_with`]).
 const GENERATED_CHUNK_RACES: &[&str] = &[
-    "region/*.mca#sections.*.block_states",
-    "**/region/*.mca#sections.*.block_states",
-    "region/*.mca#fluid_ticks",
-    "**/region/*.mca#fluid_ticks",
     "region/*.mca#entities.*.UUID",
     "**/region/*.mca#entities.*.UUID",
-    "region/*.mca#PostProcessing",
-    "**/region/*.mca#PostProcessing",
 ];
 
 /// The overworld below y = 0 of a normal world a version before 1.18 generated. Such a world has no blocks there; the
@@ -180,6 +176,10 @@ fn rect_without(
 /// most runs (1.14.4 flat, six runs: four with the tick, two without) and not in the others. `mc-server` finishes the
 /// promotions before `Done`, which is what the majority of the real runs show.
 pub(crate) const VANILLA_RETRIES: usize = 3;
+
+/// Real runs on every world before the comparison: a chunk the servers generate while running comes out in more than
+/// one way (worker thread order), and `mc-server` has to equal one of the ways the real server produced.
+const MIN_VANILLA_RUNS: usize = 3;
 
 /// Info lines that belong to the world loading and the file fixer (warnings and errors are always compared).
 pub(crate) const INTEREST: &[&str] = &[
@@ -653,16 +653,44 @@ fn chunks_below_full(
     out
 }
 
-/// Differences between two finished runs, as printable findings (empty: equal under the normalisation above).
-pub(crate) fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
-    compare_with(vanilla, ours, None)
+/// `report` (a comparison of `filter`'s chunks of `dim` in the first real run with `ours` at `o`) without the chunks in
+/// which another real run equals `ours`: what a chunk looks like after the first tick or after its generation differs
+/// between runs of the real server (which chunks the first tick reaches before the freeze, which tree is placed first),
+/// and `mc-server` has to produce one of the outcomes. A report with other findings than differing chunks stays whole.
+fn settle_races(
+    report: DimReport,
+    filter: &Filter,
+    others: &[&Run],
+    o: &Path,
+    dim: &str,
+) -> DimReport {
+    let equal_elsewhere = |chunk: ChunkPos| {
+        let one = Filter {
+            chunks: Some((chunk.x, chunk.z, chunk.x, chunk.z)),
+            ..filter.clone()
+        };
+        others
+            .iter()
+            .any(|run| compare_dimension(&run.dir.join("world"), o, dim, &one).is_clean())
+    };
+    let only_chunks = report.errors.is_empty() && report.only_a == 0 && report.only_b == 0;
+    if only_chunks && report.differing.iter().all(|(p, _)| equal_elsewhere(*p)) {
+        DimReport::default()
+    } else {
+        report
+    }
 }
 
-/// [`compare`]; `stable_with` is a second run of the real server on the same world: a generated chunk below status full
-/// that equals itself in both real runs (blocks, ticks, post processing included) is compared in full, the others leave
-/// out [`GENERATED_CHUNK_RACES`]. `mc-server` also has to have followed a schedule the real executor can produce
-/// ([`crate::sched_check`]).
-pub(crate) fn compare_with(vanilla: &Run, ours: &Run, stable_with: Option<&Run>) -> Vec<String> {
+/// Differences between two finished runs, as printable findings (empty: equal under the normalisation above).
+pub(crate) fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
+    compare_with(vanilla, ours, &[])
+}
+
+/// [`compare`]; `others` are further runs of the real server on the same world: a chunk of the loaded area (ticked after
+/// the start) or a chunk generated while running (blocks, ticks, post processing included, except
+/// [`GENERATED_CHUNK_RACES`]) has to equal that chunk of `vanilla` or of one of `others` ([`settle_races`]). `mc-server`
+/// also has to have followed a schedule the real executor can produce ([`crate::sched_check`]).
+pub(crate) fn compare_with(vanilla: &Run, ours: &Run, others: &[&Run]) -> Vec<String> {
     let mut findings = Vec::new();
     if let Ok(trace) = fs::read_to_string(ours.dir.join(SCHED_TRACE_FILE)) {
         let report = crate::sched_check::check(&trace);
@@ -729,6 +757,8 @@ pub(crate) fn compare_with(vanilla: &Run, ours: &Run, stable_with: Option<&Run>)
     };
     let mut reports = Vec::new();
     for dim in ["overworld", "the_nether", "the_end"] {
+        let settle =
+            |report: DimReport, filter: &Filter| settle_races(report, filter, others, &o, dim);
         let below_zero = if dim == "overworld" && vanilla.below_zero {
             BELOW_ZERO_RACES
         } else {
@@ -754,7 +784,7 @@ pub(crate) fn compare_with(vanilla: &Run, ours: &Run, stable_with: Option<&Run>)
                 chunks: Some(rect),
                 ..semantic(below_zero)
             };
-            reports.push(compare_dimension(&v, &o, dim, &filter));
+            reports.push(settle(compare_dimension(&v, &o, dim, &filter), &filter));
         }
         let race = format!("dimensions/minecraft/{dim}/region/*.mca#sections.*[Y<2]");
         for (x, z) in holes {
@@ -762,7 +792,7 @@ pub(crate) fn compare_with(vanilla: &Run, ours: &Run, stable_with: Option<&Run>)
                 chunks: Some((x, z, x, z)),
                 ..semantic(&[below_zero, &[race.as_str()][..]].concat())
             };
-            reports.push(compare_dimension(&v, &o, dim, &filter));
+            reports.push(settle(compare_dimension(&v, &o, dim, &filter), &filter));
         }
         // the semantic mode skips chunks below status full: those are compared exactly, one by one; the chunks the
         // servers generated while running (the world has no such chunk) also leave out [`GENERATED_CHUNK_RACES`]
@@ -770,28 +800,25 @@ pub(crate) fn compare_with(vanilla: &Run, ours: &Run, stable_with: Option<&Run>)
             .source
             .as_deref()
             .map(|source| stored_chunks(source, dim));
-        let other = stable_with.map(|run| run.dir.join("world"));
-        let (mut generated_chunks, mut stable_chunks) = (0, 0);
+        let mut generated_chunks = 0;
         for (x, z) in chunks_below_full(&v, &o, dim, inner) {
             let generated = stored.as_ref().is_some_and(|s| !s.contains(&(x, z)));
-            let stable = generated
-                && other.as_ref().is_some_and(|w| {
-                    let skip = [PARTIAL_CHUNK_LIGHT, below_zero].concat();
-                    compare_dimension(&v, w, dim, &exact((x, z, x, z), &skip)).is_clean()
-                });
-            generated_chunks += usize::from(generated);
-            stable_chunks += usize::from(stable);
-            let races = if generated && !stable {
+            let races = if generated {
                 GENERATED_CHUNK_RACES
             } else {
                 &[]
             };
             let skip = [PARTIAL_CHUNK_LIGHT, races, below_zero].concat();
-            reports.push(compare_dimension(&v, &o, dim, &exact((x, z, x, z), &skip)));
+            let filter = exact((x, z, x, z), &skip);
+            let report = compare_dimension(&v, &o, dim, &filter);
+            generated_chunks += usize::from(generated);
+            reports.push(if generated {
+                settle(report, &filter)
+            } else {
+                report
+            });
         }
-        println!(
-            "GENERATED CHUNKS {dim}: {generated_chunks} below full, {stable_chunks} equal in both real runs (compared in full)"
-        );
+        println!("GENERATED CHUNKS {dim}: {generated_chunks} below full");
         // the POI files of the loaded chunks are still exact (the exact mode with the other storages left out)
         let chunk_storages = ["region/", "**/region/", "entities/", "**/entities/"];
         reports.push(compare_dimension(
@@ -890,16 +917,33 @@ fn dual(case: Case) {
             run.below_zero = world.below_zero && matches!(case, Case::Normal);
             run
         };
-        // two real runs are the base: what they agree on in a generated chunk is compared in full ([`compare_with`])
-        let mut previous = run_vanilla(&mut vanilla_dirs);
-        let (mut vanilla, mut findings);
+        // the first real runs are the base: ours has to equal one of them, and a generated chunk one of the runs
+        // ([`compare_with`]); the newest run is tried first
+        let mut runs: Vec<Run> = (0..MIN_VANILLA_RUNS - 1)
+            .map(|_| run_vanilla(&mut vanilla_dirs))
+            .collect();
+        let mut findings = Vec::new();
         loop {
-            vanilla = run_vanilla(&mut vanilla_dirs);
-            findings = compare_with(&vanilla, &ours, Some(&previous));
-            if findings.is_empty() || vanilla_dirs.len() > VANILLA_RETRIES + 1 {
+            runs.push(run_vanilla(&mut vanilla_dirs));
+            let mut equal = false;
+            for n in (0..runs.len()).rev() {
+                let others: Vec<&Run> =
+                    runs.iter().take(n).chain(runs.iter().skip(n + 1)).collect();
+                let found = compare_with(&runs[n], &ours, &others);
+                equal = found.is_empty();
+                if equal {
+                    break;
+                }
+                if n + 1 == runs.len() {
+                    findings = found; // the newest run is the one reported
+                }
+            }
+            if equal {
+                findings.clear();
+            }
+            if equal || runs.len() > VANILLA_RETRIES + MIN_VANILLA_RUNS - 1 {
                 break;
             }
-            previous = vanilla;
         }
         keep(case, &world, &vanilla_dirs, &ours);
         println!(
