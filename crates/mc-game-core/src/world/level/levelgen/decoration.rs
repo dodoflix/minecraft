@@ -24,7 +24,7 @@ use mc_core::random::{WorldgenRandom, XoroshiroRandomSource, generate_unique_see
 use mc_data::block::BlockState;
 use mc_world::chunk::LevelHeight;
 use mc_world::palette::BiomeId;
-use mc_worldgen::biome::{BiomeRegistry, PlacedFeatureRef};
+use mc_worldgen::biome::{BiomeRegistry, InlineFeature, PlacedFeatureRef};
 use mc_worldgen::generator::ChunkGenerator;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::hash::Hash;
@@ -178,11 +178,13 @@ fn build_inner<S, K: Clone + Eq + Hash>(
 }
 
 /// Identity of a placed feature in the biomes' feature lists (`Reference2IntMap<PlacedFeature>`: registry entries are
-/// unique per id; every inline fill-layer feature of a flat world is unique per layer).
+/// unique per id; every inline fill-layer feature of a flat world is unique per layer, every inline definition per
+/// decode).
 #[derive(Clone, PartialEq, Eq, Hash)]
 enum FeatureKey {
     Named(Identifier),
     FillLayer(i32, BlockState),
+    Inline(InlineFeature),
 }
 
 impl From<FeatureKey> for PlacedFeatureRef {
@@ -192,6 +194,7 @@ impl From<FeatureKey> for PlacedFeatureRef {
             FeatureKey::FillLayer(height, state) => {
                 PlacedFeatureRef::InlineFillLayer { height, state }
             }
+            FeatureKey::Inline(inline) => PlacedFeatureRef::Inline(inline),
         }
     }
 }
@@ -203,8 +206,14 @@ impl From<&PlacedFeatureRef> for FeatureKey {
             PlacedFeatureRef::InlineFillLayer { height, state } => {
                 FeatureKey::FillLayer(*height, *state)
             }
+            PlacedFeatureRef::Inline(inline) => FeatureKey::Inline(inline.clone()),
         }
     }
+}
+
+/// The placed feature an inline definition of a biome decoded to.
+pub fn inline_placed_feature(inline: &InlineFeature) -> Option<Arc<PlacedFeature>> {
+    inline.decoded().clone().downcast::<PlacedFeature>().ok()
 }
 
 /// A feature of a biome's feature list resolved to its placed feature.
@@ -216,6 +225,9 @@ pub struct StepFeature {
 
 impl StepFeature {
     /// `featureRegistry.getResourceKey(feature).map(Object::toString).orElseGet(feature::toString)`.
+    ///
+    /// shortcut: an inline definition prints `Placed Direct{inline}` where Java prints the feature's identity hash, upgrade
+    /// if a consumer needs the exact text.
     fn description(&self) -> String {
         match &self.reference {
             PlacedFeatureRef::Named(id) => {
@@ -224,6 +236,7 @@ impl StepFeature {
             PlacedFeatureRef::InlineFillLayer { .. } => {
                 "Placed Direct{FillLayerFeature}".to_owned()
             }
+            PlacedFeatureRef::Inline(_) => "Placed Direct{inline}".to_owned(),
         }
     }
 }
@@ -283,6 +296,10 @@ impl StepFeatureData {
                                     })
                                 })
                                 .clone(),
+                            PlacedFeatureRef::Inline(inline) => inline_placed_feature(inline)
+                                .ok_or_else(|| {
+                                    "An inline placed feature decoded to another type".to_owned()
+                                })?,
                         };
                         Ok(StepFeature { reference, feature })
                     })

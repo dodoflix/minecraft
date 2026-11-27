@@ -1,7 +1,11 @@
 //! The biome registry: `Biome` (climate settings + generation settings), `BiomeGenerationSettings` and the
 //! registry holding every `worldgen/biome` entry in vanilla's (dedicated server) id order.
 
+use std::any::Any;
 use std::collections::HashMap;
+use std::fmt;
+use std::hash::{Hash, Hasher};
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, LazyLock, Mutex};
 
 use serde_json::Value;
@@ -12,6 +16,7 @@ use mc_core::random::{LegacyRandomSource, WorldgenRandom};
 use mc_data::block::BlockState;
 use mc_world::palette::BiomeId;
 
+use crate::carver::{WorldCarver, carver_from_json};
 use crate::data::{LoadError, WorldgenDataSource, WorldgenRegistries};
 use crate::densityfunction::codec::{
     Fields, LoadResult, parse_bool, parse_f32, parse_identifier, parse_list, parse_str,
@@ -22,7 +27,6 @@ use crate::synth::{Noise, NoiseStack, SimplexNoise};
 pub const BIOME_REGISTRY: &str = "worldgen/biome";
 const CARVER_TAG_DIR: &str = "worldgen/carver";
 const PLACED_FEATURE_TAG_DIR: &str = "worldgen/placed_feature";
-const CONFIGURED_FEATURE_TAG_DIR: &str = "worldgen/configured_feature";
 const BIOME_TAG_DIR: &str = "worldgen/biome";
 
 static TEMPERATURE_NOISE: LazyLock<SimplexNoise> = LazyLock::new(|| {
@@ -137,33 +141,180 @@ impl ClimateSettings {
     }
 }
 
-/// A placed feature of a biome's feature steps: a registry reference, or the inline fill-layer feature flat
-/// worlds add (`FlatLevelGeneratorSettings.adjustGenerationSettings`).
+/// Identity source of [`InlineFeature`].
+static NEXT_INLINE_FEATURE: AtomicU64 = AtomicU64::new(0);
+
+/// An inline `PlacedFeature` definition of a biome's feature steps (`Holder.Direct`), decoded by the game crates (see
+/// [`INLINE_PLACED_FEATURE_DECODERS`]). A decode is its own identity: equal JSON read twice gives two features.
+#[derive(Clone)]
+pub struct InlineFeature {
+    id: u64,
+    json: Arc<Value>,
+    decoded: Arc<dyn Any + Send + Sync>,
+}
+
+impl InlineFeature {
+    pub fn id(&self) -> u64 {
+        self.id
+    }
+
+    /// What the registered decoder returned for the definition.
+    pub fn decoded(&self) -> &Arc<dyn Any + Send + Sync> {
+        &self.decoded
+    }
+}
+
+impl PartialEq for InlineFeature {
+    fn eq(&self, other: &Self) -> bool {
+        self.id == other.id
+    }
+}
+
+impl Eq for InlineFeature {}
+
+impl Hash for InlineFeature {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.id.hash(state);
+    }
+}
+
+impl fmt::Debug for InlineFeature {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("InlineFeature")
+            .field("id", &self.id)
+            .field("json", &self.json)
+            .finish()
+    }
+}
+
+/// A placed feature of a biome's feature steps: a registry reference, an inline definition, or the inline fill-layer
+/// feature flat worlds add (`FlatLevelGeneratorSettings.adjustGenerationSettings`).
 #[derive(Clone, Debug, PartialEq)]
 pub enum PlacedFeatureRef {
     Named(Identifier),
     InlineFillLayer { height: i32, state: BlockState },
+    Inline(InlineFeature),
+}
+
+impl PlacedFeatureRef {
+    /// Equality of what was read, not of identity: two inline features are the same definition when their JSON is.
+    fn same_definition(&self, other: &Self) -> bool {
+        match (self, other) {
+            (Self::Inline(a), Self::Inline(b)) => a.json == b.json,
+            _ => self == other,
+        }
+    }
+}
+
+/// An inline `WorldCarver` definition of a biome's carvers (`Holder.Direct`).
+#[derive(Clone)]
+pub struct InlineCarver {
+    json: Arc<Value>,
+    carver: Arc<dyn WorldCarver>,
+}
+
+impl InlineCarver {
+    pub fn carver(&self) -> &Arc<dyn WorldCarver> {
+        &self.carver
+    }
+}
+
+impl fmt::Debug for InlineCarver {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_tuple("InlineCarver").field(&self.json).finish()
+    }
+}
+
+/// A carver of a biome's carver list: a registry reference or an inline definition.
+#[derive(Clone, Debug)]
+pub enum CarverRef {
+    Named(Identifier),
+    Inline(InlineCarver),
+}
+
+impl PartialEq for CarverRef {
+    fn eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            (Self::Named(a), Self::Named(b)) => a == b,
+            (Self::Inline(a), Self::Inline(b)) => Arc::ptr_eq(&a.carver, &b.carver),
+            _ => false,
+        }
+    }
+}
+
+impl CarverRef {
+    fn same_definition(&self, other: &Self) -> bool {
+        match (self, other) {
+            (Self::Inline(a), Self::Inline(b)) => a.json == b.json,
+            _ => self == other,
+        }
+    }
 }
 
 /// `BiomeGenerationSettings`: carvers (flattened `HolderSet<WorldCarver>`) and the features of every
 /// `GenerationStep.Decoration`.
 #[derive(Clone, Debug, PartialEq, Default)]
 pub struct BiomeGenerationSettings {
-    pub carvers: Vec<Identifier>,
+    pub carvers: Vec<CarverRef>,
     pub features: Vec<Vec<PlacedFeatureRef>>,
+}
+
+/// An element of a `HolderSet` of the generation settings: a registry id or an inline (`Holder.Direct`) definition.
+trait Element: Sized {
+    /// The registry its ids and `#tag`s refer to.
+    const REGISTRY: &'static str;
+    fn named(id: Identifier) -> Self;
+    fn inline(value: &Value, biomes: &BiomeRegistry) -> LoadResult<Self>;
+}
+
+impl Element for CarverRef {
+    const REGISTRY: &'static str = CARVER_TAG_DIR;
+
+    fn named(id: Identifier) -> Self {
+        CarverRef::Named(id)
+    }
+
+    fn inline(value: &Value, _biomes: &BiomeRegistry) -> LoadResult<Self> {
+        Ok(CarverRef::Inline(InlineCarver {
+            json: Arc::new(value.clone()),
+            carver: carver_from_json(value)?,
+        }))
+    }
+}
+
+impl Element for PlacedFeatureRef {
+    const REGISTRY: &'static str = PLACED_FEATURE_TAG_DIR;
+
+    fn named(id: Identifier) -> Self {
+        PlacedFeatureRef::Named(id)
+    }
+
+    fn inline(value: &Value, biomes: &BiomeRegistry) -> LoadResult<Self> {
+        let decode = INLINE_PLACED_FEATURE_DECODERS
+            .first()
+            .ok_or_else(|| LoadError::new("No decoder for inline placed features is linked"))?;
+        // shortcut: the decode starts from fresh registries (the decoder re-binds every feature holder), upgrade when an
+        // inline feature is read on a hot path
+        let worldgen = WorldgenRegistries::new(biomes.source.clone());
+        Ok(PlacedFeatureRef::Inline(InlineFeature {
+            id: NEXT_INLINE_FEATURE.fetch_add(1, Ordering::Relaxed),
+            json: Arc::new(value.clone()),
+            decoded: decode(value, biomes, &worldgen)?,
+        }))
+    }
 }
 
 impl BiomeGenerationSettings {
     /// `BiomeGenerationSettings.EMPTY` is `BiomeGenerationSettings::default()`.
     pub fn new(
-        carvers: Vec<Identifier>,
+        carvers: Vec<CarverRef>,
         features: Vec<Vec<PlacedFeatureRef>>,
     ) -> BiomeGenerationSettings {
         BiomeGenerationSettings { carvers, features }
     }
 
     /// `getCarvers()`.
-    pub fn get_carvers(&self) -> &[Identifier] {
+    pub fn get_carvers(&self) -> &[CarverRef] {
         &self.carvers
     }
 
@@ -172,92 +323,90 @@ impl BiomeGenerationSettings {
         &self.features
     }
 
-    /// The `RegistryOps` element lookups of an inline biome: every referenced carver and placed feature must exist.
-    fn check_references(&self, source: &dyn WorldgenDataSource) -> LoadResult<()> {
-        let missing = |registry: &str, id: &Identifier| {
-            LoadError::new(format!(
-                "Failed to get element {id} from registry minecraft:{registry}"
-            ))
-        };
-        for carver in &self.carvers {
-            if source.get(CARVER_TAG_DIR, carver).is_none() {
-                return Err(missing(CARVER_TAG_DIR, carver));
-            }
-        }
-        for feature in self.features.iter().flatten() {
-            if let PlacedFeatureRef::Named(id) = feature
-                && source.get(PLACED_FEATURE_TAG_DIR, id).is_none()
-            {
-                return Err(missing(PLACED_FEATURE_TAG_DIR, id));
-            }
-        }
-        Ok(())
+    /// Whether both read the same definitions (inline entries by their JSON instead of their identity).
+    fn same_definition(&self, other: &Self) -> bool {
+        self.carvers.len() == other.carvers.len()
+            && self.features.len() == other.features.len()
+            && self
+                .carvers
+                .iter()
+                .zip(&other.carvers)
+                .all(|(a, b)| a.same_definition(b))
+            && self.features.iter().zip(&other.features).all(|(a, b)| {
+                a.len() == b.len() && a.iter().zip(b).all(|(a, b)| a.same_definition(b))
+            })
     }
 
-    /// `BiomeGenerationSettings.CODEC` (carvers: id | `#tag` | list; features: list of those).
+    /// `BiomeGenerationSettings.CODEC` of a registry entry (carvers: id | `#tag` | list of ids; features: a list of lists of
+    /// ids). Inline definitions are not supported here. As `promotePartial` keeps the partial result of the features, a
+    /// step that is no list (a lone id) is dropped.
     fn from_json(biome: &Value) -> LoadResult<BiomeGenerationSettings> {
         let fields = Fields::new(biome)?;
-        let carvers = fields.required("carvers", |v| holder_set_names(v, CARVER_TAG_DIR))?;
+        let carvers = fields.required("carvers", |v| holder_set(v, false))?;
         let features = fields.required("features", |v| {
-            parse_list(v, |step| {
-                Ok(holder_set_names(step, PLACED_FEATURE_TAG_DIR)?
-                    .into_iter()
-                    .map(PlacedFeatureRef::Named)
-                    .collect())
-            })
+            let Value::Array(steps) = v else {
+                return Err(LoadError::new("Not a list"));
+            };
+            Ok(steps
+                .iter()
+                .filter_map(|step| holder_set(step, true).ok())
+                .collect())
         })?;
         Ok(BiomeGenerationSettings { carvers, features })
     }
 
-    /// [`from_json`](Self::from_json) + [`check_references`](Self::check_references) as the lenient flat `biome` field
-    /// reads it: DFU hands that field the partial result of a definition whose list entries fail, so an id that does not
-    /// resolve (or is no id at all) is dropped from its list, a feature step that fails as a whole is dropped from the
-    /// steps, and a carvers field that fails as a whole fails the biome.
-    fn from_json_partial(
+    /// `BiomeGenerationSettings.CODEC` of an inline biome: `promotePartial` turns the partial result of a list whose
+    /// entries fail into its result, so an id that does not resolve (or is no id at all) and an inline definition that
+    /// does not decode are dropped from their list, a feature step that fails as a whole is dropped from the steps, and
+    /// a carvers field that fails as a whole fails the biome.
+    fn from_json_inline(
         biome: &Value,
-        source: &dyn WorldgenDataSource,
+        biomes: &BiomeRegistry,
     ) -> LoadResult<BiomeGenerationSettings> {
         let fields = Fields::new(biome)?;
         let carvers = fields.required("carvers", |v| {
-            partial_holder_set(v, CARVER_TAG_DIR, false, source)?
+            partial_holder_set(v, false, biomes)
                 .ok_or_else(|| LoadError::new("Failed to get element from registry"))
         })?;
         let features = fields.required("features", |v| {
             let Value::Array(steps) = v else {
                 return Err(LoadError::new("Not a list"));
             };
-            let mut kept = Vec::new();
-            for step in steps {
-                if let Some(ids) = partial_holder_set(step, PLACED_FEATURE_TAG_DIR, true, source)? {
-                    kept.push(ids.into_iter().map(PlacedFeatureRef::Named).collect());
-                }
-            }
-            Ok(kept)
+            Ok(steps
+                .iter()
+                .filter_map(|step| partial_holder_set(step, true, biomes))
+                .collect())
         })?;
         Ok(BiomeGenerationSettings { carvers, features })
     }
 }
 
-/// A `HolderSet` of registry entries by id: a single id, a `#tag` (resolved against the vanilla tags of
-/// `tag_dir`) or a list of ids (`HolderSetCodec`; element holders must be references).
-fn holder_set_names(value: &Value, tag_dir: &str) -> LoadResult<Vec<Identifier>> {
+/// A `HolderSet` of registry ids by id, `#tag` (resolved against the vanilla tags of the registry) or list of ids
+/// (`HolderSetCodec`); unless `always_list`, a lone id is a list of one.
+fn holder_set<E: Element>(value: &Value, always_list: bool) -> LoadResult<Vec<E>> {
     match value {
         Value::String(s) => {
             if let Some(tag) = s.strip_prefix('#') {
                 let tag = Identifier::read(tag).map_err(LoadError::new)?;
-                let names = mc_data::tags::names(tag_dir, &tag.to_string()).ok_or_else(|| {
-                    LoadError::new(format!("Missing tag: '{tag}' in 'minecraft:{tag_dir}'"))
-                })?;
+                let names =
+                    mc_data::tags::names(E::REGISTRY, &tag.to_string()).ok_or_else(|| {
+                        LoadError::new(format!(
+                            "Missing tag: '{tag}' in 'minecraft:{}'",
+                            E::REGISTRY
+                        ))
+                    })?;
                 names
                     .iter()
-                    .map(|n| Identifier::read(n).map_err(LoadError::new))
+                    .map(|n| Identifier::read(n).map(E::named).map_err(LoadError::new))
                     .collect()
+            } else if always_list {
+                Err(LoadError::new("Not a list"))
             } else {
-                Ok(vec![parse_identifier(value)?])
+                Ok(vec![E::named(parse_identifier(value)?)])
             }
         }
         Value::Array(_) => parse_list(value, |e| match e {
-            Value::String(_) => parse_identifier(e),
+            Value::String(_) => Ok(E::named(parse_identifier(e)?)),
             _ => Err(LoadError::new(
                 "inline registry entries are not supported here",
             )),
@@ -266,60 +415,45 @@ fn holder_set_names(value: &Value, tag_dir: &str) -> LoadResult<Vec<Identifier>>
     }
 }
 
-/// [`holder_set_names`] as a list codec keeps what decodes: `None` when the set fails as a whole (an unresolved tag or
-/// id, a value that is no set), else the ids that resolve in `source`. An inline definition is an error (not modelled)
-/// unless it certainly fails to decode (see [`inline_placed_feature_fails`]) and is dropped like an unresolved id.
-fn partial_holder_set(
+/// [`holder_set`] as a list codec keeps what decodes: `None` when the set fails as a whole (an unresolved tag or id, a
+/// value that is no set), else the entries that resolve in the registry's data source or decode as inline definitions. A
+/// lone inline definition is a list of one (`ExtraCodecs.compactListCodec`).
+fn partial_holder_set<E: Element>(
     value: &Value,
-    tag_dir: &str,
     always_list: bool,
-    source: &dyn WorldgenDataSource,
-) -> LoadResult<Option<Vec<Identifier>>> {
+    biomes: &BiomeRegistry,
+) -> Option<Vec<E>> {
     let resolved = |value: &Value| match value {
         Value::String(s) => Identifier::read(s)
             .ok()
-            .filter(|id| source.get(tag_dir, id).is_some()),
+            .filter(|id| biomes.source.get(E::REGISTRY, id).is_some())
+            .map(E::named),
+        Value::Object(_) => E::inline(value, biomes).ok(),
         _ => None,
     };
     match value {
-        Value::String(s) if s.starts_with('#') => Ok(holder_set_names(value, tag_dir).ok()),
+        Value::String(s) if s.starts_with('#') => holder_set(value, always_list).ok(),
         // `HolderSetCodec` with `alwaysUseList`: a lone id is no set
-        Value::String(_) if always_list => Ok(None),
-        Value::String(_) => Ok(resolved(value).map(|id| vec![id])),
-        Value::Array(items) => {
-            let mut ids = Vec::new();
-            for item in items {
-                if item.is_object()
-                    && !(tag_dir == PLACED_FEATURE_TAG_DIR
-                        && inline_placed_feature_fails(item, source))
-                {
-                    return Err(LoadError::new(
-                        "inline registry entries are not supported here",
-                    ));
-                }
-                ids.extend(resolved(item));
-            }
-            Ok(Some(ids))
-        }
-        _ => Ok(None),
+        Value::String(_) if always_list => None,
+        Value::String(_) => resolved(value).map(|entry| vec![entry]),
+        Value::Array(items) => Some(items.iter().filter_map(resolved).collect()),
+        Value::Object(_) if !always_list => resolved(value).map(|entry| vec![entry]),
+        _ => None,
     }
 }
 
-/// Whether an inline `PlacedFeature` object certainly fails to decode: no `placement`, or a `feature` that is no
-/// configured feature id nor an object. (An object `feature` and the placement modifiers are not decoded here.)
-fn inline_placed_feature_fails(value: &Value, source: &dyn WorldgenDataSource) -> bool {
-    value.get("placement").is_none()
-        || match value.get("feature") {
-            Some(Value::String(s)) => Identifier::read(s)
-                .ok()
-                .is_none_or(|id| source.get(CONFIGURED_FEATURE_TAG_DIR, &id).is_none()),
-            Some(Value::Object(_)) => false,
-            _ => true,
-        }
-}
+/// Decoder of an inline `PlacedFeature` (`PlacedFeature.DIRECT_CODEC`, its holder references bound to the registries of
+/// the data source), returning the decoded feature. The codecs live in the game crates that depend on this one: one of
+/// them registers itself here. Without one an inline placed feature fails to decode.
+pub type InlinePlacedFeatureDecoder =
+    fn(&Value, &BiomeRegistry, &WorldgenRegistries) -> LoadResult<Arc<dyn Any + Send + Sync>>;
+
+#[linkme::distributed_slice]
+pub static INLINE_PLACED_FEATURE_DECODERS: [InlinePlacedFeatureDecoder];
 
 /// Checks of the `attributes` of a biome (`EnvironmentAttributeMap.CODEC_ONLY_POSITIONAL`), whose codecs live in the game
-/// crates that depend on this one: they register themselves here. Without one every `attributes` value is accepted.
+/// crates that depend on this one: they register themselves here. An inline biome with `attributes` fails to decode while
+/// none is registered; the entries of the registry are trusted data.
 #[linkme::distributed_slice]
 pub static BIOME_ATTRIBUTE_VALIDATORS: [fn(&Value) -> Result<(), String>];
 
@@ -337,24 +471,28 @@ pub struct Biome {
 impl Biome {
     /// `Biome.DIRECT_CODEC`.
     pub fn from_json(value: &Value) -> LoadResult<Biome> {
-        Biome::decode(value, BiomeGenerationSettings::from_json)
+        Biome::decode(value, false, BiomeGenerationSettings::from_json)
     }
 
-    /// `Biome.DIRECT_CODEC`'s partial result, with the carver and placed feature references resolved against `source`
-    /// (see [`BiomeGenerationSettings::from_json_partial`]).
-    fn from_json_partial(value: &Value, source: &dyn WorldgenDataSource) -> LoadResult<Biome> {
-        Biome::decode(value, |v| {
-            BiomeGenerationSettings::from_json_partial(v, source)
+    /// `Biome.DIRECT_CODEC` of an inline definition, with the carver and placed feature entries resolved against the data
+    /// source of `biomes` (see [`BiomeGenerationSettings::from_json_inline`]).
+    fn from_json_inline(value: &Value, biomes: &BiomeRegistry) -> LoadResult<Biome> {
+        Biome::decode(value, true, |v| {
+            BiomeGenerationSettings::from_json_inline(v, biomes)
         })
     }
 
     fn decode(
         value: &Value,
+        inline: bool,
         generation_settings: impl FnOnce(&Value) -> LoadResult<BiomeGenerationSettings>,
     ) -> LoadResult<Biome> {
         let fields = Fields::new(value)?;
         let climate = ClimateSettings::from_json(value)?;
         let attributes = fields.optional("attributes", |v| {
+            if inline && BIOME_ATTRIBUTE_VALIDATORS.is_empty() {
+                return Err(LoadError::new("No decoder for biome attributes is linked"));
+            }
             for validate in BIOME_ATTRIBUTE_VALIDATORS {
                 validate(v).map_err(LoadError::new)?;
             }
@@ -443,36 +581,27 @@ impl Biome {
 /// with registry ids (vanilla's `IdMap` gives a direct holder the id -1 and cannot serialize it by name either).
 const INLINE_BIOME_BASE: u32 = 1 << 30;
 
-/// Every inline biome definition decoded so far, deduplicated by its JSON and by whether it was read leniently (a lenient
-/// read keeps the partial result a strict one rejects). Direct holders live as long as the generator/levels using them,
-/// so the entries are leaked (`&'static`) and ids stay valid across registry instances.
-static INLINE_BIOMES: Mutex<Vec<(Value, bool, &'static Biome)>> = Mutex::new(Vec::new());
+/// Every inline biome definition decoded so far, deduplicated by its JSON and what it read (the entries of the generation
+/// settings resolve against the data source, which differs between registries). Direct holders live as long as the
+/// generator/levels using them, so the entries are leaked (`&'static`) and ids stay valid across registry instances.
+static INLINE_BIOMES: Mutex<Vec<(Value, &'static Biome)>> = Mutex::new(Vec::new());
 
 /// What [`BiomeRegistry::key`] reports for an inline biome: never a registry entry, so no tag or id check matches it.
 static INLINE_BIOME_KEY: LazyLock<Identifier> =
     LazyLock::new(|| Identifier::with_default_namespace("__inline_biome__").expect("valid id"));
 
-/// `Biome.DIRECT_CODEC` as a `Holder.Direct`: the id of the (deduplicated) inline definition. `lenient`: the partial
-/// result of a definition with unresolved list entries (the lenient flat `biome` field) instead of an error.
-fn inline_biome_id(
-    value: &Value,
-    source: &dyn WorldgenDataSource,
-    lenient: bool,
-) -> LoadResult<BiomeId> {
-    let biome = if lenient {
-        Biome::from_json_partial(value, source)?
-    } else {
-        let biome = Biome::from_json(value)?;
-        biome.generation_settings.check_references(source)?;
-        biome
-    };
+/// `Biome.DIRECT_CODEC` as a `Holder.Direct`: the id of the (deduplicated) inline definition.
+fn inline_biome_id(value: &Value, biomes: &BiomeRegistry) -> LoadResult<BiomeId> {
+    let biome = Biome::from_json_inline(value, biomes)?;
     let mut inline = INLINE_BIOMES.lock().unwrap_or_else(|e| e.into_inner());
-    let index = match inline.iter().position(|(json, l, b)| {
-        json == value && *l == lenient && b.generation_settings == biome.generation_settings
+    let index = match inline.iter().position(|(json, b)| {
+        json == value
+            && b.generation_settings
+                .same_definition(&biome.generation_settings)
     }) {
         Some(index) => index,
         None => {
-            inline.push((value.clone(), lenient, Box::leak(Box::new(biome))));
+            inline.push((value.clone(), Box::leak(Box::new(biome))));
             inline.len() - 1
         }
     };
@@ -481,7 +610,7 @@ fn inline_biome_id(
 
 fn inline_biome(id: BiomeId) -> &'static Biome {
     let inline = INLINE_BIOMES.lock().unwrap_or_else(|e| e.into_inner());
-    inline[(id.0 - INLINE_BIOME_BASE) as usize].2
+    inline[(id.0 - INLINE_BIOME_BASE) as usize].1
 }
 
 /// The biome registry as the dedicated server builds it from the vanilla data pack: entries are
@@ -582,23 +711,15 @@ impl BiomeRegistry {
     }
 
     /// `Biome.CODEC` (`RegistryFileCodec`): a registered biome id, or an inline `Biome.DIRECT_CODEC` definition (any
-    /// non-string value, like vanilla's "not a resource key" fallback).
+    /// non-string value, like vanilla's "not a resource key" fallback). The entries of an inline definition's generation
+    /// settings that fail are dropped (`promotePartial`), also in the lenient flat `biome` field.
     pub fn holder_from_json(&self, value: &Value) -> LoadResult<BiomeId> {
         if !value.is_string() {
-            return inline_biome_id(value, self.source.as_ref(), false);
+            return inline_biome_id(value, self);
         }
         let id = parse_identifier(value)?;
         self.id_of(&id)
             .ok_or_else(|| LoadError::new(format!("Failed to get element {id}")))
-    }
-
-    /// [`holder_from_json`](Self::holder_from_json) for `Biome.CODEC.lenientOptionalFieldOf`: an inline definition whose
-    /// list entries do not resolve is kept without them.
-    pub fn holder_from_json_lenient(&self, value: &Value) -> LoadResult<BiomeId> {
-        if !value.is_string() {
-            return inline_biome_id(value, self.source.as_ref(), true);
-        }
-        self.holder_from_json(value)
     }
 
     /// `Biome.LIST_CODEC` (`HolderSetCodec`): a single biome id, a `#tag` or a list of biome ids, flattened in

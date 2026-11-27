@@ -19,6 +19,7 @@ log = { workspace = true }
 [dev-dependencies]
 flate2 = { workspace = true }
 mc-game-core = { path = "../mc-game-core" }
+mc-game-levelgen = { path = "../mc-game-levelgen" }
 mc-nbt = { path = "../mc-nbt" }
 mc-testkit = { path = "../mc-testkit" }
 mc-text = { path = "../mc-text" }

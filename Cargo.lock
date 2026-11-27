@@ -1529,6 +1529,7 @@ dependencies = [
  "mc-core",
  "mc-data",
  "mc-game-core",
+ "mc-game-levelgen",
  "mc-nbt",
  "mc-testkit",
  "mc-text",

@@ -188,7 +188,7 @@ public class FlatOracle {
       if (f instanceof FillLayerFeature fill) {
          return "fill_layer(" + fill.height() + "," + Block.getId(fill.state()) + ")+" + p.placement().size();
       }
-      return "<inline:" + f.getClass().getName() + ">";
+      return "<inline>";
    }
 
    static String settingsOf(BiomeGenerationSettings g, boolean full) {
@@ -217,6 +217,70 @@ public class FlatOracle {
    static JsonObject biomeJson(String name) {
       Holder<Biome> h = access.lookupOrThrow(Registries.BIOME).getOrThrow(ResourceKey.create(Registries.BIOME, Identifier.withDefaultNamespace(name)));
       return Biome.DIRECT_CODEC.encodeStart(ops, h.value()).result().orElseThrow().getAsJsonObject();
+   }
+
+   static JsonElement carverJson(String name) {
+      return net.minecraft.world.level.levelgen.carver.WorldCarver.DIRECT_CODEC
+         .encodeStart(ops, access.lookupOrThrow(Registries.CARVER).getValue(Identifier.withDefaultNamespace(name))).result().orElseThrow();
+   }
+
+   /** Plains with inline (Holder.Direct) carvers / placed features (valid and not) and a lone id as a feature step. */
+   static Map<String, JsonObject> inlineEntryBiomes() {
+      Map<String, JsonObject> out = new java.util.LinkedHashMap<>();
+      JsonObject plains = biomeJson("plains");
+      int firstStep = 0;
+      while (plains.getAsJsonArray("features").get(firstStep).getAsJsonArray().isEmpty()) firstStep++;
+      JsonElement cave = carverJson("cave");
+      String lava = "{\"feature\":\"minecraft:lake_lava\",\"placement\":[]}";
+      String[][] steps = {
+         {"inline_feature", lava},
+         {"inline_feature_twice", lava + "," + lava},
+         {"inline_feature_nested", "{\"feature\":{\"type\":\"minecraft:no_op\",\"config\":{}},\"placement\":[{\"type\":\"minecraft:in_square\"}]}"},
+         {"inline_feature_bad_placement", "{\"feature\":\"minecraft:lake_lava\",\"placement\":[{\"type\":\"minecraft:nope\"}]}"},
+         {"inline_feature_unresolved", "{\"feature\":\"minecraft:nope\",\"placement\":[]}"},
+         {"inline_feature_no_placement", "{\"feature\":\"minecraft:lake_lava\"}"},
+         {"inline_feature_placement_not_a_list", "{\"feature\":\"minecraft:lake_lava\",\"placement\":5}"},
+         {"inline_feature_bad_among_good_modifiers", "{\"feature\":\"minecraft:lake_lava\",\"placement\":[{\"type\":\"minecraft:in_square\"},{\"type\":\"minecraft:nope\"}]}"},
+         {"inline_feature_nested_bad_config", "{\"feature\":{\"type\":\"minecraft:no_op\",\"config\":5},\"placement\":[]}"},
+      };
+      for (String[] s : steps) {
+         JsonObject b = plains.deepCopy();
+         JsonArray step = b.getAsJsonArray("features").get(firstStep).getAsJsonArray();
+         JsonArray replaced = JsonParser.parseString("[" + s[1] + "]").getAsJsonArray();
+         replaced.addAll(step);
+         b.getAsJsonArray("features").set(firstStep, replaced);
+         out.put(s[0], b);
+      }
+      JsonObject lone = plains.deepCopy();
+      lone.getAsJsonArray("features").set(firstStep, new com.google.gson.JsonPrimitive("minecraft:lake_lava_surface"));
+      out.put("lone_feature_step", lone);
+      JsonObject loneInline = plains.deepCopy();
+      loneInline.getAsJsonArray("features").set(firstStep, JsonParser.parseString(lava));
+      out.put("lone_inline_feature_step", loneInline);
+      JsonObject unresolvedFeature = plains.deepCopy();
+      JsonArray unresolvedStep = JsonParser.parseString("[\"minecraft:nope\"]").getAsJsonArray();
+      unresolvedStep.addAll(unresolvedFeature.getAsJsonArray("features").get(firstStep).getAsJsonArray());
+      unresolvedFeature.getAsJsonArray("features").set(firstStep, unresolvedStep);
+      out.put("named_feature_unresolved", unresolvedFeature);
+      JsonObject unresolvedCarvers = plains.deepCopy();
+      unresolvedCarvers.add("carvers", JsonParser.parseString("[\"minecraft:nope\",\"minecraft:cave\"]"));
+      out.put("named_carver_unresolved", unresolvedCarvers);
+      JsonObject unresolvedCarver = plains.deepCopy();
+      unresolvedCarver.addProperty("carvers", "minecraft:nope");
+      out.put("named_carver_alone_unresolved", unresolvedCarver);
+      String[][] carvers = {
+         {"inline_carver", "[" + cave + ",\"minecraft:cave\"]"},
+         {"inline_carver_alone", cave.toString()},
+         {"inline_carver_twice", "[" + cave + "," + cave + "]"},
+         {"inline_carver_bad", "[{\"type\":\"minecraft:nope\"}]"},
+         {"inline_carver_alone_bad", "{}"},
+      };
+      for (String[] c : carvers) {
+         JsonObject b = plains.deepCopy();
+         b.add("carvers", JsonParser.parseString(c[1]));
+         out.put(c[0], b);
+      }
+      return out;
    }
 
    static String flatWith(String biomeField, String extra) {
@@ -315,6 +379,10 @@ public class FlatOracle {
          JsonObject b = plains.deepCopy();
          b.add("attributes", JsonParser.parseString(attributes));
          cases.add(flatWith(b.toString(), ""));
+      }
+      // inline carvers and placed features inside the generation settings, read by the lenient field
+      for (JsonObject b : inlineEntryBiomes().values()) {
+         cases.add(flatWith(b.toString(), ",\"features\":true"));
       }
       return cases;
    }
@@ -691,6 +759,15 @@ public class FlatOracle {
       biomeSource.add("biome", biomeJson("desert"));
       m.getAsJsonObject(ow).getAsJsonObject("generator").add("biome_source", biomeSource);
       worldDimensionCase(out, "ow_fixed_inline_biome", dims(m), null);
+      // inline carvers / placed features and a lone id as a feature step, read strictly (no lenient partial result)
+      for (Map.Entry<String, JsonObject> variant : inlineEntryBiomes().entrySet()) {
+         m = normal.deepCopy();
+         biomeSource = new JsonObject();
+         biomeSource.addProperty("type", "minecraft:fixed");
+         biomeSource.add("biome", variant.getValue());
+         m.getAsJsonObject(ow).getAsJsonObject("generator").add("biome_source", biomeSource);
+         worldDimensionCase(out, "ow_fixed_inline_biome_" + variant.getKey(), dims(m), null);
+      }
       m = normal.deepCopy();
       biomeSource = new JsonObject();
       biomeSource.addProperty("type", "minecraft:fixed");

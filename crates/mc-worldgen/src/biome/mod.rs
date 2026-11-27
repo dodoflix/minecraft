@@ -18,8 +18,9 @@ pub use multi_noise::{
 };
 pub use registry::{
     BIOME_ATTRIBUTE_VALIDATORS, BIOME_INFO_NOISE, BIOME_REGISTRY, Biome, BiomeGenerationSettings,
-    BiomeRegistry, ClimateSettings, FROZEN_TEMPERATURE_NOISE, PlacedFeatureRef, Precipitation,
-    TemperatureModifier,
+    BiomeRegistry, CarverRef, ClimateSettings, FROZEN_TEMPERATURE_NOISE,
+    INLINE_PLACED_FEATURE_DECODERS, InlineCarver, InlineFeature, InlinePlacedFeatureDecoder,
+    PlacedFeatureRef, Precipitation, TemperatureModifier,
 };
 pub use source::{BiomeSearchResult, BiomeSource, biome_source_from_json, distinct_biomes};
 pub use sources::{CheckerboardColumnBiomeSource, FixedBiomeSource, TheEndBiomeSource};

@@ -290,6 +290,30 @@ impl GenRegistries {
         biomes: &BiomeRegistry,
         value: &Value,
     ) -> LoadResult<Holder<dyn Feature>> {
+        Self::decode_inline(worldgen, biomes, |ctx| {
+            Ok(Holder::direct(super::feature::decode_direct(value, ctx)?))
+        })
+    }
+
+    /// `PlacedFeature.DIRECT_CODEC` of an inline definition of a biome's feature steps, decoded like
+    /// [`decode_inline_feature`](Self::decode_inline_feature).
+    pub fn decode_inline_placed_feature(
+        worldgen: &WorldgenRegistries,
+        biomes: &BiomeRegistry,
+        value: &Value,
+    ) -> LoadResult<Arc<PlacedFeature>> {
+        Self::decode_inline(worldgen, biomes, |ctx| {
+            PlacedFeature::decode_partial(value, ctx).map(Arc::new)
+        })
+    }
+
+    /// Decodes the registries of `worldgen`'s source into fresh cells, runs `decode` against them and requires every holder
+    /// it (or the registries) referenced to be bound.
+    fn decode_inline<R>(
+        worldgen: &WorldgenRegistries,
+        biomes: &BiomeRegistry,
+        decode: impl FnOnce(&DecodeCtx) -> LoadResult<R>,
+    ) -> LoadResult<R> {
         let cells = Cells::new(worldgen.source().clone());
         let ctx = DecodeCtx {
             worldgen,
@@ -306,12 +330,12 @@ impl GenRegistries {
         load_registry(&ctx, PLACED_FEATURE_REGISTRY, |v, c| {
             PlacedFeature::decode_direct(v, c).map(Arc::new)
         })?;
-        let feature = Holder::direct(super::feature::decode_direct(value, &ctx)?);
+        let decoded = decode(&ctx)?;
         cells.check_all_bound::<dyn Feature>(FEATURE_REGISTRY)?;
         cells.check_all_bound::<PlacedFeature>(PLACED_FEATURE_REGISTRY)?;
         cells.check_all_bound::<dyn BlockStateProvider>(BLOCK_STATE_PROVIDER_REGISTRY)?;
         cells.check_all_bound::<StructureProcessorList>(PROCESSOR_LIST_REGISTRY)?;
-        Ok(feature)
+        Ok(decoded)
     }
 
     pub fn feature(&self, id: &Identifier) -> Option<&Holder<dyn Feature>> {
@@ -336,3 +360,17 @@ pub fn load_vanilla_data() -> (
     let registries = GenRegistries::load(source, &worldgen, &biomes);
     (worldgen, biomes, registries)
 }
+
+/// The decoder `mc_worldgen` calls for an inline placed feature of an inline biome.
+fn decode_inline_placed_feature(
+    value: &Value,
+    biomes: &BiomeRegistry,
+    worldgen: &WorldgenRegistries,
+) -> LoadResult<Arc<dyn Any + Send + Sync>> {
+    GenRegistries::decode_inline_placed_feature(worldgen, biomes, value)
+        .map(|placed| placed as Arc<dyn Any + Send + Sync>)
+}
+
+#[linkme::distributed_slice(mc_worldgen::biome::INLINE_PLACED_FEATURE_DECODERS)]
+static INLINE_PLACED_FEATURE: mc_worldgen::biome::InlinePlacedFeatureDecoder =
+    decode_inline_placed_feature;

@@ -119,6 +119,28 @@ impl PlacedFeature {
         })
     }
 
+    /// `PlacedFeature.DIRECT_CODEC`'s partial result, which a list codec keeps of an element that fails: a placement
+    /// modifier that does not decode is dropped from the list, while a `feature` or a `placement` that is no list fails
+    /// the element.
+    ///
+    /// shortcut: partial results below the modifiers and the feature (a record that keeps its decodable fields) are not
+    /// modelled, upgrade when such a definition has to match vanilla.
+    pub fn decode_partial(value: &Value, ctx: &DecodeCtx<'_>) -> LoadResult<PlacedFeature> {
+        let fields = Fields::new(value)?;
+        Ok(PlacedFeature {
+            feature: fields.required("feature", |v| ctx.feature(v))?,
+            placement: fields.required("placement", |v| {
+                let modifiers = v
+                    .as_array()
+                    .ok_or_else(|| LoadError::new("expected list"))?;
+                Ok(modifiers
+                    .iter()
+                    .filter_map(|m| decode_modifier(m, ctx).ok())
+                    .collect())
+            })?,
+        })
+    }
+
     /// `place(level, generator, random, origin)`.
     pub fn place(
         &self,

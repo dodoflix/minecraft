@@ -16,7 +16,9 @@ use mc_world::palette::BiomeId;
 
 use crate::aquifer::{FluidPicker, FluidStatus};
 use crate::beardifier::Beardifier;
-use crate::biome::{BiomeGenerationSettings, BiomeRegistry, BiomeSource, NoiseSpawnFinder};
+use crate::biome::{
+    BiomeGenerationSettings, BiomeRegistry, BiomeSource, CarverRef, NoiseSpawnFinder,
+};
 use crate::blending::{self, Blender};
 use crate::carver::{self, WorldCarver};
 use crate::data::{LoadError, WorldgenRegistries};
@@ -65,8 +67,10 @@ impl NoiseBasedChunkGenerator {
             .copied()
             .filter(|b| BiomeRegistry::is_inline(*b));
         for biome in biomes.ids().chain(inline) {
-            for id in biomes.get(biome).generation_settings().get_carvers() {
-                if !carvers.contains_key(id) {
+            for carver in biomes.get(biome).generation_settings().get_carvers() {
+                if let CarverRef::Named(id) = carver
+                    && !carvers.contains_key(id)
+                {
                     carvers.insert(id.clone(), carver::load_carver(&registries, id)?);
                 }
             }
@@ -245,8 +249,11 @@ impl NoiseBasedChunkGenerator {
                 };
                 let source_settings = self.get_biome_generation_settings(source_biome);
 
-                for (index, carver_id) in source_settings.get_carvers().iter().enumerate() {
-                    let carver = &self.carvers[carver_id];
+                for (index, carver) in source_settings.get_carvers().iter().enumerate() {
+                    let carver = match carver {
+                        CarverRef::Named(id) => &self.carvers[id],
+                        CarverRef::Inline(inline) => inline.carver(),
+                    };
                     random.set_large_feature_seed(
                         random_state.seed().wrapping_add(index as i64),
                         source_pos.x,

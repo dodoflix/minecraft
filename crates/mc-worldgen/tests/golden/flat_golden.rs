@@ -9,12 +9,13 @@ use std::sync::{Arc, OnceLock};
 use mc_core::ident::Identifier;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_data::block::BlockState;
+use mc_game_core::world::level::levelgen::decoration::inline_placed_feature;
 use mc_world::chunk::{LevelHeight, ProtoChunk};
 use mc_world::heightmap::HeightmapType;
 use mc_world::palette::{BiomeId, PalettedContainerFactory};
 use mc_world::upgrade_data::UpgradeData;
 use mc_worldgen::biome::{
-    BiomeGenerationSettings, BiomeManager, BiomeRegistry, BiomeSource, PlacedFeatureRef,
+    BiomeGenerationSettings, BiomeManager, BiomeRegistry, BiomeSource, CarverRef, PlacedFeatureRef,
 };
 use mc_worldgen::blending::Blender;
 use mc_worldgen::data::{McDataSource, WorldgenRegistries};
@@ -130,13 +131,20 @@ fn placed(f: &PlacedFeatureRef) -> String {
         PlacedFeatureRef::InlineFillLayer { height, state } => {
             format!("fill_layer({height},{})+0", state.id())
         }
+        PlacedFeatureRef::Inline(inline) => {
+            assert!(inline_placed_feature(inline).is_some(), "{inline:?}");
+            "<inline>".to_string()
+        }
     }
 }
 
 fn settings_of(g: &BiomeGenerationSettings, full: bool) -> String {
     let mut out = String::from("carvers=");
     for c in g.get_carvers() {
-        out.push_str(&format!("{c},"));
+        match c {
+            CarverRef::Named(id) => out.push_str(&format!("{id},")),
+            CarverRef::Inline(_) => out.push_str("<inline>,"),
+        }
     }
     let total: usize = g.features().iter().map(Vec::len).sum();
     out.push_str(&format!(" steps={} total={total}", g.features().len()));

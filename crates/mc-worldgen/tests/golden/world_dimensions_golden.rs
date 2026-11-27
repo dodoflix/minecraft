@@ -131,5 +131,5 @@ fn world_dimensions_bake_matches_vanilla() {
         );
         cases += 1;
     }
-    assert_eq!(cases, 49);
+    assert_eq!(cases, 68);
 }

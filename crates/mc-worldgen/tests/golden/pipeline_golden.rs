@@ -2,8 +2,10 @@
 //! settings x 3 seeds x 12 chunk positions: block states of every section, heightmaps and post-processing marks
 //! (fixture `tests/fixtures/terrain_golden.txt`, generator `tests/oracle/TerrainOracle.java`, `F*` lines).
 
-use mc_worldgen::biome::BiomeManager;
+use mc_core::ident::Identifier;
+use mc_worldgen::biome::{BiomeManager, biome_source_from_json};
 use mc_worldgen::blending::Blender;
+use mc_worldgen::generator::NoiseBasedChunkGenerator;
 use std::cell::{Cell, RefCell};
 use std::collections::HashMap;
 
@@ -121,4 +123,79 @@ fn run_pipeline(use_cache: bool) {
         }
     }
     report("buildTerrain", checked, &bad);
+}
+
+/// `buildTerrain` of chunk (0, 0) of the overworld with a fixed biome (plains with the given `carvers`).
+fn carved_terrain(carvers: serde_json::Value) -> String {
+    use std::sync::Arc;
+    let plains = Identifier::with_default_namespace("plains").unwrap();
+    let mut biome = WORLD.registries.raw("worldgen/biome", &plains).unwrap();
+    biome["carvers"] = carvers;
+    let biome_source = biome_source_from_json(
+        &serde_json::json!({"type": "minecraft:fixed", "biome": biome}),
+        &WORLD.registries,
+        &WORLD.biomes,
+    )
+    .unwrap();
+    let settings = WORLD
+        .registries
+        .noise_settings(&Identifier::with_default_namespace("overworld").unwrap())
+        .unwrap();
+    let generator = NoiseBasedChunkGenerator::new(
+        biome_source,
+        Arc::new(settings),
+        WORLD.registries.clone(),
+        WORLD.biomes.clone(),
+    )
+    .unwrap();
+    let rs = random_state(&generator, 0);
+    let resolver = generator.biome_source().create_uncached_resolver(&rs);
+    let biome_manager = BiomeManager::new(&*resolver, BiomeManager::obfuscate_seed(0));
+    let blender = Blender::empty();
+    let mut possible = Vec::new();
+    let mut chunk = None;
+    for dz in -1..=1 {
+        for dx in -1..=1 {
+            let n = biome_chunk(&generator, "overworld", &rs, dx, dz);
+            n.access.collect_biomes_in_palette(|b| {
+                if !possible.contains(&b) {
+                    possible.push(b);
+                }
+            });
+            if dx == 0 && dz == 0 {
+                chunk = Some(n);
+            }
+        }
+    }
+    let mut chunk = chunk.unwrap();
+    let ctx = BuildTerrainContext {
+        random_state: &rs,
+        blender: &blender,
+        structure_starts: &[],
+        biome_manager: &biome_manager,
+        possible_biomes: Some(&possible),
+        carver_biome_cache: None,
+    };
+    generator.build_terrain(&mut chunk, &ctx);
+    section_hashes(&chunk)
+}
+
+/// A biome carving with the inline definition of `minecraft:cave` shapes the terrain exactly like one naming it, and both
+/// differ from the biome without carvers.
+#[test]
+fn inline_carver_carves_like_the_named_one() {
+    let cave = WORLD
+        .registries
+        .raw(
+            "worldgen/carver",
+            &Identifier::with_default_namespace("cave").unwrap(),
+        )
+        .unwrap();
+    let none = carved_terrain(serde_json::json!([]));
+    let named = carved_terrain(serde_json::json!(["minecraft:cave"]));
+    let inline = carved_terrain(serde_json::json!([cave]));
+    assert_ne!(none, named, "the cave carver changes chunk (0, 0)");
+    assert_eq!(named, inline);
+    let alone = carved_terrain(cave);
+    assert_eq!(named, alone);
 }

@@ -26,6 +26,7 @@ pub fn feature_name(feature: &PlacedFeatureRef) -> String {
         PlacedFeatureRef::InlineFillLayer { height, state } => {
             format!("FILL_LAYER:{height}:{}", state.block().data().name)
         }
+        PlacedFeatureRef::Inline(_) => "<inline>".to_string(),
     }
 }
 

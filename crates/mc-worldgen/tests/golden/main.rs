@@ -1,7 +1,9 @@
 //! Golden tests (T0/T1): replays of vanilla recordings and hermetic checks; one module per topic.
 
-// links the game crate: it registers the checks an inline biome's `attributes` go through
+// links the game crates: they register the checks an inline biome's `attributes` go through and the decoders of the
+// features and processors an inline placed feature refers to
 use mc_game_core as _;
+use mc_game_levelgen as _;
 
 mod beardifier;
 mod biome_codec;

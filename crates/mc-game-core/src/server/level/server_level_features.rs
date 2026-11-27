@@ -2,10 +2,12 @@
 //! level's own random, as bone meal, saplings, mushrooms, ... do) and the biome's bone meal feature list.
 
 use super::ServerLevel;
+use crate::world::level::levelgen::decoration::inline_placed_feature;
 use crate::world::level::levelgen::feature::Feature;
 use crate::world::level::levelgen::{Holder, WorldGenLevel};
 use mc_core::ident::Identifier;
 use mc_core::pos::BlockPos;
+use mc_worldgen::biome::PlacedFeatureRef;
 use std::sync::Arc;
 
 /// `FeatureTags.CAN_SPAWN_FROM_BONE_MEAL` (vanilla tag of the configured feature registry).
@@ -95,13 +97,18 @@ impl ServerLevel {
         let mut out = Vec::new();
         for step in env.get_biome_generation_settings(biome).features() {
             for reference in step {
-                let mc_worldgen::biome::PlacedFeatureRef::Named(id) = reference else {
+                let placed = match reference {
+                    PlacedFeatureRef::Named(id) => env
+                        .registries
+                        .placed_feature(id)
+                        .map(|holder| holder.value().clone()),
+                    PlacedFeatureRef::Inline(inline) => inline_placed_feature(inline),
+                    PlacedFeatureRef::InlineFillLayer { .. } => None,
+                };
+                let Some(placed) = placed else {
                     continue;
                 };
-                let Some(placed) = env.registries.placed_feature(id) else {
-                    continue;
-                };
-                for holder in placed.value().get_features() {
+                for holder in placed.get_features() {
                     if is_in_tag(&holder, &tagged) {
                         out.push(holder.value().clone());
                     }
