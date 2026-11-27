@@ -197,6 +197,7 @@ public final class Agent {
     private static void abandon(Request r) {
         synchronized (LOCK) {
             r.abandoned().set(true);
+            METHODS.removeIf(m -> m.cls().equals(r.name())); // the worker may have registered them before the timeout
         }
     }
 

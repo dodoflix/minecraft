@@ -144,7 +144,7 @@ fn series(n: u64, alternate: bool) -> BigUint {
         } else {
             sum += term;
         }
-        power = power / (n * n);
+        power /= n * n;
         k += 1;
     }
     sum - neg
@@ -382,17 +382,17 @@ fn with_high(x: f64, high: i32) -> f64 {
 /// `Math.log1p` (`StrictMath.log1p`: the original fdlibm algorithm, which differs from the FreeBSD/musl rewrite in the
 /// small-argument cutoff and the handling of `f` near zero).
 pub fn log1p(x: f64) -> f64 {
-    const LN2_HI: f64 = 6.931_471_803_691_238_164_90e-01;
-    const LN2_LO: f64 = 1.908_214_929_270_587_700_02e-10;
+    const LN2_HI: f64 = 0.693_147_180_369_123_8;
+    const LN2_LO: f64 = 1.908_214_929_270_587_7e-10;
     const TWO54: f64 = 1.801_439_850_948_198_4e16;
     const LP: [f64; 7] = [
-        6.666_666_666_666_735_130e-01,
-        3.999_999_999_940_941_908e-01,
-        2.857_142_874_366_239_149e-01,
-        2.222_219_843_214_978_396e-01,
-        1.818_357_216_161_805_012e-01,
-        1.531_383_769_920_937_332e-01,
-        1.479_819_860_511_658_591e-01,
+        0.666_666_666_666_673_5,
+        0.399_999_999_994_094_2,
+        0.285_714_287_436_623_9,
+        0.222_221_984_321_497_84,
+        0.181_835_721_616_180_5,
+        0.153_138_376_992_093_73,
+        0.147_981_986_051_165_86,
     ];
     let hx = (x.to_bits() >> 32) as u32 as i32;
     let ax = hx & 0x7fff_ffff;
@@ -459,7 +459,7 @@ pub fn log1p(x: f64) -> f64 {
                 kf * LN2_HI + c
             };
         }
-        let r = hfsq * (1.0 - 0.666_666_666_666_666_66 * f);
+        let r = hfsq * (1.0 - 0.666_666_666_666_666_6 * f);
         return if k == 0 {
             f - r
         } else {

@@ -60,8 +60,8 @@ fn gateway_hash(level: &ServerLevel) -> String {
     let (mut h, mut count) = (0xcbf2_9ce4_8422_2325_u64, 0_u64);
     for i in 0..20 {
         let angle = 2.0 * (-std::f64::consts::PI + (std::f64::consts::PI / 20.0) * f64::from(i));
-        let gx = (96.0 * angle.cos()).floor() as i32;
-        let gz = (96.0 * angle.sin()).floor() as i32;
+        let gx = (96.0 * mc_core::math::java::cos(angle)).floor() as i32;
+        let gz = (96.0 * mc_core::math::java::sin(angle)).floor() as i32;
         for x in gx - 1..=gx + 1 {
             for y in 72..=82 {
                 for z in gz - 1..=gz + 1 {

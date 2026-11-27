@@ -104,7 +104,7 @@ impl Rng {
             }
             4 => {
                 let k = ((v >> 40) & 0xf_ffff) as f64;
-                k * 1.570_796_326_794_896_6 + (self.unit() - 0.5) * 2.0E-6
+                k * std::f64::consts::FRAC_PI_2 + (self.unit() - 0.5) * 2.0E-6
             }
             5 => self.unit() * 2.0E6 - 1.0E6,
             6 => f64::from(((v >> 32) % 129) as i32 - 64),
@@ -467,6 +467,11 @@ fn live_mismatch_rates() {
             .spawn()
             .expect("java");
         let reader = BufReader::new(child.stdout.take().unwrap());
+        let edge_count = match gen_kind(case) {
+            'D' | 'p' | 'F' => EDGES.len() * EDGES.len(),
+            'I' | 'L' => INT_EDGES.len() * INT_EDGES.len(),
+            _ => EDGES.len(),
+        };
         let (mut bad, mut total, mut edge_bad) = (0usize, 0usize, 0usize);
         let mut first = Vec::new();
         for line in reader.lines() {
@@ -478,7 +483,7 @@ fn live_mismatch_rates() {
             if got != want {
                 bad += 1;
                 // the first inputs are the edge values: a difference there is a special-case bug, not rounding
-                edge_bad += usize::from(total <= EDGES.len() * EDGES.len());
+                edge_bad += usize::from(total <= edge_count);
                 if first.len() < 3 {
                     first.push(format!("{a:016x} {b:016x} jdk {want:016x} rust {got:016x}"));
                 }

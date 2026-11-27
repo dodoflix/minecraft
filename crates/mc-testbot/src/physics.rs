@@ -692,7 +692,7 @@ impl PlayerBody {
             return delta;
         }
         let (mut dx, mut dz) = (delta.x, delta.z);
-        let (sx, sz) = (dx.signum() * 0.05, dz.signum() * 0.05);
+        let (sx, sz) = (java::signum_f64(dx) * 0.05, java::signum_f64(dz) * 0.05);
         while dx != 0.0 && can_fall(dx, 0.0, max_down) {
             if dx.abs() <= 0.05 {
                 dx = 0.0;
