@@ -63,3 +63,9 @@ fn mob_villager_work_farm() {
 fn mob_villager_plant_sound() {
     block_scenario::check("mob_villager_plant_sound");
 }
+
+/// A villager killed by a player is reported to the witnesses in line of sight only.
+#[test]
+fn mob_villager_murder_witness() {
+    block_scenario::check("mob_villager_murder_witness");
+}

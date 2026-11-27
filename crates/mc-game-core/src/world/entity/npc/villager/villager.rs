@@ -762,20 +762,15 @@ impl Villager {
         self.release_poi(level, MEETING_POINT.id());
     }
 
-    /// `tellWitnessesThatIWasMurdered(murderer)`.
+    /// `tellWitnessesThatIWasMurdered(murderer)`: the witnesses are the reputation event handlers `findAll` returns, those in line of sight.
     fn tell_witnesses_that_i_was_murdered(&mut self, level: &mut ServerLevel, murderer: Uuid) {
         let witnesses: Vec<EntityId> = self
             .brain()
             .get_memory(&mem::NEAREST_VISIBLE_LIVING_ENTITIES)
             .map(|w| {
-                w.nearby_entities()
+                w.find_all(level, &*self, |e| e.is_reputation_event_handler())
                     .iter()
                     .map(|r| r.0)
-                    .filter(|&id| {
-                        level
-                            .get_entity(id)
-                            .is_some_and(|e| e.is_reputation_event_handler())
-                    })
                     .collect()
             })
             .unwrap_or_default();

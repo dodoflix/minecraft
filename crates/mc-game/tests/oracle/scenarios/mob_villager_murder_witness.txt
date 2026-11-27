@@ -1,0 +1,26 @@
+# A villager killed by a player is reported to the witnesses it can see (NearestVisibleLivingEntities.findAll: nearby and in line of sight):
+# the villager in the open gets the murder gossip, the one behind a stone wall does not.
+level flat
+preload 4
+entity_counter 7700
+level_seed 7701
+difficulty normal
+fill -12 -60 -12 12 -50 12 minecraft:air
+fill -12 -61 -12 12 -61 12 minecraft:grass_block
+fill -3 -60 -6 -3 -52 6 minecraft:stone
+time 2000
+spawn_player Steve survival 0.5 -60 9.5 180 0
+tick 30
+mobspawn V minecraft:villager 0.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+mobspawn W1 minecraft:villager 5.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+mobspawn W2 minecraft:villager -6.5 -60 0.5 0 0 nofinalize {PersistenceRequired:1b,VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1}}
+entity_seed V 11
+entity_seed W1 12
+entity_seed W2 13
+tick 25
+dump mob:V
+note the player kills V: only the witness in line of sight hears of it
+hurt V player_attack 1000 by=Steve direct=Steve
+dump nbt:W1 nbt:W2 mobs
+tick 5
+dump nbt:W1 nbt:W2
