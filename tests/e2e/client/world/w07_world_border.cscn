@@ -1,0 +1,19 @@
+# World border commands: size, centre, warning distance and warning time as the client reads them.
+server seed=12345
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console worldborder set 100
+console worldborder center 10 -20
+console worldborder warning distance 12
+console worldborder warning time 7
+wait_state ticks_in_level >= 200 60
+snapshot small
+console worldborder add 50
+wait_state ticks_in_level >= 260 60
+snapshot grown
+console worldborder set 300 3s
+wait_state ticks_in_level >= 500 60
+snapshot grown_slowly
+client disconnect
+wait_screen TitleScreen 30

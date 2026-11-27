@@ -1,0 +1,48 @@
+# Strips of block states and block entities in a flat world: states read back by the client (probe), their block entity
+# types and update tags, and a screenshot of the strip.
+server seed=12345
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console gamemode spectator Steve
+console tp Steve 7 -52 -6 0 40
+console fill 0 -60 0 15 -60 15 minecraft:stone
+console setblock 0 -59 0 minecraft:chest[facing=north,type=single]
+console setblock 2 -59 0 minecraft:chest[facing=east,type=left]
+console setblock 2 -59 1 minecraft:chest[facing=east,type=right]
+console setblock 4 -59 0 minecraft:ender_chest[facing=west]
+console setblock 6 -59 0 minecraft:oak_sign[rotation=3]{front_text:{messages:["one","two","",""]}}
+console setblock 8 -59 0 minecraft:white_banner[rotation=5]{patterns:[{color:"red",pattern:"minecraft:stripe_top"}]}
+console setblock 10 -59 0 minecraft:skeleton_skull[rotation=2]
+console setblock 12 -59 0 minecraft:player_head[rotation=7]{profile:{name:"Alex"}}
+console setblock 0 -59 3 minecraft:red_bed[facing=south,part=foot]
+console setblock 0 -59 4 minecraft:red_bed[facing=south,part=head]
+console setblock 3 -59 3 minecraft:purple_shulker_box[facing=up]
+console setblock 5 -59 3 minecraft:decorated_pot[facing=north]{sherds:{back:"minecraft:brick",left:"minecraft:arms_up_pottery_sherd",right:"minecraft:brick",front:"minecraft:brick"}}
+console setblock 7 -59 3 minecraft:beacon
+console setblock 9 -59 3 minecraft:brewing_stand[has_bottle_0=true,has_bottle_2=true]
+console setblock 11 -59 3 minecraft:lectern[facing=west,has_book=true]
+console setblock 13 -59 3 minecraft:conduit
+console setblock 0 -59 6 minecraft:oak_stairs[facing=north,half=top,shape=inner_left,waterlogged=false]
+console setblock 2 -59 6 minecraft:redstone_wire[north=side,east=up,south=none,west=side,power=9]
+console setblock 4 -59 6 minecraft:repeater[delay=3,facing=south,locked=true,powered=false]
+console setblock 6 -59 6 minecraft:piston[extended=false,facing=up]
+console setblock 8 -59 6 minecraft:cauldron
+console setblock 10 -59 6 minecraft:oak_door[facing=east,half=lower,hinge=right,open=true,powered=false]
+console setblock 12 -59 6 minecraft:oak_fence_gate[facing=north,in_wall=true,open=false,powered=false]
+console setblock 14 -58 6 minecraft:stone
+console setblock 14 -59 6 minecraft:vine[up=true,south=true]
+console setblock 0 -59 9 minecraft:tripwire[attached=true,disarmed=false,east=true,north=false,powered=true,south=false,west=true]
+console setblock 2 -60 9 minecraft:dirt
+console setblock 2 -59 9 minecraft:big_dripleaf[facing=east,tilt=partial,waterlogged=false]
+console setblock 4 -59 9 minecraft:candle[candles=4,lit=true,waterlogged=false]
+console setblock 6 -59 9 minecraft:sea_pickle[pickles=3,waterlogged=false]
+console setblock 8 -59 9 minecraft:snow[layers=5]
+console setblock 14 -59 9 minecraft:note_block[instrument=bell,note=17,powered=false]
+wait_state ticks_in_level >= 400 60
+ctl {"cmd": "probe", "spec": {"blocks": [[0,-60,0,15,-58,15]]}}
+snapshot strip
+# the crop leaves out the banner: its sway follows the game time
+shot strip --crop 430,120,280,240
+client disconnect
+wait_screen TitleScreen 30

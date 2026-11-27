@@ -21,3 +21,6 @@ WARN: Client disconnected with reason: Transferred to another server
 # a required pack whose download does not match its sha1 (join/j09_pack_wrong_sha1.cscn): logged, the client still joins
 WARN: Mismatched hash of file <client dir>/game/downloads/11111111-2222-3333-4444-555555555555/0000000000000000000000000000000000000000, expected 0000000000000000000000000000000000000000 but found b2aff02d869d397a31d028edf34d489f16b899c4
 ERROR: Failed to download http://127.0.0.1:<port>/pack.zip | java.lang.IllegalStateException: Failed to download file http://127.0.0.1:<port>/pack.zip
+# the mock account service has no profile-by-name lookup: a player head with a profile name (world/w05, entity/e03)
+WARN: Services are available, but unable to find uri for PROFILES/getByName
+WARN: Couldn't find profile with name: alex | com.mojang.authlib.exceptions.MinecraftClientException: Services are unavailable

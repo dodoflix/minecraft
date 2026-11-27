@@ -1,0 +1,21 @@
+# Armor with trims, enchantment glint, dyed leather, a custom model data stack and held items on armor stands and zombies.
+server seed=12345
+tolerate level.day_time 0
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console time set 18000
+console gamemode spectator Steve
+console tp Steve 8 -58 10 180 20
+console summon minecraft:armor_stand 0 -60 0 {ShowArms:1b,Invulnerable:1b,equipment:{head:{id:"minecraft:netherite_helmet",count:1,components:{"minecraft:trim":{material:"minecraft:gold",pattern:"minecraft:coast"}}},chest:{id:"minecraft:diamond_chestplate",count:1,components:{"minecraft:trim":{material:"minecraft:redstone",pattern:"minecraft:sentry"},"minecraft:enchantments":{"minecraft:protection":2}}},legs:{id:"minecraft:leather_leggings",count:1,components:{"minecraft:dyed_color":16711935}},feet:{id:"minecraft:chainmail_boots",count:1},mainhand:{id:"minecraft:enchanted_golden_apple",count:1},offhand:{id:"minecraft:shield",count:1,components:{"minecraft:base_color":"red"}}}}
+console summon minecraft:armor_stand 3 -60 0 {ShowArms:1b,Invulnerable:1b,equipment:{head:{id:"minecraft:carved_pumpkin",count:1},chest:{id:"minecraft:elytra",count:1},mainhand:{id:"minecraft:trident",count:1,components:{"minecraft:enchantment_glint_override":true}},offhand:{id:"minecraft:stick",count:1,components:{"minecraft:item_model":"minecraft:diamond_sword"}}}}
+console summon minecraft:zombie 6 -60 0 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b,IsBaby:1b,equipment:{head:{id:"minecraft:player_head",count:1,components:{"minecraft:profile":{name:"Alex"}}},mainhand:{id:"minecraft:bow",count:1,components:{"minecraft:custom_model_data":{floats:[1.0f],strings:["x"]}}},feet:{id:"minecraft:iron_boots",count:1,components:{"minecraft:trim":{material:"minecraft:amethyst",pattern:"minecraft:wild"}}}}}
+console summon minecraft:horse 9 -60 0 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b,Variant:1,equipment:{saddle:{id:"minecraft:saddle",count:1},body:{id:"minecraft:diamond_horse_armor",count:1}}}
+console summon minecraft:wolf 12 -60 0 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b,equipment:{body:{id:"minecraft:wolf_armor",count:1,components:{"minecraft:dyed_color":255}}}}
+console summon minecraft:skeleton 15 -60 0 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b,equipment:{mainhand:{id:"minecraft:bow",count:1,components:{"minecraft:enchantments":{"minecraft:power":3}}}},drop_chances:{mainhand:0f}}
+# the game mode message in the chat has faded by then
+wait_state ticks_in_level >= 500 60
+snapshot equipment
+shot equipment
+client disconnect
+wait_screen TitleScreen 30

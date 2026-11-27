@@ -1,0 +1,22 @@
+# Two clients in one world: each sees the other as an entity and in its tab list, and a chat message reaches both.
+server seed=12345
+client join
+wait_screen null 120
+# 117 = the chunks of view distance 4 (the runner default)
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+@b client join --user Alex
+@b wait_screen null 120
+@b wait_state chunks >= 117 and ticks_in_level >= 100 60
+@b ctl {"cmd": "chat", "text": "hello from b"}
+wait_log "<Alex> hello from b" 30
+@b wait_log "<Alex> hello from b" 30
+wait_state ticks_in_level >= 400 60
+@b wait_state ticks_in_level >= 200 60
+snapshot joined
+@b snapshot joined
+chat_log chat
+@b chat_log chat
+@b client disconnect
+@b wait_screen TitleScreen 30
+client disconnect
+wait_screen TitleScreen 30

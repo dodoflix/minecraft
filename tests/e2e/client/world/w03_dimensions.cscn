@@ -1,0 +1,34 @@
+# The same player in the nether, the end and back: dimension key, block columns, light and a screenshot of each.
+# Parallel world generation creates the end crystals in a random order (two vanilla servers differ), so entities are
+# compared sorted by type and position; the dragon flies a random path, so its position, motion and rotation are not
+# (in the end snapshot the sorted list is the player, ten crystals, the dragon: index 11; the other snapshots share the paths).
+# Random ticks are off: kelp growth and leaf decay differ between two vanilla servers. The tab list latency is the measured ping.
+server seed=12345 level-type=minecraft:normal
+console gamerule random_tick_speed 0
+unordered
+ignore entities.11.pos.*
+ignore entities.11.motion.*
+ignore entities.11.rot.*
+tolerate tab_list.players.*.latency 5
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console gamemode spectator Steve
+console execute in minecraft:the_nether run tp Steve 0 90 0 0 15
+wait_screen null 120
+wait_state ticks_in_level >= 500 120
+ctl {"cmd": "probe", "spec": {"blocks": [[0,0,0,0,127,0], [20,0,20,20,127,20], [-17,0,33,-17,127,33]], "light": [[0,64,0], [20,40,20], [-17,100,33]], "biomes": [[0,64,0], [20,64,20], [-17,64,33]]}}
+snapshot nether
+shot nether
+console execute in minecraft:the_end run tp Steve 0 70 0 0 10
+wait_screen null 120
+wait_state ticks_in_level >= 900 120
+ctl {"cmd": "probe", "spec": {"blocks": [[0,0,0,0,127,0], [30,0,30,30,127,30], [-60,0,10,-60,127,10]], "light": [[0,64,0], [30,70,30]], "biomes": [[0,64,0], [30,64,30], [-60,64,10]]}}
+snapshot end
+shot end
+console execute in minecraft:overworld run tp Steve 0 110 0 0 25
+wait_screen null 120
+wait_state ticks_in_level >= 1300 120
+snapshot back
+client disconnect
+wait_screen TitleScreen 30

@@ -1,0 +1,24 @@
+# Overworld terrain of a seeded default world at two spots: chunk count, block columns and biomes.
+# Loose items (kelp, moss carpet) and falling blocks appear in proportion to the ticks the server ran before the join, which
+# differs from run to run on vanilla itself, so random ticks are off and entities and their packets are not compared. There is
+# no screenshot: two vanilla servers place the leaves of border trees differently.
+server seed=12345 level-type=minecraft:normal
+console gamerule random_tick_speed 0
+ignore entities*
+ignore packets.in.play:*entit*
+ignore packets.in.play:clientbound/minecraft:add_transient_block
+ignore packets.in.play:clientbound/minecraft:bundle_delimiter
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console gamemode spectator Steve
+console tp Steve 0 110 0 0 25
+wait_state ticks_in_level >= 400 60
+ctl {"cmd": "probe", "spec": {"blocks": [[0,40,0,0,130,0], [24,40,-9,24,130,-9], [-30,40,17,-30,130,17], [40,40,40,40,130,40]], "biomes": [[0,64,0], [24,64,-9], [-30,64,17], [40,64,40]]}}
+snapshot spot1
+console tp Steve 700 120 -300 90 30
+wait_state ticks_in_level >= 800 60
+ctl {"cmd": "probe", "spec": {"blocks": [[700,40,-300,700,140,-300], [712,40,-290,712,140,-290], [690,40,-310,690,140,-310]], "biomes": [[700,64,-300], [712,64,-290], [690,64,-310]]}}
+snapshot spot2
+client disconnect
+wait_screen TitleScreen 30
