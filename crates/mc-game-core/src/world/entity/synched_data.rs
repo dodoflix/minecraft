@@ -5,7 +5,7 @@
 //! serializer, so a wrong class/field/serializer is a build error. Values are `mc_protocol`'s [`EntityDataValue`]
 //! (the wire form); an accessor is typed by a serializer marker (`serializer::Byte`, ...).
 
-use mc_protocol::packets::play::{DataValue, EntityDataValue};
+use mc_protocol::packets::play::{DataValue, EntityDataValue, ParticleOptions};
 use std::marker::PhantomData;
 
 /// A serializer of `EntityDataSerializers`: the Rust value type and its [`EntityDataValue`] variant.
@@ -168,6 +168,19 @@ macro_rules! define_accessor {
     };
 }
 
+/// Whether the vanilla class of a particle option compares by value (`SimpleParticleType` is a singleton, the geyser, sculk charge and
+/// trail options are records); the other option classes have no `equals`.
+fn has_equals(option: &ParticleOptions) -> bool {
+    matches!(
+        option,
+        ParticleOptions::Simple(_)
+            | ParticleOptions::Geyser { .. }
+            | ParticleOptions::GeyserBase { .. }
+            | ParticleOptions::SculkCharge { .. }
+            | ParticleOptions::Trail { .. }
+    )
+}
+
 /// `Objects.equals(old, new)` of `SynchedEntityData`: floats (also those of a `Vector3f` and a `Quaternionf`) are equal
 /// when their `Float.floatToIntBits` are, so `-0.0` differs from `0.0` and a NaN equals every NaN.
 fn same_value(a: &EntityDataValue, b: &EntityDataValue) -> bool {
@@ -290,7 +303,15 @@ impl SynchedEntityData {
         let item = &mut self.items[accessor.id as usize];
         let value = S::wrap(value);
         let new_stack_object = matches!(&value, EntityDataValue::ItemStack(s) if !s.is_empty());
-        if force_dirty || new_stack_object || !same_value(&value, &item.value) {
+        // a particle list holding an option class without `equals` (`ColorParticleOption`, ...) never equals the stored one: the effect
+        // particles are created anew on every update
+        let new_particle_objects =
+            matches!(&value, EntityDataValue::Particles(p) if p.iter().any(|o| !has_equals(o)));
+        if force_dirty
+            || new_stack_object
+            || new_particle_objects
+            || !same_value(&value, &item.value)
+        {
             item.value = value;
             item.dirty = true;
             item.replaced_object = new_stack_object;
