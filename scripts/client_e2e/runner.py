@@ -35,6 +35,7 @@ ALLOW = os.path.join(ROOT, "tests", "e2e", "client", "client-log-noise.txt")
 SERVER_ALLOW = os.path.join(ROOT, "tests", "e2e", "client", "server-log-noise.txt")
 USER = "Steve"
 SCREEN_MIN_MS = 60  # a screen shown for less than this (one client tick is 50 ms) is not part of the compared screen sequence
+SIDE_TIMEOUT = int(os.environ.get("MC_E2E_SIDE_TIMEOUT", "900"))  # seconds one side of a scenario may run, clients included
 
 # One world setup for every side; a scenario's `server` lines and a side's overrides come after it.
 DEFAULT_PROPS = {
@@ -521,6 +522,11 @@ def run_side(sc, kind, label, overrides, out, opts):
     scn = os.path.splitext(os.path.basename(sc.path))[0]
     port = free_port()
     errors, mojang, server, clients, files = [], None, None, {}, None
+    def too_long(*_):
+        raise StepError(f"the side ran longer than {SIDE_TIMEOUT}s (MC_E2E_SIDE_TIMEOUT)")
+
+    signal.signal(signal.SIGALRM, too_long)
+    signal.alarm(SIDE_TIMEOUT)  # a stuck client must not hold the JVM slots: the step error stops everything in `finally`
     try:
         files = Files(sc.serves)
         props = {k: expand(v, port, files) for k, v in {**DEFAULT_PROPS, "level-seed": str(opts["seed"]), **sc.props, **overrides}.items()}
@@ -537,6 +543,7 @@ def run_side(sc, kind, label, overrides, out, opts):
     except (StepError, OSError) as e:
         errors.append(str(e))
     finally:
+        signal.alarm(0)
         # each stop runs even when an earlier one raises: no server, client or mock is left behind
         try:
             save_clients(clients, out)
@@ -628,7 +635,9 @@ def main(argv):
     except (ValueError, scenario.ScenarioError, OSError) as e:
         sys.stderr.write(f"client-e2e: {e}\n")
         return 2
-    signal.signal(signal.SIGTERM, lambda *_: sys.exit(143))  # the `finally` of a side still stops its processes
+    # the `finally` of a side still stops its processes (and so releases the JVM slots)
+    signal.signal(signal.SIGTERM, lambda *_: sys.exit(143))
+    signal.signal(signal.SIGINT, lambda *_: sys.exit(130))
     name = os.path.splitext(os.path.basename(path))[0]
     out = os.path.abspath(opts["out"] or os.path.join(ROOT, "run", "client-e2e", name))
     os.makedirs(out, exist_ok=True)
