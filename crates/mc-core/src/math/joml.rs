@@ -49,17 +49,9 @@ pub(super) fn is_finite(f: f32) -> bool {
     f.abs() <= f32::MAX
 }
 
-/// `(float) java.lang.Math.hypot(a, b)`. Java's fdlibm port works on `|a|` and `|b|`: an infinite argument wins over a
-/// NaN, otherwise a NaN argument gives the positive NaN (the C library keeps the sign of the NaN operand).
+/// `(float) java.lang.Math.hypot(a, b)`.
 pub(super) fn hypot(a: f32, b: f32) -> f32 {
-    let (a, b) = (f64::from(a), f64::from(b));
-    if a.is_infinite() || b.is_infinite() {
-        f32::INFINITY
-    } else if a.is_nan() || b.is_nan() {
-        f32::NAN
-    } else {
-        a.hypot(b) as f32
-    }
+    super::java::hypot(f64::from(a), f64::from(b)) as f32
 }
 
 /// `Vector3f.rotateY(angle)` of `(x, y, z)` (joml 1.10.9: `x' = x * cos + z * sin`, `z' = -x * sin + z * cos`).

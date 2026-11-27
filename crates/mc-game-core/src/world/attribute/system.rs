@@ -158,12 +158,12 @@ impl Modifier {
             }
             (Modifier::BlendToGray, V::Rgb(s), Arg::BlendToGray { brightness, factor }) => {
                 let g = s[0] * 0.3 + s[1] * 0.59 + s[2] * 0.11;
-                let scaled = [(g * brightness).clamp(0.0, 1.0); 3];
+                let scaled = [java::clamp_f32(g * brightness, 0.0, 1.0); 3];
                 V::Rgb(lerp3(*factor, *s, scaled))
             }
             (Modifier::BlendToGray, V::Argb(s), Arg::BlendToGray { brightness, factor }) => {
                 let g = s[0] * 0.3 + s[1] * 0.59 + s[2] * 0.11;
-                let c = (g * brightness).clamp(0.0, 1.0);
+                let c = java::clamp_f32(g * brightness, 0.0, 1.0);
                 V::Argb(lerp4(*factor, *s, [c, c, c, s[3]]))
             }
             (Modifier::Append, V::AmbientParticles(s), Arg::Value(V::AmbientParticles(a))) => {

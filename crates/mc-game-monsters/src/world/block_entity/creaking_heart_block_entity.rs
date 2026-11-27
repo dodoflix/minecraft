@@ -9,7 +9,7 @@ use crate::world::entity::monster::creaking::Creaking;
 use crate::world::level::block::impls::creaking_heart_block::has_required_logs;
 use linkme::distributed_slice;
 use mc_core::direction::Direction;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::pos::{BlockPos, TraversalNodeStatus};
 use mc_data::block::{Block, BlockState};
@@ -483,7 +483,7 @@ impl CreakingHeartBlockEntity {
     pub fn compute_analog_output_signal(&mut self, level: &ServerLevel) -> i32 {
         if self.creaking_info.is_some() && self.get_creaking_protector(level).is_some() {
             let distance = self.distance_to_creaking(level);
-            let scaled_distance = distance.clamp(0.0, 32.0) / 32.0;
+            let scaled_distance = java::clamp_f64(distance, 0.0, 32.0) / 32.0;
             15 - mth::floor_f64(scaled_distance * 15.0)
         } else {
             0

@@ -305,21 +305,77 @@ fn spellings() -> Vec<(&'static str, &'static str, Fn2)> {
         s("floorMod_l", "java::floor_mod_i64", |a, b| {
             java::floor_mod_i64(a as i64, if b == 0 { 1 } else { b as i64 }) as u64
         }),
+        s("hypot", "java::hypot", |a, b| dbl(java::hypot(d(a), d(b)))),
+        s("hypot_f", "java::hypot", |a, b| {
+            flt(java::hypot(f64::from(f(a)), f64::from(f(b))) as f32)
+        }),
+        s("clamp_f", "f32::clamp", |a, _| flt(f(a).clamp(-90.0, 90.0))),
+        s("clamp_f", "java::clamp_f32", |a, _| {
+            flt(java::clamp_f32(f(a), -90.0, 90.0))
+        }),
+        s("clamp_f_unit", "f32::clamp", |a, _| {
+            flt(f(a).clamp(0.0, 1.0))
+        }),
+        s("clamp_f_unit", "java::clamp_f32", |a, _| {
+            flt(java::clamp_f32(f(a), 0.0, 1.0))
+        }),
+        s("clamp_d", "f64::clamp", |a, _| dbl(d(a).clamp(0.0, 32.0))),
+        s("clamp_d", "java::clamp_f64", |a, _| {
+            dbl(java::clamp_f64(d(a), 0.0, 32.0))
+        }),
+        s("clamp_l", "i64::clamp", |a, b| {
+            (a as i64).clamp(0, (b & 0x7fff_ffff) as i64) as u64
+        }),
+        s("absExact", "java::abs_exact_i32", |a, _| {
+            exact(java::abs_exact_i32(a as i32))
+        }),
+        s("negateExact", "java::negate_exact_i32", |a, _| {
+            exact(java::negate_exact_i32(a as i32))
+        }),
+        s("subtractExact", "java::subtract_exact_i32", |a, b| {
+            exact(java::subtract_exact_i32(a as i32, b as i32))
+        }),
+        s("floorDivExact", "java::floor_div_exact_i32", |a, b| {
+            exact(java::floor_div_exact_i32(a as i32, b as i32))
+        }),
+        s("powExact", "java::pow_exact_i32", |a, b| {
+            exact(java::pow_exact_i32(a as i32, (b & 0xff) as i32 % 40 - 5))
+        }),
+        s("toIntExact", "java::to_int_exact", |a, _| {
+            exact(java::to_int_exact(a as i64))
+        }),
     ]
 }
 
+/// MathGolden.java `exact`: the int result sign-extended, or a marker when the call throws.
+fn exact(result: Result<i32, &str>) -> u64 {
+    result.map_or(0x7ff0 << 48, |v| i64::from(v) as u64)
+}
+
 /// Spellings that still differ from the JDK, with what they affect. Each must keep differing: when one becomes exact,
-/// remove its entry.
+/// remove its entry. The JDK is Java 25 HotSpot (Temurin 25.0.5.1); Java 27 gives the same digests. The counts are inputs of
+/// 2^21 per function (`scripts/golden-math.sh --rate`); the platform libm (`f64::sin` ...) is measured only as a baseline and
+/// is never used: it differs between glibc, UCRT and macOS.
 const KNOWN_DIFFERENT: &[(&str, &str, &str)] = &[
+    (
+        "clamp_d",
+        "f64::clamp",
+        "differs from Math.clamp only for -0.0 against the 0.0 bound (java::clamp_f64 is exact)",
+    ),
+    (
+        "clamp_f_unit",
+        "f32::clamp",
+        "differs from Math.clamp only for -0.0 against the 0.0 bound (java::clamp_f32 is exact)",
+    ),
     (
         "cos",
         "java::cos",
-        "correctly rounded; the JVM's own routine differs in 0.064% of the inputs (the last bit)",
+        "correctly rounded; Java 25 HotSpot differs in 1334 inputs (0.064%, the last bit); the platform libm in 2002",
     ),
     (
         "log",
         "java::log",
-        "correctly rounded; the JVM's own routine differs in 3 of 2^21 inputs",
+        "correctly rounded; Java 25 HotSpot differs in 3 inputs; the platform libm in 131",
     ),
     (
         "max",
@@ -344,29 +400,30 @@ const KNOWN_DIFFERENT: &[(&str, &str, &str)] = &[
     (
         "pow",
         "java::pow",
-        "correctly rounded; the JVM's own routine differs in 0.063% of the inputs",
+        "correctly rounded; Java 25 HotSpot differs in 706 inputs (0.034%); the platform libm in 2251",
     ),
     (
         "pow_int",
         "java::pow",
-        "correctly rounded; the JVM's own routine differs in 0.079% of the inputs",
+        "correctly rounded; Java 25 HotSpot differs in 843 inputs (0.040%); the platform libm in 2737",
     ),
     (
         "sin",
         "java::sin",
-        "correctly rounded; the JVM's own routine differs in 0.160% of the inputs (the last bit)",
+        "correctly rounded; Java 25 HotSpot differs in 3355 inputs (0.160%, the last bit); the platform libm in 4301",
     ),
 ];
 
 fn gen_kind(case: &str) -> char {
     match case {
-        "atan2" | "min" | "max" | "copySign" => 'D',
+        "atan2" | "min" | "max" | "copySign" | "hypot" => 'D',
         "pow" => 'p',
         "pow_int" => 'i',
-        "round_f" | "signum_f" | "nextUp_f" | "nextDown_f" => 'f',
-        "min_f" | "max_f" => 'F',
-        "floorDiv_i" | "floorMod_i" => 'I',
-        "floorDiv_l" | "floorMod_l" => 'L',
+        "round_f" | "signum_f" | "nextUp_f" | "nextDown_f" | "clamp_f" | "clamp_f_unit" => 'f',
+        "min_f" | "max_f" | "hypot_f" => 'F',
+        "floorDiv_i" | "floorMod_i" | "absExact" | "negateExact" | "subtractExact"
+        | "floorDivExact" | "powExact" => 'I',
+        "floorDiv_l" | "floorMod_l" | "clamp_l" | "toIntExact" => 'L',
         _ => 'd',
     }
 }
@@ -453,13 +510,56 @@ fn spellings_match_the_jdk_except_the_known_ones() {
     );
 }
 
-/// Runs the JDK over every input of one case and counts the inputs where a spelling differs.
+/// The platform C library's spellings, measured only as a baseline: they differ between glibc, UCRT and macOS, so the ports
+/// never use them.
+#[expect(
+    clippy::disallowed_methods,
+    reason = "the libm spellings are the baseline the ports are measured against"
+)]
+fn libm_baselines() -> Vec<(&'static str, &'static str, Fn2)> {
+    vec![
+        ("sin", "f64::sin", |a, _| dbl(d(a).sin())),
+        ("cos", "f64::cos", |a, _| dbl(d(a).cos())),
+        ("log", "f64::ln", |a, _| dbl(d(a).ln())),
+        ("log1p", "f64::ln_1p", |a, _| dbl(d(a).ln_1p())),
+        ("pow", "f64::powf", |a, b| dbl(d(a).powf(d(b)))),
+        ("pow_int", "f64::powf", |a, b| {
+            dbl(d(a).powf(f64::from(b as i32)))
+        }),
+        ("pow_int", "f64::powi", |a, b| dbl(d(a).powi(b as i32))),
+        ("hypot", "f64::hypot", |a, b| dbl(d(a).hypot(d(b)))),
+        ("hypot_f", "f64::hypot", |a, b| {
+            flt(f64::from(f(a)).hypot(f64::from(f(b))) as f32)
+        }),
+    ]
+}
+
+/// Runs the JDK over every input of each case once and counts the inputs where each spelling differs (the ports and the
+/// libm baselines). Prints the JDK first: the figures belong to it.
 #[test]
 #[ignore = "permanent: runs the oracle JDK live over 2^21 inputs per case (scripts/golden-math.sh --rate)"]
 fn live_mismatch_rates() {
     let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
     let java = root.join("tests/fixtures/math/MathGolden.java");
-    for (case, spelling, func) in spellings() {
+    let version = Command::new("java").arg("-version").output().expect("java");
+    println!(
+        "JDK: {}",
+        String::from_utf8_lossy(&version.stderr)
+            .lines()
+            .next()
+            .unwrap_or_default()
+    );
+    let mut all = spellings();
+    all.extend(libm_baselines());
+    let mut cases: Vec<&str> = Vec::new();
+    for (c, _, _) in &all {
+        if !cases.contains(c) {
+            cases.push(c);
+        }
+    }
+    for case in cases {
+        let mut group: Vec<_> = all.iter().filter(|(c, _, _)| *c == case).collect();
+        group.sort_by_key(|(_, s, _)| *s);
         let mut child = Command::new("java")
             .arg(&java)
             .args(["full", case])
@@ -472,30 +572,38 @@ fn live_mismatch_rates() {
             'I' | 'L' => INT_EDGES.len() * INT_EDGES.len(),
             _ => EDGES.len(),
         };
-        let (mut bad, mut total, mut edge_bad) = (0usize, 0usize, 0usize);
-        let mut first = Vec::new();
+        let mut total = 0usize;
+        let mut bad = vec![0usize; group.len()];
+        let mut edge_bad = vec![0usize; group.len()];
+        let mut first: Vec<Vec<String>> = vec![Vec::new(); group.len()];
         for line in reader.lines() {
             let line = line.unwrap();
             let mut it = line.split(' ').map(|h| u64::from_str_radix(h, 16).unwrap());
             let (a, b, want) = (it.next().unwrap(), it.next().unwrap(), it.next().unwrap());
             total += 1;
-            let got = func(a, b);
-            if got != want {
-                bad += 1;
-                // the first inputs are the edge values: a difference there is a special-case bug, not rounding
-                edge_bad += usize::from(total <= edge_count);
-                if first.len() < 3 {
-                    first.push(format!("{a:016x} {b:016x} jdk {want:016x} rust {got:016x}"));
+            for (k, (_, _, func)) in group.iter().enumerate() {
+                let got = func(a, b);
+                if got != want {
+                    bad[k] += 1;
+                    // the first inputs are the edge values: a difference there is a special-case bug, not rounding
+                    edge_bad[k] += usize::from(total <= edge_count);
+                    if first[k].len() < 3 {
+                        first[k].push(format!("{a:016x} {b:016x} jdk {want:016x} rust {got:016x}"));
+                    }
                 }
             }
         }
         assert!(child.wait().unwrap().success());
-        println!(
-            "{case:12} {spelling:22} {bad:8} of {total} differ ({:.4}%), {edge_bad} among the edge inputs",
-            100.0 * bad as f64 / total as f64
-        );
-        for line in first {
-            println!("    {line}");
+        for (k, (_, spelling, _)) in group.iter().enumerate() {
+            println!(
+                "{case:12} {spelling:22} {:8} of {total} differ ({:.4}%), {} among the edge inputs",
+                bad[k],
+                100.0 * bad[k] as f64 / total as f64,
+                edge_bad[k]
+            );
+            for line in &first[k] {
+                println!("    {line}");
+            }
         }
     }
 }

@@ -79,6 +79,128 @@ pub fn floor_mod_i64(a: i64, b: i64) -> i64 {
     if (m ^ b) < 0 && m != 0 { m + b } else { m }
 }
 
+/// `Math.clamp(float, float, float)` for `min <= max` (neither NaN): `Math.min(max, Math.max(value, min))`, so a NaN value
+/// stays NaN and `-0.0` against a `0.0` bound gives `0.0`.
+pub fn clamp_f32(value: f32, min: f32, max: f32) -> f32 {
+    min_f32(max, max_f32(value, min))
+}
+
+/// `Math.clamp(double, double, double)` for `min <= max` (neither NaN).
+pub fn clamp_f64(value: f64, min: f64, max: f64) -> f64 {
+    min_f64(max, max_f64(value, min))
+}
+
+/// `Math.absExact(int)`: the `ArithmeticException` message when `a` is `Integer.MIN_VALUE`.
+pub fn abs_exact_i32(a: i32) -> Result<i32, &'static str> {
+    a.checked_abs()
+        .ok_or("Overflow to represent absolute value of Integer.MIN_VALUE")
+}
+
+/// `Math.negateExact(int)`.
+pub fn negate_exact_i32(a: i32) -> Result<i32, &'static str> {
+    a.checked_neg().ok_or(INTEGER_OVERFLOW)
+}
+
+/// `Math.subtractExact(int, int)`.
+pub fn subtract_exact_i32(a: i32, b: i32) -> Result<i32, &'static str> {
+    a.checked_sub(b).ok_or(INTEGER_OVERFLOW)
+}
+
+/// `Math.floorDivExact(int, int)`.
+pub fn floor_div_exact_i32(a: i32, b: i32) -> Result<i32, &'static str> {
+    if b == 0 {
+        Err("/ by zero")
+    } else if a == i32::MIN && b == -1 {
+        Err(INTEGER_OVERFLOW)
+    } else {
+        Ok(floor_div_i32(a, b))
+    }
+}
+
+/// `Math.powExact(int, int)`.
+pub fn pow_exact_i32(base: i32, exponent: i32) -> Result<i32, &'static str> {
+    let exponent = u32::try_from(exponent).map_err(|_| "negative exponent")?;
+    base.checked_pow(exponent).ok_or(INTEGER_OVERFLOW)
+}
+
+/// `Math.toIntExact(long)`.
+pub fn to_int_exact(value: i64) -> Result<i32, &'static str> {
+    i32::try_from(value).map_err(|_| INTEGER_OVERFLOW)
+}
+
+const INTEGER_OVERFLOW: &str = "integer overflow";
+
+/// `Math.hypot(x, y)` (`StrictMath.hypot`): fdlibm's `__ieee754_hypot`, independent of the C library. An infinite argument
+/// wins over a NaN; any other NaN argument gives NaN.
+pub fn hypot(x: f64, y: f64) -> f64 {
+    fn hi(v: f64) -> i32 {
+        (v.to_bits() >> 32) as i32
+    }
+    fn lo(v: f64) -> u32 {
+        v.to_bits() as u32
+    }
+    fn with_hi(v: f64, hi: i32) -> f64 {
+        f64::from_bits(u64::from(hi as u32) << 32 | v.to_bits() & 0xffff_ffff)
+    }
+    let (x, y) = (x.abs(), y.abs());
+    if !x.is_finite() || !y.is_finite() {
+        return if x.is_infinite() || y.is_infinite() {
+            f64::INFINITY
+        } else {
+            x + y
+        };
+    }
+    let (mut a, mut b) = if y > x { (y, x) } else { (x, y) };
+    let mut ha = hi(a);
+    let mut hb = hi(b);
+    if ha - hb > 0x3c0_0000 {
+        return a + b;
+    }
+    let mut k = 0;
+    if ha > 0x5f30_0000 {
+        ha -= 0x2580_0000;
+        hb -= 0x2580_0000;
+        k += 600;
+        a = with_hi(a, ha);
+        b = with_hi(b, hb);
+    }
+    if hb < 0x20b0_0000 {
+        if hb <= 0x000f_ffff {
+            if hb as u32 | lo(b) == 0 {
+                return a;
+            }
+            let t1 = with_hi(0.0, 0x7fd0_0000);
+            b *= t1;
+            a *= t1;
+            k -= 1022;
+        } else {
+            ha += 0x2580_0000;
+            hb += 0x2580_0000;
+            k -= 600;
+            a = with_hi(a, ha);
+            b = with_hi(b, hb);
+        }
+    }
+    let mut w = a - b;
+    if w > b {
+        let t1 = with_hi(0.0, ha);
+        let t2 = a - t1;
+        w = (t1 * t1 - (b * (-b) - t2 * (a + t1))).sqrt();
+    } else {
+        a += a;
+        let y1 = with_hi(0.0, hb);
+        let y2 = b - y1;
+        let t1 = with_hi(0.0, ha + 0x0010_0000);
+        let t2 = a - t1;
+        w = (t1 * y1 - (w * (-w) - (t1 * y2 + t2 * b))).sqrt();
+    }
+    if k == 0 {
+        w
+    } else {
+        with_hi(1.0, hi(1.0) + (k << 20)) * w
+    }
+}
+
 /// `Math.round(double)`: `floor(x + 0.5)` computed exactly, saturating; NaN -> 0.
 pub fn round_f64(x: f64) -> i64 {
     let f = x.floor();
@@ -260,6 +382,66 @@ mod tests {
         assert_eq!(round_f32(-0.5), 0);
         assert_eq!(java_string_hash("hello"), 99162322);
         assert_eq!(java_string_hash(""), 0);
+    }
+
+    #[test]
+    fn hypot_orders_operands_by_magnitude_like_java() {
+        // equal high words, so only the full magnitude tells which operand is larger (Java 25 results)
+        for (x, y, want) in [
+            (
+                0x4052_8479_4f7d_a905_u64,
+                0x4052_8479_0277_0b39_u64,
+                0x405a_300a_a6be_3d6d_u64,
+            ),
+            (
+                0x4041_ea5d_3c21_efa0,
+                0x4041_ea5d_be1a_4792,
+                0x4049_5619_900c_5270,
+            ),
+            (
+                0x4051_f455_748e_a3b0,
+                0x4051_f455_f3e1_47a1,
+                0x4059_6432_f0a9_de88,
+            ),
+            (
+                0x402a_25af_92a2_14f4,
+                0x402a_25af_b252_edfc,
+                0x4032_7d26_9bb3_e60e,
+            ),
+            (
+                0x4022_a4d9_7a55_9a74,
+                0x4022_a4d9_1bfb_a4ce,
+                0x402a_5dd3_d798_63aa,
+            ),
+            (
+                0x4050_4a56_18f9_a06e,
+                0x4050_4a56_bdf8_1cb7,
+                0x4057_09bf_7a69_c309,
+            ),
+        ] {
+            let (x, y) = (f64::from_bits(x), f64::from_bits(y));
+            assert_eq!(hypot(x, y).to_bits(), want);
+            assert_eq!(hypot(-y, x).to_bits(), want);
+        }
+        assert_eq!(hypot(f64::NAN, f64::NEG_INFINITY), f64::INFINITY);
+        assert!(hypot(f64::NAN, 1.0).is_nan());
+        assert_eq!(hypot(3.0, 4.0), 5.0);
+    }
+
+    #[test]
+    fn exact_methods_throw_the_jdk_messages() {
+        assert_eq!(
+            abs_exact_i32(i32::MIN),
+            Err("Overflow to represent absolute value of Integer.MIN_VALUE")
+        );
+        assert_eq!(negate_exact_i32(i32::MIN), Err("integer overflow"));
+        assert_eq!(subtract_exact_i32(i32::MIN, 1), Err("integer overflow"));
+        assert_eq!(floor_div_exact_i32(i32::MIN, -1), Err("integer overflow"));
+        assert_eq!(floor_div_exact_i32(1, 0), Err("/ by zero"));
+        assert_eq!(pow_exact_i32(2, 31), Err("integer overflow"));
+        assert_eq!(pow_exact_i32(2, -1), Err("negative exponent"));
+        assert_eq!(to_int_exact(1 << 31), Err("integer overflow"));
+        assert_eq!(pow_exact_i32(-2, 31), Ok(i32::MIN));
     }
 
     #[test]

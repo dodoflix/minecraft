@@ -5,7 +5,10 @@ use std::any::Any;
 use std::borrow::Cow;
 use std::sync::{Arc, LazyLock};
 
-use mc_core::math::java::{floor_mod_i32, java_float_to_string, round_f32};
+use mc_core::math::java::{
+    abs_exact_i32, floor_div_exact_i32, floor_mod_i32, java_float_to_string, negate_exact_i32,
+    pow_exact_i32, round_f32, subtract_exact_i32,
+};
 use mc_core::random::RandomSource;
 use mc_dfu::extra::NON_NEGATIVE_INT;
 use mc_dfu::{Codec, DataResult, Either, FLOAT, INT, MapCodec, record};
@@ -38,11 +41,6 @@ impl ArithmeticException {
         Self {
             message: message.into(),
         }
-    }
-
-    /// The overflow of the `Math.*Exact` methods.
-    fn overflow() -> Self {
-        Self::new("integer overflow")
     }
 
     /// An integer `/`, `%` or `Math.floorMod`/`floorDivExact` by zero.
@@ -429,12 +427,8 @@ impl ContextIntProvider for Unary<IntHolder> {
     fn get_int_unsafe(&self, context: &mut LootContext) -> IntResult {
         let v = int_in(&self.input, context)?;
         match self.kind {
-            "abs" => v.checked_abs().ok_or_else(|| {
-                ArithmeticException::new(
-                    "Overflow to represent absolute value of Integer.MIN_VALUE",
-                )
-            }),
-            "negate" => v.checked_neg().ok_or_else(ArithmeticException::overflow),
+            "abs" => abs_exact_i32(v).map_err(ArithmeticException::new),
+            "negate" => negate_exact_i32(v).map_err(ArithmeticException::new),
             _ => unreachable!(),
         }
     }
@@ -454,7 +448,7 @@ impl ContextIntProvider for Binary<IntHolder> {
         let l = int_in(&self.left, context)?;
         let r = int_in(&self.right, context)?;
         match self.kind {
-            "sub" => l.checked_sub(r).ok_or_else(ArithmeticException::overflow),
+            "sub" => subtract_exact_i32(l, r).map_err(ArithmeticException::new),
             "floor_mod" => {
                 if r == 0 {
                     Err(ArithmeticException::division_by_zero())
@@ -462,16 +456,7 @@ impl ContextIntProvider for Binary<IntHolder> {
                     Ok(floor_mod_i32(l, r))
                 }
             }
-            "floor_div" => {
-                // `Math.floorDivExact`
-                if r == 0 {
-                    Err(ArithmeticException::division_by_zero())
-                } else if l == i32::MIN && r == -1 {
-                    Err(ArithmeticException::overflow())
-                } else {
-                    Ok(mc_core::math::java::floor_div_i32(l, r))
-                }
-            }
+            "floor_div" => floor_div_exact_i32(l, r).map_err(ArithmeticException::new),
             "mod" => {
                 if r == 0 {
                     Err(ArithmeticException::division_by_zero())
@@ -492,11 +477,7 @@ impl ContextIntProvider for Binary<IntHolder> {
                         "Result of 0 to the power of 0 is undefined",
                     ));
                 }
-                // `Math.powExact`
-                let exponent =
-                    u32::try_from(r).map_err(|_| ArithmeticException::new("negative exponent"))?;
-                l.checked_pow(exponent)
-                    .ok_or_else(ArithmeticException::overflow)
+                pow_exact_i32(l, r).map_err(ArithmeticException::new)
             }
             _ => unreachable!(),
         }

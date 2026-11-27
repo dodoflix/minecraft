@@ -71,6 +71,31 @@ public class MathGolden {
       CASES.add(new Case("floorMod_i", 'I', (a, b) -> Math.floorMod((int)a, (int)(b == 0 ? 1 : b))));
       CASES.add(new Case("floorDiv_l", 'L', (a, b) -> Math.floorDiv(a, b == 0 ? 1 : b)));
       CASES.add(new Case("floorMod_l", 'L', (a, b) -> Math.floorMod(a, b == 0 ? 1 : b)));
+      CASES.add(new Case("hypot", 'D', (a, b) -> dbl(Math.hypot(d(a), d(b)))));
+      CASES.add(new Case("hypot_f", 'F', (a, b) -> flt((float)Math.hypot((double)f(a), (double)f(b)))));
+      CASES.add(new Case("clamp_f", 'f', (a, b) -> flt(Math.clamp(f(a), -90.0F, 90.0F))));
+      CASES.add(new Case("clamp_f_unit", 'f', (a, b) -> flt(Math.clamp(f(a), 0.0F, 1.0F))));
+      CASES.add(new Case("clamp_d", 'd', (a, b) -> dbl(Math.clamp(d(a), 0.0, 32.0))));
+      CASES.add(new Case("clamp_l", 'L', (a, b) -> Math.clamp(a, 0, (int)(b & 0x7fffffffL))));
+      CASES.add(new Case("absExact", 'I', (a, b) -> exact(() -> Math.absExact((int)a))));
+      CASES.add(new Case("negateExact", 'I', (a, b) -> exact(() -> Math.negateExact((int)a))));
+      CASES.add(new Case("subtractExact", 'I', (a, b) -> exact(() -> Math.subtractExact((int)a, (int)b))));
+      CASES.add(new Case("floorDivExact", 'I', (a, b) -> exact(() -> Math.floorDivExact((int)a, (int)b))));
+      CASES.add(new Case("powExact", 'I', (a, b) -> exact(() -> Math.powExact((int)a, (int)(b & 0xff) % 40 - 5))));
+      CASES.add(new Case("toIntExact", 'L', (a, b) -> exact(() -> Math.toIntExact(a))));
+   }
+
+   /**
+    * An int result, or a marker (never a sign-extended int) when the call throws. The message is not part of the golden: once the
+    * JIT compiled the call, HotSpot throws a pre-allocated exception without message (OmitStackTraceInFastThrow), so the same input
+    * gives "integer overflow" in one run and null in another. The messages are asserted against the JDK sources in java.rs.
+    */
+   static long exact(java.util.function.IntSupplier call) {
+      try {
+         return call.getAsInt();
+      } catch (ArithmeticException e) {
+         return 0x7ff0L << 48;
+      }
    }
 
    static final double[] EDGES = {
