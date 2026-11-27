@@ -1133,7 +1133,7 @@ mod tests {
                     ..Default::default()
                 },
             );
-            peak = peak.max(b.pos.y - 64.0);
+            peak = java::max_f64(peak, b.pos.y - 64.0);
         }
         assert!((peak - 1.2522).abs() < 1.0E-3, "peak {peak}");
         assert!(b.on_ground);
