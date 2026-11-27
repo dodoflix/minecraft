@@ -20,6 +20,7 @@ use mc_game::util::timer_queue::{FunctionHost, TimerQueue};
 use mc_game::world::item::ItemStackExt;
 use mc_protocol::codec::Encode;
 use mc_protocol::components::ItemStack;
+use mc_protocol::packets::configuration::ClientboundResourcePackPushPacket;
 use mc_testkit::{hex, rows, unesc_units};
 use std::sync::Arc;
 
@@ -390,4 +391,126 @@ fn resource_pack_prompts_match_vanilla() {
         n += 1;
     }
     assert_eq!(n, 15);
+}
+
+fn props_of(text: &str) -> DedicatedServerProperties {
+    DedicatedServerProperties::new(Properties::load(text).unwrap()).unwrap()
+}
+
+fn units_of(cell: &str) -> JavaString {
+    JavaString::from_utf16_units(&unesc_units(cell))
+}
+
+/// `level-type` is lower-cased and kept exactly, `rcon.password` is kept exactly and never equals what a client can send
+/// (a decoded UTF-8 text has no lone surrogate), and a lone surrogate in either makes the store fail.
+#[test]
+fn level_type_and_rcon_password_match_vanilla() {
+    let mut n = 0;
+    for c in rows(GOLDEN, "props_level_type") {
+        let file = escaped(&unesc_units(c[1]));
+        let props = props_of(&format!("level-type={file}\n"));
+        assert_eq!(
+            props.world_dimension_data.level_type,
+            units_of(c[2]),
+            "level-type {}",
+            c[1]
+        );
+        assert_eq!(
+            stored_props_line(&format!("level-type={file}")),
+            c[3],
+            "store of level-type {}",
+            c[1]
+        );
+        n += 1;
+    }
+    assert_eq!(n, 8);
+    for c in rows(GOLDEN, "props_rcon") {
+        let file = escaped(&unesc_units(c[1]));
+        let password = props_of(&format!("rcon.password={file}\n")).rcon_password;
+        assert_eq!(password, units_of(c[2]), "rcon.password {}", c[1]);
+        assert_eq!(
+            stored_props_line(&format!("rcon.password={file}")),
+            c[3],
+            "store of rcon.password {}",
+            c[1]
+        );
+        assert_eq!((password == "\u{fffd}").to_string(), c[4], "FFFD {}", c[1]);
+        assert_eq!((password == "?").to_string(), c[5], "? {}", c[1]);
+        n += 1;
+    }
+    assert_eq!(n, 16);
+}
+
+/// The default id of a pack and the bytes of the push packet, or `no pack`.
+fn pack_cells(props: &DedicatedServerProperties) -> String {
+    let Some(info) = &props.server_resource_pack_info else {
+        return "no pack".to_owned();
+    };
+    let mut out = Vec::new();
+    ClientboundResourcePackPushPacket {
+        id: info.id,
+        url: info.url.clone(),
+        hash: info.hash.clone(),
+        required: info.is_required,
+        prompt: info.prompt.clone(),
+    }
+    .encode(&mut out)
+    .unwrap();
+    format!("{}|{}", info.id, hex(&out))
+}
+
+/// `resource-pack`, `resource-pack-sha1`, the legacy `resource-pack-hash` and `resource-pack-prompt` with lone surrogates: the
+/// default id (from the URL's UTF-8 bytes), the push packet and the store.
+#[test]
+fn resource_pack_properties_match_vanilla() {
+    mc_protocol::components::install_text_hooks();
+    let mut n = 0;
+    for c in rows(GOLDEN, "props_pack_url") {
+        let file = escaped(&unesc_units(c[1]));
+        let line = format!("resource-pack={file}");
+        assert_eq!(
+            pack_cells(&props_of(&format!("{line}\n"))),
+            c[2],
+            "pack {}",
+            c[1]
+        );
+        assert_eq!(stored_props_line(&line), c[3], "store of pack {}", c[1]);
+        n += 1;
+    }
+    assert_eq!(n, 8);
+    for c in rows(GOLDEN, "props_pack_hash") {
+        let file = escaped(&unesc_units(c[1]));
+        for (key, cells) in [("sha1", &c[2..4]), ("hash", &c[4..6])] {
+            let lines = format!("resource-pack=http://x/p.zip\nresource-pack-{key}={file}");
+            assert_eq!(
+                pack_cells(&props_of(&format!("{lines}\n"))),
+                cells[0],
+                "{key} {}",
+                c[1]
+            );
+            assert_eq!(
+                stored_props_line(&lines),
+                cells[1],
+                "store of {key} {}",
+                c[1]
+            );
+        }
+        n += 1;
+    }
+    assert_eq!(n, 16);
+    for c in rows(GOLDEN, "props_pack_prompt") {
+        let lines = format!(
+            "resource-pack=http://x/p.zip\nresource-pack-id=00000000-0000-0000-0000-000000000001\nresource-pack-prompt={}",
+            escaped(&unesc_units(c[1]))
+        );
+        assert_eq!(
+            pack_cells(&props_of(&format!("{lines}\n"))),
+            c[2],
+            "prompt {}",
+            c[1]
+        );
+        assert_eq!(stored_props_line(&lines), c[3], "store of prompt {}", c[1]);
+        n += 1;
+    }
+    assert_eq!(n, 24);
 }

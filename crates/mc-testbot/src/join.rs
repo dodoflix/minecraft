@@ -365,8 +365,13 @@ pub async fn configure(conn: &mut Conn, opts: &BotOptions, out: &mut Configured)
                 }
             }
             C::ResourcePackPush(p) => {
-                let answers =
-                    resource_pack_answers(&http, opts.resource_packs, &p.url, &p.hash).await;
+                let answers = resource_pack_answers(
+                    &http,
+                    opts.resource_packs,
+                    p.url.as_lossy_str(),
+                    p.hash.as_lossy_str(),
+                )
+                .await;
                 for action in answers {
                     conn.send(&S::ResourcePack(ServerboundResourcePackPacket {
                         id: p.id,

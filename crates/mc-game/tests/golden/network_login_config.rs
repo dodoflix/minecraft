@@ -426,7 +426,7 @@ async fn resource_pack_and_code_of_conduct_tasks() {
         cfg.resource_pack = Some(ServerResourcePackInfo {
             id: Uuid::from_u128(7),
             url: "http://example.invalid/pack.zip".into(),
-            hash: "0".repeat(40),
+            hash: "0".repeat(40).into(),
             is_required: true,
             prompt: None,
         });

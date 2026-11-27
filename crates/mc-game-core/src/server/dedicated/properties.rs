@@ -20,8 +20,8 @@ use crate::server::players::gson::{self, JsonElement, JsonObject};
 #[derive(Clone, Debug)]
 pub struct ServerResourcePackInfo {
     pub id: Uuid,
-    pub url: String,
-    pub hash: String,
+    pub url: JavaString,
+    pub hash: JavaString,
     pub is_required: bool,
     pub prompt: Option<Component>,
 }
@@ -31,14 +31,16 @@ pub struct ServerResourcePackInfo {
 #[derive(Clone, Debug)]
 pub struct WorldDimensionData {
     pub generator_settings: JsonObject,
-    pub level_type: String,
+    pub level_type: JavaString,
 }
 
 impl WorldDimensionData {
     /// The preset key `create` looks up: `Identifier.tryParse(levelType)`, else the legacy names (vanilla only
     /// consults those when the text is not a valid identifier, so in practice never).
     pub fn world_preset_key(&self) -> Option<Identifier> {
-        Identifier::try_parse(&self.level_type).or_else(|| match self.level_type.as_str() {
+        // a lone surrogate is no identifier character, so its stand-in cannot match either
+        let name = self.level_type.as_lossy_str();
+        Identifier::try_parse(name).or_else(|| match name {
             "default" => Identifier::try_parse("minecraft:normal"),
             "largebiomes" => Identifier::try_parse("minecraft:large_biomes"),
             _ => None,
@@ -146,7 +148,7 @@ pub struct DedicatedServerProperties {
     pub query_port: i32,
     pub enable_rcon: bool,
     pub rcon_port: i32,
-    pub rcon_password: String,
+    pub rcon_password: JavaString,
     pub hardcore: bool,
     pub use_native_transport: bool,
     pub spawn_protection: MutableValue<i32>,
@@ -170,7 +172,7 @@ pub struct DedicatedServerProperties {
     pub enable_status: MutableValue<bool>,
     pub hide_online_players: MutableValue<bool>,
     pub entity_broadcast_range_percentage: MutableValue<i32>,
-    pub text_filtering_config: String,
+    pub text_filtering_config: JavaString,
     pub text_filtering_version: i32,
     pub server_resource_pack_info: Option<ServerResourcePackInfo>,
     pub initial_data_pack_configuration: DataPackConfig,
@@ -242,7 +244,7 @@ impl DedicatedServerProperties {
         let query_port = s.get_int("query.port", 25565);
         let enable_rcon = s.get_boolean("enable-rcon", false);
         let rcon_port = s.get_int("rcon.port", 25575);
-        let rcon_password = s.get_string("rcon.password", "");
+        let rcon_password = s.get_java_string("rcon.password", "");
         let hardcore = s.get_boolean("hardcore", false);
         let use_native_transport = s.get_boolean("use-native-transport", true);
         let spawn_protection = s.get_mutable_int("spawn-protection", 16);
@@ -282,7 +284,7 @@ impl DedicatedServerProperties {
             |v| v.to_string().into(),
             100,
         )?;
-        let text_filtering_config = s.get_string("text-filtering-config", "");
+        let text_filtering_config = s.get_java_string("text-filtering-config", "");
         let text_filtering_version = s.get_int("text-filtering-version", 0);
         // the resource pack and pack configuration are read after the world options in the constructor body
         let player_idle_timeout = s.get_mutable_int("player-idle-timeout", 0);
@@ -314,29 +316,25 @@ impl DedicatedServerProperties {
         )?;
         let level_type = s.get_with(
             "level-type",
-            |v| {
-                Ok(Some(mc_core::java_case::to_lower_case_root(
-                    v.as_lossy_str(),
-                )))
-            },
-            String::clone,
-            "minecraft:normal".to_owned(),
+            |v| Ok(Some(v.to_lower_case_root())),
+            JavaString::clone,
+            JavaString::from("minecraft:normal"),
         )?;
         let world_dimension_data = WorldDimensionData {
             generator_settings,
             level_type,
         };
-        let resource_pack_id = s.get_string("resource-pack-id", "");
-        let resource_pack = s.get_string("resource-pack", "");
-        let resource_pack_sha1 = s.get_string("resource-pack-sha1", "");
-        let resource_pack_hash = s.get_legacy_string("resource-pack-hash");
+        let resource_pack_id = s.get_java_string("resource-pack-id", "");
+        let resource_pack = s.get_java_string("resource-pack", "");
+        let resource_pack_sha1 = s.get_java_string("resource-pack-sha1", "");
+        let resource_pack_hash = s.get_legacy_java_string("resource-pack-hash");
         let require_resource_pack = s.get_boolean("require-resource-pack", false);
-        let resource_pack_prompt = s.get_string("resource-pack-prompt", "");
+        let resource_pack_prompt = s.get_java_string("resource-pack-prompt", "");
         let server_resource_pack_info = get_server_pack_info(
             &resource_pack_id,
             &resource_pack,
             &resource_pack_sha1,
-            resource_pack_hash.as_deref(),
+            resource_pack_hash.as_ref(),
             require_resource_pack,
             &resource_pack_prompt,
         );
@@ -441,14 +439,15 @@ impl DedicatedServerProperties {
 }
 
 /// `DedicatedServerProperties.parseResourcePackPrompt`.
-fn parse_resource_pack_prompt(prompt: &str) -> Option<Component> {
-    if prompt.is_empty() {
+fn parse_resource_pack_prompt(prompt: &JavaString) -> Option<Component> {
+    if prompt.utf16_len() == 0 {
         return None;
     }
+    let shown = prompt.as_lossy_str();
     let json = match mc_core::gson::parse_strict_json_parser(prompt) {
         Ok(j) => j,
         Err(e) => {
-            log::warn!("Failed to parse resource pack prompt '{prompt}'\n{e}");
+            log::warn!("Failed to parse resource pack prompt '{shown}'\n{e}");
             return None;
         }
     };
@@ -457,7 +456,7 @@ fn parse_resource_pack_prompt(prompt: &str) -> Option<Component> {
         Ok(c) => Some(c),
         Err(partial) => {
             log::warn!(
-                "Failed to parse resource pack prompt '{prompt}': {}",
+                "Failed to parse resource pack prompt '{shown}': {}",
                 partial.error
             );
             partial.value
@@ -467,55 +466,58 @@ fn parse_resource_pack_prompt(prompt: &str) -> Option<Component> {
 
 /// `DedicatedServerProperties.getServerPackInfo`.
 fn get_server_pack_info(
-    id: &str,
-    url: &str,
-    sha1: &str,
-    legacy_hash: Option<&str>,
+    id: &JavaString,
+    url: &JavaString,
+    sha1: &JavaString,
+    legacy_hash: Option<&JavaString>,
     require_resource_pack: bool,
-    prompt: &str,
+    prompt: &JavaString,
 ) -> Option<ServerResourcePackInfo> {
-    if url.is_empty() {
+    if url.utf16_len() == 0 {
         return None;
     }
-    let legacy_hash = legacy_hash.filter(|h| !h.is_empty());
-    let hash = if !sha1.is_empty() {
+    let legacy_hash = legacy_hash.filter(|h| h.utf16_len() != 0);
+    let hash = if sha1.utf16_len() != 0 {
         if legacy_hash.is_some() {
             log::warn!(
                 "resource-pack-hash is deprecated and found along side resource-pack-sha1. resource-pack-hash will be ignored."
             );
         }
-        sha1
+        sha1.clone()
     } else if let Some(legacy) = legacy_hash {
         log::warn!("resource-pack-hash is deprecated. Please use resource-pack-sha1 instead.");
-        legacy
+        legacy.clone()
     } else {
-        ""
+        JavaString::default()
     };
-    if hash.is_empty() {
+    if hash.utf16_len() == 0 {
         log::warn!(
             "You specified a resource pack without providing a sha1 hash. Pack will be updated on the client only if you change the name of the pack."
         );
-    } else if !(hash.len() == 40 && hash.bytes().all(|b| b.is_ascii_hexdigit())) {
+    } else if !hash
+        .exact_str()
+        .is_some_and(|h| h.len() == 40 && h.bytes().all(|b| b.is_ascii_hexdigit()))
+    {
         log::warn!("Invalid sha1 for resource-pack-sha1");
     }
     let prompt = parse_resource_pack_prompt(prompt);
-    let parsed_id = if id.is_empty() {
-        let uuid = uuid_util::name_uuid_from_bytes(url.as_bytes());
+    let parsed_id = if id.utf16_len() == 0 {
+        let uuid = uuid_util::name_uuid_from_bytes(&url.to_java_utf8());
         log::warn!("resource-pack-id missing, using default of {uuid}");
         uuid
     } else {
-        match uuid_util::uuid_from_string(id) {
+        match uuid_util::uuid_from_string(id.as_lossy_str()) {
             Ok(uuid) => uuid,
             Err(_) => {
-                log::warn!("Failed to parse '{id}' into UUID");
+                log::warn!("Failed to parse '{}' into UUID", id.as_lossy_str());
                 return None;
             }
         }
     };
     Some(ServerResourcePackInfo {
         id: parsed_id,
-        url: url.to_owned(),
-        hash: hash.to_owned(),
+        url: url.clone(),
+        hash,
         is_required: require_resource_pack,
         prompt,
     })

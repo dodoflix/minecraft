@@ -3,6 +3,7 @@
 
 use std::sync::Arc;
 
+use mc_core::java_string::JavaString;
 use mc_game::server::jsonrpc::ManagementServer;
 use mc_game::server::jsonrpc::api::*;
 use mc_game::server::jsonrpc::methods::{Dispatcher, Outbound, incoming_method_names};
@@ -28,7 +29,7 @@ struct State {
     ops: Vec<ServerOpListEntry>,
     online: Vec<ManagementPlayer>,
     disconnected: Vec<(Uuid, String)>,
-    motd: String,
+    motd: JavaString,
     difficulty: Option<Difficulty>,
     saved: u32,
 }
@@ -216,7 +217,7 @@ impl ManagementApi for Mock {
     fn get_setting(&self, key: SettingKey) -> SettingValue {
         let st = self.state.lock();
         match key {
-            SettingKey::Motd => SettingValue::Str(st.motd.clone().into()),
+            SettingKey::Motd => SettingValue::Str(st.motd.clone()),
             SettingKey::Difficulty => SettingValue::Difficulty(st.difficulty.unwrap()),
             SettingKey::GameMode => SettingValue::GameType(GameType::Survival),
             SettingKey::OperatorUserPermissions => {
@@ -229,7 +230,7 @@ impl ManagementApi for Mock {
     fn set_setting(&self, key: SettingKey, value: SettingValue) {
         let mut st = self.state.lock();
         match (key, value) {
-            (SettingKey::Motd, SettingValue::Str(s)) => st.motd = s.into_string_lossy(),
+            (SettingKey::Motd, SettingValue::Str(s)) => st.motd = s,
             (SettingKey::Difficulty, SettingValue::Difficulty(d)) => st.difficulty = Some(d),
             _ => {}
         }
@@ -656,4 +657,21 @@ fn tls_websocket_with_pkcs12_keystore() {
         assert!(reply.as_str().contains(r#""started":true"#), "{reply}");
     });
     server.stop();
+}
+
+/// The motd answer when the motd holds lone surrogates: the frame's bytes, a lone surrogate written as `?`.
+#[test]
+fn motd_with_lone_surrogates_is_answered_like_vanilla() {
+    let mut n = 0;
+    for c in mc_testkit::rows(include_str!("../fixtures/lone_surrogate.tsv"), "api_motd") {
+        let (mock, d) = dispatcher();
+        mock.state.lock().motd = JavaString::from_utf16_units(&mc_testkit::unesc_units(c[1]));
+        let reply = call(
+            &d,
+            r#"{"jsonrpc":"2.0","id":1,"method":"serversettings/motd"}"#,
+        );
+        assert_eq!(mc_testkit::hex(reply.as_bytes()), c[2], "motd {}", c[1]);
+        n += 1;
+    }
+    assert_eq!(n, 10);
 }

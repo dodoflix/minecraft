@@ -261,8 +261,8 @@ fn context_free_component_fields_write_the_dialog() {
 
     let pack = play::ClientboundResourcePackPushPacket {
         id: uuid::Uuid::nil(),
-        url: String::new(),
-        hash: String::new(),
+        url: "".into(),
+        hash: "".into(),
         required: false,
         prompt: Some(component.clone()),
     };

@@ -198,18 +198,22 @@ impl Settings {
         Settings { properties }
     }
 
-    pub fn get_legacy<V>(&mut self, key: &str, deserializer: impl FnOnce(&str) -> V) -> Option<V> {
-        let value = self.properties.get(key)?.to_owned();
+    pub fn get_legacy<V>(
+        &mut self,
+        key: &str,
+        deserializer: impl FnOnce(&JavaString) -> V,
+    ) -> Option<V> {
+        let value = self.properties.get_java(key)?.clone();
         self.properties.remove(key);
         Some(deserializer(&value))
     }
 
-    pub fn get_legacy_string(&mut self, key: &str) -> Option<String> {
-        self.get_legacy(key, str::to_owned)
+    pub fn get_legacy_java_string(&mut self, key: &str) -> Option<JavaString> {
+        self.get_legacy(key, JavaString::clone)
     }
 
     pub fn get_legacy_boolean(&mut self, key: &str) -> Option<bool> {
-        self.get_legacy(key, java_boolean)
+        self.get_legacy(key, |v| java_boolean(v.as_lossy_str()))
     }
 
     /// `get(key, deserializer, serializer, default)`: a `None` (Java `null`) from the deserializer, or a missing key,

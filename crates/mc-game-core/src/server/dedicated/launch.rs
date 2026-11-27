@@ -542,7 +542,7 @@ fn create_dimensions(
         None => {
             log::warn!(
                 "Failed to parse level-type {}, defaulting to {default_id}",
-                data.level_type
+                data.level_type.as_lossy_str()
             );
             (
                 default_id.to_owned(),

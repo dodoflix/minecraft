@@ -1,6 +1,7 @@
 //! `RconThread` (listener) and `RconClient` (one connection), speaking the Source RCON protocol exactly as vanilla
 //! does, quirks included: each `read` must contain exactly one whole packet, otherwise the connection is dropped.
 
+use mc_core::java_string::JavaString;
 use std::io::{ErrorKind, Read, Write};
 use std::net::{Shutdown, TcpListener, TcpStream, ToSocketAddrs};
 use std::panic::AssertUnwindSafe;
@@ -27,7 +28,7 @@ impl RconClient {
     /// Start serving `stream`. The thread is named `RCON Client /<peer ip> #<n>`.
     pub fn start(
         runner: Arc<dyn RconCommandRunner>,
-        password: String,
+        password: JavaString,
         stream: TcpStream,
     ) -> Option<RconClient> {
         let peer = stream
@@ -112,7 +113,7 @@ fn send_cmd_response(
 
 fn serve(
     runner: Arc<dyn RconCommandRunner>,
-    password: &str,
+    password: &JavaString,
     mut stream: TcpStream,
     running: &AtomicBool,
     name: &str,
@@ -157,7 +158,7 @@ fn serve(
                         log::error!("Exception whilst parsing RCON input");
                         return Ok(());
                     };
-                    if !given.is_empty() && given == password {
+                    if !given.is_empty() && given == *password {
                         authed = true;
                         send(&mut stream, request_id, SERVERDATA_AUTH_RESPONSE, "")?;
                     } else {
@@ -192,7 +193,7 @@ impl RconThread {
         runner: Arc<dyn RconCommandRunner>,
         server_ip: &str,
         port: i32,
-        password: &str,
+        password: &JavaString,
     ) -> Option<RconThread> {
         let server_ip = if server_ip.is_empty() {
             "0.0.0.0"
@@ -203,7 +204,7 @@ impl RconThread {
             log::warn!("Invalid rcon port {port} found in server.properties, rcon disabled!");
             return None;
         }
-        if password.is_empty() {
+        if password.utf16_len() == 0 {
             log::warn!("No rcon password set in server.properties, rcon disabled!");
             return None;
         }
@@ -224,7 +225,7 @@ impl RconThread {
         };
         let clients: Arc<parking_lot::Mutex<Vec<RconClient>>> = Arc::default();
         let mut thread = GenericThread::new("RCON Listener");
-        let (worker_clients, password_owned) = (clients.clone(), password.to_owned());
+        let (worker_clients, password_owned) = (clients.clone(), password.clone());
         if !thread.start(move |running| {
             listen(
                 &listener,
@@ -260,15 +261,14 @@ fn listen(
     listener: &TcpListener,
     running: &AtomicBool,
     runner: Arc<dyn RconCommandRunner>,
-    password: &str,
+    password: &JavaString,
     clients: &parking_lot::Mutex<Vec<RconClient>>,
 ) {
     while running.load(Ordering::SeqCst) {
         match listener.accept() {
             Ok((stream, _)) => {
                 let _ = stream.set_nonblocking(false);
-                if let Some(client) = RconClient::start(runner.clone(), password.to_owned(), stream)
-                {
+                if let Some(client) = RconClient::start(runner.clone(), password.clone(), stream) {
                     clients.lock().push(client);
                 }
                 clients.lock().retain(RconClient::is_running);
@@ -338,8 +338,9 @@ mod tests {
             let l = TcpListener::bind("127.0.0.1:0").unwrap();
             l.local_addr().unwrap().port()
         };
-        let mut rcon = RconThread::create(Arc::new(Echo), "127.0.0.1", port as i32, "secret")
-            .expect("rcon starts");
+        let mut rcon =
+            RconThread::create(Arc::new(Echo), "127.0.0.1", port as i32, &"secret".into())
+                .expect("rcon starts");
         let mut c = TcpStream::connect(("127.0.0.1", port)).unwrap();
         c.write_all(&packet(7, SERVERDATA_EXECCOMMAND, "say hi"))
             .unwrap();
@@ -376,8 +377,11 @@ mod tests {
 
     #[test]
     fn create_validates_settings() {
-        assert!(RconThread::create(Arc::new(Echo), "", 0, "pw").is_none());
-        assert!(RconThread::create(Arc::new(Echo), "", 70000, "pw").is_none());
-        assert!(RconThread::create(Arc::new(Echo), "", 25575, "").is_none());
+        let create = |port, password: &str| {
+            RconThread::create(Arc::new(Echo), "", port, &JavaString::from(password))
+        };
+        assert!(create(0, "pw").is_none());
+        assert!(create(70000, "pw").is_none());
+        assert!(create(25575, "").is_none());
     }
 }

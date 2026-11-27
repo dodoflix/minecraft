@@ -416,7 +416,7 @@ fn configuration_clientbound() {
         ClientboundResourcePackPushPacket {
             id: uuid1(),
             url: "u".into(),
-            hash: String::new(),
+            hash: "".into(),
             required: false,
             prompt: None
         }

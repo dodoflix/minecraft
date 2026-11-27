@@ -3,7 +3,7 @@
 # Usage: crates/mc-protocol/tests/fixtures/lone_surrogate/gen.sh
 # Output: crates/mc-nbt/tests/fixtures/lone_surrogate.tsv, crates/mc-text/tests/fixtures/lone_surrogate.tsv,
 #   crates/mc-protocol/tests/fixtures/lone_surrogate.tsv, crates/mc-brigadier/tests/fixtures/lone_surrogate.tsv,
-#   crates/mc-game/tests/fixtures/lone_surrogate.tsv
+#   crates/mc-game/tests/fixtures/lone_surrogate.tsv, crates/mc-game-core/tests/fixtures/lone_surrogate.tsv
 # Needs: java, javac, ref/ (scripts/setup-ref.sh).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../../../../.." && pwd)"
@@ -19,6 +19,6 @@ javac -nowarn -encoding UTF-8 -cp "$CP" -d "$OUT" "$ROOT/tools/extractor/src/ext
 mkdir -p "$OUT/rows"
 java -cp "$OUT:$CP" LoneSurrogateGolden "$OUT/rows"
 wc -l "$OUT"/rows/*.tsv
-for f in "nbt:mc-nbt" "text:mc-text" "wire:mc-protocol" "brigadier:mc-brigadier" "game:mc-game"; do
+for f in "nbt:mc-nbt" "text:mc-text" "wire:mc-protocol" "brigadier:mc-brigadier" "game:mc-game" "core:mc-game-core"; do
   place_fixture "$OUT/rows/${f%%:*}.tsv" "$ROOT/crates/${f##*:}/tests/fixtures/lone_surrogate.tsv"
 done

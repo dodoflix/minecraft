@@ -304,7 +304,7 @@ impl ServerTextFilter {
         config: &DedicatedServerProperties,
     ) -> Result<Option<Arc<ServerTextFilter>>, FilterError> {
         let text = &config.text_filtering_config;
-        if is_blank(text) {
+        if is_blank(text.as_lossy_str()) {
             return Ok(None);
         }
         let filter = match config.text_filtering_version {

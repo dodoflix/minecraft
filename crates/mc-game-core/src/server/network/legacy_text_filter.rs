@@ -6,13 +6,14 @@ use super::server_text_filter::{
     ServerTextFilter, parse_mask,
 };
 use super::text_filter_json::{
-    get_as_array, get_as_bool_or, get_as_int_or, get_as_object_opt, get_as_string,
-    get_as_string_or, syntax,
+    get_as_array, get_as_bool_or, get_as_int_or, get_as_java_string_or, get_as_object_opt,
+    get_as_string, get_as_string_or, syntax,
 };
 use crate::server::chat::FilteredText;
 use base64::Engine as _;
 use mc_core::gson::{JsonElement, JsonError, JsonObject};
 use mc_core::java_exception::JavaException;
+use mc_core::java_string::JavaString;
 use mc_protocol::codec::GameProfile;
 
 const ENDPOINT: &str = "v1/chat";
@@ -22,8 +23,8 @@ pub struct LegacyTextFilter {
     auth_key: String,
 }
 
-fn string_property(object: &mut JsonObject, key: &str, value: &str) {
-    object.add_property_str(key, Some(value));
+fn string_property(object: &mut JsonObject, key: &str, value: impl Into<JavaString>) {
+    object.add(key, JsonElement::String(value.into()));
 }
 
 /// `host.resolve("/" + endpoint).toURL()`: the host's scheme and authority with the endpoint as the path.
@@ -45,17 +46,20 @@ fn endpoint_from_config(
 
 impl LegacyTextFilter {
     /// `createTextFilterFromConfig`: a config that does not parse is a warning and no filter.
-    pub fn create_text_filter_from_config(config: &str) -> Option<ServerTextFilter> {
+    pub fn create_text_filter_from_config(config: &JavaString) -> Option<ServerTextFilter> {
         match Self::parse(config) {
             Ok(filter) => Some(filter),
             Err(e) => {
-                log::warn!("Failed to parse chat filter config {config}\n{e}");
+                log::warn!(
+                    "Failed to parse chat filter config {}\n{e}",
+                    config.as_lossy_str()
+                );
                 None
             }
         }
     }
 
-    fn parse(config: &str) -> Result<ServerTextFilter, FilterError> {
+    fn parse(config: &JavaString) -> Result<ServerTextFilter, FilterError> {
         let parsed = parse_config_object(config)?;
         let host = uri(&get_as_string(&parsed, "apiServer")?)?;
         let key = get_as_string(&parsed, "apiKey")?;
@@ -66,8 +70,8 @@ impl LegacyTextFilter {
             ));
         }
         let rule_id = get_as_int_or(&parsed, "ruleId", 1)?;
-        let server_id = get_as_string_or(&parsed, "serverId", "")?;
-        let room_id = get_as_string_or(&parsed, "roomId", "Java:Chat")?;
+        let server_id = get_as_java_string_or(&parsed, "serverId", "")?;
+        let room_id = get_as_java_string_or(&parsed, "roomId", "Java:Chat")?;
         let hashes_to_drop = get_as_int_or(&parsed, "hashesToDrop", -1)?;
         let max_concurrent_requests = get_as_int_or(&parsed, "maxConcurrentRequests", 7)?;
         let endpoints = get_as_object_opt(&parsed, "endpoints")?;
@@ -142,7 +146,7 @@ impl LegacyTextFilter {
 }
 
 /// `GsonHelper.parse(config)`: one value read STRICT as a `JsonObject`; trailing data is ignored.
-pub(super) fn parse_config_object(config: &str) -> Result<JsonObject, FilterError> {
+pub(super) fn parse_config_object(config: &JavaString) -> Result<JsonObject, FilterError> {
     let element = mc_core::gson::parse(config, false)
         .map_err(|JsonError(message)| {
             JavaException::unchecked("com.google.gson.JsonParseException", message)
@@ -275,7 +279,8 @@ mod tests {
     ) -> (FilteredText, Vec<String>) {
         let (url, seen) = mock(answers);
         let config = format!(r#"{{"apiServer":"{url}","apiKey":"k"{extra}}}"#);
-        let filter = Arc::new(LegacyTextFilter::create_text_filter_from_config(&config).unwrap());
+        let filter =
+            Arc::new(LegacyTextFilter::create_text_filter_from_config(&config.into()).unwrap());
         let future = filter
             .create_context(profile())
             .process_stream_message(text);
@@ -349,7 +354,8 @@ mod tests {
         let config = format!(
             r#"{{"apiServer":"{url}","apiKey":"k","serverId":"s","roomId":"r","endpoints":{{"join":"in"}}}}"#
         );
-        let filter = Arc::new(LegacyTextFilter::create_text_filter_from_config(&config).unwrap());
+        let filter =
+            Arc::new(LegacyTextFilter::create_text_filter_from_config(&config.into()).unwrap());
         let context = filter.create_context(profile());
         assert_eq!(
             context.process_stream_message("").get(),
@@ -380,16 +386,50 @@ mod tests {
             r#"{"apiServer":"http://x","apiKey":"k","maxConcurrentRequests":0}"#,
         ] {
             assert!(
-                LegacyTextFilter::create_text_filter_from_config(config).is_none(),
+                LegacyTextFilter::create_text_filter_from_config(&config.into()).is_none(),
                 "{config}"
             );
         }
         assert_eq!(
-            LegacyTextFilter::parse(r#"{"apiServer":"http://x","apiKey":""}"#)
+            LegacyTextFilter::parse(&r#"{"apiServer":"http://x","apiKey":""}"#.into())
                 .err()
                 .unwrap()
                 .to_string(),
             "java.lang.IllegalArgumentException: Missing API key"
         );
+    }
+
+    /// A `serverId` and `roomId` that hold lone surrogates (raw in the config or as a JSON escape) reach the request body
+    /// as vanilla writes it: each lone surrogate is `?`.
+    #[test]
+    fn lone_surrogates_in_the_config_reach_the_request_body_like_vanilla() {
+        let mut n = 0;
+        for c in mc_testkit::rows(
+            include_str!("../../../tests/fixtures/lone_surrogate.tsv"),
+            "text_filter",
+        ) {
+            let (url, seen) = mock(vec![]);
+            let value = JavaString::from_utf16_units(&mc_testkit::unesc_units(c[1]));
+            let mut config =
+                JavaString::from(format!(r#"{{"apiServer":"{url}","apiKey":"k","serverId":"#));
+            config.push_java(&value);
+            config.push_str(r#","roomId":"#);
+            config.push_java(&value);
+            config.push('}');
+            let filter =
+                Arc::new(LegacyTextFilter::create_text_filter_from_config(&config).unwrap());
+            let future = filter.create_context(profile()).process_stream_message("m");
+            let start = Instant::now();
+            while !future.is_done() {
+                assert!(start.elapsed() < Duration::from_secs(10), "no answer");
+                std::thread::sleep(Duration::from_millis(10));
+            }
+            filter.close();
+            let seen = seen.lock().unwrap().clone();
+            let body = seen[0].split_once('\n').unwrap().1;
+            assert_eq!(mc_testkit::hex(body.as_bytes()), c[2], "config {}", c[1]);
+            n += 1;
+        }
+        assert_eq!(n, 9);
     }
 }

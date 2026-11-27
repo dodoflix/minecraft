@@ -10,14 +10,15 @@ use super::server_text_filter::{
 };
 use super::text_filter_json::{
     as_object, convert_to_string, get_as_array, get_as_array_or_empty, get_as_bool_or,
-    get_as_int_or, get_as_object_opt, get_as_string, get_as_string_or,
+    get_as_int_or, get_as_java_string_or, get_as_object_opt, get_as_string, get_as_string_or,
 };
 use crate::server::chat::FilteredText;
 use base64::Engine as _;
 use base64::engine::general_purpose::{STANDARD, URL_SAFE_NO_PAD};
-use mc_core::gson::JsonObject;
+use mc_core::gson::{JsonElement, JsonObject};
 use mc_core::java_collections::hash_map_ordered;
 use mc_core::java_exception::JavaException;
+use mc_core::java_string::JavaString;
 use mc_core::math::java::java_string_hash;
 use mc_protocol::codec::GameProfile;
 use parking_lot::Mutex;
@@ -51,16 +52,16 @@ pub struct PlayerSafetyServiceTextFilter {
 /// `createTextFilterFromConfig`. Unlike version 0 nothing here is caught: a config that does not parse is an `Err` the
 /// caller treats as fatal; an unreadable certificate or an authority MSAL rejects is a warning and no filter.
 pub fn create_text_filter_from_config(
-    config: &str,
+    config: &JavaString,
 ) -> Result<Option<ServerTextFilter>, FilterError> {
     let parsed = parse_config_object(config)?;
     let host = uri(&get_as_string(&parsed, "apiServer")?)?;
     let api_path = get_as_string(&parsed, "apiPath")?;
     let scope = get_as_string(&parsed, "scope")?;
-    let server_id = get_as_string_or(&parsed, "serverId", "")?;
+    let server_id = get_as_java_string_or(&parsed, "serverId", "")?;
     let application_id = get_as_string(&parsed, "applicationId")?;
     let tenant_id = get_as_string(&parsed, "tenantId")?;
-    let room_id = get_as_string_or(&parsed, "roomId", "Java:Chat")?;
+    let room_id = get_as_java_string_or(&parsed, "roomId", "Java:Chat")?;
     let certificate_path = get_as_string(&parsed, "certificatePath")?;
     let certificate_password = get_as_string_or(&parsed, "certificatePassword", "")?;
     let hashes_to_drop = get_as_int_or(&parsed, "hashesToDrop", -1)?;
@@ -79,8 +80,8 @@ pub fn create_text_filter_from_config(
         let mut object = JsonObject::new();
         object.add_property_str("userId", Some(&sender.id.to_string()));
         object.add_property_str("userDisplayName", Some(&sender.name));
-        object.add_property_str("server", Some(&server_id));
-        object.add_property_str("room", Some(&room_id));
+        object.add("server", JsonElement::String(server_id.clone()));
+        object.add("room", JsonElement::String(room_id.clone()));
         object.add_property_str("area", Some("JavaChatRealms"));
         object.add_property_str("data", Some(message));
         object.add_property_str("language", Some("*"));
@@ -654,7 +655,7 @@ mod tests {
     }
 
     fn error_of(config: &str) -> String {
-        match create_text_filter_from_config(config) {
+        match create_text_filter_from_config(&config.into()) {
             Err(e) => e.to_string(),
             Ok(_) => panic!("expected an error"),
         }
@@ -688,7 +689,7 @@ mod tests {
     #[test]
     fn an_unreadable_certificate_is_no_filter() {
         assert!(matches!(
-            create_text_filter_from_config(&config_with(|_| {})),
+            create_text_filter_from_config(&config_with(|_| {}).into()),
             Ok(None)
         ));
         let garbage = tempfile::NamedTempFile::new().expect("a file");

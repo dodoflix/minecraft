@@ -79,8 +79,8 @@ pub struct LegacyServerInfo {
 #[derive(Debug, Clone, PartialEq)]
 pub struct ServerResourcePackInfo {
     pub id: Uuid,
-    pub url: String,
-    pub hash: String,
+    pub url: mc_core::java_string::JavaString,
+    pub hash: mc_core::java_string::JavaString,
     pub is_required: bool,
     pub prompt: Option<Component>,
 }

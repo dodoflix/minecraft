@@ -3,6 +3,7 @@
 
 use mc_core::gson::{JsonElement, JsonObject};
 use mc_core::java_exception::JavaException;
+use mc_core::java_string::JavaString;
 
 const JSON_SYNTAX: &str = "com.google.gson.JsonSyntaxException";
 
@@ -44,14 +45,13 @@ fn get_type(element: &JsonElement) -> String {
     }
 }
 
-/// `convertToString`.
-pub fn convert_to_string(element: &JsonElement, name: &str) -> Result<String, JavaException> {
+/// `convertToString`, the exact string.
+pub fn convert_to_java_string(
+    element: &JsonElement,
+    name: &str,
+) -> Result<JavaString, JavaException> {
     if is_primitive(element) {
-        Ok(element
-            .as_string()
-            .map_err(|e| syntax(e.0))?
-            .as_lossy_str()
-            .to_owned())
+        element.as_string().map_err(|e| syntax(e.0))
     } else {
         Err(syntax(format!(
             "Expected {name} to be a string, was {}",
@@ -60,11 +60,28 @@ pub fn convert_to_string(element: &JsonElement, name: &str) -> Result<String, Ja
     }
 }
 
+/// `convertToString` as text: a lone surrogate shows as U+FFFD.
+pub fn convert_to_string(element: &JsonElement, name: &str) -> Result<String, JavaException> {
+    convert_to_java_string(element, name).map(JavaString::into_string_lossy)
+}
+
 /// `getAsString(object, name)`.
 pub fn get_as_string(object: &JsonObject, name: &str) -> Result<String, JavaException> {
     match object.get(name) {
         Some(element) => convert_to_string(element, name),
         None => Err(syntax(format!("Missing {name}, expected to find a string"))),
+    }
+}
+
+/// `getAsString(object, name, def)` for a value that reaches a request body, where a lone surrogate matters.
+pub fn get_as_java_string_or(
+    object: &JsonObject,
+    name: &str,
+    default: &str,
+) -> Result<JavaString, JavaException> {
+    match object.get(name) {
+        Some(element) => convert_to_java_string(element, name),
+        None => Ok(default.into()),
     }
 }
 

@@ -1,4 +1,12 @@
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.internal.Streams;
+import com.google.gson.stream.JsonWriter;
+import com.mojang.authlib.GameProfile;
+import com.mojang.serialization.Codec;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import java.io.OutputStreamWriter;
 import com.mojang.brigadier.LiteralMessage;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -49,6 +57,9 @@ import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
 import net.minecraft.network.protocol.status.ServerStatus;
 import net.minecraft.server.dedicated.DedicatedServerProperties;
 import net.minecraft.server.ServerInfo;
+import net.minecraft.server.jsonrpc.JsonRPCUtils;
+import net.minecraft.server.network.ServerTextFilter;
+import net.minecraft.network.protocol.common.ClientboundResourcePackPushPacket;
 import net.minecraft.server.dialog.Dialog;
 import net.minecraft.server.network.Filterable;
 import net.minecraft.server.network.LegacyQueryHandler;
@@ -72,6 +83,7 @@ import net.minecraft.world.level.timers.TimerQueue;
  *   wire.tsv       network strings and the signs, books, item names and dialogs sent to a client
  *   brigadier.tsv  command syntax exception contexts (a context window can split a surrogate pair)
  *   game.tsv       items parsed by the command argument
+ *   core.tsv       the management API's motd answer and the text filter's request body
  * Every op is replayed by the tests of the crate that consumes the file.
  * Usage: crates/mc-protocol/tests/fixtures/lone_surrogate/gen.sh
  * Output: the file of each crate named in gen.sh
@@ -396,6 +408,47 @@ public class LoneSurrogateGolden {
       new DedicatedServerProperties(net.minecraft.server.dedicated.Settings.loadFromFile(f)).store(f);
    }
 
+   static DedicatedServerProperties propsOf(String... lines) throws Exception {
+      Path f = Files.createTempFile("props", ".properties");
+      try {
+         Files.writeString(f, String.join("\n", lines) + "\n");
+         return new DedicatedServerProperties(net.minecraft.server.dedicated.Settings.loadFromFile(f));
+      } finally {
+         Files.delete(f);
+      }
+   }
+
+   /** The default resource pack id and the push packet's bytes of the pack `props` configures, or "no pack". */
+   static String packCells(DedicatedServerProperties props) {
+      if (props.serverResourcePackInfo.isEmpty()) return "no pack";
+      var info = props.serverResourcePackInfo.get();
+      RegistryFriendlyByteBuf b = regBuf();
+      ClientboundResourcePackPushPacket.STREAM_CODEC.encode(b, new ClientboundResourcePackPushPacket(info.id(), info.url(), info.hash(), info.isRequired(), Optional.ofNullable(info.prompt())));
+      return info.id() + "|" + bytes(b);
+   }
+
+   /** The bytes of the chat request body the text filter built from `config` writes (`ServerTextFilter.makeRequest`). */
+   static String filterBody(String config) throws Exception {
+      ServerTextFilter filter = ServerTextFilter.createFromConfig(propsOf("text-filtering-config=" + propsEscapes(config)));
+      if (filter == null) return "no filter";
+      try {
+         var field = ServerTextFilter.class.getDeclaredField("chatEncoder");
+         field.setAccessible(true);
+         Object encoder = field.get(filter);
+         var encode = Class.forName("net.minecraft.server.network.ServerTextFilter$MessageEncoder").getDeclaredMethod("encode", GameProfile.class, String.class);
+         encode.setAccessible(true);
+         JsonObject payload = (JsonObject) encode.invoke(encoder, new GameProfile(new java.util.UUID(0L, 1L), "Steve"), "m");
+         ByteArrayOutputStream bos = new ByteArrayOutputStream();
+         OutputStreamWriter writer = new OutputStreamWriter(bos, StandardCharsets.UTF_8);
+         try (JsonWriter jsonWriter = new JsonWriter(writer)) {
+            Streams.write(payload, jsonWriter);
+         }
+         return hex(bos.toByteArray());
+      } finally {
+         filter.close();
+      }
+   }
+
    public static void main(String[] args) throws Exception {
       access = extractor.Setup.bootstrap();
       nbtOps = access.createSerializationContext(NbtOps.INSTANCE);
@@ -675,6 +728,52 @@ public class LoneSurrogateGolden {
       // `generator-settings` JSON with a lone surrogate (unit escape of the file, or JSON escape): the object is kept and its store fails
       for (String json : new String[] {"{\"a\":\"b\"}", "{\"a\":\"" + propsEscapes("\ud800") + "\"}", "{\"a\":\"\\\\ud800\"}", "{\"a\":\"\\\\udc00x\"}"})
          row("game.tsv", "props_generator", json, cell(() -> storedPropsLine("generator-settings=" + json)));
+
+      // the other string properties keep the exact value: `level-type` (lower-cased), `rcon.password` (compared with what a client sends),
+      // `resource-pack*` (the default id hashes the URL's bytes, the push packet writes URL and hash as network strings, the prompt is JSON)
+      // and `text-filtering-config` (the serverId and roomId reach the request body); a lone surrogate also makes the store fail
+      for (String s : new String[] {"\ud800", "a\udc00", "\ud83d\ude00", "\ud83dx", "ABC\ud800D", "\u03a3\ud800", "plain", "\ud800\ud800"}) {
+         String file = propsEscapes(s);
+         row("game.tsv", "props_level_type", s,
+            cell(() -> {
+               var field = DedicatedServerProperties.class.getDeclaredField("worldDimensionData");
+               field.setAccessible(true);
+               Object data = field.get(propsOf("level-type=" + file));
+               var accessor = data.getClass().getDeclaredMethod("levelType");
+               accessor.setAccessible(true);
+               return (String) accessor.invoke(data);
+            }),
+            cell(() -> storedPropsLine("level-type=" + file)));
+         row("game.tsv", "props_rcon", s,
+            cell(() -> propsOf("rcon.password=" + file).rconPassword),
+            cell(() -> storedPropsLine("rcon.password=" + file)),
+            cell(() -> Boolean.toString(propsOf("rcon.password=" + file).rconPassword.equals(new String(new byte[] {(byte) 0xEF, (byte) 0xBF, (byte) 0xBD}, StandardCharsets.UTF_8)))),
+            cell(() -> Boolean.toString(propsOf("rcon.password=" + file).rconPassword.equals("?"))));
+         row("game.tsv", "props_pack_url", s,
+            cell(() -> packCells(propsOf("resource-pack=" + file))),
+            cell(() -> storedPropsLine("resource-pack=" + file)));
+         row("game.tsv", "props_pack_hash", s,
+            cell(() -> packCells(propsOf("resource-pack=http://x/p.zip\nresource-pack-sha1=" + file))),
+            cell(() -> storedPropsLine("resource-pack=http://x/p.zip\nresource-pack-sha1=" + file)),
+            cell(() -> packCells(propsOf("resource-pack=http://x/p.zip\nresource-pack-hash=" + file))),
+            cell(() -> storedPropsLine("resource-pack=http://x/p.zip\nresource-pack-hash=" + file)));
+      }
+      for (String prompt : new String[] {"\"\ud800\"", "\"a\udc00\"", "\"\ud83d\ude00\"", "\"\\ud800\"", "\"\\ud83d\\ude00\"", "\"\\udc00x\"", "{\"text\":\"\ud83dx\"}", "[\"\ud800\",{\"text\":\"b\"}]"}) {
+         String lines = "resource-pack=http://x/p.zip\nresource-pack-id=00000000-0000-0000-0000-000000000001\nresource-pack-prompt=" + propsEscapes(prompt);
+         row("game.tsv", "props_pack_prompt", prompt,
+            cell(() -> packCells(propsOf(lines))),
+            cell(() -> storedPropsLine(lines)));
+      }
+
+      // mc-game-core rows: the management API's motd answer (JSON-RPC response, as the web socket frame's bytes) and the text filter's
+      // request body for a serverId / roomId holding a lone surrogate (raw in the config text, or as a JSON escape)
+      for (String s : propValues)
+         row("core.tsv", "api_motd", s, cell(() -> {
+            JsonElement result = Codec.STRING.encodeStart(jsonOps, propsOf("motd=" + propsEscapes(s)).motd.get()).getOrThrow();
+            return bytes(new TextWebSocketFrame(JsonRPCUtils.createSuccessResult(new JsonPrimitive(1), result).toString()).content());
+         }));
+      for (String v : new String[] {"\"\ud800\"", "\"a\udc00\"", "\"\ud83d\ude00\"", "\"\ud83dx\"", "\"\\ud800\"", "\"\\ud83d\\ude00\"", "\"\\udc00x\"", "\"plain\"", "\"\ud800\ud800\""})
+         row("core.tsv", "text_filter", v, cell(() -> filterBody("{\"apiServer\":\"http://localhost\",\"apiKey\":\"k\",\"serverId\":" + v + ",\"roomId\":" + v + "}")));
 
       Path outDir = Path.of(args[0]);
       for (Map.Entry<String, StringBuilder> e : FILES.entrySet()) Files.writeString(outDir.resolve(e.getKey()), e.getValue().toString());

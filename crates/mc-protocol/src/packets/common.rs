@@ -410,9 +410,9 @@ macro_rules! common_packets {
         #[packet(state = $state, flow = clientbound, name = "resource_pack_push")]
         pub struct ClientboundResourcePackPushPacket {
             pub id: ::uuid::Uuid,
-            pub url: String,
+            pub url: ::mc_core::java_string::JavaString,
             #[mc(max = 40)]
-            pub hash: String,
+            pub hash: ::mc_core::java_string::JavaString,
             pub required: bool,
             #[mc(with = crate::codec::context_free)]
             pub prompt: Option<::mc_text::Component>,
