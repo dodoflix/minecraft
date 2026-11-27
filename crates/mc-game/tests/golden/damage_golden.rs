@@ -954,51 +954,8 @@ impl Replay {
     }
 }
 
-/// The effect particle list of a `set_entity_data` packet (entity data 10, serializer 17, one 5 byte `entity_effect` option per effect)
-/// follows the iteration order of the entity's `HashMap` of effects, which the real server leaves to the identity hash of each
-/// run: the options of a list compare sorted.
-fn with_sorted_effect_particles(lines: Vec<String>) -> Vec<String> {
-    const OPTION: usize = 10; // `1c` + the ARGB int, in hex digits
-    lines
-        .into_iter()
-        .map(|line| {
-            let Some((head, hex)) = line.rsplit_once(' ') else {
-                return line;
-            };
-            if !head.ends_with(" minecraft:set_entity_data") {
-                return line;
-            }
-            let mut hex = hex.to_owned();
-            for at in (0..hex.len().saturating_sub(6)).step_by(2) {
-                let (start, end) = (
-                    at + 6,
-                    at + 6 + OPTION * usize::from_str_radix(&hex[at + 4..at + 6], 16).unwrap_or(0),
-                );
-                if &hex[at..at + 4] != "0a11" || end > hex.len() || end == start {
-                    continue;
-                }
-                let mut options: Vec<&str> = (start..end)
-                    .step_by(OPTION)
-                    .map(|o| &hex[o..o + OPTION])
-                    .collect();
-                if options.iter().any(|o| !o.starts_with("1c")) {
-                    continue;
-                }
-                options.sort_unstable();
-                let sorted = options.concat();
-                hex.replace_range(start..end, &sorted);
-            }
-            format!("{head} {hex}")
-        })
-        .collect()
-}
-
 fn check(name: &str) {
-    common::block_scenario::check_normalised(
-        name,
-        &Options::default(),
-        with_sorted_effect_particles,
-    );
+    common::block_scenario::check_with(name, &Options::default());
 }
 
 #[test]

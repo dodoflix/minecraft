@@ -642,7 +642,7 @@ PKT P3 minecraft:update_mob_effect 8701030b00a0060e
 PKT P3 minecraft:entity_event 220000000323
 PKT P3 minecraft:set_entity_data 650212010aff
 PKT P3 minecraft:update_attributes entity=2;minecraft:armor_toughness=0.0[minecraft:armor.helmet/0.0/add_value];minecraft:armor=0.0[minecraft:armor.helmet/2.0/add_value]
-PKT P3 minecraft:set_entity_data 650309033f8000000a11031cff2552a51cffcd5cab1cffff9900110341000000ff
+PKT P3 minecraft:set_entity_data 650309033f8000000a11031cff2552a51cffff99001cffcd5cab110341000000ff
 PKT P3 minecraft:update_attributes entity=3;minecraft:max_absorption=0.0[minecraft:effect.absorption/8.0/add_value]
 PKT P3 minecraft:set_entity_motion 6703f9ff7ffeebed
 PKT P3 minecraft:container_set_slot 140004002401ae0b0000
@@ -682,7 +682,7 @@ PKT P3 minecraft:update_mob_effect 870103090184070e
 PKT P3 minecraft:update_mob_effect 8701031501640e
 PKT P3 minecraft:update_mob_effect 8701030b00a0060e
 PKT P3 minecraft:entity_event 220000000323
-PKT P3 minecraft:set_entity_data 650309033f8000000a11031cff2552a51cffcd5cab1cffff9900110341000000ff
+PKT P3 minecraft:set_entity_data 650309033f8000000a11031cff2552a51cffff99001cffcd5cab110341000000ff
 PKT P3 minecraft:update_attributes entity=3;minecraft:max_absorption=0.0[minecraft:effect.absorption/8.0/add_value]
 PKT P3 minecraft:set_entity_motion 6703f9ff7ffeebed
 PKT P3 minecraft:container_set_slot 140005002400
@@ -708,7 +708,7 @@ PKT P3 minecraft:update_mob_effect 870103090184070e
 PKT P3 minecraft:update_mob_effect 8701031501640e
 PKT P3 minecraft:update_mob_effect 8701030b00a0060e
 PKT P3 minecraft:entity_event 220000000323
-PKT P3 minecraft:set_entity_data 650309033f8000000a11031cff2552a51cffcd5cab1cffff9900110341000000ff
+PKT P3 minecraft:set_entity_data 650309033f8000000a11031cff2552a51cffff99001cffcd5cab110341000000ff
 PKT P3 minecraft:update_attributes entity=3;minecraft:max_absorption=0.0[minecraft:effect.absorption/8.0/add_value]
 PKT P3 minecraft:set_entity_motion 6703f9ff7ffeebed
 PKT P3 minecraft:container_set_slot 140006002d00

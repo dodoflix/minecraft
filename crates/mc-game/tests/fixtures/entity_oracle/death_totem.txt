@@ -142,7 +142,7 @@ PKT T5 minecraft:level_chunk_with_light chunk=2,-1/len=7260
 PKT T5 minecraft:chunk_batch_finished 0b09
 PKT T6 minecraft:update_mob_effect 8701061201c8010e
 PKT T6 minecraft:update_mob_effect 8701061100c8010e
-PKT T6 minecraft:set_entity_data 6506090341a000000a11021cff484d481cff87a363ff
+PKT T6 minecraft:set_entity_data 6506090341a000000a11021cff87a3631cff484d48ff
 PKT T6 minecraft:container_set_slot 140002002401ae0b0000
 PKT T6 minecraft:recipe_book_add 4b01d302010202040600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730600106d696e6563726166743a706c616e6b730595030100000495030003010400106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b7300106d696e6563726166743a706c616e6b730200
 PKT T6 minecraft:update_advancements -
@@ -172,7 +172,7 @@ PKT T1 minecraft:update_mob_effect 870101090184070e
 PKT T1 minecraft:update_mob_effect 8701011501640e
 PKT T1 minecraft:update_mob_effect 8701010b00a0060e
 PKT T1 minecraft:entity_event 220000000123
-PKT T1 minecraft:set_entity_data 650109033f8000000a11031cff2552a51cffcd5cab1cffff9900110341000000ff
+PKT T1 minecraft:set_entity_data 650109033f8000000a11031cff2552a51cffff99001cffcd5cab110341000000ff
 PKT T1 minecraft:update_attributes entity=1;minecraft:entity_interaction_range=3.0[];minecraft:movement_speed=0.10000000149011612[];minecraft:max_absorption=0.0[minecraft:effect.absorption/8.0/add_value];minecraft:block_interaction_range=4.5[]
 PKT T1 minecraft:set_entity_motion 6701f9ff7ffeebed
 PKT T1 minecraft:container_set_slot 140003002400
@@ -248,7 +248,7 @@ PKT T4 minecraft:update_mob_effect 870104090184070e
 PKT T4 minecraft:update_mob_effect 8701041501640e
 PKT T4 minecraft:update_mob_effect 8701040b00a0060e
 PKT T4 minecraft:entity_event 220000000423
-PKT T4 minecraft:set_entity_data 650409033f8000000a11031cff2552a51cffcd5cab1cffff9900110341000000ff
+PKT T4 minecraft:set_entity_data 650409033f8000000a11031cff2552a51cffff99001cffcd5cab110341000000ff
 PKT T4 minecraft:update_attributes entity=4;minecraft:max_absorption=0.0[minecraft:effect.absorption/8.0/add_value]
 PKT T4 minecraft:container_set_slot 140003002400
 PKT T4 minecraft:update_advancements -
@@ -280,7 +280,7 @@ PKT T5 minecraft:update_mob_effect 870105090184070e
 PKT T5 minecraft:update_mob_effect 8701051501640e
 PKT T5 minecraft:update_mob_effect 8701050b00a0060e
 PKT T5 minecraft:entity_event 220000000523
-PKT T5 minecraft:set_entity_data 650509033f8000000a11031cff2552a51cffcd5cab1cffff9900110341000000ff
+PKT T5 minecraft:set_entity_data 650509033f8000000a11031cff2552a51cffff99001cffcd5cab110341000000ff
 PKT T5 minecraft:update_attributes entity=5;minecraft:max_absorption=0.0[minecraft:effect.absorption/8.0/add_value]
 PKT T5 minecraft:set_entity_motion 6705f9ff7ffeebed
 PKT T5 minecraft:container_set_slot 140003002400
@@ -315,7 +315,7 @@ PKT T6 minecraft:update_mob_effect 870106090184070e
 PKT T6 minecraft:update_mob_effect 8701061501640e
 PKT T6 minecraft:update_mob_effect 8701060b00a0060e
 PKT T6 minecraft:entity_event 220000000623
-PKT T6 minecraft:set_entity_data 650609033f8000000a11031cff2552a51cffcd5cab1cffff9900110341000000ff
+PKT T6 minecraft:set_entity_data 650609033f8000000a11031cff2552a51cffff99001cffcd5cab110341000000ff
 PKT T6 minecraft:update_attributes entity=6;minecraft:max_absorption=0.0[minecraft:effect.absorption/8.0/add_value]
 PKT T6 minecraft:set_entity_motion 6706f9ff7ffeebed
 PKT T6 minecraft:container_set_slot 140003002400

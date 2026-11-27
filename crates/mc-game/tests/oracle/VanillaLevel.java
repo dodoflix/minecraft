@@ -730,8 +730,8 @@ public final class VanillaLevel {
    /**
     * Vanilla encodes a few collections in HashMap iteration order of identity-hashed keys (differs per JVM run); the oracle
     * writes them in a canonical order so fixtures are reproducible (a Rust port cannot reproduce identity hashes anyway):
-    * `set_time` clock updates sorted by clock id, particle lists of `set_entity_data` (effect particles of active effects)
-    * sorted by their encoded form.
+    * `set_time` clock updates sorted by clock id. (The effect particle lists of `set_entity_data` follow the map of active
+    * effects; its holders hash by registry key here, see shadow.patch.)
     */
    @SuppressWarnings({"unchecked", "rawtypes"})
    private static Packet<? super ClientGamePacketListener> canonical(Packet<? super ClientGamePacketListener> p) {
@@ -743,25 +743,6 @@ public final class VanillaLevel {
          Map<net.minecraft.core.Holder<net.minecraft.world.clock.WorldClock>, net.minecraft.world.clock.ClockNetworkState> map = new LinkedHashMap<>();
          sorted.values().forEach(e -> map.put(e.getKey(), e.getValue()));
          return new ClientboundSetTimePacket(t.gameTime(), map);
-      }
-      if (p instanceof ClientboundSetEntityDataPacket d) {
-         List<net.minecraft.network.syncher.SynchedEntityData.DataValue<?>> items = new ArrayList<>();
-         for (var v : d.packedItems()) {
-            if (v.value() instanceof List<?> list && list.size() > 1 && list.get(0) instanceof net.minecraft.core.particles.ParticleOptions) {
-               List<Object> copy = new ArrayList<>(list);
-               copy.sort(Comparator.comparing(o -> {
-                  RegistryFriendlyByteBuf b = new RegistryFriendlyByteBuf(Unpooled.buffer(), REGISTRIES);
-                  net.minecraft.core.particles.ParticleTypes.STREAM_CODEC.encode(b, (net.minecraft.core.particles.ParticleOptions)o);
-                  byte[] bytes = new byte[b.readableBytes()];
-                  b.readBytes(bytes);
-                  return java.util.HexFormat.of().formatHex(bytes);
-               }));
-               items.add(new net.minecraft.network.syncher.SynchedEntityData.DataValue(v.id(), v.serializer(), copy));
-            } else {
-               items.add(v);
-            }
-         }
-         return new ClientboundSetEntityDataPacket(d.id(), items);
       }
       return p;
    }

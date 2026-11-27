@@ -6,8 +6,8 @@
 //!
 //! The replay understands the subset of the driver DSL these scenarios use (`level flat`, `fill`, `block`, `spawn_player`, `give`,
 //! `effect`, `attribute`, `set`, `nbt {FallFlying}`, `entity_seed`, `velocity`, `input`, `tick`, `watch`, `cmd effect clear`).
-//! Effects are added to the active-effect map together with the attribute modifiers the vanilla `MobEffect` registers
-//! (effect ticking/expiry is not covered here; durations here never run out).
+//! Effects go through `Entity::add_effect` / `remove_effect` (effect ticking/expiry is not covered here; durations here
+//! never run out).
 use crate::common;
 
 use crate::common::entity_oracle::*;
@@ -19,7 +19,6 @@ use mc_data::block::{Block, BlockState};
 use mc_data::enums::{GameType, Pose};
 use mc_data::{Attribute, Item, MobEffect};
 use mc_game::server::level::ServerLevel;
-use mc_game::world::entity::attributes::{AttributeModifier, AttributeModifierOperation};
 use mc_game::world::entity::effect::MobEffectInstance;
 use mc_game::world::entity::equipment::EquipmentSlot;
 use mc_game::world::entity::{Entity, ServerPlayer};
@@ -51,30 +50,6 @@ fn parse_state(text: &str) -> BlockState {
                 .map(|p| p.split_once('=').expect("prop=value")),
         )
         .unwrap_or_else(|| panic!("bad state {text}"))
-}
-
-fn effect_modifiers(effect: MobEffect, amplifier: i32) -> Vec<(Attribute, AttributeModifier)> {
-    let (attribute, path, base) = match effect {
-        e if e == MobEffect::SPEED => (Attribute::MOVEMENT_SPEED, "effect.speed", 0.2f32),
-        e if e == MobEffect::SLOWNESS => (Attribute::MOVEMENT_SPEED, "effect.slowness", -0.15f32),
-        e if e == MobEffect::JUMP_BOOST => {
-            (Attribute::SAFE_FALL_DISTANCE, "effect.jump_boost", 1.0f32)
-        }
-        _ => return Vec::new(),
-    };
-    let operation = if attribute == Attribute::SAFE_FALL_DISTANCE {
-        AttributeModifierOperation::AddValue
-    } else {
-        AttributeModifierOperation::AddMultipliedTotal
-    };
-    vec![(
-        attribute,
-        AttributeModifier {
-            id: Identifier::new("minecraft", path).unwrap(),
-            amount: f64::from(base) * f64::from(amplifier + 1),
-            operation,
-        },
-    )]
 }
 
 fn pose_name(pose: Pose) -> String {
@@ -222,19 +197,18 @@ impl Replay {
             "effect" => {
                 let effect = MobEffect::by_name(t[2]).unwrap_or_else(|| panic!("effect {}", t[2]));
                 let (amplifier, duration) = (num(t[3]) as i32, num(t[4]) as i32);
-                let p = self.player(t[1]);
-                p.player.living.active_effects.insert(
-                    effect,
+                let (_, p) = self
+                    .players
+                    .iter_mut()
+                    .find(|(n, _)| n == t[1])
+                    .unwrap_or_else(|| panic!("no player {}", t[1]));
+                let added = p.add_effect(
+                    &mut self.level,
                     MobEffectInstance::new(effect, duration, amplifier, false, true, true, None),
+                    None,
                 );
-                for (attribute, modifier) in effect_modifiers(effect, amplifier) {
-                    p.player
-                        .living
-                        .attributes
-                        .get_instance(attribute)
-                        .unwrap()
-                        .add_transient_modifier(modifier);
-                }
+                self.out
+                    .push(format!("EFFECT {} {} added={added}", t[1], t[2]));
             }
             "attribute" => {
                 let attribute =
@@ -297,17 +271,12 @@ impl Replay {
                     "only `effect clear` is replayed"
                 );
                 let effect = MobEffect::by_name(t[4]).unwrap();
-                let p = self.player(t[3]);
-                if let Some(instance) = p.player.living.active_effects.shift_remove(&effect) {
-                    for (attribute, modifier) in effect_modifiers(effect, instance.amplifier) {
-                        p.player
-                            .living
-                            .attributes
-                            .get_instance(attribute)
-                            .unwrap()
-                            .remove_modifier(&modifier.id);
-                    }
-                }
+                let (_, p) = self
+                    .players
+                    .iter_mut()
+                    .find(|(n, _)| n == t[3])
+                    .unwrap_or_else(|| panic!("no player {}", t[3]));
+                p.remove_effect(&mut self.level, effect);
             }
             "watch" => {
                 self.watched = t[1..]
@@ -376,7 +345,7 @@ fn replay(name: &str) -> Vec<String> {
 fn check(name: &str) {
     let fixture = Fixture::load(name);
     let opts = Options {
-        ignore_kinds: vec!["CF", "#", "EFFECT"],
+        ignore_kinds: vec!["CF", "#"],
         ignore_fields: vec![
             "fire", "alive", "hp", "abs", "hurt", "death", "fx", "gm", "food", "sat", "exh", "xp",
             "sel", "main",

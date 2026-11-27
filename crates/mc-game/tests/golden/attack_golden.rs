@@ -748,7 +748,7 @@ fn replay(name: &str) -> Vec<String> {
 fn check(name: &str) {
     let fixture = Fixture::load(name);
     let opts = Options {
-        ignore_kinds: vec!["PKT", "CF", "#"],
+        ignore_kinds: vec!["CF", "#"],
         ..Default::default()
     };
     fixture.assert_matches(&replay(name), &opts);
@@ -781,7 +781,7 @@ fn armor_resistance_absorption_thorns() {
 
 #[test]
 fn blocking_shields_and_axe_disable() {
-    check("attack_shield");
+    common::block_scenario::check("attack_shield");
 }
 
 #[test]
