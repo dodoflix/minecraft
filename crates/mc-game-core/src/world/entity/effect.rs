@@ -1,7 +1,6 @@
 //! `MobEffectInstance` (data, `update`/hidden-effect chain, duration ticking, NBT codec). Applying effects to an
 //! entity is `living_entity::effects`; the per-effect behaviour is `world::effect`.
 //! Client-only `BlendState` (`getBlendFactor`/`copyBlendState`/`skipBlending`) is not modelled.
-use mc_core::ident::Identifier;
 use mc_core::math::mth;
 use mc_data::MobEffect;
 use mc_nbt::{CompoundTag, Tag};
@@ -250,49 +249,35 @@ impl MobEffectInstance {
         }
     }
 
-    /// `MobEffectInstance.CODEC` decode (`None` for an unknown effect id / malformed fields).
-    pub fn from_nbt(tag: &CompoundTag) -> Option<Self> {
-        let id = Identifier::parse(tag.get_string("id")?).ok()?;
-        let effect = MobEffect::by_name(&id.to_string())?;
-        Self::read_details(effect, tag)
+    /// `MobEffectInstance.CODEC`: the codec of the component value, with the hidden-effect chain kept.
+    pub fn codec() -> mc_dfu::Codec<MobEffectInstance> {
+        fn from_value(c: mc_protocol::components::MobEffectInstance) -> MobEffectInstance {
+            MobEffectInstance {
+                effect: c.effect,
+                duration: c.duration,
+                amplifier: c.amplifier,
+                ambient: c.ambient,
+                visible: c.visible,
+                show_icon: c.show_icon,
+                hidden_effect: c.hidden_effect.map(|h| Box::new(from_value(*h))),
+            }
+        }
+        fn to_value(m: &MobEffectInstance) -> mc_protocol::components::MobEffectInstance {
+            mc_protocol::components::MobEffectInstance {
+                effect: m.effect,
+                duration: m.duration,
+                amplifier: m.amplifier,
+                ambient: m.ambient,
+                visible: m.visible,
+                show_icon: m.show_icon,
+                hidden_effect: m.hidden_effect.as_deref().map(|h| Box::new(to_value(h))),
+            }
+        }
+        mc_protocol::components::MobEffectInstance::codec().xmap(from_value, to_value)
     }
 
-    fn read_details(effect: MobEffect, tag: &CompoundTag) -> Option<Self> {
-        let num = |key: &str| -> Option<Option<i32>> {
-            match tag.get(key) {
-                None => Some(None),
-                Some(t) => t.as_number().map(|n| Some(n.int_value())),
-            }
-        };
-        let flag = |key: &str, default: bool| -> Option<bool> {
-            match tag.get(key) {
-                None => Some(default),
-                Some(t) => t.as_number().map(|n| n.int_value() != 0),
-            }
-        };
-        let amplifier = num("amplifier")?.unwrap_or(0);
-        if !(0..=255).contains(&(amplifier & 0xFF)) {
-            return None;
-        }
-        let duration = num("duration")?.unwrap_or(0);
-        let ambient = flag("ambient", false)?;
-        let visible = flag("show_particles", true)?;
-        let show_icon = match tag.get("show_icon") {
-            None => visible,
-            Some(t) => t.as_number()?.int_value() != 0,
-        };
-        let hidden = match tag.get_compound("hidden_effect") {
-            Some(h) => Some(Box::new(Self::read_details(effect, h)?)),
-            None => None,
-        };
-        Some(Self::new(
-            effect,
-            duration,
-            amplifier & 0xFF,
-            ambient,
-            visible,
-            show_icon,
-            hidden,
-        ))
+    /// `MobEffectInstance.CODEC` decode (`None` when it fails).
+    pub fn from_nbt(tag: &CompoundTag) -> Option<Self> {
+        mc_dfu::parse_nbt(&Self::codec(), &Tag::Compound(tag.clone())).result()
     }
 }

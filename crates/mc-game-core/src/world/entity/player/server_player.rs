@@ -3,7 +3,7 @@
 use super::PlayerData;
 use crate::server::level::ServerLevel;
 use crate::server::network::ConnectionSender;
-use crate::world::block_entity::{Shape, check_number, check_shape, list_or_empty};
+use crate::world::block_entity::{Shape, check_number, check_shape, list_or_empty, read_codec};
 use crate::world::entity::entity::{self, Entity, EntityData, EntityLookupFn};
 use crate::world::entity::living::{self, LivingEntityData};
 use crate::world::entity::respawn::RespawnConfig;
@@ -1357,9 +1357,10 @@ impl Entity for ServerPlayer {
         self.player.set_score(input.get_int_or("Score", 0));
         self.player.internal_set_absorption_amount(absorption);
         self.player.food_data.read_additional_save_data(input);
-        check_shape(input, "abilities", Shape::Map);
-        if let Some(a) = input.get_compound("abilities") {
-            self.player.abilities.apply(a);
+        static ABILITIES: std::sync::LazyLock<mc_dfu::Codec<super::abilities::Abilities>> =
+            std::sync::LazyLock::new(super::abilities::Abilities::codec);
+        if let Some(abilities) = read_codec(input, "abilities", &ABILITIES) {
+            self.player.abilities = abilities;
         }
         let walk = f64::from(self.player.abilities.get_walking_speed());
         if let Some(i) = self
@@ -1383,11 +1384,9 @@ impl Entity for ServerPlayer {
                 }
             }
         }
-        self.player.last_death_location = input.get_compound("LastDeathLocation").and_then(|g| {
-            let dimension = Identifier::parse(g.get_string("dimension")?).ok()?;
-            let pos = living::read_block_pos(g.get("pos"))?;
-            Some(GlobalPos { dimension, pos })
-        });
+        static GLOBAL_POS: std::sync::LazyLock<mc_dfu::Codec<GlobalPos>> =
+            std::sync::LazyLock::new(mc_protocol::components::global_pos_codec);
+        self.player.last_death_location = read_codec(input, "LastDeathLocation", &GLOBAL_POS);
         // ServerPlayer
         self.warden_spawn_tracker = input
             .get_compound("warden_spawn_tracker")
@@ -1397,9 +1396,9 @@ impl Entity for ServerPlayer {
                 cooldown_ticks: w.get_int_or("cooldown_ticks", 0).max(0),
             })
             .unwrap_or_default();
-        self.entered_nether_position = entity::read_vec3(input.get("entered_nether_pos"));
+        self.entered_nether_position = entity::read_vec3_field(input, "entered_nether_pos");
         self.current_explosion_impact_pos =
-            entity::read_vec3(input.get("last_explosion_impact_pos"));
+            entity::read_vec3_field(input, "last_explosion_impact_pos");
         check_number(input, "seenCredits");
         self.seen_credits = input.get_boolean_or("seenCredits", false);
         // validated against the recipe manager at join (`ServerRecipeBook::retain_known`)
@@ -1412,7 +1411,7 @@ impl Entity for ServerPlayer {
         check_number(input, "spawn_extra_particles_on_fall");
         self.spawn_extra_particles_on_fall =
             input.get_boolean_or("spawn_extra_particles_on_fall", false);
-        self.raid_omen_position = living::read_block_pos(input.get("raid_omen_position"));
+        self.raid_omen_position = living::read_block_pos_field(input, "raid_omen_position");
         check_shape(input, "playerGameType", Shape::Number);
         let current = input
             .get("playerGameType")

@@ -7,7 +7,7 @@ use super::equipment::EntityEquipment;
 use super::synched_data::SynchedEntityDataBuilder;
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
-use crate::world::block_entity::{Shape, check_number, check_shape};
+use crate::world::block_entity::{check_number, read_codec};
 use indexmap::IndexMap;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
@@ -360,6 +360,13 @@ pub fn read_block_pos(tag: Option<&Tag>) -> Option<BlockPos> {
     }
 }
 
+/// `input.read(key, BlockPos.CODEC)`: a failed decode is reported to the open problem scope and keeps its partial value.
+pub fn read_block_pos_field(input: &CompoundTag, key: &str) -> Option<BlockPos> {
+    static BLOCK_POS: std::sync::LazyLock<mc_dfu::Codec<BlockPos>> =
+        std::sync::LazyLock::new(mc_protocol::components::block_pos_codec);
+    read_codec(input, key, &BLOCK_POS)
+}
+
 /// `LivingEntity.readAdditionalSaveData` (state part; `setPosToBed` / `stopSleeping` follow-ups need the level
 /// and run when the entity first ticks, see `LivingEntity.baseTick` on `firstTick`).
 /// Returns the absorption amount (set by the caller: players keep it in synched data) and the decoded `equipment`.
@@ -370,19 +377,17 @@ pub fn read_additional_save_data(
 ) -> (f32, EntityEquipment) {
     check_number(input, "AbsorptionAmount");
     let absorption = input.get_float_or("AbsorptionAmount", 0.0);
-    check_shape(input, "attributes", Shape::List);
-    if let Some(list) = input.get_list("attributes") {
-        living.attributes.apply(list);
+    static ATTRIBUTES: std::sync::LazyLock<mc_dfu::Codec<Vec<super::attributes::PackedAttribute>>> =
+        std::sync::LazyLock::new(super::attributes::packed_list_codec);
+    static EFFECTS: std::sync::LazyLock<mc_dfu::Codec<Vec<MobEffectInstance>>> =
+        std::sync::LazyLock::new(|| MobEffectInstance::codec().list_of());
+    if let Some(packed) = read_codec(input, "attributes", &ATTRIBUTES) {
+        living.attributes.apply(packed);
     }
-    check_shape(input, "active_effects", Shape::List);
     living.active_effects.clear();
-    if let Some(list) = input.get_list("active_effects") {
-        for tag in list.iter() {
-            if let Some(effect) = tag.as_compound().and_then(MobEffectInstance::from_nbt) {
-                super::living_entity::effects::put_effect(living, effect);
-                living.effects_dirty = true;
-            }
-        }
+    for effect in read_codec(input, "active_effects", &EFFECTS).unwrap_or_default() {
+        super::living_entity::effects::put_effect(living, effect);
+        living.effects_dirty = true;
     }
     let max_health = living.get_max_health();
     check_number(input, "Health");
@@ -396,7 +401,7 @@ pub fn read_additional_save_data(
     living
         .entity
         .set_shared_flag(FLAG_FALL_FLYING, input.get_boolean_or("FallFlying", false));
-    match read_block_pos(input.get("sleeping_pos")) {
+    match read_block_pos_field(input, "sleeping_pos") {
         Some(pos) => {
             living.set_sleeping_pos(pos);
             living.entity.entity_data.set(DATA_POSE, Pose::Sleeping);
@@ -423,7 +428,7 @@ pub fn read_additional_save_data(
     living.current_impulse_context_reset_grace_time =
         input.get_int_or("current_impulse_context_reset_grace_time", 0);
     living.current_impulse_impact_pos =
-        super::entity::read_vec3(input.get("current_explosion_impact_pos"));
+        super::entity::read_vec3_field(input, "current_explosion_impact_pos");
     let equipment = input
         .get_compound("equipment")
         .map(EntityEquipment::load)

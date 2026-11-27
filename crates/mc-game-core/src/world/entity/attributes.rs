@@ -256,29 +256,34 @@ impl AttributeInstance {
     }
 }
 
+/// `AttributeInstance.Packed`.
+pub struct PackedAttribute {
+    attribute: Attribute,
+    base_value: f64,
+    modifiers: Vec<AttributeModifier>,
+}
+
+/// `AttributeInstance.Packed.LIST_CODEC`.
+pub fn packed_list_codec() -> mc_dfu::Codec<Vec<PackedAttribute>> {
+    use mc_dfu::{DOUBLE, extra::optional_always_present_field_of};
+    mc_dfu::record!(PackedAttribute {
+        attribute: mc_protocol::components::holder::registry_by_name_codec::<Attribute>()
+            .field_of("id"),
+        base_value: optional_always_present_field_of(&DOUBLE, "base", 0.0),
+        modifiers: mc_protocol::components::attribute_modifier_codec()
+            .list_of()
+            .optional_field_of_default("modifiers", Vec::new()),
+    })
+    .codec()
+    .list_of()
+}
+
 fn operation_name(op: AttributeModifierOperation) -> &'static str {
     match op {
         AttributeModifierOperation::AddValue => "add_value",
         AttributeModifierOperation::AddMultipliedBase => "add_multiplied_base",
         AttributeModifierOperation::AddMultipliedTotal => "add_multiplied_total",
     }
-}
-
-fn parse_modifier(tag: &Tag) -> Option<AttributeModifier> {
-    let c = tag.as_compound()?;
-    let id = Identifier::parse(c.get_string("id")?).ok()?;
-    let amount = c.get("amount")?.as_number()?.double_value();
-    let operation = match c.get_string("operation")? {
-        "add_value" => AttributeModifierOperation::AddValue,
-        "add_multiplied_base" => AttributeModifierOperation::AddMultipliedBase,
-        "add_multiplied_total" => AttributeModifierOperation::AddMultipliedTotal,
-        _ => return None,
-    };
-    Some(AttributeModifier {
-        id,
-        amount,
-        operation,
-    })
 }
 
 /// `Holder.Reference.hashCode()` as the oracle pins it (registry key hash: `registry().hashCode() * 31 + identifier().hashCode()`;
@@ -509,27 +514,11 @@ impl AttributeMap {
         list
     }
 
-    /// `apply(List<Packed>)` from NBT: elements that fail to decode are skipped (partial list results).
-    pub fn apply(&mut self, packed: &ListTag) {
-        for tag in packed.iter() {
-            let Some(c) = tag.as_compound() else { continue };
-            let Some(attribute) = c
-                .get_string("id")
-                .and_then(|n| Identifier::parse(n).ok())
-                .and_then(|id| Attribute::by_name(&id.to_string()))
-            else {
-                continue;
-            };
-            let base = c
-                .get("base")
-                .and_then(|t| t.as_number())
-                .map_or(0.0, |n| n.double_value());
-            let modifiers: Vec<AttributeModifier> = c
-                .get_list("modifiers")
-                .map(|l| l.iter().filter_map(parse_modifier).collect())
-                .unwrap_or_default();
-            if let Some(instance) = self.get_instance(attribute) {
-                instance.apply(base, modifiers);
+    /// `apply(List<Packed>)`.
+    pub fn apply(&mut self, packed: Vec<PackedAttribute>) {
+        for p in packed {
+            if let Some(instance) = self.get_instance(p.attribute) {
+                instance.apply(p.base_value, p.modifiers);
             }
         }
     }

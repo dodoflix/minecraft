@@ -53,44 +53,19 @@ impl Abilities {
         t
     }
 
-    /// `apply(Packed)` from the `abilities` tag; a tag with a wrongly typed field is ignored as a whole (codec error).
-    pub fn apply(&mut self, tag: &CompoundTag) {
-        let flag = |key: &str, default: bool| -> Option<bool> {
-            tag.get(key)
-                .map_or(Some(default), |t| t.as_number().map(|n| n.int_value() != 0))
-        };
-        let float = |key: &str, default: f32| -> Option<f32> {
-            tag.get(key)
-                .map_or(Some(default), |t| t.as_number().map(|n| n.float_value()))
-        };
-        let (
-            Some(invulnerable),
-            Some(flying),
-            Some(mayfly),
-            Some(instabuild),
-            Some(may_build),
-            Some(fly),
-            Some(walk),
-        ) = (
-            flag("invulnerable", false),
-            flag("flying", false),
-            flag("mayfly", false),
-            flag("instabuild", false),
-            flag("mayBuild", true),
-            float("flySpeed", 0.05),
-            float("walkSpeed", 0.1),
-        )
-        else {
-            return;
-        };
-        *self = Self {
-            invulnerable,
-            flying,
-            mayfly,
-            instabuild,
-            may_build,
-            flying_speed: fly,
-            walking_speed: walk,
-        };
+    /// `Abilities.Packed.CODEC`.
+    pub fn codec() -> mc_dfu::Codec<Abilities> {
+        use mc_dfu::extra::optional_always_present_field_of as field;
+        use mc_dfu::{BOOL, FLOAT};
+        mc_dfu::record!(Abilities {
+            invulnerable: field(&BOOL, "invulnerable", false),
+            flying: field(&BOOL, "flying", false),
+            mayfly: field(&BOOL, "mayfly", false),
+            instabuild: field(&BOOL, "instabuild", false),
+            may_build: field(&BOOL, "mayBuild", true),
+            flying_speed: field(&FLOAT, "flySpeed", 0.05),
+            walking_speed: field(&FLOAT, "walkSpeed", 0.1),
+        })
+        .codec()
     }
 }

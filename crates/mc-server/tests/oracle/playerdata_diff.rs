@@ -287,6 +287,19 @@ async fn player_field_problems_match_vanilla() {
     assert_eq!(vanilla, ours, "vanilla / ours");
 }
 
+/// A joining player whose attribute, effect and ability entries are damaged inside correctly typed lists and maps, and
+/// whose position fields hold the wrong shape: the failed entries are reported with the text of the codec.
+#[tokio::test(flavor = "multi_thread")]
+#[ignore = "oracle: starts the vanilla server and the mc-server binary"]
+async fn player_field_entries_match_vanilla() {
+    let [vanilla, ours] = player_load_reports(
+        r#"{attributes:[{id:"minecraft:bogus",base:1.0d},5,{id:"minecraft:max_health",base:"x"},{id:"minecraft:max_health",modifiers:[{id:"a",amount:"x"}]}],active_effects:[{id:"minecraft:bogus"},{id:"minecraft:speed",amplifier:"x"},{id:"minecraft:speed",hidden_effect:{amplifier:"y"}}],abilities:{flying:"x",flySpeed:"y"},LastDeathLocation:"q",entered_nether_pos:[1.0d,"x"],last_explosion_impact_pos:5,raid_omen_position:[I;1,2],sleeping_pos:"q",current_explosion_impact_pos:[1.0d]}"#,
+    )
+    .await;
+    assert!(!vanilla.is_empty(), "the real server logged nothing");
+    assert_eq!(vanilla, ours, "vanilla / ours");
+}
+
 /// A joining player whose stats file is cut, whose advancement file names an advancement that does not exist and whose
 /// recipe book holds a recipe that does not exist: the three files are read in the order of the `ServerPlayer`
 /// constructor (statistics, advancements) and then `load` (recipe book), and each log record names the recipe as a

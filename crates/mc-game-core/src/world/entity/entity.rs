@@ -5315,6 +5315,13 @@ pub fn read_vec3(tag: Option<&Tag>) -> Option<Vec3> {
     Some(Vec3::new(n(0)?, n(1)?, n(2)?))
 }
 
+/// `input.read(key, Vec3.CODEC)`: a failed decode is reported to the open problem scope and keeps its partial value.
+pub fn read_vec3_field(input: &CompoundTag, key: &str) -> Option<Vec3> {
+    static VEC3: std::sync::LazyLock<mc_dfu::Codec<Vec3>> =
+        std::sync::LazyLock::new(crate::world::item::enchantment::codecs::vec3_codec);
+    read_codec(input, key, &VEC3)
+}
+
 /// `Vec2.CODEC` (list of 2 floats).
 pub fn read_vec2(tag: Option<&Tag>) -> Option<Vec2> {
     let list = tag?.as_list()?;
