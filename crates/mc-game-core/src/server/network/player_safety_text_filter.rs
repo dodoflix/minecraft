@@ -16,7 +16,9 @@ use crate::server::chat::FilteredText;
 use base64::Engine as _;
 use base64::engine::general_purpose::{STANDARD, URL_SAFE_NO_PAD};
 use mc_core::gson::JsonObject;
+use mc_core::java_collections::hash_map_ordered;
 use mc_core::java_exception::JavaException;
+use mc_core::math::java::java_string_hash;
 use mc_protocol::codec::GameProfile;
 use parking_lot::Mutex;
 use rsa::RsaPrivateKey;
@@ -139,7 +141,7 @@ fn load_certificate(path: &str, password: &str) -> Option<ClientCertificate> {
 /// `ClientCertificate`: the signing key with the certificate chain (leaf first) the assertion carries.
 struct ClientCertificate {
     key: SigningKey<Sha256>,
-    /// `x5t#S256`: the base64url SHA-256 of the leaf certificate.
+    /// `x5t#S256`: the base64 SHA-256 of the leaf certificate (standard alphabet, padded).
     thumbprint: String,
     /// `x5c`: the base64 DER chain.
     chain: Vec<String>,
@@ -150,19 +152,19 @@ impl ClientCertificate {
         let leaf = chain.first()?;
         Some(Self {
             key: SigningKey::new(key),
-            thumbprint: URL_SAFE_NO_PAD.encode(Sha256::digest(leaf)),
+            thumbprint: STANDARD.encode(Sha256::digest(leaf)),
             chain: chain.iter().map(|der| STANDARD.encode(der)).collect(),
         })
     }
 
     /// `JwtHelper.buildJwt(clientId, credential, jwtAudience, sendX5c = true, useSha1 = false)`.
     fn client_assertion(&self, audience: &str, client_id: &str, now: u64, jti: &str) -> String {
-        let header = json!({
-            "alg": "RS256",
-            "typ": "JWT",
-            "x5c": self.chain,
-            "x5t#S256": self.thumbprint,
-        });
+        // the member order of the assertion MSAL builds
+        let header = format!(
+            r#"{{"x5t#S256":"{}","x5c":{},"typ":"JWT","alg":"RS256"}}"#,
+            self.thumbprint,
+            json!(self.chain)
+        );
         let claims = json!({
             "aud": audience,
             "iss": client_id,
@@ -173,7 +175,7 @@ impl ClientCertificate {
         });
         let input = format!(
             "{}.{}",
-            URL_SAFE_NO_PAD.encode(header.to_string()),
+            URL_SAFE_NO_PAD.encode(&header),
             URL_SAFE_NO_PAD.encode(claims.to_string())
         );
         let signature = self.key.sign(input.as_bytes());
@@ -182,9 +184,38 @@ impl ClientCertificate {
 }
 
 struct AuthState {
-    token_endpoint: Option<String>,
+    /// Instance discovery runs before the first token request only.
+    discovered: bool,
     /// The access token and the moment it is renewed.
     token: Option<(String, Instant)>,
+    /// Correlation ids of failed token requests the next one reports.
+    failed: Vec<String>,
+}
+
+/// `PublicApi.ACQUIRE_TOKEN_FOR_CLIENT`.
+const API_ID_CLIENT_CREDENTIALS: u32 = 729;
+const MSAL_VERSION: &str = "1.24.1";
+const SUPPLIER: &str = "class com.microsoft.aad.msal4j.AcquireTokenByClientCredentialSupplier";
+
+/// `System.getProperty("os.name")`.
+fn os_name() -> &'static str {
+    match std::env::consts::OS {
+        "linux" => "Linux",
+        "macos" => "Mac OS X",
+        "windows" => "Windows 11",
+        other => other,
+    }
+}
+
+/// `OAuthAuthorizationGrant`: the scope and the reserved scopes of MSAL joined in the iteration order of the
+/// `HashSet` they are put in.
+fn scope_param(scope: &str) -> String {
+    let hash = |s: &&str| java_string_hash(s);
+    let mut scopes = hash_map_ordered(vec!["openid", "profile", "offline_access"], hash, 16);
+    if !scopes.contains(&scope) {
+        scopes.push(scope);
+    }
+    hash_map_ordered(scopes, hash, 16).join(" ")
 }
 
 /// `ConfidentialClientApplication` of one tenant, for the one scope `ClientCredentialParameters` holds.
@@ -216,11 +247,12 @@ impl ConfidentialClient {
             http,
             authority,
             application_id,
-            scope,
+            scope: scope_param(&scope),
             certificate,
             state: Mutex::new(AuthState {
-                token_endpoint: None,
+                discovered: false,
                 token: None,
+                failed: Vec::new(),
             }),
         }
     }
@@ -247,11 +279,37 @@ impl ConfidentialClient {
         Ok(token)
     }
 
+    /// One `AcquireTokenByClientCredentialSupplier` run, named by the correlation id of its token request (the
+    /// instance discovery of the first run has an id of its own): a failure of the run, discovery included, is logged
+    /// with that id and reported by the next token request.
     fn request_token(&self, state: &mut AuthState) -> Result<(String, Duration), FilterError> {
-        let endpoint = state
-            .token_endpoint
-            .get_or_insert_with(|| self.discover_token_endpoint())
-            .clone();
+        let id = uuid::Uuid::new_v4().to_string();
+        let result = self.fetch_token(state, &id);
+        // the telemetry of a request is reported by the next one, whatever happened
+        state.failed.clear();
+        if let Err(e) = &result {
+            state.failed.push(id.clone());
+            // MSAL logs a failure of the supplier, except the client exceptions
+            if e.class != MSAL_CLIENT_EXCEPTION {
+                log::warn!(
+                    "[Correlation ID: {id}] Execution of {SUPPLIER} failed: {}",
+                    e.message.as_deref().unwrap_or("null")
+                );
+            }
+        }
+        result
+    }
+
+    fn fetch_token(
+        &self,
+        state: &mut AuthState,
+        id: &str,
+    ) -> Result<(String, Duration), FilterError> {
+        if !state.discovered {
+            self.instance_discovery(&mut state.discovered)?;
+            state.discovered = true;
+        }
+        let endpoint = format!("{}oauth2/v2.0/token", self.authority);
         let assertion = self.certificate.client_assertion(
             &endpoint,
             &self.application_id,
@@ -261,86 +319,238 @@ impl ConfidentialClient {
             &uuid::Uuid::new_v4().to_string(),
         );
         let body = form(&[
+            ("grant_type", "client_credentials"),
+            ("client_info", "1"),
             ("scope", &self.scope),
             ("client_id", &self.application_id),
-            ("grant_type", "client_credentials"),
-            ("client_assertion_type", JWT_BEARER),
             ("client_assertion", &assertion),
-            ("client_info", "1"),
+            ("client_assertion_type", JWT_BEARER),
         ]);
-        let response = self
+        let request = self
             .http
             .post(&endpoint)
             .header(
                 "Content-Type",
                 "application/x-www-form-urlencoded; charset=UTF-8",
             )
-            .header("Accept", "application/json")
-            .header("client-request-id", uuid::Uuid::new_v4().to_string())
-            .header("return-client-request-id", "true")
-            .header("x-client-SKU", "MSAL.Java")
-            .header("x-client-VER", "1.24.1")
-            .body(body)
-            .send()
-            .map_err(transport_error)?;
-        let text = read_body(response)?;
-        let answer: Value = serde_json::from_str(&text)
-            .map_err(|e| JavaException::unchecked(MSAL_SERVICE_EXCEPTION, e.to_string()))?;
-        let token = answer
-            .get("access_token")
-            .and_then(Value::as_str)
-            .ok_or_else(|| JavaException::unchecked(MSAL_SERVICE_EXCEPTION, text.clone()))?;
-        let expires_in = match answer.get("expires_in") {
-            Some(Value::Number(n)) => n.as_u64(),
-            Some(Value::String(s)) => s.parse().ok(),
-            _ => None,
-        }
-        .unwrap_or(0);
-        Ok((token.to_owned(), Duration::from_secs(expires_in)))
+            .header("x-client-current-telemetry", CURRENT_TELEMETRY)
+            .header("x-client-last-telemetry", last_telemetry(&state.failed))
+            .body(body);
+        self.exchange(request, id).and_then(|(status, text)| {
+            if !status.is_success() {
+                return Err(service_error(&text));
+            }
+            let answer: Value = serde_json::from_str(&text)
+                .map_err(|e| JavaException::unchecked(MSAL_SERVICE_EXCEPTION, e.to_string()))?;
+            let token = answer
+                .get("access_token")
+                .and_then(Value::as_str)
+                .ok_or_else(|| JavaException::unchecked(MSAL_SERVICE_EXCEPTION, text.clone()))?;
+            let expires_in = match answer.get("expires_in") {
+                Some(Value::Number(n)) => n.as_u64(),
+                Some(Value::String(s)) => s.parse().ok(),
+                _ => None,
+            }
+            .unwrap_or(0);
+            Ok((token.to_owned(), Duration::from_secs(expires_in)))
+        })
     }
 
-    /// The instance discovery and OpenID metadata requests of a first token request. MSAL falls back to the
-    /// authority's own endpoints when they fail, so does this.
-    fn discover_token_endpoint(&self) -> String {
-        let default = format!("{}oauth2/v2.0/token", self.authority);
+    /// The instance discovery request of the first token request. A request or an answer MSAL cannot use is a warning
+    /// and the fallback metadata; an answer without `tenant_discovery_endpoint` fails the token request, and, unless it
+    /// was a 200, the host's metadata is cached all the same (`discovered`): the next token request skips discovery.
+    // shortcut: not ported: answers whose JSON is not an object, a 400 without `error` or with `invalid_instance` and
+    // no description, a `Retry-After` that is not one integer, bodies starting with a digit, `-`, `+`, `N`, `I`, `t`,
+    // `f`, `n`, a quote or a control character, empty 200 or whitespace-only bodies: the JSON reader's messages for
+    // these are not known, port them when an oracle row shows them
+    fn instance_discovery(&self, discovered: &mut bool) -> Result<(), FilterError> {
+        let id = uuid::Uuid::new_v4().to_string();
+        let host = self.authority.host_str().unwrap_or_default();
         let origin = self.authority.origin().ascii_serialization();
         let authorize = format!("{}oauth2/v2.0/authorize", self.authority);
-        if let Ok(mut url) = reqwest::Url::parse(&format!("{origin}/common/discovery/instance")) {
-            url.query_pairs_mut()
-                .append_pair("api-version", "1.1")
-                .append_pair("authorization_endpoint", &authorize);
-            if let Err(e) = self.get(url) {
-                log::debug!("Instance discovery failed: {e}");
-            }
-        }
-        let metadata = format!("{}v2.0/.well-known/openid-configuration", self.authority);
-        match reqwest::Url::parse(&metadata)
-            .map_err(|e| JavaException::unchecked(MSAL_CLIENT_EXCEPTION, e.to_string()))
-            .and_then(|url| self.get(url))
-            .and_then(|text| {
-                serde_json::from_str::<Value>(&text)
-                    .map_err(|e| JavaException::unchecked(MSAL_SERVICE_EXCEPTION, e.to_string()))
-            }) {
-            Ok(answer) => answer
-                .get("token_endpoint")
-                .and_then(Value::as_str)
-                .map_or(default, str::to_owned),
+        let fallback = |e: &dyn std::fmt::Display| {
+            log::warn!(
+                "Instance discovery network request failed. MSAL will use fallback instance metadata for {host}. Exception: {e}"
+            );
+        };
+        let mut url = reqwest::Url::parse(&format!("{origin}/common/discovery/instance"))
+            .map_err(|e| JavaException::unchecked(MSAL_CLIENT_EXCEPTION, e.to_string()))?;
+        url.query_pairs_mut()
+            .append_pair("api-version", "1.1")
+            .append_pair("authorization_endpoint", &authorize);
+        let (status, text) = match self.exchange(self.http.get(url), &id) {
+            Ok(answer) => answer,
             Err(e) => {
-                log::debug!("OpenID metadata request failed: {e}");
-                default
+                fallback(&e.message.unwrap_or_default());
+                return Ok(());
             }
+        };
+        // Java reads the body of a 200 and of an error status only
+        let text = if status.as_u16() == 200 || status.as_u16() >= 400 {
+            text
+        } else {
+            String::new()
+        };
+        let Ok(answer) = serde_json::from_str::<Value>(&text) else {
+            let message = if text.is_empty() {
+                "Both 'json' and 'options' must be passed as non-null to create an instance of JsonReader."
+                    .to_owned()
+            } else {
+                json_parse_error(&text)
+            };
+            log::warn!(
+                "Instance discovery request failed with a service error. MSAL will use fallback instance metadata for {host}. Error: {message}"
+            );
+            return Ok(());
+        };
+        let field = |name: &str| answer.get(name).and_then(Value::as_str).unwrap_or_default();
+        if status.as_u16() == 400 && field("error") == "invalid_instance" {
+            return Err(JavaException::unchecked(
+                MSAL_SERVICE_EXCEPTION,
+                field("error_description"),
+            ));
         }
+        if status.as_u16() != 200 {
+            *discovered = true;
+        }
+        if field("tenant_discovery_endpoint").is_empty() {
+            return Err(
+                match answer.get("error_description").and_then(Value::as_str) {
+                    Some(description) => {
+                        JavaException::unchecked(MSAL_SERVICE_EXCEPTION, description)
+                    }
+                    None => JavaException::without_message(MSAL_SERVICE_EXCEPTION),
+                },
+            );
+        }
+        Ok(())
     }
 
-    fn get(&self, url: reqwest::Url) -> Result<String, FilterError> {
-        let response = self
-            .http
-            .get(url)
-            .header("Accept", "application/json")
-            .send()
-            .map_err(transport_error)?;
-        read_body(response)
+    /// One request with the headers MSAL gives all of them. A server error without `Retry-After` is tried once more
+    /// after a second (`DefaultRetryPolicy`); a response that does not echo the request id is logged.
+    fn exchange(
+        &self,
+        request: reqwest::blocking::RequestBuilder,
+        id: &str,
+    ) -> Result<(reqwest::StatusCode, String), FilterError> {
+        let request = request
+            .header("x-client-SKU", "MSAL.Java")
+            .header("x-client-VER", MSAL_VERSION)
+            .header("x-client-OS", os_name())
+            .header("return-client-request-id", "true")
+            .header("client-request-id", id)
+            .header("x-ms-lib-capability", "retry-after, h429");
+        let again = request.try_clone();
+        let mut response = request.send().map_err(transport_error)?;
+        if response.status().is_server_error()
+            && !response.headers().contains_key("retry-after")
+            && let Some(again) = again
+        {
+            std::thread::sleep(Duration::from_secs(1));
+            response = again.send().map_err(transport_error)?;
+        }
+        let received = response
+            .headers()
+            .get("client-request-id")
+            .and_then(|v| v.to_str().ok())
+            .filter(|v| !v.trim().is_empty());
+        if received != Some(id) {
+            log::info!(
+                "[Correlation ID: {id}] Sent ({id}) Correlation Id is not same as received ({}).",
+                received.unwrap_or("null")
+            );
+        }
+        let status = response.status();
+        Ok((status, response.text().map_err(transport_error)?))
     }
+}
+
+/// `x-client-current-telemetry`: schema 5, the cache lookup that comes first (`ACQUIRE_TOKEN_SILENTLY`), no cache
+/// refresh reason, no region.
+const CURRENT_TELEMETRY: &str = "5|800,0,,0,0|";
+
+/// `x-client-last-telemetry`: schema 5, no cache hits (a client credentials lookup does not count them), then the
+/// failed requests it should tell of.
+fn last_telemetry(failed: &[String]) -> String {
+    if failed.is_empty() {
+        return "5|0|||".to_owned();
+    }
+    let ids: Vec<String> = failed
+        .iter()
+        .map(|id| format!("{API_ID_CLIENT_CREDENTIALS},{id}"))
+        .collect();
+    format!(
+        "5|0|{}|{}|",
+        ids.join(","),
+        vec![""; failed.len()].join(",")
+    )
+}
+
+/// The `MsalServiceException` of an error answer: the description of the error answer, its whole body when it has
+/// none.
+fn service_error(text: &str) -> FilterError {
+    let message = serde_json::from_str::<Value>(text)
+        .ok()
+        .and_then(|v| v.get("error_description")?.as_str().map(str::to_owned))
+        .unwrap_or_else(|| text.to_owned());
+    JavaException::unchecked(MSAL_SERVICE_EXCEPTION, message)
+}
+
+/// The message of the JSON parser's error for a body whose first token is not a value: what it did not expect, and
+/// where, with the (500 character) snippet of the source.
+fn json_parse_error(text: &str) -> String {
+    const VALUES: &str = "(JSON String, Number (or 'NaN'/'INF'/'+INF'), Array, Object or token 'null', 'true' or 'false')";
+    const SNIPPET: usize = 500;
+    let start = text
+        .find(|c| !matches!(c, ' ' | '\t' | '\n' | '\r'))
+        .unwrap_or(0);
+    let before = &text[..start];
+    let line = 1 + before.matches('\n').count();
+    let line_text = before.rsplit('\n').next().unwrap_or("");
+    let rest = &text[start..];
+    let first = rest.chars().next().unwrap_or(' ');
+    let (reason, width) = if first.is_alphabetic() || matches!(first, '_' | '$') {
+        let token: String = rest
+            .chars()
+            .take_while(|c| c.is_alphanumeric() || matches!(c, '_' | '$'))
+            .collect();
+        let width = token.encode_utf16().count();
+        (
+            format!("Unrecognized token '{token}': was expecting {VALUES}"),
+            width,
+        )
+    } else {
+        let code = first as u32;
+        let described = if first.is_control() {
+            format!("CTRL-CHAR, code {code}")
+        } else if code > 255 {
+            format!("'{first}' (code {code} / 0x{code:x})")
+        } else {
+            format!("'{first}' (code {code})")
+        };
+        (
+            format!("Unexpected character ({described}): expected a valid value {VALUES}"),
+            first.len_utf16(),
+        )
+    };
+    let column = line_text.encode_utf16().count() + width + 1;
+    let total = text.chars().count();
+    // the parser writes control characters other than the line breaks as `\uXXXX`
+    let shown: String = text
+        .chars()
+        .take(SNIPPET)
+        .map(|c| match c {
+            '\r' | '\n' => c.to_string(),
+            c if c.is_control() => format!("\\u{:04X}", c as u32),
+            c => c.to_string(),
+        })
+        .collect();
+    let source = if total > SNIPPET {
+        format!("\"{shown}\"[truncated {} chars]", total - SNIPPET)
+    } else {
+        format!("\"{shown}\"")
+    };
+    format!("{reason}\n at [Source: (String){source}; line: {line}, column: {column}]")
 }
 
 /// `application/x-www-form-urlencoded` of `pairs`.
@@ -348,21 +558,6 @@ fn form(pairs: &[(&str, &str)]) -> String {
     let mut url = reqwest::Url::parse("http://form.invalid/").expect("a URL");
     url.query_pairs_mut().extend_pairs(pairs);
     url.query().unwrap_or_default().to_owned()
-}
-
-/// The body of a 2xx answer; any other status is the `MsalServiceException` MSAL throws, with the description of
-/// the error answer (its whole body when it has none).
-fn read_body(response: reqwest::blocking::Response) -> Result<String, FilterError> {
-    let status = response.status();
-    let text = response.text().map_err(transport_error)?;
-    if status.is_success() {
-        return Ok(text);
-    }
-    let message = serde_json::from_str::<Value>(&text)
-        .ok()
-        .and_then(|v| v.get("error_description")?.as_str().map(str::to_owned))
-        .unwrap_or(text);
-    Err(JavaException::unchecked(MSAL_SERVICE_EXCEPTION, message))
 }
 
 /// `MsalClientException(IOException)`: its message is the `toString()` of the IO exception.
@@ -431,6 +626,18 @@ mod tests {
     use std::io::{Read, Write};
     use std::net::{TcpListener, TcpStream};
     use std::sync::mpsc;
+
+    #[test]
+    fn a_body_that_is_not_json_reads_like_the_json_parser() {
+        assert_eq!(
+            json_parse_error("<html>"),
+            "Unexpected character ('<' (code 60)): expected a valid value (JSON String, Number (or 'NaN'/'INF'/'+INF'), Array, Object or token 'null', 'true' or 'false')\n at [Source: (String)\"<html>\"; line: 1, column: 2]"
+        );
+        let words = json_parse_error("  \n Service Unavailable");
+        assert!(words.starts_with("Unrecognized token 'Service': was expecting (JSON String"));
+        assert!(words.ends_with("line: 2, column: 9]"));
+        assert!(json_parse_error(&"x".repeat(501)).contains("\"[truncated 1 chars]"));
+    }
 
     fn config_with(change: impl FnOnce(&mut Value)) -> String {
         let mut config = json!({
@@ -575,7 +782,7 @@ mod tests {
         assert_eq!(header["x5c"], json!(x5c));
         assert_eq!(
             header["x5t#S256"],
-            URL_SAFE_NO_PAD.encode(Sha256::digest(chain[0]))
+            STANDARD.encode(Sha256::digest(chain[0]))
         );
         let signature = URL_SAFE_NO_PAD.decode(parts[2]).expect("a signature");
         VerifyingKey::<Sha256>::new(key.to_public_key())
@@ -600,7 +807,7 @@ mod tests {
         );
     }
 
-    /// A mock authority: answers discovery, metadata (pointing at `/tenant/token`) and the token endpoint with
+    /// A mock authority: answers discovery and the token endpoint with
     /// `token_status`/`token_body`; every request is reported as (method and path, body).
     fn serve(
         token_status: u16,
@@ -609,17 +816,14 @@ mod tests {
         let listener = TcpListener::bind("127.0.0.1:0").expect("bind");
         let base = format!("http://{}", listener.local_addr().expect("address"));
         let (sender, receiver) = mpsc::channel();
-        let served = base.clone();
         std::thread::spawn(move || {
             for stream in listener.incoming() {
                 let mut stream = stream.expect("accept");
                 let (request, body) = read_request(&mut stream);
                 let (status, reply) = if request.contains("/common/discovery/instance") {
-                    (200, "{}".to_owned())
-                } else if request.contains("/.well-known/openid-configuration") {
                     (
                         200,
-                        format!(r#"{{"token_endpoint":"{served}/tenant/token"}}"#),
+                        r#"{"tenant_discovery_endpoint":"https://example.invalid/tenant/v2.0/.well-known/openid-configuration"}"#.to_owned(),
                     )
                 } else {
                     (token_status, token_body.to_owned())
@@ -688,11 +892,7 @@ mod tests {
         assert_eq!(client.access_token().expect("a token"), "tok");
         assert_eq!(client.access_token().expect("the cached token"), "tok");
         let seen: Vec<(String, String)> = requests.try_iter().collect();
-        assert_eq!(
-            seen.len(),
-            3,
-            "discovery, metadata and one token request: {seen:?}"
-        );
+        assert_eq!(seen.len(), 2, "discovery and one token request: {seen:?}");
         assert!(
             seen[0].0.starts_with(
                 "GET /common/discovery/instance?api-version=1.1&authorization_endpoint="
@@ -702,19 +902,17 @@ mod tests {
             "authorization_endpoint={}",
             form(&[("", &format!("{base}/tenant/oauth2/v2.0/authorize"))])[1..].to_owned()
         )));
-        assert!(
-            seen[1]
-                .0
-                .starts_with("GET /tenant/v2.0/.well-known/openid-configuration ")
-        );
-        assert!(seen[2].0.starts_with("POST /tenant/token "));
-        let params: Vec<(&str, &str)> = seen[2]
+        assert!(seen[1].0.starts_with("POST /tenant/oauth2/v2.0/token "));
+        let params: Vec<(&str, &str)> = seen[1]
             .1
             .split('&')
             .map(|p| p.split_once('=').expect("a parameter"))
             .collect();
         let get = |name: &str| params.iter().find(|(k, _)| *k == name).expect(name).1;
-        assert_eq!(get("scope"), "api%3A%2F%2Fx%2F.default");
+        assert_eq!(
+            get("scope"),
+            &form(&[("", &scope_param("api://x/.default"))])[1..]
+        );
         assert_eq!(get("client_id"), "app");
         assert_eq!(get("grant_type"), "client_credentials");
         assert_eq!(
@@ -722,12 +920,21 @@ mod tests {
             "urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer"
         );
         let claims = verify_assertion(get("client_assertion"), &key, &[b"leaf"]);
-        assert_eq!(claims["aud"], format!("{base}/tenant/token"));
+        assert_eq!(claims["aud"], format!("{base}/tenant/oauth2/v2.0/token"));
         assert_eq!(claims["iss"], "app");
         assert_eq!(claims["sub"], "app");
         assert_eq!(
             claims["exp"].as_u64().unwrap() - claims["nbf"].as_u64().unwrap(),
             600
+        );
+    }
+
+    /// The order the real server sent for this scope (the vanilla oracle checks it against the JVM).
+    #[test]
+    fn the_scope_comes_with_the_reserved_scopes_in_hash_set_order() {
+        assert_eq!(
+            scope_param("api://filter/.default"),
+            "openid api://filter/.default profile offline_access"
         );
     }
 
@@ -738,8 +945,8 @@ mod tests {
         let client = mock_client(&base, &key);
         client.access_token().expect("a token");
         client.access_token().expect("a token");
-        // discovery and metadata once, the token twice
-        assert_eq!(requests.try_iter().count(), 4);
+        // discovery once, the token twice
+        assert_eq!(requests.try_iter().count(), 3);
     }
 
     #[test]

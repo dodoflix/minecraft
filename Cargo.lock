@@ -1443,6 +1443,7 @@ dependencies = [
  "sha1 0.10.7",
  "tempfile",
  "tokio",
+ "tokio-rustls",
  "tokio-tungstenite",
  "uuid",
  "worldcmp",

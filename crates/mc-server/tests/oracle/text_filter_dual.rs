@@ -18,7 +18,7 @@ fn config(url: &str, extra: &str) -> String {
     format!(r#"{{"apiServer":"{url}","apiKey":"k3y"{extra}}}"#)
 }
 
-async fn connect(port: u16, name: &str, filtering: bool) -> Arc<Bot> {
+pub(super) async fn connect(port: u16, name: &str, filtering: bool) -> Arc<Bot> {
     let mut o = BotOptions::new("127.0.0.1", port, name);
     o.timeout = Duration::from_secs(120);
     o.record_raw = true;
@@ -41,7 +41,7 @@ fn from_hex(s: &str) -> Vec<u8> {
 }
 
 /// The `player_chat` packets a bot received, with the parts the filter changes.
-fn chat_packets(bot: &Bot) -> Vec<String> {
+pub(super) fn chat_packets(bot: &Bot) -> Vec<String> {
     let log = bot.shared.log.lock().unwrap();
     let mut out = Vec::new();
     for e in log.entries() {
@@ -60,13 +60,15 @@ fn chat_packets(bot: &Bot) -> Vec<String> {
 }
 
 /// The log lines of the filter: timestamps cut, every warning with the first line of its exception.
-fn filter_log(server: &Server) -> Vec<String> {
+pub(super) fn filter_log(server: &Server) -> Vec<String> {
     let log = server.log();
     let lines: Vec<&str> = log.lines().collect();
     let mut out = Vec::new();
     for (i, line) in lines.iter().enumerate() {
         let interesting = line.contains("Chat-Filter-Worker")
             || line.contains("Failed to parse chat filter config")
+            || line.contains("certificate file")
+            || line.contains("confidential client")
             || line.contains("text filter");
         if !interesting {
             continue;
@@ -433,7 +435,7 @@ async fn another_chat_endpoint_and_rule_id() {
 }
 
 /// A configuration that does not make a filter: the warning, with the first line of the exception, at startup.
-fn config_rows(config: &str, version: i32) -> Vec<String> {
+pub(super) fn config_rows(config: &str, version: i32) -> Vec<String> {
     let mut sides = Vec::new();
     for ours in [false, true] {
         let a = format!("text-filtering-config={config}");

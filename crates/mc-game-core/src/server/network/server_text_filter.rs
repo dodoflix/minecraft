@@ -351,6 +351,9 @@ impl ServerTextFilter {
                 format!("Minecraft server{}", super::hooks::VERSION_NAME),
             )
             .header("Authorization", authorization)
+            // `setUseCaches(false)`
+            .header("Cache-Control", "no-cache")
+            .header("Pragma", "no-cache")
             .body(JsonElement::Object(payload.clone()).to_compact_string())
             .send()
             .map_err(connection_error)?;
