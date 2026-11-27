@@ -22,9 +22,12 @@ fn normalize(text: &str) -> Vec<String> {
 
 fn ours(input: &str) -> String {
     let props = DedicatedServerProperties::new(Properties::load(input).unwrap()).unwrap();
-    props
-        .properties()
-        .store(Some("Minecraft server properties"))
+    String::from_utf16(
+        &props
+            .properties()
+            .store(Some("Minecraft server properties")),
+    )
+    .unwrap()
 }
 
 #[test]

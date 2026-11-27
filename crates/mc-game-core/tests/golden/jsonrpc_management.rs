@@ -216,7 +216,7 @@ impl ManagementApi for Mock {
     fn get_setting(&self, key: SettingKey) -> SettingValue {
         let st = self.state.lock();
         match key {
-            SettingKey::Motd => SettingValue::Str(st.motd.clone()),
+            SettingKey::Motd => SettingValue::Str(st.motd.clone().into()),
             SettingKey::Difficulty => SettingValue::Difficulty(st.difficulty.unwrap()),
             SettingKey::GameMode => SettingValue::GameType(GameType::Survival),
             SettingKey::OperatorUserPermissions => {
@@ -229,7 +229,7 @@ impl ManagementApi for Mock {
     fn set_setting(&self, key: SettingKey, value: SettingValue) {
         let mut st = self.state.lock();
         match (key, value) {
-            (SettingKey::Motd, SettingValue::Str(s)) => st.motd = s,
+            (SettingKey::Motd, SettingValue::Str(s)) => st.motd = s.into_string_lossy(),
             (SettingKey::Difficulty, SettingValue::Difficulty(d)) => st.difficulty = Some(d),
             _ => {}
         }

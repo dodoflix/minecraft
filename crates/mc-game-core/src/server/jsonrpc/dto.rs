@@ -2,6 +2,7 @@
 //! codecs. Decoding failures carry DFU-style messages (they are returned as the `data` of `Invalid params`).
 
 use chrono::{DateTime, SecondsFormat, Utc};
+use mc_core::java_string::JavaString;
 use mc_text::Component;
 use mc_text::component::TranslatableArg;
 use uuid::Uuid;
@@ -36,11 +37,17 @@ fn not(kind: &str, e: &JsonElement) -> DecodeError {
 
 // ---- primitive codecs ----------------------------------------------------------------------------------------
 
-pub fn decode_string(e: &JsonElement) -> Decoded<String> {
+/// `Codec.STRING`: the exact string, a lone surrogate kept.
+pub fn decode_java_string(e: &JsonElement) -> Decoded<JavaString> {
     match e {
-        JsonElement::String(s) => Ok(s.as_lossy_str().to_owned()),
+        JsonElement::String(s) => Ok(s.clone()),
         _ => Err(not("string", e)),
     }
+}
+
+/// [`decode_java_string`] as text, a lone surrogate shown as U+FFFD (names, identifiers and messages vanilla reads as text).
+pub fn decode_string(e: &JsonElement) -> Decoded<String> {
+    decode_java_string(e).map(JavaString::into_string_lossy)
 }
 
 pub fn decode_bool(e: &JsonElement) -> Decoded<bool> {

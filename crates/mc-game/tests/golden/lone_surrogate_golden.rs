@@ -242,15 +242,17 @@ fn server_properties_motd_matches_vanilla() {
     assert_eq!(n, 10);
 }
 
-/// The file `store` leaves for `motd=<value>`: its length and SHA-256 with the date line replaced and every run of `x`
-/// (the padding) replaced by its length plus the date's, as the recorded rows do.
+/// The file `store` leaves for `motd=<value>`, see [`stored_props_line`].
 fn stored_props_file(value: &str) -> String {
+    stored_props_line(&format!("motd={value}"))
+}
+
+/// The file `store` leaves for the property line `line`: its length and SHA-256 with the date line replaced and every run
+/// of `x` (the padding) replaced by its length plus the date's, as the recorded rows do.
+fn stored_props_line(line: &str) -> String {
     use sha2::{Digest, Sha256};
     // the secret is random unless the file pins it
-    let file = format!(
-        "motd={value}\nmanagement-server-secret={}\n",
-        "k".repeat(40)
-    );
+    let file = format!("{line}\nmanagement-server-secret={}\n", "k".repeat(40));
     let props = DedicatedServerProperties::new(Properties::load(&file).unwrap()).unwrap();
     let dir = tempfile::tempdir().unwrap();
     let path = dir.path().join("server.properties");
@@ -288,6 +290,24 @@ fn stored_props_file(value: &str) -> String {
     let digest: Vec<u8> =
         Sha256::digest(normalized.chars().map(|c| c as u8).collect::<Vec<_>>()).to_vec();
     format!("{}:{}", normalized.chars().count(), hex(&digest))
+}
+
+/// `generator-settings` JSON that holds a lone surrogate (as a unit escape of the file or as a JSON escape): the object
+/// keeps it, so the store fails.
+#[test]
+fn server_properties_generator_settings_match_vanilla() {
+    let mut n = 0;
+    for c in rows(GOLDEN, "props_generator") {
+        let json = String::from_utf16(&unesc_units(c[1])).expect("the key is plain text");
+        assert_eq!(
+            stored_props_line(&format!("generator-settings={json}")),
+            c[2],
+            "store of {}",
+            c[1]
+        );
+        n += 1;
+    }
+    assert_eq!(n, 4);
 }
 
 /// The file `store` leaves when the lone surrogate sits near a boundary of the writer's 8192-char buffer.

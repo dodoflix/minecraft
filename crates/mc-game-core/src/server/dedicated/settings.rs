@@ -217,11 +217,11 @@ impl Settings {
     pub fn get_with<V, S: Into<JavaString>>(
         &mut self,
         key: &str,
-        deserializer: impl FnOnce(&str) -> Result<Option<V>, SettingsError>,
+        deserializer: impl FnOnce(&JavaString) -> Result<Option<V>, SettingsError>,
         serializer: impl FnOnce(&V) -> S,
         default: V,
     ) -> Result<V, SettingsError> {
-        let parsed = match self.properties.get(key) {
+        let parsed = match self.properties.get_java(key) {
             Some(value) => deserializer(value)?,
             None => None,
         };
@@ -233,7 +233,7 @@ impl Settings {
     pub fn get_mutable_with<V>(
         &mut self,
         key: &'static str,
-        deserializer: impl FnOnce(&str) -> Result<Option<V>, SettingsError>,
+        deserializer: impl FnOnce(&JavaString) -> Result<Option<V>, SettingsError>,
         serializer: fn(&V) -> JavaString,
         default: V,
     ) -> Result<MutableValue<V>, SettingsError> {

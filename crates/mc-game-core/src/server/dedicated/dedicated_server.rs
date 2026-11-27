@@ -924,8 +924,7 @@ impl MinecraftServer {
     pub(in crate::server) fn refresh_shared_info(&mut self) {
         let names = self.player_list.get_player_names_array();
         let snapshot = crate::server::shared::ServerInfoSnapshot {
-            // the query and legacy listeners encode it as text: a lone surrogate is U+FFFD or `?` there
-            motd: self.get_motd().into_string_lossy(),
+            motd: self.get_motd(),
             server_version: mc_world::level_storage::WORLD_VERSION_NAME.to_owned(),
             player_count: self.player_list.get_player_count(),
             max_players: self.get_max_players(),
@@ -948,7 +947,7 @@ impl QueryServerInfo for ServerHandle {
         self.0.info().server_port
     }
     fn server_name(&self) -> String {
-        self.0.info().motd
+        crate::server::server_info::ServerInterface::get_server_name(&*self.0)
     }
     fn max_players(&self) -> i32 {
         self.0.info().max_players

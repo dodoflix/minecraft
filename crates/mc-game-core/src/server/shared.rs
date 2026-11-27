@@ -7,6 +7,7 @@
 use super::MinecraftServer;
 use super::server_info::{ServerInfo, ServerInterface};
 use crate::crash_report::CrashReport;
+use mc_core::java_string::JavaString;
 use mc_protocol::packets::status::ServerStatus;
 use parking_lot::{Mutex, RwLock};
 use std::sync::atomic::{AtomicBool, AtomicI32, AtomicI64, Ordering};
@@ -35,7 +36,7 @@ pub fn get_nanos() -> i64 {
 /// management API). Refreshed by `MinecraftServer::refresh_shared_info` every tick.
 #[derive(Default, Clone)]
 pub struct ServerInfoSnapshot {
-    pub motd: String,
+    pub motd: JavaString,
     pub server_version: String,
     pub player_count: i32,
     pub max_players: i32,
@@ -278,7 +279,7 @@ impl ServerShared {
 
 impl ServerInfo for ServerShared {
     fn get_motd(&self) -> String {
-        self.info.read().motd.clone()
+        self.info.read().motd.as_lossy_str().to_owned()
     }
     fn get_server_version(&self) -> String {
         self.info.read().server_version.clone()
@@ -298,8 +299,9 @@ impl ServerInterface for ServerShared {
     fn get_server_port(&self) -> i32 {
         self.info.read().server_port
     }
+    /// The query writes it with `getBytes(UTF_8)`: a lone surrogate is `?`.
     fn get_server_name(&self) -> String {
-        self.get_motd()
+        self.info.read().motd.to_utf8_string().into_owned()
     }
     fn get_player_names(&self) -> Vec<String> {
         self.info.read().player_names.clone()
@@ -309,5 +311,22 @@ impl ServerInterface for ServerShared {
     }
     fn get_plugin_names(&self) -> String {
         String::new()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// The legacy ping writes the motd as UTF-16 (a lone surrogate shows as U+FFFD), the query as `getBytes(UTF_8)` (`?`).
+    #[test]
+    fn motd_with_a_lone_surrogate_is_text_for_the_ping_and_utf8_for_the_query() {
+        let (shared, _tasks) = ServerShared::new();
+        shared.set_info(ServerInfoSnapshot {
+            motd: JavaString::from_utf16_units(&[0x61, 0xD800]),
+            ..ServerInfoSnapshot::default()
+        });
+        assert_eq!(ServerInfo::get_motd(&*shared), "a\u{fffd}");
+        assert_eq!(ServerInterface::get_server_name(&*shared), "a?");
     }
 }

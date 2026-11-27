@@ -613,7 +613,7 @@ fn display_setting(v: &SettingValue) -> String {
     match v {
         SettingValue::Bool(b) => b.to_string(),
         SettingValue::Int(i) => i.to_string(),
-        SettingValue::Str(s) => s.clone(),
+        SettingValue::Str(s) => s.to_utf8_string().into_owned(),
         SettingValue::Difficulty(d) => d.get_serialized_name().to_uppercase(),
         SettingValue::GameType(g) => g.get_name().to_uppercase(),
         SettingValue::PermissionLevel(l) => l.name().to_owned(),
@@ -624,7 +624,7 @@ fn encode_setting(v: &SettingValue) -> JsonElement {
     match v {
         SettingValue::Bool(b) => bool_e(*b),
         SettingValue::Int(i) => int_e(*i as i64),
-        SettingValue::Str(s) => JsonElement::String(s.clone().into()),
+        SettingValue::Str(s) => JsonElement::String(s.clone()),
         SettingValue::Difficulty(d) => {
             JsonElement::String(d.get_serialized_name().to_owned().into())
         }
@@ -637,7 +637,7 @@ fn decode_setting(kind: Kind, e: &JsonElement) -> Decoded<SettingValue> {
     Ok(match kind {
         Kind::Bool => SettingValue::Bool(decode_bool(e)?),
         Kind::Int => SettingValue::Int(decode_int(e)?),
-        Kind::Str => SettingValue::Str(decode_string(e)?),
+        Kind::Str => SettingValue::Str(decode_java_string(e)?),
         Kind::Difficulty => {
             let s = decode_string(e)?;
             SettingValue::Difficulty(

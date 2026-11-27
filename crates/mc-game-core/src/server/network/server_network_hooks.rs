@@ -152,8 +152,9 @@ impl NetworkHooks for ServerNetworkHooks {
     }
     fn legacy_info(&self) -> LegacyServerInfo {
         let info = self.shared.info();
+        // the legacy ping is UTF-16 text: a lone surrogate shows as U+FFFD
         LegacyServerInfo {
-            motd: info.motd,
+            motd: info.motd.into_string_lossy(),
             player_count: info.player_count,
             max_players: info.max_players,
             server_version: info.server_version,

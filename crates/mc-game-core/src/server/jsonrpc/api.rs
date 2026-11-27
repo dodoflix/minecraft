@@ -7,6 +7,7 @@
 //! [`ManagementApi::run_on_server_thread`], so implementors can touch game-thread state directly from inside the
 //! other methods *when they are reached through the RPC layer* (and must marshal themselves otherwise).
 
+use mc_core::java_string::JavaString;
 use mc_text::Component;
 use mc_world::level_storage::{Difficulty, GameType};
 use uuid::Uuid;
@@ -87,7 +88,7 @@ pub enum SettingKey {
 pub enum SettingValue {
     Bool(bool),
     Int(i32),
-    Str(String),
+    Str(JavaString),
     Difficulty(Difficulty),
     GameType(GameType),
     /// `getOperatorUserPermissions().level()` / the level of the `LevelBasedPermissionSet` to apply.

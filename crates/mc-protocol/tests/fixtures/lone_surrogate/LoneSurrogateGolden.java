@@ -347,15 +347,20 @@ public class LoneSurrogateGolden {
       return file.toString();
    }
 
-   /**
-    * The file `DedicatedServerProperties.store` leaves for `motd=<value>`: the length and SHA-256 of its text with the date line
-    * replaced and every run of 'x' (the padding) replaced by its length plus the date's, so the result does not depend on the zone's name. The management secret is pinned, it is random otherwise.
-    * A failed store leaves whatever the writer's encoder had produced.
-    */
+   /** [`storedPropsLine`] of `motd=<value>`. */
    static String storedPropsFile(String value) throws Exception {
+      return storedPropsLine("motd=" + value);
+   }
+
+   /**
+    * The file `DedicatedServerProperties.store` leaves for the property line `line`: the length and SHA-256 of its text with the date line
+    * replaced and every run of 'x' (the padding) replaced by its length plus the date's, so the result does not depend on the zone's name.
+    * The management secret is pinned, it is random otherwise. A failed store leaves whatever the writer's encoder had produced.
+    */
+   static String storedPropsLine(String line) throws Exception {
       Path f = Files.createTempFile("props", ".properties");
       try {
-         Files.writeString(f, "motd=" + value + "\nmanagement-server-secret=" + "k".repeat(40) + "\n");
+         Files.writeString(f, line + "\nmanagement-server-secret=" + "k".repeat(40) + "\n");
          var props = new DedicatedServerProperties(net.minecraft.server.dedicated.Settings.loadFromFile(f));
          props.store(f);
          String s = new String(Files.readAllBytes(f), StandardCharsets.ISO_8859_1);
@@ -666,6 +671,10 @@ public class LoneSurrogateGolden {
       for (int at : new int[] {8190, 8191, 8192, 8193, 9000, 16383, 16384})
          for (String units : new String[] {"\ud800", "\udc00", "\ud83d\ude00", "\ud83d\ude00\ud800", "\ud83d\ude00\udc00"})
             row("game.tsv", "props_store_at", at + ":" + units, cell(() -> storedPropsFileAt(at, units)));
+
+      // `generator-settings` JSON with a lone surrogate (unit escape of the file, or JSON escape): the object is kept and its store fails
+      for (String json : new String[] {"{\"a\":\"b\"}", "{\"a\":\"" + propsEscapes("\ud800") + "\"}", "{\"a\":\"\\\\ud800\"}", "{\"a\":\"\\\\udc00x\"}"})
+         row("game.tsv", "props_generator", json, cell(() -> storedPropsLine("generator-settings=" + json)));
 
       Path outDir = Path.of(args[0]);
       for (Map.Entry<String, StringBuilder> e : FILES.entrySet()) Files.writeString(outDir.resolve(e.getKey()), e.getValue().toString());

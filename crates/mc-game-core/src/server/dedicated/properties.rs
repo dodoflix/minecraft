@@ -202,13 +202,25 @@ impl DedicatedServerProperties {
         let enforce_whitelist = s.get_mutable_boolean("enforce-whitelist", false);
         let difficulty = s.get_mutable_with(
             "difficulty",
-            |v| Ok(number_or_string(v, Difficulty::by_id, Difficulty::by_name)),
+            |v| {
+                Ok(number_or_string(
+                    v.as_lossy_str(),
+                    Difficulty::by_id,
+                    Difficulty::by_name,
+                ))
+            },
             |d| d.get_serialized_name().into(),
             Difficulty::Easy,
         )?;
         let game_mode = s.get_mutable_with(
             "gamemode",
-            |v| Ok(number_or_string(v, GameType::by_id, game_type_by_name)),
+            |v| {
+                Ok(number_or_string(
+                    v.as_lossy_str(),
+                    GameType::by_id,
+                    game_type_by_name,
+                ))
+            },
             |g| g.get_name().into(),
             GameType::Survival,
         )?;
@@ -236,13 +248,13 @@ impl DedicatedServerProperties {
         let spawn_protection = s.get_mutable_int("spawn-protection", 16);
         let op_permissions = s.get_mutable_with(
             "op-permission-level",
-            |v| Ok(deserialize_permission(v)),
+            |v| Ok(deserialize_permission(v.as_lossy_str())),
             |p| serialize_permission(p).into(),
             LevelBasedPermissionSet::OWNER,
         )?;
         let function_permissions = s.get_with(
             "function-permission-level",
-            |v| Ok(deserialize_permission(v)),
+            |v| Ok(deserialize_permission(v.as_lossy_str())),
             serialize_permission,
             LevelBasedPermissionSet::GAMEMASTER,
         )?;
@@ -266,7 +278,7 @@ impl DedicatedServerProperties {
         let hide_online_players = s.get_mutable_boolean("hide-online-players", false);
         let entity_broadcast_range_percentage = s.get_mutable_with(
             "entity-broadcast-range-percentage",
-            |v| Ok(Some(clamp(parse_int_or_throw(v)?, 10, 1000))),
+            |v| Ok(Some(clamp(parse_int_or_throw(v.as_lossy_str())?, 10, 1000))),
             |v| v.to_string().into(),
             100,
         )?;
@@ -289,16 +301,24 @@ impl DedicatedServerProperties {
         let generator_settings = s.get_with(
             "generator-settings",
             |v| {
-                gson::parse_object_strict(if v.is_empty() { "{}" } else { v })
-                    .map(Some)
-                    .map_err(|e| SettingsError(format!("com.google.gson.JsonSyntaxException: {e}")))
+                gson::parse_object_strict(&if v.utf16_len() == 0 {
+                    "{}".into()
+                } else {
+                    v.clone()
+                })
+                .map(Some)
+                .map_err(|e| SettingsError(format!("com.google.gson.JsonSyntaxException: {e}")))
             },
-            |o| JsonElement::Object(o.clone()).to_compact_string(),
+            |o| JsonElement::Object(o.clone()).to_java_string(),
             JsonObject::new(),
         )?;
         let level_type = s.get_with(
             "level-type",
-            |v| Ok(Some(mc_core::java_case::to_lower_case_root(v))),
+            |v| {
+                Ok(Some(mc_core::java_case::to_lower_case_root(
+                    v.as_lossy_str(),
+                )))
+            },
             String::clone,
             "minecraft:normal".to_owned(),
         )?;
