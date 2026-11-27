@@ -512,41 +512,50 @@ log| System chat: ...ack create<--[HERE]
 log| System chat: Invalid characters in new pack name 'bad!name'
 ### [functions.txt:117] datapack create fnpack {"text":"x"}
 log| System chat: Pack with name 'fnpack' already exists
-### [functions.txt:121] debug stop
+### [functions.txt:126] debug stop
 log| System chat: The tick profiler hasn't started
-### [functions.txt:122] debug start
+### [functions.txt:127] debug start
 log| System chat: Started tick profiling
 Bot| [system_chat] [Server: Started tick profiling]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.debug.started"}],"color":"gray","italic":true}
-### [functions.txt:123] debug start
+### [functions.txt:128] debug start
 log| System chat: The tick profiler is already started
-### [functions.txt:124] debug stop
-
-### [functions.txt:125] debug function fn:nested
+### [functions.txt:129] debug stop
+log| System chat: Stopped tick profiling after <masked> second(s) and <masked> tick(s) (<masked> tick(s) per second)
+Bot| [system_chat] [Server: Stopped tick profiling after <masked> second(s) and <masked> tick(s) (<masked> tick(s) per second)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.debug.stopped","with":["<masked>",<masked>,"<masked>"]}],"color":"gray","italic":true}
+### [functions.txt:130] debug function fn:nested
 log| [Not Secure] [Server] outer-before
 log| [Not Secure] [Server] hello
 log| [Not Secure] [Server] outer-after
+log| System chat: Traced 3 command(s) from function 'fn:nested' to output file debug-trace-<masked>.txt
 Bot| [disguised_chat] Server: outer-before
 Bot|   json "outer-before"
 Bot| [disguised_chat] Server: hello
 Bot|   json "hello"
 Bot| [disguised_chat] Server: outer-after
 Bot|   json "outer-after"
+Bot| [system_chat] [Server: Traced 3 command(s) from function 'fn:nested' to output file debug-trace-<masked>.txt]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.debug.function.success.single","with":[3,"fn:nested","debug-trace-<masked>.txt"]}],"color":"gray","italic":true}
 Bot0| [disguised_chat] Server: outer-before
 Bot0|   json "outer-before"
 Bot0| [disguised_chat] Server: hello
 Bot0|   json "hello"
 Bot0| [disguised_chat] Server: outer-after
 Bot0|   json "outer-after"
-### [functions.txt:126] debug function fn:macro
+### [functions.txt:131] debug function fn:macro
 log| System chat: Missing arguments to function fn:macro
-### [functions.txt:127] debug function fn:unknown
+log| System chat: Traced 0 command(s) from 0 functions to output file debug-trace-<masked>.txt
+Bot| [system_chat] [Server: Traced 0 command(s) from 0 functions to output file debug-trace-<masked>.txt]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.debug.function.success.multiple","with":[0,0,"debug-trace-<masked>.txt"]}],"color":"gray","italic":true}
+### [functions.txt:132] debug function fn:unknown
 log| System chat: Unknown function fn:unknown
-### [functions.txt:128] debug function #fn:all
+### [functions.txt:133] debug function #fn:all
 log| [Not Secure] [Server] hello
 log| [Not Secure] [Server] outer-before
 log| [Not Secure] [Server] hello
 log| [Not Secure] [Server] outer-after
+log| System chat: Traced 7 command(s) from 3 functions to output file debug-trace-<masked>.txt
 Bot| [disguised_chat] Server: hello
 Bot|   json "hello"
 Bot| [disguised_chat] Server: outer-before
@@ -555,6 +564,8 @@ Bot| [disguised_chat] Server: hello
 Bot|   json "hello"
 Bot| [disguised_chat] Server: outer-after
 Bot|   json "outer-after"
+Bot| [system_chat] [Server: Traced 7 command(s) from 3 functions to output file debug-trace-<masked>.txt]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.debug.function.success.multiple","with":[7,3,"debug-trace-<masked>.txt"]}],"color":"gray","italic":true}
 Bot0| [disguised_chat] Server: hello
 Bot0|   json "hello"
 Bot0| [disguised_chat] Server: outer-before

@@ -116,8 +116,13 @@ datapack create
 datapack create "bad!name" {"text":"x"}
 datapack create fnpack {"text":"x"}
 # debug (profiling durations and trace file names are timestamps)
-!ignore Stopped tick profiling
-!ignore debug-trace-
+!mask Stopped tick profiling after ([\d.,]+) second
+!mask second\(s\) and (\d+) tick\(s\)
+!mask \(([\d.,]+) tick\(s\) per second
+!mask debug-trace-([\d_.\-]+)\.txt
+!mask "commands\.debug\.stopped","with":\["([\d.,]+)"
+!mask "commands\.debug\.stopped","with":\["<masked>",(\d+)
+!mask "commands\.debug\.stopped","with":\["<masked>",<masked>,"([\d.,]+)"
 debug stop
 debug start
 debug start
