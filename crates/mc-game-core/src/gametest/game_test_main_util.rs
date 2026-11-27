@@ -31,7 +31,13 @@ impl Exception {
 
     /// The exception ends `Main.main` on the `ServerMain` thread, which the bundler never joins: the process exits
     /// with 0.
+    #[expect(
+        clippy::print_stderr,
+        reason = "the default uncaught exception handler writes its prefix to the process's stderr"
+    )]
     fn report(&self) -> i32 {
+        // `System.err` (the log redirect) prints the trace; only the handler's own prefix reaches the real stderr
+        eprint!("Exception in thread \"ServerMain\" ");
         log::info!("[STDERR]: {}: {}", self.class, self.message);
         for cause in &self.caused_by {
             log::info!("[STDERR]: Caused by: {cause}");

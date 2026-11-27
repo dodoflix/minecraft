@@ -36,6 +36,7 @@
 [Server thread] Saving chunks for level 'ServerLevel[Test Level]'/minecraft:the_end
 [Server thread] Saving chunks for level 'ServerLevel[Test Level]'/minecraft:the_nether
 [Server thread] Game test server shutting down
+== stderr
 == universe
 gametestworld
 == layout
@@ -54,7 +55,6 @@ gametestworld
 ./datapacks/gtpack
 ./datapacks/gtpack/data
 ./datapacks/gtpack/data/gt
-./datapacks/gtpack/data/gt/function
 ./datapacks/gtpack/data/gt/structure
 ./datapacks/gtpack/data/gt/structure/fail.nbt
 ./datapacks/gtpack/data/gt/structure/log.nbt
@@ -65,7 +65,6 @@ gametestworld
 ./datapacks/gtpack/data/gt/structure/rot.nbt
 ./datapacks/gtpack/data/gt/structure/timeout.nbt
 ./datapacks/gtpack/data/gt/structure/two_start.nbt
-./datapacks/gtpack/data/gt/test_environment
 ./datapacks/gtpack/data/gt/test_instance
 ./datapacks/gtpack/data/gt/test_instance/fail.json
 ./datapacks/gtpack/data/gt/test_instance/flaky.json

@@ -1,7 +1,7 @@
 == exit
 0
 == log
-== help
+== stderr
 Option                   Description                                       
 ------                   -----------                                       
 --help                                                                     

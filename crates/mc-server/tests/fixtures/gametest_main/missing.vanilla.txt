@@ -8,6 +8,7 @@
 [Server thread] Preparing spawn area: 100%
 [Server thread] Time elapsed: <MS> ms
 WARN: [Server thread] Test selection matcher (nobody:nothing) found no tests
+== stderr
 == universe
 gametestworld
 == layout

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Dual run of the headless game test server: the real `net.minecraft.gametest.Main` (ref/server.jar with
 # -DbundlerMainClass) and our `mc-gametest`, on the same command lines; compares the exit code, the normalised console log,
-# the layout of `<universe>/gametestworld` and the `--report` XML.
+# the stderr (the option parser's errors and the help text, without frame lines), the layout of `<universe>/gametestworld` and the `--report` XML.
 #
 #   scripts/gametest-diff.sh [--record DIR | --golden DIR] [--ours-bin PATH] [--no-build] [--keep] [CASE...]
 #   cases: pass abbrev ambiguous cluster cluster_missing cluster_plain double_dash dup_tests lone_dash repeat3 repeat_bad
@@ -16,7 +16,8 @@
 # NORMALISATION (only what vanilla does non-deterministically; two recordings of every case differ in exactly these, except
 # the stack frames, which are a JVM artifact of vanilla's uncaught exceptions that this port does not print)
 #   - the `[HH:MM:SS] [thread/LEVEL]: ` log prefix (a non-INFO level is kept), `Worker-Main-<n>` thread numbers (the advancement
-#     load logs from a worker thread), the bundler's `Unpacking` lines and the JVM's own warnings, "Can't keep up", the
+#     load logs from a worker thread; its position is the same in every run, between the last line before the world load and
+#     `Selecting global world spawn`, because the main thread waits for the load), the bundler's `Unpacking` lines and the JVM's own warnings, "Can't keep up", the
 #     `at ...` and `... N more` frame lines of an uncaught exception
 #   - the random start position (`at position <POS>!`, `BlockPos{<POS>}` and `(x, y, z)` in test logs and failure messages),
 #     elapsed times, the working directory
@@ -242,10 +243,8 @@ run_side() {
     echo "$code"
     echo "== log"
     normalise_log <"$dir/out-$case.txt"
-    if [ "$case" = help ]; then
-      echo "== help"
-      grep -v '^WARNING: ' "$dir/err-$case.txt" || true
-    fi
+    echo "== stderr"
+    grep -Ev '^WARNING: |^[[:space:]]+(at |\.\.\. [0-9]+ more)' "$dir/err-$case.txt" || true
     if [ -d "$dir/u-$case" ]; then
       echo "== universe"
       ls -A "$dir/u-$case"

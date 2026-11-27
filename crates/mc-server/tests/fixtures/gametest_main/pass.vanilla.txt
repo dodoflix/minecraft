@@ -22,6 +22,7 @@
 [Server thread] Saving chunks for level 'ServerLevel[Test Level]'/minecraft:the_end
 [Server thread] Saving chunks for level 'ServerLevel[Test Level]'/minecraft:the_nether
 [Server thread] Game test server shutting down
+== stderr
 == universe
 gametestworld
 == layout

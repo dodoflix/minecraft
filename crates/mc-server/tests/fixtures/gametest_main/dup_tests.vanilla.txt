@@ -3,6 +3,8 @@
 == log
 [ServerMain] Running GameTestMain with cwd '<CWD>', universe path 'u-dup_tests'
 [ServerMain] [STDERR]: joptsimple.MultipleArgumentsForOptionException: Found multiple arguments for option tests, but you asked for only one
+== stderr
+Exception in thread "ServerMain" 
 == universe
 gametestworld
 == layout

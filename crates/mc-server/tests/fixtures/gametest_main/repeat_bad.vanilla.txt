@@ -5,6 +5,8 @@
 [ServerMain] [STDERR]: joptsimple.OptionArgumentConversionException: Cannot parse argument 'x' of option repeatCount
 [ServerMain] [STDERR]: Caused by: joptsimple.internal.ReflectionException: java.lang.NumberFormatException: For input string: "x"
 [ServerMain] [STDERR]: Caused by: java.lang.NumberFormatException: For input string: "x"
+== stderr
+Exception in thread "ServerMain" 
 == universe
 gametestworld
 == layout

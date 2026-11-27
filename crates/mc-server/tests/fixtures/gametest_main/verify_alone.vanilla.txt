@@ -2,3 +2,4 @@
 255
 == log
 ERROR: [ServerMain] Please specify a test selection to run the verify option. For example: --verify --tests example:test_something_*
+== stderr
