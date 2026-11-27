@@ -843,6 +843,10 @@ impl crate::world::entity::variant::SpawnContextLevel for GenLevel<'_> {
 }
 
 impl crate::world::level::server_level_accessor::ServerLevelAccessor for GenLevel<'_> {
+    fn dimension_id(&self) -> Option<mc_core::ident::Identifier> {
+        Some(self.env.dimension.clone())
+    }
+
     fn get_difficulty(&self) -> Difficulty {
         self.difficulty.0
     }

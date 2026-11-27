@@ -141,8 +141,7 @@ impl Entity for PiglinBrute {
         reason: EntitySpawnReason,
         group_data: Option<Box<dyn SpawnGroupData>>,
     ) -> Option<Box<dyn SpawnGroupData>> {
-        if let Some(server_level) = level.as_server_level() {
-            let dimension = server_level.dimension.clone();
+        if let Some(dimension) = level.dimension_id() {
             piglin_brute_ai::init_memories(self, dimension);
         }
         self.populate_default_equipment_slots(level.random(), &difficulty);

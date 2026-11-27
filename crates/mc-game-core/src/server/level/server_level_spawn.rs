@@ -126,6 +126,10 @@ impl ServerLevelAccessor for ServerLevel {
         Some(self)
     }
 
+    fn dimension_id(&self) -> Option<mc_core::ident::Identifier> {
+        Some(self.dimension.clone())
+    }
+
     fn registry_access(&self) -> &crate::registry::RegistryAccess {
         &self.registries
     }

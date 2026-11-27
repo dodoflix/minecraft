@@ -70,6 +70,10 @@ pub trait ServerLevelAccessor:
     fn as_server_level(&self) -> Option<&ServerLevel> {
         None
     }
+    /// `getLevel().dimension().identifier()`: the dimension the level, or the generation region, belongs to.
+    fn dimension_id(&self) -> Option<mc_core::ident::Identifier> {
+        None
+    }
     /// `environmentAttributes().getValue(NATURAL_MOB_SPAWNS, pos)`.
     fn natural_mob_spawns_at(&self, pos: BlockPos) -> Arc<MobSpawnSettings>;
     /// `environmentAttributes().getValue(CREATURE_WORLD_GEN_SPAWN_PROBABILITY, pos)`.
