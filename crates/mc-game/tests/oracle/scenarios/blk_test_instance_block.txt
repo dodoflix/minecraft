@@ -1,0 +1,44 @@
+# ServerboundTestInstanceBlockActionPacket (handleTestInstanceBlockAction): init and query answer with the status of the test (and the size
+# of its structure), set stores the data, reset places the structure, save writes the box as a generated structure file, export reports
+# that exporting is disabled; a player without the permission, or a position without an instance block, gets nothing.
+level flat
+preload 2
+datapack gt_run
+spawn_player Op creative 6.5 -60 4.5 0 0
+spawn_player Plain creative 8.5 -60 4.5 0 0
+op Op
+tick 1
+block 0 -60 0 minecraft:test_instance_block
+tick 2
+dump be:0,-60,0 packets:Op:block_update,block_entity_data
+note init and query answer; a test that is not registered has no description
+test_instance_action Op 0 -60 0 init test=gt:pass
+test_instance_action Op 0 -60 0 query test=gt:pass
+test_instance_action Op 0 -60 0 query test=gt:nobody
+test_instance_action Op 0 -60 0 query
+tick 1
+dump be:0,-60,0 packets:Op:test_instance_block_status,system_chat,block_update,block_entity_data
+note set stores the data and sends the update; the player without permission is ignored
+test_instance_action Plain 0 -60 0 set test=gt:pass size=9,9,9
+test_instance_action Op 0 -60 0 set test=gt:pass size=5,2,3 rotation=clockwise_90 ignore_entities=true
+tick 1
+dump be:0,-60,0 packets:Op:test_instance_block_status,system_chat,block_update,block_entity_data packets:Plain:test_instance_block_status,system_chat,block_update,block_entity_data
+note reset places the structure of the test
+test_instance_action Op 0 -60 0 reset test=gt:log
+tick 1
+dump blocks:0,-60,0,6,-58,6 be:0,-60,0 packets:Op:test_instance_block_status,system_chat,block_update,block_entity_data
+note the reset cleared the space around the structure, the instance block included: place it again
+block 0 -60 0 minecraft:test_instance_block
+tick 1
+note save writes the box of the test (here with an edited block); export is disabled on a dedicated server
+block 2 -59 1 minecraft:test_block[mode=fail]
+test_instance_action Op 0 -60 0 save test=gt:log size=3,1,1
+test_instance_action Op 0 -60 0 export test=gt:log size=3,1,1
+tick 1
+dump structure_file:gt:log be:0,-60,0 packets:Op:test_instance_block_status,system_chat,block_update,block_entity_data
+note save without a test, run without a test, and a position without an instance block
+test_instance_action Op 0 -60 0 save size=1,1,1
+test_instance_action Op 0 -60 0 run size=1,1,1
+test_instance_action Op 4 -60 0 set test=gt:pass size=1,1,1
+tick 1
+dump be:0,-60,0 be:4,-60,0 structure_file:gt:pass packets:Op:test_instance_block_status,system_chat,block_update,block_entity_data

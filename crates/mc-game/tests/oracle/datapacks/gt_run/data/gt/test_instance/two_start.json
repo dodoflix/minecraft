@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:block_based",
+  "environment": "minecraft:default",
+  "structure": "gt:two_start",
+  "max_ticks": 20
+}

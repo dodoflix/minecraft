@@ -1,0 +1,49 @@
+# A block based game test started from a test instance block: `run` places the structure and starts the ticker; every tick the start blocks
+# are powered and the accept, fail and log blocks are watched (the chat line of a passed test carries the run time and is drained unseen). Passing, failing, logging, a missing start or accept block and two start blocks.
+level flat
+preload 2
+datapack gt_run
+spawn_player Op creative 6.5 -60 4.5 0 0
+op Op
+tick 1
+block 0 -60 0 minecraft:test_instance_block
+block 10 -60 0 minecraft:test_instance_block
+block 20 -60 0 minecraft:test_instance_block
+block 30 -60 0 minecraft:test_instance_block
+block 40 -60 0 minecraft:test_instance_block
+block 50 -60 0 minecraft:test_instance_block
+tick 2
+dump gametest logs:info packets:Op:none
+note a passing test
+test_instance_action Op 0 -60 0 run test=gt:pass size=3,1,1
+dump gametest logs:info be:0,-60,0 blocks:0,-59,1,3,-59,1 packets:Op:none
+tick 1
+dump gametest logs:info be:0,-60,0 blocks:0,-59,1,3,-59,1
+tick 2
+dump gametest logs:info be:0,-60,0 blocks:0,-59,1,3,-59,1
+tick 10
+dump gametest logs:info be:0,-60,0 blocks:0,-59,1,3,-59,1 packets:Op:none
+note a failing test
+test_instance_action Op 10 -60 0 run test=gt:fail size=4,1,1
+tick 3
+dump gametest logs:info be:10,-60,0 blocks:10,-59,1,14,-59,1 packets:Op:system_chat
+tick 10
+dump gametest logs:info be:10,-60,0 blocks:10,-59,1,14,-59,1 packets:Op:system_chat
+note a test with a log block
+test_instance_action Op 20 -60 0 run test=gt:log size=3,1,1
+tick 3
+dump gametest logs:info be:20,-60,0 blocks:20,-59,1,23,-59,1 packets:Op:none
+tick 10
+dump gametest logs:info be:20,-60,0 blocks:20,-59,1,23,-59,1 packets:Op:none
+note the structure has no start block
+test_instance_action Op 30 -60 0 run test=gt:no_start size=2,1,1
+tick 3
+dump gametest logs:info be:30,-60,0 packets:Op:system_chat
+note no accept block
+test_instance_action Op 40 -60 0 run test=gt:no_accept size=2,1,1
+tick 3
+dump gametest logs:info be:40,-60,0 packets:Op:system_chat
+note two start blocks
+test_instance_action Op 50 -60 0 run test=gt:two_start size=3,1,1
+tick 3
+dump gametest logs:info be:50,-60,0 packets:Op:system_chat

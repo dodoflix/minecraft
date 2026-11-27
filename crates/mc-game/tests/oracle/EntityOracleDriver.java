@@ -244,6 +244,7 @@ import net.minecraft.util.RandomSource;
  * set_command_minecart PLAYER REF COMMAND [true|false]   ServerboundSetCommandMinecartPacket (the editor of a command block minecart; "quote" COMMAND to keep spaces; the flag = track output, default true)
  * set_command_block PLAYER X Y Z COMMAND sequence|auto|redstone [track] [conditional] [auto]   ServerboundSetCommandBlockPacket (the editor of a command block; "quote" COMMAND to keep spaces; flags default true false false)
  * trade_select PLAYER N       ServerboundSelectTradePacket
+ * set_test_block, test_instance_action, `dump structure_file:ID`, `dump gametest`, `dump logs:info`: see GameTestVerbs.java
  * click, creative_slot, rename, select_trade, set_beacon, slot_state, place_recipe, recipe_seen, recipe_settings, `dump menu:PLAYER`, `dump recipes:PLAYER`: see MenuVerbs.java
  * local difficulty / light / time of day: `dump difficulty:X,Y,Z` (`DIFFICULTY ..`), `dump light:X,Y,Z` (`LIGHT x y z block=B sky=S`, after ticks),
  *                             `dump lights:X1,Y1,Z1,X2,Y2,Z2` (the `LIGHT` lines of the box cells with block or sky light above 0),
@@ -1243,7 +1244,7 @@ public final class EntityOracleDriver {
             player(a.get(1)).connection.handleSelectTrade(new ServerboundSelectTradePacket(Integer.parseInt(a.get(2))));
          }
          default -> {
-            if (!FightVerbs.run(this, a) && !MenuVerbs.run(this, a) && !PersistVerbs.run(this, a)) {
+            if (!FightVerbs.run(this, a) && !GameTestVerbs.run(this, a) && !MenuVerbs.run(this, a) && !PersistVerbs.run(this, a)) {
                throw new IllegalArgumentException("unknown command " + cmd);
             }
          }
@@ -2397,6 +2398,10 @@ public final class EntityOracleDriver {
                }
             }
             case "logs" -> {
+               if ("info".equals(arg)) {
+                  GameTestVerbs.dump(this, kind, arg);
+                  continue;
+               }
                // LOG LEVEL: message[\nexception] per WARN or ERROR event of the vanilla loggers since the last `dump logs`, sorted (newlines and backslashes escaped)
                List<String> logs;
                synchronized (VanillaLevel.LOGS) {
@@ -2706,6 +2711,7 @@ public final class EntityOracleDriver {
             }
             case "raids" -> raidsDump();
             case "raids_nbt" -> out.println("RAIDS " + canon(Raids.CODEC.encodeStart(NbtOps.INSTANCE, v.level.getRaids()).getOrThrow()));
+            case "gametest", "structure_file" -> GameTestVerbs.dump(this, kind, arg);
             case "menu" -> MenuVerbs.dump(this, arg);
             case "recipes" -> MenuVerbs.dumpRecipes(this, arg);
             default -> throw new IllegalArgumentException("dump " + w);

@@ -146,17 +146,27 @@ pub fn deliver<H: ActionHost>(
     build: impl FnOnce(&mut ServerLevel, &mut ServerPlayer) -> ServerboundPlayPacket,
 ) {
     h.boot();
-    with_player(h, name, |level, player| {
+    let tasks = with_player(h, name, |level, player| {
         let packet = build(level, player);
         mc_game::commands::server_access::with_server(|server| {
-            PlayCtx {
+            let mut ctx = PlayCtx {
                 server,
                 level,
                 player,
-            }
-            .deliver(packet)
-        });
+            };
+            ctx.deliver(packet);
+            ctx.take_deferred_tasks()
+        })
     });
+    // the packet queue runs what a handler queued once the player is back in its level
+    if !tasks.is_empty() {
+        let level = h.action_level();
+        mc_game::commands::server_access::with_server(|server| {
+            server.with_lent_level(level, |server| {
+                tasks.into_iter().for_each(|task| task(server))
+            })
+        });
+    }
 }
 
 /// Run a menu verb; `false` when `a[0]` is not one of them.

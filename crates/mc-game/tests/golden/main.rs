@@ -155,6 +155,7 @@ mod fluid_waterlogged;
 mod fluids_golden;
 mod gamerule_matrix_golden;
 mod gametest_registries;
+mod gametest_scenarios_golden;
 mod goals_combat_golden;
 mod gossip_golden;
 mod instrument_jukebox;

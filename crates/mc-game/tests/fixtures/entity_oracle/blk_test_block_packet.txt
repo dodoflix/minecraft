@@ -1,0 +1,46 @@
+B 0 -60 0 minecraft:test_block[mode=start]
+B 4 -60 0 minecraft:test_block[mode=log]
+B 8 -60 0 minecraft:stone
+BE 0 -60 0 {components:{},id:"minecraft:test_block",message:"",mode:"start",powered:0b,x:0,y:-60,z:0}
+BE 4 -60 0 {components:{},id:"minecraft:test_block",message:"first log",mode:"log",powered:0b,x:4,y:-60,z:0}
+PKT Op minecraft:block_entity_data 060000000000000fc42d0a0800046d6f646500057374617274010007706f7765726564000800076d657373616765000000
+PKT Op minecraft:block_entity_data 060000010000000fc42d0a0800046d6f646500036c6f67010007706f7765726564000800076d65737361676500096669727374206c6f6700
+# the operator sets every mode and a message
+B 0 -60 0 minecraft:test_block[mode=fail]
+BE 0 -60 0 {components:{},id:"minecraft:test_block",message:"failed on purpose",mode:"fail",powered:0b,x:0,y:-60,z:0}
+PKT Op minecraft:block_update 080000000000000fc489c401
+PKT Op minecraft:block_entity_data 060000000000000fc42d0a0800046d6f646500046661696c010007706f7765726564000800076d65737361676500116661696c6564206f6e20707572706f736500
+B 0 -60 0 minecraft:test_block[mode=accept]
+BE 0 -60 0 {components:{},id:"minecraft:test_block",message:"all good, with a comma",mode:"accept",powered:0b,x:0,y:-60,z:0}
+PKT Op minecraft:block_update 080000000000000fc48ac401
+PKT Op minecraft:block_entity_data 060000000000000fc42d0a0800046d6f64650006616363657074010007706f7765726564000800076d6573736167650016616c6c20676f6f642c2077697468206120636f6d6d6100
+B 0 -60 0 minecraft:test_block[mode=log]
+BE 0 -60 0 {components:{},id:"minecraft:test_block",message:"",mode:"log",powered:0b,x:0,y:-60,z:0}
+PKT Op minecraft:block_update 080000000000000fc488c401
+PKT Op minecraft:block_entity_data 060000000000000fc42d0a0800046d6f646500036c6f67010007706f7765726564000800076d657373616765000000
+B 0 -60 0 minecraft:test_block[mode=start]
+BE 0 -60 0 {components:{},id:"minecraft:test_block",message:"",mode:"start",powered:0b,x:0,y:-60,z:0}
+PKT Op minecraft:block_update 080000000000000fc487c401
+PKT Op minecraft:block_entity_data 060000000000000fc42d0a0800046d6f646500057374617274010007706f7765726564000800076d657373616765000000
+# the same mode again still sends the update and replaces the message
+B 4 -60 0 minecraft:test_block[mode=log]
+BE 4 -60 0 {components:{},id:"minecraft:test_block",message:"second log",mode:"log",powered:0b,x:4,y:-60,z:0}
+PKT Op minecraft:block_update 080000010000000fc488c401
+PKT Op minecraft:block_entity_data 060000010000000fc42d0a0800046d6f646500036c6f67010007706f7765726564000800076d657373616765000a7365636f6e64206c6f6700
+# without the permission, in survival with it, and on other blocks nothing changes
+B 0 -60 0 minecraft:test_block[mode=start]
+B 4 -60 0 minecraft:test_block[mode=log]
+B 8 -60 0 minecraft:stone
+BE 0 -60 0 {components:{},id:"minecraft:test_block",message:"",mode:"start",powered:0b,x:0,y:-60,z:0}
+PKT Plain minecraft:block_entity_data 060000000000000fc42d0a0800046d6f646500057374617274010007706f7765726564000800076d657373616765000000
+PKT Plain minecraft:block_entity_data 060000010000000fc42d0a0800046d6f646500036c6f67010007706f7765726564000800076d65737361676500096669727374206c6f6700
+PKT Plain minecraft:block_update 080000000000000fc489c401
+PKT Plain minecraft:block_entity_data 060000000000000fc42d0a0800046d6f646500046661696c010007706f7765726564000800076d65737361676500116661696c6564206f6e20707572706f736500
+PKT Plain minecraft:block_update 080000000000000fc48ac401
+PKT Plain minecraft:block_entity_data 060000000000000fc42d0a0800046d6f64650006616363657074010007706f7765726564000800076d6573736167650016616c6c20676f6f642c2077697468206120636f6d6d6100
+PKT Plain minecraft:block_update 080000000000000fc488c401
+PKT Plain minecraft:block_entity_data 060000000000000fc42d0a0800046d6f646500036c6f67010007706f7765726564000800076d657373616765000000
+PKT Plain minecraft:block_update 080000000000000fc487c401
+PKT Plain minecraft:block_entity_data 060000000000000fc42d0a0800046d6f646500057374617274010007706f7765726564000800076d657373616765000000
+PKT Plain minecraft:block_update 080000010000000fc488c401
+PKT Plain minecraft:block_entity_data 060000010000000fc42d0a0800046d6f646500036c6f67010007706f7765726564000800076d657373616765000a7365636f6e64206c6f6700

@@ -3,5 +3,6 @@
 <Configuration status="WARN">
   <Appenders><Console name="E" target="SYSTEM_ERR"><PatternLayout pattern="[%d{HH:mm:ss}] [%t/%level]: %msg%n"/></Console></Appenders>
   <Loggers><Logger name="net.minecraft.server.network" level="info"/><Logger name="net.minecraft.server.players" level="info"/>
+    <Logger name="net.minecraft.world.level.block.entity.TestBlockEntity" level="info"/><Logger name="net.minecraft.gametest.framework.GameTestRunner" level="info"/>
     <Root level="warn"><AppenderRef ref="E"/></Root></Loggers>
 </Configuration>

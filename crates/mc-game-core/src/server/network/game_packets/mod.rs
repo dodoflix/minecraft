@@ -567,6 +567,12 @@ fn perform_respawn(
 }
 
 impl PlayCtx<'_> {
+    /// The server tasks the handlers queued so far (test actions, game rule changes): they run once the player is back in
+    /// its level.
+    pub fn take_deferred_tasks(&mut self) -> Vec<Box<dyn FnOnce(&mut MinecraftServer)>> {
+        std::mem::take(&mut self.lis().deferred_tasks)
+    }
+
     /// Handles one serverbound packet immediately like the queue drain would at this moment: the main-thread packets of a
     /// connection that stopped accepting messages are ignored. Used by replays that call the handlers like vanilla's
     /// `connection.handleXxx(packet)`.

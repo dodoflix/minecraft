@@ -30,6 +30,8 @@
 mod actors;
 #[path = "block_scenario_fight.rs"]
 mod fight;
+#[path = "block_scenario_gametest.rs"]
+mod gametest;
 #[path = "block_scenario_persist.rs"]
 mod persist;
 use super::entity_oracle::{Fixture, Options, compare, fixture_dir, scenario_dir};
@@ -120,10 +122,11 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
     actors::reset_login_detail();
     mc_game::world::level::material::flowing_fluid::reset_shape_memo_for_scenario();
     // `dump console` reads the log: the capture must be installed before the first line that logs (a player joining)
-    if text
-        .lines()
-        .any(|l| l.starts_with("dump ") && l.split_whitespace().any(|w| w == "console"))
-    {
+    if text.lines().any(|l| {
+        l.starts_with("dump ")
+            && l.split_whitespace()
+                .any(|w| w == "console" || w == "logs:info")
+    }) {
         super::init_logger();
     }
     let mut s = Scenario::new();
@@ -149,7 +152,9 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
             || l.contains("advancementsfile:")
     });
     // the generation environment also holds the block transformer registry (axes, shovels and hoes strip, scrape, flatten and till)
+    s.gametest = text.contains("test_instance_action");
     s.gen_env = text.contains("minecraft:structure_block")
+        || s.gametest
         || text.contains("jigsaw_generate")
         || ["_axe", "_shovel", "_hoe"].iter().any(|t| text.contains(t));
     // `/place structure|feature` on a flat level generates with the flat chunk generator (the first free height of the layers), not the noise one
@@ -197,6 +202,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                         | "move_vehicle"
                         | "accept_teleport"
                         | "teleport_to_entity"
+                        | "test_instance_action"
                         | "paddle"
                         | "client_tick_end"
                         | "levels"
@@ -206,6 +212,7 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
                         | "respawn"
                         | "set_command_block"
                         | "set_command_minecart"
+                        | "set_test_block"
                         | "time"
                 )
             )
@@ -691,6 +698,8 @@ pub struct Scenario {
     real_biomes: bool,
     /// Structure blocks and jigsaw generation read the generation environment (template manager, pool registries).
     gen_env: bool,
+    /// `test_instance_action`: the generation environment reads the installed server's data packs and writes its `generated` directory.
+    gametest: bool,
     /// `/place structure`, `/place feature` or `/locate` is used: a flat or void level then carries the flat generator's environment.
     flat_structures: bool,
     log: Arc<Mutex<Vec<BroadcastRecord>>>,
@@ -746,6 +755,7 @@ impl Scenario {
             },
             real_biomes: false,
             gen_env: false,
+            gametest: false,
             flat_structures: false,
             log: Arc::new(Mutex::new(Vec::new())),
             line_no: 0,
@@ -1137,6 +1147,11 @@ impl Scenario {
                 dimension,
                 self.opts.seed,
             ));
+        }
+        if self.gametest
+            && let Some(env) = level.gen_env.take()
+        {
+            level.gen_env = Some(gametest::with_server_templates(env));
         }
         // `/place feature` with an inline definition decodes it against the worldgen registries of the level
         if level.gen_env.is_some() {
@@ -1572,6 +1587,7 @@ impl Scenario {
                 self.dump(&what);
             }
             _ if self.fight_command(a) => {}
+            _ if self.gametest_command(a) => {}
             _ if self.persist_command(a) => {}
             _ if self.actor_command(a) => {}
             other => {
@@ -1695,6 +1711,7 @@ impl Scenario {
         }
         // `MinecraftServer.tickServer`: the debug subscribers are refreshed after the players
         self.for_each_level(|level| level.tick_debug_subscribers());
+        self.tick_game_tests();
         self.send_chunks();
         self.name_new_entities();
         self.ticks += 1;
@@ -1843,6 +1860,7 @@ impl Scenario {
                 }
                 "ticks" => self.dump_ticks(arg),
                 _ if self.dump_fight(kind) => {}
+                _ if self.dump_gametest(kind, arg) => {}
                 _ if self.dump_persist(kind, arg) => {}
                 _ if self.dump_actor(kind, arg) => {}
                 _ if super::command_verbs::dump(self, kind, arg) => {}

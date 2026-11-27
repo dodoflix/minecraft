@@ -93,6 +93,9 @@ public final class VanillaLevel {
    /** The WARN and ERROR log events since the last `dump logs`: `LEVEL: message` plus a newline and the exception's `toString` when there is one. */
    public static final List<String> LOGS = Collections.synchronizedList(new ArrayList<>());
 
+   /** The INFO events of the test block entity and the game test runner since the last `dump logs:info`: the message only. */
+   public static final List<String> INFO_LOGS = Collections.synchronizedList(new ArrayList<>());
+
    /** Appends every WARN or ERROR event of the vanilla loggers to {@link #LOGS} (vanilla logs data pack load errors; stderr stays as it is). */
    static void captureLogs() {
       var context = (org.apache.logging.log4j.core.LoggerContext) org.apache.logging.log4j.LogManager.getContext(MinecraftServer.class.getClassLoader(), false);
@@ -101,6 +104,10 @@ public final class VanillaLevel {
          public void append(org.apache.logging.log4j.core.LogEvent event) {
             // not about the game: the oracle's flat world boots from empty `generator-settings` (an error), and the services lookup needs the network
             String message = event.getMessage().getFormattedMessage();
+            if (event.getLevel() == org.apache.logging.log4j.Level.INFO
+               && (event.getLoggerName().endsWith(".TestBlockEntity") || event.getLoggerName().endsWith(".GameTestRunner"))) {
+               INFO_LOGS.add(message);
+            }
             if (event.getLevel().isMoreSpecificThan(org.apache.logging.log4j.Level.WARN) && !message.startsWith("No key layers in MapLike")
                && !message.startsWith("Failed to request Minecraft Services public key") && !message.startsWith("Services are unavailable")
                && !event.getLoggerName().startsWith("com.mojang.authlib") && !(event.getThrown() != null && event.getThrown().getClass().getName().startsWith("com.mojang.authlib"))) {

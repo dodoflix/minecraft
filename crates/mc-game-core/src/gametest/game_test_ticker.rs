@@ -57,6 +57,11 @@ pub fn set_runner(runner: Rc<GameTestRunner>) {
     });
 }
 
+/// The tests the ticker is running (a finished test leaves it).
+pub fn infos() -> Vec<Rc<GameTestInfo>> {
+    SINGLETON.with(|t| t.borrow().test_infos.clone())
+}
+
 /// `tick()`.
 pub fn tick(server: &mut MinecraftServer) {
     let Some((runner, infos)) = SINGLETON.with(|t| {

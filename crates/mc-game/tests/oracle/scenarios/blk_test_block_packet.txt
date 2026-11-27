@@ -1,0 +1,41 @@
+# ServerboundSetTestBlockPacket (handleSetTestBlock): only a creative operator changes a test block, and only one that exists (the block
+# entity decides): the mode and the message are stored and the block state follows the mode (a block update and the entity data go out).
+# A plain creative player, an operator in survival and a position without a test block change nothing.
+level flat
+preload 2
+spawn_player Op creative 6.5 -60 4.5 0 0
+spawn_player Plain creative 8.5 -60 4.5 0 0
+spawn_player Survivor survival 10.5 -60 4.5 0 0
+op Op
+op Survivor
+tick 1
+block 0 -60 0 minecraft:test_block
+block 4 -60 0 minecraft:test_block[mode=log]
+be_nbt 4 -60 0 {message:"first log"}
+block 8 -60 0 minecraft:stone
+tick 2
+dump blocks:0,-60,0,8,-60,0 be:0,-60,0 be:4,-60,0 packets:Op:block_update,block_entity_data
+note the operator sets every mode and a message
+set_test_block Op 0 -60 0 fail "failed on purpose"
+tick 1
+dump blocks:0,-60,0,0,-60,0 be:0,-60,0 packets:Op:block_update,block_entity_data
+set_test_block Op 0 -60 0 accept "all good, with a comma"
+tick 1
+dump blocks:0,-60,0,0,-60,0 be:0,-60,0 packets:Op:block_update,block_entity_data
+set_test_block Op 0 -60 0 log ""
+tick 1
+dump blocks:0,-60,0,0,-60,0 be:0,-60,0 packets:Op:block_update,block_entity_data
+set_test_block Op 0 -60 0 start
+tick 1
+dump blocks:0,-60,0,0,-60,0 be:0,-60,0 packets:Op:block_update,block_entity_data
+note the same mode again still sends the update and replaces the message
+set_test_block Op 4 -60 0 log "second log"
+tick 1
+dump blocks:4,-60,0,4,-60,0 be:4,-60,0 packets:Op:block_update,block_entity_data
+note without the permission, in survival with it, and on other blocks nothing changes
+set_test_block Plain 0 -60 0 fail "not allowed"
+set_test_block Survivor 0 -60 0 fail "not allowed either"
+set_test_block Op 8 -60 0 fail "stone"
+set_test_block Op 12 -60 0 fail "air"
+tick 1
+dump blocks:0,-60,0,12,-60,0 be:0,-60,0 packets:Op:block_update,block_entity_data packets:Plain:block_update,block_entity_data

@@ -1,0 +1,59 @@
+# a passing test
+GAMETEST gt:pass started=false done=false passed=false failed=false tick=-2
+LOGINFO Running test environment 'minecraft:default' batch 0 (1 tests)...
+BE 0 -60 0 {components:{},data:{ignore_entities:0b,rotation:"none",size:[I;3,1,1],status:"cleared",test:"gt:pass"},id:"minecraft:test_instance_block",x:0,y:-60,z:0}
+B 0 -59 1 minecraft:test_block[mode=start]
+B 1 -59 1 minecraft:test_block[mode=accept]
+B 3 -59 1 minecraft:barrier[waterlogged=false]
+GAMETEST gt:pass started=false done=false passed=false failed=false tick=-1
+BE 0 -60 0 {components:{},data:{ignore_entities:0b,rotation:"none",size:[I;3,1,1],status:"cleared",test:"gt:pass"},id:"minecraft:test_instance_block",x:0,y:-60,z:0}
+B 0 -59 1 minecraft:test_block[mode=start]
+B 1 -59 1 minecraft:test_block[mode=accept]
+B 3 -59 1 minecraft:barrier[waterlogged=false]
+BE 0 -60 0 {components:{},data:{ignore_entities:0b,rotation:"none",size:[I;3,1,1],status:"finished",test:"gt:pass"},id:"minecraft:test_instance_block",x:0,y:-60,z:0}
+B 0 -59 1 minecraft:test_block[mode=start]
+B 1 -59 1 minecraft:test_block[mode=accept]
+BE 0 -60 0 {components:{},data:{ignore_entities:0b,rotation:"none",size:[I;3,1,1],status:"finished",test:"gt:pass"},id:"minecraft:test_instance_block",x:0,y:-60,z:0}
+B 0 -59 1 minecraft:test_block[mode=start]
+B 1 -59 1 minecraft:test_block[mode=accept]
+# a failing test
+LOGINFO Running test environment 'minecraft:default' batch 0 (1 tests)...
+BE 10 -60 0 {components:{},data:{error_message:{translate:"test.error.tick",with:["boom",1]},ignore_entities:0b,rotation:"none",size:[I;4,1,1],status:"finished",test:"gt:fail"},id:"minecraft:test_instance_block",x:10,y:-60,z:0}
+B 10 -59 1 minecraft:test_block[mode=start]
+B 11 -59 1 minecraft:test_block[mode=fail]
+B 13 -59 1 minecraft:test_block[mode=accept]
+B 14 -59 1 minecraft:barrier[waterlogged=false]
+PKT Op minecraft:system_chat 7c0a090004776974680800000001000767743a6661696c0800097472616e736c617465001c746573745f696e7374616e63655f626c6f636b2e7374617274696e670000
+PKT Op minecraft:system_chat 7c0a080005636f6c6f72000372656408000474657874001e67743a6661696c206661696c65642120626f6f6d206f6e207469636b20310000
+BE 10 -60 0 {components:{},data:{error_message:{translate:"test.error.tick",with:["boom",1]},ignore_entities:0b,rotation:"none",size:[I;4,1,1],status:"finished",test:"gt:fail"},id:"minecraft:test_instance_block",x:10,y:-60,z:0}
+B 10 -59 1 minecraft:test_block[mode=start]
+B 11 -59 1 minecraft:test_block[mode=fail]
+B 13 -59 1 minecraft:test_block[mode=accept]
+B 14 -59 1 minecraft:barrier[waterlogged=false]
+# a test with a log block
+LOGINFO Running test environment 'minecraft:default' batch 0 (1 tests)...
+LOGINFO Test log (at BlockPos{x=20, y=-59, z=1}): hello log
+BE 20 -60 0 {components:{},data:{ignore_entities:0b,rotation:"none",size:[I;3,1,1],status:"finished",test:"gt:log"},id:"minecraft:test_instance_block",x:20,y:-60,z:0}
+B 20 -59 1 minecraft:test_block[mode=log]
+B 21 -59 1 minecraft:test_block[mode=start]
+B 22 -59 1 minecraft:test_block[mode=accept]
+BE 20 -60 0 {components:{},data:{ignore_entities:0b,rotation:"none",size:[I;3,1,1],status:"finished",test:"gt:log"},id:"minecraft:test_instance_block",x:20,y:-60,z:0}
+B 20 -59 1 minecraft:test_block[mode=log]
+B 21 -59 1 minecraft:test_block[mode=start]
+B 22 -59 1 minecraft:test_block[mode=accept]
+# the structure has no start block
+LOGINFO Running test environment 'minecraft:default' batch 0 (1 tests)...
+BE 30 -60 0 {components:{},data:{error_message:{translate:"test.error.tick",with:[{translate:"test_block.error.missing",with:[{translate:"test_block.mode.start"}]},0]},ignore_entities:0b,rotation:"none",size:[I;2,1,1],status:"finished",test:"gt:no_start"},id:"minecraft:test_instance_block",x:30,y:-60,z:0}
+PKT Op minecraft:system_chat 7c0a090004776974680800000001000b67743a6e6f5f73746172740800097472616e736c617465001c746573745f696e7374616e63655f626c6f636b2e7374617274696e670000
+PKT Op minecraft:system_chat 7c0a080005636f6c6f72000372656408000474657874004067743a6e6f5f7374617274206661696c656421205465737420737472756374757265206d697373696e6720537461727420626c6f636b206f6e207469636b20300000
+# no accept block
+LOGINFO Running test environment 'minecraft:default' batch 0 (1 tests)...
+LOGINFO Test log (at BlockPos{x=41, y=-59, z=1}): no accept
+BE 40 -60 0 {components:{},data:{error_message:{translate:"test.error.tick",with:[{translate:"test_block.error.missing",with:[{translate:"test_block.mode.accept"}]},1]},ignore_entities:0b,rotation:"none",size:[I;2,1,1],status:"finished",test:"gt:no_accept"},id:"minecraft:test_instance_block",x:40,y:-60,z:0}
+PKT Op minecraft:system_chat 7c0a090004776974680800000001000c67743a6e6f5f6163636570740800097472616e736c617465001c746573745f696e7374616e63655f626c6f636b2e7374617274696e670000
+PKT Op minecraft:system_chat 7c0a080005636f6c6f72000372656408000474657874004267743a6e6f5f616363657074206661696c656421205465737420737472756374757265206d697373696e672041636365707420626c6f636b206f6e207469636b20310000
+# two start blocks
+LOGINFO Running test environment 'minecraft:default' batch 0 (1 tests)...
+BE 50 -60 0 {components:{},data:{error_message:{translate:"test.error.tick",with:[{translate:"test_block.error.too_many",with:[{translate:"test_block.mode.start"}]},0]},ignore_entities:0b,rotation:"none",size:[I;3,1,1],status:"finished",test:"gt:two_start"},id:"minecraft:test_instance_block",x:50,y:-60,z:0}
+PKT Op minecraft:system_chat 7c0a090004776974680800000001000c67743a74776f5f73746172740800097472616e736c617465001c746573745f696e7374616e63655f626c6f636b2e7374617274696e670000
+PKT Op minecraft:system_chat 7c0a080005636f6c6f72000372656408000474657874003467743a74776f5f7374617274206661696c65642120546f6f206d616e7920537461727420626c6f636b73206f6e207469636b20300000
