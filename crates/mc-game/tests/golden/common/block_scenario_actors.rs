@@ -86,6 +86,9 @@ pub struct Actors {
     /// `mobspawn ... group=KEY`: the group data `finalizeSpawn` returned for the previous mob of that key.
     groups: HashMap<String, Box<dyn mc_game::world::entity::spawn_group_data::SpawnGroupData>>,
     pub registries_loaded: bool,
+    /// The refs named as `by=` or `direct=` of a `hurt` in the scenario, and what they looked like before the last tick.
+    pub(super) damage_source_refs: Vec<String>,
+    damage_snapshots: HashMap<EntityId, mc_game::world::damagesource::DamageEntity>,
     /// The directory of the advancement files of players spawned without a command environment.
     advancements_dir: Option<tempfile::TempDir>,
     /// `datapack NAME`: the registries, recipes and advancements of the server that loaded the packs (otherwise the default pack's).
@@ -560,19 +563,52 @@ impl Scenario {
             format!("minecraft:{type_name}")
         })
         .unwrap();
+        // an entity that left the level (a mob that despawned) is still the driver's reference: its last snapshot stands for it
+        let departed =
+            |id: Option<EntityId>| id.and_then(|i| self.actors.damage_snapshots.get(&i).cloned());
+        let (departed_direct, departed_by) = (departed(direct), departed(by));
         let level = self.level();
         let data = level
             .registries
             .get::<mc_game::registry::typed::damage_type::DamageType>("minecraft:damage_type", &key)
             .unwrap_or_else(|| panic!("unknown damage type {key}"))
             .clone();
-        mc_game::world::damagesource::DamageSource::new(
-            key,
-            std::sync::Arc::new(data),
+        let (direct_entity, by_entity) = (
             direct.and_then(|i| level.get_entity(i)),
             by.and_then(|i| level.get_entity(i)),
+        );
+        let (direct_gone, by_gone) = (direct_entity.is_none(), by_entity.is_none());
+        let mut source = mc_game::world::damagesource::DamageSource::new(
+            key,
+            std::sync::Arc::new(data),
+            direct_entity,
+            by_entity,
             at,
-        )
+        );
+        if let Some(snapshot) = departed_direct.filter(|_| direct_gone) {
+            source = source.with_direct_snapshot(snapshot);
+        }
+        if let Some(snapshot) = departed_by.filter(|_| by_gone) {
+            source = source.with_causing_snapshot(snapshot);
+        }
+        source
+    }
+
+    /// Before each tick: the state of the entities a `hurt` names as `by=` or `direct=`, for when they have left the level.
+    pub(super) fn snapshot_damage_sources(&mut self) {
+        for name in self.actors.damage_source_refs.clone() {
+            // a ref that is not spawned yet
+            let Some(&(_, id)) = self.actors.refs.iter().find(|(n, _)| *n == name) else {
+                continue;
+            };
+            if let Some(snapshot) = self
+                .level()
+                .get_entity(id)
+                .map(mc_game::world::damagesource::DamageEntity::of)
+            {
+                self.actors.damage_snapshots.insert(id, snapshot);
+            }
+        }
     }
 
     /// `hurt REF DAMAGETYPE AMOUNT [by=REF] [direct=REF] [at=X,Y,Z]`: `entity.hurtServer(level, source, amount)`, prints `HURT ..`.
@@ -1110,6 +1146,7 @@ impl Scenario {
                 self.level().with_entity(id, |_, e| match a[2].as_str() {
                     "air" => e.base_mut().set_air_supply(v.parse().unwrap()),
                     "fire" => e.set_remaining_fire_ticks(v.parse().unwrap()),
+                    "ticks_frozen" => e.base_mut().set_ticks_frozen(v.parse().unwrap()),
                     "fall_distance" => e.base_mut().fall_distance = num(&v),
                     "portal_cooldown" => e.base_mut().portal_cooldown = v.parse().unwrap(),
                     "on_ground" => e.base_mut().set_on_ground_raw(v == "true"),
@@ -1640,6 +1677,8 @@ impl Scenario {
                     ));
                     mc_game::server::players::join::send_initial_recipe_book(p, &recipes);
                 }
+                // `sendPostEffects` (clears the dirty flag: the first tick does not send it again)
+                mc_game::server::players::join::send_post_effects(p);
                 p.init_inventory_menu(level)
             });
         }
@@ -1955,6 +1994,10 @@ impl Scenario {
             }
         }
         self.focus(keep);
+        // `tickChildren` ends with `PlayerList.tick` (the latency broadcast every 600 ticks)
+        if mc_game::commands::server_access::has_server() {
+            mc_game::commands::server_access::with_server(|server| server.player_list.tick());
+        }
     }
 
     /// `tickPlayer()` from `doTick()`'s portal step on. `pos` is the position the tick started at.

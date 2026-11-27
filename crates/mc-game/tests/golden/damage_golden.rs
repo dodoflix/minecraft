@@ -1,12 +1,12 @@
 //! Damage pipeline / death / respawn golden: the scenarios `tests/oracle/scenarios/{damage_*,death_*,hurt_*}.txt` run on the
-//! real vanilla server (`scripts/entity-oracle.sh`, fixtures in `tests/fixtures/entity_oracle/`) are replayed on our
-//! `ServerPlayer`s + `ServerLevel` (real vanilla registries: damage types + tags, enchantments, loot tables) and compared line
-//! by line, nothing ignored but the `PKT` types listed in [`PKT_TYPES`] complement (the join burst, chunk/tracker traffic).
+//! real vanilla server (`scripts/entity-oracle.sh`, fixtures in `tests/fixtures/entity_oracle/`) are replayed on the ticking block
+//! scenario replay (`common::block_scenario`), which compares every line of the fixture, packets of every type included.
 //!
-//! Replay: `level`, `difficulty`, `gamerule`, `cmd difficulty`, `entity_counter` (the level's own id counter; the next entity gets
+//! The detached [`Replay`] below (no level tick, no packet dump) is what the two tests that have no vanilla fixture drive:
+//! `level`, `difficulty`, `gamerule`, `cmd difficulty`, `entity_counter` (the level's own id counter; the next entity gets
 //! id N + 1), `spawn` (the real entity class, created with the command spawn reason), `spawn_player`,
 //! `give` (item components via the command item parser), `effect`, `set`, `snap`, `use`, `hurt` (`by=`/`direct=`/`at=`),
-//! `respawn` (`PlayerList.respawn` core), `tick`, `watch`, `dump` (`player:`/`entity:`/`entities`/`inventory:`/`packets:`).
+//! `respawn` (`PlayerList.respawn` core), `tick`, `watch`, `dump` (`player:`/`entity:`/`entities`/`inventory:`).
 use crate::common;
 
 use crate::common::entity_oracle::*;
@@ -31,7 +31,6 @@ use mc_game::world::level::entity::Visibility;
 use mc_game::world::level::{BlockGetter, LevelAccessor};
 use mc_nbt::CompoundTag;
 use mc_protocol::codec::GameProfile;
-use mc_protocol::packet::{ConnectionState, PacketFlow, packet_names};
 use mc_world::level_storage::Difficulty;
 use std::collections::HashMap;
 use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
@@ -159,38 +158,6 @@ fn parse_stack(spec: &str, count: i32) -> ItemStack {
 
 // ---------------------------------------------------------------------------------------------------- replay
 
-/// Packet types compared (`PKT` lines of other types are dropped from both sides: join/respawn bursts, chunk and tracker traffic).
-const PKT_TYPES: &[&str] = &[
-    "minecraft:damage_event",
-    "minecraft:hurt_animation",
-    "minecraft:entity_event",
-    "minecraft:player_combat_kill",
-    "minecraft:player_combat_enter",
-    "minecraft:player_combat_end",
-    "minecraft:set_health",
-    "minecraft:set_experience",
-    "minecraft:update_mob_effect",
-    "minecraft:remove_mob_effect",
-    "minecraft:take_item_entity",
-    "minecraft:sound",
-];
-
-fn hex(bytes: &[u8]) -> String {
-    bytes.iter().map(|b| format!("{b:02x}")).collect()
-}
-
-fn read_varint(bytes: &[u8]) -> i32 {
-    let (mut value, mut shift) = (0i32, 0);
-    for &b in bytes {
-        value |= i32::from(b & 0x7f) << shift;
-        if b & 0x80 == 0 {
-            break;
-        }
-        shift += 7;
-    }
-    value
-}
-
 struct Replay {
     level: ServerLevel,
     refs: HashMap<String, EntityId>,
@@ -203,7 +170,6 @@ struct Replay {
     auto_counter: HashMap<String, i32>,
     watches: Vec<Vec<String>>,
     world: mc_game::server::level::level_data::SharedWorldData,
-    packet_names: HashMap<i32, &'static str>,
     /// the oracle world exists (first world command ran): every later command restarts the entity seed sequence
     booted: bool,
     /// players whose first chunk batch goes out at the end of the current tick
@@ -243,10 +209,6 @@ impl Replay {
                     .update_chunk_status(ChunkPos::new(cx, cz), Visibility::Ticking);
             }
         }
-        let packet_names = packet_names(ConnectionState::Play, PacketFlow::Clientbound)
-            .iter()
-            .copied()
-            .collect();
         Replay {
             level,
             refs: HashMap::new(),
@@ -259,7 +221,6 @@ impl Replay {
             auto_counter: HashMap::new(),
             watches: Vec::new(),
             world,
-            packet_names,
             booted: false,
             unsent_chunks: Vec::new(),
         }
@@ -867,23 +828,6 @@ impl Replay {
                     };
                     self.out.extend(lines);
                 }
-                "packets" => {
-                    let rx = self
-                        .rx
-                        .get_mut(arg)
-                        .unwrap_or_else(|| panic!("no player {arg}"));
-                    while let Ok(msg) = rx.try_recv() {
-                        let Outbound::Payload(p) = msg else { continue };
-                        let kind = self
-                            .packet_names
-                            .get(&read_varint(&p))
-                            .copied()
-                            .unwrap_or("?");
-                        if PKT_TYPES.contains(&kind) {
-                            self.out.push(format!("PKT {arg} {kind} {}", hex(&p)));
-                        }
-                    }
-                }
                 other => panic!("unsupported dump {other}"),
             }
         }
@@ -1010,66 +954,51 @@ impl Replay {
     }
 }
 
-fn replay(name: &str) -> Vec<String> {
-    let text = std::fs::read_to_string(scenario_dir().join(format!("{name}.txt"))).unwrap();
-    let mut r = Replay::new();
-    for line in text.lines() {
-        r.run_line(line);
-    }
-    r.out
-}
-
-/// `removeAllEffects` walks a `HashMap` keyed by registry holders, whose order the real server leaves to the identity hash
-/// of each run: a run of consecutive `remove_mob_effect` packets compares sorted.
-fn with_sorted_effect_removals(mut lines: Vec<String>) -> Vec<String> {
-    let removal = |l: &String| l.contains(" minecraft:remove_mob_effect ");
-    for run in lines.chunk_by_mut(|a, b| removal(a) && removal(b)) {
-        run.sort_unstable();
-    }
-    lines
-}
-
-/// A `sound` packet ends in the seed of the sound (`Level.playSound` draws it from the level's clock-seeded random): the
-/// 8 seed bytes are the one part of the packet that differs between runs of the real server, so they are masked on both sides.
-fn with_masked_sound_seeds(lines: Vec<String>) -> Vec<String> {
+/// The effect particle list of a `set_entity_data` packet (entity data 10, serializer 17, one 5 byte `entity_effect` option per effect)
+/// follows the iteration order of the entity's `HashMap` of effects, which the real server leaves to the identity hash of each
+/// run: the options of a list compare sorted.
+fn with_sorted_effect_particles(lines: Vec<String>) -> Vec<String> {
+    const OPTION: usize = 10; // `1c` + the ARGB int, in hex digits
     lines
         .into_iter()
-        .map(|l| {
-            let mut it = l.split(' ');
-            match (it.next(), it.nth(1), it.next()) {
-                (Some("PKT"), Some("minecraft:sound"), Some(hex)) if hex.len() > 16 => {
-                    format!("{} <seed>", &l[..l.len() - 16])
-                }
-                _ => l,
+        .map(|line| {
+            let Some((head, hex)) = line.rsplit_once(' ') else {
+                return line;
+            };
+            if !head.ends_with(" minecraft:set_entity_data") {
+                return line;
             }
+            let mut hex = hex.to_owned();
+            for at in (0..hex.len().saturating_sub(6)).step_by(2) {
+                let (start, end) = (
+                    at + 6,
+                    at + 6 + OPTION * usize::from_str_radix(&hex[at + 4..at + 6], 16).unwrap_or(0),
+                );
+                if &hex[at..at + 4] != "0a11" || end > hex.len() || end == start {
+                    continue;
+                }
+                let mut options: Vec<&str> = (start..end)
+                    .step_by(OPTION)
+                    .map(|o| &hex[o..o + OPTION])
+                    .collect();
+                if options.iter().any(|o| !o.starts_with("1c")) {
+                    continue;
+                }
+                options.sort_unstable();
+                let sorted = options.concat();
+                hex.replace_range(start..end, &sorted);
+            }
+            format!("{head} {hex}")
         })
         .collect()
 }
 
-/// The fixture without the `PKT` lines of types the replay does not produce, against the replay.
-fn compared(name: &str) -> Result<(), String> {
-    let mut fixture = Fixture::load(name);
-    fixture.lines.retain(|l| {
-        let mut it = l.split_whitespace();
-        it.next() != Some("PKT") || PKT_TYPES.contains(&it.nth(1).unwrap_or(""))
-    });
-    let actual = replay(name);
-    let opts = Options {
-        ignore_kinds: vec!["#", "CF"],
-        ..Default::default()
-    };
-    compare(
-        &with_sorted_effect_removals(with_masked_sound_seeds(fixture.lines)),
-        &with_sorted_effect_removals(with_masked_sound_seeds(actual)),
-        &opts,
-    )
-    .map_err(|report| format!("entity oracle fixture `{name}` differs:\n{report}"))
-}
-
 fn check(name: &str) {
-    if let Err(report) = compared(name) {
-        panic!("{report}");
-    }
+    common::block_scenario::check_normalised(
+        name,
+        &Options::default(),
+        with_sorted_effect_particles,
+    );
 }
 
 #[test]
@@ -1112,6 +1041,12 @@ fn difficulty_scaling() {
 #[test]
 fn zombie_hits_player() {
     check("hurt_basic");
+}
+
+/// A killed player stays in the player list: it still receives the block destruction progress of the others.
+#[test]
+fn killed_player_sees_block_destruction() {
+    common::block_scenario::check("damage_dead_dig");
 }
 
 #[test]

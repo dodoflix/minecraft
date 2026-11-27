@@ -149,6 +149,13 @@ impl DamageSource {
         self
     }
 
+    /// The same source with the direct entity `direct`, a snapshot of an entity that is no longer in a level.
+    pub fn with_direct_snapshot(mut self, direct: DamageEntity) -> DamageSource {
+        self.direct_entity = Some(direct.id);
+        self.direct = Some(Arc::new(direct));
+        self
+    }
+
     /// `toString()`.
     pub fn to_debug_string(&self) -> String {
         format!("DamageSource ({})", self.data.msg_id)

@@ -97,6 +97,11 @@ pub fn check_until(name: &str, marker: &str) {
 }
 
 pub fn check_with(name: &str, opts: &Options) {
+    check_normalised(name, opts, |lines| lines);
+}
+
+/// [`check_with`] with `normalise` applied to the fixture lines and the replay lines before they are compared.
+pub fn check_normalised(name: &str, opts: &Options, normalise: fn(Vec<String>) -> Vec<String>) {
     let actual = run_scenario(name);
     // `BLOCK_SCENARIO_ACTUAL=DIR` writes the replay output to DIR/NAME.txt, to diff it against the fixture by hand
     if let Some(dir) = std::env::var_os("BLOCK_SCENARIO_ACTUAL") {
@@ -110,7 +115,7 @@ pub fn check_with(name: &str, opts: &Options) {
     let mut opts = opts.clone();
     // light updates come from the light thread: which tick carries them depends on thread timing in vanilla
     opts.ignore_containing.push("minecraft:light_update");
-    if let Err(report) = compare(&fixture.lines, &actual, &opts) {
+    if let Err(report) = compare(&normalise(fixture.lines), &normalise(actual), &opts) {
         panic!(
             "block oracle scenario `{name}` differs from {}:\n{report}",
             fixture_dir().join(format!("{name}.txt")).display()
@@ -130,6 +135,13 @@ pub fn run_scenario_text(text: &str) -> Vec<String> {
         super::init_logger();
     }
     let mut s = Scenario::new();
+    s.actors.damage_source_refs = text
+        .split_whitespace()
+        .filter_map(|t| t.strip_prefix("by=").or_else(|| t.strip_prefix("direct=")))
+        .map(str::to_owned)
+        .collect::<std::collections::BTreeSet<_>>()
+        .into_iter()
+        .collect();
     // precipitation, the bone meal feature lists, the coral bone meal tag and the biome criteria of advancements (adventuring time) read
     // the biome (natural spawning reads the spawn table of the biome): only the weather, `biome`, spawning, bone meal and advancement scenarios pay for the real biome registry
     s.real_biomes = text.lines().any(|l| {
@@ -1619,6 +1631,7 @@ impl Scenario {
         mc_core::random::reseed_uniquifier(
             8682522807148012i64 ^ ((self.ticks + 1).wrapping_mul(0x9E3779B97F4A7C15u64 as i64)),
         );
+        self.snapshot_damage_sources();
         self.settle_chunks();
         self.apply_player_inputs();
         // `tickChildren` runs the `#minecraft:load` / `#minecraft:tick` functions first, before the time synchronization and the levels
