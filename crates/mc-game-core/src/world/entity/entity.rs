@@ -5442,18 +5442,19 @@ pub fn load<E: Entity + ?Sized>(
         b.set_ticks_frozen(input.get_int_or("TicksFrozen", 0));
         b.has_visual_fire = input.get_boolean_or("HasVisualFire", false);
         b.custom_data = input.get_compound(TAG_DATA).cloned().unwrap_or_default();
-        // `input.read("Tags", TAG_LIST_CODEC)`: the entries are taken below, the codec only reports a failed decode
+        // `input.read("Tags", TAG_LIST_CODEC).ifPresent(tags::addAll)`: a list over the limit keeps its first entries, and the
+        // codec reports the failed decode
         static TAG_LIST: std::sync::LazyLock<mc_dfu::Codec<Vec<String>>> =
             std::sync::LazyLock::new(|| mc_dfu::STRING.size_limited_list_of(MAX_ENTITY_TAG_COUNT));
         let _ = read_codec(input, "Tags", &TAG_LIST);
         b.tags.clear();
-        if let Some(list) = input.get_list("Tags")
-            && list.len() <= MAX_ENTITY_TAG_COUNT
-        {
-            for t in list.iter() {
-                if let Some(s) = t.as_string() {
-                    b.tags.insert(s);
-                }
+        if let Some(list) = input.get_list("Tags") {
+            for s in list
+                .iter()
+                .filter_map(|t| t.as_string())
+                .take(MAX_ENTITY_TAG_COUNT)
+            {
+                b.tags.insert(s);
             }
         }
     }
