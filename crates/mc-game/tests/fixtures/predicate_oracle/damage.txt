@@ -1,7 +1,5 @@
 EFFECT zombie minecraft:speed added=true
 # the players are not ticked in either level: ground contact is set
-C Created team [red]
-C Added Zombie to team [red]
 R d_in_fire_n true
 J d_in_fire_n {"tags":[{"id":"#minecraft:is_fire","expected":true}]}
 R e_in_fire_n false

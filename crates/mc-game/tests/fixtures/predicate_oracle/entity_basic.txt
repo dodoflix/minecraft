@@ -3,12 +3,6 @@ EFFECT Steve minecraft:glowing added=true
 EFFECT Pat minecraft:poison added=true
 EFFECT zombie1 minecraft:weakness added=true
 EFFECT zombie1 minecraft:slowness added=true
-C Created team [red]
-C Added Steve to team [red]
-C A team already exists by that name
-C Added Pig to team [red]
-C Created team [blue]
-C Added Alex to team [blue]
 R t1 true
 J t1 {"minecraft:entity_type":"minecraft:player"}
 R t2 false
