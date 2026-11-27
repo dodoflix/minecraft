@@ -853,11 +853,12 @@ impl ChunkMap {
                 }
                 holder.biome_view.clone()
             }
-            ChunkSlot::Level(l) => Some(Arc::new(biome_only_chunk(
-                &l.data.access,
-                self.level_height,
-                &self.factory,
-            ))),
+            ChunkSlot::Level(l) => {
+                // a full chunk is an `ImposterProtoChunk` to the chunks around it (`collectPossibleBiomes` tells them apart)
+                let mut view = biome_only_chunk(&l.data.access, self.level_height, &self.factory);
+                view.set_persisted_status(ChunkStatus::Full);
+                Some(Arc::new(view))
+            }
             _ => holder.biome_view.clone(),
         }
     }

@@ -10,6 +10,7 @@ use mc_core::ident::Identifier;
 use mc_core::pos::{ChunkPos, SectionPos};
 use mc_world::chunk::ProtoChunk;
 use mc_world::palette::BiomeId;
+use mc_world::status::ChunkStatus;
 use mc_worldgen::biome::{BiomeManager, BiomeResolver};
 use mc_worldgen::generator::{BuildTerrainContext, ChunkGenerator};
 use mc_worldgen::random_state::RandomState;
@@ -48,6 +49,14 @@ impl NoiseWorldGenerator {
 
     pub fn generator(&self) -> &Arc<dyn ChunkGenerator> {
         &self.generator
+    }
+
+    /// The biome a fresh chunk section holds (`PalettedContainerFactory.defaultBiome`).
+    fn default_biome(&self) -> BiomeId {
+        self.gen_env
+            .get()
+            .and_then(|env| env.biomes.id_of_name("plains"))
+            .expect("the generation environment registers plains")
     }
 
     pub fn random_state(&self) -> &Arc<RandomState> {
@@ -113,7 +122,13 @@ impl ChunkGeneratorBackend for NoiseWorldGenerator {
                 if pos == center {
                     chunk.access.collect_biomes_in_palette(&mut collect);
                 } else if let Some(c) = region.get_chunk(pos.x, pos.z) {
-                    c.access.collect_biomes_in_palette(&mut collect);
+                    if c.get_persisted_status() == ChunkStatus::Full {
+                        // `ImposterProtoChunk` over a full chunk: `collectBiomesInPalette` walks its own sections (a fresh
+                        // chunk's, all the default biome), not those of the chunk it wraps
+                        collect(self.default_biome());
+                    } else {
+                        c.access.collect_biomes_in_palette(&mut collect);
+                    }
                 }
             }
         }
