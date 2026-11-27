@@ -11,13 +11,15 @@ const DEFAULT_UNIVERSE_DIR: &str = "gametestserver";
 /// `parser.printHelpOn(System.err)`, as the real jar prints it.
 const HELP: &str = include_str!("game_test_help.txt");
 
-/// An exception of the option parser or of the file operations: what vanilla's uncaught exception prints through its
-/// `System.err` log redirect (first line, then the `Caused by:` lines; the stack frames are not reproduced).
+/// An exception of the option parser or of the file operations. After `Bootstrap` it is what vanilla's uncaught exception
+/// prints through its `System.err` log redirect (first line, then the `Caused by:` lines; the stack frames are not
+/// reproduced); before it, the trace goes to the process's own stderr and nothing is logged.
 #[derive(Debug)]
 struct Exception {
     class: &'static str,
     message: String,
     caused_by: Vec<String>,
+    before_bootstrap: bool,
 }
 
 impl Exception {
@@ -26,6 +28,15 @@ impl Exception {
             class,
             message,
             caused_by: Vec::new(),
+            before_bootstrap: false,
+        }
+    }
+
+    /// Marks an exception thrown while `runGameTestServer` still runs ahead of `Bootstrap.bootStrap()`.
+    fn before_bootstrap(self) -> Self {
+        Self {
+            before_bootstrap: true,
+            ..self
         }
     }
 
@@ -33,9 +44,19 @@ impl Exception {
     /// with 0.
     #[expect(
         clippy::print_stderr,
-        reason = "the default uncaught exception handler writes its prefix to the process's stderr"
+        reason = "the default uncaught exception handler writes to the process's stderr"
     )]
     fn report(&self) -> i32 {
+        if self.before_bootstrap {
+            eprintln!(
+                "Exception in thread \"ServerMain\" {}: {}",
+                self.class, self.message
+            );
+            for cause in &self.caused_by {
+                eprintln!("Caused by: {cause}");
+            }
+            return 0;
+        }
         // `System.err` (the log redirect) prints the trace; only the handler's own prefix reaches the real stderr
         eprint!("Exception in thread \"ServerMain\" ");
         log::info!("[STDERR]: {}: {}", self.class, self.message);
@@ -181,6 +202,7 @@ fn repeat_count_of(text: &str) -> Result<i32, Exception> {
             ),
             format!("java.lang.NumberFormatException: For input string: \"{text}\""),
         ],
+        before_bootstrap: false,
     })
 }
 
@@ -195,24 +217,16 @@ pub fn run_game_test_server(args: &[String]) -> i32 {
     reason = "the help text and the parser's exception go to stderr, as in vanilla"
 )]
 fn run(args: &[String]) -> Result<i32, Exception> {
-    // the parser runs before the console log exists: its exception goes to the process's own stderr
-    let options = match parse(args) {
-        Ok(options) => options,
-        Err(exception) => {
-            eprintln!(
-                "Exception in thread \"ServerMain\" {}: {}",
-                exception.class, exception.message
-            );
-            return Ok(0);
-        }
-    };
+    // the parser and the first option reads run ahead of `Bootstrap`: their exceptions go to the process's own stderr
+    let options = parse(args).map_err(Exception::before_bootstrap)?;
     if options.help {
         eprint!("{HELP}");
         return Ok(0);
     }
     // `Boolean.valueOf`: anything but "true" is false
     let verify = options
-        .value_of("verify")?
+        .value_of("verify")
+        .map_err(Exception::before_bootstrap)?
         .is_some_and(|v| v.eq_ignore_ascii_case("true"));
     if verify && !options.has("tests") {
         log::error!(
@@ -224,7 +238,8 @@ fn run(args: &[String]) -> Result<i32, Exception> {
         log::info!("Flag --verify is true, the --repeatCount value will be ignored");
     }
     let universe = options
-        .value_of("universe")?
+        .value_of("universe")
+        .map_err(Exception::before_bootstrap)?
         .unwrap_or(DEFAULT_UNIVERSE_DIR);
     log::info!(
         "Running GameTestMain with cwd '{}', universe path '{}'",
@@ -233,7 +248,10 @@ fn run(args: &[String]) -> Result<i32, Exception> {
             .unwrap_or_default(),
         universe
     );
-    if let Some(report) = options.value_of("report")? {
+    if let Some(report) = options
+        .value_of("report")
+        .map_err(Exception::before_bootstrap)?
+    {
         global_test_reporter::replace_with(Box::new(JUnitLikeTestReporter::new(PathBuf::from(
             report,
         ))));

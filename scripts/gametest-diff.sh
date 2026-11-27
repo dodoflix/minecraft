@@ -4,8 +4,9 @@
 # the stderr (the option parser's errors and the help text, without frame lines), the layout of `<universe>/gametestworld` and the `--report` XML.
 #
 #   scripts/gametest-diff.sh [--record DIR | --golden DIR] [--ours-bin PATH] [--no-build] [--keep] [CASE...]
-#   cases: pass abbrev ambiguous cluster cluster_missing cluster_plain double_dash dup_tests lone_dash repeat3 repeat_bad
-#   single_dash verify verify_bad packs missing verify_alone help (default: every case but verify, which runs 400 tests)
+#   cases: pass abbrev ambiguous cluster cluster_missing cluster_plain double_dash dup_packs dup_report dup_tests
+#   dup_universe dup_verify lone_dash repeat3 repeat_bad single_dash verify verify_bad packs missing verify_alone help
+#   (default: every case but verify, which runs 400 tests)
 #
 # --record DIR  vanilla side only; writes DIR/<case>.vanilla.txt (the committed recordings live in
 #               crates/mc-server/tests/fixtures/gametest_main; record twice and diff before committing)
@@ -50,7 +51,7 @@ while (($#)); do
     *) CASES+=("$1"); shift;;
   esac
 done
-((${#CASES[@]})) || CASES=(pass abbrev ambiguous cluster cluster_missing cluster_plain double_dash dup_tests lone_dash repeat3 repeat_bad single_dash verify_bad packs missing verify_alone help)
+((${#CASES[@]})) || CASES=(pass abbrev ambiguous cluster cluster_missing cluster_plain double_dash dup_packs dup_report dup_tests dup_universe dup_verify lone_dash repeat3 repeat_bad single_dash verify_bad packs missing verify_alone help)
 TARGET="${CARGO_TARGET_DIR:-$ROOT/target}"
 if [ "$MODE" != record ]; then
   if ((BUILD)); then
@@ -74,7 +75,11 @@ case_args() {
     abbrev) echo "--tes minecraft:always_pass --repeatC 2" ;;
     ambiguous) echo "--tests minecraft:always_pass --re 3" ;;
     double_dash) echo "--tests minecraft:always_pass -- --repeatCount 3" ;;
+    dup_packs) echo "--universe u-dup_packs --packs $WORK/packs-gt --packs $WORK/packs-gt --tests gt:*" ;;
+    dup_report) echo "--universe u-dup_report --report rep-dup_report.xml --report other.xml --tests minecraft:always_pass" ;;
     dup_tests) echo "--tests minecraft:always_pass --tests nobody:nothing" ;;
+    dup_universe) echo "--universe u-dup_universe --universe u-other --tests minecraft:always_pass" ;;
+    dup_verify) echo "--verify true --verify false --tests minecraft:always_pass" ;;
     lone_dash) echo "- --tests minecraft:always_pass" ;;
     single_dash) echo "-tests minecraft:always_pass" ;;
     repeat3) echo "--tests minecraft:always_pass --repeatCount 3" ;;

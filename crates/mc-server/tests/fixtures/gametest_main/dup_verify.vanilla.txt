@@ -1,0 +1,5 @@
+== exit
+0
+== log
+== stderr
+Exception in thread "ServerMain" joptsimple.MultipleArgumentsForOptionException: Found multiple arguments for option verify, but you asked for only one

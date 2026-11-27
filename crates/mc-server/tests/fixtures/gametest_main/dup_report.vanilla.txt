@@ -1,0 +1,6 @@
+== exit
+0
+== log
+[ServerMain] Running GameTestMain with cwd '<CWD>', universe path 'u-dup_report'
+== stderr
+Exception in thread "ServerMain" joptsimple.MultipleArgumentsForOptionException: Found multiple arguments for option report, but you asked for only one

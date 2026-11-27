@@ -1,0 +1,8 @@
+== exit
+0
+== log
+[ServerMain] Running GameTestMain with cwd '<CWD>', universe path 'u-dup_packs'
+[ServerMain] [STDERR]: joptsimple.MultipleArgumentsForOptionException: Found multiple arguments for option packs, but you asked for only one
+== stderr
+Exception in thread "ServerMain" 
+== universe
