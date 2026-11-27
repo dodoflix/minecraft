@@ -100,7 +100,8 @@ fn try_generate_structure(
     let source_chunk_pos = center_chunk.access.pos;
     let references = fetch_references(manager, center_chunk, holder);
     let biome_allowed = structure.biomes();
-    let height_accessor = center_chunk.get_height_accessor_for_generation();
+    // vanilla passes the chunk itself (its full height), not the retrogen generation height
+    let height_accessor = center_chunk.access.level_height;
     let mut start = generate_structure(
         env,
         holder,
