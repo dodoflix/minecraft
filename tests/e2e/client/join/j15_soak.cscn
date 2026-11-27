@@ -1,0 +1,18 @@
+# Idle for 300 s of game time, then walk forward for a second: the client stays connected.
+server seed=12345
+# two vanilla servers end up 2.6 blocks apart after the same key press (client and server clocks drift by a tick or two)
+tolerate player.pos.* 4
+tolerate entities.0.pos.* 4
+tolerate player.motion.* 0.2
+tolerate entities.0.motion.* 0.2
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+wait_state ticks_in_level >= 6000 400
+snapshot idle
+ctl {"cmd": "key", "key": "w", "action": "press"}
+wait_state ticks_in_level >= 6040 30
+ctl {"cmd": "key", "key": "w", "action": "release"}
+snapshot walked
+client disconnect
+wait_screen TitleScreen 30
