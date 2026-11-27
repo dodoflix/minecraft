@@ -90,7 +90,7 @@ impl LegacyTextFilter {
             let mut object = JsonObject::new();
             string_property(&mut object, "server", &join_or_leave_server);
             string_property(&mut object, "room", &join_or_leave_room);
-            string_property(&mut object, "user_id", &user.id.to_string());
+            string_property(&mut object, "user_id", user.id.to_string());
             string_property(&mut object, "user_display_name", &user.name);
             object
         });
@@ -100,7 +100,7 @@ impl LegacyTextFilter {
                 object.add_property_int("rule", i64::from(rule_id));
                 string_property(&mut object, "server", &server_id);
                 string_property(&mut object, "room", &room_id);
-                string_property(&mut object, "player", &sender.id.to_string());
+                string_property(&mut object, "player", sender.id.to_string());
                 string_property(&mut object, "player_display_name", &sender.name);
                 string_property(&mut object, "text", message);
                 string_property(&mut object, "language", "*");
@@ -113,7 +113,7 @@ impl LegacyTextFilter {
                 string_property(&mut object, "rule_id", &rule_id);
                 string_property(&mut object, "category", &server_id);
                 string_property(&mut object, "subcategory", &room_id);
-                string_property(&mut object, "user_id", &sender.id.to_string());
+                string_property(&mut object, "user_id", sender.id.to_string());
                 string_property(&mut object, "user_display_name", &sender.name);
                 string_property(&mut object, "text", message);
                 string_property(&mut object, "language", "*");
