@@ -22,6 +22,7 @@ mod entity_dual;
 mod entity_persistence;
 mod file_fix_resume;
 mod gametest_main;
+mod jfr_dual;
 mod join_ours;
 mod join_ours_state;
 mod join_phase;

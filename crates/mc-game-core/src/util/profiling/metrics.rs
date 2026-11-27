@@ -124,7 +124,7 @@ struct CpuStats {
 }
 
 /// (busy + idle total, idle) ticks per logical processor.
-fn read_cpu_ticks() -> Vec<(u64, u64)> {
+pub(super) fn read_cpu_ticks() -> Vec<(u64, u64)> {
     let Ok(stat) = std::fs::read_to_string("/proc/stat") else {
         return Vec::new();
     };
@@ -178,7 +178,7 @@ impl CpuStats {
 }
 
 /// `SystemReport.sizeInMiB(Runtime used memory)`: here the resident set of the process.
-fn resident_mib() -> f64 {
+pub(super) fn resident_mib() -> f64 {
     let pages: u64 = std::fs::read_to_string("/proc/self/statm")
         .ok()
         .and_then(|s| s.split_whitespace().nth(1)?.parse().ok())
@@ -188,9 +188,8 @@ fn resident_mib() -> f64 {
 
 /// The `MetricsRegistry` samplers of the executors a dedicated server registers: one `<name>-pending-tasks` per event
 /// loop (the server and each level's chunk source) and one `<name>-queue-size` per consecutive executor.
-/// This server has no such queues (its work runs on thread pools without a queue counter), so every column reads zero.
-/// Vanilla writes the columns in the iteration order of a hash set, which depends on the CPU count and the levels;
-/// they are written here in creation order.
+/// analogue: this server has no such queues (its work runs on thread pools without a queue counter), so every column
+/// reads zero.
 fn executor_samplers(level_names: &[String]) -> Vec<MetricSampler> {
     const CONSECUTIVE_EXECUTORS: [&str; 7] = [
         "light",

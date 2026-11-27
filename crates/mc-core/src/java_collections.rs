@@ -38,8 +38,19 @@ pub const HASH_MAP_DEFAULT_CAPACITY: usize = 16;
 /// at `initial_capacity` (a power of two; `HASH_MAP_DEFAULT_CAPACITY` for `new HashMap<>()`) and doubles while the size
 /// exceeds 0.75 of it. Treeified bins (8+ colliding keys in a 64+ table) reorder their members and are not modelled.
 pub fn hash_map_order(hashes: &[i32], initial_capacity: usize) -> Vec<usize> {
+    hash_map_order_sized(hashes, initial_capacity, hashes.len())
+}
+
+/// [`hash_map_order`] for a table that was last resized for `sized_for` entries (at most `hashes.len()`):
+/// `computeIfAbsent`, `compute` and `merge` check the size against the threshold before they insert, so after an insert
+/// that made the 13th, 25th, ... entry the table is still the smaller one (`sized_for` = `hashes.len() - 1`).
+pub fn hash_map_order_sized(
+    hashes: &[i32],
+    initial_capacity: usize,
+    sized_for: usize,
+) -> Vec<usize> {
     let mut cap = table_size_for(initial_capacity);
-    while hashes.len() > (cap as f32 * 0.75f32) as usize {
+    while sized_for > (cap as f32 * 0.75f32) as usize {
         cap *= 2;
     }
     let bucket = |h: i32| ((h ^ ((h as u32) >> 16) as i32) as u32 as usize) & (cap - 1);
@@ -54,9 +65,20 @@ pub fn hash_map_ordered<T>(
     hash: impl Fn(&T) -> i32,
     initial_capacity: usize,
 ) -> Vec<T> {
+    let sized_for = items.len();
+    hash_map_ordered_sized(items, hash, initial_capacity, sized_for)
+}
+
+/// [`hash_map_ordered`] for a table sized for `sized_for` entries, see [`hash_map_order_sized`].
+pub fn hash_map_ordered_sized<T>(
+    items: Vec<T>,
+    hash: impl Fn(&T) -> i32,
+    initial_capacity: usize,
+    sized_for: usize,
+) -> Vec<T> {
     let hashes: Vec<i32> = items.iter().map(&hash).collect();
     let mut slots: Vec<Option<T>> = items.into_iter().map(Some).collect();
-    hash_map_order(&hashes, initial_capacity)
+    hash_map_order_sized(&hashes, initial_capacity, sized_for)
         .into_iter()
         .filter_map(|i| slots[i].take())
         .collect()

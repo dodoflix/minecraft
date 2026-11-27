@@ -1,11 +1,15 @@
 //! `JvmProfiler` / `JfrProfiler` for `/jfr start|stop`: a flight recording of the server written as a real JFR chunk
 //! (`debug/server-<timestamp>.jfr`, readable with the `jfr` tool / JMC).
 //!
-//! Recorded events are the Minecraft ones: `minecraft.ServerTickTime` (every second), `minecraft.PacketReceived` /
-//! `minecraft.PacketSent` and `minecraft.NetworkSummary` (every 10 s), `minecraft.ChunkGeneration` (one per chunk
-//! step), `minecraft.ChunkRegionRead` / `minecraft.ChunkRegionWrite`, `minecraft.StructureGeneration` and
-//! `minecraft.LoadWorld`. Not produced: the JVM's own events (GC, allocation, file IO); the summary written next to
-//! the recording (`SummaryReporter`) reports those JVM-only sections as empty.
+//! Recorded events are the Minecraft ones: `minecraft.ServerTickTime` and `minecraft.ClientFps` (every second; a
+//! server's frame rate is `0`), `minecraft.PacketReceived` / `minecraft.PacketSent` and `minecraft.NetworkSummary`
+//! (every 10 s), `minecraft.ChunkGeneration` (one per chunk step), `minecraft.ChunkRegionRead` /
+//! `minecraft.ChunkRegionWrite`, `minecraft.StructureGeneration` and `minecraft.LoadWorld`. Their types carry the
+//! settings and header fields the JDK gives an event class; the thread and stack trace of an event are null
+//! references, since there are no Java threads or stacks. The JVM's own events have analogues only where this process
+//! has the same quantity: `jdk.CPULoad` (every second, from `/proc`) and a `jdk.GCHeapSummary` pair at the start and
+//! at the stop (the resident size: there is no collector). Not produced: collections, per-thread allocation and file
+//! IO events.
 
 use std::fs::File;
 use std::io::{self, BufWriter, Write};
@@ -17,23 +21,27 @@ use indexmap::IndexMap;
 use parking_lot::Mutex;
 use serde_json::{Map, Value, json};
 
-use mc_core::java_collections::hash_map_ordered;
+use mc_core::java_collections::hash_map_ordered_sized;
 use mc_core::math::java::{
     java_double_to_string, java_float_to_string, java_string_hash, max_f64, min_f64,
 };
 
+use super::metrics::{read_cpu_ticks, resident_mib};
 use crate::util::util::get_nanos;
 
 const TICKS_PER_SECOND: i64 = 1_000_000_000;
 /// `@Period("1 s")` / `@Period("10 s")`.
 const SERVER_TICK_PERIOD_NANOS: i64 = 1_000_000_000;
 const NETWORK_SUMMARY_PERIOD_NANOS: i64 = 10_000_000_000;
+/// `jdk.CPULoad` is periodic every second.
+const CPU_LOAD_PERIOD_NANOS: i64 = 1_000_000_000;
 
 // ---- type ids of the chunk's metadata ----
 const T_LONG: i64 = 1;
 const T_INT: i64 = 2;
 const T_STRING: i64 = 3;
 const T_BOOLEAN: i64 = 4;
+const T_FLOAT: i64 = 5;
 const T_LABEL: i64 = 10;
 const T_DESCRIPTION: i64 = 11;
 const T_NAME: i64 = 12;
@@ -42,6 +50,22 @@ const T_CONTENT_TYPE: i64 = 14;
 const T_TIMESTAMP: i64 = 15;
 const T_TIMESPAN: i64 = 16;
 const T_DATA_AMOUNT: i64 = 17;
+const T_BOOLEAN_FLAG: i64 = 18;
+const T_THREAD: i64 = 20;
+const T_THREAD_GROUP: i64 = 21;
+const T_STACK_TRACE: i64 = 22;
+const T_STACK_FRAME: i64 = 23;
+const T_METHOD: i64 = 24;
+const T_CLASS: i64 = 25;
+const T_CLASS_LOADER: i64 = 26;
+const T_PACKAGE: i64 = 27;
+const T_MODULE: i64 = 28;
+const T_SYMBOL: i64 = 29;
+const T_FRAME_TYPE: i64 = 30;
+const T_SETTING_ENABLED: i64 = 34;
+const T_SETTING_STACK_TRACE: i64 = 35;
+const T_SETTING_THRESHOLD: i64 = 36;
+const T_SETTING_PERIOD: i64 = 37;
 const T_EVENT_SERVER_TICK: i64 = 100;
 const T_EVENT_PACKET_RECEIVED: i64 = 101;
 const T_EVENT_PACKET_SENT: i64 = 102;
@@ -51,6 +75,9 @@ const T_EVENT_CHUNK_REGION_READ: i64 = 105;
 const T_EVENT_CHUNK_REGION_WRITE: i64 = 106;
 const T_EVENT_STRUCTURE_GENERATION: i64 = 107;
 const T_EVENT_LOAD_WORLD: i64 = 108;
+const T_EVENT_GC_HEAP_SUMMARY: i64 = 109;
+const T_EVENT_CPU_LOAD: i64 = 110;
+const T_EVENT_CLIENT_FPS: i64 = 111;
 
 /// `Environment.SERVER`.
 pub const ENVIRONMENT_DESCRIPTION: &str = "server";
@@ -155,8 +182,8 @@ fn annotation_class(name: &str, id: i64, value_dimension: bool, children: Vec<El
             .attributes
             .push(("dimension".to_owned(), "1".to_owned()));
     }
-    // `jdk.jfr.ContentType` has no `value` member
-    let mut all = if name == "jdk.jfr.ContentType" {
+    // `jdk.jfr.ContentType` and `jdk.jfr.BooleanFlag` have no `value` member
+    let mut all = if matches!(name, "jdk.jfr.ContentType" | "jdk.jfr.BooleanFlag") {
         vec![]
     } else {
         vec![field]
@@ -173,8 +200,23 @@ fn annotation_class(name: &str, id: i64, value_dimension: bool, children: Vec<El
     )
 }
 
-/// The fields every event starts with.
+/// The fields every event starts with. The thread and the stack trace are constant pool references that these events
+/// leave `0` (`null`): a recording of this server has no Java threads or stacks to name.
 fn event_header_fields() -> Vec<Element> {
+    let reference = |name: &str, label: &str, description: &str, class: i64| {
+        let mut member = field(
+            name,
+            class,
+            vec![
+                annotation(T_LABEL, label),
+                annotation(T_DESCRIPTION, description),
+            ],
+        );
+        member
+            .attributes
+            .push(("constantPool".to_owned(), "true".to_owned()));
+        member
+    };
     vec![
         field(
             "startTime",
@@ -192,23 +234,90 @@ fn event_header_fields() -> Vec<Element> {
                 annotation(T_TIMESPAN, "TICKS"),
             ],
         ),
+        reference(
+            "eventThread",
+            "Event Thread",
+            "Thread in which event was committed in",
+            T_THREAD,
+        ),
+        reference(
+            "stackTrace",
+            "Stack Trace",
+            "Stack Trace starting from the method the event was committed in",
+            T_STACK_TRACE,
+        ),
     ]
 }
 
-fn event_class(name: &str, id: i64, label: &str, category: &str, fields: Vec<Element>) -> Element {
-    let mut children = event_header_fields();
+fn setting(name: &str, class: i64, default: &str) -> Element {
+    element(
+        "setting",
+        &[
+            ("name", name),
+            ("class", &class.to_string()),
+            ("defaultValue", default),
+        ],
+        vec![],
+    )
+}
+
+/// The settings of an event with a duration: the default `@Threshold("0 ns")` and `@StackTrace(false)`, and its
+/// `@Enabled`.
+fn threshold_settings(enabled: bool) -> Vec<Element> {
+    vec![
+        setting("threshold", T_SETTING_THRESHOLD, "0 ns"),
+        setting("stackTrace", T_SETTING_STACK_TRACE, "false"),
+        setting(
+            "enabled",
+            T_SETTING_ENABLED,
+            if enabled { "true" } else { "false" },
+        ),
+    ]
+}
+
+/// The settings of a periodic event (`@Period`).
+fn periodic_settings(period: &str) -> Vec<Element> {
+    vec![
+        setting("period", T_SETTING_PERIOD, period),
+        setting("enabled", T_SETTING_ENABLED, "true"),
+    ]
+}
+
+fn event_class(
+    name: &str,
+    id: i64,
+    label: &str,
+    category: &str,
+    settings: Vec<Element>,
+    fields: Vec<Element>,
+) -> Element {
+    event_class_in(name, id, label, &["Minecraft", category], settings, fields)
+}
+
+fn event_class_in(
+    name: &str,
+    id: i64,
+    label: &str,
+    categories: &[&str],
+    settings: Vec<Element>,
+    fields: Vec<Element>,
+) -> Element {
+    let mut children = settings;
+    children.extend(event_header_fields());
     children.extend(fields);
     children.push(annotation(T_NAME, name));
     children.push(annotation(T_LABEL, label));
-    children.push(element(
-        "annotation",
-        &[
-            ("class", &T_CATEGORY.to_string()),
-            ("value-0", "Minecraft"),
-            ("value-1", category),
-        ],
-        vec![],
-    ));
+    let category_class = T_CATEGORY.to_string();
+    let mut attributes = vec![("class", category_class.as_str())];
+    let keys: Vec<String> = (0..categories.len())
+        .map(|i| format!("value-{i}"))
+        .collect();
+    attributes.extend(
+        keys.iter()
+            .map(String::as_str)
+            .zip(categories.iter().copied()),
+    );
+    children.push(element("annotation", &attributes, vec![]));
     element(
         "class",
         &[
@@ -243,6 +352,229 @@ fn region_io_fields() -> Vec<Element> {
     ]
 }
 
+/// A `jdk.types.*` (or `java.lang.*`) class: its members as (name, label, class, constant pool reference, array) and its
+/// own label (none when empty).
+fn plain_class(
+    name: &str,
+    id: i64,
+    simple: bool,
+    label: &str,
+    members: &[(&str, &str, i64, bool, bool)],
+) -> Element {
+    let mut children: Vec<Element> = members
+        .iter()
+        .map(|&(member, member_label, class, pooled, array)| {
+            let mut member = field(member, class, vec![annotation(T_LABEL, member_label)]);
+            if pooled {
+                member
+                    .attributes
+                    .push(("constantPool".to_owned(), "true".to_owned()));
+            }
+            if array {
+                member
+                    .attributes
+                    .push(("dimension".to_owned(), "1".to_owned()));
+            }
+            member
+        })
+        .collect();
+    if !label.is_empty() {
+        children.push(annotation(T_LABEL, label));
+    }
+    let id = id.to_string();
+    let mut attributes = vec![("name", name)];
+    if simple {
+        attributes.push(("simpleType", "true"));
+    }
+    attributes.push(("id", &id));
+    element("class", &attributes, children)
+}
+
+/// A `jdk.jfr.SettingControl` class: what the settings of an event refer to.
+fn setting_class(
+    name: &str,
+    id: i64,
+    label: &str,
+    description: &str,
+    extra: Vec<Element>,
+) -> Element {
+    let mut children = vec![
+        annotation(T_LABEL, label),
+        annotation(T_DESCRIPTION, description),
+        annotation(T_NAME, name),
+    ];
+    children.extend(extra);
+    element(
+        "class",
+        &[
+            ("name", name),
+            ("superType", "jdk.jfr.SettingControl"),
+            ("id", &id.to_string()),
+        ],
+        children,
+    )
+}
+
+/// What the header fields (`eventThread`, `stackTrace`) and the settings of the events refer to.
+fn supporting_types() -> Vec<Element> {
+    let flag = || {
+        element(
+            "annotation",
+            &[("class", &T_BOOLEAN_FLAG.to_string())],
+            vec![],
+        )
+    };
+    vec![
+        setting_class(
+            "jdk.settings.Enabled",
+            T_SETTING_ENABLED,
+            "Enabled",
+            "Record event",
+            vec![flag()],
+        ),
+        setting_class(
+            "jdk.settings.StackTrace",
+            T_SETTING_STACK_TRACE,
+            "Stack Trace",
+            "Record stack traces",
+            vec![flag()],
+        ),
+        setting_class(
+            "jdk.settings.Threshold",
+            T_SETTING_THRESHOLD,
+            "Threshold",
+            "Record event with duration above or equal to threshold",
+            vec![annotation(T_TIMESPAN, "NANOSECONDS")],
+        ),
+        setting_class(
+            "jdk.settings.Period",
+            T_SETTING_PERIOD,
+            "Period",
+            "Record event at interval",
+            vec![],
+        ),
+        plain_class(
+            "java.lang.Thread",
+            T_THREAD,
+            false,
+            "Thread",
+            &[
+                ("osName", "OS Thread Name", T_STRING, false, false),
+                ("osThreadId", "OS Thread Id", T_LONG, false, false),
+                ("javaName", "Java Thread Name", T_STRING, false, false),
+                ("javaThreadId", "Java Thread Id", T_LONG, false, false),
+                ("group", "Java Thread Group", T_THREAD_GROUP, true, false),
+                ("virtual", "Virtual Thread", T_BOOLEAN, false, false),
+            ],
+        ),
+        plain_class(
+            "jdk.types.ThreadGroup",
+            T_THREAD_GROUP,
+            false,
+            "Thread Group",
+            &[
+                ("parent", "Parent", T_THREAD_GROUP, true, false),
+                ("name", "Name", T_STRING, false, false),
+            ],
+        ),
+        plain_class(
+            "jdk.types.StackTrace",
+            T_STACK_TRACE,
+            false,
+            "Stacktrace",
+            &[
+                ("truncated", "Truncated", T_BOOLEAN, false, false),
+                ("frames", "Stack Frames", T_STACK_FRAME, false, true),
+            ],
+        ),
+        plain_class(
+            "jdk.types.StackFrame",
+            T_STACK_FRAME,
+            false,
+            "",
+            &[
+                ("method", "Java Method", T_METHOD, true, false),
+                ("lineNumber", "Line Number", T_INT, false, false),
+                ("bytecodeIndex", "Bytecode Index", T_INT, false, false),
+                ("type", "Frame Type", T_FRAME_TYPE, true, false),
+            ],
+        ),
+        plain_class(
+            "jdk.types.Method",
+            T_METHOD,
+            false,
+            "Java Method",
+            &[
+                ("type", "Type", T_CLASS, true, false),
+                ("name", "Name", T_SYMBOL, true, false),
+                ("descriptor", "Descriptor", T_SYMBOL, true, false),
+                ("modifiers", "Access Modifiers", T_INT, false, false),
+                ("hidden", "Hidden", T_BOOLEAN, false, false),
+            ],
+        ),
+        plain_class(
+            "java.lang.Class",
+            T_CLASS,
+            false,
+            "Java Class",
+            &[
+                ("classLoader", "Class Loader", T_CLASS_LOADER, true, false),
+                ("name", "Name", T_SYMBOL, true, false),
+                ("package", "Package", T_PACKAGE, true, false),
+                ("modifiers", "Access Modifiers", T_INT, false, false),
+                ("hidden", "Hidden", T_BOOLEAN, false, false),
+            ],
+        ),
+        plain_class(
+            "jdk.types.ClassLoader",
+            T_CLASS_LOADER,
+            false,
+            "Java Class Loader",
+            &[
+                ("type", "Type", T_CLASS, true, false),
+                ("name", "Name", T_SYMBOL, true, false),
+            ],
+        ),
+        plain_class(
+            "jdk.types.Package",
+            T_PACKAGE,
+            false,
+            "Package",
+            &[
+                ("name", "Name", T_SYMBOL, true, false),
+                ("module", "Module", T_MODULE, true, false),
+                ("exported", "Exported", T_BOOLEAN, false, false),
+            ],
+        ),
+        plain_class(
+            "jdk.types.Module",
+            T_MODULE,
+            false,
+            "Module",
+            &[
+                ("name", "Name", T_SYMBOL, true, false),
+                ("version", "Version", T_SYMBOL, true, false),
+                ("location", "Location", T_SYMBOL, true, false),
+                ("classLoader", "Class Loader", T_CLASS_LOADER, true, false),
+            ],
+        ),
+        plain_class(
+            "jdk.types.Symbol",
+            T_SYMBOL,
+            true,
+            "Symbol",
+            &[("string", "String", T_STRING, false, false)],
+        ),
+        plain_class(
+            "jdk.types.FrameType",
+            T_FRAME_TYPE,
+            true,
+            "Frame type",
+            &[("description", "Description", T_STRING, false, false)],
+        ),
+    ]
+}
+
 fn metadata_tree() -> Element {
     let packet_fields = || {
         vec![
@@ -265,10 +597,11 @@ fn metadata_tree() -> Element {
             vec![],
         )
     };
-    let classes = vec![
+    let mut classes = vec![
         type_class("long", T_LONG, vec![]),
         type_class("int", T_INT, vec![]),
         type_class("boolean", T_BOOLEAN, vec![]),
+        type_class("float", T_FLOAT, vec![]),
         type_class("java.lang.String", T_STRING, vec![]),
         annotation_class("jdk.jfr.Label", T_LABEL, false, vec![]),
         annotation_class("jdk.jfr.Description", T_DESCRIPTION, false, vec![]),
@@ -316,11 +649,18 @@ fn metadata_tree() -> Element {
                 annotation(T_DESCRIPTION, "Amount of data"),
             ],
         ),
+        annotation_class(
+            "jdk.jfr.BooleanFlag",
+            T_BOOLEAN_FLAG,
+            false,
+            vec![content_type(), annotation(T_LABEL, "Flag")],
+        ),
         event_class(
             "minecraft.ServerTickTime",
             T_EVENT_SERVER_TICK,
             "Server Tick Time",
             "Ticking",
+            periodic_settings("1 s"),
             vec![named_field(
                 "averageTickDuration",
                 "Average Server Tick Duration",
@@ -329,10 +669,19 @@ fn metadata_tree() -> Element {
             )],
         ),
         event_class(
+            "minecraft.ClientFps",
+            T_EVENT_CLIENT_FPS,
+            "Client fps",
+            "Ticking",
+            periodic_settings("1 s"),
+            vec![named_field("fps", "Client fps", T_INT, vec![])],
+        ),
+        event_class(
             "minecraft.PacketReceived",
             T_EVENT_PACKET_RECEIVED,
             "Network Packet Received",
             "Network",
+            threshold_settings(false),
             packet_fields(),
         ),
         event_class(
@@ -340,6 +689,7 @@ fn metadata_tree() -> Element {
             T_EVENT_PACKET_SENT,
             "Network Packet Sent",
             "Network",
+            threshold_settings(false),
             packet_fields(),
         ),
         event_class(
@@ -347,6 +697,7 @@ fn metadata_tree() -> Element {
             T_EVENT_CHUNK_GENERATION,
             "Chunk Generation",
             "World Generation",
+            threshold_settings(false),
             vec![
                 named_field("worldPosX", "First Block X World Position", T_INT, vec![]),
                 named_field("worldPosZ", "First Block Z World Position", T_INT, vec![]),
@@ -361,6 +712,7 @@ fn metadata_tree() -> Element {
             T_EVENT_CHUNK_REGION_READ,
             "Region File Read",
             "Storage",
+            threshold_settings(false),
             region_io_fields(),
         ),
         event_class(
@@ -368,6 +720,7 @@ fn metadata_tree() -> Element {
             T_EVENT_CHUNK_REGION_WRITE,
             "Region File Write",
             "Storage",
+            threshold_settings(false),
             region_io_fields(),
         ),
         event_class(
@@ -375,6 +728,7 @@ fn metadata_tree() -> Element {
             T_EVENT_STRUCTURE_GENERATION,
             "Structure Generation",
             "World Generation",
+            threshold_settings(false),
             vec![
                 named_field("chunkPosX", "Chunk X Position", T_INT, vec![]),
                 named_field("chunkPosZ", "Chunk Z Position", T_INT, vec![]),
@@ -388,6 +742,7 @@ fn metadata_tree() -> Element {
             T_EVENT_LOAD_WORLD,
             "Create/Load World",
             "World Generation",
+            threshold_settings(true),
             vec![],
         ),
         event_class(
@@ -395,6 +750,7 @@ fn metadata_tree() -> Element {
             T_EVENT_NETWORK_SUMMARY,
             "Network Summary",
             "Network",
+            periodic_settings("10 s"),
             vec![
                 named_field("remoteAddress", "Remote Address", T_STRING, vec![]),
                 named_field(
@@ -413,7 +769,37 @@ fn metadata_tree() -> Element {
                 named_field("receivedPackets", "Received Packets", T_INT, vec![]),
             ],
         ),
+        event_class_in(
+            "jdk.GCHeapSummary",
+            T_EVENT_GC_HEAP_SUMMARY,
+            "Heap Summary",
+            &["Java Virtual Machine", "GC", "Heap"],
+            vec![],
+            vec![
+                named_field("gcId", "GC Identifier", T_INT, vec![]),
+                named_field("when", "When", T_STRING, vec![]),
+                named_field(
+                    "heapUsed",
+                    "Heap Used",
+                    T_LONG,
+                    vec![annotation(T_DATA_AMOUNT, "BYTES")],
+                ),
+            ],
+        ),
+        event_class_in(
+            "jdk.CPULoad",
+            T_EVENT_CPU_LOAD,
+            "CPU Load",
+            &["Operating System", "Processor"],
+            vec![],
+            vec![
+                named_field("jvmUser", "JVM User", T_FLOAT, vec![]),
+                named_field("jvmSystem", "JVM System", T_FLOAT, vec![]),
+                named_field("machineTotal", "Machine Total", T_FLOAT, vec![]),
+            ],
+        ),
     ];
+    classes.extend(supporting_types());
     let gmt_offset_ms = chrono::Local::now().offset().local_minus_utc() as i64 * 1000;
     element(
         "root",
@@ -511,6 +897,37 @@ struct CountAndSize {
     size: i64,
 }
 
+/// The stats the parser keeps in a `HashMap` with `computeIfAbsent`: `last_created` is whether the latest `add` made a
+/// new entry, which decides the table size the map ends with (see `hash_map_order_sized`).
+struct Stats<K> {
+    entries: IndexMap<K, CountAndSize>,
+    last_created: bool,
+}
+
+impl<K: std::hash::Hash + Eq> Stats<K> {
+    fn new() -> Self {
+        Self {
+            entries: IndexMap::new(),
+            last_created: false,
+        }
+    }
+
+    fn add(&mut self, key: K, bytes: i32) {
+        let before = self.entries.len();
+        let entry = self.entries.entry(key).or_default();
+        entry.count += 1;
+        entry.size += i64::from(bytes);
+        self.last_created = self.entries.len() > before;
+    }
+}
+
+impl<K> Stats<K> {
+    /// How many entries the map's table was last sized for.
+    fn sized_for(&self) -> usize {
+        self.entries.len() - usize::from(self.last_created)
+    }
+}
+
 struct Recording {
     id: i64,
     destination: PathBuf,
@@ -526,13 +943,21 @@ struct Recording {
     next_network_summary: i64,
     current_average_tick_nanos: i64,
     tick_times: Vec<i64>,
-    received: IndexMap<(String, String), CountAndSize>,
-    sent: IndexMap<(String, String), CountAndSize>,
-    chunks_read: IndexMap<ChunkId, CountAndSize>,
-    chunks_written: IndexMap<ChunkId, CountAndSize>,
+    /// `fps` of every `minecraft.ClientFps` event: a server has no client frame rate, so these are `0`.
+    fps: Vec<i32>,
+    received: Stats<(String, String)>,
+    sent: Stats<(String, String)>,
+    chunks_read: Stats<ChunkId>,
+    chunks_written: Stats<ChunkId>,
     chunk_gen: Vec<ChunkGenStat>,
     structure_gen: Vec<StructureGenStat>,
     world_creation_nanos: Option<i64>,
+    /// (time, used bytes) of the first event of each `jdk.GCHeapSummary` pair.
+    heap: Vec<(i64, i64)>,
+    next_cpu_load: i64,
+    cpu: CpuSample,
+    /// (jvmUser, jvmSystem, machineTotal) of every `jdk.CPULoad` event.
+    cpu_loads: Vec<[f32; 3]>,
 }
 
 /// `ChunkIdentification`: level folder, dimension, chunk position.
@@ -677,16 +1102,15 @@ impl Recording {
         } else {
             &mut self.chunks_read
         };
-        let entry = stats
-            .entry((
+        stats.add(
+            (
                 io.level.to_owned(),
                 io.dimension.to_owned(),
                 io.chunk_x,
                 io.chunk_z,
-            ))
-            .or_default();
-        entry.count += 1;
-        entry.size += i64::from(io.bytes);
+            ),
+            io.bytes,
+        );
     }
 }
 
@@ -713,6 +1137,8 @@ impl Recording {
         let mut payload = Vec::new();
         put_varlong(&mut payload, start_ticks);
         put_varlong(&mut payload, end_ticks - start_ticks);
+        put_varlong(&mut payload, 0); // eventThread
+        put_varlong(&mut payload, 0); // stackTrace
         payload.extend_from_slice(fields);
         let mut event = Vec::new();
         put_event(&mut event, type_id, &payload);
@@ -726,6 +1152,21 @@ impl Recording {
         Ok(())
     }
 
+    /// A `jdk.GCHeapSummary` pair, before and after a collection: the parser needs two pairs to read a recording and
+    /// derives the allocation rate from them. analogue: this process has no collector, so both events of a pair carry
+    /// the resident size.
+    fn heap_summary_pair(&mut self, now: i64) {
+        let heap_used = (resident_mib() * 1048576.0) as i64;
+        self.heap.push((now, heap_used));
+        for when in ["Before GC", "After GC"] {
+            let mut fields = Vec::new();
+            put_varlong(&mut fields, 0); // gcId
+            put_string(&mut fields, when);
+            put_varlong(&mut fields, heap_used);
+            let _ = self.commit(T_EVENT_GC_HEAP_SUMMARY, now, now, &fields);
+        }
+    }
+
     fn periodic(&mut self, now: i64) {
         if now >= self.next_tick_event {
             self.next_tick_event = now + SERVER_TICK_PERIOD_NANOS;
@@ -733,6 +1174,22 @@ impl Recording {
             put_varlong(&mut fields, self.current_average_tick_nanos);
             self.tick_times.push(self.current_average_tick_nanos);
             let _ = self.commit(T_EVENT_SERVER_TICK, now, now, &fields);
+            let mut fps_fields = Vec::new();
+            put_varlong(&mut fps_fields, 0);
+            self.fps.push(0);
+            let _ = self.commit(T_EVENT_CLIENT_FPS, now, now, &fps_fields);
+        }
+        if now >= self.next_cpu_load {
+            self.next_cpu_load = now + CPU_LOAD_PERIOD_NANOS;
+            let sample = cpu_sample(now);
+            let load = cpu_load(&self.cpu, &sample);
+            self.cpu = sample;
+            let mut fields = Vec::new();
+            for share in load {
+                fields.extend_from_slice(&share.to_be_bytes());
+            }
+            self.cpu_loads.push(load);
+            let _ = self.commit(T_EVENT_CPU_LOAD, now, now, &fields);
         }
         if now >= self.next_network_summary {
             self.next_network_summary = now + NETWORK_SUMMARY_PERIOD_NANOS;
@@ -793,11 +1250,7 @@ impl Recording {
         } else {
             &mut self.sent
         };
-        let entry = stats
-            .entry((protocol.to_owned(), packet_id.to_owned()))
-            .or_default();
-        entry.count += 1;
-        entry.size += i64::from(bytes);
+        stats.add((protocol.to_owned(), packet_id.to_owned()), bytes);
         if received {
             agg.received_packets += 1;
             agg.received_bytes += i64::from(bytes);
@@ -809,6 +1262,7 @@ impl Recording {
 
     /// `recording.stop()`: the chunk (header, metadata, events, checkpoint) is written to the destination.
     fn finish(mut self) -> io::Result<(PathBuf, Summary)> {
+        self.heap_summary_pair(get_nanos());
         self.events.flush()?;
         let end_ticks = get_nanos();
         let duration_nanos = end_ticks - self.start_ticks;
@@ -850,7 +1304,11 @@ impl Recording {
             } else {
                 0
             },
+            duration_nanos: self.last_event_end_ticks - self.first_event_ticks.unwrap_or(0),
+            heap: self.heap,
+            cpu_loads: self.cpu_loads,
             tick_times_nanos: self.tick_times,
+            fps: self.fps,
             received: self.received,
             sent: self.sent,
             chunks_read: self.chunks_read,
@@ -868,14 +1326,97 @@ impl Recording {
 struct Summary {
     started_epoch_millis: i64,
     ended_epoch_millis: i64,
+    /// `Duration.between(recordingStarted, recordingEnded)`, which is not the difference of the two millisecond values.
+    duration_nanos: i64,
+    heap: Vec<(i64, i64)>,
+    cpu_loads: Vec<[f32; 3]>,
     tick_times_nanos: Vec<i64>,
-    received: IndexMap<(String, String), CountAndSize>,
-    sent: IndexMap<(String, String), CountAndSize>,
-    chunks_read: IndexMap<ChunkId, CountAndSize>,
-    chunks_written: IndexMap<ChunkId, CountAndSize>,
+    fps: Vec<i32>,
+    received: Stats<(String, String)>,
+    sent: Stats<(String, String)>,
+    chunks_read: Stats<ChunkId>,
+    chunks_written: Stats<ChunkId>,
     chunk_gen: Vec<ChunkGenStat>,
     structure_gen: Vec<StructureGenStat>,
     world_creation_nanos: Option<i64>,
+}
+
+/// What `jdk.CPULoad` is computed from: the CPU time of this process and of the machine at `nanos`.
+#[derive(Clone, Copy)]
+struct CpuSample {
+    nanos: i64,
+    user_ticks: u64,
+    system_ticks: u64,
+    machine_total: u64,
+    machine_idle: u64,
+    cpus: u64,
+}
+
+fn cpu_sample(nanos: i64) -> CpuSample {
+    // `utime` and `stime` are the 14th and 15th fields of `/proc/self/stat`, which follow the command in parentheses
+    let stat = std::fs::read_to_string("/proc/self/stat").unwrap_or_default();
+    let fields: Vec<&str> = stat
+        .rsplit_once(')')
+        .map_or("", |(_, rest)| rest)
+        .split_whitespace()
+        .collect();
+    let ticks = |i: usize| fields.get(i).and_then(|v| v.parse().ok()).unwrap_or(0);
+    let machine = read_cpu_ticks();
+    CpuSample {
+        nanos,
+        user_ticks: ticks(11),
+        system_ticks: ticks(12),
+        machine_total: machine.iter().map(|c| c.0).sum(),
+        machine_idle: machine.iter().map(|c| c.1).sum(),
+        cpus: machine.len().max(1) as u64,
+    }
+}
+
+/// `jdk.CPULoad` between two samples: (jvmUser, jvmSystem, machineTotal), fractions of the machine's CPU time.
+fn cpu_load(from: &CpuSample, to: &CpuSample) -> [f32; 3] {
+    // shortcut: `USER_HZ` is 100 on every Linux build this runs on; `sysconf(_SC_CLK_TCK)` would say
+    const TICK_NANOS: f64 = 10_000_000.0;
+    let available = (to.nanos - from.nanos).max(1) as f64 * to.cpus as f64;
+    let share = |before: u64, after: u64| {
+        ((after.saturating_sub(before)) as f64 * TICK_NANOS / available).clamp(0.0, 1.0) as f32
+    };
+    let total = to.machine_total.saturating_sub(from.machine_total);
+    let idle = to.machine_idle.saturating_sub(from.machine_idle);
+    [
+        share(from.user_ticks, to.user_ticks),
+        share(from.system_ticks, to.system_ticks),
+        if total == 0 {
+            0.0
+        } else {
+            (1.0 - idle as f64 / total as f64) as f32
+        },
+    ]
+}
+
+/// `DoubleSummaryStatistics` over `values`: (min, average, max). The sum is Kahan-compensated.
+fn double_statistics(values: &[f64]) -> (f64, f64, f64) {
+    let (mut sum, mut compensation, mut simple_sum) = (0.0_f64, 0.0_f64, 0.0_f64);
+    for &value in values {
+        simple_sum += value;
+        let corrected = value - compensation;
+        let next = sum + corrected;
+        compensation = (next - sum) - corrected;
+        sum = next;
+    }
+    let mut total = sum - compensation;
+    if total.is_nan() && simple_sum.is_infinite() {
+        total = simple_sum;
+    }
+    let average = if values.is_empty() {
+        0.0
+    } else {
+        total / values.len() as f64
+    };
+    (
+        values.iter().copied().fold(f64::INFINITY, min_f64),
+        average,
+        values.iter().copied().fold(f64::NEG_INFINITY, max_f64),
+    )
 }
 
 /// Guava `Quantiles.scale(100).indexes(50, 75, 90, 99).compute(dataset)`, highest percentile first.
@@ -985,20 +1526,39 @@ fn percentiles_json(summary: &TimedSummary) -> Value {
 }
 
 impl Summary {
-    fn duration_seconds(&self) -> f64 {
-        ((self.ended_epoch_millis - self.started_epoch_millis) / 1000) as f64
+    /// `GcHeapStat.calculateAllocationRatePerSecond` over the two heap summary pairs: the growth between the end of
+    /// the first and the start of the second, per second between them (whole seconds, as `Duration.getSeconds`).
+    fn allocation_rate(&self) -> f64 {
+        let [(first_time, first_used), (last_time, last_used)] = self.heap[..] else {
+            return f64::NAN;
+        };
+        (last_used - first_used) as f64 / ((last_time - first_time) / 1_000_000_000) as f64
     }
 
-    /// `IoSummary` as `JfrResultJsonSerializer.ioSummary` writes it; `identify` writes the identifier members.
+    /// `Duration.getSeconds()` of the recording.
+    fn duration_seconds(&self) -> f64 {
+        (self.duration_nanos / 1_000_000_000) as f64
+    }
+
+    /// `IoSummary` as `JfrResultJsonSerializer.ioSummary` writes it; `identify` writes the identifier members and
+    /// `hash` is the `hashCode()` of the key record: the parser collects the stats with `computeIfAbsent` into a
+    /// `HashMap`, which links a new node at the head of its bucket and resizes before it inserts, so contributors of
+    /// equal size and count come in bucket order and, within a bucket, newest first.
     fn io_summary<K>(
         &self,
-        stats: &IndexMap<K, CountAndSize>,
+        stats: &Stats<K>,
+        hash: impl Fn(&K) -> i32,
         identify: impl Fn(&K, &mut Map<String, Value>),
     ) -> Value {
-        let total_count: i64 = stats.values().map(|s| s.count).sum();
-        let total_size: i64 = stats.values().map(|s| s.size).sum();
+        let total_count: i64 = stats.entries.values().map(|s| s.count).sum();
+        let total_size: i64 = stats.entries.values().map(|s| s.size).sum();
         let seconds = self.duration_seconds();
-        let mut contributors: Vec<(&K, &CountAndSize)> = stats.iter().collect();
+        let mut contributors = hash_map_ordered_sized(
+            stats.entries.iter().rev().collect(),
+            |(k, _)| hash(k),
+            16,
+            stats.sized_for(),
+        );
         contributors.sort_by(|a, b| b.1.size.cmp(&a.1.size).then(b.1.count.cmp(&a.1.count)));
         let top: Vec<Value> = contributors
             .into_iter()
@@ -1015,15 +1575,29 @@ impl Summary {
         json!({"totalBytes": total_size, "count": total_count, "bytesPerSecond": num(total_size as f64 / seconds), "countPerSecond": num(total_count as f64 / seconds), "topContributors": top})
     }
 
-    fn packet_summary(&self, stats: &IndexMap<(String, String), CountAndSize>) -> Value {
-        self.io_summary(stats, |(protocol, packet), map| {
+    fn packet_summary(&self, direction: &str, stats: &Stats<(String, String)>) -> Value {
+        // `PacketIdentification(direction, protocolId, packetId)`: record hash, `31 * h + component`
+        let hash = |(protocol, packet): &(String, String)| {
+            [direction, protocol, packet]
+                .into_iter()
+                .fold(0i32, |h, s| {
+                    h.wrapping_mul(31).wrapping_add(java_string_hash(s))
+                })
+        };
+        self.io_summary(stats, hash, |(protocol, packet), map| {
             map.insert("protocolId".into(), json!(protocol));
             map.insert("packetId".into(), json!(packet));
         })
     }
 
-    fn chunk_summary(&self, stats: &IndexMap<ChunkId, CountAndSize>) -> Value {
-        self.io_summary(stats, |(level, dimension, x, z), map| {
+    fn chunk_summary(&self, stats: &Stats<ChunkId>) -> Value {
+        // `ChunkIdentification(level, dimension, x, z)`
+        let hash = |(level, dimension, x, z): &ChunkId| {
+            [java_string_hash(level), java_string_hash(dimension), *x, *z]
+                .into_iter()
+                .fold(0i32, |h, v| h.wrapping_mul(31).wrapping_add(v))
+        };
+        self.io_summary(stats, hash, |(level, dimension, x, z), map| {
             map.insert("level".into(), json!(level));
             map.insert("dimension".into(), json!(dimension));
             map.insert("x".into(), json!(x));
@@ -1087,10 +1661,18 @@ impl Summary {
         for stat in &self.structure_gen {
             by_name.entry(&stat.structure).or_default().push(stat);
         }
-        let groups = hash_map_ordered(
-            by_name.into_iter().collect::<Vec<_>>(),
+        // `groupingBy` links new nodes at the head of the bucket and resizes before it inserts, too
+        let last_opened = self.structure_gen.last().is_some_and(|last| {
+            by_name
+                .get(last.structure.as_str())
+                .is_some_and(|group| group.len() == 1)
+        });
+        let sized_for = by_name.len() - usize::from(last_opened);
+        let groups = hash_map_ordered_sized(
+            by_name.into_iter().rev().collect::<Vec<_>>(),
             |(name, _)| java_string_hash(name),
             16,
+            sized_for,
         );
         let structures: Vec<Value> = groups
             .into_iter()
@@ -1118,9 +1700,17 @@ impl Summary {
     /// formatted over empty statistics, which is what they are in this server.
     fn as_json(&self) -> String {
         let seconds = self.duration_seconds();
-        let duration_ms = self.ended_epoch_millis - self.started_epoch_millis;
+        let duration_ms = self.duration_nanos / 1_000_000;
         let empty_io = || json!({"totalBytes": 0, "count": 0, "bytesPerSecond": num(0.0 / seconds), "countPerSecond": num(0.0 / seconds), "topContributors": []});
-        let cpu = || json!({"min": num(f64::INFINITY), "average": num(0.0), "max": num(f64::NEG_INFINITY)});
+        let cpu = |channel: usize| {
+            let shares: Vec<f64> = self
+                .cpu_loads
+                .iter()
+                .map(|l| f64::from(l[channel]))
+                .collect();
+            let (min, average, max) = double_statistics(&shares);
+            json!({"min": num(min), "average": num(average), "max": num(max)})
+        };
         let mut root = Map::new();
         root.insert("startedEpoch".into(), json!(self.started_epoch_millis));
         root.insert("endedEpoch".into(), json!(self.ended_epoch_millis));
@@ -1130,33 +1720,39 @@ impl Summary {
         }
         root.insert(
             "heap".into(),
-            json!({"allocationRateBytesPerSecond": num(0.0), "gcCount": 0, "gcOverHeadPercent": float(0.0_f32 / duration_ms as f32), "gcTotalDurationMs": 0}),
+            json!({"allocationRateBytesPerSecond": num(self.allocation_rate()), "gcCount": 0, "gcOverHeadPercent": float(0.0_f32 / duration_ms as f32), "gcTotalDurationMs": 0}),
         );
         root.insert(
             "cpuPercent".into(),
-            json!({"jvm": cpu(), "userJvm": cpu(), "system": cpu()}),
+            json!({"jvm": cpu(1), "userJvm": cpu(0), "system": cpu(2)}),
         );
-        root.insert("network".into(), json!({"sent": self.packet_summary(&self.sent), "received": self.packet_summary(&self.received)}));
+        root.insert("network".into(), json!({"sent": self.packet_summary("clientbound", &self.sent), "received": self.packet_summary("serverbound", &self.received)}));
         root.insert("fileIO".into(), json!({"write": empty_io(), "read": empty_io(), "chunksRead": self.chunk_summary(&self.chunks_read), "chunksWritten": self.chunk_summary(&self.chunks_written)}));
+        if !self.fps.is_empty() {
+            let values: Vec<f64> = self.fps.iter().map(|f| f64::from(*f)).collect();
+            let mut fps = Map::new();
+            fps.insert("minFps".into(), json!(self.fps.iter().min()));
+            fps.insert(
+                "averageFps".into(),
+                num(values.iter().sum::<f64>() / values.len() as f64),
+            );
+            fps.insert("maxFps".into(), json!(self.fps.iter().max()));
+            for (p, v) in percentiles(&values) {
+                fps.insert(format!("p{p}"), num(v));
+            }
+            root.insert("fps".into(), Value::Object(fps));
+        }
         if !self.tick_times_nanos.is_empty() {
             let ms: Vec<f64> = self
                 .tick_times_nanos
                 .iter()
                 .map(|n| *n as f64 / 1_000_000.0)
                 .collect();
+            let (min, average, max) = double_statistics(&ms);
             let mut tick = Map::new();
-            tick.insert(
-                "minMs".into(),
-                num(ms.iter().copied().fold(f64::INFINITY, min_f64)),
-            );
-            tick.insert(
-                "averageMs".into(),
-                num(ms.iter().sum::<f64>() / ms.len() as f64),
-            );
-            tick.insert(
-                "maxMs".into(),
-                num(ms.iter().copied().fold(f64::NEG_INFINITY, max_f64)),
-            );
+            tick.insert("minMs".into(), num(min));
+            tick.insert("averageMs".into(), num(average));
+            tick.insert("maxMs".into(), num(max));
             for (p, v) in percentiles(&ms) {
                 tick.insert(format!("p{p}"), num(v));
             }
@@ -1254,14 +1850,22 @@ impl JfrProfiler {
             next_network_summary: now + NETWORK_SUMMARY_PERIOD_NANOS,
             current_average_tick_nanos: 0,
             tick_times: Vec::new(),
-            received: IndexMap::new(),
-            sent: IndexMap::new(),
-            chunks_read: IndexMap::new(),
-            chunks_written: IndexMap::new(),
+            fps: Vec::new(),
+            received: Stats::new(),
+            sent: Stats::new(),
+            chunks_read: Stats::new(),
+            chunks_written: Stats::new(),
             chunk_gen: Vec::new(),
             structure_gen: Vec::new(),
             world_creation_nanos: None,
+            heap: Vec::new(),
+            next_cpu_load: now + CPU_LOAD_PERIOD_NANOS,
+            cpu: cpu_sample(now),
+            cpu_loads: Vec::new(),
         });
+        if let Some(recording) = slot.as_mut() {
+            recording.heap_summary_pair(now);
+        }
         self.running.store(true, Ordering::Relaxed);
         true
     }
@@ -1509,6 +2113,19 @@ mod tests {
         }
         let bytes = std::fs::read(&path).unwrap();
         assert_eq!(&bytes[..4], b"FLR\0");
+        for name in [
+            "minecraft.ClientFps",
+            "jdk.settings.Enabled",
+            "jdk.settings.Period",
+            "jdk.settings.Threshold",
+            "eventThread",
+            "jdk.types.StackTrace",
+        ] {
+            assert!(
+                bytes.windows(name.len()).any(|w| w == name.as_bytes()),
+                "{name} is in the metadata"
+            );
+        }
         assert_eq!(
             i64::from_be_bytes(bytes[8..16].try_into().unwrap()) as usize,
             bytes.len(),
@@ -1601,6 +2218,105 @@ mod tests {
         assert_eq!(json["fileIO"]["chunksWritten"]["count"], 1);
         assert!(chunk["durationNanosPercentiles"]["p50"].is_number());
         assert!(read["bytesPerSecond"].is_null());
+    }
+
+    /// Packets of equal size and count come in the iteration order of the `HashMap` the parser collects them in:
+    /// the bucket of the record hash of (direction, protocol, packet id), not the order of arrival. The expected order
+    /// is `PacketIdentification.hashCode()` (`31 * h + component`) spread over 16 buckets: c 0, b 1, d 3, a 6.
+    #[test]
+    fn equal_packets_are_listed_in_hash_map_order() {
+        let dir = tempfile::tempdir().unwrap();
+        let profiler = JfrProfiler {
+            recording: Mutex::new(None),
+            running: AtomicBool::new(false),
+            next_recording_id: Mutex::new(1),
+        };
+        assert!(profiler.start_in("server", dir.path()));
+        for id in ["a", "b", "c", "d"] {
+            profiler.on_packet_received("play", &format!("minecraft:{id}"), "/127.0.0.1:1", 10);
+        }
+        profiler.stop().unwrap();
+        let report = std::fs::read_dir(dir.path())
+            .unwrap()
+            .map(|e| e.unwrap().path())
+            .find(|p| p.to_string_lossy().contains("jfr-report-"))
+            .unwrap();
+        let text = std::fs::read_to_string(report).unwrap();
+        let json: Value = serde_json::from_str(
+            &text
+                .replace("-Infinity", "null")
+                .replace("Infinity", "null")
+                .replace("NaN", "null"),
+        )
+        .unwrap();
+        let ids: Vec<&str> = json["network"]["received"]["topContributors"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|c| c["packetId"].as_str().unwrap())
+            .collect();
+        assert_eq!(
+            ids,
+            ["minecraft:c", "minecraft:b", "minecraft:d", "minecraft:a"]
+        );
+    }
+
+    /// The `x` of the `chunksRead` contributors of a recording that read `chunks` (336 bytes each) in this order.
+    fn read_chunk_order(chunks: &[(i32, i32)]) -> Vec<i64> {
+        let dir = tempfile::tempdir().unwrap();
+        let profiler = JfrProfiler {
+            recording: Mutex::new(None),
+            running: AtomicBool::new(false),
+            next_recording_id: Mutex::new(1),
+        };
+        assert!(profiler.start_in("server", dir.path()));
+        for &(chunk_x, chunk_z) in chunks {
+            profiler.on_region_file_read(&RegionIo {
+                level: "world",
+                dimension: "minecraft:overworld",
+                storage_type: "chunk",
+                chunk_x,
+                chunk_z,
+                compression_id: 2,
+                bytes: 336,
+            });
+        }
+        profiler.stop().unwrap();
+        let report = std::fs::read_dir(dir.path())
+            .unwrap()
+            .map(|e| e.unwrap().path())
+            .find(|p| p.to_string_lossy().contains("jfr-report-"))
+            .unwrap();
+        let text = std::fs::read_to_string(report).unwrap();
+        let json: Value = serde_json::from_str(
+            &text
+                .replace("-Infinity", "null")
+                .replace("Infinity", "null")
+                .replace("NaN", "null"),
+        )
+        .unwrap();
+        json["fileIO"]["chunksRead"]["topContributors"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|c| c["x"].as_i64().unwrap())
+            .collect()
+    }
+
+    /// Chunks of equal size and count in one bucket (the keys (6, 39) and (7, 40) of `world` share bucket 4 of a
+    /// 16-entry table) come newest first: `HashMap.computeIfAbsent` links a new node at the head of its bucket.
+    #[test]
+    fn equal_chunks_in_one_bucket_are_listed_newest_first() {
+        assert_eq!(read_chunk_order(&[(6, 39), (7, 40)]), [7, 6]);
+    }
+
+    /// `computeIfAbsent` checks the size against the threshold before it inserts: after the insert that made the 13th
+    /// entry the table still has 16 buckets (a table of 32 would list x = 0 first). The expected order is that of
+    /// `java.util.HashMap.merge`, which has the same resize rule, over the keys (0..13, 1) of `world`.
+    #[test]
+    fn the_table_of_the_last_insert_is_not_resized_yet() {
+        let chunks: Vec<(i32, i32)> = (0..13).map(|x| (x, 1)).collect();
+        assert_eq!(read_chunk_order(&chunks), [12, 11, 10, 9, 0, 4, 3, 2, 1, 8]);
     }
 
     #[test]
