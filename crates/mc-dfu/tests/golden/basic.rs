@@ -124,3 +124,15 @@ fn xor_with_two_failing_alternatives() {
     assert_eq!(only_second.error_message().as_deref(), Some("m2; m1"));
     assert_eq!(only_second.partial_ref(), None);
 }
+
+/// `XorCodec.encode`: the value's side encodes it.
+#[test]
+fn xor_encodes_with_the_side_of_the_value() {
+    let codec = INT.xor(&STRING);
+    let left = encode_json(&codec, &Either::Left(5)).into_result().unwrap();
+    assert_eq!(left, "5");
+    let right = encode_json(&codec, &Either::Right("a".into()))
+        .into_result()
+        .unwrap();
+    assert_eq!(right, r#""a""#);
+}
