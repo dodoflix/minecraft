@@ -669,9 +669,11 @@ fn settle_races(
             chunks: Some((chunk.x, chunk.z, chunk.x, chunk.z)),
             ..filter.clone()
         };
-        others
-            .iter()
-            .any(|run| compare_dimension(&run.dir.join("world"), o, dim, &one).is_clean())
+        others.iter().any(|run| {
+            // a chunk the semantic mode skipped (below full in that run) is not equal, only not compared
+            let report = compare_dimension(&run.dir.join("world"), o, dim, &one);
+            report.is_clean() && report.skipped_status == 0
+        })
     };
     let only_chunks = report.errors.is_empty() && report.only_a == 0 && report.only_b == 0;
     if only_chunks && report.differing.iter().all(|(p, _)| equal_elsewhere(*p)) {
