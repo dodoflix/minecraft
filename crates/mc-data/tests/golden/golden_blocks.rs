@@ -326,3 +326,20 @@ fn get_missing_property_panics() {
 fn set_out_of_range_integer_panics() {
     Block::REDSTONE_WIRE.default_state().set(props::POWER, 16);
 }
+
+/// `BlockState.toString()` of every one of the vanilla states (`tests/fixtures/BlockStateToString.java`).
+#[test]
+fn every_state_text_matches_vanilla() {
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("tests/fixtures/block_state_strings.txt.gz");
+    let text = mc_testkit::read_gz(path);
+    let mut seen = 0;
+    for line in text.lines() {
+        let (id, expected) = line.split_once('\t').expect("id<TAB>text");
+        let id: u32 = id.parse().expect("state id");
+        assert_eq!(id, seen, "the golden lists the states in id order");
+        assert_eq!(BlockState::from_id(id).unwrap().to_string(), expected);
+        seen += 1;
+    }
+    assert_eq!(seen as usize, mc_data::block::STATE_COUNT);
+}
