@@ -5426,9 +5426,10 @@ pub fn load<E: Entity + ?Sized>(
     entity.reapply_position();
     let (yr, xr) = (entity.base().y_rot(), entity.base().x_rot());
     entity.set_rot(yr, xr);
-    let name = input
-        .get("CustomName")
-        .and_then(|t| Component::from_nbt(t).ok());
+    // `input.read("CustomName", ComponentSerialization.CODEC)`: a failed decode is reported to the open problem scope
+    static CUSTOM_NAME: std::sync::LazyLock<mc_dfu::Codec<Component>> =
+        std::sync::LazyLock::new(mc_protocol::components::common::component_codec);
+    let name = read_codec(input, "CustomName", &CUSTOM_NAME);
     entity.set_custom_name(level, name);
     {
         let b = entity.base_mut();
@@ -5441,6 +5442,10 @@ pub fn load<E: Entity + ?Sized>(
         b.set_ticks_frozen(input.get_int_or("TicksFrozen", 0));
         b.has_visual_fire = input.get_boolean_or("HasVisualFire", false);
         b.custom_data = input.get_compound(TAG_DATA).cloned().unwrap_or_default();
+        // `input.read("Tags", TAG_LIST_CODEC)`: the entries are taken below, the codec only reports a failed decode
+        static TAG_LIST: std::sync::LazyLock<mc_dfu::Codec<Vec<String>>> =
+            std::sync::LazyLock::new(|| mc_dfu::STRING.size_limited_list_of(MAX_ENTITY_TAG_COUNT));
+        let _ = read_codec(input, "Tags", &TAG_LIST);
         b.tags.clear();
         if let Some(list) = input.get_list("Tags")
             && list.len() <= MAX_ENTITY_TAG_COUNT

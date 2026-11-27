@@ -1149,17 +1149,26 @@ pub fn entity_load_data(
     let Some(level) = server.level_mut(&entity.dimension) else {
         return Ok(());
     };
-    let result = level
-        .with_entity(entity.id, |level, e| {
-            let uuid = e.uuid();
-            let result = e.load(level, data);
-            crate::world::entity::mob::leashable::finish_leash_load(e, level);
-            e.read_level_dependent_data(level);
-            e.base_mut().uuid = uuid;
-            e.post_data_manipulated(level);
-            result
-        })
-        .unwrap_or(Ok(()));
+    // the `ProblemReporter.ScopedCollector` of `EntityDataAccessor.setData`; its root is the entity's `toString()` at close
+    let root = std::cell::RefCell::new(String::new());
+    let result = crate::world::block_entity::problem_reporter::with_scoped_collector(
+        "net.minecraft.server.commands.data.EntityDataAccessor",
+        || root.borrow().clone(),
+        || {
+            level
+                .with_entity(entity.id, |level, e| {
+                    let uuid = e.uuid();
+                    let result = e.load(level, data);
+                    crate::world::entity::mob::leashable::finish_leash_load(e, level);
+                    e.read_level_dependent_data(level);
+                    e.base_mut().uuid = uuid;
+                    e.post_data_manipulated(level);
+                    *root.borrow_mut() = entity_to_string(&*e, &level.level_data.get_level_name());
+                    result
+                })
+                .unwrap_or(Ok(()))
+        },
+    );
     if result.is_ok() {
         crate::world::entity::display::resolve_loaded_text_in_level(
             server,
