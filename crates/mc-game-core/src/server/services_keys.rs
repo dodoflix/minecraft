@@ -158,7 +158,7 @@ fn fetch_loop(state: &Mutex<State>, discovery_url: &str, refresh: Duration, retr
         std::thread::sleep(due.saturating_duration_since(Instant::now()));
         let delay = match task {
             Task::Discovery => {
-                match get_json(&client, discovery_url, |document| Some(document.clone())) {
+                match get_json(&client, discovery_url, |document| Ok(document.clone())) {
                     Ok(Some(fetched)) => {
                         document = Some(fetched);
                         failures[0] = 0;
@@ -279,37 +279,55 @@ fn java_value(value: &Value) -> String {
     }
 }
 
+/// Why Gson cannot fill a class from a JSON object: a field of a type it cannot take (authlib wraps that in a
+/// `MinecraftClientException`), or a null map key, whose `NullPointerException` nothing wraps.
+#[derive(Debug, PartialEq)]
+enum Unread {
+    Malformed,
+    NullKey,
+}
+
+const NULL_MAP_KEY: &str = "java.lang.NullPointerException: key == null";
+
 /// `ObjectMapper.readValue`: `Ok(None)` for an empty body (Gson answers null), the JSON object read as the class `read`
-/// describes (`None` there is a field of a type the class cannot take), else the exception Gson's failure becomes.
-fn read_value<T>(body: &str, read: impl Fn(&Value) -> Option<T>) -> Result<Option<T>, String> {
+/// describes, else the exception Gson's failure becomes.
+fn read_value<T>(
+    body: &str,
+    read: impl Fn(&Value) -> Result<T, Unread>,
+) -> Result<Option<T>, String> {
     let failed = || format!("{CLIENT_EXCEPTION}: Failed to read value {body}");
     if body.trim().is_empty() {
         return Ok(None);
     }
     match serde_json::from_str::<Value>(body) {
         Ok(Value::Null) => Ok(None),
-        Ok(value @ Value::Object(_)) => read(&value).map(Some).ok_or_else(failed),
+        Ok(value @ Value::Object(_)) => read(&value).map(Some).map_err(|e| match e {
+            Unread::Malformed => failed(),
+            Unread::NullKey => NULL_MAP_KEY.to_owned(),
+        }),
         _ => Err(failed()),
     }
 }
 
 /// Gson reads a JSON array into a `Map<String, Object>` as `[key, value]` pairs (`MapTypeAdapterFactory`): exactly two
-/// elements each and a scalar key; a repeated key fails, whatever value the first one had.
-// shortcut: a null key fails like any other bad key; Gson's `LinkedTreeMap.put` throws a NullPointerException instead.
-fn pairs_as_map(pairs: &[Value]) -> Option<String> {
+/// elements each and a scalar key; a repeated key fails, whatever value the first one had. A null key is stored before
+/// the closing bracket is read, so `LinkedTreeMap.put` throws whatever follows it (a missing value fails first).
+fn pairs_as_map(pairs: &[Value]) -> Result<String, Unread> {
     let mut entries: Vec<(String, &Value)> = Vec::with_capacity(pairs.len());
     for pair in pairs {
-        let [key, value] = pair.as_array()?.as_slice() else {
-            return None;
+        let items = pair.as_array().ok_or(Unread::Malformed)?;
+        let (Some(key), Some(value)) = (items.first(), items.get(1)) else {
+            return Err(Unread::Malformed);
         };
         let key = match key {
             Value::String(s) => s.clone(),
             Value::Number(n) => n.to_string(),
             Value::Bool(b) => b.to_string(),
-            _ => return None,
+            Value::Null => return Err(Unread::NullKey),
+            _ => return Err(Unread::Malformed),
         };
-        if entries.iter().any(|(k, _)| *k == key) {
-            return None;
+        if items.len() > 2 || entries.iter().any(|(k, _)| *k == key) {
+            return Err(Unread::Malformed);
         }
         entries.push((key, value));
     }
@@ -317,7 +335,7 @@ fn pairs_as_map(pairs: &[Value]) -> Option<String> {
         .iter()
         .map(|(k, v)| format!("{k}={}", java_value(v)))
         .collect();
-    Some(format!("{{{}}}", items.join(", ")))
+    Ok(format!("{{{}}}", items.join(", ")))
 }
 
 /// `ErrorResponse.toString()` as Gson fills the record: its `String` fields take strings, booleans and numbers, `details`
@@ -325,21 +343,21 @@ fn pairs_as_map(pairs: &[Value]) -> Option<String> {
 // shortcut: a number is printed as serde_json normalises it (`1.50` -> `1.5`, `100000000000000000000` -> `1e20`), Gson keeps the text as
 // written; the same for a numeric `publicKey` in `key_lists`. Mojang sends neither; upgrade with serde_json's
 // `arbitrary_precision` if it ever matters (a workspace-wide feature).
-fn error_response(body: &Value) -> Option<String> {
+fn error_response(body: &Value) -> Result<String, Unread> {
     let text = |name: &str| match body.get(name) {
-        None | Some(Value::Null) => Some("null".to_owned()),
-        Some(Value::String(s)) => Some(s.clone()),
-        Some(Value::Bool(b)) => Some(b.to_string()),
-        Some(Value::Number(n)) => Some(n.to_string()),
-        Some(_) => None,
+        None | Some(Value::Null) => Ok("null".to_owned()),
+        Some(Value::String(s)) => Ok(s.clone()),
+        Some(Value::Bool(b)) => Ok(b.to_string()),
+        Some(Value::Number(n)) => Ok(n.to_string()),
+        Some(_) => Err(Unread::Malformed),
     };
     let details = match body.get("details") {
         None | Some(Value::Null) => "null".to_owned(),
         Some(map @ Value::Object(_)) => java_value(map),
         Some(Value::Array(pairs)) => pairs_as_map(pairs)?,
-        Some(_) => return None,
+        Some(_) => return Err(Unread::Malformed),
     };
-    Some(format!(
+    Ok(format!(
         "ErrorResponse[path={}, error={}, errorMessage={}, details={details}]",
         text("path")?,
         text("error")?,
@@ -367,7 +385,7 @@ fn http_exception(url: &str, status: u16, content_type: &str, body: &str) -> Str
 fn get_json<T>(
     client: &reqwest::blocking::Client,
     url: &str,
-    read: impl Fn(&Value) -> Option<T>,
+    read: impl Fn(&Value) -> Result<T, Unread>,
 ) -> Result<Option<T>, String> {
     let response = client.get(url).send().map_err(|e| {
         format!(
@@ -420,9 +438,16 @@ fn fetch_key_set(client: &reqwest::blocking::Client, document: Option<&Value>) -
         log_fetch_failure(&unavailable);
         return None;
     };
-    let lists = match get_json(client, keys_url, key_lists) {
+    let lists = match get_json(client, keys_url, |body| {
+        key_lists(body).ok_or(Unread::Malformed)
+    }) {
         Ok(Some(lists)) => lists,
         Ok(None) => return None,
+        // authlib wraps what it can read; the null key's NullPointerException reaches `RetryableFetch` as it is
+        Err(exception) if exception == NULL_MAP_KEY => {
+            log_fetch_failure(&exception);
+            return None;
+        }
         Err(exception) => {
             log::error!("Failed to request Minecraft Services public key\n{exception}");
             return None;
@@ -660,7 +685,7 @@ mod tests {
 
     #[test]
     fn bodies_read_like_gson_into_a_class() {
-        let any = |v: &Value| Some(v.clone());
+        let any = |v: &Value| Ok(v.clone());
         assert_eq!(read_value("  ", any), Ok(None));
         assert_eq!(read_value("null", any), Ok(None));
         assert_eq!(
@@ -669,7 +694,7 @@ mod tests {
         );
         assert!(read_value("[1]", any).is_err());
         assert!(read_value("{", any).is_err());
-        assert!(read_value(r#"{"a":1}"#, |_| None::<()>).is_err());
+        assert!(read_value(r#"{"a":1}"#, |_| Err::<(), _>(Unread::Malformed)).is_err());
     }
 
     #[test]
@@ -708,6 +733,11 @@ mod tests {
         assert!(read(r#"{"path":{}}"#).is_err());
         assert!(read(r#"{"error":[]}"#).is_err());
         assert!(read(r#"{"details":"text"}"#).is_err());
+        assert_eq!(
+            read(r#"{"details":[[null,1,2]]}"#),
+            Err(NULL_MAP_KEY.to_owned())
+        );
+        assert!(read(r#"{"details":[[null]]}"#).is_err_and(|e| e != NULL_MAP_KEY));
         assert!(
             read(r#"{"details":{"a":[1,{"b":null}]}}"#)
                 .expect("read")
