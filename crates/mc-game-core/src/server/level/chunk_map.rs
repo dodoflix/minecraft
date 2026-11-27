@@ -169,8 +169,6 @@ pub enum ChunkMapEvent {
     /// `debugSynchronizers.registerPoi(record)` after the registration task of `updatePOIOnBlockStateChange` ran for
     /// generated blocks.
     PoiAdded(PoiRecord),
-    /// Legacy entity tags found in a full chunk's NBT (`postLoad` entities).
-    LegacyEntities(ChunkPos, Vec<mc_nbt::CompoundTag>),
     /// `ServerChunkCache.onLightUpdate(layer, pos)`: the light engine published new data for the section.
     LightChanged { sky: bool, pos: SectionPos },
 }

@@ -183,16 +183,9 @@ impl ChunkMap {
             }
             LoadedChunk::Level(chunk) => {
                 self.chunk_type_cache.insert(key, CHUNK_TYPE_FULL);
-                if !loaded.post_load_entities.is_empty() {
-                    self.events.push(ChunkMapEvent::LegacyEntities(
-                        pos,
-                        loaded.post_load_entities,
-                    ));
-                }
-                ChunkSlot::Level(Box::new(LevelChunk::from_data(
-                    chunk,
-                    loaded.post_load_block_entities,
-                )))
+                let mut chunk = LevelChunk::from_data(chunk, loaded.post_load_block_entities);
+                chunk.post_load_entities = loaded.post_load_entities;
+                ChunkSlot::Level(Box::new(chunk))
             }
         };
         self.finish_load(key, slot);

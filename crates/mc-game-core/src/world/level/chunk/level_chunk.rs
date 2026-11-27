@@ -127,6 +127,8 @@ pub struct LevelChunk {
     pub block_entities: BlockEntityMap,
     /// `postLoad` of a chunk read from disk: its block entity tags, in list order, until `run_post_load`.
     pub post_load_block_entities: Vec<CompoundTag>,
+    /// `postLoad` of a chunk read from disk: its legacy entity tags, loaded into the level when the chunk becomes `FULL`.
+    pub post_load_entities: Vec<CompoundTag>,
     pub full_status: FullChunkStatus,
     /// `tickersInLevel`.
     pub tickers_in_level: HashMap<BlockPos, Rc<TickerCell>>,
@@ -171,6 +173,7 @@ impl LevelChunk {
             data,
             block_entities: BlockEntityMap::new(),
             post_load_block_entities,
+            post_load_entities: Vec::new(),
             full_status: FullChunkStatus::Inaccessible,
             tickers_in_level: HashMap::new(),
             game_event_registries: HashMap::new(),

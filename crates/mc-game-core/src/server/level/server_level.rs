@@ -379,6 +379,11 @@ impl ServerLevel {
                         chunk
                     }
                     ChunkSlot::Level(mut chunk) => {
+                        // `runPostLoad`: the entities load before the block entities
+                        let legacy_entities = std::mem::take(&mut chunk.post_load_entities);
+                        if !legacy_entities.is_empty() {
+                            self.add_legacy_chunk_entities(pos, &legacy_entities);
+                        }
                         chunk.run_post_load();
                         chunk
                     }
@@ -437,28 +442,27 @@ impl ServerLevel {
             ChunkMapEvent::LightChanged { sky, pos } => self.chunk_source.on_light_update(sky, pos),
             ChunkMapEvent::PoiRemoved(pos) => self.debug_drop_poi(pos),
             ChunkMapEvent::PoiAdded(record) => self.debug_register_poi(&record),
-            ChunkMapEvent::LegacyEntities(pos, tags) => {
-                // `SerializableChunkData.postLoadChunk`: the entities load under a collector of the chunk
-                problem_reporter::with_scoped_collector(
-                    "net.minecraft.world.level.chunk.storage.SerializableChunkData",
-                    || problem_reporter::chunk_root(pos),
-                    || {
-                        let mut entities = crate::world::entity::factory::load_entity_list(
-                            &tags,
-                            self,
-                            mc_data::enums::EntitySpawnReason::Load,
-                            None,
-                        );
-                        crate::world::entity::factory::read_level_dependent_data(
-                            &mut entities,
-                            self,
-                        );
-                        self.entity_manager.add_legacy_chunk_entities(entities);
-                    },
-                );
-                self.process_entity_events();
-            }
         }
+    }
+
+    /// `SerializableChunkData.postLoadChunk`: the legacy entities of a chunk read from disk load under a collector of the
+    /// chunk when it becomes `FULL`.
+    fn add_legacy_chunk_entities(&mut self, pos: ChunkPos, tags: &[mc_nbt::CompoundTag]) {
+        problem_reporter::with_scoped_collector(
+            "net.minecraft.world.level.chunk.storage.SerializableChunkData",
+            || problem_reporter::chunk_root(pos),
+            || {
+                let mut entities = crate::world::entity::factory::load_entity_list(
+                    tags,
+                    self,
+                    mc_data::enums::EntitySpawnReason::Load,
+                    None,
+                );
+                crate::world::entity::factory::read_level_dependent_data(&mut entities, self);
+                self.entity_manager.add_legacy_chunk_entities(entities);
+            },
+        );
+        self.process_entity_events();
     }
 
     /// `ServerLevel.unload(chunk)`.
