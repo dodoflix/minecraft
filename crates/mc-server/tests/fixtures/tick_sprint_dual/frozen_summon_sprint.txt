@@ -1,0 +1,21 @@
+summoned: ticks run 0
+summoned: cod Air: System chat: Cod has the following entity data: 300s
+summoned: squid Air: System chat: Squid has the following entity data: 300s
+summoned: squid Motion: System chat: Squid has the following entity data: [0.0d, 0.0d, 0.0d]
+summoned: armor_stand Motion: System chat: Armor Stand has the following entity data: [0.0d, 0.0d, 0.0d]
+summoned: item Motion: System chat: Stone has the following entity data: [0.0d, 0.0d, 0.0d]
+summoned: item Age: System chat: Stone has the following entity data: 0s
+after sprint: ticks run 101
+after sprint: cod Air: System chat: Cod has the following entity data: 199s
+after sprint: squid Air: System chat: Squid has the following entity data: 199s
+after sprint: squid Motion: System chat: Squid has the following entity data: [0.0d, -3.4105310315013284d, 0.0d]
+after sprint: armor_stand Motion: System chat: Armor Stand has the following entity data: [0.0d, -0.0784000015258789d, 0.0d]
+after sprint: item Motion: System chat: Stone has the following entity data: [0.0d, -0.08d, 0.0d]
+after sprint: item Age: System chat: Stone has the following entity data: 101s
+after step: ticks run 104
+after step: cod Air: System chat: Cod has the following entity data: 196s
+after step: squid Air: System chat: Squid has the following entity data: 196s
+after step: squid Motion: System chat: Squid has the following entity data: [0.0d, -3.4404920789378917d, 0.0d]
+after step: armor_stand Motion: System chat: Armor Stand has the following entity data: [0.0d, -0.0784000015258789d, 0.0d]
+after step: item Motion: System chat: Stone has the following entity data: [0.0d, -0.04d, 0.0d]
+after step: item Age: System chat: Stone has the following entity data: 104s

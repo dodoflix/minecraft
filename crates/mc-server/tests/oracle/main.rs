@@ -54,6 +54,7 @@ mod startup_gates;
 mod test_action_order;
 mod text_filter_dual;
 mod text_filter_v1_dual;
+mod tick_sprint_dual;
 mod unreadable_world_files;
 mod vanilla_play;
 mod world_commands_dual;
