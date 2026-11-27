@@ -10,7 +10,6 @@ use super::{Entity, EntityId};
 use crate::server::level::ServerLevel;
 use crate::world::block_entity::problem_reporter;
 use linkme::distributed_slice;
-use mc_core::ident::Identifier;
 use mc_data::EntityType;
 use mc_data::enums::EntitySpawnReason;
 use mc_nbt::CompoundTag;
@@ -98,11 +97,12 @@ pub fn instantiate_with(
     entity
 }
 
-/// `EntityType.by(input)`: the type named by the `id` tag.
+/// `EntityType.by(input)`: `input.read("id", EntityType.CODEC)`; a failed decode is reported to the open scope.
 pub fn by(tag: &CompoundTag) -> Option<EntityType> {
-    let id = tag.get_string("id")?;
-    let ident = Identifier::parse(id).ok()?;
-    EntityType::by_name(&ident.to_string())
+    static CODEC: std::sync::LazyLock<mc_dfu::Codec<EntityType>> = std::sync::LazyLock::new(
+        mc_protocol::components::holder::registry_by_name_codec::<EntityType>,
+    );
+    crate::world::block_entity::read_codec(tag, "id", &CODEC)
 }
 
 /// The entity half of `StructureTemplate.placeEntities`: `EntityType.create(input, level, STRUCTURE)` from the tag (the
@@ -187,9 +187,11 @@ pub fn create_and_load(
 ) -> Option<Box<dyn Entity>> {
     // an id that does not create (unknown, or a type the level's difficulty does not allow) is skipped with the same warning
     let Some(mut entity) = by(tag).and_then(|ty| create(ty, level, request)) else {
+        // `input.getStringOr("id", "[invalid]")` reports an id that is not a string
+        let id = crate::world::block_entity::read_string(tag, "id");
         log::warn!(
             "Skipping Entity with id {}",
-            tag.get_string("id").unwrap_or("[invalid]")
+            id.map_or_else(|| "[invalid]".into(), |id| id.to_utf8_string())
         );
         return None;
     };

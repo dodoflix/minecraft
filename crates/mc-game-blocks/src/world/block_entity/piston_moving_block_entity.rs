@@ -18,7 +18,7 @@ use mc_game_core::world::block_entity::{
 };
 use mc_game_core::world::entity::{Entity, MoverType};
 use mc_game_core::world::level::block::piston::{entity_push_reaction, get_movement_area};
-use mc_game_core::world::level::block::state::{decode_block_state, encode_block_state};
+use mc_game_core::world::level::block::state::{encode_block_state, read_block_state};
 use mc_game_core::world::level::block::{BlockStateExt, helpers};
 use mc_game_core::world::level::{BlockGetter, LevelAccessor};
 use mc_nbt::CompoundTag;
@@ -477,10 +477,7 @@ impl BlockEntity for PistonMovingBlockEntity {
     block_entity_base!();
 
     fn load_additional(&mut self, tag: &CompoundTag) {
-        self.moved_state = tag
-            .get("blockState")
-            .and_then(decode_block_state)
-            .unwrap_or_else(helpers::air);
+        self.moved_state = read_block_state(tag, "blockState").unwrap_or_else(helpers::air);
         self.direction = tag.get_byte("facing").map_or(Direction::Down, |facing| {
             Direction::from_3d_data_value(i32::from(facing))
         });

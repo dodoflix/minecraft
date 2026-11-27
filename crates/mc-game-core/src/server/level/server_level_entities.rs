@@ -884,6 +884,9 @@ impl ServerLevel {
                 "net.minecraft.world.level.chunk.storage.EntityStorage",
                 || problem_reporter::chunk_root(chunk.get_pos()),
                 || {
+                    if let Some(type_name) = chunk.entities_not_list() {
+                        crate::world::block_entity::report_not_list("Entities", type_name);
+                    }
                     let mut entities = crate::world::entity::factory::load_entity_list(
                         chunk.get_entities(),
                         self,

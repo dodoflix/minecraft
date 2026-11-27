@@ -7,6 +7,8 @@ use super::simple_region_storage::SimpleRegionStorage;
 use super::upgrade::{ChunkUpgradeError, upgrade_chunk_tag};
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_datafix::DataFixTypes;
+use mc_dfu::INT_STREAM;
+use mc_dfu::extra::fixed_size_ints;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use std::collections::HashSet;
 use std::io;
@@ -21,11 +23,21 @@ pub const CURRENT_DATA_VERSION: i32 = crate::level_storage::WORLD_VERSION;
 pub struct ChunkEntities<T = CompoundTag> {
     pos: ChunkPos,
     entities: Vec<T>,
+    /// The type name of an `Entities` value that is not a list (`childrenListOrEmpty` reports it when the entities load).
+    entities_not_list: Option<String>,
 }
 
 impl<T> ChunkEntities<T> {
     pub fn new(pos: ChunkPos, entities: Vec<T>) -> Self {
-        Self { pos, entities }
+        Self {
+            pos,
+            entities,
+            entities_not_list: None,
+        }
+    }
+
+    pub fn entities_not_list(&self) -> Option<&str> {
+        self.entities_not_list.as_deref()
     }
 
     pub fn get_pos(&self) -> ChunkPos {
@@ -84,22 +96,17 @@ pub struct EntityStorage {
     empty_chunks: HashSet<i64>,
 }
 
-/// `ChunkPos.CODEC` decode (`Codec.INT_STREAM` + exactly two ints): int arrays and lists of numbers.
-fn decode_chunk_pos(tag: &Tag) -> Option<ChunkPos> {
-    let ints: Vec<i32> = match tag {
-        Tag::IntArray(v) => v.clone(),
-        Tag::ByteArray(v) => v.iter().map(|&b| b as i32).collect(),
-        Tag::LongArray(v) => v.iter().map(|&l| l as i32).collect(),
-        Tag::List(list) => list
-            .iter()
-            .map(|t| t.as_number().map(|n| n.int_value()))
-            .collect::<Option<_>>()?,
-        _ => return None,
-    };
-    match ints[..] {
-        [x, z] => Some(ChunkPos::new(x, z)),
-        _ => None,
+/// `tag.read("Position", ChunkPos.CODEC)` (`Codec.INT_STREAM` + exactly two ints): a decode problem is logged by
+/// `CompoundTag.read`, which keeps the partial value of a failed decode.
+fn read_position(tag: &CompoundTag) -> Option<ChunkPos> {
+    let value = tag.get(POSITION_TAG)?;
+    let result = mc_dfu::parse_nbt(&INT_STREAM, value)
+        .flat_map(|ints| fixed_size_ints(ints, 2))
+        .map(|ints| ChunkPos::new(ints[0], ints[1]));
+    if let Some(error) = result.error_message() {
+        log::error!("Failed to read field ({POSITION_TAG}={value}): {error}");
     }
+    result.result_or_partial()
 }
 
 impl EntityStorage {
@@ -124,7 +131,7 @@ impl EntityStorage {
             self.empty_chunks.insert(pos.pack());
             return Ok(empty(None));
         };
-        let position_problem = match tag.get(POSITION_TAG).and_then(decode_chunk_pos) {
+        let position_problem = match read_position(&tag) {
             Some(stored) if stored == *pos => None,
             Some(stored) => {
                 log::error!(
@@ -136,7 +143,11 @@ impl EntityStorage {
                 Some(PositionProblem::Misplaced { stored })
             }
             None => {
-                log::warn!("Failed to parse chunk {} position info", pos);
+                // `Optional.orElseThrow()` of the missing position, with the exception behind the warning
+                log::warn!(
+                    "Failed to parse chunk {} position info\njava.util.NoSuchElementException: No value present",
+                    pos
+                );
                 Some(PositionProblem::Unparseable)
             }
         };
@@ -156,8 +167,15 @@ impl EntityStorage {
                 }
             }
         }
+        let entities_not_list = tag
+            .get(ENTITIES_TAG)
+            .filter(|t| t.as_list().is_none())
+            .map(|t| Tag::type_name(t.id()));
         Ok(LoadedEntities {
-            chunk: ChunkEntities::new(*pos, entities),
+            chunk: ChunkEntities {
+                entities_not_list,
+                ..ChunkEntities::new(*pos, entities)
+            },
             position_problem,
             skipped_entries,
         })

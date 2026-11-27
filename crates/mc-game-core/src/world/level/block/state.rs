@@ -615,9 +615,12 @@ pub fn encode_block_state(state: BlockState) -> mc_nbt::Tag {
         .expect("BlockState.CODEC encodes every state")
 }
 
-/// Decode with `BlockState.CODEC` (a bare block id or `{id, properties}`); `None` when it does not parse.
-pub fn decode_block_state(tag: &mc_nbt::Tag) -> Option<BlockState> {
-    mc_dfu::parse_nbt(&mc_protocol::packets::play::block_state_codec(), tag)
-        .into_result()
-        .ok()
+/// `input.read(key, BlockState.CODEC)` (a bare block id or `{id, properties}`): a decode problem is reported to the open
+/// problem scope, and the partial value of a failed decode is kept.
+pub fn read_block_state(tag: &mc_nbt::CompoundTag, key: &str) -> Option<BlockState> {
+    crate::world::block_entity::read_codec(
+        tag,
+        key,
+        &crate::world::item::enchantment::value_codecs::block_state_codec(),
+    )
 }

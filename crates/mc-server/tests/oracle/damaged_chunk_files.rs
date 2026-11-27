@@ -134,6 +134,30 @@ const CASES: &[(&str, &str, Damage)] = &[
     ("chunk_unknown_keys", "region", |t| {
         t.put_int("zzUnknown", 1)
     }),
+    ("ent_data_version_string", "entities", |t| {
+        t.put_string("DataVersion", "x")
+    }),
+    ("ent_entities_int", "entities", |t| t.put_int("Entities", 1)),
+    ("ent_entity_id_int", "entities", |t| {
+        map_list(t, &["Entities"], &|e| e.put_int("id", 7))
+    }),
+    ("ent_entity_id_unknown", "entities", |t| {
+        map_list(t, &["Entities"], &|e| e.put_string("id", "minecraft:zzz"))
+    }),
+    ("ent_entity_without_id", "entities", |t| {
+        map_list(t, &["Entities"], &|e| {
+            e.remove("id");
+        })
+    }),
+    ("ent_no_data_version", "entities", |t| {
+        t.remove("DataVersion");
+    }),
+    ("ent_old_data_version", "entities", |t| {
+        t.put_int("DataVersion", 2000)
+    }),
+    ("ent_position_string", "entities", |t| {
+        t.put_string("Position", "x")
+    }),
 ];
 
 #[test]
@@ -176,9 +200,9 @@ fn damaged_chunk_files() {
             copy_dir(&vanilla.dir, &base.join("vanilla"));
             copy_dir(&ours.dir, &base.join("ours"));
         }
-        // a misplaced chunk saves its report as `debug/chunk-world-<second>-server.txt`: the number of files follows the
-        // run time, so only their presence is compared
-        if *name == "chunk_xpos_mismatch" {
+        // a misplaced chunk or an unreadable entity position saves its report as `debug/chunk-world-<second>-server.txt`:
+        // the number of files follows the run time, so only their presence is compared
+        if matches!(*name, "chunk_xpos_mismatch" | "ent_position_string") {
             for run in [&vanilla, &ours] {
                 let debug = run.dir.join("debug");
                 assert!(debug.is_dir(), "{}: no chunk report", debug.display());

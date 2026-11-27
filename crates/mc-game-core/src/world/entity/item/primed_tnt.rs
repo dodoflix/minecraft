@@ -10,7 +10,7 @@ use crate::world::entity::{
 };
 use crate::world::level::BlockGetter;
 use crate::world::level::LevelAccessor;
-use crate::world::level::block::state::{decode_block_state, encode_block_state};
+use crate::world::level::block::state::{encode_block_state, read_block_state};
 use crate::world::level::explosion::{
     Explosion, ExplosionDamageCalculator, ExplosionInteraction, default_block_explosion_resistance,
 };
@@ -286,10 +286,7 @@ impl Entity for PrimedTnt {
     fn read_additional_save_data(&mut self, _level: Option<&ServerLevel>, input: &CompoundTag) {
         self.set_fuse(i32::from(input.get_short_or("fuse", DEFAULT_FUSE_TIME)));
         self.set_block_state(
-            input
-                .get("block_state")
-                .and_then(decode_block_state)
-                .unwrap_or_else(|| Block::TNT.default_state()),
+            read_block_state(input, "block_state").unwrap_or_else(|| Block::TNT.default_state()),
         );
         self.explosion_power = mth::clamp_f32(
             input.get_float_or("explosion_power", DEFAULT_EXPLOSION_POWER),

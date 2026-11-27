@@ -643,6 +643,13 @@ pub fn check_shape(tag: &CompoundTag, key: &str, shape: Shape) {
     });
 }
 
+/// `UnexpectedTypeProblem` of a list getter: the value at `key` has the type `type_name`, not LIST.
+pub fn report_not_list(key: &str, type_name: &str) {
+    problem_reporter::report(|| {
+        format!("Expected field '{key}' to contain value of type LIST, but got {type_name}")
+    });
+}
+
 /// `ValueInput.listOrEmpty(key, codec)`'s lookup: the list at `key`, empty when it is absent or not a list (`UnexpectedTypeProblem`,
 /// reported to the open [`problem_reporter`] scope).
 ///
@@ -651,12 +658,7 @@ pub fn list_or_empty<'a>(tag: &'a CompoundTag, key: &str) -> &'a mc_nbt::ListTag
     if let Some(value) = tag.get(key)
         && value.as_list().is_none()
     {
-        problem_reporter::report(|| {
-            format!(
-                "Expected field '{key}' to contain value of type LIST, but got {}",
-                mc_nbt::Tag::type_name(value.id())
-            )
-        });
+        report_not_list(key, &mc_nbt::Tag::type_name(value.id()));
     }
     tag.get_list_or_empty(key)
 }

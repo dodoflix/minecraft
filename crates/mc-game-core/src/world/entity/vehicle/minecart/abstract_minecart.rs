@@ -24,7 +24,7 @@ use crate::world::item::ItemStack;
 use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::impls::base_rail_block;
-use crate::world::level::block::state::{decode_block_state, encode_block_state};
+use crate::world::level::block::state::{encode_block_state, read_block_state};
 use crate::world::level::collision::BlockGetterExt;
 use linkme::distributed_slice;
 use mc_core::direction::Axis;
@@ -522,7 +522,7 @@ pub fn read_additional_save_data<M: AbstractMinecart + ?Sized>(
     _level: Option<&ServerLevel>,
     input: &CompoundTag,
 ) {
-    let state = input.get("DisplayState").and_then(decode_block_state);
+    let state = read_block_state(input, "DisplayState");
     m.base_mut()
         .entity_data
         .set(DATA_ID_CUSTOM_DISPLAY_BLOCK, state);
