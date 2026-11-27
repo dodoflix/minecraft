@@ -237,8 +237,12 @@ pub fn acknowledge(p: &mut ServerPlayer, sequence: i32) {
     }
 }
 
-/// `handleUseItem`: acknowledge, nothing for an empty or disabled stack, `ServerPlayerGameMode.useItem`, swing on a swinging success.
+/// `handleUseItem`: nothing while the client is not loaded (a dead player waits for its respawn), else acknowledge, nothing for
+/// an empty or disabled stack, `ServerPlayerGameMode.useItem`, swing on a swinging success.
 fn use_item(level: &mut ServerLevel, p: &mut ServerPlayer, a: &[String], sequence: i32) {
+    if p.listener.as_ref().is_some_and(|l| !l.has_client_loaded()) {
+        return;
+    }
     acknowledge(p, sequence);
     let hand = hand(a, 2);
     let stack = p.get_item_in_hand(hand);

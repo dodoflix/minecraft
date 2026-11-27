@@ -1046,20 +1046,14 @@ fn with_masked_sound_seeds(lines: Vec<String>) -> Vec<String> {
         .collect()
 }
 
-/// The fixture without the `PKT` lines of types the replay does not produce, against the replay; `sounds` false leaves the
-/// `sound` packets out of both sides.
-fn compared(name: &str, sounds: bool) -> Result<(), String> {
+/// The fixture without the `PKT` lines of types the replay does not produce, against the replay.
+fn compared(name: &str) -> Result<(), String> {
     let mut fixture = Fixture::load(name);
     fixture.lines.retain(|l| {
         let mut it = l.split_whitespace();
         it.next() != Some("PKT") || PKT_TYPES.contains(&it.nth(1).unwrap_or(""))
     });
-    let mut actual = replay(name);
-    if !sounds {
-        let sound = |l: &String| l.starts_with("PKT ") && l.contains(" minecraft:sound ");
-        fixture.lines.retain(|l| !sound(l));
-        actual.retain(|l| !sound(l));
-    }
+    let actual = replay(name);
     let opts = Options {
         ignore_kinds: vec!["#", "CF"],
         ..Default::default()
@@ -1073,7 +1067,7 @@ fn compared(name: &str, sounds: bool) -> Result<(), String> {
 }
 
 fn check(name: &str) {
-    if let Err(report) = compared(name, true) {
+    if let Err(report) = compared(name) {
         panic!("{report}");
     }
 }
@@ -1103,22 +1097,11 @@ fn enchantment_protections() {
     check("damage_enchant");
 }
 
-/// Everything but the `sound` packets matches. The vanilla fixture has a hostile sound at the position of the attacking zombie
-/// that the replay does not produce (not yet explained); `shield_sounds_still_differ` fails as soon as the sounds agree, and
-/// then `shield_blocking` compares them like the other scenarios.
+/// Replayed on the ticking level: the zombies burn in daylight and every tick shuffles the spawning chunks with `Level.random`
+/// (the sound pitches depend on it); the detached replay has neither.
 #[test]
 fn shield_blocking() {
-    if let Err(report) = compared("damage_shield", false) {
-        panic!("{report}");
-    }
-}
-
-#[test]
-fn shield_sounds_still_differ() {
-    assert!(
-        compared("damage_shield", true).is_err(),
-        "the sounds of damage_shield match: compare them in shield_blocking"
-    );
+    common::block_scenario::check("damage_shield");
 }
 
 #[test]

@@ -1,5 +1,6 @@
 //! Level-wide effect broadcasts of `ServerLevel` (sounds, level events, block events, block destruction progress): the
-//! packets go to the players of this level within range (`PlayerList.broadcast`, which iterates the level's players here).
+//! packets go to the players of this level within range (`PlayerList.broadcast`, which iterates the level's players and the killed
+//! players parked in it here).
 
 use super::{PlayerRecord, ServerLevel};
 use crate::server::network::connection::Payload;
@@ -75,7 +76,17 @@ impl ServerLevel {
                 });
             }
         }
-        for &id in &self.players {
+        // a killed player left the level but not the player list: it still hears what happens near its body
+        let listed = self.players.iter().map(|&id| (id, self.player_record(id)));
+        let parked = self.dead_players.iter().map(|(&id, e)| {
+            (
+                id,
+                e.as_any()
+                    .downcast_ref::<ServerPlayer>()
+                    .map(PlayerRecord::of),
+            )
+        });
+        for (id, record) in listed.chain(parked) {
             if Some(id) == except {
                 continue;
             }
@@ -92,7 +103,7 @@ impl ServerLevel {
                 connection: Some(connection),
                 position,
                 ..
-            }) = self.player_record(id)
+            }) = record
             else {
                 continue;
             };
