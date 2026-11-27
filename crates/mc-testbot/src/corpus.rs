@@ -833,6 +833,12 @@ impl Side {
                 self.bots[i] = None;
             }
         }
+        // a message with line breaks (`/tick query`) is several lines, as in a recorded transcript
+        let mut lines: Vec<String> = lines
+            .iter()
+            .flat_map(|l| l.split('\n'))
+            .map(str::to_owned)
+            .collect();
         for re in &self.sort {
             sort_runs(&mut lines, re);
         }

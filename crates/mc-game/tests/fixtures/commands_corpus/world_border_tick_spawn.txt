@@ -1,6 +1,18 @@
 # /worldborder, /tick, /setworldspawn, /spawnpoint: feedback, errors and the packets they cause
 !packets ^(initialize_border|set_border_.*|ticking_state|ticking_step|set_default_spawn_position)$
-!ignore (?i)(target tick rate|average time per tick|percentiles|sprint report|sprinting|per second)
+# the measured numbers of /tick query and the sprint report are wall-clock; the text around them is compared
+!mask Average time per tick: ([\d.,]+)ms
+!mask P50: ([\d.,]+)ms
+!mask P95: ([\d.,]+)ms
+!mask P99: ([\d.,]+)ms
+!mask Sprint completed with ([\d.,]+) ticks
+!mask or ([\d.,]+) ms per tick
+!mask "commands\.tick\.query\.rate\.running","with":\["[^"]*","([\d.,]+)"
+!mask "commands\.tick\.query\.percentiles","with":\["([\d.,]+)"
+!mask "commands\.tick\.query\.percentiles","with":\["<masked>","([\d.,]+)"
+!mask "commands\.tick\.query\.percentiles","with":\["<masked>","<masked>","([\d.,]+)"
+!mask "commands\.tick\.sprint\.report","with":\["?([\d.,]+)"?,
+!mask "commands\.tick\.sprint\.report","with":\[<masked>,"([\d.,]+)"\]
 worldborder get
 @bot worldborder get
 @bot worldborder set 10 5

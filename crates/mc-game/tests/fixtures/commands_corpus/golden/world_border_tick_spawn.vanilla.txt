@@ -1,263 +1,283 @@
-### [world_border_tick_spawn.txt:4] worldborder get
+### [world_border_tick_spawn.txt:16] worldborder get
 log| System chat: The world border is currently 59999968 block(s) wide
-### [world_border_tick_spawn.txt:5] @bot worldborder get
+### [world_border_tick_spawn.txt:17] @bot worldborder get
 Bot| [system_chat] The world border is currently 59999968 block(s) wide
 Bot|   json {"translate":"commands.worldborder.get","with":["59999968"]}
-### [world_border_tick_spawn.txt:6] @bot worldborder set 10 5
+### [world_border_tick_spawn.txt:18] @bot worldborder set 10 5
 log| System chat: [Bot: Shrinking the world border to 10.0 block(s) wide over 0.25 second(s)]
 Bot| [system_chat] Shrinking the world border to 10.0 block(s) wide over 0.25 second(s)
 Bot|   json {"translate":"commands.worldborder.set.shrink","with":["10.0","0.25"]}
 Bot| packet set_border_lerp_size SetBorderLerpSize(ClientboundSetBorderLerpSizePacket { old_size: 59999968.0, new_size: 10.0, lerp_time: 5 })
 Bot0| packet set_border_lerp_size SetBorderLerpSize(ClientboundSetBorderLerpSizePacket { old_size: 59999968.0, new_size: 10.0, lerp_time: 5 })
-### [world_border_tick_spawn.txt:9] @bot worldborder set 10 5
+### [world_border_tick_spawn.txt:21] @bot worldborder set 10 5
 Bot| [system_chat] Nothing changed. The world border is already that size
 Bot|   json {"text":"","extra":[{"translate":"commands.worldborder.set.failed.nochange"}],"color":"red"}
-### [world_border_tick_spawn.txt:10] @bot worldborder set 10
+### [world_border_tick_spawn.txt:22] @bot worldborder set 10
 Bot| [system_chat] Nothing changed. The world border is already that size
 Bot|   json {"text":"","extra":[{"translate":"commands.worldborder.set.failed.nochange"}],"color":"red"}
-### [world_border_tick_spawn.txt:11] @bot worldborder get
+### [world_border_tick_spawn.txt:23] @bot worldborder get
 Bot| [system_chat] The world border is currently 10 block(s) wide
 Bot|   json {"translate":"commands.worldborder.get","with":["10"]}
-### [world_border_tick_spawn.txt:12] @bot worldborder set 0
+### [world_border_tick_spawn.txt:24] @bot worldborder set 0
 Bot| [system_chat] World border cannot be smaller than 1 block wide
 Bot|   json {"text":"","extra":[{"translate":"commands.worldborder.set.failed.small"}],"color":"red"}
-### [world_border_tick_spawn.txt:13] @bot worldborder set 100000000
+### [world_border_tick_spawn.txt:25] @bot worldborder set 100000000
 Bot| [system_chat] Double must not be more than 5.9999968E7: found 1.0E8
 Bot|   json {"text":"","extra":[{"translate":"argument.double.big","with":[5.9999968E7,1.0E8]}],"color":"red"}
 Bot| [system_chat] ...order set 100000000<--[HERE]
 Bot|   json {"text":"","extra":[{"text":"","extra":["...","order set ",{"text":"100000000","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/worldborder set 100000000","action":"suggest_command"}}],"color":"red"}
-### [world_border_tick_spawn.txt:14] @bot worldborder set 200
+### [world_border_tick_spawn.txt:26] @bot worldborder set 200
 log| System chat: [Bot: Set the world border to 200.0 block(s) wide]
 Bot| [system_chat] Set the world border to 200.0 block(s) wide
 Bot|   json {"translate":"commands.worldborder.set.immediate","with":["200.0"]}
 Bot| packet set_border_size SetBorderSize(ClientboundSetBorderSizePacket { size: 200.0 })
 Bot0| packet set_border_size SetBorderSize(ClientboundSetBorderSizePacket { size: 200.0 })
-### [world_border_tick_spawn.txt:15] @bot worldborder add 50
+### [world_border_tick_spawn.txt:27] @bot worldborder add 50
 log| System chat: [Bot: Set the world border to 250.0 block(s) wide]
 Bot| [system_chat] Set the world border to 250.0 block(s) wide
 Bot|   json {"translate":"commands.worldborder.set.immediate","with":["250.0"]}
 Bot| packet set_border_size SetBorderSize(ClientboundSetBorderSizePacket { size: 250.0 })
 Bot0| packet set_border_size SetBorderSize(ClientboundSetBorderSizePacket { size: 250.0 })
-### [world_border_tick_spawn.txt:16] @bot worldborder add -10 3
+### [world_border_tick_spawn.txt:28] @bot worldborder add -10 3
 log| System chat: [Bot: Shrinking the world border to 240.0 block(s) wide over 0.15 second(s)]
 Bot| [system_chat] Shrinking the world border to 240.0 block(s) wide over 0.15 second(s)
 Bot|   json {"translate":"commands.worldborder.set.shrink","with":["240.0","0.15"]}
 Bot| packet set_border_lerp_size SetBorderLerpSize(ClientboundSetBorderLerpSizePacket { old_size: 250.0, new_size: 240.0, lerp_time: 3 })
 Bot0| packet set_border_lerp_size SetBorderLerpSize(ClientboundSetBorderLerpSizePacket { old_size: 250.0, new_size: 240.0, lerp_time: 3 })
-### [world_border_tick_spawn.txt:18] @bot worldborder add 1000 10
+### [world_border_tick_spawn.txt:30] @bot worldborder add 1000 10
 log| System chat: [Bot: Growing the world border to 1240.0 block(s) wide over 0.50 second(s)]
 Bot| [system_chat] Growing the world border to 1240.0 block(s) wide over 0.50 second(s)
 Bot|   json {"translate":"commands.worldborder.set.grow","with":["1240.0","0.50"]}
 Bot| packet set_border_lerp_size SetBorderLerpSize(ClientboundSetBorderLerpSizePacket { old_size: 240.0, new_size: 1240.0, lerp_time: 10 })
 Bot0| packet set_border_lerp_size SetBorderLerpSize(ClientboundSetBorderLerpSizePacket { old_size: 240.0, new_size: 1240.0, lerp_time: 10 })
-### [world_border_tick_spawn.txt:20] @bot worldborder center 100 -50
+### [world_border_tick_spawn.txt:32] @bot worldborder center 100 -50
 log| System chat: [Bot: Set the center of the world border to 100.50, -49.50]
 Bot| [system_chat] Set the center of the world border to 100.50, -49.50
 Bot|   json {"translate":"commands.worldborder.center.success","with":["100.50","-49.50"]}
 Bot| packet set_border_center SetBorderCenter(ClientboundSetBorderCenterPacket { new_center_x: 100.5, new_center_z: -49.5 })
 Bot0| packet set_border_center SetBorderCenter(ClientboundSetBorderCenterPacket { new_center_x: 100.5, new_center_z: -49.5 })
-### [world_border_tick_spawn.txt:21] @bot worldborder center 100 -50
+### [world_border_tick_spawn.txt:33] @bot worldborder center 100 -50
 Bot| [system_chat] Nothing changed. The world border is already centered there
 Bot|   json {"text":"","extra":[{"translate":"commands.worldborder.center.failed"}],"color":"red"}
-### [world_border_tick_spawn.txt:22] @bot worldborder center 30000000 0
+### [world_border_tick_spawn.txt:34] @bot worldborder center 30000000 0
 Bot| [system_chat] World border cannot be further out than 2.9999984E7 blocks
 Bot|   json {"text":"","extra":[{"translate":"commands.worldborder.set.failed.far","with":[2.9999984E7]}],"color":"red"}
-### [world_border_tick_spawn.txt:23] @bot worldborder center ~ ~
+### [world_border_tick_spawn.txt:35] @bot worldborder center ~ ~
 log| System chat: [Bot: Set the center of the world border to 0.50, 0.50]
 Bot| [system_chat] Set the center of the world border to 0.50, 0.50
 Bot|   json {"translate":"commands.worldborder.center.success","with":["0.50","0.50"]}
 Bot| packet set_border_center SetBorderCenter(ClientboundSetBorderCenterPacket { new_center_x: 0.5, new_center_z: 0.5 })
 Bot0| packet set_border_center SetBorderCenter(ClientboundSetBorderCenterPacket { new_center_x: 0.5, new_center_z: 0.5 })
-### [world_border_tick_spawn.txt:24] @bot worldborder damage amount 0.5
+### [world_border_tick_spawn.txt:36] @bot worldborder damage amount 0.5
 log| System chat: [Bot: Set the world border damage to 0.50 per block each second]
 Bot| [system_chat] Set the world border damage to 0.50 per block each second
 Bot|   json {"translate":"commands.worldborder.damage.amount.success","with":["0.50"]}
-### [world_border_tick_spawn.txt:25] @bot worldborder damage amount 0.5
+### [world_border_tick_spawn.txt:37] @bot worldborder damage amount 0.5
 Bot| [system_chat] Nothing changed. The world border damage is already that amount
 Bot|   json {"text":"","extra":[{"translate":"commands.worldborder.damage.amount.failed"}],"color":"red"}
-### [world_border_tick_spawn.txt:26] @bot worldborder damage buffer 3
+### [world_border_tick_spawn.txt:38] @bot worldborder damage buffer 3
 log| System chat: [Bot: Set the world border damage buffer to 3.00 block(s)]
 Bot| [system_chat] Set the world border damage buffer to 3.00 block(s)
 Bot|   json {"translate":"commands.worldborder.damage.buffer.success","with":["3.00"]}
-### [world_border_tick_spawn.txt:27] @bot worldborder damage buffer 3.25
+### [world_border_tick_spawn.txt:39] @bot worldborder damage buffer 3.25
 log| System chat: [Bot: Set the world border damage buffer to 3.25 block(s)]
 Bot| [system_chat] Set the world border damage buffer to 3.25 block(s)
 Bot|   json {"translate":"commands.worldborder.damage.buffer.success","with":["3.25"]}
-### [world_border_tick_spawn.txt:28] @bot worldborder warning distance 7
+### [world_border_tick_spawn.txt:40] @bot worldborder warning distance 7
 log| System chat: [Bot: Set the world border warning distance to 7 block(s)]
 Bot| [system_chat] Set the world border warning distance to 7 block(s)
 Bot|   json {"translate":"commands.worldborder.warning.distance.success","with":[7]}
 Bot| packet set_border_warning_distance SetBorderWarningDistance(ClientboundSetBorderWarningDistancePacket { warning_blocks: 7 })
 Bot0| packet set_border_warning_distance SetBorderWarningDistance(ClientboundSetBorderWarningDistancePacket { warning_blocks: 7 })
-### [world_border_tick_spawn.txt:29] @bot worldborder warning distance 7
+### [world_border_tick_spawn.txt:41] @bot worldborder warning distance 7
 Bot| [system_chat] Nothing changed. The world border warning is already that distance
 Bot|   json {"text":"","extra":[{"translate":"commands.worldborder.warning.distance.failed"}],"color":"red"}
-### [world_border_tick_spawn.txt:30] @bot worldborder warning time 20
+### [world_border_tick_spawn.txt:42] @bot worldborder warning time 20
 log| System chat: [Bot: Set the world border warning time to 1.00 second(s)]
 Bot| [system_chat] Set the world border warning time to 1.00 second(s)
 Bot|   json {"translate":"commands.worldborder.warning.time.success","with":["1.00"]}
 Bot| packet set_border_warning_delay SetBorderWarningDelay(ClientboundSetBorderWarningDelayPacket { warning_delay: 20 })
 Bot0| packet set_border_warning_delay SetBorderWarningDelay(ClientboundSetBorderWarningDelayPacket { warning_delay: 20 })
-### [world_border_tick_spawn.txt:31] @bot worldborder warning time 5s
+### [world_border_tick_spawn.txt:43] @bot worldborder warning time 5s
 log| System chat: [Bot: Set the world border warning time to 5.00 second(s)]
 Bot| [system_chat] Set the world border warning time to 5.00 second(s)
 Bot|   json {"translate":"commands.worldborder.warning.time.success","with":["5.00"]}
 Bot| packet set_border_warning_delay SetBorderWarningDelay(ClientboundSetBorderWarningDelayPacket { warning_delay: 100 })
 Bot0| packet set_border_warning_delay SetBorderWarningDelay(ClientboundSetBorderWarningDelayPacket { warning_delay: 100 })
-### [world_border_tick_spawn.txt:32] @bot worldborder warning time 5s
+### [world_border_tick_spawn.txt:44] @bot worldborder warning time 5s
 Bot| [system_chat] Nothing changed. The world border warning is already that amount of time
 Bot|   json {"text":"","extra":[{"translate":"commands.worldborder.warning.time.failed"}],"color":"red"}
-### [world_border_tick_spawn.txt:33] @bot worldborder set 59999970
+### [world_border_tick_spawn.txt:45] @bot worldborder set 59999970
 Bot| [system_chat] Double must not be more than 5.9999968E7: found 5.999997E7
 Bot|   json {"text":"","extra":[{"translate":"argument.double.big","with":[5.9999968E7,5.999997E7]}],"color":"red"}
 Bot| [system_chat] ...order set 59999970<--[HERE]
 Bot|   json {"text":"","extra":[{"text":"","extra":["...","order set ",{"text":"59999970","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/worldborder set 59999970","action":"suggest_command"}}],"color":"red"}
-### [world_border_tick_spawn.txt:34] @bot worldborder get
+### [world_border_tick_spawn.txt:46] @bot worldborder get
 Bot| [system_chat] The world border is currently 1240 block(s) wide
 Bot|   json {"translate":"commands.worldborder.get","with":["1240"]}
-### [world_border_tick_spawn.txt:35] worldborder set 1000
+### [world_border_tick_spawn.txt:47] worldborder set 1000
 log| System chat: Set the world border to 1000.0 block(s) wide
 Bot| [system_chat] [Server: Set the world border to 1000.0 block(s) wide]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.worldborder.set.immediate","with":["1000.0"]}],"color":"gray","italic":true}
 Bot| packet set_border_size SetBorderSize(ClientboundSetBorderSizePacket { size: 1000.0 })
 Bot0| packet set_border_size SetBorderSize(ClientboundSetBorderSizePacket { size: 1000.0 })
-### [world_border_tick_spawn.txt:36] worldborder get
+### [world_border_tick_spawn.txt:48] worldborder get
 log| System chat: The world border is currently 1000 block(s) wide
-### [world_border_tick_spawn.txt:37] @bot0 worldborder get
+### [world_border_tick_spawn.txt:49] @bot0 worldborder get
 Bot0| [system_chat] Unknown or incomplete command. See below for error
 Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
 Bot0| [system_chat] worldborder get<--[HERE]
 Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"worldborder get","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/worldborder get","action":"suggest_command"}}],"color":"red"}
-### [world_border_tick_spawn.txt:38] @bot tick freeze
+### [world_border_tick_spawn.txt:50] @bot tick freeze
 log| System chat: [Bot: The game is frozen]
 Bot| [system_chat] The game is frozen
 Bot|   json {"translate":"commands.tick.status.frozen"}
 Bot| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: true })
 Bot0| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: true })
-### [world_border_tick_spawn.txt:39] @bot tick freeze
-log| System chat: [Bot: The game is frozen]
-Bot| [system_chat] The game is frozen
-Bot|   json {"translate":"commands.tick.status.frozen"}
-Bot| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: true })
-Bot0| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: true })
-### [world_border_tick_spawn.txt:40] @bot tick step
-log| System chat: [Bot: Stepping 1 tick(s)]
-Bot| [system_chat] Stepping 1 tick(s)
-Bot|   json {"translate":"commands.tick.step.success","with":[1]}
-Bot| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 1 })
-Bot0| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 1 })
-### [world_border_tick_spawn.txt:41] @bot tick step 5
-log| System chat: [Bot: Stepping 5 tick(s)]
-Bot| [system_chat] Stepping 5 tick(s)
-Bot|   json {"translate":"commands.tick.step.success","with":[5]}
-Bot| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 5 })
-Bot0| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 5 })
-### [world_border_tick_spawn.txt:42] @bot tick step 40
-log| System chat: [Bot: Stepping 40 tick(s)]
-Bot| [system_chat] Stepping 40 tick(s)
-Bot|   json {"translate":"commands.tick.step.success","with":[40]}
-Bot| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 40 })
-Bot0| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 40 })
-### [world_border_tick_spawn.txt:43] @bot tick step stop
-log| System chat: [Bot: Interrupted the current tick step]
-Bot| [system_chat] Interrupted the current tick step
-Bot|   json {"translate":"commands.tick.step.stop.success"}
-Bot| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 0 })
-Bot0| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 0 })
-### [world_border_tick_spawn.txt:44] @bot tick step stop
-Bot| [system_chat] No tick step in progress
-Bot|   json {"text":"","extra":[{"translate":"commands.tick.step.stop.fail"}],"color":"red"}
-### [world_border_tick_spawn.txt:45] @bot tick unfreeze
-log| System chat: [Bot: The game is running normally]
-Bot| [system_chat] The game is running normally
-Bot|   json {"translate":"commands.tick.status.running"}
-Bot| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: false })
-Bot0| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: false })
-### [world_border_tick_spawn.txt:46] @bot tick step
-Bot| [system_chat] Unable to step the game - the game must be frozen first
-Bot|   json {"text":"","extra":[{"translate":"commands.tick.step.fail"}],"color":"red"}
-### [world_border_tick_spawn.txt:47] @bot tick rate 10
-Bot| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 10.0, is_frozen: false })
-Bot0| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 10.0, is_frozen: false })
-### [world_border_tick_spawn.txt:48] @bot tick rate 10.5
-Bot| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 10.5, is_frozen: false })
-Bot0| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 10.5, is_frozen: false })
-### [world_border_tick_spawn.txt:49] @bot tick rate 20
-Bot| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: false })
-Bot0| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: false })
-### [world_border_tick_spawn.txt:50] @bot tick query
-Bot| [system_chat] The game is running normally
-Bot|   json {"translate":"commands.tick.status.running"}
 ### [world_border_tick_spawn.txt:51] @bot tick freeze
 log| System chat: [Bot: The game is frozen]
 Bot| [system_chat] The game is frozen
 Bot|   json {"translate":"commands.tick.status.frozen"}
 Bot| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: true })
 Bot0| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: true })
-### [world_border_tick_spawn.txt:52] @bot tick sprint 20
+### [world_border_tick_spawn.txt:52] @bot tick step
+log| System chat: [Bot: Stepping 1 tick(s)]
+Bot| [system_chat] Stepping 1 tick(s)
+Bot|   json {"translate":"commands.tick.step.success","with":[1]}
+Bot| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 1 })
+Bot0| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 1 })
+### [world_border_tick_spawn.txt:53] @bot tick step 5
+log| System chat: [Bot: Stepping 5 tick(s)]
+Bot| [system_chat] Stepping 5 tick(s)
+Bot|   json {"translate":"commands.tick.step.success","with":[5]}
+Bot| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 5 })
+Bot0| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 5 })
+### [world_border_tick_spawn.txt:54] @bot tick step 40
+log| System chat: [Bot: Stepping 40 tick(s)]
+Bot| [system_chat] Stepping 40 tick(s)
+Bot|   json {"translate":"commands.tick.step.success","with":[40]}
+Bot| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 40 })
+Bot0| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 40 })
+### [world_border_tick_spawn.txt:55] @bot tick step stop
+log| System chat: [Bot: Interrupted the current tick step]
+Bot| [system_chat] Interrupted the current tick step
+Bot|   json {"translate":"commands.tick.step.stop.success"}
+Bot| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 0 })
+Bot0| packet ticking_step TickingStep(ClientboundTickingStepPacket { tick_steps: 0 })
+### [world_border_tick_spawn.txt:56] @bot tick step stop
+Bot| [system_chat] No tick step in progress
+Bot|   json {"text":"","extra":[{"translate":"commands.tick.step.stop.fail"}],"color":"red"}
+### [world_border_tick_spawn.txt:57] @bot tick unfreeze
+log| System chat: [Bot: The game is running normally]
+Bot| [system_chat] The game is running normally
+Bot|   json {"translate":"commands.tick.status.running"}
 Bot| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: false })
 Bot0| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: false })
-### [world_border_tick_spawn.txt:53] @bot tick sprint stop
+### [world_border_tick_spawn.txt:58] @bot tick step
+Bot| [system_chat] Unable to step the game - the game must be frozen first
+Bot|   json {"text":"","extra":[{"translate":"commands.tick.step.fail"}],"color":"red"}
+### [world_border_tick_spawn.txt:59] @bot tick rate 10
+log| System chat: [Bot: Set the target tick rate to 10.0 per second]
+Bot| [system_chat] Set the target tick rate to 10.0 per second
+Bot|   json {"translate":"commands.tick.rate.success","with":["10.0"]}
+Bot| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 10.0, is_frozen: false })
+Bot0| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 10.0, is_frozen: false })
+### [world_border_tick_spawn.txt:60] @bot tick rate 10.5
+log| System chat: [Bot: Set the target tick rate to 10.5 per second]
+Bot| [system_chat] Set the target tick rate to 10.5 per second
+Bot|   json {"translate":"commands.tick.rate.success","with":["10.5"]}
+Bot| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 10.5, is_frozen: false })
+Bot0| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 10.5, is_frozen: false })
+### [world_border_tick_spawn.txt:61] @bot tick rate 20
+log| System chat: [Bot: Set the target tick rate to 20.0 per second]
+Bot| [system_chat] Set the target tick rate to 20.0 per second
+Bot|   json {"translate":"commands.tick.rate.success","with":["20.0"]}
+Bot| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: false })
+Bot0| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: false })
+### [world_border_tick_spawn.txt:62] @bot tick query
+Bot| [system_chat] The game is running normally
+Bot|   json {"translate":"commands.tick.status.running"}
+Bot| [system_chat] Target tick rate: 20.0 per second.
+Average time per tick: <masked>ms (Target: 50.0ms)
+Bot|   json {"translate":"commands.tick.query.rate.running","with":["20.0","<masked>","50.0"]}
+Bot| [system_chat] Percentiles: P50: <masked>ms P95: <masked>ms P99: <masked>ms. Sample: 100
+Bot|   json {"translate":"commands.tick.query.percentiles","with":["<masked>","<masked>","<masked>",100]}
+### [world_border_tick_spawn.txt:63] @bot tick freeze
+log| System chat: [Bot: The game is frozen]
+Bot| [system_chat] The game is frozen
+Bot|   json {"translate":"commands.tick.status.frozen"}
+Bot| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: true })
+Bot0| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: true })
+### [world_border_tick_spawn.txt:64] @bot tick sprint 20
+log| System chat: [Bot: The game is sprinting]
+Bot| [system_chat] The game is sprinting
+Bot|   json {"translate":"commands.tick.status.sprinting"}
+Bot| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: false })
+Bot0| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: false })
+### [world_border_tick_spawn.txt:65] @bot tick sprint stop
+log| System chat: Sprint completed with <masked> ticks per second, or <masked> ms per tick
 log| System chat: [Bot: Interrupted the current tick sprint]
+Bot| [system_chat] [Server: Sprint completed with <masked> ticks per second, or <masked> ms per tick]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.sprint.report","with":[<masked>,"<masked>"]}],"color":"gray","italic":true}
 Bot| [system_chat] Interrupted the current tick sprint
 Bot|   json {"translate":"commands.tick.sprint.stop.success"}
 Bot| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: true })
 Bot0| packet ticking_state TickingState(ClientboundTickingStatePacket { tick_rate: 20.0, is_frozen: true })
-### [world_border_tick_spawn.txt:54] @bot tick sprint stop
+### [world_border_tick_spawn.txt:66] @bot tick sprint stop
 Bot| [system_chat] No tick sprint in progress
 Bot|   json {"text":"","extra":[{"translate":"commands.tick.sprint.stop.fail"}],"color":"red"}
-### [world_border_tick_spawn.txt:55] @bot0 tick query
+### [world_border_tick_spawn.txt:67] @bot0 tick query
 Bot0| [system_chat] Unknown or incomplete command. See below for error
 Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
 Bot0| [system_chat] tick query<--[HERE]
 Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"tick query","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/tick query","action":"suggest_command"}}],"color":"red"}
-### [world_border_tick_spawn.txt:56] setworldspawn 10 70 10
+### [world_border_tick_spawn.txt:68] setworldspawn 10 70 10
 log| System chat: Set the world spawn point to 10, 70, 10 [0.0, 0.0] in minecraft:overworld
 Bot| [system_chat] [Server: Set the world spawn point to 10, 70, 10 [0.0, 0.0] in minecraft:overworld]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setworldspawn.success","with":[10,70,10,0.0,0.0,"minecraft:overworld"]}],"color":"gray","italic":true}
 Bot| packet set_default_spawn_position SetDefaultSpawnPosition(ClientboundSetDefaultSpawnPositionPacket { respawn_data: RespawnData { global_pos: GlobalPos { dimension: minecraft:overworld, pos: BlockPos{x=10, y=70, z=10} }, yaw: 0.0, pitch: 0.0 } })
 Bot0| packet set_default_spawn_position SetDefaultSpawnPosition(ClientboundSetDefaultSpawnPositionPacket { respawn_data: RespawnData { global_pos: GlobalPos { dimension: minecraft:overworld, pos: BlockPos{x=10, y=70, z=10} }, yaw: 0.0, pitch: 0.0 } })
-### [world_border_tick_spawn.txt:57] setworldspawn 10 70 10
+### [world_border_tick_spawn.txt:69] setworldspawn 10 70 10
 log| System chat: Set the world spawn point to 10, 70, 10 [0.0, 0.0] in minecraft:overworld
 Bot| [system_chat] [Server: Set the world spawn point to 10, 70, 10 [0.0, 0.0] in minecraft:overworld]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setworldspawn.success","with":[10,70,10,0.0,0.0,"minecraft:overworld"]}],"color":"gray","italic":true}
-### [world_border_tick_spawn.txt:58] setworldspawn 3 4 5 45 30
+### [world_border_tick_spawn.txt:70] setworldspawn 3 4 5 45 30
 log| System chat: Set the world spawn point to 3, 4, 5 [45.0, 30.0] in minecraft:overworld
 Bot| [system_chat] [Server: Set the world spawn point to 3, 4, 5 [45.0, 30.0] in minecraft:overworld]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setworldspawn.success","with":[3,4,5,45.0,30.0,"minecraft:overworld"]}],"color":"gray","italic":true}
 Bot| packet set_default_spawn_position SetDefaultSpawnPosition(ClientboundSetDefaultSpawnPositionPacket { respawn_data: RespawnData { global_pos: GlobalPos { dimension: minecraft:overworld, pos: BlockPos{x=3, y=4, z=5} }, yaw: 45.0, pitch: 30.0 } })
 Bot0| packet set_default_spawn_position SetDefaultSpawnPosition(ClientboundSetDefaultSpawnPositionPacket { respawn_data: RespawnData { global_pos: GlobalPos { dimension: minecraft:overworld, pos: BlockPos{x=3, y=4, z=5} }, yaw: 45.0, pitch: 30.0 } })
-### [world_border_tick_spawn.txt:59] setworldspawn ~ ~ ~
+### [world_border_tick_spawn.txt:71] setworldspawn ~ ~ ~
 log| System chat: Set the world spawn point to 3, 4, 5 [0.0, 0.0] in minecraft:overworld
 Bot| [system_chat] [Server: Set the world spawn point to 3, 4, 5 [0.0, 0.0] in minecraft:overworld]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setworldspawn.success","with":[3,4,5,0.0,0.0,"minecraft:overworld"]}],"color":"gray","italic":true}
 Bot| packet set_default_spawn_position SetDefaultSpawnPosition(ClientboundSetDefaultSpawnPositionPacket { respawn_data: RespawnData { global_pos: GlobalPos { dimension: minecraft:overworld, pos: BlockPos{x=3, y=4, z=5} }, yaw: 0.0, pitch: 0.0 } })
 Bot0| packet set_default_spawn_position SetDefaultSpawnPosition(ClientboundSetDefaultSpawnPositionPacket { respawn_data: RespawnData { global_pos: GlobalPos { dimension: minecraft:overworld, pos: BlockPos{x=3, y=4, z=5} }, yaw: 0.0, pitch: 0.0 } })
-### [world_border_tick_spawn.txt:60] @bot setworldspawn
+### [world_border_tick_spawn.txt:72] @bot setworldspawn
 log| System chat: [Bot: Set the world spawn point to 0, -60, 0 [0.0, 0.0] in minecraft:overworld]
 Bot| [system_chat] Set the world spawn point to 0, -60, 0 [0.0, 0.0] in minecraft:overworld
 Bot|   json {"translate":"commands.setworldspawn.success","with":[0,-60,0,0.0,0.0,"minecraft:overworld"]}
 Bot| packet set_default_spawn_position SetDefaultSpawnPosition(ClientboundSetDefaultSpawnPositionPacket { respawn_data: RespawnData { global_pos: GlobalPos { dimension: minecraft:overworld, pos: BlockPos{x=0, y=-60, z=0} }, yaw: 0.0, pitch: 0.0 } })
 Bot0| packet set_default_spawn_position SetDefaultSpawnPosition(ClientboundSetDefaultSpawnPositionPacket { respawn_data: RespawnData { global_pos: GlobalPos { dimension: minecraft:overworld, pos: BlockPos{x=0, y=-60, z=0} }, yaw: 0.0, pitch: 0.0 } })
-### [world_border_tick_spawn.txt:61] @bot spawnpoint
+### [world_border_tick_spawn.txt:73] @bot spawnpoint
 log| System chat: [Bot: Set spawn point to 0, -60, 0 [0.0, 0.0] in minecraft:overworld for Bot]
 Bot| [system_chat] Set spawn point to 0, -60, 0 [0.0, 0.0] in minecraft:overworld for Bot
 Bot|   json {"translate":"commands.spawnpoint.success.single","with":[0,-60,0,0.0,0.0,"minecraft:overworld",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
-### [world_border_tick_spawn.txt:62] @bot spawnpoint Bot 1 2 3
+### [world_border_tick_spawn.txt:74] @bot spawnpoint Bot 1 2 3
 log| System chat: [Bot: Set spawn point to 1, 2, 3 [0.0, 0.0] in minecraft:overworld for Bot]
 Bot| [system_chat] Set spawn point to 1, 2, 3 [0.0, 0.0] in minecraft:overworld for Bot
 Bot|   json {"translate":"commands.spawnpoint.success.single","with":[1,2,3,0.0,0.0,"minecraft:overworld",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
-### [world_border_tick_spawn.txt:63] @bot spawnpoint Bot 1 2 3 90 -10
+### [world_border_tick_spawn.txt:75] @bot spawnpoint Bot 1 2 3 90 -10
 log| System chat: [Bot: Set spawn point to 1, 2, 3 [90.0, -10.0] in minecraft:overworld for Bot]
 Bot| [system_chat] Set spawn point to 1, 2, 3 [90.0, -10.0] in minecraft:overworld for Bot
 Bot|   json {"translate":"commands.spawnpoint.success.single","with":[1,2,3,90.0,-10.0,"minecraft:overworld",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
-### [world_border_tick_spawn.txt:64] @bot spawnpoint @a 7 8 9
+### [world_border_tick_spawn.txt:76] @bot spawnpoint @a 7 8 9
 log| System chat: [Bot: Set spawn point to 7, 8, 9 [0.0, 0.0] in minecraft:overworld for 2 players]
 Bot| [system_chat] Set spawn point to 7, 8, 9 [0.0, 0.0] in minecraft:overworld for 2 players
 Bot|   json {"translate":"commands.spawnpoint.success.multiple","with":[7,8,9,0.0,0.0,"minecraft:overworld",2]}
-### [world_border_tick_spawn.txt:65] spawnpoint Bot0 0 0 0
+### [world_border_tick_spawn.txt:77] spawnpoint Bot0 0 0 0
 log| System chat: Set spawn point to 0, 0, 0 [0.0, 0.0] in minecraft:overworld for Bot0
 Bot| [system_chat] [Server: Set spawn point to 0, 0, 0 [0.0, 0.0] in minecraft:overworld for Bot0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.spawnpoint.success.single","with":[0,0,0,0.0,0.0,"minecraft:overworld",{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"}]}],"color":"gray","italic":true}
-### [world_border_tick_spawn.txt:66] spawnpoint
+### [world_border_tick_spawn.txt:78] spawnpoint
 log| System chat: A player is required to run this command here
