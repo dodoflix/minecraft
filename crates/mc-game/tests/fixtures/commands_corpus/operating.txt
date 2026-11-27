@@ -5,17 +5,27 @@
 gamerule advance_time false
 gamerule advance_weather false
 
-# the log lines of a closed connection are asynchronous (they land on another tick than vanilla's): only the player-visible
-# effects are compared
-!ignore lost connection:
-!ignore handleDisconnection
-# vanilla's kick/ban run `handleDisconnection` synchronously (`server.executeBlocking`), so the leave message lands in the
-# command's own output; ours processes the disconnect on a later tick (network layer, not the commands): ignore until fixed
-!ignore left the game
-!ignore multiplayer.player.left
 # timing dependent in vanilla too (the bot's own movement packets after a teleport)
 !ignore standing on air
 !ignore Can.t keep up
+
+# The first disconnect a vanilla server makes (here a kick) differs from every later one: `disconnect` queues the kick
+# packet to netty and then runs `handleDisconnection` inline, which only does anything once netty has closed the channel.
+# Recorded twice per kind, the first one finds it closed (the leave lands in the kick's own segment and the connection
+# tick later logs `handleDisconnection() called twice`; probably the first call is slow on the server thread) and every
+# later one does not (the leave lands one tick later, no warning). Take that one disconnect here, with its leave lines
+# ignored; every later disconnect is compared.
+!ignore lost connection:
+!ignore handleDisconnection
+!ignore left the game
+!ignore multiplayer.player.left
+kick Bot0 warm up
+!wait 500
+!join Bot0
+!unignore lost connection:
+!unignore handleDisconnection
+!unignore left the game
+!unignore multiplayer.player.left
 
 # ---- say / me / msg / tell / w / tellraw
 say hello world

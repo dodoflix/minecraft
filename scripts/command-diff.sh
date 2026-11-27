@@ -33,6 +33,7 @@
 #   !ticks <n> show    the same, and everything the server and the bots emitted during the window (minus the `time query`
 #                      polls) becomes the segment of this line instead of being dropped
 #   !ignore <regex>    drop every normalized output line matching the regex (log, bot chat, packets) for the rest of the file
+#   !unignore <regex>  ends the `!ignore` with exactly this regex from here on (an error when none is active)
 #   !sort <regex>      sort every run of consecutive output lines matching the regex (vanilla emits some sets in identity-hash
 #                      order, e.g. the advancements one grant completes); the sort applies to the rest of the file
 #   !mask <regex>      replace the text the regex captures (group 1, else the whole match) by `<masked>` in every output line, for

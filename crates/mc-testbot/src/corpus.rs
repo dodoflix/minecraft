@@ -40,6 +40,8 @@ enum Item {
     /// `!ticks n [show]`: `show` records the output of the window as a segment instead of dropping it.
     Ticks(u64, bool),
     Ignore(String),
+    /// `!unignore <regex>`: ends an earlier `!ignore` with the same regex.
+    Unignore(String),
     Packets(String),
     Sort(String),
     Mask(String),
@@ -107,6 +109,10 @@ fn parse_corpus(file: &str, text: &str) -> Res<Vec<Line>> {
                 "ignore" => {
                     Regex::new(arg).map_err(|e| at(format!("bad !ignore regex: {e}")))?;
                     Item::Ignore(arg.to_string())
+                }
+                "unignore" => {
+                    Regex::new(arg).map_err(|e| at(format!("bad !unignore regex: {e}")))?;
+                    Item::Unignore(arg.to_string())
                 }
                 "sort" => {
                     Regex::new(arg).map_err(|e| at(format!("bad !sort regex: {e}")))?;
@@ -1070,6 +1076,13 @@ impl Side {
                 self.ignore.push(Regex::new(r).expect("checked at parse"));
                 Ok(None)
             }
+            Item::Unignore(r) => {
+                let Some(at) = self.ignore.iter().position(|i| i.as_str() == r) else {
+                    return Err(format!("{}: !unignore {r}: no such !ignore", self.label));
+                };
+                self.ignore.remove(at);
+                Ok(None)
+            }
             Item::Mask(r) => {
                 self.masks.push(Regex::new(r).expect("checked at parse"));
                 Ok(None)
@@ -1578,7 +1591,7 @@ mod tests {
 
     #[test]
     fn corpus_parses_every_form() {
-        let t = "# c\nsay hi\n/time set day\n@bot give @s stone\n@bot0 /kill\n!wait 5\n!ticks 3\n!ignore ^foo\n!join Bot0\n\n";
+        let t = "# c\nsay hi\n/time set day\n@bot give @s stone\n@bot0 /kill\n!wait 5\n!ticks 3\n!ignore ^foo\n!unignore ^foo\n!join Bot0\n\n";
         let l = parse_corpus("x.txt", t).unwrap();
         let items: Vec<Item> = l.into_iter().map(|l| l.item).collect();
         assert_eq!(
@@ -1591,6 +1604,7 @@ mod tests {
                 Item::Wait(5),
                 Item::Ticks(3, false),
                 Item::Ignore("^foo".into()),
+                Item::Unignore("^foo".into()),
                 Item::Join(1),
             ]
         );
