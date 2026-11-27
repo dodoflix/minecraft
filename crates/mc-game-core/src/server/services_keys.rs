@@ -294,8 +294,7 @@ fn read_value<T>(body: &str, read: impl Fn(&Value) -> Option<T>) -> Result<Optio
 }
 
 /// Gson reads a JSON array into a `Map<String, Object>` as `[key, value]` pairs (`MapTypeAdapterFactory`): exactly two
-/// elements each and a scalar key; a repeated key fails unless the value it replaces is null (`put` returned null), and
-/// then keeps its first position.
+/// elements each and a scalar key; a repeated key fails, whatever value the first one had.
 // shortcut: a null key fails like any other bad key; Gson's `LinkedTreeMap.put` throws a NullPointerException instead.
 fn pairs_as_map(pairs: &[Value]) -> Option<String> {
     let mut entries: Vec<(String, &Value)> = Vec::with_capacity(pairs.len());
@@ -309,11 +308,10 @@ fn pairs_as_map(pairs: &[Value]) -> Option<String> {
             Value::Bool(b) => b.to_string(),
             _ => return None,
         };
-        match entries.iter_mut().find(|(k, _)| *k == key) {
-            Some((_, old)) if !old.is_null() => return None,
-            Some((_, old)) => *old = value,
-            None => entries.push((key, value)),
+        if entries.iter().any(|(k, _)| *k == key) {
+            return None;
         }
+        entries.push((key, value));
     }
     let items: Vec<String> = entries
         .iter()
