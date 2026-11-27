@@ -35,7 +35,7 @@ ALLOW = os.path.join(ROOT, "tests", "e2e", "client", "client-log-noise.txt")
 SERVER_ALLOW = os.path.join(ROOT, "tests", "e2e", "client", "server-log-noise.txt")
 USER = "Steve"
 SCREEN_MIN_MS = 60  # a screen shown for less than this (one client tick is 50 ms) is not part of the compared screen sequence
-SIDE_TIMEOUT = int(os.environ.get("MC_E2E_SIDE_TIMEOUT", "900"))  # seconds one side of a scenario may run, clients included
+SIDE_TIMEOUT = int(os.environ.get("MC_E2E_SIDE_TIMEOUT", "1800"))  # seconds one side may run, clients included (a client may queue 900 s for a JVM slot)
 
 # One world setup for every side; a scenario's `server` lines and a side's overrides come after it.
 DEFAULT_PROPS = {

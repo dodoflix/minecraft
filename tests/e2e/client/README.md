@@ -67,4 +67,4 @@ for t in gate shotdiff runner; do python3 tests/e2e/client/test_$t.py; done
 
 They run on recorded client logs (`fixtures/`), generated frames and synthetic side directories and need no client.
 
-A side stops after `MC_E2E_SIDE_TIMEOUT` seconds (default 900): the step fails, the client, server and mock are stopped and the JVM slots are released. SIGINT and SIGTERM stop them too.
+A side stops after `MC_E2E_SIDE_TIMEOUT` seconds (default 1800): the step fails, the client, server and mock are stopped and the JVM slots are released. SIGINT and SIGTERM stop them too.
