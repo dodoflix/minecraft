@@ -204,13 +204,15 @@ impl Replay {
             "effect" => {
                 let effect = MobEffect::by_name(t[2]).unwrap_or_else(|| panic!("effect {}", t[2]));
                 let (amp, dur) = (t[3].parse().unwrap(), t[4].parse().unwrap());
-                self.with_player(t[1], |level, p| {
+                let added = self.with_player(t[1], |level, p| {
                     p.add_effect(
                         level,
                         MobEffectInstance::new(effect, dur, amp, false, true, true, None),
                         None,
                     )
                 });
+                self.out
+                    .push(format!("EFFECT {} {} added={added}", t[1], t[2]));
             }
             "set" => {
                 let v: f32 = t[3].parse().unwrap();
@@ -303,7 +305,7 @@ fn replay(name: &str) -> Vec<String> {
 fn explosions_hurt_and_push_players_like_vanilla() {
     let fixture = Fixture::load("explosion_entities");
     let opts = Options {
-        ignore_kinds: vec!["I", "PKT", "CF", "#", "B", "EFFECT", "DIG", "T", "E"],
+        ignore_kinds: vec!["CF", "#"],
         ignore_fields: vec![
             "rot", "og", "fall", "fire", "air", "pose", "gm", "fx", "xp", "sel", "main",
         ],

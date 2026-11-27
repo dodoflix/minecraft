@@ -1,37 +1,28 @@
 //! Replays the committed entity-oracle scenarios through the generic scenario harness (`common/entity_scenario.rs`) and compares them
-//! with the vanilla fixtures. Known gaps of the Rust server are listed as `ignore_fields` per scenario (remove entries as they are fixed).
+//! with the vanilla fixtures.
 //!
 //! Adding a mob golden: scenario in `oracle/scenarios/NAME.txt`, `scripts/entity-oracle.sh NAME.txt -o fixtures/entity_oracle/NAME.txt`,
 //! then `run_scenario_test("NAME")` (see the harness header).
-use crate::common::entity_oracle::Options;
 use crate::common::entity_scenario::*;
-
-/// `Entity.baseTick` leaves `remainingFireTicks` at `-getFireImmuneTicks()` (-20) in vanilla; the Rust base tick keeps 0.
-fn gaps() -> Options {
-    Options {
-        ignore_fields: vec!["fire"],
-        ..Default::default()
-    }
-}
 
 #[test]
 fn fall() {
-    run_scenario_test_with("fall", &gaps());
+    run_scenario_test("fall");
 }
 
 #[test]
 fn jump() {
-    run_scenario_test_with("jump", &gaps());
+    run_scenario_test("jump");
 }
 
 #[test]
 fn item_fall() {
-    run_scenario_test_with("item_fall", &gaps());
+    run_scenario_test("item_fall");
 }
 
 #[test]
 fn item_merge() {
-    run_scenario_test_with("item_merge", &gaps());
+    run_scenario_test("item_merge");
 }
 
 #[test]

@@ -332,7 +332,7 @@ fn run(scenario: &str) {
         &actual,
         &Options {
             ignore_kinds: vec!["#"],
-            ignore_fields: vec!["rot"],
+            ignore_fields_of: vec![("minecraft:item", "rot")],
             ..Default::default()
         },
     );

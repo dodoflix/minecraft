@@ -239,8 +239,7 @@ fn compare_scenario(name: &str) {
     let fixture = Fixture::load(name);
     let actual = replay(name);
     let opts = Options {
-        ignore_fields: vec!["pose"],
-        ignore_kinds: vec!["#", "CF", "PKT"],
+        ignore_kinds: vec!["#", "CF"],
         ..Default::default()
     };
     fixture.assert_matches(&actual, &opts);
@@ -257,7 +256,7 @@ fn arrow_hits_match_vanilla() {
     common::entity_scenario::run_scenario_test_with(
         "arrow_hit",
         &Options {
-            ignore_fields: vec!["og", "fire", "pos", "delta"],
+            ignore_fields: vec!["og", "delta"],
             ..Default::default()
         },
     );

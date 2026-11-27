@@ -101,18 +101,12 @@ fn save_data_round_trip() {
 
 #[test]
 fn riding_and_dismounting() {
-    common::block_scenario::check_with("ent_new_minecart_ride", &ignore_on_ground());
+    common::block_scenario::check("ent_new_minecart_ride");
 }
 
 #[test]
 fn dismounting_where_the_sides_are_blocked() {
-    common::block_scenario::check_with(
-        "ent_new_minecart_dismount_blocked",
-        &common::entity_oracle::Options {
-            ignore_fields: vec!["og", "delta"],
-            ..Default::default()
-        },
-    );
+    common::block_scenario::check("ent_new_minecart_dismount_blocked");
 }
 
 #[test]
@@ -138,12 +132,4 @@ fn dispensed_carts_snap_onto_the_rail() {
 #[test]
 fn pistons_push_carts() {
     common::block_scenario::check("mc_new_piston");
-}
-
-// same as the old behaviour's riding replay: the flag of a player that only sends packets is derived again in the replay
-fn ignore_on_ground() -> common::entity_oracle::Options {
-    common::entity_oracle::Options {
-        ignore_fields: vec!["og"],
-        ..Default::default()
-    }
 }

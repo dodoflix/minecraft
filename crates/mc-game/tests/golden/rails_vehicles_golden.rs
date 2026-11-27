@@ -1,17 +1,7 @@
 //! Rails, pistons, pressure plates and hoppers against real minecarts and boats (`tests/oracle/scenarios/blk_*cart*.txt`,
 //! `blk_plates_vehicles.txt`; fixtures regenerated with `scripts/block-oracle.sh NAME`).
 
-use crate::common;
 use crate::common::block_scenario::check;
-
-// `og` of a player that only sends packets is left out: vanilla keeps the flag the ride set, the replay derives it again on the first
-// tick after the dismount (the position, pose and packets are compared)
-fn ignore_on_ground() -> common::entity_oracle::Options {
-    common::entity_oracle::Options {
-        ignore_fields: vec!["og"],
-        ..Default::default()
-    }
-}
 
 #[test]
 fn powered_rails_boost_brake_and_start_carts() {
@@ -25,7 +15,7 @@ fn detector_rails_with_moving_standing_and_container_carts() {
 
 #[test]
 fn activator_rails_shake_eject_and_prime_carts() {
-    common::block_scenario::check_with("blk_rails_cart_activator", &ignore_on_ground());
+    check("blk_rails_cart_activator");
 }
 
 #[test]
@@ -54,7 +44,6 @@ fn rail_shape_and_power_changes_under_carts() {
 }
 
 mod improved_minecarts {
-    use crate::common;
     use crate::common::block_scenario::check;
 
     #[test]
@@ -69,10 +58,7 @@ mod improved_minecarts {
 
     #[test]
     fn activator_rails_shake_eject_and_prime_carts() {
-        common::block_scenario::check_with(
-            "blk_rails_cart_activator_new",
-            &super::ignore_on_ground(),
-        );
+        check("blk_rails_cart_activator_new");
     }
 
     #[test]
