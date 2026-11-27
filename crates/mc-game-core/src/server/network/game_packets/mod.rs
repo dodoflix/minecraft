@@ -569,7 +569,7 @@ fn perform_respawn(
 impl PlayCtx<'_> {
     /// The server tasks the handlers queued so far (test actions, game rule changes): they run once the player is back in
     /// its level.
-    pub fn take_deferred_tasks(&mut self) -> Vec<Box<dyn FnOnce(&mut MinecraftServer)>> {
+    pub fn take_deferred_tasks(&mut self) -> Vec<DeferredTask> {
         std::mem::take(&mut self.lis().deferred_tasks)
     }
 
