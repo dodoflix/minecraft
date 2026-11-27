@@ -25,6 +25,7 @@ RUNS="$D/runs.tsv"
 touch "$RUNS"
 COV="$ROOT/scripts/vanilla-coverage.py"
 COPY="$D/scratch/tree"
+BASE="$D/scratch/tree-fixtures"
 pending=0
 
 log() { echo "$(date +%T) $*" | tee -a "$D/campaign.log" >&2; }
@@ -78,19 +79,27 @@ group_entity() {
 }
 
 # Scripts that write committed fixtures run in a throwaway copy of the tree (they find their paths through their own location;
-# ref/ and target/ are shared), and the copy's fixtures are compared with the committed ones afterwards.
+# ref/ and target/ are shared). Their fixtures are compared with the copy's own untouched fixtures (not the live worktree: its
+# files move when main is merged into it while the campaign runs), after each script, so a difference names the script that caused it.
 tree_copy() {
   rm -rf "$COPY"; mkdir -p "$COPY"
   git -C "$ROOT" archive HEAD scripts tools crates/mc-game/tests crates/mc-datafix/tests crates/mc-world/tests Cargo.toml | tar -x -C "$COPY"
   ln -sfn "$ROOT/ref" "$COPY/ref"
   ln -sfn "$ROOT/target" "$COPY/target"
+  # the golden generators put the compiled extractor (untracked, so not in the archive) on their classpath
+  [ ! -d "$ROOT/tools/extractor/build" ] || ln -sfn "$ROOT/tools/extractor/build" "$COPY/tools/extractor/build"
+  # BASE holds the fixtures as they were archived, then as the last compared script left them
+  rm -rf "$BASE"; mkdir -p "$BASE"
+  local t
+  for t in mc-game mc-datafix mc-world; do mkdir -p "$BASE/$t"; cp -a "$COPY/crates/$t/tests/fixtures" "$BASE/$t/"; done
 }
 
 tree_compare() {
   local t d
   for t in mc-game mc-datafix mc-world; do
-    d="$(diff -rq "$ROOT/crates/$t/tests/fixtures" "$COPY/crates/$t/tests/fixtures" 2>&1 | grep -v '^Only in' || true)"
+    d="$(diff -rq "$BASE/$t/fixtures" "$COPY/crates/$t/tests/fixtures" 2>&1 | grep -v '^Only in' || true)"
     [ -z "$d" ] || { log "DIFFERENT fixtures after $1: $d"; echo "$d" >>"$D/fixture-diffs.txt"; }
+    rm -rf "$BASE/$t/fixtures"; cp -a "$COPY/crates/$t/tests/fixtures" "$BASE/$t/"
   done
 }
 
@@ -101,7 +110,7 @@ group_scripts() {
     job "$group:$s" "$group" bash "$COPY/scripts/$s"
     tree_compare "$group:$s"
   done
-  rm -rf "$COPY"
+  rm -rf "$COPY" "$BASE"
 }
 
 group_menu() {
@@ -112,7 +121,7 @@ group_menu() {
     job "menu:$n" menu bash "$COPY/scripts/menu-oracle.sh" "$n"
   done
   tree_compare menu
-  rm -rf "$COPY"
+  rm -rf "$COPY" "$BASE"
 }
 
 group_rust() {
