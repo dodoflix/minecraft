@@ -83,18 +83,22 @@ fn describe(name: &str, e: &dyn Entity) -> String {
     let b = e.base();
     let (p, d) = (b.position(), b.delta_movement());
     let ty = type_name(e);
+    let (f, jd) = (
+        mc_core::math::java::java_float_to_string,
+        mc_core::math::java::java_double_to_string,
+    );
     let common = format!(
-        "pos={:?},{:?},{:?} delta={:?},{:?},{:?} rot={:?},{:?} og={} fall={:?} fire={} air={} alive={} pose=standing",
-        p.x,
-        p.y,
-        p.z,
-        d.x,
-        d.y,
-        d.z,
-        b.y_rot(),
-        b.x_rot(),
+        "pos={},{},{} delta={},{},{} rot={},{} og={} fall={} fire={} air={} alive={} pose=standing",
+        jd(p.x),
+        jd(p.y),
+        jd(p.z),
+        jd(d.x),
+        jd(d.y),
+        jd(d.z),
+        f(b.y_rot()),
+        f(b.x_rot()),
         i32::from(b.on_ground()),
-        b.fall_distance,
+        jd(b.fall_distance),
         b.remaining_fire_ticks,
         b.get_air_supply(),
         i32::from(e.is_alive())

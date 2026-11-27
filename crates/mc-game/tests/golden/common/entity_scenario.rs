@@ -206,7 +206,7 @@ pub fn offer_lines(
 }
 
 fn jf64(v: f64) -> String {
-    format!("{v:?}")
+    mc_core::math::java::java_double_to_string(v)
 }
 
 pub fn vec3(x: f64, y: f64, z: f64) -> String {

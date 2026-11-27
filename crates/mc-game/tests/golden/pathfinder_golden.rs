@@ -184,7 +184,7 @@ struct Replay {
 }
 
 fn f32s(v: f32) -> String {
-    format!("{v:?}")
+    mc_core::math::java::java_float_to_string(v)
 }
 
 impl Replay {
