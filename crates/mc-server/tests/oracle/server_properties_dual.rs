@@ -40,20 +40,29 @@ pub(crate) fn mask_ports(text: &str) -> String {
 }
 
 /// The startup log up to and including `Done`, one normalized line each: no timestamps, durations and ports masked.
-/// Left out: the launcher's own output, the worker threads of vanilla's start (`Worker-Main-N`) and the lines of the
-/// main thread that depend on the machine or on which thread runs the work (`Environment:`,
-/// `No existing world data`, `Loaded N advancements`).
+/// Left out: the launcher's own output, the `Environment:` line (it depends on the machine) and the other lines of the
+/// worker threads of vanilla's start. `No existing world data` and `Loaded N advancements` stay, with the number of
+/// their `Worker-Main-N` thread masked: both servers log them from a worker.
 fn startup(server: &Server) -> Vec<String> {
     let mut lines = Vec::new();
     for line in server.log().lines() {
         let Some(message) = message(line) else {
             continue;
         };
-        let main_thread_noise = message.starts_with("ServerMain/")
-            && ["Environment:", "No existing world data", "advancements"]
-                .iter()
-                .any(|noise| message.contains(noise));
-        if main_thread_noise || message.starts_with("Worker-Main-") {
+        let message = match message.strip_prefix("Worker-Main-") {
+            Some(rest) => match rest.split_once('/') {
+                Some((_, text))
+                    if ["No existing world data", "advancements"]
+                        .iter()
+                        .any(|kept| text.contains(kept)) =>
+                {
+                    format!("Worker-Main-N/{text}")
+                }
+                _ => continue,
+            },
+            None => message,
+        };
+        if message.starts_with("ServerMain/") && message.contains("Environment:") {
             continue;
         }
         if message.contains("Can't keep up") || message.contains("Preparing spawn area") {
