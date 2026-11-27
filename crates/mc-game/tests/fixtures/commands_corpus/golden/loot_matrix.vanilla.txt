@@ -1,0 +1,489 @@
+### [loot_matrix.txt:4] gamerule spawn_mobs false
+log| System chat: Game rule spawn_mobs is now set to false
+Bot| [system_chat] [Server: Game rule spawn_mobs is now set to false]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["spawn_mobs","false"]}],"color":"gray","italic":true}
+### [loot_matrix.txt:5] gamerule random_tick_speed 0
+log| System chat: Game rule random_tick_speed is now set to 0
+Bot| [system_chat] [Server: Game rule random_tick_speed is now set to 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["random_tick_speed","0"]}],"color":"gray","italic":true}
+### [loot_matrix.txt:8] setblock 0 -60 3 minecraft:chest
+log| System chat: Changed the block at 0, -60, 3
+Bot| [system_chat] [Server: Changed the block at 0, -60, 3]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-60,3]}],"color":"gray","italic":true}
+### [loot_matrix.txt:9] setblock 0 -60 5 minecraft:stone
+log| System chat: Changed the block at 0, -60, 5
+Bot| [system_chat] [Server: Changed the block at 0, -60, 5]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-60,5]}],"color":"gray","italic":true}
+### [loot_matrix.txt:10] summon minecraft:pig 8 -60 6 {NoAI:1b,Tags:["p"],DeathLootTable:"minecraft:blocks/cobblestone"}
+log| System chat: Summoned new Pig
+Bot| [system_chat] [Server: Summoned new Pig]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.summon.success","with":[{"translate":"entity.minecraft.pig","hover_event":{"id":"minecraft:pig","uuid":[<UUID>],"name":{"translate":"entity.minecraft.pig"},"action":"show_entity"},"insertion":"<UUID>"}]}],"color":"gray","italic":true}
+### [loot_matrix.txt:11] clear Bot
+log| System chat: No items were found on player Bot
+### [loot_matrix.txt:12] advancement grant @a only minecraft:story/mine_stone
+log| System chat: Bot has made the advancement [Stone Age]
+log| System chat: Bot0 has made the advancement [Stone Age]
+log| System chat: Granted the advancement [Stone Age] to 2 players
+Bot| [system_chat] Bot has made the advancement [Stone Age]
+Bot|   json {"translate":"chat.type.advancement.task","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"translate":"advancements.story.mine_stone.title","hover_event":{"value":{"translate":"advancements.story.mine_stone.title","extra":["\n",{"translate":"advancements.story.mine_stone.description"}],"color":"green"},"action":"show_text"}}],"color":"green"}]}
+Bot| [system_chat] Bot0 has made the advancement [Stone Age]
+Bot|   json {"translate":"chat.type.advancement.task","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"},{"translate":"chat.square_brackets","with":[{"translate":"advancements.story.mine_stone.title","hover_event":{"value":{"translate":"advancements.story.mine_stone.title","extra":["\n",{"translate":"advancements.story.mine_stone.description"}],"color":"green"},"action":"show_text"}}],"color":"green"}]}
+Bot| [system_chat] [Server: Granted the advancement [Stone Age] to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.advancement.grant.one.to.many.success","with":[{"translate":"chat.square_brackets","with":[{"translate":"advancements.story.mine_stone.title","hover_event":{"value":{"translate":"advancements.story.mine_stone.title","extra":["\n",{"translate":"advancements.story.mine_stone.description"}],"color":"green"},"action":"show_text"}}],"color":"green"},2]}],"color":"gray","italic":true}
+Bot0| [system_chat] Bot has made the advancement [Stone Age]
+Bot0|   json {"translate":"chat.type.advancement.task","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},{"translate":"chat.square_brackets","with":[{"translate":"advancements.story.mine_stone.title","hover_event":{"value":{"translate":"advancements.story.mine_stone.title","extra":["\n",{"translate":"advancements.story.mine_stone.description"}],"color":"green"},"action":"show_text"}}],"color":"green"}]}
+Bot0| [system_chat] Bot0 has made the advancement [Stone Age]
+Bot0|   json {"translate":"chat.type.advancement.task","with":[{"text":"Bot0","click_event":{"command":"/tell Bot0 ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-299681859,-283429499,-1800580100,-778601006],"name":"Bot0","action":"show_entity"},"insertion":"Bot0"},{"translate":"chat.square_brackets","with":[{"translate":"advancements.story.mine_stone.title","hover_event":{"value":{"translate":"advancements.story.mine_stone.title","extra":["\n",{"translate":"advancements.story.mine_stone.description"}],"color":"green"},"action":"show_text"}}],"color":"green"}]}
+### [loot_matrix.txt:15] loot replace entity Bot container.0 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:16] loot replace entity Bot container.0 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:17] @bot loot replace entity Bot container.0 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+Bot| [system_chat] Dropped 1 [Cookie]
+Bot|   json {"translate":"commands.drop.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.cookie"}]}],"color":"white","hover_event":{"id":"minecraft:cookie","action":"show_item"}}]}
+### [loot_matrix.txt:18] loot replace entity Bot container.0 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:19] @bot loot replace entity Bot container.0 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+Bot| [system_chat] Dropped 1 [Cookie]
+Bot|   json {"translate":"commands.drop.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.cookie"}]}],"color":"white","hover_event":{"id":"minecraft:cookie","action":"show_item"}}]}
+### [loot_matrix.txt:20] loot replace entity Bot container.0 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 minecraft:fishing_rod
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:21] loot replace entity Bot container.0 mine 0 -60 5
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+### [loot_matrix.txt:22] loot replace entity Bot container.0 mine 0 -60 5 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:23] @bot loot replace entity Bot container.0 mine 0 -60 5 mainhand
+Bot| [system_chat] Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.single_with_table","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.cobblestone"}]}],"color":"white","hover_event":{"id":"minecraft:cobblestone","action":"show_item"}},"minecraft:blocks/stone"]}
+### [loot_matrix.txt:24] loot replace entity Bot container.0 mine 0 -60 5 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:25] @bot loot replace entity Bot container.0 mine 0 -60 5 offhand
+Bot| [system_chat] Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.single_with_table","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.cobblestone"}]}],"color":"white","hover_event":{"id":"minecraft:cobblestone","action":"show_item"}},"minecraft:blocks/stone"]}
+### [loot_matrix.txt:26] loot replace entity Bot container.0 mine 0 -60 5 minecraft:diamond_pickaxe
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+### [loot_matrix.txt:27] loot replace entity Bot container.0 kill @e[tag=p,limit=1]
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/cobblestone
+### [loot_matrix.txt:28] loot replace entity Bot container.0 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:29] loot replace entity Bot container.0 mine 100000 -60 0
+log| System chat: That position is not loaded
+### [loot_matrix.txt:30] loot replace entity Bot container.0 kill Bot
+log| System chat: Dropped 0 items from loot table minecraft:entities/player
+### [loot_matrix.txt:31] loot replace entity Bot container.0 fish minecraft:nope 0 -60 0
+log| System chat: Can't find element 'minecraft:nope' in registry 'minecraft:loot_table'
+log| System chat: ...craft:nope 0 -60 0<--[HERE]
+### [loot_matrix.txt:32] clear Bot
+log| System chat: Removed 1 item(s) from player Bot
+Bot| [system_chat] [Server: Removed 1 item(s) from player Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clear.success.single","with":[1,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [loot_matrix.txt:34] loot replace entity Bot container.0 2 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0
+log| System chat: Dropped 2 items
+### [loot_matrix.txt:35] loot replace entity Bot container.0 2 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:36] @bot loot replace entity Bot container.0 2 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+Bot| [system_chat] Dropped 2 items
+Bot|   json {"translate":"commands.drop.success.multiple","with":[2]}
+### [loot_matrix.txt:37] loot replace entity Bot container.0 2 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:38] @bot loot replace entity Bot container.0 2 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+Bot| [system_chat] Dropped 2 items
+Bot|   json {"translate":"commands.drop.success.multiple","with":[2]}
+### [loot_matrix.txt:39] loot replace entity Bot container.0 2 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 minecraft:fishing_rod
+log| System chat: Dropped 2 items
+### [loot_matrix.txt:40] loot replace entity Bot container.0 2 mine 0 -60 5
+log| System chat: Dropped 2 items from loot table minecraft:blocks/stone
+### [loot_matrix.txt:41] loot replace entity Bot container.0 2 mine 0 -60 5 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:42] @bot loot replace entity Bot container.0 2 mine 0 -60 5 mainhand
+Bot| [system_chat] Dropped 2 items from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.multiple_with_table","with":[2,"minecraft:blocks/stone"]}
+### [loot_matrix.txt:43] loot replace entity Bot container.0 2 mine 0 -60 5 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:44] @bot loot replace entity Bot container.0 2 mine 0 -60 5 offhand
+Bot| [system_chat] Dropped 2 items from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.multiple_with_table","with":[2,"minecraft:blocks/stone"]}
+### [loot_matrix.txt:45] loot replace entity Bot container.0 2 mine 0 -60 5 minecraft:diamond_pickaxe
+log| System chat: Dropped 2 items from loot table minecraft:blocks/stone
+### [loot_matrix.txt:46] loot replace entity Bot container.0 2 kill @e[tag=p,limit=1]
+log| System chat: Dropped 2 items from loot table minecraft:blocks/cobblestone
+### [loot_matrix.txt:47] loot replace entity Bot container.0 2 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Dropped 2 items
+### [loot_matrix.txt:48] loot replace entity Bot container.0 2 mine 100000 -60 0
+log| System chat: That position is not loaded
+### [loot_matrix.txt:49] loot replace entity Bot container.0 2 kill Bot
+log| System chat: Dropped 2 items from loot table minecraft:entities/player
+### [loot_matrix.txt:50] loot replace entity Bot container.0 2 fish minecraft:nope 0 -60 0
+log| System chat: Can't find element 'minecraft:nope' in registry 'minecraft:loot_table'
+log| System chat: ...craft:nope 0 -60 0<--[HERE]
+### [loot_matrix.txt:51] clear Bot
+log| System chat: No items were found on player Bot
+### [loot_matrix.txt:53] loot replace entity @e[tag=p,limit=1] weapon.mainhand fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:54] loot replace entity @e[tag=p,limit=1] weapon.mainhand fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:55] @bot loot replace entity @e[tag=p,limit=1] weapon.mainhand fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+Bot| [system_chat] Dropped 1 [Cookie]
+Bot|   json {"translate":"commands.drop.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.cookie"}]}],"color":"white","hover_event":{"id":"minecraft:cookie","action":"show_item"}}]}
+### [loot_matrix.txt:56] loot replace entity @e[tag=p,limit=1] weapon.mainhand fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:57] @bot loot replace entity @e[tag=p,limit=1] weapon.mainhand fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+Bot| [system_chat] Dropped 1 [Cookie]
+Bot|   json {"translate":"commands.drop.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.cookie"}]}],"color":"white","hover_event":{"id":"minecraft:cookie","action":"show_item"}}]}
+### [loot_matrix.txt:58] loot replace entity @e[tag=p,limit=1] weapon.mainhand fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 minecraft:fishing_rod
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:59] loot replace entity @e[tag=p,limit=1] weapon.mainhand mine 0 -60 5
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+### [loot_matrix.txt:60] loot replace entity @e[tag=p,limit=1] weapon.mainhand mine 0 -60 5 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:61] @bot loot replace entity @e[tag=p,limit=1] weapon.mainhand mine 0 -60 5 mainhand
+Bot| [system_chat] Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.single_with_table","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.cobblestone"}]}],"color":"white","hover_event":{"id":"minecraft:cobblestone","action":"show_item"}},"minecraft:blocks/stone"]}
+### [loot_matrix.txt:62] loot replace entity @e[tag=p,limit=1] weapon.mainhand mine 0 -60 5 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:63] @bot loot replace entity @e[tag=p,limit=1] weapon.mainhand mine 0 -60 5 offhand
+Bot| [system_chat] Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.single_with_table","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.cobblestone"}]}],"color":"white","hover_event":{"id":"minecraft:cobblestone","action":"show_item"}},"minecraft:blocks/stone"]}
+### [loot_matrix.txt:64] loot replace entity @e[tag=p,limit=1] weapon.mainhand mine 0 -60 5 minecraft:diamond_pickaxe
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+### [loot_matrix.txt:65] loot replace entity @e[tag=p,limit=1] weapon.mainhand kill @e[tag=p,limit=1]
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/cobblestone
+### [loot_matrix.txt:66] loot replace entity @e[tag=p,limit=1] weapon.mainhand loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:67] loot replace entity @e[tag=p,limit=1] weapon.mainhand mine 100000 -60 0
+log| System chat: That position is not loaded
+### [loot_matrix.txt:68] loot replace entity @e[tag=p,limit=1] weapon.mainhand kill Bot
+log| System chat: Dropped 0 items from loot table minecraft:entities/player
+### [loot_matrix.txt:69] loot replace entity @e[tag=p,limit=1] weapon.mainhand fish minecraft:nope 0 -60 0
+log| System chat: Can't find element 'minecraft:nope' in registry 'minecraft:loot_table'
+log| System chat: ...craft:nope 0 -60 0<--[HERE]
+### [loot_matrix.txt:70] clear Bot
+log| System chat: No items were found on player Bot
+### [loot_matrix.txt:72] loot replace block 0 -60 3 container.0 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:73] loot replace block 0 -60 3 container.0 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:74] @bot loot replace block 0 -60 3 container.0 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+Bot| [system_chat] Dropped 1 [Cookie]
+Bot|   json {"translate":"commands.drop.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.cookie"}]}],"color":"white","hover_event":{"id":"minecraft:cookie","action":"show_item"}}]}
+### [loot_matrix.txt:75] loot replace block 0 -60 3 container.0 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:76] @bot loot replace block 0 -60 3 container.0 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+Bot| [system_chat] Dropped 1 [Cookie]
+Bot|   json {"translate":"commands.drop.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.cookie"}]}],"color":"white","hover_event":{"id":"minecraft:cookie","action":"show_item"}}]}
+### [loot_matrix.txt:77] loot replace block 0 -60 3 container.0 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 minecraft:fishing_rod
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:78] loot replace block 0 -60 3 container.0 mine 0 -60 5
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+### [loot_matrix.txt:79] loot replace block 0 -60 3 container.0 mine 0 -60 5 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:80] @bot loot replace block 0 -60 3 container.0 mine 0 -60 5 mainhand
+Bot| [system_chat] Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.single_with_table","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.cobblestone"}]}],"color":"white","hover_event":{"id":"minecraft:cobblestone","action":"show_item"}},"minecraft:blocks/stone"]}
+### [loot_matrix.txt:81] loot replace block 0 -60 3 container.0 mine 0 -60 5 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:82] @bot loot replace block 0 -60 3 container.0 mine 0 -60 5 offhand
+Bot| [system_chat] Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.single_with_table","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.cobblestone"}]}],"color":"white","hover_event":{"id":"minecraft:cobblestone","action":"show_item"}},"minecraft:blocks/stone"]}
+### [loot_matrix.txt:83] loot replace block 0 -60 3 container.0 mine 0 -60 5 minecraft:diamond_pickaxe
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+### [loot_matrix.txt:84] loot replace block 0 -60 3 container.0 kill @e[tag=p,limit=1]
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/cobblestone
+### [loot_matrix.txt:85] loot replace block 0 -60 3 container.0 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:86] loot replace block 0 -60 3 container.0 mine 100000 -60 0
+log| System chat: That position is not loaded
+### [loot_matrix.txt:87] loot replace block 0 -60 3 container.0 kill Bot
+log| System chat: Dropped 0 items from loot table minecraft:entities/player
+### [loot_matrix.txt:88] loot replace block 0 -60 3 container.0 fish minecraft:nope 0 -60 0
+log| System chat: Can't find element 'minecraft:nope' in registry 'minecraft:loot_table'
+log| System chat: ...craft:nope 0 -60 0<--[HERE]
+### [loot_matrix.txt:89] clear Bot
+log| System chat: No items were found on player Bot
+### [loot_matrix.txt:91] loot replace block 0 -60 3 container.1 2 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0
+log| System chat: Dropped 2 items
+### [loot_matrix.txt:92] loot replace block 0 -60 3 container.1 2 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:93] @bot loot replace block 0 -60 3 container.1 2 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+Bot| [system_chat] Dropped 2 items
+Bot|   json {"translate":"commands.drop.success.multiple","with":[2]}
+### [loot_matrix.txt:94] loot replace block 0 -60 3 container.1 2 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:95] @bot loot replace block 0 -60 3 container.1 2 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+Bot| [system_chat] Dropped 2 items
+Bot|   json {"translate":"commands.drop.success.multiple","with":[2]}
+### [loot_matrix.txt:96] loot replace block 0 -60 3 container.1 2 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 minecraft:fishing_rod
+log| System chat: Dropped 2 items
+### [loot_matrix.txt:97] loot replace block 0 -60 3 container.1 2 mine 0 -60 5
+log| System chat: Dropped 2 items from loot table minecraft:blocks/stone
+### [loot_matrix.txt:98] loot replace block 0 -60 3 container.1 2 mine 0 -60 5 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:99] @bot loot replace block 0 -60 3 container.1 2 mine 0 -60 5 mainhand
+Bot| [system_chat] Dropped 2 items from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.multiple_with_table","with":[2,"minecraft:blocks/stone"]}
+### [loot_matrix.txt:100] loot replace block 0 -60 3 container.1 2 mine 0 -60 5 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:101] @bot loot replace block 0 -60 3 container.1 2 mine 0 -60 5 offhand
+Bot| [system_chat] Dropped 2 items from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.multiple_with_table","with":[2,"minecraft:blocks/stone"]}
+### [loot_matrix.txt:102] loot replace block 0 -60 3 container.1 2 mine 0 -60 5 minecraft:diamond_pickaxe
+log| System chat: Dropped 2 items from loot table minecraft:blocks/stone
+### [loot_matrix.txt:103] loot replace block 0 -60 3 container.1 2 kill @e[tag=p,limit=1]
+log| System chat: Dropped 2 items from loot table minecraft:blocks/cobblestone
+### [loot_matrix.txt:104] loot replace block 0 -60 3 container.1 2 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Dropped 2 items
+### [loot_matrix.txt:105] loot replace block 0 -60 3 container.1 2 mine 100000 -60 0
+log| System chat: That position is not loaded
+### [loot_matrix.txt:106] loot replace block 0 -60 3 container.1 2 kill Bot
+log| System chat: Dropped 2 items from loot table minecraft:entities/player
+### [loot_matrix.txt:107] loot replace block 0 -60 3 container.1 2 fish minecraft:nope 0 -60 0
+log| System chat: Can't find element 'minecraft:nope' in registry 'minecraft:loot_table'
+log| System chat: ...craft:nope 0 -60 0<--[HERE]
+### [loot_matrix.txt:108] clear Bot
+log| System chat: No items were found on player Bot
+### [loot_matrix.txt:110] loot insert 0 -60 3 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:111] loot insert 0 -60 3 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:112] @bot loot insert 0 -60 3 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+Bot| [system_chat] Dropped 1 [Cookie]
+Bot|   json {"translate":"commands.drop.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.cookie"}]}],"color":"white","hover_event":{"id":"minecraft:cookie","action":"show_item"}}]}
+### [loot_matrix.txt:113] loot insert 0 -60 3 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:114] @bot loot insert 0 -60 3 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+Bot| [system_chat] Dropped 1 [Cookie]
+Bot|   json {"translate":"commands.drop.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.cookie"}]}],"color":"white","hover_event":{"id":"minecraft:cookie","action":"show_item"}}]}
+### [loot_matrix.txt:115] loot insert 0 -60 3 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 minecraft:fishing_rod
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:116] loot insert 0 -60 3 mine 0 -60 5
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+### [loot_matrix.txt:117] loot insert 0 -60 3 mine 0 -60 5 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:118] @bot loot insert 0 -60 3 mine 0 -60 5 mainhand
+Bot| [system_chat] Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.single_with_table","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.cobblestone"}]}],"color":"white","hover_event":{"id":"minecraft:cobblestone","action":"show_item"}},"minecraft:blocks/stone"]}
+### [loot_matrix.txt:119] loot insert 0 -60 3 mine 0 -60 5 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:120] @bot loot insert 0 -60 3 mine 0 -60 5 offhand
+Bot| [system_chat] Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.single_with_table","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.cobblestone"}]}],"color":"white","hover_event":{"id":"minecraft:cobblestone","action":"show_item"}},"minecraft:blocks/stone"]}
+### [loot_matrix.txt:121] loot insert 0 -60 3 mine 0 -60 5 minecraft:diamond_pickaxe
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+### [loot_matrix.txt:122] loot insert 0 -60 3 kill @e[tag=p,limit=1]
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/cobblestone
+### [loot_matrix.txt:123] loot insert 0 -60 3 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:124] loot insert 0 -60 3 mine 100000 -60 0
+log| System chat: That position is not loaded
+### [loot_matrix.txt:125] loot insert 0 -60 3 kill Bot
+log| System chat: Dropped 0 items from loot table minecraft:entities/player
+### [loot_matrix.txt:126] loot insert 0 -60 3 fish minecraft:nope 0 -60 0
+log| System chat: Can't find element 'minecraft:nope' in registry 'minecraft:loot_table'
+log| System chat: ...craft:nope 0 -60 0<--[HERE]
+### [loot_matrix.txt:127] clear Bot
+log| System chat: No items were found on player Bot
+### [loot_matrix.txt:129] loot give Bot fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:130] loot give Bot fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:131] @bot loot give Bot fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+Bot| [system_chat] Dropped 1 [Cookie]
+Bot|   json {"translate":"commands.drop.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.cookie"}]}],"color":"white","hover_event":{"id":"minecraft:cookie","action":"show_item"}}]}
+### [loot_matrix.txt:132] loot give Bot fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:133] @bot loot give Bot fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+Bot| [system_chat] Dropped 1 [Cookie]
+Bot|   json {"translate":"commands.drop.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.cookie"}]}],"color":"white","hover_event":{"id":"minecraft:cookie","action":"show_item"}}]}
+### [loot_matrix.txt:134] loot give Bot fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 minecraft:fishing_rod
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:135] loot give Bot mine 0 -60 5
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+### [loot_matrix.txt:136] loot give Bot mine 0 -60 5 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:137] @bot loot give Bot mine 0 -60 5 mainhand
+Bot| [system_chat] Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.single_with_table","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.cobblestone"}]}],"color":"white","hover_event":{"id":"minecraft:cobblestone","action":"show_item"}},"minecraft:blocks/stone"]}
+### [loot_matrix.txt:138] loot give Bot mine 0 -60 5 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:139] @bot loot give Bot mine 0 -60 5 offhand
+Bot| [system_chat] Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.single_with_table","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.cobblestone"}]}],"color":"white","hover_event":{"id":"minecraft:cobblestone","action":"show_item"}},"minecraft:blocks/stone"]}
+### [loot_matrix.txt:140] loot give Bot mine 0 -60 5 minecraft:diamond_pickaxe
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+### [loot_matrix.txt:141] loot give Bot kill @e[tag=p,limit=1]
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/cobblestone
+### [loot_matrix.txt:142] loot give Bot loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:143] loot give Bot mine 100000 -60 0
+log| System chat: That position is not loaded
+### [loot_matrix.txt:144] loot give Bot kill Bot
+log| System chat: Dropped 0 items from loot table minecraft:entities/player
+### [loot_matrix.txt:145] loot give Bot fish minecraft:nope 0 -60 0
+log| System chat: Can't find element 'minecraft:nope' in registry 'minecraft:loot_table'
+log| System chat: ...craft:nope 0 -60 0<--[HERE]
+### [loot_matrix.txt:146] clear Bot
+log| System chat: Removed 10 item(s) from player Bot
+Bot| [system_chat] [Server: Removed 10 item(s) from player Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clear.success.single","with":[10,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [loot_matrix.txt:148] loot give @a fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0
+log| System chat: Dropped 2 items
+### [loot_matrix.txt:149] loot give @a fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:150] @bot loot give @a fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+Bot| [system_chat] Dropped 2 items
+Bot|   json {"translate":"commands.drop.success.multiple","with":[2]}
+### [loot_matrix.txt:151] loot give @a fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:152] @bot loot give @a fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+Bot| [system_chat] Dropped 2 items
+Bot|   json {"translate":"commands.drop.success.multiple","with":[2]}
+### [loot_matrix.txt:153] loot give @a fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 minecraft:fishing_rod
+log| System chat: Dropped 2 items
+### [loot_matrix.txt:154] loot give @a mine 0 -60 5
+log| System chat: Dropped 2 items from loot table minecraft:blocks/stone
+### [loot_matrix.txt:155] loot give @a mine 0 -60 5 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:156] @bot loot give @a mine 0 -60 5 mainhand
+Bot| [system_chat] Dropped 2 items from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.multiple_with_table","with":[2,"minecraft:blocks/stone"]}
+### [loot_matrix.txt:157] loot give @a mine 0 -60 5 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:158] @bot loot give @a mine 0 -60 5 offhand
+Bot| [system_chat] Dropped 2 items from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.multiple_with_table","with":[2,"minecraft:blocks/stone"]}
+### [loot_matrix.txt:159] loot give @a mine 0 -60 5 minecraft:diamond_pickaxe
+log| System chat: Dropped 2 items from loot table minecraft:blocks/stone
+### [loot_matrix.txt:160] loot give @a kill @e[tag=p,limit=1]
+log| System chat: Dropped 2 items from loot table minecraft:blocks/cobblestone
+### [loot_matrix.txt:161] loot give @a loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Dropped 2 items
+### [loot_matrix.txt:162] loot give @a mine 100000 -60 0
+log| System chat: That position is not loaded
+### [loot_matrix.txt:163] loot give @a kill Bot
+log| System chat: Dropped 0 items from loot table minecraft:entities/player
+### [loot_matrix.txt:164] loot give @a fish minecraft:nope 0 -60 0
+log| System chat: Can't find element 'minecraft:nope' in registry 'minecraft:loot_table'
+log| System chat: ...craft:nope 0 -60 0<--[HERE]
+### [loot_matrix.txt:165] clear Bot
+log| System chat: Removed 10 item(s) from player Bot
+Bot| [system_chat] [Server: Removed 10 item(s) from player Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.clear.success.single","with":[10,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [loot_matrix.txt:167] loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:168] loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:169] @bot loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 mainhand
+Bot| [system_chat] Dropped 1 [Cookie]
+Bot|   json {"translate":"commands.drop.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.cookie"}]}],"color":"white","hover_event":{"id":"minecraft:cookie","action":"show_item"}}]}
+### [loot_matrix.txt:170] loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:171] @bot loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 offhand
+Bot| [system_chat] Dropped 1 [Cookie]
+Bot|   json {"translate":"commands.drop.success.single","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"item.minecraft.cookie"}]}],"color":"white","hover_event":{"id":"minecraft:cookie","action":"show_item"}}]}
+### [loot_matrix.txt:172] loot spawn 0 -59 8 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60 0 minecraft:fishing_rod
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:173] loot spawn 0 -59 8 mine 0 -60 5
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+### [loot_matrix.txt:174] loot spawn 0 -59 8 mine 0 -60 5 mainhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:175] @bot loot spawn 0 -59 8 mine 0 -60 5 mainhand
+Bot| [system_chat] Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.single_with_table","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.cobblestone"}]}],"color":"white","hover_event":{"id":"minecraft:cobblestone","action":"show_item"}},"minecraft:blocks/stone"]}
+### [loot_matrix.txt:176] loot spawn 0 -59 8 mine 0 -60 5 offhand
+log| System chat: An entity is required to run this command here
+### [loot_matrix.txt:177] @bot loot spawn 0 -59 8 mine 0 -60 5 offhand
+Bot| [system_chat] Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+Bot|   json {"translate":"commands.drop.success.single_with_table","with":[1,{"translate":"chat.square_brackets","with":[{"text":"","extra":[{"translate":"block.minecraft.cobblestone"}]}],"color":"white","hover_event":{"id":"minecraft:cobblestone","action":"show_item"}},"minecraft:blocks/stone"]}
+### [loot_matrix.txt:178] loot spawn 0 -59 8 mine 0 -60 5 minecraft:diamond_pickaxe
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/stone
+### [loot_matrix.txt:179] loot spawn 0 -59 8 kill @e[tag=p,limit=1]
+log| System chat: Dropped 1 [Cobblestone] from loot table minecraft:blocks/cobblestone
+### [loot_matrix.txt:180] loot spawn 0 -59 8 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Dropped 1 [Cookie]
+### [loot_matrix.txt:181] loot spawn 0 -59 8 mine 100000 -60 0
+log| System chat: That position is not loaded
+### [loot_matrix.txt:182] loot spawn 0 -59 8 kill Bot
+log| System chat: Dropped 0 items from loot table minecraft:entities/player
+### [loot_matrix.txt:183] loot spawn 0 -59 8 fish minecraft:nope 0 -60 0
+log| System chat: Can't find element 'minecraft:nope' in registry 'minecraft:loot_table'
+log| System chat: ...craft:nope 0 -60 0<--[HERE]
+### [loot_matrix.txt:184] clear Bot
+log| System chat: No items were found on player Bot
+### [loot_matrix.txt:187] loot replace entity Bot nope.0 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Unknown slot 'nope.0'
+log| System chat: ...Bot nope.0 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}<--[HERE]
+### [loot_matrix.txt:188] loot replace entity nobody container.0 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: No entity was found
+### [loot_matrix.txt:189] loot replace entity Bot container.0 0 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Dropped 0 items
+### [loot_matrix.txt:190] loot replace entity Bot container.0 x loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Expected integer
+log| System chat: ...ntainer.0 x loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}<--[HERE]
+### [loot_matrix.txt:191] loot replace block 0 -60 3 container.99 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Unknown slot 'container.99'
+log| System chat: ...ntainer.99 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}<--[HERE]
+### [loot_matrix.txt:192] loot replace block 100000 -60 0 container.0 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: That position is not loaded
+### [loot_matrix.txt:193] loot replace block 0 -60 5 container.0 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Target position 0, -60, 5 is not a container
+### [loot_matrix.txt:194] loot insert 100000 -60 0 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: That position is not loaded
+### [loot_matrix.txt:195] loot insert 0 -60 5 loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: Target position 0, -60, 5 is not a container
+### [loot_matrix.txt:196] loot give nobody loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+log| System chat: No player was found
+### [loot_matrix.txt:197] loot spawn 0 -59 8
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...wn 0 -59 8<--[HERE]
+### [loot_matrix.txt:198] loot replace
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ot replace<--[HERE]
+### [loot_matrix.txt:199] loot replace entity
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ace entity<--[HERE]
+### [loot_matrix.txt:200] loot replace block 0 -60 3
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ck 0 -60 3<--[HERE]
+### [loot_matrix.txt:201] loot insert
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...oot insert<--[HERE]
+### [loot_matrix.txt:202] loot give
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: loot give<--[HERE]
+### [loot_matrix.txt:203] loot spawn
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: loot spawn<--[HERE]
+### [loot_matrix.txt:204] loot replace entity Bot container.0 fish minecraft:nope 0 -60 0
+log| System chat: Can't find element 'minecraft:nope' in registry 'minecraft:loot_table'
+log| System chat: ...craft:nope 0 -60 0<--[HERE]
+### [loot_matrix.txt:205] loot replace entity Bot container.0 fish {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]} 0 -60
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...kie"}]}]} 0 -60<--[HERE]
+### [loot_matrix.txt:206] loot replace entity Bot container.0 mine 0 -60
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...er.0 mine 0 -60<--[HERE]
+### [loot_matrix.txt:207] loot replace entity Bot container.0 mine 0 -60 5 nope
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...e 0 -60 5 nope<--[HERE]
+### [loot_matrix.txt:208] loot replace entity Bot container.0 kill nobody
+log| System chat: No entity was found
+### [loot_matrix.txt:209] loot replace entity Bot container.0 kill @e[type=minecraft:cow]
+log| System chat: Only one entity is allowed, but the provided selector allows more than one
+log| System chat: loot replace entity Bot container.0 kill @e[type=minecraft:cow]<--[HERE]
+### [loot_matrix.txt:210] loot replace entity Bot container.0 kill Bot
+log| System chat: Dropped 0 items from loot table minecraft:entities/player
+### [loot_matrix.txt:211] loot replace entity Bot container.0 mine 100000 -60 0
+log| System chat: That position is not loaded
+### [loot_matrix.txt:212] loot insert 0 -60 3 mine 0 -60 5 minecraft:stone 1
+log| System chat: Incorrect argument for command
+log| System chat: ...aft:stone 1<--[HERE]
+### [loot_matrix.txt:213] @bot0 loot give Bot loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] loot give Bot loot {"pools":[{"rolls":1,"entries":[{"type":"minecraft:item","name":"minecraft:cookie"}]}]}<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"loot give Bot loot {\"pools\":[{\"rolls\":1,\"entries\":[{\"type\":\"minecraft:item\",\"name\":\"minecraft:cookie\"}]}]}","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/loot give Bot loot {\"pools\":[{\"rolls\":1,\"entries\":[{\"type\":\"minecraft:item\",\"name\":\"minecraft:cookie\"}]}]}","action":"suggest_command"}}],"color":"red"}
+### [loot_matrix.txt:214] @bot0 loot replace entity Bot container.0 mine 0 -60 5
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] loot replace entity Bot container.0 mine 0 -60 5<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"loot replace entity Bot container.0 mine 0 -60 5","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/loot replace entity Bot container.0 mine 0 -60 5","action":"suggest_command"}}],"color":"red"}

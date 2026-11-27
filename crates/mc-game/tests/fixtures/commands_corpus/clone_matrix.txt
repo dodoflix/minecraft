@@ -1,0 +1,1675 @@
+# /clone: every dimension form x strict x mask mode x move mode, one case that works and one that fails.
+# Flat world, creative; Bot = op. Source blocks: stone with a chest and an air hole; the nether is forceloaded at 0 0.
+
+gamerule random_tick_speed 0
+gamerule spawn_mobs false
+execute in minecraft:the_nether run forceload add 0 0 31 31
+execute in minecraft:overworld run forceload add 0 0 31 31
+
+# ---- plain plain ----
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0
+clone 0 -60 0 2 -60 2 1 -60 1
+clone 0 -60 0 2 -60 2 100000 -60 100000
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 replace
+clone 0 -60 0 2 -60 2 1 -60 1 replace
+clone 0 -60 0 2 -60 2 100000 -60 100000 replace
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 replace normal
+clone 0 -60 0 2 -60 2 1 -60 1 replace normal
+clone 0 -60 0 2 -60 2 100000 -60 100000 replace normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 replace force
+clone 0 -60 0 2 -60 2 1 -60 1 replace force
+clone 0 -60 0 2 -60 2 100000 -60 100000 replace force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 replace move
+clone 0 -60 0 2 -60 2 1 -60 1 replace move
+clone 0 -60 0 2 -60 2 100000 -60 100000 replace move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 masked
+clone 0 -60 0 2 -60 2 1 -60 1 masked
+clone 0 -60 0 2 -60 2 100000 -60 100000 masked
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 masked normal
+clone 0 -60 0 2 -60 2 1 -60 1 masked normal
+clone 0 -60 0 2 -60 2 100000 -60 100000 masked normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 masked force
+clone 0 -60 0 2 -60 2 1 -60 1 masked force
+clone 0 -60 0 2 -60 2 100000 -60 100000 masked force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 masked move
+clone 0 -60 0 2 -60 2 1 -60 1 masked move
+clone 0 -60 0 2 -60 2 100000 -60 100000 masked move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 filtered minecraft:stone
+clone 0 -60 0 2 -60 2 1 -60 1 filtered minecraft:stone
+clone 0 -60 0 2 -60 2 100000 -60 100000 filtered minecraft:stone
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 filtered minecraft:stone normal
+clone 0 -60 0 2 -60 2 1 -60 1 filtered minecraft:stone normal
+clone 0 -60 0 2 -60 2 100000 -60 100000 filtered minecraft:stone normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 filtered minecraft:stone force
+clone 0 -60 0 2 -60 2 1 -60 1 filtered minecraft:stone force
+clone 0 -60 0 2 -60 2 100000 -60 100000 filtered minecraft:stone force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 filtered minecraft:stone move
+clone 0 -60 0 2 -60 2 1 -60 1 filtered minecraft:stone move
+clone 0 -60 0 2 -60 2 100000 -60 100000 filtered minecraft:stone move
+# ---- plain plain strict ----
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 strict
+clone 0 -60 0 2 -60 2 1 -60 1 strict
+clone 0 -60 0 2 -60 2 100000 -60 100000 strict
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 strict replace
+clone 0 -60 0 2 -60 2 1 -60 1 strict replace
+clone 0 -60 0 2 -60 2 100000 -60 100000 strict replace
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 strict replace normal
+clone 0 -60 0 2 -60 2 1 -60 1 strict replace normal
+clone 0 -60 0 2 -60 2 100000 -60 100000 strict replace normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 strict replace force
+clone 0 -60 0 2 -60 2 1 -60 1 strict replace force
+clone 0 -60 0 2 -60 2 100000 -60 100000 strict replace force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 strict replace move
+clone 0 -60 0 2 -60 2 1 -60 1 strict replace move
+clone 0 -60 0 2 -60 2 100000 -60 100000 strict replace move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 strict masked
+clone 0 -60 0 2 -60 2 1 -60 1 strict masked
+clone 0 -60 0 2 -60 2 100000 -60 100000 strict masked
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 strict masked normal
+clone 0 -60 0 2 -60 2 1 -60 1 strict masked normal
+clone 0 -60 0 2 -60 2 100000 -60 100000 strict masked normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 strict masked force
+clone 0 -60 0 2 -60 2 1 -60 1 strict masked force
+clone 0 -60 0 2 -60 2 100000 -60 100000 strict masked force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 strict masked move
+clone 0 -60 0 2 -60 2 1 -60 1 strict masked move
+clone 0 -60 0 2 -60 2 100000 -60 100000 strict masked move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 strict filtered minecraft:stone
+clone 0 -60 0 2 -60 2 1 -60 1 strict filtered minecraft:stone
+clone 0 -60 0 2 -60 2 100000 -60 100000 strict filtered minecraft:stone
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 strict filtered minecraft:stone normal
+clone 0 -60 0 2 -60 2 1 -60 1 strict filtered minecraft:stone normal
+clone 0 -60 0 2 -60 2 100000 -60 100000 strict filtered minecraft:stone normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 strict filtered minecraft:stone force
+clone 0 -60 0 2 -60 2 1 -60 1 strict filtered minecraft:stone force
+clone 0 -60 0 2 -60 2 100000 -60 100000 strict filtered minecraft:stone force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 10 -60 0 strict filtered minecraft:stone move
+clone 0 -60 0 2 -60 2 1 -60 1 strict filtered minecraft:stone move
+clone 0 -60 0 2 -60 2 100000 -60 100000 strict filtered minecraft:stone move
+# ---- plain to minecraft:overworld ----
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 replace
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 replace
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 replace
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 replace normal
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 replace normal
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 replace normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 replace force
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 replace force
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 replace force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 replace move
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 replace move
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 replace move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 masked
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 masked
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 masked
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 masked normal
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 masked normal
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 masked normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 masked force
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 masked force
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 masked force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 masked move
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 masked move
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 masked move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 filtered minecraft:stone
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 filtered minecraft:stone
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 filtered minecraft:stone normal
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 filtered minecraft:stone normal
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 filtered minecraft:stone force
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 filtered minecraft:stone force
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 filtered minecraft:stone move
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 filtered minecraft:stone move
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone move
+# ---- plain to minecraft:overworld strict ----
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict replace
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict replace
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict replace
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict replace normal
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict replace normal
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict replace normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict replace force
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict replace force
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict replace force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict replace move
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict replace move
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict replace move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict masked
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict masked
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict masked
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict masked normal
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict masked normal
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict masked normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict masked force
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict masked force
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict masked force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict masked move
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict masked move
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict masked move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict filtered minecraft:stone
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict filtered minecraft:stone
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict filtered minecraft:stone normal
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict filtered minecraft:stone normal
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict filtered minecraft:stone force
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict filtered minecraft:stone force
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict filtered minecraft:stone move
+clone 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict filtered minecraft:stone move
+clone 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone move
+# ---- plain to minecraft:the_nether ----
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 replace
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 replace normal
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace normal
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 replace force
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace force
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 replace move
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace move
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 masked
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 masked normal
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked normal
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 masked force
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked force
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 masked move
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked move
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 filtered minecraft:stone
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 filtered minecraft:stone normal
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone normal
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 filtered minecraft:stone force
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone force
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 filtered minecraft:stone move
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone move
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone move
+# ---- plain to minecraft:the_nether strict ----
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict replace
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict replace normal
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace normal
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict replace force
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace force
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict replace move
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace move
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict masked
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict masked normal
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked normal
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict masked force
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked force
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict masked move
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked move
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict filtered minecraft:stone
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict filtered minecraft:stone normal
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone normal
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict filtered minecraft:stone force
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone force
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict filtered minecraft:stone move
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone move
+clone 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone move
+# ---- from minecraft:overworld plain ----
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 replace
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 replace
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 replace
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 replace normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 replace normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 replace normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 replace force
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 replace force
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 replace force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 replace move
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 replace move
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 replace move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 masked
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 masked
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 masked
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 masked normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 masked normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 masked normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 masked force
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 masked force
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 masked force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 masked move
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 masked move
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 masked move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 filtered minecraft:stone
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 filtered minecraft:stone
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 filtered minecraft:stone
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 filtered minecraft:stone normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 filtered minecraft:stone normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 filtered minecraft:stone normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 filtered minecraft:stone force
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 filtered minecraft:stone force
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 filtered minecraft:stone force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 filtered minecraft:stone move
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 filtered minecraft:stone move
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 filtered minecraft:stone move
+# ---- from minecraft:overworld plain strict ----
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 strict
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 strict
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 strict
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 strict replace
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 strict replace
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 strict replace
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 strict replace normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 strict replace normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 strict replace normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 strict replace force
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 strict replace force
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 strict replace force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 strict replace move
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 strict replace move
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 strict replace move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 strict masked
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 strict masked
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 strict masked
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 strict masked normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 strict masked normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 strict masked normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 strict masked force
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 strict masked force
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 strict masked force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 strict masked move
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 strict masked move
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 strict masked move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 strict filtered minecraft:stone
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 strict filtered minecraft:stone
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 strict filtered minecraft:stone
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 strict filtered minecraft:stone normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 strict filtered minecraft:stone normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 strict filtered minecraft:stone normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 strict filtered minecraft:stone force
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 strict filtered minecraft:stone force
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 strict filtered minecraft:stone force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 10 -60 0 strict filtered minecraft:stone move
+clone from minecraft:overworld 0 -60 0 2 -60 2 1 -60 1 strict filtered minecraft:stone move
+clone from minecraft:overworld 0 -60 0 2 -60 2 100000 -60 100000 strict filtered minecraft:stone move
+# ---- from minecraft:overworld to minecraft:overworld ----
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 replace
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 replace
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 replace
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 replace normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 replace normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 replace normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 replace force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 replace force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 replace force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 replace move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 replace move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 replace move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 masked
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 masked
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 masked
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 masked normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 masked normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 masked normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 masked force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 masked force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 masked force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 masked move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 masked move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 masked move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 filtered minecraft:stone
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 filtered minecraft:stone
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 filtered minecraft:stone normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 filtered minecraft:stone normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 filtered minecraft:stone force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 filtered minecraft:stone force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 filtered minecraft:stone move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 filtered minecraft:stone move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone move
+# ---- from minecraft:overworld to minecraft:overworld strict ----
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict replace
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict replace
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict replace
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict replace normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict replace normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict replace normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict replace force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict replace force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict replace force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict replace move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict replace move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict replace move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict masked
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict masked
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict masked
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict masked normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict masked normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict masked normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict masked force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict masked force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict masked force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict masked move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict masked move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict masked move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict filtered minecraft:stone
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict filtered minecraft:stone
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict filtered minecraft:stone normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict filtered minecraft:stone normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict filtered minecraft:stone force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict filtered minecraft:stone force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 10 -60 0 strict filtered minecraft:stone move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 1 -60 1 strict filtered minecraft:stone move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone move
+# ---- from minecraft:overworld to minecraft:the_nether ----
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 replace
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 replace normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 replace force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 replace move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 replace move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 masked
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 masked normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 masked force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 masked move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 masked move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 filtered minecraft:stone
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 filtered minecraft:stone normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 filtered minecraft:stone force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 filtered minecraft:stone move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone move
+# ---- from minecraft:overworld to minecraft:the_nether strict ----
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict replace
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict replace normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict replace force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict replace move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict replace move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict masked
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict masked normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict masked force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict masked move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict masked move
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict filtered minecraft:stone
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict filtered minecraft:stone normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone normal
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone normal
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict filtered minecraft:stone force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone force
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone force
+execute in minecraft:overworld run fill 0 -60 0 2 -60 2 minecraft:stone
+execute in minecraft:overworld run setblock 1 -60 1 minecraft:chest
+execute in minecraft:overworld run setblock 2 -60 2 minecraft:air
+execute in minecraft:overworld run fill 10 -60 0 12 -60 2 minecraft:dirt
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 10 100 0 strict filtered minecraft:stone move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone move
+clone from minecraft:overworld 0 -60 0 2 -60 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone move
+# ---- from minecraft:the_nether plain ----
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 replace
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 replace
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 replace
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 replace normal
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 replace normal
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 replace normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 replace force
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 replace force
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 replace force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 replace move
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 replace move
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 replace move
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 masked
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 masked
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 masked
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 masked normal
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 masked normal
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 masked normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 masked force
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 masked force
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 masked force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 masked move
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 masked move
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 masked move
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 filtered minecraft:stone
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 filtered minecraft:stone
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 filtered minecraft:stone
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 filtered minecraft:stone normal
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 filtered minecraft:stone normal
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 filtered minecraft:stone normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 filtered minecraft:stone force
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 filtered minecraft:stone force
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 filtered minecraft:stone force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 filtered minecraft:stone move
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 filtered minecraft:stone move
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 filtered minecraft:stone move
+# ---- from minecraft:the_nether plain strict ----
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 strict
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 strict
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 strict
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 strict replace
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 strict replace
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 strict replace
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 strict replace normal
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 strict replace normal
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 strict replace normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 strict replace force
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 strict replace force
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 strict replace force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 strict replace move
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 strict replace move
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 strict replace move
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 strict masked
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 strict masked
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 strict masked
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 strict masked normal
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 strict masked normal
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 strict masked normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 strict masked force
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 strict masked force
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 strict masked force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 strict masked move
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 strict masked move
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 strict masked move
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 strict filtered minecraft:stone
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 strict filtered minecraft:stone
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 strict filtered minecraft:stone
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 strict filtered minecraft:stone normal
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 strict filtered minecraft:stone normal
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 strict filtered minecraft:stone normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 strict filtered minecraft:stone force
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 strict filtered minecraft:stone force
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 strict filtered minecraft:stone force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 10 100 0 strict filtered minecraft:stone move
+clone from minecraft:the_nether 0 100 0 2 100 2 1 100 1 strict filtered minecraft:stone move
+clone from minecraft:the_nether 0 100 0 2 100 2 100000 100 100000 strict filtered minecraft:stone move
+# ---- from minecraft:the_nether to minecraft:overworld ----
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 replace
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 replace
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 replace
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 replace normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 replace normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 replace normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 replace force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 replace force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 replace force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 replace move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 replace move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 replace move
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 masked
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 masked
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 masked
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 masked normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 masked normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 masked normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 masked force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 masked force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 masked force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 masked move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 masked move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 masked move
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 filtered minecraft:stone
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 filtered minecraft:stone normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 filtered minecraft:stone force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 filtered minecraft:stone move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 filtered minecraft:stone move
+# ---- from minecraft:the_nether to minecraft:overworld strict ----
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 strict
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 strict replace
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict replace
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict replace
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 strict replace normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict replace normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict replace normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 strict replace force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict replace force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict replace force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 strict replace move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict replace move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict replace move
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 strict masked
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict masked
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict masked
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 strict masked normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict masked normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict masked normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 strict masked force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict masked force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict masked force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 strict masked move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict masked move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict masked move
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 strict filtered minecraft:stone
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 strict filtered minecraft:stone normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 strict filtered minecraft:stone force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 10 -60 0 strict filtered minecraft:stone move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:overworld 100000 -60 100000 strict filtered minecraft:stone move
+# ---- from minecraft:the_nether to minecraft:the_nether ----
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 replace
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 replace
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 replace
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 replace normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 replace normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 replace normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 replace force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 replace force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 replace force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 replace move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 replace move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 replace move
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 masked
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 masked
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 masked
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 masked normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 masked normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 masked normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 masked force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 masked force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 masked force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 masked move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 masked move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 masked move
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 filtered minecraft:stone
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 filtered minecraft:stone
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 filtered minecraft:stone normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 filtered minecraft:stone normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 filtered minecraft:stone force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 filtered minecraft:stone force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 filtered minecraft:stone move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 filtered minecraft:stone move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 filtered minecraft:stone move
+# ---- from minecraft:the_nether to minecraft:the_nether strict ----
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 strict
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 strict
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 strict
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 strict replace
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 strict replace
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 strict replace
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 strict replace normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 strict replace normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 strict replace normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 strict replace force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 strict replace force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 strict replace force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 strict replace move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 strict replace move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 strict replace move
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 strict masked
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 strict masked
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 strict masked
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 strict masked normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 strict masked normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 strict masked normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 strict masked force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 strict masked force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 strict masked force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 strict masked move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 strict masked move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 strict masked move
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 strict filtered minecraft:stone
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 strict filtered minecraft:stone
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 strict filtered minecraft:stone normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 strict filtered minecraft:stone normal
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone normal
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 strict filtered minecraft:stone force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 strict filtered minecraft:stone force
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone force
+execute in minecraft:the_nether run fill 0 100 0 2 100 2 minecraft:stone
+execute in minecraft:the_nether run setblock 1 100 1 minecraft:chest
+execute in minecraft:the_nether run setblock 2 100 2 minecraft:air
+execute in minecraft:the_nether run fill 10 100 0 12 100 2 minecraft:dirt
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 10 100 0 strict filtered minecraft:stone move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 1 100 1 strict filtered minecraft:stone move
+clone from minecraft:the_nether 0 100 0 2 100 2 to minecraft:the_nether 100000 100 100000 strict filtered minecraft:stone move
+
+# ---- extra failures ----
+clone 0 -60 0 2 -60 2 10 -60 0 replace strict
+clone 0 -60 0 2 -60 2 10 -60 0 masked replace
+clone 0 -60 0 2 -60 2 10 -60 0 filtered
+clone 0 -60 0 2 -60 2 10 -60 0 filtered nope
+clone 0 -60 0 2 -60 2 to minecraft:nowhere 10 -60 0
+clone from minecraft:nowhere 0 -60 0 2 -60 2 10 -60 0
+clone 0 -60 0 100000 -60 100000 10 -60 0
+clone 0 -80 0 2 -80 2 10 -60 0
+@bot0 clone 0 -60 0 2 -60 2 10 -60 0

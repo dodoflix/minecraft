@@ -1,0 +1,1187 @@
+### [sounds.txt:4] gamerule spawn_mobs false
+log| System chat: Game rule spawn_mobs is now set to false
+Bot| [system_chat] [Server: Game rule spawn_mobs is now set to false]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["spawn_mobs","false"]}],"color":"gray","italic":true}
+### [sounds.txt:7] playsound minecraft:entity.pig.ambient master
+log| System chat: The sound is too far away to be heard
+### [sounds.txt:8] playsound minecraft:entity.pig.ambient master Bot
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:9] playsound minecraft:entity.pig.ambient master @a
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:10] playsound minecraft:entity.pig.ambient master @a 0 -60 0
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:11] playsound minecraft:entity.pig.ambient master @a ~ ~ ~
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:12] playsound minecraft:entity.pig.ambient master Bot 0 -60 0 0.5
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:13] playsound minecraft:entity.pig.ambient master Bot 0 -60 0 1000
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:14] playsound minecraft:entity.pig.ambient master Bot 0 -60 0 0 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:15] playsound minecraft:entity.pig.ambient master Bot 0 -60 0 1 0.5 0.2
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:16] playsound minecraft:entity.pig.ambient master Bot 0 -60 0 1 2 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:17] playsound minecraft:entity.pig.ambient master Bot 0 -60 0 1 0 0
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:18] playsound minecraft:entity.pig.ambient master nobody
+log| System chat: No player was found
+### [sounds.txt:19] playsound minecraft:entity.pig.ambient master @e[type=minecraft:cow]
+log| System chat: Only players may be affected by this command, but the provided selector includes entities
+log| System chat: playsound minecraft:entity.pig.ambient master @e[type=minecraft:cow]<--[HERE]
+### [sounds.txt:20] playsound minecraft:entity.pig.ambient master Bot 0 -60 0 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...t 0 -60 0 -1<--[HERE]
+### [sounds.txt:21] playsound minecraft:entity.pig.ambient master Bot 0 -60 0 x
+log| System chat: Expected float
+log| System chat: ...t 0 -60 0 x<--[HERE]
+### [sounds.txt:22] playsound minecraft:entity.pig.ambient master Bot 0 -60 0 1 3
+log| System chat: Float must not be more than 2.0: found 3.0
+log| System chat: ...0 -60 0 1 3<--[HERE]
+### [sounds.txt:23] playsound minecraft:entity.pig.ambient master Bot 0 -60 0 1 1 2
+log| System chat: Float must not be more than 1.0: found 2.0
+log| System chat: ...-60 0 1 1 2<--[HERE]
+### [sounds.txt:24] playsound minecraft:entity.pig.ambient master Bot 0 -60 0 1 1 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...-60 0 1 1 -1<--[HERE]
+### [sounds.txt:25] playsound minecraft:entity.pig.ambient master Bot 0 -60
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...aster Bot 0 -60<--[HERE]
+### [sounds.txt:26] playsound minecraft:entity.pig.ambient master Bot ~ ~
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...aster Bot ~ ~<--[HERE]
+### [sounds.txt:27] @bot playsound minecraft:entity.pig.ambient master
+log| System chat: [Bot: Played sound minecraft:entity.pig.ambient to Bot]
+Bot| [system_chat] Played sound minecraft:entity.pig.ambient to Bot
+Bot|   json {"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+### [sounds.txt:28] playsound minecraft:nope master Bot
+log| System chat: Played sound minecraft:nope to Bot
+Bot| [system_chat] [Server: Played sound minecraft:nope to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:nope",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:29] @bot0 playsound minecraft:entity.pig.ambient master Bot
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] playsound minecraft:entity.pig.ambient master Bot<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"playsound minecraft:entity.pig.ambient master Bot","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/playsound minecraft:entity.pig.ambient master Bot","action":"suggest_command"}}],"color":"red"}
+### [sounds.txt:30] stopsound Bot master
+log| System chat: Stopped all 'master' sounds
+Bot| [system_chat] [Server: Stopped all 'master' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["master"]}],"color":"gray","italic":true}
+### [sounds.txt:31] stopsound @a master
+log| System chat: Stopped all 'master' sounds
+Bot| [system_chat] [Server: Stopped all 'master' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["master"]}],"color":"gray","italic":true}
+### [sounds.txt:32] stopsound Bot master minecraft:entity.pig.ambient
+log| System chat: Stopped sound 'minecraft:entity.pig.ambient' on source 'master'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:entity.pig.ambient' on source 'master']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:entity.pig.ambient","master"]}],"color":"gray","italic":true}
+### [sounds.txt:33] stopsound Bot master minecraft:nope
+log| System chat: Stopped sound 'minecraft:nope' on source 'master'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:nope' on source 'master']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:nope","master"]}],"color":"gray","italic":true}
+### [sounds.txt:34] stopsound nobody master
+log| System chat: No player was found
+### [sounds.txt:35] stopsound Bot master minecraft:entity.pig.ambient extra
+log| System chat: Incorrect argument for command
+log| System chat: ...g.ambient extra<--[HERE]
+### [sounds.txt:38] playsound minecraft:entity.pig.ambient music
+log| System chat: The sound is too far away to be heard
+### [sounds.txt:39] playsound minecraft:entity.pig.ambient music Bot
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:40] playsound minecraft:entity.pig.ambient music @a
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:41] playsound minecraft:entity.pig.ambient music @a 0 -60 0
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:42] playsound minecraft:entity.pig.ambient music @a ~ ~ ~
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:43] playsound minecraft:entity.pig.ambient music Bot 0 -60 0 0.5
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:44] playsound minecraft:entity.pig.ambient music Bot 0 -60 0 1000
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:45] playsound minecraft:entity.pig.ambient music Bot 0 -60 0 0 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:46] playsound minecraft:entity.pig.ambient music Bot 0 -60 0 1 0.5 0.2
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:47] playsound minecraft:entity.pig.ambient music Bot 0 -60 0 1 2 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:48] playsound minecraft:entity.pig.ambient music Bot 0 -60 0 1 0 0
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:49] playsound minecraft:entity.pig.ambient music nobody
+log| System chat: No player was found
+### [sounds.txt:50] playsound minecraft:entity.pig.ambient music @e[type=minecraft:cow]
+log| System chat: Only players may be affected by this command, but the provided selector includes entities
+log| System chat: playsound minecraft:entity.pig.ambient music @e[type=minecraft:cow]<--[HERE]
+### [sounds.txt:51] playsound minecraft:entity.pig.ambient music Bot 0 -60 0 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...t 0 -60 0 -1<--[HERE]
+### [sounds.txt:52] playsound minecraft:entity.pig.ambient music Bot 0 -60 0 x
+log| System chat: Expected float
+log| System chat: ...t 0 -60 0 x<--[HERE]
+### [sounds.txt:53] playsound minecraft:entity.pig.ambient music Bot 0 -60 0 1 3
+log| System chat: Float must not be more than 2.0: found 3.0
+log| System chat: ...0 -60 0 1 3<--[HERE]
+### [sounds.txt:54] playsound minecraft:entity.pig.ambient music Bot 0 -60 0 1 1 2
+log| System chat: Float must not be more than 1.0: found 2.0
+log| System chat: ...-60 0 1 1 2<--[HERE]
+### [sounds.txt:55] playsound minecraft:entity.pig.ambient music Bot 0 -60 0 1 1 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...-60 0 1 1 -1<--[HERE]
+### [sounds.txt:56] playsound minecraft:entity.pig.ambient music Bot 0 -60
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...music Bot 0 -60<--[HERE]
+### [sounds.txt:57] playsound minecraft:entity.pig.ambient music Bot ~ ~
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...music Bot ~ ~<--[HERE]
+### [sounds.txt:58] @bot playsound minecraft:entity.pig.ambient music
+log| System chat: [Bot: Played sound minecraft:entity.pig.ambient to Bot]
+Bot| [system_chat] Played sound minecraft:entity.pig.ambient to Bot
+Bot|   json {"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+### [sounds.txt:59] playsound minecraft:nope music Bot
+log| System chat: Played sound minecraft:nope to Bot
+Bot| [system_chat] [Server: Played sound minecraft:nope to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:nope",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:60] @bot0 playsound minecraft:entity.pig.ambient music Bot
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] playsound minecraft:entity.pig.ambient music Bot<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"playsound minecraft:entity.pig.ambient music Bot","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/playsound minecraft:entity.pig.ambient music Bot","action":"suggest_command"}}],"color":"red"}
+### [sounds.txt:61] stopsound Bot music
+log| System chat: Stopped all 'music' sounds
+Bot| [system_chat] [Server: Stopped all 'music' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["music"]}],"color":"gray","italic":true}
+### [sounds.txt:62] stopsound @a music
+log| System chat: Stopped all 'music' sounds
+Bot| [system_chat] [Server: Stopped all 'music' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["music"]}],"color":"gray","italic":true}
+### [sounds.txt:63] stopsound Bot music minecraft:entity.pig.ambient
+log| System chat: Stopped sound 'minecraft:entity.pig.ambient' on source 'music'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:entity.pig.ambient' on source 'music']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:entity.pig.ambient","music"]}],"color":"gray","italic":true}
+### [sounds.txt:64] stopsound Bot music minecraft:nope
+log| System chat: Stopped sound 'minecraft:nope' on source 'music'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:nope' on source 'music']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:nope","music"]}],"color":"gray","italic":true}
+### [sounds.txt:65] stopsound nobody music
+log| System chat: No player was found
+### [sounds.txt:66] stopsound Bot music minecraft:entity.pig.ambient extra
+log| System chat: Incorrect argument for command
+log| System chat: ...g.ambient extra<--[HERE]
+### [sounds.txt:69] playsound minecraft:entity.pig.ambient record
+log| System chat: The sound is too far away to be heard
+### [sounds.txt:70] playsound minecraft:entity.pig.ambient record Bot
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:71] playsound minecraft:entity.pig.ambient record @a
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:72] playsound minecraft:entity.pig.ambient record @a 0 -60 0
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:73] playsound minecraft:entity.pig.ambient record @a ~ ~ ~
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:74] playsound minecraft:entity.pig.ambient record Bot 0 -60 0 0.5
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:75] playsound minecraft:entity.pig.ambient record Bot 0 -60 0 1000
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:76] playsound minecraft:entity.pig.ambient record Bot 0 -60 0 0 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:77] playsound minecraft:entity.pig.ambient record Bot 0 -60 0 1 0.5 0.2
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:78] playsound minecraft:entity.pig.ambient record Bot 0 -60 0 1 2 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:79] playsound minecraft:entity.pig.ambient record Bot 0 -60 0 1 0 0
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:80] playsound minecraft:entity.pig.ambient record nobody
+log| System chat: No player was found
+### [sounds.txt:81] playsound minecraft:entity.pig.ambient record @e[type=minecraft:cow]
+log| System chat: Only players may be affected by this command, but the provided selector includes entities
+log| System chat: playsound minecraft:entity.pig.ambient record @e[type=minecraft:cow]<--[HERE]
+### [sounds.txt:82] playsound minecraft:entity.pig.ambient record Bot 0 -60 0 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...t 0 -60 0 -1<--[HERE]
+### [sounds.txt:83] playsound minecraft:entity.pig.ambient record Bot 0 -60 0 x
+log| System chat: Expected float
+log| System chat: ...t 0 -60 0 x<--[HERE]
+### [sounds.txt:84] playsound minecraft:entity.pig.ambient record Bot 0 -60 0 1 3
+log| System chat: Float must not be more than 2.0: found 3.0
+log| System chat: ...0 -60 0 1 3<--[HERE]
+### [sounds.txt:85] playsound minecraft:entity.pig.ambient record Bot 0 -60 0 1 1 2
+log| System chat: Float must not be more than 1.0: found 2.0
+log| System chat: ...-60 0 1 1 2<--[HERE]
+### [sounds.txt:86] playsound minecraft:entity.pig.ambient record Bot 0 -60 0 1 1 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...-60 0 1 1 -1<--[HERE]
+### [sounds.txt:87] playsound minecraft:entity.pig.ambient record Bot 0 -60
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...ecord Bot 0 -60<--[HERE]
+### [sounds.txt:88] playsound minecraft:entity.pig.ambient record Bot ~ ~
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...ecord Bot ~ ~<--[HERE]
+### [sounds.txt:89] @bot playsound minecraft:entity.pig.ambient record
+log| System chat: [Bot: Played sound minecraft:entity.pig.ambient to Bot]
+Bot| [system_chat] Played sound minecraft:entity.pig.ambient to Bot
+Bot|   json {"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+### [sounds.txt:90] playsound minecraft:nope record Bot
+log| System chat: Played sound minecraft:nope to Bot
+Bot| [system_chat] [Server: Played sound minecraft:nope to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:nope",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:91] @bot0 playsound minecraft:entity.pig.ambient record Bot
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] playsound minecraft:entity.pig.ambient record Bot<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"playsound minecraft:entity.pig.ambient record Bot","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/playsound minecraft:entity.pig.ambient record Bot","action":"suggest_command"}}],"color":"red"}
+### [sounds.txt:92] stopsound Bot record
+log| System chat: Stopped all 'record' sounds
+Bot| [system_chat] [Server: Stopped all 'record' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["record"]}],"color":"gray","italic":true}
+### [sounds.txt:93] stopsound @a record
+log| System chat: Stopped all 'record' sounds
+Bot| [system_chat] [Server: Stopped all 'record' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["record"]}],"color":"gray","italic":true}
+### [sounds.txt:94] stopsound Bot record minecraft:entity.pig.ambient
+log| System chat: Stopped sound 'minecraft:entity.pig.ambient' on source 'record'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:entity.pig.ambient' on source 'record']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:entity.pig.ambient","record"]}],"color":"gray","italic":true}
+### [sounds.txt:95] stopsound Bot record minecraft:nope
+log| System chat: Stopped sound 'minecraft:nope' on source 'record'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:nope' on source 'record']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:nope","record"]}],"color":"gray","italic":true}
+### [sounds.txt:96] stopsound nobody record
+log| System chat: No player was found
+### [sounds.txt:97] stopsound Bot record minecraft:entity.pig.ambient extra
+log| System chat: Incorrect argument for command
+log| System chat: ...g.ambient extra<--[HERE]
+### [sounds.txt:100] playsound minecraft:entity.pig.ambient weather
+log| System chat: The sound is too far away to be heard
+### [sounds.txt:101] playsound minecraft:entity.pig.ambient weather Bot
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:102] playsound minecraft:entity.pig.ambient weather @a
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:103] playsound minecraft:entity.pig.ambient weather @a 0 -60 0
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:104] playsound minecraft:entity.pig.ambient weather @a ~ ~ ~
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:105] playsound minecraft:entity.pig.ambient weather Bot 0 -60 0 0.5
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:106] playsound minecraft:entity.pig.ambient weather Bot 0 -60 0 1000
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:107] playsound minecraft:entity.pig.ambient weather Bot 0 -60 0 0 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:108] playsound minecraft:entity.pig.ambient weather Bot 0 -60 0 1 0.5 0.2
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:109] playsound minecraft:entity.pig.ambient weather Bot 0 -60 0 1 2 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:110] playsound minecraft:entity.pig.ambient weather Bot 0 -60 0 1 0 0
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:111] playsound minecraft:entity.pig.ambient weather nobody
+log| System chat: No player was found
+### [sounds.txt:112] playsound minecraft:entity.pig.ambient weather @e[type=minecraft:cow]
+log| System chat: Only players may be affected by this command, but the provided selector includes entities
+log| System chat: playsound minecraft:entity.pig.ambient weather @e[type=minecraft:cow]<--[HERE]
+### [sounds.txt:113] playsound minecraft:entity.pig.ambient weather Bot 0 -60 0 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...t 0 -60 0 -1<--[HERE]
+### [sounds.txt:114] playsound minecraft:entity.pig.ambient weather Bot 0 -60 0 x
+log| System chat: Expected float
+log| System chat: ...t 0 -60 0 x<--[HERE]
+### [sounds.txt:115] playsound minecraft:entity.pig.ambient weather Bot 0 -60 0 1 3
+log| System chat: Float must not be more than 2.0: found 3.0
+log| System chat: ...0 -60 0 1 3<--[HERE]
+### [sounds.txt:116] playsound minecraft:entity.pig.ambient weather Bot 0 -60 0 1 1 2
+log| System chat: Float must not be more than 1.0: found 2.0
+log| System chat: ...-60 0 1 1 2<--[HERE]
+### [sounds.txt:117] playsound minecraft:entity.pig.ambient weather Bot 0 -60 0 1 1 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...-60 0 1 1 -1<--[HERE]
+### [sounds.txt:118] playsound minecraft:entity.pig.ambient weather Bot 0 -60
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...ather Bot 0 -60<--[HERE]
+### [sounds.txt:119] playsound minecraft:entity.pig.ambient weather Bot ~ ~
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...ather Bot ~ ~<--[HERE]
+### [sounds.txt:120] @bot playsound minecraft:entity.pig.ambient weather
+log| System chat: [Bot: Played sound minecraft:entity.pig.ambient to Bot]
+Bot| [system_chat] Played sound minecraft:entity.pig.ambient to Bot
+Bot|   json {"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+### [sounds.txt:121] playsound minecraft:nope weather Bot
+log| System chat: Played sound minecraft:nope to Bot
+Bot| [system_chat] [Server: Played sound minecraft:nope to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:nope",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:122] @bot0 playsound minecraft:entity.pig.ambient weather Bot
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] playsound minecraft:entity.pig.ambient weather Bot<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"playsound minecraft:entity.pig.ambient weather Bot","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/playsound minecraft:entity.pig.ambient weather Bot","action":"suggest_command"}}],"color":"red"}
+### [sounds.txt:123] stopsound Bot weather
+log| System chat: Stopped all 'weather' sounds
+Bot| [system_chat] [Server: Stopped all 'weather' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["weather"]}],"color":"gray","italic":true}
+### [sounds.txt:124] stopsound @a weather
+log| System chat: Stopped all 'weather' sounds
+Bot| [system_chat] [Server: Stopped all 'weather' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["weather"]}],"color":"gray","italic":true}
+### [sounds.txt:125] stopsound Bot weather minecraft:entity.pig.ambient
+log| System chat: Stopped sound 'minecraft:entity.pig.ambient' on source 'weather'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:entity.pig.ambient' on source 'weather']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:entity.pig.ambient","weather"]}],"color":"gray","italic":true}
+### [sounds.txt:126] stopsound Bot weather minecraft:nope
+log| System chat: Stopped sound 'minecraft:nope' on source 'weather'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:nope' on source 'weather']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:nope","weather"]}],"color":"gray","italic":true}
+### [sounds.txt:127] stopsound nobody weather
+log| System chat: No player was found
+### [sounds.txt:128] stopsound Bot weather minecraft:entity.pig.ambient extra
+log| System chat: Incorrect argument for command
+log| System chat: ...g.ambient extra<--[HERE]
+### [sounds.txt:131] playsound minecraft:entity.pig.ambient block
+log| System chat: The sound is too far away to be heard
+### [sounds.txt:132] playsound minecraft:entity.pig.ambient block Bot
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:133] playsound minecraft:entity.pig.ambient block @a
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:134] playsound minecraft:entity.pig.ambient block @a 0 -60 0
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:135] playsound minecraft:entity.pig.ambient block @a ~ ~ ~
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:136] playsound minecraft:entity.pig.ambient block Bot 0 -60 0 0.5
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:137] playsound minecraft:entity.pig.ambient block Bot 0 -60 0 1000
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:138] playsound minecraft:entity.pig.ambient block Bot 0 -60 0 0 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:139] playsound minecraft:entity.pig.ambient block Bot 0 -60 0 1 0.5 0.2
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:140] playsound minecraft:entity.pig.ambient block Bot 0 -60 0 1 2 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:141] playsound minecraft:entity.pig.ambient block Bot 0 -60 0 1 0 0
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:142] playsound minecraft:entity.pig.ambient block nobody
+log| System chat: No player was found
+### [sounds.txt:143] playsound minecraft:entity.pig.ambient block @e[type=minecraft:cow]
+log| System chat: Only players may be affected by this command, but the provided selector includes entities
+log| System chat: playsound minecraft:entity.pig.ambient block @e[type=minecraft:cow]<--[HERE]
+### [sounds.txt:144] playsound minecraft:entity.pig.ambient block Bot 0 -60 0 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...t 0 -60 0 -1<--[HERE]
+### [sounds.txt:145] playsound minecraft:entity.pig.ambient block Bot 0 -60 0 x
+log| System chat: Expected float
+log| System chat: ...t 0 -60 0 x<--[HERE]
+### [sounds.txt:146] playsound minecraft:entity.pig.ambient block Bot 0 -60 0 1 3
+log| System chat: Float must not be more than 2.0: found 3.0
+log| System chat: ...0 -60 0 1 3<--[HERE]
+### [sounds.txt:147] playsound minecraft:entity.pig.ambient block Bot 0 -60 0 1 1 2
+log| System chat: Float must not be more than 1.0: found 2.0
+log| System chat: ...-60 0 1 1 2<--[HERE]
+### [sounds.txt:148] playsound minecraft:entity.pig.ambient block Bot 0 -60 0 1 1 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...-60 0 1 1 -1<--[HERE]
+### [sounds.txt:149] playsound minecraft:entity.pig.ambient block Bot 0 -60
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...block Bot 0 -60<--[HERE]
+### [sounds.txt:150] playsound minecraft:entity.pig.ambient block Bot ~ ~
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...block Bot ~ ~<--[HERE]
+### [sounds.txt:151] @bot playsound minecraft:entity.pig.ambient block
+log| System chat: [Bot: Played sound minecraft:entity.pig.ambient to Bot]
+Bot| [system_chat] Played sound minecraft:entity.pig.ambient to Bot
+Bot|   json {"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+### [sounds.txt:152] playsound minecraft:nope block Bot
+log| System chat: Played sound minecraft:nope to Bot
+Bot| [system_chat] [Server: Played sound minecraft:nope to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:nope",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:153] @bot0 playsound minecraft:entity.pig.ambient block Bot
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] playsound minecraft:entity.pig.ambient block Bot<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"playsound minecraft:entity.pig.ambient block Bot","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/playsound minecraft:entity.pig.ambient block Bot","action":"suggest_command"}}],"color":"red"}
+### [sounds.txt:154] stopsound Bot block
+log| System chat: Stopped all 'block' sounds
+Bot| [system_chat] [Server: Stopped all 'block' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["block"]}],"color":"gray","italic":true}
+### [sounds.txt:155] stopsound @a block
+log| System chat: Stopped all 'block' sounds
+Bot| [system_chat] [Server: Stopped all 'block' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["block"]}],"color":"gray","italic":true}
+### [sounds.txt:156] stopsound Bot block minecraft:entity.pig.ambient
+log| System chat: Stopped sound 'minecraft:entity.pig.ambient' on source 'block'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:entity.pig.ambient' on source 'block']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:entity.pig.ambient","block"]}],"color":"gray","italic":true}
+### [sounds.txt:157] stopsound Bot block minecraft:nope
+log| System chat: Stopped sound 'minecraft:nope' on source 'block'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:nope' on source 'block']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:nope","block"]}],"color":"gray","italic":true}
+### [sounds.txt:158] stopsound nobody block
+log| System chat: No player was found
+### [sounds.txt:159] stopsound Bot block minecraft:entity.pig.ambient extra
+log| System chat: Incorrect argument for command
+log| System chat: ...g.ambient extra<--[HERE]
+### [sounds.txt:162] playsound minecraft:entity.pig.ambient hostile
+log| System chat: The sound is too far away to be heard
+### [sounds.txt:163] playsound minecraft:entity.pig.ambient hostile Bot
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:164] playsound minecraft:entity.pig.ambient hostile @a
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:165] playsound minecraft:entity.pig.ambient hostile @a 0 -60 0
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:166] playsound minecraft:entity.pig.ambient hostile @a ~ ~ ~
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:167] playsound minecraft:entity.pig.ambient hostile Bot 0 -60 0 0.5
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:168] playsound minecraft:entity.pig.ambient hostile Bot 0 -60 0 1000
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:169] playsound minecraft:entity.pig.ambient hostile Bot 0 -60 0 0 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:170] playsound minecraft:entity.pig.ambient hostile Bot 0 -60 0 1 0.5 0.2
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:171] playsound minecraft:entity.pig.ambient hostile Bot 0 -60 0 1 2 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:172] playsound minecraft:entity.pig.ambient hostile Bot 0 -60 0 1 0 0
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:173] playsound minecraft:entity.pig.ambient hostile nobody
+log| System chat: No player was found
+### [sounds.txt:174] playsound minecraft:entity.pig.ambient hostile @e[type=minecraft:cow]
+log| System chat: Only players may be affected by this command, but the provided selector includes entities
+log| System chat: playsound minecraft:entity.pig.ambient hostile @e[type=minecraft:cow]<--[HERE]
+### [sounds.txt:175] playsound minecraft:entity.pig.ambient hostile Bot 0 -60 0 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...t 0 -60 0 -1<--[HERE]
+### [sounds.txt:176] playsound minecraft:entity.pig.ambient hostile Bot 0 -60 0 x
+log| System chat: Expected float
+log| System chat: ...t 0 -60 0 x<--[HERE]
+### [sounds.txt:177] playsound minecraft:entity.pig.ambient hostile Bot 0 -60 0 1 3
+log| System chat: Float must not be more than 2.0: found 3.0
+log| System chat: ...0 -60 0 1 3<--[HERE]
+### [sounds.txt:178] playsound minecraft:entity.pig.ambient hostile Bot 0 -60 0 1 1 2
+log| System chat: Float must not be more than 1.0: found 2.0
+log| System chat: ...-60 0 1 1 2<--[HERE]
+### [sounds.txt:179] playsound minecraft:entity.pig.ambient hostile Bot 0 -60 0 1 1 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...-60 0 1 1 -1<--[HERE]
+### [sounds.txt:180] playsound minecraft:entity.pig.ambient hostile Bot 0 -60
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...stile Bot 0 -60<--[HERE]
+### [sounds.txt:181] playsound minecraft:entity.pig.ambient hostile Bot ~ ~
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...stile Bot ~ ~<--[HERE]
+### [sounds.txt:182] @bot playsound minecraft:entity.pig.ambient hostile
+log| System chat: [Bot: Played sound minecraft:entity.pig.ambient to Bot]
+Bot| [system_chat] Played sound minecraft:entity.pig.ambient to Bot
+Bot|   json {"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+### [sounds.txt:183] playsound minecraft:nope hostile Bot
+log| System chat: Played sound minecraft:nope to Bot
+Bot| [system_chat] [Server: Played sound minecraft:nope to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:nope",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:184] @bot0 playsound minecraft:entity.pig.ambient hostile Bot
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] playsound minecraft:entity.pig.ambient hostile Bot<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"playsound minecraft:entity.pig.ambient hostile Bot","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/playsound minecraft:entity.pig.ambient hostile Bot","action":"suggest_command"}}],"color":"red"}
+### [sounds.txt:185] stopsound Bot hostile
+log| System chat: Stopped all 'hostile' sounds
+Bot| [system_chat] [Server: Stopped all 'hostile' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["hostile"]}],"color":"gray","italic":true}
+### [sounds.txt:186] stopsound @a hostile
+log| System chat: Stopped all 'hostile' sounds
+Bot| [system_chat] [Server: Stopped all 'hostile' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["hostile"]}],"color":"gray","italic":true}
+### [sounds.txt:187] stopsound Bot hostile minecraft:entity.pig.ambient
+log| System chat: Stopped sound 'minecraft:entity.pig.ambient' on source 'hostile'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:entity.pig.ambient' on source 'hostile']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:entity.pig.ambient","hostile"]}],"color":"gray","italic":true}
+### [sounds.txt:188] stopsound Bot hostile minecraft:nope
+log| System chat: Stopped sound 'minecraft:nope' on source 'hostile'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:nope' on source 'hostile']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:nope","hostile"]}],"color":"gray","italic":true}
+### [sounds.txt:189] stopsound nobody hostile
+log| System chat: No player was found
+### [sounds.txt:190] stopsound Bot hostile minecraft:entity.pig.ambient extra
+log| System chat: Incorrect argument for command
+log| System chat: ...g.ambient extra<--[HERE]
+### [sounds.txt:193] playsound minecraft:entity.pig.ambient neutral
+log| System chat: The sound is too far away to be heard
+### [sounds.txt:194] playsound minecraft:entity.pig.ambient neutral Bot
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:195] playsound minecraft:entity.pig.ambient neutral @a
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:196] playsound minecraft:entity.pig.ambient neutral @a 0 -60 0
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:197] playsound minecraft:entity.pig.ambient neutral @a ~ ~ ~
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:198] playsound minecraft:entity.pig.ambient neutral Bot 0 -60 0 0.5
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:199] playsound minecraft:entity.pig.ambient neutral Bot 0 -60 0 1000
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:200] playsound minecraft:entity.pig.ambient neutral Bot 0 -60 0 0 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:201] playsound minecraft:entity.pig.ambient neutral Bot 0 -60 0 1 0.5 0.2
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:202] playsound minecraft:entity.pig.ambient neutral Bot 0 -60 0 1 2 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:203] playsound minecraft:entity.pig.ambient neutral Bot 0 -60 0 1 0 0
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:204] playsound minecraft:entity.pig.ambient neutral nobody
+log| System chat: No player was found
+### [sounds.txt:205] playsound minecraft:entity.pig.ambient neutral @e[type=minecraft:cow]
+log| System chat: Only players may be affected by this command, but the provided selector includes entities
+log| System chat: playsound minecraft:entity.pig.ambient neutral @e[type=minecraft:cow]<--[HERE]
+### [sounds.txt:206] playsound minecraft:entity.pig.ambient neutral Bot 0 -60 0 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...t 0 -60 0 -1<--[HERE]
+### [sounds.txt:207] playsound minecraft:entity.pig.ambient neutral Bot 0 -60 0 x
+log| System chat: Expected float
+log| System chat: ...t 0 -60 0 x<--[HERE]
+### [sounds.txt:208] playsound minecraft:entity.pig.ambient neutral Bot 0 -60 0 1 3
+log| System chat: Float must not be more than 2.0: found 3.0
+log| System chat: ...0 -60 0 1 3<--[HERE]
+### [sounds.txt:209] playsound minecraft:entity.pig.ambient neutral Bot 0 -60 0 1 1 2
+log| System chat: Float must not be more than 1.0: found 2.0
+log| System chat: ...-60 0 1 1 2<--[HERE]
+### [sounds.txt:210] playsound minecraft:entity.pig.ambient neutral Bot 0 -60 0 1 1 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...-60 0 1 1 -1<--[HERE]
+### [sounds.txt:211] playsound minecraft:entity.pig.ambient neutral Bot 0 -60
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...utral Bot 0 -60<--[HERE]
+### [sounds.txt:212] playsound minecraft:entity.pig.ambient neutral Bot ~ ~
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...utral Bot ~ ~<--[HERE]
+### [sounds.txt:213] @bot playsound minecraft:entity.pig.ambient neutral
+log| System chat: [Bot: Played sound minecraft:entity.pig.ambient to Bot]
+Bot| [system_chat] Played sound minecraft:entity.pig.ambient to Bot
+Bot|   json {"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+### [sounds.txt:214] playsound minecraft:nope neutral Bot
+log| System chat: Played sound minecraft:nope to Bot
+Bot| [system_chat] [Server: Played sound minecraft:nope to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:nope",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:215] @bot0 playsound minecraft:entity.pig.ambient neutral Bot
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] playsound minecraft:entity.pig.ambient neutral Bot<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"playsound minecraft:entity.pig.ambient neutral Bot","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/playsound minecraft:entity.pig.ambient neutral Bot","action":"suggest_command"}}],"color":"red"}
+### [sounds.txt:216] stopsound Bot neutral
+log| System chat: Stopped all 'neutral' sounds
+Bot| [system_chat] [Server: Stopped all 'neutral' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["neutral"]}],"color":"gray","italic":true}
+### [sounds.txt:217] stopsound @a neutral
+log| System chat: Stopped all 'neutral' sounds
+Bot| [system_chat] [Server: Stopped all 'neutral' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["neutral"]}],"color":"gray","italic":true}
+### [sounds.txt:218] stopsound Bot neutral minecraft:entity.pig.ambient
+log| System chat: Stopped sound 'minecraft:entity.pig.ambient' on source 'neutral'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:entity.pig.ambient' on source 'neutral']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:entity.pig.ambient","neutral"]}],"color":"gray","italic":true}
+### [sounds.txt:219] stopsound Bot neutral minecraft:nope
+log| System chat: Stopped sound 'minecraft:nope' on source 'neutral'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:nope' on source 'neutral']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:nope","neutral"]}],"color":"gray","italic":true}
+### [sounds.txt:220] stopsound nobody neutral
+log| System chat: No player was found
+### [sounds.txt:221] stopsound Bot neutral minecraft:entity.pig.ambient extra
+log| System chat: Incorrect argument for command
+log| System chat: ...g.ambient extra<--[HERE]
+### [sounds.txt:224] playsound minecraft:entity.pig.ambient player
+log| System chat: The sound is too far away to be heard
+### [sounds.txt:225] playsound minecraft:entity.pig.ambient player Bot
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:226] playsound minecraft:entity.pig.ambient player @a
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:227] playsound minecraft:entity.pig.ambient player @a 0 -60 0
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:228] playsound minecraft:entity.pig.ambient player @a ~ ~ ~
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:229] playsound minecraft:entity.pig.ambient player Bot 0 -60 0 0.5
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:230] playsound minecraft:entity.pig.ambient player Bot 0 -60 0 1000
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:231] playsound minecraft:entity.pig.ambient player Bot 0 -60 0 0 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:232] playsound minecraft:entity.pig.ambient player Bot 0 -60 0 1 0.5 0.2
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:233] playsound minecraft:entity.pig.ambient player Bot 0 -60 0 1 2 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:234] playsound minecraft:entity.pig.ambient player Bot 0 -60 0 1 0 0
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:235] playsound minecraft:entity.pig.ambient player nobody
+log| System chat: No player was found
+### [sounds.txt:236] playsound minecraft:entity.pig.ambient player @e[type=minecraft:cow]
+log| System chat: Only players may be affected by this command, but the provided selector includes entities
+log| System chat: playsound minecraft:entity.pig.ambient player @e[type=minecraft:cow]<--[HERE]
+### [sounds.txt:237] playsound minecraft:entity.pig.ambient player Bot 0 -60 0 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...t 0 -60 0 -1<--[HERE]
+### [sounds.txt:238] playsound minecraft:entity.pig.ambient player Bot 0 -60 0 x
+log| System chat: Expected float
+log| System chat: ...t 0 -60 0 x<--[HERE]
+### [sounds.txt:239] playsound minecraft:entity.pig.ambient player Bot 0 -60 0 1 3
+log| System chat: Float must not be more than 2.0: found 3.0
+log| System chat: ...0 -60 0 1 3<--[HERE]
+### [sounds.txt:240] playsound minecraft:entity.pig.ambient player Bot 0 -60 0 1 1 2
+log| System chat: Float must not be more than 1.0: found 2.0
+log| System chat: ...-60 0 1 1 2<--[HERE]
+### [sounds.txt:241] playsound minecraft:entity.pig.ambient player Bot 0 -60 0 1 1 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...-60 0 1 1 -1<--[HERE]
+### [sounds.txt:242] playsound minecraft:entity.pig.ambient player Bot 0 -60
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...layer Bot 0 -60<--[HERE]
+### [sounds.txt:243] playsound minecraft:entity.pig.ambient player Bot ~ ~
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...layer Bot ~ ~<--[HERE]
+### [sounds.txt:244] @bot playsound minecraft:entity.pig.ambient player
+log| System chat: [Bot: Played sound minecraft:entity.pig.ambient to Bot]
+Bot| [system_chat] Played sound minecraft:entity.pig.ambient to Bot
+Bot|   json {"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+### [sounds.txt:245] playsound minecraft:nope player Bot
+log| System chat: Played sound minecraft:nope to Bot
+Bot| [system_chat] [Server: Played sound minecraft:nope to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:nope",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:246] @bot0 playsound minecraft:entity.pig.ambient player Bot
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] playsound minecraft:entity.pig.ambient player Bot<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"playsound minecraft:entity.pig.ambient player Bot","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/playsound minecraft:entity.pig.ambient player Bot","action":"suggest_command"}}],"color":"red"}
+### [sounds.txt:247] stopsound Bot player
+log| System chat: Stopped all 'player' sounds
+Bot| [system_chat] [Server: Stopped all 'player' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["player"]}],"color":"gray","italic":true}
+### [sounds.txt:248] stopsound @a player
+log| System chat: Stopped all 'player' sounds
+Bot| [system_chat] [Server: Stopped all 'player' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["player"]}],"color":"gray","italic":true}
+### [sounds.txt:249] stopsound Bot player minecraft:entity.pig.ambient
+log| System chat: Stopped sound 'minecraft:entity.pig.ambient' on source 'player'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:entity.pig.ambient' on source 'player']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:entity.pig.ambient","player"]}],"color":"gray","italic":true}
+### [sounds.txt:250] stopsound Bot player minecraft:nope
+log| System chat: Stopped sound 'minecraft:nope' on source 'player'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:nope' on source 'player']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:nope","player"]}],"color":"gray","italic":true}
+### [sounds.txt:251] stopsound nobody player
+log| System chat: No player was found
+### [sounds.txt:252] stopsound Bot player minecraft:entity.pig.ambient extra
+log| System chat: Incorrect argument for command
+log| System chat: ...g.ambient extra<--[HERE]
+### [sounds.txt:255] playsound minecraft:entity.pig.ambient ambient
+log| System chat: The sound is too far away to be heard
+### [sounds.txt:256] playsound minecraft:entity.pig.ambient ambient Bot
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:257] playsound minecraft:entity.pig.ambient ambient @a
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:258] playsound minecraft:entity.pig.ambient ambient @a 0 -60 0
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:259] playsound minecraft:entity.pig.ambient ambient @a ~ ~ ~
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:260] playsound minecraft:entity.pig.ambient ambient Bot 0 -60 0 0.5
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:261] playsound minecraft:entity.pig.ambient ambient Bot 0 -60 0 1000
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:262] playsound minecraft:entity.pig.ambient ambient Bot 0 -60 0 0 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:263] playsound minecraft:entity.pig.ambient ambient Bot 0 -60 0 1 0.5 0.2
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:264] playsound minecraft:entity.pig.ambient ambient Bot 0 -60 0 1 2 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:265] playsound minecraft:entity.pig.ambient ambient Bot 0 -60 0 1 0 0
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:266] playsound minecraft:entity.pig.ambient ambient nobody
+log| System chat: No player was found
+### [sounds.txt:267] playsound minecraft:entity.pig.ambient ambient @e[type=minecraft:cow]
+log| System chat: Only players may be affected by this command, but the provided selector includes entities
+log| System chat: playsound minecraft:entity.pig.ambient ambient @e[type=minecraft:cow]<--[HERE]
+### [sounds.txt:268] playsound minecraft:entity.pig.ambient ambient Bot 0 -60 0 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...t 0 -60 0 -1<--[HERE]
+### [sounds.txt:269] playsound minecraft:entity.pig.ambient ambient Bot 0 -60 0 x
+log| System chat: Expected float
+log| System chat: ...t 0 -60 0 x<--[HERE]
+### [sounds.txt:270] playsound minecraft:entity.pig.ambient ambient Bot 0 -60 0 1 3
+log| System chat: Float must not be more than 2.0: found 3.0
+log| System chat: ...0 -60 0 1 3<--[HERE]
+### [sounds.txt:271] playsound minecraft:entity.pig.ambient ambient Bot 0 -60 0 1 1 2
+log| System chat: Float must not be more than 1.0: found 2.0
+log| System chat: ...-60 0 1 1 2<--[HERE]
+### [sounds.txt:272] playsound minecraft:entity.pig.ambient ambient Bot 0 -60 0 1 1 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...-60 0 1 1 -1<--[HERE]
+### [sounds.txt:273] playsound minecraft:entity.pig.ambient ambient Bot 0 -60
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...bient Bot 0 -60<--[HERE]
+### [sounds.txt:274] playsound minecraft:entity.pig.ambient ambient Bot ~ ~
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...bient Bot ~ ~<--[HERE]
+### [sounds.txt:275] @bot playsound minecraft:entity.pig.ambient ambient
+log| System chat: [Bot: Played sound minecraft:entity.pig.ambient to Bot]
+Bot| [system_chat] Played sound minecraft:entity.pig.ambient to Bot
+Bot|   json {"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+### [sounds.txt:276] playsound minecraft:nope ambient Bot
+log| System chat: Played sound minecraft:nope to Bot
+Bot| [system_chat] [Server: Played sound minecraft:nope to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:nope",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:277] @bot0 playsound minecraft:entity.pig.ambient ambient Bot
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] playsound minecraft:entity.pig.ambient ambient Bot<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"playsound minecraft:entity.pig.ambient ambient Bot","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/playsound minecraft:entity.pig.ambient ambient Bot","action":"suggest_command"}}],"color":"red"}
+### [sounds.txt:278] stopsound Bot ambient
+log| System chat: Stopped all 'ambient' sounds
+Bot| [system_chat] [Server: Stopped all 'ambient' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["ambient"]}],"color":"gray","italic":true}
+### [sounds.txt:279] stopsound @a ambient
+log| System chat: Stopped all 'ambient' sounds
+Bot| [system_chat] [Server: Stopped all 'ambient' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["ambient"]}],"color":"gray","italic":true}
+### [sounds.txt:280] stopsound Bot ambient minecraft:entity.pig.ambient
+log| System chat: Stopped sound 'minecraft:entity.pig.ambient' on source 'ambient'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:entity.pig.ambient' on source 'ambient']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:entity.pig.ambient","ambient"]}],"color":"gray","italic":true}
+### [sounds.txt:281] stopsound Bot ambient minecraft:nope
+log| System chat: Stopped sound 'minecraft:nope' on source 'ambient'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:nope' on source 'ambient']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:nope","ambient"]}],"color":"gray","italic":true}
+### [sounds.txt:282] stopsound nobody ambient
+log| System chat: No player was found
+### [sounds.txt:283] stopsound Bot ambient minecraft:entity.pig.ambient extra
+log| System chat: Incorrect argument for command
+log| System chat: ...g.ambient extra<--[HERE]
+### [sounds.txt:286] playsound minecraft:entity.pig.ambient voice
+log| System chat: The sound is too far away to be heard
+### [sounds.txt:287] playsound minecraft:entity.pig.ambient voice Bot
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:288] playsound minecraft:entity.pig.ambient voice @a
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:289] playsound minecraft:entity.pig.ambient voice @a 0 -60 0
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:290] playsound minecraft:entity.pig.ambient voice @a ~ ~ ~
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:291] playsound minecraft:entity.pig.ambient voice Bot 0 -60 0 0.5
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:292] playsound minecraft:entity.pig.ambient voice Bot 0 -60 0 1000
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:293] playsound minecraft:entity.pig.ambient voice Bot 0 -60 0 0 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:294] playsound minecraft:entity.pig.ambient voice Bot 0 -60 0 1 0.5 0.2
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:295] playsound minecraft:entity.pig.ambient voice Bot 0 -60 0 1 2 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:296] playsound minecraft:entity.pig.ambient voice Bot 0 -60 0 1 0 0
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:297] playsound minecraft:entity.pig.ambient voice nobody
+log| System chat: No player was found
+### [sounds.txt:298] playsound minecraft:entity.pig.ambient voice @e[type=minecraft:cow]
+log| System chat: Only players may be affected by this command, but the provided selector includes entities
+log| System chat: playsound minecraft:entity.pig.ambient voice @e[type=minecraft:cow]<--[HERE]
+### [sounds.txt:299] playsound minecraft:entity.pig.ambient voice Bot 0 -60 0 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...t 0 -60 0 -1<--[HERE]
+### [sounds.txt:300] playsound minecraft:entity.pig.ambient voice Bot 0 -60 0 x
+log| System chat: Expected float
+log| System chat: ...t 0 -60 0 x<--[HERE]
+### [sounds.txt:301] playsound minecraft:entity.pig.ambient voice Bot 0 -60 0 1 3
+log| System chat: Float must not be more than 2.0: found 3.0
+log| System chat: ...0 -60 0 1 3<--[HERE]
+### [sounds.txt:302] playsound minecraft:entity.pig.ambient voice Bot 0 -60 0 1 1 2
+log| System chat: Float must not be more than 1.0: found 2.0
+log| System chat: ...-60 0 1 1 2<--[HERE]
+### [sounds.txt:303] playsound minecraft:entity.pig.ambient voice Bot 0 -60 0 1 1 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...-60 0 1 1 -1<--[HERE]
+### [sounds.txt:304] playsound minecraft:entity.pig.ambient voice Bot 0 -60
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...voice Bot 0 -60<--[HERE]
+### [sounds.txt:305] playsound minecraft:entity.pig.ambient voice Bot ~ ~
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...voice Bot ~ ~<--[HERE]
+### [sounds.txt:306] @bot playsound minecraft:entity.pig.ambient voice
+log| System chat: [Bot: Played sound minecraft:entity.pig.ambient to Bot]
+Bot| [system_chat] Played sound minecraft:entity.pig.ambient to Bot
+Bot|   json {"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+### [sounds.txt:307] playsound minecraft:nope voice Bot
+log| System chat: Played sound minecraft:nope to Bot
+Bot| [system_chat] [Server: Played sound minecraft:nope to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:nope",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:308] @bot0 playsound minecraft:entity.pig.ambient voice Bot
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] playsound minecraft:entity.pig.ambient voice Bot<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"playsound minecraft:entity.pig.ambient voice Bot","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/playsound minecraft:entity.pig.ambient voice Bot","action":"suggest_command"}}],"color":"red"}
+### [sounds.txt:309] stopsound Bot voice
+log| System chat: Stopped all 'voice' sounds
+Bot| [system_chat] [Server: Stopped all 'voice' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["voice"]}],"color":"gray","italic":true}
+### [sounds.txt:310] stopsound @a voice
+log| System chat: Stopped all 'voice' sounds
+Bot| [system_chat] [Server: Stopped all 'voice' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["voice"]}],"color":"gray","italic":true}
+### [sounds.txt:311] stopsound Bot voice minecraft:entity.pig.ambient
+log| System chat: Stopped sound 'minecraft:entity.pig.ambient' on source 'voice'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:entity.pig.ambient' on source 'voice']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:entity.pig.ambient","voice"]}],"color":"gray","italic":true}
+### [sounds.txt:312] stopsound Bot voice minecraft:nope
+log| System chat: Stopped sound 'minecraft:nope' on source 'voice'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:nope' on source 'voice']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:nope","voice"]}],"color":"gray","italic":true}
+### [sounds.txt:313] stopsound nobody voice
+log| System chat: No player was found
+### [sounds.txt:314] stopsound Bot voice minecraft:entity.pig.ambient extra
+log| System chat: Incorrect argument for command
+log| System chat: ...g.ambient extra<--[HERE]
+### [sounds.txt:317] playsound minecraft:entity.pig.ambient ui
+log| System chat: The sound is too far away to be heard
+### [sounds.txt:318] playsound minecraft:entity.pig.ambient ui Bot
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:319] playsound minecraft:entity.pig.ambient ui @a
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:320] playsound minecraft:entity.pig.ambient ui @a 0 -60 0
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:321] playsound minecraft:entity.pig.ambient ui @a ~ ~ ~
+log| System chat: Played sound minecraft:entity.pig.ambient to 2 players
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.multiple","with":["minecraft:entity.pig.ambient",2]}],"color":"gray","italic":true}
+### [sounds.txt:322] playsound minecraft:entity.pig.ambient ui Bot 0 -60 0 0.5
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:323] playsound minecraft:entity.pig.ambient ui Bot 0 -60 0 1000
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:324] playsound minecraft:entity.pig.ambient ui Bot 0 -60 0 0 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:325] playsound minecraft:entity.pig.ambient ui Bot 0 -60 0 1 0.5 0.2
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:326] playsound minecraft:entity.pig.ambient ui Bot 0 -60 0 1 2 1
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:327] playsound minecraft:entity.pig.ambient ui Bot 0 -60 0 1 0 0
+log| System chat: Played sound minecraft:entity.pig.ambient to Bot
+Bot| [system_chat] [Server: Played sound minecraft:entity.pig.ambient to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:328] playsound minecraft:entity.pig.ambient ui nobody
+log| System chat: No player was found
+### [sounds.txt:329] playsound minecraft:entity.pig.ambient ui @e[type=minecraft:cow]
+log| System chat: Only players may be affected by this command, but the provided selector includes entities
+log| System chat: playsound minecraft:entity.pig.ambient ui @e[type=minecraft:cow]<--[HERE]
+### [sounds.txt:330] playsound minecraft:entity.pig.ambient ui Bot 0 -60 0 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...t 0 -60 0 -1<--[HERE]
+### [sounds.txt:331] playsound minecraft:entity.pig.ambient ui Bot 0 -60 0 x
+log| System chat: Expected float
+log| System chat: ...t 0 -60 0 x<--[HERE]
+### [sounds.txt:332] playsound minecraft:entity.pig.ambient ui Bot 0 -60 0 1 3
+log| System chat: Float must not be more than 2.0: found 3.0
+log| System chat: ...0 -60 0 1 3<--[HERE]
+### [sounds.txt:333] playsound minecraft:entity.pig.ambient ui Bot 0 -60 0 1 1 2
+log| System chat: Float must not be more than 1.0: found 2.0
+log| System chat: ...-60 0 1 1 2<--[HERE]
+### [sounds.txt:334] playsound minecraft:entity.pig.ambient ui Bot 0 -60 0 1 1 -1
+log| System chat: Float must not be less than 0.0: found -1.0
+log| System chat: ...-60 0 1 1 -1<--[HERE]
+### [sounds.txt:335] playsound minecraft:entity.pig.ambient ui Bot 0 -60
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...nt ui Bot 0 -60<--[HERE]
+### [sounds.txt:336] playsound minecraft:entity.pig.ambient ui Bot ~ ~
+log| System chat: Incomplete (expected 3 coordinates)
+log| System chat: ...nt ui Bot ~ ~<--[HERE]
+### [sounds.txt:337] @bot playsound minecraft:entity.pig.ambient ui
+log| System chat: [Bot: Played sound minecraft:entity.pig.ambient to Bot]
+Bot| [system_chat] Played sound minecraft:entity.pig.ambient to Bot
+Bot|   json {"translate":"commands.playsound.success.single","with":["minecraft:entity.pig.ambient",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}
+### [sounds.txt:338] playsound minecraft:nope ui Bot
+log| System chat: Played sound minecraft:nope to Bot
+Bot| [system_chat] [Server: Played sound minecraft:nope to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:nope",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:339] @bot0 playsound minecraft:entity.pig.ambient ui Bot
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] playsound minecraft:entity.pig.ambient ui Bot<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"playsound minecraft:entity.pig.ambient ui Bot","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/playsound minecraft:entity.pig.ambient ui Bot","action":"suggest_command"}}],"color":"red"}
+### [sounds.txt:340] stopsound Bot ui
+log| System chat: Stopped all 'ui' sounds
+Bot| [system_chat] [Server: Stopped all 'ui' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["ui"]}],"color":"gray","italic":true}
+### [sounds.txt:341] stopsound @a ui
+log| System chat: Stopped all 'ui' sounds
+Bot| [system_chat] [Server: Stopped all 'ui' sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.any","with":["ui"]}],"color":"gray","italic":true}
+### [sounds.txt:342] stopsound Bot ui minecraft:entity.pig.ambient
+log| System chat: Stopped sound 'minecraft:entity.pig.ambient' on source 'ui'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:entity.pig.ambient' on source 'ui']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:entity.pig.ambient","ui"]}],"color":"gray","italic":true}
+### [sounds.txt:343] stopsound Bot ui minecraft:nope
+log| System chat: Stopped sound 'minecraft:nope' on source 'ui'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:nope' on source 'ui']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.source.sound","with":["minecraft:nope","ui"]}],"color":"gray","italic":true}
+### [sounds.txt:344] stopsound nobody ui
+log| System chat: No player was found
+### [sounds.txt:345] stopsound Bot ui minecraft:entity.pig.ambient extra
+log| System chat: Incorrect argument for command
+log| System chat: ...g.ambient extra<--[HERE]
+### [sounds.txt:348] stopsound
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: stopsound<--[HERE]
+### [sounds.txt:349] stopsound Bot
+log| System chat: Stopped all sounds
+Bot| [system_chat] [Server: Stopped all sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.sourceless.any"}],"color":"gray","italic":true}
+### [sounds.txt:350] stopsound @a
+log| System chat: Stopped all sounds
+Bot| [system_chat] [Server: Stopped all sounds]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.sourceless.any"}],"color":"gray","italic":true}
+### [sounds.txt:351] stopsound nobody
+log| System chat: No player was found
+### [sounds.txt:352] stopsound Bot *
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ound Bot *<--[HERE]
+### [sounds.txt:353] stopsound Bot * minecraft:entity.pig.ambient
+log| System chat: Stopped sound 'minecraft:entity.pig.ambient'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:entity.pig.ambient']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.sourceless.sound","with":["minecraft:entity.pig.ambient"]}],"color":"gray","italic":true}
+### [sounds.txt:354] stopsound Bot * minecraft:nope
+log| System chat: Stopped sound 'minecraft:nope'
+Bot| [system_chat] [Server: Stopped sound 'minecraft:nope']
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.stopsound.success.sourceless.sound","with":["minecraft:nope"]}],"color":"gray","italic":true}
+### [sounds.txt:355] stopsound Bot nope
+log| System chat: Incorrect argument for command
+log| System chat: ...sound Bot nope<--[HERE]
+### [sounds.txt:356] stopsound Bot * minecraft:entity.pig.ambient extra
+log| System chat: Incorrect argument for command
+log| System chat: ...g.ambient extra<--[HERE]
+### [sounds.txt:357] @bot0 stopsound Bot
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] stopsound Bot<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"stopsound Bot","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/stopsound Bot","action":"suggest_command"}}],"color":"red"}
+### [sounds.txt:358] @bot0 stopsound Bot *
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] stopsound Bot *<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"stopsound Bot *","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/stopsound Bot *","action":"suggest_command"}}],"color":"red"}
+### [sounds.txt:359] stopsound @e[type=minecraft:cow] *
+log| System chat: Only players may be affected by this command, but the provided selector includes entities
+log| System chat: stopsound @e[type=minecraft:cow] *<--[HERE]
+### [sounds.txt:360] playsound
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: playsound<--[HERE]
+### [sounds.txt:361] playsound minecraft:entity.pig.ambient
+log| System chat: The sound is too far away to be heard
+### [sounds.txt:362] playsound minecraft:entity.pig.ambient nope
+log| System chat: Incorrect argument for command
+log| System chat: ...g.ambient nope<--[HERE]
+### [sounds.txt:363] playsound minecraft:entity.pig.ambient master Bot 0 -60 0 1 1 0 extra
+log| System chat: Incorrect argument for command
+log| System chat: ...0 0 1 1 0 extra<--[HERE]
+### [sounds.txt:364] playsound 123 master Bot
+log| System chat: Played sound minecraft:123 to Bot
+Bot| [system_chat] [Server: Played sound minecraft:123 to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.playsound.success.single","with":["minecraft:123",{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [sounds.txt:365] playsound #minecraft:nope master Bot
+log| System chat: Expected whitespace to end one argument, but found trailing data
+log| System chat: playsound #minecraft:nope master Bot<--[HERE]

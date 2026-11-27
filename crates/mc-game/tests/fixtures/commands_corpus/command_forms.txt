@@ -1,0 +1,474 @@
+# Command forms of several families the other corpora do not reach: /time of <clock>, /experience set, /effect infinite,
+# /execute unless score/items/slots, /swing, /compute, qualified /gamerule names, /place without a position, /publish.
+# Flat world, creative; Bot = op at 0.5 -60 0.5, Bot0 = level 0.
+
+gamerule spawn_mobs false
+gamerule random_tick_speed 0
+# the game time moves between two runs of vanilla itself: freeze it
+tick freeze
+time of minecraft:overworld set 0
+time of minecraft:the_end set 0
+
+# ---- setup ----
+scoreboard objectives add o dummy
+scoreboard objectives add p dummy
+scoreboard players set #a o 5
+scoreboard players set #b p 9
+scoreboard players set #c o 9
+scoreboard players set #c p 9
+setblock 0 -60 3 minecraft:chest{Items:[{Slot:0b,id:"minecraft:apple",count:3}]}
+
+# ---- time of <clock> ----
+time of minecraft:overworld add 10
+time of minecraft:overworld add 1d
+time of minecraft:overworld add -5
+time of minecraft:overworld add x
+time of minecraft:overworld pause
+time of minecraft:overworld resume
+time of minecraft:overworld rate 2
+time of minecraft:overworld rate 0.5
+time of minecraft:overworld rate -1
+time of minecraft:overworld rate x
+time of minecraft:overworld set 100
+time of minecraft:overworld set 12000
+time of minecraft:overworld set minecraft:noon
+time of minecraft:overworld set minecraft:nope
+time of minecraft:overworld query time
+time of minecraft:overworld query repetition
+time of minecraft:overworld query minecraft:day
+time of minecraft:overworld query minecraft:day repetition
+time of minecraft:overworld query minecraft:nope
+time of minecraft:the_end add 10
+time of minecraft:the_end add 1d
+time of minecraft:the_end add -5
+time of minecraft:the_end add x
+time of minecraft:the_end pause
+time of minecraft:the_end resume
+time of minecraft:the_end rate 2
+time of minecraft:the_end rate 0.5
+time of minecraft:the_end rate -1
+time of minecraft:the_end rate x
+time of minecraft:the_end set 100
+time of minecraft:the_end set 12000
+time of minecraft:the_end set minecraft:noon
+time of minecraft:the_end set minecraft:nope
+time of minecraft:the_end query time
+time of minecraft:the_end query repetition
+time of minecraft:the_end query minecraft:day
+time of minecraft:the_end query minecraft:day repetition
+time of minecraft:the_end query minecraft:nope
+time of minecraft:nope add 10
+time of minecraft:nope add 1d
+time of minecraft:nope add -5
+time of minecraft:nope add x
+time of minecraft:nope pause
+time of minecraft:nope resume
+time of minecraft:nope rate 2
+time of minecraft:nope rate 0.5
+time of minecraft:nope rate -1
+time of minecraft:nope rate x
+time of minecraft:nope set 100
+time of minecraft:nope set 12000
+time of minecraft:nope set minecraft:noon
+time of minecraft:nope set minecraft:nope
+time of minecraft:nope query time
+time of minecraft:nope query repetition
+time of minecraft:nope query minecraft:day
+time of minecraft:nope query minecraft:day repetition
+time of minecraft:nope query minecraft:nope
+time of
+time of minecraft:overworld
+time of minecraft:overworld add
+@bot0 time of minecraft:overworld pause
+
+# ---- experience set ----
+experience set Bot 5
+experience set Bot 0
+experience set Bot -1
+experience set Bot x
+experience set Bot 5 points
+experience set Bot 5 levels
+experience set Bot 99999999
+experience set nobody 5
+experience set @a 3
+experience query Bot points
+experience set Bot
+experience set
+
+# ---- effect give infinite ----
+effect give Bot minecraft:speed infinite
+effect give Bot minecraft:speed infinite 1
+effect give Bot minecraft:speed infinite 255
+effect give Bot minecraft:speed infinite 256
+effect give Bot minecraft:speed infinite -1
+effect give Bot minecraft:speed infinite x
+effect give Bot minecraft:speed infinite 1 true
+effect give Bot minecraft:speed infinite 1 x
+effect give Bot minecraft:instant_health infinite
+effect give nobody minecraft:speed infinite 1
+effect give Bot minecraft:nope infinite 1
+effect clear Bot
+
+# ---- execute unless score / items / slots ----
+execute if score #a o < #b p run say yes
+execute unless score #a o < #b p run say no
+execute if score #c o < #c p run say yes
+execute unless score #c o < #c p run say no
+execute if score #a o < #nobody p run say yes
+execute unless score #a o < #nobody p run say no
+execute if score #a o < #b nope run say yes
+execute unless score #a o < #b nope run say no
+execute if score #a o <= #b p run say yes
+execute unless score #a o <= #b p run say no
+execute if score #c o <= #c p run say yes
+execute unless score #c o <= #c p run say no
+execute if score #a o <= #nobody p run say yes
+execute unless score #a o <= #nobody p run say no
+execute if score #a o <= #b nope run say yes
+execute unless score #a o <= #b nope run say no
+execute if score #a o = #b p run say yes
+execute unless score #a o = #b p run say no
+execute if score #c o = #c p run say yes
+execute unless score #c o = #c p run say no
+execute if score #a o = #nobody p run say yes
+execute unless score #a o = #nobody p run say no
+execute if score #a o = #b nope run say yes
+execute unless score #a o = #b nope run say no
+execute if score #a o > #b p run say yes
+execute unless score #a o > #b p run say no
+execute if score #c o > #c p run say yes
+execute unless score #c o > #c p run say no
+execute if score #a o > #nobody p run say yes
+execute unless score #a o > #nobody p run say no
+execute if score #a o > #b nope run say yes
+execute unless score #a o > #b nope run say no
+execute if score #a o >= #b p run say yes
+execute unless score #a o >= #b p run say no
+execute if score #c o >= #c p run say yes
+execute unless score #c o >= #c p run say no
+execute if score #a o >= #nobody p run say yes
+execute unless score #a o >= #nobody p run say no
+execute if score #a o >= #b nope run say yes
+execute unless score #a o >= #b nope run say no
+execute if score #a o matches 5 run say m
+execute unless score #a o matches 6.. run say m
+execute unless score #a o matches x run say m
+execute if slots block 0 -60 3 container.0 run say s
+execute unless slots block 0 -60 3 container.0 run say s
+execute if items block 0 -60 3 container.0 minecraft:apple run say i
+execute unless items block 0 -60 3 container.0 minecraft:apple run say i
+execute if items block 0 -60 3 container.0 minecraft:stone run say i
+execute unless items block 0 -60 3 container.0 minecraft:stone run say i
+execute if items block 0 -60 3 container.0 * run say i
+execute unless items block 0 -60 3 container.0 * run say i
+execute if items block 0 -60 3 container.0 #minecraft:swords run say i
+execute unless items block 0 -60 3 container.0 #minecraft:swords run say i
+execute if items block 0 -60 3 container.0 minecraft:nope run say i
+execute unless items block 0 -60 3 container.0 minecraft:nope run say i
+execute if slots block 0 -60 3 container.* run say s
+execute unless slots block 0 -60 3 container.* run say s
+execute if items block 0 -60 3 container.* minecraft:apple run say i
+execute unless items block 0 -60 3 container.* minecraft:apple run say i
+execute if items block 0 -60 3 container.* minecraft:stone run say i
+execute unless items block 0 -60 3 container.* minecraft:stone run say i
+execute if items block 0 -60 3 container.* * run say i
+execute unless items block 0 -60 3 container.* * run say i
+execute if items block 0 -60 3 container.* #minecraft:swords run say i
+execute unless items block 0 -60 3 container.* #minecraft:swords run say i
+execute if items block 0 -60 3 container.* minecraft:nope run say i
+execute unless items block 0 -60 3 container.* minecraft:nope run say i
+execute if slots block 0 -60 3 hotbar.0 run say s
+execute unless slots block 0 -60 3 hotbar.0 run say s
+execute if items block 0 -60 3 hotbar.0 minecraft:apple run say i
+execute unless items block 0 -60 3 hotbar.0 minecraft:apple run say i
+execute if items block 0 -60 3 hotbar.0 minecraft:stone run say i
+execute unless items block 0 -60 3 hotbar.0 minecraft:stone run say i
+execute if items block 0 -60 3 hotbar.0 * run say i
+execute unless items block 0 -60 3 hotbar.0 * run say i
+execute if items block 0 -60 3 hotbar.0 #minecraft:swords run say i
+execute unless items block 0 -60 3 hotbar.0 #minecraft:swords run say i
+execute if items block 0 -60 3 hotbar.0 minecraft:nope run say i
+execute unless items block 0 -60 3 hotbar.0 minecraft:nope run say i
+execute if slots block 0 -60 3 nope.0 run say s
+execute unless slots block 0 -60 3 nope.0 run say s
+execute if items block 0 -60 3 nope.0 minecraft:apple run say i
+execute unless items block 0 -60 3 nope.0 minecraft:apple run say i
+execute if items block 0 -60 3 nope.0 minecraft:stone run say i
+execute unless items block 0 -60 3 nope.0 minecraft:stone run say i
+execute if items block 0 -60 3 nope.0 * run say i
+execute unless items block 0 -60 3 nope.0 * run say i
+execute if items block 0 -60 3 nope.0 #minecraft:swords run say i
+execute unless items block 0 -60 3 nope.0 #minecraft:swords run say i
+execute if items block 0 -60 3 nope.0 minecraft:nope run say i
+execute unless items block 0 -60 3 nope.0 minecraft:nope run say i
+execute if slots block 0 -60 3 container.30 run say s
+execute unless slots block 0 -60 3 container.30 run say s
+execute if items block 0 -60 3 container.30 minecraft:apple run say i
+execute unless items block 0 -60 3 container.30 minecraft:apple run say i
+execute if items block 0 -60 3 container.30 minecraft:stone run say i
+execute unless items block 0 -60 3 container.30 minecraft:stone run say i
+execute if items block 0 -60 3 container.30 * run say i
+execute unless items block 0 -60 3 container.30 * run say i
+execute if items block 0 -60 3 container.30 #minecraft:swords run say i
+execute unless items block 0 -60 3 container.30 #minecraft:swords run say i
+execute if items block 0 -60 3 container.30 minecraft:nope run say i
+execute unless items block 0 -60 3 container.30 minecraft:nope run say i
+execute if slots block 0 -60 9 container.0 run say s
+execute unless slots block 0 -60 9 container.0 run say s
+execute if items block 0 -60 9 container.0 minecraft:apple run say i
+execute unless items block 0 -60 9 container.0 minecraft:apple run say i
+execute if items block 0 -60 9 container.0 minecraft:stone run say i
+execute unless items block 0 -60 9 container.0 minecraft:stone run say i
+execute if items block 0 -60 9 container.0 * run say i
+execute unless items block 0 -60 9 container.0 * run say i
+execute if items block 0 -60 9 container.0 #minecraft:swords run say i
+execute unless items block 0 -60 9 container.0 #minecraft:swords run say i
+execute if items block 0 -60 9 container.0 minecraft:nope run say i
+execute unless items block 0 -60 9 container.0 minecraft:nope run say i
+execute if slots block 0 -60 9 container.* run say s
+execute unless slots block 0 -60 9 container.* run say s
+execute if items block 0 -60 9 container.* minecraft:apple run say i
+execute unless items block 0 -60 9 container.* minecraft:apple run say i
+execute if items block 0 -60 9 container.* minecraft:stone run say i
+execute unless items block 0 -60 9 container.* minecraft:stone run say i
+execute if items block 0 -60 9 container.* * run say i
+execute unless items block 0 -60 9 container.* * run say i
+execute if items block 0 -60 9 container.* #minecraft:swords run say i
+execute unless items block 0 -60 9 container.* #minecraft:swords run say i
+execute if items block 0 -60 9 container.* minecraft:nope run say i
+execute unless items block 0 -60 9 container.* minecraft:nope run say i
+execute if slots block 0 -60 9 hotbar.0 run say s
+execute unless slots block 0 -60 9 hotbar.0 run say s
+execute if items block 0 -60 9 hotbar.0 minecraft:apple run say i
+execute unless items block 0 -60 9 hotbar.0 minecraft:apple run say i
+execute if items block 0 -60 9 hotbar.0 minecraft:stone run say i
+execute unless items block 0 -60 9 hotbar.0 minecraft:stone run say i
+execute if items block 0 -60 9 hotbar.0 * run say i
+execute unless items block 0 -60 9 hotbar.0 * run say i
+execute if items block 0 -60 9 hotbar.0 #minecraft:swords run say i
+execute unless items block 0 -60 9 hotbar.0 #minecraft:swords run say i
+execute if items block 0 -60 9 hotbar.0 minecraft:nope run say i
+execute unless items block 0 -60 9 hotbar.0 minecraft:nope run say i
+execute if slots block 0 -60 9 nope.0 run say s
+execute unless slots block 0 -60 9 nope.0 run say s
+execute if items block 0 -60 9 nope.0 minecraft:apple run say i
+execute unless items block 0 -60 9 nope.0 minecraft:apple run say i
+execute if items block 0 -60 9 nope.0 minecraft:stone run say i
+execute unless items block 0 -60 9 nope.0 minecraft:stone run say i
+execute if items block 0 -60 9 nope.0 * run say i
+execute unless items block 0 -60 9 nope.0 * run say i
+execute if items block 0 -60 9 nope.0 #minecraft:swords run say i
+execute unless items block 0 -60 9 nope.0 #minecraft:swords run say i
+execute if items block 0 -60 9 nope.0 minecraft:nope run say i
+execute unless items block 0 -60 9 nope.0 minecraft:nope run say i
+execute if slots block 0 -60 9 container.30 run say s
+execute unless slots block 0 -60 9 container.30 run say s
+execute if items block 0 -60 9 container.30 minecraft:apple run say i
+execute unless items block 0 -60 9 container.30 minecraft:apple run say i
+execute if items block 0 -60 9 container.30 minecraft:stone run say i
+execute unless items block 0 -60 9 container.30 minecraft:stone run say i
+execute if items block 0 -60 9 container.30 * run say i
+execute unless items block 0 -60 9 container.30 * run say i
+execute if items block 0 -60 9 container.30 #minecraft:swords run say i
+execute unless items block 0 -60 9 container.30 #minecraft:swords run say i
+execute if items block 0 -60 9 container.30 minecraft:nope run say i
+execute unless items block 0 -60 9 container.30 minecraft:nope run say i
+execute if slots entity Bot container.0 run say s
+execute unless slots entity Bot container.0 run say s
+execute if items entity Bot container.0 minecraft:apple run say i
+execute unless items entity Bot container.0 minecraft:apple run say i
+execute if items entity Bot container.0 minecraft:stone run say i
+execute unless items entity Bot container.0 minecraft:stone run say i
+execute if items entity Bot container.0 * run say i
+execute unless items entity Bot container.0 * run say i
+execute if items entity Bot container.0 #minecraft:swords run say i
+execute unless items entity Bot container.0 #minecraft:swords run say i
+execute if items entity Bot container.0 minecraft:nope run say i
+execute unless items entity Bot container.0 minecraft:nope run say i
+execute if slots entity Bot container.* run say s
+execute unless slots entity Bot container.* run say s
+execute if items entity Bot container.* minecraft:apple run say i
+execute unless items entity Bot container.* minecraft:apple run say i
+execute if items entity Bot container.* minecraft:stone run say i
+execute unless items entity Bot container.* minecraft:stone run say i
+execute if items entity Bot container.* * run say i
+execute unless items entity Bot container.* * run say i
+execute if items entity Bot container.* #minecraft:swords run say i
+execute unless items entity Bot container.* #minecraft:swords run say i
+execute if items entity Bot container.* minecraft:nope run say i
+execute unless items entity Bot container.* minecraft:nope run say i
+execute if slots entity Bot hotbar.0 run say s
+execute unless slots entity Bot hotbar.0 run say s
+execute if items entity Bot hotbar.0 minecraft:apple run say i
+execute unless items entity Bot hotbar.0 minecraft:apple run say i
+execute if items entity Bot hotbar.0 minecraft:stone run say i
+execute unless items entity Bot hotbar.0 minecraft:stone run say i
+execute if items entity Bot hotbar.0 * run say i
+execute unless items entity Bot hotbar.0 * run say i
+execute if items entity Bot hotbar.0 #minecraft:swords run say i
+execute unless items entity Bot hotbar.0 #minecraft:swords run say i
+execute if items entity Bot hotbar.0 minecraft:nope run say i
+execute unless items entity Bot hotbar.0 minecraft:nope run say i
+execute if slots entity Bot nope.0 run say s
+execute unless slots entity Bot nope.0 run say s
+execute if items entity Bot nope.0 minecraft:apple run say i
+execute unless items entity Bot nope.0 minecraft:apple run say i
+execute if items entity Bot nope.0 minecraft:stone run say i
+execute unless items entity Bot nope.0 minecraft:stone run say i
+execute if items entity Bot nope.0 * run say i
+execute unless items entity Bot nope.0 * run say i
+execute if items entity Bot nope.0 #minecraft:swords run say i
+execute unless items entity Bot nope.0 #minecraft:swords run say i
+execute if items entity Bot nope.0 minecraft:nope run say i
+execute unless items entity Bot nope.0 minecraft:nope run say i
+execute if slots entity Bot container.30 run say s
+execute unless slots entity Bot container.30 run say s
+execute if items entity Bot container.30 minecraft:apple run say i
+execute unless items entity Bot container.30 minecraft:apple run say i
+execute if items entity Bot container.30 minecraft:stone run say i
+execute unless items entity Bot container.30 minecraft:stone run say i
+execute if items entity Bot container.30 * run say i
+execute unless items entity Bot container.30 * run say i
+execute if items entity Bot container.30 #minecraft:swords run say i
+execute unless items entity Bot container.30 #minecraft:swords run say i
+execute if items entity Bot container.30 minecraft:nope run say i
+execute unless items entity Bot container.30 minecraft:nope run say i
+execute if slots entity nobody container.0 run say s
+execute unless slots entity nobody container.0 run say s
+execute if items entity nobody container.0 minecraft:apple run say i
+execute unless items entity nobody container.0 minecraft:apple run say i
+execute if items entity nobody container.0 minecraft:stone run say i
+execute unless items entity nobody container.0 minecraft:stone run say i
+execute if items entity nobody container.0 * run say i
+execute unless items entity nobody container.0 * run say i
+execute if items entity nobody container.0 #minecraft:swords run say i
+execute unless items entity nobody container.0 #minecraft:swords run say i
+execute if items entity nobody container.0 minecraft:nope run say i
+execute unless items entity nobody container.0 minecraft:nope run say i
+execute if slots entity nobody container.* run say s
+execute unless slots entity nobody container.* run say s
+execute if items entity nobody container.* minecraft:apple run say i
+execute unless items entity nobody container.* minecraft:apple run say i
+execute if items entity nobody container.* minecraft:stone run say i
+execute unless items entity nobody container.* minecraft:stone run say i
+execute if items entity nobody container.* * run say i
+execute unless items entity nobody container.* * run say i
+execute if items entity nobody container.* #minecraft:swords run say i
+execute unless items entity nobody container.* #minecraft:swords run say i
+execute if items entity nobody container.* minecraft:nope run say i
+execute unless items entity nobody container.* minecraft:nope run say i
+execute if slots entity nobody hotbar.0 run say s
+execute unless slots entity nobody hotbar.0 run say s
+execute if items entity nobody hotbar.0 minecraft:apple run say i
+execute unless items entity nobody hotbar.0 minecraft:apple run say i
+execute if items entity nobody hotbar.0 minecraft:stone run say i
+execute unless items entity nobody hotbar.0 minecraft:stone run say i
+execute if items entity nobody hotbar.0 * run say i
+execute unless items entity nobody hotbar.0 * run say i
+execute if items entity nobody hotbar.0 #minecraft:swords run say i
+execute unless items entity nobody hotbar.0 #minecraft:swords run say i
+execute if items entity nobody hotbar.0 minecraft:nope run say i
+execute unless items entity nobody hotbar.0 minecraft:nope run say i
+execute if slots entity nobody nope.0 run say s
+execute unless slots entity nobody nope.0 run say s
+execute if items entity nobody nope.0 minecraft:apple run say i
+execute unless items entity nobody nope.0 minecraft:apple run say i
+execute if items entity nobody nope.0 minecraft:stone run say i
+execute unless items entity nobody nope.0 minecraft:stone run say i
+execute if items entity nobody nope.0 * run say i
+execute unless items entity nobody nope.0 * run say i
+execute if items entity nobody nope.0 #minecraft:swords run say i
+execute unless items entity nobody nope.0 #minecraft:swords run say i
+execute if items entity nobody nope.0 minecraft:nope run say i
+execute unless items entity nobody nope.0 minecraft:nope run say i
+execute if slots entity nobody container.30 run say s
+execute unless slots entity nobody container.30 run say s
+execute if items entity nobody container.30 minecraft:apple run say i
+execute unless items entity nobody container.30 minecraft:apple run say i
+execute if items entity nobody container.30 minecraft:stone run say i
+execute unless items entity nobody container.30 minecraft:stone run say i
+execute if items entity nobody container.30 * run say i
+execute unless items entity nobody container.30 * run say i
+execute if items entity nobody container.30 #minecraft:swords run say i
+execute unless items entity nobody container.30 #minecraft:swords run say i
+execute if items entity nobody container.30 minecraft:nope run say i
+execute unless items entity nobody container.30 minecraft:nope run say i
+
+# ---- swing ----
+swing Bot
+swing Bot mainhand
+swing Bot offhand
+swing Bot mainhand whack
+swing Bot mainhand stab
+swing Bot mainhand nope
+swing Bot offhand whack 5
+swing Bot mainhand stab 1s
+swing Bot mainhand stab x
+swing Bot mainhand whack -1
+swing @e[type=minecraft:cow] mainhand whack
+swing nobody
+@bot0 swing Bot mainhand whack
+
+# ---- compute ----
+compute block 0 -60 3 float {type:"minecraft:constant",value:2.5} 2.0
+compute block 0 -60 3 float {type:"minecraft:constant",value:2.5} 0
+compute block 0 -60 3 float {type:"minecraft:constant",value:2.5} x
+compute block 0 -60 3 float {type:"minecraft:constant",value:2.5} -1.5
+compute block 0 -60 9 float {type:"minecraft:constant",value:2.5} 2.0
+compute default float {type:"minecraft:constant",value:2.5} 2.0
+compute block 0 -60 3 float {type:"minecraft:nope"} 2.0
+
+# ---- qualified gamerule names ----
+gamerule minecraft:fire_spread_radius_around_player
+gamerule fire_spread_radius_around_player
+gamerule minecraft:max_block_modifications
+gamerule max_block_modifications
+gamerule minecraft:max_command_forks
+gamerule max_command_forks
+gamerule minecraft:max_command_sequence_length
+gamerule max_command_sequence_length
+gamerule minecraft:max_entity_cramming
+gamerule max_entity_cramming
+gamerule minecraft:max_minecart_speed
+gamerule max_minecart_speed
+gamerule minecraft:max_snow_accumulation_height
+gamerule max_snow_accumulation_height
+gamerule minecraft:players_nether_portal_creative_delay
+gamerule players_nether_portal_creative_delay
+gamerule minecraft:players_nether_portal_default_delay
+gamerule players_nether_portal_default_delay
+gamerule minecraft:players_sleeping_percentage
+gamerule players_sleeping_percentage
+gamerule minecraft:random_tick_speed
+gamerule random_tick_speed
+gamerule minecraft:respawn_radius
+gamerule respawn_radius
+
+# ---- place without a position ----
+@bot place feature minecraft:oak
+@bot place feature minecraft:nope
+@bot place feature minecraft:oak 0 -60 0
+@bot place structure minecraft:igloo
+@bot place structure minecraft:nope
+@bot place structure minecraft:igloo 8 -60 8
+@bot place template minecraft:igloo/top
+@bot place template minecraft:nope
+@bot place template minecraft:igloo/top 8 -60 8 none none 1.0
+@bot place template minecraft:igloo/top 8 -60 8 clockwise_90 left_right 0.5
+@bot place template minecraft:igloo/top 8 -60 8 nope none 1.0
+@bot place template minecraft:igloo/top 8 -60 8 none none 2
+@bot place jigsaw minecraft:village/plains/town_centers minecraft:bottom 2
+@bot place jigsaw minecraft:nope minecraft:bottom 2
+@bot place jigsaw minecraft:village/plains/town_centers minecraft:bottom 0
+@bot place jigsaw minecraft:village/plains/town_centers minecraft:bottom 21
+@bot @bot0 place feature minecraft:oak
+
+# ---- publish ----
+publish
+publish true
+publish false 25565
+publish true 99999
+publish x
+unpublish
+@bot0 publish
+@bot0 unpublish

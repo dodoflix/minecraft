@@ -1,0 +1,1408 @@
+### [command_forms.txt:5] gamerule spawn_mobs false
+log| System chat: Game rule spawn_mobs is now set to false
+Bot| [system_chat] [Server: Game rule spawn_mobs is now set to false]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["spawn_mobs","false"]}],"color":"gray","italic":true}
+### [command_forms.txt:6] gamerule random_tick_speed 0
+log| System chat: Game rule random_tick_speed is now set to 0
+Bot| [system_chat] [Server: Game rule random_tick_speed is now set to 0]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.gamerule.set","with":["random_tick_speed","0"]}],"color":"gray","italic":true}
+### [command_forms.txt:8] tick freeze
+log| System chat: The game is frozen
+Bot| [system_chat] [Server: The game is frozen]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.tick.status.frozen"}],"color":"gray","italic":true}
+### [command_forms.txt:9] time of minecraft:overworld set 0
+log| System chat: Set minecraft:overworld to 0 tick(s)
+Bot| [system_chat] [Server: Set minecraft:overworld to 0 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:overworld",0]}],"color":"gray","italic":true}
+### [command_forms.txt:10] time of minecraft:the_end set 0
+log| System chat: Set minecraft:the_end to 0 tick(s)
+Bot| [system_chat] [Server: Set minecraft:the_end to 0 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:the_end",0]}],"color":"gray","italic":true}
+### [command_forms.txt:13] scoreboard objectives add o dummy
+log| System chat: Created new objective [o]
+Bot| [system_chat] [Server: Created new objective [o]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.scoreboard.objectives.add.success","with":[{"translate":"chat.square_brackets","with":[{"text":"o","hover_event":{"value":"o","action":"show_text"}}]}]}],"color":"gray","italic":true}
+### [command_forms.txt:14] scoreboard objectives add p dummy
+log| System chat: Created new objective [p]
+Bot| [system_chat] [Server: Created new objective [p]]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.scoreboard.objectives.add.success","with":[{"translate":"chat.square_brackets","with":[{"text":"p","hover_event":{"value":"p","action":"show_text"}}]}]}],"color":"gray","italic":true}
+### [command_forms.txt:15] scoreboard players set #a o 5
+log| System chat: Set [o] for #a to 5
+Bot| [system_chat] [Server: Set [o] for #a to 5]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.scoreboard.players.set.success.single","with":[{"translate":"chat.square_brackets","with":[{"text":"o","hover_event":{"value":"o","action":"show_text"}}]},"#a",5]}],"color":"gray","italic":true}
+### [command_forms.txt:16] scoreboard players set #b p 9
+log| System chat: Set [p] for #b to 9
+Bot| [system_chat] [Server: Set [p] for #b to 9]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.scoreboard.players.set.success.single","with":[{"translate":"chat.square_brackets","with":[{"text":"p","hover_event":{"value":"p","action":"show_text"}}]},"#b",9]}],"color":"gray","italic":true}
+### [command_forms.txt:17] scoreboard players set #c o 9
+log| System chat: Set [o] for #c to 9
+Bot| [system_chat] [Server: Set [o] for #c to 9]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.scoreboard.players.set.success.single","with":[{"translate":"chat.square_brackets","with":[{"text":"o","hover_event":{"value":"o","action":"show_text"}}]},"#c",9]}],"color":"gray","italic":true}
+### [command_forms.txt:18] scoreboard players set #c p 9
+log| System chat: Set [p] for #c to 9
+Bot| [system_chat] [Server: Set [p] for #c to 9]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.scoreboard.players.set.success.single","with":[{"translate":"chat.square_brackets","with":[{"text":"p","hover_event":{"value":"p","action":"show_text"}}]},"#c",9]}],"color":"gray","italic":true}
+### [command_forms.txt:19] setblock 0 -60 3 minecraft:chest{Items:[{Slot:0b,id:"minecraft:apple",count:3}]}
+log| System chat: Changed the block at 0, -60, 3
+Bot| [system_chat] [Server: Changed the block at 0, -60, 3]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.setblock.success","with":[0,-60,3]}],"color":"gray","italic":true}
+### [command_forms.txt:22] time of minecraft:overworld add 10
+log| System chat: Set minecraft:overworld to 10 tick(s)
+Bot| [system_chat] [Server: Set minecraft:overworld to 10 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:overworld",10]}],"color":"gray","italic":true}
+### [command_forms.txt:23] time of minecraft:overworld add 1d
+log| System chat: Set minecraft:overworld to 24010 tick(s)
+Bot| [system_chat] [Server: Set minecraft:overworld to 24010 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:overworld",24010]}],"color":"gray","italic":true}
+### [command_forms.txt:24] time of minecraft:overworld add -5
+log| System chat: Set minecraft:overworld to 24005 tick(s)
+Bot| [system_chat] [Server: Set minecraft:overworld to 24005 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:overworld",24005]}],"color":"gray","italic":true}
+### [command_forms.txt:25] time of minecraft:overworld add x
+log| System chat: Expected float
+log| System chat: ...world add x<--[HERE]
+### [command_forms.txt:26] time of minecraft:overworld pause
+log| System chat: Paused clock minecraft:overworld
+Bot| [system_chat] [Server: Paused clock minecraft:overworld]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.pause","with":["minecraft:overworld"]}],"color":"gray","italic":true}
+### [command_forms.txt:27] time of minecraft:overworld resume
+log| System chat: Resumed clock minecraft:overworld
+Bot| [system_chat] [Server: Resumed clock minecraft:overworld]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.resume","with":["minecraft:overworld"]}],"color":"gray","italic":true}
+### [command_forms.txt:28] time of minecraft:overworld rate 2
+log| System chat: Clock minecraft:overworld will now advance at 2.0x normal rate
+Bot| [system_chat] [Server: Clock minecraft:overworld will now advance at 2.0x normal rate]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.rate","with":["minecraft:overworld",2.0]}],"color":"gray","italic":true}
+### [command_forms.txt:29] time of minecraft:overworld rate 0.5
+log| System chat: Clock minecraft:overworld will now advance at 0.5x normal rate
+Bot| [system_chat] [Server: Clock minecraft:overworld will now advance at 0.5x normal rate]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.rate","with":["minecraft:overworld",0.5]}],"color":"gray","italic":true}
+### [command_forms.txt:30] time of minecraft:overworld rate -1
+log| System chat: Float must not be less than 1.0E-5: found -1.0
+log| System chat: ...orld rate -1<--[HERE]
+### [command_forms.txt:31] time of minecraft:overworld rate x
+log| System chat: Expected float
+log| System chat: ...orld rate x<--[HERE]
+### [command_forms.txt:32] time of minecraft:overworld set 100
+log| System chat: Set minecraft:overworld to 100 tick(s)
+Bot| [system_chat] [Server: Set minecraft:overworld to 100 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:overworld",100]}],"color":"gray","italic":true}
+### [command_forms.txt:33] time of minecraft:overworld set 12000
+log| System chat: Set minecraft:overworld to 12000 tick(s)
+Bot| [system_chat] [Server: Set minecraft:overworld to 12000 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:overworld",12000]}],"color":"gray","italic":true}
+### [command_forms.txt:34] time of minecraft:overworld set minecraft:noon
+log| System chat: Set minecraft:overworld to time marker minecraft:noon
+Bot| [system_chat] [Server: Set minecraft:overworld to time marker minecraft:noon]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.time_marker","with":["minecraft:overworld","minecraft:noon"]}],"color":"gray","italic":true}
+### [command_forms.txt:35] time of minecraft:overworld set minecraft:nope
+log| System chat: Time marker minecraft:nope does not exist for clock minecraft:overworld
+### [command_forms.txt:36] time of minecraft:overworld query time
+log| System chat: Clock minecraft:overworld is at 30000 tick(s)
+### [command_forms.txt:37] time of minecraft:overworld query repetition
+log| System chat: Can't find element 'minecraft:repetition' of type 'minecraft:timeline'
+log| System chat: ...repetition<--[HERE]
+### [command_forms.txt:38] time of minecraft:overworld query minecraft:day
+log| System chat: Timeline minecraft:day is at 6000 tick(s)
+### [command_forms.txt:39] time of minecraft:overworld query minecraft:day repetition
+log| System chat: Timeline minecraft:day has passed 1 repetition(s)
+### [command_forms.txt:40] time of minecraft:overworld query minecraft:nope
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:timeline'
+log| System chat: ...craft:nope<--[HERE]
+### [command_forms.txt:41] time of minecraft:the_end add 10
+log| System chat: Set minecraft:the_end to 10 tick(s)
+Bot| [system_chat] [Server: Set minecraft:the_end to 10 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:the_end",10]}],"color":"gray","italic":true}
+### [command_forms.txt:42] time of minecraft:the_end add 1d
+log| System chat: Set minecraft:the_end to 24010 tick(s)
+Bot| [system_chat] [Server: Set minecraft:the_end to 24010 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:the_end",24010]}],"color":"gray","italic":true}
+### [command_forms.txt:43] time of minecraft:the_end add -5
+log| System chat: Set minecraft:the_end to 24005 tick(s)
+Bot| [system_chat] [Server: Set minecraft:the_end to 24005 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:the_end",24005]}],"color":"gray","italic":true}
+### [command_forms.txt:44] time of minecraft:the_end add x
+log| System chat: Expected float
+log| System chat: ...e_end add x<--[HERE]
+### [command_forms.txt:45] time of minecraft:the_end pause
+log| System chat: Paused clock minecraft:the_end
+Bot| [system_chat] [Server: Paused clock minecraft:the_end]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.pause","with":["minecraft:the_end"]}],"color":"gray","italic":true}
+### [command_forms.txt:46] time of minecraft:the_end resume
+log| System chat: Resumed clock minecraft:the_end
+Bot| [system_chat] [Server: Resumed clock minecraft:the_end]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.resume","with":["minecraft:the_end"]}],"color":"gray","italic":true}
+### [command_forms.txt:47] time of minecraft:the_end rate 2
+log| System chat: Clock minecraft:the_end will now advance at 2.0x normal rate
+Bot| [system_chat] [Server: Clock minecraft:the_end will now advance at 2.0x normal rate]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.rate","with":["minecraft:the_end",2.0]}],"color":"gray","italic":true}
+### [command_forms.txt:48] time of minecraft:the_end rate 0.5
+log| System chat: Clock minecraft:the_end will now advance at 0.5x normal rate
+Bot| [system_chat] [Server: Clock minecraft:the_end will now advance at 0.5x normal rate]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.rate","with":["minecraft:the_end",0.5]}],"color":"gray","italic":true}
+### [command_forms.txt:49] time of minecraft:the_end rate -1
+log| System chat: Float must not be less than 1.0E-5: found -1.0
+log| System chat: ..._end rate -1<--[HERE]
+### [command_forms.txt:50] time of minecraft:the_end rate x
+log| System chat: Expected float
+log| System chat: ..._end rate x<--[HERE]
+### [command_forms.txt:51] time of minecraft:the_end set 100
+log| System chat: Set minecraft:the_end to 100 tick(s)
+Bot| [system_chat] [Server: Set minecraft:the_end to 100 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:the_end",100]}],"color":"gray","italic":true}
+### [command_forms.txt:52] time of minecraft:the_end set 12000
+log| System chat: Set minecraft:the_end to 12000 tick(s)
+Bot| [system_chat] [Server: Set minecraft:the_end to 12000 tick(s)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.time.set.absolute","with":["minecraft:the_end",12000]}],"color":"gray","italic":true}
+### [command_forms.txt:53] time of minecraft:the_end set minecraft:noon
+log| System chat: Time marker minecraft:noon does not exist for clock minecraft:the_end
+### [command_forms.txt:54] time of minecraft:the_end set minecraft:nope
+log| System chat: Time marker minecraft:nope does not exist for clock minecraft:the_end
+### [command_forms.txt:55] time of minecraft:the_end query time
+log| System chat: Clock minecraft:the_end is at 12000 tick(s)
+### [command_forms.txt:56] time of minecraft:the_end query repetition
+log| System chat: Can't find element 'minecraft:repetition' of type 'minecraft:timeline'
+log| System chat: ...repetition<--[HERE]
+### [command_forms.txt:57] time of minecraft:the_end query minecraft:day
+log| System chat: Timeline minecraft:day is not valid for clock minecraft:the_end
+### [command_forms.txt:58] time of minecraft:the_end query minecraft:day repetition
+log| System chat: Timeline minecraft:day is not valid for clock minecraft:the_end
+### [command_forms.txt:59] time of minecraft:the_end query minecraft:nope
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:timeline'
+log| System chat: ...craft:nope<--[HERE]
+### [command_forms.txt:60] time of minecraft:nope add 10
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope add 10<--[HERE]
+### [command_forms.txt:61] time of minecraft:nope add 1d
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope add 1d<--[HERE]
+### [command_forms.txt:62] time of minecraft:nope add -5
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope add -5<--[HERE]
+### [command_forms.txt:63] time of minecraft:nope add x
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope add x<--[HERE]
+### [command_forms.txt:64] time of minecraft:nope pause
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope pause<--[HERE]
+### [command_forms.txt:65] time of minecraft:nope resume
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope resume<--[HERE]
+### [command_forms.txt:66] time of minecraft:nope rate 2
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope rate 2<--[HERE]
+### [command_forms.txt:67] time of minecraft:nope rate 0.5
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope rate 0.5<--[HERE]
+### [command_forms.txt:68] time of minecraft:nope rate -1
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope rate -1<--[HERE]
+### [command_forms.txt:69] time of minecraft:nope rate x
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope rate x<--[HERE]
+### [command_forms.txt:70] time of minecraft:nope set 100
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope set 100<--[HERE]
+### [command_forms.txt:71] time of minecraft:nope set 12000
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope set 12000<--[HERE]
+### [command_forms.txt:72] time of minecraft:nope set minecraft:noon
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope set minecraft:noon<--[HERE]
+### [command_forms.txt:73] time of minecraft:nope set minecraft:nope
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope set minecraft:nope<--[HERE]
+### [command_forms.txt:74] time of minecraft:nope query time
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope query time<--[HERE]
+### [command_forms.txt:75] time of minecraft:nope query repetition
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope query repetition<--[HERE]
+### [command_forms.txt:76] time of minecraft:nope query minecraft:day
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope query minecraft:day<--[HERE]
+### [command_forms.txt:77] time of minecraft:nope query minecraft:day repetition
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope query minecraft:day repetition<--[HERE]
+### [command_forms.txt:78] time of minecraft:nope query minecraft:nope
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:world_clock'
+log| System chat: ...craft:nope query minecraft:nope<--[HERE]
+### [command_forms.txt:79] time of
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: time of<--[HERE]
+### [command_forms.txt:80] time of minecraft:overworld
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...:overworld<--[HERE]
+### [command_forms.txt:81] time of minecraft:overworld add
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...rworld add<--[HERE]
+### [command_forms.txt:82] @bot0 time of minecraft:overworld pause
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] time of minecraft:overworld pause<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"time of minecraft:overworld pause","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/time of minecraft:overworld pause","action":"suggest_command"}}],"color":"red"}
+### [command_forms.txt:85] experience set Bot 5
+log| System chat: Set 5 experience points on Bot
+Bot| [system_chat] [Server: Set 5 experience points on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.experience.set.points.success.single","with":[5,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [command_forms.txt:86] experience set Bot 0
+log| System chat: Set 0 experience points on Bot
+Bot| [system_chat] [Server: Set 0 experience points on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.experience.set.points.success.single","with":[0,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [command_forms.txt:87] experience set Bot -1
+log| System chat: Integer must not be less than 0: found -1
+log| System chat: ...e set Bot -1<--[HERE]
+### [command_forms.txt:88] experience set Bot x
+log| System chat: Expected integer
+log| System chat: ...e set Bot x<--[HERE]
+### [command_forms.txt:89] experience set Bot 5 points
+log| System chat: Set 5 experience points on Bot
+Bot| [system_chat] [Server: Set 5 experience points on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.experience.set.points.success.single","with":[5,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [command_forms.txt:90] experience set Bot 5 levels
+log| System chat: Set 5 experience levels on Bot
+Bot| [system_chat] [Server: Set 5 experience levels on Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.experience.set.levels.success.single","with":[5,{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [command_forms.txt:91] experience set Bot 99999999
+log| System chat: Cannot set experience points above the maximum points for the player's current level
+### [command_forms.txt:92] experience set nobody 5
+log| System chat: No player was found
+### [command_forms.txt:93] experience set @a 3
+log| System chat: Set 3 experience points on 2 players
+Bot| [system_chat] [Server: Set 3 experience points on 2 players]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.experience.set.points.success.multiple","with":[3,2]}],"color":"gray","italic":true}
+### [command_forms.txt:94] experience query Bot points
+log| System chat: Bot has 3 experience points
+### [command_forms.txt:95] experience set Bot
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...ce set Bot<--[HERE]
+### [command_forms.txt:96] experience set
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: ...rience set<--[HERE]
+### [command_forms.txt:99] effect give Bot minecraft:speed infinite
+log| System chat: Applied effect Speed to Bot
+Bot| [system_chat] [Server: Applied effect Speed to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.effect.give.success.single","with":[{"translate":"effect.minecraft.speed"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},0]}],"color":"gray","italic":true}
+### [command_forms.txt:100] effect give Bot minecraft:speed infinite 1
+log| System chat: Applied effect Speed to Bot
+Bot| [system_chat] [Server: Applied effect Speed to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.effect.give.success.single","with":[{"translate":"effect.minecraft.speed"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},0]}],"color":"gray","italic":true}
+### [command_forms.txt:101] effect give Bot minecraft:speed infinite 255
+log| System chat: Applied effect Speed to Bot
+Bot| [system_chat] [Server: Applied effect Speed to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.effect.give.success.single","with":[{"translate":"effect.minecraft.speed"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},0]}],"color":"gray","italic":true}
+### [command_forms.txt:102] effect give Bot minecraft:speed infinite 256
+log| System chat: Integer must not be more than 255: found 256
+log| System chat: ... infinite 256<--[HERE]
+### [command_forms.txt:103] effect give Bot minecraft:speed infinite -1
+log| System chat: Integer must not be less than 0: found -1
+log| System chat: ... infinite -1<--[HERE]
+### [command_forms.txt:104] effect give Bot minecraft:speed infinite x
+log| System chat: Expected integer
+log| System chat: ... infinite x<--[HERE]
+### [command_forms.txt:105] effect give Bot minecraft:speed infinite 1 true
+log| System chat: Applied effect Speed to Bot
+Bot| [system_chat] [Server: Applied effect Speed to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.effect.give.success.single","with":[{"translate":"effect.minecraft.speed"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},0]}],"color":"gray","italic":true}
+### [command_forms.txt:106] effect give Bot minecraft:speed infinite 1 x
+log| System chat: Invalid boolean: expected 'true' or 'false' but found 'x'
+log| System chat: ...nfinite 1 x<--[HERE]
+### [command_forms.txt:107] effect give Bot minecraft:instant_health infinite
+log| System chat: Applied effect Instant Health to Bot
+Bot| [system_chat] [Server: Applied effect Instant Health to Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.effect.give.success.single","with":[{"translate":"effect.minecraft.instant_health"},{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"},0]}],"color":"gray","italic":true}
+### [command_forms.txt:108] effect give nobody minecraft:speed infinite 1
+log| System chat: No entity was found
+### [command_forms.txt:109] effect give Bot minecraft:nope infinite 1
+log| System chat: Can't find element 'minecraft:nope' of type 'minecraft:mob_effect'
+log| System chat: ...craft:nope infinite 1<--[HERE]
+### [command_forms.txt:110] effect clear Bot
+log| System chat: Removed every effect from Bot
+Bot| [system_chat] [Server: Removed every effect from Bot]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.effect.clear.everything.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [command_forms.txt:113] execute if score #a o < #b p run say yes
+log| [Not Secure] [Server] yes
+Bot| [disguised_chat] Server: yes
+Bot|   json "yes"
+Bot0| [disguised_chat] Server: yes
+Bot0|   json "yes"
+### [command_forms.txt:114] execute unless score #a o < #b p run say no
+
+### [command_forms.txt:115] execute if score #c o < #c p run say yes
+
+### [command_forms.txt:116] execute unless score #c o < #c p run say no
+log| [Not Secure] [Server] no
+Bot| [disguised_chat] Server: no
+Bot|   json "no"
+Bot0| [disguised_chat] Server: no
+Bot0|   json "no"
+### [command_forms.txt:117] execute if score #a o < #nobody p run say yes
+
+### [command_forms.txt:118] execute unless score #a o < #nobody p run say no
+log| [Not Secure] [Server] no
+Bot| [disguised_chat] Server: no
+Bot|   json "no"
+Bot0| [disguised_chat] Server: no
+Bot0|   json "no"
+### [command_forms.txt:119] execute if score #a o < #b nope run say yes
+
+### [command_forms.txt:120] execute unless score #a o < #b nope run say no
+
+### [command_forms.txt:121] execute if score #a o <= #b p run say yes
+log| [Not Secure] [Server] yes
+Bot| [disguised_chat] Server: yes
+Bot|   json "yes"
+Bot0| [disguised_chat] Server: yes
+Bot0|   json "yes"
+### [command_forms.txt:122] execute unless score #a o <= #b p run say no
+
+### [command_forms.txt:123] execute if score #c o <= #c p run say yes
+log| [Not Secure] [Server] yes
+Bot| [disguised_chat] Server: yes
+Bot|   json "yes"
+Bot0| [disguised_chat] Server: yes
+Bot0|   json "yes"
+### [command_forms.txt:124] execute unless score #c o <= #c p run say no
+
+### [command_forms.txt:125] execute if score #a o <= #nobody p run say yes
+
+### [command_forms.txt:126] execute unless score #a o <= #nobody p run say no
+log| [Not Secure] [Server] no
+Bot| [disguised_chat] Server: no
+Bot|   json "no"
+Bot0| [disguised_chat] Server: no
+Bot0|   json "no"
+### [command_forms.txt:127] execute if score #a o <= #b nope run say yes
+
+### [command_forms.txt:128] execute unless score #a o <= #b nope run say no
+
+### [command_forms.txt:129] execute if score #a o = #b p run say yes
+
+### [command_forms.txt:130] execute unless score #a o = #b p run say no
+log| [Not Secure] [Server] no
+Bot| [disguised_chat] Server: no
+Bot|   json "no"
+Bot0| [disguised_chat] Server: no
+Bot0|   json "no"
+### [command_forms.txt:131] execute if score #c o = #c p run say yes
+log| [Not Secure] [Server] yes
+Bot| [disguised_chat] Server: yes
+Bot|   json "yes"
+Bot0| [disguised_chat] Server: yes
+Bot0|   json "yes"
+### [command_forms.txt:132] execute unless score #c o = #c p run say no
+
+### [command_forms.txt:133] execute if score #a o = #nobody p run say yes
+
+### [command_forms.txt:134] execute unless score #a o = #nobody p run say no
+log| [Not Secure] [Server] no
+Bot| [disguised_chat] Server: no
+Bot|   json "no"
+Bot0| [disguised_chat] Server: no
+Bot0|   json "no"
+### [command_forms.txt:135] execute if score #a o = #b nope run say yes
+
+### [command_forms.txt:136] execute unless score #a o = #b nope run say no
+
+### [command_forms.txt:137] execute if score #a o > #b p run say yes
+
+### [command_forms.txt:138] execute unless score #a o > #b p run say no
+log| [Not Secure] [Server] no
+Bot| [disguised_chat] Server: no
+Bot|   json "no"
+Bot0| [disguised_chat] Server: no
+Bot0|   json "no"
+### [command_forms.txt:139] execute if score #c o > #c p run say yes
+
+### [command_forms.txt:140] execute unless score #c o > #c p run say no
+log| [Not Secure] [Server] no
+Bot| [disguised_chat] Server: no
+Bot|   json "no"
+Bot0| [disguised_chat] Server: no
+Bot0|   json "no"
+### [command_forms.txt:141] execute if score #a o > #nobody p run say yes
+
+### [command_forms.txt:142] execute unless score #a o > #nobody p run say no
+log| [Not Secure] [Server] no
+Bot| [disguised_chat] Server: no
+Bot|   json "no"
+Bot0| [disguised_chat] Server: no
+Bot0|   json "no"
+### [command_forms.txt:143] execute if score #a o > #b nope run say yes
+
+### [command_forms.txt:144] execute unless score #a o > #b nope run say no
+
+### [command_forms.txt:145] execute if score #a o >= #b p run say yes
+
+### [command_forms.txt:146] execute unless score #a o >= #b p run say no
+log| [Not Secure] [Server] no
+Bot| [disguised_chat] Server: no
+Bot|   json "no"
+Bot0| [disguised_chat] Server: no
+Bot0|   json "no"
+### [command_forms.txt:147] execute if score #c o >= #c p run say yes
+log| [Not Secure] [Server] yes
+Bot| [disguised_chat] Server: yes
+Bot|   json "yes"
+Bot0| [disguised_chat] Server: yes
+Bot0|   json "yes"
+### [command_forms.txt:148] execute unless score #c o >= #c p run say no
+
+### [command_forms.txt:149] execute if score #a o >= #nobody p run say yes
+
+### [command_forms.txt:150] execute unless score #a o >= #nobody p run say no
+log| [Not Secure] [Server] no
+Bot| [disguised_chat] Server: no
+Bot|   json "no"
+Bot0| [disguised_chat] Server: no
+Bot0|   json "no"
+### [command_forms.txt:151] execute if score #a o >= #b nope run say yes
+
+### [command_forms.txt:152] execute unless score #a o >= #b nope run say no
+
+### [command_forms.txt:153] execute if score #a o matches 5 run say m
+log| [Not Secure] [Server] m
+Bot| [disguised_chat] Server: m
+Bot|   json "m"
+Bot0| [disguised_chat] Server: m
+Bot0|   json "m"
+### [command_forms.txt:154] execute unless score #a o matches 6.. run say m
+log| [Not Secure] [Server] m
+Bot| [disguised_chat] Server: m
+Bot|   json "m"
+Bot0| [disguised_chat] Server: m
+Bot0|   json "m"
+### [command_forms.txt:155] execute unless score #a o matches x run say m
+log| System chat: Expected value or range of values
+log| System chat: ...o matches x run say m<--[HERE]
+### [command_forms.txt:156] execute if slots block 0 -60 3 container.0 run say s
+log| [Not Secure] [Server] s
+Bot| [disguised_chat] Server: s
+Bot|   json "s"
+Bot0| [disguised_chat] Server: s
+Bot0|   json "s"
+### [command_forms.txt:157] execute unless slots block 0 -60 3 container.0 run say s
+
+### [command_forms.txt:158] execute if items block 0 -60 3 container.0 minecraft:apple run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:159] execute unless items block 0 -60 3 container.0 minecraft:apple run say i
+
+### [command_forms.txt:160] execute if items block 0 -60 3 container.0 minecraft:stone run say i
+
+### [command_forms.txt:161] execute unless items block 0 -60 3 container.0 minecraft:stone run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:162] execute if items block 0 -60 3 container.0 * run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:163] execute unless items block 0 -60 3 container.0 * run say i
+
+### [command_forms.txt:164] execute if items block 0 -60 3 container.0 #minecraft:swords run say i
+
+### [command_forms.txt:165] execute unless items block 0 -60 3 container.0 #minecraft:swords run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:166] execute if items block 0 -60 3 container.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:167] execute unless items block 0 -60 3 container.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:168] execute if slots block 0 -60 3 container.* run say s
+log| [Not Secure] [Server] s
+Bot| [disguised_chat] Server: s
+Bot|   json "s"
+Bot0| [disguised_chat] Server: s
+Bot0|   json "s"
+### [command_forms.txt:169] execute unless slots block 0 -60 3 container.* run say s
+
+### [command_forms.txt:170] execute if items block 0 -60 3 container.* minecraft:apple run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:171] execute unless items block 0 -60 3 container.* minecraft:apple run say i
+
+### [command_forms.txt:172] execute if items block 0 -60 3 container.* minecraft:stone run say i
+
+### [command_forms.txt:173] execute unless items block 0 -60 3 container.* minecraft:stone run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:174] execute if items block 0 -60 3 container.* * run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:175] execute unless items block 0 -60 3 container.* * run say i
+
+### [command_forms.txt:176] execute if items block 0 -60 3 container.* #minecraft:swords run say i
+
+### [command_forms.txt:177] execute unless items block 0 -60 3 container.* #minecraft:swords run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:178] execute if items block 0 -60 3 container.* minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:179] execute unless items block 0 -60 3 container.* minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:180] execute if slots block 0 -60 3 hotbar.0 run say s
+log| [Not Secure] [Server] s
+Bot| [disguised_chat] Server: s
+Bot|   json "s"
+Bot0| [disguised_chat] Server: s
+Bot0|   json "s"
+### [command_forms.txt:181] execute unless slots block 0 -60 3 hotbar.0 run say s
+
+### [command_forms.txt:182] execute if items block 0 -60 3 hotbar.0 minecraft:apple run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:183] execute unless items block 0 -60 3 hotbar.0 minecraft:apple run say i
+
+### [command_forms.txt:184] execute if items block 0 -60 3 hotbar.0 minecraft:stone run say i
+
+### [command_forms.txt:185] execute unless items block 0 -60 3 hotbar.0 minecraft:stone run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:186] execute if items block 0 -60 3 hotbar.0 * run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:187] execute unless items block 0 -60 3 hotbar.0 * run say i
+
+### [command_forms.txt:188] execute if items block 0 -60 3 hotbar.0 #minecraft:swords run say i
+
+### [command_forms.txt:189] execute unless items block 0 -60 3 hotbar.0 #minecraft:swords run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:190] execute if items block 0 -60 3 hotbar.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:191] execute unless items block 0 -60 3 hotbar.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:192] execute if slots block 0 -60 3 nope.0 run say s
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 3 nope.0 run say s<--[HERE]
+### [command_forms.txt:193] execute unless slots block 0 -60 3 nope.0 run say s
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 3 nope.0 run say s<--[HERE]
+### [command_forms.txt:194] execute if items block 0 -60 3 nope.0 minecraft:apple run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 3 nope.0 minecraft:apple run say i<--[HERE]
+### [command_forms.txt:195] execute unless items block 0 -60 3 nope.0 minecraft:apple run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 3 nope.0 minecraft:apple run say i<--[HERE]
+### [command_forms.txt:196] execute if items block 0 -60 3 nope.0 minecraft:stone run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 3 nope.0 minecraft:stone run say i<--[HERE]
+### [command_forms.txt:197] execute unless items block 0 -60 3 nope.0 minecraft:stone run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 3 nope.0 minecraft:stone run say i<--[HERE]
+### [command_forms.txt:198] execute if items block 0 -60 3 nope.0 * run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 3 nope.0 * run say i<--[HERE]
+### [command_forms.txt:199] execute unless items block 0 -60 3 nope.0 * run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 3 nope.0 * run say i<--[HERE]
+### [command_forms.txt:200] execute if items block 0 -60 3 nope.0 #minecraft:swords run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 3 nope.0 #minecraft:swords run say i<--[HERE]
+### [command_forms.txt:201] execute unless items block 0 -60 3 nope.0 #minecraft:swords run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 3 nope.0 #minecraft:swords run say i<--[HERE]
+### [command_forms.txt:202] execute if items block 0 -60 3 nope.0 minecraft:nope run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 3 nope.0 minecraft:nope run say i<--[HERE]
+### [command_forms.txt:203] execute unless items block 0 -60 3 nope.0 minecraft:nope run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 3 nope.0 minecraft:nope run say i<--[HERE]
+### [command_forms.txt:204] execute if slots block 0 -60 3 container.30 run say s
+
+### [command_forms.txt:205] execute unless slots block 0 -60 3 container.30 run say s
+log| [Not Secure] [Server] s
+Bot| [disguised_chat] Server: s
+Bot|   json "s"
+Bot0| [disguised_chat] Server: s
+Bot0|   json "s"
+### [command_forms.txt:206] execute if items block 0 -60 3 container.30 minecraft:apple run say i
+
+### [command_forms.txt:207] execute unless items block 0 -60 3 container.30 minecraft:apple run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:208] execute if items block 0 -60 3 container.30 minecraft:stone run say i
+
+### [command_forms.txt:209] execute unless items block 0 -60 3 container.30 minecraft:stone run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:210] execute if items block 0 -60 3 container.30 * run say i
+
+### [command_forms.txt:211] execute unless items block 0 -60 3 container.30 * run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:212] execute if items block 0 -60 3 container.30 #minecraft:swords run say i
+
+### [command_forms.txt:213] execute unless items block 0 -60 3 container.30 #minecraft:swords run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:214] execute if items block 0 -60 3 container.30 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:215] execute unless items block 0 -60 3 container.30 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:216] execute if slots block 0 -60 9 container.0 run say s
+
+### [command_forms.txt:217] execute unless slots block 0 -60 9 container.0 run say s
+
+### [command_forms.txt:218] execute if items block 0 -60 9 container.0 minecraft:apple run say i
+
+### [command_forms.txt:219] execute unless items block 0 -60 9 container.0 minecraft:apple run say i
+
+### [command_forms.txt:220] execute if items block 0 -60 9 container.0 minecraft:stone run say i
+
+### [command_forms.txt:221] execute unless items block 0 -60 9 container.0 minecraft:stone run say i
+
+### [command_forms.txt:222] execute if items block 0 -60 9 container.0 * run say i
+
+### [command_forms.txt:223] execute unless items block 0 -60 9 container.0 * run say i
+
+### [command_forms.txt:224] execute if items block 0 -60 9 container.0 #minecraft:swords run say i
+
+### [command_forms.txt:225] execute unless items block 0 -60 9 container.0 #minecraft:swords run say i
+
+### [command_forms.txt:226] execute if items block 0 -60 9 container.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:227] execute unless items block 0 -60 9 container.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:228] execute if slots block 0 -60 9 container.* run say s
+
+### [command_forms.txt:229] execute unless slots block 0 -60 9 container.* run say s
+
+### [command_forms.txt:230] execute if items block 0 -60 9 container.* minecraft:apple run say i
+
+### [command_forms.txt:231] execute unless items block 0 -60 9 container.* minecraft:apple run say i
+
+### [command_forms.txt:232] execute if items block 0 -60 9 container.* minecraft:stone run say i
+
+### [command_forms.txt:233] execute unless items block 0 -60 9 container.* minecraft:stone run say i
+
+### [command_forms.txt:234] execute if items block 0 -60 9 container.* * run say i
+
+### [command_forms.txt:235] execute unless items block 0 -60 9 container.* * run say i
+
+### [command_forms.txt:236] execute if items block 0 -60 9 container.* #minecraft:swords run say i
+
+### [command_forms.txt:237] execute unless items block 0 -60 9 container.* #minecraft:swords run say i
+
+### [command_forms.txt:238] execute if items block 0 -60 9 container.* minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:239] execute unless items block 0 -60 9 container.* minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:240] execute if slots block 0 -60 9 hotbar.0 run say s
+
+### [command_forms.txt:241] execute unless slots block 0 -60 9 hotbar.0 run say s
+
+### [command_forms.txt:242] execute if items block 0 -60 9 hotbar.0 minecraft:apple run say i
+
+### [command_forms.txt:243] execute unless items block 0 -60 9 hotbar.0 minecraft:apple run say i
+
+### [command_forms.txt:244] execute if items block 0 -60 9 hotbar.0 minecraft:stone run say i
+
+### [command_forms.txt:245] execute unless items block 0 -60 9 hotbar.0 minecraft:stone run say i
+
+### [command_forms.txt:246] execute if items block 0 -60 9 hotbar.0 * run say i
+
+### [command_forms.txt:247] execute unless items block 0 -60 9 hotbar.0 * run say i
+
+### [command_forms.txt:248] execute if items block 0 -60 9 hotbar.0 #minecraft:swords run say i
+
+### [command_forms.txt:249] execute unless items block 0 -60 9 hotbar.0 #minecraft:swords run say i
+
+### [command_forms.txt:250] execute if items block 0 -60 9 hotbar.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:251] execute unless items block 0 -60 9 hotbar.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:252] execute if slots block 0 -60 9 nope.0 run say s
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 9 nope.0 run say s<--[HERE]
+### [command_forms.txt:253] execute unless slots block 0 -60 9 nope.0 run say s
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 9 nope.0 run say s<--[HERE]
+### [command_forms.txt:254] execute if items block 0 -60 9 nope.0 minecraft:apple run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 9 nope.0 minecraft:apple run say i<--[HERE]
+### [command_forms.txt:255] execute unless items block 0 -60 9 nope.0 minecraft:apple run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 9 nope.0 minecraft:apple run say i<--[HERE]
+### [command_forms.txt:256] execute if items block 0 -60 9 nope.0 minecraft:stone run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 9 nope.0 minecraft:stone run say i<--[HERE]
+### [command_forms.txt:257] execute unless items block 0 -60 9 nope.0 minecraft:stone run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 9 nope.0 minecraft:stone run say i<--[HERE]
+### [command_forms.txt:258] execute if items block 0 -60 9 nope.0 * run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 9 nope.0 * run say i<--[HERE]
+### [command_forms.txt:259] execute unless items block 0 -60 9 nope.0 * run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 9 nope.0 * run say i<--[HERE]
+### [command_forms.txt:260] execute if items block 0 -60 9 nope.0 #minecraft:swords run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 9 nope.0 #minecraft:swords run say i<--[HERE]
+### [command_forms.txt:261] execute unless items block 0 -60 9 nope.0 #minecraft:swords run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 9 nope.0 #minecraft:swords run say i<--[HERE]
+### [command_forms.txt:262] execute if items block 0 -60 9 nope.0 minecraft:nope run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 9 nope.0 minecraft:nope run say i<--[HERE]
+### [command_forms.txt:263] execute unless items block 0 -60 9 nope.0 minecraft:nope run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...0 9 nope.0 minecraft:nope run say i<--[HERE]
+### [command_forms.txt:264] execute if slots block 0 -60 9 container.30 run say s
+
+### [command_forms.txt:265] execute unless slots block 0 -60 9 container.30 run say s
+
+### [command_forms.txt:266] execute if items block 0 -60 9 container.30 minecraft:apple run say i
+
+### [command_forms.txt:267] execute unless items block 0 -60 9 container.30 minecraft:apple run say i
+
+### [command_forms.txt:268] execute if items block 0 -60 9 container.30 minecraft:stone run say i
+
+### [command_forms.txt:269] execute unless items block 0 -60 9 container.30 minecraft:stone run say i
+
+### [command_forms.txt:270] execute if items block 0 -60 9 container.30 * run say i
+
+### [command_forms.txt:271] execute unless items block 0 -60 9 container.30 * run say i
+
+### [command_forms.txt:272] execute if items block 0 -60 9 container.30 #minecraft:swords run say i
+
+### [command_forms.txt:273] execute unless items block 0 -60 9 container.30 #minecraft:swords run say i
+
+### [command_forms.txt:274] execute if items block 0 -60 9 container.30 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:275] execute unless items block 0 -60 9 container.30 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:276] execute if slots entity Bot container.0 run say s
+log| [Not Secure] [Server] s
+Bot| [disguised_chat] Server: s
+Bot|   json "s"
+Bot0| [disguised_chat] Server: s
+Bot0|   json "s"
+### [command_forms.txt:277] execute unless slots entity Bot container.0 run say s
+
+### [command_forms.txt:278] execute if items entity Bot container.0 minecraft:apple run say i
+
+### [command_forms.txt:279] execute unless items entity Bot container.0 minecraft:apple run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:280] execute if items entity Bot container.0 minecraft:stone run say i
+
+### [command_forms.txt:281] execute unless items entity Bot container.0 minecraft:stone run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:282] execute if items entity Bot container.0 * run say i
+
+### [command_forms.txt:283] execute unless items entity Bot container.0 * run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:284] execute if items entity Bot container.0 #minecraft:swords run say i
+
+### [command_forms.txt:285] execute unless items entity Bot container.0 #minecraft:swords run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:286] execute if items entity Bot container.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:287] execute unless items entity Bot container.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:288] execute if slots entity Bot container.* run say s
+log| [Not Secure] [Server] s
+Bot| [disguised_chat] Server: s
+Bot|   json "s"
+Bot0| [disguised_chat] Server: s
+Bot0|   json "s"
+### [command_forms.txt:289] execute unless slots entity Bot container.* run say s
+
+### [command_forms.txt:290] execute if items entity Bot container.* minecraft:apple run say i
+
+### [command_forms.txt:291] execute unless items entity Bot container.* minecraft:apple run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:292] execute if items entity Bot container.* minecraft:stone run say i
+
+### [command_forms.txt:293] execute unless items entity Bot container.* minecraft:stone run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:294] execute if items entity Bot container.* * run say i
+
+### [command_forms.txt:295] execute unless items entity Bot container.* * run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:296] execute if items entity Bot container.* #minecraft:swords run say i
+
+### [command_forms.txt:297] execute unless items entity Bot container.* #minecraft:swords run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:298] execute if items entity Bot container.* minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:299] execute unless items entity Bot container.* minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:300] execute if slots entity Bot hotbar.0 run say s
+log| [Not Secure] [Server] s
+Bot| [disguised_chat] Server: s
+Bot|   json "s"
+Bot0| [disguised_chat] Server: s
+Bot0|   json "s"
+### [command_forms.txt:301] execute unless slots entity Bot hotbar.0 run say s
+
+### [command_forms.txt:302] execute if items entity Bot hotbar.0 minecraft:apple run say i
+
+### [command_forms.txt:303] execute unless items entity Bot hotbar.0 minecraft:apple run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:304] execute if items entity Bot hotbar.0 minecraft:stone run say i
+
+### [command_forms.txt:305] execute unless items entity Bot hotbar.0 minecraft:stone run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:306] execute if items entity Bot hotbar.0 * run say i
+
+### [command_forms.txt:307] execute unless items entity Bot hotbar.0 * run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:308] execute if items entity Bot hotbar.0 #minecraft:swords run say i
+
+### [command_forms.txt:309] execute unless items entity Bot hotbar.0 #minecraft:swords run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:310] execute if items entity Bot hotbar.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:311] execute unless items entity Bot hotbar.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:312] execute if slots entity Bot nope.0 run say s
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...Bot nope.0 run say s<--[HERE]
+### [command_forms.txt:313] execute unless slots entity Bot nope.0 run say s
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...Bot nope.0 run say s<--[HERE]
+### [command_forms.txt:314] execute if items entity Bot nope.0 minecraft:apple run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...Bot nope.0 minecraft:apple run say i<--[HERE]
+### [command_forms.txt:315] execute unless items entity Bot nope.0 minecraft:apple run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...Bot nope.0 minecraft:apple run say i<--[HERE]
+### [command_forms.txt:316] execute if items entity Bot nope.0 minecraft:stone run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...Bot nope.0 minecraft:stone run say i<--[HERE]
+### [command_forms.txt:317] execute unless items entity Bot nope.0 minecraft:stone run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...Bot nope.0 minecraft:stone run say i<--[HERE]
+### [command_forms.txt:318] execute if items entity Bot nope.0 * run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...Bot nope.0 * run say i<--[HERE]
+### [command_forms.txt:319] execute unless items entity Bot nope.0 * run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...Bot nope.0 * run say i<--[HERE]
+### [command_forms.txt:320] execute if items entity Bot nope.0 #minecraft:swords run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...Bot nope.0 #minecraft:swords run say i<--[HERE]
+### [command_forms.txt:321] execute unless items entity Bot nope.0 #minecraft:swords run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...Bot nope.0 #minecraft:swords run say i<--[HERE]
+### [command_forms.txt:322] execute if items entity Bot nope.0 minecraft:nope run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...Bot nope.0 minecraft:nope run say i<--[HERE]
+### [command_forms.txt:323] execute unless items entity Bot nope.0 minecraft:nope run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...Bot nope.0 minecraft:nope run say i<--[HERE]
+### [command_forms.txt:324] execute if slots entity Bot container.30 run say s
+log| [Not Secure] [Server] s
+Bot| [disguised_chat] Server: s
+Bot|   json "s"
+Bot0| [disguised_chat] Server: s
+Bot0|   json "s"
+### [command_forms.txt:325] execute unless slots entity Bot container.30 run say s
+
+### [command_forms.txt:326] execute if items entity Bot container.30 minecraft:apple run say i
+
+### [command_forms.txt:327] execute unless items entity Bot container.30 minecraft:apple run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:328] execute if items entity Bot container.30 minecraft:stone run say i
+
+### [command_forms.txt:329] execute unless items entity Bot container.30 minecraft:stone run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:330] execute if items entity Bot container.30 * run say i
+
+### [command_forms.txt:331] execute unless items entity Bot container.30 * run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:332] execute if items entity Bot container.30 #minecraft:swords run say i
+
+### [command_forms.txt:333] execute unless items entity Bot container.30 #minecraft:swords run say i
+log| [Not Secure] [Server] i
+Bot| [disguised_chat] Server: i
+Bot|   json "i"
+Bot0| [disguised_chat] Server: i
+Bot0|   json "i"
+### [command_forms.txt:334] execute if items entity Bot container.30 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:335] execute unless items entity Bot container.30 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:336] execute if slots entity nobody container.0 run say s
+
+### [command_forms.txt:337] execute unless slots entity nobody container.0 run say s
+
+### [command_forms.txt:338] execute if items entity nobody container.0 minecraft:apple run say i
+
+### [command_forms.txt:339] execute unless items entity nobody container.0 minecraft:apple run say i
+
+### [command_forms.txt:340] execute if items entity nobody container.0 minecraft:stone run say i
+
+### [command_forms.txt:341] execute unless items entity nobody container.0 minecraft:stone run say i
+
+### [command_forms.txt:342] execute if items entity nobody container.0 * run say i
+
+### [command_forms.txt:343] execute unless items entity nobody container.0 * run say i
+
+### [command_forms.txt:344] execute if items entity nobody container.0 #minecraft:swords run say i
+
+### [command_forms.txt:345] execute unless items entity nobody container.0 #minecraft:swords run say i
+
+### [command_forms.txt:346] execute if items entity nobody container.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:347] execute unless items entity nobody container.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:348] execute if slots entity nobody container.* run say s
+
+### [command_forms.txt:349] execute unless slots entity nobody container.* run say s
+
+### [command_forms.txt:350] execute if items entity nobody container.* minecraft:apple run say i
+
+### [command_forms.txt:351] execute unless items entity nobody container.* minecraft:apple run say i
+
+### [command_forms.txt:352] execute if items entity nobody container.* minecraft:stone run say i
+
+### [command_forms.txt:353] execute unless items entity nobody container.* minecraft:stone run say i
+
+### [command_forms.txt:354] execute if items entity nobody container.* * run say i
+
+### [command_forms.txt:355] execute unless items entity nobody container.* * run say i
+
+### [command_forms.txt:356] execute if items entity nobody container.* #minecraft:swords run say i
+
+### [command_forms.txt:357] execute unless items entity nobody container.* #minecraft:swords run say i
+
+### [command_forms.txt:358] execute if items entity nobody container.* minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:359] execute unless items entity nobody container.* minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:360] execute if slots entity nobody hotbar.0 run say s
+
+### [command_forms.txt:361] execute unless slots entity nobody hotbar.0 run say s
+
+### [command_forms.txt:362] execute if items entity nobody hotbar.0 minecraft:apple run say i
+
+### [command_forms.txt:363] execute unless items entity nobody hotbar.0 minecraft:apple run say i
+
+### [command_forms.txt:364] execute if items entity nobody hotbar.0 minecraft:stone run say i
+
+### [command_forms.txt:365] execute unless items entity nobody hotbar.0 minecraft:stone run say i
+
+### [command_forms.txt:366] execute if items entity nobody hotbar.0 * run say i
+
+### [command_forms.txt:367] execute unless items entity nobody hotbar.0 * run say i
+
+### [command_forms.txt:368] execute if items entity nobody hotbar.0 #minecraft:swords run say i
+
+### [command_forms.txt:369] execute unless items entity nobody hotbar.0 #minecraft:swords run say i
+
+### [command_forms.txt:370] execute if items entity nobody hotbar.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:371] execute unless items entity nobody hotbar.0 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:372] execute if slots entity nobody nope.0 run say s
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...ody nope.0 run say s<--[HERE]
+### [command_forms.txt:373] execute unless slots entity nobody nope.0 run say s
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...ody nope.0 run say s<--[HERE]
+### [command_forms.txt:374] execute if items entity nobody nope.0 minecraft:apple run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...ody nope.0 minecraft:apple run say i<--[HERE]
+### [command_forms.txt:375] execute unless items entity nobody nope.0 minecraft:apple run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...ody nope.0 minecraft:apple run say i<--[HERE]
+### [command_forms.txt:376] execute if items entity nobody nope.0 minecraft:stone run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...ody nope.0 minecraft:stone run say i<--[HERE]
+### [command_forms.txt:377] execute unless items entity nobody nope.0 minecraft:stone run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...ody nope.0 minecraft:stone run say i<--[HERE]
+### [command_forms.txt:378] execute if items entity nobody nope.0 * run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...ody nope.0 * run say i<--[HERE]
+### [command_forms.txt:379] execute unless items entity nobody nope.0 * run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...ody nope.0 * run say i<--[HERE]
+### [command_forms.txt:380] execute if items entity nobody nope.0 #minecraft:swords run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...ody nope.0 #minecraft:swords run say i<--[HERE]
+### [command_forms.txt:381] execute unless items entity nobody nope.0 #minecraft:swords run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...ody nope.0 #minecraft:swords run say i<--[HERE]
+### [command_forms.txt:382] execute if items entity nobody nope.0 minecraft:nope run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...ody nope.0 minecraft:nope run say i<--[HERE]
+### [command_forms.txt:383] execute unless items entity nobody nope.0 minecraft:nope run say i
+log| System chat: Can't find element 'minecraft:nope.0' in registry 'minecraft:slot_source'
+log| System chat: ...ody nope.0 minecraft:nope run say i<--[HERE]
+### [command_forms.txt:384] execute if slots entity nobody container.30 run say s
+
+### [command_forms.txt:385] execute unless slots entity nobody container.30 run say s
+
+### [command_forms.txt:386] execute if items entity nobody container.30 minecraft:apple run say i
+
+### [command_forms.txt:387] execute unless items entity nobody container.30 minecraft:apple run say i
+
+### [command_forms.txt:388] execute if items entity nobody container.30 minecraft:stone run say i
+
+### [command_forms.txt:389] execute unless items entity nobody container.30 minecraft:stone run say i
+
+### [command_forms.txt:390] execute if items entity nobody container.30 * run say i
+
+### [command_forms.txt:391] execute unless items entity nobody container.30 * run say i
+
+### [command_forms.txt:392] execute if items entity nobody container.30 #minecraft:swords run say i
+
+### [command_forms.txt:393] execute unless items entity nobody container.30 #minecraft:swords run say i
+
+### [command_forms.txt:394] execute if items entity nobody container.30 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:395] execute unless items entity nobody container.30 minecraft:nope run say i
+log| System chat: Unknown item 'minecraft:nope'
+log| System chat: ...craft:nope run say i<--[HERE]
+### [command_forms.txt:398] swing Bot
+log| System chat: Made Bot swing an arm
+Bot| [system_chat] [Server: Made Bot swing an arm]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.swing.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [command_forms.txt:399] swing Bot mainhand
+log| System chat: Made Bot swing an arm
+Bot| [system_chat] [Server: Made Bot swing an arm]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.swing.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [command_forms.txt:400] swing Bot offhand
+log| System chat: Made Bot swing an arm
+Bot| [system_chat] [Server: Made Bot swing an arm]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.swing.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [command_forms.txt:401] swing Bot mainhand whack
+log| System chat: Made Bot swing an arm
+Bot| [system_chat] [Server: Made Bot swing an arm]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.swing.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [command_forms.txt:402] swing Bot mainhand stab
+log| System chat: Made Bot swing an arm
+Bot| [system_chat] [Server: Made Bot swing an arm]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.swing.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [command_forms.txt:403] swing Bot mainhand nope
+log| System chat: Unknown swing animation type: nope
+log| System chat: ...nhand nope<--[HERE]
+### [command_forms.txt:404] swing Bot offhand whack 5
+log| System chat: Made Bot swing an arm
+Bot| [system_chat] [Server: Made Bot swing an arm]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.swing.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [command_forms.txt:405] swing Bot mainhand stab 1s
+log| System chat: Made Bot swing an arm
+Bot| [system_chat] [Server: Made Bot swing an arm]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.swing.success.single","with":[{"text":"Bot","click_event":{"command":"/tell Bot ","action":"suggest_command"},"hover_event":{"id":"minecraft:player","uuid":[-1155928273,798308776,-1951547997,-315148217],"name":"Bot","action":"show_entity"},"insertion":"Bot"}]}],"color":"gray","italic":true}
+### [command_forms.txt:406] swing Bot mainhand stab x
+log| System chat: Expected float
+log| System chat: ...hand stab x<--[HERE]
+### [command_forms.txt:407] swing Bot mainhand whack -1
+log| System chat: The tick count must not be less than 1: found -1
+log| System chat: ...d whack -1<--[HERE]
+### [command_forms.txt:408] swing @e[type=minecraft:cow] mainhand whack
+log| System chat: No entity was found
+### [command_forms.txt:409] swing nobody
+log| System chat: No entity was found
+### [command_forms.txt:410] @bot0 swing Bot mainhand whack
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] swing Bot mainhand whack<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"swing Bot mainhand whack","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/swing Bot mainhand whack","action":"suggest_command"}}],"color":"red"}
+### [command_forms.txt:413] compute block 0 -60 3 float {type:"minecraft:constant",value:2.5} 2.0
+log| System chat: Number provider returned value 2.5 (rounded to 5)
+### [command_forms.txt:414] compute block 0 -60 3 float {type:"minecraft:constant",value:2.5} 0
+log| System chat: Number provider returned value 2.5 (rounded to 0)
+### [command_forms.txt:415] compute block 0 -60 3 float {type:"minecraft:constant",value:2.5} x
+log| System chat: Expected float
+log| System chat: ...alue:2.5} x<--[HERE]
+### [command_forms.txt:416] compute block 0 -60 3 float {type:"minecraft:constant",value:2.5} -1.5
+log| System chat: Number provider returned value 2.5 (rounded to -4)
+### [command_forms.txt:417] compute block 0 -60 9 float {type:"minecraft:constant",value:2.5} 2.0
+log| System chat: Number provider returned value 2.5 (rounded to 5)
+### [command_forms.txt:418] compute default float {type:"minecraft:constant",value:2.5} 2.0
+log| System chat: Number provider returned value 2.5 (rounded to 5)
+### [command_forms.txt:419] compute block 0 -60 3 float {type:"minecraft:nope"} 2.0
+log| System chat: Failed to parse structure: Failed to parse either. First: Not a number; Second: Unknown registry key in ResourceKey[minecraft:root / minecraft:context_float_provider_type]: minecraft:nope
+log| System chat: ...aft:nope"} 2.0<--[HERE]
+### [command_forms.txt:422] gamerule minecraft:fire_spread_radius_around_player
+log| System chat: Game rule fire_spread_radius_around_player is currently set to 128
+### [command_forms.txt:423] gamerule fire_spread_radius_around_player
+log| System chat: Game rule fire_spread_radius_around_player is currently set to 128
+### [command_forms.txt:424] gamerule minecraft:max_block_modifications
+log| System chat: Game rule max_block_modifications is currently set to 32768
+### [command_forms.txt:425] gamerule max_block_modifications
+log| System chat: Game rule max_block_modifications is currently set to 32768
+### [command_forms.txt:426] gamerule minecraft:max_command_forks
+log| System chat: Game rule max_command_forks is currently set to 65536
+### [command_forms.txt:427] gamerule max_command_forks
+log| System chat: Game rule max_command_forks is currently set to 65536
+### [command_forms.txt:428] gamerule minecraft:max_command_sequence_length
+log| System chat: Game rule max_command_sequence_length is currently set to 65536
+### [command_forms.txt:429] gamerule max_command_sequence_length
+log| System chat: Game rule max_command_sequence_length is currently set to 65536
+### [command_forms.txt:430] gamerule minecraft:max_entity_cramming
+log| System chat: Game rule max_entity_cramming is currently set to 24
+### [command_forms.txt:431] gamerule max_entity_cramming
+log| System chat: Game rule max_entity_cramming is currently set to 24
+### [command_forms.txt:432] gamerule minecraft:max_minecart_speed
+log| System chat: Incorrect argument for command
+log| System chat: gamerule minecraft:max_minecart_speed<--[HERE]
+### [command_forms.txt:433] gamerule max_minecart_speed
+log| System chat: Incorrect argument for command
+log| System chat: gamerule max_minecart_speed<--[HERE]
+### [command_forms.txt:434] gamerule minecraft:max_snow_accumulation_height
+log| System chat: Game rule max_snow_accumulation_height is currently set to 1
+### [command_forms.txt:435] gamerule max_snow_accumulation_height
+log| System chat: Game rule max_snow_accumulation_height is currently set to 1
+### [command_forms.txt:436] gamerule minecraft:players_nether_portal_creative_delay
+log| System chat: Game rule players_nether_portal_creative_delay is currently set to 0
+### [command_forms.txt:437] gamerule players_nether_portal_creative_delay
+log| System chat: Game rule players_nether_portal_creative_delay is currently set to 0
+### [command_forms.txt:438] gamerule minecraft:players_nether_portal_default_delay
+log| System chat: Game rule players_nether_portal_default_delay is currently set to 80
+### [command_forms.txt:439] gamerule players_nether_portal_default_delay
+log| System chat: Game rule players_nether_portal_default_delay is currently set to 80
+### [command_forms.txt:440] gamerule minecraft:players_sleeping_percentage
+log| System chat: Game rule players_sleeping_percentage is currently set to 100
+### [command_forms.txt:441] gamerule players_sleeping_percentage
+log| System chat: Game rule players_sleeping_percentage is currently set to 100
+### [command_forms.txt:442] gamerule minecraft:random_tick_speed
+log| System chat: Game rule random_tick_speed is currently set to 0
+### [command_forms.txt:443] gamerule random_tick_speed
+log| System chat: Game rule random_tick_speed is currently set to 0
+### [command_forms.txt:444] gamerule minecraft:respawn_radius
+log| System chat: Game rule respawn_radius is currently set to 10
+### [command_forms.txt:445] gamerule respawn_radius
+log| System chat: Game rule respawn_radius is currently set to 10
+### [command_forms.txt:448] @bot place feature minecraft:oak
+log| System chat: [Bot: Placed "minecraft:oak" at 0, -60, 0]
+Bot| [system_chat] Placed "minecraft:oak" at 0, -60, 0
+Bot|   json {"translate":"commands.place.feature.success","with":["minecraft:oak",0,-60,0]}
+### [command_forms.txt:449] @bot place feature minecraft:nope
+Bot| [system_chat] Can't find element 'minecraft:nope' in registry 'minecraft:worldgen/feature'
+Bot|   json {"text":"","extra":[{"translate":"argument.resource_or_id.no_such_element","with":["minecraft:nope","minecraft:worldgen/feature"]}],"color":"red"}
+Bot| [system_chat] ...craft:nope<--[HERE]
+Bot|   json {"text":"","extra":[{"text":"","extra":["...","craft:nope",{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/place feature minecraft:nope","action":"suggest_command"}}],"color":"red"}
+### [command_forms.txt:450] @bot place feature minecraft:oak 0 -60 0
+log| System chat: [Bot: Placed "minecraft:oak" at 0, -60, 0]
+Bot| [system_chat] Placed "minecraft:oak" at 0, -60, 0
+Bot|   json {"translate":"commands.place.feature.success","with":["minecraft:oak",0,-60,0]}
+### [command_forms.txt:451] @bot place structure minecraft:igloo
+log| System chat: [Bot: Generated structure "minecraft:igloo" at 0, -60, 0]
+Bot| [system_chat] Generated structure "minecraft:igloo" at 0, -60, 0
+Bot|   json {"translate":"commands.place.structure.success","with":["minecraft:igloo",0,-60,0]}
+### [command_forms.txt:452] @bot place structure minecraft:nope
+Bot| [system_chat] There is no structure with type "minecraft:nope"
+Bot|   json {"text":"","extra":[{"translate":"commands.place.structure.invalid","with":["minecraft:nope"]}],"color":"red"}
+### [command_forms.txt:453] @bot place structure minecraft:igloo 8 -60 8
+log| System chat: [Bot: Generated structure "minecraft:igloo" at 8, -60, 8]
+Bot| [system_chat] Generated structure "minecraft:igloo" at 8, -60, 8
+Bot|   json {"translate":"commands.place.structure.success","with":["minecraft:igloo",8,-60,8]}
+### [command_forms.txt:454] @bot place template minecraft:igloo/top
+log| System chat: [Bot: Loaded template "minecraft:igloo/top" at 0, -60, 0]
+Bot| [system_chat] Loaded template "minecraft:igloo/top" at 0, -60, 0
+Bot|   json {"translate":"commands.place.template.success","with":["minecraft:igloo/top",0,-60,0]}
+### [command_forms.txt:455] @bot place template minecraft:nope
+Bot| [system_chat] There is no template with ID "minecraft:nope"
+Bot|   json {"text":"","extra":[{"translate":"commands.place.template.invalid","with":["minecraft:nope"]}],"color":"red"}
+### [command_forms.txt:456] @bot place template minecraft:igloo/top 8 -60 8 none none 1.0
+log| System chat: [Bot: Loaded template "minecraft:igloo/top" at 8, -60, 8]
+Bot| [system_chat] Loaded template "minecraft:igloo/top" at 8, -60, 8
+Bot|   json {"translate":"commands.place.template.success","with":["minecraft:igloo/top",8,-60,8]}
+### [command_forms.txt:457] @bot place template minecraft:igloo/top 8 -60 8 clockwise_90 left_right 0.5
+log| System chat: [Bot: Loaded template "minecraft:igloo/top" at 8, -60, 8]
+Bot| [system_chat] Loaded template "minecraft:igloo/top" at 8, -60, 8
+Bot|   json {"translate":"commands.place.template.success","with":["minecraft:igloo/top",8,-60,8]}
+### [command_forms.txt:458] @bot place template minecraft:igloo/top 8 -60 8 nope none 1.0
+Bot| [system_chat] Invalid value 'nope'
+Bot|   json {"text":"","extra":[{"translate":"argument.enum.invalid","with":["nope"]}],"color":"red"}
+Bot| [system_chat] ...-60 8 nope none 1.0<--[HERE]
+Bot|   json {"text":"","extra":[{"text":"","extra":["...","-60 8 nope",{"text":" none 1.0","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/place template minecraft:igloo/top 8 -60 8 nope none 1.0","action":"suggest_command"}}],"color":"red"}
+### [command_forms.txt:459] @bot place template minecraft:igloo/top 8 -60 8 none none 2
+Bot| [system_chat] Float must not be more than 1.0: found 2.0
+Bot|   json {"text":"","extra":[{"translate":"argument.float.big","with":[1.0,2.0]}],"color":"red"}
+Bot| [system_chat] ...none none 2<--[HERE]
+Bot|   json {"text":"","extra":[{"text":"","extra":["...","none none ",{"text":"2","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/place template minecraft:igloo/top 8 -60 8 none none 2","action":"suggest_command"}}],"color":"red"}
+### [command_forms.txt:460] @bot place jigsaw minecraft:village/plains/town_centers minecraft:bottom 2
+log| System chat: [Bot: Generated jigsaw at 0, -60, 0]
+Bot| [system_chat] Generated jigsaw at 0, -60, 0
+Bot|   json {"translate":"commands.place.jigsaw.success","with":[0,-60,0]}
+### [command_forms.txt:461] @bot place jigsaw minecraft:nope minecraft:bottom 2
+Bot| [system_chat] There is no template pool with type "minecraft:nope"
+Bot|   json {"text":"","extra":[{"translate":"commands.place.jigsaw.invalid","with":["minecraft:nope"]}],"color":"red"}
+### [command_forms.txt:462] @bot place jigsaw minecraft:village/plains/town_centers minecraft:bottom 0
+Bot| [system_chat] Integer must not be less than 1: found 0
+Bot|   json {"text":"","extra":[{"translate":"argument.integer.low","with":[1,0]}],"color":"red"}
+Bot| [system_chat] ...ft:bottom 0<--[HERE]
+Bot|   json {"text":"","extra":[{"text":"","extra":["...","ft:bottom ",{"text":"0","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/place jigsaw minecraft:village/plains/town_centers minecraft:bottom 0","action":"suggest_command"}}],"color":"red"}
+### [command_forms.txt:463] @bot place jigsaw minecraft:village/plains/town_centers minecraft:bottom 21
+Bot| [system_chat] Integer must not be more than 20: found 21
+Bot|   json {"text":"","extra":[{"translate":"argument.integer.big","with":[20,21]}],"color":"red"}
+Bot| [system_chat] ...ft:bottom 21<--[HERE]
+Bot|   json {"text":"","extra":[{"text":"","extra":["...","ft:bottom ",{"text":"21","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/place jigsaw minecraft:village/plains/town_centers minecraft:bottom 21","action":"suggest_command"}}],"color":"red"}
+### [command_forms.txt:464] @bot @bot0 place feature minecraft:oak
+Bot| [system_chat] Unknown or incomplete command. See below for error
+Bot|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot| [system_chat] @bot0 place feature minecraft:oak<--[HERE]
+Bot|   json {"text":"","extra":[{"text":"","extra":[{"text":"@bot0 place feature minecraft:oak","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/@bot0 place feature minecraft:oak","action":"suggest_command"}}],"color":"red"}
+### [command_forms.txt:467] publish
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: publish<--[HERE]
+### [command_forms.txt:468] publish true
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: publish true<--[HERE]
+### [command_forms.txt:469] publish false 25565
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: publish false 25565<--[HERE]
+### [command_forms.txt:470] publish true 99999
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: publish true 99999<--[HERE]
+### [command_forms.txt:471] publish x
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: publish x<--[HERE]
+### [command_forms.txt:472] unpublish
+log| System chat: Unknown or incomplete command. See below for error
+log| System chat: unpublish<--[HERE]
+### [command_forms.txt:473] @bot0 publish
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] publish<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"publish","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/publish","action":"suggest_command"}}],"color":"red"}
+### [command_forms.txt:474] @bot0 unpublish
+Bot0| [system_chat] Unknown or incomplete command. See below for error
+Bot0|   json {"text":"","extra":[{"translate":"command.unknown.command"}],"color":"red"}
+Bot0| [system_chat] unpublish<--[HERE]
+Bot0|   json {"text":"","extra":[{"text":"","extra":[{"text":"unpublish","color":"red","underlined":true},{"translate":"command.context.here","color":"red","italic":true}],"color":"gray","click_event":{"command":"/unpublish","action":"suggest_command"}}],"color":"red"}

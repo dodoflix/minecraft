@@ -1,0 +1,734 @@
+# /data modify: every target kind x operation x source kind, one case that normally succeeds and one that fails.
+# Flat world, creative; Bot = op. Targets: storage t:w, the armor stand tagged c, the chest at 0 -60 0.
+
+gamerule random_tick_speed 0
+gamerule spawn_mobs false
+
+# ---- setup ----
+setblock 0 -60 0 minecraft:chest{Items:[{Slot:0b,id:"minecraft:stone",count:3},{Slot:1b,id:"minecraft:dirt",count:2}]}
+setblock 2 -60 0 minecraft:chest{Items:[{Slot:0b,id:"minecraft:apple",count:5}]}
+summon minecraft:armor_stand 4 -60 4 {NoGravity:1b,Tags:["a"],DisabledSlots:7,Pose:{Head:[10f,20f,30f]}}
+summon minecraft:armor_stand 6 -60 4 {NoGravity:1b,Tags:["c","d"]}
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data merge storage t:s {i:4,s:"str",c:{id:"minecraft:apple",count:1,Slot:3b}}
+
+# ---- storage set ----
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data modify storage t:w v set value 5
+data modify storage t:w v set value {
+data modify storage t:w v set from storage t:s
+data modify storage t:w v set from storage t:s i
+data modify storage t:w v set from storage t:s nope
+data modify storage t:w v set from entity @e[tag=a,limit=1]
+data modify storage t:w v set from entity @e[tag=a,limit=1] DisabledSlots
+data modify storage t:w v set from entity @e[tag=a,limit=1] nope
+data modify storage t:w v set from block 2 -60 0
+data modify storage t:w v set from block 2 -60 0 Items[0].count
+data modify storage t:w v set from block 2 -60 0 nope
+data modify storage t:w v set string storage t:s s
+data modify storage t:w v set string storage t:s
+data modify storage t:w v set string storage t:s s 1
+data modify storage t:w v set string storage t:s s 1 2
+data modify storage t:w v set string storage t:s nope
+data modify storage t:w v set string storage t:s s 99
+data modify storage t:w v set string entity @e[tag=a,limit=1] Tags[0]
+data modify storage t:w v set string entity @e[tag=a,limit=1]
+data modify storage t:w v set string entity @e[tag=a,limit=1] Tags[0] 1
+data modify storage t:w v set string entity @e[tag=a,limit=1] Tags[0] 1 2
+data modify storage t:w v set string entity @e[tag=a,limit=1] nope
+data modify storage t:w v set string entity @e[tag=a,limit=1] Tags[0] 99
+data modify storage t:w v set string block 2 -60 0 Items[0].id
+data modify storage t:w v set string block 2 -60 0
+data modify storage t:w v set string block 2 -60 0 Items[0].id 1
+data modify storage t:w v set string block 2 -60 0 Items[0].id 1 2
+data modify storage t:w v set string block 2 -60 0 nope
+data modify storage t:w v set string block 2 -60 0 Items[0].id 99
+data modify storage t:w v set compute default integer {type:"minecraft:constant",value:5}
+data modify storage t:w v set compute default float {type:"minecraft:constant",value:2.5}
+data modify storage t:w v set compute default float {type:"minecraft:constant",value:2.5} 2.0
+data modify storage t:w v set compute default integer {type:"minecraft:nope"}
+data modify storage t:w v set compute default float {type:"minecraft:nope"} 2
+data modify storage t:w v set compute block 2 -60 0 integer {type:"minecraft:constant",value:5}
+data modify storage t:w v set compute block 2 -60 0 float {type:"minecraft:constant",value:2.5}
+data modify storage t:w v set compute block 2 -60 0 float {type:"minecraft:constant",value:2.5} 2.0
+data modify storage t:w v set compute block 2 -60 0 integer {type:"minecraft:nope"}
+data modify storage t:w v set compute block 2 -60 0 float {type:"minecraft:nope"} 2
+data modify storage t:w v set compute entity @e[tag=a,limit=1] integer {type:"minecraft:constant",value:5}
+data modify storage t:w v set compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5}
+data modify storage t:w v set compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5} 2.0
+data modify storage t:w v set compute entity @e[tag=a,limit=1] integer {type:"minecraft:nope"}
+data modify storage t:w v set compute entity @e[tag=a,limit=1] float {type:"minecraft:nope"} 2
+data get storage t:w v
+
+# ---- storage merge ----
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data modify storage t:w c merge value {a:1}
+data modify storage t:w c merge value {
+data modify storage t:w c merge from storage t:s
+data modify storage t:w c merge from storage t:s c
+data modify storage t:w c merge from storage t:s nope
+data modify storage t:w c merge from entity @e[tag=a,limit=1]
+data modify storage t:w c merge from entity @e[tag=a,limit=1] Pose
+data modify storage t:w c merge from entity @e[tag=a,limit=1] nope
+data modify storage t:w c merge from block 2 -60 0
+data modify storage t:w c merge from block 2 -60 0 Items[0]
+data modify storage t:w c merge from block 2 -60 0 nope
+data modify storage t:w c merge string storage t:s s
+data modify storage t:w c merge string storage t:s
+data modify storage t:w c merge string storage t:s s 1
+data modify storage t:w c merge string storage t:s s 1 2
+data modify storage t:w c merge string storage t:s nope
+data modify storage t:w c merge string storage t:s s 99
+data modify storage t:w c merge string entity @e[tag=a,limit=1] Tags[0]
+data modify storage t:w c merge string entity @e[tag=a,limit=1]
+data modify storage t:w c merge string entity @e[tag=a,limit=1] Tags[0] 1
+data modify storage t:w c merge string entity @e[tag=a,limit=1] Tags[0] 1 2
+data modify storage t:w c merge string entity @e[tag=a,limit=1] nope
+data modify storage t:w c merge string entity @e[tag=a,limit=1] Tags[0] 99
+data modify storage t:w c merge string block 2 -60 0 Items[0].id
+data modify storage t:w c merge string block 2 -60 0
+data modify storage t:w c merge string block 2 -60 0 Items[0].id 1
+data modify storage t:w c merge string block 2 -60 0 Items[0].id 1 2
+data modify storage t:w c merge string block 2 -60 0 nope
+data modify storage t:w c merge string block 2 -60 0 Items[0].id 99
+data modify storage t:w c merge compute default integer {type:"minecraft:constant",value:5}
+data modify storage t:w c merge compute default float {type:"minecraft:constant",value:2.5}
+data modify storage t:w c merge compute default float {type:"minecraft:constant",value:2.5} 2.0
+data modify storage t:w c merge compute default integer {type:"minecraft:nope"}
+data modify storage t:w c merge compute default float {type:"minecraft:nope"} 2
+data modify storage t:w c merge compute block 2 -60 0 integer {type:"minecraft:constant",value:5}
+data modify storage t:w c merge compute block 2 -60 0 float {type:"minecraft:constant",value:2.5}
+data modify storage t:w c merge compute block 2 -60 0 float {type:"minecraft:constant",value:2.5} 2.0
+data modify storage t:w c merge compute block 2 -60 0 integer {type:"minecraft:nope"}
+data modify storage t:w c merge compute block 2 -60 0 float {type:"minecraft:nope"} 2
+data modify storage t:w c merge compute entity @e[tag=a,limit=1] integer {type:"minecraft:constant",value:5}
+data modify storage t:w c merge compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5}
+data modify storage t:w c merge compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5} 2.0
+data modify storage t:w c merge compute entity @e[tag=a,limit=1] integer {type:"minecraft:nope"}
+data modify storage t:w c merge compute entity @e[tag=a,limit=1] float {type:"minecraft:nope"} 2
+data get storage t:w c
+
+# ---- storage append ----
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data modify storage t:w l append value 5
+data modify storage t:w l append value {
+data modify storage t:w l append from storage t:s
+data modify storage t:w l append from storage t:s i
+data modify storage t:w l append from storage t:s nope
+data modify storage t:w l append from entity @e[tag=a,limit=1]
+data modify storage t:w l append from entity @e[tag=a,limit=1] DisabledSlots
+data modify storage t:w l append from entity @e[tag=a,limit=1] nope
+data modify storage t:w l append from block 2 -60 0
+data modify storage t:w l append from block 2 -60 0 Items[0].count
+data modify storage t:w l append from block 2 -60 0 nope
+data modify storage t:w l append string storage t:s s
+data modify storage t:w l append string storage t:s
+data modify storage t:w l append string storage t:s s 1
+data modify storage t:w l append string storage t:s s 1 2
+data modify storage t:w l append string storage t:s nope
+data modify storage t:w l append string storage t:s s 99
+data modify storage t:w l append string entity @e[tag=a,limit=1] Tags[0]
+data modify storage t:w l append string entity @e[tag=a,limit=1]
+data modify storage t:w l append string entity @e[tag=a,limit=1] Tags[0] 1
+data modify storage t:w l append string entity @e[tag=a,limit=1] Tags[0] 1 2
+data modify storage t:w l append string entity @e[tag=a,limit=1] nope
+data modify storage t:w l append string entity @e[tag=a,limit=1] Tags[0] 99
+data modify storage t:w l append string block 2 -60 0 Items[0].id
+data modify storage t:w l append string block 2 -60 0
+data modify storage t:w l append string block 2 -60 0 Items[0].id 1
+data modify storage t:w l append string block 2 -60 0 Items[0].id 1 2
+data modify storage t:w l append string block 2 -60 0 nope
+data modify storage t:w l append string block 2 -60 0 Items[0].id 99
+data modify storage t:w l append compute default integer {type:"minecraft:constant",value:5}
+data modify storage t:w l append compute default float {type:"minecraft:constant",value:2.5}
+data modify storage t:w l append compute default float {type:"minecraft:constant",value:2.5} 2.0
+data modify storage t:w l append compute default integer {type:"minecraft:nope"}
+data modify storage t:w l append compute default float {type:"minecraft:nope"} 2
+data modify storage t:w l append compute block 2 -60 0 integer {type:"minecraft:constant",value:5}
+data modify storage t:w l append compute block 2 -60 0 float {type:"minecraft:constant",value:2.5}
+data modify storage t:w l append compute block 2 -60 0 float {type:"minecraft:constant",value:2.5} 2.0
+data modify storage t:w l append compute block 2 -60 0 integer {type:"minecraft:nope"}
+data modify storage t:w l append compute block 2 -60 0 float {type:"minecraft:nope"} 2
+data modify storage t:w l append compute entity @e[tag=a,limit=1] integer {type:"minecraft:constant",value:5}
+data modify storage t:w l append compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5}
+data modify storage t:w l append compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5} 2.0
+data modify storage t:w l append compute entity @e[tag=a,limit=1] integer {type:"minecraft:nope"}
+data modify storage t:w l append compute entity @e[tag=a,limit=1] float {type:"minecraft:nope"} 2
+data get storage t:w l
+
+# ---- storage prepend ----
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data modify storage t:w l prepend value 5
+data modify storage t:w l prepend value {
+data modify storage t:w l prepend from storage t:s
+data modify storage t:w l prepend from storage t:s i
+data modify storage t:w l prepend from storage t:s nope
+data modify storage t:w l prepend from entity @e[tag=a,limit=1]
+data modify storage t:w l prepend from entity @e[tag=a,limit=1] DisabledSlots
+data modify storage t:w l prepend from entity @e[tag=a,limit=1] nope
+data modify storage t:w l prepend from block 2 -60 0
+data modify storage t:w l prepend from block 2 -60 0 Items[0].count
+data modify storage t:w l prepend from block 2 -60 0 nope
+data modify storage t:w l prepend string storage t:s s
+data modify storage t:w l prepend string storage t:s
+data modify storage t:w l prepend string storage t:s s 1
+data modify storage t:w l prepend string storage t:s s 1 2
+data modify storage t:w l prepend string storage t:s nope
+data modify storage t:w l prepend string storage t:s s 99
+data modify storage t:w l prepend string entity @e[tag=a,limit=1] Tags[0]
+data modify storage t:w l prepend string entity @e[tag=a,limit=1]
+data modify storage t:w l prepend string entity @e[tag=a,limit=1] Tags[0] 1
+data modify storage t:w l prepend string entity @e[tag=a,limit=1] Tags[0] 1 2
+data modify storage t:w l prepend string entity @e[tag=a,limit=1] nope
+data modify storage t:w l prepend string entity @e[tag=a,limit=1] Tags[0] 99
+data modify storage t:w l prepend string block 2 -60 0 Items[0].id
+data modify storage t:w l prepend string block 2 -60 0
+data modify storage t:w l prepend string block 2 -60 0 Items[0].id 1
+data modify storage t:w l prepend string block 2 -60 0 Items[0].id 1 2
+data modify storage t:w l prepend string block 2 -60 0 nope
+data modify storage t:w l prepend string block 2 -60 0 Items[0].id 99
+data modify storage t:w l prepend compute default integer {type:"minecraft:constant",value:5}
+data modify storage t:w l prepend compute default float {type:"minecraft:constant",value:2.5}
+data modify storage t:w l prepend compute default float {type:"minecraft:constant",value:2.5} 2.0
+data modify storage t:w l prepend compute default integer {type:"minecraft:nope"}
+data modify storage t:w l prepend compute default float {type:"minecraft:nope"} 2
+data modify storage t:w l prepend compute block 2 -60 0 integer {type:"minecraft:constant",value:5}
+data modify storage t:w l prepend compute block 2 -60 0 float {type:"minecraft:constant",value:2.5}
+data modify storage t:w l prepend compute block 2 -60 0 float {type:"minecraft:constant",value:2.5} 2.0
+data modify storage t:w l prepend compute block 2 -60 0 integer {type:"minecraft:nope"}
+data modify storage t:w l prepend compute block 2 -60 0 float {type:"minecraft:nope"} 2
+data modify storage t:w l prepend compute entity @e[tag=a,limit=1] integer {type:"minecraft:constant",value:5}
+data modify storage t:w l prepend compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5}
+data modify storage t:w l prepend compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5} 2.0
+data modify storage t:w l prepend compute entity @e[tag=a,limit=1] integer {type:"minecraft:nope"}
+data modify storage t:w l prepend compute entity @e[tag=a,limit=1] float {type:"minecraft:nope"} 2
+data get storage t:w l
+
+# ---- storage insert ----
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data modify storage t:w l insert 0 value 5
+data modify storage t:w l insert 0 value {
+data modify storage t:w l insert 0 from storage t:s
+data modify storage t:w l insert 0 from storage t:s i
+data modify storage t:w l insert 0 from storage t:s nope
+data modify storage t:w l insert 0 from entity @e[tag=a,limit=1]
+data modify storage t:w l insert 0 from entity @e[tag=a,limit=1] DisabledSlots
+data modify storage t:w l insert 0 from entity @e[tag=a,limit=1] nope
+data modify storage t:w l insert 0 from block 2 -60 0
+data modify storage t:w l insert 0 from block 2 -60 0 Items[0].count
+data modify storage t:w l insert 0 from block 2 -60 0 nope
+data modify storage t:w l insert 0 string storage t:s s
+data modify storage t:w l insert 0 string storage t:s
+data modify storage t:w l insert 0 string storage t:s s 1
+data modify storage t:w l insert 0 string storage t:s s 1 2
+data modify storage t:w l insert 0 string storage t:s nope
+data modify storage t:w l insert 0 string storage t:s s 99
+data modify storage t:w l insert 0 string entity @e[tag=a,limit=1] Tags[0]
+data modify storage t:w l insert 0 string entity @e[tag=a,limit=1]
+data modify storage t:w l insert 0 string entity @e[tag=a,limit=1] Tags[0] 1
+data modify storage t:w l insert 0 string entity @e[tag=a,limit=1] Tags[0] 1 2
+data modify storage t:w l insert 0 string entity @e[tag=a,limit=1] nope
+data modify storage t:w l insert 0 string entity @e[tag=a,limit=1] Tags[0] 99
+data modify storage t:w l insert 0 string block 2 -60 0 Items[0].id
+data modify storage t:w l insert 0 string block 2 -60 0
+data modify storage t:w l insert 0 string block 2 -60 0 Items[0].id 1
+data modify storage t:w l insert 0 string block 2 -60 0 Items[0].id 1 2
+data modify storage t:w l insert 0 string block 2 -60 0 nope
+data modify storage t:w l insert 0 string block 2 -60 0 Items[0].id 99
+data modify storage t:w l insert 0 compute default integer {type:"minecraft:constant",value:5}
+data modify storage t:w l insert 0 compute default float {type:"minecraft:constant",value:2.5}
+data modify storage t:w l insert 0 compute default float {type:"minecraft:constant",value:2.5} 2.0
+data modify storage t:w l insert 0 compute default integer {type:"minecraft:nope"}
+data modify storage t:w l insert 0 compute default float {type:"minecraft:nope"} 2
+data modify storage t:w l insert 0 compute block 2 -60 0 integer {type:"minecraft:constant",value:5}
+data modify storage t:w l insert 0 compute block 2 -60 0 float {type:"minecraft:constant",value:2.5}
+data modify storage t:w l insert 0 compute block 2 -60 0 float {type:"minecraft:constant",value:2.5} 2.0
+data modify storage t:w l insert 0 compute block 2 -60 0 integer {type:"minecraft:nope"}
+data modify storage t:w l insert 0 compute block 2 -60 0 float {type:"minecraft:nope"} 2
+data modify storage t:w l insert 0 compute entity @e[tag=a,limit=1] integer {type:"minecraft:constant",value:5}
+data modify storage t:w l insert 0 compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5}
+data modify storage t:w l insert 0 compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5} 2.0
+data modify storage t:w l insert 0 compute entity @e[tag=a,limit=1] integer {type:"minecraft:nope"}
+data modify storage t:w l insert 0 compute entity @e[tag=a,limit=1] float {type:"minecraft:nope"} 2
+data get storage t:w l
+
+# ---- entity set ----
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data modify entity @e[tag=c,limit=1] CustomName set value "x"
+data modify entity @e[tag=c,limit=1] CustomName set value {
+data modify entity @e[tag=c,limit=1] CustomName set from storage t:s
+data modify entity @e[tag=c,limit=1] CustomName set from storage t:s s
+data modify entity @e[tag=c,limit=1] CustomName set from storage t:s nope
+data modify entity @e[tag=c,limit=1] CustomName set from entity @e[tag=a,limit=1]
+data modify entity @e[tag=c,limit=1] CustomName set from entity @e[tag=a,limit=1] Tags[0]
+data modify entity @e[tag=c,limit=1] CustomName set from entity @e[tag=a,limit=1] nope
+data modify entity @e[tag=c,limit=1] CustomName set from block 2 -60 0
+data modify entity @e[tag=c,limit=1] CustomName set from block 2 -60 0 Items[0].id
+data modify entity @e[tag=c,limit=1] CustomName set from block 2 -60 0 nope
+data modify entity @e[tag=c,limit=1] CustomName set string storage t:s s
+data modify entity @e[tag=c,limit=1] CustomName set string storage t:s
+data modify entity @e[tag=c,limit=1] CustomName set string storage t:s s 1
+data modify entity @e[tag=c,limit=1] CustomName set string storage t:s s 1 2
+data modify entity @e[tag=c,limit=1] CustomName set string storage t:s nope
+data modify entity @e[tag=c,limit=1] CustomName set string storage t:s s 99
+data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=a,limit=1] Tags[0]
+data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=a,limit=1]
+data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=a,limit=1] Tags[0] 1
+data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=a,limit=1] Tags[0] 1 2
+data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=a,limit=1] nope
+data modify entity @e[tag=c,limit=1] CustomName set string entity @e[tag=a,limit=1] Tags[0] 99
+data modify entity @e[tag=c,limit=1] CustomName set string block 2 -60 0 Items[0].id
+data modify entity @e[tag=c,limit=1] CustomName set string block 2 -60 0
+data modify entity @e[tag=c,limit=1] CustomName set string block 2 -60 0 Items[0].id 1
+data modify entity @e[tag=c,limit=1] CustomName set string block 2 -60 0 Items[0].id 1 2
+data modify entity @e[tag=c,limit=1] CustomName set string block 2 -60 0 nope
+data modify entity @e[tag=c,limit=1] CustomName set string block 2 -60 0 Items[0].id 99
+data modify entity @e[tag=c,limit=1] CustomName set compute default integer {type:"minecraft:constant",value:5}
+data modify entity @e[tag=c,limit=1] CustomName set compute default float {type:"minecraft:constant",value:2.5}
+data modify entity @e[tag=c,limit=1] CustomName set compute default float {type:"minecraft:constant",value:2.5} 2.0
+data modify entity @e[tag=c,limit=1] CustomName set compute default integer {type:"minecraft:nope"}
+data modify entity @e[tag=c,limit=1] CustomName set compute default float {type:"minecraft:nope"} 2
+data modify entity @e[tag=c,limit=1] CustomName set compute block 2 -60 0 integer {type:"minecraft:constant",value:5}
+data modify entity @e[tag=c,limit=1] CustomName set compute block 2 -60 0 float {type:"minecraft:constant",value:2.5}
+data modify entity @e[tag=c,limit=1] CustomName set compute block 2 -60 0 float {type:"minecraft:constant",value:2.5} 2.0
+data modify entity @e[tag=c,limit=1] CustomName set compute block 2 -60 0 integer {type:"minecraft:nope"}
+data modify entity @e[tag=c,limit=1] CustomName set compute block 2 -60 0 float {type:"minecraft:nope"} 2
+data modify entity @e[tag=c,limit=1] CustomName set compute entity @e[tag=a,limit=1] integer {type:"minecraft:constant",value:5}
+data modify entity @e[tag=c,limit=1] CustomName set compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5}
+data modify entity @e[tag=c,limit=1] CustomName set compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5} 2.0
+data modify entity @e[tag=c,limit=1] CustomName set compute entity @e[tag=a,limit=1] integer {type:"minecraft:nope"}
+data modify entity @e[tag=c,limit=1] CustomName set compute entity @e[tag=a,limit=1] float {type:"minecraft:nope"} 2
+data get entity @e[tag=c,limit=1] CustomName
+
+# ---- entity merge ----
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data modify entity @e[tag=c,limit=1] Pose merge value {a:1}
+data modify entity @e[tag=c,limit=1] Pose merge value {
+data modify entity @e[tag=c,limit=1] Pose merge from storage t:s
+data modify entity @e[tag=c,limit=1] Pose merge from storage t:s c
+data modify entity @e[tag=c,limit=1] Pose merge from storage t:s nope
+data modify entity @e[tag=c,limit=1] Pose merge from entity @e[tag=a,limit=1]
+data modify entity @e[tag=c,limit=1] Pose merge from entity @e[tag=a,limit=1] Pose
+data modify entity @e[tag=c,limit=1] Pose merge from entity @e[tag=a,limit=1] nope
+data modify entity @e[tag=c,limit=1] Pose merge from block 2 -60 0
+data modify entity @e[tag=c,limit=1] Pose merge from block 2 -60 0 Items[0]
+data modify entity @e[tag=c,limit=1] Pose merge from block 2 -60 0 nope
+data modify entity @e[tag=c,limit=1] Pose merge string storage t:s s
+data modify entity @e[tag=c,limit=1] Pose merge string storage t:s
+data modify entity @e[tag=c,limit=1] Pose merge string storage t:s s 1
+data modify entity @e[tag=c,limit=1] Pose merge string storage t:s s 1 2
+data modify entity @e[tag=c,limit=1] Pose merge string storage t:s nope
+data modify entity @e[tag=c,limit=1] Pose merge string storage t:s s 99
+data modify entity @e[tag=c,limit=1] Pose merge string entity @e[tag=a,limit=1] Tags[0]
+data modify entity @e[tag=c,limit=1] Pose merge string entity @e[tag=a,limit=1]
+data modify entity @e[tag=c,limit=1] Pose merge string entity @e[tag=a,limit=1] Tags[0] 1
+data modify entity @e[tag=c,limit=1] Pose merge string entity @e[tag=a,limit=1] Tags[0] 1 2
+data modify entity @e[tag=c,limit=1] Pose merge string entity @e[tag=a,limit=1] nope
+data modify entity @e[tag=c,limit=1] Pose merge string entity @e[tag=a,limit=1] Tags[0] 99
+data modify entity @e[tag=c,limit=1] Pose merge string block 2 -60 0 Items[0].id
+data modify entity @e[tag=c,limit=1] Pose merge string block 2 -60 0
+data modify entity @e[tag=c,limit=1] Pose merge string block 2 -60 0 Items[0].id 1
+data modify entity @e[tag=c,limit=1] Pose merge string block 2 -60 0 Items[0].id 1 2
+data modify entity @e[tag=c,limit=1] Pose merge string block 2 -60 0 nope
+data modify entity @e[tag=c,limit=1] Pose merge string block 2 -60 0 Items[0].id 99
+data modify entity @e[tag=c,limit=1] Pose merge compute default integer {type:"minecraft:constant",value:5}
+data modify entity @e[tag=c,limit=1] Pose merge compute default float {type:"minecraft:constant",value:2.5}
+data modify entity @e[tag=c,limit=1] Pose merge compute default float {type:"minecraft:constant",value:2.5} 2.0
+data modify entity @e[tag=c,limit=1] Pose merge compute default integer {type:"minecraft:nope"}
+data modify entity @e[tag=c,limit=1] Pose merge compute default float {type:"minecraft:nope"} 2
+data modify entity @e[tag=c,limit=1] Pose merge compute block 2 -60 0 integer {type:"minecraft:constant",value:5}
+data modify entity @e[tag=c,limit=1] Pose merge compute block 2 -60 0 float {type:"minecraft:constant",value:2.5}
+data modify entity @e[tag=c,limit=1] Pose merge compute block 2 -60 0 float {type:"minecraft:constant",value:2.5} 2.0
+data modify entity @e[tag=c,limit=1] Pose merge compute block 2 -60 0 integer {type:"minecraft:nope"}
+data modify entity @e[tag=c,limit=1] Pose merge compute block 2 -60 0 float {type:"minecraft:nope"} 2
+data modify entity @e[tag=c,limit=1] Pose merge compute entity @e[tag=a,limit=1] integer {type:"minecraft:constant",value:5}
+data modify entity @e[tag=c,limit=1] Pose merge compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5}
+data modify entity @e[tag=c,limit=1] Pose merge compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5} 2.0
+data modify entity @e[tag=c,limit=1] Pose merge compute entity @e[tag=a,limit=1] integer {type:"minecraft:nope"}
+data modify entity @e[tag=c,limit=1] Pose merge compute entity @e[tag=a,limit=1] float {type:"minecraft:nope"} 2
+data get entity @e[tag=c,limit=1] Pose
+
+# ---- entity append ----
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data modify entity @e[tag=c,limit=1] Tags append value "x"
+data modify entity @e[tag=c,limit=1] Tags append value {
+data modify entity @e[tag=c,limit=1] Tags append from storage t:s
+data modify entity @e[tag=c,limit=1] Tags append from storage t:s s
+data modify entity @e[tag=c,limit=1] Tags append from storage t:s nope
+data modify entity @e[tag=c,limit=1] Tags append from entity @e[tag=a,limit=1]
+data modify entity @e[tag=c,limit=1] Tags append from entity @e[tag=a,limit=1] Tags[0]
+data modify entity @e[tag=c,limit=1] Tags append from entity @e[tag=a,limit=1] nope
+data modify entity @e[tag=c,limit=1] Tags append from block 2 -60 0
+data modify entity @e[tag=c,limit=1] Tags append from block 2 -60 0 Items[0].id
+data modify entity @e[tag=c,limit=1] Tags append from block 2 -60 0 nope
+data modify entity @e[tag=c,limit=1] Tags append string storage t:s s
+data modify entity @e[tag=c,limit=1] Tags append string storage t:s
+data modify entity @e[tag=c,limit=1] Tags append string storage t:s s 1
+data modify entity @e[tag=c,limit=1] Tags append string storage t:s s 1 2
+data modify entity @e[tag=c,limit=1] Tags append string storage t:s nope
+data modify entity @e[tag=c,limit=1] Tags append string storage t:s s 99
+data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=a,limit=1] Tags[0]
+data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=a,limit=1]
+data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=a,limit=1] Tags[0] 1
+data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=a,limit=1] Tags[0] 1 2
+data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=a,limit=1] nope
+data modify entity @e[tag=c,limit=1] Tags append string entity @e[tag=a,limit=1] Tags[0] 99
+data modify entity @e[tag=c,limit=1] Tags append string block 2 -60 0 Items[0].id
+data modify entity @e[tag=c,limit=1] Tags append string block 2 -60 0
+data modify entity @e[tag=c,limit=1] Tags append string block 2 -60 0 Items[0].id 1
+data modify entity @e[tag=c,limit=1] Tags append string block 2 -60 0 Items[0].id 1 2
+data modify entity @e[tag=c,limit=1] Tags append string block 2 -60 0 nope
+data modify entity @e[tag=c,limit=1] Tags append string block 2 -60 0 Items[0].id 99
+data modify entity @e[tag=c,limit=1] Tags append compute default integer {type:"minecraft:constant",value:5}
+data modify entity @e[tag=c,limit=1] Tags append compute default float {type:"minecraft:constant",value:2.5}
+data modify entity @e[tag=c,limit=1] Tags append compute default float {type:"minecraft:constant",value:2.5} 2.0
+data modify entity @e[tag=c,limit=1] Tags append compute default integer {type:"minecraft:nope"}
+data modify entity @e[tag=c,limit=1] Tags append compute default float {type:"minecraft:nope"} 2
+data modify entity @e[tag=c,limit=1] Tags append compute block 2 -60 0 integer {type:"minecraft:constant",value:5}
+data modify entity @e[tag=c,limit=1] Tags append compute block 2 -60 0 float {type:"minecraft:constant",value:2.5}
+data modify entity @e[tag=c,limit=1] Tags append compute block 2 -60 0 float {type:"minecraft:constant",value:2.5} 2.0
+data modify entity @e[tag=c,limit=1] Tags append compute block 2 -60 0 integer {type:"minecraft:nope"}
+data modify entity @e[tag=c,limit=1] Tags append compute block 2 -60 0 float {type:"minecraft:nope"} 2
+data modify entity @e[tag=c,limit=1] Tags append compute entity @e[tag=a,limit=1] integer {type:"minecraft:constant",value:5}
+data modify entity @e[tag=c,limit=1] Tags append compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5}
+data modify entity @e[tag=c,limit=1] Tags append compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5} 2.0
+data modify entity @e[tag=c,limit=1] Tags append compute entity @e[tag=a,limit=1] integer {type:"minecraft:nope"}
+data modify entity @e[tag=c,limit=1] Tags append compute entity @e[tag=a,limit=1] float {type:"minecraft:nope"} 2
+data get entity @e[tag=c,limit=1] Tags
+
+# ---- entity prepend ----
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data modify entity @e[tag=c,limit=1] Tags prepend value "x"
+data modify entity @e[tag=c,limit=1] Tags prepend value {
+data modify entity @e[tag=c,limit=1] Tags prepend from storage t:s
+data modify entity @e[tag=c,limit=1] Tags prepend from storage t:s s
+data modify entity @e[tag=c,limit=1] Tags prepend from storage t:s nope
+data modify entity @e[tag=c,limit=1] Tags prepend from entity @e[tag=a,limit=1]
+data modify entity @e[tag=c,limit=1] Tags prepend from entity @e[tag=a,limit=1] Tags[0]
+data modify entity @e[tag=c,limit=1] Tags prepend from entity @e[tag=a,limit=1] nope
+data modify entity @e[tag=c,limit=1] Tags prepend from block 2 -60 0
+data modify entity @e[tag=c,limit=1] Tags prepend from block 2 -60 0 Items[0].id
+data modify entity @e[tag=c,limit=1] Tags prepend from block 2 -60 0 nope
+data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s s
+data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s
+data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s s 1
+data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s s 1 2
+data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s nope
+data modify entity @e[tag=c,limit=1] Tags prepend string storage t:s s 99
+data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=a,limit=1] Tags[0]
+data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=a,limit=1]
+data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=a,limit=1] Tags[0] 1
+data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=a,limit=1] Tags[0] 1 2
+data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=a,limit=1] nope
+data modify entity @e[tag=c,limit=1] Tags prepend string entity @e[tag=a,limit=1] Tags[0] 99
+data modify entity @e[tag=c,limit=1] Tags prepend string block 2 -60 0 Items[0].id
+data modify entity @e[tag=c,limit=1] Tags prepend string block 2 -60 0
+data modify entity @e[tag=c,limit=1] Tags prepend string block 2 -60 0 Items[0].id 1
+data modify entity @e[tag=c,limit=1] Tags prepend string block 2 -60 0 Items[0].id 1 2
+data modify entity @e[tag=c,limit=1] Tags prepend string block 2 -60 0 nope
+data modify entity @e[tag=c,limit=1] Tags prepend string block 2 -60 0 Items[0].id 99
+data modify entity @e[tag=c,limit=1] Tags prepend compute default integer {type:"minecraft:constant",value:5}
+data modify entity @e[tag=c,limit=1] Tags prepend compute default float {type:"minecraft:constant",value:2.5}
+data modify entity @e[tag=c,limit=1] Tags prepend compute default float {type:"minecraft:constant",value:2.5} 2.0
+data modify entity @e[tag=c,limit=1] Tags prepend compute default integer {type:"minecraft:nope"}
+data modify entity @e[tag=c,limit=1] Tags prepend compute default float {type:"minecraft:nope"} 2
+data modify entity @e[tag=c,limit=1] Tags prepend compute block 2 -60 0 integer {type:"minecraft:constant",value:5}
+data modify entity @e[tag=c,limit=1] Tags prepend compute block 2 -60 0 float {type:"minecraft:constant",value:2.5}
+data modify entity @e[tag=c,limit=1] Tags prepend compute block 2 -60 0 float {type:"minecraft:constant",value:2.5} 2.0
+data modify entity @e[tag=c,limit=1] Tags prepend compute block 2 -60 0 integer {type:"minecraft:nope"}
+data modify entity @e[tag=c,limit=1] Tags prepend compute block 2 -60 0 float {type:"minecraft:nope"} 2
+data modify entity @e[tag=c,limit=1] Tags prepend compute entity @e[tag=a,limit=1] integer {type:"minecraft:constant",value:5}
+data modify entity @e[tag=c,limit=1] Tags prepend compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5}
+data modify entity @e[tag=c,limit=1] Tags prepend compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5} 2.0
+data modify entity @e[tag=c,limit=1] Tags prepend compute entity @e[tag=a,limit=1] integer {type:"minecraft:nope"}
+data modify entity @e[tag=c,limit=1] Tags prepend compute entity @e[tag=a,limit=1] float {type:"minecraft:nope"} 2
+data get entity @e[tag=c,limit=1] Tags
+
+# ---- entity insert ----
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data modify entity @e[tag=c,limit=1] Tags insert 0 value "x"
+data modify entity @e[tag=c,limit=1] Tags insert 0 value {
+data modify entity @e[tag=c,limit=1] Tags insert 0 from storage t:s
+data modify entity @e[tag=c,limit=1] Tags insert 0 from storage t:s s
+data modify entity @e[tag=c,limit=1] Tags insert 0 from storage t:s nope
+data modify entity @e[tag=c,limit=1] Tags insert 0 from entity @e[tag=a,limit=1]
+data modify entity @e[tag=c,limit=1] Tags insert 0 from entity @e[tag=a,limit=1] Tags[0]
+data modify entity @e[tag=c,limit=1] Tags insert 0 from entity @e[tag=a,limit=1] nope
+data modify entity @e[tag=c,limit=1] Tags insert 0 from block 2 -60 0
+data modify entity @e[tag=c,limit=1] Tags insert 0 from block 2 -60 0 Items[0].id
+data modify entity @e[tag=c,limit=1] Tags insert 0 from block 2 -60 0 nope
+data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s s
+data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s
+data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s s 1
+data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s s 1 2
+data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s nope
+data modify entity @e[tag=c,limit=1] Tags insert 0 string storage t:s s 99
+data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=a,limit=1] Tags[0]
+data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=a,limit=1]
+data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=a,limit=1] Tags[0] 1
+data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=a,limit=1] Tags[0] 1 2
+data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=a,limit=1] nope
+data modify entity @e[tag=c,limit=1] Tags insert 0 string entity @e[tag=a,limit=1] Tags[0] 99
+data modify entity @e[tag=c,limit=1] Tags insert 0 string block 2 -60 0 Items[0].id
+data modify entity @e[tag=c,limit=1] Tags insert 0 string block 2 -60 0
+data modify entity @e[tag=c,limit=1] Tags insert 0 string block 2 -60 0 Items[0].id 1
+data modify entity @e[tag=c,limit=1] Tags insert 0 string block 2 -60 0 Items[0].id 1 2
+data modify entity @e[tag=c,limit=1] Tags insert 0 string block 2 -60 0 nope
+data modify entity @e[tag=c,limit=1] Tags insert 0 string block 2 -60 0 Items[0].id 99
+data modify entity @e[tag=c,limit=1] Tags insert 0 compute default integer {type:"minecraft:constant",value:5}
+data modify entity @e[tag=c,limit=1] Tags insert 0 compute default float {type:"minecraft:constant",value:2.5}
+data modify entity @e[tag=c,limit=1] Tags insert 0 compute default float {type:"minecraft:constant",value:2.5} 2.0
+data modify entity @e[tag=c,limit=1] Tags insert 0 compute default integer {type:"minecraft:nope"}
+data modify entity @e[tag=c,limit=1] Tags insert 0 compute default float {type:"minecraft:nope"} 2
+data modify entity @e[tag=c,limit=1] Tags insert 0 compute block 2 -60 0 integer {type:"minecraft:constant",value:5}
+data modify entity @e[tag=c,limit=1] Tags insert 0 compute block 2 -60 0 float {type:"minecraft:constant",value:2.5}
+data modify entity @e[tag=c,limit=1] Tags insert 0 compute block 2 -60 0 float {type:"minecraft:constant",value:2.5} 2.0
+data modify entity @e[tag=c,limit=1] Tags insert 0 compute block 2 -60 0 integer {type:"minecraft:nope"}
+data modify entity @e[tag=c,limit=1] Tags insert 0 compute block 2 -60 0 float {type:"minecraft:nope"} 2
+data modify entity @e[tag=c,limit=1] Tags insert 0 compute entity @e[tag=a,limit=1] integer {type:"minecraft:constant",value:5}
+data modify entity @e[tag=c,limit=1] Tags insert 0 compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5}
+data modify entity @e[tag=c,limit=1] Tags insert 0 compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5} 2.0
+data modify entity @e[tag=c,limit=1] Tags insert 0 compute entity @e[tag=a,limit=1] integer {type:"minecraft:nope"}
+data modify entity @e[tag=c,limit=1] Tags insert 0 compute entity @e[tag=a,limit=1] float {type:"minecraft:nope"} 2
+data get entity @e[tag=c,limit=1] Tags
+
+# ---- block set ----
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data modify block 0 -60 0 CustomName set value "x"
+data modify block 0 -60 0 CustomName set value {
+data modify block 0 -60 0 CustomName set from storage t:s
+data modify block 0 -60 0 CustomName set from storage t:s s
+data modify block 0 -60 0 CustomName set from storage t:s nope
+data modify block 0 -60 0 CustomName set from entity @e[tag=a,limit=1]
+data modify block 0 -60 0 CustomName set from entity @e[tag=a,limit=1] Tags[0]
+data modify block 0 -60 0 CustomName set from entity @e[tag=a,limit=1] nope
+data modify block 0 -60 0 CustomName set from block 2 -60 0
+data modify block 0 -60 0 CustomName set from block 2 -60 0 Items[0].id
+data modify block 0 -60 0 CustomName set from block 2 -60 0 nope
+data modify block 0 -60 0 CustomName set string storage t:s s
+data modify block 0 -60 0 CustomName set string storage t:s
+data modify block 0 -60 0 CustomName set string storage t:s s 1
+data modify block 0 -60 0 CustomName set string storage t:s s 1 2
+data modify block 0 -60 0 CustomName set string storage t:s nope
+data modify block 0 -60 0 CustomName set string storage t:s s 99
+data modify block 0 -60 0 CustomName set string entity @e[tag=a,limit=1] Tags[0]
+data modify block 0 -60 0 CustomName set string entity @e[tag=a,limit=1]
+data modify block 0 -60 0 CustomName set string entity @e[tag=a,limit=1] Tags[0] 1
+data modify block 0 -60 0 CustomName set string entity @e[tag=a,limit=1] Tags[0] 1 2
+data modify block 0 -60 0 CustomName set string entity @e[tag=a,limit=1] nope
+data modify block 0 -60 0 CustomName set string entity @e[tag=a,limit=1] Tags[0] 99
+data modify block 0 -60 0 CustomName set string block 2 -60 0 Items[0].id
+data modify block 0 -60 0 CustomName set string block 2 -60 0
+data modify block 0 -60 0 CustomName set string block 2 -60 0 Items[0].id 1
+data modify block 0 -60 0 CustomName set string block 2 -60 0 Items[0].id 1 2
+data modify block 0 -60 0 CustomName set string block 2 -60 0 nope
+data modify block 0 -60 0 CustomName set string block 2 -60 0 Items[0].id 99
+data modify block 0 -60 0 CustomName set compute default integer {type:"minecraft:constant",value:5}
+data modify block 0 -60 0 CustomName set compute default float {type:"minecraft:constant",value:2.5}
+data modify block 0 -60 0 CustomName set compute default float {type:"minecraft:constant",value:2.5} 2.0
+data modify block 0 -60 0 CustomName set compute default integer {type:"minecraft:nope"}
+data modify block 0 -60 0 CustomName set compute default float {type:"minecraft:nope"} 2
+data modify block 0 -60 0 CustomName set compute block 2 -60 0 integer {type:"minecraft:constant",value:5}
+data modify block 0 -60 0 CustomName set compute block 2 -60 0 float {type:"minecraft:constant",value:2.5}
+data modify block 0 -60 0 CustomName set compute block 2 -60 0 float {type:"minecraft:constant",value:2.5} 2.0
+data modify block 0 -60 0 CustomName set compute block 2 -60 0 integer {type:"minecraft:nope"}
+data modify block 0 -60 0 CustomName set compute block 2 -60 0 float {type:"minecraft:nope"} 2
+data modify block 0 -60 0 CustomName set compute entity @e[tag=a,limit=1] integer {type:"minecraft:constant",value:5}
+data modify block 0 -60 0 CustomName set compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5}
+data modify block 0 -60 0 CustomName set compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5} 2.0
+data modify block 0 -60 0 CustomName set compute entity @e[tag=a,limit=1] integer {type:"minecraft:nope"}
+data modify block 0 -60 0 CustomName set compute entity @e[tag=a,limit=1] float {type:"minecraft:nope"} 2
+data get block 0 -60 0 CustomName
+
+# ---- block merge ----
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data modify block 0 -60 0 Items[0] merge value {a:1}
+data modify block 0 -60 0 Items[0] merge value {
+data modify block 0 -60 0 Items[0] merge from storage t:s
+data modify block 0 -60 0 Items[0] merge from storage t:s c
+data modify block 0 -60 0 Items[0] merge from storage t:s nope
+data modify block 0 -60 0 Items[0] merge from entity @e[tag=a,limit=1]
+data modify block 0 -60 0 Items[0] merge from entity @e[tag=a,limit=1] Pose
+data modify block 0 -60 0 Items[0] merge from entity @e[tag=a,limit=1] nope
+data modify block 0 -60 0 Items[0] merge from block 2 -60 0
+data modify block 0 -60 0 Items[0] merge from block 2 -60 0 Items[0]
+data modify block 0 -60 0 Items[0] merge from block 2 -60 0 nope
+data modify block 0 -60 0 Items[0] merge string storage t:s s
+data modify block 0 -60 0 Items[0] merge string storage t:s
+data modify block 0 -60 0 Items[0] merge string storage t:s s 1
+data modify block 0 -60 0 Items[0] merge string storage t:s s 1 2
+data modify block 0 -60 0 Items[0] merge string storage t:s nope
+data modify block 0 -60 0 Items[0] merge string storage t:s s 99
+data modify block 0 -60 0 Items[0] merge string entity @e[tag=a,limit=1] Tags[0]
+data modify block 0 -60 0 Items[0] merge string entity @e[tag=a,limit=1]
+data modify block 0 -60 0 Items[0] merge string entity @e[tag=a,limit=1] Tags[0] 1
+data modify block 0 -60 0 Items[0] merge string entity @e[tag=a,limit=1] Tags[0] 1 2
+data modify block 0 -60 0 Items[0] merge string entity @e[tag=a,limit=1] nope
+data modify block 0 -60 0 Items[0] merge string entity @e[tag=a,limit=1] Tags[0] 99
+data modify block 0 -60 0 Items[0] merge string block 2 -60 0 Items[0].id
+data modify block 0 -60 0 Items[0] merge string block 2 -60 0
+data modify block 0 -60 0 Items[0] merge string block 2 -60 0 Items[0].id 1
+data modify block 0 -60 0 Items[0] merge string block 2 -60 0 Items[0].id 1 2
+data modify block 0 -60 0 Items[0] merge string block 2 -60 0 nope
+data modify block 0 -60 0 Items[0] merge string block 2 -60 0 Items[0].id 99
+data modify block 0 -60 0 Items[0] merge compute default integer {type:"minecraft:constant",value:5}
+data modify block 0 -60 0 Items[0] merge compute default float {type:"minecraft:constant",value:2.5}
+data modify block 0 -60 0 Items[0] merge compute default float {type:"minecraft:constant",value:2.5} 2.0
+data modify block 0 -60 0 Items[0] merge compute default integer {type:"minecraft:nope"}
+data modify block 0 -60 0 Items[0] merge compute default float {type:"minecraft:nope"} 2
+data modify block 0 -60 0 Items[0] merge compute block 2 -60 0 integer {type:"minecraft:constant",value:5}
+data modify block 0 -60 0 Items[0] merge compute block 2 -60 0 float {type:"minecraft:constant",value:2.5}
+data modify block 0 -60 0 Items[0] merge compute block 2 -60 0 float {type:"minecraft:constant",value:2.5} 2.0
+data modify block 0 -60 0 Items[0] merge compute block 2 -60 0 integer {type:"minecraft:nope"}
+data modify block 0 -60 0 Items[0] merge compute block 2 -60 0 float {type:"minecraft:nope"} 2
+data modify block 0 -60 0 Items[0] merge compute entity @e[tag=a,limit=1] integer {type:"minecraft:constant",value:5}
+data modify block 0 -60 0 Items[0] merge compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5}
+data modify block 0 -60 0 Items[0] merge compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5} 2.0
+data modify block 0 -60 0 Items[0] merge compute entity @e[tag=a,limit=1] integer {type:"minecraft:nope"}
+data modify block 0 -60 0 Items[0] merge compute entity @e[tag=a,limit=1] float {type:"minecraft:nope"} 2
+data get block 0 -60 0 Items[0]
+
+# ---- block append ----
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data modify block 0 -60 0 Items append value {a:1}
+data modify block 0 -60 0 Items append value {
+data modify block 0 -60 0 Items append from storage t:s
+data modify block 0 -60 0 Items append from storage t:s c
+data modify block 0 -60 0 Items append from storage t:s nope
+data modify block 0 -60 0 Items append from entity @e[tag=a,limit=1]
+data modify block 0 -60 0 Items append from entity @e[tag=a,limit=1] Pose
+data modify block 0 -60 0 Items append from entity @e[tag=a,limit=1] nope
+data modify block 0 -60 0 Items append from block 2 -60 0
+data modify block 0 -60 0 Items append from block 2 -60 0 Items[0]
+data modify block 0 -60 0 Items append from block 2 -60 0 nope
+data modify block 0 -60 0 Items append string storage t:s s
+data modify block 0 -60 0 Items append string storage t:s
+data modify block 0 -60 0 Items append string storage t:s s 1
+data modify block 0 -60 0 Items append string storage t:s s 1 2
+data modify block 0 -60 0 Items append string storage t:s nope
+data modify block 0 -60 0 Items append string storage t:s s 99
+data modify block 0 -60 0 Items append string entity @e[tag=a,limit=1] Tags[0]
+data modify block 0 -60 0 Items append string entity @e[tag=a,limit=1]
+data modify block 0 -60 0 Items append string entity @e[tag=a,limit=1] Tags[0] 1
+data modify block 0 -60 0 Items append string entity @e[tag=a,limit=1] Tags[0] 1 2
+data modify block 0 -60 0 Items append string entity @e[tag=a,limit=1] nope
+data modify block 0 -60 0 Items append string entity @e[tag=a,limit=1] Tags[0] 99
+data modify block 0 -60 0 Items append string block 2 -60 0 Items[0].id
+data modify block 0 -60 0 Items append string block 2 -60 0
+data modify block 0 -60 0 Items append string block 2 -60 0 Items[0].id 1
+data modify block 0 -60 0 Items append string block 2 -60 0 Items[0].id 1 2
+data modify block 0 -60 0 Items append string block 2 -60 0 nope
+data modify block 0 -60 0 Items append string block 2 -60 0 Items[0].id 99
+data modify block 0 -60 0 Items append compute default integer {type:"minecraft:constant",value:5}
+data modify block 0 -60 0 Items append compute default float {type:"minecraft:constant",value:2.5}
+data modify block 0 -60 0 Items append compute default float {type:"minecraft:constant",value:2.5} 2.0
+data modify block 0 -60 0 Items append compute default integer {type:"minecraft:nope"}
+data modify block 0 -60 0 Items append compute default float {type:"minecraft:nope"} 2
+data modify block 0 -60 0 Items append compute block 2 -60 0 integer {type:"minecraft:constant",value:5}
+data modify block 0 -60 0 Items append compute block 2 -60 0 float {type:"minecraft:constant",value:2.5}
+data modify block 0 -60 0 Items append compute block 2 -60 0 float {type:"minecraft:constant",value:2.5} 2.0
+data modify block 0 -60 0 Items append compute block 2 -60 0 integer {type:"minecraft:nope"}
+data modify block 0 -60 0 Items append compute block 2 -60 0 float {type:"minecraft:nope"} 2
+data modify block 0 -60 0 Items append compute entity @e[tag=a,limit=1] integer {type:"minecraft:constant",value:5}
+data modify block 0 -60 0 Items append compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5}
+data modify block 0 -60 0 Items append compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5} 2.0
+data modify block 0 -60 0 Items append compute entity @e[tag=a,limit=1] integer {type:"minecraft:nope"}
+data modify block 0 -60 0 Items append compute entity @e[tag=a,limit=1] float {type:"minecraft:nope"} 2
+data get block 0 -60 0 Items
+
+# ---- block prepend ----
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data modify block 0 -60 0 Items prepend value {a:1}
+data modify block 0 -60 0 Items prepend value {
+data modify block 0 -60 0 Items prepend from storage t:s
+data modify block 0 -60 0 Items prepend from storage t:s c
+data modify block 0 -60 0 Items prepend from storage t:s nope
+data modify block 0 -60 0 Items prepend from entity @e[tag=a,limit=1]
+data modify block 0 -60 0 Items prepend from entity @e[tag=a,limit=1] Pose
+data modify block 0 -60 0 Items prepend from entity @e[tag=a,limit=1] nope
+data modify block 0 -60 0 Items prepend from block 2 -60 0
+data modify block 0 -60 0 Items prepend from block 2 -60 0 Items[0]
+data modify block 0 -60 0 Items prepend from block 2 -60 0 nope
+data modify block 0 -60 0 Items prepend string storage t:s s
+data modify block 0 -60 0 Items prepend string storage t:s
+data modify block 0 -60 0 Items prepend string storage t:s s 1
+data modify block 0 -60 0 Items prepend string storage t:s s 1 2
+data modify block 0 -60 0 Items prepend string storage t:s nope
+data modify block 0 -60 0 Items prepend string storage t:s s 99
+data modify block 0 -60 0 Items prepend string entity @e[tag=a,limit=1] Tags[0]
+data modify block 0 -60 0 Items prepend string entity @e[tag=a,limit=1]
+data modify block 0 -60 0 Items prepend string entity @e[tag=a,limit=1] Tags[0] 1
+data modify block 0 -60 0 Items prepend string entity @e[tag=a,limit=1] Tags[0] 1 2
+data modify block 0 -60 0 Items prepend string entity @e[tag=a,limit=1] nope
+data modify block 0 -60 0 Items prepend string entity @e[tag=a,limit=1] Tags[0] 99
+data modify block 0 -60 0 Items prepend string block 2 -60 0 Items[0].id
+data modify block 0 -60 0 Items prepend string block 2 -60 0
+data modify block 0 -60 0 Items prepend string block 2 -60 0 Items[0].id 1
+data modify block 0 -60 0 Items prepend string block 2 -60 0 Items[0].id 1 2
+data modify block 0 -60 0 Items prepend string block 2 -60 0 nope
+data modify block 0 -60 0 Items prepend string block 2 -60 0 Items[0].id 99
+data modify block 0 -60 0 Items prepend compute default integer {type:"minecraft:constant",value:5}
+data modify block 0 -60 0 Items prepend compute default float {type:"minecraft:constant",value:2.5}
+data modify block 0 -60 0 Items prepend compute default float {type:"minecraft:constant",value:2.5} 2.0
+data modify block 0 -60 0 Items prepend compute default integer {type:"minecraft:nope"}
+data modify block 0 -60 0 Items prepend compute default float {type:"minecraft:nope"} 2
+data modify block 0 -60 0 Items prepend compute block 2 -60 0 integer {type:"minecraft:constant",value:5}
+data modify block 0 -60 0 Items prepend compute block 2 -60 0 float {type:"minecraft:constant",value:2.5}
+data modify block 0 -60 0 Items prepend compute block 2 -60 0 float {type:"minecraft:constant",value:2.5} 2.0
+data modify block 0 -60 0 Items prepend compute block 2 -60 0 integer {type:"minecraft:nope"}
+data modify block 0 -60 0 Items prepend compute block 2 -60 0 float {type:"minecraft:nope"} 2
+data modify block 0 -60 0 Items prepend compute entity @e[tag=a,limit=1] integer {type:"minecraft:constant",value:5}
+data modify block 0 -60 0 Items prepend compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5}
+data modify block 0 -60 0 Items prepend compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5} 2.0
+data modify block 0 -60 0 Items prepend compute entity @e[tag=a,limit=1] integer {type:"minecraft:nope"}
+data modify block 0 -60 0 Items prepend compute entity @e[tag=a,limit=1] float {type:"minecraft:nope"} 2
+data get block 0 -60 0 Items
+
+# ---- block insert ----
+data merge storage t:w {l:[1,2,3],v:0,c:{a:1}}
+data modify block 0 -60 0 Items insert 0 value {a:1}
+data modify block 0 -60 0 Items insert 0 value {
+data modify block 0 -60 0 Items insert 0 from storage t:s
+data modify block 0 -60 0 Items insert 0 from storage t:s c
+data modify block 0 -60 0 Items insert 0 from storage t:s nope
+data modify block 0 -60 0 Items insert 0 from entity @e[tag=a,limit=1]
+data modify block 0 -60 0 Items insert 0 from entity @e[tag=a,limit=1] Pose
+data modify block 0 -60 0 Items insert 0 from entity @e[tag=a,limit=1] nope
+data modify block 0 -60 0 Items insert 0 from block 2 -60 0
+data modify block 0 -60 0 Items insert 0 from block 2 -60 0 Items[0]
+data modify block 0 -60 0 Items insert 0 from block 2 -60 0 nope
+data modify block 0 -60 0 Items insert 0 string storage t:s s
+data modify block 0 -60 0 Items insert 0 string storage t:s
+data modify block 0 -60 0 Items insert 0 string storage t:s s 1
+data modify block 0 -60 0 Items insert 0 string storage t:s s 1 2
+data modify block 0 -60 0 Items insert 0 string storage t:s nope
+data modify block 0 -60 0 Items insert 0 string storage t:s s 99
+data modify block 0 -60 0 Items insert 0 string entity @e[tag=a,limit=1] Tags[0]
+data modify block 0 -60 0 Items insert 0 string entity @e[tag=a,limit=1]
+data modify block 0 -60 0 Items insert 0 string entity @e[tag=a,limit=1] Tags[0] 1
+data modify block 0 -60 0 Items insert 0 string entity @e[tag=a,limit=1] Tags[0] 1 2
+data modify block 0 -60 0 Items insert 0 string entity @e[tag=a,limit=1] nope
+data modify block 0 -60 0 Items insert 0 string entity @e[tag=a,limit=1] Tags[0] 99
+data modify block 0 -60 0 Items insert 0 string block 2 -60 0 Items[0].id
+data modify block 0 -60 0 Items insert 0 string block 2 -60 0
+data modify block 0 -60 0 Items insert 0 string block 2 -60 0 Items[0].id 1
+data modify block 0 -60 0 Items insert 0 string block 2 -60 0 Items[0].id 1 2
+data modify block 0 -60 0 Items insert 0 string block 2 -60 0 nope
+data modify block 0 -60 0 Items insert 0 string block 2 -60 0 Items[0].id 99
+data modify block 0 -60 0 Items insert 0 compute default integer {type:"minecraft:constant",value:5}
+data modify block 0 -60 0 Items insert 0 compute default float {type:"minecraft:constant",value:2.5}
+data modify block 0 -60 0 Items insert 0 compute default float {type:"minecraft:constant",value:2.5} 2.0
+data modify block 0 -60 0 Items insert 0 compute default integer {type:"minecraft:nope"}
+data modify block 0 -60 0 Items insert 0 compute default float {type:"minecraft:nope"} 2
+data modify block 0 -60 0 Items insert 0 compute block 2 -60 0 integer {type:"minecraft:constant",value:5}
+data modify block 0 -60 0 Items insert 0 compute block 2 -60 0 float {type:"minecraft:constant",value:2.5}
+data modify block 0 -60 0 Items insert 0 compute block 2 -60 0 float {type:"minecraft:constant",value:2.5} 2.0
+data modify block 0 -60 0 Items insert 0 compute block 2 -60 0 integer {type:"minecraft:nope"}
+data modify block 0 -60 0 Items insert 0 compute block 2 -60 0 float {type:"minecraft:nope"} 2
+data modify block 0 -60 0 Items insert 0 compute entity @e[tag=a,limit=1] integer {type:"minecraft:constant",value:5}
+data modify block 0 -60 0 Items insert 0 compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5}
+data modify block 0 -60 0 Items insert 0 compute entity @e[tag=a,limit=1] float {type:"minecraft:constant",value:2.5} 2.0
+data modify block 0 -60 0 Items insert 0 compute entity @e[tag=a,limit=1] integer {type:"minecraft:nope"}
+data modify block 0 -60 0 Items insert 0 compute entity @e[tag=a,limit=1] float {type:"minecraft:nope"} 2
+data get block 0 -60 0 Items
+

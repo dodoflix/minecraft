@@ -1,0 +1,689 @@
+# /item fill and /item override (and /item replace) on blocks and entities: with <item> and from block/entity sources, success and error.
+# Flat world, creative; Bot = op at 0.5 -60 0.5, Bot0 = level 0.
+
+gamerule spawn_mobs false
+
+# ---- setup ----
+clear Bot
+setblock 0 -60 3 minecraft:chest{Items:[{Slot:0b,id:"minecraft:apple",count:3},{Slot:1b,id:"minecraft:stone",count:7}]}
+setblock 0 -60 4 minecraft:chest{Items:[{Slot:0b,id:"minecraft:diamond",count:2},{Slot:5b,id:"minecraft:dirt",count:9}]}
+setblock 2 -60 3 minecraft:furnace
+summon minecraft:armor_stand 8 -60 6 {NoGravity:1b,Tags:["s"]}
+give Bot minecraft:cobblestone 9
+
+# ---- replace block 0 -60 3 ----
+item replace block 0 -60 3 container.0 with minecraft:stick
+item replace block 0 -60 3 container.0 with minecraft:stick 5
+item replace block 0 -60 3 container.0 with minecraft:stick 0
+item replace block 0 -60 3 container.0 with minecraft:nope
+item replace block 0 -60 3 container.0 from block 0 -60 4 container.0
+item replace block 0 -60 3 container.0 from block 0 -60 4 container.*
+item replace block 0 -60 3 container.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item replace block 0 -60 3 container.0 from block 0 -60 9 container.0
+item replace block 0 -60 3 container.0 from entity Bot hotbar.0
+item replace block 0 -60 3 container.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item replace block 0 -60 3 container.0 from entity nobody hotbar.0
+item replace block 0 -60 3 container.0 from entity Bot nope.0
+item replace block 0 -60 3 container.0 from entity Bot hotbar.0 minecraft:nope
+item replace block 0 -60 3 container.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item replace block 0 -60 3 container.0
+item replace block 0 -60 3 container.* with minecraft:stick
+item replace block 0 -60 3 container.* with minecraft:stick 5
+item replace block 0 -60 3 container.* with minecraft:stick 0
+item replace block 0 -60 3 container.* with minecraft:nope
+item replace block 0 -60 3 container.* from block 0 -60 4 container.0
+item replace block 0 -60 3 container.* from block 0 -60 4 container.*
+item replace block 0 -60 3 container.* from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item replace block 0 -60 3 container.* from block 0 -60 9 container.0
+item replace block 0 -60 3 container.* from entity Bot hotbar.0
+item replace block 0 -60 3 container.* from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item replace block 0 -60 3 container.* from entity nobody hotbar.0
+item replace block 0 -60 3 container.* from entity Bot nope.0
+item replace block 0 -60 3 container.* from entity Bot hotbar.0 minecraft:nope
+item replace block 0 -60 3 container.* from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item replace block 0 -60 3 container.*
+item replace block 0 -60 3 container.30 with minecraft:stick
+item replace block 0 -60 3 container.30 with minecraft:stick 5
+item replace block 0 -60 3 container.30 with minecraft:stick 0
+item replace block 0 -60 3 container.30 with minecraft:nope
+item replace block 0 -60 3 container.30 from block 0 -60 4 container.0
+item replace block 0 -60 3 container.30 from block 0 -60 4 container.*
+item replace block 0 -60 3 container.30 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item replace block 0 -60 3 container.30 from block 0 -60 9 container.0
+item replace block 0 -60 3 container.30 from entity Bot hotbar.0
+item replace block 0 -60 3 container.30 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item replace block 0 -60 3 container.30 from entity nobody hotbar.0
+item replace block 0 -60 3 container.30 from entity Bot nope.0
+item replace block 0 -60 3 container.30 from entity Bot hotbar.0 minecraft:nope
+item replace block 0 -60 3 container.30 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item replace block 0 -60 3 container.30
+item replace block 0 -60 3 hotbar.0 with minecraft:stick
+item replace block 0 -60 3 hotbar.0 with minecraft:stick 5
+item replace block 0 -60 3 hotbar.0 with minecraft:stick 0
+item replace block 0 -60 3 hotbar.0 with minecraft:nope
+item replace block 0 -60 3 hotbar.0 from block 0 -60 4 container.0
+item replace block 0 -60 3 hotbar.0 from block 0 -60 4 container.*
+item replace block 0 -60 3 hotbar.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item replace block 0 -60 3 hotbar.0 from block 0 -60 9 container.0
+item replace block 0 -60 3 hotbar.0 from entity Bot hotbar.0
+item replace block 0 -60 3 hotbar.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item replace block 0 -60 3 hotbar.0 from entity nobody hotbar.0
+item replace block 0 -60 3 hotbar.0 from entity Bot nope.0
+item replace block 0 -60 3 hotbar.0 from entity Bot hotbar.0 minecraft:nope
+item replace block 0 -60 3 hotbar.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item replace block 0 -60 3 hotbar.0
+item replace block 0 -60 3 nope.0 with minecraft:stick
+item replace block 0 -60 3 container.0 with minecraft:stick extra
+clear Bot
+# ---- replace entity Bot ----
+item replace entity Bot container.0 with minecraft:stick
+item replace entity Bot container.0 with minecraft:stick 5
+item replace entity Bot container.0 with minecraft:stick 0
+item replace entity Bot container.0 with minecraft:nope
+item replace entity Bot container.0 from block 0 -60 4 container.0
+item replace entity Bot container.0 from block 0 -60 4 container.*
+item replace entity Bot container.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item replace entity Bot container.0 from block 0 -60 9 container.0
+item replace entity Bot container.0 from entity Bot hotbar.0
+item replace entity Bot container.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item replace entity Bot container.0 from entity nobody hotbar.0
+item replace entity Bot container.0 from entity Bot nope.0
+item replace entity Bot container.0 from entity Bot hotbar.0 minecraft:nope
+item replace entity Bot container.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item replace entity Bot container.0
+item replace entity Bot container.* with minecraft:stick
+item replace entity Bot container.* with minecraft:stick 5
+item replace entity Bot container.* with minecraft:stick 0
+item replace entity Bot container.* with minecraft:nope
+item replace entity Bot container.* from block 0 -60 4 container.0
+item replace entity Bot container.* from block 0 -60 4 container.*
+item replace entity Bot container.* from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item replace entity Bot container.* from block 0 -60 9 container.0
+item replace entity Bot container.* from entity Bot hotbar.0
+item replace entity Bot container.* from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item replace entity Bot container.* from entity nobody hotbar.0
+item replace entity Bot container.* from entity Bot nope.0
+item replace entity Bot container.* from entity Bot hotbar.0 minecraft:nope
+item replace entity Bot container.* from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item replace entity Bot container.*
+item replace entity Bot hotbar.0 with minecraft:stick
+item replace entity Bot hotbar.0 with minecraft:stick 5
+item replace entity Bot hotbar.0 with minecraft:stick 0
+item replace entity Bot hotbar.0 with minecraft:nope
+item replace entity Bot hotbar.0 from block 0 -60 4 container.0
+item replace entity Bot hotbar.0 from block 0 -60 4 container.*
+item replace entity Bot hotbar.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item replace entity Bot hotbar.0 from block 0 -60 9 container.0
+item replace entity Bot hotbar.0 from entity Bot hotbar.0
+item replace entity Bot hotbar.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item replace entity Bot hotbar.0 from entity nobody hotbar.0
+item replace entity Bot hotbar.0 from entity Bot nope.0
+item replace entity Bot hotbar.0 from entity Bot hotbar.0 minecraft:nope
+item replace entity Bot hotbar.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item replace entity Bot hotbar.0
+item replace entity Bot weapon.mainhand with minecraft:stick
+item replace entity Bot weapon.mainhand with minecraft:stick 5
+item replace entity Bot weapon.mainhand with minecraft:stick 0
+item replace entity Bot weapon.mainhand with minecraft:nope
+item replace entity Bot weapon.mainhand from block 0 -60 4 container.0
+item replace entity Bot weapon.mainhand from block 0 -60 4 container.*
+item replace entity Bot weapon.mainhand from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item replace entity Bot weapon.mainhand from block 0 -60 9 container.0
+item replace entity Bot weapon.mainhand from entity Bot hotbar.0
+item replace entity Bot weapon.mainhand from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item replace entity Bot weapon.mainhand from entity nobody hotbar.0
+item replace entity Bot weapon.mainhand from entity Bot nope.0
+item replace entity Bot weapon.mainhand from entity Bot hotbar.0 minecraft:nope
+item replace entity Bot weapon.mainhand from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item replace entity Bot weapon.mainhand
+item replace entity Bot armor.* with minecraft:stick
+item replace entity Bot armor.* with minecraft:stick 5
+item replace entity Bot armor.* with minecraft:stick 0
+item replace entity Bot armor.* with minecraft:nope
+item replace entity Bot armor.* from block 0 -60 4 container.0
+item replace entity Bot armor.* from block 0 -60 4 container.*
+item replace entity Bot armor.* from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item replace entity Bot armor.* from block 0 -60 9 container.0
+item replace entity Bot armor.* from entity Bot hotbar.0
+item replace entity Bot armor.* from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item replace entity Bot armor.* from entity nobody hotbar.0
+item replace entity Bot armor.* from entity Bot nope.0
+item replace entity Bot armor.* from entity Bot hotbar.0 minecraft:nope
+item replace entity Bot armor.* from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item replace entity Bot armor.*
+item replace entity Bot nope.0 with minecraft:stick
+item replace entity Bot container.0 with minecraft:stick extra
+clear Bot
+# ---- replace entity @e[tag=s,limit=1] ----
+item replace entity @e[tag=s,limit=1] container.0 with minecraft:stick
+item replace entity @e[tag=s,limit=1] container.0 with minecraft:stick 5
+item replace entity @e[tag=s,limit=1] container.0 with minecraft:stick 0
+item replace entity @e[tag=s,limit=1] container.0 with minecraft:nope
+item replace entity @e[tag=s,limit=1] container.0 from block 0 -60 4 container.0
+item replace entity @e[tag=s,limit=1] container.0 from block 0 -60 4 container.*
+item replace entity @e[tag=s,limit=1] container.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item replace entity @e[tag=s,limit=1] container.0 from block 0 -60 9 container.0
+item replace entity @e[tag=s,limit=1] container.0 from entity Bot hotbar.0
+item replace entity @e[tag=s,limit=1] container.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item replace entity @e[tag=s,limit=1] container.0 from entity nobody hotbar.0
+item replace entity @e[tag=s,limit=1] container.0 from entity Bot nope.0
+item replace entity @e[tag=s,limit=1] container.0 from entity Bot hotbar.0 minecraft:nope
+item replace entity @e[tag=s,limit=1] container.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item replace entity @e[tag=s,limit=1] container.0
+item replace entity @e[tag=s,limit=1] container.* with minecraft:stick
+item replace entity @e[tag=s,limit=1] container.* with minecraft:stick 5
+item replace entity @e[tag=s,limit=1] container.* with minecraft:stick 0
+item replace entity @e[tag=s,limit=1] container.* with minecraft:nope
+item replace entity @e[tag=s,limit=1] container.* from block 0 -60 4 container.0
+item replace entity @e[tag=s,limit=1] container.* from block 0 -60 4 container.*
+item replace entity @e[tag=s,limit=1] container.* from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item replace entity @e[tag=s,limit=1] container.* from block 0 -60 9 container.0
+item replace entity @e[tag=s,limit=1] container.* from entity Bot hotbar.0
+item replace entity @e[tag=s,limit=1] container.* from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item replace entity @e[tag=s,limit=1] container.* from entity nobody hotbar.0
+item replace entity @e[tag=s,limit=1] container.* from entity Bot nope.0
+item replace entity @e[tag=s,limit=1] container.* from entity Bot hotbar.0 minecraft:nope
+item replace entity @e[tag=s,limit=1] container.* from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item replace entity @e[tag=s,limit=1] container.*
+item replace entity @e[tag=s,limit=1] hotbar.0 with minecraft:stick
+item replace entity @e[tag=s,limit=1] hotbar.0 with minecraft:stick 5
+item replace entity @e[tag=s,limit=1] hotbar.0 with minecraft:stick 0
+item replace entity @e[tag=s,limit=1] hotbar.0 with minecraft:nope
+item replace entity @e[tag=s,limit=1] hotbar.0 from block 0 -60 4 container.0
+item replace entity @e[tag=s,limit=1] hotbar.0 from block 0 -60 4 container.*
+item replace entity @e[tag=s,limit=1] hotbar.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item replace entity @e[tag=s,limit=1] hotbar.0 from block 0 -60 9 container.0
+item replace entity @e[tag=s,limit=1] hotbar.0 from entity Bot hotbar.0
+item replace entity @e[tag=s,limit=1] hotbar.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item replace entity @e[tag=s,limit=1] hotbar.0 from entity nobody hotbar.0
+item replace entity @e[tag=s,limit=1] hotbar.0 from entity Bot nope.0
+item replace entity @e[tag=s,limit=1] hotbar.0 from entity Bot hotbar.0 minecraft:nope
+item replace entity @e[tag=s,limit=1] hotbar.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item replace entity @e[tag=s,limit=1] hotbar.0
+item replace entity @e[tag=s,limit=1] weapon.mainhand with minecraft:stick
+item replace entity @e[tag=s,limit=1] weapon.mainhand with minecraft:stick 5
+item replace entity @e[tag=s,limit=1] weapon.mainhand with minecraft:stick 0
+item replace entity @e[tag=s,limit=1] weapon.mainhand with minecraft:nope
+item replace entity @e[tag=s,limit=1] weapon.mainhand from block 0 -60 4 container.0
+item replace entity @e[tag=s,limit=1] weapon.mainhand from block 0 -60 4 container.*
+item replace entity @e[tag=s,limit=1] weapon.mainhand from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item replace entity @e[tag=s,limit=1] weapon.mainhand from block 0 -60 9 container.0
+item replace entity @e[tag=s,limit=1] weapon.mainhand from entity Bot hotbar.0
+item replace entity @e[tag=s,limit=1] weapon.mainhand from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item replace entity @e[tag=s,limit=1] weapon.mainhand from entity nobody hotbar.0
+item replace entity @e[tag=s,limit=1] weapon.mainhand from entity Bot nope.0
+item replace entity @e[tag=s,limit=1] weapon.mainhand from entity Bot hotbar.0 minecraft:nope
+item replace entity @e[tag=s,limit=1] weapon.mainhand from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item replace entity @e[tag=s,limit=1] weapon.mainhand
+item replace entity @e[tag=s,limit=1] armor.* with minecraft:stick
+item replace entity @e[tag=s,limit=1] armor.* with minecraft:stick 5
+item replace entity @e[tag=s,limit=1] armor.* with minecraft:stick 0
+item replace entity @e[tag=s,limit=1] armor.* with minecraft:nope
+item replace entity @e[tag=s,limit=1] armor.* from block 0 -60 4 container.0
+item replace entity @e[tag=s,limit=1] armor.* from block 0 -60 4 container.*
+item replace entity @e[tag=s,limit=1] armor.* from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item replace entity @e[tag=s,limit=1] armor.* from block 0 -60 9 container.0
+item replace entity @e[tag=s,limit=1] armor.* from entity Bot hotbar.0
+item replace entity @e[tag=s,limit=1] armor.* from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item replace entity @e[tag=s,limit=1] armor.* from entity nobody hotbar.0
+item replace entity @e[tag=s,limit=1] armor.* from entity Bot nope.0
+item replace entity @e[tag=s,limit=1] armor.* from entity Bot hotbar.0 minecraft:nope
+item replace entity @e[tag=s,limit=1] armor.* from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item replace entity @e[tag=s,limit=1] armor.*
+item replace entity @e[tag=s,limit=1] nope.0 with minecraft:stick
+item replace entity @e[tag=s,limit=1] container.0 with minecraft:stick extra
+clear Bot
+# ---- override block 0 -60 3 ----
+item override block 0 -60 3 container.0 with minecraft:stick
+item override block 0 -60 3 container.0 with minecraft:stick 5
+item override block 0 -60 3 container.0 with minecraft:stick 0
+item override block 0 -60 3 container.0 with minecraft:nope
+item override block 0 -60 3 container.0 from block 0 -60 4 container.0
+item override block 0 -60 3 container.0 from block 0 -60 4 container.*
+item override block 0 -60 3 container.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item override block 0 -60 3 container.0 from block 0 -60 9 container.0
+item override block 0 -60 3 container.0 from entity Bot hotbar.0
+item override block 0 -60 3 container.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item override block 0 -60 3 container.0 from entity nobody hotbar.0
+item override block 0 -60 3 container.0 from entity Bot nope.0
+item override block 0 -60 3 container.0 from entity Bot hotbar.0 minecraft:nope
+item override block 0 -60 3 container.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item override block 0 -60 3 container.0
+item override block 0 -60 3 container.* with minecraft:stick
+item override block 0 -60 3 container.* with minecraft:stick 5
+item override block 0 -60 3 container.* with minecraft:stick 0
+item override block 0 -60 3 container.* with minecraft:nope
+item override block 0 -60 3 container.* from block 0 -60 4 container.0
+item override block 0 -60 3 container.* from block 0 -60 4 container.*
+item override block 0 -60 3 container.* from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item override block 0 -60 3 container.* from block 0 -60 9 container.0
+item override block 0 -60 3 container.* from entity Bot hotbar.0
+item override block 0 -60 3 container.* from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item override block 0 -60 3 container.* from entity nobody hotbar.0
+item override block 0 -60 3 container.* from entity Bot nope.0
+item override block 0 -60 3 container.* from entity Bot hotbar.0 minecraft:nope
+item override block 0 -60 3 container.* from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item override block 0 -60 3 container.*
+item override block 0 -60 3 container.30 with minecraft:stick
+item override block 0 -60 3 container.30 with minecraft:stick 5
+item override block 0 -60 3 container.30 with minecraft:stick 0
+item override block 0 -60 3 container.30 with minecraft:nope
+item override block 0 -60 3 container.30 from block 0 -60 4 container.0
+item override block 0 -60 3 container.30 from block 0 -60 4 container.*
+item override block 0 -60 3 container.30 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item override block 0 -60 3 container.30 from block 0 -60 9 container.0
+item override block 0 -60 3 container.30 from entity Bot hotbar.0
+item override block 0 -60 3 container.30 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item override block 0 -60 3 container.30 from entity nobody hotbar.0
+item override block 0 -60 3 container.30 from entity Bot nope.0
+item override block 0 -60 3 container.30 from entity Bot hotbar.0 minecraft:nope
+item override block 0 -60 3 container.30 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item override block 0 -60 3 container.30
+item override block 0 -60 3 hotbar.0 with minecraft:stick
+item override block 0 -60 3 hotbar.0 with minecraft:stick 5
+item override block 0 -60 3 hotbar.0 with minecraft:stick 0
+item override block 0 -60 3 hotbar.0 with minecraft:nope
+item override block 0 -60 3 hotbar.0 from block 0 -60 4 container.0
+item override block 0 -60 3 hotbar.0 from block 0 -60 4 container.*
+item override block 0 -60 3 hotbar.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item override block 0 -60 3 hotbar.0 from block 0 -60 9 container.0
+item override block 0 -60 3 hotbar.0 from entity Bot hotbar.0
+item override block 0 -60 3 hotbar.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item override block 0 -60 3 hotbar.0 from entity nobody hotbar.0
+item override block 0 -60 3 hotbar.0 from entity Bot nope.0
+item override block 0 -60 3 hotbar.0 from entity Bot hotbar.0 minecraft:nope
+item override block 0 -60 3 hotbar.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item override block 0 -60 3 hotbar.0
+item override block 0 -60 3 nope.0 with minecraft:stick
+item override block 0 -60 3 container.0 with minecraft:stick extra
+clear Bot
+# ---- override entity Bot ----
+item override entity Bot container.0 with minecraft:stick
+item override entity Bot container.0 with minecraft:stick 5
+item override entity Bot container.0 with minecraft:stick 0
+item override entity Bot container.0 with minecraft:nope
+item override entity Bot container.0 from block 0 -60 4 container.0
+item override entity Bot container.0 from block 0 -60 4 container.*
+item override entity Bot container.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item override entity Bot container.0 from block 0 -60 9 container.0
+item override entity Bot container.0 from entity Bot hotbar.0
+item override entity Bot container.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item override entity Bot container.0 from entity nobody hotbar.0
+item override entity Bot container.0 from entity Bot nope.0
+item override entity Bot container.0 from entity Bot hotbar.0 minecraft:nope
+item override entity Bot container.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item override entity Bot container.0
+item override entity Bot container.* with minecraft:stick
+item override entity Bot container.* with minecraft:stick 5
+item override entity Bot container.* with minecraft:stick 0
+item override entity Bot container.* with minecraft:nope
+item override entity Bot container.* from block 0 -60 4 container.0
+item override entity Bot container.* from block 0 -60 4 container.*
+item override entity Bot container.* from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item override entity Bot container.* from block 0 -60 9 container.0
+item override entity Bot container.* from entity Bot hotbar.0
+item override entity Bot container.* from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item override entity Bot container.* from entity nobody hotbar.0
+item override entity Bot container.* from entity Bot nope.0
+item override entity Bot container.* from entity Bot hotbar.0 minecraft:nope
+item override entity Bot container.* from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item override entity Bot container.*
+item override entity Bot hotbar.0 with minecraft:stick
+item override entity Bot hotbar.0 with minecraft:stick 5
+item override entity Bot hotbar.0 with minecraft:stick 0
+item override entity Bot hotbar.0 with minecraft:nope
+item override entity Bot hotbar.0 from block 0 -60 4 container.0
+item override entity Bot hotbar.0 from block 0 -60 4 container.*
+item override entity Bot hotbar.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item override entity Bot hotbar.0 from block 0 -60 9 container.0
+item override entity Bot hotbar.0 from entity Bot hotbar.0
+item override entity Bot hotbar.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item override entity Bot hotbar.0 from entity nobody hotbar.0
+item override entity Bot hotbar.0 from entity Bot nope.0
+item override entity Bot hotbar.0 from entity Bot hotbar.0 minecraft:nope
+item override entity Bot hotbar.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item override entity Bot hotbar.0
+item override entity Bot weapon.mainhand with minecraft:stick
+item override entity Bot weapon.mainhand with minecraft:stick 5
+item override entity Bot weapon.mainhand with minecraft:stick 0
+item override entity Bot weapon.mainhand with minecraft:nope
+item override entity Bot weapon.mainhand from block 0 -60 4 container.0
+item override entity Bot weapon.mainhand from block 0 -60 4 container.*
+item override entity Bot weapon.mainhand from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item override entity Bot weapon.mainhand from block 0 -60 9 container.0
+item override entity Bot weapon.mainhand from entity Bot hotbar.0
+item override entity Bot weapon.mainhand from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item override entity Bot weapon.mainhand from entity nobody hotbar.0
+item override entity Bot weapon.mainhand from entity Bot nope.0
+item override entity Bot weapon.mainhand from entity Bot hotbar.0 minecraft:nope
+item override entity Bot weapon.mainhand from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item override entity Bot weapon.mainhand
+item override entity Bot armor.* with minecraft:stick
+item override entity Bot armor.* with minecraft:stick 5
+item override entity Bot armor.* with minecraft:stick 0
+item override entity Bot armor.* with minecraft:nope
+item override entity Bot armor.* from block 0 -60 4 container.0
+item override entity Bot armor.* from block 0 -60 4 container.*
+item override entity Bot armor.* from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item override entity Bot armor.* from block 0 -60 9 container.0
+item override entity Bot armor.* from entity Bot hotbar.0
+item override entity Bot armor.* from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item override entity Bot armor.* from entity nobody hotbar.0
+item override entity Bot armor.* from entity Bot nope.0
+item override entity Bot armor.* from entity Bot hotbar.0 minecraft:nope
+item override entity Bot armor.* from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item override entity Bot armor.*
+item override entity Bot nope.0 with minecraft:stick
+item override entity Bot container.0 with minecraft:stick extra
+clear Bot
+# ---- override entity @e[tag=s,limit=1] ----
+item override entity @e[tag=s,limit=1] container.0 with minecraft:stick
+item override entity @e[tag=s,limit=1] container.0 with minecraft:stick 5
+item override entity @e[tag=s,limit=1] container.0 with minecraft:stick 0
+item override entity @e[tag=s,limit=1] container.0 with minecraft:nope
+item override entity @e[tag=s,limit=1] container.0 from block 0 -60 4 container.0
+item override entity @e[tag=s,limit=1] container.0 from block 0 -60 4 container.*
+item override entity @e[tag=s,limit=1] container.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item override entity @e[tag=s,limit=1] container.0 from block 0 -60 9 container.0
+item override entity @e[tag=s,limit=1] container.0 from entity Bot hotbar.0
+item override entity @e[tag=s,limit=1] container.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item override entity @e[tag=s,limit=1] container.0 from entity nobody hotbar.0
+item override entity @e[tag=s,limit=1] container.0 from entity Bot nope.0
+item override entity @e[tag=s,limit=1] container.0 from entity Bot hotbar.0 minecraft:nope
+item override entity @e[tag=s,limit=1] container.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item override entity @e[tag=s,limit=1] container.0
+item override entity @e[tag=s,limit=1] container.* with minecraft:stick
+item override entity @e[tag=s,limit=1] container.* with minecraft:stick 5
+item override entity @e[tag=s,limit=1] container.* with minecraft:stick 0
+item override entity @e[tag=s,limit=1] container.* with minecraft:nope
+item override entity @e[tag=s,limit=1] container.* from block 0 -60 4 container.0
+item override entity @e[tag=s,limit=1] container.* from block 0 -60 4 container.*
+item override entity @e[tag=s,limit=1] container.* from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item override entity @e[tag=s,limit=1] container.* from block 0 -60 9 container.0
+item override entity @e[tag=s,limit=1] container.* from entity Bot hotbar.0
+item override entity @e[tag=s,limit=1] container.* from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item override entity @e[tag=s,limit=1] container.* from entity nobody hotbar.0
+item override entity @e[tag=s,limit=1] container.* from entity Bot nope.0
+item override entity @e[tag=s,limit=1] container.* from entity Bot hotbar.0 minecraft:nope
+item override entity @e[tag=s,limit=1] container.* from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item override entity @e[tag=s,limit=1] container.*
+item override entity @e[tag=s,limit=1] hotbar.0 with minecraft:stick
+item override entity @e[tag=s,limit=1] hotbar.0 with minecraft:stick 5
+item override entity @e[tag=s,limit=1] hotbar.0 with minecraft:stick 0
+item override entity @e[tag=s,limit=1] hotbar.0 with minecraft:nope
+item override entity @e[tag=s,limit=1] hotbar.0 from block 0 -60 4 container.0
+item override entity @e[tag=s,limit=1] hotbar.0 from block 0 -60 4 container.*
+item override entity @e[tag=s,limit=1] hotbar.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item override entity @e[tag=s,limit=1] hotbar.0 from block 0 -60 9 container.0
+item override entity @e[tag=s,limit=1] hotbar.0 from entity Bot hotbar.0
+item override entity @e[tag=s,limit=1] hotbar.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item override entity @e[tag=s,limit=1] hotbar.0 from entity nobody hotbar.0
+item override entity @e[tag=s,limit=1] hotbar.0 from entity Bot nope.0
+item override entity @e[tag=s,limit=1] hotbar.0 from entity Bot hotbar.0 minecraft:nope
+item override entity @e[tag=s,limit=1] hotbar.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item override entity @e[tag=s,limit=1] hotbar.0
+item override entity @e[tag=s,limit=1] weapon.mainhand with minecraft:stick
+item override entity @e[tag=s,limit=1] weapon.mainhand with minecraft:stick 5
+item override entity @e[tag=s,limit=1] weapon.mainhand with minecraft:stick 0
+item override entity @e[tag=s,limit=1] weapon.mainhand with minecraft:nope
+item override entity @e[tag=s,limit=1] weapon.mainhand from block 0 -60 4 container.0
+item override entity @e[tag=s,limit=1] weapon.mainhand from block 0 -60 4 container.*
+item override entity @e[tag=s,limit=1] weapon.mainhand from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item override entity @e[tag=s,limit=1] weapon.mainhand from block 0 -60 9 container.0
+item override entity @e[tag=s,limit=1] weapon.mainhand from entity Bot hotbar.0
+item override entity @e[tag=s,limit=1] weapon.mainhand from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item override entity @e[tag=s,limit=1] weapon.mainhand from entity nobody hotbar.0
+item override entity @e[tag=s,limit=1] weapon.mainhand from entity Bot nope.0
+item override entity @e[tag=s,limit=1] weapon.mainhand from entity Bot hotbar.0 minecraft:nope
+item override entity @e[tag=s,limit=1] weapon.mainhand from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item override entity @e[tag=s,limit=1] weapon.mainhand
+item override entity @e[tag=s,limit=1] armor.* with minecraft:stick
+item override entity @e[tag=s,limit=1] armor.* with minecraft:stick 5
+item override entity @e[tag=s,limit=1] armor.* with minecraft:stick 0
+item override entity @e[tag=s,limit=1] armor.* with minecraft:nope
+item override entity @e[tag=s,limit=1] armor.* from block 0 -60 4 container.0
+item override entity @e[tag=s,limit=1] armor.* from block 0 -60 4 container.*
+item override entity @e[tag=s,limit=1] armor.* from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item override entity @e[tag=s,limit=1] armor.* from block 0 -60 9 container.0
+item override entity @e[tag=s,limit=1] armor.* from entity Bot hotbar.0
+item override entity @e[tag=s,limit=1] armor.* from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item override entity @e[tag=s,limit=1] armor.* from entity nobody hotbar.0
+item override entity @e[tag=s,limit=1] armor.* from entity Bot nope.0
+item override entity @e[tag=s,limit=1] armor.* from entity Bot hotbar.0 minecraft:nope
+item override entity @e[tag=s,limit=1] armor.* from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item override entity @e[tag=s,limit=1] armor.*
+item override entity @e[tag=s,limit=1] nope.0 with minecraft:stick
+item override entity @e[tag=s,limit=1] container.0 with minecraft:stick extra
+clear Bot
+# ---- fill block 0 -60 3 ----
+item fill block 0 -60 3 container.0 with minecraft:stick
+item fill block 0 -60 3 container.0 with minecraft:stick 5
+item fill block 0 -60 3 container.0 with minecraft:stick 0
+item fill block 0 -60 3 container.0 with minecraft:nope
+item fill block 0 -60 3 container.0 from block 0 -60 4 container.0
+item fill block 0 -60 3 container.0 from block 0 -60 4 container.*
+item fill block 0 -60 3 container.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item fill block 0 -60 3 container.0 from block 0 -60 9 container.0
+item fill block 0 -60 3 container.0 from entity Bot hotbar.0
+item fill block 0 -60 3 container.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item fill block 0 -60 3 container.0 from entity nobody hotbar.0
+item fill block 0 -60 3 container.0 from entity Bot nope.0
+item fill block 0 -60 3 container.0 from entity Bot hotbar.0 minecraft:nope
+item fill block 0 -60 3 container.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item fill block 0 -60 3 container.0
+item fill block 0 -60 3 container.* with minecraft:stick
+item fill block 0 -60 3 container.* with minecraft:stick 5
+item fill block 0 -60 3 container.* with minecraft:stick 0
+item fill block 0 -60 3 container.* with minecraft:nope
+item fill block 0 -60 3 container.* from block 0 -60 4 container.0
+item fill block 0 -60 3 container.* from block 0 -60 4 container.*
+item fill block 0 -60 3 container.* from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item fill block 0 -60 3 container.* from block 0 -60 9 container.0
+item fill block 0 -60 3 container.* from entity Bot hotbar.0
+item fill block 0 -60 3 container.* from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item fill block 0 -60 3 container.* from entity nobody hotbar.0
+item fill block 0 -60 3 container.* from entity Bot nope.0
+item fill block 0 -60 3 container.* from entity Bot hotbar.0 minecraft:nope
+item fill block 0 -60 3 container.* from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item fill block 0 -60 3 container.*
+item fill block 0 -60 3 container.30 with minecraft:stick
+item fill block 0 -60 3 container.30 with minecraft:stick 5
+item fill block 0 -60 3 container.30 with minecraft:stick 0
+item fill block 0 -60 3 container.30 with minecraft:nope
+item fill block 0 -60 3 container.30 from block 0 -60 4 container.0
+item fill block 0 -60 3 container.30 from block 0 -60 4 container.*
+item fill block 0 -60 3 container.30 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item fill block 0 -60 3 container.30 from block 0 -60 9 container.0
+item fill block 0 -60 3 container.30 from entity Bot hotbar.0
+item fill block 0 -60 3 container.30 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item fill block 0 -60 3 container.30 from entity nobody hotbar.0
+item fill block 0 -60 3 container.30 from entity Bot nope.0
+item fill block 0 -60 3 container.30 from entity Bot hotbar.0 minecraft:nope
+item fill block 0 -60 3 container.30 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item fill block 0 -60 3 container.30
+item fill block 0 -60 3 hotbar.0 with minecraft:stick
+item fill block 0 -60 3 hotbar.0 with minecraft:stick 5
+item fill block 0 -60 3 hotbar.0 with minecraft:stick 0
+item fill block 0 -60 3 hotbar.0 with minecraft:nope
+item fill block 0 -60 3 hotbar.0 from block 0 -60 4 container.0
+item fill block 0 -60 3 hotbar.0 from block 0 -60 4 container.*
+item fill block 0 -60 3 hotbar.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item fill block 0 -60 3 hotbar.0 from block 0 -60 9 container.0
+item fill block 0 -60 3 hotbar.0 from entity Bot hotbar.0
+item fill block 0 -60 3 hotbar.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item fill block 0 -60 3 hotbar.0 from entity nobody hotbar.0
+item fill block 0 -60 3 hotbar.0 from entity Bot nope.0
+item fill block 0 -60 3 hotbar.0 from entity Bot hotbar.0 minecraft:nope
+item fill block 0 -60 3 hotbar.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item fill block 0 -60 3 hotbar.0
+item fill block 0 -60 3 nope.0 with minecraft:stick
+item fill block 0 -60 3 container.0 with minecraft:stick extra
+clear Bot
+# ---- fill entity Bot ----
+item fill entity Bot container.0 with minecraft:stick
+item fill entity Bot container.0 with minecraft:stick 5
+item fill entity Bot container.0 with minecraft:stick 0
+item fill entity Bot container.0 with minecraft:nope
+item fill entity Bot container.0 from block 0 -60 4 container.0
+item fill entity Bot container.0 from block 0 -60 4 container.*
+item fill entity Bot container.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item fill entity Bot container.0 from block 0 -60 9 container.0
+item fill entity Bot container.0 from entity Bot hotbar.0
+item fill entity Bot container.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item fill entity Bot container.0 from entity nobody hotbar.0
+item fill entity Bot container.0 from entity Bot nope.0
+item fill entity Bot container.0 from entity Bot hotbar.0 minecraft:nope
+item fill entity Bot container.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item fill entity Bot container.0
+item fill entity Bot container.* with minecraft:stick
+item fill entity Bot container.* with minecraft:stick 5
+item fill entity Bot container.* with minecraft:stick 0
+item fill entity Bot container.* with minecraft:nope
+item fill entity Bot container.* from block 0 -60 4 container.0
+item fill entity Bot container.* from block 0 -60 4 container.*
+item fill entity Bot container.* from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item fill entity Bot container.* from block 0 -60 9 container.0
+item fill entity Bot container.* from entity Bot hotbar.0
+item fill entity Bot container.* from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item fill entity Bot container.* from entity nobody hotbar.0
+item fill entity Bot container.* from entity Bot nope.0
+item fill entity Bot container.* from entity Bot hotbar.0 minecraft:nope
+item fill entity Bot container.* from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item fill entity Bot container.*
+item fill entity Bot hotbar.0 with minecraft:stick
+item fill entity Bot hotbar.0 with minecraft:stick 5
+item fill entity Bot hotbar.0 with minecraft:stick 0
+item fill entity Bot hotbar.0 with minecraft:nope
+item fill entity Bot hotbar.0 from block 0 -60 4 container.0
+item fill entity Bot hotbar.0 from block 0 -60 4 container.*
+item fill entity Bot hotbar.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item fill entity Bot hotbar.0 from block 0 -60 9 container.0
+item fill entity Bot hotbar.0 from entity Bot hotbar.0
+item fill entity Bot hotbar.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item fill entity Bot hotbar.0 from entity nobody hotbar.0
+item fill entity Bot hotbar.0 from entity Bot nope.0
+item fill entity Bot hotbar.0 from entity Bot hotbar.0 minecraft:nope
+item fill entity Bot hotbar.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item fill entity Bot hotbar.0
+item fill entity Bot weapon.mainhand with minecraft:stick
+item fill entity Bot weapon.mainhand with minecraft:stick 5
+item fill entity Bot weapon.mainhand with minecraft:stick 0
+item fill entity Bot weapon.mainhand with minecraft:nope
+item fill entity Bot weapon.mainhand from block 0 -60 4 container.0
+item fill entity Bot weapon.mainhand from block 0 -60 4 container.*
+item fill entity Bot weapon.mainhand from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item fill entity Bot weapon.mainhand from block 0 -60 9 container.0
+item fill entity Bot weapon.mainhand from entity Bot hotbar.0
+item fill entity Bot weapon.mainhand from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item fill entity Bot weapon.mainhand from entity nobody hotbar.0
+item fill entity Bot weapon.mainhand from entity Bot nope.0
+item fill entity Bot weapon.mainhand from entity Bot hotbar.0 minecraft:nope
+item fill entity Bot weapon.mainhand from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item fill entity Bot weapon.mainhand
+item fill entity Bot armor.* with minecraft:stick
+item fill entity Bot armor.* with minecraft:stick 5
+item fill entity Bot armor.* with minecraft:stick 0
+item fill entity Bot armor.* with minecraft:nope
+item fill entity Bot armor.* from block 0 -60 4 container.0
+item fill entity Bot armor.* from block 0 -60 4 container.*
+item fill entity Bot armor.* from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item fill entity Bot armor.* from block 0 -60 9 container.0
+item fill entity Bot armor.* from entity Bot hotbar.0
+item fill entity Bot armor.* from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item fill entity Bot armor.* from entity nobody hotbar.0
+item fill entity Bot armor.* from entity Bot nope.0
+item fill entity Bot armor.* from entity Bot hotbar.0 minecraft:nope
+item fill entity Bot armor.* from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item fill entity Bot armor.*
+item fill entity Bot nope.0 with minecraft:stick
+item fill entity Bot container.0 with minecraft:stick extra
+clear Bot
+# ---- fill entity @e[tag=s,limit=1] ----
+item fill entity @e[tag=s,limit=1] container.0 with minecraft:stick
+item fill entity @e[tag=s,limit=1] container.0 with minecraft:stick 5
+item fill entity @e[tag=s,limit=1] container.0 with minecraft:stick 0
+item fill entity @e[tag=s,limit=1] container.0 with minecraft:nope
+item fill entity @e[tag=s,limit=1] container.0 from block 0 -60 4 container.0
+item fill entity @e[tag=s,limit=1] container.0 from block 0 -60 4 container.*
+item fill entity @e[tag=s,limit=1] container.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item fill entity @e[tag=s,limit=1] container.0 from block 0 -60 9 container.0
+item fill entity @e[tag=s,limit=1] container.0 from entity Bot hotbar.0
+item fill entity @e[tag=s,limit=1] container.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item fill entity @e[tag=s,limit=1] container.0 from entity nobody hotbar.0
+item fill entity @e[tag=s,limit=1] container.0 from entity Bot nope.0
+item fill entity @e[tag=s,limit=1] container.0 from entity Bot hotbar.0 minecraft:nope
+item fill entity @e[tag=s,limit=1] container.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item fill entity @e[tag=s,limit=1] container.0
+item fill entity @e[tag=s,limit=1] container.* with minecraft:stick
+item fill entity @e[tag=s,limit=1] container.* with minecraft:stick 5
+item fill entity @e[tag=s,limit=1] container.* with minecraft:stick 0
+item fill entity @e[tag=s,limit=1] container.* with minecraft:nope
+item fill entity @e[tag=s,limit=1] container.* from block 0 -60 4 container.0
+item fill entity @e[tag=s,limit=1] container.* from block 0 -60 4 container.*
+item fill entity @e[tag=s,limit=1] container.* from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item fill entity @e[tag=s,limit=1] container.* from block 0 -60 9 container.0
+item fill entity @e[tag=s,limit=1] container.* from entity Bot hotbar.0
+item fill entity @e[tag=s,limit=1] container.* from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item fill entity @e[tag=s,limit=1] container.* from entity nobody hotbar.0
+item fill entity @e[tag=s,limit=1] container.* from entity Bot nope.0
+item fill entity @e[tag=s,limit=1] container.* from entity Bot hotbar.0 minecraft:nope
+item fill entity @e[tag=s,limit=1] container.* from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item fill entity @e[tag=s,limit=1] container.*
+item fill entity @e[tag=s,limit=1] hotbar.0 with minecraft:stick
+item fill entity @e[tag=s,limit=1] hotbar.0 with minecraft:stick 5
+item fill entity @e[tag=s,limit=1] hotbar.0 with minecraft:stick 0
+item fill entity @e[tag=s,limit=1] hotbar.0 with minecraft:nope
+item fill entity @e[tag=s,limit=1] hotbar.0 from block 0 -60 4 container.0
+item fill entity @e[tag=s,limit=1] hotbar.0 from block 0 -60 4 container.*
+item fill entity @e[tag=s,limit=1] hotbar.0 from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item fill entity @e[tag=s,limit=1] hotbar.0 from block 0 -60 9 container.0
+item fill entity @e[tag=s,limit=1] hotbar.0 from entity Bot hotbar.0
+item fill entity @e[tag=s,limit=1] hotbar.0 from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item fill entity @e[tag=s,limit=1] hotbar.0 from entity nobody hotbar.0
+item fill entity @e[tag=s,limit=1] hotbar.0 from entity Bot nope.0
+item fill entity @e[tag=s,limit=1] hotbar.0 from entity Bot hotbar.0 minecraft:nope
+item fill entity @e[tag=s,limit=1] hotbar.0 from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item fill entity @e[tag=s,limit=1] hotbar.0
+item fill entity @e[tag=s,limit=1] weapon.mainhand with minecraft:stick
+item fill entity @e[tag=s,limit=1] weapon.mainhand with minecraft:stick 5
+item fill entity @e[tag=s,limit=1] weapon.mainhand with minecraft:stick 0
+item fill entity @e[tag=s,limit=1] weapon.mainhand with minecraft:nope
+item fill entity @e[tag=s,limit=1] weapon.mainhand from block 0 -60 4 container.0
+item fill entity @e[tag=s,limit=1] weapon.mainhand from block 0 -60 4 container.*
+item fill entity @e[tag=s,limit=1] weapon.mainhand from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item fill entity @e[tag=s,limit=1] weapon.mainhand from block 0 -60 9 container.0
+item fill entity @e[tag=s,limit=1] weapon.mainhand from entity Bot hotbar.0
+item fill entity @e[tag=s,limit=1] weapon.mainhand from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item fill entity @e[tag=s,limit=1] weapon.mainhand from entity nobody hotbar.0
+item fill entity @e[tag=s,limit=1] weapon.mainhand from entity Bot nope.0
+item fill entity @e[tag=s,limit=1] weapon.mainhand from entity Bot hotbar.0 minecraft:nope
+item fill entity @e[tag=s,limit=1] weapon.mainhand from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item fill entity @e[tag=s,limit=1] weapon.mainhand
+item fill entity @e[tag=s,limit=1] armor.* with minecraft:stick
+item fill entity @e[tag=s,limit=1] armor.* with minecraft:stick 5
+item fill entity @e[tag=s,limit=1] armor.* with minecraft:stick 0
+item fill entity @e[tag=s,limit=1] armor.* with minecraft:nope
+item fill entity @e[tag=s,limit=1] armor.* from block 0 -60 4 container.0
+item fill entity @e[tag=s,limit=1] armor.* from block 0 -60 4 container.*
+item fill entity @e[tag=s,limit=1] armor.* from block 0 -60 4 container.0 {"type":"minecraft:set_count","count":2}
+item fill entity @e[tag=s,limit=1] armor.* from block 0 -60 9 container.0
+item fill entity @e[tag=s,limit=1] armor.* from entity Bot hotbar.0
+item fill entity @e[tag=s,limit=1] armor.* from entity Bot container.* {"type":"minecraft:set_count","count":2}
+item fill entity @e[tag=s,limit=1] armor.* from entity nobody hotbar.0
+item fill entity @e[tag=s,limit=1] armor.* from entity Bot nope.0
+item fill entity @e[tag=s,limit=1] armor.* from entity Bot hotbar.0 minecraft:nope
+item fill entity @e[tag=s,limit=1] armor.* from entity Bot hotbar.0 {"function":"minecraft:set_count","count":2}
+item fill entity @e[tag=s,limit=1] armor.*
+item fill entity @e[tag=s,limit=1] nope.0 with minecraft:stick
+item fill entity @e[tag=s,limit=1] container.0 with minecraft:stick extra
+clear Bot
+
+item fill
+item override
+item fill block
+item override entity Bot
+item fill block 100000 -60 0 container.0 with minecraft:stick
+item override block 2 -60 3 container.0 with minecraft:stick
+item fill entity nobody container.0 with minecraft:stick
+@bot0 item fill entity Bot container.0 with minecraft:stick
+@bot0 item override entity Bot container.0 with minecraft:stick
