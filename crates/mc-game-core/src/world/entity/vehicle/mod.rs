@@ -12,7 +12,7 @@ use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::movement::{EntityCollisionQuery, MovementLevel, collision_context};
 use crate::world::level::collision::CollisionGetter;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::shapes::{BooleanOp, Shapes};
 use mc_core::phys::{AABB, Vec3};
 use mc_data::EntityType;
@@ -39,7 +39,7 @@ pub fn get_collision_horizontal_escape_vector(
     let radians = direction_degrees * (std::f64::consts::PI / 180.0) as f32;
     let direction_x = -mth::sin(f64::from(radians));
     let direction_z = mth::cos(f64::from(radians));
-    let scale = direction_x.abs().max(direction_z.abs());
+    let scale = java::max_f32(direction_x.abs(), direction_z.abs());
     Vec3::new(
         f64::from(direction_x) * distance / f64::from(scale),
         0.0,

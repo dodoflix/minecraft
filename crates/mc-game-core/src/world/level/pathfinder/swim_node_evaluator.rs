@@ -6,7 +6,7 @@ use super::path_type::PathType;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::material::FluidStateExt;
 use mc_core::direction::Direction;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::pos::BlockPos;
 use mc_data::block::PathComputationType;
 
@@ -98,7 +98,7 @@ fn find_accepted_node<N: NodeEvaluator + ?Sized>(
             let id = this.get_node(x, y, z);
             let node = this.node_mut(id);
             node.ty = path_type;
-            node.cost_malus = node.cost_malus.max(path_cost);
+            node.cost_malus = java::max_f32(node.cost_malus, path_cost);
             if env
                 .context
                 .level()

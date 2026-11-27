@@ -9,7 +9,7 @@ use crate::world::entity::{Entity, EntityId};
 use crate::world::level::LevelAccessor;
 use crate::world::level::pathfinder::node::Node;
 use crate::world::level::pathfinder::path::Path;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource as _;
 
@@ -62,7 +62,7 @@ pub fn set_target(dragon: &mut EnderDragon, level: &mut ServerLevel, target: Ent
     let xd = f64::from(target_block_x) - dragon.base().x();
     let zd = f64::from(target_block_z) - dragon.base().z();
     let sd = (xd * xd + zd * zd).sqrt();
-    let ho = (f64::from(0.4f32) + sd / 80.0 - 1.0).min(10.0);
+    let ho = java::min_f64(f64::from(0.4f32) + sd / 80.0 - 1.0, 10.0);
     let final_y_target = mth::floor_f64(target_y + ho);
     let final_node = Node::new(target_block_x, final_y_target, target_block_z);
     let path = dragon.find_path(
@@ -106,7 +106,7 @@ pub fn do_server_tick(dragon: &mut EnderDragon, level: &mut ServerLevel) {
         let x_target_dist = target_x - dragon_pos.x;
         let z_target_dist = target_z - dragon_pos.z;
         let dist = (x_target_dist * x_target_dist + z_target_dist * z_target_dist).sqrt();
-        let height_offset = (f64::from(0.4f32) + dist / 80.0 - 1.0).min(10.0);
+        let height_offset = java::min_f64(f64::from(0.4f32) + dist / 80.0 - 1.0, 10.0);
         dragon.phases.strafe_player.target_location =
             Some(Vec3::new(target_x, target_y + height_offset, target_z));
     }

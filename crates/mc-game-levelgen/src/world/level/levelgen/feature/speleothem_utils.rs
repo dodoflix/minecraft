@@ -1,7 +1,7 @@
 //! `SpeleothemUtils`: shared helpers of the speleothem (pointed dripstone / sulfur spike) and large dripstone features.
 
 use mc_core::direction::Direction;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
 use mc_data::enums::SpeleothemThickness;
@@ -23,11 +23,11 @@ pub fn get_speleothem_height(
     }
     let cutoff = 0.384;
     let r = xz_distance_from_center / speleothem_radius * cutoff;
-    let part1 = 0.75 * r.powf(1.3333333333333333);
-    let part2 = r.powf(0.6666666666666666);
-    let part3 = 0.3333333333333333 * r.ln();
+    let part1 = 0.75 * java::pow(r, 1.3333333333333333);
+    let part2 = java::pow(r, 0.6666666666666666);
+    let part3 = 0.3333333333333333 * java::log(r);
     let mut height_relative_to_max_radius = scale * (part1 - part2 - part3);
-    height_relative_to_max_radius = height_relative_to_max_radius.max(0.0);
+    height_relative_to_max_radius = java::max_f64(height_relative_to_max_radius, 0.0);
     height_relative_to_max_radius / cutoff * speleothem_radius
 }
 

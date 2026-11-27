@@ -7,6 +7,7 @@
 //! * `MutableFloat` accumulators are plain `f32` locals, `intValue()` is an `as i32` cast (Java narrowing).
 
 use mc_core::ident::Identifier;
+use mc_core::math::java;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
@@ -494,7 +495,7 @@ pub fn process_projectile_spread(
     run_iteration_on_item(&registries, weapon, |e, lvl| {
         e.modify_projectile_spread(level, actors, lvl, shooter, &mut modified)
     });
-    modified.max(0.0)
+    java::max_f32(modified, 0.0)
 }
 
 /// `getFishingLuckBonus(level, rod, fisher)`.
@@ -524,7 +525,7 @@ pub fn get_fishing_time_reduction(
     run_iteration_on_item(&registries, rod, |e, lvl| {
         e.modify_fishing_time_reduction(level, actors, lvl, fisher, &mut modified)
     });
-    modified.max(0.0)
+    java::max_f32(modified, 0.0)
 }
 
 /// `getTridentReturnToOwnerAcceleration(level, weapon, trident)`.
@@ -553,7 +554,7 @@ pub fn modify_crossbow_charging_time(
     run_iteration_on_item(registries, crossbow, |e, lvl| {
         e.modify_crossbow_charge_time(&mut holder.base_mut().random, lvl, &mut modified)
     });
-    modified.max(0.0)
+    java::max_f32(modified, 0.0)
 }
 
 /// `getTridentSpinAttackStrength(trident, holder)`: draws from the holder's random.

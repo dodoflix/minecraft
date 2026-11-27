@@ -2,7 +2,7 @@
 //! damage, knockback/sound settings), can be bucketed, sheared and primed.
 
 use linkme::distributed_slice;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::{Vec2, Vec3};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -371,8 +371,10 @@ impl SulfurCube {
             && pusher_feet <= cube_top
             && pusher_top > cube_bottom
         {
-            let knockback =
-                (1.0 - l(self).get_attribute_value(Attribute::KNOCKBACK_RESISTANCE)).max(0.0);
+            let knockback = java::max_f64(
+                1.0 - l(self).get_attribute_value(Attribute::KNOCKBACK_RESISTANCE),
+                0.0,
+            );
             let push_direction = cube_to_pusher.horizontal().normalize().scale(knockback);
             let push_speed_scale = if passenger { 0.16f32 } else { 0.3f32 };
             let mut player_speed =
@@ -464,7 +466,7 @@ fn apply_vertical_position_angle_power_rotation(
     } else {
         0.0
     };
-    let max_ratio = h_ratio.max(v_ratio);
+    let max_ratio = java::max_f32(h_ratio, v_ratio);
     if max_ratio > 1.0 {
         rotated = rotated.scale(1.0 / max_ratio);
     }
@@ -874,7 +876,7 @@ impl Entity for SulfurCube {
                 let dm = self.base().delta_movement();
                 self.base_mut().set_delta_movement(dm.add_xyz(
                     0.0,
-                    immersion.min(1.0) * f64::from(0.04f32),
+                    java::min_f64(immersion, 1.0) * f64::from(0.04f32),
                     0.0,
                 ));
             }

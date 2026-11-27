@@ -5,7 +5,7 @@ use super::cat_variant::CatVariant;
 use crate::world::entity::animal::turtle;
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -780,20 +780,20 @@ impl Cat {
         self.lie_down_amount_o = self.lie_down_amount;
         self.lie_down_amount_o_tail = self.lie_down_amount_tail;
         if self.is_lying() {
-            self.lie_down_amount = (self.lie_down_amount + 0.15).min(1.0);
-            self.lie_down_amount_tail = (self.lie_down_amount_tail + 0.08).min(1.0);
+            self.lie_down_amount = java::min_f32(self.lie_down_amount + 0.15, 1.0);
+            self.lie_down_amount_tail = java::min_f32(self.lie_down_amount_tail + 0.08, 1.0);
         } else {
-            self.lie_down_amount = (self.lie_down_amount - 0.22).max(0.0);
-            self.lie_down_amount_tail = (self.lie_down_amount_tail - 0.13).max(0.0);
+            self.lie_down_amount = java::max_f32(self.lie_down_amount - 0.22, 0.0);
+            self.lie_down_amount_tail = java::max_f32(self.lie_down_amount_tail - 0.13, 0.0);
         }
     }
 
     fn update_relax_state_one_amount(&mut self) {
         self.relax_state_one_amount_o = self.relax_state_one_amount;
         if self.is_relax_state_one() {
-            self.relax_state_one_amount = (self.relax_state_one_amount + 0.1).min(1.0);
+            self.relax_state_one_amount = java::min_f32(self.relax_state_one_amount + 0.1, 1.0);
         } else {
-            self.relax_state_one_amount = (self.relax_state_one_amount - 0.13).max(0.0);
+            self.relax_state_one_amount = java::max_f32(self.relax_state_one_amount - 0.13, 0.0);
         }
     }
 

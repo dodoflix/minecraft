@@ -38,7 +38,7 @@ use crate::world::level::storage::loot::parameters::LootContextParamSets;
 use crate::world::level::{BlockGetter, LevelReader};
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
-use mc_core::math::java::java_float_to_string;
+use mc_core::math::java::{java_float_to_string, signum_f64};
 use mc_core::math::mth;
 use mc_core::phys::{BlockHitResult, Vec3};
 use mc_core::pos::BlockPos;
@@ -679,7 +679,7 @@ impl Entity for FishingHook {
                     - f64::from(block_pos.y())
                     - f64::from(liquid_height);
                 if force.abs() < 0.01 {
-                    force += force.signum() * 0.1;
+                    force += signum_f64(force) * 0.1;
                 }
                 let r = f64::from(self.base.random.next_float());
                 self.base.set_delta_movement_xyz(

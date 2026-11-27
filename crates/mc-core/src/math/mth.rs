@@ -31,7 +31,7 @@ const FRAC_BIAS: f64 = f64::from_bits(4805340802404319232);
 
 static SIN: LazyLock<Box<[f32]>> = LazyLock::new(|| {
     (0..65536)
-        .map(|i| (f64::from(i) / SIN_SCALE).sin() as f32)
+        .map(|i| java::sin(f64::from(i) / SIN_SCALE) as f32)
         .collect()
 });
 

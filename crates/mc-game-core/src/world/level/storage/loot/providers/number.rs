@@ -630,7 +630,7 @@ impl ContextFloatProvider for Binary<FloatHolder> {
                 if base == 0.0 && exponent == 0.0 {
                     Ok(f32::NAN)
                 } else {
-                    Ok(java_pow(f64::from(base), f64::from(exponent)) as f32)
+                    Ok(mc_core::math::java::pow(f64::from(base), f64::from(exponent)) as f32)
                 }
             }
             _ => unreachable!(),
@@ -647,15 +647,6 @@ impl ContextFloatProvider for Binary<FloatHolder> {
                 validate_holder_field(context, "right", &self.right);
             }
         }
-    }
-}
-
-/// `Math.pow` special cases that differ from Rust's `powf` (`pow(±1, ±∞)` is NaN in Java).
-fn java_pow(a: f64, b: f64) -> f64 {
-    if b.is_infinite() && a.abs() == 1.0 {
-        f64::NAN
-    } else {
-        a.powf(b)
     }
 }
 

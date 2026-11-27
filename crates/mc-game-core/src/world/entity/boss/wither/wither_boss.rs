@@ -32,6 +32,7 @@ use crate::world::entity::{Entity, EntityId};
 use crate::world::item::ItemStack;
 use crate::world::level::explosion::ExplosionInteraction;
 use crate::world::level::{BlockGetter as _, LevelAccessor as _};
+use mc_core::math::java;
 use mc_core::math::java::java_float_to_string;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
@@ -383,7 +384,7 @@ impl Entity for WitherBoss {
         {
             let mut yd = delta_movement.y;
             if self.base().y() < ty || !self.is_powered() && self.base().y() < ty + 5.0 {
-                yd = yd.max(0.0);
+                yd = java::max_f64(yd, 0.0);
                 yd += 0.3 - yd * f64::from(0.6f32);
             }
             delta_movement = Vec3::new(delta_movement.x, yd, delta_movement.z);

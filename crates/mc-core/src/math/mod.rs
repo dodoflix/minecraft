@@ -10,6 +10,7 @@ pub mod matrix_util;
 pub mod mth;
 pub mod octahedral_group;
 pub mod quaternionf;
+mod transcendental;
 pub mod transformation;
 
 pub use joml::rotate_y;

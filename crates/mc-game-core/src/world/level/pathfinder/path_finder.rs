@@ -7,6 +7,7 @@ use super::node_evaluator::{NodeEvaluator, PathEnv};
 use super::path::Path;
 use super::pathfinding_context::PathfindingContext;
 use crate::world::level::path_navigation_region::PathNavigationRegion;
+use mc_core::math::java;
 use mc_core::pos::BlockPos;
 
 /// `FUDGING`.
@@ -248,7 +249,7 @@ fn best_h(nodes: &[Node], from: NodeId, targets: &mut [Target], order: &[usize])
     for &ti in order {
         let h = nodes[from].distance_to(&targets[ti]);
         targets[ti].update_best(h, from);
-        best = h.min(best);
+        best = java::min_f32(h, best);
     }
     best
 }

@@ -6,7 +6,7 @@ use std::f64::consts::PI;
 use std::sync::{Arc, OnceLock};
 
 use mc_core::ident::Identifier;
-use mc_core::math::java::round_f64;
+use mc_core::math::java::{self, round_f64};
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_core::pos::section_pos::SectionPos;
 use mc_core::random::{LegacyRandomSource, RandomSource};
@@ -221,8 +221,8 @@ impl ChunkGeneratorStructureState {
                 .wrapping_add(distance.wrapping_mul(circle).wrapping_mul(6));
             let dist = f64::from(ring_distance)
                 + (random.next_double() - 0.5) * (f64::from(distance) * 2.5);
-            let initial_x = round_f64(angle.cos() * dist) as i32;
-            let initial_z = round_f64(angle.sin() * dist) as i32;
+            let initial_x = round_f64(java::cos(angle) * dist) as i32;
+            let initial_z = round_f64(java::sin(angle) * dist) as i32;
             // `random.fork()` of a `LegacyRandomSource`
             searches.push((initial_x, initial_z, random.next_long()));
             angle += (PI * 2.0) / f64::from(spread);

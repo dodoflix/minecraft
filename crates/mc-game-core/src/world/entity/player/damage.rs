@@ -2,7 +2,7 @@
 //! combat packets, hurt animation, fall damage, death drops. The `impl Entity for ServerPlayer` delegates here; the
 //! generic `LivingEntity` behaviour they call as `super` is in `living_entity::{damage, death, blocking}`.
 
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_data::{GameEvent, SoundEvent};
 use mc_protocol::packets::play::{
     ClientboundHurtAnimationPacket, ClientboundPlayerCombatEndPacket,
@@ -131,7 +131,7 @@ fn player_hurt_server(
             damage = 0.0;
         }
         if difficulty == Difficulty::Easy {
-            damage = f32::min(damage / 2.0 + 1.0, damage);
+            damage = java::min_f32(damage / 2.0 + 1.0, damage);
         }
         if difficulty == Difficulty::Hard {
             damage = damage * 3.0 / 2.0;
@@ -156,7 +156,7 @@ pub fn actually_hurt(
     }
     let mut dmg = damage::get_damage_after_armor_absorb(player, level, source, dmg);
     dmg = player.get_damage_after_magic_absorb(level, source, dmg);
-    let var8 = (dmg - player.get_absorption_amount()).max(0.0);
+    let var8 = java::max_f32(dmg - player.get_absorption_amount(), 0.0);
     let absorption = player.get_absorption_amount();
     player.set_absorption_amount(absorption - (dmg - var8));
     let absorbed_damage = dmg - var8;

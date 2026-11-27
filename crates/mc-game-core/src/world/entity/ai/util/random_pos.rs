@@ -3,7 +3,7 @@
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use mc_core::direction::Direction;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -45,8 +45,8 @@ pub fn generate_random_direction_within_radians(
         min_horizontal_dist,
         max_horizontal_dist,
     ) * f64::from(mth::SQRT_OF_TWO);
-    let xt = -dist * y_radians.sin();
-    let zt = dist * y_radians.cos();
+    let xt = -dist * java::sin(y_radians);
+    let zt = dist * java::cos(y_radians);
     if !(xt.abs() > max_horizontal_dist) && !(zt.abs() > max_horizontal_dist) {
         let yt = random.next_int_bounded(2 * vertical_dist + 1) - vertical_dist + flying_height;
         Some(BlockPos::containing(xt, f64::from(yt), zt))

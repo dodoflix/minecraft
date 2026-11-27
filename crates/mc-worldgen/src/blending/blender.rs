@@ -4,7 +4,7 @@ use std::collections::HashMap;
 use std::sync::{Arc, LazyLock};
 
 use mc_core::direction::{Direction, Direction8, Directional};
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::pos::{BlockPos, ChunkPos, quart_pos};
 use mc_core::random::XoroshiroRandomSource;
 use mc_world::blending_data::{BlendingData, NO_VALUE};
@@ -165,19 +165,10 @@ fn distance_to_cube(x: f64, y: f64, z: f64, radius_x: f64, radius_y: f64, radius
     let delta_y = y.abs() - radius_y;
     let delta_z = z.abs() - radius_z;
     mth::length_xyz_f64(
-        java_max(0.0, delta_x),
-        java_max(0.0, delta_y),
-        java_max(0.0, delta_z),
+        java::max_f64(0.0, delta_x),
+        java::max_f64(0.0, delta_y),
+        java::max_f64(0.0, delta_z),
     )
-}
-
-/// `Math.max(double, double)`.
-fn java_max(a: f64, b: f64) -> f64 {
-    if a.is_nan() || b.is_nan() {
-        f64::NAN
-    } else {
-        a.max(b)
-    }
 }
 
 /// `heightToOffset`.

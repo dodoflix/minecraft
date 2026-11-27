@@ -5,7 +5,7 @@ use super::entity::Entity;
 use crate::server::level::ServerLevel;
 use crate::world::level::BlockGetter;
 use crate::world::level::material::FluidStateExt;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
@@ -240,7 +240,7 @@ impl EntityFluidInteraction {
                             tracker.eyes_inside = true;
                         }
                     }
-                    tracker.height = tracker.height.max(fluid_top - entity_y);
+                    tracker.height = java::max_f64(tracker.height, fluid_top - entity_y);
                     if let Some(is_water) = current {
                         let mut flow = fluid_state.get_flow(level, pos);
                         let acc = if is_water {
@@ -248,7 +248,7 @@ impl EntityFluidInteraction {
                         } else {
                             &mut self.lava
                         };
-                        acc.height = tracker.height.max(acc.height);
+                        acc.height = java::max_f64(tracker.height, acc.height);
                         if acc.height < 0.4 {
                             flow = flow.scale(acc.height);
                         }

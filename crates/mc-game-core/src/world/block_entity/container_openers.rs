@@ -8,7 +8,7 @@
 use crate::server::level::ServerLevel;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::level::gameevent::GameEventContext;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
 use mc_data::GameEvent;
@@ -61,7 +61,8 @@ impl ContainerOpenersCounter {
             schedule_recheck(level, pos, state);
         }
         host.opener_count_changed(level, pos, state, previous, self.open_count);
-        self.max_interaction_range = max_interaction_range.max(self.max_interaction_range);
+        self.max_interaction_range =
+            java::max_f64(max_interaction_range, self.max_interaction_range);
     }
 
     /// `decrementOpeners(entity, level, pos, blockState)`.
@@ -120,7 +121,7 @@ impl ContainerOpenersCounter {
         self.max_interaction_range = 0.0;
         for id in &users {
             if let Some(range) = level.get_entity(*id).and_then(container_interaction_range) {
-                self.max_interaction_range = range.max(self.max_interaction_range);
+                self.max_interaction_range = java::max_f64(range, self.max_interaction_range);
             }
         }
         let open_count = users.len() as i32;
@@ -186,9 +187,9 @@ impl ChestLidController {
     pub fn tick_lid(&mut self) {
         self.o_openness = self.openness;
         if !self.should_be_open && self.openness > 0.0 {
-            self.openness = (self.openness - 0.1).max(0.0);
+            self.openness = java::max_f32(self.openness - 0.1, 0.0);
         } else if self.should_be_open && self.openness < 1.0 {
-            self.openness = (self.openness + 0.1).min(1.0);
+            self.openness = java::min_f32(self.openness + 0.1, 1.0);
         }
     }
 

@@ -11,6 +11,7 @@ use crate::data::LoadError;
 use crate::densityfunction::SharedSampler;
 use crate::densityfunction::codec::{Fields, LoadResult, is_number, parse_f32, parse_list};
 use crate::random_state::{BoundSampler, DensitySamplerSet};
+use mc_core::math::java;
 use mc_core::pos::quart_pos;
 
 const QUANTIZATION_FACTOR: f32 = 10000.0;
@@ -436,8 +437,8 @@ impl RTree {
         let mut buckets = Vec::new();
         let mut current: Vec<u32> = Vec::new();
         let cpn = children_per_node as f64;
-        let exponent = ((children.len() as f64 - 0.01).ln() / cpn.ln()).floor();
-        let expected_children_count = cpn.powf(exponent) as i32;
+        let exponent = (java::log(children.len() as f64 - 0.01) / java::log(cpn)).floor();
+        let expected_children_count = java::pow(cpn, exponent) as i32;
         for &child in children {
             current.push(child);
             if current.len() as i32 >= expected_children_count {

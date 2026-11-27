@@ -8,7 +8,7 @@ pub(super) fn fma(a: f32, b: f32, c: f32) -> f32 {
 
 /// `Math.sin(float)`: `(float) java.lang.Math.sin(rad)`.
 pub(super) fn sin(rad: f32) -> f32 {
-    f64::from(rad).sin() as f32
+    super::java::sin(f64::from(rad)) as f32
 }
 
 /// `Math.sqrt(float)`: `(float) java.lang.Math.sqrt(r)`.

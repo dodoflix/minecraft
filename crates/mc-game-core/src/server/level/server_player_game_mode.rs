@@ -18,6 +18,7 @@ use crate::world::level::block::behaviour as block_behaviour;
 use crate::world::level::block::helpers as block_helpers;
 use crate::world::level::{BlockGetter, LevelAccessor, LevelReader};
 use mc_core::direction::Direction;
+use mc_core::math::java;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
 use mc_data::enums::GameType;
@@ -54,7 +55,7 @@ impl ServerPlayer {
             speed *= 1.0 + (amp + 1) as f32 * 0.2;
         }
         if let Some(e) = living.active_effects.get(&MobEffect::MINING_FATIGUE) {
-            speed *= 0.3f64.powi(e.amplifier + 1) as f32;
+            speed *= java::pow(0.3, f64::from(e.amplifier + 1)) as f32;
         }
         speed *= living.get_attribute_value(Attribute::BLOCK_BREAK_SPEED) as f32;
         if self.base().eye_in_fluid[0] {

@@ -12,7 +12,7 @@ use super::{EntityId, MoverType, RemovalReason};
 use crate::define_accessor;
 use crate::server::level::ServerLevel;
 use crate::world::block_entity::read_codec;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::{AABB, Vec2, Vec3};
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_core::pos::{BlockPos, SectionPos};
@@ -1747,7 +1747,8 @@ pub trait Entity: Any {
             Some(m) => (0.9f32, m),
             None => (0.2f32, self.base().delta_movement()),
         };
-        let speed = 1.0f32.min(
+        let speed = java::min_f32(
+            1.0f32,
             (movement.x * movement.x * f64::from(0.2f32)
                 + movement.y * movement.y
                 + movement.z * movement.z * f64::from(0.2f32))
@@ -2098,7 +2099,8 @@ pub trait Entity: Any {
             Some(m) => (0.4f32, m),
             None => (0.35f32, self.base().delta_movement()),
         };
-        let speed = 1.0f32.min(
+        let speed = java::min_f32(
+            1.0f32,
             (delta_movement.x * delta_movement.x * f64::from(0.2f32)
                 + delta_movement.y * delta_movement.y
                 + delta_movement.z * delta_movement.z * f64::from(0.2f32))
@@ -2194,9 +2196,9 @@ pub trait Entity: Any {
         if self.can_simulate_movement() {
             let movement = self.base().delta_movement();
             let yd = if drag_down {
-                (-0.9f64).max(movement.y - 0.03)
+                java::max_f64(-0.9f64, movement.y - 0.03)
             } else {
-                1.8f64.min(movement.y + 0.1)
+                java::min_f64(1.8f64, movement.y + 0.1)
             };
             self.base_mut()
                 .set_delta_movement(Vec3::new(movement.x, yd, movement.z));
@@ -2208,9 +2210,9 @@ pub trait Entity: Any {
         if self.can_simulate_movement() {
             let movement = self.base().delta_movement();
             let yd = if drag_down {
-                (-0.3f64).max(movement.y - 0.03)
+                java::max_f64(-0.3f64, movement.y - 0.03)
             } else {
-                0.7f64.min(movement.y + 0.06)
+                java::min_f64(0.7f64, movement.y + 0.06)
             };
             self.base_mut()
                 .set_delta_movement(Vec3::new(movement.x, yd, movement.z));

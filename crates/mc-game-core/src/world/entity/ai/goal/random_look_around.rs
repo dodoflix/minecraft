@@ -3,6 +3,7 @@
 use super::{Flag, Goal, GoalFlags};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
+use mc_core::math::java;
 use mc_core::random::RandomSource;
 
 pub struct RandomLookAroundGoal {
@@ -38,8 +39,8 @@ impl Goal for RandomLookAroundGoal {
 
     fn start(&mut self, mob: &mut dyn Entity, _level: &mut ServerLevel) {
         let rnd = (std::f64::consts::PI * 2.0) * mob.base_mut().random.next_double();
-        self.rel_x = rnd.cos();
-        self.rel_z = rnd.sin();
+        self.rel_x = java::cos(rnd);
+        self.rel_z = java::sin(rnd);
         self.look_time = 20 + mob.base_mut().random.next_int_bounded(20);
     }
 

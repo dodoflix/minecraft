@@ -1,4 +1,5 @@
 //! `net.minecraft.world.level.block.NoteBlock`.
+use mc_core::math::java;
 use mc_core::phys::BlockHitResult;
 use mc_data::GameEvent;
 use mc_data::enums::NoteBlockInstrument;
@@ -51,7 +52,7 @@ fn play_note(source: Option<EntityId>, state: BlockState, level: &mut ServerLeve
 
 /// `NoteBlock.getPitchFromNote`.
 pub fn get_pitch_from_note(two_octave_range_note: i32) -> f32 {
-    2.0f64.powf(f64::from(two_octave_range_note - 12) / 12.0) as f32
+    java::pow(2.0, f64::from(two_octave_range_note - 12) / 12.0) as f32
 }
 
 impl BlockBehaviour for NoteBlock {

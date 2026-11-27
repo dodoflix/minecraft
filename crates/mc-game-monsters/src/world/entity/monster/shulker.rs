@@ -3,7 +3,7 @@
 use linkme::distributed_slice;
 use mc_core::direction::{Axis, Direction};
 use mc_core::ident::Identifier;
-use mc_core::math::java::java_float_to_string;
+use mc_core::math::java::{self, java_float_to_string};
 use mc_core::math::mth;
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
@@ -217,8 +217,8 @@ impl Shulker {
             size_d,
             size_d * 0.5,
         );
-        let max_movement = f64::from(progress_from.max(progress_to));
-        let min_movement = f64::from(progress_from.min(progress_to));
+        let max_movement = f64::from(java::max_f32(progress_from, progress_to));
+        let min_movement = f64::from(java::min_f32(progress_from, progress_to));
         let aabb = bounds_at_bottom_center
             .expand_towards(
                 f64::from(direction.get_step_x()) * max_movement * size_d,
@@ -495,7 +495,7 @@ impl Entity for Shulker {
     mc_game_core::mob_entity_accessors!(mob);
 
     fn sanitize_scale(&self, scale: f32) -> f32 {
-        scale.min(MAX_SCALE)
+        java::min_f32(scale, MAX_SCALE)
     }
 
     fn get_movement_emission(&self) -> MovementEmission {
@@ -898,7 +898,10 @@ type Quat = (f32, f32, f32, f32);
 fn rotation_xyz(angle_x: f32, angle_y: f32, angle_z: f32) -> Quat {
     let half = |a: f32| {
         let h = a * 0.5;
-        (f64::from(h).sin() as f32, f64::from(h).cos() as f32)
+        (
+            java::sin(f64::from(h)) as f32,
+            java::cos(f64::from(h)) as f32,
+        )
     };
     let ((sx, cx), (sy, cy), (sz, cz)) = (half(angle_x), half(angle_y), half(angle_z));
     let (cycz, sysz, sycz, cysz) = (cy * cz, sy * sz, sy * cz, cy * sz);

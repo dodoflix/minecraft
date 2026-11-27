@@ -15,7 +15,7 @@ use crate::world::level::explosion::{
     Explosion, ExplosionDamageCalculator, ExplosionInteraction, default_block_explosion_resistance,
 };
 use linkme::distributed_slice;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::EntityType;
@@ -106,8 +106,11 @@ impl PrimedTnt {
         tnt.set_pos(x, y, z);
         let rot = LevelAccessor::random(level).next_double()
             * f64::from((std::f64::consts::PI * 2.0) as f32);
-        tnt.base
-            .set_delta_movement_xyz(-rot.sin() * 0.02, f64::from(0.2f32), -rot.cos() * 0.02);
+        tnt.base.set_delta_movement_xyz(
+            -java::sin(rot) * 0.02,
+            f64::from(0.2f32),
+            -java::cos(rot) * 0.02,
+        );
         tnt.set_fuse(80);
         tnt.base.xo = x;
         tnt.base.yo = y;

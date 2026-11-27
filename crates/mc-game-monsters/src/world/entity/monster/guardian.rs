@@ -1,6 +1,7 @@
 //! `net.minecraft.world.entity.monster.Guardian` and `ElderGuardian` (a `Guardian` subclass: one struct serves both types).
 
 use linkme::distributed_slice;
+use mc_core::math::java;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -599,11 +600,11 @@ impl MoveControl for GuardianMoveControl {
             let new_speed = mth::lerp_f32(0.125, mob.get_speed(), target_speed);
             mob.set_speed(new_speed);
             let tick_id = f64::from(mob.base().tick_count + mob.id());
-            let push = (tick_id * 0.5).sin() * 0.05;
+            let push = java::sin(tick_id * 0.5) * 0.05;
             let y_rot = mob.base().y_rot();
-            let cos = f64::from(y_rot * (pi / 180.0)).cos();
-            let sin = f64::from(y_rot * (pi / 180.0)).sin();
-            let y_push = (tick_id * 0.75).sin() * 0.05;
+            let cos = java::cos(f64::from(y_rot * (pi / 180.0)));
+            let sin = java::sin(f64::from(y_rot * (pi / 180.0)));
+            let y_push = java::sin(tick_id * 0.75) * 0.05;
             let m = mob.base().delta_movement();
             mob.base_mut().set_delta_movement(m.add_xyz(
                 push * cos,

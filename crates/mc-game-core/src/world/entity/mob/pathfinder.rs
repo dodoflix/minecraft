@@ -6,6 +6,7 @@ use crate::world::entity::ai::goal::Flag;
 use crate::world::entity::ai::memory::memory_module_type::IS_PANICKING;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::level::LevelReader;
+use mc_core::math::java;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 
@@ -58,7 +59,7 @@ pub fn close_range_leash_behaviour(e: &mut dyn Entity, level: &mut ServerLevel, 
         let distance_to = ((dx * dx + dy * dy + dz * dz).sqrt()) as f32;
         let delta = Vec3::new(dx, dy, dz)
             .normalize()
-            .scale(f64::from((distance_to - wanted_distance).max(0.0)));
+            .scale(f64::from(java::max_f32(distance_to - wanted_distance, 0.0)));
         let speed = e.follow_leash_speed();
         navigation::move_to(e, level, p.x + delta.x, p.y + delta.y, p.z + delta.z, speed);
     }

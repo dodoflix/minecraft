@@ -1135,6 +1135,7 @@ dependencies = [
  "libm",
  "mc-testkit",
  "md-5",
+ "num-bigint",
  "serde",
  "serde_json",
  "uuid",

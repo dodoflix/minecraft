@@ -17,7 +17,7 @@ use crate::world::level::gameevent::GameEventContext;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;
 use mc_core::direction::Direction;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
@@ -59,8 +59,8 @@ pub fn get_progress_delta_aabb(
     let size = f64::from(size);
     let bounds_at_bottom_center =
         AABB::new(-size * 0.5, 0.0, -size * 0.5, size * 0.5, size, size * 0.5);
-    let max_movement = f64::from(progress_from.max(progress_to));
-    let min_movement = f64::from(progress_from.min(progress_to));
+    let max_movement = f64::from(java::max_f32(progress_from, progress_to));
+    let min_movement = f64::from(java::min_f32(progress_from, progress_to));
     let (sx, sy, sz) = (
         f64::from(direction.get_step_x()),
         f64::from(direction.get_step_y()),

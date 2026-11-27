@@ -2,7 +2,7 @@
 //! knockback, `causeFallDamage`, hurt sounds. Free functions over `&mut dyn Entity` (any entity whose `living()` is
 //! `Some`); `Player`/`ServerPlayer` overrides live in `player/damage.rs` and call these as their `super`.
 
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_data::{Attribute, EntityType, GameEvent, MobEffect, SoundEvent};
@@ -342,7 +342,7 @@ pub fn knockback(
         }
         let delta_vector = Vec3::new(xd, 0.0, zd).normalize().scale(power);
         let y = if entity.base().on_ground() {
-            (0.4f64).min(delta_movement.y / 2.0 + power)
+            java::min_f64(0.4f64, delta_movement.y / 2.0 + power)
         } else {
             delta_movement.y
         };
@@ -494,7 +494,7 @@ pub fn get_damage_after_magic_absorb(
         let absorb = 25 - absorb_value;
         let v = damage * absorb as f32;
         let old_damage = damage;
-        damage = (v / 25.0).max(0.0);
+        damage = java::max_f32(v / 25.0, 0.0);
         let damage_resisted = old_damage - damage;
         if damage_resisted > 0.0 && damage_resisted < STAT_DAMAGE_LIMIT {
             if let Some(player) = as_server_player(entity) {
@@ -569,7 +569,7 @@ pub fn actually_hurt(
     }
     let mut dmg = get_damage_after_armor_absorb(entity, level, source, dmg);
     dmg = entity.get_damage_after_magic_absorb(level, source, dmg);
-    let var10 = (dmg - entity.get_absorption_amount()).max(0.0);
+    let var10 = java::max_f32(dmg - entity.get_absorption_amount(), 0.0);
     let absorption = entity.get_absorption_amount();
     entity.set_absorption_amount(absorption - (dmg - var10));
     let absorbed_damage = dmg - var10;
@@ -606,7 +606,7 @@ pub fn do_hurt_equipment(
     if damage <= 0.0 {
         return;
     }
-    let durability_damage = f32::max(1.0, damage / 4.0) as i32;
+    let durability_damage = java::max_f32(1.0, damage / 4.0) as i32;
     for &slot in slots {
         let stack = entity.get_item_by_slot(slot);
         let damage_on_hurt = stack
@@ -649,7 +649,7 @@ pub fn cause_fall_damage(
     let effective_fall_distance;
     let impact = entity.living().expect("living").current_impulse_impact_pos;
     if let Some(impact) = impact {
-        effective_fall_distance = fall_distance.min(impact.y - entity.base().y());
+        effective_fall_distance = java::min_f64(fall_distance, impact.y - entity.base().y());
         let has_landed_above_current_impulse_impact_pos_y = effective_fall_distance <= 0.0;
         if has_landed_above_current_impulse_impact_pos_y {
             reset_current_impulse_context(entity);

@@ -1,6 +1,6 @@
 //! `BreezeUtil`.
 
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_data::Attribute;
@@ -40,7 +40,8 @@ pub fn has_line_of_sight(level: &ServerLevel, breeze: &dyn Entity, target: Vec3)
 }
 
 fn get_max_line_of_sight_test_range(breeze: &dyn Entity) -> f64 {
-    MAX_LINE_OF_SIGHT_TEST_RANGE.max(
+    java::max_f64(
+        MAX_LINE_OF_SIGHT_TEST_RANGE,
         breeze
             .living()
             .map_or(0.0, |l| l.get_attribute_value(Attribute::FOLLOW_RANGE)),

@@ -6,7 +6,7 @@ use crate::world::entity::Entity;
 use crate::world::entity::item::ItemEntity;
 use crate::world::inventory::Prediction;
 use crate::world::item::ItemStack;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::random::RandomSource;
 
 const PI_F: f32 = std::f32::consts::PI;
@@ -49,11 +49,13 @@ impl ServerPlayer {
             let random = &mut self.base_mut().random;
             let dir = random.next_float() * (PI_F * 2.0);
             let pow2 = 0.02f32 * random.next_float();
-            let dx = f64::from(-sin_y * cos_x * 0.3f32) + f64::from(dir).cos() * f64::from(pow2);
+            let dx =
+                f64::from(-sin_y * cos_x * 0.3f32) + java::cos(f64::from(dir)) * f64::from(pow2);
             let a = random.next_float();
             let b = random.next_float();
             let dy = f64::from(-sin_x * 0.3f32 + 0.1f32 + (a - b) * 0.1f32);
-            let dz = f64::from(cos_y * cos_x * 0.3f32) + f64::from(dir).sin() * f64::from(pow2);
+            let dz =
+                f64::from(cos_y * cos_x * 0.3f32) + java::sin(f64::from(dir)) * f64::from(pow2);
             entity.base_mut().set_delta_movement_xyz(dx, dy, dz);
         }
         Some(entity)

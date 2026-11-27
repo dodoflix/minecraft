@@ -6,7 +6,7 @@
 //! after the entity is gone (the transmitter's UUID) and reads the live state through [`WaypointContext`].
 
 use mc_core::ident::Identifier;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::pos::{BlockPos, ChunkPos};
 use mc_dfu::extra::RGB_COLOR_CODEC;
@@ -158,7 +158,7 @@ pub fn does_source_ignore_receiver(
     if receiver.spectator {
         false
     } else if !source.spectator && !ctx.has_indirect_passenger(source.id, receiver.id) {
-        let broadcast_range = source.transmit_range.min(receiver.receive_range);
+        let broadcast_range = java::min_f64(source.transmit_range, receiver.receive_range);
         f64::from(distance_to(source.position, receiver.position)) >= broadcast_range
     } else {
         true

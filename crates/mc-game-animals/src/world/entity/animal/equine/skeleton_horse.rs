@@ -2,6 +2,7 @@
 
 use super::skeleton_trap_goal::SkeletonTrapGoal;
 use linkme::distributed_slice;
+use mc_core::math::java;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -216,7 +217,7 @@ impl Entity for SkeletonHorse {
         let volume = if self.base().on_ground() {
             0.3
         } else {
-            f32::min(0.1, volume * 25.0)
+            java::min_f32(0.1, volume * 25.0)
         };
         let sound = self.next_swim_sound();
         let a = self.base_mut().random.next_float();

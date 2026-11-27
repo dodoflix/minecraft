@@ -1,7 +1,7 @@
 //! `LivingEntity.SwingState`: gates `swing` (a swing started in the first half of a running one is ignored) and drives
 //! the swing animation progress.
 use crate::world::item::InteractionHand;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_protocol::packets::play::SwingAnimation;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -52,7 +52,7 @@ impl SwingState {
         self.old_animation = self.animation;
         if let Some(cur) = self.current_swing {
             if cur.duration_ticks > 0 {
-                self.animation = (self.ticks as f32 / cur.duration_ticks as f32).min(1.0);
+                self.animation = java::min_f32(self.ticks as f32 / cur.duration_ticks as f32, 1.0);
             }
             let t = self.ticks;
             self.ticks += 1;

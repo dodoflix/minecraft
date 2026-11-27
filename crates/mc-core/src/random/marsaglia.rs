@@ -1,4 +1,5 @@
 use super::RandomSource;
+use crate::math::java;
 
 /// `MarsagliaPolarGaussian`. Vanilla holds the source; here the source is passed per call
 /// (owners keep this state next to themselves).
@@ -33,7 +34,7 @@ impl MarsagliaPolarGaussian {
                 break (x, y, r);
             }
         };
-        let multiplier = (-2.0 * radius_squared.ln() / radius_squared).sqrt();
+        let multiplier = (-2.0 * java::log(radius_squared) / radius_squared).sqrt();
         self.next_next_gaussian = y * multiplier;
         self.have_next_next_gaussian = true;
         x * multiplier

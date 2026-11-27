@@ -5,7 +5,7 @@
 use std::sync::{LazyLock, OnceLock};
 
 use mc_core::direction::{Axis, Direction};
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::shapes::{
     BitSetDiscreteVoxelShape, Coords, DiscreteVoxelShape, Shapes, VoxelShape,
 };
@@ -311,7 +311,7 @@ pub fn fluid_height<W: BlockView>(world: &W, bb: &AABB, kind: FluidKind) -> (boo
                 let top = y as f64 + fluid_height_at(world, x, y, z, state, kind);
                 if top >= b.min_y {
                     found = true;
-                    max = max.max(top - b.min_y);
+                    max = java::max_f64(max, top - b.min_y);
                 }
             }
         }
@@ -629,7 +629,7 @@ impl PlayerBody {
     fn jump_from_ground<W: BlockView>(&mut self, world: &W) {
         let power = self.jump_power(world);
         if power > 1.0E-5 {
-            self.vel.y = (power as f64).max(self.vel.y);
+            self.vel.y = java::max_f64(power as f64, self.vel.y);
             if self.sprinting {
                 let a = self.yaw * (std::f32::consts::PI / 180.0);
                 self.vel = Vec3::new(
@@ -921,7 +921,7 @@ impl PlayerBody {
                 self.vel.x.clamp(-0.15f32 as f64, 0.15f32 as f64),
                 self.vel.z.clamp(-0.15f32 as f64, 0.15f32 as f64),
             );
-            let mut yd = self.vel.y.max(-0.15f32 as f64);
+            let mut yd = java::max_f64(self.vel.y, -0.15f32 as f64);
             if yd < 0.0 && self.crouching {
                 yd = 0.0;
             }

@@ -7,6 +7,7 @@ use crate::world::entity::Entity;
 use crate::world::entity::movement::collision_context;
 use crate::world::level::collision::{BlockGetterExt, ClipBlock, ClipContext, ClipFluid};
 use mc_core::direction::Direction;
+use mc_core::math::java;
 use mc_core::phys::{AABB, BlockHitResult, Vec3};
 use mc_core::pos::BlockPos;
 use mc_protocol::components::AttackRange;
@@ -143,7 +144,8 @@ pub fn get_hit_entities_along(
     };
     let from = eye_position.add(look.scale(f64::from(min_range)));
     let movement_component = attacker.get_known_movement(level).dot(look);
-    let to = eye_position.add(look.scale(f64::from(max_range) + movement_component.max(0.0)));
+    let to =
+        eye_position.add(look.scale(f64::from(max_range) + java::max_f64(movement_component, 0.0)));
     get_hit_entities_along_impl(
         level,
         attacker,
@@ -279,7 +281,10 @@ pub fn get_entity_hit_result(
 
 /// `computeMargin(source)`.
 pub fn compute_margin(source: &dyn Entity) -> f32 {
-    0.0f32.max(0.3f32.min((source.base().tick_count - 2) as f32 / 20.0))
+    java::max_f32(
+        0.0f32,
+        java::min_f32(0.3f32, (source.base().tick_count - 2) as f32 / 20.0),
+    )
 }
 
 /// `getEntityHitResult(level, source, from, to, targetSearchArea, matching, entityMargin)`.

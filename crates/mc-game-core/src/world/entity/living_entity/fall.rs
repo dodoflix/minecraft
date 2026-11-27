@@ -4,7 +4,7 @@ use super::util::{l, lm};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::item::enchantment::actors::Actors;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::pos::BlockPos;
 use mc_data::Attribute;
 use mc_data::block::BlockState;
@@ -47,11 +47,11 @@ pub fn before_check_fall_damage(
             if pos.x() != entity_pos.x() || pos.z() != entity_pos.z() {
                 let x_diff = x - f64::from(pos.x()) - 0.5;
                 let z_diff = z - f64::from(pos.z()) - 0.5;
-                let max_diff = x_diff.abs().max(z_diff.abs());
+                let max_diff = java::max_f64(x_diff.abs(), z_diff.abs());
                 x = f64::from(pos.x()) + 0.5 + x_diff / max_diff * 0.5;
                 z = f64::from(pos.z()) + 0.5 + z_diff / max_diff * 0.5;
             }
-            let scale = (f64::from(0.2f32) + power / 15.0).min(2.5);
+            let scale = java::min_f64(f64::from(0.2f32) + power / 15.0, 2.5);
             let particles = (150.0 * scale) as i32;
             level.send_particles(
                 ParticleOptions::Block {

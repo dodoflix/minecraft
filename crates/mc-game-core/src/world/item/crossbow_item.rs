@@ -17,7 +17,7 @@ use crate::world::entity::projectile::arrow::AbstractArrow;
 use crate::world::entity::{Entity, EntityId, entity};
 use crate::world::item::enchantment_helper as helper;
 use crate::world::level::LevelAccessor as _;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_data::{Item, SoundEvent};
@@ -165,7 +165,7 @@ impl V3 {
         let abs_one = |r: f32| (r.to_bits() & 0x7FFF_FFFF) == 1065353216;
         if ay == 0.0 && az == 0.0 && abs_one(ax) {
             let angle = ax * angle;
-            let sin = (f64::from(angle).sin()) as f32;
+            let sin = java::sin(f64::from(angle)) as f32;
             let cos = cos_from_sin_f32(sin, angle);
             V3 {
                 x: self.x,
@@ -174,7 +174,7 @@ impl V3 {
             }
         } else if ax == 0.0 && az == 0.0 && abs_one(ay) {
             let angle = ay * angle;
-            let sin = (f64::from(angle).sin()) as f32;
+            let sin = java::sin(f64::from(angle)) as f32;
             let cos = cos_from_sin_f32(sin, angle);
             V3 {
                 x: self.x * cos + self.z * sin,
@@ -183,7 +183,7 @@ impl V3 {
             }
         } else if ax == 0.0 && ay == 0.0 && abs_one(az) {
             let angle = az * angle;
-            let sin = (f64::from(angle).sin()) as f32;
+            let sin = java::sin(f64::from(angle)) as f32;
             let cos = cos_from_sin_f32(sin, angle);
             V3 {
                 x: self.x * cos - self.y * sin,
@@ -192,7 +192,7 @@ impl V3 {
             }
         } else {
             let hangle = angle * 0.5;
-            let sin_angle = (f64::from(hangle).sin()) as f32;
+            let sin_angle = java::sin(f64::from(hangle)) as f32;
             let (qx, qy, qz) = (ax * sin_angle, ay * sin_angle, az * sin_angle);
             let qw = cos_from_sin_f32(sin_angle, hangle);
             let (w2, x2, y2, z2) = (qw * qw, qx * qx, qy * qy, qz * qz);
@@ -238,7 +238,7 @@ fn cos_from_sin_f64(sin: f64, angle: f64) -> f64 {
 
 /// `new Quaternionf().setAngleAxis(angle, x, y, z)` as `[x, y, z, w]`.
 fn quaternion_from_angle_axis(angle: f64, x: f64, y: f64, z: f64) -> [f32; 4] {
-    let s = (angle * 0.5).sin();
+    let s = java::sin(angle * 0.5);
     [
         (x * s) as f32,
         (y * s) as f32,

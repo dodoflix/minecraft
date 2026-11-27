@@ -5,6 +5,8 @@
 
 use std::hash::{Hash, Hasher};
 
+use mc_core::math::java;
+
 // ---------------------------------------------------------------------------------------------
 // java.lang.Math on floats
 // ---------------------------------------------------------------------------------------------
@@ -38,18 +40,6 @@ pub fn jmax(a: f32, b: f32) -> f32 {
         return if a.is_sign_negative() { b } else { a };
     }
     if a >= b { a } else { b }
-}
-
-/// `Math.signum(float)`: NaN -> NaN, +-0.0 -> same zero.
-#[inline]
-pub fn signum(x: f32) -> f32 {
-    if x == 0.0 || x.is_nan() {
-        x
-    } else if x > 0.0 {
-        1.0
-    } else {
-        -1.0
-    }
 }
 
 /// `Math.round(float)` widened back to `float` (as `(float)Math.round(x)` would give you).
@@ -412,7 +402,7 @@ impl Interval {
             Interval::NAI
         } else {
             let clipped = Interval::max_of(input, Interval::of_exact(0.0));
-            Interval::map_monotonic(clipped, |x| (x as f64).ln() as f32)
+            Interval::map_monotonic(clipped, |x| java::log(x as f64) as f32)
         }
     }
 
@@ -446,7 +436,7 @@ impl Interval {
         if input.is_nai() {
             Interval::NAI
         } else if input.min == input.max {
-            Interval::of_exact(signum(input.min))
+            Interval::of_exact(java::signum_f32(input.min))
         } else if input.contains(0.0) {
             if input.min == 0.0 {
                 Interval::of(0.0, 1.0)
@@ -501,7 +491,7 @@ pub fn java_pow(base: f64, exponent: f64) -> f64 {
     if base.abs() == 1.0 && exponent.is_infinite() {
         return f64::NAN;
     }
-    base.powf(exponent)
+    java::pow(base, exponent)
 }
 
 fn pow_scalar(base: f32, exponent: Interval) -> Interval {

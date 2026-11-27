@@ -3,7 +3,7 @@
 use crate::datafix::DataFix;
 use crate::fixes::references::References;
 use crate::schema::Schema;
-use mc_core::math::java::round_f32;
+use mc_core::math::java::{self, round_f32};
 
 /// `new OptionsMenuBlurrinessFix(outputSchema)`.
 pub fn new(output_schema: &Schema) -> DataFix {
@@ -101,6 +101,6 @@ fn parse_hex_float(s: &str) -> Option<f32> {
         value = value * 16.0 + f64::from(c.to_digit(16)?);
         exponent -= 4;
     }
-    let scaled = value * 2f64.powi(exponent.clamp(-4000, 4000) as i32);
+    let scaled = value * java::pow(2.0, f64::from(exponent.clamp(-4000, 4000) as i32));
     Some(scaled as f32)
 }

@@ -1,12 +1,14 @@
 //! `op/UnaryFunction.java`.
 use std::sync::Arc;
 
+use mc_core::math::java;
+
 use crate::densityfunction::DfRewriteRule;
 use crate::densityfunction::function::{CompileContext, DensityFunction, DfNode, DfOp};
 use crate::densityfunction::sampler::{
     DensityBuffer, DensitySampler, DensityVolume, SamplerContext, SharedSampler,
 };
-use crate::util::{Interval, mth, signum};
+use crate::util::{Interval, mth};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum UnaryType {
@@ -163,7 +165,7 @@ unary_sampler!(
 unary_sampler!(
     /// `UnaryFunction.LogSampler`: `(float) Math.log(double)`.
     LogSampler,
-    |value: f32| (value as f64).ln() as f32
+    |value: f32| java::log(value as f64) as f32
 );
 unary_sampler!(
     /// `UnaryFunction.NegateSampler`.
@@ -178,7 +180,7 @@ unary_sampler!(
 unary_sampler!(
     /// `UnaryFunction.SignSampler`: `Math.signum`.
     SignSampler,
-    signum
+    java::signum_f32
 );
 unary_sampler!(
     /// `UnaryFunction.SqrtSampler`.

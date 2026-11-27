@@ -1,7 +1,7 @@
 //! `Bat` (`AmbientCreature`).
 
 use linkme::distributed_slice;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -37,15 +37,6 @@ static BAT_RESTING_TARGETING: LazyLock<TargetingConditions> =
 pub struct Bat {
     pub mob: MobData,
     target_position: Option<BlockPos>,
-}
-
-/// `Math.signum(double)`: zeros and NaN are returned unchanged.
-fn signum(d: f64) -> f64 {
-    if d == 0.0 || d.is_nan() {
-        d
-    } else {
-        d.signum()
-    }
 }
 
 impl Bat {
@@ -205,9 +196,9 @@ impl Entity for Bat {
             let dz = f64::from(target.z()) + 0.5 - pz;
             let movement = self.base().delta_movement();
             let new_movement = movement.add_xyz(
-                (signum(dx) * 0.5 - movement.x) * f64::from(0.1f32),
-                (signum(dy) * f64::from(0.7f32) - movement.y) * f64::from(0.1f32),
-                (signum(dz) * 0.5 - movement.z) * f64::from(0.1f32),
+                (java::signum_f64(dx) * 0.5 - movement.x) * f64::from(0.1f32),
+                (java::signum_f64(dy) * f64::from(0.7f32) - movement.y) * f64::from(0.1f32),
+                (java::signum_f64(dz) * 0.5 - movement.z) * f64::from(0.1f32),
             );
             self.base_mut().set_delta_movement(new_movement);
             let y_rot_d = (mth::atan2(new_movement.z, new_movement.x)

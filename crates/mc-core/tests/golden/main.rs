@@ -7,6 +7,7 @@ mod java_case;
 mod java_collections;
 mod java_format;
 mod math;
+mod math_intrinsics;
 mod octahedral;
 mod pos;
 mod random;

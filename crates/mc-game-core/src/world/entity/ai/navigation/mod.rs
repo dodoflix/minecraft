@@ -32,7 +32,7 @@ use crate::world::level::pathfinder::{
 };
 use crate::world::level::{BlockGetter, LevelReader};
 use mc_core::direction::Direction;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::EntityType;
@@ -196,7 +196,7 @@ impl NavigationData {
 
     /// `getMaxPathLength()` for a mob whose `FOLLOW_RANGE` attribute value is `follow_range_value`.
     pub fn max_path_length(&self, follow_range_value: f64) -> f32 {
-        (follow_range_value as f32).max(self.required_path_length)
+        java::max_f32(follow_range_value as f32, self.required_path_length)
     }
 
     /// `setRequiredPathLength(length)` + `updatePathfinderMaxVisitedNodes()` for that follow range value.

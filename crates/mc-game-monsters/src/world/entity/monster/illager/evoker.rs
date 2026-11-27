@@ -3,7 +3,7 @@
 use super::super::vex::Vex;
 use linkme::distributed_slice;
 use mc_core::direction::{Axis, Direction};
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -306,8 +306,8 @@ impl UseSpell for EvokerAttackSpell {
         };
         let (target_x, target_y, target_z, target_position) = target;
         let (mx, my, mz) = (mob.base().x(), mob.base().y(), mob.base().z());
-        let min_y = target_y.min(my);
-        let max_y = target_y.max(my) + 1.0;
+        let min_y = java::min_f64(target_y, my);
+        let max_y = java::max_f64(target_y, my) + 1.0;
         let angle_towards_target = mth::atan2(target_z - mz, target_x - mx) as f32;
         let pi = std::f32::consts::PI;
         let mob = &*mob;

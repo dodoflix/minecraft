@@ -14,6 +14,7 @@ use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt as _;
 use crate::world::level::explosion::{Explosion, ExplosionInteraction};
 use linkme::distributed_slice;
+use mc_core::math::java;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::BlockState;
@@ -176,7 +177,7 @@ impl Entity for WitherSkull {
         resistance: f32,
     ) -> f32 {
         if self.is_dangerous() && can_destroy(block) {
-            resistance.min(0.8)
+            java::min_f32(resistance, 0.8)
         } else {
             resistance
         }

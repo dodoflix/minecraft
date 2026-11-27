@@ -20,6 +20,7 @@ use crate::world::entity::{Entity, EntityId, equipment::EquipmentSlot};
 use crate::world::item::ItemStack;
 use crate::world::level::pathfinder::Path;
 use crate::world::level::server_level_accessor::ServerLevelAccessor;
+use mc_core::math::java;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -415,7 +416,9 @@ pub fn pick_up_item(e: &mut dyn Entity, level: &mut ServerLevel, item_id: Entity
         let slot = EquipmentSlot::Head;
         let current = e.get_item_by_slot(slot);
         let drop_chance = e.mob().expect("mob").drop_chances.by_equipment(slot);
-        if !current.is_empty() && (e.base_mut().random.next_float() - 0.1).max(0.0) < drop_chance {
+        if !current.is_empty()
+            && java::max_f32(e.base_mut().random.next_float() - 0.1, 0.0) < drop_chance
+        {
             crate::world::entity::item::spawn_at_location(level, e, current, Vec3::ZERO);
         }
         crate::world::entity::player::pickup::on_item_pickup_by_id(level, &*e, item_id);

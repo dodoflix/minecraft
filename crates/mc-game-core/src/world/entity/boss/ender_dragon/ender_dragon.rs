@@ -28,7 +28,7 @@ use crate::world::level::pathfinder::node::Node;
 use crate::world::level::pathfinder::path::Path;
 use crate::world::level::{BlockGetter, LevelAccessor};
 use linkme::distributed_slice;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -217,8 +217,10 @@ impl EnderDragon {
                 HeightmapType::MotionBlockingNoLeaves,
                 self.podium_location(),
             );
-            let dist =
-                (egg.dist_to_center_sqr(&self.base().position()).sqrt() as f32 / 4.0).max(1.0);
+            let dist = java::max_f32(
+                egg.dist_to_center_sqr(&self.base().position()).sqrt() as f32 / 4.0,
+                1.0,
+            );
             let y_offset = 6.0 / dist;
             self.base_mut().set_x_rot(-y_offset * 1.5 * 5.0);
         } else if phase.is_sitting() {
@@ -285,7 +287,7 @@ impl EnderDragon {
         }
         damage = phases::on_hurt(self, level, source, damage);
         if part != HEAD && part != NECK {
-            damage = damage / 4.0 + damage.min(1.0);
+            damage = damage / 4.0 + java::min_f32(damage, 1.0);
         }
         if damage < 0.01 {
             return false;
@@ -400,7 +402,7 @@ impl EnderDragon {
             f64::from(-mth::cos(f64::from(rotation))),
         )
         .normalize();
-        let dot = ((dir.dot(aim) as f32 + 0.5) / 1.5).max(0.0);
+        let dot = java::max_f32((dir.dot(aim) as f32 + 0.5) / 1.5, 0.0);
         if xdd.abs() > f64::from(1.0E-5_f32) || zdd.abs() > f64::from(1.0E-5_f32) {
             let y_rot_d = mth::clamp_f32(
                 mth::wrap_degrees_f32(
@@ -467,7 +469,7 @@ impl EnderDragon {
                 }
                 let xd = entity.base().x() - xm;
                 let zd = entity.base().z() - zm;
-                let dd = (xd * xd + zd * zd).max(0.1);
+                let dd = java::max_f64(xd * xd + zd * zd, 0.1);
                 entity.push_xyz(xd / dd * 4.0, f64::from(0.2_f32), zd / dd * 4.0);
                 if !self.phase.is_sitting()
                     && mob::combat::get_last_hurt_by_mob_timestamp(&*entity)
@@ -721,7 +723,7 @@ impl Entity for EnderDragon {
         self.check_crystals(level);
         let movement = self.base().delta_movement();
         let mut flap_speed = 0.2 / (movement.horizontal_distance() as f32 * 10.0 + 1.0);
-        flap_speed *= f64::powf(2.0, movement.y) as f32;
+        flap_speed *= java::pow(2.0, movement.y) as f32;
         if self.phase.is_sitting() {
             self.flap_time += 0.1;
         } else if self.in_wall {

@@ -2,6 +2,7 @@
 
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
+use mc_core::math::java;
 use mc_world::level_storage::Difficulty;
 use std::sync::Arc;
 
@@ -112,7 +113,7 @@ impl TargetingConditions {
                     } else {
                         1.0
                     };
-                    let visibility_distance = (self.range * modifier).max(2.0);
+                    let visibility_distance = java::max_f64(self.range * modifier, 2.0);
                     let distance_to_sqr = targeter.base().distance_to_sqr_xyz(
                         target.base().x(),
                         target.base().y(),

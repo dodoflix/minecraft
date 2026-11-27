@@ -3,7 +3,7 @@
 use crate::datafix::DataFix;
 use crate::fixes::references::References;
 use crate::schema::Schema;
-use mc_core::math::java::java_double_to_string;
+use mc_core::math::java::{self, java_double_to_string};
 
 /// `new OptionsAddTextBackgroundFix(outputSchema, changesType)`.
 pub fn new(output_schema: &Schema, changes_type: bool) -> DataFix {
@@ -119,5 +119,5 @@ fn parse_hex_double(s: &str) -> Option<f64> {
     if value == 0.0 {
         return Some(0.0);
     }
-    Some(value * 2f64.powi(exponent.clamp(-4000, 4000) as i32))
+    Some(value * java::pow(2.0, f64::from(exponent.clamp(-4000, 4000) as i32)))
 }

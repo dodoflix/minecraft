@@ -1,5 +1,6 @@
 //! `ApplyEntityImpulse.apply`: the push is the entity's look rotation (a JOML float `Quaternionf`) applied to `direction`.
 
+use mc_core::math::java;
 use mc_core::phys::Vec3;
 
 use super::ApplyEntityImpulse;
@@ -48,7 +49,7 @@ trait SinJava {
 impl SinJava for f32 {
     /// `(float) java.lang.Math.sin(rad)`.
     fn sin_java(self) -> f32 {
-        (self as f64).sin() as f32
+        java::sin(f64::from(self)) as f32
     }
 }
 

@@ -28,7 +28,7 @@ use crate::world::item::enchantment::actors::Actors;
 use crate::world::item::{ItemStack, ItemStackExt as _};
 use crate::world::level::BlockGetter;
 use crate::world::level::collision::{ClipBlock, ClipContext, ClipFluid, CollisionGetter};
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::{AABB, BlockHitResult, Vec3};
 use mc_data::block::BlockState;
 use mc_data::{EntityType, SoundEvent};
@@ -118,15 +118,6 @@ pub fn define_synched_data(b: &mut crate::world::entity::synched_data::SynchedEn
     b.define(ID_FLAGS, 0);
     b.define(PIERCE_LEVEL, 0);
     b.define(IN_GROUND, false);
-}
-
-/// `Math.signum(double)`.
-fn java_signum(v: f64) -> f64 {
-    if v == 0.0 || v.is_nan() {
-        v
-    } else {
-        v.signum()
-    }
 }
 
 /// `AbstractArrow` and its overridable hooks.
@@ -854,11 +845,12 @@ pub fn do_knockback(
         None => 0.0,
     };
     if knockback > 0.0 {
-        let resistance = (1.0
-            - mob.living().map_or(0.0, |l| {
+        let resistance = java::max_f64(
+            1.0 - mob.living().map_or(0.0, |l| {
                 l.get_attribute_value(mc_data::Attribute::KNOCKBACK_RESISTANCE)
-            }))
-        .max(0.0);
+            }),
+            0.0,
+        );
         let movement = arrow
             .base()
             .delta_movement()
@@ -881,9 +873,9 @@ pub fn on_hit_block(arrow: &mut dyn AbstractArrow, level: &mut ServerLevel, hit:
     }
     let movement = arrow.base().delta_movement();
     let offset_direction = Vec3::new(
-        java_signum(movement.x),
-        java_signum(movement.y),
-        java_signum(movement.z),
+        java::signum_f64(movement.x),
+        java::signum_f64(movement.y),
+        java::signum_f64(movement.z),
     );
     let scaled_movement = offset_direction.scale(f64::from(0.05f32));
     let position = arrow.position().subtract(scaled_movement);

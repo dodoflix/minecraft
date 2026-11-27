@@ -27,6 +27,7 @@ use crate::server::level::ServerLevel;
 use crate::world::damagesource::DamageSource;
 use crate::world::entity::projectile::hurting::windcharge::WindCharge;
 use crate::world::entity::{Entity, EntityId};
+use mc_core::math::java;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -179,7 +180,7 @@ pub(super) fn fly_speed(dragon: &EnderDragon) -> f32 {
 /// `phase.getTurnSpeed()`.
 pub(super) fn turn_speed(dragon: &EnderDragon) -> f32 {
     let rot_speed = dragon.base().delta_movement().horizontal_distance() as f32 + 1.0;
-    let dist = rot_speed.min(40.0);
+    let dist = java::min_f32(rot_speed, 40.0);
     if dragon.phase() == EnderDragonPhase::Landing {
         dist / rot_speed
     } else {

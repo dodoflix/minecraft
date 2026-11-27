@@ -6,7 +6,7 @@ use super::node_evaluator::{NodeEvaluator, PathEnv};
 use super::path_type::PathType;
 use super::walk_node_evaluator as walk;
 use mc_core::direction::Direction;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::pos::BlockPos;
 
 pub fn prepare<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>) {
@@ -66,7 +66,7 @@ pub fn get_neighbors<N: NodeEvaluator + ?Sized>(
     let current = this.get_cached_path_type(env, px, py, pz);
     let jump_size =
         if env.mob.get_pathfinding_malus(above) >= 0.0 && current != PathType::StickyHoney {
-            mth::floor_f32(1.0f32.max(env.mob.max_up_step()))
+            mth::floor_f32(java::max_f32(1.0f32, env.mob.max_up_step()))
         } else {
             0
         };

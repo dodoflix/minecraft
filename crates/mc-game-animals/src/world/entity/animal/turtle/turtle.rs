@@ -2,7 +2,7 @@
 
 use linkme::distributed_slice;
 use mc_core::ident::Identifier;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -193,15 +193,15 @@ impl TurtleMoveControl {
                 .get_home_pos()
                 .closer_to_center_than(&mob.position(), 16.0)
             {
-                let s = (mob.get_speed() / 2.0).max(0.08);
+                let s = java::max_f32(mob.get_speed() / 2.0, 0.08);
                 mob.set_speed(s);
             }
             if mob.is_baby() {
-                let s = (mob.get_speed() / 3.0).max(0.06);
+                let s = java::max_f32(mob.get_speed() / 3.0, 0.06);
                 mob.set_speed(s);
             }
         } else if mob.base().on_ground() {
-            let s = (mob.get_speed() / 2.0).max(0.06);
+            let s = java::max_f32(mob.get_speed() / 2.0, 0.06);
             mob.set_speed(s);
         }
     }

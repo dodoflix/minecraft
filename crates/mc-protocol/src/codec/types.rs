@@ -2,6 +2,7 @@
 use crate::codec::EncodeResult;
 use mc_core::{
     ident::Identifier,
+    math::java,
     phys::vec3::Vec3,
     pos::{block_pos::BlockPos, chunk_pos::ChunkPos, section_pos::SectionPos, vec3i::Vec3i},
 };
@@ -64,7 +65,7 @@ impl LpVec3 {
         ((v * 0.5 + 0.5) * 32766.0).round() as i64
     }
     fn unpack(v: i64) -> f64 {
-        ((v & 32767) as f64).min(32766.0) * 2.0 / 32766.0 - 1.0
+        java::min_f64((v & 32767) as f64, 32766.0) * 2.0 / 32766.0 - 1.0
     }
 }
 
@@ -75,7 +76,7 @@ impl Encode for LpVec3 {
             Self::sanitize(self.0.y),
             Self::sanitize(self.0.z),
         );
-        let chessboard = x.abs().max(y.abs().max(z.abs()));
+        let chessboard = java::max_f64(x.abs(), java::max_f64(y.abs(), z.abs()));
         if chessboard < Self::ABS_MIN_VALUE {
             out.push(0);
             return Ok(());

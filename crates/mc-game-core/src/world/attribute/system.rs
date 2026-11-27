@@ -12,7 +12,7 @@ use crate::registry::typed::attributes::{
 };
 use crate::world::clock::ClockTotals;
 use mc_core::ident::Identifier;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_world::palette::BiomeId;
 use parking_lot::Mutex;
 use serde_json::Value;
@@ -92,8 +92,12 @@ impl Modifier {
             (Modifier::Add, V::Float(s), Arg::Value(V::Float(a))) => V::Float(s + a),
             (Modifier::Subtract, V::Float(s), Arg::Value(V::Float(a))) => V::Float(s - a),
             (Modifier::Multiply, V::Float(s), Arg::Value(V::Float(a))) => V::Float(s * a),
-            (Modifier::Minimum, V::Float(s), Arg::Value(V::Float(a))) => V::Float(java_min(*s, *a)),
-            (Modifier::Maximum, V::Float(s), Arg::Value(V::Float(a))) => V::Float(java_max(*s, *a)),
+            (Modifier::Minimum, V::Float(s), Arg::Value(V::Float(a))) => {
+                V::Float(java::min_f32(*s, *a))
+            }
+            (Modifier::Maximum, V::Float(s), Arg::Value(V::Float(a))) => {
+                V::Float(java::max_f32(*s, *a))
+            }
             (Modifier::Add, V::Int(s), Arg::Value(V::Int(a))) => V::Int(s.wrapping_add(*a)),
             (Modifier::Subtract, V::Int(s), Arg::Value(V::Int(a))) => V::Int(s.wrapping_sub(*a)),
             (Modifier::Multiply, V::Int(s), Arg::Value(V::Int(a))) => V::Int(s.wrapping_mul(*a)),
@@ -115,25 +119,25 @@ impl Modifier {
                 V::Argb(alpha_blend_argb(*d, *src))
             }
             (Modifier::Add, V::Rgb(l), Arg::Value(V::Rgb(r))) => V::Rgb([
-                (l[0] + r[0]).min(1.0),
-                (l[1] + r[1]).min(1.0),
-                (l[2] + r[2]).min(1.0),
+                java::min_f32(l[0] + r[0], 1.0),
+                java::min_f32(l[1] + r[1], 1.0),
+                java::min_f32(l[2] + r[2], 1.0),
             ]),
             (Modifier::Add, V::Argb(l), Arg::Value(V::Rgb(r))) => V::Argb([
-                (l[0] + r[0]).min(1.0),
-                (l[1] + r[1]).min(1.0),
-                (l[2] + r[2]).min(1.0),
+                java::min_f32(l[0] + r[0], 1.0),
+                java::min_f32(l[1] + r[1], 1.0),
+                java::min_f32(l[2] + r[2], 1.0),
                 l[3],
             ]),
             (Modifier::Subtract, V::Rgb(l), Arg::Value(V::Rgb(r))) => V::Rgb([
-                (l[0] - r[0]).max(0.0),
-                (l[1] - r[1]).max(0.0),
-                (l[2] - r[2]).max(0.0),
+                java::max_f32(l[0] - r[0], 0.0),
+                java::max_f32(l[1] - r[1], 0.0),
+                java::max_f32(l[2] - r[2], 0.0),
             ]),
             (Modifier::Subtract, V::Argb(l), Arg::Value(V::Rgb(r))) => V::Argb([
-                (l[0] - r[0]).max(0.0),
-                (l[1] - r[1]).max(0.0),
-                (l[2] - r[2]).max(0.0),
+                java::max_f32(l[0] - r[0], 0.0),
+                java::max_f32(l[1] - r[1], 0.0),
+                java::max_f32(l[2] - r[2], 0.0),
                 l[3],
             ]),
             (Modifier::Multiply, V::Rgb(l), Arg::Value(V::Rgb(r))) => V::Rgb(if *l == [1.0; 3] {
@@ -185,25 +189,6 @@ impl Arg {
             Arg::Value(v) => v,
             _ => unreachable!("only value arguments are converted"),
         }
-    }
-}
-
-fn java_min(a: f32, b: f32) -> f32 {
-    if a.is_nan() || b.is_nan() {
-        f32::NAN
-    } else if a == 0.0 && b == 0.0 {
-        if a.is_sign_negative() { a } else { b }
-    } else {
-        a.min(b)
-    }
-}
-fn java_max(a: f32, b: f32) -> f32 {
-    if a.is_nan() || b.is_nan() {
-        f32::NAN
-    } else if a == 0.0 && b == 0.0 {
-        if a.is_sign_negative() { b } else { a }
-    } else {
-        a.max(b)
     }
 }
 

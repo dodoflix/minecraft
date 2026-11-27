@@ -1,6 +1,6 @@
 //! `IcebergFeature`: round or elliptic icebergs floating at sea level.
 
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
@@ -386,8 +386,8 @@ impl IcebergFeature {
     ) -> f64 {
         let dx = f64::from(xo - origin.x());
         let dz = f64::from(zo - origin.z());
-        sq((dx * angle.cos() - dz * angle.sin()) / f64::from(a))
-            + sq((dx * angle.sin() + dz * angle.cos()) / f64::from(c))
+        sq((dx * java::cos(angle) - dz * java::sin(angle)) / f64::from(a))
+            + sq((dx * java::sin(angle) + dz * java::cos(angle)) / f64::from(c))
             - 1.0
     }
 

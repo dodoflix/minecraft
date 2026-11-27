@@ -2,6 +2,7 @@
 
 use super::abstract_golem::AMBIENT_SOUND_INTERVAL;
 use linkme::distributed_slice;
+use mc_core::math::java;
 use mc_core::phys::Vec3;
 use mc_core::random::RandomSource;
 use mc_data::fluid::FluidState;
@@ -245,7 +246,7 @@ impl Entity for IronGolem {
             let knockback_resistance = target.living().map_or(0.0, |l| {
                 l.get_attribute_value(Attribute::KNOCKBACK_RESISTANCE)
             });
-            let scale = (1.0 - knockback_resistance).max(0.0);
+            let scale = java::max_f64(1.0 - knockback_resistance, 0.0);
             let movement = target.base().delta_movement();
             target.base_mut().set_delta_movement(movement.add(Vec3::new(
                 0.0,

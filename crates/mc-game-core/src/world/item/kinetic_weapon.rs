@@ -13,7 +13,7 @@ use crate::world::entity::player::attack::get_attack_range_with;
 use crate::world::entity::projectile::util::get_hit_entities_along;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::level::collision::ClipBlock;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_data::Attribute;
 use mc_protocol::components::values::combat::{KineticWeapon, KineticWeaponCondition};
@@ -145,7 +145,8 @@ pub fn damage_entities(
         };
         remember_stabbed_entity(level, entity, other, target_is_living);
         let target_speed_projection = attacker_look.dot(target_motion);
-        let relative_speed = (attacker_speed_projection - target_speed_projection).max(0.0);
+        let relative_speed =
+            java::max_f64(attacker_speed_projection - target_speed_projection, 0.0);
         let test = |c: &Option<KineticWeaponCondition>| {
             c.as_ref().is_some_and(|c| {
                 condition_test(

@@ -11,6 +11,7 @@ use crate::world::level::gameevent::vibrations::{
     self, VibrationSystem, get_resonance_event_by_frequency,
 };
 use crate::world::level::gameevent::{GameEventContext, SourceEntityInfo};
+use mc_core::math::java;
 use mc_data::enums::SculkSensorPhase;
 use mc_data::fluid::Fluid;
 use mc_data::{EntityType, GameEvent, SoundEvent};
@@ -24,7 +25,7 @@ pub const COOLDOWN_TICKS: i32 = 10;
 static RESONANCE_PITCH_BEND: LazyLock<[f32; 16]> = LazyLock::new(|| {
     let tone_map = [0, 0, 2, 4, 6, 7, 9, 10, 12, 14, 15, 18, 19, 21, 22, 24];
     // `NoteBlock.getPitchFromNote(note)`
-    tone_map.map(|note: i32| 2.0f64.powf(f64::from(note - 12) / 12.0) as f32)
+    tone_map.map(|note: i32| java::pow(2.0, f64::from(note - 12) / 12.0) as f32)
 });
 
 /// `getPhase(state)`.

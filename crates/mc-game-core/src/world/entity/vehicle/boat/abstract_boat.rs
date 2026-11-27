@@ -36,6 +36,7 @@ use crate::world::level::block::BlockStateExt;
 use crate::world::level::collision::BlockGetterExt;
 use crate::world::level::material::FluidStateExt;
 use linkme::distributed_slice;
+use mc_core::math::java;
 use mc_core::math::java::java_float_to_string;
 use mc_core::math::mth;
 use mc_core::phys::shapes::{BooleanOp, Shapes};
@@ -260,7 +261,8 @@ impl AbstractBoat {
                     let pos = BlockPos::new(x, y, z);
                     let fluid_state = level.get_fluid_state(pos);
                     if fluid_state.is_tag("water") {
-                        block_height = block_height.max(fluid_state.get_height(level, pos));
+                        block_height =
+                            java::max_f32(block_height, fluid_state.get_height(level, pos));
                     }
                     if block_height >= 1.0 {
                         continue 'rows;
@@ -344,7 +346,7 @@ impl AbstractBoat {
                     let fluid_state = level.get_fluid_state(pos);
                     if fluid_state.is_tag("water") {
                         let height = y as f32 + fluid_state.get_height(level, pos);
-                        self.water_level = f64::from(height).max(self.water_level);
+                        self.water_level = java::max_f64(f64::from(height), self.water_level);
                         in_water |= bb.min_y < f64::from(height);
                     }
                 }
@@ -984,7 +986,7 @@ impl Entity for AbstractBoat {
         if boat_box.max_y >= passenger_box.max_y {
             None
         } else {
-            let min_y = passenger_box.min_y.max(boat_box.max_y);
+            let min_y = java::max_f64(passenger_box.min_y, boat_box.max_y);
             Some(AABB::new(
                 passenger_box.min_x,
                 min_y,

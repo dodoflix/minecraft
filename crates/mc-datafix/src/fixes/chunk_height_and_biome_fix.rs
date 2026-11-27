@@ -8,7 +8,7 @@ use crate::fixes::references::References;
 use crate::schema::Schema;
 use crate::typed::Typed;
 use crate::util::read_typed_or_throw;
-use mc_core::math::java::parse_int;
+use mc_core::math::java::{self, parse_int};
 use mc_dfu::Dynamic;
 use std::collections::HashSet;
 
@@ -673,6 +673,6 @@ pub fn ceillog2(input: i32) -> i32 {
     if input == 0 {
         0
     } else {
-        ((f64::from(input)).ln() / 2.0f64.ln()).ceil() as i32
+        (java::log(f64::from(input)) / java::log(2.0)).ceil() as i32
     }
 }

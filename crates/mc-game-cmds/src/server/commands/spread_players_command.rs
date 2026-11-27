@@ -5,7 +5,7 @@ use mc_brigadier::{
     CommandSyntaxException, Dynamic2CommandExceptionType, Dynamic4CommandExceptionType,
 };
 use mc_core::direction::Direction;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec2;
 use mc_core::pos::BlockPos;
 use mc_core::random::{RandomSource, create_thread_local_instance_new};
@@ -312,7 +312,7 @@ fn spread_positions(
             for (j, neighbour) in positions.iter().enumerate() {
                 if i != j {
                     let dist = position.dist(neighbour);
-                    min_distance = dist.min(min_distance);
+                    min_distance = java::min_f64(dist, min_distance);
                     if dist < spread_dist {
                         neighbour_count += 1;
                         average_neighbour_pos.x += neighbour.x - position.x;
@@ -413,7 +413,7 @@ fn set_player_positions(
         let mut closest = f64::MAX;
         for (test_index, test_position) in positions.iter().enumerate() {
             if index != test_index {
-                closest = position.dist(test_position).min(closest);
+                closest = java::min_f64(position.dist(test_position), closest);
             }
         }
         avg_distance += closest;

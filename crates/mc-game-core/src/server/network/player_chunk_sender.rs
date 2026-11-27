@@ -9,6 +9,7 @@
 use super::ConnectionSender;
 use super::connection::Payload;
 use crate::util::long_open_hash_set::LongOpenHashSet;
+use mc_core::math::java;
 use mc_core::pos::ChunkPos;
 use mc_protocol::packets::play::{
     ClientboundChunkBatchFinishedPacket, ClientboundChunkBatchStartPacket,
@@ -83,8 +84,11 @@ impl PlayerChunkSender {
         if inner.unacknowledged_batches >= inner.max_unacknowledged_batches {
             return;
         }
-        let max_batch_size = inner.desired_chunks_per_tick.max(1.0);
-        inner.batch_quota = (inner.batch_quota + inner.desired_chunks_per_tick).min(max_batch_size);
+        let max_batch_size = java::max_f32(inner.desired_chunks_per_tick, 1.0);
+        inner.batch_quota = java::min_f32(
+            inner.batch_quota + inner.desired_chunks_per_tick,
+            max_batch_size,
+        );
         if inner.batch_quota < 1.0 || inner.pending_chunks.is_empty() {
             return;
         }

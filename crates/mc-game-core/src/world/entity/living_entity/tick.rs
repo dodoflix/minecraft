@@ -4,7 +4,7 @@ use super::util::{l, lm};
 use crate::server::level::ServerLevel;
 use crate::world::entity::Entity;
 use crate::world::entity::living::{DATA_ARROW_COUNT_ID, DATA_STINGER_COUNT_ID};
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_data::enums::Pose;
 
 /// `LivingEntity.isVisuallySwimming()`.
@@ -19,9 +19,9 @@ fn update_swim_amount(entity: &mut dyn Entity) {
     let living = lm(entity);
     living.swim_amount_o = living.swim_amount;
     if visually_swimming {
-        living.swim_amount = (living.swim_amount + 0.09).min(1.0);
+        living.swim_amount = java::min_f32(living.swim_amount + 0.09, 1.0);
     } else {
-        living.swim_amount = (living.swim_amount - 0.09).max(0.0);
+        living.swim_amount = java::max_f32(living.swim_amount - 0.09, 0.0);
     }
 }
 

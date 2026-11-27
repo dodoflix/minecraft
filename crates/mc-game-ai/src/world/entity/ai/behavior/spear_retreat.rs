@@ -3,6 +3,7 @@
 use super::spear_approach::{
     able_to_attack, get_target, root_charge_speed_modifier, target_distance_sqr,
 };
+use mc_core::math::java;
 use mc_game_core::entry_condition;
 use mc_game_core::server::level::ServerLevel;
 use mc_game_core::world::entity::ai::behavior::position_tracker::{EntityTracker, PositionTracker};
@@ -70,11 +71,11 @@ impl Behavior for SpearRetreat {
         let away_pos = land_random_pos::get_pos_away_range(
             body,
             level,
-            f64::max(
+            java::max_f64(
                 0.0,
                 f64::from(MIN_COOLDOWN_DISTANCE + mount_distance) - distance,
             ),
-            f64::max(
+            java::max_f64(
                 1.0,
                 f64::from(MAX_COOLDOWN_DISTANCE + mount_distance) - distance,
             ),

@@ -16,6 +16,7 @@ use crate::world::entity::entity::{BOARDING_COOLDOWN, Entity};
 use crate::world::entity::movement;
 use crate::world::level::BlockGetter;
 use crate::world::level::collision::CollisionGetter;
+use mc_core::math::java;
 use mc_core::phys::shapes::Shapes;
 use mc_core::phys::{AABB, Vec3};
 use mc_data::GameEvent;
@@ -240,7 +241,7 @@ impl ServerLevel {
             }) {
                 v.get_dismount_location_for_passenger_setting_pose(self, &mut *rider)
             } else {
-                let max_y = base.y().max(vehicle.map_or(base.y(), |v| v.base().y()));
+                let max_y = java::max_f64(base.y(), vehicle.map_or(base.y(), |v| v.base().y()));
                 let mut target = Vec3::new(base.x(), max_y, base.z());
                 let (width, height) = (base.get_bb_width(), base.get_bb_height());
                 if width <= 4.0 && height <= 4.0 {

@@ -3,7 +3,7 @@
 use super::util::{effect_amplifier, is_sprinting, l};
 use crate::server::level::ServerLevel;
 use crate::world::entity::{Entity, movement};
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_data::{Attribute, MobEffect};
 
@@ -35,7 +35,7 @@ pub fn jump_from_ground(entity: &mut dyn Entity, level: &ServerLevel) {
         let movement = entity.base().delta_movement();
         entity.base_mut().set_delta_movement_xyz(
             movement.x,
-            f64::from(jump_power).max(movement.y),
+            java::max_f64(f64::from(jump_power), movement.y),
             movement.z,
         );
         if is_sprinting(entity) {

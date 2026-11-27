@@ -3,7 +3,7 @@
 
 use linkme::distributed_slice;
 use mc_core::direction::{Axis, Direction};
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::shapes::{Shapes, VoxelShape};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
@@ -356,7 +356,10 @@ impl PistonMovingBlockEntity {
                     );
                     let entity_aabb = entity.get_bounding_box();
                     if moving_aabb.intersects_aabb(&entity_aabb) {
-                        delta = delta.max(get_movement(&moving_aabb, movement, &entity_aabb));
+                        delta = java::max_f64(
+                            delta,
+                            get_movement(&moving_aabb, movement, &entity_aabb),
+                        );
                         if delta >= delta_progress {
                             break;
                         }
@@ -364,7 +367,7 @@ impl PistonMovingBlockEntity {
                 }
 
                 if !(delta <= 0.0) {
-                    delta = delta.min(delta_progress) + 0.01;
+                    delta = java::min_f64(delta, delta_progress) + 0.01;
                     move_entity_by_piston(level, movement, entity, delta, movement);
                     if !self.extending && self.is_source_piston {
                         fix_entity_within_piston_base(level, pos, entity, movement, delta_progress);
@@ -464,7 +467,7 @@ fn fix_entity_within_piston_base(
         let mut delta = get_movement(&box_, opposite, &entity_aabb) + 0.01;
         let delta_intersected = get_movement(&box_, opposite, &entity_aabb.intersect(&box_)) + 0.01;
         if (delta - delta_intersected).abs() < 0.01 {
-            delta = delta.min(delta_progress) + 0.01;
+            delta = java::min_f64(delta, delta_progress) + 0.01;
             move_entity_by_piston(level, direction, entity, delta, opposite);
         }
     }

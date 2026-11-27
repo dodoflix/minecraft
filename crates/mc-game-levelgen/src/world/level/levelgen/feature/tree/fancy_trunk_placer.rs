@@ -5,7 +5,7 @@ use super::foliage_placer::FoliageAttachment;
 use super::tree_feature::{TreeFeature, TreeSetter};
 use super::trunk_placer::{TrunkBase, TrunkPlacer, place_below_trunk_block, with_axis};
 use mc_core::direction::Axis;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_game_core::world::level::levelgen::codec::TypeEntry;
@@ -170,8 +170,8 @@ impl TrunkPlacer for FancyTrunkPlacer {
                         * f64::from(tree_shape)
                         * (f64::from(random.next_float()) + BRANCH_LENGTH_MAGIC);
                     let angle = f64::from(random.next_float() * 2.0f32) * std::f64::consts::PI;
-                    let x = radius * angle.sin() + 0.5;
-                    let z = radius * angle.cos() + 0.5;
+                    let x = radius * java::sin(angle) + 0.5;
+                    let z = radius * java::cos(angle) + 0.5;
                     let check_start =
                         origin.offset(mth::floor_f64(x), relative_y - 1, mth::floor_f64(z));
                     let check_end = check_start.above_n(5);

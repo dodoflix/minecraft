@@ -4,6 +4,7 @@
 //! embed it and call its `super` bodies; the struct names are the Java simple class names (the oracle prints them in `goals=`).
 
 use super::fox::Fox;
+use mc_core::math::java;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -1050,8 +1051,8 @@ impl PerchAndSearchGoal {
     /// `resetLook()`.
     fn reset_look(&mut self, mob: &mut dyn Entity) {
         let rnd = (std::f64::consts::PI * 2.0) * mob.base_mut().random.next_double();
-        self.rel_x = rnd.cos();
-        self.rel_z = rnd.sin();
+        self.rel_x = java::cos(rnd);
+        self.rel_z = java::sin(rnd);
         let roll = 80 + mob.base_mut().random.next_int_bounded(20);
         self.look_time = self.adjusted_tick_delay(roll);
     }

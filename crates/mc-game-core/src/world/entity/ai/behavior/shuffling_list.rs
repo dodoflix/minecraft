@@ -1,6 +1,7 @@
 //! `ShufflingList<U>`: weighted entries, `shuffle()` orders them by `-pow(random, 1 / weight)` (one `nextFloat` per
 //! entry, in list order, from the list's own random source).
 
+use mc_core::math::java;
 use mc_core::random::{LegacyRandomSource, RandomSource, create_new};
 
 struct WeightedEntry<U> {
@@ -51,7 +52,7 @@ impl<U> ShufflingList<U> {
     pub fn shuffle(&mut self) -> &mut Self {
         for e in &mut self.entries {
             let random = self.random.next_float();
-            e.rand_weight = -f64::from(random).powf(f64::from(1.0f32 / e.weight as f32));
+            e.rand_weight = -java::pow(f64::from(random), f64::from(1.0f32 / e.weight as f32));
         }
         self.entries
             .sort_by(|a, b| a.rand_weight.total_cmp(&b.rand_weight));

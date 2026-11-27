@@ -6,6 +6,7 @@ use crate::world::entity::Entity;
 use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
 use mc_core::direction::{Direction, Direction::*};
+use mc_core::math::java;
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
@@ -18,8 +19,8 @@ pub const MAX_PUSH_DEPTH: usize = 12;
 /// `PistonMath.getMovementArea(aabb, direction, amount)`.
 pub fn get_movement_area(aabb: &AABB, direction: Direction, amount: f64) -> AABB {
     let delta = amount * f64::from(direction.get_axis_direction().get_step());
-    let min = delta.min(0.0);
-    let max = delta.max(0.0);
+    let min = java::min_f64(delta, 0.0);
+    let max = java::max_f64(delta, 0.0);
     match direction {
         West => AABB::new(
             aabb.min_x + min,

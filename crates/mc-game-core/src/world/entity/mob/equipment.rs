@@ -17,6 +17,7 @@ use crate::world::item::enchantment::actors::Actors;
 use crate::world::item::enchantment::enchantment_effect_components::EffectComponent;
 use crate::world::item::enchantment_helper;
 use mc_core::ident::Identifier;
+use mc_core::math::java;
 use mc_core::random::RandomSource;
 use mc_data::{Attribute, Item};
 use mc_protocol::components::{ATTRIBUTE_MODIFIERS, ENCHANTMENTS, EQUIPPABLE};
@@ -282,7 +283,7 @@ pub fn equip_item_if_possible(
         let drop_chance = f64::from(e.mob().expect("mob").drop_chances.by_equipment(slot));
         if !current.is_empty() {
             let roll = e.base_mut().random.next_float();
-            if f64::from((roll - 0.1f32).max(0.0)) < drop_chance {
+            if f64::from(java::max_f32(roll - 0.1f32, 0.0)) < drop_chance {
                 crate::world::entity::item::spawn_at_location(
                     level,
                     e,

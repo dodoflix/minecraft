@@ -2,7 +2,7 @@
 //! places them is `end_spike_feature`; the dragon fight reads the same list to count the crystals on them).
 
 use super::super::world_gen_level::WorldGenLevel;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::AABB;
 use mc_core::pos::BlockPos;
 use mc_core::random::{RandomSource, SingleThreadedRandomSource};
@@ -82,8 +82,8 @@ fn load_spikes(seed: i64) -> Vec<EndSpike> {
     let mut result = Vec::with_capacity(NUMBER_OF_SPIKES);
     for (i, &size) in sizes.iter().enumerate() {
         let angle = 2.0 * (-std::f64::consts::PI + (std::f64::consts::PI / 10.0) * i as f64);
-        let x = mth::floor_f64(SPIKE_DISTANCE * angle.cos());
-        let z = mth::floor_f64(SPIKE_DISTANCE * angle.sin());
+        let x = mth::floor_f64(SPIKE_DISTANCE * java::cos(angle));
+        let z = mth::floor_f64(SPIKE_DISTANCE * java::sin(angle));
         let radius = 2 + size / 3;
         let height = 76 + size * 3;
         let guarded = size == 1 || size == 2;

@@ -14,7 +14,7 @@ use crate::world::level::collision::{
     BlockGetterExt, ClipBlock, ClipContext, ClipFluid, CollisionContext, CollisionGetter,
 };
 use mc_core::direction::{Axis, Direction};
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::shapes::{BooleanOp, Shapes, VoxelShape};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
@@ -514,7 +514,7 @@ pub fn move_entity(
     let movement_length = movement.length_sqr();
     if movement_length > 1.0E-7 || delta.length_sqr() - movement_length < 1.0E-7 {
         if entity.base().fall_distance != 0.0 && movement_length >= 1.0 {
-            let check_distance = movement.length().min(8.0);
+            let check_distance = java::min_f64(movement.length(), 8.0);
             let from = entity.base().position();
             let check_to = from.add(movement.normalize().scale(check_distance));
             let hit = level.clip(&ClipContext::new(
@@ -627,7 +627,7 @@ fn restitute_movement_after_collisions(
                 && !suppressing
                 && !effect_state.block().is_in_tag("suppresses_bounce")
             {
-                restitution.max(block_bounciness(entity, effect_state.block()))
+                java::max_f64(restitution, block_bounciness(entity, effect_state.block()))
             } else {
                 0.0
             };
@@ -779,8 +779,8 @@ fn play_amethyst_step_sound(entity: &mut dyn Entity, level: &mut ServerLevel) {
     let tick_count = entity.base().tick_count;
     let last = entity.base().last_crystal_sound_play_tick;
     let mut intensity = entity.base().crystal_sound_intensity;
-    intensity *= 0.997f64.powf(f64::from(tick_count.wrapping_sub(last))) as f32;
-    intensity = 1.0f32.min(intensity + 0.07);
+    intensity *= java::pow(0.997f64, f64::from(tick_count.wrapping_sub(last))) as f32;
+    intensity = java::min_f32(1.0f32, intensity + 0.07);
     entity.base_mut().crystal_sound_intensity = intensity;
     let pitch = 0.5 + intensity * entity.base_mut().random.next_float() * 1.2;
     let volume = 0.1 + intensity * 1.2;
@@ -887,8 +887,8 @@ fn maybe_back_off_from_edge<L: MovementLevel>(
         return delta;
     }
     let (mut delta_x, mut delta_z) = (delta.x, delta.z);
-    let step_x = delta_x.signum_java() * 0.05;
-    let step_z = delta_z.signum_java() * 0.05;
+    let step_x = java::signum_f64(delta_x) * 0.05;
+    let step_z = java::signum_f64(delta_z) * 0.05;
     while delta_x != 0.0 && can_fall_at_least(entity, level, delta_x, 0.0, f64::from(max_down_step))
     {
         if delta_x.abs() <= 0.05 {
@@ -959,20 +959,6 @@ fn can_fall_at_least<L: MovementLevel>(
     )
 }
 
-trait SignumJava {
-    fn signum_java(self) -> f64;
-}
-
-impl SignumJava for f64 {
-    /// `Math.signum(double)`: 0.0/-0.0/NaN unchanged.
-    fn signum_java(self) -> f64 {
-        if self == 0.0 || self.is_nan() {
-            self
-        } else {
-            self.signum()
-        }
-    }
-}
 /// Runs the `fudgePositionAfterSizeChange` that `Entity::refresh_dimensions` deferred because it has no level.
 pub fn apply_pending_fudge(e: &mut dyn Entity, level: &ServerLevel) {
     if let Some(previous) = e.base_mut().pending_fudge_from.take() {
@@ -993,8 +979,9 @@ pub fn fudge_position_after_size_change(
     );
     let (prev_width, prev_height) = (f64::from(previous.width), f64::from(previous.height));
     let old_center = e.position().add(Vec3::new(0.0, prev_height / 2.0, 0.0));
-    let width_delta = f64::from((new_dimensions.width - previous.width).max(0.0)) + 1.0E-6;
-    let height_delta = f64::from((new_dimensions.height - previous.height).max(0.0)) + 1.0E-6;
+    let width_delta = f64::from(java::max_f32(new_dimensions.width - previous.width, 0.0)) + 1.0E-6;
+    let height_delta =
+        f64::from(java::max_f32(new_dimensions.height - previous.height, 0.0)) + 1.0E-6;
     let allowed_centers = Shapes::create(AABB::of_size(
         old_center,
         width_delta,

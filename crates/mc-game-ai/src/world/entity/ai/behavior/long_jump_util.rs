@@ -1,5 +1,6 @@
 //! `LongJumpUtil`.
 
+use mc_core::math::java;
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_data::enums::Pose;
@@ -31,15 +32,15 @@ pub fn calculate_jump_vector_for_angle(
     let r = r2.sqrt();
     let y = direction_vector.y;
     let g = body.get_gravity();
-    let sin2ang = f64::from(2.0_f32 * angrad).sin();
+    let sin2ang = java::sin(f64::from(2.0_f32 * angrad));
     let cosangsqr = {
-        let c = f64::from(angrad).cos();
+        let c = java::cos(f64::from(angrad));
         c * c
     };
-    let sinangrad = f64::from(angrad).sin();
-    let cosangrad = f64::from(angrad).cos();
-    let sinxz_ang = xz_ang.sin();
-    let cosxz_ang = xz_ang.cos();
+    let sinangrad = java::sin(f64::from(angrad));
+    let cosangrad = java::cos(f64::from(angrad));
+    let sinxz_ang = java::sin(xz_ang);
+    let cosxz_ang = java::cos(xz_ang);
     let v0sqr = r2 * g / (r * sin2ang - 2.0 * y * cosangsqr);
     if v0sqr < 0.0 {
         return None;
@@ -81,7 +82,10 @@ fn is_clear_transition(
     position2: Vec3,
 ) -> bool {
     let direction = position2.subtract(position1);
-    let min_dimension = f64::from(entity_dimensions.width.min(entity_dimensions.height));
+    let min_dimension = f64::from(java::min_f32(
+        entity_dimensions.width,
+        entity_dimensions.height,
+    ));
     let checks = mth::ceil_f64(direction.length() / min_dimension);
     let normalized_direction = direction.normalize();
     let mut next_point_to_check = position1;

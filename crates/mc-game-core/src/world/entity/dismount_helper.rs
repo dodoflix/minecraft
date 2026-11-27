@@ -6,6 +6,7 @@ use crate::world::level::BlockGetter;
 use crate::world::level::block::helpers;
 use crate::world::level::block::state::BlockStateExt;
 use crate::world::level::collision::{BlockGetterExt, CollisionGetter};
+use mc_core::math::java;
 use mc_core::phys::shapes::{Shapes, VoxelShape};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
@@ -165,7 +166,7 @@ pub fn get_collision_horizontal_escape_vector(
         (f64::from(vehicle_width) + f64::from(passenger_width) + f64::from(1.0E-5f32)) / 2.0;
     let x_dir = -mc_core::math::mth::sin(f64::from(y_rot * (std::f32::consts::PI / 180.0)));
     let z_dir = mc_core::math::mth::cos(f64::from(y_rot * (std::f32::consts::PI / 180.0)));
-    let max = x_dir.abs().max(z_dir.abs());
+    let max = java::max_f32(x_dir.abs(), z_dir.abs());
     Vec3::new(
         f64::from(x_dir) * distance / f64::from(max),
         0.0,

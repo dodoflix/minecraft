@@ -1,6 +1,8 @@
 //! Java library semantics that differ from Rust's std: `Math.min/max/round/floorDiv/floorMod/rint`,
 //! `String.hashCode`, `Integer.parseInt`.
 
+pub use super::transcendental::{cos, log, log1p, pow, sin};
+
 /// `Math.min(float, float)`: NaN-propagating, `-0.0 < 0.0`.
 pub fn min_f32(a: f32, b: f32) -> f32 {
     if a.is_nan() {
@@ -92,6 +94,24 @@ pub fn round_f32(x: f32) -> i32 {
 /// `Math.rint(double)`: round half to even.
 pub fn rint(x: f64) -> f64 {
     x.round_ties_even()
+}
+
+/// `Math.signum(double)`: NaN and the zeros are returned unchanged.
+pub fn signum_f64(x: f64) -> f64 {
+    if x == 0.0 || x.is_nan() {
+        x
+    } else {
+        1.0f64.copysign(x)
+    }
+}
+
+/// `Math.signum(float)`: NaN and the zeros are returned unchanged.
+pub fn signum_f32(x: f32) -> f32 {
+    if x == 0.0 || x.is_nan() {
+        x
+    } else {
+        1.0f32.copysign(x)
+    }
 }
 
 /// `String.hashCode()` over UTF-16 code units.

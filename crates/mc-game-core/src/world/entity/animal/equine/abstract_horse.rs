@@ -24,7 +24,7 @@ use crate::world::entity::scenario_dump::{SCENARIO_DUMP_EXTRA, ScenarioDumpExtra
 use crate::world::entity::{Entity, EntityId, ServerPlayer};
 use crate::world::item::{InteractionHand, InteractionResult, ItemStack, ItemStackExt as _};
 use linkme::distributed_slice;
-use mc_core::math::java::java_float_to_string;
+use mc_core::math::java::{self, java_float_to_string};
 use mc_core::math::mth;
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
@@ -1573,7 +1573,7 @@ fn get_collision_horizontal_escape_vector(
     let rad = (std::f64::consts::PI / 180.0) as f32;
     let x_dir = -mth::sin(f64::from(y_rot * rad));
     let z_dir = mth::cos(f64::from(y_rot * rad));
-    let max = x_dir.abs().max(z_dir.abs());
+    let max = java::max_f32(x_dir.abs(), z_dir.abs());
     Vec3::new(
         f64::from(x_dir) * span / f64::from(max),
         0.0,

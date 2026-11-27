@@ -3,7 +3,7 @@
 
 use std::sync::LazyLock;
 
-use mc_core::math::java::round_f64;
+use mc_core::math::java::{self, round_f64};
 use mc_core::random::RandomSource;
 use mc_dfu::{Codec, MapCodec, record};
 
@@ -60,8 +60,10 @@ impl EnchantmentValueEffect {
             }
             EnchantmentValueEffect::Exponential { base, exponent } => {
                 (input as f64
-                    * (base.calculate(enchantment_level) as f64)
-                        .powf(exponent.calculate(enchantment_level) as f64)) as f32
+                    * java::pow(
+                        base.calculate(enchantment_level) as f64,
+                        exponent.calculate(enchantment_level) as f64,
+                    )) as f32
             }
             EnchantmentValueEffect::Set { value } => value.calculate(enchantment_level),
         }

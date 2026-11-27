@@ -18,7 +18,9 @@ use parking_lot::Mutex;
 use serde_json::{Map, Value, json};
 
 use mc_core::java_collections::hash_map_ordered;
-use mc_core::math::java::{java_double_to_string, java_float_to_string, java_string_hash};
+use mc_core::math::java::{
+    java_double_to_string, java_float_to_string, java_string_hash, max_f64, min_f64,
+};
 
 use crate::util::util::get_nanos;
 
@@ -1145,7 +1147,7 @@ impl Summary {
             let mut tick = Map::new();
             tick.insert(
                 "minMs".into(),
-                num(ms.iter().copied().fold(f64::INFINITY, f64::min)),
+                num(ms.iter().copied().fold(f64::INFINITY, min_f64)),
             );
             tick.insert(
                 "averageMs".into(),
@@ -1153,7 +1155,7 @@ impl Summary {
             );
             tick.insert(
                 "maxMs".into(),
-                num(ms.iter().copied().fold(f64::NEG_INFINITY, f64::max)),
+                num(ms.iter().copied().fold(f64::NEG_INFINITY, max_f64)),
             );
             for (p, v) in percentiles(&ms) {
                 tick.insert(format!("p{p}"), num(v));

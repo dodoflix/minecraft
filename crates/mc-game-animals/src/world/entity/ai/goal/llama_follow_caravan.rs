@@ -1,6 +1,7 @@
 //! `LlamaFollowCaravanGoal`.
 
 use crate::world::entity::animal::equine::Llama;
+use mc_core::math::java;
 use mc_core::phys::Vec3;
 use mc_data::EntityType;
 use mc_game_core::server::level::ServerLevel;
@@ -174,7 +175,7 @@ impl Goal for LlamaFollowCaravanGoal {
             follows_pos.z - mob.base().z(),
         )
         .normalize()
-        .scale((f64::from(distance_to) - 2.0).max(0.0));
+        .scale(java::max_f64(f64::from(distance_to) - 2.0, 0.0));
         let (x, y, z) = (
             mob.base().x() + delta.x,
             mob.base().y() + delta.y,

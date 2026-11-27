@@ -1,7 +1,7 @@
 //! `Phantom`: the flying night mob (circle / swoop attack phases, size scaled dimensions and damage).
 
 use linkme::distributed_slice;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
@@ -459,7 +459,7 @@ impl Goal for PhantomCircleAroundAnchorGoal {
                 .get_block_state(mob.block_position().below_n(1))
                 .is_air()
         {
-            self.height = self.height.max(1.0);
+            self.height = java::max_f32(self.height, 1.0);
             self.select_next(mob);
         }
         if phantom(mob).move_target_point.y > mob.base().y()
@@ -467,7 +467,7 @@ impl Goal for PhantomCircleAroundAnchorGoal {
                 .get_block_state(mob.block_position().above_n(1))
                 .is_air()
         {
-            self.height = self.height.min(-1.0);
+            self.height = java::min_f32(self.height, -1.0);
             self.select_next(mob);
         }
     }

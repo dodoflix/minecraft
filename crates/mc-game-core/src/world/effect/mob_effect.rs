@@ -11,6 +11,7 @@ use crate::world::entity::attributes::{
 use crate::world::entity::effect::MobEffectInstance;
 use crate::world::entity::raid::raids::Raids;
 use crate::world::entity::{Entity, RemovalReason};
+use mc_core::math::java;
 use mc_data::enums::{AttributeModifierOperation as DataOperation, MobEffectCategory};
 use mc_data::{Attribute, MobEffect, ParticleType};
 use mc_protocol::packets::play::ParticleOptions;
@@ -358,9 +359,7 @@ impl MobEffectExt for MobEffect {
 
     fn on_effect_started(self, mob: &mut dyn Entity, amplifier: i32) {
         if self.class() == "AbsorptionMobEffect" {
-            let amount = mob
-                .get_absorption_amount()
-                .max((4 * (1 + amplifier)) as f32);
+            let amount = java::max_f32(mob.get_absorption_amount(), (4 * (1 + amplifier)) as f32);
             mob.set_absorption_amount(amount);
         }
     }

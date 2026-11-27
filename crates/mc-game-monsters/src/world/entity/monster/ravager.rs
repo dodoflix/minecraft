@@ -1,7 +1,7 @@
 //! `Ravager`: the raid beast (stun and roar timers, leaf breaking, a raider on its back).
 
 use linkme::distributed_slice;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::BlockState;
@@ -58,7 +58,7 @@ fn is_abstract_illager(e: &dyn Entity) -> bool {
 fn strong_knockback(x: f64, z: f64, entity: &mut dyn Entity) {
     let xd = entity.base().x() - x;
     let zd = entity.base().z() - z;
-    let dd = (xd * xd + zd * zd).max(0.001);
+    let dd = java::max_f64(xd * xd + zd * zd, 0.001);
     entity.push_xyz(xd / dd * 4.0, 0.2, zd / dd * 4.0);
 }
 

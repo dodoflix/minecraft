@@ -4,7 +4,7 @@ use crate::world::level::LevelAccessor;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::sculk_behaviour::SculkBehaviour;
 use crate::world::level::block::sculk_spreader::{ChargeCursor, SculkSpreader};
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
@@ -28,7 +28,7 @@ fn get_decay_penalty(
     let outer_distance_squared =
         mth::square_f32(pos.dist_sqr(&origin_pos).sqrt() as f32 - no_growth_radius as f32);
     let max_reach_squared = mth::square_i32(24 - no_growth_radius);
-    let distance_factor = 1.0f32.min(outer_distance_squared / max_reach_squared as f32);
+    let distance_factor = java::min_f32(1.0f32, outer_distance_squared / max_reach_squared as f32);
     1.max((charge as f32 * distance_factor * 0.5) as i32)
 }
 

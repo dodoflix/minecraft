@@ -12,7 +12,7 @@ use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::impls::base_rail_block;
 use mc_core::direction::Direction;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;
@@ -150,7 +150,7 @@ pub fn move_along_track<M: AbstractMinecart + ?Sized>(m: &mut M, level: &mut Ser
         z_d = -z_d;
     }
 
-    let pow = 2.0f64.min(movement.horizontal_distance());
+    let pow = java::min_f64(2.0, movement.horizontal_distance());
     movement = Vec3::new(pow * x_d / length, movement.y, pow * z_d / length);
     m.base_mut().set_delta_movement(movement);
     let rider_intent = m

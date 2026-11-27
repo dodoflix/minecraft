@@ -1,7 +1,7 @@
 //! `OreFeature`: blobs of ore along a random segment, written straight into the chunk sections (`BulkSectionAccess`).
 
 use super::abstract_ore_feature::AbstractOreFeature;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_game_core::world::level::levelgen::codec::TypeEntry;
@@ -25,7 +25,7 @@ impl Feature for OreFeature {
         let dir = random.next_float() * mth::PI;
         let spread_xy = size as f32 / 8.0;
         let max_radius = mth::ceil_f32((size as f32 / 16.0 * 2.0 + 1.0) / 2.0);
-        let (sin, cos) = (f64::from(dir).sin(), f64::from(dir).cos());
+        let (sin, cos) = (java::sin(f64::from(dir)), java::cos(f64::from(dir)));
         let spread = f64::from(spread_xy);
         let x0 = f64::from(origin.x()) + sin * spread;
         let x1 = f64::from(origin.x()) - sin * spread;

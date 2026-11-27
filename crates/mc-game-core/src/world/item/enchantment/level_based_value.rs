@@ -2,7 +2,7 @@
 
 use std::sync::LazyLock;
 
-use mc_core::math::java::java_float_to_string;
+use mc_core::math::java::{self, java_float_to_string};
 use mc_core::math::mth;
 use mc_dfu::{Codec, DataResult, Either, FLOAT, MapCodec, record};
 
@@ -61,7 +61,7 @@ impl LevelBasedValue {
                 mth::clamp_f32(value.calculate(level), *min, *max)
             }
             LevelBasedValue::Exponent { base, power } => {
-                (base.calculate(level) as f64).powf(power.calculate(level) as f64) as f32
+                java::pow(base.calculate(level) as f64, power.calculate(level) as f64) as f32
             }
             LevelBasedValue::Fraction {
                 numerator,

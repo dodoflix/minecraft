@@ -9,6 +9,7 @@ use crate::world::level::LevelAccessor;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::impls::{multiface_block, sculk_vein_block};
 use mc_core::direction::Direction;
+use mc_core::math::java;
 use mc_core::math::mth;
 use mc_core::pos::{BlockPos, Vec3i};
 use mc_core::random::RandomSource;
@@ -188,7 +189,7 @@ impl SculkSpreader {
             if charge > 0
                 && let Some(faces) = faces
             {
-                let num_particles = (f64::from(charge).ln_1p() / f64::from(2.3f32)) as i32 + 1;
+                let num_particles = (java::log1p(f64::from(charge)) / f64::from(2.3f32)) as i32 + 1;
                 let data = (num_particles << 6) + i32::from(multiface_block::pack(faces));
                 level.level_event(None, 3006, pos, data);
             }

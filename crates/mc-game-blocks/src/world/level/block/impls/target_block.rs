@@ -1,5 +1,5 @@
 //! `net.minecraft.world.level.block.TargetBlock`.
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::{BlockHitResult, Vec3};
 use mc_game_core::register_block_class;
 use mc_game_core::server::level::ServerLevel;
@@ -14,9 +14,9 @@ fn get_redstone_strength(hit: &BlockHitResult, hit_location: Vec3) -> i32 {
     let dist_y = (mth::frac_f64(hit_location.y) - 0.5).abs();
     let dist_z = (mth::frac_f64(hit_location.z) - 0.5).abs();
     let distance = match hit_direction.get_axis() {
-        Axis::Y => dist_x.max(dist_z),
-        Axis::Z => dist_x.max(dist_y),
-        _ => dist_y.max(dist_z),
+        Axis::Y => java::max_f64(dist_x, dist_z),
+        Axis::Z => java::max_f64(dist_x, dist_y),
+        _ => java::max_f64(dist_y, dist_z),
     };
     1.max(mth::ceil_f64(
         15.0 * mth::clamp_f64((0.5 - distance) / 0.5, 0.0, 1.0),

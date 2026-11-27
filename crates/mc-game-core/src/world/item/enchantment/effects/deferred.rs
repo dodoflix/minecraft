@@ -1,5 +1,6 @@
 //! Entity effects whose world-side services belong to other slices (explosions, particles, entity spawning, functions).
 
+use mc_core::math::java;
 use mc_core::phys::Vec3;
 
 use super::{EnchantmentEntityEffect, ExplodeEffect, SummonEntityEffect};
@@ -157,7 +158,7 @@ fn explode(
             })
             .collect(),
     );
-    let radius = e.radius.calculate(enchantment_level).max(0.0);
+    let radius = java::max_f32(e.radius.calculate(enchantment_level), 0.0);
     let run = |level: &mut ServerLevel, source: Option<&mut dyn crate::world::entity::Entity>| {
         let mut params = Explode::new(source, pos.x, pos.y, pos.z, radius, interaction)
             .with_fire(e.create_fire)

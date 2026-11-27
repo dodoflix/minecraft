@@ -8,3 +8,19 @@ allow-panic-in-tests = true
 allow-indexing-slicing-in-tests = true
 allow-print-in-tests = true
 allow-dbg-in-tests = true
+
+# Vanilla calls `Math.*`; these std spellings differ from the JDK (NaN and zeros for min/max/signum, the C library's last
+# bit for the transcendental functions). Use the `mc_core::math::java` functions instead.
+disallowed-methods = [
+  { path = "f32::max", reason = "differs from Math.max for NaN and the zeros: use java::max_f32" },
+  { path = "f32::min", reason = "differs from Math.min for NaN and the zeros: use java::min_f32" },
+  { path = "f32::signum", reason = "Math.signum returns the zeros unchanged: use java::signum_f32" },
+  { path = "f64::cos", reason = "the C library differs from Math.cos in the last bit: use java::cos" },
+  { path = "f64::ln", reason = "the C library differs from Math.log in the last bit: use java::log" },
+  { path = "f64::ln_1p", reason = "the C library differs from Math.log1p: use java::log1p" },
+  { path = "f64::max", reason = "differs from Math.max for NaN and the zeros: use java::max_f64" },
+  { path = "f64::min", reason = "differs from Math.min for NaN and the zeros: use java::min_f64" },
+  { path = "f64::powf", reason = "the C library differs from Math.pow in the last bit: use java::pow" },
+  { path = "f64::signum", reason = "Math.signum returns the zeros unchanged: use java::signum_f64" },
+  { path = "f64::sin", reason = "the C library differs from Math.sin in the last bit: use java::sin" },
+]

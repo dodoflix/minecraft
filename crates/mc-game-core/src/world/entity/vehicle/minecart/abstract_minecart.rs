@@ -28,7 +28,7 @@ use crate::world::level::block::state::{decode_block_state, encode_block_state};
 use crate::world::level::collision::BlockGetterExt;
 use linkme::distributed_slice;
 use mc_core::direction::Axis;
-use mc_core::math::java::java_float_to_string;
+use mc_core::math::java::{self, java_float_to_string};
 use mc_core::math::mth;
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
@@ -578,7 +578,7 @@ pub fn get_dismount_location_for_passenger<M: AbstractMinecart + ?Sized>(
     let vehicle_block_pos = m.base().block_position();
     for &pose in passenger.get_dismount_poses() {
         let passenger_dimensions = passenger.get_dimensions(pose);
-        let dismount_area_reach = passenger_dimensions.width.min(1.0) / 2.0;
+        let dismount_area_reach = java::min_f32(passenger_dimensions.width, 1.0) / 2.0;
         for &offset_y in pose_dismount_heights(pose) {
             for offset_xz in &offsets {
                 let target = BlockPos::new(

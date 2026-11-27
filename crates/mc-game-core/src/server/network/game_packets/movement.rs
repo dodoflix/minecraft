@@ -5,7 +5,7 @@
 use super::{PlayCtx, play_helpers};
 use crate::world::entity::{Entity, MoverType};
 use crate::world::level::BlockGetter;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::shapes::{BooleanOp, Shapes};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
@@ -287,7 +287,7 @@ impl PlayCtx<'_> {
             i32::MAX
         } else {
             let gravity_modifier = 0.08 / gravity;
-            mth::ceil_f64(80.0 * gravity_modifier.max(1.0))
+            mth::ceil_f64(80.0 * java::max_f64(gravity_modifier, 1.0))
         }
     }
 

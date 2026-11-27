@@ -12,7 +12,7 @@ use super::mob_spawn_settings::{
 };
 use crate::registry::typed::attributes::EnvironmentAttributeMap;
 use mc_core::ident::Identifier;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_world::palette::BiomeId;
 use mc_worldgen::biome::BiomeRegistry;
 use serde_json::Value;
@@ -113,8 +113,8 @@ impl FloatEntry {
             FloatModifier::Add => subject + self.value,
             FloatModifier::Subtract => subject - self.value,
             FloatModifier::Multiply => subject * self.value,
-            FloatModifier::Minimum => subject.min(self.value),
-            FloatModifier::Maximum => subject.max(self.value),
+            FloatModifier::Minimum => java::min_f32(subject, self.value),
+            FloatModifier::Maximum => java::max_f32(subject, self.value),
             FloatModifier::AlphaBlend => mth::lerp_f32(self.alpha, subject, self.value),
         }
     }

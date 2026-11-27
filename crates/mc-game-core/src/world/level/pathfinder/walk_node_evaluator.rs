@@ -9,7 +9,7 @@ use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::material::FluidStateExt;
 use mc_core::direction::Direction;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState, PathComputationType};
@@ -141,7 +141,7 @@ pub fn get_neighbors<N: NodeEvaluator + ?Sized>(
     let above = this.get_cached_path_type(env, px, py + 1, pz);
     let current = this.get_cached_path_type(env, px, py, pz);
     if env.mob.get_pathfinding_malus(above) >= 0.0 && current != PathType::StickyHoney {
-        jump_size = mth::floor_f32(1.0f32.max(env.mob.max_up_step()));
+        jump_size = mth::floor_f32(java::max_f32(1.0f32, env.mob.max_up_step()));
     }
     let pos_height = this.get_floor_level(env, BlockPos::new(px, py, pz));
     for direction in Direction::HORIZONTAL {
@@ -365,7 +365,7 @@ pub fn find_accepted_node<N: NodeEvaluator + ?Sized>(
 }
 
 fn get_mob_jump_height(env: &PathEnv<'_>) -> f64 {
-    DEFAULT_MOB_JUMP_HEIGHT.max(f64::from(env.mob.max_up_step()))
+    java::max_f64(DEFAULT_MOB_JUMP_HEIGHT, f64::from(env.mob.max_up_step()))
 }
 
 fn get_node_and_update_cost_to_max<N: NodeEvaluator + ?Sized>(
@@ -379,7 +379,7 @@ fn get_node_and_update_cost_to_max<N: NodeEvaluator + ?Sized>(
     let id = this.get_node(x, y, z);
     let node = this.node_mut(id);
     node.ty = path_type;
-    node.cost_malus = node.cost_malus.max(cost);
+    node.cost_malus = java::max_f32(node.cost_malus, cost);
     id
 }
 

@@ -6,7 +6,7 @@ use crate::world::entity::mob;
 use crate::world::level::BlockGetter;
 use crate::world::level::block::state::BlockStateExt;
 use mc_core::direction::Axis;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::pos::BlockPos;
 use mc_data::Attribute;
 use std::any::Any;
@@ -197,7 +197,7 @@ pub fn base_tick(b: &mut MoveControlBase, mob: &mut dyn Entity, level: &mut Serv
             let block_state = level.get_block_state(pos);
             let shape = block_state.get_collision_shape(&*level, pos);
             if yd > f64::from(mob.max_up_step())
-                && xd * xd + zd * zd < f64::from(1.0f32.max(mob.base().get_bb_width()))
+                && xd * xd + zd * zd < f64::from(java::max_f32(1.0f32, mob.base().get_bb_width()))
                 || !shape.is_empty()
                     && mob.base().y() < shape.max(Axis::Y) + f64::from(pos.y())
                     && !block_state.block().is_in_tag("doors")

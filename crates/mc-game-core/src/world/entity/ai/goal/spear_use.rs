@@ -8,6 +8,7 @@ use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::living_entity::using_item;
 use crate::world::entity::mob::{self, combat, navigation, tick};
 use crate::world::item::InteractionHand;
+use mc_core::math::java;
 use mc_core::phys::Vec3;
 use mc_protocol::components::KINETIC_WEAPON;
 
@@ -171,8 +172,8 @@ impl Goal for SpearUseGoal {
             state.away_pos = land_random_pos::get_pos_away_range(
                 mob,
                 level,
-                (f64::from(9 + mount_distance) - distance).max(0.0),
-                (f64::from(11 + mount_distance) - distance).max(1.0),
+                java::max_f64(f64::from(9 + mount_distance) - distance, 0.0),
+                java::max_f64(f64::from(11 + mount_distance) - distance, 1.0),
                 7,
                 target_pos_vec,
             );

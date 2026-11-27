@@ -2,6 +2,7 @@
 
 use serde_json::Value;
 
+use mc_core::math::java;
 use mc_core::pos::block_pos::BlockPos;
 use mc_core::pos::quart_pos;
 
@@ -91,10 +92,10 @@ impl NoiseSpawnFinder {
         while radius <= max_radius {
             let x = search_origin
                 .x()
-                .wrapping_add((f64::from(angle).sin() * f64::from(radius)) as i32);
+                .wrapping_add((java::sin(f64::from(angle)) * f64::from(radius)) as i32);
             let z = search_origin
                 .z()
-                .wrapping_add((f64::from(angle).cos() * f64::from(radius)) as i32);
+                .wrapping_add((java::cos(f64::from(angle)) * f64::from(radius)) as i32);
             let candidate = Self::get_spawn_position_and_fitness(samplers, target_points, x, z);
             if candidate.fitness < result.fitness {
                 *result = candidate;

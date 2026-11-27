@@ -10,6 +10,7 @@ use crate::world::level::LevelAccessor;
 use crate::world::level::collision::CollisionGetter;
 use crate::world::level::material::FluidStateExt;
 use linkme::distributed_slice;
+use mc_core::math::java;
 use mc_core::phys::shapes::Shapes;
 use mc_core::phys::{AABB, Vec3};
 use mc_core::random::RandomSource;
@@ -304,7 +305,7 @@ impl ExperienceOrb {
         let m = self.base.delta_movement();
         self.base.set_delta_movement_xyz(
             m.x * f64::from(0.99f32),
-            (m.y + f64::from(5.0E-4f32)).min(f64::from(0.06f32)),
+            java::min_f64(m.y + f64::from(5.0E-4f32), f64::from(0.06f32)),
             m.z * f64::from(0.99f32),
         );
     }

@@ -4,6 +4,7 @@
 use std::sync::LazyLock;
 
 use mc_core::direction::Direction8;
+use mc_core::math::java;
 use mc_core::pos::{BlockPos, quart_pos};
 use mc_data::block::{Block, BlockState};
 use mc_data::tags;
@@ -547,7 +548,7 @@ impl CalculateColumns for BlendingData {
             let in_cell_index = (height as f32 + 0.5) % 8.0 / 8.0;
             let amplitude_above_to_make_surface_be_at_height =
                 (1.0 - in_cell_index) / in_cell_index;
-            let max = java_max_f32(amplitude_above_to_make_surface_be_at_height, 1.0) * 0.25;
+            let max = java::max_f32(amplitude_above_to_make_surface_be_at_height, 1.0) * 0.25;
             densities[i + 1] = -amplitude_above_to_make_surface_be_at_height / max;
             densities[i] = 1.0 / max;
         }
@@ -567,14 +568,5 @@ impl CalculateColumns for BlendingData {
                 )
             })
             .collect()
-    }
-}
-
-/// `Math.max(float, float)`.
-fn java_max_f32(a: f32, b: f32) -> f32 {
-    if a.is_nan() || b.is_nan() {
-        f32::NAN
-    } else {
-        a.max(b)
     }
 }

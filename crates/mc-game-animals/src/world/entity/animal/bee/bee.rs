@@ -6,7 +6,7 @@ use super::bee_goals::{
     BeePollinateGoal, BeeWanderGoal, ValidateFlowerGoal, ValidateHiveGoal,
 };
 use linkme::distributed_slice;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource as _;
@@ -301,9 +301,9 @@ impl Bee {
     fn update_roll_amount(&mut self) {
         self.roll_amount_o = self.roll_amount;
         if self.is_rolling() {
-            self.roll_amount = (self.roll_amount + 0.2).min(1.0);
+            self.roll_amount = java::min_f32(self.roll_amount + 0.2, 1.0);
         } else {
-            self.roll_amount = (self.roll_amount - 0.24).max(0.0);
+            self.roll_amount = java::max_f32(self.roll_amount - 0.24, 0.0);
         }
     }
 

@@ -12,7 +12,7 @@ use crate::world::entity::{MoverType, ServerPlayer};
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::block::impls::base_rail_block;
 use crate::world::level::{BlockGetter, LevelReader};
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_core::pos::BlockPos;
 use mc_data::block::{Block, BlockState};
@@ -279,7 +279,7 @@ pub fn move_along_track<M: AbstractMinecart + ?Sized>(m: &mut M, level: &mut Ser
                 x_rot *= if flipped { -1.0 } else { 1.0 };
                 set_rotation(m, y_rot, x_rot);
             }
-            let weight = step_length.min(get_max_speed(level, m.is_in_water())) as f32;
+            let weight = java::min_f64(step_length, get_max_speed(level, m.is_in_water())) as f32;
             let step = step_of(m, weight);
             m.minecart_mut().lerp_steps.push(step);
         } else if initial_step_delta_movement.horizontal_distance_sqr() > 0.0 {
@@ -334,7 +334,7 @@ fn calculate_track_speed<M: AbstractMinecart + ?Sized>(
     if iteration.first_iteration {
         new_delta_movement = m.apply_natural_slowdown(new_delta_movement);
         if new_delta_movement.length_sqr() > 0.0 {
-            let speed = new_delta_movement.length().min(m.get_max_speed(level));
+            let speed = java::min_f64(new_delta_movement.length(), m.get_max_speed(level));
             new_delta_movement = new_delta_movement.normalize().scale(speed);
         }
     }
@@ -356,7 +356,7 @@ fn calculate_slope_speed<M: AbstractMinecart + ?Sized>(
     delta_movement: Vec3,
     shape: RailShape,
 ) -> Vec3 {
-    let mut slide_speed = 0.0078125f64.max(delta_movement.horizontal_distance() * 0.02);
+    let mut slide_speed = java::max_f64(0.0078125f64, delta_movement.horizontal_distance() * 0.02);
     if m.is_in_water() {
         slide_speed *= 0.2;
     }

@@ -8,6 +8,7 @@ use crate::world::entity::living::LIVING_ENTITY_FLAG_IS_USING;
 use crate::world::entity::player::item_use::SWING_ANIMATION_DEFAULT;
 use crate::world::entity::{Entity, EntityId};
 use crate::world::item::{InteractionHand, ItemStack};
+use mc_core::math::java;
 use mc_core::phys::AABB;
 use mc_data::MobEffect;
 use mc_protocol::components::{ATTACK_ANIMATION, ATTACK_RANGE};
@@ -54,12 +55,12 @@ pub fn get_attack_bounding_box(
         Some(vehicle) => {
             let mount = vehicle.get_bounding_box();
             AABB::new(
-                own.min_x.min(mount.min_x),
+                java::min_f64(own.min_x, mount.min_x),
                 own.min_y,
-                own.min_z.min(mount.min_z),
-                own.max_x.max(mount.max_x),
+                java::min_f64(own.min_z, mount.min_z),
+                java::max_f64(own.max_x, mount.max_x),
                 own.max_y,
-                own.max_z.max(mount.max_z),
+                java::max_f64(own.max_z, mount.max_z),
             )
         }
         None => own,

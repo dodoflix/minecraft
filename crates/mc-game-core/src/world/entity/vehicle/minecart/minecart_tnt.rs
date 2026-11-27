@@ -15,7 +15,7 @@ use crate::world::level::BlockGetter;
 use crate::world::level::block::BlockStateExt;
 use crate::world::level::explosion::{Explosion, ExplosionInteraction};
 use linkme::distributed_slice;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::pos::BlockPos;
 use mc_core::random::RandomSource;
 use mc_data::block::{Block, BlockState};
@@ -120,7 +120,7 @@ impl MinecartTnt {
         speed_sqr: f64,
     ) {
         if level.tnt_explodes() {
-            let speed = speed_sqr.sqrt().min(5.0);
+            let speed = java::min_f64(speed_sqr.sqrt(), 5.0);
             let power = (f64::from(self.explosion_power_base)
                 + f64::from(self.explosion_speed_factor)
                     * self.base.random.next_double()

@@ -4,7 +4,7 @@
 //! [`TickRateHost`]; methods that reach the host take it as an argument so the manager can live as a field of the
 //! server (use the take-out pattern: `mem::take` the manager, call, put it back).
 
-use mc_core::math::java::max_f32;
+use mc_core::math::java::{max_f32, max_f64};
 
 use crate::util::time_util::{
     MILLISECONDS_PER_SECOND, NANOSECONDS_PER_MILLISECOND, NANOSECONDS_PER_SECOND,
@@ -217,7 +217,7 @@ impl ServerTickRateManager {
     fn finish_tick_sprint(&mut self, host: &mut dyn TickRateHost) {
         let completed_ticks = self.scheduled_current_sprint_ticks - self.remaining_sprint_ticks;
         let milliseconds_to_complete =
-            (self.sprint_time_spend as f64).max(1.0) / NANOSECONDS_PER_MILLISECOND as f64;
+            max_f64(self.sprint_time_spend as f64, 1.0) / NANOSECONDS_PER_MILLISECOND as f64;
         let ticks_per_second = (MILLISECONDS_PER_SECOND.wrapping_mul(completed_ticks) as f64
             / milliseconds_to_complete) as i32;
         let milliseconds_per_tick = if completed_ticks == 0 {

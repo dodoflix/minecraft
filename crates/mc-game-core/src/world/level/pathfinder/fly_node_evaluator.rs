@@ -4,7 +4,7 @@ use super::node::NodeId;
 use super::node_evaluator::{NodeEvaluator, PathEnv};
 use super::path_type::PathType;
 use super::walk_node_evaluator::{self as walk, check_neighbour_blocks};
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::pos::BlockPos;
 use mc_data::block::Block;
 
@@ -62,9 +62,9 @@ pub fn get_start<N: NodeEvaluator + ?Sized>(this: &mut N, env: &mut PathEnv<'_>)
             }
         } else {
             let inflate = f64::from(SMALL_MOB_INFLATED_START_NODE_BOUNDING_BOX);
-            let z_padding = 0.0f64.max(inflate - bb.get_zsize());
-            let x_padding = 0.0f64.max(inflate - bb.get_xsize());
-            let y_padding = 0.0f64.max(inflate - bb.get_ysize());
+            let z_padding = java::max_f64(0.0f64, inflate - bb.get_zsize());
+            let x_padding = java::max_f64(0.0f64, inflate - bb.get_xsize());
+            let y_padding = java::max_f64(0.0f64, inflate - bb.get_ysize());
             let inflated = bb.inflate(x_padding, y_padding, z_padding);
             let (min_x, min_y, min_z) = (
                 mth::floor_f64(inflated.min_x),
@@ -177,7 +177,7 @@ fn find_accepted_node<N: NodeEvaluator + ?Sized>(
         let id = this.get_node(x, y, z);
         let node = this.node_mut(id);
         node.ty = path_type;
-        node.cost_malus = node.cost_malus.max(path_cost);
+        node.cost_malus = java::max_f32(node.cost_malus, path_cost);
         if path_type == PathType::Walkable {
             node.cost_malus += 1.0;
         }

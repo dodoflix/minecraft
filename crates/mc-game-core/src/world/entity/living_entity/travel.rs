@@ -9,7 +9,7 @@ use crate::world::entity::equipment::EquipmentSlot;
 use crate::world::entity::{Entity, MoverType, movement};
 use crate::world::level::BlockGetter;
 use crate::world::level::block::helpers;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::Vec3;
 use mc_data::block::Block;
 use mc_data::{Attribute, MobEffect};
@@ -23,7 +23,7 @@ pub fn compute_modified_friction(friction: f32, modifier: f32) -> f32 {
 pub fn living_effective_gravity(entity: &dyn Entity) -> f64 {
     let is_falling = entity.base().delta_movement().y <= 0.0;
     if is_falling && has_effect(entity, MobEffect::SLOW_FALLING) {
-        entity.get_gravity().min(0.01)
+        java::min_f64(entity.get_gravity(), 0.01)
     } else {
         entity.get_gravity()
     }
@@ -351,7 +351,7 @@ fn update_fall_flying_movement(entity: &dyn Entity, mut movement: Vec3) -> Vec3 
     let look_hor_length = (look.x * look.x + look.z * look.z).sqrt();
     let move_hor_length = movement.horizontal_distance();
     let gravity = entity.get_effective_gravity();
-    let cos = f64::from(lean_angle).cos();
+    let cos = java::cos(f64::from(lean_angle));
     let lift_force = cos * cos;
     movement = movement.add_xyz(0.0, gravity * (-1.0 + lift_force * 0.75), 0.0);
     if movement.y < 0.0 && look_hor_length > 0.0 {
@@ -487,7 +487,7 @@ fn handle_on_climbable(entity: &mut dyn Entity, level: &mut ServerLevel, mut del
         let max = f64::from(0.15f32);
         let xd = mth::clamp_f64(delta.x, -max, max);
         let zd = mth::clamp_f64(delta.z, -max, max);
-        let mut yd = delta.y.max(-max);
+        let mut yd = java::max_f64(delta.y, -max);
         if yd < 0.0
             && level
                 .get_block_state(entity.base().block_position())

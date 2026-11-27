@@ -3,7 +3,7 @@
 
 use super::happy_ghast_ai;
 use linkme::distributed_slice;
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use mc_core::phys::{AABB, Vec3};
 use mc_core::pos::BlockPos;
 use mc_data::enums::{EntitySpawnReason, Pose};
@@ -503,7 +503,7 @@ impl Entity for HappyGhast {
     mc_game_core::mob_entity_accessors!(mob);
 
     fn sanitize_scale(&self, scale: f32) -> f32 {
-        scale.min(MAX_SCALE)
+        java::min_f32(scale, MAX_SCALE)
     }
 
     fn get_encode_id(&self) -> Option<&'static str> {

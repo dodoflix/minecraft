@@ -1,6 +1,6 @@
 //! `EasingType` + `Ease`: keyframe interpolation curves (float arithmetic as vanilla).
 
-use mc_core::math::mth;
+use mc_core::math::{java, mth};
 use serde_json::Value;
 use std::f32::consts::PI;
 
@@ -96,7 +96,7 @@ fn cube(x: f32) -> f32 {
     x * x * x
 }
 fn pow(base: f64, exp: f64) -> f64 {
-    base.powf(exp)
+    java::pow(base, exp)
 }
 
 const C4: f32 = (std::f64::consts::PI * 2.0 / 3.0) as f32;
@@ -129,7 +129,7 @@ const SIMPLE: &[(&str, EaseFn)] = &[
             1.0
         } else {
             (-pow(2.0, f64::from(x) * 10.0 - 10.0)
-                * ((f64::from(x) * 10.0 - 10.75) * f64::from(C4)).sin()) as f32
+                * java::sin((f64::from(x) * 10.0 - 10.75) * f64::from(C4))) as f32
         }
     }),
     ("in_expo", |x| {
@@ -178,7 +178,7 @@ const SIMPLE: &[(&str, EaseFn)] = &[
         } else if x == 1.0 {
             1.0
         } else {
-            let sin = ((20.0 * f64::from(x) - 11.125) * f64::from(PI * 4.0 / 9.0)).sin();
+            let sin = java::sin((20.0 * f64::from(x) - 11.125) * f64::from(PI * 4.0 / 9.0));
             if x < 0.5 {
                 (-(pow(2.0, 20.0 * f64::from(x) - 10.0) * sin) / 2.0) as f32
             } else {
@@ -235,7 +235,8 @@ const SIMPLE: &[(&str, EaseFn)] = &[
         } else if x == 1.0 {
             1.0
         } else {
-            (pow(2.0, -10.0 * f64::from(x)) * ((f64::from(x) * 10.0 - 0.75) * f64::from(C4)).sin()
+            (pow(2.0, -10.0 * f64::from(x))
+                * java::sin((f64::from(x) * 10.0 - 0.75) * f64::from(C4))
                 + 1.0) as f32
         }
     }),
