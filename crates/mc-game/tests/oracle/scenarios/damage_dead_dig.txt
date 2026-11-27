@@ -1,0 +1,13 @@
+# A killed player stays in the player list: it still receives the block destruction progress another player causes.
+level flat
+preload 3
+spawn_player A survival 0.5 -60 0.5 0 0
+spawn_player B survival 2.5 -60 0.5 0 0
+give A hotbar0 minecraft:diamond_pickaxe
+block 1 -60 2 minecraft:stone
+select A 0
+hurt B generic_kill 1000
+tick 3
+dump packets:B
+dig A 1 -60 2
+dump packets:B

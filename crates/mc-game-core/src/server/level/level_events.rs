@@ -77,16 +77,7 @@ impl ServerLevel {
             }
         }
         // a killed player left the level but not the player list: it still hears what happens near its body
-        let listed = self.players.iter().map(|&id| (id, self.player_record(id)));
-        let parked = self.dead_players.iter().map(|(&id, e)| {
-            (
-                id,
-                e.as_any()
-                    .downcast_ref::<ServerPlayer>()
-                    .map(PlayerRecord::of),
-            )
-        });
-        for (id, record) in listed.chain(parked) {
+        for (id, record) in self.listed_players() {
             if Some(id) == except {
                 continue;
             }
@@ -352,25 +343,24 @@ impl ServerLevel {
 
     /// `destroyBlockProgress(id, pos, progress)`.
     pub fn destroy_block_progress(&self, id: i32, pos: BlockPos, progress: i32) {
-        for &player_id in &self.players {
+        for (player_id, record) in self.listed_players() {
             if player_id == id {
                 continue;
             }
-            let Some(entity) = self.get_entity(player_id) else {
+            let Some(PlayerRecord {
+                connection: Some(connection),
+                position: p,
+                ..
+            }) = record
+            else {
                 continue;
             };
-            let Some(player) = entity.as_any().downcast_ref::<ServerPlayer>() else {
-                continue;
-            };
-            let p = entity.position();
             let (xd, yd, zd) = (
                 f64::from(pos.x()) - p.x,
                 f64::from(pos.y()) - p.y,
                 f64::from(pos.z()) - p.z,
             );
-            if xd * xd + yd * yd + zd * zd < 1024.0
-                && let Some(connection) = &player.connection
-            {
+            if xd * xd + yd * yd + zd * zd < 1024.0 {
                 connection.send(&ClientboundBlockDestructionPacket {
                     id,
                     pos,
@@ -378,6 +368,21 @@ impl ServerLevel {
                 });
             }
         }
+    }
+
+    /// The players `PlayerList.getPlayers()` holds that this level reaches: its own and the killed players parked in it (a killed
+    /// player left the level but not the player list, and keeps `level()`).
+    fn listed_players(&self) -> impl Iterator<Item = (EntityId, Option<PlayerRecord>)> + '_ {
+        let live = self.players.iter().map(|&id| (id, self.player_record(id)));
+        let parked = self.dead_players.iter().map(|(&id, e)| {
+            (
+                id,
+                e.as_any()
+                    .downcast_ref::<ServerPlayer>()
+                    .map(PlayerRecord::of),
+            )
+        });
+        live.chain(parked)
     }
 
     /// `ClientboundBlockEventPacket` to everyone within 64 blocks (the tail of `runBlockEvents`).
