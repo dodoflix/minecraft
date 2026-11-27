@@ -1,0 +1,113 @@
+# One of every living entity type in a grid, no AI, invulnerable, at night, 100 server ticks after the summons (the server
+# is frozen before them and sprints exactly that many ticks, so no run depends on client timing): the client's entity list with every synched value,
+# equipment, attributes and effects, and a screenshot from above the grid.
+# The floor is stone: a horse on grass starts eating at random (one tick in 300, unseeded), which sets a synched flag.
+server seed=12345
+tolerate level.day_time 0
+# Resting armor stands and mannequins show the client's own tick phase (two vanilla servers differ the same way).
+tolerate entities.*.motion.1 0.02
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console tick freeze
+console time set 18000
+console gamemode spectator Steve
+console tp Steve 22 -20 20 0 60
+console fill -2 -61 -2 44 -61 64 minecraft:stone
+console summon minecraft:allay 0.5 -60 0.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:armadillo 4.5 -60 0.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:armor_stand 8.5 -60 0.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:axolotl 12.5 -60 0.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:bat 16.5 -60 0.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:bee 20.5 -60 0.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:blaze 24.5 -60 0.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:bogged 28.5 -60 0.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:breeze 32.5 -60 0.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:camel 36.5 -60 0.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:camel_husk 0.5 -60 4.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:cat 4.5 -60 4.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:cave_spider 8.5 -60 4.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:chicken 12.5 -60 4.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:cod 16.5 -60 4.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:copper_golem 20.5 -60 4.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:cow 24.5 -60 4.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:creaking 28.5 -60 4.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:creeper 32.5 -60 4.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:dolphin 36.5 -60 4.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:donkey 0.5 -60 8.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:drowned 4.5 -60 8.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:elder_guardian 8.5 -60 8.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:enderman 12.5 -60 8.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:endermite 16.5 -60 8.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:evoker 20.5 -60 8.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:fox 24.5 -60 8.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:frog 28.5 -60 8.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:ghast 32.5 -60 8.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:giant 36.5 -60 8.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:glow_squid 0.5 -60 12.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:goat 4.5 -60 12.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:guardian 8.5 -60 12.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:happy_ghast 12.5 -60 12.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:hoglin 16.5 -60 12.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:horse 20.5 -60 12.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:husk 24.5 -60 12.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:illusioner 28.5 -60 12.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:iron_golem 32.5 -60 12.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:llama 36.5 -60 12.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:magma_cube 0.5 -60 16.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:mannequin 4.5 -60 16.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:mooshroom 8.5 -60 16.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:mule 12.5 -60 16.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:nautilus 16.5 -60 16.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:ocelot 20.5 -60 16.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:panda 24.5 -60 16.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:parched 28.5 -60 16.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:parrot 32.5 -60 16.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:phantom 36.5 -60 16.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:pig 0.5 -60 20.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:piglin 4.5 -60 20.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:piglin_brute 8.5 -60 20.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:pillager 12.5 -60 20.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:polar_bear 16.5 -60 20.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:pufferfish 20.5 -60 20.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:rabbit 24.5 -60 20.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:ravager 28.5 -60 20.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:salmon 32.5 -60 20.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:sheep 36.5 -60 20.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:shulker 0.5 -60 24.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:silverfish 4.5 -60 24.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:skeleton 8.5 -60 24.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:skeleton_horse 12.5 -60 24.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:slime 16.5 -60 24.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:sniffer 20.5 -60 24.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:snow_golem 24.5 -60 24.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:spider 28.5 -60 24.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:squid 32.5 -60 24.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:stray 36.5 -60 24.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:strider 0.5 -60 28.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:sulfur_cube 4.5 -60 28.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:tadpole 8.5 -60 28.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:trader_llama 12.5 -60 28.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:tropical_fish 16.5 -60 28.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:turtle 20.5 -60 28.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:vex 24.5 -60 28.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:villager 28.5 -60 28.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:vindicator 32.5 -60 28.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:wandering_trader 36.5 -60 28.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:warden 0.5 -60 32.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:witch 4.5 -60 32.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:wither_skeleton 8.5 -60 32.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:wolf 12.5 -60 32.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:zoglin 16.5 -60 32.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:zombie 20.5 -60 32.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:zombie_horse 24.5 -60 32.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:zombie_nautilus 28.5 -60 32.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:zombie_villager 32.5 -60 32.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console summon minecraft:zombified_piglin 36.5 -60 32.5 {NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+console tick sprint 100
+wait_server "Sprint completed"
+sleep 1
+snapshot zoo
+shot zoo
+client disconnect
+wait_screen TitleScreen 30

@@ -1,0 +1,55 @@
+# Item entities, projectiles, vehicles on rails, displays, an armor stand and a leashed cow:
+# the client's entity list with synched values, and a screenshot, 100 server ticks after the summons (frozen server that
+# sprints exactly that many ticks).
+# No painting or item frame: `/summon` reads their block position before it moves them, so far from the origin they are invalid
+# and drop as items with random motion (both servers). The client's own entity ticks after the last freeze packet leave resting
+# items, minecarts and armor stands in one of several phases (two vanilla servers differ the same way).
+server seed=12345
+tolerate entities.*.motion.1 0.13
+tolerate entities.*.pos.1 0.05
+client join
+wait_screen null 120
+wait_state chunks >= 117 and ticks_in_level >= 100 60
+console tick freeze
+console time set 6000
+console gamemode spectator Steve
+console tp Steve 10 -52 12 0 40
+console fill -2 -61 -2 40 -61 30 minecraft:stone
+console fill -2 -60 -3 40 -57 -3 minecraft:stone_bricks
+console setblock 0 -60 0 minecraft:oak_fence
+console fill 0 -60 6 5 -60 6 minecraft:rail
+console setblock 6 -60 6 minecraft:rail
+console summon minecraft:item 1.5 -60 1.5 {Item:{id:"minecraft:diamond",count:3},Age:-32768,PickupDelay:32767s,Invulnerable:1b}
+console summon minecraft:item 3.5 -60 1.5 {Item:{id:"minecraft:diamond_sword",count:1,components:{"minecraft:enchantments":{"minecraft:sharpness":3},"minecraft:custom_name":'"Blade"'}},Age:-32768,PickupDelay:32767s,Invulnerable:1b}
+console summon minecraft:experience_orb 5.5 -60 1.5 {Value:7s,Age:-32768}
+console summon minecraft:arrow 8 -58 1.5 {NoGravity:1b,Motion:[0.0,0.0,0.0],pickup:0b,crit:1b}
+console summon minecraft:spectral_arrow 10 -58 1.5 {NoGravity:1b,Motion:[0.0,0.0,0.0],pickup:0b}
+console summon minecraft:snowball 12 -58 1.5 {NoGravity:1b,Motion:[0.0,0.0,0.0]}
+console summon minecraft:ender_pearl 14 -58 1.5 {NoGravity:1b,Motion:[0.0,0.0,0.0]}
+console summon minecraft:splash_potion 16 -58 1.5 {NoGravity:1b,Motion:[0.0,0.0,0.0],Item:{id:"minecraft:splash_potion",count:1,components:{"minecraft:potion_contents":{potion:"minecraft:strong_healing"}}}}
+console summon minecraft:fireball 18 -58 1.5 {NoGravity:1b,Motion:[0.0,0.0,0.0],ExplosionPower:2b,power:[0.0,0.0,0.0]}
+console summon minecraft:wither_skull 20 -58 1.5 {NoGravity:1b,Motion:[0.0,0.0,0.0],dangerous:1b,power:[0.0,0.0,0.0]}
+console summon minecraft:firework_rocket 22 -58 1.5 {LifeTime:100000,FireworksItem:{id:"minecraft:firework_rocket",count:1,components:{"minecraft:fireworks":{explosions:[{shape:"star",colors:[I;16711680]}]}}},Motion:[0.0,0.0,0.0]}
+console summon minecraft:oak_boat 2 -60 4 {Rotation:[45f,0f]}
+console summon minecraft:oak_chest_boat 6 -60 4 {Rotation:[90f,0f]}
+console summon minecraft:bamboo_raft 10 -60 4 {}
+console summon minecraft:minecart 1.5 -59.9 6.5 {}
+console summon minecraft:chest_minecart 3.5 -59.9 6.5 {}
+console summon minecraft:furnace_minecart 5.5 -59.9 6.5 {Fuel:0s}
+console summon minecraft:tnt 12 -60 8 {fuse:32767s}
+console summon minecraft:falling_block 14 -58 8 {BlockState:{Name:"minecraft:sand"},Time:-100000,NoGravity:1b}
+console summon minecraft:end_crystal 16 -59 8 {ShowBottom:1b}
+console summon minecraft:area_effect_cloud 18 -60 8 {Duration:100000,Radius:2.5f,Particle:{type:"minecraft:entity_effect",color:16711680}}
+console summon minecraft:interaction 20 -60 8 {width:1.5f,height:2.5f,response:1b}
+console summon minecraft:text_display 2 -58 10 {text:'{"text":"Display","color":"gold"}',billboard:"fixed",background:1073741824,line_width:100}
+console summon minecraft:item_display 5 -58.5 10 {item:{id:"minecraft:diamond_sword",count:1},item_display:"fixed",transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[2f,2f,2f]}}
+console summon minecraft:block_display 8 -60 10 {block_state:{Name:"minecraft:furnace",Properties:{facing:"south",lit:"true"}}}
+console summon minecraft:armor_stand 12 -60 12 {ShowArms:1b,Pose:{Head:[10f,20f,30f],LeftArm:[-30f,0f,15f]},equipment:{head:{id:"minecraft:iron_helmet",count:1},mainhand:{id:"minecraft:stick",count:1}},Invulnerable:1b}
+console summon minecraft:cow 3 -60 -1 {NoAI:1b,Silent:1b,Invulnerable:1b,leash:[I;0,-60,0]}
+console tick sprint 100
+wait_server "Sprint completed"
+sleep 1
+snapshot objects
+shot objects
+client disconnect
+wait_screen TitleScreen 30

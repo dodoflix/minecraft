@@ -437,8 +437,8 @@ def run_steps(sc, ctx):
             if client is None:
                 client = clients[tag] = Client(f"{ctx['name']}-{tag}", ctx["display"], tag)
             prefix = "" if tag is None else f"{tag}."  # labels of a second client's snapshots, shots and chat logs
-            if op == "console":
-                server.cmd(expand(a["text"], ctx["port"], ctx["files"]))
+            if op == "console":  # one command per server tick at most, however fast the side's console is written
+                run_commands(server, [expand(a["text"], ctx["port"], ctx["files"])])
             elif op == "client":
                 address = f"127.0.0.1:{ctx['port']}"
                 if a["action"] in ("join", "title"):

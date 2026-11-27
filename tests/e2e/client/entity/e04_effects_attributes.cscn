@@ -1,8 +1,11 @@
 # Effects and attribute changes by command: the client's effect list and attribute values, and the HUD.
+# Regeneration is off: with more maximum health the player is hurt, heals by spending saturation and ends at 0, and then the
+# client shakes the food icons on the one client tick in (food * 3 + 1) that the screenshot may hit (the client's own tick count).
 server seed=12345
 client join
 wait_screen null 120
 wait_state chunks >= 117 and ticks_in_level >= 100 60
+console gamerule natural_health_regeneration false
 console effect give Steve minecraft:speed infinite 1 true
 console effect give Steve minecraft:night_vision infinite 0 false
 console effect give Steve minecraft:absorption infinite 2 true

@@ -15,7 +15,7 @@ Comparison settings:
 Steps, run in order after the server is up. A step that talks to a client may start with `@NAME ` to address the client
 NAME (a second JVM, started by its own `client join`/`client title`, named like its log and snapshot files); without
 a prefix the step addresses the first client. Snapshots, shots and chat logs of NAME are labelled `NAME.LABEL`.
-    console CMD...                server console command
+    console CMD...                server console command (the next step starts once the server has run it)
     client join [--user U] [--option k:v]...   start the client and join (quick play); options go to options.txt
     client title [--user U] [--option k:v]...  start the client on the title screen with this side's server in its server list
     client rejoin                 reconnect through the control channel
