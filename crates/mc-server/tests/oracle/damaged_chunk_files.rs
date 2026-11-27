@@ -9,6 +9,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use mc_core::ident::Identifier;
+use mc_core::java_string::JavaString;
 use mc_core::pos::chunk_pos::ChunkPos;
 use mc_nbt::{CompoundTag, ListTag, Tag};
 use mc_world::region::{RegionFileStorage, RegionStorageInfo};
@@ -123,6 +124,11 @@ fn set_block_entity_ids(chunk: &mut CompoundTag, id: &str) {
     map_list(chunk, &["block_entities"], &|e| e.put_string("id", id));
 }
 
+/// A string holding a lone high surrogate: vanilla's log file writes it as `?`.
+fn lone_surrogate() -> JavaString {
+    JavaString::from_utf16_units(&[0xD800])
+}
+
 type Damage = fn(&mut CompoundTag);
 
 /// `(case, folder, damage)`.
@@ -131,6 +137,9 @@ const CASES: &[(&str, &str, Damage)] = &[
     ("chunk_status_int", "region", |t| t.put_int("Status", 3)),
     ("chunk_status_unknown", "region", |t| {
         t.put_string("Status", "minecraft:zzz")
+    }),
+    ("chunk_status_surrogate", "region", |t| {
+        t.put_string("Status", lone_surrogate())
     }),
     ("chunk_xpos_mismatch", "region", |t| t.put_int("xPos", 99)),
     ("chunk_data_version_string", "region", |t| {
@@ -150,6 +159,15 @@ const CASES: &[(&str, &str, Damage)] = &[
     }),
     ("chunk_blockstates_wrong", "region", |t| {
         map_list(t, &["sections"], &|s| s.put_string("block_states", "x"))
+    }),
+    ("chunk_blockstates_surrogate", "region", |t| {
+        map_list(t, &["sections"], &|s| {
+            let mut palette = ListTag::new();
+            palette.push(Tag::String(lone_surrogate()));
+            let mut states = CompoundTag::new();
+            states.put("palette", palette);
+            s.put("block_states", states);
+        })
     }),
     // every block entity of the world becomes a type that does not fit its block (sign, hanging sign and skull accept
     // more than one block, the banner constructor casts the block, a chest only accepts chests)

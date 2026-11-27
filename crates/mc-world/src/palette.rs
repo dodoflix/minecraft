@@ -953,6 +953,14 @@ impl<T: PaletteValue> PalettedContainer<T> {
 /// `BlockState.CODEC`: a bare block name (default state) or `{id, properties?}`.
 pub struct BlockStateCodec;
 
+/// `Not a map: <tag>` as the log file writes it (a lone surrogate prints `?`).
+fn not_a_map(tag: &Tag) -> String {
+    format!(
+        "Not a map: {}",
+        mc_nbt::snbt::print_compact(tag).to_utf8_string()
+    )
+}
+
 impl ElementCodec<BlockState> for BlockStateCodec {
     fn decode(&self, tag: &Tag) -> Result<BlockState, String> {
         use mc_data::block::Block;
@@ -961,7 +969,8 @@ impl ElementCodec<BlockState> for BlockStateCodec {
             let Tag::String(name) = tag else {
                 return Err("Not a string".into());
             };
-            let id = mc_core::ident::Identifier::read(&name.to_utf8_string())?;
+            let id = mc_core::ident::Identifier::read_java(name)
+                .map_err(mc_core::java_string::JavaString::into_utf8_string)?;
             Block::by_name(&id.to_string()).ok_or_else(|| {
                 format!(
                     "Unknown registry key in ResourceKey[minecraft:root / minecraft:block]: {id}"
@@ -975,13 +984,13 @@ impl ElementCodec<BlockState> for BlockStateCodec {
         match tag {
             Tag::String(_) => match by_tag(tag) {
                 Ok(block) => Ok(block.default_state()),
-                Err(first) => Err(either(first, format!("Not a map: {tag}"))),
+                Err(first) => Err(either(first, not_a_map(tag))),
             },
             Tag::Compound(c) => {
                 let second = match c.get("id") {
                     None => Err(format!(
                         "No key id in MapLike[{}]",
-                        mc_nbt::snbt::print_compact(tag).as_lossy_str()
+                        mc_nbt::snbt::print_compact(tag).to_utf8_string()
                     )),
                     Some(id) => by_tag(id),
                 };
@@ -1002,7 +1011,7 @@ impl ElementCodec<BlockState> for BlockStateCodec {
                 }
                 Ok(state)
             }
-            _ => Err(either("Not a string".into(), format!("Not a map: {tag}"))),
+            _ => Err(either("Not a string".into(), not_a_map(tag))),
         }
     }
 

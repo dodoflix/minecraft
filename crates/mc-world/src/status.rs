@@ -168,16 +168,22 @@ impl ChunkStatus {
         let Some(value) = tag.get("Status") else {
             return ChunkStatus::Empty;
         };
-        let decoded = match value.as_string() {
+        let decoded = match value.as_java_string() {
             None => Err("Not a string".to_owned()),
-            Some(key) => Identifier::read(key).and_then(|id| {
-                Self::decode_str(key).ok_or_else(|| {
-                    format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:chunk_status]: {id}")
-                })
-            }),
+            Some(key) => Identifier::read_java(key)
+                .map_err(mc_core::java_string::JavaString::into_utf8_string)
+                .and_then(|id| {
+                    Self::decode_str(key.as_lossy_str()).ok_or_else(|| {
+                        format!("Unknown registry key in ResourceKey[minecraft:root / minecraft:chunk_status]: {id}")
+                    })
+                }),
         };
         decoded.unwrap_or_else(|error| {
-            log::error!("Failed to read field (Status={value}): {error}");
+            let shown = mc_nbt::snbt::print_compact(value);
+            log::error!(
+                "Failed to read field (Status={}): {error}",
+                shown.to_utf8_string()
+            );
             ChunkStatus::Empty
         })
     }
