@@ -203,7 +203,11 @@ pub fn read_additional_save_data<E: BlockAttached>(
         Some(pos) if pos.closer_than(&e.base().block_position(), 16.0) => {
             e.attached_mut().pos = pos
         }
-        other => log::error!("Block-attached entity at invalid position: {other:?}"),
+        // `{}` of a nullable `BlockPos`: `BlockPos{x=.., y=.., z=..}`, `null` when absent.
+        other => log::error!(
+            "Block-attached entity at invalid position: {}",
+            other.map_or_else(|| "null".to_string(), |p| format!("{p:?}"))
+        ),
     }
 }
 
