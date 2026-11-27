@@ -181,29 +181,62 @@ fn load_with_resources<D, R>(
         D,
     ) -> R,
 ) -> Result<R, WorldLoadError> {
-    let attempt = (|| -> Result<(ReloadableServerResources, LayeredRegistryAccess<RegistryLayer>, D), WorldLoadError> {
-        let initial_layers = RegistryLayer::create_registry_access();
-        let static_layer_tags = load_tags_for_existing_registries(&resources, initial_layers.get_layer(RegistryLayer::Static));
-        let world_load_context = initial_layers.get_access_for_loading(RegistryLayer::World);
-        let world_context_registries = build_updated_lookups(&world_load_context, &static_layer_tags);
-        let loaded_world_registries = data_loader::load(&resources, &world_context_registries, WORLD_REGISTRIES)?;
-        let dimension_context_registries = RegistryAccess::from_arcs(world_context_registries.registries().chain(loaded_world_registries.registries()).cloned());
-        let initial_worldgen_dimensions = data_loader::load(&resources, &dimension_context_registries, DIMENSION_REGISTRIES)?;
-        let world_data_and_registries = world_data_supplier(&DataLoadContext {
-            resources: &resources,
-            data_configuration: world_data_configuration,
-            datapack_world_registries: dimension_context_registries,
-            datapack_dimensions: initial_worldgen_dimensions,
-        })
-        .map_err(WorldLoadError::Thrown)?;
-        let resources_load_context = initial_layers.replace_from(RegistryLayer::World, vec![loaded_world_registries, world_data_and_registries.final_dimensions]);
-        let enabled: FeatureFlagSet = world_data_configuration.enabled_features;
-        // vanilla applies the reload on `Util.backgroundExecutor()`: its log lines come from a `Worker-Main-N` thread
-        let mut managers = crate::server::dedicated::logging::with_thread_name("Worker-Main-1", || ReloadableServerResources::load_resources(&resources, &resources_load_context, static_layer_tags, enabled, function_compilation_permissions))?;
+    // vanilla runs everything from the tag load up to the reload on `Util.backgroundExecutor()`, so those log lines come
+    // from a `Worker-Main-N` thread; only the pack selection before and the result factory after run on the main thread
+    let attempt = crate::server::dedicated::logging::with_thread_name(
+        "Worker-Main-1",
+        || -> Result<(ReloadableServerResources, D), WorldLoadError> {
+            let initial_layers = RegistryLayer::create_registry_access();
+            let static_layer_tags = load_tags_for_existing_registries(
+                &resources,
+                initial_layers.get_layer(RegistryLayer::Static),
+            );
+            let world_load_context = initial_layers.get_access_for_loading(RegistryLayer::World);
+            let world_context_registries =
+                build_updated_lookups(&world_load_context, &static_layer_tags);
+            let loaded_world_registries =
+                data_loader::load(&resources, &world_context_registries, WORLD_REGISTRIES)?;
+            let dimension_context_registries = RegistryAccess::from_arcs(
+                world_context_registries
+                    .registries()
+                    .chain(loaded_world_registries.registries())
+                    .cloned(),
+            );
+            let initial_worldgen_dimensions = data_loader::load(
+                &resources,
+                &dimension_context_registries,
+                DIMENSION_REGISTRIES,
+            )?;
+            let world_data_and_registries = world_data_supplier(&DataLoadContext {
+                resources: &resources,
+                data_configuration: world_data_configuration,
+                datapack_world_registries: dimension_context_registries,
+                datapack_dimensions: initial_worldgen_dimensions,
+            })
+            .map_err(WorldLoadError::Thrown)?;
+            let resources_load_context = initial_layers.replace_from(
+                RegistryLayer::World,
+                vec![
+                    loaded_world_registries,
+                    world_data_and_registries.final_dimensions,
+                ],
+            );
+            let enabled: FeatureFlagSet = world_data_configuration.enabled_features;
+            let managers = ReloadableServerResources::load_resources(
+                &resources,
+                &resources_load_context,
+                static_layer_tags,
+                enabled,
+                function_compilation_permissions,
+            )?;
+            Ok((managers, world_data_and_registries.cookie))
+        },
+    );
+    let attempt = attempt.map(|(mut managers, cookie)| {
         managers.update_components_and_static_registry_tags();
         let layers = managers.registry_layers().clone();
-        Ok((managers, layers, world_data_and_registries.cookie))
-    })();
+        (managers, layers, cookie)
+    });
     match attempt {
         Ok((managers, layers, cookie)) => Ok(result_factory(resources, managers, layers, cookie)),
         Err(e) => {
