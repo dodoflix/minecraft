@@ -38,7 +38,7 @@ jobs:
           persist-credentials: false
       - name: Install the pinned toolchain
         run: rustup show
-      - uses: taiki-e/install-action@c509219cf42fba86913069efd0ade2458c59337b # v2.90.1
+      - uses: taiki-e/install-action@fe3acb53a98b62c772db35de75ce0e4595e7ca8c # v2.90.8
         with:
           tool: cargo-deny
       - run: cargo deny --locked check advisories
@@ -97,7 +97,7 @@ jobs:
         with:
           decompile: "true"
       # The vanilla server the tests start needs Java 25 even when ref/ came from the cache.
-      - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
+      - uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
         with:
           distribution: temurin
           java-version: "25"
