@@ -1531,6 +1531,7 @@ dependencies = [
  "mc-game-core",
  "mc-nbt",
  "mc-testkit",
+ "mc-text",
  "mc-world",
  "serde_json",
 ]

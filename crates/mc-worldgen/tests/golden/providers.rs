@@ -51,9 +51,35 @@ fn int_range(kind: &str) -> Option<(i32, i32)> {
 #[test]
 fn providers_match_vanilla() {
     let fixture = mc_testkit::include_gz!("../fixtures/providers.txt.gz");
+    let (ok_cases, err_cases, sampled) = check_fixture(&fixture, 0);
+    // The fixture must exercise both outcomes and plenty of sample sequences.
+    assert!(
+        ok_cases > 500 && err_cases > 100 && sampled > 3000,
+        "{ok_cases} {err_cases} {sampled}"
+    );
+}
+
+/// Numbers beyond `f64` or 64 bits, and an object spelling the stand-in key of such a number, in every provider codec.
+#[test]
+fn provider_numbers_beyond_f64_match_vanilla() {
+    let fixture = mc_testkit::include_gz!("../fixtures/provider_numbers.txt.gz");
+    let (ok_cases, err_cases, _) = check_fixture(&fixture, STAND_IN_OBJECT_CASES);
+    assert_eq!((ok_cases, err_cases), (108, 114));
+}
+
+/// The member key of the stand-in for a number beyond `f64`, as the fixtures spell it.
+const STAND_IN_KEY: &str = "\\u0000lazy_number";
+
+/// Lines of `provider_numbers.txt.gz` with an object spelling [`STAND_IN_KEY`] that vanilla rejects and we accept.
+const STAND_IN_OBJECT_CASES: usize = 14;
+
+/// Checks every line of `fixture`; returns the numbers of accepted lines, rejected lines and compared sample sequences.
+fn check_fixture(fixture: &str, stand_in_objects: usize) -> (usize, usize, usize) {
     let mut ok_cases = 0;
     let mut err_cases = 0;
     let mut sampled = 0;
+    let mut mismatches = Vec::new();
+    let mut known = Vec::new();
     for (line_no, line) in fixture.lines().enumerate() {
         let mut fields = line.split('\t');
         let (kind, json, status) = (
@@ -61,7 +87,9 @@ fn providers_match_vanilla() {
             fields.next().unwrap(),
             fields.next().unwrap(),
         );
-        let value: serde_json::Value = serde_json::from_str(json).unwrap();
+        let value = mc_text::json::value_from_element(
+            &mc_core::gson::parse_strict_json_parser(json).unwrap(),
+        );
         let ctx = format!("line {}: {kind} {json}", line_no + 1);
         let expected: Vec<&str> = fields.collect();
         let mut actual: Vec<String> = Vec::new();
@@ -105,20 +133,25 @@ fn providers_match_vanilla() {
         match (status, parsed) {
             ("OK", Ok(())) => {
                 ok_cases += 1;
-                assert_eq!(actual, expected, "{ctx}");
+                if actual != expected {
+                    mismatches.push(format!(
+                        "{ctx}: samples differ\n  ours:    {actual:?}\n  vanilla: {expected:?}"
+                    ));
+                }
                 sampled += actual.len();
             }
             ("ERR", Err(_)) => err_cases += 1,
-            ("OK", Err(e)) => panic!("{ctx}: vanilla accepts, we reject: {e}"),
-            ("ERR", Ok(())) => panic!("{ctx}: vanilla rejects, we accept"),
+            ("OK", Err(e)) => mismatches.push(format!("{ctx}: vanilla accepts, we reject: {e}")),
+            // an object that spells the member key of a number's stand-in in the lossy tree is read as that number
+            ("ERR", Ok(())) if json.contains(STAND_IN_KEY) => known.push(ctx),
+            ("ERR", Ok(())) => mismatches.push(format!("{ctx}: vanilla rejects, we accept")),
             _ => unreachable!(),
         }
     }
-    // The fixture must exercise both outcomes and plenty of sample sequences.
-    assert!(
-        ok_cases > 500 && err_cases > 100 && sampled > 3000,
-        "{ok_cases} {err_cases} {sampled}"
-    );
+    assert!(mismatches.is_empty(), "{}", mismatches.join("\n"));
+    // the differences that still exist: this list only shrinks
+    assert_eq!(known.len(), stand_in_objects, "{}", known.join("\n"));
+    (ok_cases, err_cases, sampled)
 }
 
 fn int_case(
