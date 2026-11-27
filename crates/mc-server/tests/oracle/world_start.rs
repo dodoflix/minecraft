@@ -222,6 +222,27 @@ fn exact_filter(chunks: (i32, i32, i32, i32), skip: &[&str]) -> Filter {
     }
 }
 
+/// The one item entity of the loaded area that no real run repeats in its position: a brown mushroom that pops out of its
+/// block in the nether chunk [5, -1] of the 1.14.4 normal world (a mushroom the new light level lets die drops as an item;
+/// `Block.popResource` draws the spot, `ItemEntity` the motion and the yaw, from the unseeded random source of the level).
+/// Evidence, 36 real runs of that world and 4 of `mc-server` (the kept `Entities` of the chunk): the chunk's other item is
+/// the same in all of them, this one differs in every run (36 distinct spots): `Pos` x 90.25 to 90.74, y 32.15 to 32.61,
+/// z -15.74 to -15.25, `Motion` x -0.085 to 0.097, z -0.099 to 0.094 and `Rotation[0]` 1.8 to 353.2 (the runs of
+/// `mc-server` lie in the same ranges), and everything else of it (id, item, `Age`, `Fire`, `Motion[1]` 0.2) is equal.
+const POPPED_MUSHROOM_RACES: &[&str] = &[
+    "entities/*.mca#Entities.*[Item/id=minecraft:brown_mushroom].Pos",
+    "entities/*.mca#Entities.*[Item/id=minecraft:brown_mushroom].Motion",
+    "entities/*.mca#Entities.*[Item/id=minecraft:brown_mushroom].Rotation",
+    "**/entities/*.mca#Entities.*[Item/id=minecraft:brown_mushroom].Pos",
+    "**/entities/*.mca#Entities.*[Item/id=minecraft:brown_mushroom].Motion",
+    "**/entities/*.mca#Entities.*[Item/id=minecraft:brown_mushroom].Rotation",
+];
+
+/// The chunk that holds the item of [`POPPED_MUSHROOM_RACES`] (only in the 1.14.4 normal world, only the nether).
+fn popped_mushroom_chunk(world: &str, dim: &str) -> Option<(i32, i32)> {
+    (world == "1.14.4-normal" && dim == "the_nether").then_some((5, -1))
+}
+
 /// The comparison of a chunk below full: light left out, and for a chunk the servers generated while running also
 /// [`GENERATED_CHUNK_RACES`].
 fn partial_chunk_filter(chunk: (i32, i32), generated: bool, below_zero: &[&str]) -> Filter {
@@ -717,7 +738,7 @@ fn settle_races(
     others: &[&Run],
     o: &Path,
     dim: &str,
-    world: &str,
+    outcomes_of: Option<&str>,
 ) -> DimReport {
     let equal_elsewhere = |chunk: ChunkPos| {
         let one = Filter {
@@ -729,8 +750,10 @@ fn settle_races(
             let report = compare_dimension(&run.dir.join("world"), o, dim, &one);
             report.is_clean() && report.skipped_status == 0
         }) || (filter.exact
-            && chunk_digest(o, dim, chunk, &one)
-                .is_ok_and(|d| recorded_outcome(world, dim, (chunk.x, chunk.z), &d)))
+            && outcomes_of.is_some_and(|world| {
+                chunk_digest(o, dim, chunk, &one)
+                    .is_ok_and(|d| recorded_outcome(world, dim, (chunk.x, chunk.z), &d))
+            }))
     };
     let only_chunks = report.errors.is_empty() && report.only_a == 0 && report.only_b == 0;
     if only_chunks && report.differing.iter().all(|(p, _)| equal_elsewhere(*p)) {
@@ -742,14 +765,22 @@ fn settle_races(
 
 /// Differences between two finished runs, as printable findings (empty: equal under the normalisation above).
 pub(crate) fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
-    compare_with(vanilla, ours, &[], "")
+    compare_with(vanilla, ours, &[], "", false)
 }
 
 /// [`compare`]; `others` are further runs of the real server on the same world: a chunk of the loaded area (ticked after
 /// the start) or a chunk generated while running (blocks, ticks, post processing included, except
 /// [`GENERATED_CHUNK_RACES`]) has to equal that chunk of `vanilla` or of one of `others` ([`settle_races`]). `mc-server`
-/// also has to have followed a schedule the real executor can produce ([`crate::sched_check`]).
-pub(crate) fn compare_with(vanilla: &Run, ours: &Run, others: &[&Run], world: &str) -> Vec<String> {
+/// also has to have followed a schedule the real executor can produce ([`crate::sched_check`]). `recorded`: the outcomes
+/// of [`RECORDED_OUTCOMES`] settle a chunk below full (they were recorded from the unchanged world, so the start from the
+/// world `--forceUpgrade` made of it does not use them).
+pub(crate) fn compare_with(
+    vanilla: &Run,
+    ours: &Run,
+    others: &[&Run],
+    world: &str,
+    recorded: bool,
+) -> Vec<String> {
     let mut findings = Vec::new();
     if let Ok(trace) = fs::read_to_string(ours.dir.join(SCHED_TRACE_FILE)) {
         let report = crate::sched_check::check(&trace);
@@ -810,7 +841,7 @@ pub(crate) fn compare_with(vanilla: &Run, ours: &Run, others: &[&Run], world: &s
     let mut reports = Vec::new();
     for dim in ["overworld", "the_nether", "the_end"] {
         let settle = |report: DimReport, filter: &Filter| {
-            settle_races(report, filter, others, &o, dim, world)
+            settle_races(report, filter, others, &o, dim, recorded.then_some(world))
         };
         let below_zero = if dim == "overworld" && vanilla.below_zero {
             BELOW_ZERO_RACES
@@ -820,12 +851,15 @@ pub(crate) fn compare_with(vanilla: &Run, ours: &Run, others: &[&Run], world: &s
         for rect in outside {
             reports.push(compare_dimension(&v, &o, dim, &exact(rect, below_zero)));
         }
-        // the chunks of [`BLOCK_RACE_CHUNKS`] are compared on their own, without the sections that hold the races
-        let holes: Vec<(i32, i32)> = BLOCK_RACE_CHUNKS
+        // the chunks of [`BLOCK_RACE_CHUNKS`] are compared on their own, without the sections that hold the races; the
+        // chunk of [`POPPED_MUSHROOM_RACES`] on its own, without that item's position
+        let mut holes: Vec<(i32, i32)> = BLOCK_RACE_CHUNKS
             .iter()
             .filter(|(d, _, old_only)| *d == dim && (!old_only || vanilla.below_zero))
             .map(|(_, chunk, _)| *chunk)
             .collect();
+        let popped = popped_mushroom_chunk(world, dim);
+        holes.extend(popped);
         let rects = holes.iter().fold(vec![inner], |rects, hole| {
             rects
                 .into_iter()
@@ -841,9 +875,15 @@ pub(crate) fn compare_with(vanilla: &Run, ours: &Run, others: &[&Run], world: &s
         }
         let race = format!("dimensions/minecraft/{dim}/region/*.mca#sections.*[Y<2]");
         for (x, z) in holes {
+            let mut skip = below_zero.to_vec();
+            if popped == Some((x, z)) {
+                skip.extend(POPPED_MUSHROOM_RACES);
+            } else {
+                skip.push(race.as_str());
+            }
             let filter = Filter {
                 chunks: Some((x, z, x, z)),
-                ..semantic(&[below_zero, &[race.as_str()][..]].concat())
+                ..semantic(&skip)
             };
             reports.push(settle(compare_dimension(&v, &o, dim, &filter), &filter));
         }
@@ -972,7 +1012,13 @@ fn dual(case: Case) {
             for n in (0..runs.len()).rev() {
                 let others: Vec<&Run> =
                     runs.iter().take(n).chain(runs.iter().skip(n + 1)).collect();
-                let found = compare_with(&runs[n], &ours, &others, &world.name);
+                let found = compare_with(
+                    &runs[n],
+                    &ours,
+                    &others,
+                    &world.name,
+                    matches!(case, Case::Normal),
+                );
                 equal = found.is_empty();
                 if equal {
                     break;

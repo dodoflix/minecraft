@@ -8,7 +8,9 @@
 //!   every chunk of a `.mca` file; JSON: `.json`) on both sides before comparing: `level.dat#Data.LastPlayed`,
 //!   `data/*.dat#data.*.ticks`. Segments are compound/object keys; `*` matches every key of a compound/object or
 //!   every element of a list/array; in an NBT list `*[KEY<N]` matches only the compound elements whose integer field
-//!   `KEY` is below `N` (`region/*.mca#sections.*[Y<0].block_states`; as the last segment it removes those elements).
+//!   `KEY` is below `N` (`region/*.mca#sections.*[Y<0].block_states`; as the last segment it removes those elements) and
+//!   `*[KEY=TEXT]` those whose string field `KEY` equals `TEXT` (`entities/*.mca#Entities.*[id=minecraft:item].Pos`);
+//!   a `KEY` of `/`-separated names reads a field of a nested compound (`*[Item/id=minecraft:stick]`).
 //!   Keys containing `.` cannot be addressed (shortcut: split on every dot, add an escape when such a key has to be
 //!   ignored).
 
@@ -120,28 +122,42 @@ fn strip_compound(c: &mut CompoundTag, path: &[String]) {
     }
 }
 
-/// `KEY` and `N` of a list segment `*[KEY<N]`.
-fn below_predicate(segment: &str) -> Option<(&str, i64)> {
-    let (key, limit) = segment
-        .strip_prefix("*[")?
-        .strip_suffix(']')?
-        .split_once('<')?;
-    Some((key, limit.parse().ok()?))
+/// What a list segment `*[KEY<N]` or `*[KEY=TEXT]` selects.
+enum Select<'a> {
+    Below(&'a str, i64),
+    Is(&'a str, &'a str),
+}
+
+impl Select<'_> {
+    fn parse(segment: &str) -> Option<Select<'_>> {
+        let inner = segment.strip_prefix("*[")?.strip_suffix(']')?;
+        if let Some((key, limit)) = inner.split_once('<') {
+            return Some(Select::Below(key, limit.parse().ok()?));
+        }
+        let (key, text) = inner.split_once('=')?;
+        Some(Select::Is(key, text))
+    }
+
+    fn matches(&self, element: &Tag) -> bool {
+        let field = |key: &str| {
+            key.split('/')
+                .try_fold(element, |tag, name| tag.as_compound()?.get(name))
+        };
+        match self {
+            Select::Below(key, limit) => field(key)
+                .and_then(Tag::as_long)
+                .is_some_and(|v| v < *limit),
+            Select::Is(key, text) => field(key).and_then(Tag::as_string) == Some(*text),
+        }
+    }
 }
 
 fn strip_tag(tag: &mut Tag, path: &[String]) {
     match tag {
         Tag::Compound(c) => strip_compound(c, path),
-        Tag::List(l) if path[0] == "*" || below_predicate(&path[0]).is_some() => {
-            let below = below_predicate(&path[0]);
-            let selected = |e: &Tag| {
-                below.is_none_or(|(key, limit)| {
-                    e.as_compound()
-                        .and_then(|c| c.get(key))
-                        .and_then(Tag::as_long)
-                        .is_some_and(|v| v < limit)
-                })
-            };
+        Tag::List(l) if path[0] == "*" || Select::parse(&path[0]).is_some() => {
+            let select = Select::parse(&path[0]);
+            let selected = |e: &Tag| select.as_ref().is_none_or(|s| s.matches(e));
             if path.len() == 1 {
                 // removing from the back keeps the indices below valid
                 for i in (0..l.len()).rev() {
@@ -255,5 +271,24 @@ mod tests {
         )
         .unwrap();
         assert_eq!(strip(&["c.mca#sections.*[Y<0].b"]), want);
+    }
+
+    #[test]
+    fn strips_fields_of_list_elements_with_a_string_value() {
+        let mut t = mc_nbt::snbt::parse_compound(
+            "{Entities:[{id:\"minecraft:item\",Item:{id:\"minecraft:stick\"},Pos:[1.0d]},\
+             {id:\"minecraft:item\",Item:{id:\"minecraft:dirt\"},Pos:[2.0d]},\
+             {id:\"minecraft:cow\",Pos:[3.0d]}]}",
+        )
+        .unwrap();
+        let spec = "e.mca#Entities.*[Item/id=minecraft:stick].Pos";
+        Ignores(vec![spec.parse().unwrap()]).strip_nbt("e.mca", &mut t);
+        let want = mc_nbt::snbt::parse_compound(
+            "{Entities:[{id:\"minecraft:item\",Item:{id:\"minecraft:stick\"}},\
+             {id:\"minecraft:item\",Item:{id:\"minecraft:dirt\"},Pos:[2.0d]},\
+             {id:\"minecraft:cow\",Pos:[3.0d]}]}",
+        )
+        .unwrap();
+        assert_eq!(t, want);
     }
 }

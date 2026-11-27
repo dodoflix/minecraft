@@ -119,6 +119,46 @@ fn compares_regions_and_classifies_chunks() {
 }
 
 #[test]
+fn semantic_mode_applies_field_ignores_to_entity_chunks() {
+    let (a, b) = (tempfile::tempdir().unwrap(), tempfile::tempdir().unwrap());
+    for (w, x) in [(a.path(), 1.5), (b.path(), 2.5)] {
+        write(w, "region", 0, 0, &chunk("minecraft:full", 0, 0, 1));
+        let item = |id: &str| {
+            let mut e = CompoundTag::new();
+            e.put_string("id", "minecraft:item");
+            e.put(
+                "Item",
+                Tag::Compound(CompoundTag::new().with("id", Tag::String(id.into()))),
+            );
+            e.put(
+                "Pos",
+                Tag::List(vec![Tag::Double(x), Tag::Double(2.0), Tag::Double(3.0)].into()),
+            );
+            Tag::Compound(e)
+        };
+        let items = vec![item("minecraft:stick"), item("minecraft:dirt")];
+        write(
+            w,
+            "entities",
+            0,
+            0,
+            &CompoundTag::new().with("Entities", Tag::List(items.into())),
+        );
+    }
+    let with = |spec: &str| Filter {
+        ignores: Ignores(vec![spec.parse().unwrap()]),
+        ..filter("full")
+    };
+    // both items moved: only the stick's `Pos` is ignored, so the dirt still differs
+    let stick = "**/entities/*.mca#Entities.*[Item/id=minecraft:stick].Pos";
+    let r = compare_dimension(a.path(), b.path(), "overworld", &with(stick));
+    assert_eq!(r.differing.len(), 1, "{:?}", r.differing);
+    let both = "**/entities/*.mca#Entities.*.Pos";
+    assert!(compare_dimension(a.path(), b.path(), "overworld", &with(both)).is_clean());
+    assert!(!compare_dimension(a.path(), b.path(), "overworld", &filter("full")).is_clean());
+}
+
+#[test]
 fn identical_worlds_are_clean_and_missing_dimension_is_empty() {
     let (a, b) = (tempfile::tempdir().unwrap(), tempfile::tempdir().unwrap());
     for w in [a.path(), b.path()] {

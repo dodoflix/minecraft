@@ -236,8 +236,14 @@ pub fn compare_dimension(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) 
                         f.ignores.strip_nbt(&rel, &mut a);
                         f.ignores.strip_nbt(&rel, &mut b);
                         let mut d = compare_chunk(&a, &b, f.max_listed);
+                        let erel = format!("{prefix}entities/r.{rx}.{rz}.mca");
                         match (ea.read(pos), eb.read(pos)) {
-                            (Ok(x), Ok(y)) => compare_entity_chunks(x.as_ref(), y.as_ref(), &mut d),
+                            (Ok(mut x), Ok(mut y)) => {
+                                for e in [&mut x, &mut y].into_iter().flatten() {
+                                    f.ignores.strip_nbt(&erel, e);
+                                }
+                                compare_entity_chunks(x.as_ref(), y.as_ref(), &mut d);
+                            }
                             (x, y) => r.errors.extend([x.err(), y.err()].into_iter().flatten()),
                         }
                         d.cats.retain(|c, _| !f.ignore.contains(c));
