@@ -575,6 +575,47 @@ fn only_a_shulker_yaw_is_ignored() {
 }
 
 #[test]
+fn only_the_phase_of_a_resting_item_is_ignored() {
+    let ent = |id: &str, on_ground: bool, motion_y: f64| {
+        let mut c = CompoundTag::new();
+        c.put_string("id", id);
+        c.put_boolean("OnGround", on_ground);
+        c.put(
+            "Pos",
+            Tag::List(vec![Tag::Double(1.0), Tag::Double(64.0), Tag::Double(2.5)].into()),
+        );
+        c.put(
+            "Motion",
+            Tag::List(vec![Tag::Double(0.0), Tag::Double(motion_y), Tag::Double(0.0)].into()),
+        );
+        let mut w = CompoundTag::new();
+        w.put("Entities", Tag::List(vec![Tag::Compound(c)].into()));
+        w
+    };
+    let differs = |a: CompoundTag, b: CompoundTag| {
+        let mut d = ChunkDiff::new(10);
+        compare_entity_chunks(Some(&a), Some(&b), &mut d);
+        !d.is_empty()
+    };
+    assert!(!differs(
+        ent("minecraft:item", true, 0.0),
+        ent("minecraft:item", true, -0.12)
+    ));
+    assert!(differs(
+        ent("minecraft:item", true, 0.0),
+        ent("minecraft:item", true, -0.5)
+    ));
+    assert!(differs(
+        ent("minecraft:item", false, 0.0),
+        ent("minecraft:item", false, -0.12)
+    ));
+    assert!(differs(
+        ent("minecraft:cow", true, 0.0),
+        ent("minecraft:cow", true, -0.12)
+    ));
+}
+
+#[test]
 fn sample_cap_does_not_cap_count() {
     let set: Vec<(usize, u32)> = (0..100).map(|i| (i, 1)).collect();
     let d = compare_chunk(&stone_chunk(&set, 0), &stone_chunk(&[], 0), 3);

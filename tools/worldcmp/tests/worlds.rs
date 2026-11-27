@@ -602,3 +602,32 @@ fn gzip_against_raw_nbt_and_out_of_range_region_names_differ() {
         "{r:?}"
     );
 }
+
+#[test]
+fn chunk_digest_follows_the_exact_comparison() {
+    let (a, b) = (tempfile::tempdir().unwrap(), tempfile::tempdir().unwrap());
+    let with = |light: i32, blocks: i32| {
+        let mut c = chunk("minecraft:features", 3, 0, 1);
+        c.put_int("light", light);
+        c.put_int("blocks", blocks);
+        c
+    };
+    write(a.path(), "region", 3, 0, &with(1, 5));
+    write(b.path(), "region", 3, 0, &with(2, 5));
+    let digest = |world: &Path, ignores: &[&str]| {
+        let f = Filter {
+            chunks: None,
+            min_status: 0,
+            max_listed: 10,
+            ignore: vec![],
+            exact: true,
+            ignores: Ignores(ignores.iter().map(|s| s.parse().unwrap()).collect()),
+        };
+        worldcmp::world::chunk_digest(world, "overworld", ChunkPos::new(3, 0), &f).unwrap()
+    };
+    let skip = ["dimensions/minecraft/overworld/region/*.mca#light"];
+    assert_ne!(digest(a.path(), &[]), digest(b.path(), &[]));
+    assert_eq!(digest(a.path(), &skip), digest(b.path(), &skip));
+    write(b.path(), "region", 3, 0, &with(2, 6));
+    assert_ne!(digest(a.path(), &skip), digest(b.path(), &skip));
+}

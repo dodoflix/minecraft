@@ -583,8 +583,26 @@ fn normalize_shulker_yaw(c: &mut CompoundTag) {
     }
 }
 
+/// A resting item's `Motion[1]` is `-0.04 * n`, n in 0..=4: the gravity of the ticks since its last move, and an item only
+/// moves on every fourth `tickCount + id`. The id counts the entities created before it, which follows the order the
+/// entity chunk loads finish in, so two vanilla runs of one world give the same item another phase.
+fn normalize_item_phase(c: &mut CompoundTag) {
+    if c.get_string_or("id", "") != "minecraft:item" || !c.get_boolean_or("OnGround", false) {
+        return;
+    }
+    if let Some(y) = c.get_list_mut("Motion").and_then(|m| m.get_mut(1))
+        && let Tag::Double(v) = *y
+    {
+        let steps = -v / 0.04;
+        if (0.0..=4.0).contains(&steps) && (steps - steps.round()).abs() < 1e-6 {
+            *y = Tag::Double(0.0);
+        }
+    }
+}
+
 fn normalize_entity_compound(c: &mut CompoundTag) {
     normalize_shulker_yaw(c);
+    normalize_item_phase(c);
     for k in NONDETERMINISTIC_ENTITY_FIELDS {
         c.remove(k);
     }

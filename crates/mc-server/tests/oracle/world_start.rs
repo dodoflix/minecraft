@@ -37,7 +37,7 @@
 //!   scheduler trace (`MC_WORLDGEN_SCHED_TRACE`), which has to follow the rules of the real executor
 //!   ([`crate::sched_check`]).
 
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -52,7 +52,9 @@ use mc_world::region::{RegionFileStorage, RegionStorageInfo};
 use worldcmp::compare::status_rank;
 use worldcmp::fields::{FieldSpec, Ignores};
 use worldcmp::tree::{self, TreeOptions, compare_trees};
-use worldcmp::world::{DimReport, Filter, compare_dimension, dimension_dir, render_text};
+use worldcmp::world::{
+    DimReport, Filter, chunk_digest, compare_dimension, dimension_dir, render_text,
+};
 
 use crate::common::world_diff::{read_dat, read_region};
 use crate::entity_persistence::ask;
@@ -185,6 +187,52 @@ const MIN_VANILLA_RUNS: usize = 3;
 /// to five ways (22 real runs: the leaf tick order of one ring chunk has 5 outcomes) and `mc-server` produces one of
 /// them; every chunk needs a run that equals it, so a world with many such chunks needs more than six runs now and then.
 const MAX_VANILLA_RUNS: usize = 9;
+
+/// The outcomes the real server gave the chunks that were below full after the start, recorded over many runs of the
+/// world (`record_generated_chunk_outcomes`): per line the world, the dimension, the chunk and the digest
+/// ([`chunk_digest`], the exact comparison of such a chunk) of every outcome seen, for the chunks that came out in
+/// more than one way. Decoration that crosses chunk borders (fungus trees, weeping vines, which feature wins an
+/// overlap) finishes in the order of the worker threads, so a chunk has more outcomes than a few runs show.
+const RECORDED_OUTCOMES: &str = include_str!("../fixtures/world_start_generated_chunks.tsv");
+
+/// Whether `digest` is one of the outcomes recorded for the chunk `(x, z)` of `dim` of `world`.
+fn recorded_outcome(world: &str, dim: &str, (x, z): (i32, i32), digest: &str) -> bool {
+    RECORDED_OUTCOMES
+        .lines()
+        .filter(|l| !l.starts_with('#'))
+        .any(|line| {
+            let mut f = line.split('\t');
+            f.next() == Some(world)
+                && f.next() == Some(dim)
+                && f.next() == Some(&x.to_string())
+                && f.next() == Some(&z.to_string())
+                && f.any(|d| d == digest)
+        })
+}
+
+/// The exact comparison of the chunk rectangle `chunks` without the fields of `skip`.
+fn exact_filter(chunks: (i32, i32, i32, i32), skip: &[&str]) -> Filter {
+    Filter {
+        chunks: Some(chunks),
+        min_status: 0,
+        max_listed: 10,
+        ignore: Vec::new(),
+        exact: true,
+        ignores: ignores(skip, &[]),
+    }
+}
+
+/// The comparison of a chunk below full: light left out, and for a chunk the servers generated while running also
+/// [`GENERATED_CHUNK_RACES`].
+fn partial_chunk_filter(chunk: (i32, i32), generated: bool, below_zero: &[&str]) -> Filter {
+    let races = if generated {
+        GENERATED_CHUNK_RACES
+    } else {
+        &[]
+    };
+    let skip = [PARTIAL_CHUNK_LIGHT, races, below_zero].concat();
+    exact_filter((chunk.0, chunk.1, chunk.0, chunk.1), &skip)
+}
 
 /// Info lines that belong to the world loading and the file fixer (warnings and errors are always compared).
 pub(crate) const INTEREST: &[&str] = &[
@@ -659,7 +707,8 @@ fn chunks_below_full(
 }
 
 /// `report` (a comparison of `filter`'s chunks of `dim` in the first real run with `ours` at `o`) without the chunks in
-/// which another real run equals `ours`: what a chunk looks like after the first tick or after its generation differs
+/// which another real run equals `ours`, or whose outcome in `ours` is one that [`RECORDED_OUTCOMES`] holds for the
+/// generated chunk of `world`: what a chunk looks like after the first tick or after its generation differs
 /// between runs of the real server (which chunks the first tick reaches before the freeze, which tree is placed first),
 /// and `mc-server` has to produce one of the outcomes. A report with other findings than differing chunks stays whole.
 fn settle_races(
@@ -668,6 +717,7 @@ fn settle_races(
     others: &[&Run],
     o: &Path,
     dim: &str,
+    world: &str,
 ) -> DimReport {
     let equal_elsewhere = |chunk: ChunkPos| {
         let one = Filter {
@@ -678,7 +728,9 @@ fn settle_races(
             // a chunk the semantic mode skipped (below full in that run) is not equal, only not compared
             let report = compare_dimension(&run.dir.join("world"), o, dim, &one);
             report.is_clean() && report.skipped_status == 0
-        })
+        }) || (filter.exact
+            && chunk_digest(o, dim, chunk, &one)
+                .is_ok_and(|d| recorded_outcome(world, dim, (chunk.x, chunk.z), &d)))
     };
     let only_chunks = report.errors.is_empty() && report.only_a == 0 && report.only_b == 0;
     if only_chunks && report.differing.iter().all(|(p, _)| equal_elsewhere(*p)) {
@@ -690,14 +742,14 @@ fn settle_races(
 
 /// Differences between two finished runs, as printable findings (empty: equal under the normalisation above).
 pub(crate) fn compare(vanilla: &Run, ours: &Run) -> Vec<String> {
-    compare_with(vanilla, ours, &[])
+    compare_with(vanilla, ours, &[], "")
 }
 
 /// [`compare`]; `others` are further runs of the real server on the same world: a chunk of the loaded area (ticked after
 /// the start) or a chunk generated while running (blocks, ticks, post processing included, except
 /// [`GENERATED_CHUNK_RACES`]) has to equal that chunk of `vanilla` or of one of `others` ([`settle_races`]). `mc-server`
 /// also has to have followed a schedule the real executor can produce ([`crate::sched_check`]).
-pub(crate) fn compare_with(vanilla: &Run, ours: &Run, others: &[&Run]) -> Vec<String> {
+pub(crate) fn compare_with(vanilla: &Run, ours: &Run, others: &[&Run], world: &str) -> Vec<String> {
     let mut findings = Vec::new();
     if let Ok(trace) = fs::read_to_string(ours.dir.join(SCHED_TRACE_FILE)) {
         let report = crate::sched_check::check(&trace);
@@ -738,14 +790,7 @@ pub(crate) fn compare_with(vanilla: &Run, ours: &Run, others: &[&Run]) -> Vec<St
     if !v.is_dir() || !o.is_dir() {
         return findings;
     }
-    let exact = |chunks, skip: &[&str]| Filter {
-        chunks: Some(chunks),
-        min_status: 0,
-        max_listed: 10,
-        ignore: Vec::new(),
-        exact: true,
-        ignores: ignores(skip, &[]),
-    };
+    let exact = exact_filter;
     const FAR: i32 = 1 << 20;
     let outside = [
         (-FAR, -FAR, -LOADED - 1, FAR),
@@ -764,8 +809,9 @@ pub(crate) fn compare_with(vanilla: &Run, ours: &Run, others: &[&Run]) -> Vec<St
     };
     let mut reports = Vec::new();
     for dim in ["overworld", "the_nether", "the_end"] {
-        let settle =
-            |report: DimReport, filter: &Filter| settle_races(report, filter, others, &o, dim);
+        let settle = |report: DimReport, filter: &Filter| {
+            settle_races(report, filter, others, &o, dim, world)
+        };
         let below_zero = if dim == "overworld" && vanilla.below_zero {
             BELOW_ZERO_RACES
         } else {
@@ -810,20 +856,10 @@ pub(crate) fn compare_with(vanilla: &Run, ours: &Run, others: &[&Run]) -> Vec<St
         let mut generated_chunks = 0;
         for (x, z) in chunks_below_full(&v, &o, dim, inner) {
             let generated = stored.as_ref().is_some_and(|s| !s.contains(&(x, z)));
-            let races = if generated {
-                GENERATED_CHUNK_RACES
-            } else {
-                &[]
-            };
-            let skip = [PARTIAL_CHUNK_LIGHT, races, below_zero].concat();
-            let filter = exact((x, z, x, z), &skip);
+            let filter = partial_chunk_filter((x, z), generated, below_zero);
             let report = compare_dimension(&v, &o, dim, &filter);
             generated_chunks += usize::from(generated);
-            reports.push(if generated {
-                settle(report, &filter)
-            } else {
-                report
-            });
+            reports.push(settle(report, &filter));
         }
         println!("GENERATED CHUNKS {dim}: {generated_chunks} below full");
         // the POI files of the loaded chunks are still exact (the exact mode with the other storages left out)
@@ -936,7 +972,7 @@ fn dual(case: Case) {
             for n in (0..runs.len()).rev() {
                 let others: Vec<&Run> =
                     runs.iter().take(n).chain(runs.iter().skip(n + 1)).collect();
-                let found = compare_with(&runs[n], &ours, &others);
+                let found = compare_with(&runs[n], &ours, &others, &world.name);
                 equal = found.is_empty();
                 if equal {
                     break;
@@ -986,4 +1022,55 @@ fn normal_start() {
 #[ignore = "oracle: spawns vanilla server"]
 fn world_newer_than_the_current_version() {
     dual(Case::Newer);
+}
+
+/// Prints [`RECORDED_OUTCOMES`] lines (`RECORDED` prefix) for the selected normal worlds (`DATAFIX_DUAL_WORLDS`,
+/// `DATAFIX_DUAL_KINDS=normal`) from the real runs a dual kept (`WORLD_UPGRADE_KEEP`): `WORLD_START_RECORD_DIRS` lists
+/// directories (`:` separated) holding `vanilla*` server directories of that world. Only generated chunks below full
+/// that came out in more than one way are printed.
+#[test]
+#[ignore = "oracle: records the outcome baseline from kept real runs"]
+fn record_generated_chunk_outcomes() {
+    let dirs = std::env::var("WORLD_START_RECORD_DIRS").expect("WORLD_START_RECORD_DIRS");
+    let mut runs: Vec<PathBuf> = dirs
+        .split(':')
+        .flat_map(|dir| fs::read_dir(dir).expect("record directory").flatten())
+        .map(|e| e.path())
+        .filter(|p| {
+            p.file_name()
+                .is_some_and(|n| n.to_string_lossy().starts_with("vanilla"))
+        })
+        .collect();
+    runs.sort();
+    let inner = (-LOADED, -LOADED, LOADED, LOADED);
+    for world in worlds() {
+        println!("RECORD {}: {} real runs", world.name, runs.len());
+        for dim in ["overworld", "the_nether", "the_end"] {
+            let below_zero = if dim == "overworld" && world.below_zero {
+                BELOW_ZERO_RACES
+            } else {
+                &[]
+            };
+            let stored = stored_chunks(&world.dir, dim);
+            let mut outcomes: BTreeMap<(i32, i32), BTreeSet<String>> = BTreeMap::new();
+            for run in &runs {
+                let w = run.join("world");
+                for (x, z) in chunks_below_full(&w, &w, dim, inner) {
+                    let generated = !stored.contains(&(x, z));
+                    let filter = partial_chunk_filter((x, z), generated, below_zero);
+                    let digest =
+                        chunk_digest(&w, dim, ChunkPos::new(x, z), &filter).expect("chunk digest");
+                    outcomes.entry((x, z)).or_default().insert(digest);
+                }
+            }
+            for ((x, z), digests) in outcomes.into_iter().filter(|(_, d)| d.len() > 1) {
+                let digests: Vec<String> = digests.into_iter().collect();
+                println!(
+                    "RECORDED\t{}\t{dim}\t{x}\t{z}\t{}",
+                    world.name,
+                    digests.join("\t")
+                );
+            }
+        }
+    }
 }

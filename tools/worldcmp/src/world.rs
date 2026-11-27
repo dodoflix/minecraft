@@ -274,6 +274,43 @@ pub fn compare_dimension(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) 
     r
 }
 
+/// A digest of one chunk of `dim` as the exact comparison sees it: the chunk of each of `region/`, `entities/` and
+/// `poi/` (or the lack of it) with the fields of `f.ignores` removed, serialised in stored key order. Two worlds
+/// are equal in this chunk under `compare_dimension` with `f.exact` exactly when their digests are equal (the whole
+/// file payload bytes `compare_dimension` also checks, when no field is removed, are not part of it).
+pub fn chunk_digest(world: &Path, dim: &str, pos: ChunkPos, f: &Filter) -> Result<String, String> {
+    use sha2::{Digest, Sha256};
+    let (name, dir) = dimension_dir(world, dim);
+    let prefix = rel_prefix(world, &dir);
+    let mut hash = Sha256::new();
+    for (kind, ty) in [
+        ("region", "chunk"),
+        ("entities", "entities"),
+        ("poi", "poi"),
+    ] {
+        hash.update(kind.as_bytes());
+        let rel = format!("{prefix}{kind}/r.{}.{}.mca", pos.x >> 5, pos.z >> 5);
+        if f.ignores.whole(&rel) {
+            hash.update([2]);
+            continue;
+        }
+        match Store::new(dir.join(kind), &name, ty).read(pos)? {
+            None => hash.update([0]),
+            Some(mut tag) => {
+                f.ignores.strip_nbt(&rel, &mut tag);
+                let mut bytes = Vec::new();
+                mc_nbt::write_named(&tag, &mut bytes);
+                hash.update([1]);
+                hash.update(bytes);
+            }
+        }
+    }
+    Ok(hash.finalize()[..8]
+        .iter()
+        .map(|b| format!("{b:02x}"))
+        .collect())
+}
+
 /// `--exact`: every chunk of `region/`, `entities/` and `poi/` in both worlds, compared exactly. A chunk's differences
 /// from the three storages are merged into one entry, each sample prefixed with its storage.
 fn compare_dimension_exact(a_world: &Path, b_world: &Path, dim: &str, f: &Filter) -> DimReport {
