@@ -10,10 +10,15 @@ static SNBT_EXCEPTION_TYPE: LazyLock<CommandExceptionType> =
 
 /// The `CommandSyntaxException` a failed SNBT grammar parse raises.
 pub fn snbt_exception(error: &SnbtError, input: &JavaString) -> CommandSyntaxException {
-    CommandSyntaxException::with_context(
-        *SNBT_EXCEPTION_TYPE,
-        crate::commands::message::literal_message(error.message()),
-        input.clone(),
-        error.cursor(),
-    )
+    use crate::commands::message::{literal_message, message};
+    let msg = match error.translation() {
+        Some((key, arg)) => message(mc_text::Component::translatable(
+            key,
+            arg.map(|a| mc_text::component::TranslatableArg::from(a.to_string()))
+                .into_iter()
+                .collect(),
+        )),
+        None => literal_message(error.message()),
+    };
+    CommandSyntaxException::with_context(*SNBT_EXCEPTION_TYPE, msg, input.clone(), error.cursor())
 }

@@ -25,10 +25,12 @@ pub struct SnbtError {
     /// UTF-16 code-unit offset (Java `String` index).
     cursor: usize,
     context: JavaString,
+    /// The translation key and argument of the `Component.translatable` message vanilla raises.
+    translation: Option<(&'static str, Option<String>)>,
 }
 
 impl SnbtError {
-    fn new(message: String, units: &[u16], cursor: usize) -> Self {
+    fn plain(message: String, units: &[u16], cursor: usize) -> Self {
         // CommandSyntaxException.getContext
         let c = cursor.min(units.len());
         let mut context = JavaString::new();
@@ -43,7 +45,19 @@ impl SnbtError {
             message,
             cursor,
             context,
+            translation: None,
         }
+    }
+
+    fn translated(key: &'static str, arg: Option<String>, units: &[u16], cursor: usize) -> Self {
+        let mut e = Self::plain(translate(key, arg.as_deref()), units, cursor);
+        e.translation = Some((key, arg));
+        e
+    }
+
+    /// The translation key and argument of the message component (`None`: a plain message).
+    pub fn translation(&self) -> Option<(&'static str, Option<&str>)> {
+        self.translation.as_ref().map(|(k, a)| (*k, a.as_deref()))
     }
 
     /// The bare message, without position context.
@@ -114,6 +128,7 @@ fn translate(key: &str, arg: Option<&str>) -> String {
         "snbt.parser.underscore_not_allowed" => {
             "Underscore characters are not allowed at the start or end of a number"
         }
+        "argument.literal.incorrect" => "Expected literal %s",
         other => other,
     };
     match arg {
@@ -122,10 +137,15 @@ fn translate(key: &str, arg: Option<&str>) -> String {
     }
 }
 
-fn reason_message(reason: &Reason) -> String {
+fn reason_error(reason: Reason, units: &[u16], cursor: usize) -> SnbtError {
     match reason {
-        Reason::Msg(key, arg) => translate(key, arg.as_deref()),
-        Reason::Literal(text) => format!("Expected literal {text}"),
+        Reason::Msg(key, arg) => SnbtError::translated(key, arg, units, cursor),
+        Reason::Literal(text) => SnbtError::translated(
+            "argument.literal.incorrect",
+            Some(text.to_string()),
+            units,
+            cursor,
+        ),
     }
 }
 
@@ -155,7 +175,7 @@ fn nesting_depth(units: &[u16], start: usize) -> usize {
 fn run(units: &[u16], start: usize) -> Result<(Tag, usize), SnbtError> {
     let nesting = nesting_depth(units, start);
     if nesting > MAX_NESTING {
-        return Err(SnbtError::new(
+        return Err(SnbtError::plain(
             "Failed to parse: nesting too deep".to_string(),
             units,
             start,
@@ -181,9 +201,9 @@ fn run_inner(units: &[u16], start: usize) -> Result<(Tag, usize), SnbtError> {
         Some(Val::Tag(t)) => Ok((t, ps.cursor)),
         Some(_) => unreachable!("top rule yields a tag"),
         None => Err(match ps.failure() {
-            Some((cursor, reason)) => SnbtError::new(reason_message(&reason), units, cursor),
+            Some((cursor, reason)) => reason_error(reason, units, cursor),
             // vanilla: IllegalStateException("Failed to parse: ") — no error was recorded
-            None => SnbtError::new("Failed to parse: ".to_string(), units, start),
+            None => SnbtError::plain("Failed to parse: ".to_string(), units, start),
         }),
     }
 }
@@ -195,8 +215,9 @@ fn parse_fully_units(units: &[u16]) -> Result<(Tag, usize), SnbtError> {
         cursor += 1;
     }
     if cursor < units.len() {
-        return Err(SnbtError::new(
-            translate("argument.nbt.trailing", None),
+        return Err(SnbtError::translated(
+            "argument.nbt.trailing",
+            None,
             units,
             cursor,
         ));
@@ -207,8 +228,9 @@ fn parse_fully_units(units: &[u16]) -> Result<(Tag, usize), SnbtError> {
 fn expect_compound(tag: Tag, units: &[u16], cursor: usize) -> Result<CompoundTag, SnbtError> {
     match tag {
         Tag::Compound(c) => Ok(c),
-        _ => Err(SnbtError::new(
-            translate("argument.nbt.expected.compound", None),
+        _ => Err(SnbtError::translated(
+            "argument.nbt.expected.compound",
+            None,
             units,
             cursor,
         )),
@@ -280,4 +302,26 @@ pub fn parse_compound_as_argument(
     let units: Vec<u16> = input.encode_utf16().collect();
     let (tag, end) = run(&units, start)?;
     Ok((expect_compound(tag, &units, end)?, end))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn errors_keep_the_translation_vanilla_raises() {
+        let e = parse("{bad").unwrap_err();
+        assert_eq!(
+            e.translation(),
+            Some(("argument.literal.incorrect", Some(":")))
+        );
+        assert_eq!(e.message(), "Expected literal :");
+        let e = parse("{a:1} x").unwrap_err();
+        assert_eq!(e.translation(), Some(("argument.nbt.trailing", None)));
+        let e = parse_compound("1").unwrap_err();
+        assert_eq!(
+            e.translation(),
+            Some(("argument.nbt.expected.compound", None))
+        );
+    }
 }
