@@ -1,107 +1,135 @@
-### [gametest_pack.txt:15] datapack list enabled
+### [gametest_pack.txt:10] datapack list enabled
 log| System chat: There are 3 data pack(s) enabled: [vanilla (built-in)], [file/gepack (world)], [file/gtpack (world)]
-### [gametest_pack.txt:16] test run gt:pass
+### [gametest_pack.txt:11] test run gt:pass
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:17] !ticks 40 show
+### [gametest_pack.txt:12] !ticks 40 show
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
 Bot| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
 Bot|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
 Bot0| [system_chat] gt:pass passed! (<masked>ms / 0gameticks)
 Bot0|   json {"text":"gt:pass passed! (<masked>ms / 0gameticks)","color":"green"}
-### [gametest_pack.txt:18] test run gt:fail
+### [gametest_pack.txt:13] test run gt:fail
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:19] !ticks 40 show
+### [gametest_pack.txt:14] !ticks 40 show
 log| ERROR: gt:fail failed at 0, -60, 3! boom on tick 1
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: 1 required test(s) failed :(
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
 Bot| [system_chat] gt:fail failed! boom on tick 1
 Bot|   json {"text":"gt:fail failed! boom on tick 1","color":"red"}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
 Bot0| [system_chat] gt:fail failed! boom on tick 1
 Bot0|   json {"text":"gt:fail failed! boom on tick 1","color":"red"}
-### [gametest_pack.txt:20] test run gt:log
+### [gametest_pack.txt:15] test run gt:log
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:21] !ticks 40 show
+### [gametest_pack.txt:16] !ticks 40 show
 log| Test log (at BlockPos{x=0, y=-59, z=4}): hello log
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
 Bot| [system_chat] gt:log passed! (<masked>ms / 0gameticks)
 Bot|   json {"text":"gt:log passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
 Bot0| [system_chat] gt:log passed! (<masked>ms / 0gameticks)
 Bot0|   json {"text":"gt:log passed! (<masked>ms / 0gameticks)","color":"green"}
-### [gametest_pack.txt:22] test run gt:timeout
+### [gametest_pack.txt:17] test run gt:timeout
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:23] !ticks 40 show
+### [gametest_pack.txt:18] !ticks 40 show
 log| ERROR: gt:timeout failed at 0, -60, 3! Didn't succeed or fail within 5 ticks
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: 1 required test(s) failed :(
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
 Bot| [system_chat] gt:timeout failed! Didn't succeed or fail within 5 ticks
 Bot|   json {"text":"gt:timeout failed! Didn't succeed or fail within 5 ticks","color":"red"}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
 Bot0| [system_chat] gt:timeout failed! Didn't succeed or fail within 5 ticks
 Bot0|   json {"text":"gt:timeout failed! Didn't succeed or fail within 5 ticks","color":"red"}
-### [gametest_pack.txt:24] test run gt:rot
+### [gametest_pack.txt:19] test run gt:rot
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:25] !ticks 40 show
+### [gametest_pack.txt:20] !ticks 40 show
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
 Bot| [system_chat] gt:rot passed! (<masked>ms / 0gameticks)
 Bot|   json {"text":"gt:rot passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
 Bot0| [system_chat] gt:rot passed! (<masked>ms / 0gameticks)
 Bot0|   json {"text":"gt:rot passed! (<masked>ms / 0gameticks)","color":"green"}
-### [gametest_pack.txt:26] test run gt:no_start
+### [gametest_pack.txt:21] test run gt:no_start
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:27] !ticks 40 show
+### [gametest_pack.txt:22] !ticks 40 show
 log| ERROR: gt:no_start failed at 0, -60, 3! Test structure missing Start block on tick 0
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: 1 required test(s) failed :(
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
-### [gametest_pack.txt:28] test run gt:two_start
+Bot| [system_chat] gt:no_start failed! Test structure missing Start block on tick 0
+Bot|   json {"text":"gt:no_start failed! Test structure missing Start block on tick 0","color":"red"}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot0| [system_chat] gt:no_start failed! Test structure missing Start block on tick 0
+Bot0|   json {"text":"gt:no_start failed! Test structure missing Start block on tick 0","color":"red"}
+### [gametest_pack.txt:23] test run gt:two_start
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:29] !ticks 40 show
+### [gametest_pack.txt:24] !ticks 40 show
 log| ERROR: gt:two_start failed at 0, -60, 3! Too many Start blocks on tick 0
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: 1 required test(s) failed :(
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
-### [gametest_pack.txt:30] test run gt:no_accept
+Bot| [system_chat] gt:two_start failed! Too many Start blocks on tick 0
+Bot|   json {"text":"gt:two_start failed! Too many Start blocks on tick 0","color":"red"}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot0| [system_chat] gt:two_start failed! Too many Start blocks on tick 0
+Bot0|   json {"text":"gt:two_start failed! Too many Start blocks on tick 0","color":"red"}
+### [gametest_pack.txt:25] test run gt:no_accept
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:31] !ticks 40 show
+### [gametest_pack.txt:26] !ticks 40 show
 log| Test log (at BlockPos{x=1, y=-59, z=4}): no accept
 log| ERROR: gt:no_accept failed at 0, -60, 3! Test structure missing Accept block on tick 1
 log| System chat: Game Test complete! 1 test(s) were run
@@ -109,57 +137,71 @@ log| System chat: 1 required test(s) failed :(
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
 Bot| [system_chat] gt:no_accept failed! Test structure missing Accept block on tick 1
 Bot|   json {"text":"gt:no_accept failed! Test structure missing Accept block on tick 1","color":"red"}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
 Bot0| [system_chat] gt:no_accept failed! Test structure missing Accept block on tick 1
 Bot0|   json {"text":"gt:no_accept failed! Test structure missing Accept block on tick 1","color":"red"}
-### [gametest_pack.txt:32] test run gt:old_structure
+### [gametest_pack.txt:27] test run gt:old_structure
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:33] !ticks 40 show
+### [gametest_pack.txt:28] !ticks 40 show
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
 Bot| [system_chat] gt:old_structure passed! (<masked>ms / 0gameticks)
 Bot|   json {"text":"gt:old_structure passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
 Bot0| [system_chat] gt:old_structure passed! (<masked>ms / 0gameticks)
 Bot0|   json {"text":"gt:old_structure passed! (<masked>ms / 0gameticks)","color":"green"}
-### [gametest_pack.txt:34] test run gt:nether
+### [gametest_pack.txt:29] test run gt:nether
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:35] !ticks 40 show
+### [gametest_pack.txt:30] !ticks 40 show
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, 128, 0] in the_nether]
 Bot| [system_chat] gt:nether passed! (<masked>ms / 0gameticks)
 Bot|   json {"text":"gt:nether passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
 Bot0| [system_chat] gt:nether passed! (<masked>ms / 0gameticks)
 Bot0|   json {"text":"gt:nether passed! (<masked>ms / 0gameticks)","color":"green"}
-### [gametest_pack.txt:36] test run gt:manual
+### [gametest_pack.txt:31] test run gt:manual
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:37] !ticks 40 show
+### [gametest_pack.txt:32] !ticks 40 show
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
 Bot| [system_chat] gt:manual passed! (<masked>ms / 0gameticks)
 Bot|   json {"text":"gt:manual passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
 Bot0| [system_chat] gt:manual passed! (<masked>ms / 0gameticks)
 Bot0|   json {"text":"gt:manual passed! (<masked>ms / 0gameticks)","color":"green"}
-### [gametest_pack.txt:38] test run gt:optional_fail
+### [gametest_pack.txt:33] test run gt:optional_fail
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:39] !ticks 40 show
+### [gametest_pack.txt:34] !ticks 40 show
 log| WARN: (optional) gt:optional_fail failed at 0, -60, 3. boom on tick 1
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
@@ -167,15 +209,19 @@ log| System chat: 1 optional test(s) failed
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
 Bot| [system_chat] (optional) gt:optional_fail failed! boom on tick 1
 Bot|   json {"text":"(optional) gt:optional_fail failed! boom on tick 1","color":"yellow"}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
 Bot0| [system_chat] (optional) gt:optional_fail failed! boom on tick 1
 Bot0|   json {"text":"(optional) gt:optional_fail failed! boom on tick 1","color":"yellow"}
-### [gametest_pack.txt:40] test run gt:flaky
+### [gametest_pack.txt:35] test run gt:flaky
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:41] !ticks 40 show
+### [gametest_pack.txt:36] !ticks 40 show
 log| Starting re-run of tests: gt:flaky
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
@@ -191,19 +237,21 @@ Bot| [system_chat] Flaky test gt:flaky failed, attempt: 2/3, successes: 0 (2 req
 Bot|   json {"text":"Flaky test gt:flaky failed, attempt: 2/3, successes: 0 (2 required)","color":"yellow"}
 Bot| [system_chat] gt:flaky failed! Not enough successes: 0 out of 2 attempts. Required successes: 2. max attempts: 3. cause: boom on tick 1
 Bot|   json {"text":"gt:flaky failed! Not enough successes: 0 out of 2 attempts. Required successes: 2. max attempts: 3. cause: boom on tick 1","color":"red"}
+Bot| [system_chat] [Server: Game Test complete! 2 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[2],"color":"white"}],"color":"gray","italic":true}
 Bot0| [system_chat] Flaky test gt:flaky failed, attempt: 1/3, successes: 0 (2 required)
 Bot0|   json {"text":"Flaky test gt:flaky failed, attempt: 1/3, successes: 0 (2 required)","color":"yellow"}
 Bot0| [system_chat] Flaky test gt:flaky failed, attempt: 2/3, successes: 0 (2 required)
 Bot0|   json {"text":"Flaky test gt:flaky failed, attempt: 2/3, successes: 0 (2 required)","color":"yellow"}
 Bot0| [system_chat] gt:flaky failed! Not enough successes: 0 out of 2 attempts. Required successes: 2. max attempts: 3. cause: boom on tick 1
 Bot0|   json {"text":"gt:flaky failed! Not enough successes: 0 out of 2 attempts. Required successes: 2. max attempts: 3. cause: boom on tick 1","color":"red"}
-### [gametest_pack.txt:42] test run gt:flaky_pass
+### [gametest_pack.txt:37] test run gt:flaky_pass
 log| System chat: Running 1 test(s)...
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
 Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:43] !ticks 40 show
+### [gametest_pack.txt:38] !ticks 40 show
 log| Starting re-run of tests: gt:flaky_pass
 log| Running test environment 'minecraft:default' batch 0 (1 tests)...
 log| System chat: Starting environment minecraft:default batch 0
@@ -216,11 +264,15 @@ Bot| [system_chat] [Server: Starting environment minecraft:default batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["minecraft:default",0]}],"color":"gray","italic":true}
 Bot| [system_chat] gt:flaky_pass passed 2 times of 2 attempts.
 Bot|   json {"text":"gt:flaky_pass passed 2 times of 2 attempts.","color":"green"}
+Bot| [system_chat] [Server: Game Test complete! 2 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[2],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
 Bot0| [system_chat] Flaky test gt:flaky_pass succeeded, attempt: 1 successes: 1
 Bot0|   json {"text":"Flaky test gt:flaky_pass succeeded, attempt: 1 successes: 1","color":"green"}
 Bot0| [system_chat] gt:flaky_pass passed 2 times of 2 attempts.
 Bot0|   json {"text":"gt:flaky_pass passed 2 times of 2 attempts.","color":"green"}
-### [gametest_pack.txt:44] test run ge:setup
+### [gametest_pack.txt:39] test run ge:setup
 log| System chat: Running 1 test(s)...
 log| Running test environment 'ge:all_kinds' batch 0 (1 tests)...
 log| System chat: Starting environment ge:all_kinds batch 0
@@ -231,62 +283,74 @@ Bot| [disguised_chat] Server: ge setup
 Bot|   json "ge setup"
 Bot0| [disguised_chat] Server: ge setup
 Bot0|   json "ge setup"
-### [gametest_pack.txt:45] !ticks 40 show
+### [gametest_pack.txt:40] !ticks 40 show
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
 log| [Not Secure] [Server] ge teardown
 Bot| [system_chat] ge:setup passed! (<masked>ms / 0gameticks)
 Bot|   json {"text":"ge:setup passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
 Bot| [disguised_chat] Server: ge teardown
 Bot|   json "ge teardown"
 Bot0| [system_chat] ge:setup passed! (<masked>ms / 0gameticks)
 Bot0|   json {"text":"ge:setup passed! (<masked>ms / 0gameticks)","color":"green"}
 Bot0| [disguised_chat] Server: ge teardown
 Bot0|   json "ge teardown"
-### [gametest_pack.txt:46] test run ge:weather
+### [gametest_pack.txt:41] test run ge:weather
 log| System chat: Running 1 test(s)...
 log| Running test environment 'ge:weather_rain' batch 0 (1 tests)...
 log| System chat: Starting environment ge:weather_rain batch 0
 Bot| [system_chat] [Server: Starting environment ge:weather_rain batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["ge:weather_rain",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:47] !ticks 40 show
+### [gametest_pack.txt:42] !ticks 40 show
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
 Bot| [system_chat] ge:weather passed! (<masked>ms / 0gameticks)
 Bot|   json {"text":"ge:weather passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
 Bot0| [system_chat] ge:weather passed! (<masked>ms / 0gameticks)
 Bot0|   json {"text":"ge:weather passed! (<masked>ms / 0gameticks)","color":"green"}
-### [gametest_pack.txt:48] test run ge:missing_function
+### [gametest_pack.txt:43] test run ge:missing_function
 log| System chat: Running 1 test(s)...
 log| Running test environment 'ge:missing_function' batch 0 (1 tests)...
 log| ERROR: Test Batch failed for non-existent function ge:nope
 log| System chat: Starting environment ge:missing_function batch 0
 Bot| [system_chat] [Server: Starting environment ge:missing_function batch 0]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.batch.starting","with":["ge:missing_function",0]}],"color":"gray","italic":true}
-### [gametest_pack.txt:49] !ticks 40 show
+### [gametest_pack.txt:44] !ticks 40 show
 log| System chat: Game Test complete! 1 test(s) were run
 log| System chat: All required tests passed :)
 log| System chat: [Test coordinates: [0, -60, 0] in overworld]
 log| ERROR: Test Batch failed for non-existent function ge:nope
 Bot| [system_chat] ge:missing_function passed! (<masked>ms / 0gameticks)
 Bot|   json {"text":"ge:missing_function passed! (<masked>ms / 0gameticks)","color":"green"}
+Bot| [system_chat] [Server: Game Test complete! 1 test(s) were run]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary","with":[1],"color":"white"}],"color":"gray","italic":true}
+Bot| [system_chat] [Server: All required tests passed :)]
+Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.summary.all_required_passed","color":"green"}],"color":"gray","italic":true}
 Bot0| [system_chat] ge:missing_function passed! (<masked>ms / 0gameticks)
 Bot0|   json {"text":"ge:missing_function passed! (<masked>ms / 0gameticks)","color":"green"}
-### [gametest_pack.txt:50] test locate gt:*
+### [gametest_pack.txt:45] test locate gt:*
 log| System chat: Started locating test structures. This might take a while...
 log| System chat: Found structure at: [0, 128, 3 ->[the_nether]] (distance: N/A)
 log| System chat: Finished locating: found 1 structure(s)
 Bot| [system_chat] [Server: Finished locating: found 1 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.locate.done","with":[1]}],"color":"gray","italic":true}
-### [gametest_pack.txt:51] test locate ge:*
+### [gametest_pack.txt:46] test locate ge:*
 log| System chat: Started locating test structures. This might take a while...
 log| System chat: Found structure at: [0, -60, 3 ->[overworld]] (distance: 3)
 log| System chat: Finished locating: found 1 structure(s)
 Bot| [system_chat] [Server: Finished locating: found 1 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.locate.done","with":[1]}],"color":"gray","italic":true}
-### [gametest_pack.txt:52] test clearall
+### [gametest_pack.txt:47] test clearall
 log| System chat: Cleared 1 structure(s)
 Bot| [system_chat] [Server: Cleared 1 structure(s)]
 Bot|   json {"translate":"chat.type.admin","with":["Server",{"translate":"commands.test.clear.success","with":[1]}],"color":"gray","italic":true}
